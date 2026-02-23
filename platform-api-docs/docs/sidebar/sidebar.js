@@ -20,6 +20,7 @@ module.exports = {
         { type: "doc", id: "describe-credentials", label: "Describe credentials", className: "api-method get" },
         { type: "doc", id: "update-credentials", label: "Update credentials", className: "api-method put" },
         { type: "doc", id: "delete-credentials", label: "Delete credentials", className: "api-method delete" },
+        { type: "doc", id: "get-encrypted-credentials", label: "Get encrypted credentials", className: "api-method get" },
         {
           type: "category",
           label: "Managed identities",
@@ -32,6 +33,19 @@ module.exports = {
             { type: "doc", id: "describe-managed-identity", label: "Describe managed identity", className: "api-method get" },
             { type: "doc", id: "delete-managed-identity", label: "Delete managed identity", className: "api-method delete" },
             { type: "doc", id: "delete-managed-credentials", label: "Delete managed credentials", className: "api-method delete" },
+          ],
+        },
+        {
+          type: "category",
+          label: "SSH keys",
+          link: {type: 'doc', id: 'info/ssh-keys-info'},
+          items: [
+            { type: "doc", id: "list-ssh-keys", label: "List SSH keys", className: "api-method get" },
+            { type: "doc", id: "create-ssh-key", label: "Create SSH key", className: "api-method post" },
+            { type: "doc", id: "validate-ssh-key", label: "Validate SSH key", className: "api-method get" },
+            { type: "doc", id: "validate-ssh-key-name", label: "Validate SSH key name", className: "api-method get" },
+            { type: "doc", id: "describe-ssh-key", label: "Describe SSH key", className: "api-method get" },
+            { type: "doc", id: "delete-ssh-key", label: "Delete SSH key", className: "api-method delete" },
           ],
         },
       ],
@@ -125,6 +139,25 @@ module.exports = {
         { type: "doc", id: "delete-pipeline", label: "Delete pipeline", className: "api-method delete" },
         { type: "doc", id: "describe-pipeline-launch", label: "Describe pipeline launch", className: "api-method get" },
         { type: "doc", id: "describe-pipeline-schema", label: "Describe pipeline schema", className: "api-method get" },
+        {
+          type: "category",
+          label: "Pipeline versions",
+          link: {type: 'doc', id: 'info/pipeline-versions-info'},
+          items: [
+            { type: "doc", id: "list-pipeline-versions", label: "List pipeline versions", className: "api-method get" },
+            { type: "doc", id: "validate-pipeline-version-name", label: "Validate pipeline version name", className: "api-method get" },
+            { type: "doc", id: "update-pipeline-version", label: "Update pipeline version", className: "api-method post" },
+            { type: "doc", id: "manage-pipeline-version", label: "Update pipeline version name and default flag", className: "api-method put" },
+          ],
+        },
+        {
+          type: "category",
+          label: "Pipeline schemas",
+          link: {type: 'doc', id: 'info/pipeline-schemas-info'},
+          items: [
+            { type: "doc", id: "create-pipeline-schema", label: "Create pipeline schema", className: "api-method post" },
+          ],
+        },
       ],
     },
     {
@@ -288,7 +321,7 @@ module.exports = {
         { type: "doc", id: "find-data-studios-workspace-settings", label: "List workspace Studios settings", className: "api-method get" },
         { type: "doc", id: "update-data-studios-workspace-settings", label: "Update workspace Studios settings", className: "api-method put" },
         { type: "doc", id: "list-workspaces-user", label: "List user workspaces and organizations", className: "api-method get" },
-      ],
+        { type: "doc", id: "delete-workspace-user", label: "Delete workspace user", className: "api-method delete" },],
     },
     {
       type: "category",

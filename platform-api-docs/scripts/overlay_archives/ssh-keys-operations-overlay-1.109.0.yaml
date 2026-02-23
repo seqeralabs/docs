@@ -1,0 +1,193 @@
+overlay: 1.0.0
+info:
+  title: SSH keys operations overlay for v1.109.0
+  version: 0.0.0
+actions:
+  # ===== ADD NEW OPERATION: List SSH keys =====
+
+  - target: "$.paths"
+    update:
+      /ssh-keys:
+        get:
+          tags:
+          - ssh-keys
+          summary: List SSH keys
+          description: Retrieves the list of all SSH public keys for the authenticated user.
+          operationId: ListSshKeys
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ListSshKeysResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+          - BearerAuth: []
+        post:
+          tags:
+          - ssh-keys
+          summary: Create SSH key
+          description: Creates a new SSH public key with the details in the given request body.
+          operationId: CreateSshKey
+          requestBody:
+            description: SSH key create request.
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/CreateSshKeyRequest"
+            required: true
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CreateSshKeyResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+            "409":
+              description: Duplicated element
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+          security:
+          - BearerAuth: []
+
+  # ===== ADD NEW OPERATION: Validate SSH key =====
+
+  - target: "$.paths"
+    update:
+      /ssh-keys/validate/key:
+        get:
+          tags:
+          - ssh-keys
+          summary: Validate SSH key
+          description: Confirms the validity and availability of the given SSH public key in the user context.
+          operationId: ValidateSshKey
+          parameters:
+          - name: key
+            in: query
+            description: SSH key to validate.
+            schema:
+              type: string
+          responses:
+            "204":
+              description: "OK - No content, if the key is valid."
+            "400":
+              description: "Bad request, if the key is not valid."
+            "409":
+              description: "Conflict, key duplicated in the given context."
+            "403":
+              description: Operation not allowed.
+          security:
+          - BearerAuth: []
+
+  # ===== ADD NEW OPERATION: Validate SSH key name =====
+
+  - target: "$.paths"
+    update:
+      /ssh-keys/validate/name:
+        get:
+          tags:
+          - ssh-keys
+          summary: Validate SSH key name
+          description: Confirms the availability of the given name for a SSH key in the user context.
+          operationId: ValidateSshKeyName
+          parameters:
+          - name: name
+            in: query
+            description: SSH key name to validate.
+            schema:
+              type: string
+          responses:
+            "204":
+              description: "OK - No content, if the name is valid and available."
+            "400":
+              description: "Bad request, if the name is not valid."
+            "409":
+              description: "Conflict, name duplicated in the given context."
+            "403":
+              description: Operation not allowed.
+          security:
+          - BearerAuth: []
+
+  # ===== ADD NEW OPERATION: Describe and Delete SSH key =====
+
+  - target: "$.paths"
+    update:
+      /ssh-keys/{keyId}:
+        get:
+          tags:
+          - ssh-keys
+          summary: Describe SSH key
+          description: Retrieves the details of an SSH public key by its ID.
+          operationId: DescribeSshKey
+          parameters:
+          - name: keyId
+            in: path
+            description: SSH key numeric identifier.
+            required: true
+            schema:
+              type: integer
+              format: int64
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/DescribeSshKeyResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+            "404":
+              description: SSH key not found
+          security:
+          - BearerAuth: []
+        delete:
+          tags:
+          - ssh-keys
+          summary: Delete SSH key
+          description: Deletes the given SSH public key by its ID.
+          operationId: DeleteSshKey
+          parameters:
+          - name: keyId
+            in: path
+            description: SSH key numeric identifier.
+            required: true
+            schema:
+              type: integer
+              format: int64
+          responses:
+            "204":
+              description: OK - No content
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+          - BearerAuth: []

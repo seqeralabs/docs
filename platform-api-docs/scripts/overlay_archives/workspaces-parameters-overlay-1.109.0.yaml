@@ -1,0 +1,17 @@
+overlay: 1.0.0
+info:
+  title: Workspaces parameters overlay
+  version: 1.109.0
+actions:
+  # ===== WORKSPACES PARAMETERS =====
+
+  # ---- PATH PARAMETERS ----
+
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/users/{userId}.delete.parameters[?(@.name=='orgId')].description"
+    update: "Organization numeric identifier."
+
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/users/{userId}.delete.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+
+  - target: "$.paths./orgs/{orgId}/workspaces/{workspaceId}/users/{userId}.delete.parameters[?(@.name=='userId')].description"
+    update: "User numeric identifier."
