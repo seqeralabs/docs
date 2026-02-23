@@ -33,45 +33,33 @@ This will:
 1. Display a success message in your terminal
 
    ```
-   Opening browser for authentication...
-   Successfully authenticated as user@example.com
+   [Login] Starting Seqera CLI authentication...
+   [Login] ✓ Authentication successful!
+   [Login] ✓ Organization set: <org_name>
    ```
 
 ### View session status
 
-To view your current authentication status, run:
+To view your current session status, use the `/status` command inside the TUI:
 
-```bash
-seqera status
+```
+/status
 ```
 
-You should see output similar to:
-
-```console
-Logged in as: user@example.com
-Session expires: 2025-12-16 14:30:00
-```
+This shows your authentication status and organization details.
 
 ### Add access tokens for automation
 
-For automated environments, you can provide a Seqera Platform access token directly:
+For automated environments, you can provide a Seqera Platform access token directly using the `SEQERA_ACCESS_TOKEN` environment variable:
 
 ```bash
-seqera ai --token <PLATFORM_ACCESS_TOKEN>
-```
-
-You can also set the token via environment variable:
-
-```bash
-export TOWER_ACCESS_TOKEN=<PLATFORM_ACCESS_TOKEN>
+export SEQERA_ACCESS_TOKEN=<PLATFORM_ACCESS_TOKEN>
 seqera ai
 ```
 
-This shows your login status, authenticated email, and session details.
+When this environment variable is set, the CLI skips the OAuth login flow and uses the provided token directly.
 
 ### Log out
-
-#### Standard logout
 
 To sign out from the current session, run:
 
@@ -81,15 +69,33 @@ seqera logout
 
 This command revokes your current authentication token and removes locally stored credentials. You will need to re-authenticate on next use.
 
-#### Clear all sessions
+## Organization management
 
-To remove all profiles and completely reset authentication, run:
+Seqera AI CLI supports managing your organization selection for billing. Use the `seqera org` command to view and switch organizations.
+
+**View current organization**:
 
 ```bash
-seqera logout --all
+seqera org
 ```
 
-This command removes all stored credentials and session data.
+**List all organizations**:
+
+```bash
+seqera org list
+```
+
+**Switch organization**:
+
+```bash
+seqera org switch
+```
+
+**Clear organization selection**:
+
+```bash
+seqera org clear
+```
 
 ## Token refresh
 
