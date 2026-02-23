@@ -25,7 +25,7 @@ tw datasets add [OPTIONS]
 | `-d`, `--description` | Optional dataset description. | No | `null` |
 | `--header` | Treat first row as header | No | `null` |
 | `--overwrite` | Overwrite the dataset if it already exists | No | `false` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | Yes | `TOWER_WORKSPACE_ID` |
 
 Run `tw datasets add -h` to view the required and optional fields for adding a dataset.
 
@@ -36,13 +36,13 @@ Add a preconfigured dataset file to a workspace (include the `--header` flag if 
 Command:
 
 ```bash
-tw datasets add --name=samplesheet1 --header samplesheet_test.csv
+tw datasets add --name=samplesheet1 --header samplesheet_test.csv -w 123456789012345
 ```
 
 Example output:
 
 ```bash
-Dataset 'samplesheet1' added at user workspace with id '60gGrD4I2Gk0TUpEGOj5Td'
+Dataset 'samplesheet1' added at [my-organization / my-workspace] workspace with id '60gGrD4I2Gk0TUpEGOj5Td'
 ```
 
 :::note
@@ -63,7 +63,7 @@ tw datasets delete [OPTIONS]
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Dataset unique identifier | No | `null` |
 | `-n`, `--name` | Dataset name | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | Yes | `TOWER_WORKSPACE_ID` |
 
 To delete a workspace dataset, specify either the dataset name (`-n` flag) or ID (`-i` flag).
 
@@ -96,7 +96,7 @@ tw datasets download [OPTIONS]
 | `--dataset-version` | Dataset version to download | No | `null` |
 | `-i`, `--id` | Dataset unique identifier | No | `null` |
 | `-n`, `--name` | Dataset name | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | Yes | `TOWER_WORKSPACE_ID` |
 
 View a stored dataset's contents.
 
@@ -134,7 +134,7 @@ tw datasets list [OPTIONS]
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-f`, `--filter` | Filter datasets by name substring | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | Yes | `TOWER_WORKSPACE_ID` |
 
 Run `tw datasets list -h` to view the optional fields for listing and filtering datasets.
 
@@ -170,7 +170,7 @@ tw datasets view [OPTIONS]
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Dataset unique identifier | No | `null` |
 | `-n`, `--name` | Dataset name | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | Yes | `TOWER_WORKSPACE_ID` |
 
 Run `tw datasets view -h` to view the required and optional fields for viewing a stored dataset's details.
 
@@ -205,6 +205,38 @@ Display dataset versions.
 tw datasets view versions [OPTIONS]
 ```
 
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-i`, `--id` | Dataset identifier | No | `null` |
+| `-n`, `--name` | Dataset name | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | Personal workspace |
+
+:::note
+Either dataset ID (`-i`) or name (`-n`) is required to identify which dataset to view versions for.
+:::
+
+### Example
+
+Command:
+
+```bash
+tw datasets view versions -n my-reference-data -w 123456789012345
+```
+
+Example output:
+
+```bash
+Versions for dataset 'my-reference-data' at [my-organization / my-workspace] workspace:
+
+Version | Created                        | Size
+--------|--------------------------------|--------
+v1.0    | Mon, 19 Aug 2024 07:59:16 GMT | 1.2 MB
+v1.1    | Tue, 20 Aug 2024 10:15:23 GMT | 1.3 MB
+v2.0    | Wed, 21 Aug 2024 14:30:45 GMT | 2.1 MB
+```
+
 ## tw datasets update
 
 Update a dataset.
@@ -223,7 +255,7 @@ tw datasets update [OPTIONS]
 | `-f`, `--file` | Data file to upload | No | `null` |
 | `-i`, `--id` | Dataset unique identifier | No | `null` |
 | `-n`, `--name` | Dataset name | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | Yes | `TOWER_WORKSPACE_ID` |
 
 Run `tw datasets update -h` to view the required and optional fields for updating a dataset.
 
@@ -256,7 +288,7 @@ tw datasets url [OPTIONS]
 | `--dataset-version` | Dataset version for URL | No | `null` |
 | `-i`, `--id` | Dataset unique identifier | No | `null` |
 | `-n`, `--name` | Dataset name | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | Yes | `TOWER_WORKSPACE_ID` |
 
 ### Example
 

@@ -1,0 +1,1 @@
+{"responses":{"204":{"description":"OK - No content, if the name is valid and available."},"400":{"description":"Bad request, if the name is not valid."},"403":{"description":"Operation not allowed."},"409":{"description":"Conflict, name duplicated in the given context."}}}

@@ -1,0 +1,1 @@
+{"parameters":[{"name":"avatarId","in":"path","description":"Avatar string identifier","required":true,"schema":{"type":"string"}}]}

@@ -1,0 +1,67 @@
+---
+id: generate-data-link-upload-url-with-path
+title: "Generate data-link file upload URL (to given path)"
+description: "Creates a URL to upload files to the data-link associated with the given `dataLinkId`, specifying a file path (`dirPath`)."
+sidebar_label: "Generate data-link file upload URL (to given path)"
+hide_title: true
+hide_table_of_contents: true
+api: eJztV81u20YQfpXBnmyAlpwmKFCd6vwVRpPasGPk4BrQiBxKG5O7zO4wjioQ6EP0CfskxeySImWpsp320ENPEndnd36+mflmV4px7tXkWmXIeFRoc+vVTaIy8qnTFWtr1ES9coRMHhCuLt4BW6irwmIGuS7IyzcvCNYXAHpvU41MGdxpXoTduf5CBqYi9E6b29NsmoCvKNX5Ups5YLgLKuQFHEwz7c6RF9PD0a/mrXVw8vESLp/3GnwCaACzTIuBWEBui8LeHdUVOPpck2coa88wI/BkGDBncrC0tYtqWvMX6CG1ZVWQmHpgHZBJbW2YHGWigZyz7lAczLXBQv9GwZf2+BF4igvTcVwa59pov5gCmayy2vBIJcpW5FDsPM3URP1ERj7pdRuIq3DwyhUfNS/EaZWoCh2WxOQEmJUyWJKaqD50KlFaYKmi+CZWr9cweHYSWp2RYZ1rcipREh7tKFMTdjUlyqcLKlFNVoqXlWiJh1TTJL3iiMZerSKwTgTyrE1wGTLtKGXrlt+oO3UUzMfC935/rilcuJWknehO1x+j7s66W19hSg8p+9gJgqlLcjp9QJc2TPOwlVtXIsel719saD9zeq5Np3hBmO01PFGmLgqcFRQj2jQ3Mcjk+aXNlnIitYbJsPzFqip0GmAZf/LixWr7ajv7RClLDjrJW9bkZVeq5pdg5LYRm4ERKbB5SIRQa+tuMVJN0tnzjsycF4+Jz/37L6UId94P2sBsyeSHij6E6x8y+v3p+zcgIn9z8wGN5qMEpsMQ2pSJjzw7wnKawJTpK4+rArWZHo4EVsWaBRrVlfr7umB9jo5jzV9EpFQjspu1ERZ8ZY2P4f/u+Fh+No0++1kl/xa+0U9pUA+FKtoOp69h3nayDGbLtkOP4KL1A3LrdrfGNkEDSHXX/PxAMTqHUnCaqfQ7yvW+RSciL8BVjo68nhvKhKYCL9FXSmsmKCX0RxU67pIRzgwFNqvIgWw8ErOIioDWJOrFLlxe9tA+AZ8+Aa5VSd7jnISH98PWCe7qaWtX3giJbRn+fEdCdUQFxjKgMCplKki/2Jb+xfJbW5sM/vz9D1j3TbAOBj073JSLWAIn56eQaS/9qk+P9cFETvYjhHVxFlif/6/GskmUp7R2mpeBrF8SOnIntXS36xvpyCXxwgr1VzakRODPiRr308x41XN709XLqqXdRhiA3JduGqhdIeTAXPnJeIyVHqWFrbORp8/kcKTtdssMO3BeIEtzhVciL3AoMa+z/lLCF0Mx9GEdDdHYkZF8z4KQSto/b7u2/emOQ8gElouejN58RRm0NsmkbzL3eOH4XgMfFL82uQ1mtZC03ok7DzkuYdQp+VZYNGAa8mkzqMNQUom6CGyU2x/7jSZRgkjU82z07PiH0bEsCsYlhnxsSb0b+AbJPZxBpQUdsG3nY8mNw/t+DFj8/0n8n0zibSb3TB04SKBftVW58QxK1GRj5o43h+V2Ir5J1EKKenKtVqsZerpyRdPIcpwapV67lqcmORae9mO7d4Ddaf4tLXeMyV+wqEVWyXT5eAsemGr3GLA5OPfqb+TD6TikPikaB90ocQj7nzQ7repmCbMcmtNZO4D1aQEaGPWYF8+3mNamVnPTJN0T4GmB2w/U+o2xkSJx71W84yj03F5ii2z7EydpShXvlR0y4PnZ5QdhjPZxUtpMzji8k9ch3kXjbfApEFFYW6kCzbwO3KzincIvuElP9+goxGxnpFerKPHB3pJpmnXgWb4l7E3zF0188F4=
+sidebar_class_name: "post api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Generate data-link file upload URL (to given path)"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/data-links/{dataLinkId}/upload/{dirPath}"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Creates a URL to upload files to the data-link associated with the given `dataLinkId`, specifying a file path (`dirPath`).
+For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./generate-data-link-upload-url-with-path.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./generate-data-link-upload-url-with-path.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./generate-data-link-upload-url-with-path.StatusCodes.json")}
+>
+
+</StatusCodes>

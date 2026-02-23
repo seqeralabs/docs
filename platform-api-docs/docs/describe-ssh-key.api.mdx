@@ -1,0 +1,66 @@
+---
+id: describe-ssh-key
+title: "Describe SSH key"
+description: "Retrieves the details of an SSH public key by its ID."
+sidebar_label: "Describe SSH key"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1VU1v20gM/SsDnrbA1Ha2QbGr06ZJt2v0kCBOToGB0hJtTSLNKDOUs4ag/15wJDl27KYfQE/6IIfvkfNINsC4CpDcQQj52wfaBJhryCik3lRsnIUErom9oTUFxTmpjBhNEZRbKrRqNvtPVfWiMKl6oI1abJThoKYXI9DgKvIoMaYZJHARYy5oFvLPtAENFXosickLfAMWS4IEHmgzzUCDEeQKOYeXdARSsGxdkjepMhlZNktDXkA9PdbGUwYJ+5o0hDSnEiFpgDeVABjLtCIPGpbOl8jdr/en0LZzOR4qZwMFOfHnZCKPffjLz6AhdZbJslixqgqTxjzH90FcmkNQt7inlCVpL1Vh0wGErhbf9TPZjyTwM4VqdV/wbdjA3tjVt4NgSfFYd9v7tF85uyOOvmjKWHVZkRVrl0GMmyHTuSdkyo5F3uYqfm/ZlHQAd4FMCm2mxBq1OpB/wqDSLrYW+OnsUv31fnKyi19g4Nvwm8AluKoDZYKosOZcrqJTzVFG6hytWpD6Yuui+KLMUllak48xRtC2GthwISRvA/lZyK+Ga7lg981L7Ht3P8B+Y173DQBtK06nx1rgA2ZK+owC/0wvPLfmHZQUAq5Ihs3r0h8cD25lN4WP3jt/wPzdkeYdRpKyjhUWhXuiDKL36aH3VvuO1dLVNouggdLaG97EqfWB0JM/qzmH5G4uE6Qkzp0MvBXFbGSEJTAexuu4iROuBQnk18P0q30BCeTMVUjGY6zMKC1cnY0CPZLHkTlyp9Girgpk0Yw6F391djUFYTGQnEn1u0ruUt0WUxChn5LyvYhOoPuXfwfh3z9xTN7YpYvH+8r3LAT2ewQlXZNS6J1FNphG2ewnv5sylWiKOOCW7p9nQ6tBKtfhnIxOJn+PJnE2ucAlRtn162QQ99CNL1k2z/L95T3Xl5Lpfx5XBRorVGJOTX/9O9tVQ9KtuLmG3AUWY9MsMNCtL9pWfj/W5EVdcw1r9AYXUum7BjIT5D2DZIlFoFcy+eO6b7U36vVteZR6/xOtVGuNRS1foGU1bxd0O2815IQZ+cits52lKVW8c+pgIOx1yKePN6AB9xX5QoEx+lFGTdN53LgHsm27JcjyLQTb9is/YwPf
+sidebar_class_name: "get api-method"
+info_path: platform-api-docs/docs/seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Describe SSH key"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/ssh-keys/{keyId}"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Retrieves the details of an SSH public key by its ID.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./describe-ssh-key.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./describe-ssh-key.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./describe-ssh-key.StatusCodes.json")}
+>
+
+</StatusCodes>

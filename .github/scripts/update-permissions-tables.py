@@ -240,31 +240,35 @@ class PermissionsTableUpdater:
 
         print(f"✅ Parsed {len(operations_tables)} operation tables: {', '.join(operations_tables.keys())}")
 
-        # Update custom-roles.md
-        target_file = self.docs_repo / 'platform-enterprise_docs' / 'orgs-and-teams' / 'custom-roles.md'
+        # Update both custom-roles.md files
+        target_files = [
+            self.docs_repo / 'platform-cloud' / 'docs' / 'orgs-and-teams' / 'custom-roles.md',
+            self.docs_repo / 'platform-enterprise_docs' / 'orgs-and-teams' / 'custom-roles.md',
+        ]
 
-        for section_name, table_content in operations_tables.items():
-            try:
-                print(f"  Updating {section_name} section...")
-                self.update_operations_table(target_file, section_name, table_content)
-                self.successes.append(f"{target_file.relative_to(self.docs_repo)} ({section_name})")
-                print(f"  ✅ Updated successfully")
-            except TableUpdateError as e:
-                error_msg = str(e)
-                print(f"  ❌ {error_msg}")
-                self.errors.append({
-                    'file': f"{target_file.relative_to(self.docs_repo)} ({section_name})",
-                    'error': error_msg,
-                    'type': 'update_error'
-                })
-            except Exception as e:
-                error_msg = f"Unexpected error: {str(e)}"
-                print(f"  ❌ {error_msg}")
-                self.errors.append({
-                    'file': f"{target_file.relative_to(self.docs_repo)} ({section_name})",
-                    'error': error_msg,
-                    'type': 'unexpected_error'
-                })
+        for target_file in target_files:
+            for section_name, table_content in operations_tables.items():
+                try:
+                    print(f"  Updating {target_file.relative_to(self.docs_repo)} - {section_name} section...")
+                    self.update_operations_table(target_file, section_name, table_content)
+                    self.successes.append(f"{target_file.relative_to(self.docs_repo)} ({section_name})")
+                    print(f"  ✅ Updated successfully")
+                except TableUpdateError as e:
+                    error_msg = str(e)
+                    print(f"  ❌ {error_msg}")
+                    self.errors.append({
+                        'file': f"{target_file.relative_to(self.docs_repo)} ({section_name})",
+                        'error': error_msg,
+                        'type': 'update_error'
+                    })
+                except Exception as e:
+                    error_msg = f"Unexpected error: {str(e)}"
+                    print(f"  ❌ {error_msg}")
+                    self.errors.append({
+                        'file': f"{target_file.relative_to(self.docs_repo)} ({section_name})",
+                        'error': error_msg,
+                        'type': 'unexpected_error'
+                    })
 
     def generate_error_report(self) -> None:
         """Generate UPDATE_ERRORS.md if there were any errors."""

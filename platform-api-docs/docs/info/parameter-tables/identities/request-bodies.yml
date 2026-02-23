@@ -18,65 +18,59 @@
 - Name: config.workDir
   Type: string
   Req/Opt: Optional
-  Description: Nextflow work directory on the cluster's shared file system. Must
-    be an absolute path and credentials must have read-write access.
+  Description: Compute environment working directory.
 - Name: config.preRunScript
   Type: string
   Req/Opt: Optional
-  Description: Add a script that executes in the nf-launch script prior to
-    invoking Nextflow processes. See [Pre and post-run
+  Description: Script that executes in the nf-launch script prior to invoking
+    Nextflow processes. See [Pre and post-run
     scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts).
 - Name: config.postRunScript
   Type: string
   Req/Opt: Optional
-  Description: Add a script that executes after all Nextflow processes have
-    completed. See [Pre and post-run
+  Description: Script that executes after all Nextflow processes have completed.
+    See [Pre and post-run
     scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts).
 - Name: config.nextflowConfig
   Type: string
   Req/Opt: Optional
-  Description: Additional Nextflow configuration to apply. See [Nextflow config
-    file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file).
+  Description: Additional Nextflow configuration content.
 - Name: config.launchDir
   Type: string
   Req/Opt: Optional
-  Description: Directory where Nextflow runs. Must be an absolute path and
-    credentials must have read-write access. If omitted, defaults to `workDir`.
+  Description: Launch directory for Nextflow execution.
 - Name: config.userName
   Type: string
   Req/Opt: Optional
-  Description: Username for SSH connection to HPC head node.
+  Description: Username for SSH authentication to the HPC cluster.
 - Name: config.hostName
   Type: string
   Req/Opt: Optional
-  Description: Hostname or IP address of HPC head node.
+  Description: Hostname or IP address of the HPC cluster head node.
 - Name: config.port
   Type: integer
   Req/Opt: Optional
-  Description: "SSH port. Default: `22`."
+  Description: "SSH port for connecting to the HPC cluster. Default: `22`."
 - Name: config.headQueue
   Type: string
   Req/Opt: Optional
-  Description: The name of the queue on the cluster used to launch the Nextflow execution.
+  Description: Queue name for submitting the Nextflow head job.
 - Name: config.computeQueue
   Type: string
   Req/Opt: Optional
-  Description: The name of queue on the cluster to which pipeline jobs are
-    submitted. Can be overridden by the pipeline configuration.
+  Description: Queue name for submitting Nextflow compute jobs.
 - Name: config.maxQueueSize
   Type: integer
   Req/Opt: Optional
-  Description: "The maximum number of jobs Nextflow can submit to the queue
-    simultaneously. Default: `100`."
+  Description: Maximum number of jobs that can be queued at one time.
 - Name: config.headJobOptions
   Type: string
   Req/Opt: Optional
-  Description: Additional submit options for the Nextflow head job.
+  Description: Additional options for the head job submission.
 - Name: config.propagateHeadJobOptions
   Type: boolean
   Req/Opt: Optional
-  Description: If true, `headJobOptions` are also applied to the
-    Nextflow-submitted compute jobs.
+  Description: "If true, head job options are propagated to compute jobs. Default: `false`."
 - Name: "**UpdateManagedIdentity**"
   Type: ""
   Req/Opt: ""
@@ -104,65 +98,59 @@
 - Name: managedIdentity.config.workDir
   Type: string
   Req/Opt: Optional
-  Description: Nextflow work directory on the cluster's shared file system. Must
-    be an absolute path and credentials must have read-write access.
+  Description: Compute environment working directory.
 - Name: managedIdentity.config.preRunScript
   Type: string
   Req/Opt: Optional
-  Description: Add a script that executes in the nf-launch script prior to
-    invoking Nextflow processes. See [Pre and post-run
+  Description: Script that executes in the nf-launch script prior to invoking
+    Nextflow processes. See [Pre and post-run
     scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts).
 - Name: managedIdentity.config.postRunScript
   Type: string
   Req/Opt: Optional
-  Description: Add a script that executes after all Nextflow processes have
-    completed. See [Pre and post-run
+  Description: Script that executes after all Nextflow processes have completed.
+    See [Pre and post-run
     scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts).
 - Name: managedIdentity.config.nextflowConfig
   Type: string
   Req/Opt: Optional
-  Description: Additional Nextflow configuration to apply. See [Nextflow config
-    file](https://docs.seqera.io/platform-cloud/launch/advanced#nextflow-config-file).
+  Description: Additional Nextflow configuration content.
 - Name: managedIdentity.config.launchDir
   Type: string
   Req/Opt: Optional
-  Description: Directory where Nextflow runs. Must be an absolute path and
-    credentials must have read-write access. If omitted, defaults to `workDir`.
+  Description: Launch directory for Nextflow execution.
 - Name: managedIdentity.config.userName
   Type: string
   Req/Opt: Optional
-  Description: Username for SSH connection to HPC head node.
+  Description: Username for SSH authentication to the HPC cluster.
 - Name: managedIdentity.config.hostName
   Type: string
   Req/Opt: Optional
-  Description: Hostname or IP address of HPC head node.
+  Description: Hostname or IP address of the HPC cluster head node.
 - Name: managedIdentity.config.port
   Type: integer
   Req/Opt: Optional
-  Description: "SSH port. Default: `22`."
+  Description: "SSH port for connecting to the HPC cluster. Default: `22`."
 - Name: managedIdentity.config.headQueue
   Type: string
   Req/Opt: Optional
-  Description: The name of the queue on the cluster used to launch the Nextflow execution.
+  Description: Queue name for submitting the Nextflow head job.
 - Name: managedIdentity.config.computeQueue
   Type: string
   Req/Opt: Optional
-  Description: The name of queue on the cluster to which pipeline jobs are
-    submitted. Can be overridden by the pipeline configuration.
+  Description: Queue name for submitting Nextflow compute jobs.
 - Name: managedIdentity.config.maxQueueSize
   Type: integer
   Req/Opt: Optional
-  Description: "The maximum number of jobs Nextflow can submit to the queue
-    simultaneously. Default: `100`."
+  Description: Maximum number of jobs that can be queued at one time.
 - Name: managedIdentity.config.headJobOptions
   Type: string
   Req/Opt: Optional
-  Description: Additional submit options for the Nextflow head job.
+  Description: Additional options for the head job submission.
 - Name: managedIdentity.config.propagateHeadJobOptions
   Type: boolean
   Req/Opt: Optional
-  Description: If true, `headJobOptions` are also applied to the
-    Nextflow-submitted compute jobs.
+  Description: "If true, head job options are propagated to compute jobs. Default: `false`."
 - Name: "**CreateManagedCredentials**"
   Type: ""
   Req/Opt: ""
@@ -174,19 +162,22 @@
 - Name: credentials
   Type: object
   Req/Opt: Optional
-  Description: ""
+  Description: Cloud provider or service credentials for authentication. Used to
+    connect compute environments, access storage, and integrate with external
+    services.
 - Name: credentials.id
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Credentials string identifier.
 - Name: credentials.name
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Unique name for the credentials. Must be 1-100 alphanumeric, dash,
+    or underscore characters.
 - Name: credentials.description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Optional description of the credentials and their intended use.
 - Name: credentials.provider
   Type: string
   Req/Opt: Required
@@ -194,7 +185,8 @@
 - Name: credentials.baseUrl
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Base URL for the container registry server. Required for container
+    registry credentials — defaults to docker.io).
 - Name: credentials.category
   Type: string
   Req/Opt: Optional
@@ -242,19 +234,22 @@
 - Name: credentials
   Type: object
   Req/Opt: Optional
-  Description: ""
+  Description: Cloud provider or service credentials for authentication. Used to
+    connect compute environments, access storage, and integrate with external
+    services.
 - Name: credentials.id
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Credentials string identifier.
 - Name: credentials.name
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Unique name for the credentials. Must be 1-100 alphanumeric, dash,
+    or underscore characters.
 - Name: credentials.description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Optional description of the credentials and their intended use.
 - Name: credentials.provider
   Type: string
   Req/Opt: Required
@@ -262,7 +257,8 @@
 - Name: credentials.baseUrl
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Base URL for the container registry server. Required for container
+    registry credentials — defaults to docker.io).
 - Name: credentials.category
   Type: string
   Req/Opt: Optional

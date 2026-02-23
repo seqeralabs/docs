@@ -452,6 +452,7 @@ See [Launch pipelines](../launch/launchpad) to start executing workflows in your
 [az-batch-best-practices]: https://learn.microsoft.com/en-us/azure/batch/security-best-practices
 [az-vm-sizes]: https://learn.microsoft.com/en-us/azure/virtual-machines/sizes
 [az-create-account]: https://azure.microsoft.com/en-us/free/
+[az-create-sp]: https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal
 [az-learn-rg]: https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal#create-resource-groups
 [az-create-batch]: https://portal.azure.com/#create/Microsoft.BatchAccount
 [az-learn-storage]: https://learn.microsoft.com/en-us/azure/storage/common/storage-account-overview

@@ -1,0 +1,15 @@
+- Name: "`key`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: SSH public key content to validate. Must be in valid SSH public key format.
+- Name: "`name`"
+  Type: string
+  Location: query
+  Req/Opt: Optional
+  Description: SSH key name to validate. Maximum 255 characters.
+- Name: "`keyId`"
+  Type: integer
+  Location: path
+  Req/Opt: Required
+  Description: SSH key numeric identifier.

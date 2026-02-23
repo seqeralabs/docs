@@ -67,7 +67,7 @@ tw compute-envs update [OPTIONS]
 | `--new-name` | New compute environment name. | No | `null` |
 | `-i`, `--id` | Compute environment unique identifier. | No | `null` |
 | `-n`, `--name` | Compute environment name. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
@@ -97,7 +97,7 @@ tw compute-envs delete [OPTIONS]
 |--------|-------------|----------|---------|
 | `-i`, `--id` | Compute environment unique identifier. | No | `null` |
 | `-n`, `--name` | Compute environment name. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
@@ -127,7 +127,7 @@ tw compute-envs view [OPTIONS]
 |--------|-------------|----------|---------|
 | `-i`, `--id` | Compute environment unique identifier. | No | `null` |
 | `-n`, `--name` | Compute environment name. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
@@ -194,7 +194,7 @@ tw compute-envs list [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
@@ -235,7 +235,7 @@ tw compute-envs export [OPTIONS]
 |--------|-------------|----------|---------|
 | `-i`, `--id` | Compute environment unique identifier. | No | `null` |
 | `-n`, `--name` | Compute environment name. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
@@ -256,14 +256,18 @@ Example output:
 Import a compute environment configuration from a JSON file.
 
 ```bash
-tw compute-envs import [OPTIONS]
+tw compute-envs import [OPTIONS] <path/to/json-file>
 ```
 
 ### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
+| `-n`, `--name` | Name for the imported compute environment. | Yes | `null` |
+| `-c`, `--credentials` | Credentials identifier to use when multiple credentials match the compute environment. Use this to specify which credentials should be associated with the imported compute environment. | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 | `--overwrite` | Overwrite the compute environment if it already exists. | No | `false` |
+| `<path/to/json-file>` | Path to the JSON file containing the compute environment configuration (exported using `tw compute-envs export`). | Yes | `null` |
 
 ### Example
 
@@ -278,6 +282,10 @@ Example output:
 ```bash
 New AWS-CLOUD compute environment 'example-imported-ce' added at [my-organization / my-workspace] workspace
 ```
+
+:::note
+If multiple credentials match the imported compute environment, you must provide the `-c` flag with the credentials identifier to specify which credentials to use. You can find available credentials using `tw credentials list`.
+:::
 
 ## tw compute-envs primary
 
@@ -299,7 +307,7 @@ tw compute-envs primary get [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
@@ -329,7 +337,7 @@ tw compute-envs primary set [OPTIONS]
 |--------|-------------|----------|---------|
 | `-i`, `--id` | Compute environment unique identifier. | No | `null` |
 | `-n`, `--name` | Compute environment name. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 ### Example
 
