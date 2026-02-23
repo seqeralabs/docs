@@ -221,6 +221,8 @@ export default async function createConfigAsync() {
       // Put your custom environment here
     },
 
+    clientModules: [require.resolve('./src/client-modules/cross-site-nav.js')],
+
     presets: [
       [
         "@seqera/docusaurus-preset-seqera",
@@ -281,8 +283,49 @@ export default async function createConfigAsync() {
     ],
 
     themeConfig: getSeqeraThemeConfig({
+      typesense: {
+        typesenseCollectionName: 'seqera_docs',
+        searchPagePath: '/search',
+        typesenseServerConfig: {
+          nodes: [
+            {
+              host: '9scwdgbn4v8r1lyfp.a1.typesense.net',
+              port: 443,
+              protocol: 'https',
+            },
+          ],
+          apiKey: process.env.TYPESENSE_SEARCH_API_KEY,
+          connectionTimeoutSeconds: 2,
+        },
+        typesenseSearchParameters: {
+          query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',
+          group_by: 'url_without_anchor',
+          group_limit: 1,
+          num_typos: 1,
+          prioritize_exact_match: true,
+          filter_by: 'docusaurus_tag:!=[default,doc_tag_doc_list,blog_posts_list,blog_tags_posts,doc_tags_list,blog_tags_list]', // TODO Remove once the scraper is updated
+        },
+        contextualSearch: false,
+        placeholder: 'Search Seqera docs...',
+      },
       prism: {
-        additionalLanguages: ['nextflow', 'groovy', 'java', 'bash', 'yaml', 'json'],
+        additionalLanguages: [
+          "bash",
+          "docker",
+          "groovy",
+          "ini",
+          "java",
+          "javascript",
+          "json",
+          "nextflow",
+          "nginx",
+          "python",
+          "r",
+          "shell-session",
+          "sql",
+          "typescript",
+          "yaml",
+        ],
       },
       navbar: {
         items: [

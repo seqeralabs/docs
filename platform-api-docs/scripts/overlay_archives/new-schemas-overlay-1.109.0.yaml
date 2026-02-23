@@ -1,0 +1,287 @@
+overlay: 1.0.0
+info:
+  title: Add new schemas for v1.109.0
+  version: 0.0.0
+actions:
+  - target: "$.components.schemas"
+    update:
+      CreatePipelineSchemaRequest:
+        type: object
+        properties:
+          content:
+            type: string
+
+      CreatePipelineSchemaResponse:
+        type: object
+        properties:
+          pipelineSchema:
+            $ref: "#/components/schemas/PipelineSchemaDbDto"
+
+      CreatePipelineVersionRequest:
+        type: object
+        properties:
+          name:
+            type: string
+
+      CreateSshKeyRequest:
+        required:
+        - name
+        - publicKey
+        type: object
+        properties:
+          name:
+            type: string
+          publicKey:
+            type: string
+
+      CreateSshKeyResponse:
+        type: object
+        properties:
+          sshKey:
+            $ref: "#/components/schemas/UserSshPublicKeyDto"
+
+      DescribeSshKeyResponse:
+        type: object
+        properties:
+          sshKey:
+            $ref: "#/components/schemas/UserSshPublicKeyDto"
+
+      GetCredentialsKeysResponse:
+        type: object
+        properties:
+          keys:
+            type: string
+
+      LaunchDbDto:
+        type: object
+        properties:
+          id:
+            type: string
+          workspaceId:
+            type: integer
+            format: int64
+          computeEnv:
+            $ref: "#/components/schemas/ComputeEnv_ComputeConfig_"
+          pipeline:
+            type: string
+          workDir:
+            type: string
+          revision:
+            type: string
+          commitId:
+            type: string
+          configText:
+            type: string
+          towerConfig:
+            type: string
+          paramsText:
+            type: string
+          preRunScript:
+            type: string
+          postRunScript:
+            type: string
+          mainScript:
+            type: string
+          entryName:
+            type: string
+          schemaName:
+            type: string
+          resume:
+            type: boolean
+          resumeLaunchId:
+            type: string
+          pullLatest:
+            type: boolean
+          stubRun:
+            type: boolean
+          sessionId:
+            type: string
+          runName:
+            type: string
+          configProfiles:
+            type: array
+            items:
+              type: string
+          userSecrets:
+            type: array
+            items:
+              type: string
+          workspaceSecrets:
+            type: array
+            items:
+              type: string
+          optimizationId:
+            type: string
+          optimizationTargets:
+            type: string
+          headJobCpus:
+            type: integer
+            format: int32
+          headJobMemoryMb:
+            type: integer
+            format: int32
+          launchContainer:
+            type: string
+          dateCreated:
+            type: string
+            format: date-time
+          lastUpdated:
+            type: string
+            format: date-time
+          pipelineSchemaId:
+            type: integer
+            format: int64
+
+      ListPipelineVersionsResponse:
+        type: object
+        properties:
+          versions:
+            type: array
+            items:
+              $ref: "#/components/schemas/PipelineDbDto"
+          totalSize:
+            type: integer
+            format: int64
+
+      ListSshKeysResponse:
+        type: object
+        properties:
+          sshKeys:
+            type: array
+            items:
+              $ref: "#/components/schemas/UserSshPublicKeyDto"
+
+      PipelineMinInfoResponse:
+        type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+          workspaceId:
+            type: integer
+            format: int64
+          version:
+            $ref: "#/components/schemas/PipelineMinInfoResponse.PipelineVersionMinInfoResponse"
+
+      PipelineMinInfoResponse.PipelineVersionMinInfoResponse:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          dateCreated:
+            type: string
+            format: date-time
+          lastUpdated:
+            type: string
+            format: date-time
+          hash:
+            type: string
+          isDefault:
+            type: boolean
+          isDraftVersion:
+            type: boolean
+
+      PipelineSchemaDbDto:
+        type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+          content:
+            type: string
+
+      PipelineVersionFullInfoDto:
+        type: object
+        properties:
+          id:
+            type: string
+          creatorUserId:
+            type: integer
+            format: int64
+          creatorUserName:
+            type: string
+          creatorFirstName:
+            type: string
+          creatorLastName:
+            type: string
+          creatorAvatarUrl:
+            type: string
+          name:
+            type: string
+          dateCreated:
+            type: string
+            format: date-time
+          lastUpdated:
+            type: string
+            format: date-time
+          hash:
+            type: string
+          isDefault:
+            type: boolean
+
+      PipelineVersionManageRequest:
+        type: object
+        properties:
+          name:
+            type: string
+          isDefault:
+            type: boolean
+
+      StudioSshDetailsDto:
+        required:
+        - command
+        - host
+        - port
+        - user
+        type: object
+        properties:
+          host:
+            type: string
+            description: The hostname to connect to
+          port:
+            type: integer
+            description: The SSH port number
+            format: int32
+          user:
+            type: string
+            description: The user in the format 'username@sessionId'
+          command:
+            type: string
+            description: The full SSH command to execute
+            example: ssh username@sessionId@host -p port
+        description: SSH connection details for a Studio session
+
+      UserSshPublicKeyDto:
+        type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+          name:
+            type: string
+          publicKey:
+            type: string
+          dateCreated:
+            type: string
+            format: date-time
+          lastUsed:
+            type: string
+            format: date-time
+
+      WorkflowMaxDbDto:
+        type: object
+        allOf:
+        - $ref: "#/components/schemas/WorkflowDbDto"
+        - properties:
+            fusion:
+              $ref: "#/components/schemas/WfFusionMeta"
+            wave:
+              $ref: "#/components/schemas/WfWaveMeta"
+            logFile:
+              type: string
+            outFile:
+              type: string
+            operationId:
+              type: string
