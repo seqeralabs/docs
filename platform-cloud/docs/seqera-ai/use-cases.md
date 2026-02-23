@@ -19,7 +19,7 @@ Seqera AI is an intelligent command-line assistant that helps you build, run, an
 
 Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-powered analysis and code generation.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ejsRDS2czPg" title="Use Seqera AI CLI to debug Nextflow pipeline scripts" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ejsRDS2czPg?autoplay=1&mute=1" title="Use Seqera AI CLI to debug Nextflow pipeline scripts" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 <details open>
 <summary>**Working with Nextflow**</summary>
@@ -69,7 +69,7 @@ Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-po
 
 Use Seqera Platform capabilities to run and manage workflows at scale with AI assistance.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/KPb1mAkuQaw" title="Use Seqera AI CLI to debug Platform run errors" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KPb1mAkuQaw?autoplay=1&mute=1" title="Use Seqera AI CLI to debug Platform run errors" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 <details open>
 <summary>**Working with Seqera Platform**</summary>
@@ -102,7 +102,7 @@ Use Seqera Platform capabilities to run and manage workflows at scale with AI as
 
 Seqera AI can create containerized environments using Wave, without the need to write Dockerfiles.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/lihF6g9C3RY" title="Use Seqera AI CLI to build containers with Wave" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lihF6g9C3RY?autoplay=1&mute=1" title="Use Seqera AI CLI to build containers with Wave" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 <details open>
 <summary>**Building containers with Wave**</summary>
