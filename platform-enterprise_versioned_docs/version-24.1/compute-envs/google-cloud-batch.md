@@ -147,7 +147,7 @@ Select the **Location** where you will execute your pipelines. See [Location][lo
 In the **Pipeline work directory** field, enter your storage bucket URL, e.g., `gs://my-bucket`. This bucket must be accessible in the location selected in the previous step.
 
 :::note
-When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
 :::
 
 #### Seqera features
@@ -171,7 +171,7 @@ Select **Enable Fusion v2** to allow access to your Google Cloud Storage data vi
   :::note
   To specify virtual machine settings in Platform during compute environment creation, use the **Global Nextflow config** field to apply custom Nextflow process directives to all pipeline runs launched with this compute environment.
 
-  To specify virtual machine settings per pipeline run in Platform, or as a persistent configuration in your Nextflow pipeline repository, use Nextflow process directives. See [Google Cloud Batch process definition](https://www.nextflow.io/docs/latest/google.html#process-definition) for more information.
+  To specify virtual machine settings per pipeline run in Platform, or as a persistent configuration in your Nextflow pipeline repository, use Nextflow process directives. See [Google Cloud Batch process definition](https://docs.seqera.io/nextflow/google#process-definition) for more information.
   :::
 
   When Fusion v2 is enabled, the following virtual machine settings are applied:
@@ -227,7 +227,7 @@ If you use VM instance templates for the head or compute jobs (see step 6 below)
     :::caution
     Seqera does not validate the VM instance template you specify in these fields. Generally, use templates that define only the machine type, network, disk, and configuration values that will not change across multiple VM instances and Seqera compute environments. See [Create instance templates](https://cloud.google.com/compute/docs/instance-templates/create-instance-templates) for instructions to create your instance templates.
 
-    To prevent errors during workflow execution, ensure that the instance templates you use are suitably configured for your needs with an appropriate machine type. You can define multiple instance templates with varying machine type sizes in your Nextflow configuration using the `machineType` [process directive](https://www.nextflow.io/docs/latest/google.html#process-definition) (e.g., `process.machineType = 'template://my-template-name'`). You can use [process selectors](https://www.nextflow.io/docs/latest/config.html#config-process-selectors) to assign separate templates to each of your processes.
+    To prevent errors during workflow execution, ensure that the instance templates you use are suitably configured for your needs with an appropriate machine type. You can define multiple instance templates with varying machine type sizes in your Nextflow configuration using the `machineType` [process directive](https://docs.seqera.io/nextflow/google#process-definition) (e.g., `process.machineType = 'template://my-template-name'`). You can use [process selectors](https://docs.seqera.io/nextflow/config#config-process-selectors) to assign separate templates to each of your processes.
     :::
 
 Select **Create** to finalize the compute environment setup.
@@ -240,7 +240,7 @@ See [Launch pipelines](../launch/launchpad) to start executing workflows in your
 [create-sa]: https://cloud.google.com/iam/docs/service-accounts-create#creating
 [get-json]: https://cloud.google.com/iam/docs/keys-list-get#get-key
 [location]: https://cloud.google.com/compute/docs/regions-zones#available
-[wave-docs]: https://www.nextflow.io/docs/latest/wave.html
+[wave-docs]: https://docs.seqera.io/nextflow/wave
 [fusion-docs]: https://docs.seqera.io/fusion
 [platform-fusion-docs]: ../supported_software/fusion/overview
 [pre-post-run-scripts]: ../launch/advanced#pre-and-post-run-scripts

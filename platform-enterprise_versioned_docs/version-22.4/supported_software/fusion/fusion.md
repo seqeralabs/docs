@@ -15,7 +15,7 @@ To enable Fusion in Tower:
 
 - Use Nextflow version `22.10.0` or later. The latest version of Nextflow is used in Tower by default, but a particular version can be specified using `NXF_VER` in the Nextflow config file field (**Advanced options -> Nextflow config file** under Pipeline settings on the launch page).
 
-- Enable the [Wave containers service](https://www.nextflow.io/docs/latest/wave.html#wave-page) during [AWS Batch](../../compute-envs/aws-batch) compute environment creation.
+- Enable the [Wave containers service](https://docs.seqera.io/nextflow/wave#wave-page) during [AWS Batch](../../compute-envs/aws-batch) compute environment creation.
 
 - Select **Enable Fusion v2** during compute environment creation.
 

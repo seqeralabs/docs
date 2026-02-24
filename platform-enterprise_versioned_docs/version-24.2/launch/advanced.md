@@ -9,7 +9,7 @@ You can modify the configuration and execution of a pipeline with advanced launc
 
 ### Nextflow config file
 
-Add settings to the Nextflow configuration file. This must follow the same syntax as the [Nextflow configuration file](https://www.nextflow.io/docs/latest/config.html#config-syntax).
+Add settings to the Nextflow configuration file. This must follow the same syntax as the [Nextflow configuration file](https://docs.seqera.io/nextflow/config#config-syntax).
 
 For example, modify the **manifest** section to give the pipeline a name and description that will show up in the Seqera monitoring section:
 
@@ -106,7 +106,7 @@ Instruct Nextflow to pull the latest pipeline version from the Git repository. T
 
 ### Stub run 
 
-Replace Nextflow process commands with command [stubs](https://www.nextflow.io/docs/latest/process.html#stub), where defined, before execution. 
+Replace Nextflow process commands with command [stubs](https://docs.seqera.io/nextflow/process#stub), where defined, before execution. 
 
 ### Main script
 

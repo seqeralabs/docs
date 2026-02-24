@@ -110,7 +110,7 @@ The optional `--params-file` flag is used to pass a set of default parameters th
 The optional `--config` flag is used to pass a custom Nextflow configuration file — configuration values passed here override the same values in the default pipeline repository `nextflow.conf` file. When this flag is set, all configuration values specified in Platform pipeline or compute environment **Nextflow config** fields are ignored.
 
 :::tip
-The `params-file` or `--config` file must be a YAML or JSON file using [Nextflow configuration](https://www.nextflow.io/docs/latest/config.html#config-syntax) syntax.
+The `params-file` or `--config` file must be a YAML or JSON file using [Nextflow configuration](https://docs.seqera.io/nextflow/config#config-syntax) syntax.
 :::
 
 ## tw pipelines view
