@@ -7,9 +7,9 @@ tags: [kubernetes, studios, deployment]
 
 This guide describes how to deploy Studios for Seqera Platform Enterprise on Kubernetes.
 
-<a id="prerequisites"></a>
+:::info
+## Prerequisites {#prerequisites}
 
-:::info[**Prerequisites**]
 Other than the basic requirements [already listed in the Studios installation overview](./install-studios#prerequisites), you will need:
 - A Kubernetes cluster
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally

@@ -7,9 +7,9 @@ tags: [authentication, github, oauth]
 
 Configure GitHub as a single sign-on (SSO) provider for Seqera Platform.
 
-<a id="prerequisites"></a>
+:::info
+## Prerequisites {#prerequisites}
 
-:::info[**Prerequisites**]
 Before you begin, you need:
 
 - A GitHub organization

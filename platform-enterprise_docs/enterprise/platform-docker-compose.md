@@ -7,9 +7,9 @@ tags: [docker, compose, deployment]
 
 Docker Compose deployments are suitable for evaluation, development, and small production workloads.
 
-<a id="prerequisites"></a>
+:::info
+## Prerequisites {#prerequisites}
 
-:::info[**Prerequisites**]
 Other than the basic requirements [already listed in the Platform installation overview](./install-platform#prerequisites), you will need:
 - Docker Engine and Docker Compose
 :::

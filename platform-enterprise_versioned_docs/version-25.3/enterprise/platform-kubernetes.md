@@ -7,9 +7,9 @@ tags: [kubernetes, deployment]
 
 Kubernetes deployments are recommended for production workloads requiring high availability and scalability.
 
-<a id="prerequisites"></a>
+:::info
+## Prerequisites {#prerequisites}
 
-:::info[**Prerequisites**]
 Other than the basic requirements [already listed in the Platform installation overview](./install-platform#prerequisites), you will need:
 - A Kubernetes cluster
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
