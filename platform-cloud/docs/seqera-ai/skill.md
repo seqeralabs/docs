@@ -23,30 +23,12 @@ The `seqera skill` command installs a skill file that enables your coding agent 
 | [Pi](https://github.com/badlogic/pi-mono) | `.pi/` |
 | [Windsurf](https://windsurf.com/) | `.windsurf/rules/` |
 
-### Install skills
+### seqera skill install
 
-#### Install to a specific path
-
-Install the skill file to a path you specify:
+Install a skill file for your coding agent.
 
 ```bash
-seqera skill install --path .claude/skills/seqera
-```
-
-#### Install globally
-
-Install the skill to your home directory so it is available in all projects:
-
-```bash
-seqera skill install --global
-```
-
-#### Detect and update
-
-Automatically find an existing skill installation and update it in-place:
-
-```bash
-seqera skill install --detect
+seqera skill install [OPTIONS]
 ```
 
 When no flag is provided, `seqera skill install` prompts you to select your agent and install location interactively.
@@ -59,18 +41,12 @@ When no flag is provided, `seqera skill install` prompts you to select your agen
 | `--global` | `-g` | Install to home directory |
 | `--detect` | `-d` | Auto-detect an existing installation and update it |
 
-### Check skill version
+### seqera skill check
 
-Verify that your installed skills match the current CLI version:
-
-```bash
-seqera skill check
-```
-
-Automatically update any outdated skills:
+Verify that your installed skills match the current CLI version.
 
 ```bash
-seqera skill check --update
+seqera skill check [OPTIONS]
 ```
 
 By default, `seqera skill check` scans both local and global installations. Use `--global` or `--local` to narrow the scope.
