@@ -17,7 +17,7 @@ List organization collaborators.
 tw collaborators list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -27,7 +27,7 @@ tw collaborators list [OPTIONS]
 | `--offset` | Row offset for paginated results (default: 0) | No | `null` |
 | `--max` | Maximum number of records to display (default: ) | No | `null` |
 
-### Example
+#### Example
 
 Command:
 

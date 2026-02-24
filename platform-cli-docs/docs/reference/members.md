@@ -17,7 +17,7 @@ List organization members.
 tw members list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -29,7 +29,7 @@ tw members list [OPTIONS]
 
 Run `tw members list -h` view all the optional fields for listing organization members.
 
-### Example
+#### Example
 
 Command:
 
@@ -57,7 +57,7 @@ Add an organization member.
 tw members add [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -66,7 +66,7 @@ tw members add [OPTIONS]
 
 Run `tw members add -h` view all the required and optional fields for adding organization members.
 
-### Example
+#### Example
 
 Command:
 
@@ -88,7 +88,7 @@ Remove an organization member.
 tw members delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -97,7 +97,7 @@ tw members delete [OPTIONS]
 
 Run `tw members delete -h` view all the required and optional fields for deleting organization members.
 
-### Example
+#### Example
 
 Command:
 
@@ -119,7 +119,7 @@ Update an organization member role.
 tw members update [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -129,7 +129,7 @@ tw members update [OPTIONS]
 
 Run `tw members update -h` view all the required and optional fields for updating organization members.
 
-### Example
+#### Example
 
 Command:
 
@@ -151,7 +151,7 @@ Leave an organization.
 tw members leave [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -159,7 +159,7 @@ tw members leave [OPTIONS]
 
 Run `tw members leave -o <organization_name>` to be removed from the given organization's members.
 
-### Example
+#### Example
 
 Command:
 
