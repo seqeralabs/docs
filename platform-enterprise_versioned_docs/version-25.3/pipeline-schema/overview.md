@@ -25,21 +25,21 @@ The selected schema controls which pipeline parameters are exposed in the launch
 
 Users with [Maintain or higher](../orgs-and-teams/roles.md) permissions can upload a custom `nextflow_schema.json` file directly to Seqera Platform. When you upload a Platform schema:
 
-- The schema content is validated to ensure it's a valid JSON schema
-- The Platform schema controls which parameters appear in the pipeline launch form
-- Changes to the Platform schema trigger a new draft version of the pipeline
-- The Platform schema is applied to all launches using that pipeline version
+- The schema content is validated to ensure it's a valid JSON schema.
+- The Platform schema controls which parameters appear in the pipeline launch form.
+- Changes to the Platform schema trigger a new draft version of the pipeline.
+- The Platform schema is applied to all launches using that pipeline version.
 
 To add or update a Seqera Platform schema:
 
-1. Navigate to **Add pipeline** or select **Edit** for an existing pipeline
-2. Select **Seqera Platform schema** from the schema options
-3. In the **Seqera Platform schema** field, paste your custom Nextflow schema JSON
-4. The schema is validated automatically as you enter it
-5. Select **Add** or **Save** to create a new draft version with the Platform schema
+1. Navigate to **Add pipeline** or select **Edit** for an existing pipeline.
+2. Select **Seqera Platform schema** from the schema options.
+3. In the **Seqera Platform schema** field, paste your custom Nextflow schema JSON.
+4. The schema is validated automatically as you enter it.
+5. Select **Add** or **Save** to create a new draft version with the Platform schema.
 
 :::note
-The schema `id` field must be unique. If you're pasting pipeline schema contents from an existing pipeline schema file, ensure you update the `id` field to a unique value.
+The schema `id` field must be unique. If you're pasting pipeline schema contents from an existing pipeline schema file, update the `id` field to a unique value, or remove it.
 :::
 
 ### Building pipeline schema files
