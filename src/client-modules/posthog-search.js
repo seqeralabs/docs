@@ -1,14 +1,22 @@
 let debounceTimer;
 
-function trackSearch() {
-  // Use the globally available PostHog instance (loaded via snippet)
-  const ph = window.posthog;
+function waitForPostHog(callback, maxAttempts = 50, interval = 100) {
+  let attempts = 0;
 
-  if (!ph) {
-    console.warn('PostHog not available. Search tracking will be disabled.');
-    return;
-  }
+  const checkPostHog = () => {
+    if (window.posthog) {
+      callback(window.posthog);
+    } else if (attempts < maxAttempts) {
+      attempts++;
+      setTimeout(checkPostHog, interval);
+    }
+    // Silently fail if PostHog doesn't load - it's optional analytics
+  };
 
+  checkPostHog();
+}
+
+function setupTracking(ph) {
   document.addEventListener('input', (e) => {
     const input = e.target.closest('.DocSearch-Input, [class*="searchBox"] input');
     if (!input) return;
@@ -34,5 +42,5 @@ function trackSearch() {
 }
 
 if (typeof window !== 'undefined') {
-  trackSearch();
+  waitForPostHog(setupTracking);
 }
