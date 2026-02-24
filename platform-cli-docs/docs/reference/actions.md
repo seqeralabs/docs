@@ -20,13 +20,13 @@ List pipeline actions.
 tw actions list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -53,7 +53,7 @@ View pipeline action details.
 tw actions view [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -61,7 +61,7 @@ tw actions view [OPTIONS]
 | `-n`, `--name` | Action name | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -122,7 +122,7 @@ Supported event sources:
 - **github**: GitHub webhook events (push, pull request, etc.)
 :::
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -146,7 +146,7 @@ Supported event sources:
 | `--user-secrets` | Array of user secrets to make available to the pipeline. | No | `null` |
 | `--workspace-secrets` | Array of workspace secrets to make available to the pipeline. | No | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -172,7 +172,7 @@ Update a pipeline action.
 tw actions update [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -197,7 +197,7 @@ tw actions update [OPTIONS]
 | `--user-secrets` | Array of user secrets to make available to the pipeline. | No | `null` |
 | `--workspace-secrets` | Array of workspace secrets to make available to the pipeline. | No | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -219,7 +219,7 @@ Delete a pipeline action.
 tw actions delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -227,7 +227,7 @@ tw actions delete [OPTIONS]
 | `-n`, `--name` | Action name | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -249,7 +249,7 @@ Manage pipeline action labels.
 tw actions labels [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -259,7 +259,7 @@ tw actions labels [OPTIONS]
 | `--no-create` | Assign labels without creating the ones which were not found. | No | `null` |
 | `--operations`, `-o` | Type of operation (set, append, delete) [default: set]. | No | `set` |
 
-### Example
+#### Example
 
 Command:
 

@@ -26,7 +26,7 @@ View pipeline run details.
 tw runs view [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -47,7 +47,7 @@ tw runs view [OPTIONS]
 
 Run `tw runs view -h` to view all the required and optional fields for viewing a pipeline's runs.
 
-### Example
+#### Example
 
 Command:
 
@@ -87,7 +87,7 @@ Download pipeline run files.
 tw runs view download [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -104,7 +104,7 @@ tw runs view -i <run-id> [OPTIONS] metrics
 
 This subcommand displays resource usage metrics for pipeline runs. You must specify the run ID using the `-i` flag from the parent `tw runs view` command.
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -115,7 +115,7 @@ This subcommand displays resource usage metrics for pipeline runs. You must spec
 | `-c`, `--columns` | Statistical columns to display: min, q1, q2, q3, max, mean. Shows quartile distribution of resource usage. Default: all columns. | No | `null` |
 | `-v`, `--view` | Table view format. Options: condensed (compact), extended (detailed). Default: condensed. | No | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -145,7 +145,7 @@ Display pipeline run tasks.
 tw runs view tasks [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -163,7 +163,7 @@ Display pipeline run task details.
 tw runs view task [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -180,7 +180,7 @@ List pipeline runs.
 tw runs list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -192,7 +192,7 @@ tw runs list [OPTIONS]
 
 Run `tw runs list -h` to view all the required and optional fields for listing runs in a workspace.
 
-### Example
+#### Example
 
 Command:
 
@@ -236,7 +236,7 @@ If no `keyword` is defined, the filtering is applied to the `runName`, `projectN
 The `after` and `before` flags require an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp with UTC timezone (`YYYY-MM-DDThh:mm:ss.sssZ`).
 :::
 
-### Filtering examples
+#### Filtering examples
 
 Command:
 
@@ -312,7 +312,7 @@ Relaunch a pipeline run.
 tw runs relaunch [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -340,7 +340,7 @@ tw runs relaunch [OPTIONS]
 
 Run `tw runs relaunch -h` to view all the required and optional fields for relaunching a run in a workspace.
 
-### Example
+#### Example
 
 Command:
 
@@ -365,7 +365,7 @@ Cancel a pipeline run.
 tw runs cancel [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -374,7 +374,7 @@ tw runs cancel [OPTIONS]
 
 Run `tw runs cancel -h` to view all the required and optional fields for canceling a run in a workspace.
 
-### Example
+#### Example
 
 Command:
 
@@ -396,7 +396,7 @@ Manage pipeline run labels.
 tw runs labels [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -404,7 +404,7 @@ tw runs labels [OPTIONS]
 | `--no-create` | Assign labels without creating the ones which were not found. | No | `null` |
 | `--operations`, `-o` | Type of operation (set, append, delete) [default: set]. | No | `set` |
 
-### Example
+#### Example
 
 Command:
 
@@ -426,7 +426,7 @@ Delete a pipeline run.
 tw runs delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -436,7 +436,7 @@ tw runs delete [OPTIONS]
 
 Run `tw runs delete -h` to view all the required and optional fields for deleting a run in a workspace.
 
-### Example
+#### Example
 
 Command:
 
@@ -458,7 +458,7 @@ Dump all logs and details of a run into a compressed tarball file for troublesho
 tw runs dump [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -472,7 +472,7 @@ tw runs dump [OPTIONS]
 
 Run `tw runs dump -h` to view all the required and optional fields for dumping all logs and details of a run in a workspace. The supported formats are `.tar.xz` and `.tar.gz`. In the example below, we dump all the logs and details for the run with ID `5z4AMshti4g0GK` to the output file `file.tar.gz`.
 
-### Example
+#### Example
 
 Command:
 
