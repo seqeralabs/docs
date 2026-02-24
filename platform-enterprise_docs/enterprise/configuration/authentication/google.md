@@ -7,6 +7,8 @@ tags: [authentication, google, oauth]
 
 Configure Google as a single sign-on (SSO) provider for Seqera Platform.
 
+<a id="prerequisites"></a>
+
 :::info[**Prerequisites**]
 Before you begin, you need:
 

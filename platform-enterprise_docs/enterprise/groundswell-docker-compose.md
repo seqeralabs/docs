@@ -7,6 +7,8 @@ tags: [docker, compose, groundswell, pipeline optimization, deployment]
 
 This guide describes how to deploy the pipeline optimization service (referred to as `groundswell` in the configuration file) for Seqera Platform Enterprise using Docker Compose.
 
+<a id="prerequisites"></a>
+
 :::info[**Prerequisites**]
 Other than the basic requirements [already listed in the Pipeline Optimization installation overview](./install-groundswell#prerequisites), you will need:
 - Docker Engine and Docker Compose

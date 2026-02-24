@@ -17,6 +17,8 @@ Email authentication provides a passwordless login experience where users:
 
 New users are automatically registered on their first login if their email address matches the trusted email patterns. The access link contains a time-limited token that expires after use.
 
+<a id="prerequisites"></a>
+
 :::info[**Prerequisites**]
 Before enabling email authentication, you need:
 

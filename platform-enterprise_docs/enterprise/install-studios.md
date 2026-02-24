@@ -17,6 +17,8 @@ Studios provides interactive analysis environments within Seqera Platform. Deplo
 
 See each deployment guide for detailed requirements.
 
+<a id="prerequisites"></a>
+
 :::info[**Prerequisites**]
 Before you begin, you need:
 - A running Seqera Platform Enterprise deployment at hostname `example.com` or `platform.example.com`

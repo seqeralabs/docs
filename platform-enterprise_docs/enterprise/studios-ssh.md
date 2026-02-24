@@ -21,6 +21,8 @@ To enable SSH access to running Studio sessions, you need:
 
 If you have pinned Studio container images to specific versions, you will need to [migrate](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template) them to the required Connect client version.
 
+<a id="prerequisites"></a>
+
 :::info[**Prerequisites**]
 - Studios enabled (see [Studios installation](./install-studios))
 - Access to Platform configuration

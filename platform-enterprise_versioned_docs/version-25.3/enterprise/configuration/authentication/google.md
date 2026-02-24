@@ -7,14 +7,16 @@ tags: [authentication, google, oauth]
 
 Configure Google as a single sign-on (SSO) provider for Seqera Platform.
 
-## Prerequisites
+<a id="prerequisites"></a>
 
+:::info[**Prerequisites**]
 Before you begin, you need:
 
 - A Google Cloud account
 - Permission to create OAuth credentials in the Google Cloud console
 
 Ensure you know how to create Google OAuth credentials. See Google's documentation on [setting up OAuth 2.0](https://support.google.com/cloud/answer/6158849) for more information.
+:::
 
 ## Create Google OAuth credentials
 

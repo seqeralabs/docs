@@ -7,10 +7,12 @@ tags: [docker, compose, studios, deployment]
 
 This guide describes how to deploy Studios for Seqera Platform Enterprise with Docker Compose.
 
-## Prerequisites
+<a id="prerequisites"></a>
 
+:::info[**Prerequisites**]
 Other than the basic requirements [already listed in the Studios installation overview](./install-studios#prerequisites), you will need:
 - Docker Engine and Docker Compose
+:::
 
 ## Procedure
 

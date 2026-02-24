@@ -17,8 +17,9 @@ Studios provides interactive analysis environments within Seqera Platform. Deplo
 
 See each deployment guide for detailed requirements.
 
-## Prerequisites
+<a id="prerequisites"></a>
 
+:::info[**Prerequisites**]
 Before you begin, you need:
 - A running Seqera Platform Enterprise deployment at hostname `example.com` or `platform.example.com`
 - A Redis 7 instance separate from the one used by Seqera Platform
@@ -30,6 +31,7 @@ Before you begin, you need:
     - `connect.another.subdomain.example.com`
 - A wildcard DNS record covering the Studios subdomains, e.g., `*.connect.example.com`
 - Data Explorer enabled in your Seqera Platform instance (automatic with Helm deployments)
+:::
 
 ## DNS configuration
 

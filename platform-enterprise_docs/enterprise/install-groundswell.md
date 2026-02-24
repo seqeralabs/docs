@@ -17,6 +17,8 @@ Pipeline optimization (Groundswell) uses resource usage data from previous workf
 
 See each deployment guide for detailed requirements.
 
+<a id="prerequisites"></a>
+
 :::info[**Prerequisites**]
 Before you begin, you need:
 - A running Seqera Platform Enterprise deployment

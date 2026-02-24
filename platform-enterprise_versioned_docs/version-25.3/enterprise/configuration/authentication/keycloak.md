@@ -7,14 +7,16 @@ tags: [authentication, keycloak, oidc]
 
 Configure [Keycloak](https://www.keycloak.org/) as a single sign-on (SSO) provider for Seqera Platform using OpenID Connect.
 
-## Prerequisites
+<a id="prerequisites"></a>
 
+:::info[**Prerequisites**]
 Before you begin, you need:
 
 - A Keycloak instance
 - Admin access to create clients in Keycloak
 
 Ensure you know how to configure Keycloak clients. See the [Keycloak documentation](https://www.keycloak.org/docs/latest/server_admin/#assembly-managing-clients_server_administration_guide) for more information.
+:::
 
 ## Create a Keycloak client
 

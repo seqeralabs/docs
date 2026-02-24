@@ -7,6 +7,8 @@ tags: [authentication, okta, oidc]
 
 Configure [Okta](https://www.okta.com/) as a single sign-on (SSO) provider for Seqera Platform using OpenID Connect.
 
+<a id="prerequisites"></a>
+
 :::info[**Prerequisites**]
 Before you begin, you need:
 

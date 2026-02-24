@@ -7,6 +7,8 @@ tags: [helm, deployment, installation, kubernetes, pipeline-optimization]
 
 [Helm](https://helm.sh) is an open-source command line tool used for managing Kubernetes applications. Seqera offers a [Helm chart](https://github.com/seqeralabs/helm-charts/tree/pipeline-optimization-0.2.4/platform/charts/pipeline-optimization) to deploy Pipeline Optimization Enterprise on a Kubernetes cluster.
 
+<a id="prerequisites"></a>
+
 :::info[**Prerequisites**]
 Other than the basic requirements [already listed in the Pipeline Optimization installation overview](./install-groundswell#prerequisites), you will need:
 - A Kubernetes cluster
