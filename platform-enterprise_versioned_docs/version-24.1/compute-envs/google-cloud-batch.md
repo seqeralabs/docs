@@ -1,7 +1,8 @@
 ---
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
-date: "21 Apr 2023"
+date created: "2023-04-21"
+last updated: "2026-02-24"
 tags: [google, batch, gcp, compute environment]
 ---
 
@@ -161,7 +162,7 @@ Select **Enable Fusion v2** to allow access to your Google Cloud Storage data vi
   <summary>Use Fusion v2</summary>
 
   :::note
-  The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB. 
+  The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB.
   :::
 
   1. Use Seqera Platform version 23.1 or later.
@@ -199,10 +200,10 @@ Apply [**Resource labels**][resource-labels] to the cloud resources consumed by 
 
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
-    
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
+
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
 
 1. Specify custom **Environment variables** for the head and compute jobs.

@@ -1,7 +1,8 @@
 ---
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
-date: "21 Apr 2023"
+date created: "2023-04-21"
+last updated: "2026-02-24"
 tags: [google, batch, gcp, compute environment]
 ---
 
@@ -161,7 +162,7 @@ Select **Enable Fusion v2** to allow access to your Google Cloud Storage data vi
   <summary>Use Fusion v2</summary>
 
   :::note
-  The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB. 
+  The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB.
   :::
 
   1. Use Seqera Platform version 23.1 or later.
@@ -191,7 +192,7 @@ Wave containers and Fusion v2 are recommended features for added capability and 
 
 #### GCP resources
 
-Enable **Spot** to use Spot instances, which have significantly reduced cost compared to on-demand instances. 
+Enable **Spot** to use Spot instances, which have significantly reduced cost compared to on-demand instances.
 
 :::note
 From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see the [Spot instance failures and retries guide](https://docs.seqera.io/platform/24.2/troubleshooting_and_faqs/nextflow#spot-instance-failures-and-retries-in-nextflow).
@@ -203,9 +204,9 @@ Apply [**Resource labels**][resource-labels] to the cloud resources consumed by 
 
 - Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
 
 
