@@ -170,6 +170,7 @@
         "seqera-ai/installation",
         "seqera-ai/authentication",
         "seqera-ai/command-approval",
+        "seqera-ai/skill",
         "seqera-ai/use-cases"
       ]
     },
