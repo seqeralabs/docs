@@ -99,17 +99,43 @@ tw runs view download [OPTIONS]
 Display pipeline run metrics.
 
 ```bash
-tw runs view metrics [OPTIONS]
+tw runs view -i <run-id> [OPTIONS] metrics
 ```
+
+This subcommand displays resource usage metrics for pipeline runs. You must specify the run ID using the `-i` flag from the parent `tw runs view` command.
 
 ### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
+| `-i`, `--id` | Pipeline run identifier (from parent command). | Yes | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | Personal workspace |
 | `-f`, `--filter` | Filter metrics by process name. Shows statistics only for processes matching the specified name. | No | `null` |
 | `-t`, `--type` | Metric types to display: cpu, mem, time, io. Comma-separated list. Default: all types. | No | `null` |
 | `-c`, `--columns` | Statistical columns to display: min, q1, q2, q3, max, mean. Shows quartile distribution of resource usage. Default: all columns. | No | `null` |
 | `-v`, `--view` | Table view format. Options: condensed (compact), extended (detailed). Default: condensed. | No | `null` |
+
+### Example
+
+Command:
+
+```bash
+tw runs view -i 2vFUbBx63cfsBY --workspace 123456789012345 metrics
+```
+
+Example output:
+
+```bash
+Run metrics at [my-organization / my-workspace] workspace:
+
+Process metrics for run '2vFUbBx63cfsBY':
+
+Process Name    | CPU (mean) | Memory (mean) | Time (mean) | Status
+----------------|------------|---------------|-------------|--------
+NFCORE_RNASEQ   | 95.2%      | 4.2 GB        | 2h 15m      | COMPLETED
+FASTQC          | 82.1%      | 2.1 GB        | 45m         | COMPLETED
+STAR_ALIGN      | 98.5%      | 32.5 GB       | 1h 30m      | COMPLETED
+```
 
 ### tw runs view tasks
 
