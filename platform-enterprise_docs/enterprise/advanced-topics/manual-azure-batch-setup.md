@@ -8,9 +8,7 @@ This guide details how to set up more complex Azure Batch compute environments w
 
 The first step indicates how to configure a simple Azure Batch compute environment on Azure and Seqera Platform, however beyond that is not required for most users and is only recommended for those who need to customize their compute environments.
 
-:::info
-## Prerequisites {#prerequisites}
-
+:::info <span id="prerequisites">**Prerequisites**</span>
 - An Azure account with sufficient permissions to create resources.
 - [Azure CLI][install-azure-cli]
 - [Seqera Platform CLI][install-seqera-cli]
