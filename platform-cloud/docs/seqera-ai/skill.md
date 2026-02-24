@@ -27,6 +27,24 @@ The `seqera skill` command installs a skill file that enables your coding agent 
 
 Install a skill file for your coding agent.
 
+#### Examples
+
+```bash
+# Prompts you to select agent and install location
+seqera skill install
+
+# Install to home directory
+seqera skill install --global
+
+# Install to a custom path
+seqera skill install --path .claude/skills/
+
+# Auto-detect existing installation and update
+seqera skill install --detect
+```
+
+#### Usage
+
 ```bash
 seqera skill install [OPTIONS]
 ```
@@ -44,6 +62,24 @@ When no flag is provided, `seqera skill install` prompts you to select your agen
 ### seqera skill check
 
 Verify that your installed skills match the current CLI version.
+
+#### Examples
+
+```bash
+# Check both local and global installations
+seqera skill check
+
+# Check and automatically update outdated skills
+seqera skill check --update
+
+# Check only global installations
+seqera skill check --global
+
+# Check only local installations
+seqera skill check --local
+```
+
+#### Usage
 
 ```bash
 seqera skill check [OPTIONS]
