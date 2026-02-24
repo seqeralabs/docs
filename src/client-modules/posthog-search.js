@@ -1,8 +1,14 @@
-import posthog from 'posthog-js';
-
 let debounceTimer;
 
 function trackSearch() {
+  // Use the globally available PostHog instance (loaded via snippet)
+  const ph = window.posthog;
+
+  if (!ph) {
+    console.warn('PostHog not available. Search tracking will be disabled.');
+    return;
+  }
+
   document.addEventListener('input', (e) => {
     const input = e.target.closest('.DocSearch-Input, [class*="searchBox"] input');
     if (!input) return;
@@ -11,7 +17,7 @@ function trackSearch() {
     debounceTimer = setTimeout(() => {
       const query = input.value;
       if (query && query.length > 2) {
-        posthog.capture('docs_search_performed', { query });
+        ph.capture('docs_search_performed', { query });
       }
     }, 500);
   });
@@ -20,7 +26,7 @@ function trackSearch() {
     const resultLink = e.target.closest('.DocSearch-Hit a, [class*="searchResult"] a');
     if (!resultLink) return;
 
-    posthog.capture('docs_search_result_clicked', {
+    ph.capture('docs_search_result_clicked', {
       result_url: resultLink.href,
       result_title: resultLink.textContent?.trim() || '',
     });
