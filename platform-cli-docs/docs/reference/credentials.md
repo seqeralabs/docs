@@ -99,7 +99,7 @@ Run `tw credentials update -h` to view a list of providers.
 
 Run `tw credentials update <provider> -h` to view the required fields for your provider.
 
-### Common Options
+#### Common Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
@@ -111,7 +111,7 @@ Run `tw credentials update <provider> -h` to view the required fields for your p
 Additional provider-specific options vary depending on the provider type. Use `tw credentials update <provider> -h` to see all available options for your provider. Either credentials ID (`-i`) or name (`-n`) is required to identify which credentials to update.
 :::
 
-### Example
+#### Example
 
 Command:
 
@@ -133,7 +133,7 @@ Delete workspace credentials.
 tw credentials delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
@@ -141,7 +141,7 @@ tw credentials delete [OPTIONS]
 | `-n`, `--name` | Credentials name | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -163,13 +163,13 @@ List workspace credentials.
 tw credentials list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 

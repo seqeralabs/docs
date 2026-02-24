@@ -17,13 +17,13 @@ List secrets.
 tw secrets list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -50,7 +50,7 @@ Add a secret.
 tw secrets add [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -61,7 +61,7 @@ tw secrets add [OPTIONS]
 
 Run `tw secrets add -h` to view the required and optional fields for adding a secret.
 
-### Example
+#### Example
 
 Command:
 
@@ -83,7 +83,7 @@ View secret details.
 tw secrets view [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -91,7 +91,7 @@ tw secrets view [OPTIONS]
 | `-i`, `--id` | Secret identifier | No | `null` |
 | `-n`, `--name` | Secret name | No | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -121,7 +121,7 @@ Update a secret.
 tw secrets update [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -130,7 +130,7 @@ tw secrets update [OPTIONS]
 | `-i`, `--id` | Secret identifier | No | `null` |
 | `-n`, `--name` | Secret name | No | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -152,7 +152,7 @@ Delete a secret.
 tw secrets delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -160,7 +160,7 @@ tw secrets delete [OPTIONS]
 | `-i`, `--id` | Secret identifier | No | `null` |
 | `-n`, `--name` | Secret name | No | `null` |
 
-### Example
+#### Example
 
 Command:
 

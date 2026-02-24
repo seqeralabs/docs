@@ -23,7 +23,7 @@ List data links.
 tw data-links list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -43,7 +43,7 @@ If a workspace is not defined, the `TOWER_WORKSPACE_ID` workspace is used by def
 - `v1-cloud-<id>`: Cloud data-links auto-discovered using credentials attached to the workspace.
 - `v1-user-<id>`: Custom data-links created by users.
 
-### Example
+#### Example
 
 Command:
 
@@ -72,7 +72,7 @@ v1-user-e7bf26921ba74032bd6ae1870df381fc  | aws      | NCBI_Sequence_Read_Archiv
 Showing from 0 to 99 from a total of 16 entries.
 ```
 
-### Filtering example
+#### Filtering example
 
 List filtered by data-link name.
 
@@ -102,7 +102,7 @@ Add a data link.
 tw data-links add [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -117,7 +117,7 @@ Run `tw data-links add -h` to view all the required and optional fields for addi
 
 Users with the workspace `MAINTAIN` role and above can add custom data-links. The data-link `name`, `uri`, and `provider` (`aws`, `azure`, or `google`) fields are required. If adding a custom data-link for a private bucket, the credentials identifier field is also required. Adding a custom data-link for a public bucket doesn't require credentials.
 
-### Example
+#### Example
 
 ```bash
 tw data-links add -w seqeralabs/showcase -n FOO -u az://seqeralabs.azure-benchmarking \
@@ -142,7 +142,7 @@ Delete a data link.
 tw data-links delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -155,7 +155,7 @@ Run `tw data-links delete -h` to view all the required and optional fields for d
 
 Users with the `MAINTAIN` role and above for a workspace can delete custom data-links.
 
-### Example
+#### Example
 
 Command:
 
@@ -177,7 +177,7 @@ Update a data link.
 tw data-links update [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -189,7 +189,7 @@ tw data-links update [OPTIONS]
 
 Run `tw data-links update -h` to view all the required and optional fields for updating a custom data-link in a workspace. Users with the `MAINTAIN` role and above for a workspace can update custom data-links.
 
-### Example
+#### Example
 
 Command:
 
@@ -215,7 +215,7 @@ Browse data link contents.
 tw data-links browse [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -233,7 +233,7 @@ Run `tw data-links browse -h` to view all the required and optional fields for b
 
 Define the data-link ID using the required `-i` or `--id` argument, which can be found by first using the list operation for a workspace. In the example below, a name is defined to only retrieve data-links with names that start with the given word.
 
-### Example
+#### Example
 
 Command:
 
@@ -289,7 +289,7 @@ Download data link contents.
 tw data-links download [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -302,7 +302,7 @@ tw data-links download [OPTIONS]
 
 Run `tw data-links download -h` to view all the required and optional fields for downloading files and directories from a data-link in a workspace.
 
-### Download files
+#### Download files
 
 Command:
 
@@ -326,7 +326,7 @@ Successfully downloaded files
      FILE | 1          | file.txt
 ```
 
-### Download directories
+#### Download directories
 
 Command:
 
@@ -358,7 +358,7 @@ Upload files to a data link.
 tw data-links upload [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -371,7 +371,7 @@ tw data-links upload [OPTIONS]
 
 Run `tw data-links upload -h` to view all the required and optional fields for uploading files and directories to a data-link in a workspace.
 
-### Upload files
+#### Upload files
 
 Command:
 
@@ -398,7 +398,7 @@ Successfully uploaded files
      FILE | 1          | file.txt
 ```
 
-### Upload directories
+#### Upload directories
 
 Command:
 

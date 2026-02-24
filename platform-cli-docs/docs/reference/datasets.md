@@ -17,7 +17,7 @@ Add a dataset.
 tw datasets add [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -31,7 +31,7 @@ Run `tw datasets add -h` to view the required and optional fields for adding a d
 
 Add a preconfigured dataset file to a workspace (include the `--header` flag if the first row of your samplesheet file is a header).
 
-### Example
+#### Example
 
 Command:
 
@@ -57,7 +57,7 @@ Delete a dataset.
 tw datasets delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -67,7 +67,7 @@ tw datasets delete [OPTIONS]
 
 To delete a workspace dataset, specify either the dataset name (`-n` flag) or ID (`-i` flag).
 
-### Example
+#### Example
 
 Command:
 
@@ -89,7 +89,7 @@ Download a dataset.
 tw datasets download [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -100,7 +100,7 @@ tw datasets download [OPTIONS]
 
 View a stored dataset's contents.
 
-### Example
+#### Example
 
 Command:
 
@@ -129,7 +129,7 @@ List datasets.
 tw datasets list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -138,7 +138,7 @@ tw datasets list [OPTIONS]
 
 Run `tw datasets list -h` to view the optional fields for listing and filtering datasets.
 
-### Example
+#### Example
 
 Command:
 
@@ -164,7 +164,7 @@ View dataset details.
 tw datasets view [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -174,7 +174,7 @@ tw datasets view [OPTIONS]
 
 Run `tw datasets view -h` to view the required and optional fields for viewing a stored dataset's details.
 
-### Example
+#### Example
 
 Command:
 
@@ -205,7 +205,7 @@ Display dataset versions.
 tw datasets view versions [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
@@ -217,7 +217,7 @@ tw datasets view versions [OPTIONS]
 Either dataset ID (`-i`) or name (`-n`) is required to identify which dataset to view versions for.
 :::
 
-### Example
+#### Example
 
 Command:
 
@@ -245,7 +245,7 @@ Update a dataset.
 tw datasets update [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -259,7 +259,7 @@ tw datasets update [OPTIONS]
 
 Run `tw datasets update -h` to view the required and optional fields for updating a dataset.
 
-### Example
+#### Example
 
 Command:
 
@@ -281,7 +281,7 @@ Get dataset URL.
 tw datasets url [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -290,7 +290,7 @@ tw datasets url [OPTIONS]
 | `-n`, `--name` | Dataset name | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | Yes | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
