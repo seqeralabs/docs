@@ -326,7 +326,12 @@ Depending whether you choose to let Seqera automatically create the required AWS
      "Sid": "AssumeRoleToManageBatchResources",
      "Effect": "Allow",
      "Action": "sts:AssumeRole",
-     "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/<IAM_ROLE_NAME>"
+     "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/<IAM_ROLE_NAME>",
+     "Condition": {
+       "StringEquals": {
+         "sts:ExternalId": "<EXTERNAL_ID>"
+       }
+     }
    }
    ```
 1. On the last page, review the user details and select **Create user**.
@@ -360,7 +365,12 @@ Rather than attaching permissions directly to the IAM user, you can create an IA
               "arn:aws:iam::<ACCOUNT_ID>:user/<IAM_USER_NAME>"
             ]
          },
-         "Action": "sts:AssumeRole"
+         "Action": "sts:AssumeRole",
+         "Condition": {
+           "StringEquals": {
+             "sts:ExternalId": "<EXTERNAL_ID>"
+           }
+         }
        }
      ]
    }
@@ -369,6 +379,45 @@ Rather than attaching permissions directly to the IAM user, you can create an IA
 1. Give the role a name and optionally a description, review the details of the role, optionally provide tags to help you identify the role, then select **Create role**.
 
 Multiple users can be specified in the trust policy by adding more ARNs to the `Principal` section.
+
+:::note
+Seqera Platform generates the `External ID` value during AWS credential creation. For role-based credentials, use this exact value in both your IAM trust policy (`sts:ExternalId`) and the Seqera **External ID** field.
+:::
+
+### Role-based trust policy example (Seqera Cloud)
+
+For role-based AWS credentials in Seqera Cloud, use a trust policy that allows the Seqera Cloud jump role to assume your IAM role, and enforce an external ID:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "<SEQERA_CLOUD_JUMP_ROLE_ARN>"
+      },
+      "Action": "sts:AssumeRole",
+      "Condition": {
+        "StringEquals": {
+          "sts:ExternalId": "<EXTERNAL_ID_FROM_SEQERA>"
+        }
+      }
+    }
+  ]
+}
+```
+
+## AWS credential options
+
+AWS credentials can be configured in two ways:
+
+- **Key-based credentials**: Access key and secret key with direct IAM permissions. `External ID` is optional.
+- **Role-based credentials (recommended)**: Access key and secret key used only to assume an IAM role. `External ID` is mandatory.
+
+Seqera Platform generates the `External ID` value during credential creation (Cloud and Enterprise).
+
+Existing credentials continue to work without changes.
 
 ## Managed Amazon Machine Image (AMI)
 

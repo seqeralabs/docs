@@ -9,7 +9,7 @@ tags: [cloud, vm, amazon, aws, compute-environment]
 
 :::note
 This compute environment type is currently in public preview. Please consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have an AWS account with a valid AWS subscription.
-::: 
+:::
 
 The current implementation of compute environments for cloud providers all rely on the use of batch services such as AWS Batch, Azure Batch, and Google Batch for the execution and management of submitted jobs, including pipelines and Studio session environments. Batch services are suitable for large-scale workloads, but they add management complexity. In practical terms, the currently used batch services result in some limitations:
 
@@ -32,7 +32,7 @@ This type of compute environment is best suited to run Studios and small to medi
 
 ## Supported regions
 
-The following regions are currently supported: 
+The following regions are currently supported:
 
 - `eu-west-1`
 - `us-east-1`
@@ -49,6 +49,37 @@ The following regions are currently supported:
 ### Platform credentials
 
 To create and launch pipelines or Studio sessions with this compute environment type, you must attach Seqera credentials for the cloud provider. Some permissions are mandatory for the compute environment to be created and function correctly; others are optional and used to pre-fill options in Platform.
+
+AWS credentials can be configured in two ways:
+
+- **Key-based credentials**: Access key and secret key with direct IAM permissions. `External ID` is optional.
+- **Role-based credentials (recommended)**: Access key and secret key used only to assume an IAM role. `External ID` is mandatory.
+
+Seqera Platform generates the `External ID` value during credential creation (Cloud and Enterprise).
+
+Existing credentials continue to work without changes. The `TOWER_ALLOW_CREDENTIALS` feature behavior is unchanged.
+
+### Role-based trust policy example (Seqera Enterprise)
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::<ACCOUNT_ID>:user/<IAM_USER_NAME>"
+      },
+      "Action": "sts:AssumeRole",
+      "Condition": {
+        "StringEquals": {
+          "sts:ExternalId": "<EXTERNAL_ID>"
+        }
+      }
+    }
+  ]
+}
+```
 
 ### Required permissions
 
@@ -180,7 +211,7 @@ The following permissions enable Seqera to populate values for dropdown fields. 
 }
 ```
 
-## Managed Amazon Machine Image (AMI) 
+## Managed Amazon Machine Image (AMI)
 
 The AWS Cloud compute environment uses an AMI maintained by Seqera, and the pipeline launch procedure assumes that some basic tooling is already present in the image itself. If you want to provide your own AMI, it must include at least the following:
 
