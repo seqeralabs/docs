@@ -117,7 +117,7 @@ Connect version 0.8.3 introduced a change which required the creation of a `/dat
 * Moved Docker service management to the Connect-client.
 * Add: SSH Connectivity:
   * Server implementation (initialize ssh server when enabled)
-  * Fingerprint verification 
+  * Fingerprint verification
   * Authenticate authorization requests to Platform with oidc secret
   * Add SSH connection activity tracking and notifications
 
