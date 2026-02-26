@@ -221,7 +221,11 @@ export default async function createConfigAsync() {
       // Put your custom environment here
     },
 
-    clientModules: [require.resolve('./src/client-modules/cross-site-nav.js')],
+    clientModules: [
+    require.resolve('./src/client-modules/cross-site-nav.js'),
+    require.resolve('./src/client-modules/posthog-search.js'),
+    ],
+
 
     presets: [
       [
