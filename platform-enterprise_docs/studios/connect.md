@@ -14,8 +14,7 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 ### server/v0.10.0 `latest` - 2026-02-11
 
 * Add: SSH Connectivity:
-  * Server implementation (initialize ssh server when enabled)
-  * Fingerprint verification
+  * Server implementation (initialize SSH server when enabled)
   * Authenticate authorization requests to Platform with oidc secret
   * Add SSH connection activity tracking and notifications
 * Change the logger timestamp format to ISO8601
