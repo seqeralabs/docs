@@ -295,13 +295,14 @@ export default async function createConfigAsync() {
             },
           ],
           apiKey: process.env.TYPESENSE_SEARCH_API_KEY,
-          connectionTimeoutSeconds: 2,
+          connectionTimeoutSeconds: 5, // Default value
         },
         typesenseSearchParameters: {
           query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',
-          group_by: 'url_without_anchor',
+          group_by: 'url',
           group_limit: 1,
-          num_typos: 1,
+          per_page: 20,
+          num_typos: 2,
           prioritize_exact_match: true,
           filter_by: 'docusaurus_tag:!=[default,doc_tag_doc_list,blog_posts_list,blog_tags_posts,doc_tags_list,blog_tags_list]', // TODO Remove once the scraper is updated
         },
