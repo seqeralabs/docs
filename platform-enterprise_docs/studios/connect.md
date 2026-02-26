@@ -16,7 +16,7 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 * Add: SSH Connectivity:
   * Server implementation (initialize ssh server when enabled)
   * Fingerprint verification
-  * Set `authSecret` on SSH proxy requests to Platform
+  * Authenticate authorization requests to Platform with oidc secret
   * Add SSH connection activity tracking and notifications
 * Change the logger timestamp format to ISO8601
 * Detect network load balancer health checks
