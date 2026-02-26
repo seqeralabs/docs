@@ -16,7 +16,7 @@ To get started with Seqera AI:
 1. Install the Seqera AI CLI:
 
     ```bash
-    pip install seqera
+    npm install -g seqera
     ```
 
     See [Installation](./installation.mdx) for a comprehensive installation guide.
@@ -39,7 +39,7 @@ To get started with Seqera AI:
 1. Run your first prompt:
 
     ```
-    /debug
+    /debug-last-run-on-seqera
     ```
 
     See [Use cases](./use-cases.md) for a comprehensive list of use cases.

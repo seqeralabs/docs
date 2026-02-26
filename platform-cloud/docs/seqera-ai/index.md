@@ -56,6 +56,10 @@ Full access to Platform capabilities including compute environments, datasets, d
 - [Installation](./installation.mdx): Detailed installation instructions
 - [Authentication](./authentication.md): Log in, log out, and session management
 - [Command approval](./command-approval.md): Control which commands run automatically
-- [Skill for coding agents](./skill.md): Install Seqera AI as a skill for coding agents
+- [Working with Claude Code](./skill-claude-code.md): Install Seqera AI as a skill for Claude Code
+- [Working with Codex](./skill-codex.md): Install Seqera AI as a skill for Codex
+- [Working with GitHub Copilot](./skill-github-copilot.md): Install Seqera AI as a skill for GitHub Copilot
+- [Working with other coding agents](./skill-other-agents.md): Install Seqera AI for other coding agents
+- [Code intelligence](./nextflow-lsp.md): Language-server support in Seqera AI
 - [Use cases](./use-cases.md): Seqera AI CLI use cases
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors
