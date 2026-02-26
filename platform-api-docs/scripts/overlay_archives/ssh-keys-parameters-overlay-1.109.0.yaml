@@ -1,0 +1,27 @@
+overlay: 1.0.0
+info:
+  title: SSH keys parameters overlay
+  version: 1.109.0
+actions:
+  # ===== SSH KEYS PARAMETERS =====
+
+  # ---- PATH PARAMETERS ----
+
+  - target: "$.paths./ssh-keys/{keyId}.get.parameters[?(@.name=='keyId')].description"
+    update: "SSH key numeric identifier."
+
+  - target: "$.paths./ssh-keys/{keyId}.delete.parameters[?(@.name=='keyId')].description"
+    update: "SSH key numeric identifier."
+
+  # ---- QUERY PARAMETERS ----
+
+  - target: "$.paths./ssh-keys/validate/key.get.parameters[?(@.name=='key')].description"
+    update: "SSH public key content to validate. Must be in valid SSH public key format."
+
+  - target: "$.paths./ssh-keys/validate/name.get.parameters[?(@.name=='name')].description"
+    update: "SSH key name to validate. Maximum 255 characters."
+
+  # ---- REQUEST BODY ----
+
+  - target: "$.paths./ssh-keys.post.requestBody.description"
+    update: "SSH key creation request containing the key name and public key content."

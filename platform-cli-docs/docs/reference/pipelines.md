@@ -17,7 +17,7 @@ List pipelines.
 tw pipelines list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -28,7 +28,7 @@ tw pipelines list [OPTIONS]
 | `--offset` | Row offset for paginated results (default: 0) | No | `null` |
 | `--max` | Maximum number of records to display (default: ) | No | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -57,14 +57,15 @@ ID              | Name                 | Repository                           | 
 Add a pipeline.
 
 ```bash
-tw pipelines add [OPTIONS]
+tw pipelines add [OPTIONS] <repository-url>
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-n`, `--name` | Pipeline name. Must be unique within the workspace. | Yes | `null` |
+| `<repository-url>` | Pipeline repository URL. Must be a full Git repository URL (e.g., https://github.com/nextflow-io/rnaseq-nf). | Yes | `null` |
 | `-d`, `--description` | Pipeline description. | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 | `--labels` | Labels to apply to the resource. Provide comma-separated label values (use key=value format for resource labels). Labels will be created if they don't exist | No | `null` |
@@ -88,7 +89,7 @@ Run `tw pipelines add -h` to view the required and optional fields for adding yo
 
 Add a pre-configured pipeline to the Launchpad.
 
-### Example
+#### Example
 
 Command:
 
@@ -96,13 +97,14 @@ Command:
 tw pipelines add --name=my_rnaseq_nf_pipeline \
 --params-file=my_rnaseq_nf_pipeline_params.yaml \
 --config=<path/to/nextflow/conf/file> \
+-w 123456789012345 \
 https://github.com/nextflow-io/rnaseq-nf
 ```
 
 Example output:
 
 ```bash
-New pipeline 'my_rnaseq_nf_pipeline' added at user workspace
+New pipeline 'my_rnaseq_nf_pipeline' added at [my-organization / my-workspace] workspace
 ```
 
 The optional `--params-file` flag is used to pass a set of default parameters that will be associated with the pipeline in the Launchpad.
@@ -121,7 +123,7 @@ View pipeline details.
 tw pipelines view [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -129,7 +131,7 @@ tw pipelines view [OPTIONS]
 | `-n`, `--name` | Pipeline name | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -175,7 +177,7 @@ Update a pipeline.
 tw pipelines update [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -203,7 +205,7 @@ tw pipelines update [OPTIONS]
 
 The default launch parameters can be changed with the `update` command.
 
-### Example
+#### Example
 
 Command:
 
@@ -226,7 +228,7 @@ Remove a pipeline.
 tw pipelines delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -234,7 +236,7 @@ tw pipelines delete [OPTIONS]
 | `-n`, `--name` | Pipeline name | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -256,7 +258,7 @@ Export a pipeline.
 tw pipelines export [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -264,7 +266,7 @@ tw pipelines export [OPTIONS]
 | `-n`, `--name` | Pipeline name | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -286,7 +288,7 @@ Add a pipeline from file content.
 tw pipelines import [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -295,7 +297,7 @@ tw pipelines import [OPTIONS]
 | `--overwrite` | Overwrite the pipeline if it already exists. | No | `false` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -317,7 +319,7 @@ Manage pipeline labels.
 tw pipelines labels [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -326,7 +328,7 @@ tw pipelines labels [OPTIONS]
 | `--no-create` | Assign labels without creating the ones which were not found. | No | `null` |
 | `--operations`, `-o` | Type of operation (set, append, delete) [default: set]. | No | `set` |
 
-### Example
+#### Example
 
 Command:
 

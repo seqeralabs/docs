@@ -23,7 +23,7 @@ List data links.
 tw data-links list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -31,7 +31,7 @@ tw data-links list [OPTIONS]
 | `--wait` | Wait for all data links to be fetched to cache | No | `null` |
 | `-n`, `--name` | Filter by data-link name | No | `null` |
 | `--visibility` | Filter by visibility: hidden, visible, or all | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 | `--page` | Page number for paginated results (default: 1) | No | `null` |
 | `--offset` | Row offset for paginated results (default: 0) | No | `null` |
 | `--max` | Maximum number of records to display (default: ) | No | `null` |
@@ -43,7 +43,7 @@ If a workspace is not defined, the `TOWER_WORKSPACE_ID` workspace is used by def
 - `v1-cloud-<id>`: Cloud data-links auto-discovered using credentials attached to the workspace.
 - `v1-user-<id>`: Custom data-links created by users.
 
-### Example
+#### Example
 
 Command:
 
@@ -72,7 +72,7 @@ v1-user-e7bf26921ba74032bd6ae1870df381fc  | aws      | NCBI_Sequence_Read_Archiv
 Showing from 0 to 99 from a total of 16 entries.
 ```
 
-### Filtering example
+#### Filtering example
 
 List filtered by data-link name.
 
@@ -102,7 +102,7 @@ Add a data link.
 tw data-links add [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -111,13 +111,13 @@ tw data-links add [OPTIONS]
 | `-u`, `--uri` | Data link URI | Yes | `null` |
 | `-p`, `--provider` | Cloud provider: aws, azure, or google | Yes | `null` |
 | `-c`, `--credentials` | Credentials identifier. **Required for private cloud storage buckets** | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 Run `tw data-links add -h` to view all the required and optional fields for adding a custom data-link to a workspace.
 
 Users with the workspace `MAINTAIN` role and above can add custom data-links. The data-link `name`, `uri`, and `provider` (`aws`, `azure`, or `google`) fields are required. If adding a custom data-link for a private bucket, the credentials identifier field is also required. Adding a custom data-link for a public bucket doesn't require credentials.
 
-### Example
+#### Example
 
 ```bash
 tw data-links add -w seqeralabs/showcase -n FOO -u az://seqeralabs.azure-benchmarking \
@@ -142,11 +142,11 @@ Delete a data link.
 tw data-links delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 | `-i`, `--id` | Data link identifier | No | `null` |
 | `-n`, `--name` | Data link name | No | `null` |
 | `--uri` | Data link URI (e.g., s3://bucket-name) | No | `null` |
@@ -155,7 +155,7 @@ Run `tw data-links delete -h` to view all the required and optional fields for d
 
 Users with the `MAINTAIN` role and above for a workspace can delete custom data-links.
 
-### Example
+#### Example
 
 Command:
 
@@ -177,7 +177,7 @@ Update a data link.
 tw data-links update [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -185,11 +185,11 @@ tw data-links update [OPTIONS]
 | `-n`, `--name` | Data link name | Yes | `null` |
 | `-d`, `--description` | Data link description | No | `null` |
 | `-c`, `--credentials` | Credentials identifier. **Required for private cloud storage buckets** | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 Run `tw data-links update -h` to view all the required and optional fields for updating a custom data-link in a workspace. Users with the `MAINTAIN` role and above for a workspace can update custom data-links.
 
-### Example
+#### Example
 
 Command:
 
@@ -215,7 +215,7 @@ Browse data link contents.
 tw data-links browse [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -224,7 +224,7 @@ tw data-links browse [OPTIONS]
 | `-f`, `--filter` | Filter results by prefix | No | `null` |
 | `-t`, `--token` | Next page token for pagination | No | `null` |
 | `--page` | Page number to display | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 | `-i`, `--id` | Data link identifier | No | `null` |
 | `-n`, `--name` | Data link name | No | `null` |
 | `--uri` | Data link URI (e.g., s3://bucket-name) | No | `null` |
@@ -233,7 +233,7 @@ Run `tw data-links browse -h` to view all the required and optional fields for b
 
 Define the data-link ID using the required `-i` or `--id` argument, which can be found by first using the list operation for a workspace. In the example below, a name is defined to only retrieve data-links with names that start with the given word.
 
-### Example
+#### Example
 
 Command:
 
@@ -289,25 +289,25 @@ Download data link contents.
 tw data-links download [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-c`, `--credentials` | Credentials identifier. **Required for private cloud storage buckets** | Yes | `null` |
 | `-o`, `--output-dir` | Output directory for downloaded files | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 | `-i`, `--id` | Data link identifier | No | `null` |
 | `-n`, `--name` | Data link name | No | `null` |
 | `--uri` | Data link URI (e.g., s3://bucket-name) | No | `null` |
 
 Run `tw data-links download -h` to view all the required and optional fields for downloading files and directories from a data-link in a workspace.
 
-### Download files
+#### Download files
 
 Command:
 
 ```bash
-tw data-links download -n my-bucket -c <credentials_ID> -w <workspace_ID> path/to/file.txt
+tw data-links download -n my-bucket -c 1sxCxvxfx8xnxdxGxQxqxH -w 123456789012345 path/to/file.txt
 ```
 
 Example output:
@@ -326,12 +326,12 @@ Successfully downloaded files
      FILE | 1          | file.txt
 ```
 
-### Download directories
+#### Download directories
 
 Command:
 
 ```bash
-tw data-links download -n my-bucket -c <credentials_ID> -w <workspace_ID> path/to/my-directory/
+tw data-links download -n my-bucket -c 1sxCxvxfx8xnxdxGxQxqxH -w 123456789012345 path/to/my-directory/
 ```
 
 Example output:
@@ -358,25 +358,25 @@ Upload files to a data link.
 tw data-links upload [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-c`, `--credentials` | Credentials identifier. **Required for private cloud storage buckets** | Yes | `null` |
 | `-o`, `--output-dir` | Destination directory in the data link | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 | `-i`, `--id` | Data link identifier | No | `null` |
 | `-n`, `--name` | Data link name | No | `null` |
 | `--uri` | Data link URI (e.g., s3://bucket-name) | No | `null` |
 
 Run `tw data-links upload -h` to view all the required and optional fields for uploading files and directories to a data-link in a workspace.
 
-### Upload files
+#### Upload files
 
 Command:
 
 ```bash
-tw data-links upload -n my-bucket -c <credentials_ID> -w <workspace_ID> path/to/file.txt
+tw data-links upload -n my-bucket -c 1sxCxvxfx8xnxdxGxQxqxH -w 123456789012345 path/to/file.txt
 ```
 
 Example output:
@@ -398,12 +398,12 @@ Successfully uploaded files
      FILE | 1          | file.txt
 ```
 
-### Upload directories
+#### Upload directories
 
 Command:
 
 ```bash
-tw data-links upload -n my-bucket -c <credentials_ID> -w <workspace_ID> path/to/my-directory/
+tw data-links upload -n my-bucket -c 1sxCxvxfx8xnxdxGxQxqxH -w 123456789012345 path/to/my-directory/
 ```
 
 Example output:

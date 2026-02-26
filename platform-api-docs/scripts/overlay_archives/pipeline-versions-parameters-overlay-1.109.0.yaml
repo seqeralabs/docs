@@ -1,0 +1,63 @@
+overlay: 1.0.0
+info:
+  title: Pipeline versions parameters overlay
+  version: 1.109.0
+actions:
+  # ===== PIPELINE VERSIONS PARAMETERS =====
+
+  # ---- PATH PARAMETERS ----
+
+  - target: "$.paths./pipelines/{pipelineId}/versions.get.parameters[?(@.name=='pipelineId')].description"
+    update: "Pipeline numeric identifier."
+
+  - target: "$.paths./pipelines/{pipelineId}/versions/validate.get.parameters[?(@.name=='pipelineId')].description"
+    update: "Pipeline numeric identifier."
+
+  - target: "$.paths./pipelines/{pipelineId}/versions/{versionId}.post.parameters[?(@.name=='pipelineId')].description"
+    update: "Pipeline numeric identifier."
+
+  - target: "$.paths./pipelines/{pipelineId}/versions/{versionId}.post.parameters[?(@.name=='versionId')].description"
+    update: "Pipeline version string identifier."
+
+  - target: "$.paths./pipelines/{pipelineId}/versions/{versionId}/manage.put.parameters[?(@.name=='pipelineId')].description"
+    update: "Pipeline numeric identifier."
+
+  - target: "$.paths./pipelines/{pipelineId}/versions/{versionId}/manage.put.parameters[?(@.name=='versionId')].description"
+    update: "Pipeline version string identifier (launch ID)."
+
+  # ---- QUERY PARAMETERS ----
+
+  - target: "$.paths./pipelines/{pipelineId}/versions.get.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+
+  - target: "$.paths./pipelines/{pipelineId}/versions.get.parameters[?(@.name=='max')].description"
+    update: "Maximum number of results to return. Default: `20`."
+
+  - target: "$.paths./pipelines/{pipelineId}/versions.get.parameters[?(@.name=='offset')].description"
+    update: "Number of results to skip for pagination. Default: `0`."
+
+  - target: "$.paths./pipelines/{pipelineId}/versions.get.parameters[?(@.name=='search')].description"
+    update: "Filter results by version name. Returns versions containing the search term."
+
+  - target: "$.paths./pipelines/{pipelineId}/versions.get.parameters[?(@.name=='isPublished')].description"
+    update: "Filter by publication status. Set to `true` to retrieve published versions, `false` for draft versions."
+
+  - target: "$.paths./pipelines/{pipelineId}/versions/validate.get.parameters[?(@.name=='name')].description"
+    update: "Pipeline version name to validate. Maximum 255 characters."
+
+  - target: "$.paths./pipelines/{pipelineId}/versions/validate.get.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+
+  - target: "$.paths./pipelines/{pipelineId}/versions/{versionId}.post.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+
+  - target: "$.paths./pipelines/{pipelineId}/versions/{versionId}/manage.put.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+
+  # ---- REQUEST BODY ----
+
+  - target: "$.paths./pipelines/{pipelineId}/versions/{versionId}.post.requestBody.description"
+    update: "Pipeline version update request containing the fields to modify."
+
+  - target: "$.paths./pipelines/{pipelineId}/versions/{versionId}/manage.put.requestBody.description"
+    update: "Request containing the version name and/or default flag to update."

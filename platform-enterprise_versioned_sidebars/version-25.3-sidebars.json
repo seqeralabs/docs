@@ -95,7 +95,8 @@
             "enterprise/advanced-topics/custom-launch-container",
             "enterprise/advanced-topics/firewall-configuration",
             "enterprise/advanced-topics/seqera-container-images",
-            "enterprise/advanced-topics/content-security-policy"
+            "enterprise/advanced-topics/content-security-policy",
+            "enterprise/advanced-topics/monitoring"
           ]
         },
         "enterprise/general_troubleshooting"

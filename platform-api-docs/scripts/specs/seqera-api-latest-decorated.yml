@@ -5,7 +5,7 @@ info:
   contact:
     url: https://seqera.io
     email: info@seqera.io
-  version: 1.102.0
+  version: 1.109.0
 servers:
   - url: https://api.cloud.seqera.io
     description: Seqera Platform Cloud API
@@ -5370,7 +5370,7 @@ paths:
     put:
       tags:
         - pipelines
-      summary: Update pipeline
+      summary: Update pipeline (default version)
       description: "Updates the details of the pipeline identified by the given `pipelineId`.\n\n**Note**: If `labelIds` is `null`, empty, or omitted, existing pipeline labels are removed. Include `labelIds: [<label-id-1>,<label-id-2>]` to override existing labels. Labels to be preserved must be included. To append a list of labels to multiple pipelines, use `/pipelines/labels/add`."
       operationId: UpdatePipeline
       parameters:
@@ -5479,6 +5479,12 @@ paths:
             type: integer
             format: int64
             nullable: true
+        - name: versionId
+          in: query
+          description: "Pipeline version string identifier. If omitted, uses the default version."
+          required: false
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -5533,6 +5539,12 @@ paths:
             type: array
             items:
               $ref: "#/components/schemas/PipelineSchemaAttributes"
+        - name: versionId
+          in: query
+          description: "Pipeline version string identifier. If omitted, uses the default version."
+          required: false
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -8209,6 +8221,510 @@ paths:
           description: "Operation not allowed."
       security:
         - BearerAuth: []
+  /credentials/{credentialsId}/keys:
+    get:
+      tags:
+        - credentials
+      summary: Get encrypted credentials
+      description: Retrieves the encrypted keys for the credentials specified by `credentialsId`. The keys are encrypted with the pairing key if provided.
+      operationId: GetEncryptedCredentials
+      parameters:
+        - name: credentialsId
+          in: path
+          description: Credentials string identifier.
+          required: true
+          schema:
+            type: string
+        - name: workspaceId
+          in: query
+          description: Workspace numeric identifier.
+          schema:
+            type: integer
+            format: int64
+        - name: pairingId
+          in: query
+          description: Encryption key string identifier for encrypting the returned credentials.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetCredentialsKeysResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+      security:
+        - BearerAuth: []
+  /pipeline-schemas:
+    post:
+      tags:
+        - pipeline-schemas
+      summary: Create pipeline schema
+      description: Creates a new pipeline schema in a user context. Append `?workspaceId` to create the schema in a workspace context.
+      operationId: CreatePipelineSchema
+      parameters:
+        - name: workspaceId
+          in: query
+          description: Workspace numeric identifier.
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Pipeline schema creation request containing the schema content.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePipelineSchemaRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreatePipelineSchemaResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+      security:
+        - BearerAuth: []
+  /pipelines/{pipelineId}/versions:
+    get:
+      tags:
+        - pipeline-versions
+      summary: List pipeline versions
+      description: Lists all available pipeline versions in a user context. Append `?workspaceId` to list pipeline versions in a workspace context.
+      operationId: ListPipelineVersions
+      parameters:
+        - name: pipelineId
+          in: path
+          description: Pipeline numeric identifier.
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: workspaceId
+          in: query
+          description: Workspace numeric identifier.
+          schema:
+            type: integer
+            format: int64
+        - name: max
+          in: query
+          description: 'Maximum number of results to return. Default: `20`.'
+          schema:
+            type: integer
+            format: int32
+        - name: offset
+          in: query
+          description: 'Number of results to skip for pagination. Default: `0`.'
+          schema:
+            type: integer
+            format: int32
+        - name: search
+          in: query
+          description: Filter results by version name. Returns versions containing the search term.
+          schema:
+            type: string
+        - name: isPublished
+          in: query
+          description: "Filter by publication status. Set to `true` to retrieve published versions, `false` for draft versions."
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListPipelineVersionsResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+      security:
+        - BearerAuth: []
+  /pipelines/{pipelineId}/versions/validate:
+    get:
+      tags:
+        - pipeline-versions
+      summary: Validate pipeline version name
+      description: Validates that the provided pipeline version name is available and meets naming requirements.
+      operationId: ValidatePipelineVersionName
+      parameters:
+        - name: pipelineId
+          in: path
+          description: Pipeline numeric identifier.
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: name
+          in: query
+          description: Pipeline version name to validate. Maximum 255 characters.
+          schema:
+            type: string
+        - name: workspaceId
+          in: query
+          description: Workspace numeric identifier.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "204":
+          description: OK - No content
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+        "409":
+          description: Duplicate element
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+      security:
+        - BearerAuth: []
+  /pipelines/{pipelineId}/versions/{versionId}:
+    post:
+      tags:
+        - pipeline-versions
+      summary: Update pipeline version
+      description: "Updates the details of the pipeline version specified by `pipelineId` and `versionId`. If `labelIds` is `null`, empty, or omitted, existing pipeline labels are removed. Include `labelIds: [<label-id-1>,<label-id-2>]` to override existing labels. To append labels to multiple pipelines, use `/pipelines/labels/add`."
+      operationId: UpdatePipelineVersion
+      parameters:
+        - name: pipelineId
+          in: path
+          description: Pipeline numeric identifier.
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: versionId
+          in: path
+          description: Pipeline version string identifier.
+          required: true
+          schema:
+            type: string
+        - name: workspaceId
+          in: query
+          description: Workspace numeric identifier.
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Pipeline version update request containing the fields to modify.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdatePipelineRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdatePipelineResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+        "409":
+          description: Duplicate element
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+      security:
+        - BearerAuth: []
+  /pipelines/{pipelineId}/versions/{versionId}/manage:
+    put:
+      tags:
+        - pipeline-versions
+      summary: Manage pipeline version
+      description: "Updates a pipeline version's name and/or marks it as the default version. When setting a version as default, any previously default version is automatically unset. Version names cannot be changed if the version is already referenced by workflow runs."
+      operationId: ManagePipelineVersion
+      parameters:
+        - name: pipelineId
+          in: path
+          description: Pipeline numeric identifier.
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: versionId
+          in: path
+          description: Pipeline version string identifier (launch ID).
+          required: true
+          schema:
+            type: string
+        - name: workspaceId
+          in: query
+          description: Workspace numeric identifier.
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Request containing the version name and/or default flag to update.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PipelineVersionManageRequest"
+        required: true
+      responses:
+        "204":
+          description: OK - No content
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+        "404":
+          description: Version not found
+        "409":
+          description: Conflict - unsetting a default pipeline version
+      security:
+        - BearerAuth: []
+  /ssh-keys:
+    get:
+      tags:
+        - ssh-keys
+      summary: List SSH keys
+      description: Retrieves the list of all SSH public keys for the authenticated user.
+      operationId: ListSshKeys
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListSshKeysResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+      security:
+        - BearerAuth: []
+    post:
+      tags:
+        - ssh-keys
+      summary: Create SSH key
+      description: Creates a new SSH public key with the details in the given request body.
+      operationId: CreateSshKey
+      requestBody:
+        description: SSH key creation request containing the key name and public key content.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateSshKeyRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateSshKeyResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+        "409":
+          description: Duplicated element
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+      security:
+        - BearerAuth: []
+  /ssh-keys/validate/key:
+    get:
+      tags:
+        - ssh-keys
+      summary: Validate SSH key
+      description: Confirms the validity and availability of the given SSH public key in the user context.
+      operationId: ValidateSshKey
+      parameters:
+        - name: key
+          in: query
+          description: SSH public key content to validate. Must be in valid SSH public key format.
+          schema:
+            type: string
+      responses:
+        "204":
+          description: "OK - No content, if the key is valid."
+        "400":
+          description: "Bad request, if the key is not valid."
+        "409":
+          description: "Conflict, key duplicated in the given context."
+        "403":
+          description: Operation not allowed.
+      security:
+        - BearerAuth: []
+  /ssh-keys/validate/name:
+    get:
+      tags:
+        - ssh-keys
+      summary: Validate SSH key name
+      description: Confirms the availability of the given name for a SSH key in the user context.
+      operationId: ValidateSshKeyName
+      parameters:
+        - name: name
+          in: query
+          description: SSH key name to validate. Maximum 255 characters.
+          schema:
+            type: string
+      responses:
+        "204":
+          description: "OK - No content, if the name is valid and available."
+        "400":
+          description: "Bad request, if the name is not valid."
+        "409":
+          description: "Conflict, name duplicated in the given context."
+        "403":
+          description: Operation not allowed.
+      security:
+        - BearerAuth: []
+  /ssh-keys/{keyId}:
+    get:
+      tags:
+        - ssh-keys
+      summary: Describe SSH key
+      description: Retrieves the details of an SSH public key by its ID.
+      operationId: DescribeSshKey
+      parameters:
+        - name: keyId
+          in: path
+          description: SSH key numeric identifier.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DescribeSshKeyResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+        "404":
+          description: SSH key not found
+      security:
+        - BearerAuth: []
+    delete:
+      tags:
+        - ssh-keys
+      summary: Delete SSH key
+      description: Deletes the given SSH public key by its ID.
+      operationId: DeleteSshKey
+      parameters:
+        - name: keyId
+          in: path
+          description: SSH key numeric identifier.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "204":
+          description: OK - No content
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+      security:
+        - BearerAuth: []
+  /orgs/{orgId}/workspaces/{workspaceId}/users/{userId}:
+    delete:
+      tags:
+        - workspaces
+      summary: Delete workspace user
+      description: Deletes the given user (member or collaborator) from the given workspace.
+      operationId: DeleteWorkspaceUser
+      parameters:
+        - name: orgId
+          in: path
+          description: Organization numeric identifier.
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: workspaceId
+          in: path
+          description: Workspace numeric identifier.
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: userId
+          in: path
+          description: User numeric identifier.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "204":
+          description: OK - No content
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Operation not allowed
+      security:
+        - BearerAuth: []
 components:
   schemas:
     AbstractGridConfig:
@@ -8267,16 +8783,21 @@ components:
           type: integer
           format: int64
           nullable: true
+          description: "Token numeric identifier."
         name:
-          maxLength: 50
+          maxLength: 100
           minLength: 1
           type: string
+          description: "Token name for identification (1-100 characters)."
         lastUsed:
           type: string
           format: date-time
+          description: "Timestamp when the token was last used for authentication."
         dateCreated:
           type: string
           format: date-time
+          description: "Timestamp when the token was created."
+      description: "Personal access token for API authentication. Tokens provide programmatic access to the Seqera Platform API."
     Action.ConfigType:
       type: object
       properties:
@@ -8438,10 +8959,14 @@ components:
           readOnly: true
         connectionId:
           type: string
+          description: "Tower Agent connection identifier."
         workDir:
           type: string
+          description: "Working directory path for the Tower Agent."
         shared:
           type: boolean
+          description: "Whether the agent connection is shared across multiple workspaces."
+      description: "Tower Agent credentials for connecting to HPC compute environments without an SSH client."
     AllowedDynamicLabelsResponse:
       type: object
       properties:
@@ -8790,11 +9315,15 @@ components:
           readOnly: true
         accessKey:
           type: string
+          description: "AWS IAM access key ID."
         secretKey:
           type: string
           writeOnly: true
+          description: "AWS IAM secret access key."
         assumeRoleArn:
           type: string
+          description: "IAM role ARN to assume when using these credentials (optional)."
+      description: "AWS credentials for authenticating with Amazon Web Services. Supports IAM access keys, session tokens, and assume role configuration."
     AzBatchConfig:
       title: Azure batch configuration
       type: object
@@ -8972,6 +9501,7 @@ components:
             clientSecret:
               type: string
               writeOnly: true
+      description: "Azure Entra ID (formerly Azure Active Directory) credentials for service principal authentication."
     AzureReposSecurityKeys:
       type: object
       properties:
@@ -8980,9 +9510,12 @@ components:
           readOnly: true
         username:
           type: string
+          description: "Azure DevOps username or organization name."
         password:
           type: string
           writeOnly: true
+          description: "Azure DevOps personal access token (PAT)."
+      description: "Credentials for authenticating with Azure DevOps repositories."
     AzureSecurityKeys:
       type: object
       properties:
@@ -8999,6 +9532,7 @@ components:
         storageKey:
           type: string
           writeOnly: true
+      description: "Azure Storage credentials for authenticating with Azure Blob Storage or Azure Files."
     BitBucketSecurityKeys:
       type: object
       properties:
@@ -9010,9 +9544,12 @@ components:
           writeOnly: true
         username:
           type: string
+          description: "Bitbucket username."
         password:
           type: string
           writeOnly: true
+          description: "Bitbucket app password or personal access token."
+      description: "Bitbucket credentials for authenticating with Bitbucket Cloud or Bitbucket Server repositories."
     Bucket:
       type: object
       properties:
@@ -9034,9 +9571,12 @@ components:
           readOnly: true
         username:
           type: string
+          description: "CodeCommit HTTPS Git credentials username."
         password:
           type: string
           writeOnly: true
+          description: "CodeCommit HTTPS Git credentials password."
+      description: "AWS CodeCommit credentials for authenticating with AWS CodeCommit repositories."
     ComputeConfig:
       type: object
       properties:
@@ -9338,23 +9878,32 @@ components:
           readOnly: true
         userName:
           type: string
+          description: "Container registry username."
         password:
           type: string
           writeOnly: true
+          description: "Container registry password or access token."
         registry:
           type: string
+          description: "Container registry server URL (e.g., docker.io, quay.io, or custom registry domain)."
+      description: "Container registry credentials for authenticating with container registries including AWS ECR, Docker Hub, and Google Artifact Registry."
     CreateAccessTokenRequest:
       type: object
       properties:
         name:
           type: string
+          description: "Name for the new token (used for identification in token list)."
+      description: "Request to create a new personal access token."
     CreateAccessTokenResponse:
       type: object
       properties:
         accessKey:
           type: string
+          description: "The token secret value (only returned during creation, store securely)."
         token:
           $ref: "#/components/schemas/AccessToken"
+          description: "Token metadata object with ID and creation timestamp."
+      description: "Response containing the newly created access token. The token value is only returned once during creation."
     CreateActionRequest:
       type: object
       properties:
@@ -9399,48 +9948,68 @@ components:
       properties:
         credentials:
           $ref: "#/components/schemas/Credentials"
+          description: "Credentials object containing provider type, name, and authentication keys."
+      description: "Request to create new cloud provider or service credentials."
     CreateCredentialsResponse:
       type: object
       properties:
         credentialsId:
           type: string
+          description: "String identifier of the created credentials."
+      description: "Response containing the ID of the newly created credentials."
     CreateDatasetRequest:
       type: object
       properties:
         name:
           type: string
+          description: "Name for the new dataset."
         description:
           type: string
+          description: "Optional description of the dataset purpose and contents."
+      description: "Request to create a new dataset in a workspace or user context."
     CreateDatasetResponse:
       type: object
       properties:
         dataset:
           $ref: "#/components/schemas/DatasetDto"
+          description: "Created dataset object with ID and metadata."
+      description: "Response containing the created dataset metadata."
     CreateLabelRequest:
       type: object
       properties:
         name:
           type: string
+          description: "Label key name."
         value:
           type: string
+          description: "Label value."
         resource:
           type: boolean
+          description: "Set to true to create a resource label."
         isDefault:
           type: boolean
+          description: "Set to true to automatically apply this label to new resources."
+      description: "Request to create a new label in a workspace context."
     CreateLabelResponse:
       type: object
       properties:
         id:
           type: integer
           format: int64
+          description: "Numeric identifier of the created label."
         name:
           type: string
+          description: "Label name."
         value:
           type: string
+          description: "Label value."
         resource:
           type: boolean
+          description: "Whether this is a resource label."
         isDefault:
           type: boolean
+          description: "Whether this label is applied to new resources by default."
+      description: "Response containing the created label metadata."
     CreateManagedCredentialsRequest:
       type: object
       properties:
@@ -9596,11 +10165,15 @@ components:
         id:
           maxLength: 22
           type: string
+          description: "Credentials string identifier."
         name:
           maxLength: 100
           type: string
+          minLength: 1
+          description: "Unique name for the credentials. Must be 1-100 alphanumeric, dash, or underscore characters."
         description:
           type: string
+          description: "Optional description of the credentials and their intended use."
         provider:
           maxLength: 16
           type: string
@@ -9626,6 +10199,7 @@ components:
           maxLength: 200
           pattern: ""
           type: string
+          description: "Base URL for the container registry server. Required for container registry credentials — defaults to docker.io)."
         category:
           maxLength: 20
           type: string
@@ -9646,6 +10220,8 @@ components:
           readOnly: true
         keys:
           $ref: "#/components/schemas/SecurityKeys"
+          description: "Authentication keys and secrets for the credential provider. Structure varies by provider type."
+      description: "Cloud provider or service credentials for authentication. Used to connect compute environments, access storage, and integrate with external services."
     DataLink.Status:
       type: string
       readOnly: true
@@ -10359,65 +10935,91 @@ components:
       properties:
         id:
           type: string
+          description: "Dataset string identifier."
         user:
           $ref: "#/components/schemas/UserInfo"
+          description: "User who created the dataset."
         workspaceId:
           type: integer
           format: int64
+          description: "Workspace numeric identifier where the dataset is stored."
         organizationId:
           type: integer
           format: int64
+          description: "Organization numeric identifier that owns the dataset."
         name:
           type: string
+          description: "Dataset name."
         lastUpdatedBy:
           $ref: "#/components/schemas/UserInfo"
+          description: "User who last updated the dataset."
         description:
           type: string
+          description: "Optional description of the dataset contents and purpose."
         mediaType:
           type: string
+          description: "MIME type of the dataset file. Accepts text/csv or text/tsv."
         dateCreated:
           type: string
           format: date-time
+          description: "Timestamp when the dataset was created."
         lastUpdated:
           type: string
           format: date-time
+          description: "Timestamp when the dataset was last modified."
         deleted:
           type: boolean
+          description: "Whether the dataset has been deleted (soft delete)."
         labels:
           type: array
           items:
             $ref: "#/components/schemas/LabelDbDto"
+          description: "Labels associated with the dataset for organization and filtering."
         version:
           type: integer
           format: int64
+          description: "Current version number of the dataset (increments with each update)."
+      description: "Dataset metadata object containing information about a dataset in a workspace or user context. Datasets store tabular data and file references for workflow inputs."
     DatasetVersionDto:
       type: object
       properties:
         datasetId:
           type: string
+          description: "Parent dataset string identifier."
         datasetName:
           type: string
+          description: "Name of the parent dataset."
         datasetDescription:
           type: string
+          description: "Description of the parent dataset."
         hasHeader:
           type: boolean
+          description: "Whether the CSV dataset file contains a header row."
         version:
           type: integer
           format: int64
+          description: "Version number of this dataset version."
         createdBy:
           $ref: "#/components/schemas/UserInfo"
+          description: "User who created this dataset version."
         lastUpdated:
           type: string
           format: date-time
+          description: "Timestamp when this version was created."
         fileName:
           type: string
+          description: "Original filename of the uploaded dataset file."
         mediaType:
           type: string
+          description: "MIME type of the dataset file. Accepts text/csv or text/tsv."
         workspaceId:
           type: integer
           format: int64
+          description: "Workspace numeric identifier where the dataset version is stored."
         url:
           type: string
+          description: "Pre-signed URL for downloading the dataset version file."
+      description: "Dataset version metadata containing information about a specific version of a dataset. Each dataset upload creates a new version."
     DeleteCredentialsConflictResponse:
       type: object
       properties:
@@ -10489,11 +11091,15 @@ components:
       properties:
         credentials:
           $ref: "#/components/schemas/Credentials"
+          description: "Credentials object with provider type, name, and metadata (keys are not returned)."
+      description: "Response containing full details of a credentials object."
     DescribeDatasetResponse:
       type: object
       properties:
         dataset:
           $ref: "#/components/schemas/DatasetDto"
+          description: "Dataset object with ID, name, description, and version information."
+      description: "Response containing full details of a dataset."
     DescribeLaunchResponse:
       type: object
       properties:
@@ -10812,9 +11418,12 @@ components:
           readOnly: true
         username:
           type: string
+          description: "GitHub username."
         password:
           type: string
           writeOnly: true
+          description: "GitHub personal access token (classic or fine-grained)."
+      description: "GitHub credentials for authenticating with GitHub repositories and API."
     GitLabSecurityKeys:
       type: object
       properties:
@@ -10824,11 +11433,15 @@ components:
         token:
           type: string
           writeOnly: true
+          description: "GitLab personal access token (alternative to username/password)."
         username:
           type: string
+          description: "GitLab username."
         password:
           type: string
           writeOnly: true
+          description: "GitLab personal access token or password."
+      description: "GitLab credentials for authenticating with GitLab repositories and API (GitLab.com or self-hosted)."
     GiteaSecurityKeys:
       type: object
       properties:
@@ -10837,9 +11450,12 @@ components:
           readOnly: true
         username:
           type: string
+          description: "Gitea username."
         password:
           type: string
           writeOnly: true
+          description: "Gitea password or access token."
+      description: "Gitea credentials for authenticating with self-hosted Gitea repositories."
     GithubActionConfig:
       type: object
       properties:
@@ -11174,6 +11790,7 @@ components:
         data:
           type: string
           writeOnly: true
+      description: "Google Cloud credentials for authenticating with Google Cloud Platform services."
     GridPlatformMetainfo:
       type: object
       properties:
@@ -11317,33 +11934,45 @@ components:
           readOnly: true
         certificate:
           type: string
+          description: "Base64-encoded client certificate for Kubernetes authentication."
         privateKey:
           type: string
           writeOnly: true
+          description: "Base64-encoded private key for Kubernetes authentication."
         token:
           type: string
           writeOnly: true
+      description: "Kubernetes credentials for authenticating with Kubernetes clusters."
     LabelDbDto:
       type: object
       properties:
         id:
           type: integer
           format: int64
+          description: "Label numeric identifier."
         name:
           type: string
+          description: "Label key name."
         value:
           type: string
+          description: "Label value."
         resource:
           type: boolean
+          description: "Whether this is a resource label (applied to workflow tasks for compute resource allocation)."
         isDefault:
           type: boolean
+          description: "Whether this label is automatically applied to new resources by default."
         isDynamic:
           type: boolean
+          description: "Whether this label's value can be dynamically computed from workflow metadata."
         isInterpolated:
           type: boolean
+          description: "Whether this label contains interpolated variables resolved at runtime."
         dateCreated:
           type: string
           format: date-time
+          description: "Timestamp when the label was created."
+      description: "Label object for categorizing and organizing resources (workflows, pipelines, compute environments, actions, datasets)."
     LabelType:
       type: string
       enum:
@@ -11463,6 +12092,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/AccessToken"
+          description: "Array of token metadata objects (token secrets are not returned in list operations)."
+      description: "Response containing all personal access tokens for the authenticated user."
     ListActionsResponse:
       type: object
       properties:
@@ -11541,6 +12172,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Credentials"
+          description: "Array of credentials objects (keys are not returned in list operations)."
+      description: "Response containing a list of credentials accessible to the user in the specified context."
     ListDatasetVersionsResponse:
       type: object
       properties:
@@ -11548,6 +12181,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/DatasetVersionDto"
+          description: "Array of dataset version objects ordered by version number."
+      description: "Response containing all versions of a specific dataset."
     ListDatasetsResponse:
       type: object
       properties:
@@ -11555,6 +12190,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/DatasetDto"
+          description: "Array of dataset objects with metadata."
+      description: "Response containing a list of datasets in a workspace or user context."
     ListEventTypesResponse:
       type: object
       properties:
@@ -11569,9 +12206,12 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/LabelDbDto"
+          description: "Array of label objects."
         totalSize:
           type: integer
           format: int64
+          description: "Total number of labels (for pagination)."
+      description: "Response containing labels in a workspace context with pagination support."
     ListManagedCredentialsRespDto:
       type: object
       properties:
@@ -11650,7 +12290,8 @@ components:
         totalSize:
           type: integer
           format: int32
-          description: "Total number of organizations to which the requesting user belongs."
+          description: "Total number of organizations (for pagination)."
+      description: "Response containing organizations accessible to the authenticated user."
     ListParticipantsResponse:
       type: object
       properties:
@@ -11960,25 +12601,36 @@ components:
         orgId:
           type: integer
           format: int64
+          description: "Organization numeric identifier."
         orgName:
           type: string
+          description: "Organization name."
         orgLogoUrl:
           type: string
+          description: "URL to the organization's logo image."
         orgType:
           $ref: "#/components/schemas/OrgType"
+          description: "Organization subscription type."
         workspaceId:
           type: integer
           format: int64
+          description: "Workspace numeric identifier."
         workspaceName:
           type: string
+          description: "Workspace name (unique within the organization)."
         workspaceFullName:
           type: string
+          description: "Full workspace name including organization prefix (e.g., org-name/workspace-name)."
         visibility:
           $ref: "#/components/schemas/Visibility"
+          type: string
+          description: "Workspace visibility level (PRIVATE or SHARED)."
         roles:
           type: array
           items:
             type: string
+          description: "User's roles in this organization (owner, member, collaborator)."
+      description: "Combined organization and workspace reference object used for navigation and context switching."
     OrgRole:
       type: string
       enum:
@@ -12092,6 +12744,7 @@ components:
             - academic
             - evaluating
           description: "Organization type. Accepts `pro`, `basic`, `academic`, or `evaluating`."
+      description: "Organization database object containing full organization details including metadata, subscription status, and member role information."
     OrganizationQuotas:
       type: object
       properties:
@@ -14485,6 +15138,315 @@ components:
         fusion2Enabled:
           type: boolean
           description: "Enable Fusion v2 virtual distributed file system. See [Fusion file system](https://docs.seqera.io/platform-cloud/supported_software/fusion)."
+    CreatePipelineSchemaRequest:
+      type: object
+      properties:
+        content:
+          type: string
+          description: "Pipeline schema content in JSON or YAML format defining the pipeline configuration structure."
+    CreatePipelineSchemaResponse:
+      type: object
+      properties:
+        pipelineSchema:
+          $ref: "#/components/schemas/PipelineSchemaDbDto"
+          description: "The created pipeline schema details."
+    CreatePipelineVersionRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: "Pipeline version name. Maximum 255 characters."
+    CreateSshKeyRequest:
+      required:
+        - name
+        - publicKey
+      type: object
+      properties:
+        name:
+          type: string
+          required: true
+          description: "SSH key name. Maximum 255 characters."
+        publicKey:
+          type: string
+          required: true
+          description: "SSH public key content in OpenSSH format (e.g., `ssh-rsa`, `ssh-ed25519`)."
+    CreateSshKeyResponse:
+      type: object
+      properties:
+        sshKey:
+          $ref: "#/components/schemas/UserSshPublicKeyDto"
+          description: "The created SSH key details."
+    DescribeSshKeyResponse:
+      type: object
+      properties:
+        sshKey:
+          $ref: "#/components/schemas/UserSshPublicKeyDto"
+          description: "SSH key details."
+    GetCredentialsKeysResponse:
+      type: object
+      properties:
+        keys:
+          type: string
+          description: "Encrypted credentials keys. The format and content depend on the credential type and encryption method."
+    LaunchDbDto:
+      type: object
+      properties:
+        id:
+          type: string
+        workspaceId:
+          type: integer
+          format: int64
+        computeEnv:
+          $ref: "#/components/schemas/ComputeEnv_ComputeConfig_"
+        pipeline:
+          type: string
+        workDir:
+          type: string
+        revision:
+          type: string
+        commitId:
+          type: string
+        configText:
+          type: string
+        towerConfig:
+          type: string
+        paramsText:
+          type: string
+        preRunScript:
+          type: string
+        postRunScript:
+          type: string
+        mainScript:
+          type: string
+        entryName:
+          type: string
+        schemaName:
+          type: string
+        resume:
+          type: boolean
+        resumeLaunchId:
+          type: string
+        pullLatest:
+          type: boolean
+        stubRun:
+          type: boolean
+        sessionId:
+          type: string
+        runName:
+          type: string
+        configProfiles:
+          type: array
+          items:
+            type: string
+        userSecrets:
+          type: array
+          items:
+            type: string
+        workspaceSecrets:
+          type: array
+          items:
+            type: string
+        optimizationId:
+          type: string
+        optimizationTargets:
+          type: string
+        headJobCpus:
+          type: integer
+          format: int32
+        headJobMemoryMb:
+          type: integer
+          format: int32
+        launchContainer:
+          type: string
+        dateCreated:
+          type: string
+          format: date-time
+        lastUpdated:
+          type: string
+          format: date-time
+        pipelineSchemaId:
+          type: integer
+          format: int64
+    ListPipelineVersionsResponse:
+      type: object
+      properties:
+        versions:
+          type: array
+          items:
+            $ref: "#/components/schemas/PipelineDbDto"
+          description: "Array of pipeline versions."
+        totalSize:
+          type: integer
+          format: int64
+          description: "Total number of pipeline versions available."
+    ListSshKeysResponse:
+      type: object
+      properties:
+        sshKeys:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserSshPublicKeyDto"
+          description: "Array of SSH keys configured for the authenticated user."
+    PipelineMinInfoResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: "Pipeline numeric identifier."
+        workspaceId:
+          type: integer
+          format: int64
+          description: "Workspace numeric identifier where the pipeline is located."
+        version:
+          $ref: "#/components/schemas/PipelineMinInfoResponse.PipelineVersionMinInfoResponse"
+          description: "Pipeline version information."
+    PipelineMinInfoResponse.PipelineVersionMinInfoResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: "Pipeline version string identifier."
+        name:
+          type: string
+          description: "Pipeline version name."
+        dateCreated:
+          type: string
+          format: date-time
+          description: "Date and time the version was created, in ISO 8601 format."
+        lastUpdated:
+          type: string
+          format: date-time
+          description: "Date and time the version was last updated, in ISO 8601 format."
+        hash:
+          type: string
+          description: "Git commit hash for this version."
+        isDefault:
+          type: boolean
+          description: "Whether this version is the default version."
+        isDraftVersion:
+          type: boolean
+          description: "Whether this version is a draft (unpublished) version."
+    PipelineSchemaDbDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        content:
+          type: string
+      description: "Pipeline schema database representation containing schema metadata and content."
+    PipelineVersionFullInfoDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: "Pipeline version string identifier (launch ID)."
+        creatorUserId:
+          type: integer
+          format: int64
+          description: "User numeric identifier of the user who created this version."
+        creatorUserName:
+          type: string
+          description: "Username of the user who created this version."
+        creatorFirstName:
+          type: string
+          description: "First name of the user who created this version."
+        creatorLastName:
+          type: string
+          description: "Last name of the user who created this version."
+        creatorAvatarUrl:
+          type: string
+          description: "Avatar URL of the user who created this version."
+        name:
+          type: string
+          description: "Pipeline version name."
+        dateCreated:
+          type: string
+          format: date-time
+          description: "Date and time the version was created, in ISO 8601 format."
+        lastUpdated:
+          type: string
+          format: date-time
+          description: "Date and time the version was last updated, in ISO 8601 format."
+        hash:
+          type: string
+          description: "Git commit hash for this pipeline version."
+        isDefault:
+          type: boolean
+          description: "Whether this version is set as the default version for the pipeline."
+    PipelineVersionManageRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: "New name for the pipeline version. Maximum 255 characters. Cannot be changed if the version is referenced by workflow runs."
+        isDefault:
+          type: boolean
+          description: "Whether to set this version as the default. Setting to `true` automatically unsets any previously default version."
+    StudioSshDetailsDto:
+      required:
+        - command
+        - host
+        - port
+        - user
+      type: object
+      properties:
+        host:
+          type: string
+          description: Hostname or IP address to connect to the Studio via SSH.
+          required: true
+        port:
+          type: integer
+          description: SSH port number for the connection.
+          format: int32
+          required: true
+        user:
+          type: string
+          description: SSH username in the format `username@sessionId`.
+          required: true
+        command:
+          type: string
+          description: Complete SSH command to connect to the Data Studio session.
+          example: ssh username@sessionId@host -p port
+          required: true
+      description: SSH connection details for a Studio session
+    UserSshPublicKeyDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: "SSH key numeric identifier."
+        name:
+          type: string
+          description: "SSH key name."
+        publicKey:
+          type: string
+          description: "SSH public key content in OpenSSH format."
+        dateCreated:
+          type: string
+          format: date-time
+          description: "Date and time the SSH key was created, in ISO 8601 format."
+        lastUsed:
+          type: string
+          format: date-time
+          description: "Date and time the SSH key was last used for authentication, in ISO 8601 format. Can be `null` if never used."
+    WorkflowMaxDbDto:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/WorkflowDbDto"
+        - properties:
+            fusion:
+              $ref: "#/components/schemas/WfFusionMeta"
+            wave:
+              $ref: "#/components/schemas/WfWaveMeta"
+            logFile:
+              type: string
+            outFile:
+              type: string
+            operationId:
+              type: string
   securitySchemes:
     BearerAuth:
       type: http
