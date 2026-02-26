@@ -270,8 +270,12 @@
 
 .searchResultItemPath {
   font-size: 0.8rem;
-  color: var(--ifm-color-content-secondary);
+  color: var(--ifm-font-color-base);
   --ifm-breadcrumb-separator-size-multiplier: 1;
+}
+
+.searchResultItemPath :global(.breadcrumbs__item:not(:last-child))::after {
+  margin: 0 0.1875rem;
 }
 
 .searchResultItemSummary {
