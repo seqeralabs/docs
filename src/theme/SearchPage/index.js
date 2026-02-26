@@ -26,6 +26,178 @@ import Translate, { translate } from '@docusaurus/Translate';
 import Layout from '@theme/Layout';
 import styles from './styles.module.css';
 import TypesenseInstantSearchAdapter from 'typesense-instantsearch-adapter';
+// Non-content docusaurus_tag values to always exclude from search results.
+// Verified against live Typesense facets — blog/doc-list tags have zero documents
+// and are kept here defensively in case content is re-indexed with those tags.
+const NON_CONTENT_TAGS = ['default', 'doc_tag_doc_list', 'blog_posts_list', 'blog_tags_posts', 'doc_tags_list', 'blog_tags_list'];
+// Maps URL path prefixes to [label, pluginId, customTag].
+// - pluginId: matches the Docusaurus plugin id in allDocsData (versioned/unversioned plugins)
+// - customTag: explicit docusaurus_tag for products served via URL rewrite with no local plugin
+//   (e.g. Nextflow is an external site rewritten to /nextflow/, indexed as docs-default-current)
+const PRODUCT_ROUTES = [
+    ['/platform-enterprise/', 'Platform Enterprise', 'platform-enterprise', null],
+    ['/platform-cloud/', 'Platform Cloud', 'platform-cloud', null],
+    ['/platform-cli/', 'Platform CLI', 'platform-cli', null],
+    ['/platform-api/', 'Platform API', 'platform-api', null],
+    ['/nextflow/', 'Nextflow', null, 'docs-default-current'],
+    ['/multiqc/', 'MultiQC', 'multiqc', null],
+    ['/wave/', 'Wave', 'wave', null],
+    ['/fusion/', 'Fusion', 'fusion', null],
+    ['/changelog/', 'Changelog', null, null],
+];
+function getProductLabel(pathname) {
+    const match = PRODUCT_ROUTES.find(([prefix]) => pathname.startsWith(prefix));
+    return match ? match[1] : null;
+}
+// Custom dropdown for product/version filtering.
+// A native <select> always closes and commits a value on click, making it impossible
+// to let Platform Enterprise "expand" sub-options without immediately selecting it.
+function FilterSelect({ value, onChange, options }) {
+    const [isOpen, setIsOpen] = useState(false);
+    const [expandedId, setExpandedId] = useState(null);
+    const containerRef = useRef(null);
+    // Close when clicking outside
+    useEffect(() => {
+        if (!isOpen) return undefined;
+        function handleClickOutside(e) {
+            if (containerRef.current && !containerRef.current.contains(e.target)) {
+                setIsOpen(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [isOpen]);
+    // Auto-expand the selected product's group when the dropdown opens
+    useEffect(() => {
+        if (!isOpen || !value) return;
+        const productId = value.includes('@') ? value.split('@')[0] : value;
+        const product = options.find((o) => o.id === productId);
+        if (product && product.versions.length > 1) {
+            setExpandedId(productId);
+        }
+    }, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+    function handleSelect(newValue) {
+        onChange(newValue);
+        setIsOpen(false);
+        setExpandedId(null);
+    }
+    // Build the trigger label from the current value
+    const triggerLabel = (() => {
+        if (!value) return translate({ id: 'theme.SearchPage.allProductsOption', message: 'All products' });
+        const [productId, versionName] = value.includes('@') ? value.split('@') : [value, null];
+        const product = options.find((o) => o.id === productId);
+        if (!product) return translate({ id: 'theme.SearchPage.allProductsOption', message: 'All products' });
+        if (versionName) {
+            const version = product.versions.find((v) => v.name === versionName);
+            return `${product.label} \u2013 ${version?.label || versionName}`;
+        }
+        if (product.versions.length > 1) {
+            const current = product.versions.find((v) => v.isLast) || product.versions[0];
+            return `${product.label} \u2013 Current (${current.label})`;
+        }
+        return product.label;
+    })();
+    return (
+        <div className={styles.filterSelectWrapper} ref={containerRef}>
+            <div className={clsx(styles.filterBox, isOpen && styles.filterBoxOpen)}>
+                <button
+                    type="button"
+                    className={styles.filterTrigger}
+                    onClick={() => setIsOpen((o) => !o)}
+                    aria-haspopup="listbox"
+                    aria-expanded={isOpen}
+                >
+                    <span>{triggerLabel}</span>
+                    <svg
+                        aria-hidden="true"
+                        className={clsx(styles.filterTriggerChevron, isOpen ? styles.filterTriggerChevronOpen : styles.filterTriggerChevronClosed)}
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="4 4 16 16"
+                        fill="currentColor"
+                    >
+                        <path d="M11.8152 13.1989L10.0167 11.1432C9.80447 10.9013 9.97697 10.5214 10.2991 10.5214H13.8961C13.9682 10.5214 14.0388 10.5421 14.0994 10.5811C14.16 10.6201 14.2081 10.6758 14.2379 10.7414C14.2677 10.8071 14.2779 10.8799 14.2674 10.9512C14.2569 11.0226 14.226 11.0893 14.1785 11.1435L12.38 13.1985C12.3448 13.2388 12.3014 13.2711 12.2527 13.2932C12.204 13.3153 12.1511 13.3268 12.0976 13.3268C12.0441 13.3268 11.9912 13.3153 11.9425 13.2932C11.8938 13.2711 11.8504 13.2388 11.8152 13.1985V13.1989Z"/>
+                    </svg>
+                </button>
+            </div>
+            {isOpen && (
+                <ul className={styles.filterDropdown} role="listbox">
+                    <li
+                        role="option"
+                        aria-selected={!value}
+                        className={clsx(styles.filterOption, !value && styles.filterOptionActive)}
+                        onClick={() => handleSelect('')}
+                    >
+                        {translate({ id: 'theme.SearchPage.allProductsOption', message: 'All products' })}
+                    </li>
+                    {options.map((option) => {
+                        if (option.versions.length > 1) {
+                            const isExpanded = expandedId === option.id;
+                            const isActive = value === option.id || value.startsWith(`${option.id}@`);
+                            const currentVersion = option.versions.find((v) => v.isLast) || option.versions[0];
+                            const olderVersions = option.versions.filter((v) => !v.isLast);
+                            return (
+                                <React.Fragment key={option.id}>
+                                    <li
+                                        role="option"
+                                        aria-selected={false}
+                                        aria-expanded={isExpanded}
+                                        className={clsx(styles.filterOption, styles.filterOptionExpandable, isActive && styles.filterOptionActive)}
+                                        onClick={() => setExpandedId(isExpanded ? null : option.id)}
+                                    >
+                                        <span>{option.label}</span>
+                                        <svg
+                                            aria-hidden="true"
+                                            className={clsx(styles.filterExpandChevron, isExpanded ? styles.filterTriggerChevronOpen : styles.filterTriggerChevronClosed)}
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="4 4 16 16"
+                                            fill="currentColor"
+                                        >
+                                            <path d="M11.8152 13.1989L10.0167 11.1432C9.80447 10.9013 9.97697 10.5214 10.2991 10.5214H13.8961C13.9682 10.5214 14.0388 10.5421 14.0994 10.5811C14.16 10.6201 14.2081 10.6758 14.2379 10.7414C14.2677 10.8071 14.2779 10.8799 14.2674 10.9512C14.2569 11.0226 14.226 11.0893 14.1785 11.1435L12.38 13.1985C12.3448 13.2388 12.3014 13.2711 12.2527 13.2932C12.204 13.3153 12.1511 13.3268 12.0976 13.3268C12.0441 13.3268 11.9912 13.3153 11.9425 13.2932C11.8938 13.2711 11.8504 13.2388 11.8152 13.1985V13.1989Z"/>
+                                        </svg>
+                                    </li>
+                                    {isExpanded && (
+                                        <>
+                                            <li
+                                                role="option"
+                                                aria-selected={value === option.id}
+                                                className={clsx(styles.filterOption, styles.filterSubOption, value === option.id && styles.filterOptionActive)}
+                                                onClick={() => handleSelect(option.id)}
+                                            >
+                                                Current ({currentVersion.label})
+                                            </li>
+                                            {olderVersions.map((v, i) => (
+                                                <li
+                                                    key={i}
+                                                    role="option"
+                                                    aria-selected={value === `${option.id}@${v.name}`}
+                                                    className={clsx(styles.filterOption, styles.filterSubOption, value === `${option.id}@${v.name}` && styles.filterOptionActive)}
+                                                    onClick={() => handleSelect(`${option.id}@${v.name}`)}
+                                                >
+                                                    {v.label}
+                                                </li>
+                                            ))}
+                                        </>
+                                    )}
+                                </React.Fragment>
+                            );
+                        }
+                        return (
+                            <li
+                                key={option.id}
+                                role="option"
+                                aria-selected={value === option.id}
+                                className={clsx(styles.filterOption, value === option.id && styles.filterOptionActive)}
+                                onClick={() => handleSelect(option.id)}
+                            >
+                                {option.label}
+                            </li>
+                        );
+                    })}
+                </ul>
+            )}
+        </div>
+    );
+}
 // Very simple pluralization: probably good enough for now
 function useDocumentsFoundPlural() {
     const { selectMessage } = usePluralForm();
@@ -72,6 +244,22 @@ function SearchPageContent() {
     const { typesense: { typesenseCollectionName, typesenseServerConfig, typesenseSearchParameters, contextualSearch, externalUrlRegex, }, } = themeConfig;
     const documentsFoundPlural = useDocumentsFoundPlural();
     const docsSearchVersionsHelpers = useDocsSearchVersionsHelpers();
+    // Compute tags for old versions of versioned plugins to exclude from results,
+    // so only the latest version of each plugin appears by default.
+    // The exclusion approach (rather than a whitelist) is used deliberately so that
+    // content accessible via URL rewrites or non-standard tags is not accidentally dropped.
+    const oldVersionTags = useMemo(() => {
+        const tags = [];
+        Object.entries(docsSearchVersionsHelpers.allDocsData).forEach(([pluginId, pluginData]) => {
+            if (pluginData.versions.length > 1) {
+                const latest = pluginData.versions.find((v) => v.isLast) || pluginData.versions[0];
+                pluginData.versions
+                    .filter((v) => v.name !== latest.name)
+                    .forEach((v) => tags.push(`docs-${pluginId}-${v.name}`));
+            }
+        });
+        return tags;
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
     const { searchQuery, setSearchQuery } = useSearchPage();
     // inputValue tracks the live input; searchQuery only updates on submit
     const [inputValue, setInputValue] = useState(searchQuery);
@@ -79,6 +267,27 @@ function SearchPageContent() {
     useEffect(() => {
         setInputValue(searchQuery);
     }, [searchQuery]);
+    // Single filter state: '' | 'productId' | 'productId@versionName'
+    const [selectedFilter, setSelectedFilter] = useState('');
+    // Products available for filtering — plugin-based products (from allDocsData) and
+    // rewrite-based products with a known customTag (e.g. Nextflow → docs-default-current).
+    // Each entry has a stable `id` used as the select option value:
+    //   - plugin-based: id = pluginId
+    //   - rewrite-based: id = customTag (pluginId is null)
+    const productOptions = useMemo(() => PRODUCT_ROUTES
+        .filter(([,, pluginId, customTag]) =>
+            (pluginId && docsSearchVersionsHelpers.allDocsData[pluginId]) || customTag
+        )
+        .map(([, label, pluginId, customTag]) => ({
+            id: pluginId || customTag,
+            label,
+            pluginId,
+            customTag,
+            versions: pluginId && docsSearchVersionsHelpers.allDocsData[pluginId]
+                ? docsSearchVersionsHelpers.allDocsData[pluginId].versions
+                : [],
+        })),
+    []); // eslint-disable-line react-hooks/exhaustive-deps
     const initialSearchResultState = {
         items: [],
         query: null,
@@ -123,21 +332,60 @@ function SearchPageContent() {
     // Creating a new TypesenseInstantSearchAdapter on every render causes repeated
     // network activity and accumulates stale event listeners.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const typesenseInstantSearchAdapter = useMemo(() => new TypesenseInstantSearchAdapter({
-        server: typesenseServerConfig,
-        additionalSearchParameters: {
-            // Defaults matching typesense-docsearch-react (SearchBar) behaviour
-            query_by: 'hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3,hierarchy.lvl4,hierarchy.lvl5,hierarchy.lvl6,content',
-            include_fields: 'hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3,hierarchy.lvl4,hierarchy.lvl5,hierarchy.lvl6,content,anchor,url,type,id',
-            highlight_full_fields: 'hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3,hierarchy.lvl4,hierarchy.lvl5,hierarchy.lvl6,content',
-            group_by: 'url',
-            group_limit: 1,
-            sort_by: 'item_priority:desc',
-            snippet_threshold: 8,
-            highlight_affix_num_tokens: 4,
-            ...typesenseSearchParameters,
-        },
-    }), []); // eslint-disable-line react-hooks/exhaustive-deps
+    const typesenseInstantSearchAdapter = useMemo(() => {
+        // Parse selectedFilter: '' | 'productId' | 'productId@versionName'
+        const atIdx = selectedFilter.indexOf('@');
+        const filterId = atIdx >= 0 ? selectedFilter.slice(0, atIdx) : selectedFilter;
+        const filterVersion = atIdx >= 0 ? selectedFilter.slice(atIdx + 1) : null;
+        const filterProduct = filterId ? productOptions.find((p) => p.id === filterId) : null;
+        let filterBy;
+        if (filterProduct) {
+            // Specific product selected: use an explicit inclusion filter so old versions
+            // are not accidentally blocked by the config-level exclusion list.
+            // We rebuild from NON_CONTENT_TAGS rather than typesenseSearchParameters.filter_by
+            // because the config filter already excludes old version tags, which would
+            // conflict when the user intentionally selects an older version.
+            let inclusionTag;
+            if (filterProduct.customTag) {
+                // Rewrite-based product (e.g. Nextflow): use its known docusaurus_tag directly
+                inclusionTag = filterProduct.customTag;
+            } else {
+                const targetVersionName = filterVersion
+                    || (filterProduct.versions.find((v) => v.isLast) || filterProduct.versions[0]).name;
+                inclusionTag = `docs-${filterProduct.pluginId}-${targetVersionName}`;
+            }
+            filterBy = [
+                `docusaurus_tag:!=[${NON_CONTENT_TAGS.join(',')}]`,
+                `docusaurus_tag:=[${inclusionTag}]`,
+            ].join(' && ');
+        } else {
+            // All products: use config filter + exclude remaining old version tags.
+            // Exclusion (rather than a whitelist) ensures content accessible via URL
+            // rewrites or non-standard tags is not accidentally dropped.
+            const versionExclusion = oldVersionTags.length > 0
+                ? `docusaurus_tag:!=[${oldVersionTags.join(',')}]`
+                : null;
+            filterBy = [typesenseSearchParameters.filter_by, versionExclusion]
+                .filter(Boolean)
+                .join(' && ');
+        }
+        return new TypesenseInstantSearchAdapter({
+            server: typesenseServerConfig,
+            additionalSearchParameters: {
+                // Defaults matching typesense-docsearch-react (SearchBar) behaviour
+                query_by: 'hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3,hierarchy.lvl4,hierarchy.lvl5,hierarchy.lvl6,content',
+                include_fields: 'hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3,hierarchy.lvl4,hierarchy.lvl5,hierarchy.lvl6,content,anchor,url,type,id',
+                highlight_full_fields: 'hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3,hierarchy.lvl4,hierarchy.lvl5,hierarchy.lvl6,content',
+                group_by: 'url',
+                group_limit: 1,
+                sort_by: 'item_priority:desc',
+                snippet_threshold: 8,
+                highlight_affix_num_tokens: 4,
+                ...typesenseSearchParameters,
+                filter_by: filterBy,
+            },
+        });
+    }, [selectedFilter]); // eslint-disable-line react-hooks/exhaustive-deps
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const algoliaHelper = useMemo(() => algoliaSearchHelper(
         typesenseInstantSearchAdapter.searchClient,
@@ -147,7 +395,7 @@ function SearchPageContent() {
             advancedSyntax: true,
             ...(contextualSearch && { disjunctiveFacets: ['language', 'docusaurus_tag'] }),
         }
-    ), []); // eslint-disable-line react-hooks/exhaustive-deps
+    ), [typesenseInstantSearchAdapter]); // eslint-disable-line react-hooks/exhaustive-deps
     useEffect(() => {
         const sanitizeValue = (value) => value.replace(/algolia-docsearch-suggestion--highlight/g, 'search-result-match');
         function handleResult({ results: { query, hits, page, nbHits, nbPages } }) {
@@ -155,25 +403,44 @@ function SearchPageContent() {
                 searchResultStateDispatcher({ type: 'reset' });
                 return;
             }
-            const items = hits.map(({ url, _highlightResult, _snippetResult: snippet = {}, }) => {
+            const items = hits.map((hit) => {
+                const { url, _highlightResult, _snippetResult: snippet = {} } = hit;
                 const parsedURL = new URL(url);
-                const titles = [0, 1, 2, 3, 4, 5, 6]
+                // Build levels using both raw and highlighted values.
+                // Raw values are plain text matching what the page breadcrumbs show.
+                // Highlighted values show which part of the hierarchy matched the query.
+                const levels = [0, 1, 2, 3, 4, 5, 6]
                     .map((lvl) => {
-                    const highlightResult = _highlightResult[`hierarchy.lvl${lvl}`];
-                    return highlightResult
-                        ? sanitizeValue(highlightResult.value)
-                        : '';
-                })
-                    .filter((v) => v);
+                        // Raw value: try dot-notation key first, then nested object
+                        const raw = hit[`hierarchy.lvl${lvl}`]
+                            || hit.hierarchy?.[`lvl${lvl}`]
+                            || '';
+                        const h = _highlightResult[`hierarchy.lvl${lvl}`];
+                        const highlighted = h ? sanitizeValue(h.value) : raw;
+                        return { raw, highlighted };
+                    })
+                    .filter((l) => l.raw);
+                // Last level is the page/section title; remainder are breadcrumbs
+                const titleLevel = levels.pop();
+                const product = getProductLabel(parsedURL.pathname);
+                // Replace lvl0 ("Documentation") with the product label
+                if (product && levels.length > 0) {
+                    levels[0] = { raw: product, highlighted: product };
+                } else if (product) {
+                    levels.unshift({ raw: product, highlighted: product });
+                }
+                const resultUrl = isRegexpStringMatch(externalUrlRegex, parsedURL.href)
+                    ? parsedURL.href
+                    : parsedURL.pathname + parsedURL.hash;
                 return {
-                    title: titles.pop(),
-                    url: isRegexpStringMatch(externalUrlRegex, parsedURL.href)
-                        ? parsedURL.href
-                        : parsedURL.pathname + parsedURL.hash,
+                    title: titleLevel?.highlighted || '',
+                    url: resultUrl,
                     summary: snippet.content
                         ? `${sanitizeValue(snippet.content.value)}...`
                         : '',
-                    breadcrumbs: titles,
+                    // Include all levels (parent categories + current page/section)
+                    // so the breadcrumb matches the full path shown on the page.
+                    breadcrumbs: [...levels, ...(titleLevel ? [titleLevel] : [])].map((l) => l.raw),
                 };
             });
             searchResultStateDispatcher({
@@ -249,7 +516,7 @@ function SearchPageContent() {
             searchResultStateDispatcher({ type: 'loading' });
             makeSearch();
         }
-    }, [searchQuery, docsSearchVersionsHelpers.searchVersions, makeSearch]);
+    }, [searchQuery, docsSearchVersionsHelpers.searchVersions, makeSearch, selectedFilter]);
     useEffect(() => {
         if (!searchResultState.lastPage || searchResultState.lastPage === 0) {
             return;
@@ -281,6 +548,13 @@ function SearchPageContent() {
               message: 'Search',
               description: 'The ARIA label for search page input',
             })} onChange={(e) => setInputValue(e.target.value)} value={inputValue} autoComplete="off" autoFocus/>
+              {productOptions.length > 0 && (
+                <FilterSelect
+                  value={selectedFilter}
+                  onChange={setSelectedFilter}
+                  options={productOptions}
+                />
+              )}
               <button type="submit" className={styles.searchQueryButton} aria-label={translate({
               id: 'theme.SearchPage.searchButtonLabel',
               message: 'Search',
