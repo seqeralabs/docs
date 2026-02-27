@@ -77,9 +77,16 @@ For role-based AWS credentials, allow the Seqera Cloud access role `arn:aws:iam:
       "Action": "sts:AssumeRole",
       "Condition": {
         "StringEquals": {
-          "sts:ExternalId": "<EXTERNAL_ID>"
+          "sts:ExternalId": "<ExternalId>"
         }
       }
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole"
+      },
+      "Action": "sts:TagSession"
     }
   ]
 }
