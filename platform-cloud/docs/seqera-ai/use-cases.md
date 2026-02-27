@@ -183,7 +183,6 @@ Seqera AI includes built-in slash commands for common workflows.
 | `/debug-last-run` | Debug the last local run |
 | `/debug-last-run-on-seqera` | Debug the last Platform run |
 | `/migrate-from-wdl` | Convert WDL to Nextflow |
-| `/migrate-from-snakemake` | Convert Snakemake to Nextflow |
 | `/convert-python-script` | Convert Python script to Nextflow |
 | `/convert-r-script` | Convert R script to Nextflow |
 | `/convert-jupyter-notebook` | Convert Jupyter notebook to Nextflow |

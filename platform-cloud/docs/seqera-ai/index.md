@@ -29,7 +29,7 @@ Launch, monitor, and debug Nextflow workflows directly from your terminal. Get r
 
 ### Pipeline development
 
-Generate Nextflow configurations, create pipeline schemas, and convert scripts from other workflow languages (WDL, Snakemake) to Nextflow.
+Generate Nextflow configurations, create pipeline schemas, and convert scripts from other workflow languages (WDL, R) to Nextflow.
 
 ### nf-core integration
 
