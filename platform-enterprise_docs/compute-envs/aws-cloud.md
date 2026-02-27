@@ -57,9 +57,13 @@ AWS credentials can be configured in two ways:
 
 Seqera Platform generates the `External ID` value during credential creation (Cloud and Enterprise).
 
+In the credentials form, paste the AWS role ARN in the **Assume role** field. This field is available for both key-based and role-based credentials. It is optional for key-based credentials and required for role-based credentials.
+
 Existing credentials continue to work without changes. The `TOWER_ALLOW_CREDENTIALS` feature behavior is unchanged.
 
 ### Role-based trust policy example (Seqera Enterprise)
+
+For role-based AWS credentials, allow the Seqera Cloud access role `arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole` in your trust policy and enforce the `External ID` generated during credential creation:
 
 ```json
 {
@@ -68,7 +72,7 @@ Existing credentials continue to work without changes. The `TOWER_ALLOW_CREDENTI
     {
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::<ACCOUNT_ID>:user/<IAM_USER_NAME>"
+        "AWS": "arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole"
       },
       "Action": "sts:AssumeRole",
       "Condition": {
