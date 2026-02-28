@@ -63,7 +63,7 @@ Existing credentials continue to work without changes. The `TOWER_ALLOW_CREDENTI
 
 ### Role-based trust policy example (Seqera Enterprise)
 
-For role-based AWS credentials, allow the Seqera Cloud access role `arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole` in your trust policy and enforce the `External ID` generated during credential creation:
+For role-based AWS credentials in Enterprise, use the AWS IAM role configured in your deployment (`<YOUR_SEQERA_ROLE_ARN>`) in your trust policy and enforce the `External ID` generated during credential creation:
 
 ```json
 {
@@ -72,7 +72,7 @@ For role-based AWS credentials, allow the Seqera Cloud access role `arn:aws:iam:
     {
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole"
+        "AWS": "<YOUR_SEQERA_ROLE_ARN>"
       },
       "Action": "sts:AssumeRole",
       "Condition": {
@@ -84,7 +84,7 @@ For role-based AWS credentials, allow the Seqera Cloud access role `arn:aws:iam:
     {
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole"
+        "AWS": "<YOUR_SEQERA_ROLE_ARN>"
       },
       "Action": "sts:TagSession"
     }
