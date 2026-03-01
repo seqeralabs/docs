@@ -21,7 +21,7 @@ function useSearchPage() {
     const [searchQuery, setSearchQueryState] = (0, react_1.useState)('');
     // Init search query just after React hydration
     (0, react_1.useEffect)(() => {
-        const searchQueryStringValue = 
+        const searchQueryStringValue =
         // @ts-ignore
         new URLSearchParams(window.location.search).get(SEARCH_PARAM_QUERY) ?? '';
         setSearchQueryState(searchQueryStringValue);
