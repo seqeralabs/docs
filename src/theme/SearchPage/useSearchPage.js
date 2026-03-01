@@ -40,7 +40,7 @@ function useSearchPage() {
         });
         setSearchQueryState(newSearchQuery);
     }, [history]);
-    const generateSearchPageLink = (0, react_1.useCallback)((targetSearchQuery) => 
+    const generateSearchPageLink = (0, react_1.useCallback)((targetSearchQuery) =>
     // Refer to https://github.com/facebook/docusaurus/pull/2838
     `${baseUrl}search?${SEARCH_PARAM_QUERY}=${encodeURIComponent(targetSearchQuery)}`, [baseUrl]);
     return {
