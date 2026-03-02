@@ -126,7 +126,7 @@ To create a new compute environment for Google Cloud in Tower:
 
 8. In the **Pipeline work directory** field, enter your storage bucket URL, e.g., `gs://my-bucket`. This bucket should be accessible in the location selected in the previous step.
 
-9. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
+9. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://docs.seqera.io/nextflow/wave) for more information.
 
 10. Select **Enable Fusion v2** to allow access to your GCS-hosted data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled (see above). <!--(re-added once we have GCP Fusion instructions) See [Fusion file system](../supported_software/fusion/overview) for configuration details.-->
 

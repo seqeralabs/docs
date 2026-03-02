@@ -268,7 +268,7 @@ Select **Launch** next to the `hello-world-autopool` pipeline in your workspace 
 
 Seqera can utilize an Azure Entra service principal to authenticate and access Azure Batch for job execution and Azure Storage for data management, and Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure.
 
-See [Microsoft Entra](https://www.nextflow.io/docs/latest/azure.html#microsoft-entra) in the Nextflow documentation for more information.
+See [Microsoft Entra](https://docs.seqera.io/nextflow/azure#microsoft-entra) in the Nextflow documentation for more information.
 
 #### Create a service principal for Seqera to use for authentication
 
@@ -288,7 +288,7 @@ In Seqera:
 Back in the Azure Portal:
 
 1. [Create a managed identity](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities?pivots=identity-mi-methods-azp)
-1. [Assign the relevant roles to the managed identity](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=current). See [Required role assignments](https://www.nextflow.io/docs/latest/azure.html#required-role-assignments) for Nextflow requirements.
+1. [Assign the relevant roles to the managed identity](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=current). See [Required role assignments](https://docs.seqera.io/nextflow/azure#required-role-assignments) for Nextflow requirements.
 1. Note the managed identity client ID for later.
 1. In the Azure Portal, go to the Batch account you created earlier.
 1. Go to the **Pools** tab and find the pool called `tower-pool-${id}`, where `${id}` is the ID of the head node pool created earlier.
@@ -429,6 +429,6 @@ If you wish to keep the Azure resources, you can remove each pool within a Batch
 
 [install-azure-cli]: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
 [install-seqera-cli]: /platform-cli/installation
-[nextflow-working-directory]: https://www.nextflow.io/docs/latest/cache-and-resume.html#work-directory
+[nextflow-working-directory]: https://docs.seqera.io/nextflow/cache-and-resume#work-directory
 [create-org-workspace]: ../../getting-started/workspace-setup
 [add-pipeline]: ../../getting-started/quickstart-demo/add-pipelines#add-from-the-launchpad
