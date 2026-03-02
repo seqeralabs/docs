@@ -5,10 +5,6 @@ date: "2025-12-16"
 tags: [seqera-ai, cli, ai]
 ---
 
-:::caution Seqera AI CLI is in beta
-Seqera AI CLI is currently in beta. Features and commands may change as we continue to improve the product.
-:::
-
 :::note
 Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
 :::
@@ -20,7 +16,7 @@ To get started with Seqera AI:
 1. Install the Seqera AI CLI:
 
     ```bash
-    pip install seqera
+    npm install -g seqera
     ```
 
     See [Installation](./installation.mdx) for a comprehensive installation guide.
@@ -43,7 +39,7 @@ To get started with Seqera AI:
 1. Run your first prompt:
 
     ```
-    /debug
+    /debug-last-run-on-seqera
     ```
 
     See [Use cases](./use-cases.md) for a comprehensive list of use cases.

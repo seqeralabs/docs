@@ -5,10 +5,6 @@ date: "2025-12-15"
 tags: [seqera-ai, cli, ai, use cases]
 ---
 
-:::caution Seqera AI CLI is in beta
-Seqera AI CLI is currently in beta. Features and commands may change as we continue to improve the product.
-:::
-
 :::note
 Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
 :::
@@ -19,7 +15,9 @@ Seqera AI is an intelligent command-line assistant that helps you build, run, an
 
 Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-powered analysis and code generation.
 
-![Use Seqera AI CLI to debug Nextflow pipeline scripts](./_images/pipeline-debug.gif)
+<div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
+<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/qJ46rsIbZsY?autoplay=1&mute=1" title="Use Seqera AI CLI to debug Nextflow pipeline scripts" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 
 <details open>
 <summary>**Working with Nextflow**</summary>
@@ -40,6 +38,10 @@ Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-po
 > /config
 ```
 
+<div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
+<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/jZy-5OtJ5Wc?autoplay=1&mute=1" title="Use Seqera AI CLI to generate a Nextflow config file" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+
 **Debug your pipeline**:
 
 ```
@@ -56,6 +58,9 @@ Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-po
 > /schema
 ```
 
+<div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
+<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/KxNzu7mqPjo?autoplay=1&mute=1" title="Use Seqera AI CLI to generate a Nextflow schema file" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 
 **Convert scripts to Nextflow**:
 
@@ -63,13 +68,54 @@ Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-po
 > /convert-python-script
 ```
 
+<div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
+<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/93m4qsn8NO8?autoplay=1&mute=1" title="Use Seqera AI CLI to convert scripts to Nextflow" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+
+</details>
+
+## Work with Seqera Platform
+
+Use Seqera Platform capabilities to run and manage workflows at scale with AI assistance.
+
+<div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
+<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/69QSCQdgVR0?autoplay=1&mute=1" title="Use Seqera AI CLI to debug Platform run errors" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+
+<details open>
+<summary>**Working with Seqera Platform**</summary>
+
+**List your workflows**:
+
+```
+> List my recent workflows
+```
+
+**Launch a pipeline**:
+
+```
+> Launch the nf-core/rnaseq pipeline with the test profile
+```
+
+**Debug failed runs**:
+
+```
+> Why did my last workflow fail?
+```
+
+```
+> Get the logs for the failed task in my last run
+```
+
 </details>
 
 ## Build containers with Wave
 
-Seqera AI can create containerized environments using Wave, without requiring you to write Dockerfiles.
+Seqera AI can create containerized environments using Wave, without the need to write Dockerfiles.
 
-![Use Seqera AI CLI to build containers with Wave](./_images/building-wave-container.gif)
+<div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
+<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/lihF6g9C3RY?autoplay=1&mute=1" title="Use Seqera AI CLI to build containers with Wave" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 
 <details open>
 <summary>**Building containers with Wave**</summary>
@@ -154,7 +200,6 @@ Seqera AI includes built-in slash commands for common workflows.
 | `/debug-last-run` | Debug the last local run |
 | `/debug-last-run-on-seqera` | Debug the last Platform run |
 | `/migrate-from-wdl` | Convert WDL to Nextflow |
-| `/migrate-from-snakemake` | Convert Snakemake to Nextflow |
 | `/convert-python-script` | Convert Python script to Nextflow |
 | `/convert-r-script` | Convert R script to Nextflow |
 | `/convert-jupyter-notebook` | Convert Jupyter notebook to Nextflow |
@@ -263,39 +308,6 @@ Seqera AI provides access to over 1,000 nf-core modules for common bioinformatic
 :::note
 The assistant can generate the exact Nextflow command with proper parameters for your data.
 :::
-
-</details>
-
-## Work with Seqera Platform
-
-Use Seqera Platform capabilities to run and manage workflows at scale with AI assistance.
-
-![Use Seqera AI CLI to debug Platform run errors](./_images/sp-run-debug.gif)
-
-<details open>
-<summary>**Working with Seqera Platform**</summary>
-
-**List your workflows**:
-
-```
-> List my recent workflows
-```
-
-**Launch a pipeline**:
-
-```
-> Launch the nf-core/rnaseq pipeline with the test profile
-```
-
-**Debug failed runs**:
-
-```
-> Why did my last workflow fail?
-```
-
-```
-> Get the logs for the failed task in my last run
-```
 
 </details>
 
