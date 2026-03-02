@@ -27,12 +27,12 @@ Secrets defined by a user have higher priority and will override any secrets wit
 
 ## Use secrets in workflows
 
-When you launch a new workflow, all secrets are sent to the corresponding secrets manager for the compute environment. Nextflow downloads these secrets internally when they're referenced in the pipeline code. See [Nextflow secrets](https://www.nextflow.io/docs/edge/secrets.html#process-secrets) for more information.
+When you launch a new workflow, all secrets are sent to the corresponding secrets manager for the compute environment. Nextflow downloads these secrets internally when they're referenced in the pipeline code. See [Nextflow secrets](https://docs.seqera.io/nextflow/secrets) for more information.
 
 Secrets are automatically deleted from the secret manager when the pipeline completes, successfully or unsuccessfully.
 
-:::note 
-In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://www.nextflow.io/docs/latest/aws.html#custom-job-definition). 
+:::note
+In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://docs.seqera.io/nextflow/aws#custom-job-definition).
 :::
 
 ## AWS Secrets Manager integration

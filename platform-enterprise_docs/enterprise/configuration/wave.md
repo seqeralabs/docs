@@ -79,5 +79,5 @@ See the [Wave documentation](https://docs.seqera.io/wave) for installation and c
 ## Additional resources
 
 - [Wave documentation](https://docs.seqera.io/wave)
-- [Nextflow Wave integration](https://www.nextflow.io/docs/latest/wave.html)
+- [Nextflow Wave integration](https://docs.seqera.io/nextflow/wave)
 - [Seqera Containers](https://seqera.io/containers/) - Free community container registry

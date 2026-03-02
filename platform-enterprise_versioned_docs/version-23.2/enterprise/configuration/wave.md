@@ -7,7 +7,7 @@ tags: [wave, containers, configuration]
 
 From version 22.4, Tower supports Seqera Labs' Wave containers service for on-premise installations.
 
-Learn more about Wave's features [here](https://wave.seqera.io), and about Wave integration with Nextflow [here](https://www.nextflow.io/docs/latest/wave.html).
+Learn more about Wave's features [here](https://wave.seqera.io), and about Wave integration with Nextflow [here](https://docs.seqera.io/nextflow/wave).
 
 ## Pairing Tower with Wave
 
@@ -37,4 +37,4 @@ When these conditions are met, the Wave feature is available on the Tower comput
 
 Once Wave is enabled, it will be possible to use private container repositories and the Fusion file system in your Nextflow pipelines.
 
-Wave can also be enabled in the Nextflow pipeline config file. See [here](https://www.nextflow.io/docs/latest/wave.html) for more information.
+Wave can also be enabled in the Nextflow pipeline config file. See [here](https://docs.seqera.io/nextflow/wave) for more information.
