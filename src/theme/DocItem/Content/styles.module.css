@@ -1,0 +1,11 @@
+.markdownActions {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.btnSm {
+  font-size: 0.75rem !important;
+  padding: 0.2rem 0.75rem !important;
+}
+
