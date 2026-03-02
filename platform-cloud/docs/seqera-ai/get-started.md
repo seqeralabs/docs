@@ -19,7 +19,7 @@ To get started with Seqera AI:
     npm install -g seqera
     ```
 
-    See [Installation](./installation.mdx) for a comprehensive installation guide.
+    See [Installation](./installation.md) for a comprehensive installation guide.
 
 1. Log in to your Seqera account:
 
@@ -46,7 +46,7 @@ To get started with Seqera AI:
 
 ## Learn more
 
-- [Installation](./installation.mdx): Detailed installation instructions
+- [Installation](./installation.md): Detailed installation instructions
 - [Authentication](./authentication.md): Log in, log out, and session management
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Use cases](./use-cases.md): Seqera AI CLI use cases

@@ -53,7 +53,7 @@ Full access to Platform capabilities including compute environments, datasets, d
 
 ## Learn more
 
-- [Installation](./installation.mdx): Detailed installation instructions
+- [Installation](./installation.md): Detailed installation instructions
 - [Authentication](./authentication.md): Log in, log out, and session management
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Working with Claude Code](./skill-claude-code.md): Install Seqera AI as a skill for Claude Code
