@@ -31,7 +31,7 @@ When Fusion v2 is enabled, the following virtual machine settings are applied:
 :::
 
 1. Provide your Google credentials via the `GOOGLE_APPLICATION_CREDENTIALS` environment variable
-or with the `gcloud` auth application-default login command. See [Credentials](https://www.nextflow.io/docs/latest/google.html#credentials) for more information.
+or with the `gcloud` auth application-default login command. See [Credentials](https://docs.seqera.io/nextflow/google#credentials) for more information.
 
 1. Add the following to your `nextflow.config` file:
 

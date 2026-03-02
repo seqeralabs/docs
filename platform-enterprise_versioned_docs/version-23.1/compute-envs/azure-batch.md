@@ -122,7 +122,7 @@ Once the Azure resources are set up, add a new compute environment in Tower:
 
 13. Enable **Dispose resources** if you'd like Tower to automatically delete the Batch pool once the workflow is complete.
 
-14. Select or create a [**Container registry credential**](../credentials/azure_registry_credentials) to authenticate to an Azure registry (used by the [Wave containers](https://www.nextflow.io/docs/latest/wave.html) service).
+14. Select or create a [**Container registry credential**](../credentials/azure_registry_credentials) to authenticate to an Azure registry (used by the [Wave containers](https://docs.seqera.io/nextflow/wave) service).
 
 15. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 

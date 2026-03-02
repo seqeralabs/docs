@@ -53,7 +53,7 @@ For more information on relaunch and resume, see [Cache and resume](./cache-resu
 4. Enter a repository URL for the **Pipeline to launch** (e.g., `https://github.com/nf-core/rnaseq.git`).
 
 :::note
-Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview) in the Seqera docs and [Pipeline sharing](https://www.nextflow.io/docs/latest/sharing.html) in the Nextflow docs for more details.
+Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview) in the Seqera docs and [Pipeline sharing](https://docs.seqera.io/nextflow/sharing) in the Nextflow docs for more details.
 :::
 
 5. Select a **Revision number** to use a specific version of the pipeline (optional). The Git default branch (e.g. main or master) or `manifest.defaultBranch` in the Nextflow configuration will be used by default.
@@ -63,7 +63,7 @@ Nextflow pipelines are Git repositories that can reside on any public or private
 The credentials associated with the compute environment must have access to the work directory (e.g., an S3 bucket).
 :::
 
-7. Select any **Config profiles** you wish to use. See [Nextflow Config profiles](https://www.nextflow.io/docs/latest/config.html#config-profiles) for more details.
+7. Select any **Config profiles** you wish to use. See [Nextflow Config profiles](https://docs.seqera.io/nextflow/config#config-profiles) for more details.
 8. Enter any **Pipeline parameters** in YAML or JSON format:
 
 ```

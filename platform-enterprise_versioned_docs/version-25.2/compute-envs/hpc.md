@@ -64,8 +64,8 @@ To create a new **HPC** compute environment:
 
 1.  Enter the absolute path of the **Launch directory** to be used on the cluster. If omitted, it will be the same as the work directory.
 1.  Enter the **Login hostname**. This is usually the hostname or public IP address of the cluster's login node.
-1.  Enter the **Head queue name**. This is the [default](https://www.nextflow.io/docs/latest/process.html#queue) cluster queue to which the Nextflow job will be submitted.
-1. Enter the **Compute queue name**. This is the [default](https://www.nextflow.io/docs/latest/process.html#queue) cluster queue to which the Nextflow job will submit tasks.
+1.  Enter the **Head queue name**. This is the [default](https://docs.seqera.io/nextflow/process#queue) cluster queue to which the Nextflow job will be submitted.
+1. Enter the **Compute queue name**. This is the [default](https://docs.seqera.io/nextflow/process#queue) cluster queue to which the Nextflow job will submit tasks.
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
     - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 

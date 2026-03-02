@@ -107,5 +107,5 @@ Bearer token support requires Nextflow version 20.10.0 or later. Set with the `N
 To configure and execute Nextflow pipelines in cloud environments, see [compute environments](../compute-envs/overview).
 
 :::tip
-See the [Nextflow documentation](https://www.nextflow.io/docs/latest/config.html?highlight=tower#scope-tower) for further run configuration options using Nextflow configuration files.
+See the [Nextflow documentation](https://docs.seqera.io/nextflow/config.html?highlight=tower#scope-tower) for further run configuration options using Nextflow configuration files.
 :::

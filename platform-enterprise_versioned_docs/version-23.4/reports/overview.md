@@ -76,10 +76,10 @@ By default, the MIME type is deduced from the file extension, so you don't need 
 
 Nextflow can generate a number of built-in reports:
 
-- [Execution report](https://nextflow.io/docs/latest/tracing.html#execution-report)
-- [Execution timeline](https://nextflow.io/docs/latest/tracing.html#timeline-report)
-- [Trace file](https://nextflow.io/docs/latest/tracing.html#trace-report)
-- [Workflow diagram](https://nextflow.io/docs/latest/tracing.html#dag-visualisation) (i.e. DAG)
+- [Execution report](https://docs.seqera.io/nextflow/tracing#execution-report)
+- [Execution timeline](https://docs.seqera.io/nextflow/tracing#timeline-report)
+- [Trace file](https://docs.seqera.io/nextflow/tracing#trace-report)
+- [Workflow diagram](https://docs.seqera.io/nextflow/tracing#dag-visualisation) (i.e. DAG)
 
 In Nextflow version 24.03.0-edge and later, these reports can be included as pipeline reports in Seqera Platform. Specify them in `tower.yml` like any other file:
 

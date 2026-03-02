@@ -28,7 +28,7 @@
   EXCLUDE_WAVE="true"
 
 # Asset and image routing handled by Edge Function
-# See .netlify/edge-functions/asset-proxy.js
+# See netlify/edge-functions/asset-proxy.js
 [[edge_functions]]
   function = "asset-proxy"
   path = "/assets/*"

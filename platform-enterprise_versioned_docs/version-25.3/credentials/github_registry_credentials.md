@@ -5,7 +5,7 @@ date: "15 Dec 2023"
 tags: [github, registry, credentials]
 ---
 
-From version 22.3, Seqera Platform supports the configuration of credentials for the Nextflow Wave container service to authenticate to private and public container registries. For more information on Wave containers, see the [Nextflow documentation](https://www.nextflow.io/docs/latest/wave.html).
+From version 22.3, Seqera Platform supports the configuration of credentials for the Nextflow Wave container service to authenticate to private and public container registries. For more information on Wave containers, see the [Nextflow documentation](https://docs.seqera.io/nextflow/wave).
 
 GitHub Packages only supports [authentication][github-pat] using a personal access token (classic). Use your personal access token as your password when you create your GitHub container registry credentials in Seqera.
 
