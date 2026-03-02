@@ -19,7 +19,7 @@ To launch pipelines into an **HPC** cluster from Tower, the following requiremen
 
 - The cluster should allow outbound connections to the Tower web service.
 - The cluster queue used to run the Nextflow head job must be able to submit cluster jobs.
-- The Nextflow runtime version **21.02.0-edge** (or later) must be [installed on the cluster](https://nextflow.io/docs/latest/install.html).
+- The Nextflow runtime version **21.02.0-edge** (or later) must be [installed on the cluster](https://docs.seqera.io/nextflow/install).
 
 ## Compute environment
 
@@ -41,9 +41,9 @@ To create a new **HPC** compute environment in Tower:
 
 8. Enter the **Login hostname**. This is usually the hostname or public IP address of the cluster's login node.
 
-9. Enter the **Head queue name**. This is the [default](https://www.nextflow.io/docs/latest/process.html#queue) cluster queue to which the Nextflow job will be submitted.
+9. Enter the **Head queue name**. This is the [default](https://docs.seqera.io/nextflow/process#queue) cluster queue to which the Nextflow job will be submitted.
 
-10. Enter the **Compute queue name**. This is the [default](https://www.nextflow.io/docs/latest/process.html#queue) cluster queue to which the Nextflow job will submit tasks.
+10. Enter the **Compute queue name**. This is the [default](https://docs.seqera.io/nextflow/process#queue) cluster queue to which the Nextflow job will submit tasks.
 
 11. Expand **Staging options** to include optional pre- or post-run Bash scripts that execute before or after the Nextflow pipeline execution in your environment.
 

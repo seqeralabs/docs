@@ -11,7 +11,7 @@ Advanced launch options allow users to modify the configuration and execution of
 
 The _Nextflow config_ field allows the addition of settings to the Nextflow configuration file.
 
-This text should follow the same syntax as the [Nextflow configuration file](https://www.nextflow.io/docs/latest/config.html#config-syntax).
+This text should follow the same syntax as the [Nextflow configuration file](https://docs.seqera.io/nextflow/config#config-syntax).
 
 In the example below, we can modify the **manifest** section to give the pipeline a name and description which will show up in the Tower monitoring section.
 

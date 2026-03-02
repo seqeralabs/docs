@@ -9,15 +9,15 @@ tags: [environments, custom, studio, examples]
 
 Seqera provides a collection of example custom Studio environments for common bioinformatics and data science applications. Each example includes a Dockerfile and a pre-built container image you can deploy immediately or use as a template for your own custom Studio.
 
-Any application that serves its interface over HTTP can run in a Studio session. All example Dockerfiles and pre-built images are available in the [custom-studios-examples](https://github.com/seqeralabs/custom-studios-examples) GitHub repository. For instructions on building your own custom container image from scratch, see [Custom environments][custom-envs].
+Any application that serves its interface over HTTP can run in a Studio session. All example Dockerfiles and pre-built images are available via individual branches in the [custom-studios-examples](https://github.com/seqeralabs/custom-studios-examples) GitHub repository. For instructions on building your own custom container image from scratch, see [Custom environments][custom-envs].
 
-| GitHub repository | Description | Pre-built image URL |
+| GitHub repository branch | Description | Pre-built image URL |
 |---|---|---|
-| [Marimo](https://github.com/seqeralabs/custom-studios-examples/tree/master/marimo) | Reactive Python notebook | `ghcr.io/seqeralabs/custom-studios-examples/marimo` |
-| [Streamlit](https://github.com/seqeralabs/custom-studios-examples/tree/master/streamlit) | Interactive web apps (MultiQC demo) | `ghcr.io/seqeralabs/custom-studios-examples/streamlit` |
-| [CELLxGENE](https://github.com/seqeralabs/custom-studios-examples/tree/master/cellxgene) | Single-cell data visualization | `ghcr.io/seqeralabs/custom-studios-examples/cellxgene` |
-| [Shiny](https://github.com/seqeralabs/custom-studios-examples/tree/master/shiny-simple-example) | R-based interactive web apps | `ghcr.io/seqeralabs/custom-studios-examples/shiny` |
-| [TTYD](https://github.com/seqeralabs/custom-studios-examples/tree/master/ttyd) | Web-based terminal with Samtools | `ghcr.io/seqeralabs/custom-studios-examples/ttyd` |
+| [Marimo](https://github.com/seqeralabs/custom-studios-examples/tree/marimo) | Reactive Python notebook | `ghcr.io/seqeralabs/custom-studios-examples/marimo` |
+| [Streamlit](https://github.com/seqeralabs/custom-studios-examples/tree/streamlit) | Interactive web apps (MultiQC demo) | `ghcr.io/seqeralabs/custom-studios-examples/streamlit` |
+| [CELLxGENE](https://github.com/seqeralabs/custom-studios-examples/tree/cellxgene) | Single-cell data visualization | `ghcr.io/seqeralabs/custom-studios-examples/cellxgene` |
+| [Shiny](https://github.com/seqeralabs/custom-studios-examples/tree/shiny) | R-based interactive web apps | `ghcr.io/seqeralabs/custom-studios-examples/shiny` |
+| [TTYD](https://github.com/seqeralabs/custom-studios-examples/tree/ttyd) | Web-based terminal with Samtools | `ghcr.io/seqeralabs/custom-studios-examples/ttyd` |
 
 :::note
 Pre-built images may not reflect the latest version of the Seqera Connect client, system libraries, nor packages. See the [GitHub repository releases](https://github.com/seqeralabs/custom-studios-examples/releases) for current image tags.
@@ -25,7 +25,12 @@ Pre-built images may not reflect the latest version of the Seqera Connect client
 
 ## Deploy an example Studio {#deploy}
 
-To deploy any example, follow the [Add a Studio][add-s] workflow, select **Custom container template**, and enter the image URL from the table above. For environment variables and detailed setup instructions, see the `README.md` in each example's directory.
+To deploy any example, follow the [Add a Studio][add-s] workflow either:
+
+1. Select the **Import from Git repository** option. Copy and paste the repository path in the **Git repository URL** field. Then select the branch name in the auto-populated **Revision** field.
+1. Select **Custom container template**, and enter the pre-built image URL from the table above.
+
+For environment variables and detailed setup instructions, see the `README.md` in each example's branch.
 
 For more information about managing Studios, see [Manage Studios][manage].
 
@@ -77,15 +82,14 @@ This pattern is straightforward to adapt: replace the Samtools base image with a
 
 ## Build an example image locally {#build-locally}
 
-To build any example image locally, clone the repository and run the Docker build command from the example directory:
+To build any example image locally, clone the repository branch and run the Docker build command:
 
 ```bash
-git clone https://github.com/seqeralabs/custom-studios-examples.git
-cd custom-studios-examples/<example-directory>
+git clone --branch <example-branch> --single-branch https://github.com/seqeralabs/custom-studios-examples.git
 docker build --platform linux/amd64 --build-arg CONNECT_CLIENT_VERSION=0.8 -t <your-tag> .
 ```
 
-Replace `<example-directory>` with the example folder name (such as `marimo` or `streamlit`) and `<your-tag>` with your preferred image tag. Push the built image to your container registry, then use the image URI when you [deploy the Studio](#deploy).
+Replace `<example-branch>` with the branch name (such as `marimo` or `streamlit`) and `<your-tag>` with your preferred image tag. Then push the built image to your container registry, then use the image URI when you [deploy the Studio](#deploy).
 
 ## Extend or contribute examples {#extend}
 

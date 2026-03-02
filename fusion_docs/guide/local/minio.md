@@ -31,7 +31,7 @@ This configuration requires Docker or a similar container engine to run pipeline
 
 1. Create storage credentials and a bucket.
 
-1. Set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables to grant Nextflow and Fusion access to your storage credentials. See [Credentials](https://www.nextflow.io/docs/latest/google.html#credentials) for more information.
+1. Set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables to grant Nextflow and Fusion access to your storage credentials. See [Credentials](https://docs.seqera.io/nextflow/google#credentials) for more information.
 
 1. Add the following to your `nextflow.config` file:
 
