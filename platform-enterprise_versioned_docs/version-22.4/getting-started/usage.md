@@ -73,5 +73,5 @@ The token will only be displayed once. You must copy and save the token before c
    To configure and execute Nextflow pipelines in cloud environments, see [Compute Environments](../compute-envs/overview).
 
 :::tip
-See the [Nextflow documentation](https://www.nextflow.io/docs/latest/config.html?highlight=tower#scope-tower) for further run configuration options using Nextflow configuration files.
+See the [Nextflow documentation](https://docs.seqera.io/nextflow/config.html?highlight=tower#scope-tower) for further run configuration options using Nextflow configuration files.
 :::

@@ -25,5 +25,5 @@ The following options are available:
 | `fusion.tags`                     | Tag pattern for files created via the Fusion client. When false, disables file tagging. Default: `[.command.*\|.exitcode\|.fusion.*](nextflow.io/metadata=true),[*](nextflow.io/temporary=true)`.         |
 
 :::note
-See [Configuration options](https://www.nextflow.io/docs/latest/reference/config.html#configuration-options) for a full list of Nextflow configuration options.
+See [Configuration options](https://docs.seqera.io/nextflow/reference/config#configuration-options) for a full list of Nextflow configuration options.
 :::

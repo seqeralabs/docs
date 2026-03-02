@@ -1,7 +1,8 @@
 ---
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
-date: "21 Apr 2023"
+date created: "2023-04-21"
+last updated: "2026-02-24"
 tags: [google, batch, gcp, compute environment]
 ---
 
@@ -36,7 +37,7 @@ See [here](https://console.cloud.google.com/flows/enableapi?apiid=batch.googleap
 - Compute Engine API
 - Cloud Storage API
 
-Select your project from the dropdown menu and select **Enable**.
+Select your project from the drop-down menu and select **Enable**.
 
 Alternatively, you can enable each API manually by selecting your project in the navigation bar and visiting each API page:
 
@@ -62,6 +63,7 @@ By default, Google Cloud Batch uses the default Compute Engine service account t
 - Batch Job Editor (`roles/batch.jobsEditor`) on the project
 - Logs Writer (`roles/logging.logWriter`) on the project (to let jobs generate logs in Cloud Logging)
 - Service Account User (`roles/iam.serviceAccountUser`)
+- Service Usage Consumer (`roles/serviceusage.serviceUsageConsumer`)
 
 If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below.
 
@@ -147,7 +149,7 @@ Select the **Location** where you will execute your pipelines. See [Location][lo
 In the **Pipeline work directory** field, enter your storage bucket URL, e.g., `gs://my-bucket`. This bucket must be accessible in the location selected in the previous step.
 
 :::note
-When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
 :::
 
 #### Seqera features
@@ -160,7 +162,7 @@ Select **Enable Fusion v2** to allow access to your Google Cloud Storage data vi
   <summary>Use Fusion v2</summary>
 
   :::note
-  The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB. 
+  The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB.
   :::
 
   1. Use Seqera Platform version 23.1 or later.
@@ -171,7 +173,7 @@ Select **Enable Fusion v2** to allow access to your Google Cloud Storage data vi
   :::note
   To specify virtual machine settings in Platform during compute environment creation, use the **Global Nextflow config** field to apply custom Nextflow process directives to all pipeline runs launched with this compute environment.
 
-  To specify virtual machine settings per pipeline run in Platform, or as a persistent configuration in your Nextflow pipeline repository, use Nextflow process directives. See [Google Cloud Batch process definition](https://www.nextflow.io/docs/latest/google.html#process-definition) for more information.
+  To specify virtual machine settings per pipeline run in Platform, or as a persistent configuration in your Nextflow pipeline repository, use Nextflow process directives. See [Google Cloud Batch process definition](https://docs.seqera.io/nextflow/google#process-definition) for more information.
   :::
 
   When Fusion v2 is enabled, the following virtual machine settings are applied:
@@ -192,7 +194,7 @@ Wave containers and Fusion v2 are recommended features for added capability and 
 
 Enable **Spot** to use Spot instances, which have significantly reduced cost compared to On-Demand instances.
 
-:::note 
+:::note
 From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](https://docs.seqera.io/platform/24.2/troubleshooting_and_faqs/nextflow#spot-instance-failures-and-retries-in-nextflow).
 :::
 
@@ -202,9 +204,9 @@ Apply [**Resource labels**][resource-labels] to the cloud resources consumed by 
 
 - Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
 
 
@@ -231,7 +233,7 @@ If you use VM instance templates for the head or compute jobs (see step 6 below)
     :::caution
     Seqera does not validate the VM instance template you specify in these fields. Generally, use templates that define only the machine type, network, disk, and configuration values that will not change across multiple VM instances and Seqera compute environments. See [Create instance templates](https://cloud.google.com/compute/docs/instance-templates/create-instance-templates) for instructions to create your instance templates.
 
-    To prevent errors during workflow execution, ensure that the instance templates you use are suitably configured for your needs with an appropriate machine type. You can define multiple instance templates with varying machine type sizes in your Nextflow configuration using the `machineType` [process directive](https://www.nextflow.io/docs/latest/google.html#process-definition) (e.g., `process.machineType = 'template://my-template-name'`). You can use [process selectors](https://www.nextflow.io/docs/latest/config.html#config-process-selectors) to assign separate templates to each of your processes.
+    To prevent errors during workflow execution, ensure that the instance templates you use are suitably configured for your needs with an appropriate machine type. You can define multiple instance templates with varying machine type sizes in your Nextflow configuration using the `machineType` [process directive](https://docs.seqera.io/nextflow/google#process-definition) (e.g., `process.machineType = 'template://my-template-name'`). You can use [process selectors](https://docs.seqera.io/nextflow/config#config-process-selectors) to assign separate templates to each of your processes.
     :::
 
 Select **Create** to finalize the compute environment setup.
@@ -244,7 +246,7 @@ See [Launch pipelines](../launch/launchpad) to start executing workflows in your
 [create-sa]: https://cloud.google.com/iam/docs/service-accounts-create#creating
 [get-json]: https://cloud.google.com/iam/docs/keys-list-get#get-key
 [location]: https://cloud.google.com/compute/docs/regions-zones#available
-[wave-docs]: https://www.nextflow.io/docs/latest/wave.html
+[wave-docs]: https://docs.seqera.io/nextflow/wave
 [fusion-docs]: https://docs.seqera.io/fusion
 [platform-fusion-docs]: ../supported_software/fusion/overview
 [pre-post-run-scripts]: ../launch/advanced#pre-and-post-run-scripts
