@@ -2,7 +2,7 @@
 title: "Workspaces"
 description: "Manage users and teams for an organization in Seqera Platform."
 date created: "2023-04-23"
-last updated: "2025-07-01"
+last updated: "2026-03-02"
 tags: [workspaces, teams, users, administration, user-workspace, create-workspace, credits, settings]
 ---
 
@@ -33,18 +33,18 @@ As a workspace owner, you can modify optional workspace fields after workspace c
 
 Apart from the **Participants** tab, the _organization_ workspace is similar to the _user_ workspace. As such, the relation to [runs](../launch/launchpad), [actions](../pipeline-actions/overview), [compute environments](../compute-envs/overview), and [credentials](../credentials/overview) is the same.
 
-## Workspace settings 
+## Workspace settings
 
 Select the **Settings** tab within a workspace to manage credits, Studios settings, workspace labels, and edit or delete the workspace.
 
-### Credits 
+### Credits
 
 [Seqera Compute](../compute-envs/seqera-compute) environments consume credits when running pipelines or Studio sessions. Credits are consumed for CPU time, memory and storage usage, and network costs. One Seqera Compute credit is equivalent to $1 (USD), and resources are charged at the following rates:
 - CPU time: 1 CPU/Hr = 0.1 credits
 - Memory: 1 GiB/Hr = 0.025 credits
 - Storage: 1 GB = 0.025 credits per month
 
-:::note 
+:::note
 Storage and network costs vary per region, charged at standard AWS rates. Data ingress and egress across regions incur additional costs.
 :::
 

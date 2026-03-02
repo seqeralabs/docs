@@ -1,7 +1,8 @@
 ---
 title: "Workspaces"
 description: "Manage users and teams for an organization in Seqera Platform."
-date: "24 Apr 2023"
+date created: "2023-04-24"
+last updated: "2026-03-02
 tags: [workspaces, teams, users, administration]
 ---
 
@@ -55,7 +56,7 @@ From version 23.2, **workspace owners** can edit their workspace name, either fr
 
 Select **Edit workspace** to update the workspace name, full name, description, and sharing. Select **Update** to save changes.
 
-Select **Delete workspace** to delete the workspace and its associated resources. This action cannot be reversed. 
+Select **Delete workspace** to delete the workspace and its associated resources. This action cannot be reversed.
 
 ## Add a new participant
 
