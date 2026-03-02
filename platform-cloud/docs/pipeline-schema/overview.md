@@ -23,11 +23,10 @@ The selected schema controls which pipeline parameters are exposed in the launch
 
 #### Seqera Platform schema
 
-Users with [Maintain or higher](../orgs-and-teams/roles.md) permissions can upload a custom `nextflow_schema.json` file directly to Seqera Platform. When you upload a Platform schema:
+Users with [Maintain or higher](../orgs-and-teams/roles.md) permissions can upload a custom Nextflow JSON schema directly to Seqera Platform. When you upload a custom schema:
 
 - The schema content is validated to ensure it's a valid JSON schema.
 - The Platform schema controls which parameters appear in the pipeline launch form.
-- Changes to the Platform schema trigger a new draft version of the pipeline.
 - The Platform schema is applied to all launches using that pipeline version.
 
 To add or update a Seqera Platform schema:
