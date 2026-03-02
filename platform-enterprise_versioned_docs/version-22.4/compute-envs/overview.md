@@ -46,7 +46,7 @@ The AWS Batch compute environment creation form in Tower includes an **Enable GP
 
 - This setting can be overridden by **AMI ID** in the advanced options.
 
-- The NVIDIA Container Runtime uses [environment variables](https://github.com/NVIDIA/nvidia-container-runtime#environment-variables-oci-spec) in container images to specify a GPU accelerated container. These variables should be included in the [`containerOptions`](https://www.nextflow.io/docs/latest/process.html#process-containeroptions) directive for each GPU-dependent process in your Nextflow script. The `containerOptions` directive can be set inline in your process definition or via configuration. For example, to add the directive to a process named `UseGPU` via configuration:
+- The NVIDIA Container Runtime uses [environment variables](https://github.com/NVIDIA/nvidia-container-runtime#environment-variables-oci-spec) in container images to specify a GPU accelerated container. These variables should be included in the [`containerOptions`](https://docs.seqera.io/nextflow/process#process-containeroptions) directive for each GPU-dependent process in your Nextflow script. The `containerOptions` directive can be set inline in your process definition or via configuration. For example, to add the directive to a process named `UseGPU` via configuration:
 
 ```groovy
 process {

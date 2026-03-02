@@ -230,7 +230,11 @@ export default async function createConfigAsync() {
       // Put your custom environment here
     },
 
-    clientModules: [require.resolve('./src/client-modules/cross-site-nav.js')],
+    clientModules: [
+    require.resolve('./src/client-modules/cross-site-nav.js'),
+    require.resolve('./src/client-modules/posthog-search.js'),
+    ],
+
 
     presets: [
       [
@@ -303,8 +307,8 @@ export default async function createConfigAsync() {
               protocol: 'https',
             },
           ],
-          apiKey: process.env.TYPESENSE_SEARCH_API_KEY,
-          connectionTimeoutSeconds: 5, // Default value
+          apiKey: 'UUIEzlGORRp9lV5GndPR1zYBVBCPIJOl',                                                  
+          connectionTimeoutSeconds: 2,
         },
         typesenseSearchParameters: {
           query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',

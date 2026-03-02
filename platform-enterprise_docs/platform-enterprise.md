@@ -29,4 +29,4 @@ Request a [**demo**](https://seqera.io/demo "Seqera Enterprise Demo") to explore
 
 Nextflow is both a programming workflow language and an execution runtime that supports a wide range of execution platforms, including popular traditional grid scheduling systems such as Slurm and IBM LSF, and cloud services such as AWS, Azure, and Google Cloud Batch.
 
-See the [Nextflow documentation](https://www.nextflow.io/docs/latest/) to learn more.
+See the [Nextflow documentation](https://docs.seqera.io/nextflow/) to learn more.

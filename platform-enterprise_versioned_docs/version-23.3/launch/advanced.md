@@ -15,7 +15,7 @@ The **Nextflow config file** field allows you to add settings to the Nextflow co
 Nextflow parameters defined in this field override the same parameters in your `nextflow.config` file.
 :::
 
-This text should follow the same syntax as the [Nextflow configuration file](https://www.nextflow.io/docs/latest/config.html#config-syntax).
+This text should follow the same syntax as the [Nextflow configuration file](https://docs.seqera.io/nextflow/config#config-syntax).
 
 For example, modify the **manifest** section to give the pipeline a name and description that will show up in the Seqera monitoring section:
 

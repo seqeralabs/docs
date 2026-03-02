@@ -5,7 +5,7 @@ date: "15 Dec 2023"
 tags: [gitea, registry, credentials]
 ---
 
-From version 22.3, Seqera Platform supports the configuration of credentials for the Nextflow Wave container service to authenticate to private and public container registries. For more information on Wave containers, see the [Nextflow documentation](https://www.nextflow.io/docs/latest/wave.html).
+From version 22.3, Seqera Platform supports the configuration of credentials for the Nextflow Wave container service to authenticate to private and public container registries. For more information on Wave containers, see the [Nextflow documentation](https://docs.seqera.io/nextflow/wave).
 
 Gitea container registries support [authentication][gitea-auth] using a personal access token. Use your personal access token as your password when you create your Gitea container registry credentials in Seqera.
 
