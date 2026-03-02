@@ -52,14 +52,14 @@ For more information on relaunch and resume, see [Cache and resume](./cache-resu
 1. Select a **Compute environment** from the available options. See [Compute environments](../compute-envs/overview) to learn how to create an environment for your preferred execution platform.
 1. Enter a repository URL for the **Pipeline to launch** (e.g., `https://github.com/nf-core/rnaseq.git`).
     :::note
-    Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview) in the Seqera docs and [Pipeline sharing](https://www.nextflow.io/docs/latest/sharing.html) in the Nextflow docs for more details.
+    Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview) in the Seqera docs and [Pipeline sharing](https://docs.seqera.io/nextflow/sharing) in the Nextflow docs for more details.
     :::
 1. Select a **Revision number** to use a specific version of the pipeline (optional). The Git default branch (e.g. main or master) or `manifest.defaultBranch` in the Nextflow configuration will be used by default.
 1. Enter the **Work directory**, which corresponds to the Nextflow work directory. You can also **Browse** for a cloud storage directory with Data Explorer. The default work directory of the compute environment will be used by default.
     :::note
     The credentials associated with the compute environment must have access to the work directory (e.g., an S3 bucket).
     :::
-1. Select any **Config profiles** you wish to use. See [Nextflow Config profiles](https://www.nextflow.io/docs/latest/config.html#config-profiles) for more details.
+1. Select any **Config profiles** you wish to use. See [Nextflow Config profiles](https://docs.seqera.io/nextflow/config#config-profiles) for more details.
 1. Enter any **Pipeline parameters** in YAML or JSON format:
     ```
     reads: 's3://nf-bucket/exome-data/ERR013140_{1,2}.fastq.bz2'
@@ -72,7 +72,7 @@ For more information on relaunch and resume, see [Cache and resume](./cache-resu
 1. Select or create [resource labels](../resource-labels/overview) to apply to the resources consumed by the run, if needed.
 1. Expand the [Pipeline secrets](../secrets/overview) dropdown to select user or workspace secrets to be used during the run, if needed.
     :::note 
-    In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://www.nextflow.io/docs/latest/aws.html#custom-job-definition). 
+    In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://docs.seqera.io/nextflow/aws#custom-job-definition). 
     :::
 1. Apply any [Advanced options](./advanced), if needed.
 1. When you have filled the necessary launch form details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status on the top of the list. Select the run name to navigate to the run detail page and view the configuration, parameters, status of individual tasks, and run report.
