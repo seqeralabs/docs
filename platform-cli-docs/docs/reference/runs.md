@@ -14,7 +14,7 @@ Runs display all the current and previous pipeline runs in the specified workspa
 - `submitted`: Pending execution
 - `running`: Running
 - `succeeded`: Completed successfully
-- `failed`: Successfully executed, where at least one task failed with a terminate [error strategy](https://www.nextflow.io/docs/latest/process.html#errorstrategy)
+- `failed`: Successfully executed, where at least one task failed with a terminate [error strategy](https://docs.seqera.io/nextflow/process#errorstrategy)
 - `cancelled`: Stopped manually during execution
 - `unknown`: Indeterminate status
 

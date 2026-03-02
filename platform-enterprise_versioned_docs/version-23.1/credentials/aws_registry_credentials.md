@@ -7,7 +7,7 @@ tags: [aws, ecr, credentials]
 
 ## Container registry credentials
 
-From version 22.3, Tower supports the configuration of credentials for the Nextflow Wave container service to authenticate to private and public container registries. For more information on Wave containers, see [here](https://www.nextflow.io/docs/latest/wave.html).
+From version 22.3, Tower supports the configuration of credentials for the Nextflow Wave container service to authenticate to private and public container registries. For more information on Wave containers, see [here](https://docs.seqera.io/nextflow/wave).
 
 :::note
 Container registry credentials are only leveraged by the Wave containers service. In order for your pipeline execution to leverage Wave containers, add `wave { enabled=true }` either to the **Nextflow config** field on the launch page, or to your nextflow.config file.
