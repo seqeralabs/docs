@@ -314,7 +314,7 @@ The assistant can generate the exact Nextflow command with proper parameters for
 <h2>Learn more</h2>
 
 - [Seqera AI CLI](index.md): Seqera AI CLI overview
-- [Installation](./installation.mdx): Detailed installation instructions
+- [Installation](./installation.md): Detailed installation instructions
 - [Authentication](./authentication.md): Log in, log out, and session management
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

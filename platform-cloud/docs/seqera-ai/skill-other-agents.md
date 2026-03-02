@@ -86,4 +86,4 @@ seqera skill check [OPTIONS]
 
 - [Use cases](./use-cases.md): Seqera AI CLI use cases
 - [Code intelligence](./nextflow-lsp.md): Language-aware coding support
-- [Installation](./installation.mdx): Detailed installation instructions
+- [Installation](./installation.md): Detailed installation instructions
