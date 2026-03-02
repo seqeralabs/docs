@@ -313,7 +313,7 @@ export default async function createConfigAsync() {
               protocol: 'https',
             },
           ],
-          apiKey: process.env.TYPESENSE_SEARCH_API_KEY,
+          apiKey: 'UUIEzlGORRp9lV5GndPR1zYBVBCPIJOl',                                                  
           connectionTimeoutSeconds: 2,
         },
         typesenseSearchParameters: {

@@ -5,7 +5,7 @@ date: "15 Dec 2023"
 tags: [gitlab, registry, credentials]
 ---
 
-From version 22.3, Seqera Platform supports the configuration of credentials for the Nextflow Wave container service to authenticate to private and public container registries. For more information on Wave containers, see the [Nextflow documentation](https://www.nextflow.io/docs/latest/wave.html).
+From version 22.3, Seqera Platform supports the configuration of credentials for the Nextflow Wave container service to authenticate to private and public container registries. For more information on Wave containers, see the [Nextflow documentation](https://docs.seqera.io/nextflow/wave).
 
 If your organization enabled two-factor authentication (2FA) for your GitLab organization or project, you must use your [personal access token][gitlab-pat] as your password when you create your [GitLab container registry credentials][gitlab-cr].
 

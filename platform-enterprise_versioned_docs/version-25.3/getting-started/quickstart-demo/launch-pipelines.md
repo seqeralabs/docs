@@ -49,7 +49,7 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
   :::info
   See [Git revision management](../../pipelines/revision.md) for more information on **Commit ID**, **Pull latest**, and **Revision** behavior. 
   :::
-- (*Optional*) **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. 
+- (*Optional*) **Config profiles**: One or more [configuration profile](https://docs.seqera.io/nextflow/config#config-profiles) names to use for the execution. 
 - **Workflow run name**: An identifier for the run, pre-filled with a random name. This can be customized.
 - (*Optional*) **Labels**: Assign new or existing [labels](../../labels/overview) to the run.
 - **Compute environment**: Select an existing workspace [compute environment](../../compute-envs/overview). 
