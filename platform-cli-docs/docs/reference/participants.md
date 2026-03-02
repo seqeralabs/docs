@@ -21,7 +21,7 @@ List workspace participants.
 tw participants list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -32,7 +32,7 @@ tw participants list [OPTIONS]
 | `--offset` | Row offset for paginated results (default: 0) | No | `null` |
 | `--max` | Maximum number of records to display (default: ) | No | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -59,7 +59,7 @@ Add a workspace participant.
 tw participants add [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -70,22 +70,22 @@ tw participants add [OPTIONS]
 
 Run `tw participants add -h` to view the required and optional fields for adding a participant.
 
-To add a new _collaborator_ to the workspace, use the `add` subcommand. The default role assigned to a _collaborator_ is `Launch`.
+To add a new participant to the workspace, use the `add` subcommand. When adding a COLLABORATOR type participant, the default role assigned is `Launch`. For MEMBER type participants, you can specify organization members who will have access to the workspace.
 
 See [Participant roles](https://docs.seqera.io/platform-cloud/orgs-and-teams/roles) for more information.
 
-### Example
+#### Example
 
 Command:
 
 ```bash
-tw participants add --name=collaborator@mydomain.com --type=MEMBER
+tw participants add --name=collaborator@mydomain.com --type=COLLABORATOR -w 123456789012345
 ```
 
 Example output:
 
 ```bash
-User 'collaborator' was added as participant to 'shared-workspace' workspace with role 'launch'
+User 'collaborator@mydomain.com' was added as participant to [my-organization / my-workspace] workspace with role 'launch'
 ```
 
 ## tw participants update
@@ -96,7 +96,7 @@ Update a participant role.
 tw participants update [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -107,7 +107,7 @@ tw participants update [OPTIONS]
 
 To update the role of a _Collaborator_ to `ADMIN` or `MAINTAIN`, use the `update` subcommand:
 
-### Example
+#### Example
 
 Command:
 
@@ -129,7 +129,7 @@ Remove a workspace participant.
 tw participants delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -137,7 +137,7 @@ tw participants delete [OPTIONS]
 | `-t`, `--type` | Type of participant (MEMBER, COLLABORATOR or TEAM). | Yes | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -163,13 +163,13 @@ Leave a workspace.
 tw participants leave [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | Yes | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 

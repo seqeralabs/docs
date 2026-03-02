@@ -21,17 +21,17 @@ View studio details.
 tw studios view [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
 | `-i`, `--id` | Studio session identifier | No | `null` |
 | `-n`, `--name` | Studio name | No | `null` |
 
 Run `tw studios view -h` to view the required and optional fields for viewing session details.
 
-### Example
+#### Example
 
 Command:
 
@@ -71,26 +71,26 @@ List studios.
 tw studios list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-f`, `--filter` | Optional filter criteria, allowing free text search on name and templateUrl and keywords: `userName`, `computeEnvName` and `status`. Example keyword usage: -f status:RUNNING. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
 | `--page` | Page number for paginated results (default: 1) | No | `null` |
 | `--offset` | Row offset for paginated results (default: 0) | No | `null` |
 | `--max` | Maximum number of records to display (default: ) | No | `null` |
 
-Run `tw studios checkpoints -h` to view the required and optional fields for viewing checkpoints for a session.
+Run `tw studios list -h` to view the required and optional fields for listing studios.
 
-List all checkpoints for an existing Studio session in a workspace. See [Session checkpoints](https://docs.seqera.io/platform-cloud/studios/managing#studio-session-checkpoints) for more information.
+List all studios in a workspace.
 
-### Example
+#### Example
 
 Command:
 
 ```bash
-tw studios checkpoints -i 9s0t1u2v -w 222333444555666
+tw studios list -w 123456789012345
 ```
 
 Example output:
@@ -113,13 +113,14 @@ List available Studio templates.
 tw studios templates [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `--max` | Maximum number of templates to return. | No | `20` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -150,38 +151,20 @@ Start a studio.
 tw studios start [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `--wait` | Wait until given status or fail. Valid options: STARTING, RUNNING, STOPPED, STOPPING. | No | `null` |
 | `--labels` | Comma-separated list of labels | No | `null` |
 | `--description` | Optional configuration override for 'description'. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
 | `-i`, `--id` | Studio session identifier | No | `null` |
 | `-n`, `--name` | Studio name | No | `null` |
 | `--gpu` | Optional configuration override for 'gpu' setting (integer representing number of cores). | No | `null` |
 | `--cpu` | Optional configuration override for 'cpu' setting (integer representing number of cores). | No | `null` |
 | `--memory` | Optional configuration override for 'memory' setting (integer representing memory in MBs). | No | `null` |
 | `--lifespan` | Optional configuration override for 'lifespan' setting (integer representing hours). Defaults to workspace lifespan setting. | No | `null` |
-
-Run `tw studios start-as-new -h` to view the required and optional fields for adding and starting a new session from an existing session checkpoint.
-
-Add a new session from an existing parent Studio session and checkpoint. Useful for experimentation without impacting the parent Studio session state.
-
-### Example
-
-Command:
-
-```bash
-tw studios add-as-new -pid 0t1u2v3w -n cloned-studio-example -w 123456789012345
-```
-
-Example output:
-
-```bash
-Studio 1u2v3w4x CREATED at [my-organization-updated / my-workspace] workspace.
-```
 
 ## tw studios add
 
@@ -191,7 +174,7 @@ Add a studio.
 tw studios add [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -203,7 +186,7 @@ tw studios add [OPTIONS]
 | `--private` | Create a private studio that only you can access or manage (default: false) | No | `false` |
 | `--labels` | Comma-separated list of labels | No | `null` |
 | `--wait` | Wait until Studio is in RUNNING status. Valid options: STARTING, RUNNING, STOPPED, STOPPING. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
 | `-t`, `--template` | Container image template to be used for Studio. Available templates can be listed with 'studios templates' command. | No | `null` |
 | `-ct`, `--custom-template` | Custom container image template to be used for Studio. | No | `null` |
 | `--gpu` | Optional configuration override for 'gpu' setting (integer representing number of cores). | No | `null` |
@@ -215,7 +198,7 @@ Run `tw studios add -h` to view the required and optional fields for adding sess
 
 Add a new Studio session in a workspace.
 
-### Example
+#### Example
 
 Command:
 
@@ -235,21 +218,6 @@ Example output:
 Studio 2aa60bb7 CREATED at [community / showcase] workspace.
 ```
 
-## tw studios templates
-
-List available studio templates.
-
-```bash
-tw studios templates [OPTIONS]
-```
-
-### Options
-
-| Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `--max` | Maximum number of templates to return, defaults to 20. | No | `20` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
-
 ## tw studios checkpoints
 
 List studio checkpoints.
@@ -258,27 +226,50 @@ List studio checkpoints.
 tw studios checkpoints [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-f`, `--filter` | Optional filter criteria, allowing free text search on name and keywords: `after: YYYY-MM-DD`, `before: YYYY-MM-DD` and `author`. Example keyword usage: -f author:my-name. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
 | `-i`, `--id` | Studio session identifier | No | `null` |
 | `-n`, `--name` | Studio name | No | `null` |
 | `--page` | Page number for paginated results (default: 1) | No | `null` |
 | `--offset` | Row offset for paginated results (default: 0) | No | `null` |
 | `--max` | Maximum number of records to display (default: ) | No | `null` |
 
+Run `tw studios checkpoints -h` to view the required and optional fields for viewing checkpoints for a session.
+
+List all checkpoints for an existing Studio session in a workspace. See [Session checkpoints](https://docs.seqera.io/platform-cloud/studios/managing#studio-session-checkpoints) for more information.
+
+#### Example
+
+Command:
+
+```bash
+tw studios checkpoints -i 9s0t1u2v -w 123456789012345
+```
+
+Example output:
+
+```bash
+Checkpoints for studio '9s0t1u2v' at [my-organization / my-workspace] workspace:
+
+ID             | Name                | Created
+---------------+---------------------+-------------------------------
+1a2b3c4d5e     | checkpoint-001      | Mon, 15 Jan 2024 10:30:00 GMT
+2b3c4d5e6f     | checkpoint-002      | Mon, 15 Jan 2024 14:45:00 GMT
+```
+
 ## tw studios add-as-new
 
-Add a studio from an existing one.
+Add a new Studio session from an existing parent session and checkpoint. Useful for experimentation without impacting the parent session state.
 
 ```bash
 tw studios add-as-new [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -291,11 +282,27 @@ tw studios add-as-new [OPTIONS]
 | `--wait` | Wait until Studio is in RUNNING status. Valid options: STARTING, RUNNING, STOPPED, STOPPING. | No | `null` |
 | `-pid`, `--parent-id` | Parent studio session identifier | No | `null` |
 | `-pn`, `--parent-name` | Parent studio name | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
 | `--gpu` | Optional configuration override for 'gpu' setting (integer representing number of cores). | No | `null` |
 | `--cpu` | Optional configuration override for 'cpu' setting (integer representing number of cores). | No | `null` |
 | `--memory` | Optional configuration override for 'memory' setting (integer representing memory in MBs). | No | `null` |
 | `--lifespan` | Optional configuration override for 'lifespan' setting (integer representing hours). Defaults to workspace lifespan setting. | No | `null` |
+
+Run `tw studios add-as-new -h` to view the required and optional fields for adding a new studio session from an existing one.
+
+#### Example
+
+Command:
+
+```bash
+tw studios add-as-new -pid 0t1u2v3w -n cloned-studio-example -w 123456789012345
+```
+
+Example output:
+
+```bash
+Studio 1u2v3w4x CREATED at [my-organization / my-workspace] workspace.
+```
 
 ## tw studios stop
 
@@ -305,12 +312,12 @@ Stop a studio.
 tw studios stop [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `--wait` | Wait until given status or fail. Valid options: STARTING, RUNNING, STOPPED, STOPPING. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
 | `-i`, `--id` | Studio session identifier | No | `null` |
 | `-n`, `--name` | Studio name | No | `null` |
 
@@ -318,7 +325,7 @@ Run `tw studios stop -h` to view the required and optional fields for adding ses
 
 Stop an existing Studio session in a workspace.
 
-### Example
+#### Example
 
 Command:
 
@@ -340,17 +347,17 @@ Delete an existing Studio session from a workspace.
 tw studios delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
 | `-i`, `--id` | Studio session identifier | No | `null` |
 | `-n`, `--name` | Studio name | No | `null` |
 
 Run `tw studios delete -h` to view the required and optional fields for listing sessions.
 
-### Example
+#### Example
 
 Command:
 

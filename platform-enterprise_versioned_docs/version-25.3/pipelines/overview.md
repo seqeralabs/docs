@@ -11,7 +11,7 @@ When you add a pipeline to Seqera, you define:
 
 - The pipeline Git repository and [revision](./revision.md) (branch, tag, or commit)
 - [Compute environment](../compute-envs/overview.md) for execution
-- Pipeline parameters and [configuration profiles](https://www.nextflow.io/docs/latest/config.html#config-profiles)
+- Pipeline parameters and [configuration profiles](https://docs.seqera.io/nextflow/config#config-profiles)
 - (Optional) [Labels](../labels/overview.md), [resource labels](../resource-labels/overview.md), and [secrets](../secrets/overview.md)
 - (Optional) [Pre-run and post-run](../launch/advanced.md#pre-and-post-run-scripts) bash scripts that execute in your compute environment
 

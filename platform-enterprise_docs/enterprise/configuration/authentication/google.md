@@ -29,9 +29,9 @@ Ensure you know how to create Google OAuth credentials. See Google's documentati
 
 Add the following environment variables to your Seqera configuration:
 
-| Variable              | Description                   |
-| :-------------------- | :---------------------------- |
-| `TOWER_GOOGLE_CLIENT` | The client ID from step 6     |
+| Variable | Description |
+| :------- | :---------- |
+| `TOWER_GOOGLE_CLIENT` | The client ID from step 6 |
 | `TOWER_GOOGLE_SECRET` | The client secret from step 6 |
 
 ## Restrict access

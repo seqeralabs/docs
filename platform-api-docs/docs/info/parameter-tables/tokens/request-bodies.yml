@@ -5,4 +5,4 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Name for the new token (used for identification in token list).

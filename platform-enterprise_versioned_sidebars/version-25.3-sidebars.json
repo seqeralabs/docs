@@ -33,9 +33,10 @@
             "id": "enterprise/install-studios"
           },
           "items": [
+            "enterprise/studios-helm",
             "enterprise/studios-kubernetes",
             "enterprise/studios-docker-compose",
-            "enterprise/studios"
+            "enterprise/studios-ssh"
           ]
         },
         {
@@ -47,6 +48,7 @@
             "id": "enterprise/install-groundswell"
           },
           "items": [
+            "enterprise/groundswell-helm",
             "enterprise/groundswell-kubernetes",
             "enterprise/groundswell-docker-compose",
             "enterprise/configuration/pipeline_optimization"
@@ -93,7 +95,8 @@
             "enterprise/advanced-topics/custom-launch-container",
             "enterprise/advanced-topics/firewall-configuration",
             "enterprise/advanced-topics/seqera-container-images",
-            "enterprise/advanced-topics/content-security-policy"
+            "enterprise/advanced-topics/content-security-policy",
+            "enterprise/advanced-topics/monitoring"
           ]
         },
         "enterprise/general_troubleshooting"
@@ -235,7 +238,8 @@
           "items": [
             "studios/add-studio-provided-template",
             "studios/add-studio-custom-container",
-            "studios/add-studio-git-repo"
+            "studios/add-studio-git-repo",
+            "studios/example-studios"
           ]
         },
         "studios/managing",

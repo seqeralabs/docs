@@ -1,0 +1,1 @@
+{"parameters":[{"name":"orgId","in":"query","description":"Organization numeric identifier. Append to create managed identity within an organization other than the requester's default.","schema":{"type":"integer","format":"int64"}}]}

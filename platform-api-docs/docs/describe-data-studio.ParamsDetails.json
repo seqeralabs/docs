@@ -1,0 +1,1 @@
+{"parameters":[{"name":"sessionId","in":"path","description":"Studio session string identifier.","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. When omitted, the Studio is described in the user context.","schema":{"type":"integer","format":"int64"}}]}

@@ -5,11 +5,11 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Name for the new dataset.
 - Name: description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Optional description of the dataset purpose and contents.
 - Name: "**UpdateDatasetV2**"
   Type: ""
   Req/Opt: ""
@@ -29,11 +29,11 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Name for the new dataset.
 - Name: description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Optional description of the dataset purpose and contents.
 - Name: "**UpdateDataset**"
   Type: ""
   Req/Opt: ""

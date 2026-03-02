@@ -1,35 +1,51 @@
 ---
-title: "Pipeline versioning (preview)"
+title: "Pipeline versioning"
 description: "Introduction to pipeline versioning in Seqera Platform."
 date created: "2025-11-14"
 tags: [pipelines, versioning, nextflow, parameters]
 ---
 
-:::info 
-Pipeline versioning is a preview feature in active development. See [Core features](../enterprise/configuration/overview.mdx#core-features) for instructions to enable this feature in your organization workspaces. 
-:::
-
 Seqera's pipeline versioning system captures configuration changes as new draft versions of the pipeline, ensuring configuration traceability and execution reproducibility. Users with [Maintain or higher](../orgs-and-teams/roles.md) permissions can edit and publish draft versions, creating published versions that teams can reference and launch consistently.
+
+To ensure fully reproducible behavior for pipelines configured with a branch or tag revision, it is essential to pin the commit ID of the workflow repository. This is because the 'HEAD' state of the repository can change over time. For more details see [Git revision management](https://docs.seqera.io/platform-enterprise/pipelines/revision).
+
+:::tip
+For deterministic and reproducible pipeline execution, use [commit ID pinning](revision.md) for published pipeline versions. This ensures the same workflow code is used across all launches of that version.
+:::
 
 When you add a new pipeline to Seqera, the first default version of that pipeline is automatically published.
 
 New draft versions are automatically generated during pipeline edit or launch when you modify the following:
 - All pipeline schema parameters, unless the `track_changes` schema configuration for a given property is set to `false`.
     :::info
-    Changes to all pipeline schema parameters trigger a new version by default (`"track_changes": true`). To alter this behavior for specific parameters, add `"track_changes": false` to the parameter definition:
+    Changes to all pipeline schema parameters during pipeline edit or launch trigger a new version by default i.e. the default for parameters is assumed as `"track_changes": true`. The
+  intent with pipeline versioning is to allow the common variable inputs (e.g. fastq files) and outputs (e.g. outputDir) to be omitted for consideration during  versioning. To enable this
+  behavior for specific parameters, add `"track_changes": false` to the parameter property definition in the schema:
     ```json
-    "my_parameter": {
-      "type": "string",
-      "description": "Changes to this parameter will not trigger a new pipeline version to be created",
       "track_changes": false
     }
     ```
+
+    For nested parameters, `track_changes` is supported at the leaf node level:
+    ```json
+    "nestedParam": {
+      "type": "object",
+      "properties": {
+        "leafParam": {
+          "type": "string",
+          "track_changes": false
+        }
+      }
+    }
+    ```
     :::
+
 - Fields in the pipeline **Edit** form, excluding:
   - **Name**
   - **Image**
   - **Description**
   - **Labels**
+- Custom Nextflow schema file (see [Custom schema](#custom-schema))
 
 Published versions provide a stable reference for team-wide pipeline launches. Users with Maintain or higher permissions can publish a draft version, giving it a name and optionally setting it as the default version. This makes important configurations easy to identify, share, and promote across your team.
 
@@ -39,17 +55,38 @@ A pipeline's default version is shown in the Launchpad and automatically selecte
 
 Seqera maintains a history of all draft and published versions, providing an audit trail of pipeline evolution.
 
+#### Custom schema
+
+Users with [Maintain or higher](../orgs-and-teams/roles.md) permissions can upload a custom `nextflow_schema.json` file to control which pipeline parameters are exposed in the launch form. This allows you to restrict the parameters visible to launch users, simplifying the launch experience and preventing modification of parameters that should remain fixed.
+
+The custom schema field is available when adding or editing a pipeline. When you upload a custom schema:
+
+- The schema content is validated to ensure it's a valid Nextflow schema
+- The custom schema controls which parameters appear in the pipeline launch form
+- Changes to the custom schema trigger a new draft version of the pipeline
+- The custom schema is applied to all launches using that pipeline version
+
+To add or update a custom schema:
+
+1. Navigate to **Add pipeline** or select **Edit** for an existing pipeline
+2. In the **Custom Schema JSON** field, paste your custom Nextflow schema JSON
+3. The schema is validated automatically as you enter it
+4. Select **Add** or **Save** to create a new draft version with the custom schema
+
 ### Manage pipeline versions
 
 ![](./_images/pipeline-version-detail.jpg)
 
 Select a pipeline from the workspace Launchpad to open the pipeline's details page. From here, users with Maintain or higher permissions can:
 
-- **View version history**: See a chronological list of all draft and published versions with creator, date, and checksum.
+- **View version history**: See a chronological list of all draft and published versions with creator, date, and hash.
   - Use the dropdown next to **Show:** to show all versions, or filter by draft or published versions.
-  - **Search** for specific version names (freetext search), or use keywords to search by `pipelineVersionId:` ([version checksum](#version-checksums)).
+  - **Search** for specific version names (freetext search), or use keywords to search by `versionId:`, `versionName:`, or `versionHash:` ([version hash](#version-hash)).
 - **Manage draft versions**:
   - Select **Publish** from the options menu of a draft version to name this version and optionally make it the default version to launch from the Launchpad.
+    :::note
+    Draft versions created from workflow runs can only be published from the pipeline's original workspace. For shared pipelines, the **Publish** action is only available in the workspace where the pipeline was created.
+    :::
   - Select **Edit** to open the pipeline edit form and either save a new draft or publish the current draft version.
 - **Manage published versions**:
   - Select **Make default** from the options menu of a published version to use this version for every pipeline launch.
@@ -59,12 +96,22 @@ Select a pipeline from the workspace Launchpad to open the pipeline's details pa
 Individual versions cannot be deleted. This ensures that the pipeline configuration audit trail is immutable. However, published versions can be unpublished or have their names reassigned to different versions.
 
 :::note
-A shared pipeline's versions can only be edited from its original workspace.
+Changes made at launch time in a target workspace cannot be saved. Changes to versions can only be saved and published from the pipeline's original workspace.
 :::
 
-#### Version checksums
+#### Pipeline optimization
 
-Seqera calculates a checksum for each draft version based on its version-triggering parameters. This provides:
+[Pipeline optimization](../pipeline-optimization/overview) is available directly from the pipeline details page for the default version. Users with [Maintain or higher](../orgs-and-teams/roles.md) permissions can:
+
+- **Optimize pipeline**: Configure pipeline optimization settings for the default version from the **Default** section or the **Edit pipeline** form.
+- **Toggle optimization**: Enable or disable optimization for a pipeline that has already been optimized.
+- **Customize profile**: Modify the optimization profile settings when optimization is enabled.
+
+To optimize specific non-default versions, use the **Edit** page for that version. Pipeline optimization settings apply per version and remain configured when you set a different version as the default.
+
+#### Version hash
+
+Seqera calculates a hash for each draft version based on its version-triggering parameters. This provides:
 
 - **Provenance tracking** for audit and compliance requirements.
 - **Cryptographic verification** that a workflow run's configuration matches its associated pipeline version.

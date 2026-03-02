@@ -59,7 +59,8 @@
           "items": [
             "enterprise/advanced-topics/use-iam-role",
             "enterprise/advanced-topics/custom-launch-container",
-            "enterprise/advanced-topics/firewall-configuration"
+            "enterprise/advanced-topics/firewall-configuration",
+            "enterprise/advanced-topics/monitoring"
           ]
         },
         "enterprise/general_troubleshooting"

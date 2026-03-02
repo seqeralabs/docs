@@ -40,8 +40,10 @@ internal/tmp
 # OSS repo clones
 multiqc_docs/multiqc_repo
 wave_docs/wave_repo
+platform-repo/*
 
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
+/.claude/worktrees

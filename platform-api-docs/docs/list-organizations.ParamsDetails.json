@@ -1,0 +1,1 @@
+{"parameters":[{"name":"role","in":"query","description":"Filter results by organization role. Accepts: `owner`, `member`.","schema":{"type":"string"}}]}

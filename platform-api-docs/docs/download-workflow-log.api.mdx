@@ -5,7 +5,7 @@ description: "Downloads the workflow files for the Nextflow main job associated 
 sidebar_label: "Download workflow files"
 hide_title: true
 hide_table_of_contents: true
-api: eJy1VU1v2zAM/SuCThsQJN3WDVhOa7d2KDZ0xdqhhyJAFZuJlSqSKsnNAsP/faRsx3aSfh2WSyLpUe+RfGIKHsTc8/ENXxl3N1Nm5flkwFPwiZM2SKP5mH8zK62MSD0LGbAGyGZSgWcz4+L2OfwNcXsppGYLM2XCe5NIESBlKxmyiJrLB9DstrnjLL0d8gE3FpwgsrO0Q3ddg36aOWKscGIJARypLbjGBWLbixAiSawVIePbGTRXMR+c1HMmU9BBziQ4hDq4z6UDpA4uhwH3SQZLwccFD2tLJFUQL8vBhpdyP6efNet9Dm69Q3uKKApgwbC0zoq/jIAS81Yk0Ga2n+O6ATKdL8HJpJ/cDpfUAebxCDu3FKHa+nSI7BOqhbdGe/AU8f7ggL76fL9+YGhi8BYd6FRYq2QSuzdaeIIUjybY4ZxKLTCbEj8DfriP6FikjFoDPryGse3mDV+C92IO5OhaiJkuIKH7rCPTBVll2gD3tYQHGRRtnThn3O+6QBvlH/aUqLEz0yYwodB4qIfgHpLcybCOFj4G4cAd5ejX8c2Eqo/+zgw9gTlEjWTlMR81Jh8Vrd3LUddQ4B6ah5E7hTFZCNaPRyNh5TBRJk+HHu5R1VCaHQddxhN2oUSg9rCvhGdHF2ecNDWSL6nCVbW6wjcFI8bGb7SeRhDuVD9Om8YvViGWQuqZieF1dWsVRPucQEpXJjh7KjBZQyTRGv3kuymjO6SKXp+ZL+0BCqHKVTzvhp8/Dg9ozxofliI6q36PzVDaGn/bWovWqP9/bNaVD3jFyCqMJ+mxBEXtnXasI3zcG5Yb+2CPM0yXwEUxFR7+OFWWtF0NHDJVKr2YKnpUM6E8PJH0IyNvr9Q7WPdH6YNQOcE4DcKXcz4zAp/g7k/Zln5CCyeJ/5X5v/ldz5+37Mk/nb2i6k2h1101XbF1+8oJojMQKd5F+irAUZKADZ3QnUnZGzLfT64QK/rPeOvZxtv3ykKvRMSVuQONfmlUBlqTwLL8B3oU50Q=
+api: eJy1VU1v2zAM/SsCTxtgJN0HBsyntVs3FBu6oe2wQxFgjM3EamXJlehmgaH/PlCx89Gm7XrYKRZF6T2STy8dMM4D5JewcP56ZtwiwCSDkkLhdcPaWcjhk1tY47AMiitSQ6KaaUNBzZxP4VP6wylco7bqyk0VhuAKjUylWmiuUtZc35JVv4c7TsrfI8jANeRRwE7KLbhffdI3N4cMGvRYE5MXth1YrAly2FwEGWgh2yBXcLeC4SoV2Gs7V7oky3qmyUMGnm5a7amEnH1LGYSiohoh74CXjYCsDkGM2RpXaj+Vzx71piW/vAf7WRuSA4qdKvuq4N8ApLDQYEGbyvZj/BoSlW1r8rrYLe4elrZM87Q1c75GXoXevYUYJ9KL0DgbKMiJ1wcH8rOL9/0rZFA4y2RZdrFpjC7S9MZXQVK6Bwvcwpxqi34JMcaYwdt9QEdYKhkNBX4O4maal1BTCDgnUXRPxE2vqJD7Gi+iY72qdEjcNxJgzUZCx947f9Y3aM38zZ4WDXJW1rFCY9yCynRVoKL1mpdJwkeEnvxhyxXklxPpfk1cOXkCc0ocRco5jAeRj7uN3ON4W1Dkb4eH0XoDOVTMTcjHY2z0qDCuLUeBbsjjSLt7CjpPO+qHQZbxqI+Srw5/nIBwGiifS4dX3domvm6YIA56k/U0JUHWf3weBn+14NQKbWcuHe+727MQ2KcISrm6oNAnizSwSNLYLX67ZKpRm6T1mfuw2YgZSOdWOK9Grw7ejw4k2LjANSZp9Q9ycKU7/neXbLdR6v/3zb71TH943BjUVqinHnS9eDa+DhnkO2651s8kg8oFluSum2Kgn97EKOGV44iqSh1wauRVzdAEeqToBzxvL9VrWu566S2aVtJAnPDfMZ/wwEewd212Az+RhdeC/8z6X5z1BvRSPfqvs5dUH0S73GazTbYfX5zEDCrCknzit0o4LApqeOvoPavccZkvxxeQAe6+4zvvNt2+l1bXrTIu3DXZGNcsWdZCMMa/zjjncA==
 sidebar_class_name: "get api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/workflow/{workflowId}/download"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Downloads the workflow files for the Nextflow main job associated with the given
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"workflowId","in":"path","description":"Workflow string identifier","required":true,"schema":{"type":"string"}},{"name":"fileName","in":"query","description":"Filename to download","schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}
+  {...require("./download-workflow-log.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./download-workflow-log.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"string","format":"binary"}}}},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./download-workflow-log.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

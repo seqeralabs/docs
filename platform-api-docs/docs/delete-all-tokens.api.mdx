@@ -5,7 +5,7 @@ description: "Deletes all API access tokens in the user context."
 sidebar_label: "Delete all user tokens"
 hide_title: true
 hide_table_of_contents: true
-api: eJydVMFu2zAM/RVB59TOtu6wnJauGVBs2Iq1Ow09MDYbK1UkVaLTBYb/faTspEk7YMBOkcUn8j3yMZ0mWCU9+6XJP6BL+m6ia0xVNIGMd3qmL9EiYVJgrZpfXymoKkxJDXBlnKIGVZswqso7wt9U6In2ASNIgqv6kGJu7e1QY6IjpuBdQq7c6bfTc/k5Lfv9izpT3/yQ1JHuJ/p8On2Nu4BaRXxsMRHn3aMZBiFYU2US5ToJttOpanADcpInJmItyjesB1Yo0mkXkJP65RoryReiKCEzEN0D+TgCE0XjVrpndmTIytUiRh9/jPo40mfm7/6icN8j5TxJe/0T8xF4wqqNhnZMrtMXCBHjvKWGP+96JrlBarz0tc59FZogUV0OQymH+zNOqSVZ3GJMOVcbLcMaopBmZQnBFJX1bV0kfGQuhfH65fRvckRdW6B7Hzfqk+DFB1qY7IneSF+HHh3TPbRJKgqVDOPvZQbxzXD4zJmBh6bXT5QbYNy9z8/Hno4spOy/CIpcww4dwWIIqLIhTsUfS2ZPGIlJ2Y/PASYinRvqvCk+vC+mchd8og1kPznIcgZ/5w3Ji0B7m59Q7Z7d+X9LNTZTPstgwThhk1V1owMOWzzRRx7gQTXMWcJdt4SEP6Pte7nmtYniMj5uIRpYSrfZZPwAoeYJiWkekCF6zgyDrMQWbCs0Xu3XiTUvF18XtwuGw6kTXkw+FxhD4HZH6ZlpRuS/DGY7GXlkgVyL9+oPe8KeOA==
+api: eJydVMFu2zAM/RWBZzVJt17m09I2A4oNW7F2p8AHRmZjtbLlSnS7wNC/D5SdNmkHDNgpjvhMvvf06AEYtxGKNbB/oDZCqaGiaILt2PoWCrgkR0xRoXNqeX2l0BiKUY1wZVvFNak+UlDGt0y/eQYafEcBpcFV9dJi6dztOENDoNj5NlKEYoAPizP5OR7746s6Ud/92LRlSBrOFov3uHOsVKDHniKDhj26GAC7zlmTSczvo2AHiKamBuVJXrGBKlHeUIy4JZHOu46gAL+5JyP9uiBK2I5E98Bi2AMjB9tuISUNbNnJ0SoEH35O+iCllJl//IvCvUeq9Sz2+meqcqtIpg+Wd1CsBzgnDBSWPddQrMtUamiIay++VtlXoYlShfl4KfPx/ASdA2kWnijE3KsPDgqombtYzOfY2Zlxvq9mkR4p4Mx6eHv7N7mirh3ynQ+NuhC85ACEyZ7ojfg6enRI98UmmShUMgwK2GQQ6Onhiw8NMhRw/8zZANve+fz65OnEQsb+i6DItYbiBJZAoMmBOBZ/KJkatFKTsZ9fC0mDODfOOZ2dLj7NFnLY+cgN5kC1mPWMAc8rkjeB9zk/4jq8xvP/tmpyU/7OO4e2FTZZ1jBF4GWNNRyEoNRQ+8hSHoYNRvoVXEpy/NhTkJiVGp4wWNyI3esyaagJKwo5NQ+0gwKWxlAnO/GErhca7xbsKJuXq2+r2xVowOMovLn6PGAqYbs7aD8MIyJ/M1ICPfHIAiGVKaU/13meZA==
 sidebar_class_name: "delete api-method"
 info_path: platform-api-docs/docs/seqera-api
 custom_edit_url: null
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/tokens/delete-all"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -41,23 +42,17 @@ Deletes all API access tokens in the user context.
 <ParamsDetails
   parameters={undefined}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./delete-all-tokens.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./delete-all-tokens.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

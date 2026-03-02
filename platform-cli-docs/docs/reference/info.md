@@ -7,7 +7,7 @@ description: Show system info and health status
 
 Show system info and health status.
 
-### Example
+#### Example
 
 Command:
 

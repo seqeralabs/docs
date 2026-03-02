@@ -15,7 +15,7 @@ a large storage volume for temporary pipeline data.
 This configuration requires Docker or a similar container engine to run pipeline tasks.
 :::
 
-1. Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable with your service account JSON key to grant Nextflow and Fusion access to your storage credentials. See [Credentials](https://www.nextflow.io/docs/latest/google.html#credentials) for more information.
+1. Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable with your service account JSON key to grant Nextflow and Fusion access to your storage credentials. See [Credentials](https://docs.seqera.io/nextflow/google#credentials) for more information.
 
 1. Add the following to your `nextflow.config` file:
 

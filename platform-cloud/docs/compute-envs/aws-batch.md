@@ -670,7 +670,7 @@ Seqera automates the configuration of an [AWS Batch](https://aws.amazon.com/batc
 Seqera will create the head and compute [job queues](https://docs.aws.amazon.com/batch/latest/userguide/job_queues.html) and their respective [compute environments](https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html) where jobs will be executed. The job queues are configured with [job state limit actions](https://docs.aws.amazon.com/batch/latest/APIReference/API_JobStateTimeLimitAction.html) to automatically purge jobs that cannot be scheduled on any node type available for the compute environment.
 Depending on the provided configuration in the UI, Seqera might also create IAM roles for Nextflow head job execution, CloudWatch log groups, EFS or FSx filesystems, etc.
 
-1. After logging in to [Seqera](https://cloud.seqera.io) and selecting a workspace from the dropdown menu at the top of the page, select **Compute environments** from the navigation menu.
+1. Select **Compute environments** from the navigation menu of the Seqera Workspace where you want to setup the CE.
 1. Select **Add compute environment**.
 1. Enter a descriptive name for this environment, e.g., _AWS Batch Spot (eu-west-1)_.
 1. Select **AWS Batch** as the target platform.
@@ -688,7 +688,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
 1. In the **Pipeline work directory** field type or select from the dropdown menu the S3 bucket [previously created](#s3-bucket-creation), e.g., `s3://seqera-bucket`. The work directory can be customized to specify a folder inside the bucket where Nextflow intermediate files will be stored, e.g., `s3://seqera-bucket/nextflow-workdir`. The bucket must be located in the same region chosen in the previous step.
 
     :::note
-    When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+    When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
     :::
 
    Similarly you can specify a path in an EFS or FSx file system as your work directory. When using EFS or FSx, you'll need to scroll down to "EFS file system" or "FSx for Lustre" sections to specify either an existing file system ID or let Seqera create a new one for you automatically. Read the notes in steps 23 and 24 below on how to setup EFS or FSx.
@@ -697,7 +697,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
     Using an EFS or FSx file system as your work directory is currently incompatible with [Studios](../studios/overview), and will result in errors with checkpoints and mounted data. Use an S3 bucket as your work directory when using Studios.
     :::
 
-1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
+1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://docs.seqera.io/nextflow/wave) for more information.
 1. Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/overview) for configuration details.
 
     <details>
@@ -903,7 +903,7 @@ With your AWS environment and resources set up and your user permissions configu
 AWS Batch creates resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
-1. After logging in to [Seqera](https://cloud.seqera.io) and selecting a workspace from the dropdown menu at the top of the page, select **Compute environments** from the navigation menu.
+1. Select **Compute environments** from the navigation menu of the Seqera Workspace where you want to setup the CE.
 1. Select **Add compute environment**.
 1. Enter a descriptive name for this environment, e.g., _AWS Batch Spot (eu-west-1)_.
 1. Select **AWS Batch** as the target platform.
@@ -920,7 +920,7 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
 1. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_. This region must match the region where your S3 bucket or EFS/FSx work directory is located to avoid high data transfer costs.
 1. Enter or select from the dropdown menu the S3 bucket [previously created](#s3-bucket-creation) in the **Pipeline work directory** field, e.g., `s3://seqera-bucket`. This bucket must be in the same region chosen in the previous step to avoid incurring high data transfer costs. The work directory can be customized to specify a folder inside the bucket, e.g., `s3://seqera-bucket/nextflow-workdir`.
     :::note
-    When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+    When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
     :::
 
    Similarly you can specify a path in an EFS or FSx file system as your work directory. When using EFS or FSx, you'll need to scroll down to "EFS file system" or "FSx for Lustre" sections to specify either an existing file system ID or let Seqera create a new one for you automatically. Read the notes in steps 23 and 24 below on how to setup EFS or FSx.
@@ -929,7 +929,7 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
     Using an EFS or FSx file system as your work directory is currently incompatible with [Studios](../studios/overview), and will result in errors with checkpoints and mounted data. Use an S3 bucket as your work directory when using Studios.
     :::
 
-1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://www.nextflow.io/docs/latest/wave.html) for more information.
+1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://docs.seqera.io/nextflow/wave) for more information.
 1. Select **Enable Fusion v2** to allow access to your S3-hosted data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/overview) for configuration details.
 
     <details>

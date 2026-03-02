@@ -9,10 +9,8 @@ Docker Compose deployments are suitable for evaluation, development, and small p
 
 ## Prerequisites
 
-Before you begin, you need:
+Other than the basic requirements [already listed in the Platform installation overview](./install-platform#prerequisites), you will need:
 - Docker Engine and Docker Compose
-- A MySQL 8 database
-- A Redis 7 instance
 
 ## Container images
 
@@ -56,9 +54,9 @@ Use a managed Redis service for production:
 
       - The `db` container should be used only for local testing. If you have configured this service elsewhere, you can remove this container.
 
-      - To configure the Seqera pipeline resource optimization service (`groundswell`), see [Pipeline resource optimization](./configuration/pipeline_optimization).
+      - To configure the Seqera pipeline optimization service (`groundswell`), see [Pipeline optimization](./configuration/pipeline_optimization).
 
-      - To deploy with Studios, see [Studios deployment](./studios).
+      - To deploy with Studios, see [Studios deployment](./install-studios).
 
 4. Deploy the application and wait for it to initialize (this process takes a few minutes):
 
@@ -112,7 +110,7 @@ Seqera Platform offers a service that optimizes pipeline resource requests. Refe
 
 ### Studios
 
-[Studios](../studios/overview) is an interactive analysis environment available in organizational workspaces. To enable Studios, see [Studios deployment](./studios).
+[Studios](../studios/overview) is an interactive analysis environment available in organizational workspaces. To enable Studios, see [Studios deployment](./install-studios).
 
 :::note
 Studios is available from Seqera Platform v24.1. If you experience any problems during the deployment process please contact your account executive. Studios in Enterprise is not installed by default.

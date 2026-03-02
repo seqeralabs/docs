@@ -20,13 +20,13 @@ List pipeline actions.
 tw actions list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -42,7 +42,7 @@ Example output:
 
 ID                     | Name  | Endpoint                                                                                      | Status | Source
     ------------------------+-------+-----------------------------------------------------------------------------------------------+--------+--------
-     1a2b3c4d5e6f7g8h9i0j1k | Testy | https://api.cloud.seqera.io/actions/1a2b3c4d5e6f7g8h9i0j1k/launch?workspaceId=123456789012345 | ACTIVE | tower
+     2b3c4d5e6f7g8h | Testy | https://api.cloud.seqera.io/actions/2b3c4d5e6f7g8h/launch?workspaceId=123456789012345 | ACTIVE | tower
 ```
 
 ## tw actions view
@@ -53,15 +53,15 @@ View pipeline action details.
 tw actions view [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Action unique identifier | No | `null` |
 | `-n`, `--name` | Action name | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -76,12 +76,12 @@ Details for action 'Testy'
 
 
 --------------+-------------------------------------------------------------------
-     ID           | 1a2b3c4d5e6f7g8h9i0j1k
+     ID           | 2b3c4d5e6f7g8h
      Name         | Testy
      Status       | ACTIVE
      Pipeline URL | https://github.com/nextflow-io/rnaseq-nf
      Source       | tower
-     Hook URL     | https://api.cloud.seqera.io/actions/1a2b3c4d5e6f7g8h9i0j1k/launch
+     Hook URL     | https://api.cloud.seqera.io/actions/2b3c4d5e6f7g8h/launch
      Last event   | never
      Date created | Tue, 10 Jun 2025 09:02:12 GMT
      Last event   | never
@@ -116,13 +116,20 @@ Run `tw actions add -h` to view the list of supported event sources.
 
 Run `tw actions add <source> -h` to view the required and optional fields for your event source.
 
-### Options
+:::note
+Supported event sources:
+- **tower**: Manual webhook trigger via Platform UI or API
+- **github**: GitHub webhook events (push, pull request, etc.)
+:::
+
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-n`, `--name` | Action name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. | Yes | `null` |
+| `--pipeline` | Pipeline repository URL. Must be a full Git repository URL (e.g., https://github.com/nextflow-io/hello). | Yes | `null` |
 | `-i`, `--id` | Action unique identifier | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format. Required if `TOWER_WORKSPACE_ID` environment variable is not set. | Yes* | `TOWER_WORKSPACE_ID` |
 | `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. | No | `null` |
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No | `null` |
 | `-p`, `--profile` | Array of Nextflow configuration profile names to apply. | No | `null` |
@@ -139,7 +146,7 @@ Run `tw actions add <source> -h` to view the required and optional fields for yo
 | `--user-secrets` | Array of user secrets to make available to the pipeline. | No | `null` |
 | `--workspace-secrets` | Array of workspace secrets to make available to the pipeline. | No | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -165,7 +172,7 @@ Update a pipeline action.
 tw actions update [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -173,7 +180,7 @@ tw actions update [OPTIONS]
 | `--new-name` | Updated action name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. | No | `null` |
 | `-i`, `--id` | Action unique identifier | No | `null` |
 | `-n`, `--name` | Action name | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 | `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. | No | `null` |
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No | `null` |
 | `-p`, `--profile` | Array of Nextflow configuration profile names to apply. | No | `null` |
@@ -190,7 +197,7 @@ tw actions update [OPTIONS]
 | `--user-secrets` | Array of user secrets to make available to the pipeline. | No | `null` |
 | `--workspace-secrets` | Array of workspace secrets to make available to the pipeline. | No | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -212,15 +219,15 @@ Delete a pipeline action.
 tw actions delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Action unique identifier | No | `null` |
 | `-n`, `--name` | Action name | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -242,16 +249,17 @@ Manage pipeline action labels.
 tw actions labels [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Action unique identifier | No | `null` |
 | `-n`, `--name` | Action name | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | Personal workspace |
 | `--no-create` | Assign labels without creating the ones which were not found. | No | `null` |
 | `--operations`, `-o` | Type of operation (set, append, delete) [default: set]. | No | `set` |
 
-### Example
+#### Example
 
 Command:
 
@@ -262,7 +270,7 @@ tw actions labels -n Testy -w 123456789012345 test-environment,label2
 Example output:
 
 ```bash
-'set' labels on 'action' with id '1a2b3c4d5e6f7g8h9i0j1k' at 123456789012345 workspace
+'set' labels on 'action' with id '2b3c4d5e6f7g8h' at 123456789012345 workspace
 ```
 
 :::note
