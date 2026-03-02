@@ -33,7 +33,7 @@ The launch form accepts URL query parameters. See [Populate launch form with URL
 
 - **Pipeline to launch**: A Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited. Private repositories require [access credentials](../credentials/overview).
   :::note
-  Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview) in the Seqera docs and [Pipeline sharing](https://www.nextflow.io/docs/latest/sharing.html) in the Nextflow docs for more details.
+  Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview) in the Seqera docs and [Pipeline sharing](https://docs.seqera.io/nextflow/sharing) in the Nextflow docs for more details.
   :::
 - **Revision**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch. 
 - **Commit ID**: Pin pipeline revision to the most recent HEAD commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
@@ -41,7 +41,7 @@ The launch form accepts URL query parameters. See [Populate launch form with URL
   :::info
   See [Git revision management](../pipelines/revision.md) for more information on **Commit ID**, **Pull latest**, and **Revision** behavior. 
   :::
-- **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository.
+- **Config profiles**: One or more [configuration profile](https://docs.seqera.io/nextflow/config#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository.
 - **Workflow run name**: A unique identifier for the run, pre-filled with a random name. This can be customized.
 - **Labels**: Assign new or existing [labels](../labels/overview) to the run.
 - **Compute environment**: The [compute environment](../compute-envs/overview) where the run will be launched.
@@ -116,7 +116,7 @@ Use resource labels to tag the computing resources created during the workflow e
 Secrets are used to store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
 
 :::note 
-In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://www.nextflow.io/docs/latest/aws.html#custom-job-definition). 
+In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://docs.seqera.io/nextflow/aws#custom-job-definition). 
 :::
 
 #### Advanced options

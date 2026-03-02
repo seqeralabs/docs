@@ -57,7 +57,7 @@ See the [dragen.nf](https://github.com/seqeralabs/nf-dragen/blob/master/modules/
    }
    ```
 
-   See the [Nextflow label docs](https://www.nextflow.io/docs/latest/process.html?highlight=label#label) for more information.
+   See the [Nextflow label docs](https://docs.seqera.io/nextflow/process.html?highlight=label#label) for more information.
 
 2. Define secrets in Seqera:
 
