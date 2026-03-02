@@ -1,5 +1,5 @@
 ---
-title: "Code intelligence"
+title: "Language server"
 description: "Use language-server code intelligence features in Seqera AI"
 date: "2026-02-26"
 tags: [seqera-ai, cli, lsp, code-intelligence]
