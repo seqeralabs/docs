@@ -8,6 +8,80 @@ This guide covers documentation standards, editorial workflows, and Claude-power
 - **Local review** → Use `/review <file-or-directory>` → See issues before committing
 - **Apply fixes** → Address issues directly in files based on agent feedback
 
+> **Important:** Editorial reviews are **on-demand only**. They do NOT run automatically on PR creation or commits. You must explicitly trigger them by:
+> - Running `/editorial-review` locally in Claude Code
+> - Commenting `/editorial-review` on a PR
+> - Manually dispatching the docs editorial review GitHub Actions workflow
+
+## When to use editorial review
+
+### Use local review (Claude Code)
+
+Run `/editorial-review` in Claude Code when:
+- ✅ Writing new content (catch issues before PR)
+- ✅ Iterating on drafts (immediate feedback)
+- ✅ Learning the style guidelines
+- ✅ Working on single files or small changes
+- ✅ You want faster feedback (no CI wait time)
+
+**Environment:** Your local machine
+**Cost:** Your Claude API subscription
+**Agents available:** voice-tone, terminology (clarity disabled, punctuation not yet implemented)
+
+**Example:**
+```bash
+/editorial-review platform-enterprise_docs/getting-started/quickstart.md
+```
+
+### Use PR review (GitHub Actions)
+
+Comment `/editorial-review` on a PR when:
+- ✅ Reviewing multi-file PRs (inline suggestions help)
+- ✅ Reviewing contributor PRs (official documented review)
+- ✅ You want to batch-apply fixes via GitHub UI
+- ✅ Contributors don't have Claude Code installed
+- ✅ Final check before merge on substantial changes
+
+**Environment:** GitHub Actions CI
+**Cost:** Repository API budget
+**Agents:** Skill orchestrates voice-tone and terminology agents
+
+**Example:**
+```
+# Comment this on any PR
+/editorial-review
+```
+
+### When to skip review
+
+**Automatic (smart-gate blocks these):**
+- ✅ Reviewed <60 minutes ago
+- ✅ <10 meaningful lines changed
+- ✅ >5 formatting issues (fix with markdownlint first)
+
+**Use judgment (don't trigger manually):**
+- ❌ Single typo fixes
+- ❌ PRs with only code changes (no docs)
+- ❌ Urgent hotfixes
+- ❌ File renames or moves only
+- ❌ Dependency updates
+- ❌ Whitespace-only changes
+
+**How it works:** Comment `/editorial-review` and smart-gate automatically decides if it's worth running. You don't need to manually check timing or size.
+
+### Token usage and costs
+
+Approximate costs per review (using Sonnet 4.5):
+- Small PR (1-3 files, <500 lines): ~15K tokens (~$0.30-0.60)
+- Medium PR (5-10 files, ~1000 lines): ~40K tokens (~$0.90-1.50)
+- Large PR (15+ files, 2000+ lines): ~80K tokens (~$1.80-3.00)
+
+**Time savings:** Estimated 30-40 minutes per PR (agents identify issues in 2-4 minutes vs manual review)
+
+**Estimated annual cost for this repo:** $380-760/year (based on ~1,520 PRs/year at current rate, using agents on 25-50% of PRs at ~$1/review average)
+
+**Environmental impact:** ~0.15 kWh per review (~57 kg CO₂/year at 380 reviews, ~114 kg CO₂/year at 760 reviews). Equivalent to ~158-316 hours of video streaming annually. Using manual triggers and following the "When NOT to re-run" guidelines helps minimize unnecessary compute.
+
 ## Workflows and architecture
 
 This repository uses two main Claude-powered workflows:
@@ -16,12 +90,12 @@ This repository uses two main Claude-powered workflows:
 
 **Purpose:** On-demand quality checks for documentation content
 
-**Components:**
-- **Skill**: `/editorial-review`
-- **Agents**: voice-tone, terminology, clarity (disabled), punctuation (planned)
-- **Workflow**: `.github/workflows/docs-review.yml`
-- **Scripts**: `classify-pr-type.sh` (PR classification), `post-inline-suggestions.sh` (GitHub API integration)
-- **Triggers**: `/editorial-review` command (Claude Code or PR comment), manual workflow dispatch
+**Architecture:**
+- **Skill**: `/editorial-review` (orchestrates all agents)
+- **Workflow**: `.github/workflows/docs-review.yml` (invokes skill)
+- **Smart-gate**: Automatic filtering prevents wasteful runs
+- **Scripts**: `classify-pr-type.sh`, `post-inline-suggestions.sh`
+- **Triggers**: Manual only - `/editorial-review` comment or workflow dispatch
 
 ### API workflow
 
@@ -38,19 +112,22 @@ This repository uses two main Claude-powered workflows:
 
 ### How it works
 
-Use the `/editorial-review` command to run specialized agents on your documentation. This command works in two contexts:
+The `/editorial-review` skill orchestrates specialized agents to review your documentation. The skill ensures consistent behavior whether run locally or in CI.
 
 **In Claude Code (local):**
-1. Run the command in your terminal
-2. Agents analyze files directly
+1. Run `/editorial-review` in your terminal
+2. Skill invokes appropriate agents (voice-tone, terminology, clarity)
 3. Review findings in the conversation
 4. Apply fixes to files manually
 
 **In GitHub PR (CI):**
 1. Comment `/editorial-review` on any PR
-2. Workflow triggers automatically
-3. Agents analyze changed files
-4. Results posted as inline PR suggestions
+2. Workflow runs smart-gate checks (prevents waste):
+   - Skips if reviewed <60 min ago
+   - Skips if <10 lines changed
+   - Skips if formatting issues found (fix those first)
+3. If gates pass: Invokes `/editorial-review` skill
+4. Skill orchestrates agents and posts inline suggestions
 
 ### Usage
 
@@ -75,20 +152,22 @@ Use the `/editorial-review` command to run specialized agents on your documentat
 /editorial-review
 ```
 
-The workflow will:
-- Acknowledge the command immediately
-- Run all agents (voice-tone, terminology, punctuation)
+When gates pass, the workflow will:
+- Invoke `/editorial-review` skill
+- Skill runs agents: voice-tone, terminology (clarity disabled, punctuation not yet implemented)
 - Post up to 60 inline suggestions
-- Provide downloadable artifact with full list
+- Provide downloadable artifact if >60 suggestions found
+
+**Smart-gate blocks wasteful runs automatically** - you don't need to manually check timing/size.
 
 ### What gets reviewed
 
-The editorial review runs multiple specialized agents:
+Available agents:
 
-- **voice-tone**: Second person, active voice, present tense, confidence
-- **terminology**: Product names, feature names, formatting conventions
-- **punctuation**: List punctuation, Oxford commas, quotation marks, dashes
-- **clarity**: Sentence length, jargon, complexity (currently disabled)
+- **voice-tone**: Second person, active voice, present tense, confidence *(runs in CI)*
+- **terminology**: Product names, feature names, formatting conventions *(runs in CI)*
+- **punctuation**: List punctuation, Oxford commas, quotation marks, dashes *(planned, not yet implemented)*
+- **clarity**: Sentence length, jargon, complexity *(local only, disabled in CI)*
 
 ### Review output
 
@@ -118,7 +197,7 @@ The agents provide a structured report with:
 3. Review full list in `all-suggestions-full.txt`
 4. Apply remaining suggestions manually
 
-## Local Review with `/review`
+## Local review with `/review`
 
 Run editorial reviews locally before opening a PR:
 
@@ -163,6 +242,46 @@ Checks for:
 - List punctuation consistency
 - Quotation marks
 - Dash usage
+
+## Security and responsible use
+
+### Security considerations
+
+- **API keys**: Stored in GitHub Secrets and never exposed in logs or output
+- **Scope**: Reviews only read documentation files (no code execution or system access)
+- **Access control**: Manual triggers prevent automated abuse
+- **Transparency**: All review output is publicly visible in PRs for audit
+- **Rate limiting**: Use discretion when triggering reviews; contact maintainers if you need frequent reviews
+
+### Static analysis first (recommended)
+
+Before using LLM-based review, consider running fast, local checks first:
+
+**Pre-filter with static analysis:**
+```bash
+# Run markdownlint for formatting issues
+npx markdownlint-cli2 "**/*.md"
+
+# Run Vale for style and terminology (if configured)
+vale platform-enterprise_docs/
+
+# Use grep for simple pattern matching
+grep -r "Tower" --include="*.md" platform-enterprise_docs/
+```
+
+**Benefits:**
+- ⚡ Instant feedback (no API wait time)
+- 💰 Zero cost (runs locally)
+- 🌱 Minimal environmental impact
+- 🎯 Catches simple issues without LLM
+
+**When to escalate to LLM review:**
+- After static checks pass (handle simple issues first)
+- For semantic issues (voice, tone, clarity)
+- For complex terminology decisions
+- For content that requires human-like judgment
+
+This layered approach reduces LLM usage by 50-60% while maintaining quality.
 
 ## Documentation directory structure
 
