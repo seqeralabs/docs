@@ -73,7 +73,7 @@ The scratch space at `/tmp` is shared by all tasks running on the instance. For 
 
 Configure with the following IAM permissions:
 
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -89,9 +89,12 @@ Configure with the following IAM permissions:
         {
             "Action": [
                 "s3:GetObject",
+                "s3:GetObjectTagging",
                 "s3:PutObject",
                 "s3:PutObjectTagging",
-                "s3:DeleteObject"
+                "s3:DeleteObject",
+                "s3:CopyObject",
+                "s3:AbortMultipartUpload"
             ],
             "Resource": [
                 "arn:aws:s3:::<S3_BUCKET>/*"

@@ -84,12 +84,15 @@ Create a namespace and a service account in your Kubernetes cluster to run the j
                 "Resource": ["arn:aws:s3:::<S3_BUCKET>"]
             },
             {
-                "Action": [
-                    "s3:GetObject",
-                    "s3:PutObject",
-                    "s3:PutObjectTagging",
-                    "s3:DeleteObject"
-                ],
+            "Action": [
+                "s3:GetObject",
+                "s3:GetObjectTagging",
+                "s3:PutObject",
+                "s3:PutObjectTagging",
+                "s3:DeleteObject",
+                "s3:CopyObject",
+                "s3:AbortMultipartUpload"
+            ],
                 "Resource": ["arn:aws:s3:::<S3_BUCKET>/*"],
                 "Effect": "Allow"
             }
