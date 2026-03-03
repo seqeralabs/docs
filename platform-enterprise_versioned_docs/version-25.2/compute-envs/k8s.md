@@ -9,7 +9,7 @@ tags: [k8s, kubernetes, compute environment]
 
 Seqera Platform streamlines the deployment of Nextflow pipelines into Kubernetes, both for cloud-based and on-prem clusters.
 
-The following instructions create a Seqera compute environment for a **generic Kubernetes** distribution. See [Amazon EKS](./eks) or [Google Kubernetes Engine (GKE)](./gke) for EKS and GKE compute environment instructions.
+The following instructions create a Seqera compute environment for a **generic Kubernetes** distribution. See [Amazon EKS](./eks.mdx) or [Google Kubernetes Engine (GKE)](./gke.mdx) for EKS and GKE compute environment instructions.
 
 ## Cluster preparation
 
@@ -44,6 +44,7 @@ This guide applies a Kubernetes manifest that creates a service account named `t
     kind: Secret
     metadata:
       name: tower-launcher-token
+      namespace: tower-nf
       annotations:
         kubernetes.io/service-account.name: tower-launcher-sa
     type: kubernetes.io/service-account-token
@@ -53,7 +54,7 @@ This guide applies a Kubernetes manifest that creates a service account named `t
 1. Confirm that Kubernetes created the persistent API token secret:
 
     ```bash
-    kubectl describe secrets/tower-launcher-token
+    kubectl -n tower-nf describe secrets/tower-launcher-token
     ```
 
 1. Create persistent storage. Seqera requires a `ReadWriteMany` persistent volume claim (PVC) mounted to all nodes where workflow pods will be dispatched.
@@ -82,7 +83,7 @@ After you've prepared your Kubernetes cluster for Seqera integration, create a c
 1. From the **Credentials** drop-down, select existing Kubernetes credentials, or select **+** to add new credentials. If you choose to use existing credentials, skip to step 7.
 
     :::tip
-    You can create multiple credentials in your Seqera workspace. See [Credentials](../credentials/overview).
+    You can create multiple credentials in your Seqera workspace. See [Credentials](../credentials/overview.mdx).
     :::
 
 1. Enter a name, such as _K8s Credentials_.
@@ -91,7 +92,7 @@ After you've prepared your Kubernetes cluster for Seqera integration, create a c
     - To authenticate using a Kubernetes service account, enter your **Service account token**. Obtain the token with the following command:
 
         ```bash
-        kubectl describe secret <SERVICE-ACCOUNT-TOKEN-NAME> | grep -E '^token' | cut -f2 -d':' | tr -d '\t '
+        kubectl -n tower-nf describe secret <SERVICE-ACCOUNT-TOKEN-NAME> | grep -E '^token' | cut -f2 -d':' | tr -d '\t '
         ```
 
         Replace `<SERVICE-ACCOUNT-TOKEN-NAME>` with the name of the service account token created in the [cluster preparation](#cluster-preparation) instructions (default: `tower-launcher-token`).
@@ -113,18 +114,18 @@ After you've prepared your Kubernetes cluster for Seqera integration, create a c
 1. Specify the **Namespace** created in the [cluster preparation](#cluster-preparation) instructions, which is _tower-nf_ by default.
 1. Specify the **Head service account** created in the [cluster preparation](#cluster-preparation) instructions, which is _tower-launcher-sa_ by default.
 1. Specify the **Storage claim** created in the [cluster preparation](#cluster-preparation) instructions, which serves as a scratch filesystem for Nextflow pipelines. The storage claim is called _tower-scratch_ in each of the provided examples.
-1. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
+1. Apply [**Resource labels**](../resource-labels/overview.md) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 1. Expand **Staging options** to include:
-    - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
-    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch. 
+    - Optional [pre- or post-run Bash scripts](../launch/advanced.mdx#pre--post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+    - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
     :::info
-    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority. 
+    Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced.mdx#nextflow-config-file) for more information on configuration priority.
     :::
 1. You can use the **Environment variables** option to specify custom environment variables for the Head job and/or Compute jobs.
 1. Configure any advanced options described below, as needed.
 1. Select **Create** to finalize the compute environment setup.
 
-See [Launch pipelines](../launch/launchpad) to start executing workflows in your Kubernetes compute environment.
+See [Launch pipelines](../launch/launchpad.md) to start executing workflows in your Kubernetes compute environment.
 
 ### Advanced options
 
@@ -146,4 +147,3 @@ spec:
 
 - Use **Custom service pod specs** to provide custom options for the compute environment pod. See above for an example.
 - Use **Head Job CPUs** and **Head Job memory** to specify the hardware resources allocated to the Nextflow workflow pod.
-
