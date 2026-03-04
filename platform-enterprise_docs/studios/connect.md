@@ -22,8 +22,7 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ### server/v0.9.0 - 2025-12-05
 
-* Add: missing env when testing with platform livedev
-* Fix: security vulnerabilities for crypto ssh library and slack nebula
+* Fix: security vulnerabilities for crypto SSH library and slack nebula
 * Upgrade go (from v1.24.3 to 1.25.3) and caddyserver (from 2.10.0 to 2.10.2)
 
 ### server/v0.8.4 - 2025-10-31
@@ -118,7 +117,6 @@ Connect version 0.8.3 introduced a change which required the creation of a `/dat
 * Add: SSH Connectivity:
   * Server implementation (initialize ssh server when enabled)
   * Fingerprint verification 
-  * Fingerprint verification
   * Add SSH connection activity tracking and notifications
 
 ### client/v0.9.0 - 2025-12-05
