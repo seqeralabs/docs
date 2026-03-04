@@ -123,7 +123,7 @@ Checkpoint file integrity verification failed before restore.
 **Cause**
 
 1. One or more checkpoint files are missing from the dump directory.
-2. One or more checkpoint files have incorrect sizes (possibly corrupted or truncated).
+2. One or more checkpoint files are the incorrect size (possibly corrupted or truncated).
 3. This typically indicates:
    - Network issues during checkpoint file upload to cloud storage.
    - Incomplete dump due to Spot instance termination timeout.
