@@ -27,6 +27,8 @@ function extractSections(text) {
 }
 
 async function mergeLlmsTxt() {
+  console.log("merge-llms-txt: Merging llms.txt files from sub-site rewrites...");
+
   if (!(await fs.pathExists(LLMS_TXT_PATH))) {
     console.error("❌ merge-llms-txt: build/llms.txt not found. Run the build first.");
     process.exit(1);
