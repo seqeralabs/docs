@@ -7,7 +7,7 @@ tags: [authentication, entra, azure, oidc]
 
 Configure [Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/identity-platform/v2-protocols-oidc) as a single sign-on (SSO) provider for Seqera Platform using OpenID Connect.
 
-:::info <span id="prerequisites">**Prerequisites**</span>
+:::info Prerequisites <span id="prerequisites" />
 Before you begin, you need:
 
 - An Azure account with Entra ID access
