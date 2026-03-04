@@ -16,6 +16,13 @@ const REMOTE_ORIGINS = [
 ];
 
 /**
+ * Rewrites relative links (e.g. [Title](/path)) to absolute URLs.
+ */
+function rewriteRelativeLinks(text, baseUrl) {
+  return text.replace(/\]\(\/([^)]*)\)/g, `](${baseUrl}/$1)`);
+}
+
+/**
  * Strips the llms.txt header (title, description, top-level links) and
  * returns only the ## section content.
  */
@@ -43,11 +50,12 @@ async function mergeLlmsTxt() {
         console.warn(`⚠️  merge-llms-txt: ${name} returned ${response.status} — skipping`);
         continue;
       }
-      const sections = extractSections(await response.text());
+      let sections = extractSections(await response.text());
       if (!sections) {
         console.warn(`⚠️  merge-llms-txt: no ## sections found in ${name} llms.txt — skipping`);
         continue;
       }
+      sections = rewriteRelativeLinks(sections, "https://docs.seqera.io");
       base += "\n" + sections;
       console.log(`✅ merge-llms-txt: merged ${name}`);
     } catch (error) {
