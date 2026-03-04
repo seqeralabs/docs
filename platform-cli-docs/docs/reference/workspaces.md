@@ -17,7 +17,7 @@ List workspaces.
 tw workspaces list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -25,7 +25,7 @@ tw workspaces list [OPTIONS]
 
 List all the workspaces in which you are a participant.
 
-### Example
+#### Example
 
 Command:
 
@@ -43,21 +43,6 @@ Workspaces for default user:
     26002603030407  | shared-workspace | my-tower-org      | 04303000612070
 ```
 
-## tw workspaces delete
-
-Delete a workspace.
-
-```bash
-tw workspaces delete [OPTIONS]
-```
-
-### Options
-
-| Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-i`, `--id` | Workspace identifier | No | `null` |
-| `-n`, `--name` | Workspace namespace in OrganizationName/WorkspaceName format | No | `null` |
-
 ## tw workspaces add
 
 Add a workspace.
@@ -66,7 +51,7 @@ Add a workspace.
 tw workspaces add [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -85,7 +70,7 @@ Run `tw workspaces add -h` to view the required and optional fields for adding y
 
 In the example below, we create a shared workspace to be used for sharing pipelines with other private workspaces. See [Shared workspaces](https://docs.seqera.io/platform-cloud/orgs-and-teams/workspace-management) for more information.
 
-### Example
+#### Example
 
 Command:
 
@@ -103,23 +88,6 @@ A 'SHARED' workspace 'shared-workspace' added for 'my-tower-org' organization
 By default, a workspace is set to private when created.
 :::
 
-## tw workspaces update
-
-Update a workspace.
-
-```bash
-tw workspaces update [OPTIONS]
-```
-
-### Options
-
-| Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-i`, `--id` | Workspace identifier | Yes | `null` |
-| `--new-name` | Updated workspace name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. Must be 2-40 characters. | No | `null` |
-| `-f`, `--fullName` | Updated full display name for the workspace. Maximum 100 characters. | No | `null` |
-| `-d`, `--description` | Updated workspace description. Maximum 1000 characters. | No | `null` |
-
 ## tw workspaces view
 
 View workspace details.
@@ -128,14 +96,14 @@ View workspace details.
 tw workspaces view [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Workspace identifier | No | `null` |
 | `-n`, `--name` | Workspace namespace in OrganizationName/WorkspaceName format | No | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -165,7 +133,7 @@ Update a workspace.
 tw workspaces update [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
@@ -174,7 +142,7 @@ tw workspaces update [OPTIONS]
 | `-f`, `--fullName` | Updated full display name for the workspace. Maximum 100 characters. | No | `null` |
 | `-d`, `--description` | Updated workspace description. Maximum 1000 characters. | No | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -196,14 +164,14 @@ Delete a workspace.
 tw workspaces delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
 | `-i`, `--id` | Workspace identifier | No | `null` |
 | `-n`, `--name` | Workspace namespace in OrganizationName/WorkspaceName format | No | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -225,14 +193,14 @@ Leave a workspace.
 tw workspaces leave [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Workspace identifier | No | `null` |
 | `-n`, `--name` | Workspace namespace in OrganizationName/WorkspaceName format | No | `null` |
 
-### Example
+#### Example
 
 Command:
 

@@ -140,7 +140,8 @@
           "items": [
             "studios/add-studio-provided-template",
             "studios/add-studio-custom-container",
-            "studios/add-studio-git-repo"
+            "studios/add-studio-git-repo",
+            "studios/example-studios"
           ]
           },
           "studios/managing",
@@ -154,6 +155,7 @@
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/roles",
+          "orgs-and-teams/custom-roles",
           "monitoring/dashboard",
           "administration/credit-management"
           ]
@@ -167,8 +169,13 @@
         "seqera-ai/get-started",
         "seqera-ai/installation",
         "seqera-ai/authentication",
+        "seqera-ai/use-cases",
         "seqera-ai/command-approval",
-        "seqera-ai/use-cases"
+        "seqera-ai/skill-claude-code",
+        "seqera-ai/skill-codex",
+        "seqera-ai/skill-github-copilot",
+        "seqera-ai/skill-other-agents",
+        "seqera-ai/nextflow-lsp"
       ]
     },
       {

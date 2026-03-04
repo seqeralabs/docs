@@ -1,0 +1,1 @@
+{"parameters":[{"name":"launchId","in":"path","description":"Launch string identifier","required":true,"schema":{"type":"string"}},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}}]}

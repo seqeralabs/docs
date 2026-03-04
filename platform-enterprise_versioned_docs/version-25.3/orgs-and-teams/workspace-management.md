@@ -1,7 +1,8 @@
 ---
 title: "Workspaces"
 description: "Manage users and teams for an organization in Seqera Platform."
-date: "24 Apr 2023"
+date created: "2023-04-24"
+last updated: "2026-03-02"
 tags: [workspaces, teams, users, administration]
 ---
 
@@ -32,13 +33,31 @@ As a workspace owner, you can modify optional workspace fields after workspace c
 
 Apart from the **Participants** tab, the _organization_ workspace is similar to the _user_ workspace. As such, the relation to [runs](../launch/launchpad), [actions](../pipeline-actions/overview), [compute environments](../compute-envs/overview), and [credentials](../credentials/overview) is the same.
 
-## Edit a workspace
+## Workspace settings
+
+### Studios settings
+
+- **Collaboration mode**: Limit which members can connect to a running Studio in the workspace. Toggle between **Collaborative**  (any member with the right permissions can connect) and **Private** (only the creator can connect). Default is **Collaborative** mode.
+- **Session lifespan**: Set a predefined lifespan (between 1 and 120 hours), after which all Studio sessions in the workspace are automatically stopped. To keep all workspace Studios running indefinitely, select **Always keep the session running**. Default is a session lifespan of **8 hours**.
+- **Container repository**: Define the target container repository where custom Studio images built with Wave will be pushed. The workspace must have a credential with read and write permissions to the target container registry. There is no default and custom builds will fail for self-hosted deployments.
+
+:::note
+Studios sessions created in shared workspaces are not shared across all the workspaces in an organization.
+:::
+
+### Edit labels
+
+Select **Edit labels** to manage the workspace [labels and resource labels](../labels/overview).
+
+### Edit or delete a workspace
 
 :::note
 From version 23.2, **workspace owners** can edit their workspace name, either from the workspace settings tab or the [Admin panel](../administration/overview).
 :::
 
-Open the **Settings** tab on the workspace page and select **Edit Workspace**. Make your updates and select **Update** to save changes.
+Select **Edit workspace** to update the workspace name, full name, description, and sharing. Select **Update** to save changes.
+
+Select **Delete workspace** to delete the workspace and its associated resources. This action cannot be reversed.
 
 ## Add a new participant
 

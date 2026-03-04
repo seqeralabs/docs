@@ -95,7 +95,8 @@
             "enterprise/advanced-topics/custom-launch-container",
             "enterprise/advanced-topics/firewall-configuration",
             "enterprise/advanced-topics/seqera-container-images",
-            "enterprise/advanced-topics/content-security-policy"
+            "enterprise/advanced-topics/content-security-policy",
+            "enterprise/advanced-topics/monitoring"
           ]
         },
         "enterprise/general_troubleshooting"
@@ -237,7 +238,8 @@
           "items": [
             "studios/add-studio-provided-template",
             "studios/add-studio-custom-container",
-            "studios/add-studio-git-repo"
+            "studios/add-studio-git-repo",
+            "studios/example-studios"
           ]
         },
         "studios/managing",

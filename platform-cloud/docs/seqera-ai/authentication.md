@@ -5,10 +5,6 @@ date: "15 Dec 2025"
 tags: [seqera-ai, cli, authentication, login]
 ---
 
-:::caution Seqera AI CLI is in beta
-Seqera AI CLI is currently in beta. Features and commands may change as we continue to improve the product.
-:::
-
 :::note
 Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
 :::
@@ -102,7 +98,7 @@ Seqera AI CLI automatically refreshes your authentication token when needed. You
 ## Learn more
 
 - [Seqera AI CLI](index.md): Seqera AI CLI overview
-- [Installation](./installation.mdx): Detailed installation instructions
+- [Installation](./installation.md): Detailed installation instructions
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Use cases](./use-cases.md): Seqera AI use cases
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

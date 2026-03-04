@@ -4,7 +4,7 @@ Run `tw secrets add -h` to view the required and optional fields for adding a se
 [compute-envs]: /platform-cloud/compute-envs/overview
 [credentials]: /platform-cloud/credentials/overview
 [git-integration]: /platform-cloud/git/overview
-[nextflow-config]: https://www.nextflow.io/docs/latest/config.html#config-syntax
+[nextflow-config]: https://docs.seqera.io/nextflow/config#config-syntax
 [participant-roles]: /platform-cloud/orgs-and-teams/roles
 [shared-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
 [tower-agent]: /platform-cloud/supported_software/agent/overview

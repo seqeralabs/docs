@@ -15,7 +15,7 @@ To launch pipelines into a **Slurm** cluster from Tower, the following requireme
 
 - The cluster should allow outbound connections to the Tower web service.
 - The cluster queue used to run the Nextflow head job must be able to submit cluster jobs.
-- The Nextflow runtime version **21.02.0-edge** (or later) must be [installed on the cluster](https://nextflow.io/docs/latest/install.html).
+- The Nextflow runtime version **21.02.0-edge** (or later) must be [installed on the cluster](https://docs.seqera.io/nextflow/install).
 
 ## Compute environment
 
@@ -42,7 +42,7 @@ To create a new compute environment for **Slurm** in Tower:
 10. Enter the **Compute queue name**. This is the cluster queue to which the Nextflow job will submit tasks.
 
     :::tip
-    The compute queue can be overridden by the Nextflow pipeline configuration. See the Nextflow [documentation](https://www.nextflow.io/docs/latest/process.html#queue) for more details.
+    The compute queue can be overridden by the Nextflow pipeline configuration. See the Nextflow [documentation](https://docs.seqera.io/nextflow/process#queue) for more details.
     :::
 
 11. Expand **Staging options** to include optional pre- or post-run Bash scripts that execute before or after the Nextflow pipeline execution in your environment.
