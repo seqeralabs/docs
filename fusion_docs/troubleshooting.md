@@ -2,7 +2,7 @@
 title: Troubleshooting
 description: "Troubleshooting for Fusion issues"
 date created: "2025-11-29"
-last updated: "2025-12-19"
+last updated: "2026-03-04"
 tags: [troubleshooting, fusion, fusion-snapshots, configuration]
 ---
 
@@ -112,6 +112,27 @@ Task fails with exit code `176` when attempting to restore from a checkpoint.
 
 3. Configure retry for dump failures first:
    - Handle exit code `175` with retry. See [Retry handling](./guide/snapshots/configuration.md#retry-handling) for more information.
+
+
+### Exit code `177`: Manifest verification failure
+
+**Issue**
+
+Checkpoint file integrity verification failed before restore.
+
+**Cause**
+
+1. One or more checkpoint files are missing from the dump directory.
+2. One or more checkpoint files are the incorrect size (possibly corrupted or truncated).
+3. This typically indicates:
+   - Network issues during checkpoint file upload to cloud storage.
+   - Incomplete dump due to Spot instance termination timeout.
+   - Storage quota exceeded during dump.
+
+**Solution**
+
+- 	Check for network/storage issues and retry.
+-  Check that all files have been uploaded.
 
 ### Long checkpoint times
 
