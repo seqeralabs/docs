@@ -1,16 +1,17 @@
 ---
 title: Amazon EKS
 description: "Use Fusion with AWS Elastic Kubernetes Service and S3 storage"
-date: "23 Aug 2024"
+date created: "2024-08-24"
+last updated: "2026-03-04"
 tags: [fusion, storage, compute, aws eks, s3]
 ---
 
 Fusion streamlines the deployment of Nextflow pipelines in Kubernetes because it replaces the need to configure
 and maintain a shared file system in your cluster.
 
-### Platform Amazon EKS compute environments 
+### Platform Amazon EKS compute environments
 
-Seqera Platform supports Fusion in Amazon Elastic Kubernetes Service (Amazon EKS) compute environments. 
+Seqera Platform supports Fusion in Amazon Elastic Kubernetes Service (Amazon EKS) compute environments.
 
 See [Amazon EKS](https://docs.seqera.io/platform-cloud/compute-envs/eks) for Platform instructions to enable Fusion.
 
@@ -23,7 +24,7 @@ parallel to and from the object storage into the container-local temporary direc
 Several AWS EC2 instance types include one or more NVMe SSD volumes. These volumes must be formatted to be used. See [SSD instance storage](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html) for details.
 :::
 
-To use Fusion directly in Nextflow with an Amazon EKS cluster, you must configure a namespace and service account and update your Nextflow configuration. 
+To use Fusion directly in Nextflow with an Amazon EKS cluster, you must configure a namespace and service account and update your Nextflow configuration.
 
 #### Kubernetes configuration
 

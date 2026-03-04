@@ -2,7 +2,7 @@
 title: AWS Batch
 description: "Use Fusion with AWS Batch and S3 storage"
 date created: "2024-08-23"
-last updated: "2025-09-09"
+last updated: "2026-03-04"
 tags: [fusion, storage, compute, aws-batch, s3]
 ---
 
@@ -13,7 +13,7 @@ Fusion simplifies and improves the efficiency of Nextflow pipelines in [AWS Batc
 - Fusion uses an efficient data transfer and caching algorithm that provides much faster throughput compared to AWS CLI and does not require a local copy of data files.
 - By replacing the AWS CLI with a native API client, the transfer is much more robust at scale.
 
-### Platform AWS Batch compute environments 
+### Platform AWS Batch compute environments
 
 Seqera Platform supports Fusion in Batch Forge and manual AWS Batch compute environments.
 
