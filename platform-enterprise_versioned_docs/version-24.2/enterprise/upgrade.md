@@ -18,7 +18,7 @@ The database volume is persistent on the local machine by default if you use the
 :::
 
 :::info
-Starting from version 26.1, the frontend image running as root user will be deprecated. We recommend starting to switch to the [root-less image (also known as "unprivileged" image)](./platform-kubernetes#seqera-frontend-unprivileged) during this upgrade.
+Starting from version 26.1, the frontend image running as root user will be deprecated. We recommend starting to switch to the [root-less image (also known as "unprivileged" image)](./kubernetes#seqera-frontend-unprivileged) during this upgrade.
 :::
 
 1. Make a backup of the Seqera database. If you use the pipeline optimization service and your `groundswell` database resides in a database instance separate from your Seqera database, make a backup of your `groundswell` database as well.
@@ -30,7 +30,7 @@ Starting from version 26.1, the frontend image running as root user will be depr
     - [server.yml](./_templates/k8s/data_studios/server.yml)
 
     :::warning
-    If you have customized the default Studios container template images, you must ensure that you update to latest recommended versions. Templates using earlier versions of Connect (than defined in the latest `proxy.yml` and `server.yml`) may no longer be supported in your existing Studios environments. Refer to the [Studios migration documentation](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template) for guidance on migrating to the most recent versions of Connect server and clients.
+    If you have customized the default Studios container template images, you must ensure that you update to latest recommended versions. Templates using earlier versions of Connect (than defined in the latest `proxy.yml` and `server.yml`) may no longer be supported in your existing Studios environments. Refer to the [Studios migration documentation](../data_studios/managing) for guidance on migrating to the most recent versions of Connect server and clients.
     :::
 
 1. Restart the application.
