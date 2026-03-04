@@ -92,17 +92,7 @@
             "migrations/1-24-0",
             "migrations/1-21-0"
           ] 
-        },
-        {
-          "type": "category",
-          "label": "Guides",
-          "collapsed": true,
-          "items": [
-            "db-migration"
-          ]
-        }
-      ]
-    },
+        },        
     "faq",
     {
       "type": "link",
