@@ -18,7 +18,9 @@ Seqera Platform Enterprise can be deployed using Docker Compose, Kubernetes, or 
 
 See each deployment guide for detailed requirements.
 
-:::info <span id="prerequisites">**Prerequisites**</span>
+## Prerequisites
+
+:::info
 Before you begin, you need:
 - A MySQL 8 database
 - A Redis 7 instance
