@@ -18,7 +18,7 @@
 
 [context.deploy-preview.build.environment]
   INCLUDE_NEXT="true"
-  EXCLUDE_CHANGELOG="true"
+  EXCLUDE_CHANGELOG=""
   EXCLUDE_PLATFORM_ENTERPRISE=""
   EXCLUDE_PLATFORM_API="true"
   EXCLUDE_PLATFORM_CLI="true"
