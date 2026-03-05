@@ -59,10 +59,6 @@ Seqera Platform generates the `External ID` value during credential creation (Cl
 
 In the credentials form, paste the AWS IAM role configured in your deployment (`<YOUR_SEQERA_ROLE_ARN>`) in the **Assume role** field. This field is available for both key-based and role-based credentials. It is optional for key-based credentials and required for role-based credentials.
 
-:::info
-If your deployment uses `TOWER_ALLOW_INSTANCE_CREDENTIALS=true` (legacy role-based credentials), remove `"sts:ExternalId": "<ExternalId>"` from your trust policy. In this legacy configuration, External ID is not used.
-:::
-
 Existing credentials created before March 2026 continue to work without changes. `TOWER_ALLOW_INSTANCE_CREDENTIALS=true` configuration behavior remains unchanged.
 
 ### Role-based trust policy example (Seqera Enterprise)
@@ -95,6 +91,11 @@ For role-based AWS credentials in Enterprise, use the AWS IAM role configured in
   ]
 }
 ```
+
+:::info
+Set `TOWER_ALLOW_INSTANCE_CREDENTIALS=true` in your deployment environment and restart Seqera. When true, AWS credentials use an IAM role ARN only (no access key, secret key, or External ID).
+If your deployment uses this legacy mode, remove the entire `Condition` block for `sts:ExternalId` from your trust policy.
+:::
 
 ### Required permissions
 
