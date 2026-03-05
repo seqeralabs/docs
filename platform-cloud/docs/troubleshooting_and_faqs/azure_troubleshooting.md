@@ -20,12 +20,12 @@ The default Azure Batch implementation in Seqera Platform uses a single pool for
     - One [Low priority](https://learn.microsoft.com/en-us/azure/batch/batch-spot-vms#differences-between-spot-and-low-priority-vms)
 
 :::note
-Both pools must meet the requirements of a pre-existing pool as detailed in the [Nextflow documentation](https://www.nextflow.io/docs/latest/azure.html#requirements-on-pre-existing-named-pools).
+Both pools must meet the requirements of a pre-existing pool as detailed in the [Nextflow documentation](https://docs.seqera.io/nextflow/azure#requirements-on-pre-existing-named-pools).
 :::
 
 2. Create a manual [Azure Batch](../compute-envs/azure-batch#manual) compute environment in Seqera Platform.
 3. In **Compute pool name**, specify your dedicated Batch pool.
-4. Specify the Low priority pool using the `process.queue` [directive](https://www.nextflow.io/docs/latest/process.html#queue) in your `nextflow.config` file either via the launch form, or your pipeline repository's `nextflow.config` file.
+4. Specify the Low priority pool using the `process.queue` [directive](https://docs.seqera.io/nextflow/process#queue) in your `nextflow.config` file either via the launch form, or your pipeline repository's `nextflow.config` file.
 
 ### Azure Kubernetes Service (AKS)
 

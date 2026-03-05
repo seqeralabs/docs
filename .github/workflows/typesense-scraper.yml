@@ -11,12 +11,12 @@ jobs:
     steps:
       - name: Check out repo
         uses: actions/checkout@v3
-      
+
       - name: Run Typesense DocSearch Scraper
         uses: celsiusnarhwal/typesense-scraper@15f9049f1e4a868fc94e45948f86bd0ceed2f4b3 #v2.0.1
         with:
           api-key: ${{ secrets.TYPESENSE_API_KEY }}
-          host: 9scwdgbn4v8r1lyfp.a1.typesense.net
+          host: uk4gflrza0d8yx5sp-1.a1.typesense.net
           port: 443
           protocol: https
           config: typesense-scraper.config.json

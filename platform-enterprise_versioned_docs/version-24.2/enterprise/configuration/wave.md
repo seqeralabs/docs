@@ -7,7 +7,7 @@ tags: [wave, containers, configuration]
 
 From version 22.4, Seqera Platform Enterprise supports the Seqera Wave containers service for on-prem installations.
 
-To learn more about Wave, see [Wave containers](https://wave.seqera.io). To learn more about Wave and Nextflow integration, see the [Nextflow documentation](https://www.nextflow.io/docs/latest/wave.html).
+To learn more about Wave, see [Wave containers](https://wave.seqera.io). To learn more about Wave and Nextflow integration, see the [Nextflow documentation](https://docs.seqera.io/nextflow/wave).
 
 ## Pair your Seqera instance with Wave
 
@@ -35,4 +35,4 @@ When these conditions are met, the Wave feature is available on the Seqera compu
 
 After Wave is enabled, you can use private container repositories and the Fusion file system in your Nextflow pipelines.
 
-Wave can also be enabled in the Nextflow pipeline config file. See the [Nextflow documentation](https://www.nextflow.io/docs/latest/wave.html) for more information.
+Wave can also be enabled in the Nextflow pipeline config file. See the [Nextflow documentation](https://docs.seqera.io/nextflow/wave) for more information.
