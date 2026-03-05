@@ -18,14 +18,14 @@
 
 [context.deploy-preview.build.environment]
   INCLUDE_NEXT="true"
-  EXCLUDE_CHANGELOG="true"
-  EXCLUDE_PLATFORM_ENTERPRISE=""
-  EXCLUDE_PLATFORM_API="true"
-  EXCLUDE_PLATFORM_CLI="true"
-  EXCLUDE_PLATFORM_OPENAPI="true"
-  EXCLUDE_MULTIQC="true"
-  EXCLUDE_FUSION="true"
-  EXCLUDE_WAVE="true"
+  EXCLUDE_CHANGELOG="false"
+  EXCLUDE_PLATFORM_ENTERPRISE="false"
+  EXCLUDE_PLATFORM_API="false"
+  EXCLUDE_PLATFORM_CLI="false"
+  EXCLUDE_PLATFORM_OPENAPI="false"
+  EXCLUDE_MULTIQC="false"
+  EXCLUDE_FUSION="false"
+  EXCLUDE_WAVE="false"
 
 # Seqera API docs are too large to host / build on netlify on their own.
 # The appropriate ENVVAR is set to disable the API Builds on Netlify for the main docs site.
