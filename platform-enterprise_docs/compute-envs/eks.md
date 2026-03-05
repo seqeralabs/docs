@@ -212,6 +212,15 @@ Rather than attaching permissions directly to the IAM user, you can create an IA
              "sts:ExternalId": "<EXTERNAL_ID>"
            }
          }
+       },
+       {
+         "Effect": "Allow",
+         "Principal": {
+           "AWS": [
+              "arn:aws:iam::<ACCOUNT_ID>:user/<IAM_USER_NAME>"
+            ]
+         },
+         "Action": "sts:TagSession"
        }
      ]
    }
@@ -258,8 +267,8 @@ For role-based AWS credentials in Enterprise, use the AWS IAM role configured in
 ```
 
 :::info
-Set `TOWER_ALLOW_INSTANCE_CREDENTIALS=true` in your deployment environment and restart Seqera. When true, AWS credentials use an IAM role ARN only (no access key, secret key, or External ID).
-If your deployment uses this legacy mode, remove the entire `Condition` block for `sts:ExternalId` from your trust policy.
+To use role-based access with no External ID, set `TOWER_ALLOW_INSTANCE_CREDENTIALS=true` in your deployment [configuration](../enterprise/configuration/overview#compute-environments).
+Then create AWS credentials using an IAM role ARN only (no access key, secret key, or External ID), and remove the entire `Condition` block for `sts:ExternalId` from your trust policy.
 :::
 
 ## AWS credential options

@@ -654,6 +654,15 @@ Rather than attaching permissions directly to the IAM user, you can create an IA
              "sts:ExternalId": "<EXTERNAL_ID>"
            }
          }
+       },
+       {
+         "Effect": "Allow",
+         "Principal": {
+           "AWS": [
+              "arn:aws:iam::<ACCOUNT_ID>:user/<IAM_USER_NAME>"
+            ]
+         },
+         "Action": "sts:TagSession"
        }
      ]
    }
