@@ -271,9 +271,9 @@ For role-based AWS credentials in Seqera Cloud, allow the Seqera Cloud access ro
 AWS credentials can be configured in two ways:
 
 - **Key-based credentials**: Access key and secret key with direct IAM permissions. If you provide a role ARN in **Assume role**, the **Generate External ID** switch is displayed and External ID generation is optional.
-- **Role-based credentials (recommended)**: Use role assumption only (no static keys). Paste `arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole` in **Assume role**. External ID is generated automatically when you save.
+- **Role-based credentials (recommended)**: Use role assumption only (no static keys). Paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. External ID is generated automatically when you save.
 
-Use `arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole` in **Assume role** for both key-based credentials (optional) and role-based credentials (required).
+Use the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. This field is available for both key-based and role-based credentials. It is optional for key-based credentials and required for role-based credentials.
 
 Existing credentials created before March 2026 continue to work without changes.
 
@@ -412,11 +412,11 @@ Once all prerequisites are met, create a Seqera EKS compute environment:
 1. Under **AWS credential mode**, select **Keys** or **Role**.
 1. For **Keys** mode:
    - Add the **Access key** and **Secret key** obtained from the AWS IAM console.
-   - Optionally paste `arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole` in **Assume role**.
+   - Optionally paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**.
    - If you paste a role ARN in **Assume role**, the **Generate External ID** switch is displayed. Generating an External ID is optional in **Keys** mode.
    - If **Generate External ID** is selected, an External ID is automatically generated and shown after you save the credential.
 1. For **Role** mode:
-   - Paste `arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole` in **Assume role**.
+   - Paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**.
    - External ID is generated automatically when you save the credential.
 
     :::note

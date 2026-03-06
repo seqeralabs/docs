@@ -53,9 +53,9 @@ To create and launch pipelines or Studio sessions with this compute environment 
 AWS credentials can be configured in two ways:
 
 - **Key-based credentials**: Access key and secret key with direct IAM permissions. If you provide a role ARN in **Assume role**, the **Generate External ID** switch is displayed and External ID generation is optional.
-- **Role-based credentials (recommended)**: Use role assumption only (no static keys). Paste your deployment IAM role ARN in **Assume role**. External ID is generated automatically when you save.
+- **Role-based credentials (recommended)**: Use role assumption only (no static keys). Paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. External ID is generated automatically when you save.
 
-Use the IAM role ARN configured in your deployment in the **Assume role** field. This field is available for both key-based and role-based credentials. It is optional for key-based credentials and required for role-based credentials.
+Use the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. This field is available for both key-based and role-based credentials. It is optional for key-based credentials and required for role-based credentials.
 
 Existing credentials created before March 2026 continue to work without changes. `TOWER_ALLOW_INSTANCE_CREDENTIALS=true` configuration behavior remains unchanged.
 
