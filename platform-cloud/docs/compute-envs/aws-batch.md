@@ -749,7 +749,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
 1. Under **AWS credential mode**, select **Keys** or **Role**.
 1. For **Keys** mode, add the **Access key** and **Secret key** you [previously obtained](#obtain-iam-user-credentials). **Assume role** is optional.
 1. For **Role** mode, provide the IAM role ARN in **Assume role**.
-1. **External ID Auto-Generation**: An External ID will be automatically generated when you save these credentials. You'll be able to copy it and configure your AWS IAM role's trust policy accordingly.
+1. **External ID Auto-Generation**: An External ID will be automatically generated when you save **Role** credentials. Copy this value and configure your AWS IAM role's trust policy accordingly.
     :::note
     When using AWS keys without an assumed role, the associated AWS user must have been granted permissions to operate on the cloud resources directly. When an assumed role is provided, the IAM user keys are only used to retrieve temporary credentials impersonating the role specified: this could be useful when e.g. multiple IAM users are used to access the same AWS account, and the actual permissions to operate on the resources are only granted to the role.
     :::
@@ -984,7 +984,7 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
 1. Under **AWS credential mode**, select **Keys** or **Role**.
 1. For **Keys** mode, add the **Access key** and **Secret key** you [previously obtained](#obtain-iam-user-credentials). **Assume role** is optional.
 1. For **Role** mode, provide the IAM role ARN in **Assume role**.
-1. **External ID Auto-Generation**: An External ID will be automatically generated when you save these credentials. You'll be able to copy it and configure your AWS IAM role's trust policy accordingly.
+1. **External ID Auto-Generation**: An External ID will be automatically generated when you save **Role** credentials. Copy this value and configure your AWS IAM role's trust policy accordingly.
     :::note
     When using AWS keys without an assumed role, the associated AWS user must have been granted permissions to operate on the cloud resources directly. When an assumed role is provided, the IAM user keys are only used to retrieve temporary credentials impersonating the role specified: this could be useful when e.g. multiple IAM users are used to access the same AWS account, and the actual permissions to operate on the resources are only granted to the role.
     :::
