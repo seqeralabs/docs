@@ -7,11 +7,11 @@ tags: [kubernetes, deployment]
 
 Kubernetes deployments are recommended for production workloads requiring high availability and scalability.
 
-## Prerequisites
-
+:::info Prerequisites <span id="prerequisites" />
 Other than the basic requirements [already listed in the Platform installation overview](./install-platform#prerequisites), you will need:
 - A Kubernetes cluster
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
+:::
 
 ### Recommended resources
 
@@ -119,7 +119,7 @@ spec:
   ...
       containers:
         - name: frontend
-          image: cr.seqera.io/private/nf-tower-enterprise/frontend:v25.3.3-unprivileged
+          image: cr.seqera.io/private/nf-tower-enterprise/frontend:v25.3.4-unprivileged
           env:
             - name: NGINX_LISTEN_PORT  # If not defined, defaults to 8000.
               value: 8000

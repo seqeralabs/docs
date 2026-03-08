@@ -68,7 +68,7 @@ When a Studio starts with resource labels attached:
 1. Enter a **Name** such as `owner`, `team`, or `platform-run`.
 1. Enter a **Value**:
     - **Standard resource labels**: `<USERNAME>`, `TEAM_NAME`
-    - **[Dynamic resource labels](#dynamic-resource-labels)**: Use variable syntax — `${workflowId}` or `${sessionId}`
+    - **[Dynamic resource labels](#dynamic-resource-labels)**: Use variable syntax — `${sessionId}`, `${userName}`, or `${workflowId}`
 1. Optionally, enable **Use as default in compute environment form** to automatically apply this label to all new compute environments in this workspace.
 1. Select **Save**.
 
@@ -108,6 +108,7 @@ Standard resource labels use static key-value pairs, such as `project=research` 
 |-----------------|---------------------|
 | `${workflowId}` | Platform run ID     |
 | `${sessionId}`  | Nextflow session ID |
+| `${userName}`   | Platform username (run launch user)   |
 
 For example, a dynamic resource label `platformRun=${workflowId}` becomes `platformRun=12345abcde` when applied to the cloud resources consumed by run `12345abcde`.
 
@@ -164,7 +165,7 @@ The following resources are tagged using the labels associated with the compute 
 
 At execution time, when jobs are submitted to Batch, the requests are set up to propagate tags to all the instances and volumes created by the head job.
 
-The [AWS Batch documentation guide](../compute-envs/aws-batch) details the permissions needed by Seqera to tag AWS resources with labels requested by users. Specifically, the required actions are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
+The [IAM permissions](../compute-envs/aws-batch.md#required-platform-iam-permissions) contain the roles needed for Batch Forge-created AWS Batch compute environments to tag AWS resources. Specifically, the required roles are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
 
 To view and manage the resource labels applied to AWS resources by Seqera and Nextflow, go to the [AWS Tag Editor](https://docs.aws.amazon.com/tag-editor/latest/userguide/find-resources-to-tag.html) (as an administrative user) and follow these steps:
 

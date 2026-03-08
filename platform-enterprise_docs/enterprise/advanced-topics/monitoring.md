@@ -9,6 +9,48 @@ Seqera Platform has built-in observability metrics. Enable observability metrics
 
 Combined with infrastructure monitoring tools such as Node Exporter, you can monitor relevant metrics across your deployment.
 
+## Alerting recommendations
+
+### Critical alerts
+
+- `jvm_memory_used_bytes{area="heap"}` > 90% of `jvm_memory_max_bytes`
+- `process_files_open_files` > 90% of `process_files_max_files`
+- `logback_events_total{level="error"}` rate > threshold
+- `tower_logs_errors_1minCount` > 0
+- HTTP 5xx errors > 5% of total requests
+- `jdbc_connections_active` > 90% of `jdbc_connections_max`
+- Any pods in Failed/Unknown state for > 5 minutes
+
+### Warning alerts
+
+- `jvm_gc_pause_seconds_max` > 1 second
+- `jvm_gc_live_data_size_bytes` approaching `jvm_gc_max_data_size_bytes`
+- Heap usage > 85% of max heap
+- `executor_queued_tasks` > threshold
+- Executor utilization > 90%
+- `hibernate_optimistic_failures_total` rate increasing
+- `hibernate_query_executions_max_seconds` > 5 seconds
+- `http_server_requests_seconds` p99 > acceptable latency
+- Redis cache hit rate < 70%
+- Hibernate query cache hit rate < 60%
+- Growing gap between `credits_estimation_workflow_added_total` and `credits_estimation_workflow_ended_total`
+- `hibernate_sessions_open_total` >> `hibernate_sessions_closed_total` over time
+
+## Quick reference: Metrics by troubleshooting scenario
+
+| Issue                          | Key Metrics to Check                                                                                                                      |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **Slow application response**  | `http_server_requests_seconds` (latency), `jvm_gc_pause_seconds_max`, `hibernate_query_executions_max_seconds`, `executor_active_threads` |
+| **Out of memory errors**       | `jvm_memory_used_bytes`, `jvm_gc_pause_seconds`, `jvm_gc_live_data_size_bytes`, `jvm_buffer_memory_used_bytes`                            |
+| **Database performance**       | `hibernate_query_executions_max_seconds`, `jdbc_connections_active`, `hibernate_transactions_total`, cache hit rates                      |
+| **High CPU usage**             | `process_cpu_usage`, `system_cpu_usage`, `jvm_threads_live_threads`, `executor_active_threads`                                            |
+| **Connection exhaustion**      | `jdbc_connections_active`, `jdbc_connections_max`, `hibernate_sessions_open_total` vs `hibernate_sessions_closed_total`                   |
+| **Cache issues**               | Redis hit rate, `hibernate_cache_query_requests_total`, `cache_gets_total`, `cache_evictions_total`                                       |
+| **Workflow processing delays** | `credits_estimation_workflow_*`, `credits_estimation_task_*`, `executor_queued_tasks`, `tower_logs_errors_*`                              |
+| **Thread starvation**          | `executor_active_threads`, `executor_queued_tasks`, `jvm_threads_states_threads{state="blocked"}`                                         |
+| **Memory leaks**               | `jvm_memory_used_bytes` trending up, `jvm_gc_live_data_size_bytes` growing, `jvm_classes_loaded_classes` growing                          |
+| **GC pressure**                | `jvm_gc_pause_seconds_max`, `jvm_gc_memory_promoted_bytes_total`, time in GC vs application time                                          |
+
 ## Key metrics to monitor
 
 ### Seqera Platform-specific metrics
@@ -572,45 +614,3 @@ Monitor pod health to catch deployment or infrastructure issues early.
 ```shell
 sum by (namespace, pod) (kube_pod_status_phase{phase=~"Pending|Unknown|Failed", namespace!="wave-build"}) > 0
 ```
-
-## Alerting recommendations
-
-### Critical alerts
-
-- `jvm_memory_used_bytes{area="heap"}` > 90% of `jvm_memory_max_bytes`
-- `process_files_open_files` > 90% of `process_files_max_files`
-- `logback_events_total{level="error"}` rate > threshold
-- `tower_logs_errors_1minCount` > 0
-- HTTP 5xx errors > 5% of total requests
-- `jdbc_connections_active` > 90% of `jdbc_connections_max`
-- Any pods in Failed/Unknown state for > 5 minutes
-
-### Warning alerts
-
-- `jvm_gc_pause_seconds_max` > 1 second
-- `jvm_gc_live_data_size_bytes` approaching `jvm_gc_max_data_size_bytes`
-- Heap usage > 85% of max heap
-- `executor_queued_tasks` > threshold
-- Executor utilization > 90%
-- `hibernate_optimistic_failures_total` rate increasing
-- `hibernate_query_executions_max_seconds` > 5 seconds
-- `http_server_requests_seconds` p99 > acceptable latency
-- Redis cache hit rate < 70%
-- Hibernate query cache hit rate < 60%
-- Growing gap between `credits_estimation_workflow_added_total` and `credits_estimation_workflow_ended_total`
-- `hibernate_sessions_open_total` >> `hibernate_sessions_closed_total` over time
-
-## Quick reference: Metrics by troubleshooting scenario
-
-| Issue                          | Key Metrics to Check                                                                                                                      |
-| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| **Slow application response**  | `http_server_requests_seconds` (latency), `jvm_gc_pause_seconds_max`, `hibernate_query_executions_max_seconds`, `executor_active_threads` |
-| **Out of memory errors**       | `jvm_memory_used_bytes`, `jvm_gc_pause_seconds`, `jvm_gc_live_data_size_bytes`, `jvm_buffer_memory_used_bytes`                            |
-| **Database performance**       | `hibernate_query_executions_max_seconds`, `jdbc_connections_active`, `hibernate_transactions_total`, cache hit rates                      |
-| **High CPU usage**             | `process_cpu_usage`, `system_cpu_usage`, `jvm_threads_live_threads`, `executor_active_threads`                                            |
-| **Connection exhaustion**      | `jdbc_connections_active`, `jdbc_connections_max`, `hibernate_sessions_open_total` vs `hibernate_sessions_closed_total`                   |
-| **Cache issues**               | Redis hit rate, `hibernate_cache_query_requests_total`, `cache_gets_total`, `cache_evictions_total`                                       |
-| **Workflow processing delays** | `credits_estimation_workflow_*`, `credits_estimation_task_*`, `executor_queued_tasks`, `tower_logs_errors_*`                              |
-| **Thread starvation**          | `executor_active_threads`, `executor_queued_tasks`, `jvm_threads_states_threads{state="blocked"}`                                         |
-| **Memory leaks**               | `jvm_memory_used_bytes` trending up, `jvm_gc_live_data_size_bytes` growing, `jvm_classes_loaded_classes` growing                          |
-| **GC pressure**                | `jvm_gc_pause_seconds_max`, `jvm_gc_memory_promoted_bytes_total`, time in GC vs application time                                          |

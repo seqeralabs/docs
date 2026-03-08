@@ -68,7 +68,7 @@ When a Studio starts with resource labels attached:
 1. Enter a **Name** such as `owner`, `team`, or `platform-run`.
 1. Enter a **Value**:
     - **Standard resource labels**: `<USERNAME>`, `TEAM_NAME`
-    - **[Dynamic resource labels](#dynamic-resource-labels)**: Use variable syntax — `${workflowId}` or `${sessionId}`
+    - **[Dynamic resource labels](#dynamic-resource-labels)**: Use variable syntax — `${sessionId}`, `${userName}`, or `${workflowId}`
 1. Optionally, enable **Use as default in compute environment form** to automatically apply this label to all new compute environments in this workspace.
 1. Select **Save**.
 
@@ -108,7 +108,7 @@ Standard resource labels use static key-value pairs, such as `project=research` 
 |-----------------|---------------------|
 | `${workflowId}` | Platform run ID     |
 | `${sessionId}`  | Nextflow session ID |
-| `${username}`   | Platform username (run launch user)   |
+| `${userName}`   | Platform username (run launch user)   |
 
 For example, a dynamic resource label `platformRun=${workflowId}` becomes `platformRun=12345abcde` when applied to the cloud resources consumed by run `12345abcde`.
 
