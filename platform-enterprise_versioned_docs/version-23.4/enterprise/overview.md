@@ -41,6 +41,10 @@ Seqera Enterprise requires a Redis database for caching purposes.
 
 Seqera requires a SQL database to persist user activities and state. The application has been tested against MySQL 8.0. [Contact Seqera support](https://support.seqera.io) if you need to use a different JDBC-compliant SQL database.
 
+:::warning
+**Breaking change in version 23.4**: MySQL 8 is now required. If you are currently using MySQL 5.6 or 5.7, you must upgrade your database to MySQL 8.0 before upgrading to version 23.4 or later.
+:::
+
 ### SMTP service
 
 Seqera requires an SMTP relay to send email messages and user notifications.

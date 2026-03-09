@@ -27,3 +27,5 @@ Before you begin, you need:
 :::note
 MySQL 8 is the only supported database version from Seqera Enterprise version 23.4 onwards. MySQL 5.6 and 5.7 are not supported.
 :::
+
+See each deployment guide for detailed requirements.
