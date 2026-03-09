@@ -176,8 +176,7 @@
       "label": "Developer tools",
       "collapsed": true,
       "items": [
-        "api/overview",
-        "cli/overview"
+        "api/overview"
       ]
     },
     {
