@@ -1,0 +1,239 @@
+overlay: 1.0.0
+x-speakeasy-jsonpath: rfc9535
+info:
+  title: Overlay seqera-api-1.109.0.yaml => seqera-api-1.115.0.yaml
+  version: 0.0.0
+actions:
+  - target: $["info"]["version"]
+    update: 1.115.0
+  - target: $["paths"]["/credentials"]["post"]["description"]
+    update: "Creates new credentials in a user context. Append `?workspaceId` to create the credentials in a workspace context. For AWS credentials with IAM Role ARN, append `?useExternalId=true` to generate a Platform-managed External ID."
+  - target: $["paths"]["/credentials"]["post"]["parameters"]
+    update:
+      - name: useExternalId
+        in: query
+        description: Generate External ID for AWS credentials (requires IAM Role ARN)
+        schema:
+          type: boolean
+  - target: $["paths"]["/credentials/{credentialsId}"]["put"]["description"]
+    update: "Updates the details of the credentials identified by the given `credentialsId`. For AWS credentials with IAM Role ARN, append `?useExternalId=true` to generate a Platform-managed External ID."
+  - target: $["paths"]["/credentials/{credentialsId}"]["put"]["parameters"]
+    update:
+      - name: useExternalId
+        in: query
+        description: Generate External ID for AWS credentials (requires IAM Role ARN)
+        schema:
+          type: boolean
+  - target: $["paths"]["/ga4gh/wes/v1/service-info"]["get"]["responses"]["200"]["content"]["application/json"]["schema"]["$ref"]
+    update: "#/components/schemas/WesServiceInfo"
+  - target: $["paths"]["/orgs/{orgId}/workspaces/{workspaceId}/settings/studios"]["put"]["requestBody"]["content"]["application/json"]["schema"]["$ref"]
+    update: "#/components/schemas/DataStudioWorkspaceSettingsRequest"
+  - target: $["components"]["schemas"]
+    update:
+      AwsCredentialsMode:
+        type: string
+        enum:
+          - keys
+          - role
+        x-enum-varnames:
+          - keys
+          - role
+        x-type: String
+  - target: $["components"]["schemas"]["AwsSecurityKeys"]["properties"]
+    update:
+      mode:
+        $ref: "#/components/schemas/AwsCredentialsMode"
+  - target: $["components"]["schemas"]["AwsSecurityKeys"]["properties"]
+    update:
+      externalId:
+        type: string
+  - target: $["components"]["schemas"]["AzBatchConfig"]["title"]
+    update: Azure Batch configuration
+  - target: $["components"]["schemas"]["ComputeConfig"]["oneOf"][*]
+    remove: true
+  - target: $["components"]["schemas"]["ComputeConfig"]["oneOf"]
+    update:
+      - $ref: "#/components/schemas/AwsBatchConfig"
+      - $ref: "#/components/schemas/AwsCloudConfig"
+      - $ref: "#/components/schemas/SeqeraComputeConfig"
+      - $ref: "#/components/schemas/GoogleBatchConfig"
+      - $ref: "#/components/schemas/GoogleCloudConfig"
+      - $ref: "#/components/schemas/AzBatchConfig"
+      - $ref: "#/components/schemas/AzCloudConfig"
+      - $ref: "#/components/schemas/LsfComputeConfig"
+      - $ref: "#/components/schemas/SlurmComputeConfig"
+      - $ref: "#/components/schemas/K8sComputeConfig"
+      - $ref: "#/components/schemas/EksComputeConfig"
+      - $ref: "#/components/schemas/GkeComputeConfig"
+      - $ref: "#/components/schemas/UnivaComputeConfig"
+      - $ref: "#/components/schemas/AltairPbsComputeConfig"
+      - $ref: "#/components/schemas/MoabComputeConfig"
+      - $ref: "#/components/schemas/GoogleLifeSciencesConfig"
+  - target: $["components"]["schemas"]["ComputeEnvResponseDto"]["properties"]["platform"]["enum"][*]
+    remove: true
+  - target: $["components"]["schemas"]["ComputeEnvResponseDto"]["properties"]["platform"]["enum"]
+    update:
+      - aws-batch
+      - aws-cloud
+      - seqeracompute-platform
+      - google-batch
+      - google-cloud
+      - azure-batch
+      - azure-cloud
+      - k8s-platform
+      - eks-platform
+      - gke-platform
+      - uge-platform
+      - slurm-platform
+      - lsf-platform
+      - altair-platform
+      - moab-platform
+      - google-lifesciences
+  - target: $["components"]["schemas"]["ComputeEnv_ComputeConfig_"]["properties"]["platform"]["enum"][*]
+    remove: true
+  - target: $["components"]["schemas"]["ComputeEnv_ComputeConfig_"]["properties"]["platform"]["enum"]
+    update:
+      - aws-batch
+      - aws-cloud
+      - seqeracompute-platform
+      - google-batch
+      - google-cloud
+      - azure-batch
+      - azure-cloud
+      - k8s-platform
+      - eks-platform
+      - gke-platform
+      - uge-platform
+      - slurm-platform
+      - lsf-platform
+      - altair-platform
+      - moab-platform
+      - google-lifesciences
+  - target: $["components"]["schemas"]["ComputeEnv_ComputeConfig_"]["properties"]["status"]["type"]
+    remove: true
+  - target: $["components"]["schemas"]["DataLinkDto"]["properties"]["status"]["type"]
+    remove: true
+  - target: $["components"]["schemas"]["DataStudioConfiguration"]["properties"]["mountData"]
+    update:
+      nullable: true
+  - target: $["components"]["schemas"]["DataStudioConfiguration"]["properties"]["mountData"]
+    update:
+      deprecated: true
+  - target: $["components"]["schemas"]["DataStudioConfiguration"]["properties"]
+    update:
+      mountDataV2:
+        type: array
+        nullable: true
+        items:
+          $ref: "#/components/schemas/MountData"
+  - target: $["components"]["schemas"]
+    update:
+      DataStudioWorkspaceSettingsRequest:
+        type: object
+        properties:
+          lifespanHours:
+            minimum: 0
+            type: integer
+            format: int32
+          containerRepository:
+            type: string
+            nullable: true
+          privateStudioByDefault:
+            type: boolean
+  - target: $["components"]["schemas"]["DataStudioWorkspaceSettingsResponse"]["properties"]
+    update:
+      privateStudioByDefault:
+        type: boolean
+  - target: $["components"]["schemas"]
+    update:
+      DefaultWorkflowEngineParameter:
+        type: object
+        properties:
+          name:
+            type: string
+          type:
+            type: string
+          default_value:
+            type: string
+  - target: $["components"]["schemas"]["GoogleLifeSciencesConfig"]["title"]
+    update: Google Life Sciences configuration (retired)
+  - target: $["components"]["schemas"]["LocalComputeConfig"]
+    update:
+      allOf:
+        - $ref: "#/components/schemas/ComputeConfig"
+        - properties:
+            waveEnabled:
+              type: boolean
+            fusion2Enabled:
+              type: boolean
+  - target: $["components"]["schemas"]["LocalComputeConfig"]["properties"]
+    remove: true
+  - target: $["components"]["schemas"]
+    update:
+      MountData:
+        type: object
+        properties:
+          dataLinkId:
+            type: string
+          path:
+            type: string
+            nullable: true
+  - target: $["components"]["schemas"]["SeqeraComputeSecurityKeys"]["properties"]
+    update:
+      mode:
+        $ref: "#/components/schemas/AwsCredentialsMode"
+  - target: $["components"]["schemas"]["SeqeraComputeSecurityKeys"]["properties"]
+    update:
+      externalId:
+        type: string
+  - target: $["components"]["schemas"]["TraceCreateResponse"]["properties"]
+    update:
+      watchUrl:
+        type: string
+  - target: $["components"]["schemas"]
+    update:
+      WesServiceInfo:
+        type: object
+        properties:
+          workflow_type_versions:
+            type: object
+            additionalProperties:
+              $ref: "#/components/schemas/WorkflowTypeVersion"
+          supported_wes_versions:
+            type: array
+            items:
+              type: string
+          supported_filesystem_protocols:
+            type: array
+            items:
+              type: string
+          workflow_engine_versions:
+            type: object
+            additionalProperties:
+              type: string
+          default_workflow_engine_parameters:
+            type: array
+            items:
+              $ref: "#/components/schemas/DefaultWorkflowEngineParameter"
+          system_state_counts:
+            type: object
+            additionalProperties:
+              type: integer
+              format: int64
+          auth_instructions_url:
+            type: string
+          contact_info_url:
+            type: string
+          tags:
+            type: object
+            additionalProperties:
+              type: string
+  - target: $["components"]["schemas"]
+    update:
+      WorkflowTypeVersion:
+        type: object
+        properties:
+          workflow_type_version:
+            type: array
+            items:
+              type: string
