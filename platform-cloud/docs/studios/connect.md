@@ -11,7 +11,16 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ## Connect server
 
-### server/v0.9.0 `latest` - 2025-12-05
+### server/v0.10.0 `latest` - 2026-02-11
+
+* Add: SSH Connectivity:
+  * Server implementation (initialize SSH server when enabled)
+  * Authenticate authorization requests to Platform with oidc secret
+  * Add SSH connection activity tracking and notifications
+* Change the logger timestamp format to ISO8601
+* Detect network load balancer health checks
+
+### server/v0.9.0 - 2025-12-05
 
 - Add: missing env when testing with platform
 - Fix: security vulnerabilities for crypto ssh library and slack nebula
@@ -99,7 +108,15 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ## Connect client
 
-### client/v0.9.0 `latest` - 2025-12-05
+### client/v0.10.0 `latest` - 2026-02-11
+
+* Moved Docker service management to the Connect-client. 
+* Add: SSH Connectivity:
+  * Server implementation (initialize ssh server when enabled)
+  * Fingerprint verification  
+  * Add SSH connection activity tracking and notifications
+
+### client/v0.9.0 - 2025-12-05
 
 - Add: disk size and auto resizing based on compute env
 - Add: version module and add support for client version 
