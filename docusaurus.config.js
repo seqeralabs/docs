@@ -1,6 +1,4 @@
-const path = require("path");
 import "dotenv/config";
-import platform_enterprise_latest_version from "./platform-enterprise_latest_version.js";
 import {
   createSeqeraConfig,
   getSeqeraThemeConfig,
@@ -8,6 +6,65 @@ import {
 } from "@seqera/docusaurus-preset-seqera";
 
 export default async function createConfigAsync() {
+  const DOCS_SITE_MODE = process.env.DOCS_SITE_MODE ?? "main";
+  const MAIN_SITE_MODE = "main";
+  const ENTERPRISE_ARCHIVE_SITE_MODE = "enterprise-archive";
+  const isEnterpriseArchiveSite =
+    DOCS_SITE_MODE === ENTERPRISE_ARCHIVE_SITE_MODE;
+
+  const enterpriseVersionsBySiteMode = {
+    [MAIN_SITE_MODE]: ["25.3", "25.2", "25.1", "24.2", "24.1"],
+    [ENTERPRISE_ARCHIVE_SITE_MODE]: ["23.4", "23.3", "23.2", "23.1"],
+  };
+  const activeEnterpriseVersions =
+    enterpriseVersionsBySiteMode[DOCS_SITE_MODE] ??
+    enterpriseVersionsBySiteMode[MAIN_SITE_MODE];
+  const activeEnterpriseLastVersion = activeEnterpriseVersions[0];
+  const docsSiteUrl = isEnterpriseArchiveSite
+    ? "https://docs-archive.seqera.io"
+    : "https://docs.seqera.io";
+  const supportedEnterpriseDocsUrl =
+    "https://docs.seqera.io/platform-enterprise/";
+  const legacyEnterpriseArchiveUrl =
+    "https://docs-archive.seqera.io/platform-enterprise/";
+
+  const mainNavbarItems = [
+    {
+      label: "Cloud",
+      href: "/platform-cloud/",
+    },
+    {
+      label: "Enterprise",
+      href: "/platform-enterprise/",
+    },
+    {
+      label: "Nextflow",
+      href: "/nextflow/",
+    },
+    {
+      label: "MultiQC",
+      href: "/multiqc/",
+    },
+    {
+      label: "Wave",
+      href: "/wave/",
+    },
+    {
+      label: "Fusion",
+      href: "/fusion/",
+    },
+  ];
+
+  const archiveNavbarItems = [
+    {
+      label: "Enterprise",
+      href: "/platform-enterprise/",
+    },
+    {
+      label: "Supported versions",
+      href: supportedEnterpriseDocsUrl,
+    },
+  ];
 
   const changelog = {
     blogTitle: "Seqera Changelog",
@@ -35,8 +92,10 @@ export default async function createConfigAsync() {
       routeBasePath: "/platform-enterprise",
       path: "platform-enterprise_docs",
       // For PR Previews we want to see the latest doc-set with expected changes.
-      includeCurrentVersion: process.env.INCLUDE_NEXT ? true : false,
-      lastVersion: platform_enterprise_latest_version,
+      includeCurrentVersion:
+        !isEnterpriseArchiveSite && process.env.INCLUDE_NEXT ? true : false,
+      lastVersion: activeEnterpriseLastVersion,
+      onlyIncludeVersions: activeEnterpriseVersions,
       remarkPlugins: [
         (await import("remark-code-import")).default,
         (await require("remark-math")).default,
@@ -156,6 +215,7 @@ export default async function createConfigAsync() {
   ];
 
   console.log(
+    "\n  DOCS_SITE_MODE: " + DOCS_SITE_MODE,
     "\n  EXCLUDE_CHANGELOG: " + (process.env.EXCLUDE_CHANGELOG ? true : false),
     "\n  EXCLUDE_PLATFORM_ENTERPRISE: " +
       (process.env.EXCLUDE_PLATFORM_ENTERPRISE ? true : false),
@@ -171,12 +231,16 @@ export default async function createConfigAsync() {
     "\n  EXCLUDE_FUSION: " + (process.env.EXCLUDE_FUSION ? true : false),
     "\n  EXCLUDE_WAVE: " + (process.env.EXCLUDE_WAVE ? true : false),
     "\n  INCLUDE_NEXT: " + (process.env.INCLUDE_NEXT ? true : false),
+    "\n  ACTIVE_PLATFORM_ENTERPRISE_VERSIONS: " +
+      activeEnterpriseVersions.join(", "),
   );
 
   return createSeqeraConfig({
-    title: "Seqera Docs",
-    tagline: "Documentation for Seqera products",
-    url: "https://docs.seqera.io",
+    title: isEnterpriseArchiveSite ? "Seqera Docs Archive" : "Seqera Docs",
+    tagline: isEnterpriseArchiveSite
+      ? "Archived documentation for Seqera Platform Enterprise"
+      : "Documentation for Seqera products",
+    url: docsSiteUrl,
     /*
      * Enable faster Docusaurus optimizations (experimental v4 features)
      * Reference: https://github.com/facebook/docusaurus/issues/10556
@@ -218,12 +282,17 @@ export default async function createConfigAsync() {
     },
 
     customFields: {
-      // Put your custom environment here
+      docsSiteMode: DOCS_SITE_MODE,
+      activeEnterpriseVersions,
+      supportedEnterpriseDocsUrl,
+      legacyEnterpriseArchiveUrl,
     },
 
     clientModules: [
-    require.resolve('./src/client-modules/cross-site-nav.js'),
-    require.resolve('./src/client-modules/posthog-search.js'),
+      require.resolve("./src/client-modules/cross-site-nav.js"),
+      ...(isEnterpriseArchiveSite
+        ? []
+        : [require.resolve("./src/client-modules/posthog-search.js")]),
     ],
 
 
@@ -231,12 +300,16 @@ export default async function createConfigAsync() {
       [
         "@seqera/docusaurus-preset-seqera",
         await getSeqeraPresetOptions({
-          blog: process.env.EXCLUDE_CHANGELOG ? false : changelog,
+          blog:
+            isEnterpriseArchiveSite || process.env.EXCLUDE_CHANGELOG
+              ? false
+              : changelog,
           docs: false,
           theme: {
             customCss: require.resolve("./src/custom.css"),
           },
-          openapi: process.env.EXCLUDE_PLATFORM_OPENAPI
+          openapi:
+            isEnterpriseArchiveSite || process.env.EXCLUDE_PLATFORM_OPENAPI
             ? false
             : {
                 id: "api",
@@ -262,13 +335,23 @@ export default async function createConfigAsync() {
       ],
     ],
     plugins: [
-      process.env.EXCLUDE_PLATFORM_ENTERPRISE ? null : docs_platform_enterprise,
-      process.env.EXCLUDE_PLATFORM_CLOUD ? null : docs_platform_cloud,
-      process.env.EXCLUDE_PLATFORM_API ? null : docs_platform_api,
-      process.env.EXCLUDE_PLATFORM_CLI ? null : docs_platform_cli,
-      process.env.EXCLUDE_MULTIQC ? null : docs_multiqc,
-      process.env.EXCLUDE_FUSION ? null : docs_fusion,
-      process.env.EXCLUDE_WAVE ? null : docs_wave,
+      docs_platform_enterprise,
+      isEnterpriseArchiveSite || process.env.EXCLUDE_PLATFORM_CLOUD
+        ? null
+        : docs_platform_cloud,
+      isEnterpriseArchiveSite || process.env.EXCLUDE_PLATFORM_API
+        ? null
+        : docs_platform_api,
+      isEnterpriseArchiveSite || process.env.EXCLUDE_PLATFORM_CLI
+        ? null
+        : docs_platform_cli,
+      isEnterpriseArchiveSite || process.env.EXCLUDE_MULTIQC
+        ? null
+        : docs_multiqc,
+      isEnterpriseArchiveSite || process.env.EXCLUDE_FUSION
+        ? null
+        : docs_fusion,
+      isEnterpriseArchiveSite || process.env.EXCLUDE_WAVE ? null : docs_wave,
 
       // Disable expensive bundler options.
       // https://github.com/facebook/docusaurus/pull/11176
@@ -287,30 +370,41 @@ export default async function createConfigAsync() {
     ].filter(Boolean),
 
     themeConfig: getSeqeraThemeConfig({
+      announcementBar: isEnterpriseArchiveSite
+        ? {
+            id: "enterprise-archive-notice",
+            content: `Legacy Seqera Platform Enterprise documentation. For supported releases, visit <a href="${supportedEnterpriseDocsUrl}">docs.seqera.io/platform-enterprise/</a>.`,
+            backgroundColor: "#f3f4f6",
+            textColor: "#111827",
+            isCloseable: false,
+          }
+        : undefined,
       typesense: {
-        typesenseCollectionName: 'seqera_docs',
-        searchPagePath: '/search',
+        typesenseCollectionName: "seqera_docs",
+        searchPagePath: isEnterpriseArchiveSite ? false : "/search",
         typesenseServerConfig: {
           nodes: [
             {
-              host: 'uk4gflrza0d8yx5sp-1.a1.typesense.net',
+              host: "uk4gflrza0d8yx5sp-1.a1.typesense.net",
               port: 443,
-              protocol: 'https',
+              protocol: "https",
             },
           ],
-          apiKey: 'KZsuSjc7jPqDm7pkl1kN8TkoHH9b3dwY',
+          apiKey: "KZsuSjc7jPqDm7pkl1kN8TkoHH9b3dwY",
           connectionTimeoutSeconds: 2,
         },
         typesenseSearchParameters: {
-          query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',
-          group_by: 'url_without_anchor',
+          query_by:
+            "content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3",
+          group_by: "url_without_anchor",
           group_limit: 1,
           num_typos: 1,
           prioritize_exact_match: true,
-          filter_by: 'docusaurus_tag:!=[default,doc_tag_doc_list,blog_posts_list,blog_tags_posts,doc_tags_list,blog_tags_list]', // TODO Remove once the scraper is updated
+          filter_by:
+            "docusaurus_tag:!=[default,doc_tag_doc_list,blog_posts_list,blog_tags_posts,doc_tags_list,blog_tags_list]", // TODO Remove once the scraper is updated
         },
         contextualSearch: false,
-        placeholder: 'Search Seqera docs...',
+        placeholder: "Search Seqera docs...",
       },
       prism: {
         additionalLanguages: [
@@ -332,32 +426,16 @@ export default async function createConfigAsync() {
         ],
       },
       navbar: {
-        items: [
-          {
-            label: 'Cloud',
-            href: '/platform-cloud/',
+        items: isEnterpriseArchiveSite ? archiveNavbarItems : mainNavbarItems,
+      },
+      seqera: {
+        docs: {
+          versionDropdown: {
+            "platform-enterprise": {
+              enabled: true,
+            },
           },
-          {
-            label: 'Enterprise',
-            href: '/platform-enterprise/',
-          },
-          {
-            label: 'Nextflow',
-            href: '/nextflow/',
-          },
-          {
-            label: 'MultiQC',
-            href: '/multiqc/',
-          },
-          {
-            label: 'Wave',
-            href: '/wave/',
-          },
-          {
-            label: 'Fusion',
-            href: '/fusion/',
-          },
-        ],
+        },
       },
     }),
   });

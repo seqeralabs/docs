@@ -44,6 +44,24 @@ The Platform documentation is versioned and lives in the `platform-enterprise_ve
 
 We have a script which can select a commit (or ideally release tag) to be used for publishing a new version on the docs website.
 
+### Build modes
+
+The site build is controlled by `DOCS_SITE_MODE`:
+
+- `main` builds `docs.seqera.io`
+- `enterprise-archive` builds `docs-archive.seqera.io`
+
+The main site serves the current Platform Enterprise docs (`24.1+`) together with the active product docs. The archive site serves legacy Platform Enterprise versions (`23.4`, `23.3`, `23.2`, and `23.1`) only.
+
+For local archive preview and builds:
+
+- `DOCS_SITE_MODE=enterprise-archive npm run dev`
+- `npm run dev:archive`
+- `DOCS_SITE_MODE=enterprise-archive npm run build`
+- `npm run build:archive`
+
+In archive mode, the startup/build preparation step skips fetching the external OSS doc repos because they are not required for the legacy Enterprise-only site.
+
 ## Write and edit content
 
 ### Install pre-commit
@@ -168,8 +186,17 @@ This works using the following principles:
 - Based on the presence or absence of named environment variables, they are included in the Docuaurus config or not
 - By defining these ENV vars in your build environment, you can selectively skip chunks in the build
 
-Deployment works because we have two Netlify sites: `seqera-docs` and `seqera-docs-api`.
-They're the same except that they have different environment variable set in their configuration.
-This means that whenever you push to `master`, both deploy and both sites update.
+Deployment works because we split large docsets into separate Netlify sites with different build-time configuration.
 
-The site's `netlify.toml` includes some redirects with `200` statuses that take links to missing content on the primary deployment to fetch data from the secondary deployment, without affecting the browser bar URL.
+Today this includes:
+
+- `seqera-docs` for the main docs site
+- `seqera-docs-api` for the API docs split
+- `docs-archive.seqera.io` for legacy Platform Enterprise docs
+
+The main site's `netlify.toml` includes redirects for these split deployments:
+
+- API docs use `200` proxy-style redirects so they continue to resolve under `docs.seqera.io`
+- Legacy Platform Enterprise docs use cross-domain `301` redirects so old versioned URLs canonicalize to `docs-archive.seqera.io`
+
+The archive deployment is intended to be mostly frozen. Normal `master` changes should not rebuild it. If a legacy Enterprise fix is required, apply that change to the dedicated archive branch/site rather than treating it like a normal main-site update.

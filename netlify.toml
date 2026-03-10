@@ -54,6 +54,46 @@
   status = 200
 
 [[redirects]]
+  from = "/platform-enterprise/23.4"
+  to = "https://docs-archive.seqera.io/platform-enterprise/"
+  status = 301
+
+[[redirects]]
+  from = "/platform-enterprise/23.4/*"
+  to = "https://docs-archive.seqera.io/platform-enterprise/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/platform-enterprise/23.3"
+  to = "https://docs-archive.seqera.io/platform-enterprise/23.3/"
+  status = 301
+
+[[redirects]]
+  from = "/platform-enterprise/23.3/*"
+  to = "https://docs-archive.seqera.io/platform-enterprise/23.3/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/platform-enterprise/23.2"
+  to = "https://docs-archive.seqera.io/platform-enterprise/23.2/"
+  status = 301
+
+[[redirects]]
+  from = "/platform-enterprise/23.2/*"
+  to = "https://docs-archive.seqera.io/platform-enterprise/23.2/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/platform-enterprise/23.1"
+  to = "https://docs-archive.seqera.io/platform-enterprise/23.1/"
+  status = 301
+
+[[redirects]]
+  from = "/platform-enterprise/23.1/*"
+  to = "https://docs-archive.seqera.io/platform-enterprise/23.1/:splat"
+  status = 301
+
+[[redirects]]
   from = "/nextflow/*"
   to = "https://docs-migration.netlify.app/nextflow/:splat"
   status = 200
