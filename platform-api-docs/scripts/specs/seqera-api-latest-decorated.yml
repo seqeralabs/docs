@@ -10489,8 +10489,6 @@ components:
           seqeracompute-platform: '#/components/schemas/SeqeraComputeConfig'
           eks-platform: '#/components/schemas/EksComputeConfig'
           uge-platform: '#/components/schemas/UnivaComputeConfig'
-          local-platform: '#/components/schemas/LocalComputeConfig'
-          google-lifesciences: '#/components/schemas/GoogleLifeSciencesConfig'
       oneOf:
       - $ref: '#/components/schemas/AwsBatchConfig'
       - $ref: '#/components/schemas/AwsCloudConfig'
@@ -10507,7 +10505,6 @@ components:
       - $ref: '#/components/schemas/UnivaComputeConfig'
       - $ref: '#/components/schemas/AltairPbsComputeConfig'
       - $ref: '#/components/schemas/MoabComputeConfig'
-      - $ref: '#/components/schemas/GoogleLifeSciencesConfig'
     ComputeEnv.Status:
       type: string
       readOnly: true
@@ -10567,7 +10564,6 @@ components:
           - lsf-platform
           - altair-platform
           - moab-platform
-          - google-lifesciences
         config:
           $ref: '#/components/schemas/ComputeConfig'
         dateCreated:
@@ -10669,7 +10665,6 @@ components:
           - lsf-platform
           - altair-platform
           - moab-platform
-          - google-lifesciences
         config:
           $ref: '#/components/schemas/ComputeConfig'
           description: Platform-specific configuration. Structure depends on the selected
