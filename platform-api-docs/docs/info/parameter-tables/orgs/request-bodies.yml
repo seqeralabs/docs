@@ -53,23 +53,23 @@
 - Name: fullName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated full display name for the organization.
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated short organization name or handle. Must remain unique.
 - Name: description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated organization description.
 - Name: location
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated organization location.
 - Name: website
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated organization website URL.
 - Name: logoId
   Type: string
   Req/Opt: Optional
@@ -79,11 +79,12 @@
 - Name: paying
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: Deprecated legacy billing flag. Prefer `type`. When `null`, the
+    current value is left unchanged.
 - Name: type
   Type: object
   Req/Opt: Optional
-  Description: ""
+  Description: Updated organization tier. When `null`, the current tier is left unchanged.
 - Name: "**CreateOrganizationMember**"
   Type: ""
   Req/Opt: ""
