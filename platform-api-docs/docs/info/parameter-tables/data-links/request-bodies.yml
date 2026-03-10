@@ -103,11 +103,11 @@
 - Name: tags[].partNumber
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Multipart upload part number associated with the uploaded chunk.
 - Name: tags[].eTag
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Entity tag returned by the storage provider for the uploaded part.
 - Name: withError
   Type: boolean
   Req/Opt: Optional
@@ -135,11 +135,11 @@
 - Name: tags[].partNumber
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Multipart upload part number associated with the uploaded chunk.
 - Name: tags[].eTag
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Entity tag returned by the storage provider for the uploaded part.
 - Name: withError
   Type: boolean
   Req/Opt: Optional

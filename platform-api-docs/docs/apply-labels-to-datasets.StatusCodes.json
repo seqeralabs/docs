@@ -1,0 +1,1 @@
+{"responses":{"204":{"description":"OK - No content"},"400":{"description":"Invalid request, if trying to associate resource labels"},"403":{"description":"Operation not allowed"}}}
