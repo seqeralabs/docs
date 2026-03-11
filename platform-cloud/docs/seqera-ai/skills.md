@@ -26,7 +26,7 @@ You can:
 - Run `/help` to see commands and skill descriptions in the terminal
 - Add project-specific `SKILL.md` files so Seqera AI starts each session with the right context
 
-## Built-in backend skills
+## Built-in skills
 
 Your Seqera AI deployment can expose built-in skills as slash commands. These appear in the `/` command palette and in `/help`.
 
@@ -34,8 +34,8 @@ The current reference-complete built-in skill list is:
 
 | Command | Description |
 |---------|-------------|
-| `/config` | Generate and explain Nextflow configuration files |
-| `/schema` | Generate `nextflow_schema.json` and sample sheet schema files |
+| `/nextflow-config` | Generate and explain Nextflow configuration files |
+| `/nextflow-schema` | Generate `nextflow_schema.json` and sample sheet schema files |
 | `/debug-last-run` | Debug a local Nextflow pipeline run using `.nextflow.log`, work directories, and related artifacts |
 | `/debug-last-run-on-seqera` | Debug the last pipeline run on Seqera Platform |
 | `/convert-jupyter-notebook` | Convert Jupyter notebooks to Nextflow pipelines |
@@ -106,7 +106,7 @@ npx skills add https://github.com/vercel-labs/agent-skills --skill vercel-react-
 
 After adding a skill, restart `seqera ai` so the new skill is loaded into the session.
 
-## Install Seqera AI into another coding agent
+## Install Seqera AI into coding agents
 
 Use `seqera skill install` to install Seqera AI as a skill or instruction file for another agent:
 

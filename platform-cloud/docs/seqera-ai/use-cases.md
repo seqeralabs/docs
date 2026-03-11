@@ -36,10 +36,10 @@ Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-po
 > /nf-pipeline-structure
 ```
 
-**Generate a `nextflow.config` file**:
+**Use `/nextflow-config` to generate and explain Nextflow configuration files**:
 
 ```
-> /config
+> /nextflow-config
 ```
 
 <div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
@@ -68,10 +68,10 @@ Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-po
 > /nf-data-lineage
 ```
 
-**Generate a schema (`nextflow_schema.json`) file**:
+**Use `/nextflow-schema` to generate `nextflow_schema.json` and sample sheet schema files**:
 
 ```
-> /schema
+> /nextflow-schema
 ```
 
 <div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
@@ -302,8 +302,8 @@ Seqera AI includes built-in slash commands for common workflows.
 | `/goal` | Set, inspect, or disable a persistent goal |
 | `/credits` | Show monthly credit balance and usage |
 | `/update` | Check for CLI updates |
-| `/config` | Generate a nextflow.config file |
-| `/schema` | Generate a Nextflow schema |
+| `/nextflow-config` | Generate and explain Nextflow configuration files |
+| `/nextflow-schema` | Generate `nextflow_schema.json` and sample sheet schema files |
 | `/debug` | Run nextflow lint and preview |
 | `/debug-last-run` | Debug the last local run |
 | `/debug-last-run-on-seqera` | Debug the last Platform run |
@@ -344,7 +344,7 @@ Examples include:
 
 Create a `SKILL.md` file in `.agents/skills/` or `.seqera/skills/` and restart `seqera ai`.
 
-**Install Seqera AI into another coding agent**:
+**Install Seqera AI into coding agents**:
 
 ```bash
 seqera skill install
