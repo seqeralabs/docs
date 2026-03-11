@@ -1,0 +1,1 @@
+{"parameters":[{"name":"computeEnvId","in":"path","description":"Compute environment alphanumeric identifier.","schema":{"type":"string"},"required":true},{"name":"workspaceId","in":"query","description":"Workspace numeric identifier.","schema":{"type":"integer","format":"int64"}}]}
