@@ -26,6 +26,27 @@ You can:
 - Run `/help` to see commands and skill descriptions in the terminal
 - Add project-specific `SKILL.md` files so Seqera AI starts each session with the right context
 
+## Built-in backend skills
+
+Your Seqera AI deployment can expose built-in skills as slash commands. These appear in the `/` command palette and in `/help`.
+
+The currently surfaced built-in skills include:
+
+| Skill command | Description |
+|---------------|-------------|
+| `/fix-strict-syntax` | Fix Nextflow strict syntax errors and help migrate pipelines to the v2 parser |
+| `/nf-aggregate` | Aggregate metrics from Nextflow runs on Seqera Platform using the `nf-aggregate` pipeline |
+| `/nf-data-lineage` | Explore Nextflow data lineage to trace which inputs and processes produced a result |
+| `/nf-pipeline-structure` | Analyze a local Nextflow pipeline structure, including processes, workflows, modules, and channel flow |
+| `/nf-run-history` | Analyze local Nextflow run history and summarize recent activity, progress, and recurring issues |
+| `/nf-schema-migration` | Migrate Nextflow pipelines from `nf-validation` to `nf-schema` v2 |
+| `/seqera-platform-api` | Query and manipulate Seqera Platform resources directly through the REST API |
+| `/seqerakit` | Write `seqerakit` YAML configuration for automating Seqera Platform setup |
+
+:::note
+The exact built-in skills available in your environment may vary by deployment and release. Use `/help` or type `/` in the CLI to see the current list.
+:::
+
 ## Skill format
 
 Each skill lives in its own directory and includes a `SKILL.md` file with YAML frontmatter:

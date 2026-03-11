@@ -301,6 +301,17 @@ Seqera AI can use reusable skills from your current project, your user profile, 
 - Type `/` to browse built-in commands and backend skills
 - Run `/help` to see the same commands in a text list
 
+**Use a built-in backend skill**:
+
+Examples include:
+
+- `/fix-strict-syntax`
+- `/nf-pipeline-structure`
+- `/nf-run-history`
+- `/nf-data-lineage`
+- `/seqera-platform-api`
+- `/seqerakit`
+
 **Create a project skill**:
 
 Create a `SKILL.md` file in `.agents/skills/` or `.seqera/skills/` and restart `seqera ai`.
