@@ -1,7 +1,7 @@
 ---
 title: "Working with GitHub Copilot"
 description: "Install and maintain the Seqera AI skill for GitHub Copilot"
-date: "2026-02-26"
+date: "2026-03-11"
 tags: [seqera-ai, cli, skills, github-copilot]
 ---
 
@@ -13,10 +13,22 @@ The `seqera skill` command installs a skill file that enables [GitHub Copilot](h
 
 ### `seqera skill install`
 
+Launch the interactive installer:
+
+```bash
+seqera skill install
+```
+
 Install to the standard Copilot instructions file:
 
 ```bash
 seqera skill install --path .github/copilot-instructions.md
+```
+
+Install into the current repository root:
+
+```bash
+seqera skill install --local
 ```
 
 Or install to your home directory:
@@ -41,6 +53,7 @@ seqera skill install [OPTIONS]
 
 | Option | Short | Description |
 |--------|-------|-------------|
+| `--local` | `-l` | Install to repo root |
 | `--path <PATH>` | `-p` | Install to a custom path (relative or absolute) |
 | `--global` | `-g` | Install to home directory |
 | `--detect` | `-d` | Auto-detect an existing installation and update it |
@@ -75,6 +88,7 @@ seqera skill check [OPTIONS]
 
 ### Learn more
 
+- [Skills](./skills.md): Discover, create, and install skills
 - [Use cases](./use-cases.md): Seqera AI CLI use cases
 - [Code intelligence](./nextflow-lsp.md): Language-aware coding support
 - [Installation](./installation.md): Detailed installation instructions

@@ -1,7 +1,7 @@
 ---
 title: "Use cases"
 description: "Learn how to use Seqera AI CLI for bioinformatics workflows, pipeline development, and data management"
-date: "2025-12-15"
+date: "2026-03-11"
 tags: [seqera-ai, cli, ai, use cases]
 ---
 
@@ -163,6 +163,80 @@ seqera ai -w /path/to/project
 seqera ai -a full
 ```
 
+**Switch between build mode and plan mode**:
+
+- Press `Shift+Tab` in the composer
+- Check the current mode in the composer footer
+- Use `/status` if you want a full status readout
+
+**Inspect available built-in commands and skills**:
+
+```
+/help
+```
+
+</details>
+
+## Plan work before you edit
+
+Use **plan mode** when you want analysis and a concrete implementation plan before making changes.
+
+<details open>
+<summary>**Planning in plan mode**</summary>
+
+**Compare implementation strategies**:
+
+```
+> Compare whether I should add FastQC or fastp as the first QC step in this RNA-seq pipeline, including the workflow changes each option would require
+```
+
+**Ask for a step-by-step rollout plan**:
+
+```
+> Plan the work to add GPU support to this pipeline
+```
+
+**Review a codebase without modifying it**:
+
+```
+> Inspect this repository and outline the changes needed for Seqera Platform deployment
+```
+
+:::note
+Plan mode is designed for read-only analysis. To execute commands, edit files, or write code, switch back to build mode with `Shift+Tab`.
+:::
+
+</details>
+
+## Use goal mode for longer tasks
+
+Use **goal mode** when you want Seqera AI to keep working toward a task over multiple model attempts.
+
+<details open>
+<summary>**Working in goal mode**</summary>
+
+**Start a persistent task**:
+
+```
+/goal migrate this pipeline to DSL2 and add nf-tests
+```
+
+**Check the active goal**:
+
+```
+/goal
+```
+
+**Disable goal mode**:
+
+```
+/goal off
+```
+
+:::note
+Goal mode automatically switches command approval to `full` so the assistant can keep making progress. See [Command approval](./command-approval.md) for details.
+:::
+
 </details>
 
 ## Exit the assistant
@@ -194,6 +268,12 @@ Seqera AI includes built-in slash commands for common workflows.
 
 | Command | Description |
 |---------|-------------|
+| `/help` | Show available commands and skills |
+| `/status` | Show current mode, LSP, organization, and session status |
+| `/sessions` | Browse and switch sessions |
+| `/goal` | Set, inspect, or disable a persistent goal |
+| `/credits` | Show monthly credit balance and usage |
+| `/update` | Check for CLI updates |
 | `/config` | Generate a nextflow.config file |
 | `/schema` | Generate a Nextflow schema |
 | `/debug` | Run nextflow lint and preview |
@@ -204,6 +284,32 @@ Seqera AI includes built-in slash commands for common workflows.
 | `/convert-r-script` | Convert R script to Nextflow |
 | `/convert-jupyter-notebook` | Convert Jupyter notebook to Nextflow |
 | `/write-nf-test` | Write nf-tests for your pipeline |
+
+Skills exposed by your Seqera AI deployment also appear in the `/` command palette and in `/help`.
+
+</details>
+
+## Work with skills
+
+Seqera AI can use reusable skills from your current project, your user profile, and the backend skill catalog exposed by your deployment.
+
+<details open>
+<summary>**Using skills**</summary>
+
+**Open the command palette**:
+
+- Type `/` to browse built-in commands and backend skills
+- Run `/help` to see the same commands in a text list
+
+**Create a project skill**:
+
+Create a `SKILL.md` file in `.agents/skills/` or `.seqera/skills/` and restart `seqera ai`.
+
+**Install Seqera AI into another coding agent**:
+
+```bash
+seqera skill install
+```
 
 </details>
 
@@ -316,5 +422,7 @@ The assistant can generate the exact Nextflow command with proper parameters for
 - [Seqera AI CLI](index.md): Seqera AI CLI overview
 - [Installation](./installation.md): Detailed installation instructions
 - [Authentication](./authentication.md): Log in, log out, and session management
+- [Skills](./skills.md): Discover, create, and install skills
+- [Modes](./modes.md): Work in build mode, plan mode, and goal mode
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

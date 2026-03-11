@@ -11,6 +11,10 @@ Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [C
 
 Seqera AI can execute local commands and edit files in your environment. This page explains approval modes that control which operations run automatically versus which require your permission, including dangerous commands, workspace boundaries, and best practices.
 
+:::info
+Starting a persistent task with `/goal <task>` switches the session to `full` approval mode automatically so Seqera AI can continue working without repeated prompts.
+:::
+
 ## Approval prompts
 
 When a command requires approval, you will see output similar to:

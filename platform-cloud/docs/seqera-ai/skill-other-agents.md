@@ -1,7 +1,7 @@
 ---
 title: "Working with other coding agents"
 description: "Install and maintain the Seqera AI skill for other coding agents"
-date: "2026-02-26"
+date: "2026-03-11"
 tags: [seqera-ai, cli, skills, coding-agents]
 ---
 
@@ -22,10 +22,22 @@ The `seqera skill` command installs a skill file that enables coding agents such
 
 ### `seqera skill install`
 
+Launch the interactive installer:
+
+```bash
+seqera skill install
+```
+
 Install to a specific agent path:
 
 ```bash
 seqera skill install --path <agent-path>
+```
+
+Install into the current repository root:
+
+```bash
+seqera skill install --local
 ```
 
 Or install to your home directory:
@@ -50,6 +62,7 @@ seqera skill install [OPTIONS]
 
 | Option | Short | Description |
 |--------|-------|-------------|
+| `--local` | `-l` | Install to repo root |
 | `--path <PATH>` | `-p` | Install to a custom path (relative or absolute) |
 | `--global` | `-g` | Install to home directory |
 | `--detect` | `-d` | Auto-detect an existing installation and update it |
@@ -84,6 +97,7 @@ seqera skill check [OPTIONS]
 
 ### Learn more
 
+- [Skills](./skills.md): Discover, create, and install skills
 - [Use cases](./use-cases.md): Seqera AI CLI use cases
 - [Code intelligence](./nextflow-lsp.md): Language-aware coding support
 - [Installation](./installation.md): Detailed installation instructions
