@@ -30,18 +30,27 @@ You can:
 
 Your Seqera AI deployment can expose built-in skills as slash commands. These appear in the `/` command palette and in `/help`.
 
-The currently surfaced built-in skills include:
+The current reference-complete built-in skill list is:
 
-| Skill command | Description |
-|---------------|-------------|
+| Command | Description |
+|---------|-------------|
+| `/config` | Generate and explain Nextflow configuration files |
+| `/schema` | Generate `nextflow_schema.json` and sample sheet schema files |
+| `/debug-last-run` | Debug a local Nextflow pipeline run using `.nextflow.log`, work directories, and related artifacts |
+| `/debug-last-run-on-seqera` | Debug the last pipeline run on Seqera Platform |
+| `/convert-jupyter-notebook` | Convert Jupyter notebooks to Nextflow pipelines |
+| `/convert-python-script` | Convert Python scripts, including standalone scripts and Snakemake-style logic, to Nextflow |
+| `/convert-r-script` | Convert R scripts to Nextflow pipelines |
 | `/fix-strict-syntax` | Fix Nextflow strict syntax errors and help migrate pipelines to the v2 parser |
 | `/nf-aggregate` | Aggregate metrics from Nextflow runs on Seqera Platform using the `nf-aggregate` pipeline |
 | `/nf-data-lineage` | Explore Nextflow data lineage to trace which inputs and processes produced a result |
 | `/nf-pipeline-structure` | Analyze a local Nextflow pipeline structure, including processes, workflows, modules, and channel flow |
 | `/nf-run-history` | Analyze local Nextflow run history and summarize recent activity, progress, and recurring issues |
 | `/nf-schema-migration` | Migrate Nextflow pipelines from `nf-validation` to `nf-schema` v2 |
+| `/seqera-mcp` | Access Seqera Platform through MCP tools for structured, validated operations |
 | `/seqera-platform-api` | Query and manipulate Seqera Platform resources directly through the REST API |
 | `/seqerakit` | Write `seqerakit` YAML configuration for automating Seqera Platform setup |
+| `/simplify` | Review changed code for reuse, quality, and efficiency, then clean up issues found |
 
 :::note
 The exact built-in skills available in your environment may vary by deployment and release. Use `/help` or type `/` in the CLI to see the current list.

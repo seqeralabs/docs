@@ -32,6 +32,10 @@ Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-po
 > What processes are defined in this pipeline?
 ```
 
+```
+> /nf-pipeline-structure
+```
+
 **Generate a `nextflow.config` file**:
 
 ```
@@ -50,6 +54,18 @@ Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-po
 
 ```
 > Why is my pipeline failing?
+```
+
+**Review local execution history**:
+
+```
+> /nf-run-history
+```
+
+**Trace output provenance with data lineage**:
+
+```
+> /nf-data-lineage
 ```
 
 **Generate a schema (`nextflow_schema.json`) file**:
@@ -71,6 +87,18 @@ Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-po
 <div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
 <iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/93m4qsn8NO8?autoplay=1&mute=1" title="Use Seqera AI CLI to convert scripts to Nextflow" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
+
+**Fix strict syntax issues**:
+
+```
+> /fix-strict-syntax
+```
+
+**Migrate old schema definitions**:
+
+```
+> /nf-schema-migration
+```
 
 </details>
 
