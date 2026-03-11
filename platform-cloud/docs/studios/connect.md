@@ -15,7 +15,7 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 * Add: SSH Connectivity:
   * Server implementation (initialize SSH server when enabled)
-  * Authenticate authorization requests to Platform with oidc secret
+  * Authenticate authorization requests to Platform with OIDC secret
   * Add SSH connection activity tracking and notifications
 * Change the logger timestamp format to ISO8601
 * Detect network load balancer health checks
