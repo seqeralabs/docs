@@ -112,7 +112,7 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 * Moved Docker service management to the Connect-client. 
 * Add: SSH Connectivity:
-  * Server implementation (initialize ssh server when enabled)
+  * Server implementation (initialize SSH server when enabled)
   * Fingerprint verification  
   * Add SSH connection activity tracking and notifications
 
