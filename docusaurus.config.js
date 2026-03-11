@@ -321,6 +321,20 @@ export default async function createConfigAsync() {
         },
         contextualSearch: false,
         placeholder: 'Search Seqera docs...',
+        // Override default productRoutes to fix the Nextflow tag.
+        // The default uses 'docs-default-current' but the Typesense index
+        // has 'docs-nextflow-current'.
+        productRoutes: [
+          ['/platform-enterprise/', 'Platform Enterprise', 'platform-enterprise', null],
+          ['/platform-cloud/', 'Platform Cloud', 'platform-cloud', null],
+          ['/platform-cli/', 'Platform CLI', 'platform-cli', null],
+          ['/platform-api/', 'Platform API', 'platform-api', null],
+          ['/nextflow/', 'Nextflow', null, 'docs-nextflow-current'],
+          ['/multiqc/', 'MultiQC', 'multiqc', null],
+          ['/wave/', 'Wave', 'wave', null],
+          ['/fusion/', 'Fusion', 'fusion', null],
+          ['/changelog/', 'Changelog', null, null],
+        ],
       },
       prism: {
         additionalLanguages: [
