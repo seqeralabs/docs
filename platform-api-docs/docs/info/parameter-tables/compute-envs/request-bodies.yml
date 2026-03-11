@@ -89,31 +89,33 @@
 - Name: computeEnv.dateCreated
   Type: string
   Req/Opt: Optional
-  Description: Creation timestamp (read-only, set by system).
+  Description: Timestamp when the compute environment record was created.
 - Name: computeEnv.lastUpdated
   Type: string
   Req/Opt: Optional
-  Description: Last update timestamp (read-only, updated by system).
+  Description: Timestamp when the compute environment record was last updated.
 - Name: computeEnv.lastUsed
   Type: string
   Req/Opt: Optional
-  Description: Last usage timestamp (read-only, updated by system).
+  Description: Timestamp when the compute environment was last used to launch a workflow.
 - Name: computeEnv.deleted
   Type: boolean
   Req/Opt: Optional
-  Description: Deletion status flag (read-only, updated by system).
+  Description: If `true`, the compute environment record has been soft-deleted.
 - Name: computeEnv.status
-  Type: string
+  Type: object
   Req/Opt: Optional
   Description: Current status of the compute environment (read-only).
 - Name: computeEnv.message
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Optional status or error message associated with the compute
+    environment. Can be `null` when no message is available.
 - Name: computeEnv.primary
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, this compute environment is the primary compute
+    environment for its scope.
 - Name: labelIds
   Type: array
   Req/Opt: Optional
@@ -135,3 +137,11 @@
   Type: ""
   Req/Opt: ""
   Description: Define primary compute environment
+- Name: "**EnableComputeEnv**"
+  Type: ""
+  Req/Opt: ""
+  Description: Enable compute environment
+- Name: "**DisableComputeEnv**"
+  Type: ""
+  Req/Opt: ""
+  Description: Disable compute environment

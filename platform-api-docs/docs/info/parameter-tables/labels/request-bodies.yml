@@ -5,11 +5,11 @@
 - Name: actionIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of action string identifiers to update.
 - Name: labelIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of label numeric identifiers to add, apply, or remove.
 - Name: "**ApplyLabelsToActions**"
   Type: ""
   Req/Opt: ""
@@ -17,11 +17,11 @@
 - Name: actionIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of action string identifiers to update.
 - Name: labelIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of label numeric identifiers to add, apply, or remove.
 - Name: "**RemoveLabelsFromActions**"
   Type: ""
   Req/Opt: ""
@@ -29,11 +29,11 @@
 - Name: actionIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of action string identifiers to update.
 - Name: labelIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of label numeric identifiers to add, apply, or remove.
 - Name: "**CreateLabel**"
   Type: ""
   Req/Opt: ""
@@ -61,15 +61,16 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated label key name.
 - Name: value
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated label value.
 - Name: isDefault
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, automatically applies this label to new resources in the
+    same scope.
 - Name: "**AddLabelsToPipelines**"
   Type: ""
   Req/Opt: ""
@@ -77,11 +78,11 @@
 - Name: pipelineIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of pipeline numeric identifiers to update.
 - Name: labelIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of label numeric identifiers to add, apply, or remove.
 - Name: "**ApplyLabelsToPipelines**"
   Type: ""
   Req/Opt: ""
@@ -89,11 +90,11 @@
 - Name: pipelineIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of pipeline numeric identifiers to update.
 - Name: labelIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of label numeric identifiers to add, apply, or remove.
 - Name: "**RemoveLabelsFromPipelines**"
   Type: ""
   Req/Opt: ""
@@ -101,11 +102,11 @@
 - Name: pipelineIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of pipeline numeric identifiers to update.
 - Name: labelIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of label numeric identifiers to add, apply, or remove.
 - Name: "**AddLabelsToWorkflows**"
   Type: ""
   Req/Opt: ""
@@ -113,11 +114,11 @@
 - Name: workflowIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of workflow string identifiers to update.
 - Name: labelIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of label numeric identifiers to add, apply, or remove.
 - Name: "**ApplyLabelsToWorkflows**"
   Type: ""
   Req/Opt: ""
@@ -125,11 +126,11 @@
 - Name: workflowIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of workflow string identifiers to update.
 - Name: labelIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of label numeric identifiers to add, apply, or remove.
 - Name: "**RemoveLabelsFromWorkflows**"
   Type: ""
   Req/Opt: ""
@@ -137,8 +138,44 @@
 - Name: workflowIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of workflow string identifiers to update.
 - Name: labelIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of label numeric identifiers to add, apply, or remove.
+- Name: "**AddLabelsToDatasets**"
+  Type: ""
+  Req/Opt: ""
+  Description: Add labels to datasets
+- Name: datasetIds
+  Type: array
+  Req/Opt: Optional
+  Description: Array of dataset string identifiers to update.
+- Name: labelIds
+  Type: array
+  Req/Opt: Optional
+  Description: Array of simple label numeric identifiers to add, apply, or remove.
+- Name: "**ApplyLabelsToDatasets**"
+  Type: ""
+  Req/Opt: ""
+  Description: Replace dataset labels
+- Name: datasetIds
+  Type: array
+  Req/Opt: Optional
+  Description: Array of dataset string identifiers to update.
+- Name: labelIds
+  Type: array
+  Req/Opt: Optional
+  Description: Array of simple label numeric identifiers to add, apply, or remove.
+- Name: "**RemoveLabelsFromDatasets**"
+  Type: ""
+  Req/Opt: ""
+  Description: Remove labels from datasets
+- Name: datasetIds
+  Type: array
+  Req/Opt: Optional
+  Description: Array of dataset string identifiers to update.
+- Name: labelIds
+  Type: array
+  Req/Opt: Optional
+  Description: Array of simple label numeric identifiers to add, apply, or remove.

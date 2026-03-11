@@ -5,11 +5,11 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Secret name used by Nextflow when resolving this pipeline secret.
 - Name: value
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Secret value stored securely for use in pipeline launches.
 - Name: "**UpdatePipelineSecret**"
   Type: ""
   Req/Opt: ""
@@ -17,4 +17,4 @@
 - Name: value
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated secret value stored securely for future pipeline launches.
