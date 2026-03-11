@@ -1,7 +1,7 @@
 ---
 title: "Command approval"
 description: "Control which local commands require user approval in Seqera AI"
-date: "15 Dec 2025"
+date created: "2025-12-15"
 tags: [seqera-ai, cli, approval, security]
 ---
 

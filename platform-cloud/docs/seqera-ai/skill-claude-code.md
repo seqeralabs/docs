@@ -1,7 +1,7 @@
 ---
 title: "Working with Claude Code"
 description: "Install and maintain the Seqera AI skill for Claude Code"
-date: "2026-03-11"
+date created: "2026-03-11"
 tags: [seqera-ai, cli, skills, claude-code]
 ---
 

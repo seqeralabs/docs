@@ -1,7 +1,7 @@
 ---
 title: "Installation"
 description: "Install and configure Seqera AI CLI"
-date: "2026-03-11"
+date created: "2026-03-11"
 tags: [seqera-ai, cli, installation]
 ---
 

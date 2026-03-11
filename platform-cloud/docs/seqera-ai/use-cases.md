@@ -1,7 +1,7 @@
 ---
 title: "Use cases"
 description: "Learn how to use Seqera AI CLI for bioinformatics workflows, pipeline development, and data management"
-date: "2026-03-11"
+date created: "2026-03-11"
 tags: [seqera-ai, cli, ai, use cases]
 ---
 

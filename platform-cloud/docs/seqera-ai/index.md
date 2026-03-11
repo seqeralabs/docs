@@ -1,7 +1,7 @@
 ---
 title: "Seqera AI CLI"
 description: "AI-powered assistant for bioinformatics workflows and Seqera Platform"
-date: "2026-03-11"
+date created: "2026-03-11"
 tags: [seqera-ai, cli, ai]
 ---
 

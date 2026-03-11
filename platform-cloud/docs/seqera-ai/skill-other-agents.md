@@ -1,7 +1,7 @@
 ---
 title: "Working with other coding agents"
 description: "Install and maintain the Seqera AI skill for other coding agents"
-date: "2026-03-11"
+date created: "2026-03-11"
 tags: [seqera-ai, cli, skills, coding-agents]
 ---
 
