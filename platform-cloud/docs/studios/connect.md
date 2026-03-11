@@ -23,7 +23,7 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 ### server/v0.9.0 - 2025-12-05
 
 - Add: missing env when testing with platform
-- Fix: security vulnerabilities for crypto ssh library and slack nebula
+- Fix: security vulnerabilities for crypto SSH library and Slack Nebula
 - Upgrade go (from v1.24.3 to 1.25.3) and caddyserver (from 2.10.0 to 2.10.2)
 
 ### server/v0.8.4 - 2025-10-31
