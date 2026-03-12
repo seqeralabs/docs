@@ -98,6 +98,42 @@ _Cannot parse params file: /ephemeral/example.json - Cause: Server returned HTTP
 
 To resolve this problem, upgrade Nextflow to version 22.04.x or later.
 
+**Job fails after extended queue time: token expiration**
+
+Jobs that remain in queue for longer than the refresh token expiration period (6 hours by default) will fail when they finally start execution. This occurs because:
+
+1. The refresh token expires after 6 hours by default
+2. When the job starts after the token has expired, Nextflow cannot authenticate with Platform
+3. The job fails with authentication errors or 403 responses
+
+**Symptoms:**
+- Jobs submitted successfully but fail when starting after 6+ hours in queue
+- Error messages indicating expired tokens or authentication failures
+- 403 HTTP responses when Nextflow attempts to communicate with Platform
+
+**Solution:**
+
+Increase both the refresh token expiration and ephemeral endpoint duration in your Platform configuration to accommodate your expected queue times. For example, if jobs may wait up to 12 hours in queue, configure:
+
+```yaml
+tower:
+  ephemeral:
+    duration: 12h
+
+micronaut:
+  security:
+    token:
+      jwt:
+        signatures:
+          refresh-token:
+            expiration: 12h
+      refresh:
+        cookie:
+          cookie-max-age: 14h
+```
+
+See [Session management](../enterprise/configuration/authentication/overview#session-management) and [Ephemeral endpoint configuration](../enterprise/configuration/authentication/overview#ephemeral-endpoint-configuration) for more details.
+
 **Prevent Nextflow from uploading intermediate files from local scratch to AWS S3 work directory**
 
 Nextflow will only unstage files/folders that have been explicitly defined as process outputs. If your workflow has processes that generate folder-type outputs, ensure that the process also purges any intermediate files in those folders. Otherwise, the intermediate files are copied as part of the task unstaging process, resulting in additional storage costs and lengthened pipeline execution times.
