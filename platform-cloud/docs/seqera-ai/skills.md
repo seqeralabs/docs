@@ -30,7 +30,7 @@ You can:
 
 Your Seqera AI deployment can expose built-in skills as slash commands. These appear in the `/` command palette and in `/help`.
 
-The current reference-complete built-in skill list is:
+The CLI includes the following built-in skills by default:
 
 | Command | Description |
 |---------|-------------|
