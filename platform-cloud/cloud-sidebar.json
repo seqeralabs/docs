@@ -169,6 +169,8 @@
         "seqera-ai/get-started",
         "seqera-ai/installation",
         "seqera-ai/authentication",
+        "seqera-ai/skills",
+        "seqera-ai/modes",
         "seqera-ai/use-cases",
         "seqera-ai/command-approval",
         "seqera-ai/skill-claude-code",

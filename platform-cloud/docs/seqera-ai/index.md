@@ -1,7 +1,7 @@
 ---
 title: "Seqera AI CLI"
 description: "AI-powered assistant for bioinformatics workflows and Seqera Platform"
-date: "2025-12-15"
+date created: "2026-03-11"
 tags: [seqera-ai, cli, ai]
 ---
 
@@ -19,9 +19,21 @@ Seqera AI has access to:
 
 ## Seqera AI features
 
+### Skills
+
+Seqera AI supports reusable skills for common workflows. Backend skills are exposed as slash commands in the `/` command palette and `/help`, and project or user `SKILL.md` files are discovered automatically from standard skill directories.
+
 ### Natural language interface
 
 Interact with Seqera Platform using plain English. Ask questions, launch workflows, and manage pipelines through conversational commands.
+
+### Build and plan modes
+
+Switch between **build** and **plan** modes during an interactive session with `Shift+Tab`. Build mode is the default for execution and file changes, while plan mode is optimized for analysis, implementation planning, and read-only investigation.
+
+### Goal mode
+
+Use `/goal <task>` to set a persistent goal. Seqera AI will keep working toward that goal across multiple model attempts until it is complete or the goal attempt limit is reached.
 
 ### Workflow management
 
@@ -55,6 +67,8 @@ Full access to Platform capabilities including compute environments, datasets, d
 
 - [Installation](./installation.md): Detailed installation instructions
 - [Authentication](./authentication.md): Log in, log out, and session management
+- [Skills](./skills.md): Discover, create, and install skills
+- [Modes](./modes.md): Work in build mode, plan mode, and goal mode
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Working with Claude Code](./skill-claude-code.md): Install Seqera AI as a skill for Claude Code
 - [Working with Codex](./skill-codex.md): Install Seqera AI as a skill for Codex
