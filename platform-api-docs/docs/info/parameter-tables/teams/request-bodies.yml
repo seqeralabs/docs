@@ -21,11 +21,11 @@
 - Name: team.dateCreated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the team was created.
 - Name: team.lastUpdated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the team was last updated.
 - Name: avatarId
   Type: string
   Req/Opt: Optional
@@ -39,11 +39,11 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated team name. Must remain unique within the organization.
 - Name: description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated team description.
 - Name: avatarId
   Type: string
   Req/Opt: Optional

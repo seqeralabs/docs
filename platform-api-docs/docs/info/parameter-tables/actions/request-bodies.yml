@@ -5,7 +5,7 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Unique action name. Must be unique within the user or workspace context.
 - Name: source
   Type: string
   Req/Opt: Optional
@@ -144,7 +144,7 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated action name. Must remain unique within the user or workspace context.
 - Name: launch
   Type: object
   Req/Opt: Optional

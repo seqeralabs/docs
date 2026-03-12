@@ -23,6 +23,7 @@
     "dev": "npm run start",
     "prebuild": "npm run fetch-docs-oss",
     "build": "docusaurus build",
+    "postbuild": "node internal/merge-llms-txt.mjs",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",

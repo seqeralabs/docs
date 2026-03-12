@@ -81,7 +81,8 @@
   Type: string
   Location: header
   Req/Opt: Optional
-  Description: ""
+  Description: Request origin URL used for CORS handling when generating upload
+    URLs for browser-based clients.
 - Name: "`dirPath`"
   Type: string
   Location: path
