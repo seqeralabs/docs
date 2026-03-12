@@ -17,7 +17,7 @@ Add a label.
 tw labels add [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -32,7 +32,7 @@ Run `tw labels add -h` to view the required and optional fields for adding a lab
 [Labels](https://docs.seqera.io/platform-cloud/labels/overview) require only a name and can be applied to pipelines, runs, and actions.
 :::
 
-### Examples
+#### Examples
 
 **Example 1: Add a resource label (with value)**
 
@@ -74,7 +74,7 @@ List labels.
 tw labels list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -87,7 +87,7 @@ tw labels list [OPTIONS]
 
 Run `tw labels list -h` to view the optional fields for filtering labels.
 
-### Example
+#### Example
 
 Command:
 
@@ -118,7 +118,7 @@ Update a label.
 tw labels update [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -129,7 +129,7 @@ tw labels update [OPTIONS]
 
 Run `tw labels update -h` to view the required and optional fields for updating labels.
 
-### Example
+#### Example
 
 Command:
 
@@ -151,7 +151,7 @@ Delete a label.
 tw labels delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
@@ -160,7 +160,7 @@ tw labels delete [OPTIONS]
 
 Run `tw labels delete -h` to view the required and optional fields for deleting labels.
 
-### Example
+#### Example
 
 Command:
 

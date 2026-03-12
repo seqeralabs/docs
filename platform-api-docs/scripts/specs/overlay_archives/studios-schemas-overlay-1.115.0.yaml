@@ -1,0 +1,78 @@
+overlay: 1.0.0
+info:
+  title: Studios schemas overlay
+  version: 0.0.0
+actions:
+  # ===== STUDIOS AND WORKSPACES SCHEMAS =====
+
+  - target: $.paths./orgs/{orgId}/workspaces/{workspaceId}/settings/studios.put.requestBody.content.application/json.schema.$ref
+    update: '#/components/schemas/DataStudioWorkspaceSettingsRequest'
+
+  - target: $.components.schemas
+    update:
+      DataStudioWorkspaceSettingsRequest:
+        type: object
+        description: Workspace-level default settings for newly created Studios.
+        properties:
+          lifespanHours:
+            minimum: 0
+            type: integer
+            format: int32
+            description: Default lifespan for new Studio sessions in hours. Set to `0` for unlimited lifespan.
+          containerRepository:
+            type: string
+            nullable: true
+            description: Custom container repository used for new Studios in the workspace. Can be `null`.
+          privateStudioByDefault:
+            type: boolean
+            description: If `true`, new Studios in the workspace default to private visibility.
+      MountData:
+        type: object
+        description: Studio data-link mount with an optional path prefix.
+        properties:
+          dataLinkId:
+            type: string
+            description: Data-link string identifier to mount in the Studio session.
+          path:
+            type: string
+            nullable: true
+            description: Optional relative path within the data-link root to mount. Can be `null` to mount the data-link root.
+
+  - target: $.components.schemas.DataStudioWorkspaceSettingsResponse.properties
+    update:
+      orgId:
+        type: integer
+        format: int64
+        description: Organization numeric identifier.
+      wspId:
+        type: integer
+        format: int64
+        description: Workspace numeric identifier.
+      lifespanHours:
+        type: integer
+        format: int32
+        description: Default lifespan for new Studio sessions in hours. Set to `0` for unlimited lifespan.
+      containerRepository:
+        type: string
+        nullable: true
+        description: Custom container repository used for new Studios in the workspace. Can be `null`.
+      privateStudioByDefault:
+        type: boolean
+        description: If `true`, new Studios in the workspace default to private visibility.
+
+  - target: $.components.schemas.DataStudioConfiguration.properties.mountData
+    update:
+      type: array
+      nullable: true
+      deprecated: true
+      items:
+        type: string
+      description: Deprecated array of data-link IDs mounted in the Studio session. This field only supports data-link IDs without path prefixes. Can be `null` to preserve existing mounts.
+
+  - target: $.components.schemas.DataStudioConfiguration.properties.mountDataV2
+    update:
+      type: array
+      nullable: true
+      items:
+        $ref: '#/components/schemas/MountData'
+      description: Array of data-link mounts with optional path prefixes. Can be `null` to preserve existing mounts, or an empty array to remove all mounts.

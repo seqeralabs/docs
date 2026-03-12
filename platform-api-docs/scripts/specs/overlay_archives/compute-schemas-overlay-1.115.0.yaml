@@ -1,0 +1,97 @@
+overlay: 1.0.0
+info:
+  title: Compute schemas overlay
+  version: 0.0.0
+actions:
+  # ===== COMPUTE AND PLATFORM SCHEMAS =====
+
+  - target: $.components.schemas.ComputeConfig.oneOf[*]
+    remove: true
+
+  - target: $.components.schemas.ComputeConfig.oneOf
+    update:
+      - $ref: '#/components/schemas/AwsBatchConfig'
+      - $ref: '#/components/schemas/AwsCloudConfig'
+      - $ref: '#/components/schemas/SeqeraComputeConfig'
+      - $ref: '#/components/schemas/GoogleBatchConfig'
+      - $ref: '#/components/schemas/GoogleCloudConfig'
+      - $ref: '#/components/schemas/AzBatchConfig'
+      - $ref: '#/components/schemas/AzCloudConfig'
+      - $ref: '#/components/schemas/LsfComputeConfig'
+      - $ref: '#/components/schemas/SlurmComputeConfig'
+      - $ref: '#/components/schemas/K8sComputeConfig'
+      - $ref: '#/components/schemas/EksComputeConfig'
+      - $ref: '#/components/schemas/GkeComputeConfig'
+      - $ref: '#/components/schemas/UnivaComputeConfig'
+      - $ref: '#/components/schemas/AltairPbsComputeConfig'
+      - $ref: '#/components/schemas/MoabComputeConfig'
+      - $ref: '#/components/schemas/GoogleLifeSciencesConfig'
+
+  - target: $.components.schemas.ComputeEnvResponseDto.properties.platform.enum[*]
+    remove: true
+
+  - target: $.components.schemas.ComputeEnvResponseDto.properties.platform.enum
+    update:
+      - aws-batch
+      - aws-cloud
+      - seqeracompute-platform
+      - google-batch
+      - google-cloud
+      - azure-batch
+      - azure-cloud
+      - k8s-platform
+      - eks-platform
+      - gke-platform
+      - uge-platform
+      - slurm-platform
+      - lsf-platform
+      - altair-platform
+      - moab-platform
+      - google-lifesciences
+
+  - target: $.components.schemas.ComputeEnv_ComputeConfig_.properties.platform.enum[*]
+    remove: true
+
+  - target: $.components.schemas.ComputeEnv_ComputeConfig_.properties.platform.enum
+    update:
+      - aws-batch
+      - aws-cloud
+      - seqeracompute-platform
+      - google-batch
+      - google-cloud
+      - azure-batch
+      - azure-cloud
+      - k8s-platform
+      - eks-platform
+      - gke-platform
+      - uge-platform
+      - slurm-platform
+      - lsf-platform
+      - altair-platform
+      - moab-platform
+      - google-lifesciences
+
+  - target: $.components.schemas.ComputeEnv_ComputeConfig_.properties.status.type
+    remove: true
+
+  - target: $.components.schemas.DataLinkDto.properties.status.type
+    remove: true
+
+  - target: $.components.schemas
+    update:
+      LocalComputeConfig:
+        title: Local execution configuration
+        type: object
+        description: Local execution configuration retained for non-public local deployments and test environments.
+        allOf:
+          - $ref: '#/components/schemas/ComputeConfig'
+          - properties:
+              waveEnabled:
+                type: boolean
+                description: If `true`, Wave integration is enabled for local execution.
+              fusion2Enabled:
+                type: boolean
+                description: If `true`, Fusion v2 integration is enabled for local execution.
+
+  - target: $.components.schemas.GoogleLifeSciencesConfig.title
+    update: Google Life Sciences configuration (retired)

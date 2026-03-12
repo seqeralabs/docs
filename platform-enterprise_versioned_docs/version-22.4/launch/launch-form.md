@@ -19,7 +19,7 @@ To launch a pipeline:
 3. Enter a repository URL for the **Pipeline to launch** (e.g. `https://github.com/nf-core/rnaseq.git`).
 
 :::tip
-Nextflow pipelines are just Git repositories and they can reside on any public or private Git-hosting platform. See [Git Integration](../git/overview) in the Tower docs and [Pipeline Sharing](https://www.nextflow.io/docs/latest/sharing.html) in the Nextflow docs for more details.
+Nextflow pipelines are just Git repositories and they can reside on any public or private Git-hosting platform. See [Git Integration](../git/overview) in the Tower docs and [Pipeline Sharing](https://docs.seqera.io/nextflow/sharing) in the Nextflow docs for more details.
 :::
 
 4. You can select a **Revision number** to use a specific version of the pipeline.
@@ -36,7 +36,7 @@ The credentials associated with the compute environment must be able to access t
 
 6.  Select any **Config profiles** you would like to use.
 
-    Visit the Nextflow [Config profiles](https://www.nextflow.io/docs/latest/config.html#config-profiles) documentation for more details.
+    Visit the Nextflow [Config profiles](https://docs.seqera.io/nextflow/config#config-profiles) documentation for more details.
 
 7.  Enter any **Pipeline parameters** in YAML or JSON format.
 

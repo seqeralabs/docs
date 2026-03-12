@@ -10,6 +10,14 @@
   Type: string
   Req/Opt: Optional
   Description: Optional description of the dataset purpose and contents.
+- Name: "**DeleteDatasets**"
+  Type: ""
+  Req/Opt: ""
+  Description: Delete datasets
+- Name: datasetIds
+  Type: array
+  Req/Opt: Optional
+  Description: Array of dataset string identifiers to delete.
 - Name: "**UpdateDatasetV2**"
   Type: ""
   Req/Opt: ""
@@ -17,11 +25,11 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated dataset name.
 - Name: description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated description of the dataset contents and purpose.
 - Name: "**CreateDataset**"
   Type: ""
   Req/Opt: ""
@@ -41,8 +49,24 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated dataset name.
 - Name: description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated description of the dataset contents and purpose.
+- Name: "**HideDatasets**"
+  Type: ""
+  Req/Opt: ""
+  Description: Hide datasets
+- Name: datasetIds
+  Type: array
+  Req/Opt: Optional
+  Description: Array of dataset string identifiers to show or hide.
+- Name: "**ShowDatasets**"
+  Type: ""
+  Req/Opt: ""
+  Description: Show datasets
+- Name: datasetIds
+  Type: array
+  Req/Opt: Optional
+  Description: Array of dataset string identifiers to show or hide.

@@ -169,8 +169,15 @@
         "seqera-ai/get-started",
         "seqera-ai/installation",
         "seqera-ai/authentication",
+        "seqera-ai/skills",
+        "seqera-ai/modes",
+        "seqera-ai/use-cases",
         "seqera-ai/command-approval",
-        "seqera-ai/use-cases"
+        "seqera-ai/skill-claude-code",
+        "seqera-ai/skill-codex",
+        "seqera-ai/skill-github-copilot",
+        "seqera-ai/skill-other-agents",
+        "seqera-ai/nextflow-lsp"
       ]
     },
       {

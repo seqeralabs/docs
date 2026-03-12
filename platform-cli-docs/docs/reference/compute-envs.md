@@ -25,7 +25,7 @@ Run `tw compute-envs add <platform> -h` to view the required and optional fields
 
 You must add the credentials for your provider before creating your compute environment.
 
-### Example
+#### Example
 
 Command:
 
@@ -60,7 +60,7 @@ Update a compute environment.
 tw compute-envs update [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
@@ -69,7 +69,7 @@ tw compute-envs update [OPTIONS]
 | `-n`, `--name` | Compute environment name. | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -91,7 +91,7 @@ Delete a compute environment.
 tw compute-envs delete [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
@@ -99,7 +99,7 @@ tw compute-envs delete [OPTIONS]
 | `-n`, `--name` | Compute environment name. | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -121,7 +121,7 @@ View compute environment details.
 tw compute-envs view [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
@@ -129,7 +129,7 @@ tw compute-envs view [OPTIONS]
 | `-n`, `--name` | Compute environment name. | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -190,13 +190,13 @@ List compute environments.
 tw compute-envs list [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -229,7 +229,7 @@ Export compute environment configuration as a JSON file.
 tw compute-envs export [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
@@ -237,7 +237,7 @@ tw compute-envs export [OPTIONS]
 | `-n`, `--name` | Compute environment name. | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -259,7 +259,7 @@ Import a compute environment configuration from a JSON file.
 tw compute-envs import [OPTIONS] <path/to/json-file>
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
@@ -269,7 +269,7 @@ tw compute-envs import [OPTIONS] <path/to/json-file>
 | `--overwrite` | Overwrite the compute environment if it already exists. | No | `false` |
 | `<path/to/json-file>` | Path to the JSON file containing the compute environment configuration (exported using `tw compute-envs export`). | Yes | `null` |
 
-### Example
+#### Example
 
 Command:
 
@@ -303,13 +303,13 @@ Get the primary compute environment.
 tw compute-envs primary get [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 
@@ -331,7 +331,7 @@ Set a compute environment as primary.
 tw compute-envs primary set [OPTIONS]
 ```
 
-### Options
+#### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
@@ -339,7 +339,7 @@ tw compute-envs primary set [OPTIONS]
 | `-n`, `--name` | Compute environment name. | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
-### Example
+#### Example
 
 Command:
 

@@ -2,13 +2,19 @@
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: Filter by compute environment status.
+  Description: Compute environment status filter.
 - Name: "`workspaceId`"
   Type: integer
   Location: query
   Req/Opt: Optional
   Description: Workspace numeric identifier. If omitted, lists compute
     environments in a user context.
+- Name: "`attributes`"
+  Type: array
+  Location: query
+  Req/Opt: Optional
+  Description: Additional attribute values to include in the response. Accepts
+    `labels` or `resources`. Returns `null` for omitted attributes.
 - Name: "`name`"
   Type: string
   Location: query
@@ -19,9 +25,3 @@
   Location: path
   Req/Opt: Required
   Description: Compute environment alphanumeric identifier.
-- Name: "`attributes`"
-  Type: array
-  Location: query
-  Req/Opt: Optional
-  Description: "Additional attribute values to include in the response. Returns
-    `labels: null` if omitted."

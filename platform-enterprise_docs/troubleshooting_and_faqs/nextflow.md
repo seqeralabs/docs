@@ -20,7 +20,7 @@ To minimize disruption on existing pipelines, version 22.1.x and later are confi
 
 **Invoke Nextflow CLI run arguments during Seqera launch**
 
-From [Nextflow v22.09.1-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.09.1-edge), you can specify [Nextflow CLI run arguments](https://www.nextflow.io/docs/latest/cli.html?highlight=dump#run) when invoking a pipeline from Seqera. Set the `NXF_CLI_OPTS` environment variable using a [pre-run script](../launch/advanced#pre-and-post-run-scripts):
+From [Nextflow v22.09.1-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.09.1-edge), you can specify [Nextflow CLI run arguments](https://docs.seqera.io/nextflow/cli.html?highlight=dump#run) when invoking a pipeline from Seqera. Set the `NXF_CLI_OPTS` environment variable using a [pre-run script](../launch/advanced#pre-and-post-run-scripts):
 
 ```
 export NXF_CLI_OPTS='-dump-hashes'
@@ -44,7 +44,7 @@ Currently, you can resolve this by creating empty `main.nf` and `nextflow.config
 
 **Use multiple Nextflow configuration files for different environments**
 
-The main `nextflow.config` file is always imported by default. Instead of managing multiple `nextflow.config` files (each customized for an environment), you can create unique environment config files and import them as [config profiles](https://www.nextflow.io/docs/latest/config.html#config-profiles) in the main `nextflow.config`.
+The main `nextflow.config` file is always imported by default. Instead of managing multiple `nextflow.config` files (each customized for an environment), you can create unique environment config files and import them as [config profiles](https://docs.seqera.io/nextflow/config#config-profiles) in the main `nextflow.config`.
 
 Example:
 
@@ -188,7 +188,7 @@ process.afterScript = 'sleep 60'
 
 **Jobs remain in RUNNING status when a pipeline run is canceled**
 
-Your instance's behavior when canceling a run depends on the Nextflow [`errorStrategy`](https://www.nextflow.io/docs/latest/process.html#errorstrategy) defined in your process script. If the process `errorStrategy` is set to `finish`, an orderly pipeline shutdown is initiated when you cancel (or otherwise interrupt) a run. This instructs Nextflow to wait for the completion of any submitted jobs. To ensure that all jobs are terminated when your run is canceled, set `errorStrategy` to `terminate` in your Nextflow config. For example:
+Your instance's behavior when canceling a run depends on the Nextflow [`errorStrategy`](https://docs.seqera.io/nextflow/process#errorstrategy) defined in your process script. If the process `errorStrategy` is set to `finish`, an orderly pipeline shutdown is initiated when you cancel (or otherwise interrupt) a run. This instructs Nextflow to wait for the completion of any submitted jobs. To ensure that all jobs are terminated when your run is canceled, set `errorStrategy` to `terminate` in your Nextflow config. For example:
 
 ```
 process terminateError {
@@ -232,7 +232,7 @@ The Groovy shell used by Nextflow to execute your workflow has a hard limit on s
 
 1. Remove any unnecessary code or comments from the script.
 2. Move long script bodies into a separate script file in the pipeline `/bin` directory.
-3. Consider using DSL2 so you can move each function, process, and workflow definition into its own script and include these scripts as [modules](https://www.nextflow.io/docs/latest/dsl2.html#modules).
+3. Consider using DSL2 so you can move each function, process, and workflow definition into its own script and include these scripts as [modules](https://docs.seqera.io/nextflow/dsl2#modules).
 
 ### Nextflow Launcher
 
