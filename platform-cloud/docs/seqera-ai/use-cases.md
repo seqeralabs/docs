@@ -305,7 +305,7 @@ Seqera AI includes built-in slash commands for common workflows.
 | `/nextflow-config` | Generate and explain Nextflow configuration files |
 | `/nextflow-schema` | Generate `nextflow_schema.json` and sample sheet schema files |
 | `/debug` | Run nextflow lint and preview |
-| `/debug-last-run` | Debug the last local run |
+| `/debug-local-run` | Debug a local Nextflow pipeline run |
 | `/debug-last-run-on-seqera` | Debug the last Platform run |
 | `/migrate-from-wdl` | Convert WDL to Nextflow |
 | `/convert-python-script` | Convert Python script to Nextflow |

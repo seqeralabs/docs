@@ -36,7 +36,7 @@ The current reference-complete built-in skill list is:
 |---------|-------------|
 | `/nextflow-config` | Generate and explain Nextflow configuration files |
 | `/nextflow-schema` | Generate `nextflow_schema.json` and sample sheet schema files |
-| `/debug-last-run` | Debug a local Nextflow pipeline run using `.nextflow.log`, work directories, and related artifacts |
+| `/debug-local-run` | Debug a local Nextflow pipeline run using `.nextflow.log`, work directories, and related artifacts |
 | `/debug-last-run-on-seqera` | Debug the last pipeline run on Seqera Platform |
 | `/convert-jupyter-notebook` | Convert Jupyter notebooks to Nextflow pipelines |
 | `/convert-python-script` | Convert Python scripts, including standalone scripts and Snakemake-style logic, to Nextflow |
