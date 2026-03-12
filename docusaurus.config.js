@@ -1,4 +1,5 @@
 const path = require("path");
+const platformEnterpriseVersions = require("./platform-enterprise_versions.json");
 import "dotenv/config";
 import platform_enterprise_latest_version from "./platform-enterprise_latest_version.js";
 import {
@@ -6,6 +7,14 @@ import {
   getSeqeraThemeConfig,
   getSeqeraPresetOptions
 } from "@seqera/docusaurus-preset-seqera";
+
+// Build the search filter_by dynamically so old platform-enterprise versions are
+// excluded automatically whenever a new version is added to versions.json.
+// versions.json is ordered newest-first; index 0 is the current/latest version.
+const oldEnterpriseVersionTags = platformEnterpriseVersions
+  .slice(1)
+  .map((v) => `docs-platform-enterprise-${v}`);
+const searchFilterBy = `docusaurus_tag:!=[default,doc_tag_doc_list,blog_posts_list,blog_tags_posts,doc_tags_list,blog_tags_list${oldEnterpriseVersionTags.length ? `,${oldEnterpriseVersionTags.join(",")}` : ""}]`;
 
 export default async function createConfigAsync() {
 
@@ -415,14 +424,29 @@ export default async function createConfigAsync() {
         },
         typesenseSearchParameters: {
           query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',
-          group_by: 'url_without_anchor',
+          group_by: 'url',
           group_limit: 1,
-          num_typos: 1,
+          per_page: 20,
+          num_typos: 2,
           prioritize_exact_match: true,
-          filter_by: 'docusaurus_tag:!=[default,doc_tag_doc_list,blog_posts_list,blog_tags_posts,doc_tags_list,blog_tags_list]', // TODO Remove once the scraper is updated
+          filter_by: searchFilterBy, // Old platform-enterprise versions excluded automatically via searchFilterBy above
         },
         contextualSearch: false,
         placeholder: 'Search Seqera docs...',
+        // Override default productRoutes to fix the Nextflow tag.
+        // The default uses 'docs-default-current' but the Typesense index
+        // has 'docs-nextflow-current'.
+        productRoutes: [
+          ['/platform-enterprise/', 'Platform Enterprise', 'platform-enterprise', null],
+          ['/platform-cloud/', 'Platform Cloud', 'platform-cloud', null],
+          ['/platform-cli/', 'Platform CLI', 'platform-cli', null],
+          ['/platform-api/', 'Platform API', 'platform-api', null],
+          ['/nextflow/', 'Nextflow', null, 'docs-nextflow-current'],
+          ['/multiqc/', 'MultiQC', 'multiqc', null],
+          ['/wave/', 'Wave', 'wave', null],
+          ['/fusion/', 'Fusion', 'fusion', null],
+          ['/changelog/', 'Changelog', null, null],
+        ],
       },
       prism: {
         additionalLanguages: [
