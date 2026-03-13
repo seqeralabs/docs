@@ -17,6 +17,10 @@ import MDXComponents from "@theme-original/MDXComponents";
 
 Manage workflow executions ([pipeline runs](https://docs.seqera.io/platform-cloud/monitoring/overview)) in Seqera Platform.
 
+The `List workflows` and `Describe workflow` endpoints support the `attributes` query parameter to enrich the default response. Current supported values are `optimized`, `labels`, `messages`, `minimal`, and `pipelineInfo`.
+
+Use `attributes=pipelineInfo` to include the source pipeline reference for a run, including the pipeline identifier, workspace identifier, and version metadata.
+
 ### Path and query parameters
 
 ::table{file=parameter-tables/workflows/parameters.yml}
