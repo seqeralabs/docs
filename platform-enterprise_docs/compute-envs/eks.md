@@ -267,6 +267,12 @@ For role-based AWS credentials in Enterprise, use the AWS IAM role configured in
 ```
 
 :::info
+In Seqera Enterprise, a jump role is optional. If you configure one, use your own jump role ARN as the trusted principal in the trust policy.
+
+The **Assume role** value in the credential form is the customer IAM role ARN in your AWS account. It is separate from any optional jump role configuration.
+:::
+
+:::info
 To use role-based access with no External ID, set `TOWER_ALLOW_INSTANCE_CREDENTIALS=true` in your deployment [configuration](../enterprise/configuration/overview#compute-environments).
 Then create AWS credentials using an IAM role ARN only (no access key, secret key, or External ID), and remove the entire `Condition` block for `sts:ExternalId` from your trust policy.
 :::
