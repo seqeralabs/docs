@@ -14,7 +14,7 @@
 - Name: dataStudioToolUrl
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Container image or Studio tool URL to use for the Studio session.
 - Name: computeEnvId
   Type: string
   Req/Opt: Required
@@ -22,7 +22,7 @@
 - Name: initialCheckpointId
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Checkpoint numeric identifier to restore when creating the Studio.
 - Name: configuration
   Type: object
   Req/Opt: Optional
@@ -42,7 +42,9 @@
 - Name: configuration.mountData
   Type: array
   Req/Opt: Optional
-  Description: Array of data-link IDs mounted in the Studio session.
+  Description: Deprecated array of data-link IDs mounted in the Studio session.
+    This field only supports data-link IDs without path prefixes. Can be `null`
+    to preserve existing mounts.
 - Name: configuration.environment
   Type: object
   Req/Opt: Optional
@@ -66,11 +68,17 @@
 - Name: labelIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of label numeric identifiers to apply to the Studio.
 - Name: spot
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, requests spot or preemptible capacity when supported by
+    the selected compute environment.
+- Name: remoteConfig
+  Type: object
+  Req/Opt: Optional
+  Description: Remote repository configuration used to pre-fill the Studio form.
+    Can be `null`.
 - Name: "**UpdateDataStudioCheckpoint**"
   Type: ""
   Req/Opt: ""
@@ -87,16 +95,21 @@
 - Name: configuration
   Type: object
   Req/Opt: Optional
-  Description: ""
+  Description: Updated Studio configuration to apply when starting the session.
+    `null` preserves the saved configuration.
 - Name: description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated Studio description to apply when starting the session.
+    `null` preserves the saved description.
 - Name: labelIds
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of label numeric identifiers to apply when starting the
+    Studio. `null` preserves the saved labels, while an empty array clears them.
 - Name: spot
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, requests spot or preemptible capacity for the started
+    Studio when supported by the selected compute environment. `null` preserves
+    the saved setting.

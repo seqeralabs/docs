@@ -5,9 +5,9 @@ description: "GetAllowedDynamicLabels"
 sidebar_label: "GetAllowedDynamicLabels"
 hide_title: true
 hide_table_of_contents: true
-api: eJyVU8Fu2zAM/RVD5yDOiu2wnJZ2XVFgwIq2Ow09MDKbKJEtVWLSGYb/faTkpEmQrdjJsvTI9/hIdopgEdX0l7IwRxvV00g5jwHIuOa2UlN1gzSz1r1i9bVtoDb6ewaOVMDoXRORwzt1MZnIp8Kog/ESzbE/1gzTriFsSF7Be2t0yl2uokA6FfUSa5ATtR45yM1XqIkDfRAlZDLBFuwmnwYchAAtwwxhfXgfKZhmofq+HykyZOXuXAX3g3xBMvTjuQIuoSru8YWJ6X8qCRxiAlbia40xwgLF2H8XuAOeqeStkOsQXDhSzo8R9SYYapmuU5cIAcNsQ0v+feqZ9rikv/ezRlo6afkCkzqQFKrMg1FWGV1CDlZCG7YYYmLdBMvYJZGP07IEb8bauk01jvjCwzQ2Tp3qeEgvxZ0FenahLq4EX8zubpVo3pX0IJ5mfw4L21skjCIlwfh/nkB8kw/fODNww9TqlZKPpnl2KXzwc1AhtO8JlHKNxjiAZRhAp2E4Lv6wZJ4HI29C++XtgYWIc5nnw/jzp/FE7ryLVEOaJfYac7OKoVvF0K5i368juXtHCH9T6S2YRlImad3Qy/2Sc2xOxqddP9n0JfMLquvmEPFnsH0v1zz+QWaLj1sIBubiHI8WByBU7LYMwBpb2TOt0cvwpG2VJT3dE2nuftBurh9FwXFLT1qYsu9WvmkPcrPMhHh0a2xY6mgQQfLPRLwbfwDzwKzy
+api: eJyVU01v2zAM/SsGz0KcDNvFp6VbFxQYsKLtToEPjM0mamzLoeh0gaH/PlB20iToNuxkWXoS3wfZg+DaQ7aECldUecgNuJYYxbrmroQMFiTzqnKvVH49NFjb4vsANMDkW9d48pD18GE61U9JvmDb6m3I4McWDBSuEWpET7FtK1vEt9MXr5AefLGhGnUlh5YgA7d6oULAQMvKROxQYI9VN6xGHDLjAQxYofp83wvbZg0hBANipdK99xQ8jPQVGQx8fE/ADZbJA+068vI/Sph2nWUq1deavMc1qbF/F3gEvqPkTcgts+ML5sGAp6JjKwfIlj3cEDLxvJMNZMs85OZK0p/zrEk2TiNfU2SH+gSkQ2Ok5YBOcbgMWpb3xD5W7biCDDYirc/SFFs7KSrXlRNPO2KcWAfXPB7jSXJfoTw7rpMvik/m93egnI+SHtXTwZ9zYSeLtKJSiTDIYBVBYMbFN8c1CmTw8irRR9s8u3h99HNkoWX/RVDl2oL8CNZmwCI2w6X4c8lUo9UzLfv57SAYUOeGOrPJbPZpMtXN1nmpMTZTg1HPgiQZ40rGvJJTYBd8T5YI/ZK0rdA2+mTk1o9hnqbcwBgnGDgGmhvYOC+K6vsVevrJVQi6veuItblyA3tkiyu1bpkHAxvCkjh2wJYOOmhFQa12TxxXndLrQdF0T522uH1SBpeZXmUYXz/OfHM4e7vvB8ST21ITApiRhOg/hDyE8BtkA60b
 sidebar_class_name: "get api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/labels/dynamic/allowed"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -41,23 +42,17 @@ GetAllowedDynamicLabels
 <ParamsDetails
   parameters={undefined}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./get-allowed-dynamic-labels.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"200":{"description":"Ok","content":{"application/json":{"schema":{"type":"object","properties":{"values":{"type":"array","items":{"type":"string"}}},"title":"AllowedDynamicLabelsResponse"}}}},"400":{"description":"Bad Request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}
+  {...require("./get-allowed-dynamic-labels.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

@@ -1,0 +1,66 @@
+---
+id: validate-pipeline-version-name
+title: "Validate pipeline version name"
+description: "Validates that the provided pipeline version name is available and meets naming requirements."
+sidebar_label: "Validate pipeline version name"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNldtu2zgQhl+FmKstoNpJN1lgddX0iGDRNujxIvDFRBpbTCiSIUdODYHvvhgdfIjdpkVRoFe2pCHn+4f/DFtgXETIL8FrT0ZberykELWzEWYZlBSLoD1rZyGHz2h0iUxRcYWsuCLlg1vqkko1LlfDcmWxJqWjwiVqg1eGFNpS1UQc5Zu2CxXottGBarIcJ5CB8xRQcp2XW9kuhp0/9xu/xZogA48Ba2IKAt+CZIN8LeK8hAy0MHvkCu4LGbdUtqkp6ELpkizruaYgHANXCTmHhjKIRUU1Qt4Cr7yk0ZZpQQEymLtQI/ev/jmBlLI1i+1BO4rbhsLq2xg7NWOnloP0iXqDX3Xd1OrJ6akqKgxYiGSB3IOKHLRd7CDcuXATPRZb9ThM8mUM/EZFfqYCMylg9M5GirLiydGJ/OwmfPefeqzeOlU4y2QZUgYnR0f7cc+w7GxCkSGDMTpvAb03uujcMr2OEttuUW5O8BJqihEXJHYe4N3VNRWynw9iOdY96Bh4qKTAmo28ehmCC+8HfZBS6sj/PqBwNLOyjhUa4+6o7HX+ux/9ounlkCLTNcSfqjZlEKloguZV13jPCAOFs4YryC9ncvg1ceWkgRfUZZUGzGE6tmactpsuTdNx2kxHz4vbKCzHxm6CgRwqZh/z6RS9nhTGNeUk0i0FnGi35+UP3Rd1YZDFm+q5xKuzi3MQuhH+g1Svr8S2hHUxJONofHm+6oIgG/68Gl1/fcddxbSdu275ULmBQtI+BChydUFxCJZjx6I79l3x25KpRm26ppu7p5sPKYOhoJDD8eT4+HRyJC+9i1xjZ5thNIzT9fDgvs/cbsz422+B4QCYvvLUG9RWBHSVaAczbS6rCBnkO0N/fXtlsHbULIPKRZaFbXuFkT4Fk5K87qeh+KzUUfBKyOdoIn1H/y9N7YPibmi1uS+WaBoJAZnjP0710AT/TuLdW2KTfyYPQQvAT5bor/fDRHqkHrhqD2INL9GutnlG3K3jTrOUQUVYUugI+4CzoiDPW0v3pufOmHr98iNkgLvtf6/du90PYrVtH/HR3ZBNaU3J8iyAKf0Po8tBuA==
+sidebar_class_name: "get api-method"
+info_path: platform-api//seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Validate pipeline version name"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/pipelines/{pipelineId}/versions/validate"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Validates that the provided pipeline version name is available and meets naming requirements.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./validate-pipeline-version-name.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./validate-pipeline-version-name.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./validate-pipeline-version-name.StatusCodes.json")}
+>
+
+</StatusCodes>

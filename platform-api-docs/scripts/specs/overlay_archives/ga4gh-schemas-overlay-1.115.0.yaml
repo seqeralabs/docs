@@ -1,0 +1,80 @@
+overlay: 1.0.0
+info:
+  title: GA4GH schemas overlay
+  version: 0.0.0
+actions:
+  # ===== GA4GH AND WORKFLOW ENGINE SCHEMAS =====
+
+  - target: $.paths./ga4gh/wes/v1/service-info.get.responses.200.content.application/json.schema.$ref
+    update: '#/components/schemas/WesServiceInfo'
+
+  - target: $.components.schemas
+    update:
+      DefaultWorkflowEngineParameter:
+        type: object
+        description: Default workflow engine parameter exposed by the GA4GH WES service.
+        properties:
+          name:
+            type: string
+            description: Parameter name.
+          type:
+            type: string
+            description: Parameter type, for example `float`.
+          default_value:
+            type: string
+            description: Stringified default parameter value.
+      WorkflowTypeVersion:
+        type: object
+        description: Supported version information for a specific workflow type.
+        properties:
+          workflow_type_version:
+            type: array
+            items:
+              type: string
+            description: Array of supported version strings for the workflow type.
+      WesServiceInfo:
+        type: object
+        description: GA4GH Workflow Execution Service capability metadata for this Platform deployment.
+        properties:
+          workflow_type_versions:
+            type: object
+            additionalProperties:
+              $ref: '#/components/schemas/WorkflowTypeVersion'
+            description: Map of supported workflow type names to their supported version lists.
+          supported_wes_versions:
+            type: array
+            items:
+              type: string
+            description: Array of supported GA4GH WES specification versions.
+          supported_filesystem_protocols:
+            type: array
+            items:
+              type: string
+            description: Array of supported filesystem protocols such as `http`, `https`, `sftp`, `s3`, `gs`, `file`, or `synapse`.
+          workflow_engine_versions:
+            type: object
+            additionalProperties:
+              type: string
+            description: Map of workflow engine names to engine version strings.
+          default_workflow_engine_parameters:
+            type: array
+            items:
+              $ref: '#/components/schemas/DefaultWorkflowEngineParameter'
+            description: Array of default workflow engine parameters exposed by the WES service.
+          system_state_counts:
+            type: object
+            additionalProperties:
+              type: integer
+              format: int64
+            description: Map of workflow run states to the number of runs currently in each state.
+          auth_instructions_url:
+            type: string
+            description: URL containing human-readable instructions for obtaining an authorization token for this WES endpoint.
+          contact_info_url:
+            type: string
+            description: URL or `mailto:` contact for reporting problems or security issues with this WES endpoint.
+          tags:
+            type: object
+            additionalProperties:
+              type: string
+            description: Key-value map of extended metadata returned by the WES service.

@@ -1,0 +1,1 @@
+{"responses":{"204":{"description":"OK - No content, if the key is valid."},"400":{"description":"Bad request, if the key is not valid."},"403":{"description":"Operation not allowed."},"409":{"description":"Conflict, key duplicated in the given context."}}}

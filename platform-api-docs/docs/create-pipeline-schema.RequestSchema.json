@@ -1,0 +1,1 @@
+{"title":"Body","body":{"description":"Pipeline schema creation request containing the schema content.","content":{"application/json":{"schema":{"type":"object","properties":{"content":{"type":"string","description":"Pipeline schema content in JSON or YAML format defining the pipeline configuration structure."}},"title":"CreatePipelineSchemaRequest"}}},"required":true}}

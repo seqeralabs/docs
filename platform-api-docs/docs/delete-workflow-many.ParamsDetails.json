@@ -1,0 +1,1 @@
+{"parameters":[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier","schema":{"type":"integer","format":"int64"}},{"name":"force","in":"query","description":"Force the deletion even if any workflows are active","schema":{"type":"boolean"}}]}

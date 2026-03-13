@@ -1,19 +1,19 @@
 ---
 title: "Command approval"
 description: "Control which local commands require user approval in Seqera AI"
-date: "15 Dec 2025"
+date created: "2025-12-15"
 tags: [seqera-ai, cli, approval, security]
 ---
-
-:::caution Seqera AI CLI is in beta
-Seqera AI CLI is currently in beta. Features and commands may change as we continue to improve the product.
-:::
 
 :::note
 Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
 :::
 
 Seqera AI can execute local commands and edit files in your environment. This page explains approval modes that control which operations run automatically versus which require your permission, including dangerous commands, workspace boundaries, and best practices.
+
+:::info
+Starting a persistent task with `/goal <task>` switches the session to `full` approval mode automatically so Seqera AI can continue working without repeated prompts.
+:::
 
 ## Approval prompts
 

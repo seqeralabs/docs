@@ -1,0 +1,1 @@
+{"responses":{"204":{"description":"OK - No content"},"403":{"description":"Operation not allowed."},"404":{"description":"NotFound, when the Studio is not found or when the API is disabled for the workspace.","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}}}}

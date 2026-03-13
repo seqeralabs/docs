@@ -1,7 +1,7 @@
 ---
 title: Connect changelog
 date created: "2025-07-30"
-last updated: "2025-12-03"
+last updated: "2026-02-12"
 tags: [connect, changelog, connect-changelog]
 ---
 
@@ -11,11 +11,19 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ## Connect server
 
-### server/v0.9.0 `latest` - 2025-12-05
+### server/v0.10.0 `latest` - 2026-02-11
 
-- Add: missing env when testing with platform livedev
-- Fix: security vulnerabilities for crypto ssh library and slack nebula
-- Upgrade go (from v1.24.3 to 1.25.3) and caddyserver (from 2.10.0 to 2.10.2)
+* Add: SSH Connectivity:
+  * Server implementation (initialize SSH server when enabled)
+  * Authenticate authorization requests to Platform with oidc secret
+  * Add SSH connection activity tracking and notifications
+* Change the logger timestamp format to ISO8601
+* Detect network load balancer health checks
+
+### server/v0.9.0 - 2025-12-05
+
+* Fix: security vulnerabilities for crypto SSH library and slack nebula
+* Upgrade go (from v1.24.3 to 1.25.3) and caddyserver (from 2.10.0 to 2.10.2)
 
 ### server/v0.8.4 - 2025-10-31
 
@@ -27,7 +35,7 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 Connect version 0.8.3 introduced a change which required the creation of a `/data` folder which was mounted to `connect-proxy`. If this is not done, the deployment will fail.
 :::
 
-* Extract Fusion version 
+* Extract Fusion version
 * Fix(proxy): include prefix in Location header
 
 ### server/v0.8.2 - 2025-07-21
@@ -103,10 +111,18 @@ Connect version 0.8.3 introduced a change which required the creation of a `/dat
 
 ## Connect client
 
-### client/v0.9.0 `latest` - 2025-12-05
+### client/v0.10.0 `latest` - 2026-02-11
+
+* Moved Docker service management to the Connect-client.
+* Add: SSH Connectivity:
+  * Server implementation (initialize ssh server when enabled)
+  * Fingerprint verification 
+  * Add SSH connection activity tracking and notifications
+
+### client/v0.9.0 - 2025-12-05
 
 - Add: disk size and auto resizing based on compute env
-- Add: version module and add support for client version 
+- Add: version module and add support for client version
 - Fix: security vulnerabilities for crypto ssh library and slack nebula
 - Upgrade go (from v1.24.3 to 1.25.3) and caddyserver (from 2.10.0 to 2.10.2)
 - Bump server to 0.9.0
@@ -122,8 +138,8 @@ Connect version 0.8.3 introduced a change which required the creation of a `/dat
 ### client/v0.8.5 - 2025-07-29
 
 * Feat: add eStargz support to client images
-* Feat: send squash notifications to platform 
-* Feat: extract Fusion version 
+* Feat: send squash notifications to platform
+* Feat: extract Fusion version
 
 ### client/v0.8.4 - 2025-07-18
 
@@ -133,7 +149,7 @@ Connect version 0.8.3 introduced a change which required the creation of a `/dat
 
 ### client/v0.8.3 - 2025-06-19
 
-* Fix: return normal err when server closes connection 
+* Fix: return normal err when server closes connection
 
 ### client/v0.8.2 - 2025-06-17
 
@@ -156,7 +172,7 @@ Connect version 0.8.3 introduced a change which required the creation of a `/dat
 * fix: swap connector after closing previous
 
 ### client/v0.7.7 - 2025-03-07
- 
+
 * Feat: add 10 minutes waiting period before failing notifying Platform
 
 ### client/v0.7.6 - 2025-03-03

@@ -158,6 +158,12 @@ AWS Aurora Serverless is **not supported** for production Seqera Enterprise depl
 If you are currently using Aurora Serverless and experiencing performance issues, we strongly recommend migrating to one of the supported database configurations above.
 :::
 
+:::note
+From Seqera Enterprise version 23.4:
+- MySQL 8 is the officially supported and tested database version.
+- MySQL versions 5.6 and 5.7 are no longer supported.
+:::
+
 External databases for Seqera Enterprise deployments require:
 
 - A **MySQL8 Community** DB instance
@@ -266,7 +272,7 @@ If you run the Redis service as a container in your Docker or Kubernetes install
 
 ### Database and Redis manual configuration
 
-If the DB username and password variables are left empty when using [Docker Compose](../docker-compose), default `tower` database values are applied automatically. With [Kubernetes](../kubernetes) and custom DB deployments, `tower` values are not pre-filled.
+If the DB username and password variables are left empty when using [Docker Compose](../platform-docker-compose), default `tower` database values are applied automatically. With [Kubernetes](../platform-kubernetes) and custom DB deployments, `tower` values are not pre-filled.
 
 :::note
 We recommend using managed cloud database services for production deployments.

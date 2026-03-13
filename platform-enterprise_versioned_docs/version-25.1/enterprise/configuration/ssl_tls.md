@@ -100,16 +100,16 @@ kubectl create configmap private-cert-pemstore --from-file=/PRIVATE_CERT.pem
 
   ```yaml
   spec:
-  template:
-    spec:
-      containers:
-        - name: CONTAINER_NAME
-          command: ["/bin/sh"]
-          args:
-            - -c
-            - |
-              keytool -import -trustcacerts -cacerts -storepass changeit -noprompt -alias TARGET_ALIAS -file /etc/pki/ca-trust/source/anchors/PRIVATE_CERT.pem;
-              ./tower.sh
+    template:
+      spec:
+        containers:
+          - name: CONTAINER_NAME
+            command: ["/bin/sh"]
+            args:
+              - -c
+              - |
+                keytool -import -trustcacerts -cacerts -storepass changeit -noprompt -alias TARGET_ALIAS -file /etc/pki/ca-trust/source/anchors/PRIVATE_CERT.pem;
+                ./tower.sh
   ```
 
 **Download on Pod start**

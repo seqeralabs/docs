@@ -24,7 +24,7 @@ data:
   TOWER_ENABLE_PLATFORMS: "altair-platform,awsbatch-platform,awscloud-platform,azbatch-platform,eks-platform,gke-platform,googlebatch-platform,googlecloud-platform,k8s-platform,lsf-platform,moab-platform,slurm-platform,uge-platform"
   TOWER_REDIS_URL: "redis://<YOUR REDIS IP>:6379" # For a managed Redis service, specify the IP address or DNS name of the service endpoint. If you use the containerized Redis service, specify "redis" instead of an IP address.
 
-  # Pipeline resource optimization service. Set TOWER_ENABLE_GROUNDSWELL true to use default service URL (http://groundswell:8090)
+  # Pipeline optimization service. Set TOWER_ENABLE_GROUNDSWELL true to use default service URL (http://groundswell:8090)
   # Use GROUNDSWELL_SERVER_URL to specify a custom service URL (enables the service by default)
   TOWER_ENABLE_GROUNDSWELL: "false"
   GROUNDSWELL_SERVER_URL: http://groundswell:8090

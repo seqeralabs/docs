@@ -75,5 +75,5 @@ The workspace ID can be found on the organization workspaces overview page.
    To configure and execute Nextflow pipelines in cloud environments, see [Compute Environments](../compute-envs/overview).
 
 :::tip
-See the [Nextflow documentation](https://www.nextflow.io/docs/latest/config.html?highlight=tower#scope-tower) for further run configuration options using Nextflow configuration files.
+See the [Nextflow documentation](https://docs.seqera.io/nextflow/config.html?highlight=tower#scope-tower) for further run configuration options using Nextflow configuration files.
 :::

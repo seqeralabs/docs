@@ -15,7 +15,7 @@ You will need the following to get started:
 - [Data Explorer](../data/data-explorer) enabled
 :::
 
-Select **Custom container template** and provide your own template (see [Custom container template image][custom-image]). When you select this option, you cannot **Install Conda packages**.
+For ready-to-use examples, see [Example custom Studios][example-studios]. Select **Custom container template** and provide your own template (see [Custom container template image][custom-image]). When you select this option, you cannot **Install Conda packages**.
 
 Configure the following fields:
 
@@ -31,7 +31,7 @@ Configure the following fields:
 - **Session lifespan**: The duration the session remains active. Available options depend on your workspace settings:
     - **Stop the session automatically after a predefined period of time**: An automatic timeout for the session (minimum: 1 hour; maximum: 120 hours; default: 8 hours). If a workspace-level session lifespan is configured, this field cannot be edited. Changes apply only to the current session and revert to default values after the session stops.
     - **Keep the session running:** Continuous session operation until manually stopped or an error terminates it. The session continues consuming compute resources until stopped.
- 
+
 ### Mount data
 
 Mount data to make them accessible in your session:
@@ -50,10 +50,10 @@ Files uploaded to a mounted bucket during an active session may not be immediate
 
    1. Review the configuration to ensure all settings are correct.
    1. Save your configuration:
-      - To save and immediately start your Studio, select **Add and start**. 
+      - To save and immediately start your Studio, select **Add and start**.
       - To save but not immediately start your Studio, select **Add only**.
 
-Studios you create will be listed on the Studios landing page with a status of either **stopped** or **starting**. Select a Studio to inspect its configuration details. 
+Studios you create will be listed on the Studios landing page with a status of either **stopped** or **starting**. Select a Studio to inspect its configuration details.
 
 {/* links */}
 [contact]: https://support.seqera.io/
@@ -64,3 +64,4 @@ Studios you create will be listed on the Studios landing page with a status of e
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
 [containers]: ./container-images
+[example-studios]: ./example-studios

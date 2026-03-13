@@ -98,7 +98,7 @@ This error can occur if you execute a DSL 1-based Nextflow workflow using [Nextf
 The `sleep` commands in your Nextflow workflows may differ in behavior depending on where they are:
 
 - If used within an `errorStrategy` block, the Groovy sleep function will be used (which takes its value in milliseconds).
-- If used within a process script block, that language's sleep binary/method will be used. **Example:** [this BASH script](https://www.nextflow.io/docs/latest/metrics.html?highlight=sleep) uses the BASH sleep binary, which takes its value in seconds.
+- If used within a process script block, that language's sleep binary/method will be used. **Example:** [this BASH script](https://docs.seqera.io/nextflow/metrics.html?highlight=sleep) uses the BASH sleep binary, which takes its value in seconds.
 
 ## Containers
 
@@ -338,7 +338,7 @@ You can force your Nextflow head job to use DSL2 syntax via any of the following
 
 **Invoke Nextflow CLI run arguments during Seqera launch**
 
-From Nextflow v22.09.1-edge, you can specify [Nextflow CLI run arguments](https://www.nextflow.io/docs/latest/cli.html?highlight=dump#run) when invoking a pipeline from Seqera. Set the `NXF_CLI_OPTS` environment variable via [pre-run script](./launch/advanced#pre-and-post-run-scripts):
+From Nextflow v22.09.1-edge, you can specify [Nextflow CLI run arguments](https://docs.seqera.io/nextflow/cli.html?highlight=dump#run) when invoking a pipeline from Seqera. Set the `NXF_CLI_OPTS` environment variable via [pre-run script](./launch/advanced#pre-and-post-run-scripts):
 
 ```
 # Example:
@@ -363,7 +363,7 @@ Currently, you can resolve this by creating blank `main.nf` and `nextflow.config
 
 **Use multiple Nextflow configuration files for different environments**
 
-The main `nextflow.config` file will always be imported by default. Instead of managing multiple `nextflow.config` files (each customized for an environment), you can create unique environment config files and import them as [config profiles](https://www.nextflow.io/docs/latest/config.html#config-profiles) in the main `nextflow.config`.
+The main `nextflow.config` file will always be imported by default. Instead of managing multiple `nextflow.config` files (each customized for an environment), you can create unique environment config files and import them as [config profiles](https://docs.seqera.io/nextflow/config#config-profiles) in the main `nextflow.config`.
 
 Example:
 
@@ -476,7 +476,7 @@ process.afterScript = 'sleep 60'
 
 **Jobs remain in RUNNING status when a pipeline run is canceled**
 
-Your instance's behavior when canceling a run depends on the Nextflow [`errorStrategy`](https://www.nextflow.io/docs/latest/process.html#errorstrategy) defined in your process script. If the process `errorStrategy` is set to `finish`, an orderly pipeline shutdown is initiated when you cancel (or otherwise interrupt) a run. This instructs Nextflow to wait for the completion of any submitted jobs. To ensure that all jobs are terminated when your run is canceled, set `errorStrategy` to `terminate` in your Nextflow config. For example:
+Your instance's behavior when canceling a run depends on the Nextflow [`errorStrategy`](https://docs.seqera.io/nextflow/process#errorstrategy) defined in your process script. If the process `errorStrategy` is set to `finish`, an orderly pipeline shutdown is initiated when you cancel (or otherwise interrupt) a run. This instructs Nextflow to wait for the completion of any submitted jobs. To ensure that all jobs are terminated when your run is canceled, set `errorStrategy` to `terminate` in your Nextflow config. For example:
 
 ```bash
 
@@ -523,7 +523,7 @@ The Groovy shell used by Nextflow to execute your workflow has a hard limit on s
 
 1. Remove any unnecessary code or comments from the script.
 2. Move long script bodies into a separate script file in the pipeline `/bin` directory.
-3. Consider using DSL2 so you can move each function, process, and workflow definition into its own script and include these scripts as [modules](https://www.nextflow.io/docs/latest/dsl2.html#modules).
+3. Consider using DSL2 so you can move each function, process, and workflow definition into its own script and include these scripts as [modules](https://docs.seqera.io/nextflow/dsl2#modules).
 
 ## Nextflow Launcher
 
@@ -811,10 +811,10 @@ The default Azure Batch implementation in Seqera Platform uses a single pool for
 1. Create two Batch pools in Azure:
     - One Dedicated
     - One [Low priority](https://learn.microsoft.com/en-us/azure/batch/batch-spot-vms#differences-between-spot-and-low-priority-vms).
-    - **Note**: Both pools must meet the requirements of a pre-existing pool as detailed in the [Nextflow documentation](https://www.nextflow.io/docs/latest/azure.html#requirements-on-pre-existing-named-pools).
+    - **Note**: Both pools must meet the requirements of a pre-existing pool as detailed in the [Nextflow documentation](https://docs.seqera.io/nextflow/azure#requirements-on-pre-existing-named-pools).
 2. Create a manual [Azure Batch](./compute-envs/azure-batch#manual) compute environment in Seqera Platform.
 3. In **Compute pool name** (step 10 in the guide linked above), specify your dedicated Batch pool.
-4. Specify the Low priority pool using the `process.queue` [directive](https://www.nextflow.io/docs/latest/process.html#queue) in your `nextflow.config` file (either via the launch form, or your pipeline repository's `nextflow.config` file).
+4. Specify the Low priority pool using the `process.queue` [directive](https://docs.seqera.io/nextflow/process#queue) in your `nextflow.config` file (either via the launch form, or your pipeline repository's `nextflow.config` file).
 
 ### AKS
 

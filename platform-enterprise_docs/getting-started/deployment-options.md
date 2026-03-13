@@ -21,7 +21,7 @@ To install Platform in your organization's infrastructure, [contact us](https://
 
 ## How to use Platform
 
-You can access your Seqera instance through the UI, the [API](https://docs.seqera.io/platform-api), the [CLI](../cli/overview), or in Nextflow directly using the `-with-tower` option.
+You can access your Seqera instance through the UI, the [API](https://docs.seqera.io/platform-api), the [CLI](https://docs.seqera.io/platform-cli), or in Nextflow directly using the `-with-tower` option.
 
 ### Platform web-based UI
 
@@ -40,7 +40,7 @@ See [API](https://docs.seqera.io/platform-api).
 
 ### Seqera CLI
 
-See [CLI](../cli/overview).
+See [CLI](https://docs.seqera.io/platform-cli).
 
 ### Nextflow `-with-tower`
 
@@ -86,5 +86,5 @@ If you have an existing environment where you run Nextflow directly, you can sti
 You can now monitor your workflow runs in the Seqera interface. To configure and execute Nextflow pipelines in cloud environments, see [compute environments](../compute-envs/overview).
 
 :::tip
-See the [Nextflow documentation](https://www.nextflow.io/docs/latest/config.html?highlight=tower#scope-tower) for further run configuration options using Nextflow configuration files.
+See the [Nextflow documentation](https://docs.seqera.io/nextflow/config.html?highlight=tower#scope-tower) for further run configuration options using Nextflow configuration files.
 :::

@@ -132,6 +132,7 @@ jobs:
             - `platform-enterprise_docs/orgs-and-teams/roles.md` (Role permissions table)
 
             #### From `docs/grants_operations.md`:
+            - `platform-cloud/docs/orgs-and-teams/custom-roles.md` (Operations tables by section)
             - `platform-enterprise_docs/orgs-and-teams/custom-roles.md` (Operations tables by section)
 
             ### Review Checklist

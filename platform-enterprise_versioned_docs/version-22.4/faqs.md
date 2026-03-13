@@ -125,7 +125,7 @@ This error can occur if you execute a DSL 1-based Nextflow workflow using [Nextf
 The `sleep` commands within your Nextflow workflows may differ in behaviour depending on where they are:
 
 - If used within an `errorStrategy` block, the Groovy sleep function will be used (which takes its value in milliseconds).
-- If used within a process script block, that language's sleep binary/method will be used. **Example:** [this BASH script](https://www.nextflow.io/docs/latest/metrics.html?highlight=sleep) uses the BASH sleep binary, which takes its value in seconds.
+- If used within a process script block, that language's sleep binary/method will be used. **Example:** [this BASH script](https://docs.seqera.io/nextflow/metrics.html?highlight=sleep) uses the BASH sleep binary, which takes its value in seconds.
 
 **<p data-question>Q: Why does re-launching/resuming a run fail with `field revision is not writable`?</p>**
 
@@ -402,7 +402,7 @@ To resolve the issue, please try reloading the UI to reinitiate the client's con
 
 **<p data-question>Q: How can I specify Nextflow CLI run arguments when launching from Tower?</p>**
 
-As of Nextflow v22.09.1-edge, when invoking a pipeline from Tower, you can specify [Nextflow CLI run arguments](https://www.nextflow.io/docs/latest/cli.html?highlight=dump#run) by setting the `NXF_CLI_OPTS` environment variable via pre-run script:
+As of Nextflow v22.09.1-edge, when invoking a pipeline from Tower, you can specify [Nextflow CLI run arguments](https://docs.seqera.io/nextflow/cli.html?highlight=dump#run) by setting the `NXF_CLI_OPTS` environment variable via pre-run script:
 
 ```
 # Example:
@@ -431,7 +431,7 @@ Current as of May 16, 2022, there is no solution for this problem other than to 
 
 **<p data-question>Q: Is it possible to maintain different Nextflow configuration files for different environments?</p>**
 
-Yes. The main `nextflow.config` file will always be imported by default. Instead of managing multiple `nextflow.config` files (each customized for an environment), you can create unique environment config files and import them as [their own profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) in the main `nextflow.config`.
+Yes. The main `nextflow.config` file will always be imported by default. Instead of managing multiple `nextflow.config` files (each customized for an environment), you can create unique environment config files and import them as [their own profile](https://docs.seqera.io/nextflow/config#config-profiles) in the main `nextflow.config`.
 
 Example:
 
@@ -543,7 +543,7 @@ process.afterScript = 'sleep 60'
 
 **<p data-question>Q: Why are jobs in RUNNING status not terminated when my pipeline run is canceled?</p>**
 
-The behavior of Tower when canceling a run depends on the [`errorStrategy`](https://www.nextflow.io/docs/latest/process.html#errorstrategy) defined in your process script. If the process `errorStrategy` is set to `finish`, an orderly pipeline shutdown is initiated when you cancel (or otherwise interrupt) a run. This instructs Nextflow to wait for the completion of any submitted jobs. To ensure that all jobs are terminated when your run is canceled, set `errorStrategy` to `terminate` in your Nextflow config. For example:
+The behavior of Tower when canceling a run depends on the [`errorStrategy`](https://docs.seqera.io/nextflow/process#errorstrategy) defined in your process script. If the process `errorStrategy` is set to `finish`, an orderly pipeline shutdown is initiated when you cancel (or otherwise interrupt) a run. This instructs Nextflow to wait for the completion of any submitted jobs. To ensure that all jobs are terminated when your run is canceled, set `errorStrategy` to `terminate` in your Nextflow config. For example:
 
 ```bash
 
@@ -792,7 +792,7 @@ Note:
 
 1. Activation does not cause GPU-enabled instances to automatically spawn in your Batch cluster. You must still specify these in the Forge screen's **Advanced options > Instance types** field.
 2. Population of the Forge screen's **Advanced options > AMI Id** field will supersede the AWS-recommended AMI.
-3. Your Nextflow script must include [accelerator directives](https://www.nextflow.io/docs/latest/process.html?highlight=accelerator) to use the provisioned GPUs.
+3. Your Nextflow script must include [accelerator directives](https://docs.seqera.io/nextflow/process.html?highlight=accelerator) to use the provisioned GPUs.
 
 ### tw CLI
 

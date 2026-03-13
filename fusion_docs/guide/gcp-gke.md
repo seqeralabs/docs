@@ -117,4 +117,4 @@ To use Fusion without the need for escalating privileges, install the Nextflow [
 fusion.privileged = false
 ```
 
-To use a custom FUSE device plugin, specify it via the `k8s.fuseDevicePlugin` configuration option. See [Kubernetes](https://www.nextflow.io/docs/latest/reference/config.html#k8s) configuration options for details.
+To use a custom FUSE device plugin, specify it via the `k8s.fuseDevicePlugin` configuration option. See [Kubernetes](https://docs.seqera.io/nextflow/reference/config#k8s) configuration options for details.

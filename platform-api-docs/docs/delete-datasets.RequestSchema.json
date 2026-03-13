@@ -1,0 +1,1 @@
+{"title":"Body","body":{"content":{"application/json":{"schema":{"type":"object","description":"Dataset bulk-delete request.","properties":{"datasetIds":{"type":"array","items":{"type":"string"},"description":"Array of dataset string identifiers to delete."}},"title":"DeleteDatasetsRequest"}}},"required":true,"description":"Dataset bulk-delete request."}}

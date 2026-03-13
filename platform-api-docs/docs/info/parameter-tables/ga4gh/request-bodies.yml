@@ -5,27 +5,32 @@
 - Name: workflow_params
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: JSON-encoded workflow input parameters, including input and output
+    locations, forwarded to the workflow engine.
 - Name: workflow_type
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Workflow descriptor type. For Seqera Platform WES requests this is
+    typically `NFL` for Nextflow, but clients must use a value supported by this
+    WES deployment.
 - Name: workflow_type_version
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Workflow descriptor version supported by this WES deployment.
 - Name: tags
   Type: object
   Req/Opt: Optional
-  Description: ""
+  Description: Additional key-value metadata to attach to the GA4GH run request.
 - Name: workflow_engine_parameters
   Type: object
   Req/Opt: Optional
-  Description: ""
+  Description: Additional workflow engine parameters, such as `workspaceId` or
+    `computeEnvId`, forwarded to the underlying launch request.
 - Name: workflow_url
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Workflow entrypoint URL or path to launch. When attachments are
+    used, this can be a relative path to one of the attached files.
 - Name: "**Ga4ghRunCancel**"
   Type: ""
   Req/Opt: ""

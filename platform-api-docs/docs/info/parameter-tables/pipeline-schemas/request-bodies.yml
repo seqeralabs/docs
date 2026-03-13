@@ -1,0 +1,9 @@
+- Name: "**CreatePipelineSchema**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create pipeline schema
+- Name: content
+  Type: string
+  Req/Opt: Optional
+  Description: Pipeline schema content in JSON or YAML format defining the
+    pipeline configuration structure.

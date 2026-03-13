@@ -3,11 +3,14 @@ name: openapi-overlay-generator
 description: Generate OpenAPI overlay files for Seqera Platform API documentation. Use when working with API documentation updates, analyzing comparison overlays from Speakeasy, creating operations/parameters/schemas overlay files, or updating API documentation for new Platform versions. Triggers include requests to generate overlays, document new API endpoints, analyze API changes, or work with Seqera Platform OpenAPI specifications.
 ---
 
-# OpenAPI Overlay Generator for Seqera Platform API
+# OpenAPI overlay generator for Seqera Platform API
 
 This skill generates high-quality OpenAPI overlay files for documenting the Seqera Platform API according to established standards and conventions.
 
-## When to Use This Skill
+## Deployment
+**CI/CD:** `.github/workflows/generate-openapi-overlays.yml` | **Invocation:** Repository dispatch or manual
+
+## When to use this skill
 
 Use this skill when:
 - Analyzing Speakeasy comparison overlays to identify API changes
@@ -17,7 +20,7 @@ Use this skill when:
 - Validating overlay files against documentation standards
 - Working with Seqera Platform OpenAPI specifications
 
-## Core Workflow
+## Core workflow
 
 ### Phase 1: Analysis
 
@@ -38,11 +41,11 @@ The analysis categorizes changes by:
 - New schemas (requiring property descriptions)
 - Tag/controller grouping
 
-### Phase 2: Generate Overlay Files
+### Phase 2: Generate overlay files
 
 Based on the analysis, generate three overlay files for each affected feature area:
 
-#### 1. Operations Overlay
+#### 1. Operations overlay
 
 **Purpose**: Document endpoint summaries and descriptions
 
@@ -60,15 +63,15 @@ info:
   version: 1.89
 actions:
   # ===== DATASETS - OPERATIONS =====
-  
+
   - target: "$.paths./datasets.get.summary"
     update: "List datasets"
-  
+
   - target: "$.paths./datasets.get.description"
     update: "Lists all datasets in a user context, enriched by `attributes`. Append `?workspaceId` to list datasets in a workspace context."
 ```
 
-#### 2. Parameters Overlay
+#### 2. Parameters overlay
 
 **Purpose**: Document path, query, and request body parameters
 
@@ -83,7 +86,73 @@ actions:
 - `offset`: "Number of results to skip for pagination. Default: `0`."
 - `max`: "Maximum number of results to return. Default: `{value}`."
 
-**Example**:
+**CRITICAL - Parameter Array Replacement Pattern**:
+
+When the comparison overlay contains a `remove: true` action followed by a parameter array `update`, you MUST preserve BOTH actions in your generated overlay:
+
+1. First action: Remove the entire existing parameters array with `remove: true`
+2. Second action: Replace with the complete new array including enriched descriptions
+
+**Why**: Simply updating individual parameter descriptions will cause duplicates and validation errors. The entire parameters array must be removed before replacement.
+
+**Example - Comparison overlay shows**:
+```yaml
+- target: $["paths"]["/data-links/{dataLinkId}/browse"]["get"]["parameters"][*]
+  remove: true
+- target: $["paths"]["/data-links/{dataLinkId}/browse"]["get"]["parameters"]
+  update:
+    - name: dataLinkId
+      in: path
+      description: Data-link string identifier
+      required: true
+      schema:
+        type: string
+    - name: path
+      in: query
+      description: Resource path to browse
+      # ... more params
+```
+
+**Your generated overlay MUST include BOTH actions**:
+```yaml
+overlay: 1.0.0
+info:
+  title: Data-links parameters overlay
+  version: 1.102.0
+actions:
+  # ===== DATA-LINKS PARAMETERS =====
+
+  # Remove entire parameters array to prevent duplicates
+  - target: "$.paths./data-links/{dataLinkId}/browse.get.parameters[*]"
+    remove: true
+
+  # Replace with complete array with enriched descriptions
+  - target: "$.paths./data-links/{dataLinkId}/browse.get.parameters"
+    update:
+      - name: dataLinkId
+        in: path
+        description: "Data-link string identifier."
+        required: true
+        schema:
+          type: string
+      - name: path
+        in: query
+        description: "Resource path to browse. Default: `/` (root directory)."
+        required: false
+        schema:
+          type: string
+      # ... include ALL parameters from comparison with enriched descriptions
+```
+
+**DO NOT do this** (updating descriptions without removal):
+```yaml
+# ❌ WRONG - This will create duplicate parameters and validation errors
+- target: "$.paths./data-links/{dataLinkId}/browse.get.parameters[?(@.name=='dataLinkId')].description"
+  update: "Data-link string identifier."
+# Missing the removal action = duplicates!
+```
+
+**Standard example** (when comparison shows simple description updates, not array replacement):
 ```yaml
 overlay: 1.0.0
 info:
@@ -91,22 +160,22 @@ info:
   version: 1.89
 actions:
   # ===== DATASETS PARAMETERS =====
-  
+
   # ---- PATH PARAMETERS ----
-  
+
   - target: "$.paths./datasets/{datasetId}.get.parameters[?(@.name=='datasetId')].description"
     update: "Dataset numeric identifier."
-  
+
   # ---- QUERY PARAMETERS ----
-  
+
   - target: "$.paths./datasets.get.parameters[?(@.name=='workspaceId')].description"
     update: "Workspace numeric identifier."
-  
+
   - target: "$.paths./datasets.get.parameters[?(@.name=='max')].description"
     update: "Maximum number of results to return. Default: `20`."
 ```
 
-#### 3. Schemas Overlay
+#### 3. Schemas overlay
 
 **Purpose**: Document request/response object properties
 
@@ -125,13 +194,13 @@ info:
   version: 1.89
 actions:
   # ===== DATASETS SCHEMAS =====
-  
+
   - target: "$.components.schemas.DatasetRequest.properties.name"
     update:
       type: string
       required: true
       description: "Dataset name. Maximum 255 characters."
-  
+
   - target: "$.components.schemas.DatasetRequest.properties.description"
     update:
       type: string
@@ -153,7 +222,7 @@ python scripts/check_consistency.py path/to/overlay.yaml
 
 Fix any errors or warnings before proceeding.
 
-## Documentation Standards
+## Documentation standards
 
 **MUST READ**: See `references/standards.md` for complete style guide including:
 - Terminology standards (data-links, resource path, Array of)
@@ -168,7 +237,13 @@ Fix any errors or warnings before proceeding.
 - JSONPath targeting examples
 - Complete examples of all property types
 
-## Critical Rules
+## Critical rules
+
+### Overlay Files
+- ✅ NEVER create overlay files with empty actions lists
+- ❌ Do not create overlays with only comments and no actual update actions
+- ✅ If a feature area has no changes, omit the overlay file entirely
+- ❌ Empty overlays will break the workflow automation
 
 ### Summaries
 - ✅ Sentence case: "List datasets"
@@ -183,7 +258,7 @@ Fix any errors or warnings before proceeding.
 - ✅ Full sentences with context
 - ✅ Include scope info where applicable
 
-### Standard Parameters
+### Standard parameters
 - ✅ Use EXACT descriptions from standards.md
 - ❌ Never invent new wording for workspaceId, max, offset, etc.
 - ✅ Include defaults in backticks: "Default: `0`."
@@ -194,9 +269,9 @@ Fix any errors or warnings before proceeding.
 - ✅ "Array of" (not "List of")
 - ✅ "Workspace numeric identifier" (not "Workspace ID")
 
-## Overlay File Structure
+## Overlay file structure
 
-### Naming Convention
+### Naming convention
 
 ```
 {resource}-{type}-overlay-{version}.yaml
@@ -207,7 +282,7 @@ Examples:
 - datasets-schemas-overlay-1.89.yaml
 ```
 
-### File Organization
+### File organization
 
 Within each overlay file:
 
@@ -218,14 +293,14 @@ info:
   version: {version}
 actions:
   # ===== {FEATURE} - {TYPE} =====
-  
+
   # ---- {SECTION NAME} ----
-  
+
   - target: "$.paths.{endpoint}.{method}.{property}"
     update: "{value}"
-  
+
   # ---- {NEXT SECTION} ----
-  
+
   - target: "$.paths.{endpoint}.{method}.{property}"
     update: "{value}"
 ```
@@ -236,9 +311,9 @@ actions:
 - Follow logical order (List → Get → Create → Update → Delete)
 - Keep related targets together
 
-## JSONPath Patterns
+## JSONPath patterns
 
-### Common Patterns
+### Common patterns
 
 ```yaml
 # Operation summary
@@ -263,17 +338,45 @@ $.components.schemas.DatasetRequest.properties.name
 $.paths./datasets.get.responses['200'].description
 ```
 
-## Generating Overlays from Comparison
+## Generating overlays from comparison
+
+**CRITICAL - Preserve ALL Actions from Comparison Overlay**:
+
+Every single action defined in the comparison overlay MUST be preserved in your generated overlay files. No orphaned actions are allowed.
+
+**Requirements**:
+1. **One-to-one mapping**: For each action in the comparison overlay, there must be AT LEAST one corresponding action in the generated overlays
+2. **One-to-many mapping**: Some comparison actions will map to TWO generated actions:
+   - Comparison has `remove: true` followed by `update` → Generate BOTH removal and update actions
+   - Example: Parameter array replacement requires both remove and update
+3. **Verification**: Before finalizing, check that every action in the comparison overlay has a corresponding action in your generated overlays
+
+**Example**:
+```yaml
+# Comparison overlay has 2 actions:
+- target: $["paths"]["/endpoint"]["get"]["parameters"][*]
+  remove: true  # ← Action 1
+- target: $["paths"]["/endpoint"]["get"]["parameters"]
+  update: [...]  # ← Action 2
+
+# Your generated overlay MUST have both:
+- target: "$.paths./endpoint.get.parameters[*]"
+  remove: true  # ← Corresponds to Action 1
+- target: "$.paths./endpoint.get.parameters"
+  update: [...]  # ← Corresponds to Action 2
+```
 
 When analyzing a comparison overlay:
 
-1. **Identify new endpoints**: These need ALL three overlay types (operations, parameters, schemas)
-2. **Group by tag/controller**: Create one set of overlay files per resource (datasets, credentials, etc.)
-3. **Check for standard parameters**: Use exact standard descriptions
-4. **Follow patterns**: Use templates from overlay-patterns.md
-5. **Maintain consistency**: Same entities use same phrasing throughout
+1. **Count all actions**: Note the total number of actions in the comparison overlay
+2. **Identify new endpoints**: These need ALL three overlay types (operations, parameters, schemas)
+3. **Group by tag/controller**: Create one set of overlay files per resource (datasets, credentials, etc.)
+4. **Check for standard parameters**: Use exact standard descriptions
+5. **Follow patterns**: Use templates from overlay-patterns.md
+6. **Maintain consistency**: Same entities use same phrasing throughout
+7. **Verify completeness**: Ensure every comparison action is represented in your generated overlays
 
-## Quality Checklist
+## Quality checklist
 
 Before finalizing overlay files:
 
@@ -289,7 +392,7 @@ Before finalizing overlay files:
 - [ ] JSONPath syntax is valid
 - [ ] Validation scripts pass
 
-## Scripts Reference
+## Scripts reference
 
 ### Analysis
 - `scripts/analyze_comparison.py`: Parse comparison overlay and categorize changes
@@ -314,17 +417,20 @@ Before finalizing overlay files:
   - Input: Decorated spec (seqera-api-latest-decorated.yaml)
   - Output: YAML tables in docs/info/parameter-tables/
 
-## Common Mistakes to Avoid
+## Common mistakes to avoid
 
-1. **Inconsistent parameter descriptions**: Always use standards.md exact wording
-2. **Missing periods in descriptions**: Descriptions are sentences
-3. **Title case summaries**: Use sentence case only
-4. **Invented terminology**: Use established terms only
-5. **Missing defaults**: Always specify default values in backticks
-6. **Incomplete enum listings**: List all accepted values
-7. **Vague descriptions**: Include specifics (max length, format, constraints)
+1. **Empty overlay files**: NEVER create overlay files with no action items (only comments). Empty overlays break the workflow automation.
+2. **Orphaned comparison actions**: EVERY action in the comparison overlay MUST have a corresponding action in your generated overlays. Check that nothing is missing.
+3. **Missing parameter array removal**: When comparison shows `remove: true` + array update, you MUST include BOTH actions. Updating descriptions without removal causes duplicate parameters and validation errors.
+4. **Inconsistent parameter descriptions**: Always use standards.md exact wording
+5. **Missing periods in descriptions**: Descriptions are sentences
+6. **Title case summaries**: Use sentence case only
+7. **Invented terminology**: Use established terms only
+8. **Missing defaults**: Always specify default values in backticks
+9. **Incomplete enum listings**: List all accepted values
+10. **Vague descriptions**: Include specifics (max length, format, constraints)
 
-## Working with Permanent Overlays
+## Working with permanent overlays
 
 One overlay is applied to EVERY version:
 
@@ -332,7 +438,7 @@ One overlay is applied to EVERY version:
 
 This lives in `scripts/specs/` and should not be moved to archives.
 
-## Integration Points
+## Integration points
 
 This skill integrates with:
 - **Speakeasy CLI**: For overlay comparison and application
@@ -341,7 +447,7 @@ This skill integrates with:
 - **Docusaurus**: Documentation regeneration
 - **Platform repo**: Source of truth for base specs
 
-## Next Steps After Generation
+## Next steps after generation
 
 After generating overlay files:
 
@@ -353,4 +459,4 @@ After generating overlay files:
 6. **Regenerate**: Update MDX documentation files
 7. **Update sidebar**: Add new operation entries
 8. **Archive**: Move version-specific consolidated overlay file to overlay_archives/
-9. **Clean up**: Remove the old base spec, individual overlays, and other ephemeral files, leaving only the decorated spec, latest base spec, and `servers-overlay.yaml` in the specs folder. 
+9. **Clean up**: Remove the old base spec, individual overlays, and other ephemeral files, leaving only the decorated spec, latest base spec, and `servers-overlay.yaml` in the specs folder.

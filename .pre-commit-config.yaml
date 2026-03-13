@@ -1,6 +1,36 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
+# Vale documentation linter (informational only - won't block commits)
+# Run manually: pre-commit run vale --all-files
+- repo: https://github.com/errata-ai/vale
+  rev: v3.0.7
+  hooks:
+  - id: vale
+    name: Vale Documentation Linter (manual)
+    files: \.(md|mdx)$
+    exclude: |
+      (?x)^(
+        node_modules/|
+        build/|
+        dist/|
+        .git/
+      )
+    # Only run when explicitly called (won't block commits)
+    stages: [manual]
+
+# Remind contributors which doc sections are included/excluded in deploy previews
+- repo: local
+  hooks:
+  - id: check-netlify-excludes
+    name: Netlify deploy preview scope reminder
+    language: script
+    entry: .github/scripts/check-netlify-excludes.sh
+    pass_filenames: false
+    verbose: true
+    always_run: true
+
+# Standard pre-commit hooks
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v6.0.0
   hooks:

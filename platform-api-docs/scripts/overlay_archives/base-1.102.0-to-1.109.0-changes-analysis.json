@@ -1,0 +1,571 @@
+{
+  "new_endpoints": [
+    {
+      "endpoint": "/credentials/{credentialsId}/keys",
+      "method": "GET",
+      "operation_id": "GetEncryptedCredentials",
+      "tag": "credentials",
+      "summary": "Get encrypted credentials",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/orgs/{orgId}/workspaces/{workspaceId}/users/{userId}",
+      "method": "DELETE",
+      "operation_id": "DeleteWorkspaceUser",
+      "tag": "workspaces",
+      "summary": "Delete workspace user",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/pipeline-schemas",
+      "method": "POST",
+      "operation_id": "CreatePipelineSchema",
+      "tag": "pipeline-schemas",
+      "summary": "Create pipeline schema",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/pipelines/{pipelineId}/versions",
+      "method": "GET",
+      "operation_id": "ListPipelineVersions",
+      "tag": "pipeline-versions",
+      "summary": "List pipeline versions",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/pipelines/{pipelineId}/versions/validate",
+      "method": "GET",
+      "operation_id": "ValidatePipelineVersionName",
+      "tag": "pipeline-versions",
+      "summary": "Validate pipeline version name",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/pipelines/{pipelineId}/versions/{versionId}",
+      "method": "POST",
+      "operation_id": "UpdatePipelineVersion",
+      "tag": "pipeline-versions",
+      "summary": "Update pipeline version",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/pipelines/{pipelineId}/versions/{versionId}/manage",
+      "method": "PUT",
+      "operation_id": "ManagePipelineVersion",
+      "tag": "pipeline-versions",
+      "summary": "Update pipeline version name and default flag",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/ssh-keys",
+      "method": "GET",
+      "operation_id": "ListSshKeys",
+      "tag": "ssh-keys",
+      "summary": "List SSH keys",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/ssh-keys",
+      "method": "POST",
+      "operation_id": "CreateSshKey",
+      "tag": "ssh-keys",
+      "summary": "Create SSH key",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/ssh-keys/validate/key",
+      "method": "GET",
+      "operation_id": "ValidateSshKey",
+      "tag": "ssh-keys",
+      "summary": "Validate SSH key",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/ssh-keys/validate/name",
+      "method": "GET",
+      "operation_id": "ValidateSshKeyName",
+      "tag": "ssh-keys",
+      "summary": "Validate SSH key name",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/ssh-keys/{keyId}",
+      "method": "GET",
+      "operation_id": "DescribeSshKey",
+      "tag": "ssh-keys",
+      "summary": "Describe SSH key",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/ssh-keys/{keyId}",
+      "method": "DELETE",
+      "operation_id": "DeleteSshKey",
+      "tag": "ssh-keys",
+      "summary": "Delete SSH key",
+      "target": "$[\"paths\"]"
+    }
+  ],
+  "modified_endpoints": [
+    {
+      "endpoint": "/launch/{launchId}/datasets",
+      "method": "GET",
+      "operation_id": null,
+      "tag": "launch",
+      "summary": null,
+      "target": "$[\"paths\"][\"/launch/{launchId}/datasets\"][\"get\"][\"responses\"][\"200\"][\"content\"][\"application/json\"][\"schema\"][\"$ref\"]"
+    },
+    {
+      "endpoint": "/pipelines/{pipelineId}",
+      "method": "PUT",
+      "operation_id": null,
+      "tag": "pipelines",
+      "summary": null,
+      "target": "$[\"paths\"][\"/pipelines/{pipelineId}\"][\"put\"][\"summary\"]"
+    }
+  ],
+  "new_schemas": [
+    {
+      "schema": "CreatePipelineSchemaRequest",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "CreatePipelineSchemaResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "CreatePipelineVersionRequest",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "CreateSshKeyRequest",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "CreateSshKeyResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "DescribeSshKeyResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "GetCredentialsKeysResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "LaunchDbDto",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ListPipelineVersionsResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ListSshKeysResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "PipelineMinInfoResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "PipelineMinInfoResponse.PipelineVersionMinInfoResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "PipelineSchemaDbDto",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "PipelineVersionFullInfoDto",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "PipelineVersionManageRequest",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "StudioSshDetailsDto",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "UserSshPublicKeyDto",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "WorkflowMaxDbDto",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    }
+  ],
+  "modified_schemas": [
+    {
+      "schema": "AccessToken",
+      "target": "$[\"components\"][\"schemas\"][\"AccessToken\"][\"properties\"][\"id\"][\"nullable\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ActionResponseDto",
+      "target": "$[\"components\"][\"schemas\"][\"ActionResponseDto\"][\"properties\"][\"launch\"][\"$ref\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ComputeEnvResponseDto",
+      "target": "$[\"components\"][\"schemas\"][\"ComputeEnvResponseDto\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "CreatePipelineRequest",
+      "target": "$[\"components\"][\"schemas\"][\"CreatePipelineRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DataStudioConfiguration",
+      "target": "$[\"components\"][\"schemas\"][\"DataStudioConfiguration\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DataStudioDto",
+      "target": "$[\"components\"][\"schemas\"][\"DataStudioDto\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DescribeLaunchResponse",
+      "target": "$[\"components\"][\"schemas\"][\"DescribeLaunchResponse\"][\"properties\"][\"launch\"][\"$ref\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DescribeWorkflowResponse",
+      "target": "$[\"components\"][\"schemas\"][\"DescribeWorkflowResponse\"][\"properties\"][\"workflow\"][\"$ref\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DescribeWorkflowResponse",
+      "target": "$[\"components\"][\"schemas\"][\"DescribeWorkflowResponse\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ListWorkflowsResponse",
+      "target": "$[\"components\"][\"schemas\"][\"ListWorkflowsResponse.ListWorkflowsElement\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "PipelineDbDto",
+      "target": "$[\"components\"][\"schemas\"][\"PipelineDbDto\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowDbDto",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowDbDto\"][\"properties\"][\"messages\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowLaunchRequest",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowLaunchRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowLaunchResponse",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowLaunchResponse\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowQueryAttribute",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowQueryAttribute\"][\"enum\"][4]",
+      "is_property_change": false
+    },
+    {
+      "schema": "WorkflowQueryAttribute",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowQueryAttribute\"][\"x-enum-varnames\"][4]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Launch",
+      "target": "$[\"components\"][\"schemas\"][\"Launch\"]",
+      "is_property_change": false
+    }
+  ],
+  "new_parameters": [
+    {
+      "target": "$[\"paths\"][\"/pipelines/{pipelineId}/launch\"][\"get\"][\"parameters\"]",
+      "update": [
+        {
+          "name": "versionId",
+          "in": "query",
+          "description": "Pipeline version identifier",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "target": "$[\"paths\"][\"/pipelines/{pipelineId}/schema\"][\"get\"][\"parameters\"]",
+      "update": [
+        {
+          "name": "versionId",
+          "in": "query",
+          "description": "Pipeline version identifier",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  ],
+  "deprecated_endpoints": [],
+  "by_tag": {
+    "credentials": {
+      "endpoints": [
+        {
+          "endpoint": "/credentials/{credentialsId}/keys",
+          "method": "GET",
+          "operation_id": "GetEncryptedCredentials",
+          "tag": "credentials",
+          "summary": "Get encrypted credentials",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": [
+        {
+          "schema": "GetCredentialsKeysResponse",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "workspaces": {
+      "endpoints": [
+        {
+          "endpoint": "/orgs/{orgId}/workspaces/{workspaceId}/users/{userId}",
+          "method": "DELETE",
+          "operation_id": "DeleteWorkspaceUser",
+          "tag": "workspaces",
+          "summary": "Delete workspace user",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": []
+    },
+    "pipeline-schemas": {
+      "endpoints": [
+        {
+          "endpoint": "/pipeline-schemas",
+          "method": "POST",
+          "operation_id": "CreatePipelineSchema",
+          "tag": "pipeline-schemas",
+          "summary": "Create pipeline schema",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": []
+    },
+    "pipeline-versions": {
+      "endpoints": [
+        {
+          "endpoint": "/pipelines/{pipelineId}/versions",
+          "method": "GET",
+          "operation_id": "ListPipelineVersions",
+          "tag": "pipeline-versions",
+          "summary": "List pipeline versions",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/pipelines/{pipelineId}/versions/validate",
+          "method": "GET",
+          "operation_id": "ValidatePipelineVersionName",
+          "tag": "pipeline-versions",
+          "summary": "Validate pipeline version name",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/pipelines/{pipelineId}/versions/{versionId}",
+          "method": "POST",
+          "operation_id": "UpdatePipelineVersion",
+          "tag": "pipeline-versions",
+          "summary": "Update pipeline version",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/pipelines/{pipelineId}/versions/{versionId}/manage",
+          "method": "PUT",
+          "operation_id": "ManagePipelineVersion",
+          "tag": "pipeline-versions",
+          "summary": "Update pipeline version name and default flag",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": []
+    },
+    "ssh-keys": {
+      "endpoints": [
+        {
+          "endpoint": "/ssh-keys",
+          "method": "GET",
+          "operation_id": "ListSshKeys",
+          "tag": "ssh-keys",
+          "summary": "List SSH keys",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/ssh-keys",
+          "method": "POST",
+          "operation_id": "CreateSshKey",
+          "tag": "ssh-keys",
+          "summary": "Create SSH key",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/ssh-keys/validate/key",
+          "method": "GET",
+          "operation_id": "ValidateSshKey",
+          "tag": "ssh-keys",
+          "summary": "Validate SSH key",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/ssh-keys/validate/name",
+          "method": "GET",
+          "operation_id": "ValidateSshKeyName",
+          "tag": "ssh-keys",
+          "summary": "Validate SSH key name",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/ssh-keys/{keyId}",
+          "method": "GET",
+          "operation_id": "DescribeSshKey",
+          "tag": "ssh-keys",
+          "summary": "Describe SSH key",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/ssh-keys/{keyId}",
+          "method": "DELETE",
+          "operation_id": "DeleteSshKey",
+          "tag": "ssh-keys",
+          "summary": "Delete SSH key",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": []
+    },
+    "pipelines": {
+      "endpoints": [],
+      "schemas": [
+        {
+          "schema": "CreatePipelineSchemaRequest",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "CreatePipelineSchemaResponse",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "CreatePipelineVersionRequest",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "ListPipelineVersionsResponse",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "PipelineMinInfoResponse",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "PipelineMinInfoResponse.PipelineVersionMinInfoResponse",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "PipelineSchemaDbDto",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "PipelineVersionFullInfoDto",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "PipelineVersionManageRequest",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "studios": {
+      "endpoints": [],
+      "schemas": [
+        {
+          "schema": "StudioSshDetailsDto",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "users": {
+      "endpoints": [],
+      "schemas": [
+        {
+          "schema": "UserSshPublicKeyDto",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "workflows": {
+      "endpoints": [],
+      "schemas": [
+        {
+          "schema": "WorkflowMaxDbDto",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    }
+  },
+  "summary": {
+    "total_new_endpoints": 13,
+    "total_modified_endpoints": 2,
+    "total_new_schemas": 18,
+    "total_modified_schemas": 17,
+    "affected_tags": [
+      "credentials",
+      "workspaces",
+      "pipeline-schemas",
+      "pipeline-versions",
+      "ssh-keys",
+      "pipelines",
+      "studios",
+      "users",
+      "workflows"
+    ],
+    "requires_new_category": true
+  }
+}

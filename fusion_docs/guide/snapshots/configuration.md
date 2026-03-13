@@ -57,9 +57,9 @@ To disable automatic retries, set `maxSpotAttempts = 0`:
 
 ### Fine-grained retries with `errorStrategy`
 
-For fine-grained control of retries, configure your Nextflow [`errorStrategy`](https://www.nextflow.io/docs/latest/reference/process.html#errorstrategy) to implement retry logic based on specific checkpoint failure types. This allows you to handle different failure scenarios (e.g., checkpoint dump failures differently from restore failures) differently.
+For fine-grained control of retries, configure your Nextflow [`errorStrategy`](https://docs.seqera.io/nextflow/reference/process#errorstrategy) to implement retry logic based on specific checkpoint failure types. This allows you to handle different failure scenarios (e.g., checkpoint dump failures differently from restore failures) differently.
 
-To configure, set to `maxSpotAttempts = 0` and add an [`errorStrategy`](https://www.nextflow.io/docs/latest/reference/process.html#errorstrategy) to your process configuration. For example:
+To configure, set to `maxSpotAttempts = 0` and add an [`errorStrategy`](https://docs.seqera.io/nextflow/reference/process#errorstrategy) to your process configuration. For example:
 
 ```groovy
 process {
@@ -81,7 +81,7 @@ process {
 
 **Configuration options**:
 
-See [`errorStrategy`](https://www.nextflow.io/docs/latest/reference/process.html#errorstrategy) for more configuration options.
+See [`errorStrategy`](https://docs.seqera.io/nextflow/reference/process#errorstrategy) for more configuration options.
 
 ## TCP connection handling
 
@@ -133,4 +133,4 @@ process.resourceLimits = [cpus: 32, memory: '60.GB']
 process.resourceLimits = [cpus: 16, memory: '20.GB']
 ```
 
-See [AWS Batch](./aws.md) or [Google Cloud Batch](./gcp.md) for more information about reclamation windows. See [`resourceLimits`](https://www.nextflow.io/docs/latest/reference/process.html#resourcelimits) for more configuration options.
+See [AWS Batch](./aws.md) or [Google Cloud Batch](./gcp.md) for more information about reclamation windows. See [`resourceLimits`](https://docs.seqera.io/nextflow/reference/process#resourcelimits) for more configuration options.

@@ -38,7 +38,7 @@ Secrets defined by a user have higher priority and will override any Secrets def
 
 ### Using Secrets in workflows
 
-When a new workflow is launched, all Secrets are sent to the corresponding secret manager for the Compute Environment. Nextflow will download these Secrets internally and use them when they are referenced in the pipeline code as described in the [Nextflow Secrets documentation](https://www.nextflow.io/docs/edge/secrets.html#process-secrets).
+When a new workflow is launched, all Secrets are sent to the corresponding secret manager for the Compute Environment. Nextflow will download these Secrets internally and use them when they are referenced in the pipeline code as described in the [Nextflow Secrets documentation](https://docs.seqera.io/nextflow/secrets).
 
 Secrets will be automatically deleted from the secret manager when the Pipeline completes (successful or unsuccessful).
 

@@ -1,0 +1,1 @@
+{"parameters":[{"name":"keyId","in":"path","description":"SSH key numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}}]}

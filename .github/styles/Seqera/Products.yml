@@ -1,0 +1,38 @@
+# Seqera Product Terminology
+# Catches incorrect product names and suggests corrections
+
+extends: substitution
+message: "Use '%s' instead of '%s'"
+level: error
+ignorecase: false
+swap:
+  # Product names - Seqera Platform
+  Tower: Seqera Platform
+  "Nextflow Tower": Seqera Platform
+  "the platform": Seqera Platform
+  "the Platform": Seqera Platform
+
+  # Nextflow variants
+  NextFlow: Nextflow
+  nextFlow: Nextflow
+  next-flow: Nextflow
+  NEXTFLOW: Nextflow
+
+  # MultiQC variants
+  multi-qc: MultiQC
+  multiQC: MultiQC
+  Multi-QC: MultiQC
+  Multiqc: MultiQC
+
+  # Wave variants
+  wave: Wave
+  WAVE: Wave
+
+  # Fusion variants
+  fusion: Fusion
+  FUSION: Fusion
+
+  # Studios variants
+  "Seqera Studios": Studios
+  studio: Studio
+  studios: Studios

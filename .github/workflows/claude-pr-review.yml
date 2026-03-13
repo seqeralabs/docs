@@ -1,0 +1,177 @@
+name: Claude Editorial Review
+
+on:
+  # DISABLED: This workflow is replaced by docs-review.yml with consolidated output
+  # To re-enable: remove the "workflow_dispatch" line and uncomment the triggers below
+  workflow_dispatch:
+
+  # pull_request:
+  #   paths:
+  #     - 'platform-enterprise_docs/**/*.md'
+  #     - 'platform-enterprise_docs/**/*.mdx'
+  #     - 'platform-cloud/docs/**/*.md'
+  #     - 'platform-cloud/docs/**/*.mdx'
+  #     - 'platform-enterprise_versioned_docs/**/*.md'
+  #     - 'platform-enterprise_versioned_docs/**/*.mdx'
+  #   types: [opened, synchronize, reopened]
+  #
+  # issue_comment:
+  #   types: [created]
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  editorial-review:
+    # Run on PR changes or when someone comments @claude
+    if: |
+      github.event_name == 'pull_request' ||
+      (github.event_name == 'issue_comment' &&
+       github.event.issue.pull_request &&
+       contains(github.event.comment.body, '@claude'))
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.event.pull_request.head.ref }}
+
+      - name: Get changed files
+        id: changed-files
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            # Get files changed in this PR
+            git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -E '\.(md|mdx)$' > changed_files.txt || true
+          else
+            # For comment triggers, review all markdown files (or could be made smarter)
+            find . -name "*.md" -o -name "*.mdx" | grep -v node_modules | head -20 > changed_files.txt || true
+          fi
+
+          if [[ -s changed_files.txt ]]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "files<<EOF" >> $GITHUB_OUTPUT
+            cat changed_files.txt >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run Editorial Review
+        if: steps.changed-files.outputs.has_changes == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
+          prompt: |
+            Review these documentation files that changed in the PR:
+
+            ${{ steps.changed-files.outputs.files }}
+
+            For each issue found, output in this EXACT format for inline GitHub suggestions:
+
+            FILE: path/to/file.md
+            LINE: 42
+            ISSUE: Brief description of the problem
+            ORIGINAL: |
+            exact original text from the file
+            SUGGESTION: |
+            corrected text here
+            ---
+
+            Instructions:
+            - Read each changed file carefully
+            - For EVERY issue (voice/tone, terminology, punctuation, clarity), create one suggestion block
+            - LINE must be the exact line number where the issue starts
+            - ORIGINAL must be the exact text from the file (can be multiple lines)
+            - SUGGESTION must be the corrected version with the same structure
+            - Focus on: voice-tone (second person, active voice), terminology (Seqera Platform, Studios, etc.), punctuation (Oxford commas), clarity
+            - Write output to a file: /tmp/review-suggestions.txt
+
+            After generating all suggestions, write them to /tmp/review-suggestions.txt
+
+            Do NOT post comments directly - the workflow will handle posting.
+          use_sticky_comment: true
+          claude_args: |
+            --allowedTools "Read,Grep,Glob,Write,Bash(cat *),Bash(echo *)"
+
+      - name: Post Inline Suggestions
+        if: steps.changed-files.outputs.has_changes == 'true'
+        run: |
+          chmod +x .github/scripts/post-inline-suggestions.sh
+
+          if [[ -f /tmp/review-suggestions.txt ]]; then
+            .github/scripts/post-inline-suggestions.sh /tmp/review-suggestions.txt ${{ github.event.pull_request.number }}
+          else
+            echo "No suggestions file found - review may not have found any issues"
+            gh pr comment ${{ github.event.pull_request.number }} --body "✅ Editorial review complete - no issues found!"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+  apply-fixes:
+    # DISABLED: Auto-fix not needed with inline suggestions
+    # Users can apply suggestions individually or batch-commit multiple
+    # To re-enable: remove the "if: false" condition below
+    if: false
+    # if: |
+    #   github.event_name == 'issue_comment' &&
+    #   github.event.issue.pull_request &&
+    #   contains(github.event.comment.body, '@claude fix')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Apply Editorial Fixes
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
+          prompt: |
+            Use the docs-fix agent to apply editorial corrections to documentation files in this PR.
+
+            Focus on:
+            - Terminology standardization (product names, UI formatting)
+            - Voice and tone consistency (second person, active voice)
+            - Punctuation corrections (Oxford commas, list consistency)
+            - Inclusive language improvements
+
+            Apply fixes conservatively:
+            - DO NOT change technical content or code examples
+            - DO NOT alter meaning or instructions
+            - DO make formatting and language consistency improvements
+            - DO standardize product terminology
+
+            Commit changes with a clear message describing the fixes applied.
+          claude_args: |
+            --allowedTools "Read,Write,Edit,Grep,Glob,Bash"
+
+      - name: Push changes
+        run: |
+          git config user.name "Claude Editorial Bot"
+          git config user.email "claude-bot@seqera.io"
+
+          # Check if there are changes to commit
+          if [[ -n $(git status --porcelain) ]]; then
+            git add -A
+            git commit -m "docs: apply Claude editorial review fixes
+
+            🤖 Applied automated editorial improvements:
+            - Standardized terminology and product names
+            - Improved voice and tone consistency
+            - Fixed punctuation and formatting issues
+            - Enhanced inclusive language usage
+
+            Generated by Claude Code editorial agents"
+            git push
+          else
+            echo "No changes to commit"
+          fi

@@ -1,0 +1,237 @@
+overlay: 1.0.0
+info:
+  title: Pipeline versions operations overlay for v1.109.0
+  version: 0.0.0
+actions:
+  # ===== ADD NEW OPERATION: List pipeline versions =====
+
+  - target: "$.paths"
+    update:
+      /pipelines/{pipelineId}/versions:
+        get:
+          tags:
+          - pipeline-versions
+          summary: List pipeline versions
+          description: Lists all available pipeline versions in a user context. Append `?workspaceId` to list pipeline versions in a workspace context.
+          operationId: ListPipelineVersions
+          parameters:
+          - name: pipelineId
+            in: path
+            description: Pipeline numeric identifier.
+            required: true
+            schema:
+              type: integer
+              format: int64
+          - name: workspaceId
+            in: query
+            description: Workspace numeric identifier.
+            schema:
+              type: integer
+              format: int64
+          - name: max
+            in: query
+            description: Pagination max results.
+            schema:
+              type: integer
+              format: int32
+          - name: offset
+            in: query
+            description: Pagination offset.
+            schema:
+              type: integer
+              format: int32
+          - name: search
+            in: query
+            description: Filter search parameter.
+            schema:
+              type: string
+          - name: isPublished
+            in: query
+            description: "Set to true to retrieve published versions, false to fetch draft versions."
+            schema:
+              type: boolean
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ListPipelineVersionsResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+          - BearerAuth: []
+
+  # ===== ADD NEW OPERATION: Validate pipeline version name =====
+
+  - target: "$.paths"
+    update:
+      /pipelines/{pipelineId}/versions/validate:
+        get:
+          tags:
+          - pipeline-versions
+          summary: Validate pipeline version name
+          description: Validates that the provided pipeline version name is available and meets naming requirements.
+          operationId: ValidatePipelineVersionName
+          parameters:
+          - name: pipelineId
+            in: path
+            description: Pipeline numeric identifier.
+            required: true
+            schema:
+              type: integer
+              format: int64
+          - name: name
+            in: query
+            description: Pipeline name to validate.
+            schema:
+              type: string
+          - name: workspaceId
+            in: query
+            description: Workspace numeric identifier.
+            schema:
+              type: integer
+              format: int64
+          responses:
+            "204":
+              description: OK - No content
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+            "409":
+              description: Duplicate element
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+          security:
+          - BearerAuth: []
+
+  # ===== ADD NEW OPERATION: Update pipeline version =====
+
+  - target: "$.paths"
+    update:
+      /pipelines/{pipelineId}/versions/{versionId}:
+        post:
+          tags:
+          - pipeline-versions
+          summary: Update pipeline version
+          description: "Updates the details of the pipeline version specified by `pipelineId` and `versionId`. If `labelIds` is `null`, empty, or omitted, existing pipeline labels are removed. Include `labelIds: [<label-id-1>,<label-id-2>]` to override existing labels. To append labels to multiple pipelines, use `/pipelines/labels/add`."
+          operationId: UpdatePipelineVersion
+          parameters:
+          - name: pipelineId
+            in: path
+            description: Pipeline numeric identifier.
+            required: true
+            schema:
+              type: integer
+              format: int64
+          - name: versionId
+            in: path
+            description: Pipeline version string identifier.
+            required: true
+            schema:
+              type: string
+          - name: workspaceId
+            in: query
+            description: Workspace numeric identifier.
+            schema:
+              type: integer
+              format: int64
+          requestBody:
+            description: Pipeline version update request.
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UpdatePipelineRequest"
+            required: true
+          responses:
+            "200":
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/UpdatePipelineResponse"
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+            "409":
+              description: Duplicate element
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+          security:
+          - BearerAuth: []
+
+  # ===== ADD NEW OPERATION: Manage pipeline version =====
+
+  - target: "$.paths"
+    update:
+      /pipelines/{pipelineId}/versions/{versionId}/manage:
+        put:
+          tags:
+          - pipeline-versions
+          summary: Manage pipeline version
+          description: "Updates a pipeline version's name and/or marks it as the default version. When setting a version as default, any previously default version is automatically unset. Version names cannot be changed if the version is already referenced by workflow runs."
+          operationId: ManagePipelineVersion
+          parameters:
+          - name: pipelineId
+            in: path
+            description: Pipeline numeric identifier.
+            required: true
+            schema:
+              type: integer
+              format: int64
+          - name: versionId
+            in: path
+            description: Pipeline version identifier (Launch ID).
+            required: true
+            schema:
+              type: string
+          - name: workspaceId
+            in: query
+            description: Workspace numeric identifier.
+            schema:
+              type: integer
+              format: int64
+          requestBody:
+            description: Pipeline version manage request.
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/PipelineVersionManageRequest"
+            required: true
+          responses:
+            "204":
+              description: OK - No content
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+            "404":
+              description: Version not found
+            "409":
+              description: Conflict - unsetting a default pipeline version
+          security:
+          - BearerAuth: []

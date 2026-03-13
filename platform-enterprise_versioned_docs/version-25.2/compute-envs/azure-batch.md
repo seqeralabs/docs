@@ -190,7 +190,7 @@ Nextflow can authenticate to Azure services using a managed identity. This metho
 When you use a manually-configured compute environment with a managed identity attached to the Azure Batch Pool, Nextflow can use this managed identity for authentication. However, Seqera still needs to use access keys or an Entra service principal to submit the initial task to Azure Batch to run Nextflow, which will then proceed with the managed identity for subsequent authentication.
 
 1. In Azure, create a user-assigned managed identity. See [Manage user-assigned managed identities](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities) for detailed steps. Take note of the client ID of the managed identity when you create it.
-1. The user-assigned managed identity must have the necessary access roles for Nextflow. See [Required role assignments](https://www.nextflow.io/docs/latest/azure.html#required-role-assignments) for more information.
+1. The user-assigned managed identity must have the necessary access roles for Nextflow. See [Required role assignments](https://docs.seqera.io/nextflow/azure#required-role-assignments) for more information.
 1. Associate the user-assigned managed identity with the Azure Batch Pool. See [Set up managed identity in your Batch pool](https://learn.microsoft.com/en-us/troubleshoot/azure/hpc/batch/use-managed-identities-azure-batch-account-pool#set-up-managed-identity-in-your-batch-pool) for more information.
 1. When you set up the Seqera compute environment, select the Azure Batch pool by name and enter the managed identity client ID in the specified field as instructed above.
 
@@ -253,7 +253,7 @@ Create a Batch Forge Azure Batch compute environment:
 1. Select a **Region**, such as _eastus_.
 1. In the **Pipeline work directory** field, enter the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
     :::note
-    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
     :::
 1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
 1. Select **Enable Fusion v2** to allow access to your Azure Blob Storage data via the [Fusion v2][fusion-docs] virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/overview) for configuration details.
@@ -286,7 +286,7 @@ Create a Batch Forge Azure Batch compute environment:
 1. Enter the **VMs count**. If autoscaling is enabled (default), this is the maximum number of VMs you wish the pool to scale up to. If autoscaling is disabled, this is the fixed number of virtual machines in the pool.
 1. Enable **Autoscale** to scale up and down automatically, based on the number of pipeline tasks. The number of VMs will vary from **0** to **VMs count**.
 1. Enable **Dispose resources** for Seqera to automatically delete the Batch pool if the compute environment is deleted on the platform.
-1. Select or create [**Container registry credentials**](../credentials/azure_registry_credentials) to authenticate a registry (used by the [Wave containers](https://www.nextflow.io/docs/latest/wave.html) service). It is recommended to use an [Azure Container registry](https://azure.microsoft.com/en-gb/products/container-registry) within the same region for maximum performance.
+1. Select or create [**Container registry credentials**](../credentials/azure_registry_credentials) to authenticate a registry (used by the [Wave containers](https://docs.seqera.io/nextflow/wave) service). It is recommended to use an [Azure Container registry](https://azure.microsoft.com/en-gb/products/container-registry) within the same region for maximum performance.
 1. Apply [**Resource labels**](../resource-labels/overview). This will populate the **Metadata** fields of the Azure Batch pool.
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
@@ -397,7 +397,7 @@ The following settings can be modified after creating a pool:
 1. Select a **Region**, such as _eastus (East US)_.
 1. In the **Pipeline work directory** field, add the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
     :::note
-    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://www.nextflow.io/docs/latest/cache-and-resume.html#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
     :::
 1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
 1. Select **Enable Fusion v2** to allow access to your Azure Blob Storage data via the [Fusion v2][fusion-docs] virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/overview) for configuration details.
@@ -452,6 +452,7 @@ See [Launch pipelines](../launch/launchpad) to start executing workflows in your
 [az-batch-best-practices]: https://learn.microsoft.com/en-us/azure/batch/security-best-practices
 [az-vm-sizes]: https://learn.microsoft.com/en-us/azure/virtual-machines/sizes
 [az-create-account]: https://azure.microsoft.com/en-us/free/
+[az-create-sp]: https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal
 [az-learn-rg]: https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal#create-resource-groups
 [az-create-batch]: https://portal.azure.com/#create/Microsoft.BatchAccount
 [az-learn-storage]: https://learn.microsoft.com/en-us/azure/storage/common/storage-account-overview
@@ -463,7 +464,7 @@ See [Launch pipelines](../launch/launchpad) to start executing workflows in your
 [az-vm-gen]: https://learn.microsoft.com/en-us/azure/virtual-machines/generation-2
 [az-disk-type]: https://learn.microsoft.com/en-us/azure/virtual-machines/disks-types
 [az-batch-autoscale]: https://learn.microsoft.com/en-us/azure/batch/batch-automatic-scaling
-[az-file-shares]: https://www.nextflow.io/docs/latest/azure.html#azure-file-shares
+[az-file-shares]: https://docs.seqera.io/nextflow/azure#azure-file-shares
 [az-vm-sizes]: https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview
 
 [wave-docs]: https://docs.seqera.io/wave
