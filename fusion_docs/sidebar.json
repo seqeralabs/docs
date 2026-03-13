@@ -15,7 +15,7 @@
         {
           "type": "category",
           "label": "Fusion Snapshots",
-          "link": {"type": "doc", "id": "guide/snapshots/index"},
+          "link": { "type": "doc", "id": "guide/snapshots/index" },
           "collapsed": true,
           "items": [
             "guide/snapshots/aws",
@@ -45,6 +45,7 @@
       "collapsed": true,
       "items": [
         "troubleshooting/general",
+        "troubleshooting/nextflow",
         "troubleshooting/fusion-snapshots",
         "troubleshooting/error-codes-exit-messages"
       ]
