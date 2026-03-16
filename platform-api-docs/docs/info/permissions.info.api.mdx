@@ -1,0 +1,24 @@
+---
+id: permissions-info
+title: "Permissions"
+description: "API operations for frontend-visible permissions and feature availability in Seqera Platform"
+sidebar_label: Permissions
+hide_title: false
+custom_edit_url: null
+---
+
+import ApiLogo from "@theme/ApiLogo";
+import Heading from "@theme/Heading";
+import SchemaTabs from "@theme/SchemaTabs";
+import TabItem from "@theme/TabItem";
+import Export from "@theme/ApiExplorer/Export";
+import MDXComponents from "@theme-original/MDXComponents";
+
+
+Use these endpoints to inspect the authenticated user's effective roles, allowed operations, and available features in a personal workspace context or an organization workspace context.
+
+The `Check permission` endpoint accepts an `operationId` query parameter using the operation identifier returned by `Retrieve permissions`.
+
+### Path and query parameters
+
+::table{file=parameter-tables/permissions/parameters.yml}

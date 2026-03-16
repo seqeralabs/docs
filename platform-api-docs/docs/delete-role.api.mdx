@@ -1,0 +1,66 @@
+---
+id: delete-role
+title: "Delete role"
+description: "Deletes the role identified by `roleName` in the organization identified by `orgId`."
+sidebar_label: "Delete role"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVF1vEzEQ/CvWPoFkkhQKD/dES4NUgUrVlqcqUp27TeLWZ1/tvZZw8n9H67vLt6BCQuIpOXvsmVnPbgOk5gGyW/DOYICJhAJD7nVF2lnI4AwNEgZBCxQMEbpAS3qmsRDTpbjjtQtV4p3QNoGcnyurfyo+vwt2fn5e3A1AgqvQJ8h5sSK5cgZBQqW8KpHQs6wGrCoRMuh5QIJmXZWiBeyK5RsEH2AKj4+19lhARr5GCSFfYKkga4CWFV8ZyGs7hxjliiUJ7Ckea/TLPY5vm/5sXaLX+dqnfxGztoRz9CBh5nypqF36cAwxTvh4qJwNGPjE29Ex/+xo+CLeiAsncmcJLUGUcDwa7eNOVSFYDAYCCT06a0BVldF58jC8D4xtNlSu9d9CiSGoOXIwOvFueo8531d5fkXSrdAeeKi+QJoML429d/6q8wcxxqT83QGHfT6EdSSUMe4Zi9bngXq07+5IzFxti//VapQQMK+9pmVK9ikqj/6kpgVktxN++RJp4bghitQQqRl4F4apO4dN3wUR+C7/1DdJ7Q1ksCCqQjYcqkoPcuPqYhDwEb0aaLcX4+u0Iy6NIs6g+MR4cXJ5Diyk13nNhWpNb6pd+WZG6ALO39MEAtn9+dyn+/6ZUnG0nbl0vCtSp4Jp/ySQ7eocQwfmF1Z5euFt85uWsVTapOaauY/rjSiBK9fyHA2Ojt4PRrxYuUClSgnp5kE7mNLg2xXYrEP2r4ZkV2TCHzSsjNKWRSa3TReMfmxLyFYDciJh4QLxZtNMVcDv3sTIy+1A47wUOqip4djPlAn4G2uvrroOeS1eMPkOKn7A5cZofVKmZkzK2ZPymoX8vaitkX+QvltUdrnJ3stalS1OooQFqgJ9UtNun+Q5VrRxcG+cbPXt2fjr+GYMEtR2n+z0RSI4qKtpWsSNe0Ab40om8TdrjPEXrVGkrw==
+sidebar_class_name: "delete api-method"
+info_path: platform-api//seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete role"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/roles/{roleName}"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Deletes the role identified by `roleName` in the organization identified by `orgId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./delete-role.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./delete-role.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./delete-role.StatusCodes.json")}
+>
+
+</StatusCodes>

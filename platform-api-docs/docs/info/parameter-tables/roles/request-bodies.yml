@@ -1,0 +1,32 @@
+- Name: "**CreateRole**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create role
+- Name: name
+  Type: string
+  Req/Opt: Optional
+  Description: Role name.
+- Name: description
+  Type: string
+  Req/Opt: Optional
+  Description: Role description.
+- Name: permissions
+  Type: array
+  Req/Opt: Optional
+  Description: List of permission names assigned to the role.
+- Name: "**UpdateRole**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update role
+- Name: name
+  Type: string
+  Req/Opt: Optional
+  Description: Role name.
+- Name: description
+  Type: string
+  Req/Opt: Optional
+  Description: Role description.
+- Name: permissions
+  Type: array
+  Req/Opt: Optional
+  Description: List of permission names assigned to the role.
