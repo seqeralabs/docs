@@ -7273,8 +7273,9 @@ paths:
       parameters:
       - name: attributes
         in: query
-        description: 'Additional attribute values to include in the response (`labels`,
-          `optimized` status). Returns an empty value (`labels: null`) if omitted.'
+        description: Additional attribute values to include in the response. Supported
+          values are `optimized`, `labels`, `messages`, `minimal`, and `pipelineInfo`.
+          Returns `null` for attributes omitted from the request.
         explode: false
         schema:
           type: array
@@ -7584,8 +7585,9 @@ paths:
           format: int64
       - name: attributes
         in: query
-        description: Comma-separated list of attributes to retrieve. Returns an empty
-          value for each attribute not specified.
+        description: Comma-separated list of attributes to retrieve. Supported values
+          are `optimized`, `labels`, `messages`, `minimal`, and `pipelineInfo`.
+          Returns `null` for each attribute not specified.
         explode: false
         schema:
           type: array
@@ -12199,7 +12201,7 @@ components:
       type: object
       properties:
         workflow:
-          $ref: '#/components/schemas/Workflow'
+          $ref: '#/components/schemas/WorkflowMaxDbDto'
         progress:
           $ref: '#/components/schemas/ProgressData'
         platform:
@@ -12226,6 +12228,8 @@ components:
           type: array
           items:
             type: string
+        pipelineInfo:
+          $ref: '#/components/schemas/PipelineMinInfoResponse'
     DescribeWorkspaceResponse:
       type: object
       properties:
@@ -13498,6 +13502,8 @@ components:
         totalSize:
           type: integer
           format: int64
+        hasMore:
+          type: boolean
     ListWorkflowsResponse.ListWorkflowsElement:
       type: object
       properties:
@@ -13523,6 +13529,8 @@ components:
           type: boolean
         optimized:
           type: boolean
+        pipelineInfo:
+          $ref: '#/components/schemas/PipelineMinInfoResponse'
     ListWorkspacesAndOrgResponse:
       type: object
       properties:
@@ -16243,13 +16251,13 @@ components:
       - labels
       - messages
       - minimal
-      - pipelineVersion
+      - pipelineInfo
       x-enum-varnames:
       - optimized
       - labels
       - messages
       - minimal
-      - pipelineVersion
+      - pipelineInfo
     WorkflowStatus:
       type: string
       enum:
