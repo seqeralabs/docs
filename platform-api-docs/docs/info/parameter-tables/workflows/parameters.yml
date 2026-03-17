@@ -2,8 +2,9 @@
   Type: array
   Location: query
   Req/Opt: Optional
-  Description: "Additional attribute values to include in the response (`labels`,
-    `optimized` status). Returns an empty value (`labels: null`) if omitted."
+  Description: Additional attribute values to include in the response. Supported
+    values are `optimized`, `labels`, `messages`, `minimal`, and `pipelineInfo`.
+    Returns `null` for attributes omitted from the request.
 - Name: "`workspaceId`"
   Type: integer
   Location: query
