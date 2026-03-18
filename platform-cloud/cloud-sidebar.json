@@ -153,6 +153,7 @@
         "label": "Administration",
         "items": [
           "orgs-and-teams/organizations",
+          "orgs-and-teams/single-sign-on",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/roles",
           "orgs-and-teams/custom-roles",
