@@ -19,6 +19,12 @@ Before you begin, you need:
 - **MySQL 8.0+ database**
 - **API key** from a supported inference provider (see below)
 - **MCP server** deployed and accessible from your cluster
+- **Token encryption key** for encrypting sensitive tokens at rest. Generate with:
+
+    ```bash
+    python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+    ```
+
 - [Helm v3](https://helm.sh/docs/intro/install) and [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
 
 ### AWS requirements
@@ -99,6 +105,18 @@ Seqera AI requires a dedicated MySQL database separate from the Platform databas
         --from-literal=DB_PASSWORD=<your-database-password>
     ```
 
+1. Create a secret for the token encryption key:
+
+    ```bash
+    kubectl create secret generic seqera-ai-token-encryption-key \
+        --namespace <namespace> \
+        --from-literal=TOKEN_ENCRYPTION_KEY=<your-generated-encryption-key>
+    ```
+
+    :::caution
+    Store this key securely. If lost, encrypted tokens in the database cannot be recovered.
+    :::
+
 ## Configure Helm values
 
 Add the following configuration to your Platform Helm values file:
@@ -107,7 +125,8 @@ Add the following configuration to your Platform Helm values file:
 # Global configuration
 global:
   platformExternalDomain: platform.example.com
-  mcpExternalDomain: mcp.example.com
+  agentBackendDomain: ai.platform.example.com
+  mcpDomain: mcp.example.com
 
 # Enable Seqera AI agent backend
 agent-backend:
@@ -116,10 +135,11 @@ agent-backend:
   agentBackend:
     replicaCount: 1
 
-    # Anthropic API key
-    anthropicApiKey:
-      existingSecretName: "anthropic-secret"
-      existingSecretKey: "ANTHROPIC_API_KEY"
+  # Anthropic API key
+  anthropicApiKeyExistingSecretName: "anthropic-secret"
+
+  # Token encryption key (required)
+  tokenEncryptionKeyExistingSecretName: "seqera-ai-token-encryption-key"
 
   # Database configuration
   database:
@@ -129,7 +149,6 @@ agent-backend:
     username: "seqera_ai"
     existingSecretName: "seqera-ai-db-credentials"
     existingSecretKey: "DB_PASSWORD"
-    dialect: mysql
 
   # AWS ALB ingress
   ingress:
@@ -158,6 +177,8 @@ agent-backend:
         --namespace <namespace> \
         --values my-values.yaml
     ```
+
+    Database migrations run automatically via an init container on each deployment. No manual migration steps are required.
 
 1. Wait for the agent-backend pod to be ready:
 
@@ -210,16 +231,22 @@ Create a DNS record pointing to the ALB for the Seqera AI endpoint:
 | `AGENT_BACKEND_DB_NAME` | MySQL database name |
 | `AGENT_BACKEND_DB_USER` | MySQL database username |
 | `AGENT_BACKEND_DB_PASSWORD` | MySQL database password |
+| `TOKEN_ENCRYPTION_KEY` | Fernet encryption key for encrypting sensitive tokens at rest. Also accepted as `AGENT_BACKEND_TOKEN_ENCRYPTION_KEY`. |
 
 ### Optional
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `ANTHROPIC_MODEL` | Model to use | `claude-sonnet-4-20250514` |
+| `ANTHROPIC_MODEL` | Primary model for AI interactions | `claude-sonnet-4-6` |
+| `FAST_MODEL` | Model for quick tasks (search, summaries) | `claude-haiku-4-5-20251001` |
+| `DEEP_MODEL` | Model for complex planning tasks | `claude-opus-4-5-20251101` |
+| `SEQERA_PLATFORM_URL` | Platform UI URL for constructing links to runs and pipelines | Derived from platform domain |
 | `AGENT_BACKEND_DB_PORT` | MySQL port | `3306` |
 | `SESSION_TIMEOUT_SECONDS` | Session timeout | `86400` (24 hours) |
 | `MAX_SESSIONS_PER_USER` | Max concurrent sessions per user | `10` |
 | `SESSION_RETENTION_DAYS` | Days to retain session data | `14` |
+| `LOG_LEVEL` | Application log level (`CRITICAL`, `ERROR`, `WARNING`, `INFO`, `DEBUG`) | `INFO` |
+| `CORS_ORIGINS` | Allowed CORS origins (JSON array) | `["*"]` |
 
 ## Helm values reference
 
@@ -230,7 +257,8 @@ For the full list of configuration options, see the [agent-backend chart documen
 | Value | Description | Default |
 |-------|-------------|---------|
 | `global.platformExternalDomain` | Domain where Seqera Platform listens | `example.com` |
-| `global.mcpExternalDomain` | Domain where MCP server listens | `mcp.example.com` |
+| `global.agentBackendDomain` | Domain where the agent backend listens | `""` |
+| `global.mcpDomain` | Domain where MCP server listens | `""` |
 
 ### Agent backend
 
@@ -239,8 +267,8 @@ For the full list of configuration options, see the [agent-backend chart documen
 | `agentBackend.replicaCount` | Number of replicas | `1` |
 | `agentBackend.image.registry` | Image registry | `cr.seqera.io` |
 | `agentBackend.image.repository` | Image repository | `private/nf-tower-enterprise/agent-backend` |
-| `agentBackend.anthropicApiKey.existingSecretName` | Existing secret with API key | `""` |
-| `agentBackend.anthropicApiKey.existingSecretKey` | Key in the secret | `ANTHROPIC_API_KEY` |
+| `anthropicApiKeyExistingSecretName` | Existing secret containing `ANTHROPIC_API_KEY` | `""` |
+| `tokenEncryptionKeyExistingSecretName` | Existing secret containing `TOKEN_ENCRYPTION_KEY` | `""` |
 
 ### Database
 
@@ -268,6 +296,7 @@ For the full list of configuration options, see the [agent-backend chart documen
 - **Token validation**: Every request validates the user's Platform token
 - **User isolation**: Sessions are isolated by user ID
 - **Credential passthrough**: MCP tools use the user's credentials for Platform operations
+- **Token encryption**: Sensitive tokens (e.g., GitHub PATs) are encrypted at rest using Fernet symmetric encryption before storage in the database
 - **No credential storage**: The agent backend does not store user credentials
 - **TLS required**: All communication should use HTTPS
 
