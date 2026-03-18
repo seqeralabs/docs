@@ -7,6 +7,7 @@
     "immutable": "^5.1.5",
     "serialize-javascript": "^7.0.3",
     "rehype-katex": "5.0.0",
+    "katex": "^0.16.10",
     "gray-matter": {
       "js-yaml": "3.14.2"
     },
