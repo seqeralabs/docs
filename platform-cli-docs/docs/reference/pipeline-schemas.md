@@ -7,7 +7,7 @@ description: Manage pipeline schemas
 
 Run `tw pipeline-schemas -h` to view the list of supported operations.
 
-Pipeline schemas let you persist a Nextflow parameter schema in Platform and reuse it when creating or updating saved pipelines.
+[Pipeline schemas](https://docs.seqera.io/platform-cloud/pipeline-schema/overview#seqera-platform-schema) let you persist a Nextflow parameter schema in Platform and reuse it when creating or updating saved pipelines.
 
 ## tw pipeline-schemas add
 
