@@ -16,6 +16,7 @@ module.exports = {
         { type: "doc", id: "reference/labels" },
         { type: "doc", id: "reference/secrets" },
         { type: "doc", id: "reference/pipelines" },
+        { type: "doc", id: "reference/pipeline-schemas" },
         { type: "doc", id: "reference/launch" },
         { type: "doc", id: "reference/runs" },
         { type: "doc", id: "reference/actions" },
