@@ -2,7 +2,7 @@
 title: "Container image templates"
 description: "Use container images with Studios."
 date created: "2025-10-16"
-last updated: "2025-10-16"
+last updated: "2026-03-18"
 tags: [container, container-images, session, studios]
 ---
 
@@ -67,7 +67,7 @@ To see the list of all JupyterLab image templates available, including security 
 
 The default user is the `root` account. To install R packages during a running Studio session, execute `install.packages("<packagename>")` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
 
-To see the list of all R-IDE image templates available, including security scan results or to inspect the container specification, see [https://public.cr.seqera.io/repo/platform/data-studio-ride][ds-ride].
+To see the list of all R-IDE image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-ride][ds-ride].
 
 ### Visual Studio Code 1.93.1
 
