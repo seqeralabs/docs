@@ -123,7 +123,7 @@ Every item (except dependency bumps without a linked PR) must include:
 
 Commit links use a short hash (7–9 chars) as display text, but link to the full hash URL.
 
-If attribution is missing from the source and cannot be determined, preserve the item without attribution rather than fabricating it.
+If `by @username` is missing but a PR number or commit hash is present, look up the author using step 5 before giving up. Only omit attribution if no PR/commit reference exists.
 
 #### Spelling
 
@@ -139,7 +139,31 @@ Every changelog must end with a full changelog link on its own line:
 
 Use `**Full changelog**:` (bold, with colon). If the incoming file has a bare URL, add the bold prefix.
 
-### 5. Apply component organization
+### 5. Look up missing attributions
+
+For every item that has a PR number or commit hash but is missing `by @username`, look up the author from GitHub before formatting.
+
+**Repo URLs by product:**
+- Nextflow: `nextflow-io/nextflow`
+- Wave: `seqeralabs/wave`
+
+**For PR numbers** — run:
+```bash
+gh pr view <number> --repo <org/repo> --json author --jq '.author.login'
+```
+
+**For commit hashes** — run:
+```bash
+gh api repos/<org/repo>/commits/<hash> --jq '.author.login'
+```
+
+Then format the attribution as `by @<login> in [#XXXX](url)`.
+
+**Batching:** Collect all missing attributions first, then run all lookups together before writing the file — avoid one lookup per write.
+
+**If the lookup fails** (network error, PR not found, deleted commit): omit `by @username` for that item and note it in the summary.
+
+### 6. Apply component organization
 
 Both Wave and Nextflow use component-based subsections within each top-level section. Items must be grouped under a relevant `###` subsection — never listed directly under a `##` section without a subsection.
 
@@ -177,7 +201,7 @@ Both Wave and Nextflow use component-based subsections within each top-level sec
 - **Wave**: Place dependency bumps under `### Dependencies` inside `## Feature updates and improvements`
 - **Nextflow**: Dependencies may appear as `### Dependencies` subsection inside `## Feature updates and improvements`, OR as a standalone `## Dependencies` top-level section — match whatever pattern the incoming changelog uses, or use a standalone `## Dependencies` section if items are not clearly part of features
 
-### 6. Preserve important content
+### 7. Preserve important content
 
 **DO preserve:**
 - Frontmatter (title, date, tags)
@@ -191,13 +215,13 @@ Both Wave and Nextflow use component-based subsections within each top-level sec
 - Made-up PR numbers or commit hashes
 - Author attribution that cannot be verified from the source
 
-### 7. Quality checklist
+### 8. Quality checklist
 
 Before outputting, verify:
 - [ ] Frontmatter present and correct format
 - [ ] Past tense throughout all items
 - [ ] Active voice
-- [ ] All items have `by @username in [link]` attribution (if source had it)
+- [ ] All items have `by @username in [link]` attribution (looked up from GitHub if missing from source)
 - [ ] Code elements in backticks
 - [ ] All `##` section headings in sentence case
 - [ ] All `###` subsection headings in title case
@@ -208,7 +232,7 @@ Before outputting, verify:
 - [ ] American spelling
 - [ ] Migration notes section preserved (Wave)
 
-### 8. Output the formatted changelog
+### 9. Output the formatted changelog
 
 Write the formatted changelog to the same file, or a new file if the user requests it.
 
@@ -344,7 +368,7 @@ https://github.com/seqeralabs/wave/compare/v1.29.1...v1.30.0
 ## Important notes
 
 - **Scope**: This skill applies ONLY to Nextflow and Wave changelogs
-- **Attribution**: Always preserve `by @username in [link]` — never fabricate or remove it
+- **Attribution**: Look up `by @username` from GitHub when missing — never fabricate or omit without trying
 - **Preserve content**: Only reorganize and format — never add or remove information
 - **General is fine**: Better to put an item in `### General` than to miscategorize it
 - **Ask before overwriting**: Confirm before writing changes to the file
