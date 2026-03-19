@@ -65,6 +65,36 @@ seqera ai
 
 This shows your login status, authenticated email, and session details.
 
+### Point a development build at the hosted Seqera AI backend
+
+If you are testing a development build of the CLI against the hosted production Seqera AI service, set the following environment variables before starting `seqera ai`.
+
+| Variable | Purpose | Example value |
+| --- | --- | --- |
+| `SEQERA_AI_BACKEND_URL` | Seqera AI backend endpoint used by the CLI | `https://ai-api.seqera.io` |
+| `SEQERA_AUTH_DOMAIN` | Platform API base URL used for browser-based login | `https://cloud.seqera.io/api` |
+| `SEQERA_AUTH_CLI_CLIENT_ID` | OAuth client ID for the Seqera AI CLI | `seqera_ai_cli` |
+| `TOWER_ACCESS_TOKEN` | Platform personal access token used instead of browser login | `<PLATFORM_ACCESS_TOKEN>` |
+
+Use the OAuth login flow:
+
+```bash
+export SEQERA_AUTH_DOMAIN=https://cloud.seqera.io/api
+export SEQERA_AUTH_CLI_CLIENT_ID=seqera_ai_cli
+export SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io
+seqera ai
+```
+
+Use a Platform personal access token instead of browser login:
+
+```bash
+export TOWER_ACCESS_TOKEN=<PLATFORM_ACCESS_TOKEN>
+export SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io
+seqera ai
+```
+
+You only need `SEQERA_AUTH_DOMAIN` and `SEQERA_AUTH_CLI_CLIENT_ID` when using the OAuth login flow.
+
 ### Log out
 
 #### Standard logout
