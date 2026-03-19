@@ -218,6 +218,46 @@ Create a DNS record pointing to the ALB for the Seqera AI endpoint:
     seqera ai
     ```
 
+## Connect the CLI to Seqera AI
+
+Set `SEQERA_AI_BACKEND_URL` before running `seqera ai` so the CLI connects to the correct backend.
+
+Use your Enterprise deployment:
+
+```bash
+export SEQERA_AI_BACKEND_URL=https://ai.platform.example.com
+seqera login
+seqera ai
+```
+
+If you are testing a development build of the CLI against the hosted production Seqera AI service, use the following settings instead:
+
+| Variable | Purpose | Example value |
+| --- | --- | --- |
+| `SEQERA_AI_BACKEND_URL` | Seqera AI backend endpoint used by the CLI | `https://ai-api.seqera.io` |
+| `SEQERA_AUTH_DOMAIN` | Platform API base URL used for browser-based login | `https://cloud.seqera.io/api` |
+| `SEQERA_AUTH_CLI_CLIENT_ID` | OAuth client ID for the Seqera AI CLI | `seqera_ai_cli` |
+| `TOWER_ACCESS_TOKEN` | Platform personal access token used instead of browser login | `<PLATFORM_ACCESS_TOKEN>` |
+
+Use the OAuth login flow:
+
+```bash
+export SEQERA_AUTH_DOMAIN=https://cloud.seqera.io/api
+export SEQERA_AUTH_CLI_CLIENT_ID=seqera_ai_cli
+export SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io
+seqera ai
+```
+
+Use a Platform personal access token instead of browser login:
+
+```bash
+export TOWER_ACCESS_TOKEN=<PLATFORM_ACCESS_TOKEN>
+export SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io
+seqera ai
+```
+
+You only need `SEQERA_AUTH_DOMAIN` and `SEQERA_AUTH_CLI_CLIENT_ID` when using the OAuth login flow.
+
 ## Environment variables reference
 
 ### Required

@@ -33,6 +33,7 @@ To get started with Seqera AI:
 
     See [Authentication](./authentication.md) for a comprehensive authentication guide.
 
+    If you are testing a development build of the CLI against the hosted production Seqera AI service, see [Install Seqera AI](../enterprise/install-seqera-ai.md#connect-the-cli-to-seqera-ai) for the required environment variables.
 
 1. Start Seqera AI:
 
