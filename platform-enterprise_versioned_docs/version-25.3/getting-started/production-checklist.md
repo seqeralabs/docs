@@ -2,11 +2,13 @@
 title: "Production checklist"
 description: "A pre-production checklist for Seqera Platform."
 date created: "2025-07-03"
-last updated: "2025-07-21"
+last updated: "2026-03-20"
 tags: [production, checklist, deployment, limitations, retry]
 ---
 
-This page provides guidance and best practices for your Seqera Platform deployment, and areas you should consider before you begin. We recommend working with your sales team for additional guidance around your particular infrastructure before going into production.
+This page covers the Seqera Platform-specific configuration decisions that most commonly cause problems when moving from evaluation to production. It does not cover cloud infrastructure setup — your cloud team is responsible for networking, IAM, and compute configuration.
+
+For environment-specific production reviews, architecture guidance, or upgrade planning, contact your Seqera account team.
 
 ## Organizations and workspaces
 
@@ -30,61 +32,71 @@ All users can be assigned roles that grant the type of access and permissions th
 
 It's a good idea to map out the expected users and their roles to ensure your plans are scalable. See [User roles](../orgs-and-teams/roles) for more information.
 
-## Infrastructure
+## Version pinning and compatibility
 
-Infrastructure requirements vary widely depending on the workload you expect. See [Enterprise installation](../enterprise/overview) for an outline of Platform components.
+Pin a specific Nextflow version for all production pipelines and document it alongside your Seqera Platform version.
 
-To begin, build out a proof of concept using the below recommendations and create a baseline of your capacity requirements. When you are ready to move to production, consider the increased workload.
+Incompatibilities between Nextflow and Platform versions are a leading cause of production failures, and often only surface during pipeline resumption after an interruption — not during normal runs.
 
-### Kubernetes
+- Do not upgrade Nextflow and Seqera Platform at the same time.
+- Validate any version change in a non-production environment before promoting to production.
+- After any version change, test pipeline resumption explicitly: launch a representative pipeline, interrupt it, and confirm it resumes from the last successful task.
 
-When deploying Seqera Platform in a generic Kubernetes cluster we recommend starting with:
+:::warning
+If you cannot resume a pipeline after a version upgrade, roll back to your last documented working version combination before investigating further.
+:::
 
-- 4 vCPU
-- 7 GB nodes
+## Credentials and token lifecycle
 
-This sizing recommendation is a basic starting point. Your requirements may vary significantly based on the number of pipelines and concurrent processes you anticipate. See [Configure Pods and Containers](https://kubernetes.io/docs/tasks/configure-pod-container/) for information about increasing your resources.
+Credentials in Seqera Platform require active management. Expired or rotated credentials that are not updated in Platform are a common cause of silent pipeline failures.
 
-### Docker
+**Before go-live:**
 
-When deploying Seqera Platform using Docker compose we recommend starting with:
+- Identify all credentials used by production pipelines: cloud provider credentials, Git tokens, container registry credentials, and API tokens.
+- Record when each credential was created and when it expires.
+- Assign a named owner responsible for rotating each credential.
 
-- Instance size - `c5.2xlarge`
-- External DB Aurora V3 provisioned - `db.t3.medium`
-- External Redis - `cache.t2.micro`
+**When rotating credentials:**
 
-This sizing recommendation is a basic starting point. Your requirements may vary significantly based on the number of pipelines and concurrent processes you anticipate. See [Docker Resource constraints](https://docs.docker.com/engine/containers/resource_constraints/) for information about resource management in Docker.
+1. Add the new credential to the correct Seqera organization and workspaces.
+2. Launch a test pipeline using the new credential and confirm it runs successfully.
+3. Remove or deactivate the old credential only after step 2 is confirmed.
 
-### AWS
+:::warning
+Do not rotate credentials during active pipeline runs. Schedule rotations during maintenance windows.
+:::
 
-When deploying Seqera Platform using AWS we recommend starting with:
+Use [Pipeline Secrets](../secrets/overview.mdx) to manage sensitive values such as API keys for third-party services. Secrets are injected at runtime and are not exposed in pipeline logs or configuration files.
 
-- Amazon Machine Image (AMI): Amazon Linux 2023 Optimized
-- Instance type: `c5a.2xlarge` with 8 CPUs and 16 GB RAM
-- A MySQL8 Community DB instance with minimum 2 vCPUs, 8 GB memory, and 30 GB SSD storage
+## Compute environment permissions
 
-This sizing recommendation is a basic starting point. Your requirements may vary significantly based on the number of pipelines and concurrent processes you anticipate. See [AWS Autoscaling documentation](https://aws.amazon.com/autoscaling/) for information about resource management in AWS.
+Permissions within shared compute environments are a frequent source of unexpected behavior, particularly when multiple teams use the same workspace.
 
-### Azure
+- Use dedicated compute environments for production. Avoid sharing production compute environments with development or test workloads.
+- Assign workspace roles at the level of access each user actually requires. The **Launch** role is appropriate for most researchers running established pipelines; **Maintain** is for users who need to configure compute environments and pipelines.
+- Users in the same workspace can see and cancel each other's pipeline runs. If your organization requires run isolation between teams or projects, use separate workspaces.
 
-When deploying Seqera Platform using Azure we recommend starting with:
+:::note
+Admin-level workspace access grants the ability to modify compute environments and credentials, which can affect all pipelines in the workspace. Assign Admin only to users who are responsible for workspace configuration.
+:::
 
-- Azure Linux VM with default values
-- At least 2 CPUS and 8 GB RAM
-- Ubuntu Server 22.04 LTS - Gen2 image
-- A MySQL8 Community DB instance with minimum 2 vCPUs, 8 GB memory, and 30 GB SSD storage
+For teams sharing pipelines across workspaces, use a [shared workspace](../orgs-and-teams/workspace-management#shared-workspaces) to centralize pipeline definitions and compute environments without duplicating configuration.
 
-These autoscale for pipeline runs, but the sizing recommendation will be based on the workload and can vary significantly based on the number of pipelines and concurrent processes you anticipate. See [Azure autoscaling documentation](https://learn.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-get-started) for information about scaling in Azure.
+## Cost tagging
 
-## Spot instance retry strategy
+Without resource labels, cloud billing reports cannot attribute compute costs to specific teams, projects, or pipelines.
 
-One way to mitigate issues with Spot reclamation and the resulting interruptions is by having a robust retry and resume strategy. The are multiple options available to you:
+Define a tagging strategy before running production workloads. At minimum, tag by `environment`, `team`, and `pipeline`. Add `project` or `cost_center` tags if you need chargeback reporting.
 
-- [Handle retries in Nextflow by setting `errorStrategy` and `maxRetries`](../tutorials/retry-strategy#handle-retries-in-nextflow-by-setting-errorstrategy-and-maxretries)
-- [Handle retries in AWS by setting `aws.batch.maxSpotAttempts`](../tutorials/retry-strategy#handle-retries-in-aws-by-setting-awsbatchmaxspotattempts)
-- [Implement Spot to On-Demand fallback logic](../tutorials/retry-strategy#implement-spot-to-on-demand-fallback-logic)
+Use [dynamic resource labels](../resource-labels/overview) to apply pipeline-specific tags to AWS Batch jobs automatically at run time. This enables cost attribution at the individual run level without manual configuration.
 
-Refer to [our retry strategy tutorial](../tutorials/retry-strategy) for more information.
+:::warning
+Cancelling a pipeline run in Seqera Platform does not guarantee immediate termination of the underlying cloud compute jobs. In some cases — particularly on AWS Batch — child jobs can continue running after Platform reports the run as cancelled or complete. Configure spend alerts in your cloud provider's billing tools independently of Platform, so that runaway compute costs are detected even if Platform does not surface them.
+:::
+
+:::note
+The cost estimator in Seqera Platform is for indicative purposes only. For billing, budgeting, or chargeback, use your cloud provider's native cost reporting tools: AWS Cost Explorer, GCP Billing, or Azure Cost Management.
+:::
 
 ## Cost management and alerts
 
@@ -92,3 +104,44 @@ Managing your compute spend upfront is a critical part of your production deploy
 
 - Utilize AWS Batch job tagging. This is facilitated by Nextflow's configuration and can be crucial in tracing costs back to specific pipelines. They can include dynamic variables and can be a valuable tool for helping diagnose and identify unexpected fees. This is especially helpful if you're using Nextflow outside of Seqera Platform.
 - Note that CloudWatch fees are not included in your run cost estimates.
+
+## Spot instance retry strategy
+
+One way to mitigate issues with Spot reclamation and the resulting interruptions is by having a robust retry and resume strategy. The are multiple options available to you:
+
+
+- [Handle retries in Nextflow by setting `errorStrategy` and `maxRetries`](../tutorials/retry-strategy#handle-retries-in-nextflow-by-setting-errorstrategy-and-maxretries)
+- [Handle retries in AWS by setting `aws.batch.maxSpotAttempts`](../tutorials/retry-strategy#handle-retries-in-aws-by-setting-awsbatchmaxspotattempts)
+- [Implement Spot to On-Demand fallback logic](../tutorials/retry-strategy#implement-spot-to-on-demand-fallback-logic)
+
+Refer to [our retry strategy tutorial](../tutorials/retry-strategy) for more information.
+
+## Connectivity requirements
+
+Seqera Platform requires outbound connectivity from compute worker nodes to specific endpoints. Blocked connections are a common cause of pipelines failing to start or stalling mid-run.
+
+Worker nodes must be able to reach:
+
+- Seqera Platform API and web endpoints — see [IP addresses and endpoints](../reference/endpoints.mdx) for the current list
+- Your cloud provider's service endpoints — Batch, EC2 or Compute Engine, object storage, container registry
+- Any container registries used by your pipelines (ECR, Artifact Registry, Docker Hub, or private registries)
+- Any external data sources accessed at runtime
+
+If your environment uses SSL inspection or a corporate proxy, verify that it does not interfere with connections to Seqera Platform, object storage, or container registries.
+
+:::note
+If pipelines fail to start or tasks cannot pull container images, connectivity to one of the above endpoints is the most common cause. Check worker node outbound access before investigating other causes.
+:::
+
+## Before go-live
+
+- [ ] Nextflow version pinned and version combination documented
+- [ ] Pipeline resumption tested after version validation
+- [ ] All credentials inventoried with expiry dates and named owners
+- [ ] New credentials tested before cutover; rotation procedure documented
+- [ ] Production compute environments isolated from dev/test
+- [ ] Workspace roles reviewed; Admin not granted broadly
+- [ ] Resource labels defined and applied before first production run
+- [ ] Cloud billing exports configured and spend alerts set
+- [ ] Worker node outbound connectivity verified to all required endpoints
+
