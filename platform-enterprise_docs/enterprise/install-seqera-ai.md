@@ -9,31 +9,17 @@ tags: [seqera-ai, installation, deployment, aws, helm]
 Seqera AI requires Seqera Platform Enterprise 25.3 or later.
 :::
 
-Seqera AI is an intelligent command-line assistant that helps you build, run, and manage bioinformatics workflows. This guide describes how to deploy Seqera AI in Seqera Enterprise deployments on AWS.
+Seqera AI is an intelligent command-line assistant that helps you build, run, and manage bioinformatics workflows. This guide describes how to deploy Seqera AI in a Seqera Enterprise deployment.
 
 ## Prerequisites
 
 Before you begin, you need:
 
 - **Seqera Enterprise 25.3+** deployed via [Helm](./platform-helm.md)
-- **MySQL 8.0+ database**
-- **API key** from a supported inference provider (see below)
-- **MCP server** deployed and accessible from your cluster
-- **Token encryption key** for encrypting sensitive tokens at rest. Generate with:
-
-    ```bash
-    python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
-    ```
-
+- **MySQL 8.0+ database** to store Agent Backend session
+- **API key** from a [supported inference provider](#supported-inference-providers)
+- An **OIDC-compatible provider** for OIDC authentication of the portal web interface and MCP server
 - [Helm v3](https://helm.sh/docs/intro/install) and [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
-
-### AWS requirements
-
-- **AWS EKS cluster** with Seqera Platform deployed
-- **Amazon RDS** for the MySQL database
-- **AWS ALB Ingress Controller** installed in your cluster
-- **TLS certificate** in AWS Certificate Manager
-- **DNS** configured for the Seqera AI subdomain (e.g., `ai.platform.example.com`)
 
 ## Supported inference providers
 
@@ -55,7 +41,8 @@ Seqera AI connects your local CLI environment to your Platform resources through
 | Component | Description |
 |-----------|-------------|
 | **Agent backend** | FastAPI service that orchestrates AI interactions. Deployed as a Helm subchart alongside Platform. |
-| **MCP server** | Model Context Protocol server providing Platform-aware tools (workflows, datasets, compute environments). |
+| **MCP server** | Model Context Protocol server providing Platform-aware tools (workflows, datasets, compute environments). Deployed as a Helm subchart alongside Platform. |
+| **Portal web interface** | Browser-based interface to interact with Platform and Seqera AI. Deployed as a Helm subchart alongside Platform. |
 | **MySQL database** | Dedicated database for session state and conversation history. **Separate from Platform database**. |
 
 **Flow:**
@@ -67,155 +54,50 @@ Seqera AI connects your local CLI environment to your Platform resources through
 1. MCP tools execute Platform operations using the user's credentials.
 1. Results stream back to the CLI via Server-Sent Events (SSE).
 
-## Provision the database
-
-Seqera AI requires a dedicated MySQL database separate from the Platform database.
-
-1. Create a MySQL 8.0+ instance in Amazon RDS:
-
-    - **Engine**: MySQL 8.0
-    - **Instance class**: `db.t3.medium` or larger
-    - **Storage**: 20 GB minimum with autoscaling enabled
-    - **Security group**: Allow inbound MySQL (port 3306) from EKS cluster
-
-1. Connect to the database and create the Seqera AI database and user:
-
-    ```sql
-    CREATE DATABASE seqera_ai;
-    CREATE USER 'seqera_ai'@'%' IDENTIFIED BY '<secure-password>';
-    GRANT ALL PRIVILEGES ON seqera_ai.* TO 'seqera_ai'@'%';
-    FLUSH PRIVILEGES;
-    ```
-
-## Create Kubernetes secrets
-
-1. Create a secret for the inference provider API key:
-
-    ```bash
-    kubectl create secret generic anthropic-secret \
-        --namespace <namespace> \
-        --from-literal=ANTHROPIC_API_KEY=<your-api-key>
-    ```
-
-1. Create a secret for the database credentials:
-
-    ```bash
-    kubectl create secret generic seqera-ai-db-credentials \
-        --namespace <namespace> \
-        --from-literal=DB_PASSWORD=<your-database-password>
-    ```
-
-1. Create a secret for the token encryption key:
-
-    ```bash
-    kubectl create secret generic seqera-ai-token-encryption-key \
-        --namespace <namespace> \
-        --from-literal=TOKEN_ENCRYPTION_KEY=<your-generated-encryption-key>
-    ```
-
-    :::caution
-    Store this key securely. If lost, encrypted tokens in the database cannot be recovered.
-    :::
-
 ## Configure Helm values
 
-Add the following configuration to your Platform Helm values file:
+The Seqera AI components can be installed using the [Seqera Helm charts](https://github.com/seqeralabs/helm-charts). Refer to the examples in the repository for sample configurations.
 
-```yaml
-# Global configuration
-global:
-  platformExternalDomain: platform.example.com
-  agentBackendDomain: ai.platform.example.com
-  mcpDomain: mcp.example.com
+The Seqera AI components can be installed alongside Platform and other subcharts in a single Helm release, or can be installed individually as separate releases.
 
-# Enable Seqera AI agent backend
-agent-backend:
-  enabled: true
+Documentation for the individual charts is available at:
+- [Agent backend](https://github.com/seqeralabs/helm-charts/tree/master/platform/charts/agent-backend)
+- [MCP server](https://github.com/seqeralabs/helm-charts/tree/master/platform/charts/mcp)
+- [Portal web interface](https://github.com/seqeralabs/helm-charts/tree/master/platform/charts/portal-web)
 
-  agentBackend:
-    replicaCount: 1
+### Additional configuration
 
-  # Anthropic API key
-  anthropicApiKeyExistingSecretName: "anthropic-secret"
+The following optional environment variables are not covered by the Helm chart values. Set them in the `.extraEnvVars` section of each chart as needed.
 
-  # Token encryption key (required)
-  tokenEncryptionKeyExistingSecretName: "seqera-ai-token-encryption-key"
+#### Agent backend
 
-  # Database configuration
-  database:
-    host: "seqera-ai-db.xxxxx.us-east-1.rds.amazonaws.com"
-    port: 3306
-    name: "seqera_ai"
-    username: "seqera_ai"
-    existingSecretName: "seqera-ai-db-credentials"
-    existingSecretKey: "DB_PASSWORD"
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `ANTHROPIC_MODEL` | Primary model for AI interactions | `claude-sonnet-4-6` |
+| `FAST_MODEL` | Model for quick tasks (search, summaries) | `claude-haiku-4-5-20251001` |
+| `DEEP_MODEL` | Model for complex planning tasks | `claude-opus-4-5-20251101` |
+| `SEQERA_PLATFORM_URL` | Platform UI URL for constructing links to runs and pipelines | Automatically derived from platform domain |
+| `SESSION_TIMEOUT_SECONDS` | Session timeout | `86400` (24 hours) |
+| `MAX_SESSIONS_PER_USER` | Max concurrent sessions per user | `10` |
+| `SESSION_RETENTION_DAYS` | Days to retain session data | `14` |
+| `CORS_ORIGINS` | Allowed CORS origins (JSON array) | `["*"]` |
 
-  # AWS ALB ingress
-  ingress:
-    enabled: true
-    ingressClassName: "alb"
-    path: "/*"
-    annotations:
-      alb.ingress.kubernetes.io/scheme: internet-facing
-      alb.ingress.kubernetes.io/target-type: ip
-      alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:<region>:<account>:certificate/<certificate-id>"
-      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
-      alb.ingress.kubernetes.io/ssl-redirect: "443"
-      alb.ingress.kubernetes.io/healthcheck-path: /health
-    tls:
-      - hosts:
-          - 'ai.{{ .Values.global.platformExternalDomain }}'
-```
+#### MCP
 
-## Deploy
+TBD
 
-1. Upgrade your Platform Helm release:
+#### Portal web
 
-    ```bash
-    helm upgrade my-release oci://public.cr.seqera.io/charts/platform \
-        --version <version> \
-        --namespace <namespace> \
-        --values my-values.yaml
-    ```
-
-    Database migrations run automatically via an init container on each deployment. No manual migration steps are required.
-
-1. Wait for the agent-backend pod to be ready:
-
-    ```bash
-    kubectl get pods -n <namespace> -l app.kubernetes.io/component=agent-backend -w
-    ```
-
-1. Verify the deployment:
-
-    ```bash
-    kubectl logs -n <namespace> -l app.kubernetes.io/component=agent-backend --tail=50
-    ```
-
-## Configure DNS
-
-Create a DNS record pointing to the ALB for the Seqera AI endpoint:
-
-- **Record**: `ai.platform.example.com`
-- **Type**: CNAME (or Alias for Route 53)
-- **Value**: ALB DNS name (find with `kubectl get ingress -n <namespace>`)
+TBD
 
 ## Verify the installation
 
-1. Check the health endpoint:
+1. Check the health endpoint of the agent backend and mcp to verify connectivity:
 
     ```bash
-    curl -I https://ai.platform.example.com/health
-    ```
-
-    You should receive a `200 OK` response.
-
-1. Test CLI connectivity:
-
-    ```bash
-    export SEQERA_AI_BACKEND_URL=https://ai.platform.example.com
-    seqera login
-    seqera ai
+    curl -i https://ai-api.platform.example.com/health
+    curl -i https://mcp.platform.example.com/health
+    curl -i https://mcp.platform.example.com/service-info
     ```
 
 ## Connect the CLI to Seqera AI
@@ -225,7 +107,7 @@ Set `SEQERA_AI_BACKEND_URL` before running `seqera ai` so the CLI connects to th
 Use your Enterprise deployment:
 
 ```bash
-export SEQERA_AI_BACKEND_URL=https://ai.platform.example.com
+export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com
 seqera login
 seqera ai
 ```
@@ -257,79 +139,6 @@ seqera ai
 ```
 
 You only need `SEQERA_AUTH_DOMAIN` and `SEQERA_AUTH_CLI_CLIENT_ID` when using the OAuth login flow.
-
-## Environment variables reference
-
-### Required
-
-| Variable | Description |
-|----------|-------------|
-| `SEQERA_PLATFORM_API_URL` | Platform API URL (e.g., `https://platform.example.com/api`) |
-| `SEQERA_MCP_URL` | MCP server URL (e.g., `https://mcp.example.com/mcp`) |
-| `ANTHROPIC_API_KEY` | API key for inference provider |
-| `AGENT_BACKEND_DB_HOST` | MySQL database hostname |
-| `AGENT_BACKEND_DB_NAME` | MySQL database name |
-| `AGENT_BACKEND_DB_USER` | MySQL database username |
-| `AGENT_BACKEND_DB_PASSWORD` | MySQL database password |
-| `TOKEN_ENCRYPTION_KEY` | Fernet encryption key for encrypting sensitive tokens at rest. Also accepted as `AGENT_BACKEND_TOKEN_ENCRYPTION_KEY`. |
-
-### Optional
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `ANTHROPIC_MODEL` | Primary model for AI interactions | `claude-sonnet-4-6` |
-| `FAST_MODEL` | Model for quick tasks (search, summaries) | `claude-haiku-4-5-20251001` |
-| `DEEP_MODEL` | Model for complex planning tasks | `claude-opus-4-5-20251101` |
-| `SEQERA_PLATFORM_URL` | Platform UI URL for constructing links to runs and pipelines | Derived from platform domain |
-| `AGENT_BACKEND_DB_PORT` | MySQL port | `3306` |
-| `SESSION_TIMEOUT_SECONDS` | Session timeout | `86400` (24 hours) |
-| `MAX_SESSIONS_PER_USER` | Max concurrent sessions per user | `10` |
-| `SESSION_RETENTION_DAYS` | Days to retain session data | `14` |
-| `LOG_LEVEL` | Application log level (`CRITICAL`, `ERROR`, `WARNING`, `INFO`, `DEBUG`) | `INFO` |
-| `CORS_ORIGINS` | Allowed CORS origins (JSON array) | `["*"]` |
-
-## Helm values reference
-
-For the full list of configuration options, see the [agent-backend chart documentation](https://github.com/seqeralabs/helm-charts/tree/master/platform/charts/agent-backend).
-
-### Global
-
-| Value | Description | Default |
-|-------|-------------|---------|
-| `global.platformExternalDomain` | Domain where Seqera Platform listens | `example.com` |
-| `global.agentBackendDomain` | Domain where the agent backend listens | `""` |
-| `global.mcpDomain` | Domain where MCP server listens | `""` |
-
-### Agent backend
-
-| Value | Description | Default |
-|-------|-------------|---------|
-| `agentBackend.replicaCount` | Number of replicas | `1` |
-| `agentBackend.image.registry` | Image registry | `cr.seqera.io` |
-| `agentBackend.image.repository` | Image repository | `private/nf-tower-enterprise/agent-backend` |
-| `anthropicApiKeyExistingSecretName` | Existing secret containing `ANTHROPIC_API_KEY` | `""` |
-| `tokenEncryptionKeyExistingSecretName` | Existing secret containing `TOKEN_ENCRYPTION_KEY` | `""` |
-
-### Database
-
-| Value | Description | Default |
-|-------|-------------|---------|
-| `database.host` | MySQL hostname | `""` |
-| `database.port` | MySQL port | `3306` |
-| `database.name` | MySQL database name | `""` |
-| `database.username` | MySQL username | `""` |
-| `database.existingSecretName` | Existing secret with DB password | `""` |
-| `database.existingSecretKey` | Key in the secret | `DB_PASSWORD` |
-
-### Ingress
-
-| Value | Description | Default |
-|-------|-------------|---------|
-| `ingress.enabled` | Enable ingress | `false` |
-| `ingress.path` | Ingress path (use `/*` for AWS ALB) | `/` |
-| `ingress.ingressClassName` | Ingress class name | `""` |
-| `ingress.annotations` | Ingress annotations | `{}` |
-| `ingress.tls` | TLS configuration | `[]` |
 
 ## Security considerations
 
