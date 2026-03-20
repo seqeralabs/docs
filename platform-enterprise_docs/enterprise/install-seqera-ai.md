@@ -43,7 +43,7 @@ Seqera AI connects your local CLI environment to your Platform resources through
 | **Agent backend** | FastAPI service that orchestrates AI interactions. Deployed as a Helm subchart alongside Platform. |
 | **MCP server** | Model Context Protocol server providing Platform-aware tools (workflows, datasets, compute environments). Deployed as a Helm subchart alongside Platform. |
 | **Portal web interface** | Browser-based interface to interact with Platform and Seqera AI. Deployed as a Helm subchart alongside Platform. |
-| **MySQL database** | Dedicated database for session state and conversation history. **Separate from Platform database**. |
+| **MySQL database** | Dedicated database for session state and conversation history used by Agent backend. We recommend using a separate managed database from the databases used by Platform and other Seqera products. |
 
 **Flow:**
 
@@ -57,6 +57,7 @@ Seqera AI connects your local CLI environment to your Platform resources through
 ## Configure Helm values
 
 The Seqera AI components can be installed using the [Seqera Helm charts](https://github.com/seqeralabs/helm-charts). Refer to the examples in the repository for sample configurations.
+Some values (like database passwords, API keys, sensitive OIDC settings, cryptographic keys) are recommended to be stored as Kubernetes secrets and referenced in the Helm values in production installations, rather than be specified as plain text.
 
 The Seqera AI components can be installed alongside Platform and other subcharts in a single Helm release, or can be installed individually as separate releases.
 
