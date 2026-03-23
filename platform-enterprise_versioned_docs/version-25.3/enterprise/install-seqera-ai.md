@@ -15,7 +15,7 @@ Seqera AI is an intelligent command-line assistant that helps you build, run, an
 
 Before you begin, you need:
 
-- **Seqera Enterprise 25.3+** deployed via [Helm](./platform-helm.md)
+- **Seqera Enterprise 26.1+** deployed via [Helm](./platform-helm.md)
 - **MySQL 8.0+ database**
 - **API key** from a supported inference provider (see below)
 - **MCP server** deployed and accessible from your cluster
