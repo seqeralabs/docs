@@ -103,7 +103,9 @@ The cost estimator in Seqera Platform is for indicative purposes only. For billi
 
 ## Cost management and alerts
 
-Managing your compute spend upfront is a critical part of your production deployment. We recommend the following practices:
+Managing your compute spend upfront is a critical part of your production deployment. 
+
+Best practices for cost management and alerts include:
 
 - Utilize AWS Batch job tagging. This is facilitated by Nextflow's configuration and can be crucial in tracing costs back to specific pipelines. They can include dynamic variables and can be a valuable tool for helping diagnose and identify unexpected fees. This is especially helpful if you're using Nextflow outside of Seqera Platform.
 - Note that CloudWatch fees are not included in your run cost estimates.
