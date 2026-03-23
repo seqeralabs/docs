@@ -176,9 +176,6 @@ You only need `SEQERA_AUTH_DOMAIN` and `SEQERA_AUTH_CLI_CLIENT_ID` when using th
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `ANTHROPIC_MODEL` | Primary model for AI interactions | `claude-sonnet-4-6` |
-| `FAST_MODEL` | Model for quick tasks (search, summaries) | `claude-haiku-4-5-20251001` |
-| `DEEP_MODEL` | Model for complex planning tasks | `claude-opus-4-5-20251101` |
 | `SEQERA_PLATFORM_URL` | Platform UI URL for constructing links to runs and pipelines | Derived from platform domain |
 | `AGENT_BACKEND_DB_PORT` | MySQL port | `3306` |
 | `SESSION_TIMEOUT_SECONDS` | Session timeout | `86400` (24 hours) |
