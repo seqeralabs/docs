@@ -89,14 +89,6 @@ The following optional environment variables are not covered by the Helm chart v
 | `SESSION_RETENTION_DAYS` | Days to retain session data | `14` |
 | `CORS_ORIGINS` | Allowed CORS origins (JSON array) | `["*"]` |
 
-#### MCP
-
-TBD
-
-#### Portal web
-
-TBD
-
 ## Verify the installation
 
 1. Check the health endpoint of the agent backend and mcp to verify connectivity:

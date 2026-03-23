@@ -491,8 +491,6 @@ The assistant can generate the exact Nextflow command with proper parameters for
 
 </details>
 
-<<<<<<< HEAD
-=======
 ## Work with Seqera Platform
 
 Use Seqera Platform capabilities to run and manage workflows at scale with AI assistance.
