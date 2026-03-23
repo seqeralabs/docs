@@ -88,10 +88,10 @@ For teams sharing pipelines across workspaces, use a [shared workspace](../orgs-
 ## Cost tagging
 
 Without resource labels, cloud billing reports cannot attribute compute costs to specific teams, projects, or pipelines.
+Best practices for cost tagging include:
 
-Define a tagging strategy before running production workloads. At minimum, tag by `environment`, `team`, and `pipeline`. Add `project` or `cost_center` tags if you need chargeback reporting.
-
-Use [dynamic resource labels](../resource-labels/overview) to apply pipeline-specific tags to AWS Batch jobs automatically at run time. This enables cost attribution at the individual run level without manual configuration.
+- Define a tagging strategy before running production workloads. At minimum, tag by `environment`, `team`, and `pipeline`. Add `project` or `cost_center` tags if you need chargeback reporting.
+- Use [dynamic resource labels](../resource-labels/overview) to apply pipeline-specific tags to AWS Batch jobs automatically at run time. This enables cost attribution at the individual run level without manual configuration.
 
 :::warning
 Cancelling a pipeline run in Seqera Platform does not guarantee immediate termination of the underlying cloud compute jobs. In some cases — particularly on AWS Batch — child jobs can continue running after Platform reports the run as cancelled or complete. Configure spend alerts in your cloud provider's billing tools independently of Platform, so that runaway compute costs are detected even if Platform does not surface them.
