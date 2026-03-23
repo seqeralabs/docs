@@ -138,15 +138,4 @@ If your environment uses SSL inspection or a corporate proxy, verify that it doe
 If pipelines fail to start or tasks cannot pull container images, connectivity to one of the above endpoints is the most common cause. Check worker node outbound access before investigating other causes.
 :::
 
-## Before go-live
-
-- [ ] Nextflow version pinned and version combination documented
-- [ ] Pipeline resumption tested after version validation
-- [ ] All credentials inventoried with expiry dates and named owners
-- [ ] New credentials tested before cutover; rotation procedure documented
-- [ ] Production compute environments isolated from dev/test
-- [ ] Workspace roles reviewed; Admin not granted broadly
-- [ ] Resource labels defined and applied before first production run
-- [ ] Cloud billing exports configured and spend alerts set
-- [ ] Worker node outbound connectivity verified to all required endpoints
 
