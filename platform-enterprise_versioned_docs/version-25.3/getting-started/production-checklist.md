@@ -73,9 +73,11 @@ Use [Pipeline Secrets](../secrets/overview.mdx) to manage sensitive values such 
 
 Permissions within shared compute environments are a frequent source of unexpected behavior, particularly when multiple teams use the same workspace.
 
-- Use dedicated compute environments for production. Avoid sharing production compute environments with development or test workloads.
+Best practices for compute environment permissions include:
+
+- Use dedicated compute environments for production and avoid sharing production compute environments with development or test workloads.
 - Assign workspace roles at the level of access each user actually requires. The **Launch** role is appropriate for most researchers running established pipelines; **Maintain** is for users who need to configure compute environments and pipelines.
-- Users in the same workspace can see and cancel each other's pipeline runs. If your organization requires run isolation between teams or projects, use separate workspaces.
+- If your organization requires run isolation between teams or projects, use separate workspaces. Users in the same workspace can see and cancel each other's pipeline runs.
 
 :::note
 Admin-level workspace access grants the ability to modify compute environments and credentials, which can affect all pipelines in the workspace. Assign Admin only to users who are responsible for workspace configuration.
