@@ -103,7 +103,7 @@ The cost estimator in Seqera Platform is for indicative purposes only. For billi
 
 ## Cost management and alerts
 
-Managing your compute spend upfront is a critical part of your production deployment. 
+Managing your compute spend upfront is a critical part of your production deployment.
 
 Best practices for cost management and alerts include:
 
