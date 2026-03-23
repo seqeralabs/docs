@@ -38,7 +38,7 @@ Incompatibilities between Nextflow and Platform versions are a leading cause of 
 
 Best practices for version pinning and compatibility include:
 
-- Pin a specific Nextflow version for all production pipelines and document it alongside your Seqera Platform version. 
+- Pin a specific Nextflow version for all production pipelines and document it alongside your Seqera Platform version.
 - Do not upgrade Nextflow and Seqera Platform at the same time.
 - Validate any version change in a non-production environment before promoting to production.
 - After any version change, test pipeline resumption explicitly: launch a representative pipeline, interrupt it, and confirm it resumes from the last successful task.
