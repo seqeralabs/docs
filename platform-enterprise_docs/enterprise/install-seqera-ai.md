@@ -120,7 +120,6 @@ npm install -g seqera
 Use your Enterprise deployment:
 
 ```bash
-export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com
 export SEQERA_AUTH_DOMAIN=https://platform.example.com/api
 export SEQERA_AUTH_CLI_CLIENT_ID=seqera_ai_cli
 export SEQERA_AI_BACKEND_URL=https://ai.platform.example.com
@@ -157,6 +156,79 @@ seqera ai
 ```
 
 You only need `SEQERA_AUTH_DOMAIN` and `SEQERA_AUTH_CLI_CLIENT_ID` when using the OAuth login flow. `SEQERA_ACCESS_TOKEN` (`TOWER_ACCESS_TOKEN`) is also supported.
+
+## Environment variables reference
+
+### Required
+
+| Variable | Description |
+|----------|-------------|
+| `SEQERA_PLATFORM_API_URL` | Platform API URL (e.g., `https://platform.example.com/api`) |
+| `SEQERA_MCP_URL` | MCP server URL (e.g., `https://mcp.example.com/mcp`) |
+| `ANTHROPIC_API_KEY` | API key for inference provider |
+| `AGENT_BACKEND_DB_HOST` | MySQL database hostname |
+| `AGENT_BACKEND_DB_NAME` | MySQL database name |
+| `AGENT_BACKEND_DB_USER` | MySQL database username |
+| `AGENT_BACKEND_DB_PASSWORD` | MySQL database password |
+| `TOKEN_ENCRYPTION_KEY` | Fernet encryption key for encrypting sensitive tokens at rest. Also accepted as `AGENT_BACKEND_TOKEN_ENCRYPTION_KEY`. |
+
+### Optional
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `ANTHROPIC_MODEL` | Primary model for AI interactions | `claude-sonnet-4-6` |
+| `FAST_MODEL` | Model for quick tasks (search, summaries) | `claude-haiku-4-5-20251001` |
+| `DEEP_MODEL` | Model for complex planning tasks | `claude-opus-4-5-20251101` |
+| `SEQERA_PLATFORM_URL` | Platform UI URL for constructing links to runs and pipelines | Derived from platform domain |
+| `AGENT_BACKEND_DB_PORT` | MySQL port | `3306` |
+| `SESSION_TIMEOUT_SECONDS` | Session timeout | `86400` (24 hours) |
+| `MAX_SESSIONS_PER_USER` | Max concurrent sessions per user | `10` |
+| `SESSION_RETENTION_DAYS` | Days to retain session data | `14` |
+| `LOG_LEVEL` | Application log level (`CRITICAL`, `ERROR`, `WARNING`, `INFO`, `DEBUG`) | `INFO` |
+| `CORS_ORIGINS` | Allowed CORS origins (JSON array) | `["*"]` |
+
+## Helm values reference
+
+For the full list of configuration options, see the [agent-backend chart documentation](https://github.com/seqeralabs/helm-charts/tree/master/platform/charts/agent-backend).
+
+### Global
+
+| Value | Description | Default |
+|-------|-------------|---------|
+| `global.platformExternalDomain` | Domain where Seqera Platform listens | `example.com` |
+| `global.agentBackendDomain` | Domain where the agent backend listens | `""` |
+| `global.mcpDomain` | Domain where MCP server listens | `""` |
+
+### Agent backend
+
+| Value | Description | Default |
+|-------|-------------|---------|
+| `agentBackend.replicaCount` | Number of replicas | `1` |
+| `agentBackend.image.registry` | Image registry | `cr.seqera.io` |
+| `agentBackend.image.repository` | Image repository | `private/nf-tower-enterprise/agent-backend` |
+| `anthropicApiKeyExistingSecretName` | Existing secret containing `ANTHROPIC_API_KEY` | `""` |
+| `tokenEncryptionKeyExistingSecretName` | Existing secret containing `TOKEN_ENCRYPTION_KEY` | `""` |
+
+### Database
+
+| Value | Description | Default |
+|-------|-------------|---------|
+| `database.host` | MySQL hostname | `""` |
+| `database.port` | MySQL port | `3306` |
+| `database.name` | MySQL database name | `""` |
+| `database.username` | MySQL username | `""` |
+| `database.existingSecretName` | Existing secret with DB password | `""` |
+| `database.existingSecretKey` | Key in the secret | `DB_PASSWORD` |
+
+### Ingress
+
+| Value | Description | Default |
+|-------|-------------|---------|
+| `ingress.enabled` | Enable ingress | `false` |
+| `ingress.path` | Ingress path (use `/*` for AWS ALB) | `/` |
+| `ingress.ingressClassName` | Ingress class name | `""` |
+| `ingress.annotations` | Ingress annotations | `{}` |
+| `ingress.tls` | TLS configuration | `[]` |
 
 ## Security considerations
 
