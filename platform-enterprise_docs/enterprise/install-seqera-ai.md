@@ -6,7 +6,7 @@ tags: [seqera-ai, installation, deployment, aws, helm]
 ---
 
 :::caution
-Seqera AI requires Seqera Platform Enterprise 25.3 or later.
+Seqera AI requires Seqera Platform Enterprise 26.1 or later for the agent backend, MCP server, portal web interface, and CLI integration.
 :::
 
 Seqera AI is an intelligent command-line assistant that helps you build, run, and manage bioinformatics workflows. This guide describes how to deploy Seqera AI in a Seqera Enterprise deployment.
@@ -16,9 +16,15 @@ Seqera AI is an intelligent command-line assistant that helps you build, run, an
 Before you begin, you need:
 
 - **Seqera Enterprise 25.3+** deployed via [Helm](./platform-helm.md)
-- **MySQL 8.0+ database** to store Agent Backend session
-- **API key** from a [supported inference provider](#supported-inference-providers)
-- An **OIDC-compatible provider** for OIDC authentication of the portal web interface and MCP server
+- **MySQL 8.0+ database**
+- **API key** from a supported inference provider (see below)
+- **MCP server** deployed and accessible from your cluster
+- **OIDC-compatible identity provider** for the portal web interface, MCP server, and CLI login flow
+- **Token encryption key** for encrypting sensitive tokens at rest. Generate with:
+
+    ```bash
+    python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+    ```
 - [Helm v3](https://helm.sh/docs/intro/install) and [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
 
 ## Supported inference providers
@@ -41,9 +47,9 @@ Seqera AI connects your local CLI environment to your Platform resources through
 | Component | Description |
 |-----------|-------------|
 | **Agent backend** | FastAPI service that orchestrates AI interactions. Deployed as a Helm subchart alongside Platform. |
-| **MCP server** | Model Context Protocol server providing Platform-aware tools (workflows, datasets, compute environments). Deployed as a Helm subchart alongside Platform. |
-| **Portal web interface** | Browser-based interface to interact with Platform and Seqera AI. Deployed as a Helm subchart alongside Platform. |
-| **MySQL database** | Dedicated database for session state and conversation history used by Agent backend. We recommend using a separate managed database from the databases used by Platform and other Seqera products. |
+| **MCP server** | Model Context Protocol server providing Platform-aware tools (workflows, datasets, compute environments). |
+| **Portal web interface** | Browser-based interface for Seqera AI and related Platform features. |
+| **MySQL database** | Dedicated database for session state and conversation history. **Separate from Platform database**. |
 
 **Flow:**
 
@@ -105,13 +111,24 @@ TBD
 
 Set `SEQERA_AI_BACKEND_URL` before running `seqera ai` so the CLI connects to the correct backend.
 
+Install the CLI first by following [Seqera AI CLI installation](../seqera-ai/installation.mdx), or install it directly with:
+
+```bash
+npm install -g seqera
+```
+
 Use your Enterprise deployment:
 
 ```bash
 export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com
+export SEQERA_AUTH_DOMAIN=https://platform.example.com/api
+export SEQERA_AUTH_CLI_CLIENT_ID=seqera_ai_cli
+export SEQERA_AI_BACKEND_URL=https://ai.platform.example.com
 seqera login
 seqera ai
 ```
+
+If your Enterprise deployment uses a different OAuth client ID for the CLI, replace `seqera_ai_cli` with the value configured for your installation.
 
 If you are testing a development build of the CLI against the hosted production Seqera AI service, use the following settings instead:
 
@@ -120,7 +137,7 @@ If you are testing a development build of the CLI against the hosted production 
 | `SEQERA_AI_BACKEND_URL` | Seqera AI backend endpoint used by the CLI | `https://ai-api.seqera.io` |
 | `SEQERA_AUTH_DOMAIN` | Platform API base URL used for browser-based login | `https://cloud.seqera.io/api` |
 | `SEQERA_AUTH_CLI_CLIENT_ID` | OAuth client ID for the Seqera AI CLI | `seqera_ai_cli` |
-| `TOWER_ACCESS_TOKEN` | Platform personal access token used instead of browser login | `<PLATFORM_ACCESS_TOKEN>` |
+| `SEQERA_ACCESS_TOKEN` | Platform personal access token used instead of browser login (`TOWER_ACCESS_TOKEN` also supported) | `<PLATFORM_ACCESS_TOKEN>` |
 
 Use the OAuth login flow:
 
@@ -134,12 +151,12 @@ seqera ai
 Use a Platform personal access token instead of browser login:
 
 ```bash
-export TOWER_ACCESS_TOKEN=<PLATFORM_ACCESS_TOKEN>
+export SEQERA_ACCESS_TOKEN=<PLATFORM_ACCESS_TOKEN>
 export SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io
 seqera ai
 ```
 
-You only need `SEQERA_AUTH_DOMAIN` and `SEQERA_AUTH_CLI_CLIENT_ID` when using the OAuth login flow.
+You only need `SEQERA_AUTH_DOMAIN` and `SEQERA_AUTH_CLI_CLIENT_ID` when using the OAuth login flow. `SEQERA_ACCESS_TOKEN` (`TOWER_ACCESS_TOKEN`) is also supported.
 
 ## Security considerations
 
