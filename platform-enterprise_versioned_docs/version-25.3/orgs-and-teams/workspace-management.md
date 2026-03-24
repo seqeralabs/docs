@@ -40,6 +40,9 @@ Apart from the **Participants** tab, the _organization_ workspace is similar to 
 - **Collaboration mode**: Limit which members can connect to a running Studio in the workspace. Toggle between **Collaborative**  (any member with the right permissions can connect) and **Private** (only the creator can connect). Default is **Collaborative** mode.
 - **Session lifespan**: Set a predefined lifespan (between 1 and 120 hours), after which all Studio sessions in the workspace are automatically stopped. To keep all workspace Studios running indefinitely, select **Always keep the session running**. Default is a session lifespan of **8 hours**.
 - **Container repository**: Define the target container repository where custom Studio images built with Wave will be pushed. The workspace must have a credential with read and write permissions to the target container registry. There is no default and custom builds will fail for self-hosted deployments.
+- **Container naming strategy**: Define your container registry naming strategy. Default for Seqera Cloud is **tagPrefix**.
+  - **tagPrefix**: Differentiate different versions of an application **within the same repository** (e.g. `registry/image:prefix-version`) and is good for organizing specific image types (`dev`, `staging`, `prod`). Typically low repository counts with more tags.
+  - **imageSuffix**: Logically group different types of builds **across many repositories** (e.g. `registry/image-suffix:version`) and is good for managing permissions or different build environments (`front-end` vs. `back-end`, or `API` vs. `GUI`). Typically high repository counts (one repository per environment/variant).
 
 :::note
 Studios sessions created in shared workspaces are not shared across all the workspaces in an organization.
