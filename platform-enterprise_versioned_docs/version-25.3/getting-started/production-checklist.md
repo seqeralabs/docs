@@ -81,7 +81,7 @@ Credentials in Seqera Platform require active management. Expired or rotated cre
 Do not rotate credentials during active pipeline runs. Schedule rotations during maintenance windows.
 :::
 
-Use [Pipeline Secrets](../secrets/overview.mdx) to manage sensitive values such as API keys for third-party services. Secrets are injected at runtime and are not exposed in pipeline logs or configuration files.
+Use [Pipeline Secrets](../secrets/overview) to manage sensitive values such as API keys for third-party services. Secrets are injected at runtime and are not exposed in pipeline logs or configuration files.
 
 ## Compute environment permissions
 
