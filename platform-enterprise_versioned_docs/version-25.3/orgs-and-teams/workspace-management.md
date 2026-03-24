@@ -42,7 +42,7 @@ Apart from the **Participants** tab, the _organization_ workspace is similar to 
 - **Container repository**: Define the target container repository where custom Studio images built with Wave will be pushed. The workspace must have a credential with read and write permissions to the target container registry. There is no default and custom builds will fail for self-hosted deployments.
 - **Container naming strategy**: Define your container registry naming strategy. Default for Seqera Cloud is **tagPrefix**.
   - **tagPrefix**: Differentiate application versions within the same repository (e.g., `registry/image:prefix-version`). This strategy is recommended for organizing specific image types (`dev`, `staging`, `prod`) and typically results in fewer repositories with more tags.
-  - **imageSuffix**: Logically group different types of builds across many repositories (e.g., `registry/image-suffix:version`). This strategy is recommended for managing permissions or different build environments (`front-end` vs. `back-end`, or `API` vs. `GUI`) and typically results in higher repository counts (i.e., one repository per environment/variant).
+  - **imageSuffix**: Group different build types across repositories (e.g., `registry/image-suffix:version`). This strategy is recommended for managing permissions or different build environments (`front-end` vs. `back-end`, or `API` vs. `GUI`) and typically results in higher repository counts (i.e., one repository per environment/variant).
 
 :::note
 Studios sessions created in shared workspaces are not shared across all the workspaces in an organization.
