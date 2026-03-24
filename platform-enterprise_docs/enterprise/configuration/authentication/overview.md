@@ -114,11 +114,11 @@ tower:
 
 Platform login sessions remain active as long as the application browser window remains open and active. Sessions use short-lived access tokens that are automatically refreshed via heartbeat.
 
-| Setting                    | Default    | Description                                                            |
-| :------------------------- | :--------- | :--------------------------------------------------------------------- |
-| `micronaut.security.token.generator.access-token.expiration`       | 3600s (1h) | Short-lived token, auto-refreshed via heartbeat                             |
-| `micronaut.security.token.jwt.signatures.refresh-token.expiration` | 6h         | Session idle timeout — users are logged out after this period of inactivity |
-| `micronaut.security.token.refresh.cookie.cookie-max-age`           | 12h        | Browser cookie lifetime (should be ≥ refresh token)                         |
+| Setting                                                           | Default    | Description                                                                 |
+|:------------------------------------------------------------------|:-----------|:----------------------------------------------------------------------------|
+| `micronaut.security.token.generator.access-token.expiration`      | 3600s (1h) | Short-lived token, auto-refreshed via heartbeat                             |
+| `micronaut.security.token.jwt.generator.refresh-token.expiration` | 6h         | Session idle timeout — users are logged out after this period of inactivity |
+| `micronaut.security.token.refresh.cookie.cookie-max-age`          | 12h        | Browser cookie lifetime (should be ≥ refresh token)                         |
 
 **tower.yml**
 
@@ -127,7 +127,7 @@ micronaut:
   security:
     token:
       jwt:
-        signatures:
+        generator:
           refresh-token:
             expiration: 8h
       generator:
