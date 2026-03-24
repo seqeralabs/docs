@@ -33,11 +33,7 @@ $ python3
 
 In order for you to access resources such as Fusion tarballs, `nf-xpack` files, Wave cloud containers and other services provided by Seqera, you'll need to add `*.seqera.io.cdn.cloudflare.net` to the allowlist in your network firewall. If DNS wildcards aren't supported by your firewall, you can use the following:
 
-- `cloud.seqera.io`
-- `api.cloud.seqera.io`
-- `user-data.cloud.seqera.io`
 - `tower.nf`
-- `connect.cloud.seqera.io` and its subdomains `*.connect.cloud.seqera.io`
 - `hub.seqera.io`
 - `intern.seqera.io`
 - `wave.seqera.io`
