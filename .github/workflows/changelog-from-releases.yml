@@ -57,11 +57,11 @@ jobs:
 
       - name: Checkout docs repo
         if: steps.should-process.outputs.process == 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
 
       - name: Install uv
         if: steps.should-process.outputs.process == 'true'
-        uses: astral-sh/setup-uv@v4
+        uses: astral-sh/setup-uv@38f3f104447c67c051c4a08e39b64a148898af3a # ratchet:astral-sh/setup-uv@v4
 
       - name: Configure git
         if: steps.should-process.outputs.process == 'true'

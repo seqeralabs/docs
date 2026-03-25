@@ -28,10 +28,10 @@ Use saved pipeline names for pre-configured workflows with specific parameters a
 | `-n`, `--name` | Custom run name for the workflow execution. | No | `null` |
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No | `null` |
 | `-p`, `--profile` | Array of Nextflow configuration profile names to apply. | No | `null` |
-| `-r`, `--revision` | Git revision, branch, or tag to use. Use `--commit-id` to pin a specific commit within that revision. | No | `null` |
-| `--commit-id` | Specific Git commit hash to pin the pipeline execution to. | No | `null` |
-| `--version-id` | Launch a specific saved pipeline version by version identifier. Available when launching a saved pipeline name from the Launchpad. | No | `null` |
-| `--version-name` | Launch a specific saved pipeline version by version name. Available when launching a saved pipeline name from the Launchpad. | No | `null` |
+| `-r`, `--revision` | Git [revision, branch, or tag](https://docs.seqera.io/platform-cloud/pipelines/revision) to use. Use `--commit-id` to pin a specific commit within that revision. | No | `null` |
+| `--commit-id` | Specific Git commit hash to [pin](https://docs.seqera.io/platform-cloud/pipelines/revision) the pipeline execution to. | No | `null` |
+| `--version-id` | Launch a specific saved [pipeline version](https://docs.seqera.io/platform-cloud/pipelines/versioning) by version identifier. Available when launching a saved pipeline name from the Launchpad. | No | `null` |
+| `--version-name` | Launch a specific saved [pipeline version](https://docs.seqera.io/platform-cloud/pipelines/versioning) by version name. Available when launching a saved pipeline name from the Launchpad. | No | `null` |
 | `--wait` | Wait until workflow reaches specified status: SUBMITTED, RUNNING, SUCCEEDED, FAILED, CANCELLED | No | `null` |
 | `-l`, `--labels` | Labels to assign to each pipeline run. Provide comma-separated label values (use key=value format for resource labels). Labels will be created if they don't exist | No | `null` |
 | `--launch-container` | Container image to use for the Nextflow launcher. | No | `null` |
@@ -66,7 +66,18 @@ Workflow 7q8r9s0t1u2v3 submitted at [my-organization-updated / my-workspace] wor
     https://cloud.seqera.io/orgs/my-organization-updated/workspaces/my-workspace/watch/7q8r9s0t1u2v3
 ```
 
-## Version-aware launches
+## Pipeline versions and source revision
+
+For saved Launchpad pipelines, target a published version by name or ID:
+
+```bash
+tw launch \
+  -w 123456789012345 \
+  --version-name my-pipeline-2 \
+  my-pipeline
+```
+
+If you do not provide `--version-id` or `--version-name`, the CLI launches the pipeline's default saved version.
 
 For direct Git URL launches, use `--revision` and optionally `--commit-id` to control the source revision:
 
@@ -77,14 +88,3 @@ tw launch \
   --commit-id a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2 \
   https://github.com/nextflow-io/hello
 ```
-
-For saved Launchpad pipelines in workspaces with pipeline versioning enabled, target a published version by name or ID:
-
-```bash
-tw launch \
-  -w 123456789012345 \
-  --version-name my-pipeline-2 \
-  my-pipeline
-```
-
-If you do not provide `--version-id` or `--version-name`, the CLI launches the pipeline's default saved version.
