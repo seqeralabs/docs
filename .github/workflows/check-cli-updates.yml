@@ -2,7 +2,7 @@ name: Check for CLI Updates
 
 on:
   schedule:
-    - cron: '0 10 * * *'  # Daily at 10 AM UTC
+    - cron: '0 10 * * *' # Daily at 10 AM UTC
   workflow_dispatch:
 
 jobs:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout docs repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # ratchet:actions/checkout@v4
 
       - name: Get latest tower-cli release
         id: cli-release
@@ -33,7 +33,7 @@ jobs:
 
       - name: Trigger update workflow
         if: steps.check.outputs.exists == 'false'
-        uses: peter-evans/repository-dispatch@v2
+        uses: peter-evans/repository-dispatch@bf47d102fdb849e755b0b0023ea3e81a44b6f570 # ratchet:peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           event-type: cli-release
