@@ -1,7 +1,7 @@
 ---
 title: Azure Batch
 description: "Use Fusion with Azure Batch and Azure Blob storage"
-date: "23 Aug 2024"
+date created: "2024-08-23"
 tags: [fusion, storage, compute, azure batch, blob storage]
 ---
 
@@ -12,9 +12,9 @@ Fusion simplifies and improves the efficiency of Nextflow pipelines in [Azure Ba
 - By replacing the Azure CLI with a native API client, the transfer is much more robust at scale.
 - By streaming relevant data and monitoring the virtual machine storage, Fusion can use more data than the capacity of the attached storage drive
 
-### Platform Azure Batch compute environments 
+### Platform Azure Batch compute environments
 
-Seqera Platform supports Fusion in Batch Forge and manual Azure Batch compute environments. 
+Seqera Platform supports Fusion in Batch Forge and manual Azure Batch compute environments.
 
 See [Azure Batch](https://docs.seqera.io/platform-cloud/compute-envs/azure-batch) for compute and storage recommendations and instructions to enable Fusion.
 
@@ -30,7 +30,7 @@ We recommend selecting machine types with a local temp storage disk of at least 
     process.executor = 'azure-batch'
     wave.enabled = true
     fusion.enabled = true
-    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'    
+    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
     ```
 
     Replace `<PLATFORM_ACCESS_TOKEN>` with your Platform access token.
