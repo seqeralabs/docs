@@ -16,7 +16,7 @@ jobs:
       pull-requests: read
 
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # ratchet:actions/checkout@v6.0.0
 
       # Action runs on the issue comment, so we don't get the PR by default.
       # Use the GitHub CLI to check out the PR.
@@ -25,9 +25,15 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: gh pr checkout ${{ github.event.issue.number }}
 
+      # Only run it on changed files with: https://github.com/pre-commit/action/issues/7
+      - id: changed-files
+        uses: tj-actions/changed-files@24d32ffd492484c1d75e0c0b894501ddb9d30d62 # ratchet:tj-actions/changed-files@v47
+
       - uses: j178/prek-action@0bb87d7f00b0c99306c8bcb8b8beba1eb581c037 # ratchet:j178/prek-action@v1.1.1
         id: pre-commit
         continue-on-error: true
+        with:
+          extra-args: --files ${{ steps.changed-files.outputs.all_changed_files }}
 
       - name: Check if any files changed
         run: |
