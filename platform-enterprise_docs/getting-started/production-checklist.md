@@ -107,7 +107,7 @@ Best practices for compute environment sizing include:
 
 - A typical starting range for max CPUs is 2000 to 5000, depending on your workload volume and concurrency needs. Your Seqera account team can advise on the best sizing for your environment.
 - Consider enabling Fusion v2 with fast instance storage (NVMe) for I/O-intensive workloads on AWS. In tested benchmarks, this showed a 34% reduction in total pipeline runtime and up to 49% reduction in CPU hours compared to plain S3 storage. See [RNA-Seq performance benchmarks](../getting-started/rnaseq#nf-corernaseq-performance-in-platform) for details.
-- Use the [pipeline optimization feature](../launch/optimization) to right-size resource allocations based on actual usage data. After a successful run, select the lightbulb icon next to the pipeline in the Launchpad to view and apply an optimized configuration profile.
+- Use the [pipeline optimization feature](../pipeline-optimization/overview) to right-size resource allocations based on actual usage data. After a successful run, select the lightbulb icon next to the pipeline in the Launchpad to view and apply an optimized configuration profile.
 - For GPU workloads such as protein structure prediction, use GPU-enabled instance families (`g4dn`, `g5`, or `p3` on AWS) and ensure the GPU ECS AMI is enabled in the compute environment configuration.
 
 :::warning
