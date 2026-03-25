@@ -190,23 +190,25 @@
 - Name: credentials.category
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Credential category used to group providers by purpose, for example
+    `cloud-compute`, `scm-host`, or `container-reg`.
 - Name: credentials.deleted
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, the credential record has been soft-deleted and is
+    retained only for internal reference.
 - Name: credentials.lastUsed
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the credentials were last used by Seqera Platform.
 - Name: credentials.dateCreated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the credential record was created.
 - Name: credentials.lastUpdated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the credential record was last updated.
 - Name: credentials.keys
   Type: object
   Req/Opt: Optional
@@ -214,7 +216,9 @@
 - Name: credentials.keys.discriminator
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Read-only provider discriminator for the concrete credentials
+    payload. This value identifies which `keys` schema applies and matches the
+    parent `provider` field.
 - Name: metadata
   Type: object
   Req/Opt: Optional
@@ -262,23 +266,25 @@
 - Name: credentials.category
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Credential category used to group providers by purpose, for example
+    `cloud-compute`, `scm-host`, or `container-reg`.
 - Name: credentials.deleted
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, the credential record has been soft-deleted and is
+    retained only for internal reference.
 - Name: credentials.lastUsed
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the credentials were last used by Seqera Platform.
 - Name: credentials.dateCreated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the credential record was created.
 - Name: credentials.lastUpdated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the credential record was last updated.
 - Name: credentials.keys
   Type: object
   Req/Opt: Optional
@@ -286,7 +292,9 @@
 - Name: credentials.keys.discriminator
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Read-only provider discriminator for the concrete credentials
+    payload. This value identifies which `keys` schema applies and matches the
+    parent `provider` field.
 - Name: metadata
   Type: object
   Req/Opt: Optional

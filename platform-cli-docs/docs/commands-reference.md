@@ -47,6 +47,7 @@ tw credentials add google -h  # Help for specific provider
 ### Pipelines and runs
 
 - [**pipelines**](reference/pipelines) - Manage pipelines
+- [**pipeline-schemas**](reference/pipeline-schemas) - Store pipeline schemas in Platform
 - [**launch**](reference/launch) - Launch a pipeline
 - [**runs**](reference/runs) - Manage pipeline runs
 - [**actions**](reference/actions) - Manage pipeline actions
