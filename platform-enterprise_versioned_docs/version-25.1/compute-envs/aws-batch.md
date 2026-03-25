@@ -653,6 +653,10 @@ Rather than attaching permissions directly to the IAM user, you can create an IA
 
 Multiple users can be specified in the trust policy by adding more ARNs to the `Principal` section.
 
+:::info
+Set `TOWER_ALLOW_INSTANCE_CREDENTIALS=true` in your deployment environment to create AWS credentials using an IAM role ARN only (no access key or secret key required).
+:::
+
 ## Automatic configuration of Batch resources
 
 :::caution

@@ -9,7 +9,7 @@ tags: [cloud, vm, amazon, aws, compute-environment]
 
 :::note
 This compute environment type is currently in public preview. Please consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have an AWS account with a valid AWS subscription.
-::: 
+:::
 
 The current implementation of compute environments for cloud providers all rely on the use of batch services such as AWS Batch, Azure Batch, and Google Batch for the execution and management of submitted jobs, including pipelines and Studio session environments. Batch services are suitable for large-scale workloads, but they add management complexity. In practical terms, the currently used batch services result in some limitations:
 
@@ -32,7 +32,7 @@ This type of compute environment is best suited to run Studios and small to medi
 
 ## Supported regions
 
-The following regions are currently supported: 
+The following regions are currently supported:
 
 - `eu-west-1`
 - `us-east-1`
@@ -49,6 +49,57 @@ The following regions are currently supported:
 ### Platform credentials
 
 To create and launch pipelines or Studio sessions with this compute environment type, you must attach Seqera credentials for the cloud provider. Some permissions are mandatory for the compute environment to be created and function correctly; others are optional and used to pre-fill options in Platform.
+
+AWS credentials can be configured in two ways:
+
+- **Key-based credentials**: Access key and secret key with direct IAM permissions. If you provide a role ARN in **Assume role**, the **Generate External ID** switch is displayed and External ID generation is optional.
+- **Role-based credentials (recommended)**: Use role assumption only (no static keys). Paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. External ID is generated automatically when you save.
+
+Use the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. This field is available for both key-based and role-based credentials. It is optional for key-based credentials and required for role-based credentials.
+
+Existing credentials created before March 2026 continue to work without changes. `TOWER_ALLOW_INSTANCE_CREDENTIALS=true` configuration behavior remains unchanged.
+
+### Role-based trust policy example (Seqera Enterprise)
+
+For role-based AWS credentials in Enterprise, use the AWS IAM role configured in your deployment (`<TOWER_AWS_JUMP_ROLE_ARN>`) in your trust policy and enforce the `External ID` generated during credential creation:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "<YOUR_SEQERA_ROLE_ARN>"
+      },
+      "Action": "sts:AssumeRole",
+      "Condition": {
+        "StringEquals": {
+          "sts:ExternalId": "<ExternalId>"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "<YOUR_SEQERA_ROLE_ARN>"
+      },
+      "Action": "sts:TagSession"
+    }
+  ]
+}
+```
+
+:::info
+In Seqera Enterprise, a jump role is optional. If you configure one, use your own jump role ARN as the trusted principal in the trust policy.
+
+The **Assume role** value in the credential form is the customer IAM role ARN in your AWS account. It is separate from any optional jump role configuration.
+:::
+
+:::info
+To use role-based access with no External ID, set `TOWER_ALLOW_INSTANCE_CREDENTIALS=true` in your deployment [configuration](../enterprise/configuration/overview#compute-environments).
+Then create AWS credentials using an IAM role ARN only (no access key, secret key, or External ID), and remove the entire `Condition` block for `sts:ExternalId` from your trust policy.
+:::
 
 ### Required permissions
 
@@ -180,7 +231,7 @@ The following permissions enable Seqera to populate values for dropdown fields. 
 }
 ```
 
-## Managed Amazon Machine Image (AMI) 
+## Managed Amazon Machine Image (AMI)
 
 The AWS Cloud compute environment uses an AMI maintained by Seqera, and the pipeline launch procedure assumes that some basic tooling is already present in the image itself. If you want to provide your own AMI, it must include at least the following:
 

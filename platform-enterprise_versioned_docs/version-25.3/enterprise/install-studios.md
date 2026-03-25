@@ -19,6 +19,7 @@ See each deployment guide for detailed requirements.
 
 ## Prerequisites
 
+:::info
 Before you begin, you need:
 - A running Seqera Platform Enterprise deployment at hostname `example.com` or `platform.example.com`
 - A Redis 7 instance separate from the one used by Seqera Platform
@@ -30,6 +31,7 @@ Before you begin, you need:
     - `connect.another.subdomain.example.com`
 - A wildcard DNS record covering the Studios subdomains, e.g., `*.connect.example.com`
 - Data Explorer enabled in your Seqera Platform instance (automatic with Helm deployments)
+:::
 
 ## DNS configuration
 
@@ -51,7 +53,7 @@ You can configure which organizational workspaces have access to Studios by sett
 
 Each of the provided environments includes a particular version of the underlying software package and the version of Seqera Connect, an integrated web- and file-server.
 
-To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the R-IDE is `2025.04.1-0.9`, version `2025.04.01` is the R-IDE version and `0.9` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../studios/container-images).
+To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the R-IDE is `2025.04.1-0.11`, version `2025.04.01` is the R-IDE version and `0.11` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../studios/container-images).
 
 - To see the list of all JupyterLab image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [public.cr.seqera.io/repo/platform/data-studio-jupyter][ds-jupyter].
 - To see the list of all R-IDE image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [https://public.cr.seqera.io/repo/platform/data-studio-ride][ds-ride].

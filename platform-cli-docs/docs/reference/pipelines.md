@@ -7,7 +7,17 @@ description: Manage pipelines
 
 Run `tw pipelines -h` to view the list of supported operations.
 
-Pipelines define pre-configured workflows in a workspace. A pipeline consists of a workflow repository, launch parameters, and a compute environment.
+Pipelines define pre-configured workflows in a workspace. A saved pipeline includes the repository source, launch parameters, compute environment, and, in newer Platform releases, optional persisted schemas and multiple saved versions.
+
+## Pipeline versioning
+
+Seqera Platform CLI `0.24` adds support for [pipeline versioning](https://docs.seqera.io/platform-cloud/pipelines/versioning) workflows:
+
+- create a saved pipeline with an initial version name
+- list saved versions for a pipeline
+- target a specific version by `--version-id` or `--version-name`
+- promote a version to default
+- update a versionable field and let Platform create a new version
 
 ## tw pipelines list
 
@@ -26,11 +36,9 @@ tw pipelines list [OPTIONS]
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 | `--page` | Page number for paginated results (default: 1) | No | `null` |
 | `--offset` | Row offset for paginated results (default: 0) | No | `null` |
-| `--max` | Maximum number of records to display (default: ) | No | `null` |
+| `--max` | Maximum number of records to display | No | `null` |
 
 #### Example
-
-Command:
 
 ```bash
 tw pipelines list -w 123456789012345
@@ -65,15 +73,18 @@ tw pipelines add [OPTIONS] <repository-url>
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-n`, `--name` | Pipeline name. Must be unique within the workspace. | Yes | `null` |
-| `<repository-url>` | Pipeline repository URL. Must be a full Git repository URL (e.g., https://github.com/nextflow-io/rnaseq-nf). | Yes | `null` |
+| `<repository-url>` | Pipeline repository URL. Must be a full Git repository URL. | Yes | `null` |
 | `-d`, `--description` | Pipeline description. | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
-| `--labels` | Labels to apply to the resource. Provide comma-separated label values (use key=value format for resource labels). Labels will be created if they don't exist | No | `null` |
+| `--labels` | Labels to apply to the resource. Provide comma-separated label values (use key=value format for resource labels). Labels will be created if they do not exist. | No | `null` |
+| `--version-name` | Initial pipeline version name. | No | `null` |
+| `--pipeline-schema-id` | Pipeline schema identifier to attach to the saved pipeline. | No | `null` |
 | `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. | No | `null` |
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No | `null` |
 | `-p`, `--profile` | Array of Nextflow configuration profile names to apply. | No | `null` |
 | `--params-file` | Pipeline parameters in JSON or YAML format. Provide the path to a file containing the content. | No | `null` |
-| `--revision` | Git revision, branch, or tag to use. | No | `null` |
+| `--revision` | Git [revision, branch, or tag](https://docs.seqera.io/platform-cloud/pipelines/revision) to use. Use `--commit-id` to pin a specific commit within that revision. | No | `null` |
+| `--commit-id` | Specific Git commit hash to pin the saved pipeline to. | No | `null` |
 | `--config` | Nextflow configuration as text (overrides config files). Provide the path to a file containing the content. | No | `null` |
 | `--pre-run` | Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No | `null` |
 | `--post-run` | Add a script that executes after all Nextflow processes have completed. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No | `null` |
@@ -85,35 +96,27 @@ tw pipelines add [OPTIONS] <repository-url>
 | `--user-secrets` | Array of user secrets to make available to the pipeline. | No | `null` |
 | `--workspace-secrets` | Array of workspace secrets to make available to the pipeline. | No | `null` |
 
-Run `tw pipelines add -h` to view the required and optional fields for adding your pipeline.
-
-Add a pre-configured pipeline to the Launchpad.
-
 #### Example
 
-Command:
-
 ```bash
-tw pipelines add --name=my_rnaseq_nf_pipeline \
---params-file=my_rnaseq_nf_pipeline_params.yaml \
---config=<path/to/nextflow/conf/file> \
--w 123456789012345 \
-https://github.com/nextflow-io/rnaseq-nf
+tw pipelines add \
+  --name my-rnaseq \
+  --version-name v1.0 \
+  --pipeline-schema-id 98765 \
+  --revision main \
+  --commit-id a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2 \
+  --params-file my-rnaseq-params.yaml \
+  -w 123456789012345 \
+  https://github.com/nextflow-io/rnaseq-nf
 ```
 
 Example output:
 
 ```bash
-New pipeline 'my_rnaseq_nf_pipeline' added at [my-organization / my-workspace] workspace
+New pipeline 'my-rnaseq' added at [my-organization / my-workspace] workspace
 ```
 
-The optional `--params-file` flag is used to pass a set of default parameters that will be associated with the pipeline in the Launchpad.
-
-The optional `--config` flag is used to pass a custom Nextflow configuration file — configuration values passed here override the same values in the default pipeline repository `nextflow.conf` file. When this flag is set, all configuration values specified in Platform pipeline or compute environment **Nextflow config** fields are ignored.
-
-:::tip
-The `params-file` or `--config` file must be a YAML or JSON file using [Nextflow configuration](https://docs.seqera.io/nextflow/config#config-syntax) syntax.
-:::
+Use `--pipeline-schema-id` with a schema uploaded by `tw pipeline-schemas add` to make that schema part of the saved pipeline definition in Platform.
 
 ## tw pipelines view
 
@@ -129,45 +132,19 @@ tw pipelines view [OPTIONS]
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Pipeline identifier | No | `null` |
 | `-n`, `--name` | Pipeline name | No | `null` |
+| `--version-id` | Pipeline version identifier | No | `null` |
+| `--version-name` | Pipeline version name | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+
+If no version is specified, `view` shows the default saved version.
 
 #### Example
 
-Command:
-
 ```bash
-tw pipelines view -n nextflow-hello-saved -w 123456789012345
+tw pipelines view -n my-rnaseq --version-name v1.0 -w 123456789012345
 ```
 
-Example output:
-
-```bash
-Pipeline at [my-organization-updated / my-workspace] workspace:
-
-
---------------+--------------------------------------
-     ID           | 555666777888999
-     Name         | nextflow-hello-saved
-     Description  |
-     Repository   | https://github.com/nextflow-io/hello
-     Compute env. | deleted-999888777666555
-     Labels       | label3
-
-  Configuration:
-
-     {
-       "id" : "4n5o6p7q8r9s0t1u2v3w4x",
-       "computeEnvId" : "5o6p7q8r9s0t1u2v3w4x5",
-       "pipeline" : "https://github.com/nextflow-io/hello",
-       "workDir" : "s3://my-bucket/work",
-       "userSecrets" : [ ],
-       "workspaceSecrets" : [ ],
-       "resume" : false,
-       "pullLatest" : false,
-       "stubRun" : false,
-       "dateCreated" : "2025-01-28T19:32:07Z"
-     }
-```
+The output includes version metadata such as the version name, whether it is the default version, and the version hash, followed by the resolved launch configuration.
 
 ## tw pipelines update
 
@@ -181,17 +158,22 @@ tw pipelines update [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
+| `-i`, `--id` | Pipeline identifier | No | `null` |
+| `-n`, `--name` | Pipeline name | No | `null` |
+| `--version-id` | [Pipeline version](https://docs.seqera.io/platform-cloud/pipelines/versioning) identifier to update. If omitted, the default saved version is updated. | No | `null` |
+| `--version-name` | [Pipeline version](https://docs.seqera.io/platform-cloud/pipelines/versioning) name to update. If omitted, the default saved version is updated. | No | `null` |
 | `-d`, `--description` | Pipeline description | No | `null` |
 | `--new-name` | Pipeline new name | No | `null` |
 | `--pipeline` | Nextflow pipeline URL | No | `null` |
-| `-i`, `--id` | Pipeline identifier | No | `null` |
-| `-n`, `--name` | Pipeline name | No | `null` |
+| `--allow-draft` | If versionable fields change, keep the new version as an unnamed draft instead of auto-naming and promoting it to default. | No | `false` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `--pipeline-schema-id` | [Pipeline schema](https://docs.seqera.io/platform-cloud/pipeline-schema/overview#seqera-platform-schema) identifier to attach to the saved pipeline. | No | `null` |
 | `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. | No | `null` |
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No | `null` |
 | `-p`, `--profile` | Array of Nextflow configuration profile names to apply. | No | `null` |
 | `--params-file` | Pipeline parameters in JSON or YAML format. Provide the path to a file containing the content. | No | `null` |
-| `--revision` | Git revision, branch, or tag to use. | No | `null` |
+| `--revision` | Git [revision, branch, or tag](https://docs.seqera.io/platform-cloud/pipelines/revision) to use. Use `--commit-id` to pin a specific commit within that revision. | No | `null` |
+| `--commit-id` | Specific Git commit hash to pin the saved pipeline to. | No | `null` |
 | `--config` | Nextflow configuration as text (overrides config files). Provide the path to a file containing the content. | No | `null` |
 | `--pre-run` | Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No | `null` |
 | `--post-run` | Add a script that executes after all Nextflow processes have completed. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No | `null` |
@@ -203,21 +185,99 @@ tw pipelines update [OPTIONS]
 | `--user-secrets` | Array of user secrets to make available to the pipeline. | No | `null` |
 | `--workspace-secrets` | Array of workspace secrets to make available to the pipeline. | No | `null` |
 
-The default launch parameters can be changed with the `update` command.
+Version-aware update behavior:
+
+- Non-versioned changes are applied in place.
+- Changing versioned launch fields such as repository revision can cause Platform to create a new saved version.
+- By default, the CLI auto-names that new version and promotes it to the default Launchpad version.
+- With `--allow-draft`, the CLI leaves the new [version](https://docs.seqera.io/platform-cloud/pipelines/versioning) as a draft so you can manage it later with `tw pipelines versions`.
 
 #### Example
 
-Command:
-
 ```bash
-tw pipelines update --name=my_rnaseq_nf_pipeline \
---params-file=my_rnaseq_nf_pipeline_params_2.yaml
+tw pipelines update \
+  --name my-rnaseq \
+  --version-name v1.0 \
+  --revision release-branch \
+  --allow-draft
 ```
 
 Example output:
 
 ```bash
-Pipeline 'my_rnaseq_nf_pipeline' updated at [my-organization / my-workspace] workspace
+Pipeline 'my-rnaseq' updated at [my-organization / my-workspace] workspace
+New draft version 'draft789' created. Use 'tw pipelines versions' to manage it.
+```
+
+## tw pipelines versions list
+
+List saved [pipeline versions](https://docs.seqera.io/platform-cloud/pipelines/versioning).
+
+```bash
+tw pipelines versions list [OPTIONS]
+```
+
+#### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|----------|
+| `-i`, `--id` | Pipeline identifier | No | `null` |
+| `-n`, `--name` | Pipeline name | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `-f`, `--filter` | Search pipeline versions by name prefix. Also supports keyword filters: `versionName`, `versionId`, `versionHash`. | No | `null` |
+| `--is-published` | Show only published pipeline versions if `true`, draft versions only if `false`, or all versions by default. | No | all versions |
+| `--full-hash` | Show full-length hash values without truncation. | No | `false` |
+| `--page` | Page number for paginated results (default: 1) | No | `null` |
+| `--offset` | Row offset for paginated results (default: 0) | No | `null` |
+| `--max` | Maximum number of records to display | No | `null` |
+
+#### Example
+
+```bash
+tw pipelines versions list \
+  -n my-rnaseq \
+  --is-published true \
+  --full-hash
+```
+
+This command shows each version's ID, name, default status, hash, creator, and creation time.
+
+## tw pipelines versions manage
+
+Manage a [pipeline version](https://docs.seqera.io/platform-cloud/pipelines/versioning) name or default status.
+
+```bash
+tw pipelines versions manage [OPTIONS]
+```
+
+#### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|----------|
+| `-i`, `--id` | Pipeline identifier | No | `null` |
+| `-n`, `--name` | Pipeline name | No | `null` |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+| `--version-id` | Pipeline version identifier | No | `null` |
+| `--version-name` | Pipeline version name | No | `null` |
+| `--new-name` | New name for the pipeline version | No | `null` |
+| `--set-default` | Set this version as the default | No | `null` |
+
+Provide at least one of `--new-name` or `--set-default`.
+
+#### Example
+
+```bash
+tw pipelines versions manage \
+  -n my-rnaseq \
+  --version-id 7TnlaOKANkiDIdDqOO2kCs \
+  --set-default \
+  --new-name v2.0
+```
+
+Example output:
+
+```bash
+Pipeline version '7TnlaOKANkiDIdDqOO2kCs' of pipeline 'my-rnaseq' updated at workspace [my-organization / my-workspace]
 ```
 
 ## tw pipelines delete
@@ -238,16 +298,8 @@ tw pipelines delete [OPTIONS]
 
 #### Example
 
-Command:
-
 ```bash
-tw pipelines delete -n rnaseq2 -w 123456789012345
-```
-
-Example output:
-
-```bash
-Pipeline 'rnaseq2' deleted at [my-organization-updated / my-workspace] workspace
+tw pipelines delete -n my-rnaseq -w 123456789012345
 ```
 
 ## tw pipelines export
@@ -255,7 +307,7 @@ Pipeline 'rnaseq2' deleted at [my-organization-updated / my-workspace] workspace
 Export a pipeline.
 
 ```bash
-tw pipelines export [OPTIONS]
+tw pipelines export [OPTIONS] [FILENAME]
 ```
 
 #### Options
@@ -264,20 +316,16 @@ tw pipelines export [OPTIONS]
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Pipeline identifier | No | `null` |
 | `-n`, `--name` | Pipeline name | No | `null` |
+| `--version-id` | Pipeline version identifier | No | `null` |
+| `--version-name` | Pipeline version name | No | `null` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
+
+If you do not provide a version selector, `export` uses the default saved version.
 
 #### Example
 
-Command:
-
 ```bash
-tw pipelines export -n nf-hello-2026 -w 123456789012345 hello-pipeline-export2.json
-```
-
-Example output:
-
-```bash
-Pipeline exported into 'hello-pipeline-export2.json'
+tw pipelines export -n my-rnaseq --version-name v2.0 my-rnaseq-export.json
 ```
 
 ## tw pipelines import
@@ -293,22 +341,14 @@ tw pipelines import [OPTIONS]
 | Option | Description | Required | Default |
 |--------|-------------|----------|----------|
 | `-n`, `--name` | Pipeline name | Yes | `null` |
-| `-c`, `--compute-env` | Compute environment name (defaults to value defined in JSON environment file) | No | `null` |
+| `-c`, `--compute-env` | Compute environment name (defaults to value defined in the JSON file) | No | `null` |
 | `--overwrite` | Overwrite the pipeline if it already exists. | No | `false` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
 
 #### Example
 
-Command:
-
 ```bash
-tw pipelines import -n nf-hello-2026-imported -w 123456789012345 hello-pipeline-export2.json
-```
-
-Example output:
-
-```bash
-New pipeline 'nf-hello-2026-imported' added at [my-organization-updated / my-workspace] workspace
+tw pipelines import -n my-rnaseq-imported -w 123456789012345 my-rnaseq-export.json
 ```
 
 ## tw pipelines labels
@@ -325,21 +365,19 @@ tw pipelines labels [OPTIONS]
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Pipeline identifier | No | `null` |
 | `-n`, `--name` | Pipeline name | No | `null` |
-| `--no-create` | Assign labels without creating the ones which were not found. | No | `null` |
-| `--operations`, `-o` | Type of operation (set, append, delete) [default: set]. | No | `set` |
+| `--no-create` | Assign labels without creating the ones that were not found. | No | `null` |
+| `--operations`, `-o` | Type of operation (`set`, `append`, `delete`) [default: `set`]. | No | `set` |
 
 #### Example
 
-Command:
-
 ```bash
-tw pipelines labels -n nf-hello-2026 -w 123456789012345 newlabel
+tw pipelines labels -n my-rnaseq -w 123456789012345 project=demo
 ```
 
-Example output:
+:::tip
+The `--params-file` flag is used to pass default launch parameters that are associated with the saved pipeline in the Launchpad.
+:::
 
-```bash
-
-
- 'set' labels on 'pipeline' with id '666777888999000' at 123456789012345 workspace
-```
+:::tip
+The `--config` file must use [Nextflow configuration](https://docs.seqera.io/nextflow/config#config-syntax) syntax.
+:::

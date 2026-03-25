@@ -1,13 +1,9 @@
 ---
-title: "Pipeline versioning (preview)"
+title: "Pipeline versioning"
 description: "Introduction to pipeline versioning in Seqera Platform."
 date created: "2025-11-14"
 tags: [pipelines, versioning, nextflow, parameters]
 ---
-
-:::info
-Pipeline versioning is a preview feature. [Contact Seqera support](https://support.seqera.io/) to enable this feature in your organization workspaces.
-:::
 
 Seqera's pipeline versioning system captures configuration changes as new draft versions of the pipeline, ensuring configuration traceability and execution reproducibility. Users with appropriate permissions can edit and publish draft versions, creating published versions that teams can reference and launch consistently.
 When you add a new pipeline to Seqera, the first default version of that pipeline is automatically published.
@@ -42,7 +38,8 @@ New draft versions are automatically generated when you modify the following:
   - **Image**
   - **Description**
   - **Labels**
-- Custom Nextflow schema file (see [Custom schema](#custom-schema))
+  - **Resource labels**
+- Pipeline schema selection (see [Define pipeline schema](../pipeline-schema/overview.md#define-pipeline-schema))
 
 Published versions provide a stable reference for team-wide pipeline launches. Users with Maintain or higher permissions can publish a draft version, giving it a name and optionally setting it as the default version. This makes important configurations easy to identify, share, and promote across your team.
 
@@ -52,23 +49,11 @@ A pipeline's default version is shown in the Launchpad and automatically selecte
 
 Seqera maintains a history of all draft and published versions, providing an audit trail of pipeline evolution.
 
-#### Custom schema
+#### Seqera Platform schema
 
-Users with Maintain or higher permissions can upload a custom `nextflow_schema.json` file to control which pipeline parameters are exposed in the launch form. This allows you to restrict the parameters visible to launch users, simplifying the launch experience and preventing modification of parameters that should remain fixed.
+Users with Maintain or higher permissions can upload a `nextflow_schema.json` file to Seqera Platform to control which pipeline parameters appear in the launch form. Changes to the Seqera Platform schema trigger a new draft version of the pipeline.
 
-The custom schema field is available when adding or editing a pipeline. When you upload a custom schema:
-
-- The schema content is validated to ensure it's a valid Nextflow schema
-- The custom schema controls which parameters appear in the pipeline launch form
-- Changes to the custom schema trigger a new draft version of the pipeline
-- The custom schema is applied to all launches using that pipeline version
-
-To add or update a custom schema:
-
-1. Navigate to **Add pipeline** or select **Edit** for an existing pipeline
-2. In the **Custom Schema JSON** field, paste your custom Nextflow schema JSON
-3. The schema is validated automatically as you enter it
-4. Select **Add** or **Save** to create a new draft version with the custom schema
+For more information, see [Define pipeline schema](../pipeline-schema/overview.md#define-pipeline-schema).
 
 #### Manage pipeline versions
 

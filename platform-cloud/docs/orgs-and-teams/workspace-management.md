@@ -2,7 +2,7 @@
 title: "Workspaces"
 description: "Manage users and teams for an organization in Seqera Platform."
 date created: "2023-04-23"
-last updated: "2025-07-01"
+last updated: "2026-03-02"
 tags: [workspaces, teams, users, administration, user-workspace, create-workspace, credits, settings]
 ---
 
@@ -16,7 +16,7 @@ Organizations consist of members, while workspaces consist of participants.
 A workspace participant may be a member of the workspace organization or a collaborator within that workspace only. Collaborators count toward the total number of workspace participants. See [Usage limits](../limits/overview).
 :::
 
-### Create a new workspace
+## Create a new workspace
 
 Organization owners and admins can create a new workspace within an organization:
 
@@ -33,36 +33,41 @@ As a workspace owner, you can modify optional workspace fields after workspace c
 
 Apart from the **Participants** tab, the _organization_ workspace is similar to the _user_ workspace. As such, the relation to [runs](../launch/launchpad), [actions](../pipeline-actions/overview), [compute environments](../compute-envs/overview), and [credentials](../credentials/overview) is the same.
 
-### Workspace settings 
+## Workspace settings
 
 Select the **Settings** tab within a workspace to manage credits, Studios settings, workspace labels, and edit or delete the workspace.
 
-#### Credits 
+### Credits
 
 [Seqera Compute](../compute-envs/seqera-compute) environments consume credits when running pipelines or Studio sessions. Credits are consumed for CPU time, memory and storage usage, and network costs. One Seqera Compute credit is equivalent to $1 (USD), and resources are charged at the following rates:
 - CPU time: 1 CPU/Hr = 0.1 credits
 - Memory: 1 GiB/Hr = 0.025 credits
 - Storage: 1 GB = 0.025 credits per month
 
-:::note 
+:::note
 Storage and network costs vary per region, charged at standard AWS rates. Data ingress and egress across regions incur additional costs.
 :::
 
 Your available credit balance depends on the credits purchased and limits applied to your Seqera license. The **Credits** view contains the current credit balance available to the organization, and the credits spent in the workspace. Select **Contact us to upgrade** to purchase additional credits for your organization.
 
-#### Studios settings
+### Studios settings
 
-Edit the workspace's Studio settings to set a predefined lifespan (between 1 and 120 hours), after which all Studio sessions in the workspace are automatically stopped. To keep all workspace Studios running indefinitely, select **Always keep the session running**.
+- **Collaboration mode**: Limit which members can connect to a running Studio in the workspace. Toggle between **Collaborative**  (any member with the right permissions can connect) and **Private** (only the creator can connect). Default is **Collaborative** mode.
+- **Session lifespan**: Set a predefined lifespan (between 1 and 120 hours), after which all Studio sessions in the workspace are automatically stopped. To keep all workspace Studios running indefinitely, select **Always keep the session running**. Default is a session lifespan of **8 hours**.
+- **Container repository**: Define the target container repository where custom Studio images built with Wave will be pushed. The workspace must have a credential with read and write permissions to the target container registry. Default for Seqera Cloud is the [community-wave](https://seqera.io/containers) registry.
+- **Container naming strategy**: Define your container registry naming strategy. Default for Seqera Cloud is **tagPrefix**.
+  - **tagPrefix**: Differentiate application versions within the same repository (e.g., `registry/image:prefix-version`). This strategy is recommended for organizing specific image types (`dev`, `staging`, `prod`) and typically results in fewer repositories with more tags.
+  - **imageSuffix**: Group different build types across repositories (e.g., `registry/image-suffix:version`). This strategy is recommended for managing permissions or different build environments (`front-end` vs. `back-end`, or `API` vs. `GUI`) and typically results in higher repository counts (i.e., one repository per environment/variant).
 
 :::note
 Studios sessions created in shared workspaces are not shared across all the workspaces in an organization.
 :::
 
-#### Edit labels
+### Edit labels
 
 Select **Edit labels** to manage the workspace [labels and resource labels](../labels/overview).
 
-#### Edit or delete workspace
+### Edit or delete a workspace
 
 :::note
 Workspace **owners** can edit their workspace name from the workspace **Settings** tab.
@@ -72,7 +77,7 @@ Workspace **owners** can edit their workspace name from the workspace **Settings
 - Select **Delete workspace** to delete the workspace and its associated resources. This action cannot be reversed.
 ``
 
-### Add a new participant
+## Add a new participant
 
 A new workspace participant can be an existing organization member, team, or collaborator. To add a new participant to a workspace:
 
@@ -81,7 +86,7 @@ A new workspace participant can be an existing organization member, team, or col
 3. Enter the **Name** of the new participant.
 4. Optionally, update the participant **role**.
 
-### Workspace run monitoring
+## Workspace run monitoring
 
 To allow users executing pipelines from the command line to share their runs with a given workspace, see [deployment options](../getting-started/deployment-options#nextflow--with-tower).
 
@@ -94,17 +99,17 @@ The benefits of using a shared workspace within an organization include:
 - **Immediate update adoption**: Updated parameters for a shared pipeline become immediately available across the entire organization, reducing the risk of pipeline discrepancies.
 - **Computational resource provision**: Pipelines in shared workflows can be shared along with the required computational resources. This eliminates the need to duplicate resource setup in individual workspaces across the organization. Shared workspaces centralize and simplify resource sharing within an organization.
 
-### Create a shared workspace
+## Create a shared workspace
 
 Creating a shared workspace is similar to the creation of a private workspace, with the exception of the **Visibility** option, which must be set to **Shared**.
 
-### Create a shared pipeline
+## Create a shared pipeline
 
 When you create a pipeline in a shared workspace, associating it with a [compute environment](../compute-envs/overview) is optional.
 
 If a compute environment from the shared workspace is associated with the pipeline, it will be available to users in other organization workspaces to launch the shared pipeline with the associated compute environment by default.
 
-### Use shared pipelines from a private workspace
+## Use shared pipelines from a private workspace
 
 Once a pipeline is set up in a shared workspace and associated with a compute environment in that workspace, any user can launch the pipeline from an organization workspace using the shared workspace's compute environment. This eliminates the need for users to replicate shared compute environments in their private workspaces.
 
@@ -114,7 +119,7 @@ The shared compute environment will not be available to launch other pipelines l
 
 If a pipeline from a shared workspace is shared **without** an associated compute environment, users can run it from other organization workspaces. By default, the **primary** compute environment of the launching workspace will be selected.
 
-### Make shared pipelines visible in a private workspace
+## Make shared pipelines visible in a private workspace
 
 :::note
 Pipelines from _all_ shared workspaces are visible when the visibility is set to **Shared workspaces**.

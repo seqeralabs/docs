@@ -212,6 +212,10 @@ Rather than attaching permissions directly to the IAM user, you can create an IA
 
 Multiple users can be specified in the trust policy by adding more ARNs to the `Principal` section.
 
+:::info
+Set `TOWER_ALLOW_INSTANCE_CREDENTIALS=true` in your deployment environment to create AWS credentials using an IAM role ARN only (no access key or secret key required).
+:::
+
 ## Configure EKS Service Account IAM role for Fusion v2
 
 To use [Fusion v2](https://docs.seqera.io/fusion) in your Amazon EKS compute environment, an AWS S3 bucket must be used as work directory and both the head and compute Service Accounts (if separate) must have access to the S3 bucket specified as the work directory.

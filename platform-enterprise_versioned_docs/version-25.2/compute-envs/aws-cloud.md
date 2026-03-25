@@ -63,6 +63,10 @@ The following regions are currently supported:
 
 To create and launch pipelines or Studio sessions with this compute environment type, you must attach Seqera credentials for the cloud provider. Some permissions are mandatory for the compute environment to be created and function correctly; others are optional and used to pre-fill options in Platform.
 
+:::info
+Set `TOWER_ALLOW_INSTANCE_CREDENTIALS=true` in your deployment environment to create AWS credentials using an IAM role ARN only (no access key or secret key required).
+:::
+
 ### Required permissions
 
 #### Compute environment creation

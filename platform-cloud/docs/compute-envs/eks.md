@@ -166,7 +166,12 @@ In certain scenarios, for example when multiple users need to access the same AW
      "Sid": "AssumeRole",
      "Effect": "Allow",
      "Action": "sts:AssumeRole",
-     "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/<IAM_ROLE_NAME>"
+     "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/<IAM_ROLE_NAME>",
+     "Condition": {
+       "StringEquals": {
+         "sts:ExternalId": "<EXTERNAL_ID>"
+       }
+     }
    }
    ```
 1. On the last page, review the user details and select **Create user**.
@@ -201,7 +206,21 @@ Rather than attaching permissions directly to the IAM user, you can create an IA
               "arn:aws:iam::<ACCOUNT_ID>:user/<IAM_USER_NAME>"
             ]
          },
-         "Action": "sts:AssumeRole"
+         "Action": "sts:AssumeRole",
+         "Condition": {
+           "StringEquals": {
+             "sts:ExternalId": "<EXTERNAL_ID>"
+           }
+         }
+       },
+       {
+         "Effect": "Allow",
+         "Principal": {
+           "AWS": [
+              "arn:aws:iam::<ACCOUNT_ID>:user/<IAM_USER_NAME>"
+            ]
+         },
+         "Action": "sts:TagSession"
        }
      ]
    }
@@ -211,6 +230,52 @@ Rather than attaching permissions directly to the IAM user, you can create an IA
 1. Give the role a name and optionally a description, review the details of the role, optionally provide tags to help you identify the role, then select **Create role**.
 
 Multiple users can be specified in the trust policy by adding more ARNs to the `Principal` section.
+
+:::note
+Seqera Platform generates the `External ID` value during AWS credential creation. For role-based credentials, use this exact value in your IAM trust policy (`sts:ExternalId`).
+:::
+
+### Role-based trust policy example (Seqera Cloud)
+
+For role-based AWS credentials in Seqera Cloud, allow the Seqera Cloud access role `arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole` in your trust policy and enforce the `External ID` generated during credential creation:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole"
+      },
+      "Action": "sts:AssumeRole",
+      "Condition": {
+        "StringEquals": {
+          "sts:ExternalId": "<ExternalId>"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole"
+      },
+      "Action": "sts:TagSession"
+    }
+  ]
+}
+```
+
+## AWS credential options
+
+AWS credentials can be configured in two ways:
+
+- **Key-based credentials**: Access key and secret key with direct IAM permissions. If you provide a role ARN in **Assume role**, the **Generate External ID** switch is displayed and External ID generation is optional.
+- **Role-based credentials (recommended)**: Use role assumption only (no static keys). Paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. External ID is generated automatically when you save.
+
+Use the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. This field is available for both key-based and role-based credentials. It is optional for key-based credentials and required for role-based credentials.
+
+Existing credentials created before March 2026 continue to work without changes.
 
 ## Configure EKS Service Account IAM role for Fusion v2
 
@@ -344,8 +409,15 @@ Once all prerequisites are met, create a Seqera EKS compute environment:
     :::
 
 1. Enter a name, e.g., `EKS Credentials`.
-1. Add the **Access key** and **Secret key** obtained from the AWS IAM console. This is the [IAM user](#obtain-iam-user-credentials) with the Service Account role detailed in the requirements section.
-1. (Optional) Under **Assume role**, specify the [IAM role](#iam-role-creation-optional) to be assumed by the Seqera IAM user to access the compute environment's AWS resources.
+1. Under **AWS credential mode**, select **Keys** or **Role**.
+1. For **Keys** mode:
+   - Add the **Access key** and **Secret key** obtained from the AWS IAM console.
+   - Optionally paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**.
+   - If you paste a role ARN in **Assume role**, the **Generate External ID** switch is displayed. Generating an External ID is optional in **Keys** mode.
+   - If **Generate External ID** is selected, an External ID is automatically generated and shown after you save the credential.
+1. For **Role** mode:
+   - Paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**.
+   - External ID is generated automatically when you save the credential.
 
     :::note
     When using AWS keys without an assumed role, the associated AWS user must have been granted permissions to operate on the cloud resources directly. When an assumed role is provided, the IAM user keys are only used to retrieve temporary credentials impersonating the role specified: this could be useful when e.g. multiple IAM users are used to access the same AWS account, and the actual permissions to operate on the resources are only granted to the role.
