@@ -2,16 +2,16 @@
 name: No unresolved conflicts
 on:
   pull_request:
-    branches: [ master ]
+    branches: [master]
 jobs:
   detect-unresolved-conflicts:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
-      
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # ratchet:actions/checkout@v5
+
       - name: List files with merge conflict markers
         run: git --no-pager grep "<<<<<<<" ":(exclude).github/" || true
-      
+
       - name: Fail if merge conflict markers found
         run: exit $(git grep "<<<<<<<" ":(exclude).github/" | wc --lines)
