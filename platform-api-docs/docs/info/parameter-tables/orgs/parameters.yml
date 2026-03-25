@@ -39,3 +39,8 @@
   Req/Opt: Optional
   Description: Optional array of specific quota names to include in the response.
     Omit to retrieve all quotas.
+- Name: "`userId`"
+  Type: integer
+  Location: path
+  Req/Opt: Required
+  Description: User numeric identifier.
