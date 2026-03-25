@@ -1,0 +1,1 @@
+{"parameters":[{"name":"roleName","in":"path","description":"Role name.","required":true,"schema":{"type":"string"}},{"name":"orgId","in":"query","description":"Organization numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}}]}
