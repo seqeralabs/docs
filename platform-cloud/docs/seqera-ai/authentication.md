@@ -23,10 +23,10 @@ seqera login
 
 This will:
 
-1. Open your default browser to the Seqera login page
-1. Prompt you to sign in with your Seqera Platform credentials
-1. Automatically capture the authentication token
-1. Display a success message in your terminal
+1. Open your default browser to the Seqera login page.
+1. Prompt you to sign in with your Seqera Platform credentials.
+1. Automatically capture the authentication token.
+1. Display a success message in your terminal.
 
    ```
    [Login] Starting Seqera CLI authentication...
