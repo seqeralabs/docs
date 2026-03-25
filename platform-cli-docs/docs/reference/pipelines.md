@@ -11,15 +11,13 @@ Pipelines define pre-configured workflows in a workspace. A saved pipeline inclu
 
 ## Pipeline versioning
 
-Seqera Platform CLI `0.24` adds support for pipeline versioning workflows. In workspaces where pipeline versioning is enabled, you can:
+Seqera Platform CLI `0.24` adds support for [pipeline versioning](https://docs.seqera.io/platform-cloud/pipelines/versioning) workflows:
 
 - create a saved pipeline with an initial version name
 - list saved versions for a pipeline
 - target a specific version by `--version-id` or `--version-name`
 - promote a version to default
 - update a versionable field and let Platform create a new version
-
-If you do not specify a version explicitly, the CLI uses the pipeline's default saved version.
 
 ## tw pipelines list
 
@@ -46,6 +44,22 @@ tw pipelines list [OPTIONS]
 tw pipelines list -w 123456789012345
 ```
 
+Example output:
+
+```bash
+  Pipelines at [my-organization-updated / my-workspace] workspace:
+
+
+ID              | Name                 | Repository                           | Visibility
+    -----------------+----------------------+--------------------------------------+------------
+     777888999000111 | rnaseq4              | https://github.com/nf-core/rnaseq    | SHARED
+     888999000111222 | nf-core-rnaseq       | https://github.com/nf-core/rnaseq    | SHARED
+     999000111222333 | rnaseq2              | https://github.com/nf-core/rnaseq    | SHARED
+     555666777888999 | nextflow-hello-saved | https://github.com/nextflow-io/hello | SHARED
+     000111222333444 | rnaseqapitest        | https://github.com/nf-core/rnaseq    | SHARED
+     111222333444555 | rnaseq3              | https://github.com/nf-core/rnaseq    | SHARED
+```
+
 ## tw pipelines add
 
 Add a pipeline.
@@ -69,11 +83,11 @@ tw pipelines add [OPTIONS] <repository-url>
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No | `null` |
 | `-p`, `--profile` | Array of Nextflow configuration profile names to apply. | No | `null` |
 | `--params-file` | Pipeline parameters in JSON or YAML format. Provide the path to a file containing the content. | No | `null` |
-| `--revision` | Git revision, branch, or tag to use. Use `--commit-id` to pin a specific commit within that revision. | No | `null` |
+| `--revision` | Git [revision, branch, or tag](https://docs.seqera.io/platform-cloud/pipelines/revision) to use. Use `--commit-id` to pin a specific commit within that revision. | No | `null` |
 | `--commit-id` | Specific Git commit hash to pin the saved pipeline to. | No | `null` |
 | `--config` | Nextflow configuration as text (overrides config files). Provide the path to a file containing the content. | No | `null` |
-| `--pre-run` | Add a script that executes in the nf-launch script prior to invoking Nextflow processes. Provide the path to a file containing the content. | No | `null` |
-| `--post-run` | Add a script that executes after all Nextflow processes have completed. Provide the path to a file containing the content. | No | `null` |
+| `--pre-run` | Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No | `null` |
+| `--post-run` | Add a script that executes after all Nextflow processes have completed. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No | `null` |
 | `--pull-latest` | Pull the latest version of the pipeline from the repository. | No | `null` |
 | `--stub-run` | Execute a stub run for testing (processes return dummy results). | No | `null` |
 | `--main-script` | Alternative main script filename. Default: `main.nf`. | No | `null` |
@@ -146,23 +160,23 @@ tw pipelines update [OPTIONS]
 |--------|-------------|----------|----------|
 | `-i`, `--id` | Pipeline identifier | No | `null` |
 | `-n`, `--name` | Pipeline name | No | `null` |
-| `--version-id` | Pipeline version identifier to update. If omitted, the default saved version is updated. | No | `null` |
-| `--version-name` | Pipeline version name to update. If omitted, the default saved version is updated. | No | `null` |
+| `--version-id` | [Pipeline version](https://docs.seqera.io/platform-cloud/pipelines/versioning) identifier to update. If omitted, the default saved version is updated. | No | `null` |
+| `--version-name` | [Pipeline version](https://docs.seqera.io/platform-cloud/pipelines/versioning) name to update. If omitted, the default saved version is updated. | No | `null` |
 | `-d`, `--description` | Pipeline description | No | `null` |
 | `--new-name` | Pipeline new name | No | `null` |
 | `--pipeline` | Nextflow pipeline URL | No | `null` |
 | `--allow-draft` | If versionable fields change, keep the new version as an unnamed draft instead of auto-naming and promoting it to default. | No | `false` |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable) | No | `TOWER_WORKSPACE_ID` |
-| `--pipeline-schema-id` | Pipeline schema identifier to attach to the saved pipeline. | No | `null` |
+| `--pipeline-schema-id` | [Pipeline schema](https://docs.seqera.io/platform-cloud/pipeline-schema/overview#seqera-platform-schema) identifier to attach to the saved pipeline. | No | `null` |
 | `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. | No | `null` |
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No | `null` |
 | `-p`, `--profile` | Array of Nextflow configuration profile names to apply. | No | `null` |
 | `--params-file` | Pipeline parameters in JSON or YAML format. Provide the path to a file containing the content. | No | `null` |
-| `--revision` | Git revision, branch, or tag to use. Use `--commit-id` to pin a specific commit within that revision. | No | `null` |
+| `--revision` | Git [revision, branch, or tag](https://docs.seqera.io/platform-cloud/pipelines/revision) to use. Use `--commit-id` to pin a specific commit within that revision. | No | `null` |
 | `--commit-id` | Specific Git commit hash to pin the saved pipeline to. | No | `null` |
 | `--config` | Nextflow configuration as text (overrides config files). Provide the path to a file containing the content. | No | `null` |
-| `--pre-run` | Add a script that executes in the nf-launch script prior to invoking Nextflow processes. Provide the path to a file containing the content. | No | `null` |
-| `--post-run` | Add a script that executes after all Nextflow processes have completed. Provide the path to a file containing the content. | No | `null` |
+| `--pre-run` | Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No | `null` |
+| `--post-run` | Add a script that executes after all Nextflow processes have completed. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No | `null` |
 | `--pull-latest` | Pull the latest version of the pipeline from the repository. | No | `null` |
 | `--stub-run` | Execute a stub run for testing (processes return dummy results). | No | `null` |
 | `--main-script` | Alternative main script filename. Default: `main.nf`. | No | `null` |
@@ -176,7 +190,7 @@ Version-aware update behavior:
 - Non-versioned changes are applied in place.
 - Changing versioned launch fields such as repository revision can cause Platform to create a new saved version.
 - By default, the CLI auto-names that new version and promotes it to the default Launchpad version.
-- With `--allow-draft`, the CLI leaves the new version as a draft so you can manage it later with `tw pipelines versions`.
+- With `--allow-draft`, the CLI leaves the new [version](https://docs.seqera.io/platform-cloud/pipelines/versioning) as a draft so you can manage it later with `tw pipelines versions`.
 
 #### Example
 
@@ -197,7 +211,7 @@ New draft version 'draft789' created. Use 'tw pipelines versions' to manage it.
 
 ## tw pipelines versions list
 
-List saved pipeline versions.
+List saved [pipeline versions](https://docs.seqera.io/platform-cloud/pipelines/versioning).
 
 ```bash
 tw pipelines versions list [OPTIONS]
@@ -230,7 +244,7 @@ This command shows each version's ID, name, default status, hash, creator, and c
 
 ## tw pipelines versions manage
 
-Manage a pipeline version name or default status.
+Manage a [pipeline version](https://docs.seqera.io/platform-cloud/pipelines/versioning) name or default status.
 
 ```bash
 tw pipelines versions manage [OPTIONS]
