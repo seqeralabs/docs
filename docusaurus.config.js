@@ -1,4 +1,5 @@
 const path = require("path");
+const platformEnterpriseVersions = require("./platform-enterprise_versions.json");
 import "dotenv/config";
 import platform_enterprise_latest_version from "./platform-enterprise_latest_version.js";
 import {
@@ -6,6 +7,14 @@ import {
   getSeqeraThemeConfig,
   getSeqeraPresetOptions
 } from "@seqera/docusaurus-preset-seqera";
+
+// Build the search filter_by dynamically so old platform-enterprise versions are
+// excluded automatically whenever a new version is added to versions.json.
+// versions.json is ordered newest-first; index 0 is the current/latest version.
+const oldEnterpriseVersionTags = platformEnterpriseVersions
+  .slice(1)
+  .map((v) => `docs-platform-enterprise-${v}`);
+const searchFilterBy = `docusaurus_tag:!=[default,doc_tag_doc_list,blog_posts_list,blog_tags_posts,doc_tags_list,blog_tags_list${oldEnterpriseVersionTags.length ? `,${oldEnterpriseVersionTags.join(",")}` : ""}]`;
 
 export default async function createConfigAsync() {
 
@@ -210,12 +219,13 @@ export default async function createConfigAsync() {
     onBrokenAnchors:
       process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
 
-    markdown: {
-      hooks: {
-        onBrokenMarkdownLinks:
-          process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
-      },
-    },
+    // TODO: markdown.hooks not supported in Docusaurus 3.8.1 - upgrade Docusaurus or remove
+    // markdown: {
+    //   hooks: {
+    //     onBrokenMarkdownLinks:
+    //       process.env.FAIL_ON_BROKEN_LINKS === "true" ? "throw" : "warn",
+    //   },
+    // },
 
     customFields: {
       // Put your custom environment here
@@ -270,8 +280,120 @@ export default async function createConfigAsync() {
       process.env.EXCLUDE_FUSION ? null : docs_fusion,
       process.env.EXCLUDE_WAVE ? null : docs_wave,
 
-      // Disable expensive bundler options.
-      // https://github.com/facebook/docusaurus/pull/11176
+      ['docusaurus-plugin-llms', {
+        id: 'llms-enterprise',
+        docsDir: 'platform-enterprise_docs',
+        llmsTxtFilename: 'llms-enterprise.txt',
+        title: 'Seqera Platform Enterprise',
+        description: 'Documentation for Seqera Platform Enterprise.',
+        rootContent: 'This file contains links to Seqera Platform Enterprise documentation following the llmstxt.org standard.',
+        generateLLMsTxt: true,
+        generateLLMsFullTxt: false,
+        generateMarkdownFiles: true,
+        includeBlog: false,
+        excludeImports: true,
+        removeDuplicateHeadings: true,
+        ignoreFiles: ['**/tags', '**/tags/**'],
+        processingBatchSize: 50,
+      }],
+      ['docusaurus-plugin-llms', {
+        id: 'llms-cloud',
+        docsDir: 'platform-cloud/docs',
+        llmsTxtFilename: 'llms-cloud.txt',
+        title: 'Seqera Platform Cloud',
+        description: 'Documentation for Seqera Platform Cloud.',
+        rootContent: 'This file contains links to Seqera Platform Cloud documentation following the llmstxt.org standard.',
+        generateLLMsTxt: true,
+        generateLLMsFullTxt: false,
+        generateMarkdownFiles: true,
+        includeBlog: false,
+        excludeImports: true,
+        removeDuplicateHeadings: true,
+        ignoreFiles: ['**/tags', '**/tags/**'],
+        processingBatchSize: 50,
+      }],
+      ['docusaurus-plugin-llms', {
+        id: 'llms-api',
+        docsDir: 'platform-api-docs/docs',
+        llmsTxtFilename: 'llms-api.txt',
+        title: 'Seqera Platform API',
+        description: 'API reference documentation for the Seqera Platform REST API.',
+        rootContent: 'This file contains links to Seqera Platform API reference documentation following the llmstxt.org standard.',
+        generateLLMsTxt: true,
+        generateLLMsFullTxt: false,
+        generateMarkdownFiles: true,
+        includeBlog: false,
+        excludeImports: true,
+        removeDuplicateHeadings: true,
+        ignoreFiles: ['**/tags', '**/tags/**'],
+        processingBatchSize: 50,
+      }],
+      ['docusaurus-plugin-llms', {
+        id: 'llms-cli',
+        docsDir: 'platform-cli-docs/docs',
+        llmsTxtFilename: 'llms-cli.txt',
+        title: 'Seqera Platform CLI',
+        description: 'Documentation for the Seqera Platform command-line interface.',
+        rootContent: 'This file contains links to Seqera Platform CLI documentation following the llmstxt.org standard.',
+        generateLLMsTxt: true,
+        generateLLMsFullTxt: false,
+        generateMarkdownFiles: true,
+        includeBlog: false,
+        excludeImports: true,
+        removeDuplicateHeadings: true,
+        ignoreFiles: ['**/tags', '**/tags/**'],
+        processingBatchSize: 50,
+      }],
+      ['docusaurus-plugin-llms', {
+        id: 'llms-multiqc',
+        docsDir: 'multiqc_docs/multiqc_repo/docs/markdown',
+        llmsTxtFilename: 'llms-multiqc.txt',
+        title: 'MultiQC',
+        description: 'Documentation for MultiQC',
+        rootContent: 'This file contains links to MultiQC documentation following the llmstxt.org standard.',
+        generateLLMsTxt: true,
+        generateLLMsFullTxt: false,
+        generateMarkdownFiles: true,
+        includeBlog: false,
+        excludeImports: true,
+        removeDuplicateHeadings: true,
+        ignoreFiles: ['**/tags', '**/tags/**'],
+        processingBatchSize: 50,
+      }],
+      ['docusaurus-plugin-llms', {
+        id: 'llms-fusion',
+        docsDir: 'fusion_docs',
+        llmsTxtFilename: 'llms-fusion.txt',
+        title: 'Fusion',
+        description: 'Documentation for Fusion.',
+        rootContent: 'This file contains links to Fusion documentation following the llmstxt.org standard.',
+        generateLLMsTxt: true,
+        generateLLMsFullTxt: false,
+        generateMarkdownFiles: true,
+        includeBlog: false,
+        excludeImports: true,
+        removeDuplicateHeadings: true,
+        ignoreFiles: ['**/tags', '**/tags/**'],
+        processingBatchSize: 50,
+      }],
+      ['docusaurus-plugin-llms', {
+        id: 'llms-wave',
+        docsDir: 'wave_docs/wave_repo/docs',
+        llmsTxtFilename: 'llms-wave.txt',
+        title: 'Wave',
+        description: 'Documentation for Wave.',
+        rootContent: 'This file contains links to Wave documentation following the llmstxt.org standard.',
+        generateLLMsTxt: true,
+        generateLLMsFullTxt: false,
+        generateMarkdownFiles: true,
+        includeBlog: false,
+        excludeImports: true,
+        removeDuplicateHeadings: true,
+        ignoreFiles: ['**/tags', '**/tags/**'],
+        processingBatchSize: 50,
+      }],
+
+      // Disable expensive bundler options: https://github.com/facebook/docusaurus/pull/11176
       function disableExpensiveBundlerOptimizationPlugin() {
         return {
           name: 'disable-expensive-bundler-optimizations',
@@ -303,14 +425,29 @@ export default async function createConfigAsync() {
         },
         typesenseSearchParameters: {
           query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',
-          group_by: 'url_without_anchor',
+          group_by: 'url',
           group_limit: 1,
-          num_typos: 1,
+          per_page: 20,
+          num_typos: 2,
           prioritize_exact_match: true,
-          filter_by: 'docusaurus_tag:!=[default,doc_tag_doc_list,blog_posts_list,blog_tags_posts,doc_tags_list,blog_tags_list]', // TODO Remove once the scraper is updated
+          filter_by: searchFilterBy, // Old platform-enterprise versions excluded automatically via searchFilterBy above
         },
         contextualSearch: false,
         placeholder: 'Search Seqera docs...',
+        // Override default productRoutes to fix the Nextflow tag.
+        // The default uses 'docs-default-current' but the Typesense index
+        // has 'docs-nextflow-current'.
+        productRoutes: [
+          ['/platform-enterprise/', 'Platform Enterprise', 'platform-enterprise', null],
+          ['/platform-cloud/', 'Platform Cloud', 'platform-cloud', null],
+          ['/platform-cli/', 'Platform CLI', 'platform-cli', null],
+          ['/platform-api/', 'Platform API', 'platform-api', null],
+          ['/nextflow/', 'Nextflow', null, 'docs-nextflow-current'],
+          ['/multiqc/', 'MultiQC', 'multiqc', null],
+          ['/wave/', 'Wave', 'wave', null],
+          ['/fusion/', 'Fusion', 'fusion', null],
+          ['/changelog/', 'Changelog', null, null],
+        ],
       },
       languageTabs: [
         {

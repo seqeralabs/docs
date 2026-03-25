@@ -1,7 +1,7 @@
 ---
 title: "Installation"
 description: "Install and configure Seqera AI CLI"
-date: "15 Dec 2025"
+date created: "2026-03-11"
 tags: [seqera-ai, cli, installation]
 ---
 
@@ -34,6 +34,26 @@ seqera --version
 npm update -g seqera
 ```
 
+### Install agent integrations
+
+Install Seqera AI as a skill for your coding agent:
+
+```bash
+seqera skill install
+```
+
+Install directly into the current repository:
+
+```bash
+seqera skill install --local
+```
+
+Check installed skills and update them after upgrading the CLI:
+
+```bash
+seqera skill check --update
+```
+
 :::info
 If you use Seqera AI as a skill for a coding agent, run `seqera skill check --update` after updating the CLI to keep your installed skills in sync with the current version. By default, this scans both local and global installations. Use `--global` or `--local` to narrow the scope. See [Working with Claude Code](./skill-claude-code.md), [Working with Codex](./skill-codex.md), [Working with GitHub Copilot](./skill-github-copilot.md), and [Working with other coding agents](./skill-other-agents.md).
 
@@ -52,6 +72,8 @@ npm uninstall -g seqera
 
 - [Seqera AI CLI](index.md): Seqera AI CLI overview
 - [Authentication](./authentication.md): Login, logout, and session management
+- [Skills](./skills.md): Discover, create, and install skills
+- [Modes](./modes.md): Work in build mode, plan mode, and goal mode
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Use cases](./use-cases.md): Seqera AI CLI use cases
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

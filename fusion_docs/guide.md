@@ -1,7 +1,7 @@
 ---
 title: User guide
-description: "Overview of the Fusin v2 file system"
-date: "23 Aug 2024"
+description: "Overview of the Fusion v2 file system"
+date created: "2024-08-23"
 tags: [fusion, storage, compute, file system, posix, client]
 ---
 
