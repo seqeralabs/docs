@@ -2,11 +2,11 @@
 title: "Production checklist"
 description: "A pre-production checklist for Seqera Platform."
 date created: "2025-07-03"
-last updated: "2026-03-24"
+last updated: "2026-03-25"
 tags: [production, checklist, deployment, limitations, retry]
 ---
 
-This guide is for Platform administrators preparing a Seqera deployment for production use by scientific teams. It covers common configuration decisions, policies, and checks to consider before you run production workloads. Every deployment is different — your Seqera account team can help you tailor these recommendations to your environment and workloads. Cloud infrastructure setup such as networking, IAM, and compute provisioning is the responsibility of your infrastructure team and is not covered here.
+This guide is for Platform administrators preparing a Seqera deployment for production use by scientific teams. It covers common configuration decisions, policies, and checks to consider before you run production workloads. Because every deployment is different, your Seqera account team can help you tailor these recommendations to your environment and workloads. Cloud infrastructure setup such as networking, IAM, and compute provisioning is the responsibility of your infrastructure team and is not covered here.
 
 ## Organizations and workspaces
 
@@ -14,15 +14,15 @@ Organizations are the top-level structure in Seqera Platform and contain workspa
 
 Best practices for organizations and workspaces include:
 
-- Plan your organization and workspace structure before go-live, considering the roles and work streams you expect to start with and scale to.
+- Plan your organization and workspace structure, considering the roles and work streams you expect to start with and scale to.
 - Use separate workspaces to isolate production from development and test environments.
-- Use a [shared workspace](../orgs-and-teams/workspace-management#shared-workspaces) to centralize pipeline definitions and compute environments without duplicating configuration across workspaces.
+- Use a [shared workspace](../orgs-and-teams/workspace-management#create-a-shared-workspace) to centralize pipeline definitions and compute environments without duplicating configuration across workspaces.
 
 See [Organizations](../orgs-and-teams/organizations) for more information.
 
 ## Users and roles
 
-Organization members are assigned roles that define their access and permissions within Platform. Each member has an organization role and can operate in one or more workspaces, where a participant role governs what they can do within that workspace.
+Roles define an organization member's access and permissions within Platform. Each member has an organization role and can operate in one or more workspaces, where a participant role governs what they can do within that workspace.
 
 Best practices for users and roles include:
 
@@ -40,11 +40,11 @@ Best practices for version pinning and compatibility include:
 
 - Set the Nextflow version in the compute environment configuration before handing workspaces to scientific teams, and document it alongside the Seqera Platform version in use.
 - Avoid performing Nextflow and Platform upgrades simultaneously, and validate all version changes in a non-production environment first.
-- Coordinate with pipeline developers to confirm the current working version combination and agree on a rollback plan before any upgrade is scheduled.
+- Coordinate with pipeline developers to confirm the current working version combination and agree on a rollback plan before you schedule any upgrades.
 - Before promoting a version change to production, ask pipeline teams to test resumption explicitly: launch a representative pipeline, interrupt it, and confirm it resumes from the last successful task.
 
 :::warning
-If pipeline teams cannot resume after a version upgrade, roll back to the last documented working version combination before investigating further. Resumption failure after an upgrade is typically a version incompatibility issue — contact your Seqera account team if you need help diagnosing it.
+Resumption failure after an upgrade typically indicates a version incompatibility issue. If pipeline teams cannot resume after a version upgrade, roll back to the last documented working version combination before investigating further.
 :::
 
 ## Cache management
@@ -60,7 +60,7 @@ Best practices for cache management include:
 Your Seqera account team can help assess cache configuration for your specific workloads and storage setup.
 
 :::warning
-After a Nextflow or Platform version upgrade, hash algorithms or cache key generation may change, causing all previously cached tasks to re-run. Inform pipeline teams before any upgrade so they can plan capacity and schedule accordingly — this is not a bug, but it will look like one if it happens without warning.
+After a Nextflow or Platform version upgrade, hash algorithms or cache key generation may change, causing all previously cached tasks to re-run. Inform pipeline teams before any upgrade so they can plan capacity and schedule accordingly; this is not a bug, but it will look like one if it happens without warning.
 :::
 
 ## Credentials and token lifecycle
@@ -145,7 +145,7 @@ Best practices for cost management and alerts include:
 
 - Enable billing exports to your cloud provider's analytics tooling before running production workloads: AWS Cost Explorer or S3 export, GCP billing export to BigQuery, or Azure Cost Management. These give you the raw data needed to investigate unexpected charges.
 - Set budget alerts in your cloud provider's billing tools to detect unexpected daily or weekly spend changes. On AWS, configure CloudWatch billing alarms; on GCP, use Cloud Monitoring budget alerts; on Azure, use Cost Management alert rules.
-- On AWS, use [dynamic resource labels](../resource-labels/overview) to tag Batch jobs with pipeline-specific values at run time. Dynamic labels do not appear in AWS Cost Explorer's graphical UI — costs are tracked via AWS split cost allocation data in Cost and Usage Reports (CUR). Enable split cost allocation in the AWS billing console before expecting to see per-pipeline costs. See the [Seqera blog post on AWS labels cost tracking](https://seqera.io/blog/aws-labels-cost-tracking/) for setup guidance.
+- On AWS, use [dynamic resource labels](../resource-labels/overview) to tag Batch jobs with pipeline-specific values at run time. Dynamic labels do not appear in AWS Cost Explorer's graphical UI. Costs are tracked via AWS split cost allocation data in Cost and Usage Reports (CUR). Enable split cost allocation in the AWS billing console before expecting to see per-pipeline costs. See the [Seqera blog post on AWS labels cost tracking](https://seqera.io/blog/aws-labels-cost-tracking/) for setup guidance.
 - On GCP, apply labels to Cloud Storage buckets, Filestore instances, and Compute Engine VMs in addition to Cloud Batch jobs. Label all resources consistently so BigQuery billing exports can attribute costs at the workload level.
 - Account for CloudWatch fees separately on AWS as these are not included in Seqera Platform run cost estimates.
 
