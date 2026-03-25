@@ -748,6 +748,30 @@ const sidebar: SidebarsConfig = {
           label: "Describe organization quotas",
           className: "api-method get",
         },
+        {
+          type: "doc",
+          id: "list-user-roles-in-organization",
+          label: "List user roles in organization",
+          className: "api-method get",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "permissions",
+      items: [
+        {
+          type: "doc",
+          id: "retrieve-permissions",
+          label: "Retrieve permissions",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "check-permission",
+          label: "Check permission",
+          className: "api-method get",
+        },
       ],
     },
     {
@@ -878,6 +902,54 @@ const sidebar: SidebarsConfig = {
           type: "doc",
           id: "list-platform-regions",
           label: "List platform regions",
+          className: "api-method get",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "roles",
+      items: [
+        {
+          type: "doc",
+          id: "list-roles",
+          label: "List roles",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "create-role",
+          label: "Create role",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "list-role-permissions",
+          label: "List role permissions",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "describe-role",
+          label: "Describe role",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "update-role",
+          label: "Update role",
+          className: "api-method put",
+        },
+        {
+          type: "doc",
+          id: "delete-role",
+          label: "Delete role",
+          className: "api-method delete",
+        },
+        {
+          type: "doc",
+          id: "validate-role-name",
+          label: "Validate role name",
           className: "api-method get",
         },
       ],

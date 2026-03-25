@@ -1,0 +1,28 @@
+---
+id: roles-info
+title: "Roles"
+description: "API operations for predefined and custom organization roles in Seqera Platform"
+sidebar_label: Roles
+hide_title: false
+custom_edit_url: null
+---
+
+import ApiLogo from "@theme/ApiLogo";
+import Heading from "@theme/Heading";
+import SchemaTabs from "@theme/SchemaTabs";
+import TabItem from "@theme/TabItem";
+import Export from "@theme/ApiExplorer/Export";
+import MDXComponents from "@theme-original/MDXComponents";
+
+
+Use these endpoints to list predefined and custom roles, discover assignable permissions, and create, update, validate, or delete custom roles in an organization context.
+
+Use `List role permissions` as the discovery endpoint for the permission names accepted by `Create role` and `Update role`.
+
+### Path and query parameters
+
+::table{file=parameter-tables/roles/parameters.yml}
+
+### Request body parameters
+
+::table{file=parameter-tables/roles/request-bodies.yml}
