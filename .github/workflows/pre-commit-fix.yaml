@@ -16,7 +16,7 @@ jobs:
       pull-requests: read
 
     steps:
-      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # ratchet:actions/checkout@v6.0.0
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
 
       # Action runs on the issue comment, so we don't get the PR by default.
       # Use the GitHub CLI to check out the PR.
