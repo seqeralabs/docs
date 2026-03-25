@@ -42,8 +42,6 @@ npm update -g seqera
 
 ### Developer configuration
 
-If you are testing a development build of the CLI against the hosted production Seqera AI service, set `SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io` before running `seqera ai`.
-
 See [Authentication](./authentication.md#point-a-development-build-at-the-hosted-seqera-ai-backend) for the complete environment variable reference and OAuth versus token-based examples.
 
 ### Install agent integrations
