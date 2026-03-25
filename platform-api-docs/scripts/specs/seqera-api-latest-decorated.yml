@@ -9927,8 +9927,8 @@ paths:
       tags:
       - roles
       summary: Delete role
-      description: Deletes the role identified by `roleName` in the organization
-        identified by `orgId`.
+      description: Deletes the custom role identified by `roleName` in the organization
+        identified by `orgId`. Predefined roles cannot be deleted.
       operationId: DeleteRole
       parameters:
       - name: roleName
@@ -18065,7 +18065,7 @@ tags:
 - name: orgs
   description: Organizations
 - name: permissions
-  description: Frontend-visible permissions and feature availability
+  description: Frontend-visible permissions
 - name: pipelines
   description: Pipelines
 - name: pipeline-secrets

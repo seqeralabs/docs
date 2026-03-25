@@ -772,12 +772,6 @@ const sidebar: SidebarsConfig = {
           label: "Check permission",
           className: "api-method get",
         },
-        {
-          type: "doc",
-          id: "list-available-features",
-          label: "List available features",
-          className: "api-method get",
-        },
       ],
     },
     {
