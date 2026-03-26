@@ -193,7 +193,8 @@ In addition, the following Seqera-operated domains must be reachable from your w
 - `licenses.seqera.io`
 - `registry.nextflow.io` — required from Nextflow 25.10 onwards
 - `api.multiqc.info`
-- For Seqera Cloud deployments: `cloud.seqera.io` and `api.cloud.seqera.io`. For Enterprise (self-hosted) deployments: your Platform instance hostname instead.
+- For Seqera Cloud deployments: `cloud.seqera.io` and `api.cloud.seqera.io`.
+- For Enterprise (self-hosted) deployments: your Platform instance hostname.
 
 If your allowlist is based on IP addresses rather than DNS names, allow all Cloudflare IP ranges listed at [https://www.cloudflare.com/ips/](https://www.cloudflare.com/ips/). For a dynamic list of Seqera Platform egress IPs, query `https://meta.seqera.io`.
 
