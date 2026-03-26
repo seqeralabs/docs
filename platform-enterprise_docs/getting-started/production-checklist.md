@@ -6,7 +6,7 @@ last updated: "2026-03-25"
 tags: [production, checklist, deployment, limitations, retry]
 ---
 
-This guide is for Platform administrators preparing a Seqera deployment for production use by scientific teams. It covers common configuration decisions, policies, and checks to consider before you run production workloads. Because every deployment is different, your Seqera account team can help you tailor these recommendations to your environment and workloads. Cloud infrastructure setup such as networking, IAM, and compute provisioning is the responsibility of your infrastructure team and is not covered here.
+This guide is for Platform administrators preparing a Seqera deployment for production use by scientific teams. It covers common configuration decisions, policies, and checks to consider before you run production workloads. Because every deployment is different, your Seqera account team can help you tailor these recommendations to your environment and workloads. Cloud infrastructure setup, such as networking, IAM, and compute provisioning, is the responsibility of your infrastructure team and is not covered here.
 
 ## Organizations and workspaces
 
