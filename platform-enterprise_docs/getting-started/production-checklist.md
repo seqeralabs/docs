@@ -85,7 +85,7 @@ Use [Pipeline Secrets](../secrets/overview) to manage sensitive values such as A
 
 ## Compute environment permissions
 
-Permissions within shared compute environments are a frequent source of unexpected behavior, particularly when multiple teams use the same workspace.
+Permissions within shared compute environments can cause unexpected behavior, particularly when multiple teams use the same workspace.
 
 Best practices for compute environment permissions include:
 
