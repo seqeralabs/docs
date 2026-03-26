@@ -60,7 +60,7 @@ Best practices for cache management include:
 Your Seqera account team can help assess cache configuration for your specific workloads and storage setup.
 
 :::warning
-After a Nextflow or Platform version upgrade, hash algorithms or cache key generation may change, causing all previously cached tasks to re-run. Inform pipeline teams before any upgrade so they can plan capacity and schedule accordingly; this is not a bug, but it will look like one if it happens without warning.
+After a Nextflow or Platform version upgrade, hash algorithms or cache key generation may change, causing all previously cached tasks to re-run. Inform pipeline teams before any upgrade so they can plan capacity and schedule accordingly; this is an expected behavior, but it may cause alarm if it happens unexpectedly.
 :::
 
 ## Credentials and token lifecycle
