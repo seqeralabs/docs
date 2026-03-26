@@ -181,7 +181,7 @@ fusion {
 
 ## Connectivity requirements
 
-Seqera Platform requires outbound connectivity from compute worker nodes to specific endpoints. Blocked connections are a common cause of pipelines failing to start or stalling mid-run. Worker nodes must be able to reach your cloud provider's service endpoints (Batch, EC2 or Compute Engine, object storage, container registry), any container registries used by your pipelines, and any external data sources accessed at runtime.
+Seqera Platform requires outbound connectivity from compute worker nodes to specific endpoints. Blocked connections cause pipelines to fail to start or stall mid-run. Worker nodes must be able to reach your cloud provider's service endpoints (Batch, EC2, or Compute Engine, object storage, container registry), any container registries used by your pipelines, and any external data sources accessed at runtime.
 
 In addition, the following Seqera-operated domains must be reachable from your worker nodes. If your firewall supports DNS wildcards, add `*.seqera.io.cdn.cloudflare.net`. Otherwise, add each domain individually:
 
