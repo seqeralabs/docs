@@ -34,7 +34,7 @@ See [User roles](../orgs-and-teams/roles) for more information.
 
 ## Version pinning and compatibility
 
-Incompatibilities between Nextflow and Platform versions are a leading cause of production failures, and often only surface during pipeline resumption after an interruption, not during normal runs.
+Incompatibilities between Nextflow and Platform versions are a leading cause of production failures, and often only surface during pipeline resumption after an interruption.
 
 Best practices for version pinning and compatibility include:
 
