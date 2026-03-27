@@ -1,0 +1,15 @@
+- Name: "`orgId`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Organization numeric identifier.
+- Name: "`workspaceId`"
+  Type: integer
+  Location: query
+  Req/Opt: Optional
+  Description: Workspace numeric identifier.
+- Name: "`operationId`"
+  Type: string
+  Location: query
+  Req/Opt: Required
+  Description: Operation identifier to check in the selected context.
