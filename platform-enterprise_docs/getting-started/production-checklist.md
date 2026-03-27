@@ -134,7 +134,7 @@ Cancelling a pipeline run in Seqera Platform does not guarantee immediate termin
 :::
 
 :::note
-The cost estimator in Seqera Platform is for indicative purposes only. For billing, budgeting, or chargeback, use your cloud provider's native cost reporting tools: AWS Cost Explorer, GCP Billing, or Azure Cost Management.
+The cost estimator in Seqera Platform is for estimation purposes and doesn't account for inefficiencies in how cloud batch executors provision instances. For billing, budgeting, or chargeback, use your cloud provider's native cost reporting tools: AWS Cost Explorer, GCP Billing, or Azure Cost Management.
 :::
 
 ## Cost management and alerts
