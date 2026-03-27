@@ -93,6 +93,10 @@ Setting the environment variable _inside_ an already running Studio session by e
 This is an experimental feature and may cause consistency issues in the Fusion namespace, resulting in data loss.
 :::
 
+## When starting an existing Studio session, extra processes are not automatically restarted
+
+Any process that is manually started in a running Studio session (e.g. `eval $(ssh-agent)`) will not be automatically restarted on a Studio restart. This is because any user initiated daemon process is not managed by the Connect client and therefore the Studio session does not manage it. To add extra processes that are automatically started at each Studio restart would require a user-defined startup script or an integrated supervisor (e.g. `s6`, `s6-overlay`, `supervisord`), both of which are currently unsupported.
+
 ## Container template image security scan false positives
 
 ### VS Code
