@@ -10,7 +10,7 @@ Datasets are CSV (comma-separated values) and TSV (tab-separated values) files s
 
 On the datasets screen, you can:
 
-- Upload directly or link to an externally hosted dataset 
+- Upload directly or link to an externally hosted dataset.
 - View the count of pipeline runs in the workspace that have used a specific dataset input.
 - Apply multiple labels to datasets for easier searching and grouping.
 - Sort datasets by name, most recently updated, and most recently used.
@@ -64,12 +64,12 @@ Seqera doesn't validate your dataset file contents. While datasets can contain s
 
 All Seqera user roles have access to the datasets feature in organization workspaces. There are two ways to add a dataset:
 
-1. Direct upload: the best option if immutability is a requirement but size cannot exceed 10 MB
-1. Link to an externally hosted file: best option for very large size files but you rely on the external hosting service for availability and immutability 
+1. Direct upload: This is the best option if immutability is a requirement but size cannot exceed 10 MB.
+1. Link to an externally hosted file: This is the best option for very large size files but relies on the external hosting service for availability and immutability.
 
 ### Direct upload
 
-1. In the sidebar navigation, select the **Datasets** link under the Data heading in your organization workspace.
+1. In the sidebar navigation, select **Datasets**.
 1. Select **Add Dataset** and choose **Upload file**.
 1. Complete the **Name** and **Description** fields using information relevant to your dataset.
 1. Optionally add one or more **Labels** to your dataset. You can use labels as a search filter but they don't apply to other resources in Seqera.
@@ -83,7 +83,7 @@ The size of the uploaded dataset file cannot exceed 10 MB.
 
 ### Link to an externally hosted file
 
-1. In the sidebar navigation, select the **Datasets** link under the Data heading in your organization workspace.
+1. In the sidebar navigation, select **Datasets**.
 1. Select **Add Dataset** and choose **Link to URL**.
 1. Complete the **Name** and **Description** fields using information relevant to your dataset.
 1. Optionally add one or more **Labels** to your dataset. You can use labels as a search filter but they don't apply to other resources in Seqera.
