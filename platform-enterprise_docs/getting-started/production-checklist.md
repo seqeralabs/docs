@@ -16,7 +16,6 @@ Best practices for organizations and workspaces include:
 
 - Plan your organization and workspace structure, considering the roles and work streams you expect to start with and scale to.
 - Use separate workspaces to isolate production from development and test environments.
-- Use a [shared workspace](../orgs-and-teams/workspace-management#create-a-shared-workspace) to centralize pipeline definitions and compute environments without duplicating configuration across workspaces.
 
 See [Organizations](../orgs-and-teams/organizations) for more information.
 
