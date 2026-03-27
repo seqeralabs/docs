@@ -96,7 +96,6 @@ Best practices for compute environment permissions include:
 Admin-level workspace access grants the ability to modify compute environments and credentials, which can affect all pipelines in the workspace. Assign Admin only to users who are responsible for workspace configuration.
 :::
 
-For teams sharing pipelines across workspaces, use a [shared workspace](../orgs-and-teams/workspace-management#create-a-shared-workspace) to centralize pipeline definitions and compute environments without duplicating configuration.
 
 ## Compute environment sizing
 
