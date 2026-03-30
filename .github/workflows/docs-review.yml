@@ -377,7 +377,7 @@ jobs:
 
       - name: Upload Editorial Review Results
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # ratchet:actions/upload-artifact@v4
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # ratchet:actions/upload-artifact@v7.0.0
         with:
           name: editorial-review-suggestions
           path: /tmp/editorial-review-suggestions.txt
@@ -434,7 +434,7 @@ jobs:
 
       - name: Upload Full Suggestions List
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # ratchet:actions/upload-artifact@v4
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # ratchet:actions/upload-artifact@v7.0.0
         with:
           name: all-editorial-suggestions
           path: /tmp/all-suggestions-full.txt
