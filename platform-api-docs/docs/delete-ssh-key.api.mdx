@@ -1,0 +1,66 @@
+---
+id: delete-ssh-key
+title: "Delete SSH key"
+description: "Deletes the given SSH public key by its ID."
+sidebar_label: "Delete SSH key"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVE1v2zAM/SsCTxugJunW7eDT2jXDgg5b0XSnIAfFZmI1tqRKdLrA0H8fKDtfbdFhJ1sSqff4+KgWSK0CZDMIoTxb4zbAXEKBIffakbYGMrjGCgmDoBLFSm/QiOn0u3DNotK5WONWLLZCUxCT6wFIsA694sxJsc+dhvIGtyDBKa9qJPQM2YJRNUIGa9xOCpCgGc0pKuE5BQZkJNPU6HUudIGG9FKjZ0iPj432WEBGvkEJIS+xVpC1QFvHANoQrtCDhKX1taJu6/MFxDjn9OCsCRg448Pogj+n8L9uxJn4aUVuDaEhiBIuRqOXcVeqEEwGA4GEXXTWgnKu0nmSZfgQOLY9YnngP4MaQ1Ar5C705O3iAXO+z3nWlnRHdBd4qDKQ12YFMUogTRVvjb23/q6vD2KMifnHVyrcdU0YS0JVlX3CIl0VMG+8pm1q2BUqj/6yoRKy2ZzFq5FKy50uUqdTj/kUhjtDDdvU3wh8l9/set/4CjIoiVzIhkPl9CCvbFMMAj6iVwNtX5ognYjbShG3UXzleHF5OwEmsuM5ZVk7iY7Z7lViROg9wutFCgLZ/3zbGeThiVL92ixtSu8l7Vkw7L8Icrk6x9AHsx9UnvxwWvxxyVgrXSV/Lu2Xw0GUwMp1OOeD8/NPgxFvOhuoVslP/TB1Eyf6iXnOsT248j/nupeP8A8NXaW0YfhUR9u3/OgNkZB1Qz2XUNpAfNi2CxXwt69i5O3HBj2bai5ho7xWC1Z31kKhA/8XkC1VFfAN/u/u+rl5L95+H16l3m8qwxptVNXwCiQ/RvsnKc6jhBJVgT5x684u8xwdHWW9mO6Twbge/xjfj0GCOjXiM+MlgFdJtW0XcW/XaGLccyReM8cY/wL/yfUk
+sidebar_class_name: "delete api-method"
+info_path: platform-api//seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete SSH key"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/ssh-keys/{keyId}"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Deletes the given SSH public key by its ID.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./delete-ssh-key.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./delete-ssh-key.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./delete-ssh-key.StatusCodes.json")}
+>
+
+</StatusCodes>

@@ -1,0 +1,366 @@
+overlay: 1.0.0
+info:
+  title: Global schemas overlay
+  version: 0.0.0
+actions:
+  # ===== GLOBAL SCHEMAS - CREDENTIALS AND COMPUTE CONFIGURATIONS =====
+
+  # ---- GIT CREDENTIALS ----
+
+  - target: "$.components.schemas.GitKeys.description"
+    update: "Git repository credentials."
+
+  - target: "$.components.schemas.GitKeys.properties.discriminator.description"
+    update: "Property to select the credentials type."
+
+  - target: "$.components.schemas.GitKeys.properties.username.description"
+    update: "Git username for authentication."
+
+  - target: "$.components.schemas.GitKeys.properties.password.description"
+    update: "Git password for authentication."
+
+  - target: "$.components.schemas.GitKeys.properties.token.description"
+    update: "Git personal access token for authentication."
+
+  # ---- SEQERA COMPUTE CLOUD INSTANCE TYPE SIZE ----
+
+  - target: "$.components.schemas.SeqeraComputeCloudInstanceTypeSize.description"
+    update: "Data Studios instance size. Accepts `SMALL`, `MEDIUM`, or `LARGE`."
+
+  # ---- SEQERA COMPUTE CONFIG ----
+
+  - target: "$.components.schemas.SeqeraComputeConfig.properties.instanceTypeSize.description"
+    update: "Size of the Data Studios instance. Accepts `SMALL`, `MEDIUM`, or `LARGE`."
+
+  # ---- ABSTRACT GRID CONFIG ----
+
+  - target: "$.components.schemas.AbstractGridConfig.properties.workDir.description"
+    update: "Compute environment working directory."
+
+  - target: "$.components.schemas.AbstractGridConfig.properties.preRunScript.description"
+    update: "Script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+  - target: "$.components.schemas.AbstractGridConfig.properties.postRunScript.description"
+    update: "Script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+  - target: "$.components.schemas.AbstractGridConfig.properties.environment.description"
+    update: "Array of environment variables for the compute environment."
+
+  - target: "$.components.schemas.AbstractGridConfig.properties.nextflowConfig.description"
+    update: "Additional Nextflow configuration content."
+
+  - target: "$.components.schemas.AbstractGridConfig.properties.discriminator.description"
+    update: "Property to select the compute config platform."
+
+  - target: "$.components.schemas.AbstractGridConfig.properties.launchDir.description"
+    update: "Launch directory for Nextflow execution."
+
+  - target: "$.components.schemas.AbstractGridConfig.properties.userName.description"
+    update: "Username for SSH authentication to the HPC cluster."
+
+  - target: "$.components.schemas.AbstractGridConfig.properties.hostName.description"
+    update: "Hostname or IP address of the HPC cluster head node."
+
+  - target: "$.components.schemas.AbstractGridConfig.properties.port.description"
+    update: "SSH port for connecting to the HPC cluster. Default: `22`."
+
+  - target: "$.components.schemas.AbstractGridConfig.properties.headQueue.description"
+    update: "Queue name for submitting the Nextflow head job."
+
+  - target: "$.components.schemas.AbstractGridConfig.properties.computeQueue.description"
+    update: "Queue name for submitting Nextflow compute jobs."
+
+  - target: "$.components.schemas.AbstractGridConfig.properties.maxQueueSize.description"
+    update: "Maximum number of jobs that can be queued at one time."
+
+  - target: "$.components.schemas.AbstractGridConfig.properties.headJobOptions.description"
+    update: "Additional options for the head job submission."
+
+  - target: "$.components.schemas.AbstractGridConfig.properties.propagateHeadJobOptions.description"
+    update: "If true, head job options are propagated to compute jobs. Default: `false`."
+
+  # ---- LSF COMPUTE CONFIG ----
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.workDir.description"
+    update: "Compute environment working directory."
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.preRunScript.description"
+    update: "Script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.postRunScript.description"
+    update: "Script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.environment.description"
+    update: "Array of environment variables for the compute environment."
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.nextflowConfig.description"
+    update: "Additional Nextflow configuration content."
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.discriminator.description"
+    update: "Property to select the compute config platform."
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.launchDir.description"
+    update: "Launch directory for Nextflow execution."
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.userName.description"
+    update: "Username for SSH authentication to the HPC cluster."
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.hostName.description"
+    update: "Hostname or IP address of the HPC cluster head node."
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.port.description"
+    update: "SSH port for connecting to the HPC cluster. Default: `22`."
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.headQueue.description"
+    update: "Queue name for submitting the Nextflow head job."
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.computeQueue.description"
+    update: "Queue name for submitting Nextflow compute jobs."
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.maxQueueSize.description"
+    update: "Maximum number of jobs that can be queued at one time."
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.headJobOptions.description"
+    update: "Additional options for the head job submission."
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.propagateHeadJobOptions.description"
+    update: "If true, head job options are propagated to compute jobs. Default: `false`."
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.unitForLimits.description"
+    update: "Unit for memory and time limits in LSF."
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.perJobMemLimit.description"
+    update: "If true, applies memory limit per job. Default: `false`."
+
+  - target: "$.components.schemas.LsfComputeConfig.properties.perTaskReserve.description"
+    update: "If true, reserves resources per task. Default: `false`."
+
+  # ---- SLURM COMPUTE CONFIG ----
+
+  - target: "$.components.schemas.SlurmComputeConfig.properties.workDir.description"
+    update: "Compute environment working directory."
+
+  - target: "$.components.schemas.SlurmComputeConfig.properties.preRunScript.description"
+    update: "Script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+  - target: "$.components.schemas.SlurmComputeConfig.properties.postRunScript.description"
+    update: "Script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+  - target: "$.components.schemas.SlurmComputeConfig.properties.environment.description"
+    update: "Array of environment variables for the compute environment."
+
+  - target: "$.components.schemas.SlurmComputeConfig.properties.nextflowConfig.description"
+    update: "Additional Nextflow configuration content."
+
+  - target: "$.components.schemas.SlurmComputeConfig.properties.discriminator.description"
+    update: "Property to select the compute config platform."
+
+  - target: "$.components.schemas.SlurmComputeConfig.properties.launchDir.description"
+    update: "Launch directory for Nextflow execution."
+
+  - target: "$.components.schemas.SlurmComputeConfig.properties.userName.description"
+    update: "Username for SSH authentication to the HPC cluster."
+
+  - target: "$.components.schemas.SlurmComputeConfig.properties.hostName.description"
+    update: "Hostname or IP address of the HPC cluster head node."
+
+  - target: "$.components.schemas.SlurmComputeConfig.properties.port.description"
+    update: "SSH port for connecting to the HPC cluster. Default: `22`."
+
+  - target: "$.components.schemas.SlurmComputeConfig.properties.headQueue.description"
+    update: "Queue name for submitting the Nextflow head job."
+
+  - target: "$.components.schemas.SlurmComputeConfig.properties.computeQueue.description"
+    update: "Queue name for submitting Nextflow compute jobs."
+
+  - target: "$.components.schemas.SlurmComputeConfig.properties.maxQueueSize.description"
+    update: "Maximum number of jobs that can be queued at one time."
+
+  - target: "$.components.schemas.SlurmComputeConfig.properties.headJobOptions.description"
+    update: "Additional options for the head job submission."
+
+  - target: "$.components.schemas.SlurmComputeConfig.properties.propagateHeadJobOptions.description"
+    update: "If true, head job options are propagated to compute jobs. Default: `false`."
+
+  # ---- ALTAIR PBS COMPUTE CONFIG ----
+
+  - target: "$.components.schemas.AltairPbsComputeConfig.properties.workDir.description"
+    update: "Compute environment working directory."
+
+  - target: "$.components.schemas.AltairPbsComputeConfig.properties.preRunScript.description"
+    update: "Script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+  - target: "$.components.schemas.AltairPbsComputeConfig.properties.postRunScript.description"
+    update: "Script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+  - target: "$.components.schemas.AltairPbsComputeConfig.properties.environment.description"
+    update: "Array of environment variables for the compute environment."
+
+  - target: "$.components.schemas.AltairPbsComputeConfig.properties.nextflowConfig.description"
+    update: "Additional Nextflow configuration content."
+
+  - target: "$.components.schemas.AltairPbsComputeConfig.properties.discriminator.description"
+    update: "Property to select the compute config platform."
+
+  - target: "$.components.schemas.AltairPbsComputeConfig.properties.launchDir.description"
+    update: "Launch directory for Nextflow execution."
+
+  - target: "$.components.schemas.AltairPbsComputeConfig.properties.userName.description"
+    update: "Username for SSH authentication to the HPC cluster."
+
+  - target: "$.components.schemas.AltairPbsComputeConfig.properties.hostName.description"
+    update: "Hostname or IP address of the HPC cluster head node."
+
+  - target: "$.components.schemas.AltairPbsComputeConfig.properties.port.description"
+    update: "SSH port for connecting to the HPC cluster. Default: `22`."
+
+  - target: "$.components.schemas.AltairPbsComputeConfig.properties.headQueue.description"
+    update: "Queue name for submitting the Nextflow head job."
+
+  - target: "$.components.schemas.AltairPbsComputeConfig.properties.computeQueue.description"
+    update: "Queue name for submitting Nextflow compute jobs."
+
+  - target: "$.components.schemas.AltairPbsComputeConfig.properties.maxQueueSize.description"
+    update: "Maximum number of jobs that can be queued at one time."
+
+  - target: "$.components.schemas.AltairPbsComputeConfig.properties.headJobOptions.description"
+    update: "Additional options for the head job submission."
+
+  - target: "$.components.schemas.AltairPbsComputeConfig.properties.propagateHeadJobOptions.description"
+    update: "If true, head job options are propagated to compute jobs. Default: `false`."
+
+  # ---- MOAB COMPUTE CONFIG ----
+
+  - target: "$.components.schemas.MoabComputeConfig.properties.workDir.description"
+    update: "Compute environment working directory."
+
+  - target: "$.components.schemas.MoabComputeConfig.properties.preRunScript.description"
+    update: "Script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+  - target: "$.components.schemas.MoabComputeConfig.properties.postRunScript.description"
+    update: "Script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+  - target: "$.components.schemas.MoabComputeConfig.properties.environment.description"
+    update: "Array of environment variables for the compute environment."
+
+  - target: "$.components.schemas.MoabComputeConfig.properties.nextflowConfig.description"
+    update: "Additional Nextflow configuration content."
+
+  - target: "$.components.schemas.MoabComputeConfig.properties.discriminator.description"
+    update: "Property to select the compute config platform."
+
+  - target: "$.components.schemas.MoabComputeConfig.properties.launchDir.description"
+    update: "Launch directory for Nextflow execution."
+
+  - target: "$.components.schemas.MoabComputeConfig.properties.userName.description"
+    update: "Username for SSH authentication to the HPC cluster."
+
+  - target: "$.components.schemas.MoabComputeConfig.properties.hostName.description"
+    update: "Hostname or IP address of the HPC cluster head node."
+
+  - target: "$.components.schemas.MoabComputeConfig.properties.port.description"
+    update: "SSH port for connecting to the HPC cluster. Default: `22`."
+
+  - target: "$.components.schemas.MoabComputeConfig.properties.headQueue.description"
+    update: "Queue name for submitting the Nextflow head job."
+
+  - target: "$.components.schemas.MoabComputeConfig.properties.computeQueue.description"
+    update: "Queue name for submitting Nextflow compute jobs."
+
+  - target: "$.components.schemas.MoabComputeConfig.properties.maxQueueSize.description"
+    update: "Maximum number of jobs that can be queued at one time."
+
+  - target: "$.components.schemas.MoabComputeConfig.properties.headJobOptions.description"
+    update: "Additional options for the head job submission."
+
+  - target: "$.components.schemas.MoabComputeConfig.properties.propagateHeadJobOptions.description"
+    update: "If true, head job options are propagated to compute jobs. Default: `false`."
+
+  # ---- UNIVA COMPUTE CONFIG ----
+
+  - target: "$.components.schemas.UnivaComputeConfig.properties.workDir.description"
+    update: "Compute environment working directory."
+
+  - target: "$.components.schemas.UnivaComputeConfig.properties.preRunScript.description"
+    update: "Script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+  - target: "$.components.schemas.UnivaComputeConfig.properties.postRunScript.description"
+    update: "Script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+
+  - target: "$.components.schemas.UnivaComputeConfig.properties.environment.description"
+    update: "Array of environment variables for the compute environment."
+
+  - target: "$.components.schemas.UnivaComputeConfig.properties.nextflowConfig.description"
+    update: "Additional Nextflow configuration content."
+
+  - target: "$.components.schemas.UnivaComputeConfig.properties.discriminator.description"
+    update: "Property to select the compute config platform."
+
+  - target: "$.components.schemas.UnivaComputeConfig.properties.launchDir.description"
+    update: "Launch directory for Nextflow execution."
+
+  - target: "$.components.schemas.UnivaComputeConfig.properties.userName.description"
+    update: "Username for SSH authentication to the HPC cluster."
+
+  - target: "$.components.schemas.UnivaComputeConfig.properties.hostName.description"
+    update: "Hostname or IP address of the HPC cluster head node."
+
+  - target: "$.components.schemas.UnivaComputeConfig.properties.port.description"
+    update: "SSH port for connecting to the HPC cluster. Default: `22`."
+
+  - target: "$.components.schemas.UnivaComputeConfig.properties.headQueue.description"
+    update: "Queue name for submitting the Nextflow head job."
+
+  - target: "$.components.schemas.UnivaComputeConfig.properties.computeQueue.description"
+    update: "Queue name for submitting Nextflow compute jobs."
+
+  - target: "$.components.schemas.UnivaComputeConfig.properties.maxQueueSize.description"
+    update: "Maximum number of jobs that can be queued at one time."
+
+  - target: "$.components.schemas.UnivaComputeConfig.properties.headJobOptions.description"
+    update: "Additional options for the head job submission."
+
+  - target: "$.components.schemas.UnivaComputeConfig.properties.propagateHeadJobOptions.description"
+    update: "If true, head job options are propagated to compute jobs. Default: `false`."
+
+  # ---- EKS COMPUTE CONFIG ----
+
+  - target: "$.components.schemas.EksComputeConfig.properties.region.description"
+    update: "AWS region where the EKS cluster is located."
+
+  - target: "$.components.schemas.EksComputeConfig.properties.clusterName.description"
+    update: "Name of the AWS EKS cluster."
+
+  # ---- GKE COMPUTE CONFIG ----
+
+  - target: "$.components.schemas.GkeComputeConfig.properties.region.description"
+    update: "Google Cloud region or zone where the GKE cluster is located."
+
+  - target: "$.components.schemas.GkeComputeConfig.properties.clusterName.description"
+    update: "Name of the Google GKE cluster."
+
+  # ---- WORKFLOW AND TASK SCHEMAS ----
+
+  - target: "$.components.schemas.Task.properties.numSpotInterruptions.description"
+    update: "Number of spot instance interruptions encountered by this task."
+
+  - target: "$.components.schemas.TraceProgressData.properties.numSpotInterruptions.description"
+    update: "Total number of spot instance interruptions across all tasks."
+
+  - target: "$.components.schemas.WorkflowLoad.properties.numSpotInterruptions.description"
+    update: "Number of spot instance interruptions for the workflow."
+
+  # ---- LIST WORKFLOWS RESPONSE ----
+
+  - target: "$.components.schemas.ListWorkflowsResponse.properties.hasMore.description"
+    update: "If true, indicates there are more results available beyond this page."
+
+  # ---- ORGANIZATION QUOTAS ----
+
+  - target: "$.components.schemas.OrganizationQuotas.properties.maxCustomRolesPerOrg.description"
+    update: "Maximum number of custom roles allowed per organization."
+
+  # ---- DATA STUDIO STOP REASON ----
+
+  - target: "$.components.schemas.DataStudioStopReason.description"
+    update: "Reason for Data Studio session termination. Accepts `UNKNOWN`, `USER_REQUEST`, `TIMEOUT`, `ERROR`, `RESOURCE_LIMIT`, or `NO_STATS_AVAIL`."

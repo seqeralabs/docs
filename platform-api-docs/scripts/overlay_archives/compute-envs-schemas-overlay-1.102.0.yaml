@@ -1,0 +1,14 @@
+overlay: 1.0.0
+info:
+  title: Compute environments schemas overlay
+  version: 0.0.0
+actions:
+  # ===== COMPUTE ENVIRONMENTS SCHEMAS - REQUEST/RESPONSE OBJECTS =====
+
+  # ---- COMPUTE ENVIRONMENT STATUS ENUM ----
+
+  - target: "$.components.schemas.ComputeEnv.Status"
+    update:
+      type: string
+      enum: ["CREATING", "AVAILABLE", "ERRORED", "INVALID", "DISABLED"]
+      description: "Compute environment status. Accepts `CREATING`, `AVAILABLE`, `ERRORED`, `INVALID`, or `DISABLED`."

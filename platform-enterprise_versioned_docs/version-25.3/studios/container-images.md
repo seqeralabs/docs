@@ -2,7 +2,7 @@
 title: "Container image templates"
 description: "Use container images with Studios."
 date created: "2025-10-16"
-last updated: "2025-10-16"
+last updated: "2026-03-18"
 tags: [container, container-images, session, studios]
 ---
 
@@ -16,7 +16,7 @@ The image template tag includes the version of the analysis application, an opti
 
 - `<tool_version>`: Third-party analysis application that follows its own semantic versioning `<major>.<minor>.<patch>`, such as `4.2.5` for JupyterLab.
 - `<update_version>`: Optional analysis application update version, such as `u1`, for instances where a backwards incompatible change is introduced.
-- `<connect_version>`: Seqera Connect client version, such as `0.9` or `0.9.0`.
+- `<connect_version>`: Seqera Connect client version, such as `0.11` or `0.11.0`.
 
 Additionally, the Seqera Connect client version string has the format:
 
@@ -30,8 +30,8 @@ Additionally, the Seqera Connect client version string has the format:
 
 When pushed to the container registry, an image template is tagged with the following tags:
 
-- `<tool_version>-<major>.<minor>`, such as `4.2.3-0.9`. When adding a new container template image this is the tag displayed in Seqera Platform.
-- `<tool_version>-<major>.<minor>.<patch>`, such as `4.2.3-0.9.0`.
+- `<tool_version>-<major>.<minor>`, such as `4.2.3-0.11`. When adding a new container template image this is the tag displayed in Seqera Platform.
+- `<tool_version>-<major>.<minor>.<patch>`, such as `4.2.3-0.11.0`.
 
 To view the latest versions of the images, see [public.cr.seqera.io](https://public.cr.seqera.io/). You can also augment the Seqera-provided image templates or use your own custom container image templates. This approach is recommended for managing reproducible analysis environments. For more information, see [Custom environments][custom-envs].
 
@@ -67,7 +67,7 @@ To see the list of all JupyterLab image templates available, including security 
 
 The default user is the `root` account. To install R packages during a running Studio session, execute `install.packages("<packagename>")` commands in your notebook environment. Additional system-level packages can be installed in a terminal window using `apt install <packagename>`.
 
-To see the list of all R-IDE image templates available, including security scan results or to inspect the container specification, see [https://public.cr.seqera.io/repo/platform/data-studio-ride][ds-ride].
+To see the list of all R-IDE image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-ride][ds-ride].
 
 ### Visual Studio Code 1.93.1
 

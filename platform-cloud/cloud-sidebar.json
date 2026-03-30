@@ -107,6 +107,7 @@
         "items": [
           "pipelines/overview",
           "pipeline-schema/overview",
+          "pipelines/versioning",
           "pipelines/revision",
           "launch/launchpad",
           "labels/overview",
@@ -126,6 +127,26 @@
         ]
       },
      {
+      "type": "category",
+      "label": "Seqera AI CLI",
+      "link": {"type": "doc", "id": "seqera-ai/index"},
+      "collapsed": true,
+      "items": [
+        "seqera-ai/get-started",
+        "seqera-ai/installation",
+        "seqera-ai/authentication",
+        "seqera-ai/skills",
+        "seqera-ai/modes",
+        "seqera-ai/use-cases",
+        "seqera-ai/command-approval",
+        "seqera-ai/skill-claude-code",
+        "seqera-ai/skill-codex",
+        "seqera-ai/skill-github-copilot",
+        "seqera-ai/skill-other-agents",
+        "seqera-ai/nextflow-lsp"
+      ]
+    },
+     {
         "type": "category",
         "label": "Studios",
         "items": [
@@ -140,11 +161,12 @@
           "items": [
             "studios/add-studio-provided-template",
             "studios/add-studio-custom-container",
-            "studios/add-studio-git-repo"
+            "studios/add-studio-git-repo",
+            "studios/example-studios"
           ]
-          },         
+          },
           "studios/managing",
-          "studios/connect"        
+          "studios/connect"
         ]
       },
       {
@@ -154,23 +176,11 @@
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/roles",
+          "orgs-and-teams/custom-roles",
           "monitoring/dashboard",
           "administration/credit-management"
           ]
       },
-     {
-      "type": "category",
-      "label": "Seqera AI CLI",
-      "link": {"type": "doc", "id": "seqera-ai/index"},
-      "collapsed": true,
-      "items": [
-        "seqera-ai/get-started",
-        "seqera-ai/installation",
-        "seqera-ai/authentication",
-        "seqera-ai/command-approval",
-        "seqera-ai/use-cases"
-      ]
-    },    
       {
         "type": "category",
         "label": "Developer tools",
@@ -182,15 +192,10 @@
             "href": "https://docs.seqera.io/platform-api"
           },
           {
-            "type": "category",
+            "type": "link",
             "label": "CLI",
-            "collapsed": true,
-            "items": [
-              "cli/overview",
-              "cli/installation",
-              "cli/commands"
-            ]
-            },
+            "href": "https://docs.seqera.io/platform-cli"
+          },
             {
               "type": "category",
               "label": "Seqerakit",
@@ -207,7 +212,7 @@
               "label": "Seqera MCP",
               "link": {"type": "doc", "id": "seqera-mcp/overview"},
               "collapsed": true,
-              "items": [                  
+              "items": [
                 "seqera-mcp/seqera-tools",
                 "seqera-mcp/sra-tools",
                 "seqera-mcp/nfcore-tools"

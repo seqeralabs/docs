@@ -1,0 +1,35 @@
+FILE: platform-enterprise_docs/getting-started/quickstart.md
+LINE: 15
+ISSUE: Use 'Seqera Platform' instead of 'Tower'
+ORIGINAL: |
+To get started with Tower, you need to create an account.
+SUGGESTION: |
+To get started with Seqera Platform, you need to create an account.
+---
+
+FILE: platform-enterprise_docs/getting-started/quickstart.md
+LINE: 42
+ISSUE: Use active voice and second person
+ORIGINAL: |
+The pipeline can be launched by the user from the Launchpad.
+SUGGESTION: |
+You can launch the pipeline from the Launchpad.
+---
+
+FILE: platform-cloud/docs/pipelines/overview.md
+LINE: 8
+ISSUE: Capitalize 'Studios' (product name)
+ORIGINAL: |
+You can create multiple studios to organize your work.
+SUGGESTION: |
+You can create multiple Studios to organize your work.
+---
+
+FILE: platform-cloud/docs/pipelines/overview.md
+LINE: 23
+ISSUE: Sentence too long (42 words) - split for clarity
+ORIGINAL: |
+When you configure your compute environment, you should consider the resources available, the cost implications of your choices, and the specific requirements of your workflows, all of which can impact performance and efficiency.
+SUGGESTION: |
+When you configure your compute environment, consider three key factors: available resources, cost implications, and workflow requirements. Each of these impacts performance and efficiency.
+---

@@ -1,0 +1,1 @@
+{"parameters":[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier. If omitted, refreshes cache in a user context.","schema":{"type":"integer","format":"int64"}},{"name":"credentialsId","in":"query","description":"Credentials string identifier. Filters cache refresh to data-links accessible with the specified credentials.","schema":{"type":"string"}}]}

@@ -7,25 +7,32 @@ tags: [enterprise, update, install]
 
 Follow these steps to upgrade your database instance and Platform Enterprise installation:
 
+:::note
+From Seqera Enterprise version 23.4, MySQL 8 is the only supported database version. If you are upgrading from a version prior to 23.4 and running MySQL 5.6 or 5.7, you must upgrade your database to MySQL 8 before upgrading to version 24.2. See [General upgrade steps](#general-upgrade-steps) for database upgrade instructions.
+:::
+
+### General upgrade steps
+
 :::caution
 The database volume is persistent on the local machine by default if you use the `volumes` key in the `db` or `redis` section of your `docker-compose.yml` file to specify a local path to the DB or Redis instance. If your database is not persistent, you must back up your database before performing any application or database upgrades.
+:::
+
+:::info
+Starting from version 26.1, the frontend image running as root user will be deprecated. We recommend starting to switch to the [root-less image (also known as "unprivileged" image)](./kubernetes#seqera-frontend-unprivileged) during this upgrade.
 :::
 
 1. Make a backup of the Seqera database. If you use the pipeline optimization service and your `groundswell` database resides in a database instance separate from your Seqera database, make a backup of your `groundswell` database as well.
 1. Download the latest versions of your deployment templates and update your Seqera container versions:
     - [docker-compose.yml](./_templates/docker/docker-compose.yml) for Docker Compose deployments
     - [tower-cron.yml](./_templates/k8s/tower-cron.yml) and [tower-svc.yml](./_templates/k8s/tower-svc.yml) for Kubernetes deployments
-1. **JVM memory configuration defaults (recommended)**: The following `JAVA_OPTS` environment variable is included in the deployment templates downloaded in the preceding step, to optimize JVM memory settings:
+1. If you're using Studios, download and apply the latest versions of the Kubernetes manifests:
+    - [proxy.yml](./_templates/k8s/data_studios/proxy.yml)
+    - [server.yml](./_templates/k8s/data_studios/server.yml)
 
-    ```bash
-    JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
-    ```
-
-    These baseline values are suitable for most deployments running moderate concurrent workflow loads. 
-
-    :::tip
-    These are starting recommendations that may require tuning based on your deployment's workload. See [Backend memory requirements](./configuration/overview.mdx#backend-memory-requirements) for detailed guidance on when and how to adjust these values for your environment.
+    :::warning
+    If you have customized the default Studios container template images, you must ensure that you update to latest recommended versions. Templates using earlier versions of Connect (than defined in the latest `proxy.yml` and `server.yml`) may no longer be supported in your existing Studios environments. Refer to the [Studios migration documentation](../data_studios/managing) for guidance on migrating to the most recent versions of Connect server and clients.
     :::
+
 1. Restart the application.
 1. If you're using a containerized database as part of your implementation:
     1. Stop the application.

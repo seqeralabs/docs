@@ -1,0 +1,66 @@
+---
+id: validate-ssh-key
+title: "Validate SSH key"
+description: "Confirms the validity and availability of the given SSH public key in the user context."
+sidebar_label: "Validate SSH key"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1VE1v2zAM/SsCz6qTbt1hPq0t9lEU2wqk66XIgbGZWIssuRKdLjD83wfKcZs0xXbZTrZESu+R71EdMK4i5PcQY3Wypm2EuYaSYhFMw8Y7yOHSu6UJdVRckdqgNaXhrUJXKtygsbgwVjb8MiWszIacms2+qKZdWFOoNW2VcSnWRgqq8I7pF2egwTcUUFCuSsjhTq5GplmsrmkLGhoMWBNTEIIdOKwJclinmBFmDy0FWRzyfYGd8Bwr9gN5ZMrU1zayWpAQS5svCS99qDFxjEVFNULeAW8bwY8cjFtB3881BIqNd5GixN9Mz+RzSOb7tTpR3/zIQisztCl1JQ7gGfQazqbT49MXWKpADy3Fo5PO88Hpt69gj+1NyWitf6Qx/f1xuuhsTcE6QZRtY02BTOWo3qDsk3x9ryFS0QbD26TPBWGgcN5yBfn9XNpTE1depF0RJz0lBJPRapNRj8mgaaSwGcVug4UcKuYm5pMJNiYrrG/LLNIDBcyMP5Y9RdSNRRb11KXkq/ObKxAqI9OZyDnotc/3SV1BHFWX9SIlgd79fEq+gBx+PnLqgHFLn44btvTMQmD/RlDKNQXFXbI0FguWyw6L3y+ZajQSE9gPz4Feg3RuwDnNTk/fZVPZbHzkGp3cuZuecciS4Ye2H7DsYOfU/zr4u2bLctJYNE7Ipqq7nUv2HiQNo09Ap+mfa6h8ZEnqugVG+hFs38v28CCIf0oTcWGphHyJNtIfqvy3z8WrlQnp8eHaoG0lI7lyg8EIzTQwe/Py+eMtaMBDa76wYipzF0K3f3XXDRm3fk2u72EkwLKGft73/W9R5wnP
+sidebar_class_name: "get api-method"
+info_path: platform-api//seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Validate SSH key"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/ssh-keys/validate/key"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Confirms the validity and availability of the given SSH public key in the user context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./validate-ssh-key.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./validate-ssh-key.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./validate-ssh-key.StatusCodes.json")}
+>
+
+</StatusCodes>

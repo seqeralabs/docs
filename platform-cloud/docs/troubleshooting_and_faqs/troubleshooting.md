@@ -32,7 +32,7 @@ This error can occur if you execute a DSL1-based Nextflow workflow using [Nextfl
 The `sleep` commands in your Nextflow workflows may differ in behavior depending on where they are:
 
 - If used within an `errorStrategy` block, the Groovy sleep function will be used (which takes its value in milliseconds).
-- If used within a process script block, that language's sleep binary/method will be used. For example, [this bash script](https://www.nextflow.io/docs/latest/metrics.html?highlight=sleep) uses the bash sleep binary, which takes its value in seconds.
+- If used within a process script block, that language's sleep binary/method will be used. For example, [this bash script](https://docs.seqera.io/nextflow/metrics.html?highlight=sleep) uses the bash sleep binary, which takes its value in seconds.
 
 
 **Large number of batch job definitions**

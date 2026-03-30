@@ -22,46 +22,44 @@ You will need the following to get started:
 - Data-links currently cannot be referenced in Git repositories. Mount data manually when adding a Studio.
 - Git repositories with multiple Studio configurations are not supported. However, it is possible to use a Git repository with multiple branches and a single configuration per branch.
 
-### Create the required configuration files 
+### Create the required configuration files
 
-**`.seqera/studio-config.yaml` configuration file**
-
-Create a `studio-config.yaml` file in the the `.seqera` directory in your repository. Your `studio-config.yaml` should contain at least `schemaVersion `, `kind` and `session.template.kind`. All other fields are optional.
+Create a `studio-config.yaml` file in the `.seqera` directory in your repository. Your `studio-config.yaml` should contain at least `schemaVersion `, `kind` and `session.template.kind`. All other fields are optional.
 
 ```yaml
 schemaVersion: "0.0.1"
 kind: "studio-config"
 session:
-    name: "studio-name"                          # Must be unique to a workspace. If undefined, an auto-generated name is used
-    description: "desc"                          # Short description of what the Studio is for
-    template:
-        kind: "registry"|"dockerfile"|"none"     # Required
-        registry: "cr.seqera.io/image:latest"    # Ignored for `dockerfile` and `none`
-        dockerfile: "Dockerfile"                 # Ignored for `registry` and `none`
-    clone:
-        enabled: true                            # Clone the contents of the repository to the Studio. Defaults to `true`
-        path: "/workspace"                       # Defaults to `/workspace`. If you want to clone to `/workspace/repository` then you need to specify this
-    dependencies:
-        condaEnvironmentFile: "environment.yaml" # Define additional libraries (and versions). Ignored for `dockerfile`
-    computeRequirements:
-        awsBatch:                                # Ignored for non-AWS batch CE
-            cpu: 2                               # Number of CPUs to use. Defaults to 2
-            gpu: 0                               # Number of GPUs to use (if the CE supports GPUs). Defaults to 0
-            memory: 8192                         # Memory allocated in MiB. Defaults to 8192.
-    environmentVariables:                        # Ordered sequence of elements that are objects (or mappings) of key-value pairs
-        -   name: "var1"
-            value: "value1"
-        -   name: "var2"
-            value: "value2"
-    management:                                  # Session management settings
-        lifespanHours: 1                         # Ignored if workspace lifespan is set
-        isPrivate: false                         # Defaults to `false`
+  name: "studio-name"                          # Must be unique to a workspace. If undefined, an auto-generated name is used
+  description: "desc"                          # Short description of what the Studio is for
+  template:
+    kind: "registry"|"dockerfile"|"none"       # Required
+    registry: "cr.seqera.io/image:latest"      # Ignored for `dockerfile` and `none`
+    dockerfile: "Dockerfile"                   # Ignored for `registry` and `none`
+  clone:
+    enabled: true                              # Clone the contents of the repository to the Studio. Defaults to `true`
+    path: "/workspace"                         # Defaults to `/workspace`. If you want to clone to `/workspace/repository` then you need to specify this
+  dependencies:
+    condaEnvironmentFile: "environment.yaml"   # Define additional libraries (and versions). Ignored for `dockerfile`
+  computeRequirements:
+    awsBatch:                                  # Ignored for non-AWS batch CE
+      cpu: 2                                   # Number of CPUs to use. Defaults to 2
+      gpu: 0                                   # Number of GPUs to use (if the CE supports GPUs). Defaults to 0
+      memory: 8192                             # Memory allocated in MiB. Defaults to 8192
+  environmentVariables:                        # Ordered sequence of elements that are objects (or mappings) of key-value pairs
+    - name: "var1"
+      value: "value1"
+    - name: "var2"
+      value: "value2"
+  management:                                  # Session management settings
+    lifespanHours: 1                           # Ignored if workspace lifespan is set
+    isPrivate: false                           # Defaults to `false`
 ```
 
 The schema can define a custom `Dockerfile` or an `environment.yaml` file, which must be in the `.seqera` folder. The following limitations apply:
 
 - The workspace Admin needs to set a target repository per workspace, in **Settings > Studios > Container repository**. If no repository configuration is specified, the build will fail.
-- Each workspace needs to have credentials available in the workspace to push to the repository you've specified.
+- Each workspace needs to have valid credentials to push to the repository you've specified.
 - The only supported repository and compute environment combination for a fully private Dockerfile-based Studio is ECR and AWS.
 - The files pulled for Dockerbuild context have individual and total file size limits:
   - Individual files cannot be larger than 5 MB.
@@ -78,9 +76,6 @@ You can add a Studio by referencing a Git repository containing Studio configura
 - **Git repository**: Enter the full URL to your Git repository (e.g., `https://github.com/your-org/your-repo`).
 - **Revision**: Select a branch, tag, or commit from the dropdown. The dropdown is dynamically populated based on the repository URL. If no revision is selected, the default branch is used.
 - **Install Conda packages**: A list of conda packages to include with the Studio. For more information on package syntax, see [conda package syntax][conda-syntax].
-  :::note
-  The workspace Admin needs to set a target repository per workspace, in **Settings > Studios > Container repository**. If no repository configuration is specified, the build will fail. Each workspace must have credentials available to push to the specified repository.
-  :::
 - **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default, but can be removed. Additional custom resource labels can be added or removed as needed.
 - **Environment variables**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence. To override an inherited variable, define the same key with a different value.
 - **Studio name**: The name for the Studio.
@@ -127,10 +122,10 @@ You can disable cloning, which allows you to share a public/private template. Yo
 
    1. Review the configuration to ensure all settings are correct.
    1. Save your configuration:
-      - To save and immediately start your Studio, select **Add and start**. 
+      - To save and immediately start your Studio, select **Add and start**.
       - To save but not immediately start your Studio, select **Add only**.
 
-Studios you create will be listed on the Studios landing page with a status of either **stopped** or **starting**. Select a Studio to inspect its configuration details. 
+Studios you create will be listed on the Studios landing page with a status of either **stopped** or **starting**. Select a Studio to inspect its configuration details.
 
 {/* links */}
 [github-examples]: https://github.com/seqeralabs/studio-schema-examples

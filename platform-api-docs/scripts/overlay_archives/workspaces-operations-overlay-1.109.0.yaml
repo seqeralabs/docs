@@ -1,0 +1,51 @@
+overlay: 1.0.0
+info:
+  title: Workspaces operations overlay for v1.109.0
+  version: 0.0.0
+actions:
+  # ===== ADD NEW OPERATION =====
+
+  - target: "$.paths"
+    update:
+      /orgs/{orgId}/workspaces/{workspaceId}/users/{userId}:
+        delete:
+          tags:
+          - workspaces
+          summary: Delete workspace user
+          description: Deletes the given user (member or collaborator) from the given workspace.
+          operationId: DeleteWorkspaceUser
+          parameters:
+          - name: orgId
+            in: path
+            description: Organization numeric identifier.
+            required: true
+            schema:
+              type: integer
+              format: int64
+          - name: workspaceId
+            in: path
+            description: Workspace numeric identifier.
+            required: true
+            schema:
+              type: integer
+              format: int64
+          - name: userId
+            in: path
+            description: User numeric identifier.
+            required: true
+            schema:
+              type: integer
+              format: int64
+          responses:
+            "204":
+              description: OK - No content
+            "400":
+              description: Bad request
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+            "403":
+              description: Operation not allowed
+          security:
+          - BearerAuth: []

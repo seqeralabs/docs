@@ -47,7 +47,7 @@ This error can occur if you execute a DSL1-based Nextflow workflow using [Nextfl
 The `sleep` commands in your Nextflow workflows may differ in behavior depending on where they are:
 
 - If used within an `errorStrategy` block, the Groovy sleep function will be used (which takes its value in milliseconds).
-- If used within a process script block, that language's sleep binary/method will be used. For example, [this bash script](https://www.nextflow.io/docs/latest/metrics.html?highlight=sleep) uses the bash sleep binary, which takes its value in seconds.
+- If used within a process script block, that language's sleep binary/method will be used. For example, [this bash script](https://docs.seqera.io/nextflow/metrics.html?highlight=sleep) uses the bash sleep binary, which takes its value in seconds.
 
 
 **Large number of batch job definitions**
@@ -57,10 +57,10 @@ Platform normally looks for an existing job definition that matches your workflo
 ```bash
 jobs=$(aws --region eu-west-1 batch describe-job-definitions | jq -r .jobDefinitions[].jobDefinitionArn)
 
-for x in $jobs; do 
-  echo "Deregister $x"; 
-  sleep 0.01;  
-  aws --region eu-west-1 batch deregister-job-definition --job-definition $x; 
+for x in $jobs; do
+  echo "Deregister $x";
+  sleep 0.01;
+  aws --region eu-west-1 batch deregister-job-definition --job-definition $x;
 done
 ```
 
@@ -177,7 +177,7 @@ Users with email addresses other than the `trustedEmails` list will undergo an a
 
 :::note
 
-1. You must rebuild your containers (`docker compose down`) to force Seqera to implement this change. Ensure your database is persistent before issuing the teardown command. See [here](../enterprise/docker-compose) for more information.
+1. You must rebuild your containers (`docker compose down`) to force Seqera to implement this change. Ensure your database is persistent before issuing the teardown command. See [here](../enterprise/platform-docker-compose) for more information.
 2. All login attempts are visible to the root user at **Profile > Admin panel > Users**.
 3. Any user logged in prior to the restriction will not be subject to the new restriction. An admin of the organization should remove users that have previously logged in via (untrusted) email from the Admin panel users list. This will restart the approval process before they can log in via email.
 

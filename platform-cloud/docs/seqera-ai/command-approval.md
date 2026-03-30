@@ -1,13 +1,9 @@
 ---
 title: "Command approval"
 description: "Control which local commands require user approval in Seqera AI"
-date: "15 Dec 2025"
+date created: "2025-12-15"
 tags: [seqera-ai, cli, approval, security]
 ---
-
-:::caution Seqera AI CLI is in beta
-Seqera AI CLI is currently in beta. Features and commands may change as we continue to improve the product.
-:::
 
 :::note
 Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
@@ -15,29 +11,30 @@ Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [C
 
 Seqera AI can execute local commands and edit files in your environment. This page explains approval modes that control which operations run automatically versus which require your permission, including dangerous commands, workspace boundaries, and best practices.
 
+:::info
+Starting a persistent task with `/goal <task>` switches the session to `full` approval mode automatically so Seqera AI can continue working without repeated prompts.
+:::
+
 ## Approval prompts
 
-When a command requires approval, you will see output similar to:
+When a command requires approval, you will see a prompt similar to:
 
 ```
-⚠ Approval required (default mode)
+APPROVAL REQUIRED (default mode)
+Command: rm -rf ./build/
 
-╭──────────────────────────────────────╮
-│ rm -rf ./build/                      │
-╰──────────────────────────────────────╯
+[1] Yes, approve this command
+[2] Always approve this session
+[3] No, reject
 
-  1 Yes, run this command
-  2 Yes, and don't ask again this session
-  3 No, cancel and stop
-
-Select [1/2/3]:
+Press 1, 2, or 3 to choose
 ```
 
 You can:
 
-- **1**: Run the command as shown
-- **2**: Run the command and switch to `full` approval mode for the rest of the session
-- **3**: Cancel the command and stop the current operation
+- **1**: Run the command once (or press Enter)
+- **2**: Run the command and auto-approve all commands for the rest of the session
+- **3**: Reject the command (or press Escape)
 
 ## Approval modes
 
@@ -50,6 +47,18 @@ There are three approval modes:
 | **basic** | Only safe, read-only commands run automatically | Maximum security |
 | **default** | Safe commands and workspace file edits run automatically | Typical development |
 | **full** | Everything except dangerous commands runs automatically | Experienced users |
+
+You can set the approval mode when starting the CLI:
+
+```bash
+seqera ai --approval-mode full
+```
+
+Or change it during a session using the `/approval` TUI command:
+
+```
+/approval basic
+```
 
 ### Basic
 
@@ -82,17 +91,12 @@ This is the most restrictive mode. The assistant can only auto-execute commands 
 ```
 > Create a new file called test.txt with "hello world"
 
-⚠ Approval required (basic mode)
+APPROVAL REQUIRED (basic mode)
+Command: Write ./test.txt
 
-╭──────────────────────────────────────╮
-│ Write ./test.txt                     │
-╰──────────────────────────────────────╯
-
-  1 Yes, run this command
-  2 Yes, and don't ask again this session
-  3 No, cancel and stop
-
-Select [1/2/3]:
+[1] Yes, approve this command
+[2] Always approve this session
+[3] No, reject
 ```
 
 ### Default
@@ -131,17 +135,12 @@ File creation in the workspace runs automatically.
 ```
 > Edit /etc/hosts
 
-⚠ Approval required (default mode)
+APPROVAL REQUIRED (default mode)
+Command: Edit /etc/hosts
 
-╭──────────────────────────────────────╮
-│ Edit /etc/hosts                      │
-╰──────────────────────────────────────╯
-
-  1 Yes, run this command
-  2 Yes, and don't ask again this session
-  3 No, cancel and stop
-
-Select [1/2/3]:
+[1] Yes, approve this command
+[2] Always approve this session
+[3] No, reject
 ```
 
 Editing outside the workspace requires approval.
@@ -194,17 +193,12 @@ Most operations run without prompts.
 ```
 > Delete the build directory
 
-⚠ Approval required (full mode)
+APPROVAL REQUIRED (full mode)
+Command: rm -rf ./build/
 
-╭──────────────────────────────────────╮
-│ rm -rf ./build/                      │
-╰──────────────────────────────────────╯
-
-  1 Yes, run this command
-  2 Yes, and don't ask again this session
-  3 No, cancel and stop
-
-Select [1/2/3]:
+[1] Yes, approve this command
+[2] Always approve this session
+[3] No, reject
 ```
 
 Dangerous commands still require approval.
@@ -216,15 +210,12 @@ In **default** mode, the "workspace" is your current working directory and its s
 - **Inside workspace**: `/path/to/workspace/src/file.txt` - auto-executes
 - **Outside workspace**: `/etc/config` or `~/other-project/file.txt` - requires approval
 
-The workspace is set when you start the assistant:
+The workspace is set to your current directory when you start the CLI:
 
 ```bash
 # Workspace is /home/user/my-project
 cd /home/user/my-project
 seqera ai
-
-# Or explicitly set the workspace
-seqera ai -w /home/user/my-project
 ```
 
 ## Best practices

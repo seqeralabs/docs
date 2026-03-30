@@ -54,6 +54,7 @@ async function cloneOrUpdateRepo({ name, url, path: repoPath, branch }) {
 
 // Clone/update all repositories
 async function processRepositories() {
+  console.log("fetch-docs-oss: Pulling or updating docs from os product repositories...");
   for (const repo of repositories) {
     try {
       await cloneOrUpdateRepo(repo);

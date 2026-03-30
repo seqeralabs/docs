@@ -1,0 +1,66 @@
+---
+id: delete-workspace-user
+title: "Delete workspace user"
+description: "Deletes the given user (member or collaborator) from the given workspace."
+sidebar_label: "Delete workspace user"
+hide_title: true
+hide_table_of_contents: true
+api: eJy1lU1v2zAMhv+KwFMLaHG6dTv4tHbNgGLDVvQDOwQ5KDaTqLUtl6LbZYb++0DF+WzRDsF6iiVR0kPy1ZsW2Ew9pEN4dHTna5Ohh5GGHH1GtmbrKkjhDAtk9IpnqKb2ASvVeCR1UGI5RlKOVOaKwowdGXZ0qCbkyo3g1dE90OBqJCPnnuerk38tA248EmioDZkSGUnIWqhMiZCCo+l5DhqsINWGZ7DL+ZOmprJ/4vGqakokmymbY8V2YpHkesL7xhLmkDI1qMFnMywNpC3wvJZbbMU4jRQTR6XhxdSnYwhBr1BWGb0CtErsTWmkGa+ASGHfgGEk233tKo9edrzvH8vPTle+qXfqh1OZqxgrhqDhuN9/GndqciUw6Bk0LKPTFkxdFzaLXU1uvcS2G5Rr/iGU6L2Zoii4g3fjW8zkvJpEeWwXoMvAdZaeyVZTqSuw5UKmBkSOLrv8IIQQyT88k+FS06pyrExRuEfM41Ees4Ysz6OOT9EQ0knDM0iHIyleiTxz8g7y+A6i9GUVEkdTn7RR8iFZv82k3ZBeSKTzPmkXAggg99HD8tk0VEAKM+bap0liatvLCtfkPY/3SKZn3ROVXMUVdVEYllarLxKvTi7OQWCXuVxJ6Rdl3MxoVUm5ETodyXgcg0B3H1+XIrp95FgjW01c3N6VvaOQa18DlHRthr4LFs2YLGpmO/nNlLE0toganrjP64WgQSq3uOeod3T0sdeXydp5Lk3UXPfcFp61drVohruo7VrA/9U+uxoz/uakLoythDEm23baGYpRetCQLg1zw9o1pNveFRUk052JjDTMnGc5pm3HxuMNFSHI9H2DJDoeaXgwZM1YmjVsIbdevnNIJ6bw+EIdDi67p3qo/sGpn820mzTVHASjaGQEGu5wvvqHEGfcC+o1t96DaLPYe3O9YN57IHWNDqOgYYYmR4ptXCyeZBnWvLHtifdu2dbZ4PvgegAazLYF7Dz5eMGzVG27iLh2d1iFsIJkGQtjCH8BjXn4Pg==
+sidebar_class_name: "delete api-method"
+info_path: platform-api//seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete workspace user"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/orgs/{orgId}/workspaces/{workspaceId}/users/{userId}"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Deletes the given user (member or collaborator) from the given workspace.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./delete-workspace-user.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./delete-workspace-user.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./delete-workspace-user.StatusCodes.json")}
+>
+
+</StatusCodes>

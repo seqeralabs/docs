@@ -17,6 +17,10 @@ This page outlines the steps to upgrade your database instance and Platform Ente
 
 - If you are upgrading from a version older than 23.4.1, update your installation to version 23.4.4 **first**, before updating to version 25.3 with the steps on this page.
 
+- **MySQL 8 required**
+
+  From Seqera Enterprise version 23.4, MySQL 8 is the only supported database version. If you are running MySQL 5.6 or 5.7, you must upgrade your database to MySQL 8 before upgrading to version 23.4 or later. See [General upgrade steps](#general-upgrade-steps) for database upgrade instructions.
+
 ### Considerations for versions 24.1 - 25.1
 
 - **OIDC Secrets injection modifications**
@@ -67,7 +71,7 @@ The database volume is persistent on the local machine by default if you use the
 :::
 
 :::info
-Starting from version 26.1, the frontend image running as root user will be deprecated. We recommend starting to switch to the [root-less image (also known as "unprivileged" image)](./kubernetes#seqera-frontend-unprivileged) during this upgrade.
+Starting from version 26.1, the frontend image running as root user will be deprecated. We recommend starting to switch to the [root-less image (also known as "unprivileged" image)](./platform-kubernetes#seqera-frontend-unprivileged) during this upgrade.
 :::
 
 1. Make a backup of the Seqera database. If you use the pipeline optimization service and your `groundswell` database resides in a database instance separate from your Seqera database, make a backup of your `groundswell` database as well.

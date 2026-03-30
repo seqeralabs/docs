@@ -6,7 +6,7 @@ tags: [seqerakit, cli, automation, installation]
 ---
 
 
-Seqerakit is a Python wrapper that sets [Platform CLI](../cli/overview) command options using YAML configuration files. Individual commands and configuration parameters can be chained together to automate the end-to-end creation of all Seqera Platform entities.
+Seqerakit is a Python wrapper that sets [Platform CLI](https://docs.seqera.io/platform-cli) command options using YAML configuration files. Individual commands and configuration parameters can be chained together to automate the end-to-end creation of all Seqera Platform entities.
 
 As an extension of the Platform CLI, Seqerakit enables:
 
@@ -14,7 +14,7 @@ As an extension of the Platform CLI, Seqerakit enables:
 - **Simple configuration**: All Platform CLI command-line options can be defined in simple YAML format.
 - **Automation**: End-to-end creation of Seqera entities, from adding an organization to launching pipelines.
 
-### Installation 
+### Installation
 
 Seqerakit has three dependencies:
 
@@ -24,7 +24,7 @@ Seqerakit has three dependencies:
 
 #### Pip
 
-If you already have [Platform CLI](../cli/installation) and Python installed on your system, install Seqerakit directly from [PyPI](https://pypi.org/project/seqerakit/):
+If you already have [Platform CLI](https://docs.seqera.io/platform-cli/installation) and Python installed on your system, install Seqerakit directly from [PyPI](https://pypi.org/project/seqerakit/):
 
 ```bash
 pip install seqerakit
@@ -94,7 +94,7 @@ By default, this is set to `https://api.cloud.seqera.io` to connect to Seqera Cl
 
 ### Usage
 
-To confirm the installation of `seqerakit`, configuration of the Platform CLI, and connection to Seqera is working as expected, run this command: 
+To confirm the installation of `seqerakit`, configuration of the Platform CLI, and connection to Seqera is working as expected, run this command:
 
 ```bash
 seqerakit --info

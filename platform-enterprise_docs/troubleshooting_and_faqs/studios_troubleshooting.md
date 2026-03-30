@@ -132,6 +132,131 @@ These are the false positive confirmed findings:
 | ini:1.0.0        | CVE-2020-7788⁠       |
 | diff:1.0.0       | GHSA-h6ch-v84p-w6p9⁠ |
 
+## SSH connections (public preview)
+
+### SSH Connection toggle not available
+
+If the **SSH Connection** toggle doesn't appear when adding a Studio, or SSH-related options are missing, your Platform version doesn't support SSH access to running Studios.
+
+SSH access requires:
+
+- **Seqera Platform Enterprise v25.3.3 or later**
+- **connect-server/proxy v0.10.0 or later**
+- **connect-client v0.10.0 or later**
+
+If your Platform meets these requirements but SSH is still unavailable, verify your administrator configured the required environment variables during deployment.
+
+### Host key verification failed
+
+```
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Host key verification failed.
+```
+
+This error occurs when multiple proxy pods are using different SSH keys. Ensure all proxy pods share the same SSH key. If the issue persists, edit your `~/.ssh/known_hosts` file and remove the line that contains the connect-proxy address.
+
+### Permission denied (publickey)
+
+```bash
+ssh user@studio-session-id@connect.example.com
+# user@studio-session-id@connect.example.com: Permission denied (publickey).
+```
+
+If you receive a permission denied error, there are several possible causes:
+
+1. Verify the user has the correct role and permissions in the workspace.
+2. Check that the user's SSH public key is configured in their Seqera user profile.
+3. Ensure SSH was enabled when adding the Studio using the **SSH Connection** toggle. The SSH setting persists across stop/start but defaults to disabled for new Studios.
+
+If the issue persists, verify your administrator configured the SSH environment variables during Studios deployment.
+
+### Connection closed by remote host
+
+```bash
+ssh user@studio-session-id@connect.example.com
+# Connection to connect.example.com closed by remote host.
+```
+
+This error indicates an SSH fingerprint mismatch when `TOWER_DATA_STUDIO_CONNECT_SSH_KEY_FINGERPRINT` is configured. Verify the fingerprint matches the proxy's SSH key:
+
+```bash
+ssh-keygen -lf /path/to/connect-proxy-key
+```
+
+Check Studio logs for:
+
+```json
+{
+  "msg": "SSH fingerprint auth result",
+  "authorized": false,
+  "expected": "SHA256:NEu6MAPGJpImFJ3raQzv6+NubCPy/92hqR+CVyMjKvM",
+  "incoming": "SHA256:NYu6MAPUJpImFQ3raQzv6+NubCPy/97hqR+CVyMjKvM"
+}
+```
+
+The `authorized` field should be `true` and `expected` should equal `incoming`. If they differ, the proxy SSH key configuration is incorrect.
+
+### VS Code Remote SSH not working
+
+If VS Code fails to connect or shows errors when using the Remote SSH extension, disable local server mode in VS Code settings:
+
+```json
+{
+  "remote.SSH.useLocalServer": false
+}
+```
+
+VS Code's local server mode uses SSH multiplexing over SOCKS proxy, which is not supported. See [Connect to a Studio via SSH - VS Code Remote SSH](../studios/managing#vs-code-remote-ssh) for detailed setup instructions.
+
+Additionally, you may need to update your `~/.ssh/config` file to directly connect to the Studio session:
+
+```bash
+Host <connect-domain>
+  HostName <connect-domain>
+  User <username>@<studio-session-id>
+  Port <port>
+```
+
+### SSH connection string format
+
+**Correct format:**
+
+```bash
+ssh <username>@<studio-session-id>@<connect-domain> -p 2222
+```
+
+**Example:**
+
+```bash
+ssh alice@a01ac8894@connect.example.com -p 2222
+```
+
+Where:
+- `<username>`: Your Seqera Platform username
+- `<studio-session-id>`: The Studio session ID (8-character hex string visible in the Studios list)
+- `<connect-domain>`: Your connect proxy domain
+- Port: `2222` (default SSH proxy port)
+
+### Debugging SSH connections
+
+Enable debug logging for detailed SSH connection traces:
+
+**Proxy logs:**
+
+```bash
+CONNECT_LOG_LEVEL=debug
+```
+
+**Client logs (in Studio):**
+
+```bash
+CONNECT_CLIENT_LOG_LEVEL=debug
+```
+
+Debug logs include SSH handshake details, authentication attempts, channel lifecycle, and data transfer errors.
+
 {/* links */}
 
 [gh-copilot]: https://github.com/features/copilot

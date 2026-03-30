@@ -1,13 +1,9 @@
 ---
 title: "Seqera AI CLI"
 description: "AI-powered assistant for bioinformatics workflows and Seqera Platform"
-date: "2025-12-15"
+date created: "2026-03-11"
 tags: [seqera-ai, cli, ai]
 ---
-
-:::caution Seqera AI CLI is in beta
-Seqera AI CLI is currently in beta. Features and commands may change as we continue to improve the product.
-:::
 
 :::note
 Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
@@ -23,9 +19,21 @@ Seqera AI has access to:
 
 ## Seqera AI features
 
+### Skills
+
+Seqera AI supports reusable skills for common workflows. Backend skills are exposed as slash commands in the `/` command palette and `/help`, and project or user `SKILL.md` files are discovered automatically from standard skill directories.
+
 ### Natural language interface
 
 Interact with Seqera Platform using plain English. Ask questions, launch workflows, and manage pipelines through conversational commands.
+
+### Build and plan modes
+
+Switch between **build** and **plan** modes during an interactive session with `Shift+Tab`. Build mode is the default for execution and file changes, while plan mode is optimized for analysis, implementation planning, and read-only investigation.
+
+### Goal mode
+
+Use `/goal <task>` to set a persistent goal. Seqera AI will keep working toward that goal across multiple model attempts until it is complete or the goal attempt limit is reached.
 
 ### Workflow management
 
@@ -33,7 +41,7 @@ Launch, monitor, and debug Nextflow workflows directly from your terminal. Get r
 
 ### Pipeline development
 
-Generate Nextflow configurations, create pipeline schemas, and convert scripts from other workflow languages (WDL, Snakemake) to Nextflow.
+Generate Nextflow configurations, create pipeline schemas, and convert scripts from other workflow languages (WDL, R) to Nextflow.
 
 ### nf-core integration
 
@@ -51,14 +59,29 @@ Build containerized environments on-the-fly with conda packages, pip packages, o
 
 Edit files, run commands, and manage your local development environment with AI assistance and configurable approval modes.
 
+### LSP code intelligence
+
+Real-time error detection and AI-powered code navigation for Nextflow, Python, and R files in your workspace.
+
+### Session management
+
+Resume previous sessions to continue your work. Use `seqera ai -c` to continue your most recent session or `seqera ai -s <id>` to resume a specific session.
+
 ### Seqera Platform integration
 
 Full access to Platform capabilities including compute environments, datasets, data links, and workspace management.
 
 ## Learn more
 
-- [Installation](./installation.mdx): Detailed installation instructions
+- [Installation](./installation.md): Detailed installation instructions
 - [Authentication](./authentication.md): Log in, log out, and session management
+- [Skills](./skills.md): Discover, create, and install skills
+- [Modes](./modes.md): Work in build mode, plan mode, and goal mode
 - [Command approval](./command-approval.md): Control which commands run automatically
+- [Working with Claude Code](./skill-claude-code.md): Install Seqera AI as a skill for Claude Code
+- [Working with Codex](./skill-codex.md): Install Seqera AI as a skill for Codex
+- [Working with GitHub Copilot](./skill-github-copilot.md): Install Seqera AI as a skill for GitHub Copilot
+- [Working with other coding agents](./skill-other-agents.md): Install Seqera AI for other coding agents
+- [Code intelligence](./nextflow-lsp.md): Language-server support in Seqera AI
 - [Use cases](./use-cases.md): Seqera AI CLI use cases
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

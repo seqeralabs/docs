@@ -42,8 +42,8 @@ spec:
               value: "false"
             - name: CONNECT_REDIS_DB
               value: "1"
-            - name: CONNECT_SERVER_LOG_LEVEL
-              value: info
+            - name: CONNECT_LOG_LEVEL
+              value: info  # one of: trace, debug, info, warn, error, fatal
 ---
 apiVersion: v1
 kind: Service

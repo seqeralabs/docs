@@ -5,27 +5,29 @@
 - Name: launchId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Deprecated legacy alias for `workflowId`. If provided, its value is
+    mapped to `workflowId`.
 - Name: sessionId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Nextflow session identifier used to correlate subsequent trace updates.
 - Name: runName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Workflow run name reported by Nextflow.
 - Name: projectName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline or project name reported by Nextflow.
 - Name: repository
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Source repository URL or path for the workflow project.
 - Name: workflowId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Existing workflow string identifier to associate with this trace
+    create request.
 - Name: "**UpdateTraceBegin**"
   Type: ""
   Req/Opt: ""
@@ -33,7 +35,8 @@
 - Name: launchId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Deprecated legacy field. If provided, Seqera Platform treats the
+    trace as originating from a Platform-managed launch.
 - Name: workflow
   Type: object
   Req/Opt: Optional
@@ -41,7 +44,7 @@
 - Name: workflow.requiresAttention
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, the workflow has issues that require user attention.
 - Name: workflow.status
   Type: string
   Req/Opt: Optional
@@ -49,95 +52,95 @@
 - Name: workflow.ownerId
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Numeric identifier of the workflow owner.
 - Name: workflow.repository
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Source repository URL or path for the workflow project.
 - Name: workflow.id
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Workflow string identifier.
 - Name: workflow.submit
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Timestamp when the workflow was submitted.
 - Name: workflow.start
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when workflow execution started.
 - Name: workflow.complete
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when workflow execution completed.
 - Name: workflow.dateCreated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the workflow record was created.
 - Name: workflow.lastUpdated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the workflow record was last updated.
 - Name: workflow.runName
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Workflow run name. Must be unique within the session.
 - Name: workflow.sessionId
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Nextflow session identifier for the workflow run.
 - Name: workflow.profile
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Nextflow profile or profile selection used for the run.
 - Name: workflow.workDir
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Workflow work directory path.
 - Name: workflow.commitId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Source control commit identifier for the workflow run.
 - Name: workflow.userName
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Username reported for the workflow owner.
 - Name: workflow.scriptId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Internal script or pipeline identifier associated with the run.
 - Name: workflow.revision
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Source control revision, branch, or tag used for the run.
 - Name: workflow.commandLine
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Full command line used to launch the workflow.
 - Name: workflow.projectName
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Pipeline or project name reported by Nextflow.
 - Name: workflow.scriptName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Main workflow script filename.
 - Name: workflow.launchId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Legacy launch identifier associated with the workflow.
 - Name: workflow.configFiles
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of configuration files used for the workflow run.
 - Name: workflow.params
   Type: object
   Req/Opt: Optional
-  Description: ""
+  Description: Workflow input parameter map.
 - Name: workflow.configText
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Inline Nextflow configuration text used for the run.
 - Name: workflow.manifest
   Type: object
   Req/Opt: Optional
@@ -145,43 +148,43 @@
 - Name: workflow.manifest.nextflowVersion
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Nextflow version declared by the pipeline manifest.
 - Name: workflow.manifest.defaultBranch
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Default source control branch declared by the manifest.
 - Name: workflow.manifest.version
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline version declared by the manifest.
 - Name: workflow.manifest.homePage
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline homepage URL declared by the manifest.
 - Name: workflow.manifest.gitmodules
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Comma-separated git submodule paths declared by the manifest.
 - Name: workflow.manifest.description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline description declared by the manifest.
 - Name: workflow.manifest.name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline name declared by the manifest.
 - Name: workflow.manifest.mainScript
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Main workflow script filename declared by the manifest.
 - Name: workflow.manifest.author
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline author declared by the manifest.
 - Name: workflow.manifest.icon
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Relative path or URL for the pipeline icon.
 - Name: workflow.nextflow
   Type: object
   Req/Opt: Optional
@@ -189,15 +192,15 @@
 - Name: workflow.nextflow.version
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Nextflow runtime version used for the workflow run.
 - Name: workflow.nextflow.build
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Nextflow build identifier.
 - Name: workflow.nextflow.timestamp
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp associated with the reported Nextflow build.
 - Name: workflow.stats
   Type: object
   Req/Opt: Optional
@@ -205,67 +208,67 @@
 - Name: workflow.stats.computeTimeFmt
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Human-readable total compute time across workflow tasks.
 - Name: workflow.stats.cachedCount
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of cached tasks.
 - Name: workflow.stats.failedCount
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of failed tasks.
 - Name: workflow.stats.ignoredCount
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of ignored tasks.
 - Name: workflow.stats.succeedCount
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of successful tasks.
 - Name: workflow.stats.cachedCountFmt
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Human-readable cached task count.
 - Name: workflow.stats.succeedCountFmt
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Human-readable successful task count.
 - Name: workflow.stats.failedCountFmt
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Human-readable failed task count.
 - Name: workflow.stats.ignoredCountFmt
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Human-readable ignored task count.
 - Name: workflow.stats.cachedPct
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Percentage of tasks satisfied from cache.
 - Name: workflow.stats.failedPct
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Percentage of tasks that failed.
 - Name: workflow.stats.succeedPct
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Percentage of tasks that succeeded.
 - Name: workflow.stats.ignoredPct
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Percentage of tasks that were ignored.
 - Name: workflow.stats.cachedDuration
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Aggregate duration in milliseconds for cached tasks.
 - Name: workflow.stats.failedDuration
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Aggregate duration in milliseconds for failed tasks.
 - Name: workflow.stats.succeedDuration
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Aggregate duration in milliseconds for successful tasks.
 - Name: workflow.fusion
   Type: object
   Req/Opt: Optional
@@ -273,11 +276,11 @@
 - Name: workflow.fusion.enabled
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, Fusion was enabled for the workflow run.
 - Name: workflow.fusion.version
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Fusion version reported for the workflow run.
 - Name: workflow.wave
   Type: object
   Req/Opt: Optional
@@ -285,79 +288,80 @@
 - Name: workflow.wave.enabled
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, Wave was enabled for the workflow run.
 - Name: workflow.errorMessage
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Summarized task error message associated with the workflow failure.
 - Name: workflow.errorReport
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Detailed error report associated with the workflow failure.
 - Name: workflow.deleted
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, the workflow record has been soft-deleted.
 - Name: workflow.projectDir
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Local project directory used for the workflow run.
 - Name: workflow.homeDir
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Home directory used by the workflow runtime.
 - Name: workflow.container
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Workflow-level container image.
 - Name: workflow.containerEngine
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Container engine used for workflow execution.
 - Name: workflow.scriptFile
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Resolved path to the executed workflow script.
 - Name: workflow.launchDir
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Directory from which the workflow was launched.
 - Name: workflow.duration
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Total workflow duration in milliseconds.
 - Name: workflow.exitStatus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Final workflow exit status code.
 - Name: workflow.resume
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, the workflow was launched with resume enabled.
 - Name: workflow.success
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, the workflow completed successfully.
 - Name: workflow.logFile
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Path to the workflow log file.
 - Name: workflow.outFile
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Path to the workflow standard output file.
 - Name: workflow.operationId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Internal operation identifier associated with the workflow launch.
 - Name: processNames
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of process names discovered in the workflow definition.
 - Name: towerLaunch
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, the workflow was launched directly by Seqera Platform
+    rather than reported by an external submitter.
 - Name: "**UpdateTraceComplete**"
   Type: ""
   Req/Opt: ""
@@ -369,7 +373,7 @@
 - Name: workflow.requiresAttention
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, the workflow has issues that require user attention.
 - Name: workflow.status
   Type: string
   Req/Opt: Optional
@@ -377,95 +381,95 @@
 - Name: workflow.ownerId
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Numeric identifier of the workflow owner.
 - Name: workflow.repository
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Source repository URL or path for the workflow project.
 - Name: workflow.id
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Workflow string identifier.
 - Name: workflow.submit
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Timestamp when the workflow was submitted.
 - Name: workflow.start
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when workflow execution started.
 - Name: workflow.complete
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when workflow execution completed.
 - Name: workflow.dateCreated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the workflow record was created.
 - Name: workflow.lastUpdated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the workflow record was last updated.
 - Name: workflow.runName
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Workflow run name. Must be unique within the session.
 - Name: workflow.sessionId
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Nextflow session identifier for the workflow run.
 - Name: workflow.profile
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Nextflow profile or profile selection used for the run.
 - Name: workflow.workDir
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Workflow work directory path.
 - Name: workflow.commitId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Source control commit identifier for the workflow run.
 - Name: workflow.userName
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Username reported for the workflow owner.
 - Name: workflow.scriptId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Internal script or pipeline identifier associated with the run.
 - Name: workflow.revision
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Source control revision, branch, or tag used for the run.
 - Name: workflow.commandLine
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Full command line used to launch the workflow.
 - Name: workflow.projectName
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Pipeline or project name reported by Nextflow.
 - Name: workflow.scriptName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Main workflow script filename.
 - Name: workflow.launchId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Legacy launch identifier associated with the workflow.
 - Name: workflow.configFiles
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of configuration files used for the workflow run.
 - Name: workflow.params
   Type: object
   Req/Opt: Optional
-  Description: ""
+  Description: Workflow input parameter map.
 - Name: workflow.configText
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Inline Nextflow configuration text used for the run.
 - Name: workflow.manifest
   Type: object
   Req/Opt: Optional
@@ -473,43 +477,43 @@
 - Name: workflow.manifest.nextflowVersion
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Nextflow version declared by the pipeline manifest.
 - Name: workflow.manifest.defaultBranch
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Default source control branch declared by the manifest.
 - Name: workflow.manifest.version
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline version declared by the manifest.
 - Name: workflow.manifest.homePage
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline homepage URL declared by the manifest.
 - Name: workflow.manifest.gitmodules
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Comma-separated git submodule paths declared by the manifest.
 - Name: workflow.manifest.description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline description declared by the manifest.
 - Name: workflow.manifest.name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline name declared by the manifest.
 - Name: workflow.manifest.mainScript
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Main workflow script filename declared by the manifest.
 - Name: workflow.manifest.author
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Pipeline author declared by the manifest.
 - Name: workflow.manifest.icon
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Relative path or URL for the pipeline icon.
 - Name: workflow.nextflow
   Type: object
   Req/Opt: Optional
@@ -517,15 +521,15 @@
 - Name: workflow.nextflow.version
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Nextflow runtime version used for the workflow run.
 - Name: workflow.nextflow.build
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Nextflow build identifier.
 - Name: workflow.nextflow.timestamp
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp associated with the reported Nextflow build.
 - Name: workflow.stats
   Type: object
   Req/Opt: Optional
@@ -533,67 +537,67 @@
 - Name: workflow.stats.computeTimeFmt
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Human-readable total compute time across workflow tasks.
 - Name: workflow.stats.cachedCount
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of cached tasks.
 - Name: workflow.stats.failedCount
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of failed tasks.
 - Name: workflow.stats.ignoredCount
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of ignored tasks.
 - Name: workflow.stats.succeedCount
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of successful tasks.
 - Name: workflow.stats.cachedCountFmt
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Human-readable cached task count.
 - Name: workflow.stats.succeedCountFmt
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Human-readable successful task count.
 - Name: workflow.stats.failedCountFmt
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Human-readable failed task count.
 - Name: workflow.stats.ignoredCountFmt
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Human-readable ignored task count.
 - Name: workflow.stats.cachedPct
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Percentage of tasks satisfied from cache.
 - Name: workflow.stats.failedPct
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Percentage of tasks that failed.
 - Name: workflow.stats.succeedPct
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Percentage of tasks that succeeded.
 - Name: workflow.stats.ignoredPct
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Percentage of tasks that were ignored.
 - Name: workflow.stats.cachedDuration
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Aggregate duration in milliseconds for cached tasks.
 - Name: workflow.stats.failedDuration
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Aggregate duration in milliseconds for failed tasks.
 - Name: workflow.stats.succeedDuration
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Aggregate duration in milliseconds for successful tasks.
 - Name: workflow.fusion
   Type: object
   Req/Opt: Optional
@@ -601,11 +605,11 @@
 - Name: workflow.fusion.enabled
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, Fusion was enabled for the workflow run.
 - Name: workflow.fusion.version
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Fusion version reported for the workflow run.
 - Name: workflow.wave
   Type: object
   Req/Opt: Optional
@@ -613,83 +617,83 @@
 - Name: workflow.wave.enabled
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, Wave was enabled for the workflow run.
 - Name: workflow.errorMessage
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Summarized task error message associated with the workflow failure.
 - Name: workflow.errorReport
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Detailed error report associated with the workflow failure.
 - Name: workflow.deleted
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, the workflow record has been soft-deleted.
 - Name: workflow.projectDir
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Local project directory used for the workflow run.
 - Name: workflow.homeDir
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Home directory used by the workflow runtime.
 - Name: workflow.container
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Workflow-level container image.
 - Name: workflow.containerEngine
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Container engine used for workflow execution.
 - Name: workflow.scriptFile
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Resolved path to the executed workflow script.
 - Name: workflow.launchDir
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Directory from which the workflow was launched.
 - Name: workflow.duration
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Total workflow duration in milliseconds.
 - Name: workflow.exitStatus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Final workflow exit status code.
 - Name: workflow.resume
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, the workflow was launched with resume enabled.
 - Name: workflow.success
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, the workflow completed successfully.
 - Name: workflow.logFile
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Path to the workflow log file.
 - Name: workflow.outFile
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Path to the workflow standard output file.
 - Name: workflow.operationId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Internal operation identifier associated with the workflow launch.
 - Name: metrics
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of aggregated per-process workflow metrics reported at completion.
 - Name: metrics[].id
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Workflow metrics numeric identifier.
 - Name: metrics[].process
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Workflow process name for this metrics row.
 - Name: metrics[].cpu
   Type: object
   Req/Opt: Optional
@@ -697,51 +701,52 @@
 - Name: metrics[].cpu.warnings
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of sanitization or truncation warnings associated with this
+    metric sample.
 - Name: metrics[].cpu.mean
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Mean value for the sampled metric.
 - Name: metrics[].cpu.min
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Minimum value for the sampled metric.
 - Name: metrics[].cpu.q1
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: First quartile value for the sampled metric.
 - Name: metrics[].cpu.q2
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Median value for the sampled metric.
 - Name: metrics[].cpu.q3
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Third quartile value for the sampled metric.
 - Name: metrics[].cpu.max
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Maximum value for the sampled metric.
 - Name: metrics[].cpu.minLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the minimum sampled value.
 - Name: metrics[].cpu.maxLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the maximum sampled value.
 - Name: metrics[].cpu.q1Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the first quartile sampled value.
 - Name: metrics[].cpu.q2Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the median sampled value.
 - Name: metrics[].cpu.q3Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the third quartile sampled value.
 - Name: metrics[].mem
   Type: object
   Req/Opt: Optional
@@ -749,51 +754,52 @@
 - Name: metrics[].mem.warnings
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of sanitization or truncation warnings associated with this
+    metric sample.
 - Name: metrics[].mem.mean
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Mean value for the sampled metric.
 - Name: metrics[].mem.min
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Minimum value for the sampled metric.
 - Name: metrics[].mem.q1
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: First quartile value for the sampled metric.
 - Name: metrics[].mem.q2
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Median value for the sampled metric.
 - Name: metrics[].mem.q3
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Third quartile value for the sampled metric.
 - Name: metrics[].mem.max
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Maximum value for the sampled metric.
 - Name: metrics[].mem.minLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the minimum sampled value.
 - Name: metrics[].mem.maxLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the maximum sampled value.
 - Name: metrics[].mem.q1Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the first quartile sampled value.
 - Name: metrics[].mem.q2Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the median sampled value.
 - Name: metrics[].mem.q3Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the third quartile sampled value.
 - Name: metrics[].vmem
   Type: object
   Req/Opt: Optional
@@ -801,51 +807,52 @@
 - Name: metrics[].vmem.warnings
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of sanitization or truncation warnings associated with this
+    metric sample.
 - Name: metrics[].vmem.mean
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Mean value for the sampled metric.
 - Name: metrics[].vmem.min
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Minimum value for the sampled metric.
 - Name: metrics[].vmem.q1
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: First quartile value for the sampled metric.
 - Name: metrics[].vmem.q2
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Median value for the sampled metric.
 - Name: metrics[].vmem.q3
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Third quartile value for the sampled metric.
 - Name: metrics[].vmem.max
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Maximum value for the sampled metric.
 - Name: metrics[].vmem.minLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the minimum sampled value.
 - Name: metrics[].vmem.maxLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the maximum sampled value.
 - Name: metrics[].vmem.q1Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the first quartile sampled value.
 - Name: metrics[].vmem.q2Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the median sampled value.
 - Name: metrics[].vmem.q3Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the third quartile sampled value.
 - Name: metrics[].time
   Type: object
   Req/Opt: Optional
@@ -853,51 +860,52 @@
 - Name: metrics[].time.warnings
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of sanitization or truncation warnings associated with this
+    metric sample.
 - Name: metrics[].time.mean
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Mean value for the sampled metric.
 - Name: metrics[].time.min
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Minimum value for the sampled metric.
 - Name: metrics[].time.q1
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: First quartile value for the sampled metric.
 - Name: metrics[].time.q2
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Median value for the sampled metric.
 - Name: metrics[].time.q3
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Third quartile value for the sampled metric.
 - Name: metrics[].time.max
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Maximum value for the sampled metric.
 - Name: metrics[].time.minLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the minimum sampled value.
 - Name: metrics[].time.maxLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the maximum sampled value.
 - Name: metrics[].time.q1Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the first quartile sampled value.
 - Name: metrics[].time.q2Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the median sampled value.
 - Name: metrics[].time.q3Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the third quartile sampled value.
 - Name: metrics[].reads
   Type: object
   Req/Opt: Optional
@@ -905,51 +913,52 @@
 - Name: metrics[].reads.warnings
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of sanitization or truncation warnings associated with this
+    metric sample.
 - Name: metrics[].reads.mean
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Mean value for the sampled metric.
 - Name: metrics[].reads.min
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Minimum value for the sampled metric.
 - Name: metrics[].reads.q1
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: First quartile value for the sampled metric.
 - Name: metrics[].reads.q2
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Median value for the sampled metric.
 - Name: metrics[].reads.q3
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Third quartile value for the sampled metric.
 - Name: metrics[].reads.max
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Maximum value for the sampled metric.
 - Name: metrics[].reads.minLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the minimum sampled value.
 - Name: metrics[].reads.maxLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the maximum sampled value.
 - Name: metrics[].reads.q1Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the first quartile sampled value.
 - Name: metrics[].reads.q2Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the median sampled value.
 - Name: metrics[].reads.q3Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the third quartile sampled value.
 - Name: metrics[].writes
   Type: object
   Req/Opt: Optional
@@ -957,51 +966,52 @@
 - Name: metrics[].writes.warnings
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of sanitization or truncation warnings associated with this
+    metric sample.
 - Name: metrics[].writes.mean
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Mean value for the sampled metric.
 - Name: metrics[].writes.min
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Minimum value for the sampled metric.
 - Name: metrics[].writes.q1
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: First quartile value for the sampled metric.
 - Name: metrics[].writes.q2
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Median value for the sampled metric.
 - Name: metrics[].writes.q3
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Third quartile value for the sampled metric.
 - Name: metrics[].writes.max
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Maximum value for the sampled metric.
 - Name: metrics[].writes.minLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the minimum sampled value.
 - Name: metrics[].writes.maxLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the maximum sampled value.
 - Name: metrics[].writes.q1Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the first quartile sampled value.
 - Name: metrics[].writes.q2Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the median sampled value.
 - Name: metrics[].writes.q3Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the third quartile sampled value.
 - Name: metrics[].cpuUsage
   Type: object
   Req/Opt: Optional
@@ -1009,51 +1019,52 @@
 - Name: metrics[].cpuUsage.warnings
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of sanitization or truncation warnings associated with this
+    metric sample.
 - Name: metrics[].cpuUsage.mean
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Mean value for the sampled metric.
 - Name: metrics[].cpuUsage.min
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Minimum value for the sampled metric.
 - Name: metrics[].cpuUsage.q1
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: First quartile value for the sampled metric.
 - Name: metrics[].cpuUsage.q2
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Median value for the sampled metric.
 - Name: metrics[].cpuUsage.q3
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Third quartile value for the sampled metric.
 - Name: metrics[].cpuUsage.max
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Maximum value for the sampled metric.
 - Name: metrics[].cpuUsage.minLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the minimum sampled value.
 - Name: metrics[].cpuUsage.maxLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the maximum sampled value.
 - Name: metrics[].cpuUsage.q1Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the first quartile sampled value.
 - Name: metrics[].cpuUsage.q2Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the median sampled value.
 - Name: metrics[].cpuUsage.q3Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the third quartile sampled value.
 - Name: metrics[].memUsage
   Type: object
   Req/Opt: Optional
@@ -1061,51 +1072,52 @@
 - Name: metrics[].memUsage.warnings
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of sanitization or truncation warnings associated with this
+    metric sample.
 - Name: metrics[].memUsage.mean
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Mean value for the sampled metric.
 - Name: metrics[].memUsage.min
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Minimum value for the sampled metric.
 - Name: metrics[].memUsage.q1
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: First quartile value for the sampled metric.
 - Name: metrics[].memUsage.q2
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Median value for the sampled metric.
 - Name: metrics[].memUsage.q3
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Third quartile value for the sampled metric.
 - Name: metrics[].memUsage.max
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Maximum value for the sampled metric.
 - Name: metrics[].memUsage.minLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the minimum sampled value.
 - Name: metrics[].memUsage.maxLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the maximum sampled value.
 - Name: metrics[].memUsage.q1Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the first quartile sampled value.
 - Name: metrics[].memUsage.q2Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the median sampled value.
 - Name: metrics[].memUsage.q3Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the third quartile sampled value.
 - Name: metrics[].timeUsage
   Type: object
   Req/Opt: Optional
@@ -1113,51 +1125,52 @@
 - Name: metrics[].timeUsage.warnings
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of sanitization or truncation warnings associated with this
+    metric sample.
 - Name: metrics[].timeUsage.mean
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Mean value for the sampled metric.
 - Name: metrics[].timeUsage.min
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Minimum value for the sampled metric.
 - Name: metrics[].timeUsage.q1
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: First quartile value for the sampled metric.
 - Name: metrics[].timeUsage.q2
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Median value for the sampled metric.
 - Name: metrics[].timeUsage.q3
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Third quartile value for the sampled metric.
 - Name: metrics[].timeUsage.max
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Maximum value for the sampled metric.
 - Name: metrics[].timeUsage.minLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the minimum sampled value.
 - Name: metrics[].timeUsage.maxLabel
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the maximum sampled value.
 - Name: metrics[].timeUsage.q1Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the first quartile sampled value.
 - Name: metrics[].timeUsage.q2Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the median sampled value.
 - Name: metrics[].timeUsage.q3Label
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task label associated with the third quartile sampled value.
 - Name: progress
   Type: object
   Req/Opt: Optional
@@ -1165,139 +1178,139 @@
 - Name: progress.pending
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks currently pending execution.
 - Name: progress.submitted
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks submitted to the executor or scheduler.
 - Name: progress.running
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks currently running.
 - Name: progress.succeeded
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks completed successfully.
 - Name: progress.cached
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks satisfied from cache.
 - Name: progress.failed
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks that failed.
 - Name: progress.aborted
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks that were aborted.
 - Name: progress.stored
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks whose results were stored without execution.
 - Name: progress.ignored
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks ignored by the workflow logic.
 - Name: progress.retries
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of task retries attempted so far.
 - Name: progress.loadCpus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Current aggregate CPU load across running tasks.
 - Name: progress.loadMemory
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Current aggregate memory load across running tasks.
 - Name: progress.peakRunning
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Highest number of concurrently running tasks observed so far.
 - Name: progress.peakCpus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Peak aggregate CPU load observed so far.
 - Name: progress.peakMemory
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Peak aggregate memory load observed so far.
 - Name: progress.processes
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of per-process progress breakdowns.
 - Name: progress.processes[].index
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Stable order index for the process within the workflow summary.
 - Name: progress.processes[].name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Workflow process name.
 - Name: progress.processes[].pending
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of pending tasks for this process.
 - Name: progress.processes[].submitted
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of submitted tasks for this process.
 - Name: progress.processes[].running
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of running tasks for this process.
 - Name: progress.processes[].succeeded
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of successful tasks for this process.
 - Name: progress.processes[].cached
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of cached tasks for this process.
 - Name: progress.processes[].failed
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of failed tasks for this process.
 - Name: progress.processes[].aborted
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of aborted tasks for this process.
 - Name: progress.processes[].stored
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of stored tasks for this process.
 - Name: progress.processes[].ignored
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of ignored tasks for this process.
 - Name: progress.processes[].retries
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of retries for tasks in this process.
 - Name: progress.processes[].terminated
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, this process has no more active work to report.
 - Name: progress.processes[].loadCpus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Current aggregate CPU load for this process.
 - Name: progress.processes[].loadMemory
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Current aggregate memory load for this process.
 - Name: progress.processes[].peakRunning
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Peak number of concurrently running tasks for this process.
 - Name: progress.processes[].peakCpus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Peak aggregate CPU load observed for this process.
 - Name: progress.processes[].peakMemory
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Peak aggregate memory load observed for this process.
 - Name: "**UpdateTraceHeartbeat**"
   Type: ""
   Req/Opt: ""
@@ -1309,139 +1322,139 @@
 - Name: progress.pending
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks currently pending execution.
 - Name: progress.submitted
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks submitted to the executor or scheduler.
 - Name: progress.running
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks currently running.
 - Name: progress.succeeded
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks completed successfully.
 - Name: progress.cached
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks satisfied from cache.
 - Name: progress.failed
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks that failed.
 - Name: progress.aborted
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks that were aborted.
 - Name: progress.stored
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks whose results were stored without execution.
 - Name: progress.ignored
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks ignored by the workflow logic.
 - Name: progress.retries
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of task retries attempted so far.
 - Name: progress.loadCpus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Current aggregate CPU load across running tasks.
 - Name: progress.loadMemory
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Current aggregate memory load across running tasks.
 - Name: progress.peakRunning
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Highest number of concurrently running tasks observed so far.
 - Name: progress.peakCpus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Peak aggregate CPU load observed so far.
 - Name: progress.peakMemory
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Peak aggregate memory load observed so far.
 - Name: progress.processes
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of per-process progress breakdowns.
 - Name: progress.processes[].index
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Stable order index for the process within the workflow summary.
 - Name: progress.processes[].name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Workflow process name.
 - Name: progress.processes[].pending
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of pending tasks for this process.
 - Name: progress.processes[].submitted
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of submitted tasks for this process.
 - Name: progress.processes[].running
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of running tasks for this process.
 - Name: progress.processes[].succeeded
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of successful tasks for this process.
 - Name: progress.processes[].cached
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of cached tasks for this process.
 - Name: progress.processes[].failed
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of failed tasks for this process.
 - Name: progress.processes[].aborted
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of aborted tasks for this process.
 - Name: progress.processes[].stored
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of stored tasks for this process.
 - Name: progress.processes[].ignored
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of ignored tasks for this process.
 - Name: progress.processes[].retries
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of retries for tasks in this process.
 - Name: progress.processes[].terminated
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, this process has no more active work to report.
 - Name: progress.processes[].loadCpus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Current aggregate CPU load for this process.
 - Name: progress.processes[].loadMemory
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Current aggregate memory load for this process.
 - Name: progress.processes[].peakRunning
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Peak number of concurrently running tasks for this process.
 - Name: progress.processes[].peakCpus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Peak aggregate CPU load observed for this process.
 - Name: progress.processes[].peakMemory
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Peak aggregate memory load observed for this process.
 - Name: "**UpdateTraceProgress**"
   Type: ""
   Req/Opt: ""
@@ -1449,95 +1462,95 @@
 - Name: tasks
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of task trace records reported since the previous progress update.
 - Name: tasks[].hash
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task hash reported by Nextflow.
 - Name: tasks[].name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task name reported by Nextflow.
 - Name: tasks[].process
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Workflow process name for the task.
 - Name: tasks[].tag
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task tag reported by Nextflow.
 - Name: tasks[].submit
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the task was submitted.
 - Name: tasks[].start
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the task started running.
 - Name: tasks[].complete
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the task completed.
 - Name: tasks[].module
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of module names associated with the task.
 - Name: tasks[].container
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Container image used for the task.
 - Name: tasks[].attempt
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Task retry attempt number.
 - Name: tasks[].script
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Executed task script content or path.
 - Name: tasks[].scratch
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Scratch directory used by the task.
 - Name: tasks[].workdir
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task work directory path.
 - Name: tasks[].queue
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Executor queue used for the task.
 - Name: tasks[].cpus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of CPUs requested by the task.
 - Name: tasks[].memory
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Amount of memory requested by the task.
 - Name: tasks[].disk
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Amount of disk requested by the task.
 - Name: tasks[].time
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Time requested by the task.
 - Name: tasks[].env
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Task execution environment variables payload.
 - Name: tasks[].executor
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Nextflow executor used for the task.
 - Name: tasks[].machineType
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Machine or instance type used to run the task.
 - Name: tasks[].cloudZone
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Cloud zone used to run the task.
 - Name: tasks[].priceModel
   Type: string
   Req/Opt: Optional
@@ -1545,95 +1558,95 @@
 - Name: tasks[].cost
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Estimated task execution cost.
 - Name: tasks[].errorAction
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Nextflow error strategy action applied to the task.
 - Name: tasks[].exitStatus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Process exit status reported by the task runtime.
 - Name: tasks[].duration
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Total recorded task duration in milliseconds.
 - Name: tasks[].realtime
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Wall-clock task runtime in milliseconds.
 - Name: tasks[].nativeId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Native scheduler or executor job identifier.
 - Name: tasks[].pcpu
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Observed CPU usage percentage for the task.
 - Name: tasks[].pmem
   Type: number
   Req/Opt: Optional
-  Description: ""
+  Description: Observed memory usage percentage for the task.
 - Name: tasks[].rss
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Resident memory usage for the task.
 - Name: tasks[].vmem
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Virtual memory usage for the task.
 - Name: tasks[].peakRss
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Peak resident memory usage for the task.
 - Name: tasks[].peakVmem
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Peak virtual memory usage for the task.
 - Name: tasks[].rchar
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of characters read by the task.
 - Name: tasks[].wchar
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of characters written by the task.
 - Name: tasks[].syscr
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of read-like system calls performed by the task.
 - Name: tasks[].syscw
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of write-like system calls performed by the task.
 - Name: tasks[].readBytes
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of bytes read from storage by the task.
 - Name: tasks[].writeBytes
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of bytes written to storage by the task.
 - Name: tasks[].volCtxt
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of voluntary context switches for the task.
 - Name: tasks[].invCtxt
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of involuntary context switches for the task.
 - Name: tasks[].exit
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Task exit code recorded by Nextflow.
 - Name: tasks[].id
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Internal task numeric identifier.
 - Name: tasks[].taskId
   Type: integer
   Req/Opt: Required
-  Description: ""
+  Description: Task numeric identifier reported by Nextflow.
 - Name: tasks[].status
   Type: string
   Req/Opt: Required
@@ -1641,11 +1654,11 @@
 - Name: tasks[].dateCreated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the task record was created.
 - Name: tasks[].lastUpdated
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the task record was last updated.
 - Name: progress
   Type: object
   Req/Opt: Optional
@@ -1653,176 +1666,176 @@
 - Name: progress.pending
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks currently pending execution.
 - Name: progress.submitted
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks submitted to the executor or scheduler.
 - Name: progress.running
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks currently running.
 - Name: progress.succeeded
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks completed successfully.
 - Name: progress.cached
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks satisfied from cache.
 - Name: progress.failed
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks that failed.
 - Name: progress.aborted
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks that were aborted.
 - Name: progress.stored
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks whose results were stored without execution.
 - Name: progress.ignored
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of tasks ignored by the workflow logic.
 - Name: progress.retries
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of task retries attempted so far.
 - Name: progress.loadCpus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Current aggregate CPU load across running tasks.
 - Name: progress.loadMemory
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Current aggregate memory load across running tasks.
 - Name: progress.peakRunning
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Highest number of concurrently running tasks observed so far.
 - Name: progress.peakCpus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Peak aggregate CPU load observed so far.
 - Name: progress.peakMemory
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Peak aggregate memory load observed so far.
 - Name: progress.processes
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of per-process progress breakdowns.
 - Name: progress.processes[].index
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Stable order index for the process within the workflow summary.
 - Name: progress.processes[].name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Workflow process name.
 - Name: progress.processes[].pending
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of pending tasks for this process.
 - Name: progress.processes[].submitted
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of submitted tasks for this process.
 - Name: progress.processes[].running
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of running tasks for this process.
 - Name: progress.processes[].succeeded
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of successful tasks for this process.
 - Name: progress.processes[].cached
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of cached tasks for this process.
 - Name: progress.processes[].failed
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of failed tasks for this process.
 - Name: progress.processes[].aborted
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of aborted tasks for this process.
 - Name: progress.processes[].stored
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of stored tasks for this process.
 - Name: progress.processes[].ignored
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of ignored tasks for this process.
 - Name: progress.processes[].retries
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Number of retries for tasks in this process.
 - Name: progress.processes[].terminated
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, this process has no more active work to report.
 - Name: progress.processes[].loadCpus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Current aggregate CPU load for this process.
 - Name: progress.processes[].loadMemory
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Current aggregate memory load for this process.
 - Name: progress.processes[].peakRunning
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Peak number of concurrently running tasks for this process.
 - Name: progress.processes[].peakCpus
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Peak aggregate CPU load observed for this process.
 - Name: progress.processes[].peakMemory
   Type: integer
   Req/Opt: Optional
-  Description: ""
+  Description: Peak aggregate memory load observed for this process.
 - Name: containers
   Type: array
   Req/Opt: Optional
-  Description: ""
+  Description: Array of container metadata records reported for the workflow tasks.
 - Name: containers[].requestId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Wave request identifier associated with this container resolution.
 - Name: containers[].sourceImage
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Original container image requested by the workflow.
 - Name: containers[].targetImage
   Type: string
   Req/Opt: Required
-  Description: ""
+  Description: Resolved container image actually used to run the task.
 - Name: containers[].buildId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Wave build identifier for the resolved container image.
 - Name: containers[].scanId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Wave security scan identifier for the resolved container image.
 - Name: containers[].mirrorId
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Wave mirror identifier for the resolved container image.
 - Name: containers[].cached
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, the container image was served from cache rather than built again.
 - Name: containers[].freeze
   Type: boolean
   Req/Opt: Optional
-  Description: ""
+  Description: If `true`, the container image was resolved with freeze mode enabled.
 - Name: containers[].requestTime
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Timestamp when the container metadata was requested.

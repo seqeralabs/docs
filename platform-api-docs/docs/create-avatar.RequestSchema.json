@@ -1,0 +1,1 @@
+{"title":"Body","body":{"description":"Image file request","content":{"multipart/form-data":{"schema":{"type":"object","properties":{"image":{"type":"string","format":"binary"}}},"encoding":{"image":{"contentType":"application/octet-stream"}}}}}}

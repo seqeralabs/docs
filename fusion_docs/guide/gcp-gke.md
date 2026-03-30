@@ -1,16 +1,16 @@
 ---
 title: Google Kubernetes Engine
 description: "Use Fusion with Google Kubernetes Engine and Google Cloud Storage"
-date: "23 Aug 2024"
+date created: "2024-08-23"
 tags: [fusion, storage, compute, gke, gcs, google cloud, kubernetes]
 ---
 
 Fusion streamlines the deployment of Nextflow pipelines in Kubernetes because it replaces the need to configure
 and maintain a shared file system in your cluster.
 
-### Platform Google Kubernetes Engine compute environments 
+### Platform Google Kubernetes Engine compute environments
 
-Seqera Platform supports Fusion in Google Kubernetes Engine (GKE) compute environments. 
+Seqera Platform supports Fusion in Google Kubernetes Engine (GKE) compute environments.
 
 See [Google Kubernetes Engine](https://docs.seqera.io/platform-cloud/compute-envs/gke) for Platform instructions to enable Fusion.
 
@@ -20,7 +20,7 @@ See [Google Kubernetes Engine](https://docs.seqera.io/platform-cloud/compute-env
 This feature requires Nextflow 23.02.1-edge or later.
 :::
 
-To use Fusion directly in Nextflow with a GKE cluster, you must configure a cluster, namespace, and service account, and update your Nextflow configuration. 
+To use Fusion directly in Nextflow with a GKE cluster, you must configure a cluster, namespace, and service account, and update your Nextflow configuration.
 
 #### Kubernetes configuration
 
@@ -86,7 +86,7 @@ To use Fusion directly in Nextflow with a GKE cluster, you must configure a clus
     process.scratch = false
     wave.enabled = true
     fusion.enabled = true
-    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'  
+    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
     k8s.context = '<GKE_CLUSTER_CONTEXT>'
     k8s.namespace = 'fusion-demo'
     k8s.serviceAccount = 'fusion-sa'
@@ -117,4 +117,4 @@ To use Fusion without the need for escalating privileges, install the Nextflow [
 fusion.privileged = false
 ```
 
-To use a custom FUSE device plugin, specify it via the `k8s.fuseDevicePlugin` configuration option. See [Kubernetes](https://www.nextflow.io/docs/latest/reference/config.html#k8s) configuration options for details.
+To use a custom FUSE device plugin, specify it via the `k8s.fuseDevicePlugin` configuration option. See [Kubernetes](https://docs.seqera.io/nextflow/reference/config#k8s) configuration options for details.

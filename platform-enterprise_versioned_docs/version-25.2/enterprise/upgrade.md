@@ -17,6 +17,10 @@ This page outlines the steps to upgrade your database instance and Platform Ente
 
 - If you are upgrading from a version older than 23.4.1, update your installation to version 23.4.4 **first**, before updating to version 25.2 with the steps on this page.
 
+- **MySQL 8 required**
+
+  From Seqera Enterprise version 23.4, MySQL 8 is the only supported database version. If you are running MySQL 5.6 or 5.7, you must upgrade your database to MySQL 8 before upgrading to version 23.4 or later. See [General upgrade steps](#general-upgrade-steps) for database upgrade instructions.
+
 ### Considersations for versions 24.1 - 25.1
 
 - **OIDC Secrets injection modifications**
@@ -108,7 +112,7 @@ The database volume is persistent on the local machine by default if you use the
 
 ### Nextflow launcher image
 
-If you must host your nf-launcher container image on a private image registry, copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j17-24.04.4) to your private registry. Then update your `tower.env` with the launch container environment variable:
+If you host your nf-launcher container image on a private image registry, copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j17-24.04.4) to your private registry. Then update your `tower.env` with the launch container environment variable:
 
     `TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>`
 

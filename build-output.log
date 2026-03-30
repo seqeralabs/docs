@@ -1,0 +1,58 @@
+
+> seqera-docs@0.0.0 prebuild
+> npm run fetch-docs-oss
+
+
+> seqera-docs@0.0.0 fetch-docs-oss
+> node internal/fetch-docs-oss.mjs
+
+multiqc: Cloned repo already exists, will pull latest changes
+✅ multiqc: Pulled latest changes
+wave: Cloned repo already exists, will pull latest changes
+✅ wave: Pulled latest changes
+
+> seqera-docs@0.0.0 build
+> docusaurus build
+
+
+ ------------------------------------------------------------------------------                                                                                                          Update available 3.8.1 → 3.9.2                                                                                                                 To upgrade Docusaurus packages with the latest version, run the                                       following command:                                           `npm i @docusaurus/core@latest @docusaurus/faster@latest                   @docusaurus/mdx-loader@latest @docusaurus/plugin-google-gtag@latest                        @docusaurus/plugin-google-tag-manager@latest                         @docusaurus/preset-classic@latest @docusaurus/eslint-plugin@latest                            @docusaurus/module-type-aliases@latest`                                                                                                      ------------------------------------------------------------------------------
+
+
+  EXCLUDE_CHANGELOG: false
+  EXCLUDE_PLATFORM_ENTERPRISE: false
+  EXCLUDE_PLATFORM_CLOUD: false
+  EXCLUDE_PLATFORM_API: false
+  EXCLUDE_PLATFORM_CLI: false
+  EXCLUDE_PLATFORM_OPENAPI: false
+  EXCLUDE_MULTIQC: false
+  EXCLUDE_FUSION: false
+  EXCLUDE_WAVE: false
+  INCLUDE_NEXT: false
+[INFO] [en] Creating an optimized production build...
+
+  EXCLUDE_CHANGELOG: false
+  EXCLUDE_PLATFORM_ENTERPRISE: false
+  EXCLUDE_PLATFORM_CLOUD: false
+  EXCLUDE_PLATFORM_API: false
+  EXCLUDE_PLATFORM_CLI: false
+  EXCLUDE_PLATFORM_OPENAPI: false
+  EXCLUDE_MULTIQC: false
+  EXCLUDE_FUSION: false
+  EXCLUDE_WAVE: false
+  INCLUDE_NEXT: false
+Browserslist: browsers data (caniuse-lite) is 7 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+[WARNING] Docusaurus found broken links!
+
+Please check the pages of your site in the list below, and make sure you don't reference any path that does not exist.
+Note: it's possible to ignore broken links with the 'onBrokenLinks' Docusaurus configuration, and let the build pass.
+
+Exhaustive list of all broken links found:
+- Broken link on source page path = /platform-cli:
+   -> linking to ./installation (resolved as: /installation)
+- Broken link on source page path = /platform-cli/commands-reference:
+   -> linking to overview (resolved as: /platform-cli/overview)
+
+[SUCCESS] Generated static files in "build".
+[INFO] Use `npm run serve` command to test your build locally.

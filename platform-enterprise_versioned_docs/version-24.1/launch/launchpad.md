@@ -20,9 +20,7 @@ The list layout is the default **Launchpad** view. Use the toggle next to the **
 ## Launch form
 
 :::note
-In Platform Enterprise version 24.1, the stepped launch form described below must be enabled with the `TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES` [environment variable](../enterprise/configuration/overview#core-features). Without this configuration, version 24.1 defaults to the [classic launch form](/platform-enterprise/23.4/launch/launchpad).
-
-Platform Cloud accounts use the [classic launch form](/platform-enterprise/23.4/launch/launchpad) by default — [contact us](https://seqera.io/contact-us/) to enable the new stepped launch form.
+In Platform Enterprise version 24.1, the stepped launch form described below must be enabled with the `TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES` [environment variable](../enterprise/configuration/overview#core-features). Without this configuration, version 24.1 defaults to the [classic launch form](../launch/launchpad.md).
 :::
 
 The launch form is used to launch pipelines and to add pipelines to the **Launchpad**. Select **Launch** next to a saved pipeline in the list, or select **launch a run without configuration** to perform a quick launch of an unsaved pipeline.
@@ -35,10 +33,10 @@ For saved pipelines, **General config** and **Run parameters** fields are prefil
 
 - **Pipeline to launch**: A Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited. Private repositories require [access credentials](../credentials/overview).
   :::note
-  Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview) in the Seqera docs and [Pipeline sharing](https://www.nextflow.io/docs/latest/sharing.html) in the Nextflow docs for more details.
+  Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview) in the Seqera docs and [Pipeline sharing](https://docs.seqera.io/nextflow/sharing) in the Nextflow docs for more details.
   :::
 - **Revision number**: A valid repository commit ID, tag, or branch name. For saved pipelines, this is prefilled and cannot be edited.
-- **Config profiles**: One or more [configuration profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository.
+- **Config profiles**: One or more [configuration profile](https://docs.seqera.io/nextflow/config#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository.
 - **Workflow run name**: A unique identifier for the run, pre-filled with a random name. This can be customized.
 - **Labels**: Assign new or existing [labels](../labels/overview) to the run.
 - **Compute environment**: The [compute environment](../compute-envs/overview) where the run will be launched.
@@ -78,7 +76,7 @@ Use resource labels to tag the computing resources created during the workflow e
 Secrets are used to store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
 
 :::note
-In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://www.nextflow.io/docs/latest/aws.html#custom-job-definition).
+In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://docs.seqera.io/nextflow/aws#custom-job-definition).
 :::
 
 #### Advanced options

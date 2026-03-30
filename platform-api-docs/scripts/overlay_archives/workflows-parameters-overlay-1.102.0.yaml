@@ -1,0 +1,11 @@
+overlay: 1.0.0
+info:
+  title: Workflows parameters overlay
+  version: 0.0.0
+actions:
+  # ===== WORKFLOWS PARAMETERS - QUERY PARAMETERS =====
+
+  # ---- LIST WORKFLOWS PARAMETERS ----
+
+  - target: "$.paths./workflow.get.parameters[?(@.name=='includeTotalSize')].description"
+    update: "If true, includes total result count in the response. Default: `false`."

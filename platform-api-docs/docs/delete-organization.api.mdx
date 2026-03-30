@@ -5,9 +5,9 @@ description: "Deletes the organization identified by the given `orgId`. This ope
 sidebar_label: "Delete organization"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVN9v0zAQ/lcsP4FU0gIDiT6xsSJNIJi28TRV2jW5Nt4c27OdjhLlf+fOSX+uAh55iuP7fPfd3XfXyAiLIMe30nr6TgeywJB75aKyRo7lOWqMGEQsURACjPoFbBKqQBPVXGEhZqtkXqglGnFHqIviLhM3pQrCOvQdng4VGHqjV8JjZZfHnIIpBIRgcwWRHFdYzdCHUrmQyYHcOLsoNsy+7zwniAMPFV17TqmRhn4ImiiRVXFGDmIpD9PcdSNMXaFX+TZFz9E9PtbKI4WOvsaBDHmJFchxI+PKcRRlIi7QE3RuKdfYXb0/kW075efBWRMw8Is3oxP+HHD4Il6Jb1bklhyZKNuBPBmNnuPOoBBMBkOkWGs0wcA5rfKUw/A+MLbZYbnlfysrDAEWyO3uydvZPebsz3kuc1Qd0TVwm2WIXpkF5URPVdR8NfHe+qs+P7K0ifnbIxlu1GBsFKC1fSI+DA+Y117FVeraGYJHf1pTn8a3Uy4etbS03PQiNT01mq1yyKodNqnBrWQ/frlufu01IcoYXRgPh+BUlmtbF1nAR6KRKftMBdfJIi41RG6h+MR4cXp5IZnEmuM1l7Qrzy7TTYU4ouz1wf+zBKKb7vB5LY77p5hyV2Zu0/O+nD0LDvs3gpyuymmSOjBrAfKkhf3kd1MmOSidtDm3H7cGIsKV6+K8zj68y0Z852yINLfssh+mbu725vaQZ7NV5X+1QPoGRfwZh04DrQPKMFWq6QXVr8GBHHc7g9peUgXY0DQzCPjD67bla5o/z3Kl4xK8ghn3jlRXqMBnEuscdMA/VObFVT+RL8U/rJ+j3PtLMCvJNHTNf3R8wNVm7bVTApYIBWmQCXa20zxHF3dePVsee3N3Pvk6uZkQHPa1fqDtFOAoKapeQtzYBzRtu+EY+Z85tu1vsihFYg==
+api: eJzNVE1v2zAM/SsCTxugJenW7eDT2jUDig1b0XanIEAVm7HV2pIq0e0yQ/99oOx8Nth23MkWSZHvkU/sgFQZIJuB9WWAuYQCQ+61I20NZHCBNRIGQRUK60tl9C/FLqELNKSXGguxWCV3qZ/QiDvry8vibiRuKx2Edej7eIe+UQYN1SvhsbFPx5IqUwgVgs21IixEg80Cfai0CyOQsEl2WWyQfd+5DhKc8qpBQs+UOjCqQcggQQIJmhk5RRUc0txNI0zboNf5lqLn6h4fW+2xgIx8ixJCXmGjIOuAVo6raENYogcJS+sbRb3pwynEOOfrwVkTMPCNt5NT/hxg+CLeiG9W5NYQGoIo4XQyeRl3rgrBYDAQSFhHZx0o52qdJw7j+8Cx3Q7KLf4ZNBiCKpHHPYC3i3vMOZ/z3GbSPdB14JZlIK9NCTFKIE01m6beW3898IMYY0L+7gjDjRqMJaHq2j5jkVIFzFuvaZWmdo7Koz9rqYJsNufmNUiV5aEXaehp0OyFMat23KUBR+A8/mk9/NbXkEFF5EI2HiunR3lt22IU8BG9Gmn7QgU3ySOuakU8QvGJ48XZ1SUwiDXGG25p355dpJsOcUUY9MHnRQoCOfx8Xovj/pkSd22WNl0f2jmg4LJ/A8h0dY5hCGYtqDxpYZ/8LmVslK6TNpf249YRJXDn+jono5OT96MJG50N1KikpeE19Q9v7+EeAu22svyvNsgwIcKfNHa10oYZplZ1g6KGPSgh65fGXEJlA7Gj6xYq4A9fx8jmxxY963Uu4Ul5rRY8vFkHhQ78X0C2VHXAP3Tm1fXwJF+Lf9g/R7EPRmVWwDDqlk8g4QFXm70X51FChapAnwD2vrM8R0c7t15sj72HdzH9Or2dggS1L/YDcacCR0F1XR9xax/QxLjBSHxmjDH+BoMJRYs=
 sidebar_class_name: "delete api-method"
-info_path: platform-api-docs/docs/seqera-api
+info_path: platform-api//seqera-api
 custom_edit_url: null
 ---
 
@@ -18,6 +18,7 @@ import StatusCodes from "@theme/StatusCodes";
 import OperationTabs from "@theme/OperationTabs";
 import TabItem from "@theme/TabItem";
 import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
 <Heading
   as={"h1"}
@@ -31,7 +32,7 @@ import Heading from "@theme/Heading";
   path={"/orgs/{orgId}"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -42,30 +43,24 @@ Deletes the organization identified by the given `orgId`. This operation permane
   id={"request"}
   as={"h2"}
   className={"openapi-tabs__heading"}
-  children={"Request"}
 >
+  <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
 <ParamsDetails
-  parameters={[{"name":"orgId","in":"path","description":"Organization numeric identifier.","required":true,"schema":{"type":"integer","format":"int64"}}]}
+  {...require("./delete-organization.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
-  title={"Body"}
-  body={undefined}
+  {...require("./delete-organization.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
-  id={undefined}
-  label={undefined}
-  responses={{"204":{"description":"OK - No content"},"400":{"description":"Bad request","content":{"application/json":{"schema":{"required":["message"],"type":"object","properties":{"message":{"type":"string"}},"title":"ErrorResponse"}}}},"403":{"description":"Operation not allowed"}}}
+  {...require("./delete-organization.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      

@@ -1,0 +1,66 @@
+---
+id: manage-pipeline-version
+title: "Manage pipeline version"
+description: "Updates a pipeline version's name and/or marks it as the default version. When setting a version as default, any previously default version is automatically unset. Version names cannot be changed if the version is already referenced by workflow runs."
+sidebar_label: "Manage pipeline version"
+hide_title: true
+hide_table_of_contents: true
+api: eJzlVttu4zYQ/ZUBX7oLKHayTQpUT02yWyAodhvk0n0IAuxEGllMKFIhqTiGoH8vhqJs+dJc2se+2eSIPHPmzOG0wuPMifRG1LImJTXtPZF10mgnbhORk8usrL00WqTius7RkwOEIRhi8E8ONFYEqPOpsVChfXAgPaADXxLkVGCj/BA9ge8laXDkvdQzwGGdw2NoAqgXUFt6kqZxarF5BEgH2HhToZcZKrWARjvyE/gr7jMcBxlqbTzcEWQl6hnlIIuAaHyMsoT5AiwVZElnlMPdAubGPhTKzME22k1EIkxNFpmIs1yk4itqnNF5pCFeKhJRo8WKPFnmtBWMQqRLbs9ykQjJVNboS7HJ73Ac6KYiKzOQOWkvC0mWEVh6bKSlXKTeNpQIl5VUoUhb4Rc1XyO1pxlZkYjC2Ap9v/TLoei6ZIklZv5WKANRzluu1QoRfFDY6KyEs88f34SuP2ENC5PsasxGxDw2ZBdbcL4Pgf9AzXuouO2xkvMnJl/wN+t3XfSbkBntUWrOeqyYsc4HURYKZ+ANNKFBGBB/TNrz6VjXSmZBOtN7x1e023jN3T1lngVkWWhekuPdnqdNCjfZ+UbzHlZhbMC62Z4T+IrPsmoq+HR0xK1gMWONTuD0DQ3yYmN0iZDuc8/DCOmdMYpQbxeyJF+SZbIcefCldOPuH5nFBC6jP3gDP1hTP3Z1vHvFKCYsOOGlVzSSdWzYvotjwUXHkesyDguuNtr19fi0f7gtmD//gD34ZmCoeZeIw/397bgTzCEq7z0KWSG6ERU5hzNia35ZOEPgrvZbsvHFWmMvYn6cfkD+844MB+8DFgsqZeaU93nu4GNpwcZDYRodI3/djjw1ulAy87DXFzM+B0MJN2UcwDvKGiv9IvjrCaEle9z4UqQ3t9zaFfnSsEPXTWCFzS0V0+EoN21XZtxNh7du2i5tsZtWQRXsKmSfBidvrBKpKL2vXTqdYi0nmTJNPnH0SBYn0mxJ/TLswLlCzx4EpxwPx+dngnEOaVxynfuajZNZlo1vHAwuNFYIEkn88fvgbvdzH+hh/Vys7O3LM1a1opWXrDxk1LZR6lIXJlwd9REzYMivJcdUyYxcDA7emQVxrxM3posqlCoYc2F+W210yfBGiVQcTA4Ojib7vFgb5yvUo1T69t2WyQbYdtVr/+8RJkrK07Of1gqlZlpDfdrYKKsx0IlEpGtzy3IuTEQ6HiJiu9wmojTO8xlte4eOrq3qOl7un3Ruolw6vFNsZQUqRy/U6bUHf2cqD7TYGiqeUDUcGZruCa1kAO8E8+EiWvBHeGVE2wkrLqJejPEMcEcc82T031C9eVr7F0BXNe9uu0SUhDnZwGS/f9oj27viU1bfbz1unGX/xXGWUe1fjB07+vn1FfteHNoqk/MnFuc8fOK8h2oCUcFOw1orFOpZE55C0R/JLonrJrthqiGpnWS0bR9xZR5Id92SG8//mZeu+xv+5KsG
+sidebar_class_name: "put api-method"
+info_path: platform-api//seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Manage pipeline version"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/pipelines/{pipelineId}/versions/{versionId}/manage"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Updates a pipeline version's name and/or marks it as the default version. When setting a version as default, any previously default version is automatically unset. Version names cannot be changed if the version is already referenced by workflow runs.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./manage-pipeline-version.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./manage-pipeline-version.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./manage-pipeline-version.StatusCodes.json")}
+>
+
+</StatusCodes>
