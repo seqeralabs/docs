@@ -3,7 +3,7 @@ title: "Data Explorer"
 description: "Using Seqera Data Explorer."
 date created: "2023-04-21"
 last updated: "2026-03-31"
-tags: [data, explorer, igv, object, storage]
+tags: [data, explorer, igv, molstar, object, storage]
 ---
 
 With Data Explorer, you can browse and interact with remote data repositories from organization workspaces in Seqera Platform. It supports AWS S3, Azure Blob Storage, Google Cloud Storage, and Amazon S3-compatible API storage (for example, but not limited to, Cloudflare R2, MinIO, Nebius, and Oracle Cloud).
