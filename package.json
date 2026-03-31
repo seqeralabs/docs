@@ -52,7 +52,7 @@
     "rehype-katex": "5.0.0",
     "remark-deflist": "^1.0.0",
     "webpack-dev-server": "^5.2.1",
-    "yaml": "^2.8.1"
+    "yaml": "^2.8.3"
   },
   "devDependencies": {
     "@docusaurus/eslint-plugin": "^3.9.2",
