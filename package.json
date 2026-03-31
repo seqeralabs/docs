@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "overrides": {
-    "picomatch": "^2.3.2",
+    "picomatch": "^4.0.3",
     "glob": "^11.1.0",
     "immutable": "^5.1.5",
     "serialize-javascript": "^7.0.3",
@@ -53,7 +53,7 @@
     "rehype-katex": "5.0.0",
     "remark-deflist": "^1.0.0",
     "webpack-dev-server": "^5.2.1",
-    "yaml": "^2.8.1"
+    "yaml": "^2.8.3"
   },
   "devDependencies": {
     "@docusaurus/eslint-plugin": "^3.9.2",
