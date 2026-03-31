@@ -121,7 +121,7 @@ jobs:
           ln -s cli-metadata-v${{ steps.version.outputs.cli_version }}.json cli-metadata-latest.json
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@4e1beaa7521e8b457b572c090b25bd3db56bf1c5 # ratchet:peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@c0f553fe549906ede9cf27b5156039d195d2ece0 # ratchet:peter-evans/create-pull-request@v8.1.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: |
