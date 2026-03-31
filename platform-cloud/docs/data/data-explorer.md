@@ -65,12 +65,13 @@ If you remove a data-link associated with a repository, the repository is automa
   File preview is supported for these object types:
 
   - Nextflow output files ( `.command.*`, `.fusion.*` and `.exitcode` )
+  - Molecular data using the [Mol* library][molstar]
+  - Genome tracks using the [igv.js library][igv] (annotations, wigs, alignments, variants, etc)
   - Text
   - CSV and TSV
   - PDF
   - HTML
   - Images (JPG, PNG, SVG, etc.)
-  - Genome tracks using the [igv.js library][igv] (annotations, wigs, alignments, variants, etc)
 
   :::note
   With the specific exception of genome tracks, the file size limit for preview is 10 MB. 10-25 MB files can still be downloaded directly.
@@ -255,4 +256,5 @@ Compute environment and Fusion multi-credential support will resolve this existi
 :::
 
 [roles]: ../orgs-and-teams/roles
+[molstar]: https://molstar.org/
 [igv]: https://igv.org/doc/igvjs/
