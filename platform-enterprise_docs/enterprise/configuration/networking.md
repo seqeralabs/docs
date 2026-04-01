@@ -5,7 +5,7 @@ date: "2026-01-27"
 tags: [networking, configuration]
 ---
 
-Seqera Platform Enterprise requires inbound and outbound connections to external services. This page details the ingress and egress networking considerations required for your Seqera Enterprise deployment.
+Seqera Platform Enterprise requires inbound and outbound connections to external services: this page details the required ingress and egress networking considerations.
 
 ## Introduction
 
