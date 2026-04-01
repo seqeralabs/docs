@@ -17,7 +17,7 @@ Seqera services, such as Wave, container registries, Nextflow plugin distributio
 
 Understanding the distinction between Platform and Compute environment networking requirements is essential for configuring your firewall rules:
 
-**Platform requirements** refer to network connectivity needed by your Seqera Platform instance itself. This includes connections for license validation, user authentication, accessing platform resources, and managing pipeline definitions. These connections originate from the server or infrastructure where your Seqera Platform application is installed.
+**Platform requirements** refer to the network connectivity required by your Seqera Platform instance. This includes connections for license validation, user authentication, access to platform resources, and management of pipeline definitions. These connections originate from the server or infrastructure where your Platform Enterprise application is installed.
 
 **Compute environment requirements** refer to network connectivity needed by the infrastructure where Nextflow pipeline jobs execute. This includes connections for pulling pipeline code, downloading container images, accessing data sources, and utilizing Seqera enterprise features like Fusion or Wave. These connections originate from your compute resources (e.g., Kubernetes clusters, AWS Batch, Azure Batch, HPC clusters).
 
