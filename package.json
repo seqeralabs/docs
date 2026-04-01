@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "overrides": {
+    "picomatch": "^4.0.3",
     "glob": "^11.1.0",
     "immutable": "^5.1.5",
     "serialize-javascript": "^7.0.3",
@@ -52,7 +53,7 @@
     "rehype-katex": "5.0.0",
     "remark-deflist": "^1.0.0",
     "webpack-dev-server": "^5.2.1",
-    "yaml": "^2.8.1"
+    "yaml": "^2.8.3"
   },
   "devDependencies": {
     "@docusaurus/eslint-plugin": "^3.9.2",
@@ -64,7 +65,7 @@
     "fast-glob": "^3.3.1",
     "fs-extra": "^11.1.1",
     "gray-matter": "^4.0.3",
-    "markdownlint-cli2": "^0.20.0",
+    "markdownlint-cli2": "^0.22.0",
     "netlify-plugin-cache": "^1.0.3",
     "prettier": "^3.6.2",
     "simple-git": "^3.32.3",
