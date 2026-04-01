@@ -162,7 +162,7 @@ For IP-based allowlists, see [https://www.cloudflare.com/ips-v4/](https://www.cl
 | Domain                                                    | Port | Required    | Purpose                                        |
 | --------------------------------------------------------- | ---- | ----------- | ---------------------------------------------- |
 | `licenses.seqera.io`                                      | 443  | Conditional | License validation (Fusion/Enterprise plugins) |
-| `cerbero.seqera.io`                                       | 443  | Conditional | License validation                             |
+| `cerbero.seqera.io`                                       | 443  | Conditional | Auth service for Community CR |
 | `fusionfs.seqera.io`                                      | 443  | Conditional | Fusion file system                             |
 | `fusionfs.seqera.io.cdn.cloudflare.net`                   | 443  | Conditional | Fusion file system (CDN)                       |
 | `nf-xpack.seqera.io`                                      | 443  | Conditional | Enterprise plugins                             |
