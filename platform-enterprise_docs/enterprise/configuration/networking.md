@@ -21,6 +21,7 @@ Understanding the distinction between Platform and Compute environment networkin
 
 **Compute environment requirements** refer to the network connectivity needed by the infrastructure where Nextflow pipeline jobs execute, which is provisioned on-demand by your Platform Enterprise installation. This includes connections for pulling pipeline code, downloading container images, accessing data sources, and using Seqera enterprise features, like Fusion or Wave. These connections originate from your compute resources (e.g., Kubernetes clusters, AWS Batch, Azure Batch, HPC clusters).
 
+Refer to the [Platform architecture](../overview) for details on how Platform works.
 In many deployments, Platform and Compute environments are isolated from each other with different network security policies. Ensure you configure firewall rules for both environments according to their respective requirements.
 
 ## Networking requirements
