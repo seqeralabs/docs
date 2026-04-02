@@ -11,14 +11,28 @@ Seqera AI requires Seqera Platform Enterprise 26.1 or later for the agent backen
 
 Seqera AI is an intelligent command-line assistant that helps you build, run, and manage bioinformatics workflows. This guide describes how to deploy Seqera AI in a Seqera Enterprise deployment.
 
+## Overview
+
+Seqera AI enables users to interact with Seqera Platform through a conversational AI interface, available through both the web (portal) and the CLI. Deploying Seqera AI involves standing up the following components in sequence:
+
+| Step | Component | Purpose |
+|------|-----------|---------|
+| 1 | **MCP server** | Model Context Protocol server that provides Platform-aware tools (workflows, datasets, compute environments). Deploy this first. |
+| 2 | **MySQL database** | Stores session state and conversation history. Can share the same database instance as Platform or use a dedicated instance. |
+| 3 | **Redis** | Caching and session management layer for the agent backend. |
+| 4 | **Agent backend** | FastAPI service that orchestrates AI interactions between the CLI/web, the inference provider, and MCP. Deployed as a Helm subchart alongside Platform. |
+| 5 | **Portal web interface** | Browser-based interface for Seqera AI and related Platform features. |
+
+Each step below includes a verification checkpoint so you can confirm the component is working before moving to the next.
+
 ## Prerequisites
 
 Before you begin, you need:
 
-- **Seqera Enterprise 26.1+** deployed via [Helm](./platform-helm.md)
+- **Seqera Enterprise 26.1+** deployed and accessible. Platform can be deployed via [Helm](./platform-helm.md), [Kubernetes](./platform-kubernetes.md), or [Docker Compose](./platform-docker-compose.md) — a Helm-based deployment is not required.
 - **MySQL 8.0+ database**
+- **Redis 6.0+** instance accessible from your cluster
 - **API key** from a supported inference provider (see below)
-- **MCP server** deployed and accessible from your cluster
 - **OIDC-compatible identity provider** for the portal web interface, MCP server, and CLI login flow
 - **Token encryption key** for encrypting sensitive tokens at rest. Generate with:
 
@@ -26,6 +40,18 @@ Before you begin, you need:
     python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
     ```
 - [Helm v3](https://helm.sh/docs/intro/install) and [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
+
+### Permissions
+
+The person performing this installation needs:
+
+- **Kubernetes cluster access**: `kubectl` access with permissions to create and manage deployments, services, secrets, and ingress resources in the target namespace
+- **Database administration**: Ability to create databases and users on the MySQL instance
+- **DNS management**: Access to create or update DNS records for the Seqera AI subdomains
+- **AWS IAM** (if using Bedrock): Permissions to invoke Bedrock models in the target AWS account
+- **Secret management**: Access to create Kubernetes secrets in the target namespace
+- **Helm**: Permission to install and upgrade Helm releases in the target namespace
+- **TLS certificate management**: Access to provision or reference TLS certificates (e.g., via AWS Certificate Manager)
 
 ## Supported inference providers
 
@@ -49,7 +75,8 @@ Seqera AI connects your local CLI environment to your Platform resources through
 | **Agent backend** | FastAPI service that orchestrates AI interactions. Deployed as a Helm subchart alongside Platform. |
 | **MCP server** | Model Context Protocol server providing Platform-aware tools (workflows, datasets, compute environments). |
 | **Portal web interface** | Browser-based interface for Seqera AI and related Platform features. |
-| **MySQL database** | Dedicated database for session state and conversation history. **Separate from Platform database**. |
+| **MySQL database** | Database for session state and conversation history. Can share the same instance as Platform (recommended) or use a dedicated instance. |
+| **Redis** | Caching and session management layer used by the agent backend. |
 
 **Flow:**
 
@@ -60,17 +87,112 @@ Seqera AI connects your local CLI environment to your Platform resources through
 1. MCP tools execute Platform operations using the user's credentials.
 1. Results stream back to the CLI via Server-Sent Events (SSE).
 
-## Configure Helm values
+## Step 1: Deploy the MCP server
 
-The Seqera AI components can be installed using the [Seqera Helm charts](https://github.com/seqeralabs/helm-charts). Refer to the examples in the repository for sample configurations.
-Some values (like database passwords, API keys, sensitive OIDC settings, cryptographic keys) are recommended to be stored as Kubernetes secrets and referenced in the Helm values in production installations, rather than be specified as plain text.
+The MCP server must be running and accessible before deploying the agent backend. The agent backend connects to MCP at startup to register Platform-aware tools.
 
-The Seqera AI components can be installed alongside Platform and other subcharts in a single Helm release, or can be installed individually as separate releases.
+Deploy the MCP server using the [MCP Helm chart](https://github.com/seqeralabs/helm-charts/tree/master/platform/charts/mcp). The MCP server can be installed alongside Platform in a single Helm release or as a separate release.
 
-Documentation for the individual charts is available at:
+### Checkpoint: Verify MCP is running
+
+Confirm the MCP server is healthy and reachable from within your cluster:
+
+```bash
+curl -i https://mcp.platform.example.com/health
+curl -i https://mcp.platform.example.com/service-info
+```
+
+You should receive `200 OK` responses. If these fail, resolve MCP connectivity before proceeding.
+
+:::tip
+If you see connection errors, verify:
+- The MCP server pod is running (`kubectl get pods` in the MCP namespace)
+- Network policies or security groups allow traffic to the MCP endpoint
+- DNS resolves correctly for the MCP domain
+:::
+
+## Step 2: Provision the database
+
+Seqera AI requires its own MySQL database for session state and conversation history. You can create this database on the same instance that hosts your Platform database (recommended) or on a separate dedicated instance.
+
+:::tip Recommended: Use the same database instance as Platform
+Creating the Seqera AI database on your existing Platform database instance simplifies infrastructure management, reduces costs, and avoids additional networking configuration. The Seqera AI database is lightweight and does not compete for resources with the Platform database under typical usage.
+
+If you have strict isolation requirements, you can provision a separate instance instead.
+:::
+
+Connect to your database instance and create the Seqera AI database and user:
+
+```sql
+CREATE DATABASE seqera_ai;
+CREATE USER 'seqera_ai'@'%' IDENTIFIED BY '<secure-password>';
+GRANT ALL PRIVILEGES ON seqera_ai.* TO 'seqera_ai'@'%';
+FLUSH PRIVILEGES;
+```
+
+### Checkpoint: Verify database connectivity
+
+Confirm the database is accessible from your cluster:
+
+```bash
+kubectl run db-check --rm -it --restart=Never \
+    --image=mysql:8.0 -- \
+    mysql -h <db-hostname> -u seqera_ai -p<secure-password> -e "SELECT 1;"
+```
+
+You should see a result set with the value `1`. If this fails, check security group rules and network connectivity.
+
+## Step 3: Provision Redis
+
+Seqera AI requires a Redis instance for caching and session management. Use a managed Redis service or a self-managed instance, as long as it is accessible from your cluster on port 6379.
+
+- **Engine**: Redis 6.0+
+- **Security group**: Allow inbound Redis (port 6379) from your cluster
+
+### Checkpoint: Verify Redis connectivity
+
+Confirm Redis is accessible from your cluster:
+
+```bash
+kubectl run redis-check --rm -it --restart=Never \
+    --image=redis:7 -- \
+    redis-cli -h <redis-hostname> -p 6379 PING
+```
+
+You should see `PONG` in the output. If this fails, check security group rules and network connectivity.
+
+## Step 4: Deploy the agent backend and portal
+
+With MCP, the database, and Redis confirmed working, deploy the remaining Seqera AI components using the [Seqera Helm charts](https://github.com/seqeralabs/helm-charts). Refer to the examples in the repository for sample configurations.
+
+Store sensitive values (database passwords, API keys, OIDC settings, cryptographic keys) as Kubernetes secrets and reference them in the Helm values, rather than specifying them as plain text.
+
+The Seqera AI components can be installed alongside Platform and other subcharts in a single Helm release, or individually as separate releases.
+
+Documentation for the individual charts:
 - [Agent backend](https://github.com/seqeralabs/helm-charts/tree/master/platform/charts/agent-backend)
-- [MCP server](https://github.com/seqeralabs/helm-charts/tree/master/platform/charts/mcp)
 - [Portal web interface](https://github.com/seqeralabs/helm-charts/tree/master/platform/charts/portal-web)
+
+### Checkpoint: Agent backend is running
+
+Confirm the agent-backend pod shows `Running` status and ready containers:
+
+```bash
+kubectl get pods -n <namespace> -l app.kubernetes.io/component=agent-backend
+```
+
+Expected output:
+
+```
+NAME                             READY   STATUS    RESTARTS   AGE
+agent-backend-xxxxxxxxxx-xxxxx   1/1     Running   0          2m
+```
+
+If the pod is in `CrashLoopBackOff` or `Error` state, check the logs for connection errors to the database, Redis, or MCP server:
+
+```bash
+kubectl logs -n <namespace> -l app.kubernetes.io/component=agent-backend --tail=50
+```
 
 ### Additional configuration
 
@@ -89,35 +211,49 @@ The following optional environment variables are not covered by the Helm chart v
 | `SESSION_RETENTION_DAYS` | Days to retain session data | `14` |
 | `CORS_ORIGINS` | Allowed CORS origins (JSON array) | `["*"]` |
 
-## Verify the installation
+## Step 5: Verify the installation
 
-1. Check the health endpoint of the agent backend and mcp to verify connectivity:
+At this point, all components are deployed. Run through the following checks to confirm end-to-end functionality.
 
-    ```bash
-    curl -i https://ai-api.platform.example.com/health
-    curl -i https://mcp.platform.example.com/health
-    curl -i https://mcp.platform.example.com/service-info
-    ```
+### Checkpoint: Health endpoints
 
-## Connect the CLI to Seqera AI
+```bash
+curl -i https://ai-api.platform.example.com/health
+curl -i https://mcp.platform.example.com/health
+```
 
-Set `SEQERA_AI_BACKEND_URL` before running `seqera ai` so the CLI connects to the correct backend.
+You should receive `200 OK` responses from both. If not, check DNS resolution, ingress configuration, and that pods are running.
 
-Install the CLI first by following [Seqera AI CLI installation](../seqera-ai/installation.mdx), or install it directly with:
+### Checkpoint: CLI connectivity
+
+Test the full authentication and chat flow from a machine with the Seqera AI CLI installed. Install the CLI by following [Seqera AI CLI installation](../seqera-ai/installation.mdx), or install it directly with:
 
 ```bash
 npm install -g seqera
 ```
 
-Use your Enterprise deployment:
+Connect to your Enterprise deployment:
 
 ```bash
 export SEQERA_AUTH_DOMAIN=https://platform.example.com/api
 export SEQERA_AUTH_CLI_CLIENT_ID=seqera_ai_cli
 export SEQERA_AI_BACKEND_URL=https://ai.platform.example.com
 seqera login
-seqera ai
+seqera ai "list my pipelines"
 ```
+
+You should see the OIDC login flow complete and receive a response listing the user's pipelines. This confirms:
+
+- The agent backend is reachable from outside the cluster
+- OIDC authentication with Platform is working
+- The MCP server is connected and can query Platform resources
+- The database and Redis are operational
+
+### Checkpoint: Portal web interface
+
+Navigate to the portal URL in a browser (e.g., `https://ai.platform.example.com`) and confirm you can authenticate and send a message.
+
+## CLI configuration reference
 
 If your Enterprise deployment uses a different OAuth client ID for the CLI, replace `seqera_ai_cli` with the value configured for your installation.
 
@@ -163,6 +299,8 @@ You only need `SEQERA_AUTH_DOMAIN` and `SEQERA_AUTH_CLI_CLIENT_ID` when using th
 | `AGENT_BACKEND_DB_USER` | MySQL database username |
 | `AGENT_BACKEND_DB_PASSWORD` | MySQL database password |
 | `TOKEN_ENCRYPTION_KEY` | Fernet encryption key for encrypting sensitive tokens at rest. Also accepted as `AGENT_BACKEND_TOKEN_ENCRYPTION_KEY`. |
+| `REDIS_HOST` | Redis hostname |
+| `REDIS_PORT` | Redis port (default: `6379`) |
 
 ### Optional
 
@@ -208,6 +346,13 @@ For the full list of configuration options, see the [agent-backend chart documen
 | `database.username` | MySQL username | `""` |
 | `database.existingSecretName` | Existing secret with DB password | `""` |
 | `database.existingSecretKey` | Key in the secret | `DB_PASSWORD` |
+
+### Redis
+
+| Value | Description | Default |
+|-------|-------------|---------|
+| `redis.host` | Redis hostname | `""` |
+| `redis.port` | Redis port | `6379` |
 
 ### Ingress
 
