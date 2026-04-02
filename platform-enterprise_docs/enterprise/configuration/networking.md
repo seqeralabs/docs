@@ -115,8 +115,12 @@ Required if using [Wave](https://docs.seqera.io/wave). Compute environments must
 
 Required if using Seqera-hosted container registries from compute environments.
 
+- `community.wave.seqera.io`
+- `cerbero.seqera.io`
 - `community-cr-prod.seqera.io`
 - `community-cr-prod.seqera.io.cdn.cloudflare.net`
+- `public.cr.seqera.io`
+- `auth.cr.seqera.io`
 - `public-cr-prod.seqera.io`
 - `public-cr-prod.seqera.io.cdn.cloudflare.net`
 
