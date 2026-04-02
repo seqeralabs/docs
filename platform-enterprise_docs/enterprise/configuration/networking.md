@@ -92,7 +92,6 @@ Compute environments must access container registries to pull container images u
 [Fusion file system](../../supported_software/fusion/overview.md) and other Seqera Enterprise plugins have built-in license checking. Compute environments must communicate with `licenses.seqera.io` on port 443. For the most up-to-date list of IP addresses that your firewall must allow from compute environments, see the `ingress` section at [https://meta.seqera.io/v3](https://meta.seqera.io/v3).
 
 - `licenses.seqera.io`
-- `cerbero.seqera.io`
 
 #### Fusion and nf-xpack
 
