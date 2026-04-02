@@ -1,8 +1,7 @@
 ---
 title: "SSL/TLS"
 description: Configure your Seqera instance to use SSL/TLS certificates for HTTPS
-date created: "2023-04-21"
-last updated: "2026-03-30"
+date: "21 Apr 2023"
 tags: [ssl, tls, https, configuration]
 ---
 
@@ -230,5 +229,5 @@ Seqera Enterprise versions 22.3.2 and earlier rely on Java 11 (Amazon Corretto).
 TLS v1.2 can be explicitly enabled by default using JDK environment variables:
 
 ```bash
-JAVA_OPTS="-Dmail.smtp.ssl.protocols=TLSv1.2"
+_JAVA_OPTS="-Dmail.smtp.ssl.protocols=TLSv1.2"
 ```
