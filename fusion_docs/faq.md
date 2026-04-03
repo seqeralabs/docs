@@ -34,6 +34,10 @@ on demand.
 
 No. Fusion can mount multiple buckets per execution, but all from the same vendor, such as AWS S3 or Google Cloud Storage.
 
+### Can I use Fusion without Seqera Platform?
+
+Yes. Fusion can be enabled directly in a Nextflow pipeline that runs outside Seqera Platform, provided that you also enable Wave and supply a Seqera Platform access token in your Nextflow configuration. Seqera Platform is not required to run Fusion, but it is required if you want Seqera to manage the compute environment setup for you.
+
 ### I tried Fusion, but I didn't notice any performance improvement. Why?
 
 If you didn’t notice any performance improvement with Fusion, the bottleneck may lie in other factors, such as network latency or memory limitations. Fusion’s caching strategy relies heavily on NVMe SSD or similar storage technology, so ensure your computing nodes are using the recommended storage. Check your Platform compute environment page for optimal instance and storage configurations:
