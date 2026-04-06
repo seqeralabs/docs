@@ -347,7 +347,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run Editorial Review Skill
-        uses: anthropics/claude-code-action@6e2bd52842c65e914eba5c8badd17560bd26b5de # ratchet:anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@e7b588b6eaa5263c2e7c6c7b34a29e190d32ee68 # v1.0.81
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |
@@ -548,7 +548,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Apply Fixes
-        uses: anthropics/claude-code-action@6e2bd52842c65e914eba5c8badd17560bd26b5de # ratchet:anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@e7b588b6eaa5263c2e7c6c7b34a29e190d32ee68 # v1.0.81
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |
