@@ -2,8 +2,8 @@
 title: "Data Explorer"
 description: "Using Seqera Data Explorer."
 date created: "2023-04-21"
-last updated: "2025-07-29"
-tags: [data, explorer]
+last updated: "2026-03-31"
+tags: [data, explorer, igv, molstar, object, storage]
 ---
 
 With Data Explorer, you can browse and interact with remote data repositories from organization workspaces in Seqera Platform. It supports AWS S3, Azure Blob Storage, Google Cloud Storage, and Amazon S3-compatible API storage (for example, but not limited to, Cloudflare R2, MinIO, Nebius, and Oracle Cloud).
@@ -65,6 +65,8 @@ If you remove a data-link associated with a repository, the repository is automa
   File preview is supported for these object types:
 
   - Nextflow output files ( `.command.*`, `.fusion.*` and `.exitcode` )
+  - Molecular data using the [Mol* library][molstar]
+  - Genome tracks using the [igv.js library][igv] (annotations, wigs, alignments, variants, etc)
   - Text
   - CSV and TSV
   - PDF
@@ -72,7 +74,7 @@ If you remove a data-link associated with a repository, the repository is automa
   - Images (JPG, PNG, SVG, etc.)
 
   :::note
-  The file size limit for preview is 10 MB. 10-25 MB files can still be downloaded directly.
+  With the specific exception of genome tracks, the file size limit for preview is 10 MB. 10-25 MB files can still be downloaded directly.
 
   Seqera Enterprise users can increase the default 25 MB file size download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#data-features) file. Note that increasing this value may degrade Platform performance.
   :::
@@ -254,3 +256,5 @@ Compute environment and Fusion multi-credential support will resolve this existi
 :::
 
 [roles]: ../orgs-and-teams/roles
+[molstar]: https://molstar.org/
+[igv]: https://igv.org/doc/igvjs/
