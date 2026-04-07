@@ -48,17 +48,11 @@
       ".docusaurus"
     ]
 
-[[redirects]]
-  from = "/platform-api/*"
-  to = "https://seqera-docs-api.netlify.app/platform-api/:splat"
-  status = 200
+[[edge_functions]]
+  function = "docs-proxy"
+  path = "/platform-api/*"
 
-[[redirects]]
-  from = "/nextflow/*"
-  to = "https://docs-migration.netlify.app/nextflow/:splat"
-  status = 200
+[[edge_functions]]
+  function = "docs-proxy"
+  path = "/nextflow/*"
 
-[[headers]]
-  for = "/nextflow/*"
-  [headers.values]
-    X-Robots-Tag = "index"
