@@ -35,6 +35,20 @@ For OIDC providers, configure authentication with these environment variables:
 | `TOWER_OIDC_SECRET` | The client secret provided by your authentication service                                   |
 | `TOWER_OIDC_ISSUER` | The authentication service URL to which Seqera connects to authenticate the sign-in request |
 
+:::warning
+If you store OIDC values in AWS Parameter Store, keep the issuer, client ID, and client secret in the same configuration source. Do not split them across `tower.env`, `tower.yml`, and AWS Parameter Store. Mixed-source OIDC configuration can prevent Platform from resolving the full set of values during startup.
+:::
+
+When you use AWS Parameter Store for OIDC configuration, create these parameters with the same application name prefix:
+
+| OIDC value | AWS Parameter Store path |
+| :--------- | :----------------------- |
+| Client ID | `/config/<application_name>/micronaut/security/oauth2/clients/oidc/client-id` |
+| Client secret | `/config/<application_name>/micronaut/security/oauth2/clients/oidc/client-secret` |
+| Issuer URL | `/config/<application_name>/micronaut/security/oauth2/clients/oidc/openid/issuer` |
+
+Store the client secret as a `SecureString` parameter. See [AWS Parameter Store](../aws_parameter_store) for more information.
+
 Some providers require the full authentication service URL while others require only the SSO root domain (without the trailing sub-directories).
 
 In your OpenID provider settings, specify the following URL as a callback address or authorized redirect:

@@ -53,6 +53,8 @@ We recommend storing sensitive values, such as database passwords, as SecureStri
 
 Seqera does not support StringList parameters. Configuration parameters with multiple values can be created as comma-separated lists of String type.
 
+OIDC client secrets should also be stored as `SecureString` parameters. If you use AWS Parameter Store for OIDC, keep the issuer, client ID, and client secret together in Parameter Store instead of splitting them across different configuration sources.
+
 To create Seqera configuration parameters in AWS Parameter Store, do the following:
 
 1. Navigate to the **Parameter Store** from the **AWS Systems Manager Service** console.
@@ -66,3 +68,13 @@ To create Seqera configuration parameters in AWS Parameter Store, do the followi
 | **Type** | Use **SecureString** for sensitive values like passwords and tokens. Use **String** for everything else. |
 | **Data type** | Select **text**. |
 | **Value** | Enter a plain text value (this is the configuration value used in Seqera). |
+
+For OIDC values, the corresponding parameter paths are:
+
+| OIDC value | Parameter path |
+| :--------- | :------------- |
+| Client ID | `/config/<application_name>/micronaut/security/oauth2/clients/oidc/client-id` |
+| Client secret | `/config/<application_name>/micronaut/security/oauth2/clients/oidc/client-secret` |
+| Issuer URL | `/config/<application_name>/micronaut/security/oauth2/clients/oidc/openid/issuer` |
+
+If you template these values into Terraform user data or manifest generation, use Terraform interpolation syntax such as `${...}` rather than shell command substitution syntax such as `$()`.
