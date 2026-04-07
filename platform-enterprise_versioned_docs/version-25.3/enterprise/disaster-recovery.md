@@ -1,128 +1,91 @@
 ---
-title: "Disaster recovery"
-description: "Plan disaster recovery for self-hosted Seqera Platform deployments"
+title: "Platform disaster recovery"
+description: Plan backup, restore, and recovery steps for Seqera Platform Enterprise deployments
 date created: "2026-04-07"
-last updated: "2026-04-07"
-tags: [enterprise, disaster recovery, backup, restore, operations]
+tags: [installation, deployment, disaster recovery, backup, restore]
 ---
 
-This guide outlines a practical disaster recovery (DR) approach for self-hosted Seqera Platform deployments. Use it to define what must be restored, which parts of the environment should be rebuilt from infrastructure-as-code, and how to validate that the restored platform is ready for users.
+Use this guide to define a disaster recovery (DR) plan for Seqera Platform Enterprise before you need to restore service after an infrastructure loss or a region-level incident.
 
-The exact recovery procedure depends on your deployment model, your cloud architecture, and your recovery time objective (RTO) and recovery point objective (RPO). Seqera does not provide a single turnkey DR template for every environment, but the guidance on this page covers the minimum state and validation steps that most teams need.
+Seqera Platform does not create a DR plan for you. Your recovery procedure depends on the infrastructure that hosts Platform, your database and Redis services, your container registry access, and the backup capabilities offered by your cloud provider or platform team.
 
-## Define your recovery target
+## What to protect
 
-Before you write a DR runbook, decide what a successful recovery means for your deployment:
+Back up and document the parts of your deployment that you will need to rebuild Platform:
 
-- Whether you are recovering the existing environment or recreating the account, subscription, or project that hosts Platform.
-- How much data loss is acceptable between the last good backup and the restored system.
-- How long Platform can remain unavailable before users must switch to another workflow.
-- Which services must return first: Platform login, pipeline launches, Studios, or pipeline optimization.
+- The Platform SQL database and its restore procedure.
+- Your Platform configuration, including `tower.env`, `tower.yml`, Helm values, Kubernetes manifests, or `docker-compose.yml`.
+- Your `TOWER_CRYPTO_SECRETKEY` value and any rotation-related keys. Existing encrypted secrets in the Platform database cannot be decrypted without the correct key material.
+- TLS certificates, identity provider settings, registry credentials, and any other secrets required to start Platform.
+- The storage locations and infrastructure dependencies referenced by your Platform deployment, such as load balancers, DNS records, persistent volumes, and mirrored container images.
 
-Your deployment model affects the recovery shape:
-
-- [Docker Compose](./platform-docker-compose) is best treated as a single-instance recovery path with a longer outage window.
-- [Kubernetes](./platform-kubernetes) is better suited to production environments that need higher availability and faster infrastructure replacement.
-
-:::note
-Running multiple backend replicas improves availability during normal operations, but it is not a substitute for database backups, configuration backups, or a tested restore procedure.
+:::warning
+Back up your Platform database before changing the crypto secret key or running key rotation. For more information, see [Configuration overview](./configuration/overview#secret-key-rotation).
 :::
 
-## Back up the required state
+## Define recovery targets
 
-At minimum, your DR plan should cover the following components.
+Document the following targets with your operations team:
 
-### SQL database
+- Recovery point objective (RPO): how much recent Platform state you can afford to lose.
+- Recovery time objective (RTO): how long Platform can remain unavailable.
+- Recovery owner: who can restore the database, recreate infrastructure, and validate the application.
 
-The SQL database is the primary persistent state for Seqera Platform. Back up the database before upgrades and on a schedule that matches your RPO. If you use a managed service such as Amazon RDS, document both the snapshot schedule and the exact restore procedure.
+Your deployment model directly affects these targets:
 
-If you use the pipeline optimization service and its `groundswell` database is hosted separately, include that database in the same backup and restore plan.
+- Kubernetes and Helm deployments can be rebuilt on new infrastructure more easily, especially when Platform runs with external managed database and Redis services.
+- Docker Compose deployments are single-instance by design. Restoring them normally requires application downtime while the host, configuration, and backing services are rebuilt.
 
-### Configuration and secrets
+## Recommended backup strategy
 
-Back up the configuration that is required to recreate the deployment:
+At minimum, maintain:
 
-- `tower.env`
-- `tower.yml`
-- Helm values files, Kubernetes manifests, or Docker Compose files
-- Kubernetes ConfigMaps and Secrets, if used
-- Reverse proxy, ingress, DNS, and TLS certificate configuration
-- Registry credentials, license configuration, and any custom image mirror settings
+1.  Regular database backups or snapshots for the SQL database used by Platform.
+2.  Version-controlled copies of your deployment manifests and configuration overrides.
+3.  A secure copy of the active crypto secret key and any required supporting secrets.
+4.  A written restore runbook that includes DNS, ingress, load balancer, and certificate steps.
 
-For AWS deployments that use [AWS Parameter Store](./configuration/aws_parameter_store), include the parameter hierarchy and IAM policies required for Seqera to read those values.
+For production environments, use the backup and replication features provided by your infrastructure:
 
-### Redis
+- Managed SQL backups, snapshots, and cross-region replicas where required by your RPO and RTO.
+- Backups for any persistent volumes or host-attached storage used by your deployment.
+- Registry mirroring for Platform images if your environment cannot rely on direct access to `cr.seqera.io` during recovery.
 
-Redis is used for caching and coordination, not as the system of record. In most environments, the priority is to recreate a working Redis service before Platform starts rather than to restore Redis from backup. Document which Redis service you use and how to rebuild it.
+## Recovery workflow
 
-### External dependencies
+### Kubernetes or Helm deployments
 
-Platform recovery also depends on services outside the application itself. Document how to recreate or reconnect:
-
-- Container registries and image mirrors
-- Object storage buckets used by pipelines
-- Compute environment credentials and IAM roles
-- SMTP configuration
-- Identity provider integration
-- Studios prerequisites and custom container images
-
-If your recovery scenario includes recreating the full cloud account, verify that these external dependencies are either reproducible or owned by another team with a compatible DR plan.
-
-## Choose a deployment-specific DR posture
+1.  Recreate or fail over the Kubernetes cluster and its supporting infrastructure.
+2.  Restore access to the SQL database, Redis service, secrets, ingress, and DNS records.
+3.  Reapply your Helm values or Kubernetes manifests.
+4.  Restore the SQL database from the selected backup or snapshot.
+5.  Confirm that Platform starts with the same crypto secret key used to encrypt the existing database contents.
+6.  Validate login, workspace access, and workflow launch behavior.
 
 ### Docker Compose deployments
 
-Docker Compose deployments are suitable for evaluation, development, and smaller production environments. For DR, plan around full environment replacement rather than in-place failover:
+1.  Provision a replacement host or recover the existing host.
+2.  Restore `tower.env`, `tower.yml`, `docker-compose.yml`, certificates, and secret material.
+3.  Restore or recreate the external SQL database and Redis service used by Platform.
+4.  Start Platform with `docker compose up` and allow migrations and startup checks to finish.
+5.  Validate login, workspace access, and workflow launch behavior before switching traffic back.
 
-- Keep infrastructure definitions for the VM, storage volumes, DNS, and network rules outside the instance itself.
-- Take scheduled database snapshots and, if you host supporting services locally, snapshot the attached volumes as well.
-- Expect service downtime during recovery and during many maintenance operations.
-- Validate whether your acceptable outage window matches this model before using Docker Compose for production.
+## Validation checklist
 
-### Kubernetes deployments
+Test your DR plan on a schedule that matches your organization's risk requirements. During each exercise, confirm that you can:
 
-Kubernetes deployments are the preferred option when you need a more repeatable production recovery path:
+- Restore the database from a recent backup.
+- Start Platform with the correct crypto secret key and configuration.
+- Reach the frontend through the expected DNS and TLS path.
+- Log in and access organizations, workspaces, and compute environments.
+- Launch a small workflow to verify end-to-end operation.
 
-- Store manifests, Helm values, ingress settings, and secret material in a controlled source of truth.
-- Use managed database and Redis services where possible so the cluster can be rebuilt independently of the data layer.
-- Document the order for restoring cluster resources, shared secrets, and external DNS or load balancer configuration.
-- If you rely on multiple backend replicas for availability, make sure the cron service remains a single instance after restoration.
+The [Test deployment](./testing) guide provides a simple post-recovery smoke test you can adapt for DR exercises.
 
-## Restore in a controlled order
+## Related guides
 
-The restore order matters more than the individual commands. A typical recovery sequence is:
-
-1.  Recreate the base infrastructure: network, DNS, load balancer, Kubernetes cluster or VM, database service, and Redis service.
-2.  Restore the Seqera SQL database from the most recent acceptable snapshot.
-3.  Recreate or restore Platform configuration, secrets, TLS certificates, registry access, and any parameter-store entries.
-4.  Deploy the Platform services. Ensure the cron service completes its startup tasks before relying on the backend.
-5.  Restore optional components such as Studios or pipeline optimization if your environment uses them.
-6.  Reconnect external integrations such as SMTP, identity providers, and container registries.
-
-:::warning
-Do not treat application deployment alone as a DR test. A successful recovery must prove that the restored deployment can authenticate users, launch workflows, and access its required external services.
-:::
-
-## Validate the recovered platform
-
-After restoration, run a short validation sequence before declaring the environment ready:
-
-1.  Confirm that users can log in.
-2.  Confirm that your organization and workspace configuration is present.
-3.  Confirm that credentials, compute environments, and secrets are available where expected.
-4.  Launch a small validation workflow, such as the [deployment test workflow](./testing), and verify that logs and outputs are produced normally.
-5.  If you use Studios, launch a test Studio session.
-6.  If you use pipeline optimization, verify that the service starts and can read its database.
-
-Record the actual recovery duration and any manual fixes required so you can refine the runbook after each exercise.
-
-## Practice the plan
-
-A DR plan is only useful if it is exercised. As part of production readiness:
-
-- Run a scheduled recovery drill in a non-production environment.
-- Verify that your backups can actually be restored.
-- Measure the real RTO and RPO you achieved.
-- Update the runbook when your deployment topology, secrets, integrations, or ownership changes.
-
-For broader production readiness checks, see the [production checklist](../getting-started/production-checklist).
+- [Platform installation overview](./install-platform)
+- [Platform: Helm](./platform-helm)
+- [Platform: Kubernetes](./platform-kubernetes)
+- [Platform: Docker Compose](./platform-docker-compose)
+- [Test deployment](./testing)
