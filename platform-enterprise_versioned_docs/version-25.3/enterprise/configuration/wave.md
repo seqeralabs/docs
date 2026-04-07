@@ -64,15 +64,18 @@ Wave features are available on the compute environment creation page after integ
 
 ## Limitations
 
-- Wave does not support container repositories with private CA SSL certificates
+- The Seqera-hosted Wave service does not support container repositories with private CA SSL certificates.
 
 ## Self-hosted Wave deployment
 
 For enterprises requiring full control over container builds, caching, and security scanning, Wave can be deployed in your own infrastructure.
 
 Self-hosted Wave supports:
+
 - **Wave Lite**: Container augmentation and inspection capabilities (AWS, Azure, GCP)
 - **Full Wave**: Complete build capabilities including Conda-based containers and security scanning (requires AWS EKS with EFS storage)
+
+If your self-hosted deployment uses a private Certificate Authority, import the same private CA root certificate into the Platform `backend`, `cron`, and Wave containers. See [SSL/TLS](./ssl_tls#configure-seqera-to-trust-your-private-certificate) for guidance.
 
 See the [Wave documentation](https://docs.seqera.io/wave) for installation and configuration guidance.
 
