@@ -115,3 +115,7 @@ Seqera Platform offers a service that optimizes pipeline resource requests. Refe
 :::note
 Studios is available from Seqera Platform v24.1. If you experience any problems during the deployment process please contact your account executive. Studios in Enterprise is not installed by default.
 :::
+
+## Disaster recovery planning
+
+Docker Compose deployments are single-instance by design, so recovery normally requires service downtime while you restore the host, configuration, and backing services. For backup, restore, and validation guidance, see [Platform disaster recovery](./disaster-recovery).
