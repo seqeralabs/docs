@@ -21,7 +21,8 @@
             "items": [
               "enterprise/platform-helm",
               "enterprise/platform-kubernetes",
-              "enterprise/platform-docker-compose"
+              "enterprise/platform-docker-compose",
+              "enterprise/disaster-recovery"
             ]
           },
           {
@@ -88,7 +89,6 @@
           },
           "enterprise/testing",
           "enterprise/upgrade",
-          "enterprise/disaster-recovery",
           {
             "type": "category",
             "label": "Advanced",
