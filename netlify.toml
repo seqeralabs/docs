@@ -57,3 +57,8 @@
   from = "/nextflow/*"
   to = "https://docs-migration.netlify.app/nextflow/:splat"
   status = 200
+
+[[headers]]
+  for = "/nextflow/*"
+  [headers.values]
+    X-Robots-Tag = "index"
