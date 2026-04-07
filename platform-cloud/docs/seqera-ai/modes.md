@@ -48,9 +48,9 @@ Toggle modes during a session with `Shift+Tab`.
 
 You can also:
 
-- Check the current mode in the composer footer
-- Run `/status` to view the current mode alongside session and LSP status
-- Use `/help` to see mode-aware command guidance
+- Check the current mode in the composer footer.
+- Run `/status` to view the current mode alongside session and LSP status.
+- Use `/help` to see mode-aware command guidance.
 
 ## Goal mode
 
@@ -62,10 +62,10 @@ Goal mode is a persistent workflow for longer tasks. Set a goal with:
 
 When goal mode is active, Seqera AI:
 
-- Keeps working toward the same objective over multiple model attempts
-- Automatically continues if more work is needed
-- Stops when the goal is complete or the goal attempt limit is reached
-- Switches approval mode to `full` so work can continue without repeated prompts
+- Keeps working toward the same objective over multiple model attempts.
+- Automatically continues if more work is needed.
+- Stops when the goal is complete or the goal attempt limit is reached.
+- Switches approval mode to `full` so work can continue without repeated prompts.
 
 Goal mode commands:
 
@@ -82,9 +82,9 @@ Seqera AI currently gives goal mode up to **3 model attempts** before it stops a
 
 | Shortcut | Action |
 |----------|--------|
-| `Shift+Tab` | Toggle between build mode and plan mode |
-| `Ctrl+Enter` | If your terminal supports it, interrupt the current response and send a queued follow-up immediately |
-| `Esc` | Clear a queued follow-up or interrupt the current response |
+| `Shift+Tab` | Toggle between build mode and plan mode. |
+| `Ctrl+Enter` | If your terminal supports it, interrupt the current response and send a queued follow-up immediately. |
+| `Esc` | Clear a queued follow-up or interrupt the current response. |
 
 ## Examples
 
