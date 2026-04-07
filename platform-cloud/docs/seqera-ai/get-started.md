@@ -29,6 +29,8 @@ To get started with Seqera AI:
 
     See [Authentication](./authentication.md) for a comprehensive authentication guide.
 
+    If you are testing a development build of the CLI against the hosted production Seqera AI service, set `SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io` first. See [Authentication](./authentication.md#point-a-development-build-at-the-hosted-seqera-ai-backend) for the full environment variable reference.
+
 
 1. Start Seqera AI:
 
