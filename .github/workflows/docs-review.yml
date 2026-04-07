@@ -205,7 +205,7 @@ jobs:
           ref: ${{ github.event_name == 'issue_comment' && steps.pr-ref.outputs.head_ref || '' }}
 
       - name: Vale Terminology Check
-        uses: errata-ai/vale-action@d89dee975228ae261d22c15adcd03578634d429c # ratchet:errata-ai/vale-action@v2
+        uses: errata-ai/vale-action@d89dee975228ae261d22c15adcd03578634d429c # v2.1.1
         with:
           files: |
             platform-enterprise_docs
