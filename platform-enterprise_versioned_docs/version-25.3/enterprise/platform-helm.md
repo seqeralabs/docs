@@ -58,6 +58,10 @@ helm upgrade my-release oci://public.cr.seqera.io/charts/platform \
     --values my-values.yaml
 ```
 
+## Disaster recovery planning
+
+Define your backup, restore, and validation procedure before promoting a Helm deployment to production. For DR guidance, including database backups, crypto key handling, and post-restore checks, see [Platform disaster recovery](./disaster-recovery).
+
 ## Uninstalling the Helm chart
 
 To uninstall the Seqera Platform Enterprise Helm chart, run the following command, replacing `my-release` and `my-namespace` with your release name and namespace:
