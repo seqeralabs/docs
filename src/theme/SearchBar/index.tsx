@@ -131,7 +131,31 @@ function buildBreadcrumb(
     parts[0] = productLabel;
   }
 
-  return parts.length > 1 ? parts.join(' › ') : null;
+  if (parts.length <= 1) return null;
+
+  const SEP = ' › ';
+  const MAX_LEN = 50;
+  const full = parts.join(SEP);
+
+  if (full.length <= MAX_LEN || parts.length <= 2) return full;
+
+  // Always keep first and last. Add middle parts (left to right) until
+  // the next one would push the string over the limit.
+  const first = parts[0];
+  const last = parts[parts.length - 1];
+  const middle: string[] = [];
+
+  for (let i = 1; i < parts.length - 1; i++) {
+    const candidate = [first, ...middle, parts[i], '\u2026', last].join(SEP);
+    if (candidate.length > MAX_LEN) break;
+    middle.push(parts[i]);
+  }
+
+  // If all middle parts fit, no ellipsis needed (edge case: full was
+  // over limit due to rounding but each candidate fit).
+  if (middle.length === parts.length - 2) return full;
+
+  return [first, ...middle, '\u2026', last].join(SEP);
 }
 
 
