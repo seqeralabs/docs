@@ -1,8 +1,7 @@
 ---
 title: "SSL/TLS"
 description: Configure your Seqera instance to use SSL/TLS certificates for HTTPS
-date created: "2023-04-21"
-last updated: "2026-03-30"
+date: "21 Apr 2023"
 tags: [ssl, tls, https, configuration]
 ---
 

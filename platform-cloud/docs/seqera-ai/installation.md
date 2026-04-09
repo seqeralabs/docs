@@ -22,6 +22,12 @@ Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [C
 npm install -g seqera
 ```
 
+Install the development build:
+
+```bash
+npm install -g seqera@dev
+```
+
 Verify your installation:
 
 ```bash
@@ -33,6 +39,10 @@ seqera --version
 ```bash
 npm update -g seqera
 ```
+
+### Developer configuration
+
+See [Authentication](./authentication.md#point-a-development-build-at-the-hosted-seqera-ai-backend) for the complete environment variable reference and OAuth versus token-based examples.
 
 ### Install agent integrations
 

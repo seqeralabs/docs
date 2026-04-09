@@ -205,7 +205,7 @@ jobs:
           ref: ${{ github.event_name == 'issue_comment' && steps.pr-ref.outputs.head_ref || '' }}
 
       - name: Vale Terminology Check
-        uses: errata-ai/vale-action@d89dee975228ae261d22c15adcd03578634d429c # ratchet:errata-ai/vale-action@v2
+        uses: errata-ai/vale-action@d89dee975228ae261d22c15adcd03578634d429c # v2.1.1
         with:
           files: |
             platform-enterprise_docs
@@ -347,7 +347,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run Editorial Review Skill
-        uses: anthropics/claude-code-action@88c168b39e7e64da0286d812b6e9fbebb6708185 # ratchet:anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@2ff1acb3ee319fa302837dad6e17c2f36c0d98ea # v1.0.91
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |
@@ -548,7 +548,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Apply Fixes
-        uses: anthropics/claude-code-action@88c168b39e7e64da0286d812b6e9fbebb6708185 # ratchet:anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@2ff1acb3ee319fa302837dad6e17c2f36c0d98ea # v1.0.91
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |
