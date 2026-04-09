@@ -115,7 +115,7 @@ services:
 
 # Uncomment the following section to enable Studios functionality. See [Studios configuration](../../../studios/overview) for more information.
 #  connect-proxy:
-#    image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-proxy:0.9.0
+#    image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-proxy:0.11.0
 #    platform: linux/amd64
 #    env_file:
 #      - data-studios.env
@@ -124,6 +124,7 @@ services:
 #      - backend
 #    ports:
 #      - 9090:9090
+#      - 2222:2222 # must be the same as TOWER_DATA_STUDIO_CONNECT_SSH_PORT
 #    restart: always
 #    depends_on:
 #      - redis
@@ -131,7 +132,7 @@ services:
 #     - $HOME/.tower/connect:/data
 #
 #  connect-server:
-#    image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-server:0.9.0
+#    image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-server:0.11.0
 #    platform: linux/amd64
 #    env_file:
 #      - data-studios.env

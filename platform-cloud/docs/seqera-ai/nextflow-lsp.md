@@ -1,7 +1,7 @@
 ---
 title: "Language server"
 description: "Use language-server code intelligence features in Seqera AI"
-date: "2026-02-26"
+date created: "2026-02-26"
 tags: [seqera-ai, cli, lsp, code-intelligence]
 ---
 
@@ -11,9 +11,9 @@ Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [C
 
 When you ask Seqera AI to help with code in your workspace, it uses language server (LSP) context to provide:
 
-- Explanations for errors and warnings in your code
-- Context-aware completions and suggestions
-- Better navigation and understanding across project files
+- Explanations for errors and warnings in your code.
+- Context-aware completions and suggestions.
+- Better navigation and understanding across project files.
 
 For Nextflow projects, this includes diagnostics and code intelligence for scripts and config files.
 

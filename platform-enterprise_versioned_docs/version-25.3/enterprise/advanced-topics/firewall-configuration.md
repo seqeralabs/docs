@@ -64,6 +64,10 @@ In order for you to access resources such as Fusion tarballs, `nf-xpack` files, 
 - `wave-cache-prod-cloudflare.seqera.io.cdn.cloudflare.net`
 - `registry.nextflow.io` (required from Nextflow 25.10)
 
+:::note
+Nextflow makes network calls to the `registry.nextflow.io` domain to resolve and download plugins. Even when plugins are already cached locally, Nextflow makes calls to the registry to check for updates and resolve plugin metadata. Ensure this domain is included in your allowlist to prevent pipeline execution failures.
+:::
+
 If you chose to filter by specific DNS records, please note that new services may be added in the future.
 
 :::note

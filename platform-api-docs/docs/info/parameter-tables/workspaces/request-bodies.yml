@@ -43,15 +43,15 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated short workspace name. Must remain unique within the organization.
 - Name: fullName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated full display name for the workspace.
 - Name: description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated workspace description.
 - Name: visibility
   Type: string
   Req/Opt: Optional
@@ -90,15 +90,15 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated short workspace name. Must remain unique within the organization.
 - Name: fullName
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated full display name for the workspace.
 - Name: description
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated workspace description.
 - Name: visibility
   Type: string
   Req/Opt: Optional
@@ -107,19 +107,17 @@
   Type: ""
   Req/Opt: ""
   Description: Update workspace Studios settings
-- Name: name
+- Name: lifespanHours
+  Type: integer
+  Req/Opt: Optional
+  Description: Default lifespan for new Studio sessions in hours. Set to `0` for
+    unlimited lifespan.
+- Name: containerRepository
   Type: string
   Req/Opt: Optional
-  Description: ""
-- Name: fullName
-  Type: string
+  Description: Custom container repository used for new Studios in the workspace.
+    Can be `null`.
+- Name: privateStudioByDefault
+  Type: boolean
   Req/Opt: Optional
-  Description: ""
-- Name: description
-  Type: string
-  Req/Opt: Optional
-  Description: ""
-- Name: visibility
-  Type: string
-  Req/Opt: Optional
-  Description: ""
+  Description: If `true`, new Studios in the workspace default to private visibility.

@@ -20,6 +20,18 @@
   Location: query
   Req/Opt: Optional
   Description: "Number of results to skip for pagination. Default: `0`."
+- Name: "`sortBy`"
+  Type: unknown
+  Location: query
+  Req/Opt: Optional
+  Description: "Field to sort results by. Accepts `NAME`, `MODIFIED`, or
+    `CREATED`. Default: `NAME`."
+- Name: "`sortDir`"
+  Type: unknown
+  Location: query
+  Req/Opt: Optional
+  Description: "Sort direction for results. Accepts `ASCENDING` or `DESCENDING`.
+    Default: `ASCENDING`."
 - Name: "`search`"
   Type: string
   Location: query
