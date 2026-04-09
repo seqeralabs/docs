@@ -26,7 +26,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # ratchet:actions/setup-python@v6.2.0
         with:
-          python-version: '3.11'
+          python-version: '3.14'
 
       - name: Determine CLI version
         id: version
@@ -121,7 +121,7 @@ jobs:
           ln -s cli-metadata-v${{ steps.version.outputs.cli_version }}.json cli-metadata-latest.json
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@4e1beaa7521e8b457b572c090b25bd3db56bf1c5 # ratchet:peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@c0f553fe549906ede9cf27b5156039d195d2ece0 # ratchet:peter-evans/create-pull-request@v8.1.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: |
