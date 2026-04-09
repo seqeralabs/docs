@@ -149,14 +149,11 @@ For IP-based allowlists, see [https://www.cloudflare.com/ips-v4/](https://www.cl
 | `licenses.seqera.io`        | 443  | Yes      | License validation             |
 | `cloudinfo.seqera.io`       | 443  | Yes      | Cloud resource price prediction |
 | `wave.seqera.io`            | 443  | Optional | Wave container services        |
-| `cerbero.seqera.io`         | 443  | Optional | Wave authentication     |
-| `public.wave.seqera.io`     | 443  | Optional | Wave public services    |
-| `private.wave.seqera.io`    | 443  | Optional | Wave private services   |
 | `community.wave.seqera.io`  | 443  | Optional | Wave community services |
+| `cerbero.seqera.io`         | 443  | Optional | Wave community authentication |
 | `public.cr.seqera.io`       | 443  | Optional | Container registry      |
-| `private.cr.seqera.io`      | 443  | Optional | Container registry      |
-| `community.cr.seqera.io`    | 443  | Optional | Container registry      |
 | `auth.cr.seqera.io`         | 443  | Optional | Container registry auth |
+| `private.cr.seqera.io`      | 443  | Optional | Container registry      |
 | `cr.seqera.io`              | 443  | Optional | Container registry      |
 | `ai.seqera.io`              | 443  | Optional | Seqera AI               |
 | `api.multiqc.info`          | 443  | Optional | MultiQC reports         |
