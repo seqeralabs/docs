@@ -3,8 +3,38 @@
   "use_collection_alias": true,
   "clean_old_collections": true,
   "start_urls": [
-    "https://docs.seqera.io/",
-    "https://docs.seqera.io/nextflow/"
+    {
+      "url": "https://docs.seqera.io/platform-enterprise/",
+      "selectors_key": "platform-enterprise"
+    },
+    {
+      "url": "https://docs.seqera.io/platform-cloud/",
+      "selectors_key": "platform-cloud"
+    },
+    {
+      "url": "https://docs.seqera.io/platform-cli/",
+      "selectors_key": "platform-cli"
+    },
+    {
+      "url": "https://docs.seqera.io/platform-api/",
+      "selectors_key": "platform-api"
+    },
+    {
+      "url": "https://docs.seqera.io/nextflow/",
+      "selectors_key": "nextflow"
+    },
+    {
+      "url": "https://docs.seqera.io/multiqc/",
+      "selectors_key": "multiqc"
+    },
+    {
+      "url": "https://docs.seqera.io/wave/",
+      "selectors_key": "wave"
+    },
+    {
+      "url": "https://docs.seqera.io/fusion/",
+      "selectors_key": "fusion"
+    }
   ],
   "sitemap_urls": [
     "https://docs.seqera.io/sitemap.xml"
@@ -13,19 +43,123 @@
     ".*/changelog.*"
   ],
   "selectors": {
-    "lvl0": {
-      "selector": "(//ul[contains(@class,'menu__list')]//a[contains(@class, 'menu__link menu__link--sublist menu__link--active')]/text() | //nav[contains(@class, 'navbar')]//a[contains(@class, 'navbar__link--active')]/text())[last()]",
-      "type": "xpath",
-      "global": true,
-      "default_value": "Documentation"
+    "default": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "Documentation"
+      },
+      "lvl1": "header h1",
+      "lvl2": "article h2",
+      "lvl3": "article h3",
+      "lvl4": "article h4",
+      "lvl5": "article h5, article td:first-child",
+      "lvl6": "article h6",
+      "text": "article p, article li, article td:last-child"
     },
-    "lvl1": "header h1",
-    "lvl2": "article h2",
-    "lvl3": "article h3",
-    "lvl4": "article h4",
-    "lvl5": "article h5, article td:first-child",
-    "lvl6": "article h6",
-    "text": "article p, article li, article td:last-child"
+    "platform-enterprise": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "Platform Enterprise"
+      },
+      "lvl1": "header h1",
+      "lvl2": "article h2",
+      "lvl3": "article h3",
+      "lvl4": "article h4",
+      "lvl5": "article h5, article td:first-child",
+      "lvl6": "article h6",
+      "text": "article p, article li, article td:last-child"
+    },
+    "platform-cloud": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "Platform Cloud"
+      },
+      "lvl1": "header h1",
+      "lvl2": "article h2",
+      "lvl3": "article h3",
+      "lvl4": "article h4",
+      "lvl5": "article h5, article td:first-child",
+      "lvl6": "article h6",
+      "text": "article p, article li, article td:last-child"
+    },
+    "platform-cli": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "Platform CLI"
+      },
+      "lvl1": "header h1",
+      "lvl2": "article h2",
+      "lvl3": "article h3",
+      "lvl4": "article h4",
+      "lvl5": "article h5, article td:first-child",
+      "lvl6": "article h6",
+      "text": "article p, article li, article td:last-child"
+    },
+    "platform-api": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "Platform API"
+      },
+      "lvl1": "header h1",
+      "lvl2": "article h2",
+      "lvl3": "article h3",
+      "lvl4": "article h4",
+      "lvl5": "article h5, article td:first-child",
+      "lvl6": "article h6",
+      "text": "article p, article li, article td:last-child"
+    },
+    "nextflow": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "Nextflow"
+      },
+      "lvl1": "header h1",
+      "lvl2": "article h2",
+      "lvl3": "article h3",
+      "lvl4": "article h4",
+      "lvl5": "article h5, article td:first-child",
+      "lvl6": "article h6",
+      "text": "article p, article li, article td:last-child"
+    },
+    "multiqc": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "MultiQC"
+      },
+      "lvl1": "header h1",
+      "lvl2": "article h2",
+      "lvl3": "article h3",
+      "lvl4": "article h4",
+      "lvl5": "article h5, article td:first-child",
+      "lvl6": "article h6",
+      "text": "article p, article li, article td:last-child"
+    },
+    "wave": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "Wave"
+      },
+      "lvl1": "header h1",
+      "lvl2": "article h2",
+      "lvl3": "article h3",
+      "lvl4": "article h4",
+      "lvl5": "article h5, article td:first-child",
+      "lvl6": "article h6",
+      "text": "article p, article li, article td:last-child"
+    },
+    "fusion": {
+      "lvl0": {
+        "selector": "",
+        "default_value": "Fusion"
+      },
+      "lvl1": "header h1",
+      "lvl2": "article h2",
+      "lvl3": "article h3",
+      "lvl4": "article h4",
+      "lvl5": "article h5, article td:first-child",
+      "lvl6": "article h6",
+      "text": "article p, article li, article td:last-child"
+    }
   },
   "strip_chars": " .,;:#",
   "custom_settings": {
