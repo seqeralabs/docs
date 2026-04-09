@@ -64,7 +64,7 @@ Select a workspace from the drop-down menu to view Fusion usage for the current 
 You can explore compute resource consumption across your organization workspaces. On the **Dashboard** page, select **Resource usage**. Monthly CPU hours aggregated across your organization workspaces are displayed.
 
 :::note
-The **Resource usage** view is only visible to users with the **Owner** or **Admin** role in an organization.
+The **Resource usage** view is visible to all members of an organization.
 :::
 
 ### Filters and summary
