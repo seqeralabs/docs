@@ -177,6 +177,8 @@ For IP-based allowlists, see [https://www.cloudflare.com/ips-v4/](https://www.cl
 | `wave-cache-prod-cloudflare.seqera.io.cdn.cloudflare.net` | 443  | Conditional | Wave cache (CDN)                               |
 | `community-cr-prod.seqera.io`                             | 443  | Conditional | Container registry                             |
 | `community-cr-prod.seqera.io.cdn.cloudflare.net`          | 443  | Conditional | Container registry (CDN)                       |
+| `public.cr.seqera.io`                                     | 443  | Conditional | Container registry                             |
+| `auth.cr.seqera.io`                                       | 443  | Conditional | Container registry authentication              |
 | `public-cr-prod.seqera.io`                                | 443  | Conditional | Container registry                             |
 | `public-cr-prod.seqera.io.cdn.cloudflare.net`             | 443  | Conditional | Container registry (CDN)                       |
 
