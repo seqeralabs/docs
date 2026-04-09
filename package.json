@@ -15,7 +15,7 @@
     "openapi-to-postmanv2": {
       "js-yaml": ">=4.1.1"
     },
-    "lodash": "^4.17.23",
+    "lodash": ">=4.18.0",
     "docusaurus-theme-search-typesense": {
       "webpack-dev-server": ">=5.2.1"
     }
