@@ -1,7 +1,7 @@
 ---
 title: "Authentication"
 description: "Login, logout, and session management for Seqera AI CLI"
-date: "15 Dec 2025"
+date created: "2025-12-15"
 tags: [seqera-ai, cli, authentication, login]
 ---
 
@@ -23,51 +23,69 @@ seqera login
 
 This will:
 
-1. Open your default browser to the Seqera login page
-1. Prompt you to sign in with your Seqera Platform credentials
-1. Automatically capture the authentication token
-1. Display a success message in your terminal
+1. Open your default browser to the Seqera login page.
+1. Prompt you to sign in with your Seqera Platform credentials.
+1. Automatically capture the authentication token.
+1. Display a success message in your terminal.
 
    ```
-   Opening browser for authentication...
-   Successfully authenticated as user@example.com
+   [Login] Starting Seqera CLI authentication...
+   [Login] ✓ Authentication successful!
+   [Login] ✓ Organization set: <org_name>
    ```
 
 ### View session status
 
-To view your current authentication status, run:
+To view your current session status, use the `/status` command inside the TUI:
 
-```bash
-seqera status
+```
+/status
 ```
 
-You should see output similar to:
-
-```console
-Logged in as: user@example.com
-Session expires: 2025-12-16 14:30:00
-```
+This shows your authentication status and organization details.
 
 ### Add access tokens for automation
 
-For automated environments, you can provide a Seqera Platform access token directly:
+For automated environments, you can provide a Seqera Platform access token directly using the `SEQERA_ACCESS_TOKEN` environment variable:
 
 ```bash
-seqera ai --token <PLATFORM_ACCESS_TOKEN>
-```
-
-You can also set the token via environment variable:
-
-```bash
-export TOWER_ACCESS_TOKEN=<PLATFORM_ACCESS_TOKEN>
+export SEQERA_ACCESS_TOKEN=<PLATFORM_ACCESS_TOKEN>
 seqera ai
 ```
 
-This shows your login status, authenticated email, and session details.
+When this environment variable is set, the CLI skips the OAuth login flow and uses the provided token directly.
+
+### Point a development build at the hosted Seqera AI backend
+
+If you are testing a development build of the CLI against the hosted production Seqera AI service, set the following environment variables before starting `seqera ai`.
+
+| Variable | Purpose | Example value |
+| --- | --- | --- |
+| `SEQERA_AI_BACKEND_URL` | Seqera AI backend endpoint used by the CLI | `https://ai-api.seqera.io` |
+| `SEQERA_AUTH_DOMAIN` | Platform API base URL used for browser-based login | `https://cloud.seqera.io/api` |
+| `SEQERA_AUTH_CLI_CLIENT_ID` | OAuth client ID for the Seqera AI CLI | `seqera_ai_cli` |
+| `TOWER_ACCESS_TOKEN` | Platform personal access token used instead of browser login | `<PLATFORM_ACCESS_TOKEN>` |
+
+Use the OAuth login flow:
+
+```bash
+export SEQERA_AUTH_DOMAIN=https://cloud.seqera.io/api
+export SEQERA_AUTH_CLI_CLIENT_ID=seqera_ai_cli
+export SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io
+seqera ai
+```
+
+Use a Platform personal access token instead of browser login:
+
+```bash
+export TOWER_ACCESS_TOKEN=<PLATFORM_ACCESS_TOKEN>
+export SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io
+seqera ai
+```
+
+You only need `SEQERA_AUTH_DOMAIN` and `SEQERA_AUTH_CLI_CLIENT_ID` when using the OAuth login flow.
 
 ### Log out
-
-#### Standard logout
 
 To sign out from the current session, run:
 
@@ -77,15 +95,33 @@ seqera logout
 
 This command revokes your current authentication token and removes locally stored credentials. You will need to re-authenticate on next use.
 
-#### Clear all sessions
+## Organization management
 
-To remove all profiles and completely reset authentication, run:
+Seqera AI CLI supports managing your organization selection for billing. Use the `seqera org` command to view and switch organizations.
+
+**View current organization**:
 
 ```bash
-seqera logout --all
+seqera org
 ```
 
-This command removes all stored credentials and session data.
+**List all organizations**:
+
+```bash
+seqera org list
+```
+
+**Switch organization**:
+
+```bash
+seqera org switch
+```
+
+**Clear organization selection**:
+
+```bash
+seqera org clear
+```
 
 ## Token refresh
 

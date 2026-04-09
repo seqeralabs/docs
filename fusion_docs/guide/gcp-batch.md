@@ -1,7 +1,7 @@
 ---
 title: Google Cloud Batch
 description: "Use Fusion with Google Cloud Batch and Google Cloud Storage"
-date: "23 Aug 2024"
+date created: "2024-08-23"
 tags: [fusion, storage, compute, gcp batch, gcs, google cloud]
 ---
 
@@ -14,7 +14,7 @@ Fusion simplifies and improves the efficiency of Nextflow pipelines in [Google C
 
 ### Platform Google Cloud Batch compute environments
 
-Seqera Platform supports Fusion in Google Cloud Batch compute environments. 
+Seqera Platform supports Fusion in Google Cloud Batch compute environments.
 
 See [Google Cloud Batch](https://docs.seqera.io/platform-cloud/compute-envs/google-cloud-batch) for compute and storage recommendations and instructions to enable Fusion.
 
@@ -25,7 +25,7 @@ When Fusion v2 is enabled, the following virtual machine settings are applied:
   - A 375 GB local NVMe SSD is selected for all compute jobs.
   - If you do not specify a machine type, a VM from the following families that support local SSDs will be selected: `n1-*`, `n2-*`, `n2d-*`, `c2-*`, `c2d-*`, `m3-*`.
   - Any machine types you specify in the Nextflow config must support local SSDs.
-  - Local SSDs are only offered in multiples of 375 GB. You can increment the number of SSDs used per process with the `disk` directive to request multiples of 375 GB. 
+  - Local SSDs are only offered in multiples of 375 GB. You can increment the number of SSDs used per process with the `disk` directive to request multiples of 375 GB.
   - Fusion v2 can also use persistent disks for caching. Override the disk requested by Fusion using the `disk` directive and the `type: pd-standard`.
   - The `machineType` directive can be used to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
 :::
@@ -40,7 +40,7 @@ or with the `gcloud` auth application-default login command. See [Credentials](h
     process.executor = 'google-batch'
     wave.enabled = true
     fusion.enabled = true
-    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'  
+    tower.accessToken = '<PLATFORM_ACCESS_TOKEN>'
     google.location  = '<GOOGLE_LOCATION>'
     ```
 

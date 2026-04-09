@@ -1,7 +1,7 @@
 ---
 title: "Installation"
 description: "Install and configure Seqera AI CLI"
-date: "15 Dec 2025"
+date created: "2026-03-11"
 tags: [seqera-ai, cli, installation]
 ---
 
@@ -22,6 +22,12 @@ Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [C
 npm install -g seqera
 ```
 
+Install the development build:
+
+```bash
+npm install -g seqera@dev
+```
+
 Verify your installation:
 
 ```bash
@@ -32,6 +38,30 @@ seqera --version
 
 ```bash
 npm update -g seqera
+```
+
+### Developer configuration
+
+See [Authentication](./authentication.md#point-a-development-build-at-the-hosted-seqera-ai-backend) for the complete environment variable reference and OAuth versus token-based examples.
+
+### Install agent integrations
+
+Install Seqera AI as a skill for your coding agent:
+
+```bash
+seqera skill install
+```
+
+Install directly into the current repository:
+
+```bash
+seqera skill install --local
+```
+
+Check installed skills and update them after upgrading the CLI:
+
+```bash
+seqera skill check --update
 ```
 
 :::info
@@ -52,6 +82,8 @@ npm uninstall -g seqera
 
 - [Seqera AI CLI](index.md): Seqera AI CLI overview
 - [Authentication](./authentication.md): Login, logout, and session management
+- [Skills](./skills.md): Discover, create, and install skills
+- [Modes](./modes.md): Work in build mode, plan mode, and goal mode
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Use cases](./use-cases.md): Seqera AI CLI use cases
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors
