@@ -9515,6 +9515,495 @@ paths:
           description: Operation not allowed
       security:
       - BearerAuth: []
+  /orgs/{orgId}/users/{userId}/roles:
+    get:
+      tags:
+      - orgs
+      summary: List user roles in organization
+      description: Lists an organization member or collaborator's workspace roles
+        and effective permissions across the organization identified by `orgId`.
+      operationId: ListUserRolesInOrganization
+      parameters:
+      - name: orgId
+        in: path
+        description: Organization numeric identifier.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: userId
+        in: path
+        description: User numeric identifier.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListUserRolesResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Operation not allowed
+      security:
+      - BearerAuth: []
+  /permissions:
+    get:
+      tags:
+      - permissions
+      summary: Retrieve permissions
+      description: Lists the roles and operations available to the authenticated
+        user in a personal workspace context or an organization workspace context.
+      operationId: RetrievePermissions
+      parameters:
+      - name: orgId
+        in: query
+        description: Organization numeric identifier.
+        schema:
+          type: integer
+          format: int64
+      - name: workspaceId
+        in: query
+        description: Workspace numeric identifier.
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPermissionsResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Operation not allowed
+      security:
+      - BearerAuth: []
+  /permissions/check:
+    get:
+      tags:
+      - permissions
+      summary: Check permission
+      description: Checks whether the authenticated user is allowed to perform the
+        given operation in a personal workspace context or an organization workspace
+        context. Append `?operationId=<operation_id>` to specify the operation identifier
+        to check. Use [Retrieve permissions](https://docs.seqera.io/platform-api/retrieve-permissions)
+        to retrieve the available operation identifiers for the current context.
+      operationId: CheckPermission
+      parameters:
+      - name: orgId
+        in: query
+        description: Organization numeric identifier.
+        schema:
+          type: integer
+          format: int64
+      - name: workspaceId
+        in: query
+        description: Workspace numeric identifier.
+        schema:
+          type: integer
+          format: int64
+      - name: operationId
+        in: query
+        description: Operation identifier to check in the selected context.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckPermissionResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Operation not allowed
+      security:
+      - BearerAuth: []
+  /permissions/features:
+    get:
+      tags:
+      - permissions
+      summary: List available features
+      description: Lists the available features enabled for the authenticated user
+        in a personal workspace context or an organization workspace context.
+      operationId: ListAvailableFeatures
+      parameters:
+      - name: orgId
+        in: query
+        description: Organization numeric identifier.
+        schema:
+          type: integer
+          format: int64
+      - name: workspaceId
+        in: query
+        description: Workspace numeric identifier.
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListFeaturesResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Operation not allowed
+      security:
+      - BearerAuth: []
+  /roles:
+    get:
+      tags:
+      - roles
+      summary: List roles
+      description: Lists predefined and custom roles available in the organization
+        identified by `orgId`.
+      operationId: ListRoles
+      parameters:
+      - name: orgId
+        in: query
+        description: Organization numeric identifier.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: max
+        in: query
+        description: 'Maximum number of results to return. Default: `50`. Maximum:
+          `100`.'
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: 'Number of results to skip for pagination. Default: `0`.'
+        schema:
+          type: integer
+          format: int32
+      - name: name
+        in: query
+        description: Role name search filter.
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: Role type filter.
+        schema:
+          type: string
+          enum:
+          - predefined
+          - custom
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRolesResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Operation not allowed
+      security:
+      - BearerAuth: []
+    post:
+      tags:
+      - roles
+      summary: Create role
+      description: Creates a custom role in the organization identified by `orgId`.
+      operationId: CreateRole
+      parameters:
+      - name: orgId
+        in: query
+        description: Organization numeric identifier.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Role create request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoleRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRoleResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Operation not allowed
+        '409':
+          description: Duplicate role name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BearerAuth: []
+  /roles/permissions:
+    get:
+      tags:
+      - roles
+      summary: List role permissions
+      description: Lists the available role permissions for assignment in the organization
+        identified by `orgId`.
+      operationId: ListRolePermissions
+      parameters:
+      - name: orgId
+        in: query
+        description: Organization numeric identifier.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: name
+        in: query
+        description: Permission name search filter.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRolePermissionsResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Operation not allowed
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BearerAuth: []
+  /roles/{roleName}:
+    get:
+      tags:
+      - roles
+      summary: Describe role
+      description: Retrieves the details of the role identified by `roleName` in
+        the organization identified by `orgId`.
+      operationId: DescribeRole
+      parameters:
+      - name: roleName
+        in: path
+        description: Role name.
+        required: true
+        schema:
+          type: string
+      - name: orgId
+        in: query
+        description: Organization numeric identifier.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeRoleResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Operation not allowed
+        '404':
+          description: Role not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BearerAuth: []
+    put:
+      tags:
+      - roles
+      summary: Update role
+      description: Updates the details of the role identified by `roleName` in the
+        organization identified by `orgId`.
+      operationId: UpdateRole
+      parameters:
+      - name: roleName
+        in: path
+        description: Role name.
+        required: true
+        schema:
+          type: string
+      - name: orgId
+        in: query
+        description: Organization numeric identifier.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Role update request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRoleRequest'
+        required: true
+      responses:
+        '204':
+          description: OK - No content
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Operation not allowed
+        '404':
+          description: Role not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Duplicate role name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BearerAuth: []
+    delete:
+      tags:
+      - roles
+      summary: Delete role
+      description: Deletes the custom role identified by `roleName` in the organization
+        identified by `orgId`. Predefined roles cannot be deleted.
+      operationId: DeleteRole
+      parameters:
+      - name: roleName
+        in: path
+        description: Role name.
+        required: true
+        schema:
+          type: string
+      - name: orgId
+        in: query
+        description: Organization numeric identifier.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: OK - No content
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Operation not allowed
+        '404':
+          description: Role not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BearerAuth: []
+  /roles/validate:
+    get:
+      tags:
+      - roles
+      summary: Validate role name
+      description: Confirms that the given role name is valid and available within
+        the organization identified by `orgId`.
+      operationId: ValidateRoleName
+      parameters:
+      - name: name
+        in: query
+        description: Role name to validate.
+        required: true
+        schema:
+          type: string
+      - name: orgId
+        in: query
+        description: Organization numeric identifier.
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: OK - No content
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Operation not allowed
+        '409':
+          description: Role name already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BearerAuth: []
 components:
   schemas:
     AbstractGridConfig:
@@ -17291,6 +17780,262 @@ components:
           nullable: true
           description: Optional relative path within the data-link root to mount.
             Can be `null` to mount the data-link root.
+    CheckPermissionResponse:
+      type: object
+      description: Result of checking whether the authenticated user can perform a
+        given operation in the selected context.
+      properties:
+        authorized:
+          type: boolean
+          description: Whether the authenticated user is authorized to perform the
+            requested operation.
+    CreateRoleRequest:
+      type: object
+      description: Request payload for creating a custom role in an organization.
+      properties:
+        name:
+          type: string
+          description: Role name.
+        description:
+          type: string
+          description: Role description.
+        permissions:
+          type: array
+          items:
+            type: string
+          description: List of permission names assigned to the role.
+    CreateRoleResponse:
+      type: object
+      description: Created role details.
+      properties:
+        name:
+          type: string
+          description: Role name.
+        description:
+          type: string
+          description: Role description.
+        permissions:
+          type: array
+          items:
+            type: string
+          description: List of permission names assigned to the role.
+    DescribeRoleResponse:
+      type: object
+      description: Role description response.
+      properties:
+        role:
+          $ref: '#/components/schemas/RoleDto'
+    FeatureId:
+      type: string
+      description: Feature identifier.
+      enum:
+      - DATA_EXPLORER
+      - DATA_STUDIO
+      - MANAGED_IDENTITY
+      - SEQERA_COMPUTE
+      - DYNAMIC_RESOURCE_LABELS
+      - CONTAINERS
+      - METERING
+      - SEQERA_COMPUTE_ENABLE_CE_TYPE_CHOICE
+      - PIPELINE_VERSIONING
+      - STUDIO_METRICS
+      - DATA_STUDIO_CONNECT_IFRAME
+      - DATA_STUDIO_SSH_ENABLED
+      - SSH_KEYS_MANAGEMENT
+      - SEQERA_AI_DEBUG_BUTTON
+      - CUSTOM_ROLES
+      - CE_FORMS_V2
+      - AUDIT_LOG_V2
+    ListFeaturesResponse:
+      type: object
+      description: Features enabled in the selected context.
+      properties:
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeatureId'
+          description: Feature identifiers enabled in the selected context.
+    ListPermissionsResponse:
+      type: object
+      description: Roles and operations available to the authenticated user by context.
+      properties:
+        user:
+          $ref: '#/components/schemas/ListPermissionsResponse.OperationsAndRolesDto'
+        organization:
+          $ref: '#/components/schemas/ListPermissionsResponse.OperationsAndRolesDto'
+        workspace:
+          $ref: '#/components/schemas/ListPermissionsResponse.OperationsAndRolesDto'
+    ListPermissionsResponse.OperationsAndRolesDto:
+      type: object
+      properties:
+        operations:
+          type: array
+          items:
+            type: string
+          description: Operation identifiers available in this context.
+        roles:
+          type: array
+          items:
+            type: string
+          description: Role names held in this context.
+    ListRolePermissionsResponse:
+      type: object
+      description: Available role permissions.
+      properties:
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RolePermissionResponseDto'
+          description: Permission definitions available for assignment to roles.
+    ListRolesResponse:
+      type: object
+      description: Paginated role list response.
+      properties:
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListRolesResponse.RoleInfo'
+          description: Roles matching the query.
+        totalSize:
+          type: integer
+          format: int32
+          description: Total number of matching roles.
+    ListRolesResponse.RoleInfo:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Role name.
+        description:
+          type: string
+          description: Role description.
+        isPredefined:
+          type: boolean
+          description: Whether the role is predefined by the system.
+    ListUserRolesResponse:
+      type: object
+      description: A user's organization membership details and workspace-level roles
+        and permissions.
+      properties:
+        user:
+          $ref: '#/components/schemas/MemberDbDto'
+        userWorkspaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserWorkspaceRolesDto'
+          description: Workspace access details for the user within the organization.
+    RoleDto:
+      type: object
+      description: Role details with assigned permissions.
+      properties:
+        name:
+          type: string
+          description: Role name.
+        description:
+          type: string
+          description: Role description.
+        isPredefined:
+          type: boolean
+          description: Whether the role is predefined by the system.
+        permissions:
+          type: array
+          items:
+            type: string
+          description: List of permission names assigned to the role.
+    RolePermissionResponseDto:
+      type: object
+      description: Metadata for a role permission.
+      properties:
+        name:
+          type: string
+          description: Permission name.
+        category:
+          type: string
+          description: Permission category.
+    TeamType:
+      type: string
+      description: Team type.
+      enum:
+      - regular
+      - system_owners
+    UpdateRoleRequest:
+      type: object
+      description: Request payload for updating a custom role in an organization.
+      properties:
+        name:
+          type: string
+          description: Role name.
+        description:
+          type: string
+          description: Role description.
+        permissions:
+          type: array
+          items:
+            type: string
+          description: List of permission names assigned to the role.
+    UserWorkspacePermissionDto:
+      type: object
+      description: A permission granted to the user in a workspace and the roles
+        that grant it.
+      properties:
+        permission:
+          type: string
+          description: Permission name.
+        roles:
+          type: array
+          items:
+            type: string
+          description: Roles that grant the permission.
+    UserWorkspaceRoleDto:
+      type: object
+      description: A role assigned to the user in a workspace and the source of that
+        assignment.
+      properties:
+        role:
+          type: string
+          description: Workspace role name.
+        roleSourceType:
+          $ref: '#/components/schemas/WspRoleSourceType'
+        sourceTeamId:
+          type: integer
+          format: int64
+          nullable: true
+          description: Source team numeric identifier when the role is inherited
+            from a team.
+        sourceTeamName:
+          type: string
+          nullable: true
+          description: Source team name when the role is inherited from a team.
+        sourceTeamType:
+          $ref: '#/components/schemas/TeamType'
+          nullable: true
+    UserWorkspaceRolesDto:
+      type: object
+      description: Workspace-specific roles and permissions for a user.
+      properties:
+        workspaceId:
+          type: integer
+          format: int64
+          description: Workspace numeric identifier.
+        workspaceName:
+          type: string
+          description: Workspace name.
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserWorkspaceRoleDto'
+          description: Roles held by the user in this workspace.
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserWorkspacePermissionDto'
+          description: Effective permissions granted in this workspace.
+    WspRoleSourceType:
+      type: string
+      description: Source of a workspace role assignment.
+      enum:
+      - individual
+      - team
   securitySchemes:
     BearerAuth:
       type: http
@@ -17319,12 +18064,16 @@ tags:
   description: Workflow launch events
 - name: orgs
   description: Organizations
+- name: permissions
+  description: Frontend-visible permissions
 - name: pipelines
   description: Pipelines
 - name: pipeline-secrets
   description: Pipeline secrets in a user or workspace context
 - name: platforms
   description: Computing platforms
+- name: roles
+  description: Custom and predefined organization roles
 - name: service-info
   description: Seqera Platform API service information
 - name: studios
