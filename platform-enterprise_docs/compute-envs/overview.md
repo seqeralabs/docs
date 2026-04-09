@@ -36,6 +36,10 @@ You can edit the names of compute environments in private and organization works
 
 Select **Update** on the edit page to save your changes after you have updated the compute environment name.
 
+## Delete compute environment
+
+Compute environments can be deleted when they are no longer required. You must delete the compute environment before deleting its associated credentials. If the credentials are deleted first, the compute environment deletion will fail with an error.
+
 ## GPU usage
 
 The process for provisioning GPU instances in your compute environment differs for each cloud provider.
