@@ -36,6 +36,12 @@ You can edit the names of compute environments in private and organization works
 
 Select **Update** on the edit page to save your changes after you have updated the compute environment name.
 
+## Rename compute environment
+
+You can edit the names of compute environments in private and organization workspaces. Select Rename from the options menu next to the compute environment you wish to edit.
+
+Select Update on the edit page to save your changes after you have updated the compute environment name.
+
 ## Disable compute environment
 
 Users with **Admin** or **Owner** [workspace permissions](../orgs-and-teams/roles#workspace-participant-roles) can disable and enable compute environments.
