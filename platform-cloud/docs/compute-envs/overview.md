@@ -58,7 +58,7 @@ To re-enable a disabled compute environment, select **Enable** from the options 
 
 ## Delete compute environment
 
-Compute environments can be deleted when they are no longer required. You must delete the compute environment before deleting its associated credentials. If the credentials are deleted first, the compute environment deletion will fail with an error.
+Compute environments can be deleted when they are no longer required. You must delete the compute environment before deleting its associated credentials. If the credentials are deleted first, the compute environment deletion will fail with an error. If this happens, raise a ticket with Support.
 
 ## GPU usage
 
