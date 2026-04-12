@@ -35,18 +35,19 @@ export default async function handler(request, context) {
     return localResponse;
   }
 
-  const controller = new AbortController();
-  const fetches = REMOTE_ORIGINS.map(async (origin) => {
-    const response = await fetch(`${origin}${assetPath}`, { signal: controller.signal });
+  const controllers = REMOTE_ORIGINS.map(() => new AbortController());
+  const fetches = REMOTE_ORIGINS.map(async (origin, i) => {
+    const response = await fetch(`${origin}${assetPath}`, { signal: controllers[i].signal });
     if (!response.ok) {
       throw new Error(`${response.status} from ${origin}`);
     }
-    return response;
+    return { response, index: i };
   });
 
   try {
-    const remoteResponse = await Promise.any(fetches);
-    controller.abort();
+    const { response: remoteResponse, index: winnerIndex } = await Promise.any(fetches);
+    // Abort only the losing fetches — not the winner whose body is still streaming
+    controllers.forEach((c, i) => { if (i !== winnerIndex) c.abort(); });
     return addCacheHeaders(remoteResponse);
   } catch {
     return new Response('Asset not found', {
