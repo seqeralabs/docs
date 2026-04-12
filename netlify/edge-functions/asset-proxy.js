@@ -14,10 +14,11 @@ const REMOTE_ORIGINS = [
 const IMMUTABLE_CACHE = 'public, max-age=31536000, immutable';
 
 function addCacheHeaders(response) {
-  const headers = new Headers(response.headers);
-  if (!headers.has('Cache-Control')) {
-    headers.set('Cache-Control', IMMUTABLE_CACHE);
+  if (response.headers.has('Cache-Control')) {
+    return response;
   }
+  const headers = new Headers(response.headers);
+  headers.set('Cache-Control', IMMUTABLE_CACHE);
   return new Response(response.body, {
     status: response.status,
     statusText: response.statusText,
@@ -35,19 +36,24 @@ export default async function handler(request, context) {
     return localResponse;
   }
 
-  const controllers = REMOTE_ORIGINS.map(() => new AbortController());
-  const fetches = REMOTE_ORIGINS.map(async (origin, i) => {
-    const response = await fetch(`${origin}${assetPath}`, { signal: controllers[i].signal });
-    if (!response.ok) {
-      throw new Error(`${response.status} from ${origin}`);
-    }
-    return { response, index: i };
+  const entries = REMOTE_ORIGINS.map((origin) => {
+    const controller = new AbortController();
+    const promise = fetch(`${origin}${assetPath}`, { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error(`${response.status} from ${origin}`);
+        return { response, controller };
+      });
+    return { controller, promise };
   });
 
   try {
-    const { response: remoteResponse, index: winnerIndex } = await Promise.any(fetches);
-    // Abort only the losing fetches — not the winner whose body is still streaming
-    controllers.forEach((c, i) => { if (i !== winnerIndex) c.abort(); });
+    const { response: remoteResponse, controller: winner } = await Promise.any(
+      entries.map((e) => e.promise),
+    );
+    // Abort losers only — aborting the winner would cancel its streaming body
+    for (const { controller } of entries) {
+      if (controller !== winner) controller.abort();
+    }
     return addCacheHeaders(remoteResponse);
   } catch {
     return new Response('Asset not found', {
