@@ -3,7 +3,7 @@
   path = "/og-generate.png"
 
 [build]
-  trailingSlash = true
+  trailingSlash = false
 
 [build.environment]
   NODE_VERSION = "22"
