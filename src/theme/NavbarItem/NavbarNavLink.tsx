@@ -1,8 +1,10 @@
 import React, {type ReactNode} from 'react';
+import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import isInternalUrl from '@docusaurus/isInternalUrl';
 import {isRegexpStringMatch} from '@docusaurus/theme-common';
+import {useLocation} from '@docusaurus/router';
 import IconExternalLink from '@theme/Icon/ExternalLink';
 import type {Props} from '@theme/NavbarItem/NavbarNavLink';
 
@@ -23,6 +25,7 @@ export default function NavbarNavLink({
   const activeBaseUrl = useBaseUrl(activeBasePath);
   const normalizedHref = useBaseUrl(href, {forcePrependBaseUrl: true});
   const isExternalLink = label && href && !isInternalUrl(href);
+  const {pathname} = useLocation();
 
   // Link content is set through html XOR label
   const linkContentProps = html
@@ -41,10 +44,14 @@ export default function NavbarNavLink({
       };
 
   if (href) {
+    const isActiveHref = !isExternalLink && pathname.startsWith(href);
     return (
-      <a
+      <Link
         href={prependBaseUrlToHref ? normalizedHref : href}
         {...props}
+        {...(isActiveHref && {
+          className: clsx(props.className, props.activeClassName),
+        })}
         {...linkContentProps}
       />
     );
