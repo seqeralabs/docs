@@ -99,6 +99,42 @@ _Cannot parse params file: /ephemeral/example.json - Cause: Server returned HTTP
 
 To resolve this problem, upgrade Nextflow to version 22.04.x or later.
 
+**Job fails after extended queue time: token expiration**
+
+Jobs that remain in queue for longer than the refresh token expiration period (6 hours by default) will fail when they finally start execution. This occurs because:
+
+1. The refresh token expires after 6 hours by default
+2. When the job starts after the token has expired, Nextflow cannot authenticate with Platform
+3. The job fails with authentication errors or 403 responses
+
+**Symptoms:**
+- Jobs submitted successfully but fail when starting after 6+ hours in queue
+- Error messages indicating expired tokens or authentication failures
+- 403 HTTP responses when Nextflow attempts to communicate with Platform
+
+**Solution:**
+
+Increase both the refresh token expiration and ephemeral endpoint duration in your Platform configuration to accommodate your expected queue times. For example, if jobs may wait up to 12 hours in queue, configure:
+
+```yaml
+tower:
+  ephemeral:
+    duration: 12h
+
+micronaut:
+  security:
+    token:
+      jwt:
+        signatures:
+          refresh-token:
+            expiration: 12h
+      refresh:
+        cookie:
+          cookie-max-age: 14h
+```
+
+See [Session management](../enterprise/configuration/authentication/overview#session-management) and [Ephemeral endpoint configuration](../enterprise/configuration/authentication/overview#ephemeral-endpoint-configuration) for more details.
+
 **Prevent Nextflow from uploading intermediate files from local scratch to AWS S3 work directory**
 
 Nextflow will only unstage files/folders that have been explicitly defined as process outputs. If your workflow has processes that generate folder-type outputs, ensure that the process also purges any intermediate files in those folders. Otherwise, the intermediate files are copied as part of the task unstaging process, resulting in additional storage costs and lengthened pipeline execution times.
@@ -182,9 +218,9 @@ See [here](https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html) 
 
 ```
  [scheduled-executor-thread-2] - WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 1366, SQLState: HY000
- 
+
  [scheduled-executor-thread-2] - ERROR o.h.e.jdbc.spi.SqlExceptionHelper - (conn=34) Incorrect string value: '\xF0\x9F\x94\x8D |...' for column 'error_report' at row 1
- 
+
  [scheduled-executor-thread-2] - ERROR i.s.t.service.job.JobSchedulerImpl - Unable to save status of job id=18165; name=nf-workflow-26uD5XXXXXXXX; opId=nf-workflow-26uD5XXXXXXXX; status=UNKNOWN
 ```
 
@@ -215,7 +251,7 @@ Each Seqera Platform release uses a specific nf-launcher image by default. This 
 
 ### Spot instance failures and retries in Nextflow
 
-Up to version 24.10, Nextflow silently retried Spot instance failures up to five times when using AWS Batch or Google Batch. These retries were controlled by cloud-specific configuration parameters (e.g., `aws.batch.maxSpotAttempts`) and happened in cloud infrastructure without explicit visibility to Nextflow. 
+Up to version 24.10, Nextflow silently retried Spot instance failures up to five times when using AWS Batch or Google Batch. These retries were controlled by cloud-specific configuration parameters (e.g., `aws.batch.maxSpotAttempts`) and happened in cloud infrastructure without explicit visibility to Nextflow.
 
 From version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no _internal_ retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning, for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy.
 
