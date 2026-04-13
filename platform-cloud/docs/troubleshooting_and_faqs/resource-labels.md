@@ -20,4 +20,4 @@ Common issues experienced with resource labels in AWS, Azure, and GCP:
 **Missing tag values in cloud provider resources**:
 - Verify that resource labels are applied to the correct compute environment
 - Check that workflows are using the tagged compute environment
-- For dynamic labels, ensure variables use correct syntax: `${sessionId}`, `${userName}`, or `${workflowId}`
+- For dynamic resource labels, ensure variables use correct syntax: `${sessionId}`, `${userName}`, or `${workflowId}`

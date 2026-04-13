@@ -51,7 +51,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # ratchet:actions/setup-python@v6.2.0
         with:
-          python-version: '3.11'
+          python-version: '3.14'
 
       - name: Install Python dependencies
         run: |
@@ -60,7 +60,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # ratchet:actions/setup-node@v6.3.0
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Install Node dependencies
         run: |

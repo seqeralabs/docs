@@ -60,7 +60,7 @@ jobs:
       - name: Acknowledge command
         if: steps.check.outputs.should_run == 'true'
         run: |
-          gh pr comment ${{ github.event.issue.number }} --body "🔍 Editorial review started! [View workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+          gh pr comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "🔍 Editorial review started! [View workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -205,7 +205,7 @@ jobs:
           ref: ${{ github.event_name == 'issue_comment' && steps.pr-ref.outputs.head_ref || '' }}
 
       - name: Vale Terminology Check
-        uses: errata-ai/vale-action@d89dee975228ae261d22c15adcd03578634d429c # ratchet:errata-ai/vale-action@v2
+        uses: errata-ai/vale-action@d89dee975228ae261d22c15adcd03578634d429c # v2.1.1
         with:
           files: |
             platform-enterprise_docs
@@ -347,7 +347,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run Editorial Review Skill
-        uses: anthropics/claude-code-action@e7b588b6eaa5263c2e7c6c7b34a29e190d32ee68 # v1.0.81
+        uses: anthropics/claude-code-action@2ff1acb3ee319fa302837dad6e17c2f36c0d98ea # v1.0.91
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |
@@ -548,7 +548,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Apply Fixes
-        uses: anthropics/claude-code-action@e7b588b6eaa5263c2e7c6c7b34a29e190d32ee68 # v1.0.81
+        uses: anthropics/claude-code-action@2ff1acb3ee319fa302837dad6e17c2f36c0d98ea # v1.0.91
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |
