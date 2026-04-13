@@ -188,7 +188,7 @@ To create and install a GitHub App from Seqera using the manifest flow:
     - Choose **Only select repositories** and add the specific repositories Seqera should access, or **All repositories** to grant access to all current and future repositories.
     - Select **Install** to complete installation.
 
-   [IMAGE PLACEHOLDER: GitHub App installation page showing "Only select repositories" with one or more repositories selected.]
+   ![GitHub App installation page showing "Only select repositories" with one or more repositories selected](./_images/credentials-github-install-app.png)
 
 The new credential appears in the **Credentials** list with the GitHub App icon. Credentials created from a workspace credentials page are scoped to that workspace; credentials created from your personal credentials page are scoped to your user and are not visible to any workspace.
 
