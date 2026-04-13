@@ -179,7 +179,7 @@ To create and install a GitHub App from Seqera using the manifest flow:
 
    The manifest is pre-filled with the app name, callback URL, webhook URL, and the required permissions (`contents: read`, `metadata: read`).
 
-   [IMAGE PLACEHOLDER: GitHub "Create GitHub App" page with the manifest pre-filled.]
+   ![GitHub "Create GitHub App" page with the manifest pre-filled, showing the app name "Seqera Platform - new github app"](./_images/credentials-github-mainfest-page.png)
 
 1. On GitHub, review the requested permissions and select **Create GitHub App**. GitHub redirects you back to Seqera, which exchanges the temporary code for the app credentials and stores them in your workspace or personal credentials.
 1. After the redirect, install the app on the repositories you want Seqera to access:
