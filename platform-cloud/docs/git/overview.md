@@ -192,7 +192,7 @@ To create and install a GitHub App from Seqera using the manifest flow:
 
 The new credential appears in the **Credentials** list with the GitHub App icon. Credentials created from a workspace credentials page are scoped to that workspace; credentials created from your personal credentials page are scoped to your user and are not visible to any workspace.
 
-:::info
+:::note
 If you cancel the manifest flow on GitHub or close the browser tab before approving the app, no credentials are created on Seqera. The temporary state that protects the redirect against CSRF expires after 10 minutes and cannot be reused. To try again, restart the flow from the credentials form.
 :::
 
