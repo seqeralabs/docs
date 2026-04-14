@@ -154,7 +154,7 @@ When you select **GitHub** as the **Provider**, the credentials form shows a **G
   - **Create and add**: Use the GitHub App manifest flow to create a new app on GitHub directly from Seqera. Seqera generates a pre-filled manifest, redirects you to GitHub for approval, then automatically retrieves and stores the resulting App ID, private key, client secret, and webhook secret.
   - **Add preexisting**: Register an app you have already created on GitHub by entering its App ID, installation ID, private key, and other security keys manually.
 
-The manifest flow (**Create and add**) is recommended for new integrations: it eliminates the manual copy-paste of multiple secrets, ensures the app is created with the minimum required permissions (`contents: read`, `metadata: read`), and avoids configuration errors. Use **Add preexisting** only when the app already exists or when you must create the app outside of Seqera.
+For new integrations, use the manifest flow (**Create and add**). It removes the manual copy-paste of secrets, ensures the app is created with the minimum required permissions (`contents: read`, `metadata: read`), and avoids configuration errors. Use **Add preexisting** only if the app already exists or must be created outside of Seqera.
 
 ![GitHub App credentials form showing the Access token / GitHub App tabs and the Create and add / Add preexisting sub-selector](./_images/credentials-github-app-form.png)
 
