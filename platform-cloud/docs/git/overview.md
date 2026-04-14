@@ -149,8 +149,8 @@ After you've created and copied your access token, create a new credential in Se
 To create and install a GitHub App from Seqera with the manifest flow:
 
 1. Go to the credentials page:
-    - Organization workspace: Select **Credentials** > **Add Credentials**.
-    - Personal workspace: Select your user menu, then select **Your credentials** > **Add credentials**.
+    - Organization workspace: Select **Credentials > Add Credentials**.
+    - Personal workspace: Select your user menu, then select **Your credentials > Add credentials**.
 
 1. Enter a **Name** for the new credentials, for example, `my-github-app`.
 
@@ -176,7 +176,7 @@ To create and install a GitHub App from Seqera with the manifest flow:
 
 1. On GitHub, review the requested permissions and select **Create GitHub App**. GitHub redirects you back to Seqera, which exchanges the temporary code for the app credentials and stores them in your workspace or personal credentials.
 1. After the redirect, install the app on the repositories you want Seqera to access:
-    - Open the new app on GitHub: **Settings** > **Developer settings** > **GitHub Apps** > **[your app]** > **Install App**.
+    - Open the new app on GitHub: **Settings > Developer settings > GitHub Apps** > **[your app]** > **Install App**.
     - For an organization-owned app, select the organization.
     - For a personal app, select your user account.
     - Choose **Only select repositories** and add the specific repositories Seqera should access, or select **All repositories** to grant access to all current and future repositories.
@@ -195,7 +195,7 @@ If you cancel the manifest flow on GitHub or close the browser tab before approv
 To register an existing GitHub App in Seqera:
 1. Set the **GitHub credential type** to **GitHub App** and select **Add preexisting**
 1. Enter the **GitHub URL**, **App scope**, and, if required, the **GitHub repository URL** described above.
-1. Enter the app's security keys. To find these values, go to **Settings** > **Developer settings** > **GitHub Apps** > **[your app]** on GitHub:
+1. Enter the app's security keys. To find these values, go to **Settings > Developer settings > GitHub Apps** > **[your app]** on GitHub:
     - App ID
     - Installation ID
     - App slug
