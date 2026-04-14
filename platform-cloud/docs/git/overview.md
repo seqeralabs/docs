@@ -1,7 +1,8 @@
 ---
 title: "Git integration"
 description: "Connecting to Git repositories in Seqera Platform and Seqera AI."
-date: "10 Oct 2025"
+date created: "2025-10-11"
+last updated: "2026-04-14"
 tags: [git]
 ---
 
@@ -143,6 +144,76 @@ After you've created and copied your access token, create a new credential in Se
 1. Enter your **Username** and **Access token**.
 1. (Recommended) Enter the **Repository base URL** for which the credentials should be applied. This option is used to apply the provided credentials to a specific repository, e.g., `https://github.com/seqeralabs`.
 
+#### Create a new GitHub App from Seqera
+
+To create and install a GitHub App from Seqera with the manifest flow:
+
+1. Go to the credentials page:
+    - Organization workspace: Select **Credentials** > **Add Credentials**.
+    - Personal workspace: Select your user menu, then select **Your credentials** > **Add credentials**.
+
+1. Enter a **Name** for the new credentials, for example, `my-github-app`.
+
+    :::note
+    Underscores in the credential name are replaced with spaces in the resulting GitHub App name  (e.g., `Seqera Platform - my github app`).
+    ::::
+1. Select **GitHub** as the **Provider**, set the **GitHub credential type** to **GitHub App**, then select **Create and add**.
+1. Enter the **GitHub URL**:
+    - For GitHub.com, leave the default value (`https://github.com`).
+    - For a GitHub Enterprise Server instance, enter the base URL of your instance (e.g., `https://github.example.com`). HTTPS is required. Private or loopback addresses are rejected.
+1. (Optional) Enter the **GitHub repository URL** to scope access to a single repository, for example, `https://github.com/seqeralabs/nf-tower`. Leave this field empty to create credentials that are not bound to a specific repository.
+1. Select the **App scope**:
+    - **Organization**: App owned by an organization (requires admin access). Enter the **GitHub organization name** (case-sensitive). You must be an **owner** of the target organization to create an app on its behalf.
+    - **Personal**: App owned by your personal GitHub account. The **GitHub organization name** field is hidden.
+1. Select **Create app on GitHub**. Seqera redirects you to GitHub:
+    - For personal scope: `https://github.com/settings/apps/new`
+    - For organization scope: `https://github.com/organizations/<your-org>/settings/apps/new`
+    - For GitHub Enterprise Server, the equivalent path on your instance.
+
+   The manifest is pre-filled with the app name, callback URL, webhook URL, and the required permissions (`contents: read`, `metadata: read`).
+
+   ![GitHub "Create GitHub App" page with the manifest pre-filled, showing the app name "Seqera Platform - new github app"](./_images/credentials-github-mainfest-page.png)
+
+1. On GitHub, review the requested permissions and select **Create GitHub App**. GitHub redirects you back to Seqera, which exchanges the temporary code for the app credentials and stores them in your workspace or personal credentials.
+1. After the redirect, install the app on the repositories you want Seqera to access:
+    - Open the new app on GitHub: **Settings** > **Developer settings** > **GitHub Apps** > **[your app]** > **Install App**.
+    - For an organization-owned app, select the organization.
+    - For a personal app, select your user account.
+    - Choose **Only select repositories** and add the specific repositories Seqera should access, or select **All repositories** to grant access to all current and future repositories.
+    - Select **Install** to complete installation.
+
+   ![GitHub App installation page showing "Only select repositories" with one or more repositories selected](./_images/credentials-github-install-app.png)
+
+The new credential appears in your **Credentials** list with the GitHub App icon. Credentials created from your workspace credentials page are scoped to that workspace; credentials created from your personal credentials page are scoped to your user and are not visible to any workspace.
+
+:::note
+If you cancel the manifest flow on GitHub or close the browser tab before approving the app, no credentials are created on Seqera. The temporary state that protects the redirect against CSRF expires after 10 minutes and cannot be reused. To try again, restart the flow from the credentials form.
+:::
+
+#### Add an existing GitHub App
+
+To register an existing GitHub App in Seqera:
+1. Set the **GitHub credential type** to **GitHub App** and select **Add preexisting**
+1. Enter the **GitHub URL**, **App scope**, and, if required, the **GitHub repository URL** described above.
+1. Enter the app's security keys. To find these values, go to **Settings** > **Developer settings** > **GitHub Apps** > **[your app]** on GitHub:
+    - App ID
+    - Installation ID
+    - App slug
+    - Private key
+    - Client secret
+    - Webhook secret
+1. Select **Add** to save the credentials.
+
+#### Handling duplicate credentials
+
+Seqera enforces uniqueness of GitHub App credentials by **Repository URL** within the same workspace or user context. If a GitHub App credential already exists for a given repository URL, any attempt to create another (through either the manifest flow or the existing-app flow) fails with a duplicate error. No new credential is stored.
+
+To resolve a duplicate:
+
+- **Reuse the existing credential**: In most cases the existing credential already grants Seqera the access it needs. Open it from the **Credentials** list to confirm the association between the installed app and the repository.
+- **Delete the obsolete credential first**: If the existing credential is stale (e.g., the app has been uninstalled or the private key was rotated outside of Seqera), delete it from the **Credentials** list and then re-run the creation flow.
+- **Use a different repository URL or leave the field empty**: If you need a second credential covering a broader scope, omit the **Repository URL** or use a different one. Seqera's [credential filtering](#multiple-credential-filtering) then selects the most specific match at launch time.
+
 ### GitLab
 
 GitLab supports [Personal](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html), [Group](https://docs.gitlab.com/ee/user/group/settings/group_access_tokens.html#group-access-tokens), and [Project](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html) access tokens for authentication. Your access token must have the `api`, `read_api`, and `read_repository` scopes to work with Seqera. For all three token types, use the token value in both the **Password** and **Access token** fields in the Seqera credential creation form.
@@ -171,7 +242,7 @@ To connect to a private [Gitea](https://gitea.io/) repository, use your Gitea us
 1. Enter your **Password**.
 1. Enter your **Repository base URL** (required).
 
-### Bitbucket 
+### Bitbucket
 
 To connect to a private BitBucket repository, see [API tokens](https://support.atlassian.com/bitbucket-cloud/docs/api-tokens/) to learn how to create a BitBucket API token (the API token must have at least `read:repository:bitbucket` scope). Then, create a new credential in Seqera with these steps:
 
