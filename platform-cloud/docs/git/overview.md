@@ -198,7 +198,17 @@ If you cancel the manifest flow on GitHub or close the browser tab before approv
 
 #### Add an existing GitHub App
 
-If you have already created and installed a GitHub App, register it in Seqera by setting the **GitHub credential type** to **GitHub App** and selecting **Add preexisting**, then entering the app's security keys (App ID, installation ID, app slug, private key, client secret, and webhook secret) along with the same **GitHub URL**, **App scope**, and optional **GitHub repository URL** fields described above. You can find these values under **Settings** > **Developer settings** > **GitHub Apps** > **[your app]** on GitHub.
+To register an existing GitHub App in Seqera:
+1. Set the **GitHub credential type** to **GitHub App** and select **Add preexisting**
+1. Enter the **GitHub URL**, **App scope**, and, if required, the **GitHub repository URL** described above.
+1. Enter the app's security keys. To find these values, go to **Settings** > **Developer settings** > **GitHub Apps** > **[your app]** on GitHub:
+    - App ID
+    - Installation ID
+    - App slug
+    - Private key
+    - Client secret
+    - Webhook secret
+1. Select **Add** to save the credentials.
 
 #### Handling duplicate credentials
 
