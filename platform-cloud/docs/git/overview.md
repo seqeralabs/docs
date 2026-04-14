@@ -145,7 +145,7 @@ After you've created and copied your access token, create a new credential in Se
 
 ### GitHub App
 
-As an alternative to personal access tokens, you can authenticate Seqera Platform to GitHub using a [GitHub App](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps). GitHub Apps are the GitHub-recommended way to integrate with the GitHub API: they act on their own behalf rather than impersonating a user, support fine-grained permissions scoped to specific repositories, and use short-lived installation tokens that are not tied to a single account.
+Authenticate Seqera Platform to GitHub using [GitHub Apps](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps), the GitHub-recommended way to integrate with the GitHub API. They act on their own behalf rather than impersonating a user, support fine-grained permissions that target specific repositories, and use short-lived installation tokens that don't belong to a single account.
 
 When you select **GitHub** as the **Provider**, the credentials form shows a **GitHub credential type** selector with two tabs:
 
