@@ -160,7 +160,7 @@ For new integrations, use the manifest flow (**Create and add**). It removes the
 
 #### Create a new GitHub App from Seqera
 
-To create and install a GitHub App from Seqera using the manifest flow:
+To create and install a GitHub App from Seqera with the manifest flow:
 
 1. From an organization workspace: Select **Credentials** > **Add Credentials**. From your personal workspace: Go to the user menu and select **Your credentials** > **Add credentials**.
 1. Enter a **Name** for the new credentials, e.g., `my-github-app`. Underscores in the credential name are replaced with spaces in the resulting GitHub App name (`Seqera Platform - my github app`).
