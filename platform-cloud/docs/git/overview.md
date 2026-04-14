@@ -191,7 +191,8 @@ To create and install a GitHub App from Seqera with the manifest flow:
 1. On GitHub, review the requested permissions and select **Create GitHub App**. GitHub redirects you back to Seqera, which exchanges the temporary code for the app credentials and stores them in your workspace or personal credentials.
 1. After the redirect, install the app on the repositories you want Seqera to access:
     - Open the new app on GitHub: **Settings** > **Developer settings** > **GitHub Apps** > **[your app]** > **Install App**.
-    - For an organization-owned app, select the organization. For a personal app, select your user account.
+    - For an organization-owned app, select the organization.
+    - For a personal app, select your user account.
     - Choose **Only select repositories** and add the specific repositories Seqera should access, or **All repositories** to grant access to all current and future repositories.
     - Select **Install** to complete installation.
 
