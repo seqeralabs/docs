@@ -161,6 +161,7 @@
           "items": [
             "compute-envs/aws-batch",
             "compute-envs/azure-batch",
+            "compute-envs/azure-cloud",
             "compute-envs/google-cloud-batch",
             "compute-envs/eks",
             "compute-envs/gke",
