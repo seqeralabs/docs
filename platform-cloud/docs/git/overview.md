@@ -166,7 +166,11 @@ To create and install a GitHub App from Seqera with the manifest flow:
     - Organization workspace: Select **Credentials** > **Add Credentials**.
     - Personal workspace: Select your user menu, then select **Your credentials** > **Add credentials**.
 
-1. Enter a **Name** for the new credentials, e.g., `my-github-app`. Underscores in the credential name are replaced with spaces in the resulting GitHub App name (`Seqera Platform - my github app`).
+1. Enter a **Name** for the new credentials, for example, `my-github-app`.
+
+    :::note
+    Underscores in the credential name are replaced with spaces in the resulting GitHub App name  (e.g., `Seqera Platform - my github app`).
+    ::::
 1. Select **GitHub** as the **Provider**, set the **GitHub credential type** to **GitHub App**, then select **Create and add**.
 1. Enter the **GitHub URL**:
     - For GitHub.com, leave the default value (`https://github.com`).
