@@ -193,7 +193,7 @@ To create and install a GitHub App from Seqera with the manifest flow:
     - Open the new app on GitHub: **Settings** > **Developer settings** > **GitHub Apps** > **[your app]** > **Install App**.
     - For an organization-owned app, select the organization.
     - For a personal app, select your user account.
-    - Choose **Only select repositories** and add the specific repositories Seqera should access, or **All repositories** to grant access to all current and future repositories.
+    - Choose **Only select repositories** and add the specific repositories Seqera should access, or select **All repositories** to grant access to all current and future repositories.
     - Select **Install** to complete installation.
 
    ![GitHub App installation page showing "Only select repositories" with one or more repositories selected](./_images/credentials-github-install-app.png)
