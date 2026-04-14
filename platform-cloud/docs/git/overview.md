@@ -174,7 +174,7 @@ To create and install a GitHub App from Seqera with the manifest flow:
 1. Select **GitHub** as the **Provider**, set the **GitHub credential type** to **GitHub App**, then select **Create and add**.
 1. Enter the **GitHub URL**:
     - For GitHub.com, leave the default value (`https://github.com`).
-    - For a GitHub Enterprise Server instance, enter the base URL of your instance (for example, `https://github.example.com`). HTTPS is required, and private or loopback addresses are rejected.
+    - For a GitHub Enterprise Server instance, enter the base URL of your instance (e.g., `https://github.example.com`). HTTPS is required. Private or loopback addresses are rejected.
 1. (Optional) Enter the **GitHub repository URL** to scope access to a single repository, e.g., `https://github.com/seqeralabs/nf-tower`. Leave this field empty to create credentials that are not bound to a specific repository.
 1. Select the **App scope**:
     - **Organization** — App owned by an organization (requires admin access). Enter the **GitHub organization name** (case-sensitive). You must be an **owner** of the target organization to create an app on its behalf.
