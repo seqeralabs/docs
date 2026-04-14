@@ -216,9 +216,9 @@ Seqera enforces uniqueness of GitHub App credentials by **Repository URL** withi
 
 To resolve a duplicate:
 
-- **Reuse the existing credential** — In most cases the existing credential already grants Seqera the access it needs. Open it from the **Credentials** list to confirm the installed app and repository association.
-- **Delete the obsolete credential first** — If the existing credential is stale (for example, the app has been uninstalled or the private key was rotated outside of Seqera), delete it from the **Credentials** list and then re-run the creation flow.
-- **Use a different repository URL or leave the field empty** — If you need a second credential covering a broader scope, omit the **Repository URL** or use a different one. Seqera's [credential filtering](#multiple-credential-filtering) then selects the most specific match at launch time.
+- **Reuse the existing credential**: In most cases the existing credential already grants Seqera the access it needs. Open it from the **Credentials** list to confirm the association between the installed app and the repository.
+- **Delete the obsolete credential first**: If the existing credential is stale (e.g., the app has been uninstalled or the private key was rotated outside of Seqera), delete it from the **Credentials** list and then re-run the creation flow.
+- **Use a different repository URL or leave the field empty**: If you need a second credential covering a broader scope, omit the **Repository URL** or use a different one. Seqera's [credential filtering](#multiple-credential-filtering) then selects the most specific match at launch time.
 
 ### GitLab
 
