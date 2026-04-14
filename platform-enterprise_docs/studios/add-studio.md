@@ -20,13 +20,19 @@ For AWS Batch compute environments:
    - **GPUs allocated**: Available only if the selected compute environment has GPU support enabled. For more information about GPUs on AWS, see [Amazon ECS task definitions for GPU workloads][aws-gpu]. The default allocation is 0 GPUs.
    - **Maximum memory allocated**: The default allocation is 8192 MiB of memory.
 
+:::note
+In AWS Batch, Seqera creates two job queues and their respective compute environments - a **head** queue that runs the parent Nextflow process in an single, On-Demand instance, and a **worker** queue for executing per-task processes dispatched by the head node, most commonly on Spot instances. Studios only uses the single, On-Demand **head** queue and compute environment, ignoring the **worker** queue.
+:::
+
+For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
+
+Single virtual machine compute environments are supported for [AWS][aws-cloud], [Azure][azure-cloud], and [Google Cloud][google-cloud].
+
 ### EFS file systems
 
 If you configured your compute environment to include an EFS file system with **EFS file system > EFS mount path**, the mount path must be explicitly specified. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail.
 
 To mount an EFS volume in a Studio session (for example, if your organization has a custom, managed, and standardized software stack in an EFS volume), add the EFS volume to the compute environment (system ID and mount path). The volume will be available at the specified mount path in the session.
-
-For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
 ### SSH connection (public preview)
 
@@ -43,8 +49,9 @@ For connection instructions and VS Code setup, see [Connect to a Studio via SSH]
 [aws-cloud]: ../compute-envs/aws-cloud
 [aws-gpu]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html
 [aws-batch]: ../compute-envs/aws-batch
+[azure-cloud]: ../compute-envs/azure-cloud.md
+[google-cloud]: ../compute-envs/google-cloud.md
 [github]: ./add-studio-git-repo
-[custom-container]: ./add-studio-custom-container
 [custom-container]: ./add-studio-custom-container
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
