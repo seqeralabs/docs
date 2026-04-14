@@ -212,7 +212,7 @@ To register an existing GitHub App in Seqera:
 
 #### Handling duplicate credentials
 
-Seqera enforces uniqueness of GitHub App credentials by **Repository URL** within the same workspace or user context. If you attempt to create a credential — through either the manifest flow or the existing-app flow — for a repository URL that already has a GitHub App credential, the operation fails with a duplicate error and no new credential is stored.
+Seqera enforces uniqueness of GitHub App credentials by **Repository URL** within the same workspace or user context. If a GitHub App credential already exists for a given repository URL, any attempt to create another (through either the manifest flow or the existing-app flow) fails with a duplicate error. No new credential is stored.
 
 To resolve a duplicate:
 
