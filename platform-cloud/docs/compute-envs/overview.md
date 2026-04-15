@@ -30,17 +30,12 @@ Each compute environment must be configured to enable Seqera to submit tasks. Se
 ## Select default compute environment
 
 If you have more than one compute environment, you can select a workspace primary compute environment to be used as the default when launching pipelines in that workspace. In a workspace, select **Compute Environments**. Then select **Make primary** from the options menu next to the compute environment you wish to use as default.
+
 ## Rename compute environment
 
 You can edit the names of compute environments in private and organization workspaces. Select **Rename** from the options menu next to the compute environment you wish to edit.
 
 Select **Update** on the edit page to save your changes after you have updated the compute environment name.
-
-## Rename compute environment
-
-You can edit the names of compute environments in private and organization workspaces. Select Rename from the options menu next to the compute environment you wish to edit.
-
-Select Update on the edit page to save your changes after you have updated the compute environment name.
 
 ## Disable compute environment
 
