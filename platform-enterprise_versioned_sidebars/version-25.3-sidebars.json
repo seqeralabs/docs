@@ -54,7 +54,6 @@
             "enterprise/configuration/pipeline_optimization"
           ]
         },
-        "enterprise/install-seqera-ai",
         {
           "type": "category",
           "label": "Configuration",
@@ -166,6 +165,7 @@
             "compute-envs/aws-batch",
             "compute-envs/aws-cloud",
             "compute-envs/azure-batch",
+            "compute-envs/azure-cloud",
             "compute-envs/google-cloud-batch",
             "compute-envs/google-cloud",
             "compute-envs/eks",
