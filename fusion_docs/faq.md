@@ -36,7 +36,7 @@ No. Fusion can mount multiple buckets per execution, but all from the same vendo
 
 ### Can I use Fusion without Seqera Platform?
 
-Yes. Fusion can be enabled directly in a Nextflow pipeline that runs outside Seqera Platform, provided that you also enable Wave and supply a Seqera Platform access token in your Nextflow configuration. Seqera Platform is not required to run Fusion, but it is required if you want Seqera to manage the compute environment setup for you.
+Yes. Fusion can be enabled directly in a Nextflow pipeline that runs outside Seqera Platform, provided that you also enable Wave and supply a Seqera Platform access token in your Nextflow configuration. Seqera Platform is not required to run Fusion, but it is required if you want Seqera to manage the compute environment setup.
 
 ### I tried Fusion, but I didn't notice any performance improvement. Why?
 
