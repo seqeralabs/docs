@@ -42,7 +42,7 @@ For larger organizations, decide your workspace boundaries before you start addi
 - Use shared workspaces when you want to centralize reusable pipelines or compute environments for multiple groups, while still letting each consuming workspace keep its own participants and day-to-day operations.
 - Keep workspace credentials aligned to the data and infrastructure that the workspace is expected to operate. Avoid reusing a single broad credential across unrelated groups when separate credentials or narrower scopes are available.
 
-This model makes it easier to onboard new groups consistently, audit who can access a given bucket or compute environment, and limit the blast radius of later credential changes.
+This model makes it easier to onboard new groups consistently, audit who can access a given bucket or compute environment, and limit the impact of later credential changes.
 
 ## Workspace settings
 
