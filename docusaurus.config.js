@@ -416,6 +416,15 @@ export default async function createConfigAsync() {
     ].filter(Boolean),
 
     themeConfig: getSeqeraThemeConfig({
+      seqera: {
+        docs: {
+          versionDropdown: {
+            'platform-enterprise': {
+              showCurrent: process.env.INCLUDE_NEXT ? true : false,
+            },
+          },
+        },
+      },
       typesense: {
         typesenseCollectionName: 'seqera_docs',
         searchPagePath: '/search',
