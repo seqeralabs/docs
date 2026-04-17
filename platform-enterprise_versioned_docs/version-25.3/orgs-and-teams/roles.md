@@ -86,7 +86,7 @@ The following table shows which operations are available to the default workspac
 | **pipeline_secrets:delete**    | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **platform:read**              | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
 | **studio:read**                | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
-| **studio:execute**             | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **studio:execute**             | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
 | **studio:write**               | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **studio:delete**              | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **studio:admin**               | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
