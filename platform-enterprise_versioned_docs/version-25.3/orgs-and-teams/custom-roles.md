@@ -2,7 +2,7 @@
 title: "Custom roles"
 description: "Introduction to custom roles in Seqera Platform."
 date created: "2025-11-17"
-last updated: "2025-11-17"
+last updated: "2026-04-17"
 tags: [roles, user-roles, custom roles, rbac, permissions]
 ---
 
@@ -45,7 +45,7 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 |  | Validate credentials | _(Used by Platform)_ |
 |  | Validate credential name availability | `GET /credentials/validate` |
 | **credentials:delete** | Delete credentials | `DELETE /credentials/{credentialsId}` |
-| **credentials_encrypted:read** | Get encrypted credentials | _(Used by Platform)_ |
+| **credentials_encrypted:read** | Get encrypted credentials | `GET /credentials/{credentialsId}/keys` |
 | **pipeline_secrets:read** | List all pipeline secrets | `GET /pipeline-secrets` |
 |  | View pipeline secret details | `GET /pipeline-secrets/{secretId}` |
 | **pipeline_secrets:write** | Create a new pipeline secret | `POST /pipeline-secrets` |
@@ -64,6 +64,7 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 |  | Browse data-link contents | `GET /data-links/{dataLinkId}/browse` |
 |  | Browse data-link contents at the given path | `GET /data-links/{dataLinkId}/browse/{path}` |
 |  | View data-link details | `GET /data-links/{dataLinkId}` |
+|  | Resolve data-link cloud-scheme URLs | _(Used by Platform)_ |
 | **data_link:write** | Refresh data-link cache | `GET /data-links/cache/refresh` |
 |  | Browse data-link directory tree | `GET /data-links/{dataLinkId}/browse-tree` |
 |  | Download files from data-link | `GET /data-links/{dataLinkId}/download/{filePath}` |
@@ -75,6 +76,7 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 |  | Complete file upload to data-link at the given path | `POST /data-links/{dataLinkId}/upload/finish/{dirPath}` |
 |  | Create a custom data-link | `POST /data-links` |
 |  | Edit data-link metadata | `PUT /data-links/{dataLinkId}` |
+|  | Sign data-link URLs for batch access | _(Used by Platform)_ |
 | **data_link:delete** | Delete files from data-link | `DELETE /data-links/{dataLinkId}/content` |
 |  | Remove a data-link from workspace | `DELETE /data-links/{dataLinkId}` |
 | **data_link:admin** | Hide data-links | _(Used by Platform)_ |
@@ -83,19 +85,23 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 |  | List workspace dataset versions (legacy endpoint) | `GET /workspaces/{workspaceId}/datasets/versions` |
 |  | List dataset versions (legacy endpoint) | `GET /workspaces/{workspaceId}/datasets/{datasetId}/versions` |
 |  | View dataset metadata (legacy endpoint) | `GET /workspaces/{workspaceId}/datasets/{datasetId}/metadata` |
-|  | Download dataset | `GET /workspaces/{workspaceId}/datasets/{datasetId}/v/{version}/n/{fileName}` |
+|  | Download dataset | _(Used by Platform)_ |
 |  | List all datasets | `GET /datasets` |
 |  | List latest dataset versions | `GET /datasets/versions` |
 |  | List versions for a specific dataset | `GET /datasets/{datasetId}/versions` |
 |  | List datasets used in a pipeline launch | `GET /launch/{launchId}/datasets` |
 |  | View dataset metadata | `GET /datasets/{datasetId}/metadata` |
 |  | Download dataset files | `GET /datasets/{datasetId}/v/{version}/n/{fileName}` |
+|  | Fetch preview content for a URL without persisting | `POST /datasets/preview-url` |
+|  | Preview linked dataset content | `GET /datasets/{datasetId}/v/{version}/preview` |
 | **dataset:write** | Create dataset (legacy endpoint) | `POST /workspaces/{workspaceId}/datasets` |
 |  | Edit dataset (legacy endpoint) | `PUT /workspaces/{workspaceId}/datasets/{datasetId}` |
 |  | Upload dataset (legacy endpoint) | `POST /workspaces/{workspaceId}/datasets/{datasetId}/upload` |
 |  | Create a new dataset | `POST /datasets` |
 |  | Edit dataset metadata | `PUT /datasets/{datasetId}` |
 |  | Upload files to dataset | `POST /datasets/{datasetId}/upload` |
+|  | Link external URL as dataset version | `POST /datasets/{datasetId}/link` |
+|  | Validate URL for dataset linking | `POST /datasets/validate-url` |
 | **dataset:delete** | Delete dataset (legacy endpoint) | `DELETE /workspaces/{workspaceId}/datasets/{datasetId}` |
 |  | Delete a single dataset | `DELETE /datasets/{datasetId}` |
 |  | Delete multiple datasets | `DELETE /datasets` |
@@ -126,7 +132,6 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 |  | Remove labels from actions | `POST /actions/labels/remove` |
 |  | Apply label sets to actions | `POST /actions/labels/apply` |
 | **container:read** | View container details | _(Used by Platform)_ |
-|  | List containers | _(Used by Platform)_ |
 |  | List workflow containers | _(Used by Platform)_ |
 | **launch:read** | View launch details | `GET /launch/{launchId}` |
 | **pipeline:read** | View pipeline repository information | `GET /pipelines/info` |
@@ -136,20 +141,23 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 |  | List available pipeline repositories | `GET /pipelines/repositories` |
 |  | List all pipelines in workspace | `GET /pipelines` |
 |  | View pipeline details | `GET /pipelines/{pipelineId}` |
+|  | List pipeline versions | `GET /pipelines/{pipelineId}/versions` |
 |  | Fetch pipeline optimization | _(Used by Platform)_ |
-|  | List pipeline versions | _(Used by Platform)_ |
 | **pipeline:write** | Modify pipeline details when launching a pipeline run | Sub-operation on `POST /workflow/launch` |
 |  | Add a new pipeline to workspace | `POST /pipelines` |
-|  | Edit pipeline configuration | `PUT /pipelines/{pipelineId}` |
+|  | Edit pipeline (default version) configuration | `PUT /pipelines/{pipelineId}` |
 |  | Configure pipeline | _(Used by Platform)_ |
 |  | Validate pipeline name availability | `GET /pipelines/validate` |
-|  | Validate pipeline version name availability | _(Used by Platform)_ |
-|  | Manage pipeline version | _(Used by Platform)_ |
+|  | Create a pipeline schema | `POST /pipeline-schemas` |
+|  | Validate pipeline version name availability | `GET /pipelines/{pipelineId}/versions/validate` |
+|  | Manage pipeline version | `PUT /pipelines/{pipelineId}/versions/{versionId}/manage` |
+|  | Edit pipeline version configuration | `POST /pipelines/{pipelineId}/versions/{versionId}` |
 | **pipeline:delete** | Delete a pipeline | `DELETE /pipelines/{pipelineId}` |
 | **pipeline_label:write** | Apply resource labels when launching a pipeline run | Sub-operation on `POST /workflow/launch` |
 |  | Add labels to pipelines | `POST /pipelines/labels/add` |
 |  | Apply resource labels when adding a pipeline | Sub-operation on `POST /pipelines` |
-|  | Apply resource labels when editing a pipeline | Sub-operation on `PUT /pipelines/{pipelineId}` |
+|  | Apply resource labels when editing a pipeline (default version) | Sub-operation on `PUT /pipelines/{pipelineId}` |
+|  | Apply resource labels when editing a pipeline version | Sub-operation on `POST /pipelines/{pipelineId}/versions/{versionId}` |
 |  | Remove labels from pipelines | `POST /pipelines/labels/remove` |
 |  | Apply label sets to pipelines | `POST /pipelines/labels/apply` |
 | **workflow:read** | View run details | `GET /workflow/{workflowId}` |
@@ -227,15 +235,18 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 |  | Stop a studio session | `PUT /studios/{sessionId}/stop` |
 | **studio:write** | Create a new studio | `POST /studios` |
 |  | Edit checkpoint name | `PUT /studios/{sessionId}/checkpoints/{checkpointId}` |
+|  | Update a studio | `PUT /studios/{sessionId}` |
 |  | Validate studio name availability | `GET /studios/validate` |
 | **studio:delete** | Delete a studio | `DELETE /studios/{sessionId}` |
 | **studio:admin** | Delete another user's private studio | Sub-operation on `DELETE /studios/{sessionId}` |
 |  | Start another user's private studio | Sub-operation on `PUT /studios/{sessionId}/start` |
+|  | Update another user's private studio | Sub-operation on `PUT /studios/{sessionId}` |
 |  | Stop another user's private studio | Sub-operation on `PUT /studios/{sessionId}/stop` |
 |  | Extend another user's private studio session lifespan (iframe) | _(Used by Platform)_ |
 |  | Extend another user's private studio session lifespan | Sub-operation on `POST /studios/{sessionId}/lifespan` |
 |  | Administer another user's private studio | _(Used by Platform)_ |
 | **studio_label:write** | Apply resource labels when starting a studio | Sub-operation on `PUT /studios/{sessionId}/start` |
+|  | Apply resource labels when updating a studio | Sub-operation on `PUT /studios/{sessionId}` |
 | **studio_session:read** | Open a studio | _(Used by Platform)_ |
 | **studio_session:execute** | Extend studio session lifespan (iframe) | _(Used by Platform)_ |
 |  | Extend studio session lifespan | `POST /studios/{sessionId}/lifespan` |
