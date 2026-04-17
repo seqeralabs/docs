@@ -151,7 +151,10 @@ To create an access key:
 
 To use Entra for authentication, you must create a service principal and managed identity. Seqera uses the service principal to authenticate to Azure Batch and Azure Storage. It submits a Nextflow task as the head process to run Nextflow, which authenticates to Azure Batch and Storage using the managed identity attached to the node pool.
 
-Therefore, you must create both an Entra service principal and a managed identity. You add the service principal to your Seqera credentials and attach the managed identity to your Azure Batch node pools. In dual-pool mode (where separate pools are used for head and compute jobs), each pool is assigned only its relevant managed identity.
+Therefore, you must create both an Entra service principal and a managed identity. You add the service principal to your Seqera credentials and attach the managed identity to your Azure Batch node pools. 
+
+- In dual-pool mode (where separate pools are used for head and compute jobs), each pool is assigned only its relevant managed identity.
+- In Forge mode, you must also provide the managed identity resource ID for each pool, as Seqera uses it to assign the identity when provisioning the pool.
 
 :::note
 Entra service principal credentials support both Batch Forge and Manual compute environments. Some features, such as VNet/subnet configuration, require Entra credentials. When using Entra credentials, a managed identity is recommended but no longer mandatory.
