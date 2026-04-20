@@ -4,7 +4,7 @@ organizations:
     description: 'Organization created E2E with seqerakit CLI scripting'                                        # optional
     location: 'Global'                                                                                          # optional
     website: 'https://yourdomain.com/'                                                                          # optional
-    overwrite: True                                                                                             # optional  
+    overwrite: True                                                                                             # optional
 
 teams:
   - name: 'pipelines-team'                                                                                      # required
@@ -26,7 +26,7 @@ workspaces:
 
 participants:
   - name: 'pipelines-team'                                                                                      # required
-    type: 'TEAM'                                                                                                # required  
+    type: 'TEAM'                                                                                                # required
     workspace: 'your-organization/workspace-1'                                                                  # required
     role: 'ADMIN'                                                                                               # required
     overwrite: True                                                                                             # optional
@@ -42,12 +42,12 @@ credentials:
     workspace: 'your-organization/workspace-1'                                                                  # required
     username: 'user1'                                                                                           # required
     password: '$TOWER_GITHUB_PASSWORD'                                                                          # required
-    overwrite: True                                                                                             # optional  
+    overwrite: True                                                                                             # optional
   - type: 'container-reg'                                                                                       # required
     name: 'dockerhub-credentials'                                                                               # required
     workspace: 'your-organization/workspace-1'                                                                  # required
     username: 'user1'                                                                                           # required
-    password: '$DOCKERHUB_PASSWORD'                                                                             # required  
+    password: '$DOCKERHUB_PASSWORD'                                                                             # required
     registry: 'docker.io'                                                                                       # required
     overwrite: True                                                                                             # optional
   - type: 'aws'                                                                                                 # required
@@ -71,7 +71,7 @@ compute-envs:
     name: 'your-aws-compute-environment'                                                                        # required
     workspace: 'your-organization/workspace-1'                                                                  # required
     credentials: 'your-aws-credentials'                                                                         # required
-    region: 'eu-west-1'                                                                                         # required 
+    region: 'eu-west-1'                                                                                         # required
     work-dir: 's3://your-bucket'                                                                                # required
     provisioning-model: 'SPOT'                                                                                  # optional
     fusion-v2: False                                                                                            # optional
@@ -79,14 +79,14 @@ compute-envs:
     fargate: False                                                                                              # optional
     fast-storage: False                                                                                         # optional
     instance-types: 'c6i,r6i,m6i'                                                                               # optional, comma-separated list
-    no-ebs-auto-scale: True                                                                                     # optional                   
+    no-ebs-auto-scale: True                                                                                     # optional
     max-cpus: 500                                                                                               # required
     labels: 'label1,label2'                                                                                     # optional, comma-separated list
-    vpc-id: 'vpc-1234567890'                                                                                    # optional            
+    vpc-id: 'vpc-1234567890'                                                                                    # optional
     subnets: 'subnet-1234567890,subnet-1234567891'                                                              # optional, comma-separated list
     security-groups: 'sg-1234567890,sg-1234567891'                                                              # optional, comma-separated list
     allow-buckets: 's3://your-bucket,s3://your-other-bucket'                                                    # optional, comma-separated list
-    wait: 'AVAILABLE'                                                                                           # optional                     
+    wait: 'AVAILABLE'                                                                                           # optional
     overwrite: False                                                                                            # optional
 
 # To create a compute environment from a JSON configuration file (AWS Example)
@@ -116,10 +116,10 @@ pipelines:
     profile: 'test'                                                                                             # optional
     revision: '3.12.0'                                                                                          # required
     params:                                                                                                     # optional
-      outdir: 's3://your-bucket/nf-core-rnaseq/results'                 
+      outdir: 's3://your-bucket/nf-core-rnaseq/results'
     config: 'path/to/nextflow.config'                                                                           # optional
     pre-run: 'path/to/pipeline/pre_run.txt'                                                                     # optional
-    overwrite: True                                                                                             # optional 
+    overwrite: True                                                                                             # optional
 
 # To create a pipeline from a JSON configuration file
   - name: 'nf-core-sarek'                                                                                       # required
@@ -140,9 +140,9 @@ launch:
     workspace: 'your-organization/workspace-1'                                                                  # required
     pipeline: 'https://github.com/nf-core/rnaseq'                                                               # required
     compute-env: 'your-aws-compute-environment'                                                                 # optional (defaults to workspace primary compute environment)
-    work-dir: 's3://your-bucket/pipeline/working/directory'                                                     # optional 
+    work-dir: 's3://your-bucket/pipeline/working/directory'                                                     # optional
     profile: 'test'                                                                                             # optional
     revision: '3.12.0'                                                                                          # optional
     params-file: 'path/to/pipelines/nf_core_rnaseq_params.yml'                                                  # optional
-    config: 'path/to/pipelines/nextflow.config'                                                                 # optional  
-    pre-run: 'path/to/pipelines/pre_run.txt'                                                                    # optional  
+    config: 'path/to/pipelines/nextflow.config'                                                                 # optional
+    pre-run: 'path/to/pipelines/pre_run.txt'                                                                    # optional

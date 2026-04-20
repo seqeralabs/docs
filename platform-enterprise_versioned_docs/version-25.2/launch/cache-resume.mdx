@@ -22,7 +22,7 @@ To override the default cloud cache location in cloud compute environments, spec
 
 To customize the cache location used in your AWS Batch and Amazon EKS compute environments, specify an alternate cache directory in your Nextflow configuration:
 
-```groovy 
+```groovy
 cloudcache {
    enabled = true
    path = 's3://your-bucket/.cache'
@@ -36,7 +36,7 @@ The new cache directory must be accessible with the credentials associated with 
 
 To customize the cache location used in your Azure Batch compute environments, specify an alternate cache directory in your Nextflow configuration:
 
-```groovy 
+```groovy
 cloudcache {
    enabled = true
    path = 'az://your-container/.cache'
@@ -51,7 +51,7 @@ The new cache directory must be accessible with the credentials associated with 
 
 To customize the cache location used in your Google Cloud Batch and Google Kubernetes Engine compute environments, specify an alternate cache directory in your Nextflow configuration:
 
-```groovy 
+```groovy
 cloudcache {
    enabled = true
    path = 'gs://your-bucket/.cache'
@@ -125,7 +125,7 @@ Kubernetes compute environments do not use cloud cache by default. To specify a 
          path = 'gs://your-bucket/.cache'
          }
       ```
-   
+
    </details>
 
 </TabItem>
