@@ -35,9 +35,9 @@ The following Bedrock model access must be enabled in your account:
 
 | Role    | Model ID                    | Used for                        |
 | ------- | --------------------------- | ------------------------------- |
-| Primary | `claude-sonnet-4-6`         | General AI interactions         |
-| Fast    | `claude-haiku-4-6-20251001` | Quick tasks (search, summaries) |
-| Deep    | `claude-opus-4-6-20251101`  | Complex planning tasks          |
+| Primary | `anthropic.claude-sonnet-4-6`         | General AI interactions         |
+| Fast    | `anthropic.claude-haiku-4-5-20251001-v1:0` | Quick tasks (search, summaries) |
+| Deep    | `anthropic.claude-opus-4-6-v1`        | Complex planning tasks          |
 
 ## Database
 
