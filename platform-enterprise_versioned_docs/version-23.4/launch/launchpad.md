@@ -71,8 +71,8 @@ For more information on relaunch and resume, see [Cache and resume](./cache-resu
     :::
 1. Select or create [resource labels](../resource-labels/overview) to apply to the resources consumed by the run, if needed.
 1. Expand the [Pipeline secrets](../secrets/overview) dropdown to select user or workspace secrets to be used during the run, if needed.
-    :::note 
-    In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://docs.seqera.io/nextflow/aws#custom-job-definition). 
+    :::note
+    In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://docs.seqera.io/nextflow/aws#custom-job-definition).
     :::
 1. Apply any [Advanced options](./advanced), if needed.
 1. When you have filled the necessary launch form details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status on the top of the list. Select the run name to navigate to the run detail page and view the configuration, parameters, status of individual tasks, and run report.
