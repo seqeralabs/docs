@@ -41,13 +41,16 @@ The following Bedrock model access must be enabled in your account:
 
 ## Database
 
-- **MySQL 8.0+** — dedicated database for session state and conversation history
-- Separate schema from the Platform database
+- **MySQL 8.0+** — for Seqera AI session state and conversation history
+- A dedicated schema, separate from the Seqera Platform schema
+- A dedicated database host is **recommended**. Co-locating the Seqera AI schema on the Platform's MySQL host is technically supported, but a separate host isolates resource usage, maintenance windows, and backups across Seqera products
 - You will need the hostname, database name, username, and password ready for Helm configuration
 
 ## Redis
 
-- **Redis-compatible instance** (Redis 7.0+ or Valkey 7.0+) for caching and session management
+- **Redis 7.2+ or Valkey 7.2+** for caching, session state, and the automations task queue
+  - Redis 8.x is supported (the search/JSON/bloom modules moved into core in Redis 8.0)
+  - Valkey 7.2+ and 8.x are supported for the default caching and task-queue workload. If you enable the optional Redis-backed knowledge index (off by default), Redis Stack 7.x or Redis 8+ is required — Valkey does not ship the `RediSearch` module
 - Accessible from your cluster
 - You will need the hostname and port ready for Helm configuration
 
@@ -72,24 +75,24 @@ Generate a Fernet encryption key for encrypting sensitive tokens at rest:
 python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
 ```
 
-Store this as a Kubernetes secret. It will be referenced as `TOKEN_ENCRYPTION_KEY` in the Helm values.
+Store this as a Kubernetes secret. It will be referenced as `AGENT_BACKEND_TOKEN_ENCRYPTION_KEY` in the Helm values (this is the default key the `agent-backend` chart reads from `tokenEncryptionKeyExistingSecretName`).
 
 ## Kubernetes secrets
 
 Store the following values as Kubernetes Secrets before installing the chart. Do not inline them in `values.yaml`.
 
-| Secret                          | Contains                                                                | Used by        |
-| ------------------------------- | ----------------------------------------------------------------------- | -------------- |
-| Database password               | `AGENT_BACKEND_DB_PASSWORD`                                             | Agent backend  |
-| Redis password (if applicable)  | `AGENT_BACKEND_REDIS_PASSWORD`                                          | Agent backend  |
-| Token encryption key            | `AGENT_BACKEND_TOKEN_ENCRYPTION_KEY` (or `TOKEN_ENCRYPTION_KEY`)        | Agent backend  |
+| Secret                          | Contains                                                                 | Used by        |
+| ------------------------------- | ------------------------------------------------------------------------ | -------------- |
+| Database password               | `AGENT_BACKEND_DB_PASSWORD`                                              | Agent backend  |
+| Redis password (if applicable)  | `AGENT_BACKEND_REDIS_PASSWORD`                                           | Agent backend  |
+| Token encryption key            | `AGENT_BACKEND_TOKEN_ENCRYPTION_KEY`                                     | Agent backend  |
 | Anthropic API key               | `ANTHROPIC_API_KEY` (direct Anthropic path only)                         | Agent backend  |
-| MCP JWT seed                    | `MCP_OAUTH_JWT_SECRET` — 32+ char random string, openssl rand -base64 32 | MCP server     |
-| OIDC client registration token  | `OIDC_CLIENT_REGISTRATION_TOKEN` (standalone MCP deploys only)          | MCP server     |
+| MCP JWT seed                    | `MCP_OAUTH_JWT_SECRET` — 32+ char random string, `openssl rand -base64 32` | MCP server     |
+| MCP initial access token        | `MCP_OAUTH_INITIAL_ACCESS_TOKEN` (standalone MCP deploys only)           | MCP server     |
 
-When MCP is deployed as a subchart of the Platform parent chart, the OIDC registration token is wired automatically from the Platform backend secret — you do not need to create it separately. When deploying MCP standalone, copy the value from the Platform backend secret (`tower-backend-secrets`) into a new secret and reference it via `oidcToken.existingSecretName`.
+When MCP is deployed as a subchart of the Platform parent chart, the initial access token is wired automatically from the Platform backend secret — you do not need to create it separately. When deploying MCP standalone, copy the value out of the Platform backend secret (typically named `<platform-release>-backend`, e.g. `platform-backend`, under the data key `OIDC_CLIENT_REGISTRATION_TOKEN`) into a new secret and reference it via `oidcToken.existingSecretName`. The MCP container loads this value as `MCP_OAUTH_INITIAL_ACCESS_TOKEN` at runtime.
 
-Bedrock authentication uses EKS Pod Identity — no API key secret is needed for the Bedrock path.
+Bedrock authentication uses AWS IAM credentials — no API key secret is needed for the Bedrock path. On EKS, **EKS Pod Identity is the recommended approach** but IRSA or static AWS credentials on the pod are also supported.
 
 ## Local tooling
 
@@ -99,15 +102,15 @@ Bedrock authentication uses EKS Pod Identity — no API key secret is needed for
 
 ## Container images
 
-Seqera AI container images are hosted at `cr.seqera.io`. Ensure your cluster can pull from:
+Seqera AI container images are hosted at `cr.seqera.io`. The exact repository paths are defined by each component's Helm chart — see the chart READMEs for the authoritative `image.registry` / `image.repository` defaults and for [vendoring the Seqera container images to your own registry](https://docs.seqera.io/platform-enterprise/enterprise/prerequisites/common#vendoring-seqera-container-images-to-your-own-registry):
 
-| Image                | Repository                                                                                              |
-| -------------------- | ------------------------------------------------------------------------------------------------------- |
-| Agent backend        | `cr.seqera.io/private/nf-tower-enterprise/agent-backend`                                                |
-| MCP server           | See [Helm chart docs](https://github.com/seqeralabs/helm-charts/tree/master/platform/charts/mcp)        |
-| Portal web interface | See [Helm chart docs](https://github.com/seqeralabs/helm-charts/tree/master/platform/charts/portal-web) |
+| Image                | Chart                                                                                                          |
+| -------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Agent backend        | [agent-backend chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/agent-backend) |
+| MCP server           | [mcp chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/mcp)                  |
+| Portal web interface | [portal-web chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/portal-web)    |
 
-If your cluster runs in a restricted network, mirror these images to your own registry.
+Ensure your cluster can pull from `cr.seqera.io`, or if your cluster runs in a restricted network, mirror these images to your own registry.
 
 ---
 
@@ -116,15 +119,16 @@ If your cluster runs in a restricted network, mirror these images to your own re
 - [ ] Seqera Platform Enterprise 26.1+ running
 - [ ] OIDC identity provider configured
 - [ ] AWS Bedrock setup complete (see [Bedrock Setup Guide](./bedrock-setup.md))
-- [ ] MySQL 8.0+ database provisioned (dedicated schema, separate from Platform)
-- [ ] Redis-compatible instance provisioned
+- [ ] MySQL 8.0+ database provisioned (dedicated schema; dedicated host recommended)
+- [ ] Redis 7.2+ or Valkey 7.2+ instance provisioned
 - [ ] Three DNS records and TLS certificates ready
 - [ ] Ingress controller configured
 - [ ] Fernet encryption key generated and stored as a K8s secret
 - [ ] Database password stored as a K8s secret
-- [ ] EKS Pod Identity role and association configured for Bedrock access (Bedrock path only)
+- [ ] AWS IAM credentials configured for Bedrock access (EKS Pod Identity recommended; IRSA or static credentials also supported) (Bedrock path only)
 - [ ] Helm v3 and kubectl installed
 - [ ] Cluster can pull images from `cr.seqera.io`
 - [ ] MCP JWT seed generated and stored as a K8s secret
 - [ ] OIDC client registration token available (standalone MCP only)
+- [ ] MCP initial access token available (standalone MCP only)
 - [ ] Anthropic API key stored as a K8s secret (direct Anthropic path only)
