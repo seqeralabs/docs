@@ -7,7 +7,7 @@ tags: [seqera-ai, prerequisites]
 
 ## Overview
 
-Everything you need to have in place before installing Seqera AI. Complete these requirements, then proceed to the [Bedrock Setup Guide](./bedrock-setup.md) to configure your AWS account.
+Everything you need to have in place before installing Seqera AI. Complete these requirements, then proceed to the Bedrock Setup Guide to configure your AWS account.
 
 Seqera AI enables users to interact with Seqera Platform through a conversational AI interface, available through both the web (portal) and the CLI. The following components are deployed in sequence:
 
