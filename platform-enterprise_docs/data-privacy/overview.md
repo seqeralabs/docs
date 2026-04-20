@@ -22,7 +22,7 @@ When a Platform user account is deleted, the following happens:
 - All of the user's organization, workspace, and team memberships are deleted.
 - All of the user's access tokens are deleted from their personal workspace.
 
-For Enterprise installations, in addition to the above: 
+For Enterprise installations, in addition to the above:
 
 - All the user's credentials are deleted from their personal workspace.
 - All the user's compute environments are deleted from their personal workspace.

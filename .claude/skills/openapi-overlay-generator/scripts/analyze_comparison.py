@@ -297,7 +297,7 @@ def infer_tag_from_schema(schema_name: str) -> str:
     """Infer the tag/controller from schema name."""
     # Common patterns: DatasetRequest, CreateWorkspaceRequest, etc.
     lower_name = schema_name.lower()
-    
+
     tag_keywords = {
         'dataset': 'datasets',
         'action': 'actions',
@@ -312,17 +312,17 @@ def infer_tag_from_schema(schema_name: str) -> str:
         'studio': 'studios',
         'datalink': 'data-links',
     }
-    
+
     for keyword, tag in tag_keywords.items():
         if keyword in lower_name:
             return tag
-    
+
     return None
 
 def generate_report(changes: Dict) -> str:
     """Generate a human-readable report of changes."""
     report = []
-    
+
     report.append("# API Changes Analysis\n")
     report.append("## Summary\n")
     report.append(f"- **New Endpoints**: {changes['summary']['total_new_endpoints']}")
@@ -330,10 +330,10 @@ def generate_report(changes: Dict) -> str:
     report.append(f"- **New Schemas**: {changes['summary']['total_new_schemas']}")
     report.append(f"- **Modified Schemas**: {changes['summary']['total_modified_schemas']}")
     report.append(f"- **Affected Tags**: {', '.join(changes['summary']['affected_tags'])}\n")
-    
+
     if changes['summary']['requires_new_category']:
         report.append("⚠️  **MANUAL INTERVENTION REQUIRED**: New controller/category detected that may need manual sidebar addition\n")
-    
+
     # New endpoints by tag
     if changes['new_endpoints']:
         report.append("## New Endpoints by Controller\n")
@@ -345,14 +345,14 @@ def generate_report(changes: Dict) -> str:
                     if endpoint.get('summary'):
                         report.append(f"  - Summary: {endpoint['summary']}")
                 report.append("")
-    
+
     # New schemas
     if changes['new_schemas']:
         report.append("## New Schemas\n")
         for schema in changes['new_schemas']:
             report.append(f"- `{schema['schema']}`")
         report.append("")
-    
+
     # Modified endpoints
     if changes['modified_endpoints']:
         report.append("## Modified Endpoints\n")
@@ -361,34 +361,34 @@ def generate_report(changes: Dict) -> str:
         if len(changes['modified_endpoints']) > 10:
             report.append(f"\n... and {len(changes['modified_endpoints']) - 10} more")
         report.append("")
-    
+
     return '\n'.join(report)
 
 def main():
     if len(sys.argv) < 2:
         print("Usage: analyze_comparison.py <comparison-overlay.yaml>")
         sys.exit(1)
-    
+
     overlay_path = Path(sys.argv[1])
-    
+
     if not overlay_path.exists():
         print(f"❌ File not found: {overlay_path}")
         sys.exit(1)
-    
+
     print(f"Analyzing {overlay_path.name}...\n")
-    
+
     # Parse and analyze
     changes = parse_comparison_overlay(overlay_path)
-    
+
     # Generate report
     report = generate_report(changes)
     print(report)
-    
+
     # Also output JSON for programmatic use
     json_output = overlay_path.parent / f"{overlay_path.stem}-analysis.json"
     with open(json_output, 'w') as f:
         json.dump(changes, f, indent=2)
-    
+
     print(f"\n✅ Analysis complete! JSON output saved to: {json_output}")
 
 if __name__ == '__main__':

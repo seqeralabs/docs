@@ -1,51 +1,46 @@
 /**
- * Netlify Edge Function to proxy assets from multiple origins
+ * Netlify Edge Function to proxy assets from multiple origins.
  *
- * This function tries each origin in sequence until it finds the requested asset.
- * It handles both /assets/* and /img/* paths to ensure CSS, JavaScript, and images
- * are correctly served from the appropriate documentation site.
- *
- * The function checks origins in order and returns the first successful response.
- * If no origin has the asset, it returns a 404.
+ * Tries the local site first. If the asset is not local, fetches from
+ * all remote origins in parallel and returns the first successful response.
  */
+
+const REMOTE_ORIGINS = [
+  'https://seqera-docs-api.netlify.app',
+  'https://docs-migration.netlify.app',
+];
 
 export default async function handler(request, context) {
   const url = new URL(request.url);
-  const assetPath = url.pathname; // e.g., /assets/css/styles.abc123.css
+  const assetPath = url.pathname;
 
-  // First, try to serve the asset from the local site (bypass edge function)
   const localResponse = await context.next();
   if (localResponse.ok) {
     return localResponse;
   }
 
-  // If not found locally, try remote origins
-  const origins = [
-    'https://seqera-docs-api.netlify.app',
-    'https://docs-migration.netlify.app',
-    // Add more origins as needed
-  ];
-
-  // Try each remote origin in sequence
-  for (const origin of origins) {
-    try {
-      const response = await fetch(`${origin}${assetPath}`);
-      if (response.ok) {
-        // Return the successful response directly
-        return response;
-      }
-    } catch (error) {
-      // Continue to next origin if fetch fails
-      console.error(`Failed to fetch from ${origin}${assetPath}:`, error);
-      continue;
-    }
-  }
-
-  // If none of the origins worked, return 404
-  return new Response('Asset not found', {
-    status: 404,
-    headers: {
-      'Content-Type': 'text/plain',
-    },
+  const entries = REMOTE_ORIGINS.map((origin) => {
+    const controller = new AbortController();
+    const promise = fetch(`${origin}${assetPath}`, { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error(`${response.status} from ${origin}`);
+        return { response, controller };
+      });
+    return { controller, promise };
   });
+
+  try {
+    const { response: remoteResponse, controller: winner } = await Promise.any(
+      entries.map((e) => e.promise),
+    );
+    for (const { controller } of entries) {
+      if (controller !== winner) controller.abort();
+    }
+    return remoteResponse;
+  } catch {
+    return new Response('Asset not found', {
+      status: 404,
+      headers: { 'Content-Type': 'text/plain' },
+    });
+  }
 }

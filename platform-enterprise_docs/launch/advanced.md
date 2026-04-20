@@ -35,7 +35,7 @@ Configuration values set in the **Global Nextflow config** field during compute 
 
 For example, if:
 
-1. The `nextflow.config` file in your pipeline repository contains this manifest: 
+1. The `nextflow.config` file in your pipeline repository contains this manifest:
 
     ```ini title="Pipeline repository config file"
     manifest {
@@ -89,12 +89,12 @@ Run custom code either before or after the execution of the Nextflow script. The
 Pre-run scripts are executed in the nf-launch script prior to invoking Nextflow processes. Pre-run scripts are useful for:
 - Specifying an alternate Nextflow version to use for the run:
 
-    ```bash 
+    ```bash
     nextflow self-update
     export NXF_VER=24.10.0
     ```
     :::info
-    `nextflow self-update` is only required when updating a pre-24.10.0 version of Nextflow to version 24.10.0 or later. 
+    `nextflow self-update` is only required when updating a pre-24.10.0 version of Nextflow to version 24.10.0 or later.
     :::
 - Executor setup, such as loading a private CA certificate.
 - Troubleshooting. For example, add `sleep 3600` to your pre-run script to instruct Nextflow to wait 3600 seconds (60 minutes) before process execution after the nf-launcher container is started, to create a window in which to test connectivity and other issues before your Nextflow processes execute.
@@ -125,7 +125,7 @@ Post-run script failures do not affect the workflow exit status. Post-run script
 
 Instruct Nextflow to pull the latest pipeline version from the Git repository. This is equivalent to using the `-latest` flag.
 
-### Stub run 
+### Stub run
 
 Replace Nextflow process commands with command [stubs](https://docs.seqera.io/nextflow/process#stub), where defined, before execution.
 
@@ -145,7 +145,7 @@ If you specify a custom script filename, the root of the default branch in your 
 
 Nextflow DSL2 provides the ability to launch workflows with specific names. Enter the name of the workflow to be executed in this field.
 
-### Schema name 
+### Schema name
 
 Specify the name of a pipeline schema file in the workflow repository root folder to override the default `nextflow_schema.json`.
 
