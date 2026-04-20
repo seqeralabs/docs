@@ -118,7 +118,7 @@ Ensure your cluster can pull from `cr.seqera.io`, or if your cluster runs in a r
 
 - [ ] Seqera Platform Enterprise 26.1+ running
 - [ ] OIDC identity provider configured
-- [ ] AWS Bedrock setup complete (see [Bedrock Setup Guide](./bedrock-setup.md))
+- [ ] AWS Bedrock setup complete
 - [ ] MySQL 8.0+ database provisioned (dedicated schema; dedicated host recommended)
 - [ ] Redis 7.2+ or Valkey 7.2+ instance provisioned
 - [ ] Three DNS records and TLS certificates ready
