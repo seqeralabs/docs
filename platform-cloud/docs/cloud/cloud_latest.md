@@ -11,4 +11,3 @@ Data Studios also makes it seamless to work across teams with multi-user support
 ## Data Explorer
 
 Data Explorer is now Generally Available, with an even more exciting update - multi-file and multi-folder download capability! This allows users to effortlessly download entire datasets of pipeline results with just a few clicks and share them with their team. This update bypasses the need for cloud credentials or complex DevOps configurations, offering a user-friendly alternative to traditional cloud storage services without the hassle of command-line interface wrangling or intricate user interfaces.
-

@@ -56,7 +56,7 @@ Datasets can point to files stored in various locations, such as Amazon S3 or Gi
 
 ## Create a dataset
 
-All Seqera user roles have access to the datasets feature in organization workspaces. 
+All Seqera user roles have access to the datasets feature in organization workspaces.
 
 :::note
 The size of the dataset file cannot exceed 10 MB.
@@ -68,7 +68,7 @@ The size of the dataset file cannot exceed 10 MB.
 4. Optionally add one or more **Labels** to your dataset. You can use labels as a search filter but they don't apply to other resources in Seqera.
 4. Upload a dataset to your workspace with drag-and-drop or use the system **Upload file** file explorer dialog.
 5. For datasets that use their first row for column names, customize the dataset view using the **Set first row as header** option.
-6. Select **Add**. 
+6. Select **Add**.
 
 ## Manage dataset versions
 
@@ -128,7 +128,7 @@ To view a list of all pipeline runs in a workspace that have used a specific dat
 
 **Toggle dataset visibility**
 
-Select the three dots next to a dataset and select **Mark dataset as hidden** to hide a dataset no longer used in your workspace. To show a hidden dataset, select "Mark dataset as visible" to make it visible. This filter applies to all workspace users. 
+Select the three dots next to a dataset and select **Mark dataset as hidden** to hide a dataset no longer used in your workspace. To show a hidden dataset, select "Mark dataset as visible" to make it visible. This filter applies to all workspace users.
 
 You can toggle between **Visible**, **Hidden**, and **All** datasets in the **Show** drop-down on the main datasets page.
 
@@ -142,4 +142,3 @@ Filter the list of datasets to only display datasets that match one or more filt
 **Edit dataset details**
 
 Select the three dots next to a dataset to edit the name, description, and labels associated with a dataset.
-
