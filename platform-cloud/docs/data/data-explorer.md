@@ -95,7 +95,7 @@ To isolate pipeline or Studios view, read, and write permissions to a specific *
 This customized Data Explorer view will be displayed by default to all workspace users, until the filter is updated or removed by a workspace maintainer.
 :::
 
-## Upload files to private data repositories 
+## Upload files to private data repositories
 
 Data Explorer supports single or bulk file uploads to your private data repositories. From the **View data repositories** page, select **Upload** and choose either the **Upload files** or **Upload folder** option. You can also drag and drop files and folders directly into Data Explorer. You can upload up to 300 files at a time via the Platform interface. The file size upload limits reflect the size limitations of the relevant cloud storage provider or data repository integration.
 
