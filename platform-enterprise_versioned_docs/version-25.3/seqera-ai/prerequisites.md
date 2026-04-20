@@ -27,7 +27,7 @@ Seqera AI enables users to interact with Seqera Platform through a conversationa
 
 ## AWS Account
 
-Seqera AI uses Claude models via [Amazon Bedrock](https://aws.amazon.com/bedrock/). You need an AWS account with Bedrock available in your chosen region. See the [Bedrock Setup Guide](./bedrock-setup.md).
+Seqera AI uses Claude models via [Amazon Bedrock](https://aws.amazon.com/bedrock/). You need an AWS account with Bedrock available in your chosen region.
 
 ### Models
 
@@ -89,7 +89,7 @@ Store the following values as Kubernetes Secrets before installing the chart. Do
 
 When MCP is deployed as a subchart of the Platform parent chart, the OIDC registration token is wired automatically from the Platform backend secret — you do not need to create it separately. When deploying MCP standalone, copy the value from the Platform backend secret (`tower-backend-secrets`) into a new secret and reference it via `oidcToken.existingSecretName`.
 
-Bedrock authentication uses EKS Pod Identity — no API key secret is needed for the Bedrock path. See the [Bedrock setup](./bedrock-setup.md) for IAM role configuration.
+Bedrock authentication uses EKS Pod Identity — no API key secret is needed for the Bedrock path.
 
 ## Local tooling
 
@@ -128,9 +128,3 @@ If your cluster runs in a restricted network, mirror these images to your own re
 - [ ] MCP JWT seed generated and stored as a K8s secret
 - [ ] OIDC client registration token available (standalone MCP only)
 - [ ] Anthropic API key stored as a K8s secret (direct Anthropic path only)
-
-
-## Next steps
-
-1. Complete the [Bedrock Setup Guide](./bedrock-setup.md)
-2. Proceed to [Seqera AI Installation](./installation.md)
