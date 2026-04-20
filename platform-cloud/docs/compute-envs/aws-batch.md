@@ -17,6 +17,8 @@ There are two ways to create a Seqera Platform compute environment for AWS Batch
 - [**Automatically**](#automatic-configuration-of-batch-resources): this option lets Seqera automatically create the required AWS Batch resources in your AWS account, using an internal tool within Seqera Platform called "Forge". This removes the need to set up your AWS Batch infrastructure manually. Resources can also be automatically deleted when the compute environment is removed from Platform.
 - [**Manually**](#manual-configuration-of-batch-resources): this option lets Seqera use existing AWS Batch resources previously created.
 
+If your AWS Batch queues, compute environments, launch templates, IAM roles, or related networking resources are already managed outside Seqera Platform with Terraform or another infrastructure-as-code workflow, use the manual option. Batch Forge actively creates, updates, and can delete supporting AWS resources, so it is not the right fit when those resources must remain under external state management.
+
 Both options require specific IAM permissions to function correctly, as well as access to an S3 bucket or EFS/FSx file system to store intermediate Nextflow files.
 
 ## S3 bucket creation
@@ -962,6 +964,8 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
 ## Manual configuration of Batch resources
 
 This section is for users with a pre-configured AWS environment: follow the [AWS Batch queue and compute environment creation instructions](../enterprise/advanced-topics/manual-aws-batch-setup.mdx) to set up the required AWS Batch resources in your account.
+
+Manual configuration is recommended when your organization already provisions AWS Batch infrastructure with Terraform or another infrastructure-as-code tool and you want Seqera Platform to attach to those existing resources without taking over their lifecycle.
 
 A [S3 bucket](#s3-bucket-creation) or EFS/FSx file system is required to store Nextflow intermediate files when using Seqera with AWS Batch.
 
