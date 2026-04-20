@@ -15,7 +15,7 @@ In Platform, samplesheets and other data can be made easily accessible in one of
 - Use **Data Explorer** to browse and interact with remote data from AWS S3, Azure Blob Storage, and Google Cloud Storage repositories, directly in your organization workspace.
 - Use **Datasets** to upload structured data to your workspace in CSV (Comma-Separated Values) or TSV (Tab-Separated Values) format.
 
-## Data Explorer 
+## Data Explorer
 
 For pipeline runs in the cloud, users typically need access to buckets or blob storage to upload files (such as samplesheets and reference data) for analysis and to view pipeline results. Managing credentials and permissions for multiple users and training users to navigate cloud consoles and CLIs can be complicated. Data Explorer provides the simplified alternative of viewing your data directly in Platform.
 
@@ -45,7 +45,7 @@ Select **Public** from the credentials dropdown menu to add public cloud storage
 - [NCBI SRA](https://registry.opendata.aws/ncbi-sra/)
 - [Genome in a Bottle Consortium](https://docs.opendata.aws/giab/readme.html)
 - [MSSNG Database](https://cloud.google.com/life-sciences/docs/resources/public-datasets/mssng)
-- [Genome Aggregation Database (gnomAD)](https://cloud.google.com/life-sciences/docs/resources/public-datasets/gnomad) 
+- [Genome Aggregation Database (gnomAD)](https://cloud.google.com/life-sciences/docs/resources/public-datasets/gnomad)
 
 ### View pipeline outputs
 
@@ -57,7 +57,7 @@ In Data Explorer, you can:
   - **View bucket contents**:
     Select a bucket name from the list to view the bucket contents. The file type, size, and path of objects are displayed in columns next to the object name. For example, view the outputs of an *nf-core/rnaseq* run:
 
-   - **Preview files**: 
+   - **Preview files**:
     Select a file to open a preview window that includes a **Download** button. For example, view the resultant gene counts of the salmon quantification step of an *nf-core/rnaseq* run:
 
 ## Datasets
