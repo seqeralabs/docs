@@ -59,6 +59,8 @@ seqera ai
 
 When this environment variable is set, the CLI skips the OAuth login flow and uses the provided token directly.
 
+<!-- TODO: review — target removed in PR #1319. For Enterprise backend connection settings and development-build examples, see [Install Seqera AI](../enterprise/install-seqera-ai.md#connect-the-cli-to-seqera-ai). -->
+
 ### Log out
 
 To sign out from the current session, run:
