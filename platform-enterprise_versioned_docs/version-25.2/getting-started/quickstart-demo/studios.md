@@ -25,7 +25,7 @@ Select the options menu next to a Studio to:
 
 Studios is used to perform bespoke analysis on the results of upstream workflows. For example, in the Community Showcase workspace we have run the *nf-core/rnaseq* workflow to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. The workspace contains a Studio with these results from cloud storage mounted into the Studio to perform further analysis. One of these outputs is a web app, which can be deployed for interactive analysis.
 
-### Open the RNAseq analysis Studio 
+### Open the RNAseq analysis Studio
 
 Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an R-IDE that uses an existing compute environment available in the showcase workspace. The Studio also contains mounted data generated from the *nf-core/rnaseq* and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3.
 
