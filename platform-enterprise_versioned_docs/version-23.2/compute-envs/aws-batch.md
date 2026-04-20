@@ -179,7 +179,7 @@ Once the AWS resources are set up, we can add a new **AWS Batch** environment in
     :::note
     Requires Fargate, Wave containers, and Fusion v2 file system to be enabled. This feature is not compatible with GPU-based architecture.
 
-    This is a preview feature that requires the use of Nextflow `23.06.0-edge`. In Tower Enterprise deployments, set `TOWER_ENABLE_ARM64=true` to enable Graviton instance support. 
+    This is a preview feature that requires the use of Nextflow `23.06.0-edge`. In Tower Enterprise deployments, set `TOWER_ENABLE_ARM64=true` to enable Graviton instance support.
     :::
 
 19. Enter any additional **Allowed S3 buckets** that your workflows require to read input data or write output data. The **Pipeline work directory** bucket above is added by default to the list of **Allowed S3 buckets**.
