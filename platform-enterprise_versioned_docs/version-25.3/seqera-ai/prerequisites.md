@@ -23,7 +23,7 @@ Seqera AI enables users to interact with Seqera Platform through a conversationa
 ## Platform
 
 - **Seqera Platform Enterprise 25.3 or later** deployed and accessible
-- **OIDC-compatible identity provider** configured for Platform authentication
+- **OIDC** configured in Platform for authentication
 
 ## AWS Account
 
