@@ -34,7 +34,7 @@ services:
     #   - Replacing this in-cluster instance with a managed service (e.g.
     #     ElastiCache, Azure Cache for Redis, Memorystore) or an official Redis
     #     installation source for durability and operational support.
-    image: redis:7.4
+    image: docker.io/library/redis:7.4
     platform: linux/amd64
     networks:
       - backend

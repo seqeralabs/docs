@@ -69,7 +69,7 @@
                 "ContainerDefinitions": [
                     {
                     "Name": "redis",
-                    "Image": "redis:7.4",
+                    "Image": "docker.io/library/redis:7.4",
                     "Memory": 2000,
                     "Cpu": 0,
                     "PortMappings": [{
