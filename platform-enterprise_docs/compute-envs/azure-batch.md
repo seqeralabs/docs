@@ -151,13 +151,14 @@ To create an access key:
 
 To use Entra for authentication, you must create a service principal and managed identity. Seqera uses the service principal to authenticate to Azure Batch and Azure Storage. It submits a Nextflow task as the head process to run Nextflow, which authenticates to Azure Batch and Storage using the managed identity attached to the node pool.
 
-Therefore, you must create both an Entra service principal and a managed identity. You add the service principal to your Seqera credentials and attach the managed identity to your Azure Batch node pools. 
+Therefore, you must create both an Entra service principal and a managed identity:
 
-- In dual-pool mode (where separate pools are used for head and compute jobs), each pool is assigned only its relevant managed identity.
-- In Forge mode, you must also provide the managed identity resource ID for each pool, as Seqera uses it to assign the identity when provisioning the pool.
+1. Add the service principal details as credentials in Seqera Platform.
+2. Assign the managed identity to each Azure Batch node pool with the relevant permissions.
+3. When using Batch Forge, provide the managed identity resource ID for each managed identity. Seqera Platform assigns the identity to each pool during creation.
 
 :::note
-Entra service principal credentials support both Batch Forge and Manual compute environments. Some features, such as VNet/subnet configuration, require Entra credentials. When using Entra credentials, a managed identity is recommended but no longer mandatory.
+Entra service principal credentials support both Batch Forge and Manual compute environments. Some features, such as VNet/subnet configuration, require Entra credentials. When using Entra credentials, a managed identity is recommended for best security practices, but is not mandatory.
 :::
 
 ##### Service principal
@@ -198,7 +199,7 @@ When you use a compute environment with a managed identity attached to the Azure
 3. Associate the user-assigned managed identity with the Azure Batch Pool. See [Set up managed identity in your Batch pool][azure-batch-mi-pool] for more information.
 
    :::note
-   In dual-pool mode, you can assign separate managed identities to the head and compute pools. Each pool receives only the managed identity relevant to its role.
+   When you use separate head and worker pools, you can assign a different managed identity to head and worker pools. Each pool receives only the managed identity relevant to its role.
    :::
 
 4. When you set up the Seqera compute environment, select the Azure Batch pool by name and enter the managed identity **client ID** and (optionally) the **resource ID** in the specified fields. The resource ID is the full ARM path of the managed identity (e.g., `/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}`).
@@ -265,7 +266,7 @@ Create a Batch Forge Azure Batch compute environment:
    :::
 5. Add the **Batch account** and **Blob Storage** account names and access keys.
 6. Select a **Region**, such as *eastus*.
-7. In the **Pipeline work directory** field, enter the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
+7. In the **Work directory** field, enter the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
 
    :::note
    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache][nf-cloud-cache] by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch][launch-form] form.
@@ -283,7 +284,7 @@ Create a Batch Forge Azure Batch compute environment:
    Azure virtual machines include fast SSDs and require no additional storage configuration for Fusion. For optimal performance, use VMs with sufficient local storage to support Fusion's streaming data throughput.
 
    1. Use Seqera Platform version 23.1 or later.
-   2. Use an Azure Blob storage container as the pipeline work directory.
+   2. Use an Azure Blob storage container as the work directory.
    3. Enable **Wave containers** and **Fusion v2**.
    4. Select the **Batch Forge** config mode.
    5. Specify suitable VM sizes under **VMs type**. A `Standard_E16d_v5` VM or larger is recommended for production use.
@@ -341,7 +342,7 @@ Batch Forge creates separate Azure Batch pools for the Nextflow head job and com
       |--------|---------|-------------|
       | **Delete jobs on completion** | Off | Permanently deletes all jobs and their tasks from Azure Batch when the workflow finishes. |
       | **Delete tasks on completion** | On | Deletes individual tasks from jobs when they complete successfully. Failed tasks are preserved for debugging. |
-      | **Terminate jobs on completion** | Off | Sets jobs to terminate when all their tasks complete. Jobs remain in "completed" state but are no longer active. |
+      | **Terminate jobs on completion** | On | Sets jobs to terminate when all their tasks complete. Jobs remain in "completed" state but are no longer active. |
 
       Existing compute environments retain their current cleanup behavior.
 
@@ -396,12 +397,12 @@ If not described below, use the default settings:
     targetPoolSize = max(0, min($targetVMs, 8));
 
     // For first interval, deploy 1 node, for other intervals scale up/down as per tasks.
-    $TargetLowPriorityNodes = lifespan < interval ? 1 : targetPoolSize;
+    $TargetDedicatedNodes = lifespan < interval ? 1 : targetPoolSize;
     $NodeDeallocationOption = taskcompletion;
     ```
 12. **Start task**: This is the task that will run on each VM when it joins the pool. This can be used to install additional software on the VM. When using Batch Forge, this is used to install `azcopy` for staging files onto and off of the node. Select **Enabled** and add the following command line to install `azcopy`:
 
-    ```
+    ```shell
     bash -c "chmod +x azcopy && mkdir $AZ_BATCH_NODE_SHARED_DIR/bin/ && cp azcopy $AZ_BATCH_NODE_SHARED_DIR/bin/"
     ```
 
@@ -446,7 +447,7 @@ The following settings can be modified after creating a pool:
    Both access keys and Entra service principal credentials are supported. Some features, such as VNet/subnet configuration, require Entra credentials. To use Entra with a managed identity, see [Managed identity](#managed-identity) below.
    :::
 5. Select a **Region**, such as *eastus (East US)*.
-6. In the **Pipeline work directory** field, add the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
+6. In the **Work directory** field, add the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
 
    :::note
    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache][nf-cloud-cache] by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch][launch-form] form.
@@ -464,7 +465,7 @@ The following settings can be modified after creating a pool:
    Azure virtual machines include fast SSDs and require no additional storage configuration for Fusion. For optimal performance, use VMs with sufficient local storage to support Fusion's streaming data throughput.
 
    1. Use Seqera Platform version 23.1 or later.
-   2. Use an Azure Blob storage container as the pipeline work directory.
+   2. Use an Azure Blob storage container as the work directory.
    3. Enable **Wave containers** and **Fusion v2**.
    4. Specify suitable VM sizes under **VMs type**. A `Standard_E16d_v5` VM or larger is recommended for production use.
 
@@ -515,7 +516,7 @@ The following settings can be modified after creating a pool:
       |--------|---------|-------------|
       | **Delete jobs on completion** | Off | Permanently deletes all jobs and their tasks from Azure Batch when the workflow finishes. |
       | **Delete tasks on completion** | On | Deletes individual tasks from jobs when they complete successfully. Failed tasks are preserved for debugging. |
-      | **Terminate jobs on completion** | Off | Sets jobs to terminate when all their tasks complete. Jobs remain in "completed" state but are no longer active. |
+      | **Terminate jobs on completion** | On | Sets jobs to terminate when all their tasks complete. Jobs remain in "completed" state but are no longer active. |
 
       Existing compute environments retain their current cleanup behavior.
 
