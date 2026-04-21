@@ -116,7 +116,7 @@ Ensure your cluster can pull from `cr.seqera.io`, or if your cluster runs in a r
 
 ## Checklist
 
-- [ ] Seqera Platform Enterprise 25.3+ running
+- [ ] Seqera Platform Enterprise 25.3.6 or above
 - [ ] OIDC identity provider configured
 - [ ] AWS Bedrock setup complete
 - [ ] MySQL 8.0+ database provisioned (dedicated schema; dedicated host recommended)
