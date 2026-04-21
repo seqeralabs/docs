@@ -151,7 +151,7 @@ To use Entra for authentication, you must create a service principal and managed
 
 Therefore, you must create both an Entra service principal and a managed identity. You add the service principal to your Seqera credentials and attach the managed identity to your Azure Batch node pools.
 
-- In dual-pool mode (where separate pools are used for head and compute jobs), each pool is assigned only its relevant managed identity.
+- Where separate pools are used for head and compute jobs, each pool is assigned only its relevant managed identity.
 - In Forge mode, you must also provide the managed identity resource ID for each pool, as Seqera uses it to assign the identity when provisioning the pool.
 
 :::note
