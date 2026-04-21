@@ -336,7 +336,7 @@ Batch Forge creates separate Azure Batch pools for the Nextflow head job and com
       |--------|---------|-------------|
       | **Delete jobs on completion** | Off | Permanently deletes all jobs and their tasks from Azure Batch when the workflow finishes. |
       | **Delete tasks on completion** | On | Deletes individual tasks from jobs when they complete successfully. Failed tasks are preserved for debugging. |
-      | **Terminate jobs on completion** | Off | Sets jobs to terminate when all their tasks complete. Jobs remain in "completed" state but are no longer active. |
+      | **Terminate jobs on completion** | On | Sets jobs to terminate when all their tasks complete. Jobs remain in "completed" state but are no longer active. |
 
       Existing compute environments retain their current cleanup behavior.
 
