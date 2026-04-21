@@ -102,6 +102,9 @@ After you have created a resource group and Storage account, create a [Batch acc
 1. Select **+ Request quota increase** and add the quantity of resources you require. Here is a brief guideline:
     - **Active jobs and schedules**: Each Nextflow process will require an active Azure Batch job per pipeline while running, so increase this number to a high level. See [here][az-learn-jobs] to learn more about jobs in Azure Batch.
     - **Pools**: Each platform compute environment requires at least one Azure Batch pool. Batch Forge creates two pools by default (one for the head job and one for compute tasks). Each pool is composed of multiple machines of one virtual machine size.
+     :::note
+     To use separate pools for head and compute nodes, see [this FAQ entry](../troubleshooting_and_faqs/azure_troubleshooting).
+     :::
     - **Batch accounts per region per subscription**: Set this to the number of Azure Batch accounts per region per subscription. Only one is required.
     - **Total Dedicated vCPUs per VM series**: See the Azure documentation for [virtual machine sizes][az-vm-sizes] to help determine the machine size you need. We recommend the latest version of the ED series available in your region as a cost-effective and appropriately-sized machine for running Nextflow. However, you will need to select alternative machine series that have additional requirements, such as those with additional GPUs or faster storage. Increase the quota by the number of required concurrent CPUs. In Azure, machines are charged per cpu minute so there is no additional cost for a higher number.
 
