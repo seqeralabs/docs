@@ -112,7 +112,7 @@ To authenticate using Workload Identity Federation, you must first configure a [
 * **Workload Identity Provider**: The full resource path of the Workload Identity Provider (e.g., `projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID`).
 * **Token Audience** (optional): The intended audience for the OIDC token. Configure this if your Workload Identity Provider requires a specific audience value.
 
-WIF is supported across deployment environments including GKE (native support), AWS EKS, Azure AKS, and on-premises Kubernetes clusters with OIDC capabilities.
+In the context of Seqera Platform, WIF is supported as a credential for GCP Batch, Google Cloud, and GKE.
 
 :::caution
 If WIF authentication fails, verify that the Workload Identity Provider path is correctly formatted, the service account has the required permissions, and the Kubernetes service account is properly annotated for your deployment environment. Check the Seqera Platform logs for specific error details — a `400` error typically indicates an invalid provider format, while a `401` error indicates a token exchange failure.
