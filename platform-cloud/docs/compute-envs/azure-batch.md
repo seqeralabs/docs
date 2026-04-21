@@ -152,7 +152,7 @@ Therefore, you must create both an Entra service principal and a managed identit
 - In Forge mode, you must also provide the managed identity resource ID for each pool, as Seqera uses it to assign the identity when provisioning the pool.
 
 :::note
-Entra service principal credentials support both Batch Forge and Manual compute environments. Some features, such as VNet/subnet configuration, require Entra credentials. When using Entra credentials, a managed identity is recommended but no longer mandatory.
+Entra service principal credentials support both Batch Forge and Manual compute environments. Some features, such as VNet/subnet configuration, require Entra credentials. When using Entra credentials, a managed identity is recommended for best security practices, but is not mandatory.
 :::
 
 ##### Service principal
