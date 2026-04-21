@@ -29,7 +29,14 @@ spec:
         app: redis
     spec:
       containers:
-        - image: cr.seqera.io/public/redis:7.0.10
+        # This Redis definition is provided for convenience and pulls from Docker
+        # Hub's public registry. For production use we recommend:
+        #   - Vendoring this image to your own registry, or authenticating to Docker
+        #     Hub to avoid pull rate limits.
+        #   - Replacing this in-cluster instance with a managed service (e.g.
+        #     ElastiCache, Azure Cache for Redis, Memorystore) or an official Redis
+        #     installation source for durability and operational support.
+        - image: redis:7.4
           name: redis
           args:
             - --appendonly yes

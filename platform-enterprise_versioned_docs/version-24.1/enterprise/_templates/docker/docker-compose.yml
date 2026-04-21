@@ -13,7 +13,7 @@ services:
       MYSQL_PASSWORD: tower
       MYSQL_DATABASE: tower
     healthcheck:
-      test: ["CMD", "mysqladmin" , "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       timeout: 20s
       retries: 10
     restart: always
@@ -27,7 +27,7 @@ services:
       - $HOME/.tower/db/mysql:/var/lib/mysql
 
   redis:
-    image: cr.seqera.io/public/redis:6.0
+    image: redis:6.2
     platform: linux/amd64
     networks:
       - backend
@@ -76,7 +76,6 @@ services:
       migrate:
         condition: service_completed_successfully
 
-
   backend:
     image: cr.seqera.io/private/nf-tower-enterprise/backend:v24.1.8
     platform: linux/amd64
@@ -112,32 +111,31 @@ services:
     restart: always
     depends_on:
       - backend
-
-# Uncomment the following section to enable Data Studios functionality. See [Data Studios configuration](../../data-studios.mdx) for more information.
-#  connect-proxy:
-#    image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-proxy:0.7.2
-#    platform: linux/amd64
-#    env_file:
-#      - data-studios.env
-#    networks:
-#      - frontend
-#      - backend
-#    ports:
-#      - 9090:9090
-#    restart: always
-#    depends_on:
-#      - redis
-#
-#  connect-server:
-#    image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-server:0.7.2
-#    platform: linux/amd64
-#    env_file:
-#      - data-studios.env
-#    networks:
-#      - backend
-#    ports:
-#      - 7070:7070
-#    restart: always
+  # Uncomment the following section to enable Data Studios functionality. See [Data Studios configuration](../../data-studios.mdx) for more information.
+  #  connect-proxy:
+  #    image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-proxy:0.7.2
+  #    platform: linux/amd64
+  #    env_file:
+  #      - data-studios.env
+  #    networks:
+  #      - frontend
+  #      - backend
+  #    ports:
+  #      - 9090:9090
+  #    restart: always
+  #    depends_on:
+  #      - redis
+  #
+  #  connect-server:
+  #    image: cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-server:0.7.2
+  #    platform: linux/amd64
+  #    env_file:
+  #      - data-studios.env
+  #    networks:
+  #      - backend
+  #    ports:
+  #      - 7070:7070
+  #    restart: always
 
   # Uncomment the following section to enable the pipeline resource optimization service. Add TOWER_ENABLE_GROUNDSWELL
   # or GROUNDSWELL_SERVER_URL to tower.env environment variables
