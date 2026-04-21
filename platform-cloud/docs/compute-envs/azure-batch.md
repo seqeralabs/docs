@@ -196,7 +196,7 @@ When you use a compute environment with a managed identity attached to the Azure
 1. Associate the user-assigned managed identity with the Azure Batch Pool. See [Set up managed identity in your Batch pool](https://learn.microsoft.com/en-us/troubleshoot/azure/hpc/batch/use-managed-identities-azure-batch-account-pool#set-up-managed-identity-in-your-batch-pool) for more information.
 
    :::note
-   In dual-pool mode, you can assign separate managed identities to the head and compute pools. Each pool receives only the managed identity relevant to its role.
+   When you use separate head and worker pools, you can assign separate managed identities to the head and compute pools. Each pool receives only the managed identity relevant to its role.
    :::
 
 1. When you set up the Seqera compute environment, select the Azure Batch pool by name and enter the managed identity **client ID** and (optionally) the **resource ID** in the specified fields. The resource ID is the full ARM path of the managed identity (e.g., `/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}`).
