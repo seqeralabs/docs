@@ -22,7 +22,7 @@ Seqera AI enables users to interact with Seqera Platform through a conversationa
 
 ## Platform
 
-- Seqera AI is in Early Access for Platform Enterprise and may require an Enterprise version upgrade. [Contact Seqera support](support.seqera.io) for more infromation.
+- Seqera AI is in Early Access for Platform Enterprise and may require an Enterprise version upgrade. [Contact Seqera support](https://support.seqera.io) for more information
 - **OIDC** configured in Platform for authentication
 
 ## AWS Account
