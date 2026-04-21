@@ -128,4 +128,3 @@ Specify the name of a pipeline schema file in the workflow repository root folde
 ### Head job CPUs and memory
 
 Specify the compute resources allocated to the Nextflow head job. These fields are only displayed for runs executing on [AWS Batch](../compute-envs/aws-batch) and [Azure Batch](../compute-envs/azure-batch) compute environments.
-

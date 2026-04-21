@@ -74,6 +74,10 @@ The `configmap.yml` manifest includes both the `tower.env` and `tower.yml` files
 
 ### Redis
 
+:::warning
+The in-cluster Redis manifests below are provided for convenience only. They pull from Docker Hub's public registry (rate limits apply without authentication). For production deployments, use a managed Redis service or an [official Redis installation source](https://redis.io/docs/latest/operate/oss_and_stack/install/).
+:::
+
 Seqera Enterprise requires a Redis database for caching purposes. Configure Redis manually by deploying a manifest to your cluster, or configure a managed Redis service.
 
 #### Deploy a Redis manifest to your cluster
@@ -253,24 +257,6 @@ Seqera Platform offers a service that optimizes pipeline resource requests. Refe
 :::note
 Studios is currently in **public preview** and is available from Seqera Platform v24.1. If you experience any problems during the deployment process [contact Seqera support](https://support.seqera.io). Studios in Enterprise is not installed by default.
 :::
-
-### Database console
-
-Use the [dbconsole.yml](_templates/k8s/dbconsole.yml) manifest to deploy a simple web frontend to the Seqera database. Though not required, this can be useful for administrative purposes.
-
-1. Deploy the database console:
-
-    ```bash
-    kubectl apply -f dbconsole.yml
-    ```
-
-1. Enable a port-forward for the database console to your local machine:
-
-    ```bash
-    kubectl port-forward deployment/dbconsole 8080:8080
-    ```
-
-1. Access the database console in a web browser at `http://localhost:8080`.
 
 ### High availability
 

@@ -171,7 +171,7 @@ To connect to a private [Gitea](https://gitea.io/) repository, use your Gitea us
 1. Enter your **Password**.
 1. Enter your **Repository base URL** (required).
 
-### Bitbucket 
+### Bitbucket
 
 To connect to a private BitBucket repository, see [API tokens](https://support.atlassian.com/bitbucket-cloud/docs/api-tokens/) to learn how to create a BitBucket API token (the API token must have at least `read:repository:bitbucket` scope). Then, create a new credential in Seqera with these steps:
 

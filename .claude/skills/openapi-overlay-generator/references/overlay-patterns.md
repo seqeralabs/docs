@@ -13,12 +13,12 @@ info:
   version: 0.0.0
 actions:
   # ===== {FEATURE} - OPERATIONS =====
-  
+
   # ---- {OPERATION NAME} ----
-  
+
   - target: "$.paths./{endpoint}.{method}.summary"
     update: "{Verb} {entity}"
-  
+
   - target: "$.paths./{endpoint}.{method}.description"
     update: "{Full description with context and usage guidance.}"
 ```
@@ -92,19 +92,19 @@ info:
   version: 0.0.0
 actions:
   # ===== {FEATURE} PARAMETERS - PATH, QUERY, AND REQUEST BODY =====
-  
+
   # ---- PATH PARAMETERS ----
-  
+
   - target: "$.paths./{endpoint}.{method}.parameters[?(@.name=='{paramName}')].description"
     update: "{Parameter description.}"
-  
+
   # ---- QUERY PARAMETERS ----
-  
+
   - target: "$.paths./{endpoint}.{method}.parameters[?(@.name=='workspaceId')].description"
     update: "Workspace numeric identifier."
-  
+
   # ---- REQUEST BODY DESCRIPTIONS ----
-  
+
   - target: "$.paths./{endpoint}.{method}.requestBody.description"
     update: "{Request body description.}"
 ```
@@ -173,16 +173,16 @@ info:
   version: 0.0.0
 actions:
   # ===== {FEATURE} SCHEMAS - REQUEST/RESPONSE OBJECTS =====
-  
+
   # ---- REQUEST SCHEMAS ----
-  
+
   - target: "$.components.schemas.{SchemaName}.properties.{propertyName}"
     update:
       type: string
       description: "{Property description with validation rules.}"
-  
+
   # ---- RESPONSE SCHEMAS ----
-  
+
   - target: "$.components.schemas.{SchemaName}.properties.{propertyName}"
     update:
       description: "{Property description.}"
