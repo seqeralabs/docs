@@ -4,6 +4,13 @@
   Description: > 
     The secret key used to encrypt credentials and secrets (**required**).
   Value:                'Random string of alphanumeric characters.'
+-
+  Environment variable:            '`TOWER_OIDC_PEM_PATH`'
+  Description: >
+    The file path to a PEM certificate used to sign tokens for Seqera Platform's built-in OIDC provider.
+    This is required for [Studios](../install-studios) and for
+    [Google Cloud Batch Workload Identity Federation](../../compute-envs/google-cloud-batch#credentials).
+  Value:                'Example: `/oidc.rsa.pem`'
 - 
   Environment variable:            '`TOWER_JWT_SECRET`'
   Description: > 
