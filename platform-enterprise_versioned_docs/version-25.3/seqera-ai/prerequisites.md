@@ -22,7 +22,7 @@ Seqera AI enables users to interact with Seqera Platform through a conversationa
 
 ## Platform
 
-- **Seqera Platform Enterprise 26.1 or later**, deployed and accessible
+- **Seqera Platform Enterprise 25.3 or later** deployed and accessible
 - **OIDC-compatible identity provider** configured for Platform authentication
 
 ## AWS Account
@@ -116,7 +116,7 @@ Ensure your cluster can pull from `cr.seqera.io`, or if your cluster runs in a r
 
 ## Checklist
 
-- [ ] Seqera Platform Enterprise 26.1+ running
+- [ ] Seqera Platform Enterprise 25.3+ running
 - [ ] OIDC identity provider configured
 - [ ] AWS Bedrock setup complete
 - [ ] MySQL 8.0+ database provisioned (dedicated schema; dedicated host recommended)
