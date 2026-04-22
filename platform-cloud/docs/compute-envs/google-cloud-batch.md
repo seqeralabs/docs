@@ -164,7 +164,7 @@ Google Cloud Storage is a type of **object storage**. To access files and store 
 1. After the bucket is created, you are redirected to the **Bucket details** page.
 2. Select **Permissions**, then **Grant access** under **View by principals**.
 3. Copy the email address of your service account into **New principals**.
-4. Select the **Storage Admin** role, then select **Save**.
+4. Select the [required role](#storage-permissions), then select **Save**.
 
 :::tip
 You've created a project, enabled the necessary Google APIs, created a bucket, and created a service account JSON key file with the required credentials. You now have what you need to set up a new compute environment in Seqera.

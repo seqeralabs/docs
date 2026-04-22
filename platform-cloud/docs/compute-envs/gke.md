@@ -125,9 +125,19 @@ To use [Fusion v2](https://docs.seqera.io/fusion) in your Seqera GKE compute env
     - **Enable GKE Metadata Server** in the node group **Security** settings.
 1. Allow the IAM service account access to your Google storage bucket:
     ```shell
-    gcloud storage buckets add-iam-policy-binding gs://<YOUR-BUCKET> --role roles/storage.objectAdmin --member serviceAccount:<IAM-SERVICE-ACCOUNT>@<GOOGLE-CLOUD-PROJECT>.iam.gserviceaccount.com
+    gcloud storage buckets add-iam-policy-binding gs://<YOUR-BUCKET> --role roles/<YOUR-ROLE> --member serviceAccount:<IAM-SERVICE-ACCOUNT>@<GOOGLE-CLOUD-PROJECT>.iam.gserviceaccount.com
     ```
-    The role must have at least `storage.objects.create`, `storage.objects.get`, and `storage.objects.list` permissions.
+    - Grant on the **work-dir bucket**:
+        - `roles/storage.objectUser` (preferred; legacy: `roles/storage.objectAdmin`)
+
+    - Grant on **every other bucket the pipeline reads from**:
+        - `roles/storage.objectViewer` — read objects
+        - `roles/storage.bucketViewer` — read bucket metadata (required by for mount-time bucket inspection)
+
+    - Grant on **publishDir bucket if different than work-dir bucket**:
+        - `roles/storage.objectUser`
+        - `roles/storage.bucketViewer`
+
 1. Allow the Kubernetes service account to impersonate the IAM service account:
     ```shell
     gcloud iam service-accounts add-iam-policy-binding <IAM-SERVICE-ACCOUNT>@<GOOGLE-CLOUD-PROJECT>.iam.gserviceaccount.com --role roles/iam.workloadIdentityUser --member "serviceAccount:<GOOGLE-CLOUD-PROJECT>.svc.id.goog[<GKE-NAMESPACE>/<GKE-SERVICE-ACCOUNT>]"
