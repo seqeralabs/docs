@@ -290,7 +290,7 @@ If you use VM instance templates for the head or compute jobs (see step 8 below)
    You must specify both a **VPC** and **Subnet** for your compute environment to use either.
    :::
 
-8. Use **Network Tags** to apply GCP network tags to the compute instances in this environment. Network tags control which firewall rules and routing policies apply to your instances within their VPC.
+8. Use **Network Tags** to apply GCP network tags to the compute instances in this environment. Network tags control which firewall rules and routing policies apply to your instances within a VPC.
 
    Enter tags as free-text values. Tags must follow GCP format requirements: lowercase letters, numbers, and hyphens only, between 1 and 63 characters. You can add up to 64 tags per instance.
 
