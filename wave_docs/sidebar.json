@@ -2,97 +2,62 @@
   "sidebar": [
     {
       "type": "category",
-      "label": "Wave containers",
-      "link": {"type": "doc", "id": "index"},
-      "collapsed": true,
+      "label": "Wave",
+      "collapsed": false,
       "items": [
-          "provisioning"
+        "index",
+        "wave-lite",
+        "provisioning"
       ]
     },
     {
       "type": "category",
-      "label": "Tutorials",
-      "link": {"type": "doc", "id": "tutorials/index"},
-      "collapsed": true,
+      "label": "Features",
+      "collapsed": false,
       "items": [
-          "tutorials/nextflow-wave",
-          "tutorials/nextflow-seqera-containers",
-          "tutorials/wave-cli"
+        "features/index",
+        "features/how-it-works",
+        "features/augmentation",
+        "features/inspection",
+        "features/authentication",
+        "features/build-custom-images",
+        "features/container-freezes",
+        "features/mirroring",
+        "features/security",
+        "features/architectures",
+        "features/seqera-containers",
+        "features/docker-singularity"
       ]
     },
     {
       "type": "category",
-      "label": "Nextflow integration",
-      "link": {"type": "doc", "id": "nextflow/index"},
-      "collapsed": true,
+      "label": "Installation",
+      "collapsed": false,
       "items": [
-        "nextflow/use-cases",
-        "nextflow/configuration",
-        {
-          "type": "category",
-          "label": "Guides",
-          "collapsed": true,
-          "items": [
-            "nextflow/bundle-scripts",
-            "nextflow/reduce-api-calls"
-          ]
-        }
+        "install/docker-compose",
+        "install/kubernetes"
       ]
     },
+    {
+      "type": "category",
+      "label": "Configuration",
+      "collapsed": false,
+      "items": [
+        "wave-lite",
+        "configure-wave",
+        "install/configure-wave-build"
+      ]
+    },
+    "nextflow/index",
     {
       "type": "category",
       "label": "Developer tools",
-      "collapsed": true,
+      "collapsed": false,
       "items": [
-        "api",
-        {
-          "type": "category",
-          "label": "CLI",
-          "link": {"type": "doc", "id": "cli/index"},
-          "collapsed": true,
-          "items": [
-            "cli/installation",
-            "cli/use-cases"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Self-hosted Wave",
-      "collapsed": true,
-      "items": [
-        {
-          "type": "category",
-          "label": "Installation",
-          "collapsed": true,
-          "items": [
-            "install/docker-compose",
-            "install/kubernetes",
-            "install/configure-wave-build"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Configuration",
-          "collapsed": true,
-          "items": [
-            "wave-lite",
-            "configure-wave",
-            "configuration"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Migration notes",
-          "link": {"type": "doc", "id": "migrations/index"},
-          "collapsed": true,
-          "items": [
-            "migrations/1-25-0",
-            "migrations/1-24-0",
-            "migrations/1-21-0"
-          ]
-        }
+        "cli/index",
+        "cli/installation",
+        "cli/use-cases",
+        "api"
       ]
     },
     "faq",

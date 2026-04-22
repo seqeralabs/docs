@@ -227,6 +227,12 @@ export default async function createConfigAsync() {
     //   },
     // },
 
+    markdown: {
+      mermaid: true,
+    },
+
+    themes: ['@docusaurus/theme-mermaid'],
+
     customFields: {
       // Put your custom environment here
     },
