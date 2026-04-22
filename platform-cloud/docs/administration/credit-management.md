@@ -63,13 +63,13 @@ The usage report for this run shows the CPU and memory cost as separate line ite
 | 2025-10-10 | 2BYxxxxxxxMoy | 1884xxxxxxx2036 | us-east-2 | Cpu Hours | 0.1 | 1.3255897223 | 0.13255897223 |
 | 2025-10-10 | 2BYxxxxxxxMoy | 1884xxxxxxx2036 | us-east-2 | Memory Gb | 0.025 | 5.514970833333334 | 0.13787427083333334 |
 
-This run consumed approximately 0.27 credits, for a total cost of $ 0.27 (USD). 
+This run consumed approximately 0.27 credits, for a total cost of $ 0.27 (USD).
 
 ## Credit management
 
 ### Credit balance and spend overview
 
-- Navigate to your organization or workspace **Settings** tab to view credit balance and spend information, request more credits, and download usage reports. 
+- Navigate to your organization or workspace **Settings** tab to view credit balance and spend information, request more credits, and download usage reports.
 - Select **Usage overview** in the top navigation bar to view real-time run, Studio, user, and credit usage information for your workspace. Select **Details** to navigate to workspace **Settings**.
 
 ### Usage report
