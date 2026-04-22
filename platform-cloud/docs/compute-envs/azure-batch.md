@@ -123,7 +123,7 @@ Entra service principals are accounts which can be granted access to Azure Batch
 
 - Service principals enable role-based access control with more precise permissions.
 - Service principals map to a many-to-many relationship with Azure Batch and Azure Storage accounts.
-- Some Azure Batch features, such as VNet/subnet configuration, are only available when using a service principal.
+- Some Azure Batch features, such as VNet/subnet configuration, are only available when using Microsoft Entra.
 
 Both credential types support Batch Forge and Manual compute environment modes.
 
