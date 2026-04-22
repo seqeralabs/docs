@@ -33,6 +33,17 @@ As a workspace owner, you can modify optional workspace fields after workspace c
 
 Apart from the **Participants** tab, the _organization_ workspace is similar to the _user_ workspace. As such, the relation to [runs](../launch/launchpad), [actions](../pipeline-actions/overview), [compute environments](../compute-envs/overview), and [credentials](../credentials/overview) is the same.
 
+## Workspace planning for larger organizations
+
+For larger organizations, decide your workspace boundaries before you start adding credentials, data links, and compute environments:
+
+- Create separate organization workspaces for teams, business units, or projects that need different cloud credentials, data-access rules, or compute defaults.
+- Use [teams](./roles) as the default way to grant access, and reserve named participant assignments for exceptions.
+- Use shared workspaces when you want to centralize reusable pipelines or compute environments for multiple groups, while still letting each consuming workspace keep its own participants and day-to-day operations.
+- Keep workspace credentials aligned to the data and infrastructure that the workspace is expected to operate. Avoid reusing a single broad credential across unrelated groups when separate credentials or narrower scopes are available.
+
+This model makes it easier to onboard new groups consistently, audit who can access a given bucket or compute environment, and limit the impact of later credential changes.
+
 ## Workspace settings
 
 Select the **Settings** tab within a workspace to manage credits, Studios settings, workspace labels, and edit or delete the workspace.

@@ -38,6 +38,10 @@ Azure Blob Storage are prefixed with an Azure icon and `az://` in Data Explorer.
 
 Add the contents of the **Service account key** JSON file. GCP object storage buckets are prefixed with a GCP icon and `gs://` in Data Explorer.
 
+For enterprise onboarding, it is usually best to create a dedicated GCP service account for each workspace or team boundary that needs independent access control, then grant that service account access only to the required buckets or prefixes. Store that credential in the same Seqera workspace where the data will be browsed or launched from.
+
+If a workflow spans more than one cloud provider, keep the provider-specific credentials in the launching workspace and verify that the selected compute environment and work directory are configured for the cloud where the run will execute. Data Explorer can surface data repositories from different providers in the same workspace, but access to each path still depends on the credentials and network access available to that workspace.
+
 ## S3-compatible storage
 
 This includes cloud-provider and on-premise based storage solutions with an S3-compatible API. Examples include [Cloudflare R2][cloudflare], [MinIO][minio], and [Oracle Cloud Infrastructure][oci].
