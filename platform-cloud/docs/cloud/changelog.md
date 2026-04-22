@@ -65,7 +65,7 @@ tags: [changelog]
 
 - Managed identities:
   * Allow organization members and collaborators to list managed identities
-- Data Studios: 
+- Data Studios:
   * Data studio user activity auditlog
   * Delete checkpoints
   * Rename checkpoints
@@ -700,10 +700,10 @@ The `21.10.x` release series starts with `v21.10.1`
 
 #### 21.04.6 - 21 Jun
 
-- Fixed: GitHub action creation 
-- Fixed: The case when the dropdown was over-shadowing other fields 
-- Change schema and default params usage 
-- K8s use deployment for service pod 
+- Fixed: GitHub action creation
+- Fixed: The case when the dropdown was over-shadowing other fields
+- Change schema and default params usage
+- K8s use deployment for service pod
 
 #### 21.04.5 - 8 Jun
 
@@ -717,7 +717,7 @@ The `21.10.x` release series starts with `v21.10.1`
 
 #### 21.04.3 - 2 Jun
 
-- Fixed: Pattern test validator when the value is empty 
+- Fixed: Pattern test validator when the value is empty
 - Fixed: Navigation dropdown display when user has no `CreateOrganization` permission
 
 #### 21.04.2 - 1 Jun

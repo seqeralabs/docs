@@ -33,7 +33,7 @@ You are the first **Owner** of the organizations that you create. Add other orga
     - The **Name** to be displayed for the workspace in Platform.
     - The **Full name** of the workspace.
     - A **Description** of the workspace to provide contextual information that may be helpful to other workspace participants.
-    - **Visibility**: Choose whether the workspace's pipelines must be **Shared** to all organization members, or only visible to workspace participants (**Private**). 
+    - **Visibility**: Choose whether the workspace's pipelines must be **Shared** to all organization members, or only visible to workspace participants (**Private**).
 1. Select **Add**. You are redirected to your organization's **Workspaces** tab with your new workspace listed.
 1. Select your new workspace, then select the **Participants** tab to **Add Participants**.
 1. Enter the names of existing organization members or teams and select **Add**.
@@ -48,6 +48,6 @@ Create a new team, add team members, and add the team to workspaces from the **T
 1. Select **Add Team**, enter the team's details and an optional team avatar image, then select **Add**.
 1. Select **Edit** next to the team name in the list, then select the **Members of team** tab to add new members by name or email.
     :::note
-    Team members must be existing organization members. 
+    Team members must be existing organization members.
     :::
 1. From the team edit screen's **Workspaces** tab, add workspaces by name and select an access **Role** from the dropdown next to each workspace in the list. All team members inherit the workspace access role for the team.
