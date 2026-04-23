@@ -30,6 +30,8 @@ Because membership lives on the Platform label, adding or removing a resource fr
 
 ## Create a project
 
+To create a project:
+
 1. In **Seqera Platform**, open the workspace where the project should live.
 2. Go to **Labels** in workspace settings and create a new label with the `project_` prefix. For example:
     - `project_rnaseq`
