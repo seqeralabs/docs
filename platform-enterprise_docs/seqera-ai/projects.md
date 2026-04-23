@@ -23,7 +23,7 @@ When you open a workspace in the Seqera AI portal web interface:
 
 1. Seqera AI reads the list of workspace labels from the Seqera Platform API.
 2. Any label whose name starts with `project_` becomes a project.
-3. An **Entire workspace** view is always included alongside your projects so you can see every resource in the workspace.
+3. An **Entire workspace** view is included alongside your projects. You can see every resource in the workspace.
 4. Pipelines, datasets, and workflow runs are scoped to a project by matching on its `project_*` label.
 
 Because membership lives on the Platform label, adding or removing a resource from a project is the same action as applying or removing the label in Platform.
