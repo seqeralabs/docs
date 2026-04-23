@@ -9,7 +9,7 @@ tags: [seqera-ai, projects, labels]
 Seqera AI is currently in beta. Features and behavior may change as we continue to improve the product.
 :::
 
-Projects in Seqera AI group the pipelines, datasets, and workflow runs that belong to a single piece of work, so you can view and chat about them without the noise of the rest of the workspace.
+Projects in Seqera AI group the pipelines, datasets, and workflow runs that belong to a single piece of work. You can view and chat about them without the noise of the rest of the workspace.
 
 Projects are not created inside Seqera AI. They are derived from **workspace labels in Seqera Platform** whose names start with `project_`. Each matching label surfaces in Seqera AI as a separate project scope, with the Platform label acting as the source of truth for membership.
 
