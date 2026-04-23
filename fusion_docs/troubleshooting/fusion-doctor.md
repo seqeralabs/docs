@@ -77,7 +77,7 @@ If Fusion Doctor reports `fail` or `degraded`, start with the highest-severity r
 For support and debugging scenarios, you can invoke Fusion Doctor directly from the `fusion-doctor` container image. Use this path when you have shell access to a host that matches your compute node, or when a Seqera support engineer asks you to run specific checks.
 
 :::caution
-Interactive invocation is not a supported end-user workflow. Use the [nf-canary](#run-diagnostics-with-nf-canary) path above for routine diagnostics. Use the same thresholds as the validation profile so results remain comparable to nf-canary runs.
+Interactive invocation is not a supported end-user workflow. Use the [nf-canary](#run-fusion-doctor-with-nf-canary) path above for routine diagnostics. Use the same thresholds as the validation profile so results remain comparable to nf-canary runs.
 :::
 
 Pull the container image from `cr.seqera.io/public/fusion/doctor`. A typical invocation uses the same flags as nf-canary:
