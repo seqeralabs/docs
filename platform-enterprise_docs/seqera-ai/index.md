@@ -65,7 +65,7 @@ Full access to Platform capabilities including compute environments, datasets, d
 
 ### Projects
 
-Organize a workspace into projects by applying Seqera Platform labels prefixed with `project_`. Each project scopes the pipelines, datasets, workflow runs, and chat context the AI sees — without needing a separate CRUD surface in Seqera AI.
+Organize a workspace into projects by applying Seqera Platform labels prefixed with `project_`. Each project scopes the pipelines, datasets, workflow runs, and chat context the AI sees, without needing a separate CRUD surface in Seqera AI.
 
 ## Learn more
 
