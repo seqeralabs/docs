@@ -30,11 +30,11 @@ In Seqera Platform, launch `nf-canary` and select a validation profile under **G
 
 Seqera provides nine pre-built profiles — one per cloud and workload tier:
 
-| Cloud provider | Low | Recommended | High |
-|---|---|---|---|
-| AWS | `fusion_aws_low` | `fusion_aws_recommended` | `fusion_aws_high` |
-| Google Cloud | `fusion_google_low` | `fusion_google_recommended` | `fusion_google_high` |
-| Azure | `fusion_azure_low` | `fusion_azure_recommended` | `fusion_azure_high` |
+| Cloud provider | Low                 | Recommended                 | High                 |
+| -------------- | ------------------- | --------------------------- | -------------------- |
+| AWS            | `fusion_aws_low`    | `fusion_aws_recommended`    | `fusion_aws_high`    |
+| Google Cloud   | `fusion_google_low` | `fusion_google_recommended` | `fusion_google_high` |
+| Azure          | `fusion_azure_low`  | `fusion_azure_recommended`  | `fusion_azure_high`  |
 
 Use these tiers to match the workload you plan to run:
 
@@ -62,11 +62,11 @@ When the run completes, the diagnostic outputs appear in the **Reports** tab of 
 
 The report assigns one of three overall statuses:
 
-| Status | Meaning |
-|---|---|
-| `pass` | All checks passed. The environment meets the thresholds in the selected profile. |
+| Status     | Meaning                                                                                                             |
+| ---------- | ------------------------------------------------------------------------------------------------------------------- |
+| `pass`     | All checks passed. The environment meets the thresholds in the selected profile.                                    |
 | `degraded` | Non-critical checks failed or returned warnings. The environment is usable but may not meet recommended thresholds. |
-| `fail` | One or more critical checks failed. The environment does not meet the requirements for the selected profile. |
+| `fail`     | One or more critical checks failed. The environment does not meet the requirements for the selected profile.        |
 
 :::tip
 If Fusion Doctor reports `fail` or `degraded`, start with the highest-severity recommendations in the report. The HTML output sorts them automatically.
@@ -94,23 +94,23 @@ fusion-doctor \
 
 ##### Flag summary:
 
-| Flag | Purpose |
-|---|---|
-| `--output` | Path to write the JSON report. |
-| `--reference-profile` | Path to a YAML file that defines thresholds to validate against. You can derive one from [`conf/fusion.config`](https://github.com/seqeralabs/nf-canary/blob/master/conf/fusion.config) in nf-canary. |
-| `--check-disk-usage` | Directory to use for disk space validation. Typically `/tmp`. |
-| `--check-bucket-read-write` | Bucket URI to validate with read and write operations. |
-| `--check-bucket-read-only` | Bucket URI to validate with read-only operations. |
-| `--redact` | Mask PII in the report output. |
+| Flag                        | Purpose                                                                                                                                                                                               |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--output`                  | Path to write the JSON report.                                                                                                                                                                        |
+| `--reference-profile`       | Path to a YAML file that defines thresholds to validate against. You can derive one from [`conf/fusion.config`](https://github.com/seqeralabs/nf-canary/blob/master/conf/fusion.config) in nf-canary. |
+| `--check-disk-usage`        | Directory to use for disk space validation. Typically `/tmp`.                                                                                                                                         |
+| `--check-bucket-read-write` | Bucket URI to validate with read and write operations.                                                                                                                                                |
+| `--check-bucket-read-only`  | Bucket URI to validate with read-only operations.                                                                                                                                                     |
+| `--redact`                  | Mask PII in the report output.                                                                                                                                                                        |
 
 ##### Exit codes:
 
-| Exit code | Meaning |
-|---|---|
-| `0` | All checks passed. |
-| `1` | Critical failure. A report is still generated. |
-| `2` | Input or configuration error. Aborts pipeline. |
-| `3` | Warning-only failures. A report is still generated. |
+| Exit code | Meaning                                             |
+| --------- | --------------------------------------------------- |
+| `0`       | All checks passed.                                  |
+| `1`       | Critical failure. A report is still generated.      |
+| `2`       | Input or configuration error. Aborts pipeline.      |
+| `3`       | Warning-only failures. A report is still generated. |
 
 :::note
 Run `fusion-doctor --schema` to print the JSON Schema that describes the report structure. Use this if you are consuming `fusion-report.json` programmatically, for example, to validate reports in a monitoring system. The schema conforms to JSON Schema Draft 2020-12.
@@ -146,4 +146,3 @@ When contacting Seqera support about Fusion Doctor findings, provide the followi
 :::caution[Before sharing externally]
 Enable **Redact PII** in the launch form before generating reports you plan to share outside your organization.
 :::
-
