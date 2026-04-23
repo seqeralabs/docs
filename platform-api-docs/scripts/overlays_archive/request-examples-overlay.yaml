@@ -27,7 +27,7 @@ actions:
                 waveEnabled: "true"
                 fusion2Enabled: "true"
                 nvnmeStorageEnabled: "true"
-        
+
         AwsCloud:
           description: "Minimal AWS Cloud compute environment with default instance type and AMI"
           value:
@@ -39,7 +39,7 @@ actions:
               config:
                 region: "eu-west-2"
                 workDir: "s3://your-bucket/work"
-        
+
         GoogleBatch:
           description: "Minimal Google Cloud Batch compute environment with Wave and Fusion enabled"
           value:
@@ -54,7 +54,7 @@ actions:
                 spot: true
                 waveEnabled: true
                 fusion2Enabled: true
-        
+
         GoogleCloud:
           description: "Minimal Google Cloud compute environment with default instance type and image ID"
           value:
@@ -66,7 +66,7 @@ actions:
               config:
                 region: "europe-west2"
                 workDir: "gs://your-bucket/work"
-        
+
         AzureBatchForge:
           description: "Minimal Azure Batch Forge compute environment with Wave and Fusion enabled"
           value:
@@ -83,7 +83,7 @@ actions:
                   autoScale: true
                 waveEnabled: true
                 fusion2Enabled: true
-        
+
         AwsEks:
           description: "Minimal AWS EKS compute environment with Fusion storage"
           value:
@@ -100,7 +100,7 @@ actions:
                 headServiceAccount: "your-service-account"
                 waveEnabled: "true"
                 fusion2Enabled: "true"
-        
+
         GoogleGke:
           description: "Minimal Google Kubernetes Engine compute environment with Fusion storage"
           value:
@@ -117,7 +117,7 @@ actions:
                 headServiceAccount: "your-service-account"
                 waveEnabled: "true"
                 fusion2Enabled: "true"
-        
+
         Kubernetes:
           description: "Minimal Kubernetes compute environment with persistent volume storage"
           value:
