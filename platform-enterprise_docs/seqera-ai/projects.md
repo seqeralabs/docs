@@ -14,7 +14,7 @@ Projects in Seqera AI group the pipelines, datasets, and workflow runs that belo
 Projects are not created inside Seqera AI. They are derived from **workspace labels in Seqera Platform** whose names start with `project_`. Each matching label surfaces in Seqera AI as a separate project scope, with the Platform label acting as the source of truth for membership.
 
 :::note
-Projects are part of the Seqera AI **portal web interface**. The portal must be deployed alongside Seqera AI in your Enterprise installation — see [Install Seqera AI](../enterprise/install-seqera-ai.md).
+Projects are part of the Seqera AI **portal web interface**. The portal must be deployed alongside Seqera AI in your Enterprise installation. See [Install Seqera AI](../enterprise/install-seqera-ai.md) for more information.
 :::
 
 ## How projects are derived
