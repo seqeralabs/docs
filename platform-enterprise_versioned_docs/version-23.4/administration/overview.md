@@ -23,7 +23,7 @@ The **Organizations** tab lists all the organizations in your account.
 - Select **Add organization** to create a new organization.
 - Select an organization name from the table to edit or delete it.
 
-See [Organizations](../orgs-and-teams/organizations) for more information. 
+See [Organizations](../orgs-and-teams/organizations) for more information.
 
 ## Manage members
 
@@ -31,11 +31,11 @@ From an organization's page, select the **Members of organization** tab to view 
 
 You can only add existing users to an organization. You can't remove the last owner of an organization until you promote another member to **Owner** first.
 
-See [Members](../orgs-and-teams/organizations#members) for more information. 
+See [Members](../orgs-and-teams/organizations#members) for more information.
 
 ## Manage workspaces
 
-The **Workspaces** tab lists all the workspaces in your account. 
+The **Workspaces** tab lists all the workspaces in your account.
 
 - Use the search function to find a workspace by name to view and edit that workspace.
 - Select **Add workspace** to create a new workspace. Choose a workspace name that isn't already in use. If the new workspace name already exists in the system, the creation will fail. After the workspace is created, it's listed in the **Workspaces** tab.
@@ -51,7 +51,7 @@ The **Users** tab lists all the users in your account.
 - Select **Add user** to create a new user. If the new user email already exists in the system, the user creation will fail. After the user is created, inform them that access has been granted.
 - Select a username from the table to edit or delete the user.
 
-See [User roles](../orgs-and-teams/roles) for more information on organization and workspace user access roles. 
+See [User roles](../orgs-and-teams/roles) for more information on organization and workspace user access roles.
 
 ## Manage teams
 
@@ -64,4 +64,4 @@ The **Teams** tab lists all the teams in your account.
 
 From the teams list, you have an overview of the number of members and the unique ID of each team. Select **Edit** to view a team's page, or select the number next to **Members:** to go to the **Members** tab of the team page. From the **Members of team** tab, you can list and search for all users that are members of the selected team, change a user's role, remove a member from the team, or add a new member to the team.
 
-See [Teams](../orgs-and-teams/organizations#teams) for more information. 
+See [Teams](../orgs-and-teams/organizations#teams) for more information.

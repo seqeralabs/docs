@@ -362,7 +362,7 @@ First, you must create a custom role with the permissions required for Seqera to
 
 1. Save the relevant permissions from the preceding sections to a local JSON file. Replace `<SUBSCRIPTION-ID>` in the `assignableScopes` field of each permission with your Azure subscription ID.
 1. In the Azure Portal, go to **Subscriptions** and select your subscription.
-1. To create a custom role, select **Access control (IAM)**, then **Add** in the **Create a custom role** section. 
+1. To create a custom role, select **Access control (IAM)**, then **Add** in the **Create a custom role** section.
 1. Provide the following details:
    - **Custom role name**: e.g., `seqera-azure-cloud`
    - **Description**: e.g., `Role for Seqera Platform to manage Azure Cloud compute environments`
@@ -378,9 +378,9 @@ First, you must create a custom role with the permissions required for Seqera to
 Create an application for Seqera to use for authentication:
 
 1. In the Azure Portal, go to **App registrations** and select **New registration**.
-1. Give the app a descriptive name, such as `SeqeraPlatformApp`. 
+1. Give the app a descriptive name, such as `SeqeraPlatformApp`.
 1. Select `Single tenant` for the supported account types.
-1. Create a client secret for the application. Seqera will use this value to authenticate to Azure, so keep it secret and store it securely. 
+1. Create a client secret for the application. Seqera will use this value to authenticate to Azure, so keep it secret and store it securely.
 1. Under **Certificates & secrets**, select **New client secret** and give it a description such as `SeqeraPlatformSecret`. Set the expiration to a duration that matches your security policy. Select **Add**.
 
 After registration, you'll be taken to the application overview page. Copy and save the following values:
