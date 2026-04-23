@@ -20,9 +20,9 @@ Run Fusion Doctor when you:
 - Troubleshoot Fusion-related task failures and want a structured view of the host environment.
 - Need to attach environment diagnostics to a Seqera support ticket.
 
-## Run diagnostics with nf-canary
+## Run Fusion Doctor with nf-canary
 
-[nf-canary](https://github.com/seqeralabs/nf-canary) is a Nextflow pipeline that runs Fusion Doctor on your compute environment and generates an HTML report. This is the supported path for most users. It does not require direct access to the task container.
+[nf-canary](https://github.com/seqeralabs/nf-canary) is a Nextflow pipeline that runs Fusion Doctor on your compute environment and generates an HTML report. This is the supported path for most users. It does not require direct access to the task container. Fusion Doctor is only possible with nf-canary.
 
 ### Select a validation profile
 
@@ -77,7 +77,7 @@ If Fusion Doctor reports `fail` or `degraded`, start with the highest-severity r
 For support and debugging scenarios, you can invoke Fusion Doctor directly from the `fusion-doctor` container image. Use this path when you have shell access to a host that matches your compute node, or when a Seqera support engineer asks you to run specific checks.
 
 :::caution
-Interactive invocation is not the supported end-user workflow. Use the [nf-canary](#run-diagnostics-with-nf-canary) path above for routine diagnostics. Use the same thresholds as the validation profile so results remain comparable to nf-canary runs.
+Interactive invocation is not a supported end-user workflow. Use the [nf-canary](#run-diagnostics-with-nf-canary) path above for routine diagnostics. Use the same thresholds as the validation profile so results remain comparable to nf-canary runs.
 :::
 
 Pull the container image from `cr.seqera.io/public/fusion/doctor`. A typical invocation uses the same flags as nf-canary:
