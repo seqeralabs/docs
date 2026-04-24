@@ -81,7 +81,7 @@ process {
 
 ### GPU metrics
 
-When [Fusion](https://docs.seqera.io/fusion) is enabled, Seqera Platform automatically collects GPU metrics for tasks that run on GPU instances. No additional configuration is required beyond enabling Fusion and provisioning GPU instances in your compute environment.
+When [Fusion](https://docs.seqera.io/fusion) is enabled, Seqera Platform automatically collects GPU metrics for tasks that run on NVIDIA GPU instances. No additional configuration is required beyond enabling Fusion and provisioning GPU instances in your compute environment.
 
 The following metrics are collected per task:
 
