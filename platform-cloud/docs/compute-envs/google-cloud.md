@@ -9,7 +9,7 @@ tags: [cloud, vm, google, compute environment]
 
 :::note
 This compute environment type is currently in public preview. Consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have a GCP account with a valid subscription.
-::: 
+:::
 
 Many of the current implementations of compute environments for cloud providers rely on the use of batch services such as AWS Batch, Azure Batch, and Google Batch for the execution and management of submitted jobs, including pipelines and Studio session environments. Batch services are suitable for large-scale workloads, but they add management complexity. In practical terms, the currently used batch services result in some limitations:
 
@@ -30,7 +30,7 @@ The Nextflow pipeline will run entirely on a single Google Compute Engine instan
 
 ## Supported locations
 
-The following locations are currently supported: 
+The following locations are currently supported:
 
 - `asia-east1`
 - `asia-east2`
@@ -98,7 +98,7 @@ If your Google Cloud project does not require access restrictions on any of its 
 - **Instance type**: The Compute Engine machine type used by the compute environment. Choosing the instance type will directly allocate the CPU and memory available for computation. See the [machine resource type documentation](https://cloud.google.com/compute/docs/machine-resource) for a comprehensive list of instance types and their resource limitations.
  :::note
  It is not possible to specify instance templates with predefined machine types, storage, bootstrapped, etc.
- :::  
+ :::
 - **Image**: The image defining the operating system and pre-installed software for the VM. Currently only [Ubuntu LTS](https://cloud.google.com/compute/docs/images/os-details#ubuntu_lts) Google public image project images are available and supported. For GPU-enabled instances, a Deep Learning VM base image with CUDA pre-installed is automatically selected (See [Google Deep Learning VM Images](https://cloud.google.com/deep-learning-vm/docs/images#base_versions) for more details). Optimized, Seqera-owned custom images will be available in a future release.
 - **Boot disk size**: The size of the boot disk for the Compute Engine instance. A standard persistent disk (`pd-standard`) is used. If undefined, a default 50 GB volume will be used.
 - **Zone**: The [zone](https://cloud.google.com/compute/docs/regions-zones) within the selected region where the VM will be provisioned (defaults to the first zone in the alphabetical list).

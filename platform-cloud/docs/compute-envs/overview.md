@@ -31,6 +31,12 @@ Each compute environment must be configured to enable Seqera to submit tasks. Se
 
 If you have more than one compute environment, you can select a workspace primary compute environment to be used as the default when launching pipelines in that workspace. In a workspace, select **Compute Environments**. Then select **Make primary** from the options menu next to the compute environment you wish to use as default.
 
+## Rename compute environment
+
+You can edit the names of compute environments in private and organization workspaces. Select **Rename** from the options menu next to the compute environment you wish to edit.
+
+Select **Update** on the edit page to save your changes after you have updated the compute environment name.
+
 ## Disable compute environment
 
 Users with **Admin** or **Owner** [workspace permissions](../orgs-and-teams/roles#workspace-participant-roles) can disable and enable compute environments.
@@ -45,11 +51,9 @@ To disable a compute environment, select **Disable** from the options menu next 
 
 To re-enable a disabled compute environment, select **Enable** from the options menu. Enabled compute environments can run new pipelines and Studio sessions.
 
-## Rename compute environment
+## Delete compute environment
 
-You can edit the names of compute environments in private and organization workspaces. Select **Rename** from the options menu next to the compute environment you wish to edit.
-
-Select **Update** on the edit page to save your changes after you have updated the compute environment name.
+Compute environments can be deleted when they are no longer required. You must delete the compute environment before deleting its associated credentials. If the credentials are deleted first, the compute environment deletion will fail with an error. If this happens, raise a ticket with Support.
 
 ## GPU usage
 

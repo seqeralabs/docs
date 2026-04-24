@@ -157,33 +157,30 @@ Select **Enable Wave containers** to facilitate access to private container repo
 
 Select **Enable Fusion v2** to allow access to your Google Cloud Storage data via the [Fusion v2][fusion-docs] virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system][platform-fusion-docs] for configuration details.
 
-<details>
-  <summary>Use Fusion v2</summary>
+##### Use Fusion v2
 
-  :::note
-  The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB.
-  :::
+:::note
+The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB.
+:::
 
-  1. Use Seqera Platform version 23.1 or later.
-  1. Use a Google Cloud Storage bucket as the work directory.
-  1. Enable **Wave containers** and **Fusion v2**.
-  1. Specify suitable virtual machine types and local storage settings, or accept the default machine settings listed below. An `n2-highmem-16-lssd` VM or larger is recommended for production use.
+1. Use Seqera Platform version 23.1 or later.
+1. Use a Google Cloud Storage bucket as the work directory.
+1. Enable **Wave containers** and **Fusion v2**.
+1. Specify suitable virtual machine types and local storage settings, or accept the default machine settings listed below. An `n2-highmem-16-lssd` VM or larger is recommended for production use.
 
-  :::note
-  To specify virtual machine settings in Platform during compute environment creation, use the **Global Nextflow config** field to apply custom Nextflow process directives to all pipeline runs launched with this compute environment.
+:::note
+To specify virtual machine settings in Platform during compute environment creation, use the **Global Nextflow config** field to apply custom Nextflow process directives to all pipeline runs launched with this compute environment.
 
-  To specify virtual machine settings per pipeline run in Platform, or as a persistent configuration in your Nextflow pipeline repository, use Nextflow process directives. See [Google Cloud Batch process definition](https://docs.seqera.io/nextflow/google#process-definition) for more information.
-  :::
+To specify virtual machine settings per pipeline run in Platform, or as a persistent configuration in your Nextflow pipeline repository, use Nextflow process directives. See [Google Cloud Batch process definition](https://docs.seqera.io/nextflow/google#process-definition) for more information.
+:::
 
-  When Fusion v2 is enabled, the following virtual machine settings are applied:
-  - A 375 GB local NVMe SSD is selected for all compute jobs.
-  - If you do not specify a machine type, a VM from families that support local SSDs is selected.
-  - Any machine types you specify in the Nextflow config must support local SSDs.
-  - Local SSDs are only offered in multiples of 375 GB. You can increment the number of SSDs used per process with the `disk` directive to request multiples of 375 GB. To work with files larger than 100 GB, use at least two SSDs (750 GB or more).
-  - Fusion v2 can also use persistent disks for caching. Override the disk requested by Fusion using the `disk` directive and the `type: pd-standard`.
-  - The `machineType` directive can be used to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
-
-</details>
+When Fusion v2 is enabled, the following virtual machine settings are applied:
+- A 375 GB local NVMe SSD is selected for all compute jobs.
+- If you do not specify a machine type, a VM from families that support local SSDs is selected.
+- Any machine types you specify in the Nextflow config must support local SSDs.
+- Local SSDs are only offered in multiples of 375 GB. You can increment the number of SSDs used per process with the `disk` directive to request multiples of 375 GB. To work with files larger than 100 GB, use at least two SSDs (750 GB or more).
+- Fusion v2 can also use persistent disks for caching. Override the disk requested by Fusion using the `disk` directive and the `type: pd-standard`.
+- The `machineType` directive can be used to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
 
 :::note
 Wave containers and Fusion v2 are recommended features for added capability and improved performance, but neither are required to execute workflows in your compute environment.
