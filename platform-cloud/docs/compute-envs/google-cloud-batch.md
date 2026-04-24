@@ -87,7 +87,6 @@ The Service Account used by your Nextflow Pipeline requires some combination of 
 
 - Grant on **publishDir bucket if different than work-dir bucket**:
     - `roles/storage.objectUser`
-    - `roles/storage.bucketViewer`
 
 
 **Fusion-based pipelines**
@@ -101,7 +100,6 @@ The Service Account used by your Nextflow Pipeline requires some combination of 
 
 - Grant on **publishDir bucket if different than work-dir bucket**:
     - `roles/storage.objectUser`
-    - `roles/storage.bucketViewer`
 
 
 **Shortcut: project-level Storage Admin**
