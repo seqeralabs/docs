@@ -54,9 +54,34 @@ Seqera requires a service account with appropriate permissions to interact with 
 By default, Google Cloud Batch uses the default Compute Engine service account to submit jobs. This service account is granted the Editor (`roles/Editor`) role. While this service account has the necessary permissions needed by Seqera, this role is not recommended for production environments. Control job access using a custom service account with only the permissions necessary for Seqera to execute Batch jobs instead.
 :::
 
-#### Service account permissions
+#### Seqera Platform Service Account Permissions (mandatory)
+Create a GCP service account for Seqera Platform to use when executing operations against your GCP Project.
 
-[Create a custom service account][create-sa] with at least the following permissions:
+##### Core Permissions
+- Batch Agent Reporter (`roles/batch.agentReporter`) on the project
+- Batch Job Editor (`roles/batch.jobsEditor`) on the project
+- Logs Writer (`roles/logging.logWriter`) on the project (to let jobs generate logs in Cloud Logging)
+- Logs Viewer (`roles/logging.logViewer`) on the project (to view and retrieve logs from Cloud Logging)
+- Service Account User (`roles/iam.serviceAccountUser`)
+
+##### Storage Permissions
+TODO: Figure out with @schaluva. Considerations:
+1. Minimum permissions for Platform to handle pipeline operations.
+2. Studios. Preliminary suggestion:
+    - `roles/storage.objectUser` for read/write.
+    - `roles/storage.objectViewer` for read-only.
+
+**Shortcut: project-level Storage Admin**
+
+Granting `roles/storage.admin` at the **project** level covers everything
+above and significantly simplifies setup. The tradeoff is a looser security
+posture — the Service Account can then touch any bucket in the project,
+including buckets unrelated to the pipeline. Confirm this is acceptable
+under your organization's security directives before using it.
+
+
+#### Custom Nextflow Service Account permissions (optional)
+Create a GCP service account for the Nextflow pipeline to use rather than the default Compute Engine service account.
 
 ##### Core Permissions
 - Batch Agent Reporter (`roles/batch.agentReporter`) on the project
