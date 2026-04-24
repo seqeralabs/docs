@@ -72,50 +72,6 @@ The report assigns one of three overall statuses:
 If Fusion Doctor reports `fail` or `degraded`, start with the highest-severity recommendations in the report. The HTML output sorts them automatically.
 :::
 
-## Run diagnostics interactively
-
-For support and debugging scenarios, you can invoke Fusion Doctor directly from the `fusion-doctor` container image. Use this path when you have shell access to a host that matches your compute node, or when a Seqera support engineer asks you to run specific checks.
-
-:::caution
-Interactive invocation is not a supported end-user workflow. Use the [nf-canary](#run-fusion-doctor-with-nf-canary) path above for routine diagnostics. Use the same thresholds as the validation profile so results remain comparable to nf-canary runs.
-:::
-
-Pull the container image from `cr.seqera.io/public/fusion/doctor`. A typical invocation uses the same flags as nf-canary:
-
-```bash
-fusion-doctor \
-    --output fusion-doctor-report.json \
-    --reference-profile fusion-reference-profile.yaml \
-    --check-disk-usage /tmp \
-    --check-bucket-read-write s3://my-work-bucket \
-    --check-bucket-read-only s3://my-data-bucket \
-    --redact
-```
-
-##### Flag summary:
-
-| Flag                        | Purpose                                                                                                                                                                                               |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--output`                  | Path to write the JSON report.                                                                                                                                                                        |
-| `--reference-profile`       | Path to a YAML file that defines thresholds to validate against. You can derive one from [`conf/fusion.config`](https://github.com/seqeralabs/nf-canary/blob/master/conf/fusion.config) in nf-canary. |
-| `--check-disk-usage`        | Directory to use for disk space validation. Typically `/tmp`.                                                                                                                                         |
-| `--check-bucket-read-write` | Bucket URI to validate with read and write operations.                                                                                                                                                |
-| `--check-bucket-read-only`  | Bucket URI to validate with read-only operations.                                                                                                                                                     |
-| `--redact`                  | Mask PII in the report output.                                                                                                                                                                        |
-
-##### Exit codes:
-
-| Exit code | Meaning                                             |
-| --------- | --------------------------------------------------- |
-| `0`       | All checks passed.                                  |
-| `1`       | Critical failure. A report is still generated.      |
-| `2`       | Input or configuration error. Aborts pipeline.      |
-| `3`       | Warning-only failures. A report is still generated. |
-
-:::note
-Run `fusion-doctor --schema` to print the JSON Schema that describes the report structure. Use this if you are consuming `fusion-report.json` programmatically, for example, to validate reports in a monitoring system. The schema conforms to JSON Schema Draft 2020-12.
-:::
-
 ## Getting help
 
 When contacting Seqera support about Fusion Doctor findings, provide the following:
