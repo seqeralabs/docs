@@ -136,7 +136,6 @@ To use [Fusion v2](https://docs.seqera.io/fusion) in your Seqera GKE compute env
 
     - Grant on **publishDir bucket if different than work-dir bucket**:
         - `roles/storage.objectUser`
-        - `roles/storage.bucketViewer`
 
 1. Allow the Kubernetes service account to impersonate the IAM service account:
     ```shell
