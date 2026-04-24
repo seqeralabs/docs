@@ -50,6 +50,11 @@ In the launch form, open the **Fusion Filesystem Options** section and set:
 
 - **Enable Fusion diagnostics**: Toggle on to run Fusion Doctor as part of the pipeline.
 - **Redact PII**: Toggle on to mask bucket names, instance IDs, and home paths in the report. Enable this when sharing reports externally.
+
+   :::note
+   Redaction hides infrastructure details that may help diagnose issues.
+   :::
+
 - **Read-only buckets**: Comma-separated list of bucket URIs to validate with read-only checks (e.g., `s3://reference-data,gs://shared-files`).
 - **Read-write buckets**: Comma-separated list of bucket URIs to validate with read-write checks. The pipeline's work directory bucket is always appended automatically.
 
