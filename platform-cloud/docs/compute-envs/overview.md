@@ -106,7 +106,7 @@ For tasks that use multiple GPUs, metrics are aggregated (average or peak across
   ![GPU memory peak](./_images/gpu-metrics-memory-peak.png)
 
   ![GPU memory average](./_images/gpu-metrics-memory-average.png)
-- **Platform API**: GPU metrics are included in task and workflow API responses for programmatic access.
+- **Platform API**: GPU metrics are included in [task](https://docs.seqera.io/platform-api/describe-workflow-task) and [workflow](https://docs.seqera.io/platform-api/list-workflow-tasks) API responses for programmatic access.
 
 :::note
 GPU metrics are only available for tasks that run with Fusion enabled on NVIDIA GPU instances. Non-GPU tasks do not display a GPU metrics section. For tasks that fail mid-execution, partial metrics collected up to the point of failure are shown.
