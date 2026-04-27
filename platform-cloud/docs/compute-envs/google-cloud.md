@@ -79,6 +79,10 @@ To create and launch pipelines or Studio sessions with this compute environment 
 
 ### Required permissions
 
+:::tip Canonical reference moved
+Service account permissions for the Google Cloud compute environment are now consolidated in [Google Cloud integration > IAM](/platform-cloud/integrations/cloud-providers/google/iam). The same content remains here for now and will be removed in a future release.
+:::
+
 #### Service account permissions​
 
 [Create a custom service account](https://cloud.google.com/iam/docs/service-accounts-create#creating) with at least the following permissions:

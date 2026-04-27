@@ -6,6 +6,10 @@ last updated: "2025-10-21"
 tags: [azure, registry, credentials]
 ---
 
+:::info This page has moved
+Documentation for this credential type now lives at [/platform-cloud/integrations/container-registries/azure](/platform-cloud/integrations/container-registries/azure). The old URL is preserved during the migration but will be removed in a future release. Update your bookmarks.
+:::
+
 Azure Container Registry credentials allow the Wave container service to authenticate and pull container images from your private Azure registries. Azure uses Role-Based Access Control (RBAC) to manage registry access.
 
 :::note

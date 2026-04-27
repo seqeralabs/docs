@@ -60,6 +60,10 @@ The following regions are currently supported:
 
 ## Required Platform IAM permissions
 
+:::tip Canonical reference moved
+The IAM permissions, IAM user/role creation steps, and credential options for AWS Cloud are now consolidated in [AWS integration > IAM policies](/platform-cloud/integrations/cloud-providers/aws/iam-policies) (select the **AWS Cloud** tab) and [AWS integration > Credentials](/platform-cloud/integrations/cloud-providers/aws/credentials). The same content remains here for now and will be removed in a future release.
+:::
+
 To create and launch pipelines, explore buckets with Data Explorer or run Studio sessions with the AWS Cloud compute environment, an IAM user with specific permissions must be provided. Some permissions are mandatory for the compute environment to be created and function correctly, while others are optional and used for example to provide list of values to pick from in the Platform UI.
 
 Permissions can be attached directly to an [IAM user](#iam-user-creation), or to an [IAM role](#iam-role-creation-optional) that the IAM user can assume when accessing AWS resources.

@@ -69,6 +69,10 @@ Make sure the [Lustre client](https://docs.aws.amazon.com/fsx/latest/LustreGuide
 
 ## Required Platform IAM permissions
 
+:::tip Canonical reference moved
+The IAM permissions, IAM user/role creation steps, and credential options for AWS Batch are now consolidated in [AWS integration > IAM policies](/platform-cloud/integrations/cloud-providers/aws/iam-policies) and [AWS integration > Credentials](/platform-cloud/integrations/cloud-providers/aws/credentials). The same content remains here for now and will be removed in a future release.
+:::
+
 To create and launch pipelines, explore buckets with Data Explorer or run Studio sessions with the AWS Batch compute environment, an IAM user with specific permissions must be provided. Some permissions are mandatory for the compute environment to be created and function correctly, while others are optional and used for example to provide list of values to pick from in the Platform UI.
 
 Permissions can be attached directly to an [IAM user](#iam-user-creation), or to an [IAM role](#iam-role-creation-optional) that the IAM user can assume when accessing AWS resources.
@@ -741,7 +745,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
 1. Select **AWS Batch** as the target platform.
 1. From the **Credentials** drop-down, select existing AWS credentials, or select **+** to add new credentials. If you're using existing credentials, skip to step 9.
     :::note
-    You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview).
+    You can create multiple credentials in your Seqera environment. See [Credentials](/platform-cloud/integrations/overview).
     :::
 1. Enter a name, e.g., _AWS Credentials_.
 1. Under **AWS credential mode**, select **Keys** or **Role**.
@@ -981,7 +985,7 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
 1. Select **AWS Batch** as the target platform.
 1. From the **Credentials** drop-down, select existing AWS credentials, or select **+** to add new credentials. If you're using existing credentials, skip to step 9.
     :::note
-    You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview).
+    You can create multiple credentials in your Seqera environment. See [Credentials](/platform-cloud/integrations/overview).
     :::
 1. Enter a name, e.g., _AWS Credentials_.
 1. Under **AWS credential mode**, select **Keys** or **Role**.

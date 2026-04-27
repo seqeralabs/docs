@@ -6,6 +6,10 @@ last updated: "2025-10-21"
 tags: [ssh, credentials]
 ---
 
+:::info This page has moved
+Documentation for this credential type now lives at [/platform-cloud/integrations/identity/ssh-credentials](/platform-cloud/integrations/identity/ssh-credentials). The old URL is preserved during the migration but will be removed in a future release. Update your bookmarks.
+:::
+
 SSH public key authentication relies on asymmetric cryptography to generate a public and private key pair. The public key remains on the target (remote) machine, while the private key (and passphrase) is stored in Seqera Platform as a credential. The key pair is used to authenticate a connection with your SSH-enabled environment.
 
 To preserve individual user identities by using multiple user SSH credentials to access your HPC compute environments, see [Managed identities](./managed_identities).
