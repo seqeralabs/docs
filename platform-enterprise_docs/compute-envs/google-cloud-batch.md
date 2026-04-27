@@ -198,7 +198,7 @@ When you specify a Cloud Storage bucket as your work directory, this bucket is u
 
 Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers](https://docs.seqera.io/nextflow/wave) for more information.
 
-Select **Enable Fusion v2** to allow access to your Google Cloud Storage data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](https://docs.seqera.io/platform-enterprise/supported_software/fusion/overview) for configuration details.
+Select **Enable Fusion v2** to allow access to your Google Cloud Storage data via the [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/overview) for configuration details.
 
 Use Fusion v2
 
