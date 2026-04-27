@@ -1,0 +1,1 @@
+{"title":"Body","body":{"content":{"application/json":{"schema":{"properties":{"url":{"type":"string","description":"HTTP or HTTPS URL to validate. Maximum length is 2048 characters."}},"type":"object","title":"ValidateUrlRequest"}}},"description":"URL validation request","required":true}}
