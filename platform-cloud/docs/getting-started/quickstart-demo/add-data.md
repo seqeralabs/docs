@@ -17,7 +17,7 @@ For pipeline runs in the cloud, users typically need access to buckets or blob s
 
 ### Add a cloud bucket
 
-Private cloud storage buckets accessible by the [credentials](../../credentials/overview) in your workspace are added to Data Explorer automatically by default. However, you can also add custom directory paths within buckets to your workspace to simplify direct access.
+Private cloud storage buckets accessible by the [credentials](/platform-cloud/integrations/overview) in your workspace are added to Data Explorer automatically by default. However, you can also add custom directory paths within buckets to your workspace to simplify direct access.
 
 To add individual buckets (or directory paths within buckets):
 

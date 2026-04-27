@@ -125,35 +125,6 @@
       },
       {
         "type": "category",
-        "label": "Credentials (legacy)",
-        "collapsed": true,
-        "items": [
-          "credentials/overview",
-          "git/overview",
-          {
-            "type": "category",
-            "label": "Container registry credentials",
-            "link": {"type": "doc", "id": "credentials/container_registry_credentials"},
-            "collapsed": true,
-            "items": [
-              "credentials/aws_registry_credentials",
-              "credentials/azure_registry_credentials",
-              "credentials/docker_hub_registry_credentials",
-              "credentials/gitea_registry_credentials",
-              "credentials/github_registry_credentials",
-              "credentials/gitlab_registry_credentials",
-              "credentials/google_registry_credentials",
-              "credentials/quay_registry_credentials"
-            ]
-          },
-          "credentials/data_repositories",
-          "credentials/managed_identities",
-          "credentials/ssh_credentials",
-          "credentials/agent_credentials"
-        ]
-      },
-      {
-        "type": "category",
         "label": "Compute",
         "items": [
           "compute-envs/overview",
@@ -178,15 +149,7 @@
           "resource-labels/overview",
           "supported_software/fusion/overview",
           "supported_software/agent/overview",
-          "supported_software/dragen/overview",
-          {
-            "type": "category",
-            "label": "Advanced options",
-            "items":[
-              "enterprise/advanced-topics/manual-aws-batch-setup",
-              "enterprise/advanced-topics/manual-azure-batch-setup"
-            ]
-          }
+          "supported_software/dragen/overview"
           ]
       },
       {

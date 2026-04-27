@@ -22,7 +22,7 @@ Data Explorer lists public and private data repositories. Repositories accessibl
 
 - **Retrieve data repositories with workspace credentials**
 
-  Private data repositories accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The permissions required for your [AWS](../compute-envs/aws-batch#required-platform-iam-permissions), [Google Cloud](../compute-envs/google-cloud-batch#iam), [Azure Batch](../compute-envs/azure-batch#storage-account), or Amazon S3-compatible API storage: credentials allow full Data Explorer functionality.
+  Private data repositories accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The permissions required for your [AWS](/platform-cloud/integrations/cloud-providers/aws/iam-policies), [Google Cloud](/platform-cloud/integrations/cloud-providers/google/iam), [Azure](/platform-cloud/integrations/cloud-providers/azure/storage-access), or Amazon S3-compatible API storage: credentials allow full Data Explorer functionality.
 
 - **Configure individual data repositories manually**
 

@@ -272,6 +272,31 @@ export default async function createConfigAsync() {
       ],
     ],
     plugins: [
+      [
+        '@docusaurus/plugin-client-redirects',
+        {
+          redirects: [
+            // Platform Cloud Integrations migration (Phase 3)
+            { from: '/platform-cloud/credentials/overview', to: '/platform-cloud/integrations/overview' },
+            { from: '/platform-cloud/credentials/data_repositories', to: '/platform-cloud/integrations/data-sources/overview' },
+            { from: '/platform-cloud/credentials/managed_identities', to: '/platform-cloud/integrations/identity/managed-identities' },
+            { from: '/platform-cloud/credentials/ssh_credentials', to: '/platform-cloud/integrations/identity/ssh-credentials' },
+            { from: '/platform-cloud/credentials/agent_credentials', to: '/platform-cloud/integrations/agent/credentials' },
+            { from: '/platform-cloud/credentials/container_registry_credentials', to: '/platform-cloud/integrations/container-registries/overview' },
+            { from: '/platform-cloud/credentials/aws_registry_credentials', to: '/platform-cloud/integrations/container-registries/aws' },
+            { from: '/platform-cloud/credentials/azure_registry_credentials', to: '/platform-cloud/integrations/container-registries/azure' },
+            { from: '/platform-cloud/credentials/docker_hub_registry_credentials', to: '/platform-cloud/integrations/container-registries/docker-hub' },
+            { from: '/platform-cloud/credentials/gitea_registry_credentials', to: '/platform-cloud/integrations/container-registries/gitea' },
+            { from: '/platform-cloud/credentials/github_registry_credentials', to: '/platform-cloud/integrations/container-registries/github' },
+            { from: '/platform-cloud/credentials/gitlab_registry_credentials', to: '/platform-cloud/integrations/container-registries/gitlab' },
+            { from: '/platform-cloud/credentials/google_registry_credentials', to: '/platform-cloud/integrations/container-registries/google' },
+            { from: '/platform-cloud/credentials/quay_registry_credentials', to: '/platform-cloud/integrations/container-registries/quay' },
+            { from: '/platform-cloud/git/overview', to: '/platform-cloud/integrations/git-providers/overview' },
+            { from: '/platform-cloud/enterprise/advanced-topics/manual-aws-batch-setup', to: '/platform-cloud/integrations/cloud-providers/aws/manual-setup' },
+            { from: '/platform-cloud/enterprise/advanced-topics/manual-azure-batch-setup', to: '/platform-cloud/integrations/cloud-providers/azure/manual-setup' },
+          ],
+        },
+      ],
       process.env.EXCLUDE_PLATFORM_ENTERPRISE ? null : docs_platform_enterprise,
       process.env.EXCLUDE_PLATFORM_CLOUD ? null : docs_platform_cloud,
       process.env.EXCLUDE_PLATFORM_API ? null : docs_platform_api,

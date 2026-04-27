@@ -11,7 +11,7 @@ Seqera Platform offers native support for GKE clusters to streamline the deploym
 
 ## Requirements
 
-See [here](../compute-envs/google-cloud-batch#configure-google-cloud) for instructions to set up your Google Cloud account and other services (such as Cloud storage).
+See [Google Cloud integration](/platform-cloud/integrations/cloud-providers/google/overview) for instructions to set up your Google Cloud account and other services (such as Cloud storage).
 
 You must have a GKE cluster up and running. Follow the [cluster preparation](../compute-envs/k8s#cluster-preparation) instructions to create the resources required by Seqera. In addition to the generic Kubernetes instructions, you must make a number of modifications specific to GKE.
 

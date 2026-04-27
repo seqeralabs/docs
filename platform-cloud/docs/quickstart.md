@@ -20,7 +20,7 @@ When you first log in after verifying your email, Seqera automatically creates a
 
 Seqera provisions four types of resources to get you started:
 - A [Seqera Compute environment](./compute-envs/seqera-compute.md) with $100 in free credits
-- [Credentials](./credentials/overview.md) used by your compute environment to create and manage cloud resources on your behalf
+- [Credentials](/platform-cloud/integrations/overview) used by your compute environment to create and manage cloud resources on your behalf
 - A cloud storage bucket in [Data Explorer](./data/data-explorer.md)
 - Pre-configured nf-core pipelines, ready to launch
 

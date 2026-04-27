@@ -9,390 +9,36 @@ tags: [eks, amazon, compute environment, ce]
 
 ## Requirements
 
-- Seqera Platform needs an IAM User to obtain details about the EKS cluster, and to fetch log files from the S3 bucket, if one is used as work directory. This user must have the permissions detailed in the [Required Platform IAM permissions](#required-platform-iam-permissions) section. Optionally, permissions can instead be granted to an IAM role that the IAM user can assume when accessing AWS resources.
+- Seqera Platform needs an IAM User to obtain details about the EKS cluster, and to fetch log files from the S3 bucket, if one is used as work directory. This user must have the permissions detailed in the [AWS IAM policies](/platform-cloud/integrations/cloud-providers/aws/iam-policies) reference (select the **Amazon EKS** tab). Optionally, permissions can instead be granted to an IAM role that the IAM user can assume when accessing AWS resources.
 
-- To use Fusion (recommended) to access data hosted on S3, including writing files to the Nextflow work directory, you need an IAM role that allows the EKS Service Account that Seqera pods use to interact with AWS resources. Refer to section [Configure EKS Service Account IAM role for Fusion v2](#configure-eks-service-account-iam-role-for-fusion-v2) for details.
+- To use Fusion (recommended) to access data hosted on S3, including writing files to the Nextflow work directory, you need an IAM role that allows the EKS Service Account that Seqera pods use to interact with AWS resources. Refer to section [Configure EKS Service Account IAM role for Fusion v2](/platform-cloud/integrations/cloud-providers/aws/eks-additions#configure-eks-service-account-iam-role-for-fusion-v2) for details.
 Create a separate IAM role from the optional one assumed by the IAM user to separate the permissions needed by the EKS Service Account from those needed by the IAM user. If you plan to use legacy storage instead of Fusion, you can skip this step.
 
 :::tip
-Seqera Platform assumes an EKS cluster already exists. Follow the [cluster preparation](./k8s) instructions to create the resources required by Seqera. Some administrative privileges are also needed to allow the IAM User to access the cluster, as detailed in the [EKS access](#allow-an-iam-user-or-role-access-to-eks) section.
+Seqera Platform assumes an EKS cluster already exists. Follow the [cluster preparation](./k8s) instructions to create the resources required by Seqera. Some administrative privileges are also needed to allow the IAM User to access the cluster, as detailed in the [EKS access](/platform-cloud/integrations/cloud-providers/aws/eks-additions#allow-an-iam-user-or-role-access-to-eks) section.
 :::
 
 Once you meet all the prerequisites, configure an [Amazon EKS Compute Environment](#amazon-eks-compute-environment) in Seqera.
 
-## Required Platform IAM permissions
-
-:::tip Canonical reference moved
-The IAM permissions, IAM user/role creation, and EKS-specific setup (Service Account IAM role for Fusion v2, `aws-auth` ConfigMap) are now consolidated in [AWS integration > IAM policies](/platform-cloud/integrations/cloud-providers/aws/iam-policies) (select the **Amazon EKS** tab), [AWS integration > Credentials](/platform-cloud/integrations/cloud-providers/aws/credentials), and [AWS integration > EKS additions](/platform-cloud/integrations/cloud-providers/aws/eks-additions). The same content remains here for now and will be removed in a future release.
-:::
-
-Seqera Platform requires an IAM user with specific permissions to launch pipelines, explore buckets with Data Explorer, and run Studio sessions on the AWS EKS compute environment. Some permissions are mandatory for the compute environment to function correctly, while others are optional and enable features like populating dropdown lists in the Platform UI.
-
-Attach permissions directly to an [IAM user](#iam-user-creation), or to an [IAM role](#iam-role-creation-optional) that the IAM user can assume.
-
-A permissive and broad policy with all the required permissions is provided here for a quick start. However, we recommend following the principle of least privilege and only granting the necessary permissions for your use case, as shown in the following sections.
-
-<details>
-<summary>Full permissive policy (for reference)</summary>
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "EKSClusterAccessCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "eks:DescribeCluster",
-        "eks:ListClusters"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "OptionalS3PlatformDataAccessCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "s3:Get*",
-        "s3:List*",
-        "s3:PutObject",
-        "s3:PutObjectTagging",
-        "s3:DeleteObject"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-```
-
-</details>
-
-### EKS cluster access
-
-Seqera needs permissions to list EKS clusters in the selected region and to describe the selected cluster to retrieve its connection details. The `eks:ListClusters` action cannot be restricted to specific resources, but the `eks:DescribeCluster` action can be restricted to the specific cluster used as compute environment.
-
-```json
-{
-  "Sid": "EKSClusterListing",
-  "Effect": "Allow",
-  "Action": [
-    "eks:ListClusters"
-  ],
-  "Resource": "*"
-},
-{
-  "Sid": "EKSClusterDescription",
-  "Effect": "Allow",
-  "Action": [
-    "eks:DescribeCluster"
-  ],
-  "Resource": "arn:aws:eks:<REGION>:<ACCOUNT_ID>:cluster/<CLUSTER_NAME>"
-}
-```
-
-No other permissions are required for the IAM user to launch pipelines on the EKS compute environment, as the Service Account created in the [cluster preparation](./k8s) phase performs the actual management of pods and resources, which the IAM user can access via EKS authentication, detailed [in the EKS access section below](#allow-an-iam-user-or-role-access-to-eks).
-
-### S3 access (optional)
-
-Seqera automatically attempts to fetch a list of S3 buckets available in the AWS account connected to Platform, to provide them in a drop-down menu to be used as Nextflow working directory, and make the compute environment creation smoother. This feature is optional, and users can type the bucket name manually when setting up a compute environment. To allow Seqera to fetch the list of buckets in the account, the `s3:ListAllMyBuckets` action can be added, and it must have the `Resource` field set to `*`.
-
-Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](../studios/overview) and [Data Explorer](../data/data-explorer); if these features are not needed the related permissions can be omitted.
-
-The IAM policy can be scoped down to only allow limited read/write permissions in certain S3 buckets used by Studios/Data Explorer. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory. We also recommend granting the `s3:GetObject` permission on the work directory path to fetch Nextflow log files.
-
-:::note
-If you opted to create a separate S3 bucket only for Nextflow work directories, the IAM user or the Role it assumes only need read access to it. The IAM role used by the EKS Service Account (detailed in the [separate section](#configure-eks-service-account-iam-role-for-fusion-v2)) must have full read/write access to the work directory bucket to allow Fusion to operate correctly.
-:::
-
-```json
-{
-  "Sid": "S3CheckBucketWorkDirectory",
-  "Effect": "Allow",
-  "Action": [
-    "s3:ListBucket"
-  ],
-  "Resource": [
-    "arn:aws:s3:::example-bucket-used-as-work-directory"
-  ]
-},
-{
-  "Sid": "S3ReadOnlyNextflowLogFiles",
-  "Effect": "Allow",
-  "Action": [
-    "s3:GetObject"
-  ],
-  "Resource": [
-    "arn:aws:s3:::example-bucket-used-as-work-directory/path/to/work/directory/*"
-  ]
-},
-{
-  "Sid": "S3ReadWriteBucketsForStudiosDataExplorer",
-  "Effect": "Allow",
-  "Action": [
-    "s3:Get*",
-    "s3:List*",
-    "s3:PutObject"
-  ],
-  "Resource": [
-    "arn:aws:s3:::example-bucket-read-write-studios",
-    "arn:aws:s3:::example-bucket-read-write-studios/*",
-    "arn:aws:s3:::example-bucket-read-write-data-explorer",
-    "arn:aws:s3:::example-bucket-read-write-data-explorer/*"
-  ]
-}
-```
-
-## Create the IAM policy
-
-The policy above must be created in the AWS account where the EKS and S3 resources are located.
-
-1. Open the [AWS IAM console](https://console.aws.amazon.com/iam).
-1. From the left navigation menu, select **Policies** under **Access management**.
-1. Select **Create policy**.
-1. On the **Policy editor** section, select the **JSON** tab.
-1. Following the instructions detailed in the [IAM permissions breakdown section](#required-platform-iam-permissions) replace the default text in the policy editor area under the **JSON** tab with a policy adapted to your use case, then select **Next**.
-1. Enter a name and description for the policy on the **Review and create** page, then select **Create policy**.
-
-## IAM user creation
-
-Seqera requires an Identity and Access Management (IAM) User to describe EKS clusters and S3 buckets in your AWS account. We recommend creating a separate IAM policy rather an IAM User inline policy, as the latter only allows 2048 characters, which may not be sufficient for all the required permissions.
-
-In certain scenarios, for example when multiple users need to access the same AWS account, an IAM role with the required permissions can be created instead, and the IAM user allowed to assume the role, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section.
-
-### Create an IAM user
-
-1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Users** in the left navigation menu, then select **Create User** at the top right of the page.
-1. Enter a name for your user (e.g., _seqera_) and select **Next**.
-1. Under **Permission options**, select **Attach policies directly**, then search for and select the policy created above, and select **Next**.
-   * If you instead prefer to make the IAM user assume a role to manage AWS resources (see the [IAM role creation (optional)](#iam-role-creation-optional) section), create a policy with the following content (edit the AWS principal with the ARN of the role created) and attach it to the IAM user:
-
-   ```json
-   {
-     "Sid": "AssumeRole",
-     "Effect": "Allow",
-     "Action": "sts:AssumeRole",
-     "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/<IAM_ROLE_NAME>",
-     "Condition": {
-       "StringEquals": {
-         "sts:ExternalId": "<EXTERNAL_ID>"
-       }
-     }
-   }
-   ```
-1. On the last page, review the user details and select **Create user**.
-
-The user has now been created. For more details see the [AWS documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html).
-
-### Obtain IAM user credentials
-
-To get the credentials needed to connect Seqera to your AWS account, follow these steps:
-
-1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Users** in the left navigation menu, then select the newly created user from the users table.
-1. Select the **Security credentials** tab, then select **Create access key** under the **Access keys** section.
-1. In the **Use case** dialog that appears, select **Command line interface (CLI)**, then tick the confirmation checkbox at the bottom to acknowledge that you want to proceed creating an access key, and select **Next**.
-1. Optionally provide a description for the access key, like the reason for creating it, then select **Create access key**.
-1. Save the **Access key** and **Secret access key** in a secure location as they are needed when configuring credentials in Seqera.
-
-## IAM role creation (optional)
-
-Rather than attaching permissions directly to the IAM user, you can create an IAM role with the required permissions and allow the IAM user to assume that role when accessing AWS resources. This is useful when multiple IAM users are used to access the same AWS account: this way the actual permissions to operate on the resources are only granted to a single centralized role.
-
-1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Roles** in the left navigation menu, then select **Create role** at the top right of the page.
-1. Select **Custom trust policy** as the type of trusted entity, provide the following policy and edit the AWS principal with the ARN of the IAM user created in the [IAM user creation](#iam-user-creation) section, then select **Next**.
-
-   ```json
-   {
-     "Version": "2012-10-17",
-     "Statement": [
-       {
-         "Effect": "Allow",
-         "Principal": {
-           "AWS": [
-              "arn:aws:iam::<ACCOUNT_ID>:user/<IAM_USER_NAME>"
-            ]
-         },
-         "Action": "sts:AssumeRole",
-         "Condition": {
-           "StringEquals": {
-             "sts:ExternalId": "<EXTERNAL_ID>"
-           }
-         }
-       },
-       {
-         "Effect": "Allow",
-         "Principal": {
-           "AWS": [
-              "arn:aws:iam::<ACCOUNT_ID>:user/<IAM_USER_NAME>"
-            ]
-         },
-         "Action": "sts:TagSession"
-       }
-     ]
-   }
-   ```
-
-1. On the **Permissions** page, search for and select the policy created in the [IAM user creation](#iam-user-creation) section, then select **Next**.
-1. Give the role a name and optionally a description, review the details of the role, optionally provide tags to help you identify the role, then select **Create role**.
-
-Multiple users can be specified in the trust policy by adding more ARNs to the `Principal` section.
-
-:::note
-Seqera Platform generates the `External ID` value during AWS credential creation. For role-based credentials, use this exact value in your IAM trust policy (`sts:ExternalId`).
-:::
-
-### Role-based trust policy example (Seqera Cloud)
-
-For role-based AWS credentials in Seqera Cloud, allow the Seqera Cloud access role `arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole` in your trust policy and enforce the `External ID` generated during credential creation:
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole"
-      },
-      "Action": "sts:AssumeRole",
-      "Condition": {
-        "StringEquals": {
-          "sts:ExternalId": "<ExternalId>"
-        }
-      }
-    },
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole"
-      },
-      "Action": "sts:TagSession"
-    }
-  ]
-}
-```
-
-## AWS credential options
-
-AWS credentials can be configured in two ways:
-
-- **Key-based credentials**: Access key and secret key with direct IAM permissions. If you provide a role ARN in **Assume role**, the **Generate External ID** switch is displayed and External ID generation is optional.
-- **Role-based credentials (recommended)**: Use role assumption only (no static keys). Paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. External ID is generated automatically when you save.
-
-Use the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. This field is available for both key-based and role-based credentials. It is optional for key-based credentials and required for role-based credentials.
-
-Existing credentials created before March 2026 continue to work without changes.
-
-## Configure EKS Service Account IAM role for Fusion v2
-
-To use [Fusion v2](https://docs.seqera.io/fusion) in your Amazon EKS compute environment, an AWS S3 bucket must be used as work directory and both the head and compute Service Accounts (if separate) must have access to the S3 bucket specified as the work directory.
-
-If you do not plan to use Fusion in favor of legacy storage, you can skip this section.
-
-1. Create an IAM role with the following permissions:
-
-   ```json
-   {
-     "Version": "2012-10-17",
-     "Statement": [
-       {
-         "Effect": "Allow",
-         "Action": [
-           "s3:ListBucket"
-         ],
-         "Resource": [
-           "arn:aws:s3:::<YOUR-BUCKET>"
-         ]
-       },
-       {
-         "Action": [
-           "s3:GetObject",
-           "s3:PutObject",
-           "s3:PutObjectTagging",
-           "s3:DeleteObject"
-         ],
-         "Resource": [
-           "arn:aws:s3:::<YOUR-BUCKET>/*"
-         ],
-         "Effect": "Allow"
-       }
-     ]
-   }
-   ```
-
-   Replace `<YOUR-BUCKET>` with the bucket name used as work directory.
-
-1. The IAM role must also have a trust relationship with the Kubernetes service account (or accounts) that Seqera uses to manage the EKS cluster, which is `tower-launcher-sa` in the default configuration.:
-
-   ```json
-   {
-     "Version": "2012-10-17",
-     "Statement": [
-       {
-         "Effect": "Allow",
-         "Principal": {
-           "Federated": "arn:aws:iam::<YOUR-ACCOUNT-ID>:oidc-provider/oidc.eks.<YOUR-REGION>.amazonaws.com/id/<YOUR-CLUSTER-ID>"
-         },
-         "Action": "sts:AssumeRoleWithWebIdentity",
-         "Condition": {
-           "StringEquals": {
-             "oidc.eks.<YOUR-REGION>.amazonaws.com/id/<YOUR-CLUSTER-ID>:aud": "sts.amazonaws.com",
-             "oidc.eks.<YOUR-REGION>.amazonaws.com/id/<YOUR-CLUSTER-ID>:sub": "system:serviceaccount:<YOUR-EKS-NAMESPACE>:<YOUR-EKS-SERVICE-ACCOUNT>"
-           }
-         }
-       }
-     ]
-   }
-   ```
-
-   Replace `<YOUR-ACCOUNT-ID>`, `<YOUR-REGION>`, `<YOUR-CLUSTER-ID>`, `<YOUR-EKS-NAMESPACE>`, `<YOUR-EKS-SERVICE-ACCOUNT>` with the corresponding values.
-
-1. Annotate the Kubernetes Service Account with the IAM role:
-
-   ```shell
-   kubectl annotate serviceaccount <YOUR-EKS-SERVICE-ACCOUNT> --namespace <YOUR-EKS-NAMESPACE> eks.amazonaws.com/role-arn=arn:aws:iam::<YOUR-ACCOUNT-ID>:role/<YOUR-IAM-ROLE>
-   ```
-
-   Replace `<YOUR-EKS-SERVICE-ACCOUNT>` (by default `tower-launcher-sa`, as created in the [cluster preparation guide](./k8s)), `<YOUR-EKS-NAMESPACE>`, and `<YOUR-IAM-ROLE>` with the corresponding values previously defined.
-
-This will allow pods using that service account to assume the IAM role and access the S3 bucket specified as work directory.
-See the [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/associate-service-account-role.html) for further details.
-
-## Allow an IAM User or Role access to EKS
-
-Configure the EKS cluster to allow the IAM user (or the IAM role it assumes) to access the cluster and manage pods.
-
-1. Retrieve from the [AWS IAM console](https://console.aws.amazon.com/iam) the ARN of the [IAM User](#iam-user-creation) or [IAM Role](#iam-role-creation-optional) previously created.
-
-    :::note
-    The AWS credentials for the IAM user will be used in the Seqera compute environment configuration.
-    :::
-
-1. Modify the EKS aws-auth ConfigMap to allow the IAM User to access the cluster and manage pods. This step may require cluster administrator privileges:
-
-    ```bash
-    kubectl edit configmap -n kube-system aws-auth
-    ```
-
-1. In the editor that opens, edit the `mapUsers` section to add the following entry, replacing `<AWS-IAM-USER-ARN>` with the user ARN retrieved from the AWS IAM console:
-
-    ```yaml
-    mapUsers: |
-      - userarn: <AWS-IAM-USER-ARN>
-        username: tower-launcher-user
-        groups:
-          - tower-launcher-role
-    ```
-
-   Alternatively, an IAM role can be allowed to authenticate to the cluster: in this case, the role ARN must be specified in the **Assume role** field when configuring the Seqera compute environment (step 9 in the [Amazon EKS compute environment](#amazon-eks-compute-environment) section), the role must have a trust relationship with the Seqera IAM user, and the role `<AWS-IAM-ROLE-ARN>` must be added to the `mapRoles` section of the EKS auth configuration instead:
-
-    ```yaml
-    mapRoles: |
-      - rolearn: <AWS-IAM-ROLE-ARN>
-        username: tower-launcher-role
-        groups:
-          - tower-launcher-role
-    ```
-
-   See the [AWS documentation](https://docs.aws.amazon.com/eks/latest/userguide/auth-configmap.html) for more details on modifying the aws-auth ConfigMap of an EKS cluster.
+## Before you start
+
+Set up the [AWS integration](/platform-cloud/integrations/cloud-providers/aws/overview) before creating an Amazon EKS compute environment in Seqera:
+
+- [AWS IAM policies](/platform-cloud/integrations/cloud-providers/aws/iam-policies) — required permissions (select the **Amazon EKS** tab).
+- [AWS credentials](/platform-cloud/integrations/cloud-providers/aws/credentials) — IAM policy, IAM user, IAM role, and how to add credentials in Seqera.
+- [EKS additions](/platform-cloud/integrations/cloud-providers/aws/eks-additions) — Service Account IAM role for Fusion v2 and `aws-auth` ConfigMap setup.
+
+Cluster preparation steps that are specific to running pods in EKS (rather than to Seqera's authentication) remain in the [Kubernetes cluster guide](/platform-cloud/compute-envs/k8s).
+
+{/* Anchor stubs preserved for backwards compatibility with deep links from older content. */}
+<a id="required-platform-iam-permissions"></a>
+<a id="create-the-iam-policy"></a>
+<a id="iam-user-creation"></a>
+<a id="iam-role-creation-optional"></a>
+<a id="obtain-iam-user-credentials"></a>
+<a id="aws-credential-options"></a>
+<a id="configure-eks-service-account-iam-role-for-fusion-v2"></a>
+<a id="allow-an-iam-user-or-role-access-to-eks"></a>
 
 ## Amazon EKS compute environment
 
@@ -405,7 +51,7 @@ Once all prerequisites are met, create a Seqera EKS compute environment:
 1. Select **Compute environments** from the navigation menu of the Seqera Workspace where you want to setup the CE.
 1. Enter a descriptive name for this environment, e.g., `Amazon EKS (eu-west-1)`.
 1. Select **Amazon EKS** as the target platform.
-1. Under **Storage**, select either **Fusion storage** (recommended) or **Legacy storage**. The [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system allows access to your AWS S3-hosted data (`s3://` URLs). This eliminates the need to configure a shared file system in your Kubernetes cluster. See [Configure EKS Service Account IAM role for Fusion v2](#configure-eks-service-account-iam-role-for-fusion-v2) below.
+1. Under **Storage**, select either **Fusion storage** (recommended) or **Legacy storage**. The [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system allows access to your AWS S3-hosted data (`s3://` URLs). This eliminates the need to configure a shared file system in your Kubernetes cluster. See [Configure EKS Service Account IAM role for Fusion v2](/platform-cloud/integrations/cloud-providers/aws/eks-additions#configure-eks-service-account-iam-role-for-fusion-v2) below.
 1. From the **Credentials** drop-down, select existing AWS credentials, or select **+** to add new credentials. If you're using existing credentials, skip to step 9. The user must have the IAM permissions required to describe and list EKS clusters, per Service Account role requirements.
 
     :::note

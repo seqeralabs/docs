@@ -165,7 +165,7 @@ The following resources are tagged using the resource labels associated with the
 
 At execution time, when jobs are submitted to Batch, the requests are set up to propagate tags to all the instances and volumes created by the head job.
 
-The [IAM permissions](../compute-envs/aws-batch.md#required-platform-iam-permissions) contain the roles needed for Batch Forge-created AWS Batch compute environments to tag AWS resources. Specifically, the required roles are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
+The [AWS IAM policies](/platform-cloud/integrations/cloud-providers/aws/iam-policies) contain the roles needed for Batch Forge-created AWS Batch compute environments to tag AWS resources. Specifically, the required roles are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
 
 To view and manage the resource labels applied to AWS resources by Seqera and Nextflow, go to the [AWS Tag Editor](https://docs.aws.amazon.com/tag-editor/latest/userguide/find-resources-to-tag.html) (as an administrative user) and follow these steps:
 

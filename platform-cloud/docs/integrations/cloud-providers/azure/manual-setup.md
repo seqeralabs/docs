@@ -275,7 +275,7 @@ See [Microsoft Entra](https://docs.seqera.io/nextflow/azure#microsoft-entra) in 
 1. [Create an Azure service principal](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal).
 1. [Assign roles to the service principal](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=current).
 1. [Get the Service Principal ID, Tenant ID, and Client Secret](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal#option-3-create-a-new-client-secret).
-1. [Add to Seqera credentials](/platform-cloud/compute-envs/azure-batch#entra-service-principal-and-managed-identity)
+1. [Add to Seqera credentials](/platform-cloud/integrations/cloud-providers/azure/credentials)
 
 In Seqera:
 
