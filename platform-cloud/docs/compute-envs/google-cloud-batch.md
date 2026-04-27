@@ -16,6 +16,10 @@ The guide is split into two parts:
 
 ## Configure Google Cloud
 
+:::tip Canonical reference moved
+Project setup, IAM roles, service account JSON keys, and Cloud Storage bucket setup for Google Cloud are now consolidated in [Google Cloud integration](/platform-cloud/integrations/cloud-providers/google/overview) — see [IAM](/platform-cloud/integrations/cloud-providers/google/iam), [Credentials](/platform-cloud/integrations/cloud-providers/google/credentials), and [Storage access](/platform-cloud/integrations/cloud-providers/google/storage-access). The same content remains here for now and will be removed in a future release.
+:::
+
 ### Create a project
 
 Go to the [Google Project Selector page](https://console.cloud.google.com/projectselector2) and select an existing project, or select **Create project**.

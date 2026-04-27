@@ -32,6 +32,10 @@ An Azure service principal is an identity created specifically for applications,
 
 ## Create Azure resources
 
+:::tip Canonical reference moved
+Storage and Batch account setup, role assignments, service principal registration, and credential setup for Azure are now consolidated in [Azure integration](/platform-cloud/integrations/cloud-providers/azure/overview) — see [Storage access](/platform-cloud/integrations/cloud-providers/azure/storage-access), [Roles & service principals](/platform-cloud/integrations/cloud-providers/azure/roles-and-service-principals), and [Credentials](/platform-cloud/integrations/cloud-providers/azure/credentials). The same content remains here for now and will be removed in a future release.
+:::
+
 ### Resource group
 
 Create a resource group to link your Azure Batch and Azure Storage account:
@@ -318,7 +322,7 @@ Create a Batch Forge Azure Batch compute environment:
 Batch Forge creates separate Azure Batch pools for the Nextflow head job and compute tasks by default (named `tower-pool-{envId}-head` and `tower-pool-{envId}-worker`). This prevents the head node from competing for resources with compute tasks and allows independent sizing of each pool.
 :::
 
-1. Select or create [**Container registry credentials**](../credentials/azure_registry_credentials) to authenticate a registry (used by the [Wave containers](https://docs.seqera.io/nextflow/wave) service). It is recommended to use an [Azure Container registry](https://azure.microsoft.com/en-gb/products/container-registry) within the same region for maximum performance.
+1. Select or create [**Container registry credentials**](/platform-cloud/integrations/container-registries/azure) to authenticate a registry (used by the [Wave containers](https://docs.seqera.io/nextflow/wave) service). It is recommended to use an [Azure Container registry](https://azure.microsoft.com/en-gb/products/container-registry) within the same region for maximum performance.
 1. Apply [**Resource labels**](../resource-labels/overview). This will populate the **Metadata** fields of the Azure Batch pools and jobs.
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.

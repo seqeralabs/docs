@@ -6,6 +6,10 @@ last updated: "2025-10-21"
 tags: [github, registry, credentials]
 ---
 
+:::info This page has moved
+Documentation for this credential type now lives at [/platform-cloud/integrations/container-registries/github](/platform-cloud/integrations/container-registries/github). The old URL is preserved during the migration but will be removed in a future release. Update your bookmarks.
+:::
+
 GitHub Container Registry credentials allow the Wave container service to authenticate and pull container images from GitHub Packages. GitHub Packages only supports [authentication][github-pat] using a personal access token (classic) for programmatic access.
 
 :::note

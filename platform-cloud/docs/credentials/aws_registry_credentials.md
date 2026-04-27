@@ -6,6 +6,10 @@ last updated: "2025-10-21"
 tags: [aws, ecr, credentials]
 ---
 
+:::info This page has moved
+Documentation for this credential type now lives at [/platform-cloud/integrations/container-registries/aws](/platform-cloud/integrations/container-registries/aws). The old URL is preserved during the migration but will be removed in a future release. Update your bookmarks.
+:::
+
 AWS Elastic Container Registry (ECR) credentials allow the Wave container service to authenticate and pull container images from your private ECR repositories. Wave requires IAM user credentials with long-term access keys and appropriate ECR read permissions.
 
 :::note

@@ -5,6 +5,10 @@ date: "10 Oct 2025"
 tags: [git]
 ---
 
+:::info This page has moved
+Documentation for this credential type now lives at [/platform-cloud/integrations/git-providers/overview](/platform-cloud/integrations/git-providers/overview). The old URL is preserved during the migration but will be removed in a future release. Update your bookmarks.
+:::
+
 Data pipelines are composed of many assets, including pipeline scripts, configuration files, dependency descriptors (such as for Conda or Docker), documentation, etc. When you manage complex data pipelines as Git repositories, all assets can be versioned and deployed with a specific tag, release, or commit ID. Version control and containerization are crucial to enable reproducible pipeline executions, and provide the ability to continuously test and validate pipelines as the code evolves over time.
 
 Seqera products have built-in support for [Git](https://git-scm.com) and several Git-hosting platforms. This page covers Git integration for both **Seqera Platform** and [**Seqera AI**](#seqera-ai).
