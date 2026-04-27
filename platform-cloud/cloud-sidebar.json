@@ -143,7 +143,8 @@
         "seqera-ai/skill-codex",
         "seqera-ai/skill-github-copilot",
         "seqera-ai/skill-other-agents",
-        "seqera-ai/nextflow-lsp"
+        "seqera-ai/nextflow-lsp",
+        "seqera-ai/projects"
       ]
     },
      {
