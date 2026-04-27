@@ -60,13 +60,19 @@
   Type: string
   Location: query
   Req/Opt: Optional
-  Description: File path to download within the data-link (e.g., `folder/subfolder/object`).
+  Description: File path to download.
 - Name: "`preview`"
   Type: boolean
   Location: query
   Req/Opt: Optional
-  Description: "If `true`, generates a URL for preview purposes. If `false`,
-    generates a URL for direct download. Default: `false`."
+  Description: When true, generates the URL for preview instead of direct
+    download. Defaults to `false`.
+- Name: "`resolveSymlink`"
+  Type: boolean
+  Location: query
+  Req/Opt: Optional
+  Description: When true, treats the file as a Fusion symlink and resolves its
+    target. Defaults to `false`.
 - Name: "`dirs`"
   Type: array
   Location: query
