@@ -129,7 +129,7 @@ After setting up WIF in Google Cloud, you need the following information to crea
 * **Token Audience** (optional): The intended audience for the OIDC token. Configure this if your Workload Identity Provider requires a specific audience value.
 
 :::caution
-If WIF authentication fails, verify that the Workload Identity Provider path is correctly formatted, the service account has the required permissions, and the Kubernetes service account is properly annotated for your deployment environment. Check the Seqera Platform logs for specific error details — a `400` error typically indicates an invalid provider format, while a `401` error indicates a token exchange failure.
+If WIF authentication fails, verify that the Workload Identity Provider path is correctly formatted, the service account has the required permissions, and the Kubernetes service account is properly annotated for your deployment environment. Check your Seqera Platform logs for specific error details. A `400` error typically indicates an invalid provider format, while a `401` error indicates a token exchange failure.
 :::
 
 ### Cloud Storage bucket
