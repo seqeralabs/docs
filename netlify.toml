@@ -24,7 +24,6 @@
   EXCLUDE_PLATFORM_API="false"
   EXCLUDE_PLATFORM_OPENAPI="false"
   EXCLUDE_MULTIQC="true"
-  EXCLUDE_FUSION="true"
   EXCLUDE_WAVE="true"
 
 # Seqera API docs are too large to host / build on netlify on their own.
