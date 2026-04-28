@@ -82,7 +82,7 @@ process {
 ### GPU metrics
 
 :::note
-Detailed GPU metrics are only available for tasks that run with Fusion version 2.5.10 onwards
+Detailed GPU metrics are only available for tasks that run with Fusion version 2.5.10 onwards and using Nextflow version 26.03.3-edge onwards
 :::
 
 When [Fusion](https://docs.seqera.io/fusion) is enabled, Seqera Platform automatically collects GPU metrics for tasks that run on NVIDIA GPU instances. No additional configuration is required beyond enabling Fusion and provisioning GPU instances in your compute environment.
