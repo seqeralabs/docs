@@ -262,7 +262,7 @@ Apply [**Resource labels**](../resource-labels/overview) to the cloud resources 
   + Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
 
   :::info
-  Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](https://docs.seqera.io/platform-enterprise/launch/advanced#nextflow-config-file) for more information on configuration priority.
+  Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
   :::
 
 * Specify custom **Environment variables** for the head and compute jobs.
