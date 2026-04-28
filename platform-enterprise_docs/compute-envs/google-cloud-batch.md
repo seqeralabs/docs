@@ -258,7 +258,7 @@ Apply [**Resource labels**](../resource-labels/overview) to the cloud resources 
 
 * Expand **Staging options** to include:
 
-  + Optional [pre- or post-run Bash scripts](https://docs.seqera.io/platform-enterprise/launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
+  + Optional [pre- or post-run Bash scripts](../advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
   + Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
 
   :::info
