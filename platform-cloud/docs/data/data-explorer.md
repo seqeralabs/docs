@@ -3,7 +3,7 @@ title: "Data Explorer"
 description: "Using Seqera Data Explorer."
 date created: "2023-04-21"
 last updated: "2026-03-31"
-tags: [data, explorer, igv, molstar, object, storage]
+tags: [data, explorer, igv, molstar, object, storage, lineage]
 ---
 
 With Data Explorer, you can browse and interact with remote data repositories from organization workspaces in Seqera Platform. It supports AWS S3, Azure Blob Storage, Google Cloud Storage, and Amazon S3-compatible API storage (for example, but not limited to, Cloudflare R2, MinIO, Nebius, and Oracle Cloud).
@@ -82,6 +82,25 @@ If you remove a data-link associated with a repository, the repository is automa
 - **Copy object paths**
 
   Select the **Path** of an object on the **View data repository** page to copy its absolute path to the clipboard. Use these object paths to specify input data locations during [pipeline launch](../launch/launchpad), add them to a [dataset](../data/datasets) for pipeline input, or when mounting data during Studio creation.
+
+### View lineage data for objects
+
+When an object in Data Explorer was produced by a Nextflow run with [data lineage tracking enabled][nextflow-lineage-tutorial], the object detail view displays the object's lineage data alongside its file metadata.
+
+<!-- TODO: design to supply ./_images/data-explorer-lineage.png screenshot of the object-level lineage view. Re-add the image reference once the asset is committed: ![Object-level lineage data](./_images/data-explorer-lineage.png) -->
+
+Select an object on the **View data repository** page to open its detail view. When lineage data is available, the detail view displays:
+
+| Field | Source | Description |
+|-------|--------|-------------|
+| **Lineage ID** | `LID` | Lineage ID (LID) of the object's `FileOutput` record. Select the LID to navigate to the lineage record. |
+| **Lineage Labels** | `labels` | Lineage labels assigned to the output. Each label is a clickable link to the lineage record for that label. See the Nextflow [`label` directive][nextflow-label-directive] for assignment details. |
+
+If the object was not produced by a lineage-enabled run, no lineage fields are shown in the detail view.
+
+:::tip
+Each Lineage ID and lineage label in the detail view is a navigable link. Use these links to retrace the run, task, and inputs that produced an object — without leaving Seqera Platform. See [Getting started with data lineage][nextflow-lineage-tutorial] for the underlying lineage data model.
+:::
 
 ## Isolate view, read, and write permissions to specific data repository paths
 
@@ -258,3 +277,5 @@ Compute environment and Fusion multi-credential support will resolve this existi
 [roles]: ../orgs-and-teams/roles
 [molstar]: https://molstar.org/
 [igv]: https://igv.org/doc/igvjs/
+[nextflow-lineage-tutorial]: https://docs.seqera.io/nextflow/tutorials/data-lineage
+[nextflow-label-directive]: https://docs.seqera.io/nextflow/reference/process#label
