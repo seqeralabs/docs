@@ -128,7 +128,7 @@
       },
      {
       "type": "category",
-      "label": "Seqera AI CLI",
+      "label": "Co-Scientist CLI",
       "link": {"type": "doc", "id": "seqera-ai/index"},
       "collapsed": true,
       "items": [
