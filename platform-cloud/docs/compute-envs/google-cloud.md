@@ -79,17 +79,10 @@ To create and launch pipelines or Studio sessions with this compute environment 
 
 ### Required permissions
 
-#### Service account permissions​
+{/* Anchor stub preserved for backwards compatibility with deep links. */}
+<a id="required-permissions"></a>
 
-[Create a custom service account](https://cloud.google.com/iam/docs/service-accounts-create#creating) with at least the following permissions:
-
-- Compute instance admin (`roles/compute.instanceAdmin.v1`)
-- Project IAM admin (`roles/resourcemanager.projectIamAdmin`)
-- Service Account Admin (`roles/iam.serviceAccountAdmin`)
-- Service Account User (`roles/iam.serviceAccountUser`)
-- Service Usage Consumer (`roles/serviceusage.serviceUsageConsumer`)
-
-If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal [on each bucket individually](https://docs.seqera.io/platform-cloud/compute-envs/google-cloud-batch#cloud-storage-bucket). For each Google Cloud compute environment created in the Seqera platform, a separate service account is created with the necessary permissions to launch pipelines/studios.
+Service account permissions for the Google Cloud compute environment are documented in [Google Cloud IAM](/platform-cloud/integrations/cloud-providers/google/iam). Generate a service account JSON key with [Google Cloud credentials](/platform-cloud/integrations/cloud-providers/google/credentials).
 
 ## Advanced options
 

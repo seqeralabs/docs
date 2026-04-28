@@ -34,7 +34,7 @@ https://mcp.seqera.io/mcp
 Seqera MCP supports two authentication methods:
 
 - **OAuth 2.1** (recommended): Interactive login through Seqera Platform. Your browser opens automatically to authenticate when connecting.
-- **Personal Access Token**: Use your Seqera Platform [access token](https://docs.seqera.io/platform-cloud/credentials/overview) as a Bearer token. Useful for clients that don't support OAuth.
+- **Personal Access Token**: Use your Seqera Platform [access token](https://docs.seqera.io/platform-cloud/integrations/overview) as a Bearer token. Useful for clients that don't support OAuth.
 
 ## Client setup
 

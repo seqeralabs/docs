@@ -15,114 +15,23 @@ The guide is split into two parts:
 1. How to configure your Google Cloud account to use the Batch API.
 2. How to create a Google Cloud Batch compute environment in Seqera.
 
-## Configure Google Cloud
+## Before you start
 
-### Create a project
+Set up the [Google Cloud integration](/platform-cloud/integrations/cloud-providers/google/overview) before creating a Google Cloud Batch compute environment in Seqera:
 
-Go to the [Google Project Selector page](https://console.cloud.google.com/projectselector2) and select an existing project, or select **Create project**.
+- [Google Cloud IAM](/platform-cloud/integrations/cloud-providers/google/iam) — project, billing, APIs, and service account permissions.
+- [Google Cloud credentials](/platform-cloud/integrations/cloud-providers/google/credentials) — generate the service account JSON key and add credentials in Seqera.
+- [Storage access](/platform-cloud/integrations/cloud-providers/google/storage-access) — Cloud Storage bucket creation and permissions.
 
-Enter a name for your new project, e.g., _tower-nf_.
-
-If you are part of an organization, the location will default to your organization.
-
-### Enable billing
-
-See [here](https://cloud.google.com/billing/docs/how-to/modify-project) to enable billing in your Google Cloud account.
-
-### Enable APIs
-
-See [here](https://console.cloud.google.com/flows/enableapi?apiid=batch.googleapis.com%2Ccompute.googleapis.com%2Cstorage-api.googleapis.com) to enable the following APIs for your project:
-
-- Batch API
-- Compute Engine API
-- Cloud Storage API
-
-Select your project from the dropdown menu and select **Enable**.
-
-Alternatively, you can enable each API manually by selecting your project in the navigation bar and visiting each API page:
-
-- [Batch API](https://console.cloud.google.com/marketplace/product/google/batch.googleapis.com)
-
-- [Compute Engine API](https://console.cloud.google.com/marketplace/product/google/compute.googleapis.com)
-
-- [Cloud Storage API](https://console.cloud.google.com/marketplace/product/google/storage-api.googleapis.com)
-
-### IAM
-
-Seqera requires a service account with appropriate permissions to interact with your Google Cloud resources. As an IAM user, you must have access to the service account that submits Batch jobs.
-
-:::caution
-By default, Google Cloud Batch uses the default Compute Engine service account to submit jobs. This service account is granted the Editor (`roles/Editor`) role. While this service account has the necessary permissions needed by Seqera, this role is not recommended for production environments. Control job access using a custom service account with only the permissions necessary for Seqera to execute Batch jobs instead.
-:::
-
-#### Service account permissions
-
-[Create a custom service account][create-sa] with at least the following permissions:
-
-- Batch Agent Reporter (`roles/batch.agentReporter`) on the project
-- Batch Job Editor (`roles/batch.jobsEditor`) on the project
-- Logs Writer (`roles/logging.logWriter`) on the project (to let jobs generate logs in Cloud Logging)
-- Logs Viewer (`roles/logging.logViewer`) on the project (to view and retrieve logs from Cloud Logging)
-- Service Account User (`roles/iam.serviceAccountUser`)
-
-If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below.
-
-#### User permissions
-
-Ask your Google Cloud administrator to grant you the following IAM user permissions to interact with your custom service account:
-
-- Batch Job Editor (`roles/batch.jobsEditor`) on the project
-- Service Account User (`roles/iam.serviceAccountUser`) on the job's service account (default: Compute Engine service account)
-- View Service Accounts (`roles/iam.serviceAccountViewer`) on the project
-
-To configure a credential in Seqera, you must first create a [service account JSON key file][get-json]:
-
-1. In the Google Cloud navigation menu, select **IAM & Admin > Service Accounts**.
-2. Select the email address of the service account.
-
-    :::note
-    The Compute Engine default service account is not recommended for production environments due to its powerful permissions. To use a service account other than the Compute Engine default, specify the service account email address under **Advanced options** on the Seqera compute environment creation form.
-    :::
-
-3. Select **Keys > Add key > Create new key**.
-4. Select **JSON** as the key type.
-5. Select **Create**.
-
-A JSON file is downloaded to your computer. This file contains the credential needed to configure the compute environment in Seqera.
-
-You can manage your key from the **Service Accounts** page.
-
-### Cloud Storage bucket
-
-Google Cloud Storage is a type of **object storage**. To access files and store the results for your pipelines, create a **Cloud bucket** that your Seqera service account can access.
-
-#### Create a Cloud Storage bucket
-
-1. In the hamburger menu (**≡**), select **Cloud Storage**.
-2. From the **Buckets** tab, select **Create**.
-3. Enter a name for your bucket. You will reference this name when you create the compute environment in Seqera.
-4. Select **Region** for the **Location type** and select the **Location** for your bucket. You'll reference this location when you create the compute environment in Seqera.
-
-    :::note
-    The Batch API is available in a limited number of [locations][batch-locations]. These locations are only used to store metadata about the pipeline operations. The storage bucket and compute resources can be in any region.
-    :::
-
-5. Select **Standard** for the default storage class.
-6. To restrict public access to your bucket data, select the **Enforce public access prevention on this bucket** checkbox.
-7. Under **Access control**, select **Uniform**.
-8. Select any additional object data protection tools, per your organization's data protection requirements.
-9. Select **Create**.
-
-#### Assign bucket permissions
-
-1. After the bucket is created, you are redirected to the **Bucket details** page.
-2. Select **Permissions**, then **Grant access** under **View by principals**.
-3. Copy the email address of your service account into **New principals**.
-4. Select the **Storage Admin** role, then select **Save**.
-
-:::tip
-You've created a project, enabled the necessary Google APIs, created a bucket, and created a service account JSON key file with the required credentials. You now have what you need to set up a new compute environment in Seqera.
-:::
+{/* Anchor stubs preserved for backwards compatibility with deep links from older content. */}
+<a id="configure-google-cloud"></a>
+<a id="create-a-project"></a>
+<a id="enable-billing"></a>
+<a id="enable-apis"></a>
+<a id="iam"></a>
+<a id="service-account-permissions"></a>
+<a id="user-permissions"></a>
+<a id="cloud-storage-bucket"></a>
 
 ### Seqera compute environment
 

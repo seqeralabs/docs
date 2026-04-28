@@ -275,7 +275,7 @@ See [Microsoft Entra](https://docs.seqera.io/nextflow/azure#microsoft-entra) in 
 1. [Create an Azure service principal](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal).
 1. [Assign roles to the service principal](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=current).
 1. [Get the Service Principal ID, Tenant ID, and Client Secret](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal#option-3-create-a-new-client-secret).
-1. [Add to Seqera credentials](../../compute-envs/azure-batch.md#entra-service-principal-and-managed-identity)
+1. [Add to Seqera credentials](/platform-cloud/integrations/cloud-providers/azure/credentials)
 
 In Seqera:
 
@@ -336,7 +336,7 @@ You can also use User Subscription mode instead of Batch Managed here, but this 
 
 It is common to attach Azure Batch pools to a virtual network. This is useful to connect to other resources in the same VNet or place things behind enhanced security. Seqera Platform does not support this feature directly, so you must manually create an Azure Batch pool.
 
-See [Create a Nextflow-compatible Azure Batch pool](../../compute-envs/azure-batch#create-a-nextflow-compatible-azure-batch-pool) to create an Azure Batch pool manually that is compatible with Seqera and Nextflow. Use the following settings:
+See [Create a Nextflow-compatible Azure Batch pool](/platform-cloud/compute-envs/azure-batch#create-a-nextflow-compatible-azure-batch-pool) to create an Azure Batch pool manually that is compatible with Seqera and Nextflow. Use the following settings:
 
 - Name & ID: `3-azure-batch-vnet`
 - Add the managed identity created earlier as a user-assigned managed identity.
@@ -430,5 +430,5 @@ If you wish to keep the Azure resources, you can remove each pool within a Batch
 [install-azure-cli]: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
 [install-seqera-cli]: /platform-cli/installation
 [nextflow-working-directory]: https://docs.seqera.io/nextflow/cache-and-resume#work-directory
-[create-org-workspace]: ../../getting-started/workspace-setup
-[add-pipeline]: ../../getting-started/quickstart-demo/add-pipelines#add-from-the-launchpad
+[create-org-workspace]: /platform-cloud/getting-started/workspace-setup
+[add-pipeline]: /platform-cloud/getting-started/quickstart-demo/add-pipelines#add-from-the-launchpad

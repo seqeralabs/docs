@@ -41,7 +41,7 @@ In AWS Batch compute environments, Seqera passes stored secrets to jobs as part 
 
 ## AWS Secrets Manager integration
 
-Seqera and associated AWS Batch IAM Roles require [specific permissions](../compute-envs/aws-batch#pipeline-secrets-optional) to interact with AWS Secrets Manager.
+Seqera and associated AWS Batch IAM Roles require [specific permissions](/platform-cloud/integrations/cloud-providers/aws/iam-policies) to interact with AWS Secrets Manager.
 
 :::note
 If you plan to limit the scope of this IAM policy, please ensure that the ListSecrets action remains granted on all resources (`"Resource": "*"`).

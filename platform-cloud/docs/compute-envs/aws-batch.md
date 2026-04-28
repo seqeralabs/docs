@@ -19,704 +19,24 @@ There are two ways to create a Seqera Platform compute environment for AWS Batch
 
 Both options require specific IAM permissions to function correctly, as well as access to an S3 bucket or EFS/FSx file system to store intermediate Nextflow files.
 
-## S3 bucket creation
-
-AWS S3 (Simple Storage Service) is a type of **object storage**. To access input and output files using Seqera products like [Studios](../studios/overview) and [Data Explorer](../data/data-explorer) create one or more **S3 buckets**. An S3 bucket can also be used to store intermediate results of your Nextflow pipelines, as an alternative to using EFS or FSx file systems.
-:::note
-Using EFS or FSx as work directory is incompatible with Studios.
-:::
-
-1. Navigate to the [AWS S3 console](https://console.aws.amazon.com/s3/home).
-1. In the top right of the page, select the same region where you plan to create your AWS Batch compute environment.
-1. Select **Create bucket**.
-1. Enter a unique name for your bucket.
-1. Leave the rest of the options as default and select **Create bucket**.
-
-:::note
-S3 can be used by Nextflow for the storage of intermediate files. In production pipelines, this can amount to a lot of data. To reduce costs, consider using a retention policy when creating a bucket, such as automatically deleting intermediate files after 30 days. See the [AWS documentation](https://aws.amazon.com/premiumsupport/knowledge-center/s3-empty-bucket-lifecycle-rule/) for more information.
-:::
-
-## EFS or FSx file system creation
-
-[AWS Elastic File System (EFS)](https://aws.amazon.com/efs/) and [AWS FSx for Lustre](https://aws.amazon.com/fsx/lustre/) are types of **file storage** that can be used as a Nextflow work directory to store intermediate files, as an alternative to using S3 buckets.
-
-:::note
-Using EFS or FSx as work directory is incompatible with Studios.
-:::
-
-To use EFS or FSx as your Nextflow work directory, create an EFS or FSx file system in the same region where you plan to create your AWS Batch compute environment.
-
-The creation of an EFS or FSx file system can be done automatically by Seqera when creating the AWS Batch compute environment, or manually by following the steps below. If you let Seqera create the file system automatically, it will also be deleted when the compute environment is removed from Platform, unless the "Dispose Resources" option is disabled in the advanced options.
-
-### Creating an EFS file system
-
-To create a new EFS file system manually, visit the [EFS console](https://console.aws.amazon.com/efs/home).
-
-1. Select **Create file system**.
-1. Optionally give it a name, then select the VPC where your AWS Batch compute environment will be created.
-1. Leave the rest of the options as default and select **Create file system**.
-
-### Creating an FSx file system
-
-To create a new FSx for Lustre file system manually, visit the [FSx console](https://console.aws.amazon.com/fsx/home).
-
-1. Select **Create file system**.
-1. Select FSx for Lustre
-1. Follow the prompts to configure the file system according to your requirements, then select **Next**.
-1. Review the configuration and select **Create file system**.
-
-Make sure the [Lustre client](https://docs.aws.amazon.com/fsx/latest/LustreGuide/install-lustre-client.html) is available in the AMIs used by your AWS Batch compute environment to allow mounting FSx file systems.
-
-## Required Platform IAM permissions
-
-To create and launch pipelines, explore buckets with Data Explorer or run Studio sessions with the AWS Batch compute environment, an IAM user with specific permissions must be provided. Some permissions are mandatory for the compute environment to be created and function correctly, while others are optional and used for example to provide list of values to pick from in the Platform UI.
-
-Permissions can be attached directly to an [IAM user](#iam-user-creation), or to an [IAM role](#iam-role-creation-optional) that the IAM user can assume when accessing AWS resources.
-
-A permissive and broad policy with all the required permissions is provided here for a quick start. However, we recommend following the principle of least privilege and only granting the necessary permissions for your use case, as shown in the following sections.
-
-<details>
-<summary>Full permissive policy (for reference)</summary>
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "BatchEnvironmentManagementCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "batch:CreateComputeEnvironment",
-        "batch:CreateJobQueue",
-        "batch:DeleteComputeEnvironment",
-        "batch:DeleteJobQueue",
-        "batch:UpdateComputeEnvironment",
-        "batch:UpdateJobQueue"
-      ],
-      "Resource": [
-        "arn:aws:batch:*:*:compute-environment/TowerForge-*",
-        "arn:aws:batch:*:*:job-queue/TowerForge-*"
-      ]
-    },
-    {
-      "Sid": "BatchEnvironmentListing",
-      "Effect": "Allow",
-      "Action": [
-        "batch:DescribeComputeEnvironments",
-        "batch:DescribeJobDefinitions",
-        "batch:DescribeJobQueues",
-        "batch:DescribeJobs"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "BatchJobsManagementCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "batch:CancelJob",
-        "batch:RegisterJobDefinition",
-        "batch:SubmitJob",
-        "batch:TagResource",
-        "batch:TerminateJob"
-      ],
-      "Resource": [
-        "arn:aws:batch:*:*:job-definition/*",
-        "arn:aws:batch:*:*:job-queue/TowerForge-*",
-        "arn:aws:batch:*:*:job/*"
-      ]
-    },
-    {
-      "Sid": "LaunchTemplateManagement",
-      "Effect": "Allow",
-      "Action": [
-        "ec2:CreateLaunchTemplate",
-        "ec2:DeleteLaunchTemplate",
-        "ec2:DescribeLaunchTemplates",
-        "ec2:DescribeLaunchTemplateVersions"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "PassRolesToBatchCanBeRestricted",
-      "Effect": "Allow",
-      "Action": "iam:PassRole",
-      "Resource": "*",
-      "Condition": {
-        "StringEquals": {
-          "iam:PassedToService": [
-            "batch.amazonaws.com",
-            "ec2.amazonaws.com"
-          ]
-        }
-      }
-    },
-    {
-      "Sid": "CloudWatchLogsAccessCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "logs:Describe*",
-        "logs:FilterLogEvents",
-        "logs:Get*",
-        "logs:List*",
-        "logs:StartQuery",
-        "logs:StopQuery",
-        "logs:TestMetricFilter"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "OptionalS3PlatformDataAccessCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "s3:Get*",
-        "s3:List*",
-        "s3:PutObject"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "OptionalIAMManagementCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "iam:AddRoleToInstanceProfile",
-        "iam:AttachRolePolicy",
-        "iam:CreateInstanceProfile",
-        "iam:CreateRole",
-        "iam:DeleteInstanceProfile",
-        "iam:DeleteRole",
-        "iam:DeleteRolePolicy",
-        "iam:DetachRolePolicy",
-        "iam:GetRole",
-        "iam:ListAttachedRolePolicies",
-        "iam:ListRolePolicies",
-        "iam:PutRolePolicy",
-        "iam:RemoveRoleFromInstanceProfile",
-        "iam:TagInstanceProfile",
-        "iam:TagRole"
-      ],
-      "Resource": [
-        "arn:aws:iam::*:role/TowerForge-*",
-        "arn:aws:iam::*:instance-profile/TowerForge-*"
-      ]
-    },
-    {
-      "Sid": "OptionalFetchOptimizedAMIMetadata",
-      "Effect": "Allow",
-      "Action": "ssm:GetParameters",
-      "Resource": "arn:aws:ssm:*:*:parameter/aws/service/ecs/*"
-    },
-    {
-      "Sid": "OptionalEC2MetadataDescribe",
-      "Effect": "Allow",
-      "Action": [
-        "ec2:DescribeAccountAttributes",
-        "ec2:DescribeImages",
-        "ec2:DescribeInstanceTypeOfferings",
-        "ec2:DescribeInstanceTypes",
-        "ec2:DescribeKeyPairs",
-        "ec2:DescribeSecurityGroups",
-        "ec2:DescribeSubnets",
-        "ec2:DescribeVpcs"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "OptionalFSXManagementCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "fsx:CreateFileSystem",
-        "fsx:DeleteFileSystem",
-        "fsx:DescribeFileSystems",
-        "fsx:TagResource"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "OptionalEFSManagementCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "elasticfilesystem:CreateFileSystem",
-        "elasticfilesystem:DeleteFileSystem",
-        "elasticfilesystem:CreateMountTarget",
-        "elasticfilesystem:DeleteMountTarget",
-        "elasticfilesystem:DescribeFileSystems",
-        "elasticfilesystem:DescribeMountTargets",
-        "elasticfilesystem:UpdateFileSystem",
-        "elasticfilesystem:PutLifecycleConfiguration",
-        "elasticfilesystem:TagResource"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "OptionalPipelineSecretsListing",
-      "Effect": "Allow",
-      "Action": "secretsmanager:ListSecrets",
-      "Resource": "*"
-    },
-    {
-      "Sid": "OptionalPipelineSecretsManagementCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "secretsmanager:DescribeSecret",
-        "secretsmanager:DeleteSecret",
-        "secretsmanager:CreateSecret"
-      ],
-      "Resource": "arn:aws:secretsmanager:*:*:secret:tower-*"
-    }
-  ]
-}
-```
-
-</details>
-
-### AWS Batch management
-
-The first section of the policy allows Seqera to create, update and delete Batch compute environments ("CE"), job queues ("JQ") and jobs.
-
-If you are required to use manually created CEs and JQs or prefer to manage their lifecycle yourself, you can remove the permissions to manipulate CEs and JQs from the policy. The minimum permissions required are:
-
-- `batch:DescribeJobs` to report job status
-- `batch:DescribeJobDefinitions` to list existing job definitions
-- `batch:RegisterJobDefinition` to create new job definitions
-- `batch:CancelJob` to cancel jobs
-- `batch:SubmitJob` to submit jobs
-- `batch:TagResource` to tag jobs
-- `batch:TerminateJob` to terminate jobs
-
-You can use `batch:DescribeJobQueues` to list the existing job queues in a drop-down menu but it's not required if you're specifying manually created job queues.
-However, it is required when you let Seqera create and manage job queues automatically (using the Forge tool). In this case, the `batch:DescribeComputeEnvironments` permission must also be added.
-
-You can also restrict permissions based on resource tags. These are defined by users when they [set up a pipeline in Platform](https://docs.seqera.io/platform-enterprise/resource-labels/overview).
-
-```json
-{
-  "Sid": "BatchEnvironmentListing",
-  "Effect": "Allow",
-  "Action": [
-    "batch:DescribeJobDefinitions",
-    "batch:DescribeJobs"
-  ],
-  "Resource": "*"
-},
-{
-  "Sid": "BatchJobsManagement",
-  "Effect": "Allow",
-  "Action": [
-    "batch:CancelJob",
-    "batch:RegisterJobDefinition",
-    "batch:SubmitJob",
-    "batch:TagResource",
-    "batch:TerminateJob"
-  ],
-  "Resource": [
-    "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job-queue/MyCustomJQ",
-    "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job-definition/*",
-    "arn:aws:batch:<REGION>:<ACCOUNT_ID>:job/*"
-  ],
-  "Condition": {
-    "StringEqualsIfExists": {
-      "aws:ResourceTag/MyCustomTag": "MyCustomValue"
-    }
-  }
-}
-```
-
-:::warning
-Restricting the `batch` actions using resource tags requires that you set the appropriate tags on each Seqera pipeline when configuring it in Platform. Forgetting to set the tag will cause the pipeline to fail to run.
-:::
-
-The job definition and job name resources cannot be restricted to specific names, as Seqera creates job definitions and jobs with dynamic names. Therefore, the wildcard `*` must be used in the name of these resources. In addition, `batch:SubmitJob` requires permission on both job definitions and job queues, so make sure to include both ARNs in the `Resource` array.
-
-If you prefer to let Seqera manage Batch resources for you, you can still restrict the permissions to specific resources in your account ID and region; you can also restrict permissions based on Resource tag, as shown with the `Condition`s in the example above.
-
-:::note
-The quick start policy is expecting CE and JQ names automatically created by Seqera to start with the `TowerForge-` prefix, which is the default prefix used by Platform Cloud resources and can't be customized.
-:::
-
-### Launch template management
-
-Seqera requires the ability to create and manage EC2 launch templates using optimized AMIs identified via AWS Systems Manager (SSM).
-
-:::note
-AWS does not support restricting IAM permissions on EC2 launch templates based on specific resource names or tags. As a result, permission to operate on any resource `*` must be granted.
-:::
-
-### Pass role to Batch
-
-The `iam:PassRole` permission allows Seqera to pass [execution IAM roles](https://docs.aws.amazon.com/batch/latest/userguide/execution-IAM-role.html#create-execution-role) to AWS Batch to run Nextflow pipelines.
-
-Permissions can be restricted to only allow passing the manually created roles or the roles created by Seqera automatically with the default prefix `TowerForge-` to the AWS Batch and EC2 services, in a specific account:
-
-```json
-{
-  "Sid": "PassRolesToBatch",
-  "Effect": "Allow",
-  "Action": "iam:PassRole",
-  "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/TowerForge-*",
-  "Condition": {
-    "StringEquals": {
-      "iam:PassedToService": [
-        "batch.amazonaws.com",
-        "ec2.amazonaws.com"
-      ]
-    }
-  }
-}
-```
-
-### CloudWatch logs access
-
-Seqera requires access to CloudWatch logs to display relevant log data in the web interface.
-
-The policy can be scoped down to limit access to the [specific log group](#advanced-options) defined on the compute environment in a specific account and region:
-
-```json
-{
-  "Sid": "CloudWatchLogsAccess",
-  "Effect": "Allow",
-  "Action": [
-    "logs:Describe*",
-    "logs:FilterLogEvents",
-    "logs:Get*",
-    "logs:List*",
-    "logs:StartQuery",
-    "logs:StopQuery",
-    "logs:TestMetricFilter"
-  ],
-  "Resource": "arn:aws:logs:<REGION>:<ACCOUNT_ID>:log-group:/aws/batch/job/*"
-}
-```
-
-### S3 access (optional)
-
-Seqera automatically attempts to fetch a list of S3 buckets available in the AWS account connected to Platform, to provide them in a drop-down menu to be used as Nextflow working directory, and make the compute environment creation smoother. This feature is optional, and users can type the bucket name manually when setting up a compute environment. To allow Seqera to fetch the list of buckets in the account, the `s3:ListAllMyBuckets` action can be added, and it must have the `Resource` field set to `*`, as shown in the generic policy at the beginning of this document.
-
-Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](../studios/overview) and [Data Explorer](../data/data-explorer); if these features are not used the related permissions can be omitted.
-
-The IAM policy can be scoped down to only allow limited read/write permissions in certain S3 buckets used by Studios/Data Explorer. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory. We also recommend granting the `s3:GetObject` permission on the work directory path to fetch Nextflow log files.
-
-:::note
-If you opted to create a separate S3 bucket only for Nextflow work directories, there is no need for the IAM user to have read/write access to it. If Seqera is allowed to manage resources (using Batch Forge) the IAM roles automatically created will have the necessary permissions.
-
-If you set up the compute environment manually, you can create the required IAM roles with the necessary permissions as detailed in the [manual AWS Batch setup documentation](../enterprise/advanced-topics/manual-aws-batch-setup).
-:::
-
-```json
-{
-  "Sid": "S3CheckBucketWorkDirectory",
-  "Effect": "Allow",
-  "Action": [
-    "s3:GetBucketLocation",
-    "s3:ListBucket"
-  ],
-  "Resource": [
-    "arn:aws:s3:::example-bucket-used-as-work-directory"
-  ]
-},
-{
-  "Sid": "S3ReadOnlyNextflowLogFiles",
-  "Effect": "Allow",
-  "Action": [
-    "s3:GetObject"
-  ],
-  "Resource": [
-    "arn:aws:s3:::example-bucket-used-as-work-directory/path/to/work/directory/*"
-  ]
-},
-{
-  "Sid": "S3ReadWriteBucketsForStudiosDataExplorer",
-  "Effect": "Allow",
-  "Action": [
-    "s3:Get*",
-    "s3:List*",
-    "s3:PutObject"
-  ],
-  "Resource": [
-    "arn:aws:s3:::example-bucket-read-write-studios",
-    "arn:aws:s3:::example-bucket-read-write-studios/*",
-    "arn:aws:s3:::example-bucket-read-write-data-explorer",
-    "arn:aws:s3:::example-bucket-read-write-data-explorer/*"
-  ]
-}
-```
-
-### IAM roles for AWS Batch (optional)
-
-Seqera can automatically create the IAM roles needed to interact with AWS Batch and other AWS services. You can opt out of this behavior by creating the required IAM roles manually and providing their ARNs during compute environment creation in Platform: refer to the [documentation](../enterprise/advanced-topics/manual-aws-batch-setup) for more details on how to manually set up IAM roles.
-
-To allow Seqera to create IAM roles but restrict it to your specific account and the default IAM role prefix, use the following statement:
-
-```json
-{
-  "Sid": "IAMRoleAndProfileManagement",
-  "Effect": "Allow",
-  "Action": [
-    "iam:AddRoleToInstanceProfile",
-    "iam:AttachRolePolicy",
-    "iam:CreateInstanceProfile",
-    "iam:CreateRole",
-    "iam:DeleteInstanceProfile",
-    "iam:DeleteRole",
-    "iam:DeleteRolePolicy",
-    "iam:DetachRolePolicy",
-    "iam:GetRole",
-    "iam:ListAttachedRolePolicies",
-    "iam:ListRolePolicies",
-    "iam:PutRolePolicy",
-    "iam:RemoveRoleFromInstanceProfile",
-    "iam:TagInstanceProfile",
-    "iam:TagRole"
-  ],
-  "Resource": [
-    "arn:aws:iam::<ACCOUNT_ID>:role/TowerForge-*"
-    "arn:aws:iam::<ACCOUNT_ID>:instance-profile/TowerForge-*"
-  ]
-}
-```
-
-:::note
-The quick start policy is expecting role names automatically created by Seqera to start with the `TowerForge-` prefix, which is the default prefix used by Platform Cloud resources and can't be customized.
-:::
-
-### AWS Systems Manager (optional)
-
-Seqera Platform can interact with AWS Systems Manager (SSM) to [identify ECS Optimized AMIs](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/retrieve-ecs-optimized_AMI.html) for pipeline execution. This permission is optional, meaning that a [custom AMI ID](#advanced-options) can be provided at compute environment creation, removing the need for this permission.
-
-### EC2 describe permissions (optional)
-
-Seqera can interact with EC2 to retrieve information about existing AWS resources in your account, including VPCs, subnets, and security groups. This data is used to populate dropdown menus in the Platform UI when creating new compute environments. While these permissions are optional, they are recommended to enhance the user experience. Without these permissions, resource ARNs need to be manually entered in the interface by the user.
-
-:::note
-AWS does not support restricting IAM permissions on EC2 Describe actions based on specific resource names or tags. As a result, permission to operate on any resource `*` must be granted.
-:::
-
-### FSx file systems (optional)
-
-Seqera can manage [AWS FSx file systems](https://aws.amazon.com/fsx/), if needed by the pipelines.
-
-This section of the policy is optional and can be omitted if FSx file systems are not used by your pipelines. The describe actions cannot be restricted to specific resources, so permission to operate on any resource `*` must be granted. The management actions can be restricted to specific resources, like in the example below.
-
-```json
-{
-  "Sid": "FSxDescribe",
-  "Effect": "Allow",
-  "Action": [
-    "fsx:DescribeFileSystems"
-  ],
-  "Resource": "*"
-},
-{
-  "Sid": "FSxManagement",
-  "Effect": "Allow",
-  "Action": [
-    "fsx:CreateFileSystem",
-    "fsx:DeleteFileSystem",
-    "fsx:TagResource"
-  ],
-  "Resource": "arn:aws:fsx:<REGION>:<ACCOUNT_ID>:file-system/MyManualFSx"
-}
-```
-
-### EFS file systems (optional)
-
-Seqera can manage [AWS EFS file systems](https://aws.amazon.com/efs/), if needed by the pipelines.
-
-This section of the policy is optional and can be omitted if EFS file systems are not used by your pipelines. The describe actions cannot be restricted to specific resources, so permission to operate on any resource `*` must be granted. The management actions can be restricted to specific resources, like in the example below.
-
-```json
-{
-  "Sid": "EFSDescribe",
-  "Effect": "Allow",
-  "Action": [
-    "elasticfilesystem:DescribeFileSystems",
-    "elasticfilesystem:DescribeMountTargets"
-  ],
-  "Resource": "*"
-},
-{
-  "Sid": "EFSManagement",
-  "Effect": "Allow",
-  "Action": [
-    "elasticfilesystem:CreateFileSystem",
-    "elasticfilesystem:DeleteFileSystem",
-    "elasticfilesystem:CreateMountTarget",
-    "elasticfilesystem:DeleteMountTarget",
-    "elasticfilesystem:UpdateFileSystem",
-    "elasticfilesystem:PutLifecycleConfiguration",
-    "elasticfilesystem:TagResource"
-  ],
-  "Resource": "arn:aws:elasticfilesystem:<REGION>:<ACCOUNT_ID>:file-system/MyManualEFS"
-}
-```
-
-### Pipeline secrets (optional)
-
-Seqera can synchronize [pipeline secrets](../secrets/overview) defined on the Platform workspace with AWS Secrets Manager, which requires additional permissions on the IAM user. If you do not plan to use pipeline secrets, you can omit this section of the policy.
-
-The listing of secrets cannot be restricted, but the management actions can be restricted to only allow managing secrets in a specific account and region, which must be the same region where the pipeline runs. Note that Seqera only creates secrets with the `tower-` prefix.
-
-```json
-{
-  "Sid": "PipelineSecretsListing",
-  "Effect": "Allow",
-  "Action": "secretsmanager:ListSecrets",
-  "Resource": "*"
-},
-{
-  "Sid": "PipelineSecretsManagementCanBeRestricted",
-  "Effect": "Allow",
-  "Action": [
-    "secretsmanager:DescribeSecret",
-    "secretsmanager:DeleteSecret",
-    "secretsmanager:CreateSecret"
-  ],
-  "Resource": "arn:aws:secretsmanager:<REGION>:<ACCOUNT_ID>:secret:tower-*"
-}
-```
-
-#### Additional steps required to use secrets in a pipeline
-
-To successfully use pipeline secrets, the IAM roles manually created must follow the steps detailed in the [documentation](../secrets/overview#aws-secrets-manager-integration).
-
-## Create the IAM policy
-
-The policy above must be created in the AWS account where the AWS Batch resources need to be created.
-
-1. Open the [AWS IAM console](https://console.aws.amazon.com/iam) in the account where you want to create the AWS Batch resources.
-1. From the left navigation menu, select **Policies** under **Access management**.
-1. Select **Create policy**.
-1. On the **Policy editor** section, select the **JSON** tab.
-1. Following the instructions detailed in the [IAM permissions breakdown section](#required-platform-iam-permissions) replace the default text in the policy editor area under the **JSON** tab with a policy adapted to your use case, then select **Next**.
-1. Enter a name and description for the policy on the **Review and create** page, then select **Create policy**.
-
-## IAM user creation
-
-Seqera requires an Identity and Access Management (IAM) User to create and manage AWS Batch resources in your AWS account. We recommend creating a separate IAM policy rather an IAM User inline policy, as the latter only allows 2048 characters, which may not be sufficient for all the required permissions.
-
-In certain scenarios, for example when multiple users need to access the same AWS account and provision AWS Batch resources, an IAM role with the required permissions can be created instead, and the IAM user can assume that role when accessing AWS resources, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section.
-
-Depending whether you choose to let Seqera automatically create the required AWS Batch resources in your account, or prefer to set them up manually, the IAM user must have specific permissions as detailed in the [Required Platform IAM permissions](#required-platform-iam-permissions) section. Alternatively, you can create an IAM role with the required permissions and allow the IAM user to assume that role when accessing AWS resources, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section.
-
-### Create an IAM user
-
-1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Users** in the left navigation menu, then select **Create User** at the top right of the page.
-1. Enter a name for your user (e.g., _seqera_) and select **Next**.
-1. Under **Permission options**, select **Attach policies directly**, then search for and select the policy created above, and select **Next**.
-   * If you prefer to make the IAM user assume a role to manage AWS resources (see the [IAM role creation (optional)](#iam-role-creation-optional) section), create a policy with the following content (edit the AWS principal with the ARN of the role created) and attach it to the IAM user:
-
-   ```json
-   {
-     "Sid": "AssumeRoleToManageBatchResources",
-     "Effect": "Allow",
-     "Action": "sts:AssumeRole",
-     "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/<IAM_ROLE_NAME>",
-     "Condition": {
-       "StringEquals": {
-         "sts:ExternalId": "<EXTERNAL_ID>"
-       }
-     }
-   }
-   ```
-1. On the last page, review the user details and select **Create user**.
-
-The user has now been created. The most up-to-date instructions for creating an IAM user can be found in the [AWS documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html).
-
-### Obtain IAM user credentials
-
-To get the credentials needed to connect Seqera to your AWS account, follow these steps:
-
-1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Users** in the left navigation menu, then select the newly created user from the users table.
-1. Select the **Security credentials** tab, then select **Create access key** under the **Access keys** section.
-1. In the **Use case** dialog that appears, select **Command line interface (CLI)**, then tick the confirmation checkbox at the bottom to acknowledge that you want to proceed creating an access key, and select **Next**.
-1. Optionally provide a description for the access key, like the reason for creating it, then select **Create access key**.
-1. Save the **Access key** and **Secret access key** in a secure location as you will need to provide them when creating credentials in Seqera.
-
-## IAM role creation (optional)
-
-Rather than attaching permissions directly to the IAM user, you can create an IAM role with the required permissions and allow the IAM user to assume that role when accessing AWS resources. This is useful when multiple IAM users are used to access the same AWS account: this way the actual permissions to operate on the resources are only granted to a single centralized role.
-
-1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Roles** in the left navigation menu, then select **Create role** at the top right of the page.
-1. Select **Custom trust policy** as the type of trusted entity, provide the following policy and edit the AWS principal with the ARN of the IAM user created in the [IAM user creation](#iam-user-creation) section, then select **Next**.
-   ```json
-   {
-     "Version": "2012-10-17",
-     "Statement": [
-       {
-         "Effect": "Allow",
-         "Principal": {
-           "AWS": [
-              "arn:aws:iam::<ACCOUNT_ID>:user/<IAM_USER_NAME>"
-            ]
-         },
-         "Action": "sts:AssumeRole",
-         "Condition": {
-           "StringEquals": {
-             "sts:ExternalId": "<EXTERNAL_ID>"
-           }
-         }
-       },
-       {
-         "Effect": "Allow",
-         "Principal": {
-           "AWS": [
-              "arn:aws:iam::<ACCOUNT_ID>:user/<IAM_USER_NAME>"
-            ]
-         },
-         "Action": "sts:TagSession"
-       }
-     ]
-   }
-   ```
-1. On the **Permissions** page, search for and select the policy created in the [IAM user creation](#iam-user-creation) section, then select **Next**.
-1. Give the role a name and optionally a description, review the details of the role, optionally provide tags to help you identify the role, then select **Create role**.
-
-Multiple users can be specified in the trust policy by adding more ARNs to the `Principal` section.
-
-:::note
-Seqera Platform generates the `External ID` value during AWS credential creation. For role-based credentials, use this exact value in your IAM trust policy (`sts:ExternalId`).
-:::
-
-### Role-based trust policy example (Seqera Cloud)
-
-For role-based AWS credentials in Seqera Cloud, allow the Seqera Cloud access role `arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole` in your trust policy and enforce the `External ID` generated during credential creation:
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole"
-      },
-      "Action": "sts:AssumeRole",
-      "Condition": {
-        "StringEquals": {
-          "sts:ExternalId": "<ExternalId>"
-        }
-      }
-    },
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole"
-      },
-      "Action": "sts:TagSession"
-    }
-  ]
-}
-```
-
-## AWS credential options
-
-AWS credentials can be configured in two ways:
-
-- **Key-based credentials**: Access key and secret key with direct IAM permissions. If you provide a role ARN in **Assume role**, the **Generate External ID** switch is displayed and External ID generation is optional.
-- **Role-based credentials (recommended)**: Use role assumption only (no static keys). Paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. External ID is generated automatically when you save.
-
-Use the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. This field is available for both key-based and role-based credentials. It is optional for key-based credentials and required for role-based credentials.
-
-Existing credentials created before March 2026 continue to work without changes.
+## Before you start
+
+Set up the [AWS integration](/platform-cloud/integrations/cloud-providers/aws/overview) before creating an AWS Batch compute environment in Seqera:
+
+- [AWS IAM policies](/platform-cloud/integrations/cloud-providers/aws/iam-policies) — required permissions (select the **AWS Batch** tab).
+- [AWS credentials](/platform-cloud/integrations/cloud-providers/aws/credentials) — IAM policy, IAM user, IAM role, and how to add credentials in Seqera.
+- [AWS data access](/platform-cloud/integrations/cloud-providers/aws/data-access) — S3 bucket, EFS, and FSx prerequisites.
+- [AWS Batch manual setup](/platform-cloud/integrations/cloud-providers/aws/manual-setup) — alternative to Batch Forge.
+
+{/* Anchor stubs preserved for backwards compatibility with deep links from older content. */}
+<a id="s3-bucket-creation"></a>
+<a id="efs-or-fsx-file-system-creation"></a>
+<a id="required-platform-iam-permissions"></a>
+<a id="create-the-iam-policy"></a>
+<a id="iam-user-creation"></a>
+<a id="iam-role-creation-optional"></a>
+<a id="obtain-iam-user-credentials"></a>
+<a id="aws-credential-options"></a>
 
 ## Automatic configuration of Batch resources
 
@@ -741,12 +61,12 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
 1. Select **AWS Batch** as the target platform.
 1. From the **Credentials** drop-down, select existing AWS credentials, or select **+** to add new credentials. If you're using existing credentials, skip to step 9.
     :::note
-    You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview).
+    You can create multiple credentials in your Seqera environment. See [Credentials](/platform-cloud/integrations/overview).
     :::
 1. Enter a name, e.g., _AWS Credentials_.
 1. Under **AWS credential mode**, select **Keys** or **Role**.
 1. For **Keys** mode:
-   - Add the **Access key** and **Secret key** you [previously obtained](#obtain-iam-user-credentials).
+   - Add the **Access key** and **Secret key** [obtained from the AWS IAM console](/platform-cloud/integrations/cloud-providers/aws/credentials#obtain-iam-user-credentials).
    - Optionally paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**.
    - If you paste a role ARN in **Assume role**, the **Generate External ID** switch is displayed. Generating an External ID is optional in **Keys** mode.
    - If **Generate External ID** is selected, an External ID is automatically generated and shown after you save the credential.
@@ -757,7 +77,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
     When using AWS keys without an assumed role, the associated AWS user must have been granted permissions to operate on the cloud resources directly. When an assumed role is provided, the IAM user keys are only used to retrieve temporary credentials impersonating the role specified: this could be useful when e.g. multiple IAM users are used to access the same AWS account, and the actual permissions to operate on the resources are only granted to the role.
     :::
 1. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_. This region must match the location of the S3 bucket or EFS/FSx file system you plan to use as work directory.
-1. In the **Pipeline work directory** field type or select from the dropdown menu the S3 bucket [previously created](#s3-bucket-creation), e.g., `s3://seqera-bucket`. The work directory can be customized to specify a folder inside the bucket where Nextflow intermediate files will be stored, e.g., `s3://seqera-bucket/nextflow-workdir`. The bucket must be located in the same region chosen in the previous step.
+1. In the **Pipeline work directory** field type or select from the dropdown menu the [S3 bucket you created](/platform-cloud/integrations/cloud-providers/aws/data-access#s3-bucket-creation), e.g., `s3://seqera-bucket`. The work directory can be customized to specify a folder inside the bucket where Nextflow intermediate files will be stored, e.g., `s3://seqera-bucket/nextflow-workdir`. The bucket must be located in the same region chosen in the previous step.
 
     :::note
     When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
@@ -961,11 +281,11 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
 
 ## Manual configuration of Batch resources
 
-This section is for users with a pre-configured AWS environment: follow the [AWS Batch queue and compute environment creation instructions](../enterprise/advanced-topics/manual-aws-batch-setup.mdx) to set up the required AWS Batch resources in your account.
+This section is for users with a pre-configured AWS environment: follow the [AWS Batch manual setup](/platform-cloud/integrations/cloud-providers/aws/manual-setup) to set up the required AWS Batch resources in your account.
 
-A [S3 bucket](#s3-bucket-creation) or EFS/FSx file system is required to store Nextflow intermediate files when using Seqera with AWS Batch.
+An [S3 bucket](/platform-cloud/integrations/cloud-providers/aws/data-access#s3-bucket-creation) or EFS/FSx file system is required to store Nextflow intermediate files when using Seqera with AWS Batch.
 
-Refer to the [IAM user creation](#iam-user-creation) section to ensure that your IAM user has the necessary permissions to run pipelines in Seqera Platform. Remove any permissions that are not required for your use case.
+Refer to the [IAM user creation](/platform-cloud/integrations/cloud-providers/aws/credentials#iam-user-creation) section to ensure that your IAM user has the necessary permissions to run pipelines in Seqera Platform. Remove any permissions that are not required for your use case.
 
 ### Seqera manual compute environment
 
@@ -981,12 +301,12 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
 1. Select **AWS Batch** as the target platform.
 1. From the **Credentials** drop-down, select existing AWS credentials, or select **+** to add new credentials. If you're using existing credentials, skip to step 9.
     :::note
-    You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview).
+    You can create multiple credentials in your Seqera environment. See [Credentials](/platform-cloud/integrations/overview).
     :::
 1. Enter a name, e.g., _AWS Credentials_.
 1. Under **AWS credential mode**, select **Keys** or **Role**.
 1. For **Keys** mode:
-   - Add the **Access key** and **Secret key** you [previously obtained](#obtain-iam-user-credentials).
+   - Add the **Access key** and **Secret key** [obtained from the AWS IAM console](/platform-cloud/integrations/cloud-providers/aws/credentials#obtain-iam-user-credentials).
    - Optionally paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**.
    - If you paste a role ARN in **Assume role**, the **Generate External ID** switch is displayed. Generating an External ID is optional in **Keys** mode.
    - If **Generate External ID** is selected, an External ID is automatically generated and shown after you save the credential.
@@ -997,7 +317,7 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
     When using AWS keys without an assumed role, the associated AWS user must have been granted permissions to operate on the cloud resources directly. When an assumed role is provided, the IAM user keys are only used to retrieve temporary credentials impersonating the role specified: this could be useful when e.g. multiple IAM users are used to access the same AWS account, and the actual permissions to operate on the resources are only granted to the role.
     :::
 1. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_. This region must match the region where your S3 bucket or EFS/FSx work directory is located to avoid high data transfer costs.
-1. Enter or select from the dropdown menu the S3 bucket [previously created](#s3-bucket-creation) in the **Pipeline work directory** field, e.g., `s3://seqera-bucket`. This bucket must be in the same region chosen in the previous step to avoid incurring high data transfer costs. The work directory can be customized to specify a folder inside the bucket, e.g., `s3://seqera-bucket/nextflow-workdir`.
+1. Enter or select from the dropdown menu the [S3 bucket you created](/platform-cloud/integrations/cloud-providers/aws/data-access#s3-bucket-creation) in the **Pipeline work directory** field, e.g., `s3://seqera-bucket`. This bucket must be in the same region chosen in the previous step to avoid incurring high data transfer costs. The work directory can be customized to specify a folder inside the bucket, e.g., `s3://seqera-bucket/nextflow-workdir`.
     :::note
     When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
     :::
@@ -1049,7 +369,7 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
 1. Select **Enable Fusion Snapshots (beta)** to enable Fusion to automatically restore jobs that are interrupted when an AWS Spot instance reclamation occurs. Requires Fusion v2. See [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots) for more information.
 
 1. Set the **Config mode** to **Manual**.
-1. Enter the **Head queue** created following the [instructions](../enterprise/advanced-topics/manual-aws-batch-setup.mdx), which is the name of the AWS Batch queue that the Nextflow main job will run.
+1. Enter the **Head queue** created following the [AWS Batch manual setup instructions](/platform-cloud/integrations/cloud-providers/aws/manual-setup), which is the name of the AWS Batch queue that the Nextflow main job will run.
 1. Enter the **Compute queue**, which is the name of the AWS Batch queue where tasks will be submitted.
 1. Apply [**Resource labels**](../resource-labels/overview) to the cloud resources produced by this compute environment. Workspace default resource labels are prefilled.
 1. Expand **Staging options** to include:

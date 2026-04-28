@@ -6,7 +6,7 @@ last updated: "2025-10-21"
 tags: [agent, credentials]
 ---
 
-[Tower Agent](../supported_software/agent/overview) enables Seqera Platform to launch pipelines on HPC clusters that do not allow direct access through an SSH client. Tower Agent authenticates a secure connection with Seqera using a Tower Agent credential.
+[Tower Agent](/platform-cloud/supported_software/agent/overview) enables Seqera Platform to launch pipelines on HPC clusters that do not allow direct access through an SSH client. Tower Agent authenticates a secure connection with Seqera using a Tower Agent credential.
 
 ## Tower Agent sharing
 

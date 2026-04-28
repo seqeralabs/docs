@@ -14,7 +14,7 @@ You will need the following to get started:
 
 - At least the **Maintain** workspace [user role](../orgs-and-teams/roles) to create and configure Studios.
 - An [AWS Batch compute environment](../compute-envs/aws-batch#create-a-seqera-aws-batch-compute-environment) (**without Fargate**) with sufficient resources (minimum: 2 CPUs, 8192 MB RAM).
-- Valid [credentials](../credentials/overview) for your cloud storage account and compute environment.
+- Valid [credentials](/platform-cloud/integrations/overview) for your cloud storage account and compute environment.
 - [Data Explorer](../data/data-explorer) enabled in your workspace.
 :::
 
