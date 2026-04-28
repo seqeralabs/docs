@@ -252,7 +252,7 @@ When a Spot instance is reclaimed by Google Cloud, Seqera Platform displays a hu
 Exit codes 50006–59999 display a generic infrastructure failure message. Standard application exit codes (1–255) are displayed as before.
 :::
 
-Apply [**Resource labels**](https://docs.seqera.io/platform-enterprise/resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
+Apply [**Resource labels**](../resource-labels/overview) to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
 
 #### Scripting and environment variables
 
