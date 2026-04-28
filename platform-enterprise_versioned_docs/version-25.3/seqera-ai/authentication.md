@@ -109,7 +109,7 @@ Seqera AI CLI automatically refreshes your authentication token when needed. You
 
 ## Learn more
 
-- [Seqera AI CLI](index.md): Seqera AI CLI overview
+- [Seqera AI CLI](./index.md): Seqera AI CLI overview
 - [Installation](./installation.mdx): Detailed installation instructions
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Use cases](./use-cases.md): Seqera AI use cases

@@ -1,7 +1,8 @@
 ---
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
-date: "21 Apr 2023"
+date created: "2023-04-21"
+last updated: "2026-04-22"
 tags: [google, batch, gcp, compute environment]
 ---
 
@@ -157,33 +158,30 @@ Select **Enable Wave containers** to facilitate access to private container repo
 
 Select **Enable Fusion v2** to allow access to your Google Cloud Storage data via the [Fusion v2][fusion-docs] virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system][platform-fusion-docs] for configuration details.
 
-<details>
-  <summary>Use Fusion v2</summary>
+##### Use Fusion v2
 
-  :::note
-  The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB.
-  :::
+:::note
+The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB.
+:::
 
-  1. Use Seqera Platform version 23.1 or later.
-  1. Use a Google Cloud Storage bucket as the work directory.
-  1. Enable **Wave containers** and **Fusion v2**.
-  1. Specify suitable virtual machine types and local storage settings, or accept the default machine settings listed below. An `n2-highmem-16-lssd` VM or larger is recommended for production use.
+1. Use Seqera Platform version 23.1 or later.
+1. Use a Google Cloud Storage bucket as the work directory.
+1. Enable **Wave containers** and **Fusion v2**.
+1. Specify suitable virtual machine types and local storage settings, or accept the default machine settings listed below. An `n2-highmem-16-lssd` VM or larger is recommended for production use.
 
-  :::note
-  To specify virtual machine settings in Platform during compute environment creation, use the **Global Nextflow config** field to apply custom Nextflow process directives to all pipeline runs launched with this compute environment.
+:::note
+To specify virtual machine settings in Platform during compute environment creation, use the **Global Nextflow config** field to apply custom Nextflow process directives to all pipeline runs launched with this compute environment.
 
-  To specify virtual machine settings per pipeline run in Platform, or as a persistent configuration in your Nextflow pipeline repository, use Nextflow process directives. See [Google Cloud Batch process definition](https://docs.seqera.io/nextflow/google#process-definition) for more information.
-  :::
+To specify virtual machine settings per pipeline run in Platform, or as a persistent configuration in your Nextflow pipeline repository, use Nextflow process directives. See [Google Cloud Batch process definition](https://docs.seqera.io/nextflow/google#process-definition) for more information.
+:::
 
-  When Fusion v2 is enabled, the following virtual machine settings are applied:
-  - A 375 GB local NVMe SSD is selected for all compute jobs.
-  - If you do not specify a machine type, a VM from families that support local SSDs is selected.
-  - Any machine types you specify in the Nextflow config must support local SSDs.
-  - Local SSDs are only offered in multiples of 375 GB. You can increment the number of SSDs used per process with the `disk` directive to request multiples of 375 GB. To work with files larger than 100 GB, use at least two SSDs (750 GB or more).
-  - Fusion v2 can also use persistent disks for caching. Override the disk requested by Fusion using the `disk` directive and the `type: pd-standard`.
-  - The `machineType` directive can be used to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
-
-</details>
+When Fusion v2 is enabled, the following virtual machine settings are applied:
+- A 375 GB local NVMe SSD is selected for all compute jobs.
+- If you do not specify a machine type, a VM from families that support local SSDs is selected.
+- Any machine types you specify in the Nextflow config must support local SSDs.
+- Local SSDs are only offered in multiples of 375 GB. You can increment the number of SSDs used per process with the `disk` directive to request multiples of 375 GB. To work with files larger than 100 GB, use at least two SSDs (750 GB or more).
+- Fusion v2 can also use persistent disks for caching. Override the disk requested by Fusion using the `disk` directive and the `type: pd-standard`.
+- The `machineType` directive can be used to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
 
 :::note
 Wave containers and Fusion v2 are recommended features for added capability and improved performance, but neither are required to execute workflows in your compute environment.
@@ -193,8 +191,20 @@ Wave containers and Fusion v2 are recommended features for added capability and 
 
 Enable **Spot** to use Spot instances, which have significantly reduced cost compared to On-Demand instances.
 
-:::note
 From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow.md#spot-instance-failures-and-retries-in-nextflow).
+
+:::info
+When a Spot instance is reclaimed by Google Cloud, Seqera Platform displays a human-readable description in the task details. Google Batch reserves exit codes in the 50001–59999 range for infrastructure events:
+
+| Exit code | Description |
+|-----------|-------------|
+| 50001     | Spot instance was reclaimed by Google Cloud |
+| 50002     | VM became unresponsive (host event or crash) |
+| 50003     | VM unexpectedly rebooted during task execution |
+| 50004     | Task reached unresponsive time limit and could not be cancelled |
+| 50005     | Task exceeded maximum allowed runtime |
+
+Exit codes 50006–59999 display a generic infrastructure failure message. Standard application exit codes (1–255) are displayed as before.
 :::
 
 Apply [**Resource labels**][resource-labels] to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
@@ -214,21 +224,27 @@ Apply [**Resource labels**][resource-labels] to the cloud resources consumed by 
 #### Advanced options
 
 :::note
-If you use VM instance templates for the head or compute jobs (see step 6 below), resource allocation and networking values specified in the templates override any conflicting values you specify while creating your Seqera compute environment.
+If you use VM instance templates for the head or compute jobs (see below), resource allocation and networking values specified in the templates override any conflicting values you specify while creating your Seqera compute environment.
 :::
 
 1. Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
 1. Use **Boot disk size** to control the persistent disk size that each task and the head job are provided.
+1. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The dropdown is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional — if not set, Google Batch uses the default image.
+1. Use **Instance Type** to select a specific machine type for the compute instances. The dropdown is populated with available instance types for the selected region and supports autocomplete filtering. This field is optional — if not set, Google Batch selects an appropriate machine type automatically.
+    :::note
+    The **Instance Type** field sets a default machine type at the compute environment level. You can override this for individual processes using the `machineType` [process directive](https://docs.seqera.io/nextflow/google#process-definition) in your Nextflow configuration.
+    :::
 1. Use **Head Job CPUs** and **Head Job Memory** to specify the CPUs and memory allocated for the head job.
 1. Use **Service Account email** to specify a service account email address other than the Compute Engine default to execute workflows with this compute environment (recommended for productions environments).
-1. Use **VPC** and **Subnet** to specify the name of a VPC network and subnet to be used by this compute environment. If your organization's VPC architecture relies on network tags, you can apply network tags to VM instance templates used for the Nextflow head and compute jobs (see below).
+1. Use **VPC** and **Subnet** to specify the name of a VPC network and subnet to be used by this compute environment. You can apply network tags directly in the **Network Tags** field (see below) or through VM instance templates used for the Nextflow head and compute jobs.
     :::note
     You must specify both a **VPC** and **Subnet** for your compute environment to use either.
     :::
+1. Use **Network Tags** to apply GCP network tags to the compute instances in this environment. Network tags control which firewall rules and routing policies apply to your instances within their VPC. Enter tags as free-text values. Tags must follow [GCP format requirements](https://cloud.google.com/vpc/docs/add-remove-network-tags): lowercase letters, numbers, and hyphens only, between 1 and 63 characters. You can add up to 64 tags per instance.
+    :::note
+    Network tags require a **VPC** and **Subnet** to be configured. This field is disabled when no VPC is set.
+    :::
 1. Use **Head job instance template** and **Compute jobs instance template** to specify the name or fully-qualified reference of a VM instance template, without the `template://` prefix, to use for the head and compute jobs. [VM instance templates][gcp-vm-instance-template] allow you to define the resources allocated to Batch jobs. Configuration values defined in a VM instance template override any conflicting values you specify while creating your Seqera compute environment.
-
-    You can use network tags in VM instance templates to enable cross-network and cross-project distribution of compute resources. This is useful if your head and compute instances must reside in different GCP projects or across isolated networking infrastructures. Note that the use of network tags does not affect the resource labels applied to your compute environment.
-
     :::caution
     Seqera does not validate the VM instance template you specify in these fields. Generally, use templates that define only the machine type, network, disk, and configuration values that will not change across multiple VM instances and Seqera compute environments. See [Create instance templates](https://cloud.google.com/compute/docs/instance-templates/create-instance-templates) for instructions to create your instance templates.
 
