@@ -1,7 +1,8 @@
 ---
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
-date: "21 Apr 2023"
+date created: "2023-04-21"
+last updated: "2026-04-22"
 tags: [google, batch, gcp, compute environment]
 ---
 
@@ -260,8 +261,20 @@ Wave containers and Fusion v2 are recommended features for added capability and 
 
 Enable **Spot** to use Spot instances, which have significantly reduced cost compared to On-Demand instances.
 
-:::note
 From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow.md#spot-instance-failures-and-retries-in-nextflow).
+
+:::info
+When a Spot instance is reclaimed by Google Cloud, Seqera Platform displays a human-readable description in the task details. Google Batch reserves exit codes in the 50001–59999 range for infrastructure events:
+
+| Exit code | Description |
+|-----------|-------------|
+| 50001     | Spot instance was reclaimed by Google Cloud |
+| 50002     | VM became unresponsive (host event or crash) |
+| 50003     | VM unexpectedly rebooted during task execution |
+| 50004     | Task reached unresponsive time limit and could not be cancelled |
+| 50005     | Task exceeded maximum allowed runtime |
+
+Exit codes 50006–59999 display a generic infrastructure failure message. Standard application exit codes (1–255) are displayed as before.
 :::
 
 Apply [**Resource labels**][resource-labels] to the cloud resources consumed by this compute environment. Workspace default resource labels are prefilled.
@@ -281,21 +294,27 @@ Apply [**Resource labels**][resource-labels] to the cloud resources consumed by 
 #### Advanced options
 
 :::note
-If you use VM instance templates for the head or compute jobs (see step 6 below), resource allocation and networking values specified in the templates override any conflicting values you specify while creating your Seqera compute environment.
+If you use VM instance templates for the head or compute jobs (see below), resource allocation and networking values specified in the templates override any conflicting values you specify while creating your Seqera compute environment.
 :::
 
 1. Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
 1. Use **Boot disk size** to control the persistent disk size that each task and the head job are provided.
+1. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The dropdown is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional — if not set, Google Batch uses the default image.
+1. Use **Instance Type** to select a specific machine type for the compute instances. The dropdown is populated with available instance types for the selected region and supports autocomplete filtering. This field is optional — if not set, Google Batch selects an appropriate machine type automatically.
+    :::note
+    The **Instance Type** field sets a default machine type at the compute environment level. You can override this for individual processes using the `machineType` [process directive](https://docs.seqera.io/nextflow/google#process-definition) in your Nextflow configuration.
+    :::
 1. Use **Head Job CPUs** and **Head Job Memory** to specify the CPUs and memory allocated for the head job.
 1. Use **Service Account email** to specify a service account email address other than the Compute Engine default to execute workflows with this compute environment (recommended for productions environments).
-1. Use **VPC** and **Subnet** to specify the name of a VPC network and subnet to be used by this compute environment. If your organization's VPC architecture relies on network tags, you can apply network tags to VM instance templates used for the Nextflow head and compute jobs (see below).
+1. Use **VPC** and **Subnet** to specify the name of a VPC network and subnet to be used by this compute environment. You can apply network tags directly in the **Network Tags** field (see below) or through VM instance templates used for the Nextflow head and compute jobs.
     :::note
     You must specify both a **VPC** and **Subnet** for your compute environment to use either.
     :::
+1. Use **Network Tags** to apply GCP network tags to the compute instances in this environment. Network tags control which firewall rules and routing policies apply to your instances within their VPC. Enter tags as free-text values. Tags must follow [GCP format requirements](https://cloud.google.com/vpc/docs/add-remove-network-tags): lowercase letters, numbers, and hyphens only, between 1 and 63 characters. You can add up to 64 tags per instance.
+    :::note
+    Network tags require a **VPC** and **Subnet** to be configured. This field is disabled when no VPC is set.
+    :::
 1. Use **Head job instance template** and **Compute jobs instance template** to specify the name or fully-qualified reference of a VM instance template, without the `template://` prefix, to use for the head and compute jobs. [VM instance templates][gcp-vm-instance-template] allow you to define the resources allocated to Batch jobs. Configuration values defined in a VM instance template override any conflicting values you specify while creating your Seqera compute environment.
-
-    You can use network tags in VM instance templates to enable cross-network and cross-project distribution of compute resources. This is useful if your head and compute instances must reside in different GCP projects or across isolated networking infrastructures. Note that the use of network tags does not affect the resource labels applied to your compute environment.
-
     :::caution
     Seqera does not validate the VM instance template you specify in these fields. Generally, use templates that define only the machine type, network, disk, and configuration values that will not change across multiple VM instances and Seqera compute environments. See [Create instance templates](https://cloud.google.com/compute/docs/instance-templates/create-instance-templates) for instructions to create your instance templates.
 
