@@ -1,6 +1,6 @@
 ---
 title: "Authentication"
-description: "Login, logout, and session management for Co-Scientist CLI"
+description: "Login, logout, and session management for Seqera CLI"
 date created: "2025-12-15"
 tags: [seqera-ai, cli, authentication, login]
 ---
