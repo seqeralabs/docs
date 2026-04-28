@@ -276,7 +276,7 @@ If you use VM instance templates for the head or compute jobs (see step 8 below)
 1. Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
 2. Use **Boot disk size** to control the persistent disk size that each task and the head job are provided.
 3. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The dropdown is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional. If not set, Google Batch uses the default image.
-4. Use **Instance Type** to select a specific machine type for the compute instances. The dropdown is populated with available instance types for the selected region and supports autocomplete filtering. This field is optional — if not set, Google Batch selects an appropriate machine type automatically.
+4. Use **Instance Type** to select a specific machine type for the compute instances. The dropdown is populated with available instance types for the selected region and supports autocomplete filtering. This field is optional. If not set, Google Batch automatically selects an appropriate machine type.
 
    :::note
    The **Instance Type** field sets a default machine type at the compute environment level. You can override this for individual processes using the `machineType` [process directive](https://docs.seqera.io/nextflow/google#process-definition) in your Nextflow configuration.
