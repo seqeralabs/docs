@@ -114,7 +114,16 @@ The **Inputs** and **Ouputs** tabs show every input or output consumed by the ta
 - **Status**: Exit code, task status, attempts.
 - **Work directory**: Directory where the task was executed.
 - **Environment**: Environment variables supplied to the task.
-- **Execution time**: Metrics for task submission, start, and completion time:
+- **Name**: Process name and tag.
+- **Status**: Exit code, task status, attempts.
+- **Native ID**: Unique identifier assigned by the underlying execution executor to a specific job.
+- **Command**: Task script, defined in the pipeline process.
+- **Environment**: Environment variables supplied to the task.
+- **Work directory**: Directory where the task was executed.
+- **Inputs**: File inputs to the task and associated lineage data
+- **Outputs**: File outputs from the task and associated lineage data
+- **Upstream**: Links to related upstream tasks
+- **Downstream**: Links to related downstream tasks
 
   | Label | Description |
   |-------|-------------|
