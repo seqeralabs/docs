@@ -85,17 +85,19 @@ If you remove a data-link associated with a repository, the repository is automa
 
 ### View lineage data for objects
 
-When an object in Data Explorer was produced by a Nextflow run with [data lineage tracking enabled][nextflow-lineage-tutorial], the object detail view displays the object's lineage data alongside its file metadata.
+When an object in Data Explorer was produced by a Nextflow run with [data lineage tracking enabled][nextflow-lineage-tutorial], the object preview displays the object's lineage data alongside its file metadata.
 
 <!-- TODO: design to supply ./_images/data-explorer-lineage.png screenshot of the object-level lineage view. Re-add the image reference once the asset is committed: ![Object-level lineage data](./_images/data-explorer-lineage.png) -->
 
-Select an object on the **View data repository** page to open its detail view. When lineage data is available, the detail view displays:
+Select an object to preview. When lineage data is available, this displays:
 
 | Field | Source | Description |
 |-------|--------|-------------|
-| **Lineage ID** | `LID` | Lineage ID (LID) of the object's `FileOutput` record. Select the LID to navigate to the lineage record. |
+| **Lineage ID** | `LID` | Lineage ID (LID) of the object's `FileOutput` record. Click the LID to navigate to the lineage record. |
 | **Lineage Labels** | `labels` | Lineage labels assigned to the output. Each label is a clickable link to the lineage record for that label. See the Nextflow [`label` directive][nextflow-label-directive] for assignment details. |
-
+| **Produced by** | `pipeline-run` | Workflow run ID that created this object. Click the run ID to navigate to the workflow run.  |
+| **Source for** | `pipeline-run` | Workflow run ID that used this file as an input. Click the run ID to navigate to the workflow run. |
+—
 If the object was not produced by a lineage-enabled run, no lineage fields are shown in the detail view.
 
 :::tip
