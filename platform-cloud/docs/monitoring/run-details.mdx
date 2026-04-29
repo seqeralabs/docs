@@ -89,7 +89,19 @@ Use the search bar to filter tasks with substrings in the table columns such as 
 
 ![Task details](./_images/task-details.png)
 
-Select a task in the task table to open the **Task details** dialog. The dialog has the following tabs: **About**, **Execution log**, **Data Explorer**, and **Container**.  If lineage is enabled for the run, the dialog also includes **Inputs** and **Outputs** tabs.
+Select a task in the task table to open the **Task details** dialog. The dialog has the following tabs:
+
+- **About**
+- **Metrics**
+- **Execution log**
+- **Data Explorer**
+- **Container** 
+
+:::note
+If lineage is enabled for the run, the **About** tab content includes **Inputs** and **Outputs** tabs.
+
+The **Inputs** and **Ouputs** tabs show every input or output consumed by the task, including the name, its lineage type (`Collection` or `Path`), the source path, the lineage labels assigned to it, and the Lineage ID of the corresponding lineage record. Select a name to open the file in [Data Explorer](../data/data-explorer). Select a lineage ID or label to navigate to that lineage record.
+:::
 
 #### About
 
