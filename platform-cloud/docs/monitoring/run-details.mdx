@@ -192,18 +192,6 @@ This tab contains the image and build details of the container used to execute t
 | **Cached** | Indicates whether the container was previously built in an earlier request. |
 | **Freeze** | Indicates whether the container was provisioned for persistent storage using Wave freeze mode. |
 
-#### Inputs
-
-The **Inputs** tab shows every input consumed by the task, including the input name, its lineage type (`Collection` or `Path`), the source path, the lineage labels assigned to it, and the lineage ID of the corresponding lineage record. Select an input name to open the file in [Data Explorer](../data/data-explorer). Select a lineage ID or label to navigate to that lineage record.
-
-:::note
-The Inputs and Outputs tabs appear only when [lineage tracking is enabled][nextflow-lineage-tutorial] for the run.
-:::
-
-#### Outputs
-
-The **Outputs** tab shows every output produced by the task, including the output name (linked to the file in [Data Explorer](../data/data-explorer)), its lineage type, the destination path, lineage labels, and the Lineage ID of the `FileOutput` record.
-
 </TabItem>
 <TabItem value="Logs" label="Logs" default>
 
