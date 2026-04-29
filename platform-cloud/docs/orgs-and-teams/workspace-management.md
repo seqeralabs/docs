@@ -78,7 +78,7 @@ Select **Edit settings** to open the **Edit lineage settings** form:
 | **Credentials** | Yes | The workspace credentials Platform uses to create and access the lineage storage bucket. The credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified). See [Credentials](../credentials/overview). |
 | **Region** | Yes | Cloud region where the lineage storage bucket is created (for example, `us-east-1`, `eu-west-1`). |
 | **Bucket name** | No | Bucket where lineage records are stored. If left empty, Platform generates a default bucket name in the form `seqera-lineage-<workspace-id>`. |
-| **Enable lineage by default** | No (toggle) | When enabled, the launch-form lineage toggle defaults to on for every run launched in this workspace. Users can still override per run. |
+| **Enable lineage by default** | No (toggle) | When enabled, the launch form lineage toggle defaults to on for every run launched in this workspace. Users can still override per run. |
 
 :::note
 Platform creates and manages the lineage storage bucket using the configured workspace credentials. You do not need to pre-create a bucket — Platform handles bucket creation through the same credentials model used by [Data Explorer](../data/data-explorer).
