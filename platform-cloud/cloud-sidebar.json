@@ -189,12 +189,12 @@
         "items": [
           {
             "type": "link",
-            "label": "API",
+            "label": "Platform API",
             "href": "https://docs.seqera.io/platform-api"
           },
           {
             "type": "link",
-            "label": "CLI",
+            "label": "Platform CLI",
             "href": "https://docs.seqera.io/platform-cli"
           },
             {
