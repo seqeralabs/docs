@@ -1,5 +1,5 @@
 ---
-title: "Seqera CLI"
+title: "Co-Scientist in the Seqera CLI"
 description: "AI-powered assistant for bioinformatics workflows and Seqera Platform"
 date created: "2026-03-11"
 last updated: "2026-04-29"
