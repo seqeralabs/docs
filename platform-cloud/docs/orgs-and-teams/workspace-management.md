@@ -81,17 +81,17 @@ Select **Edit settings** to open the **Edit lineage settings** form:
 | **Enable lineage by default** | No (toggle) | When enabled, the launch form lineage toggle defaults to on for every run launched in this workspace. Users can still override per run. |
 
 :::note
-Platform creates and manages the lineage storage bucket using the configured workspace credentials. You do not need to pre-create a bucket — Platform handles bucket creation through the same credentials model used by [Data Explorer](../data/data-explorer).
+Platform creates and manages the lineage storage bucket using the configured workspace credentials. You do not need to pre-create a bucket. Platform handles bucket creation through the same credentials model used by [Data Explorer](../data/data-explorer).
 :::
 
 :::tip
-For compliance-driven teams (regulated industries, audit-tracked work), set **Enable lineage by default** to on so every run automatically captures provenance. Lineage records persist for the lifetime of the configured bucket — coordinate with your team on retention policies.
+For compliance-driven teams (regulated industries, audit-tracked work), set **Enable lineage by default** to on so every run automatically captures provenance. Lineage records persist for the lifetime of the configured bucket, so coordinate with your team on retention policies.
 :::
 
 When lineage is enabled:
 
 - The [Run details](../monitoring/run-details) page surfaces lineage IDs and labels on the Run Info, Tasks, Inputs, and Outputs tabs.
-- [Data Explorer](../data/data-explorer) object detail views show the lineage ID and labels for files produced by lineage-enabled runs.
+- [Data Explorer](../data/data-explorer) object previews show the lineage ID and labels for files produced by lineage-enabled runs.
 
 Users can also enable lineage for an individual run via the launch form toggle, or by setting `lineage.enabled = true` in their Nextflow configuration. The launch form toggle's default state is controlled by **Enable lineage by default**. See [Getting started with data lineage](https://docs.seqera.io/nextflow/tutorials/data-lineage) for the underlying lineage data model.
 

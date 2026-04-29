@@ -97,11 +97,11 @@ Select an object to preview. When lineage data is available, this displays:
 | **Lineage Labels** | `labels` | Lineage labels assigned to the output. Each label is a clickable link to the lineage record for that label. See the Nextflow [`label` directive][nextflow-label-directive] for assignment details. |
 | **Produced by** | `pipeline-run` | Workflow run ID that created this object. Click the run ID to navigate to the workflow run.  |
 | **Source for** | `pipeline-run` | Workflow run ID that used this file as an input. Click the run ID to navigate to the workflow run. |
-—
-If the object was not produced by a lineage-enabled run, no lineage fields are shown in the detail view.
+
+If the object was not produced by a lineage-enabled run, no lineage fields appear in the preview.
 
 :::tip
-Each Lineage ID and lineage label in the detail view is a navigable link. Use these links to retrace the run, task, and inputs that produced an object — without leaving Seqera Platform.
+Each Lineage ID and lineage label in the preview is a navigable link. Use these links to retrace the run, task, and inputs that produced an object, without leaving Seqera Platform.
 
 To capture lineage data, lineage must be enabled for the run that produced the object. Enable lineage from [**Workspace settings → Lineage**][workspace-lineage-settings], the launch form toggle, or by setting `lineage.enabled = true` in your Nextflow configuration. See [Getting started with data lineage][nextflow-lineage-tutorial] for the underlying lineage data model.
 :::

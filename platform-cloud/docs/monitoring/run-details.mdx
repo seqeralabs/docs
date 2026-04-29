@@ -104,26 +104,25 @@ Select a task in the task table to open the **Task details** dialog. The dialog 
 :::note
 If lineage is enabled for the run, the **About** tab content includes **Inputs** and **Outputs** tabs.
 
-The **Inputs** and **Ouputs** tabs show every input or output consumed by the task, including the name, its lineage type (`Collection` or `Path`), the source path, the lineage labels assigned to it, and the lineage ID of the corresponding lineage record. Select a name to open the file in [Data Explorer](../data/data-explorer). Select a lineage ID or label to navigate to that lineage record.
+The **Inputs** and **Outputs** tabs show every input or output consumed by the task, including the name, its lineage type (`Collection` or `Path`), the source path, the lineage labels assigned to it, and the lineage ID of the corresponding lineage record. Select a name to open the file in [Data Explorer](../data/data-explorer). Select a lineage ID or label to navigate to that lineage record.
 :::
 
 #### About
 
-- **Name**: Process name and tag.
-- **Command**: Task script, defined in the pipeline process.
-- **Status**: Exit code, task status, attempts.
-- **Work directory**: Directory where the task was executed.
-- **Environment**: Environment variables supplied to the task.
 - **Name**: Process name and tag.
 - **Status**: Exit code, task status, attempts.
 - **Native ID**: Unique identifier assigned by the underlying execution executor to a specific job.
 - **Command**: Task script, defined in the pipeline process.
 - **Environment**: Environment variables supplied to the task.
 - **Work directory**: Directory where the task was executed.
-- **Inputs**: File inputs to the task and associated lineage data
-- **Outputs**: File outputs from the task and associated lineage data
-- **Upstream**: Links to related upstream tasks
-- **Downstream**: Links to related downstream tasks
+- **Inputs**: File inputs to the task and associated lineage data.
+- **Outputs**: File outputs from the task and associated lineage data.
+- **Upstream**: Links to related upstream tasks.
+- **Downstream**: Links to related downstream tasks.
+
+#### Metrics
+
+- **Execution time**: Metrics for task submission, start, and completion time:
 
   | Label | Description |
   |-------|-------------|
@@ -141,12 +140,11 @@ The **Inputs** and **Ouputs** tabs show every input or output consumed by the ta
   | **queue** | The queue that the executor used to run the process. |
   | **cpus** | Number of CPUs requested for task execution. |
   | **memory** | Memory requested for task execution. |
-  | **disk space** | Disk space requested for task executiuon. |
+  | **disk space** | Disk space requested for task execution. |
   | **time limit** | Time requested for task execution. |
   | **executor** | The Nextflow executor used for this task. |
+  | **cloudZone** | The cloud zone (region) where the task was executed. |
   | **machineType** | The virtual machine type used for this task. |
-| **cloudZone** | The cloud zone (region) where the task was executed. |
-| **machineType** | The virtual machine type used for this task. |
   | **priceModel** | The price model used to calculate the task computation cost. |
   | **estimated cost** | The estimated cost to compute this task. |
 
@@ -363,7 +361,7 @@ The **Containers** tab displays the details of containers used in the run, if an
 </TabItem>
 <TabItem value="Run Info" label="Run Info" default>
 
-The **Run Info** tab contains at-a-glance details about the run, infrastructure, executor, and — when lineage tracking is enabled — lineage. Hover over the information icon next to a card's name to view a value description. Select the icons next to any run detail values to copy them.
+The **Run Info** tab contains at-a-glance details about the run, infrastructure, and executor. When lineage tracking is enabled, it also displays lineage information. Hover over the information icon next to a card's name to view a value description. Select the icons next to any run detail values to copy them.
 
 #### Run details
 
