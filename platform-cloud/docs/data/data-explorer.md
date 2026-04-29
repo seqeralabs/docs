@@ -99,7 +99,9 @@ Select an object on the **View data repository** page to open its detail view. W
 If the object was not produced by a lineage-enabled run, no lineage fields are shown in the detail view.
 
 :::tip
-Each Lineage ID and lineage label in the detail view is a navigable link. Use these links to retrace the run, task, and inputs that produced an object without leaving Seqera Platform. See [Getting started with data lineage][nextflow-lineage-tutorial] for the underlying lineage data model.
+Each Lineage ID and lineage label in the detail view is a navigable link. Use these links to retrace the run, task, and inputs that produced an object — without leaving Seqera Platform.
+
+To capture lineage data, lineage must be enabled for the run that produced the object. Enable lineage from [**Workspace settings → Lineage**][workspace-lineage-settings], the launch form toggle, or by setting `lineage.enabled = true` in your Nextflow configuration. See [Getting started with data lineage][nextflow-lineage-tutorial] for the underlying lineage data model.
 :::
 
 ## Isolate view, read, and write permissions to specific data repository paths
@@ -279,3 +281,4 @@ Compute environment and Fusion multi-credential support will resolve this existi
 [igv]: https://igv.org/doc/igvjs/
 [nextflow-lineage-tutorial]: https://docs.seqera.io/nextflow/tutorials/data-lineage
 [nextflow-label-directive]: https://docs.seqera.io/nextflow/reference/process#label
+[workspace-lineage-settings]: ../orgs-and-teams/workspace-management#lineage

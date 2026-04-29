@@ -35,7 +35,7 @@ Apart from the **Participants** tab, the _organization_ workspace is similar to 
 
 ## Workspace settings
 
-Select the **Settings** tab within a workspace to manage credits, Studios settings, workspace labels, and edit or delete the workspace.
+Select the **Settings** tab within a workspace to manage credits, Studios settings, workspace labels, lineage storage and defaults, and edit or delete the workspace.
 
 ### Credits
 
@@ -66,6 +66,38 @@ Studios sessions created in shared workspaces are not shared across all the work
 ### Edit labels
 
 Select **Edit labels** to manage the workspace [labels and resource labels](../labels/overview).
+
+### Lineage
+
+The **Lineage** card lets workspace maintainers configure where Nextflow [data lineage](../monitoring/run-details#lineage) records are stored and whether lineage tracking is on by default for every run launched in the workspace.
+
+<!-- TODO: design to supply ./_images/workspace-lineage-card.png screenshot of the Lineage card on the workspace Settings tab. Re-add the image reference once the asset is committed: ![Workspace Lineage card](./_images/workspace-lineage-card.png) -->
+
+Select **Edit settings** to open the **Edit lineage settings** form:
+
+<!-- TODO: design to supply ./_images/workspace-lineage-edit.png screenshot of the Edit lineage settings form. Re-add the image reference once the asset is committed: ![Edit lineage settings](./_images/workspace-lineage-edit.png) -->
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| **Credentials** | Yes | The workspace credentials Platform uses to create and access the lineage storage bucket. The credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified). See [Credentials](../credentials/overview). |
+| **Region** | Yes | Cloud region where the lineage storage bucket is created (for example, `us-east-1`, `eu-west-1`). |
+| **Bucket name** | No | Bucket where lineage records are stored. If left empty, Platform generates a default bucket name in the form `seqera-lineage-<workspace-id>`. |
+| **Enable lineage by default** | No (toggle) | When enabled, the launch-form lineage toggle defaults to on for every run launched in this workspace. Users can still override per run. |
+
+:::note
+Platform creates and manages the lineage storage bucket using the configured workspace credentials. You do not need to pre-create a bucket — Platform handles bucket creation through the same credentials model used by [Data Explorer](../data/data-explorer).
+:::
+
+:::tip
+For compliance-driven teams (regulated industries, audit-tracked work), set **Enable lineage by default** to on so every run automatically captures provenance. Lineage records persist for the lifetime of the configured bucket — coordinate with your team on retention policies.
+:::
+
+When lineage is enabled:
+
+- The [Run details](../monitoring/run-details) page surfaces lineage IDs and labels on the Run Info, Tasks, Inputs, and Outputs tabs.
+- [Data Explorer](../data/data-explorer) object detail views show the lineage ID and labels for files produced by lineage-enabled runs.
+
+Users can also enable lineage for an individual run via the launch form toggle, or by setting `lineage.enabled = true` in their Nextflow configuration. The launch form toggle's default state is controlled by **Enable lineage by default**. See [Getting started with data lineage](https://docs.seqera.io/nextflow/tutorials/data-lineage) for the underlying lineage data model.
 
 ### Edit or delete a workspace
 

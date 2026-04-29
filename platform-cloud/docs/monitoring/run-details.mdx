@@ -11,8 +11,6 @@ import TabItem from '@theme/TabItem';
 
 Select a workflow run from the **Runs** list to open a run details page.
 
-![Run details and progress overview](./_images/progress-bar.png)
-
 The top of the page contains basic run details and a progress overview for an at-a-glance view of the run's status:
 - View and copy the run ID, pipeline name and repository, pipeline work directory, compute environment, and launch date.
 - Select the star icon to favorite the run and find it more easily via a filter view in the runs list later.
@@ -29,7 +27,13 @@ Select the tabs below the workflow run progress bar to view further run details:
 - **Run Info**: View details about the [run](#run-details), [infrastructure](#infrastructure-details), [executor](#executors-details), and [lineage](#lineage).
 
 :::tip
-Lineage-aware fields and tabs only display data when the run was executed with data lineage enabled. To enable lineage for a run, set `lineage.enabled = true` in your Nextflow configuration, toggle lineage on in the launch form, or enable it as a workspace setting. See [Getting started with data lineage][nextflow-lineage-tutorial] for details.
+Lineage-aware fields and tabs only display data when the run was executed with data lineage enabled. There are three ways to enable lineage:
+
+- [**Workspace settings → Lineage**][workspace-lineage-settings]. A workspace maintainer configures the cloud credentials, region, and (optionally) bucket name where lineage records are stored. Enable **Enable lineage by default** to make the launch-form lineage toggle default to on for every run launched in the workspace.
+- **Launch form toggle**. When launching a pipeline, toggle lineage on or off for the individual run.
+- **Nextflow configuration**. Set `lineage.enabled = true` in your pipeline's Nextflow config.
+
+See [Getting started with data lineage][nextflow-lineage-tutorial] for the underlying lineage data model.
 :::
 
 <Tabs>
@@ -89,7 +93,7 @@ Use the search bar to filter tasks with substrings in the table columns such as 
 
 ![Task details](./_images/task-details.png)
 
-Select a task in the task table to open the **Task details** dialog. The dialog has the following tabs: **About**, **Execution log**, **Data Explorer**, and **Container**.  If lineage is enabled for the run, the dialog also includes **Inputs** and **Outputs** tabs.
+Select a task in the task table to open the **Task details** dialog. The dialog has the following tabs: **About**, **Execution log**, **Data Explorer**, **Container**, and — when lineage is enabled for the run — **Inputs** and **Outputs**.
 
 #### About
 
@@ -291,6 +295,10 @@ The **Command** window displays the Nextflow command used for the run.
 
 The **Inputs** tab consolidates the pipeline parameters and the input files used by the run. It replaces the former Datasets tab and the Parameters section of the Configuration tab.
 
+:::info
+The Inputs tab is being rolled out as part of [PLAT-1255](https://seqera.atlassian.net/browse/PLAT-1255). Until [PLAT-4982](https://seqera.atlassian.net/browse/PLAT-4982) ships, parameters are displayed on the [Configuration](#configuration) tab and datasets on a separate Datasets tab.
+:::
+
 #### Parameters
 
 ![Parameters](./_images/parameters.png)
@@ -366,7 +374,7 @@ The **Containers** tab displays the details of containers used in the run, if an
 </TabItem>
 <TabItem value="Run Info" label="Run Info" default>
 
-The **Run Info** tab contains at-a-glance details about the run, infrastructure, and executor. When lineage tracking is enabled, it also displays lineage information. Hover over the information icon next to a card's name to view a value description. Select the icons next to any run detail values to copy them.
+The **Run Info** tab contains at-a-glance details about the run, infrastructure, executor, and — when lineage tracking is enabled — lineage. Hover over the information icon next to a card's name to view a value description. Select the icons next to any run detail values to copy them.
 
 #### Run details
 
@@ -438,7 +446,7 @@ Editing a Platform label after a run has completed does not retroactively update
 
 | Condition | Behavior |
 |-----------|----------|
-| Lineage was not enabled for this run | The Lineage view is hidden. A note reads: *"Lineage tracking was not enabled for this run. Add `lineage.enabled = true` to your Nextflow config to capture lineage data, or toggle lineage on in the launch form."* |
+| Lineage was not enabled for this run | The Lineage view is hidden. A note reads: *"Lineage tracking was not enabled for this run. Add `lineage.enabled = true` to your Nextflow config to capture lineage data, or toggle lineage on in the launch form."* To make lineage the default for all runs in this workspace, configure [**Workspace settings → Lineage**][workspace-lineage-settings] and enable **Enable lineage by default**. |
 | Lineage was enabled but no records were found | The Lineage view displays: *"No workflow lineage records found for this run."* The Inputs, Outputs, and Tasks tabs each display the equivalent message for their record type. |
 | The lineage indexer is unavailable | The Lineage view displays an error state with a retry action. |
 
@@ -447,3 +455,4 @@ Editing a Platform label after a run has completed does not retroactively update
 
 [nextflow-lineage-tutorial]: https://docs.seqera.io/nextflow/tutorials/data-lineage
 [nextflow-label-directive]: https://docs.seqera.io/nextflow/reference/process#label
+[workspace-lineage-settings]: ../orgs-and-teams/workspace-management#lineage
