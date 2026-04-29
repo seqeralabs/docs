@@ -2,12 +2,8 @@
 title: "Use cases"
 description: "Learn how to use Co-Scientist CLI for bioinformatics workflows, pipeline development, and data management"
 date created: "2026-03-11"
-tags: [seqera-ai, cli, ai, use cases]
+tags: [seqera-ai, co-scientist, cli, ai, use cases]
 ---
-
-:::note
-Seqera Cloud users receive $20 in free credits to get started with Co-Scientist. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
-:::
 
 Co-Scientist is an intelligent command-line assistant that helps you build, run, and manage bioinformatics workflows. The following sections describe several common use cases.
 
@@ -591,4 +587,5 @@ seqera ai -s <session-id>
 - [Skills](./skills.md): Discover, create, and install skills
 - [Modes](./modes.md): Work in build mode, plan mode, and goal mode
 - [Command approval](./command-approval.md): Control which commands run automatically
+- [Credits](./credits.md): Co-Scientist credits and how to request more
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors
