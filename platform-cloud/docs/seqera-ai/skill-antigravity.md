@@ -89,6 +89,18 @@ Antigravity invokes Seqera AI dynamically via shell commands rather than static 
 | Headless query | `seqera ai --headless --approval-mode basic "<query>"` | Read-only questions, analysis |
 | Sub-agent mode | `seqera ai --sub-agent --approval-mode basic "<query>"` | Structured JSONL output |
 | Goal mode | `seqera ai --headless --approval-mode full "/goal <task>"` | Multi-step autonomous work |
+| Module QA review | `seqera ai --headless --approval-mode basic "Review modules/nf-core/<module>/main.nf for correctness"` | Pre-push nf-core module validation |
+
+### Validated use case: nf-core module QA
+
+Antigravity uses Seqera AI as a domain-expert QA gate before pushing nf-core module PRs. In [PR #11377](https://github.com/nf-core/modules/pull/11377) (emmtyper), Seqera AI caught that `emmtyper --version | sed` was fragile across Docker/Conda environments due to Click version differences, and recommended using `python -c "import emmtyper; print(emmtyper.__version__)"` instead.
+
+```bash
+seqera ai --headless --approval-mode basic \
+  "Review modules/nf-core/emmtyper/main.nf for topic channel, stub, and eval correctness" 2>&1
+```
+
+This pattern complements `nf-core modules lint` by catching semantic issues that static linting misses.
 
 ### Usage
 
