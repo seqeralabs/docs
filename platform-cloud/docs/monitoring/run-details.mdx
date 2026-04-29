@@ -114,29 +114,30 @@ The **Inputs** and **Ouputs** tabs show every input or output consumed by the ta
 
   | Label | Description |
   |-------|-------------|
-  | **submit** | Task submission timestamp. |
-  | **start** | Task execution timestamp. |
-  | **complete** | Task completion timestamp. |
-  | **duration** | Time elapsed from task submission to completion, including scheduling time. |
-  | **realtime** | Task script execution time. |
+  | **submitted** | Task submission timestamp. |
+  | **started** | Task execution timestamp. |
+  | **completed** | Task completion timestamp. |
+  | **total duration** | Time elapsed from task submission to completion, including scheduling time. |
+  | **script execution time** | Task script execution time. |
 
-- **Resources requested**: Metrics for the resources requested by the task:
+- **Requested resources**: Metrics for the resources requested by the task:
 
   | Label | Description |
   |-------|-------------|
-  | **container** | Container image name used to execute the task. |
+  | **container image** | Container image name used to execute the task. |
   | **queue** | The queue that the executor used to run the process. |
   | **cpus** | Number of CPUs requested for task execution. |
   | **memory** | Memory requested for task execution. |
-  | **disk** | Disk space requested for task executiuon. |
-  | **time** | Time requested for task execution. |
+  | **disk space** | Disk space requested for task executiuon. |
+  | **time limit** | Time requested for task execution. |
   | **executor** | The Nextflow executor used for this task. |
   | **machineType** | The virtual machine type used for this task. |
-  | **cloudZone** | The cloud zone (region) where the task was executed. |
+| **cloudZone** | The cloud zone (region) where the task was executed. |
+| **machineType** | The virtual machine type used for this task. |
   | **priceModel** | The price model used to calculate the task computation cost. |
-  | **cost** | The estimated cost to compute this task. |
+  | **estimated cost** | The estimated cost to compute this task. |
 
-- **Resources used**: Metrics for the actual resources used by the task:
+- **Used resources**: Metrics for the actual resources used by the task:
 
   | Label | Description |
   |-------|-------------|
