@@ -85,6 +85,7 @@ Organize a workspace into projects by applying Seqera Platform labels prefixed w
 - [Working with Claude Code](./skill-claude-code.md): Install Seqera AI as a skill for Claude Code
 - [Working with Codex](./skill-codex.md): Install Seqera AI as a skill for Codex
 - [Working with GitHub Copilot](./skill-github-copilot.md): Install Seqera AI as a skill for GitHub Copilot
+- [Working with Antigravity/Gemini](./skill-antigravity.md): Install Seqera AI as a skill for Antigravity/Gemini
 - [Working with other coding agents](./skill-other-agents.md): Install Seqera AI for other coding agents
 - [Code intelligence](./nextflow-lsp.md): Language-server support in Seqera AI
 - [Use cases](./use-cases.md): Seqera AI CLI use cases
