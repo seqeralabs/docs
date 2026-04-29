@@ -89,7 +89,7 @@ When an object in Data Explorer was produced by a Nextflow run with [data lineag
 
 <!-- TODO: design to supply ./_images/data-explorer-lineage.png screenshot of the object-level lineage view. Re-add the image reference once the asset is committed: ![Object-level lineage data](./_images/data-explorer-lineage.png) -->
 
-Select an object on the **View data repository** page to open its detail view. When lineage data is available, the detail view displays:
+Select an object to preview. When lineage data is available, this displays:
 
 | Field | Source | Description |
 |-------|--------|-------------|
