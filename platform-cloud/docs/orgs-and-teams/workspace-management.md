@@ -2,7 +2,7 @@
 title: "Workspaces"
 description: "Manage users and teams for an organization in Seqera Platform."
 date created: "2023-04-23"
-last updated: "2026-03-02"
+last updated: "2026-04-29"
 tags: [workspaces, teams, users, administration, user-workspace, create-workspace, credits, settings]
 ---
 
@@ -71,11 +71,7 @@ Select **Edit labels** to manage the workspace [labels and resource labels](../l
 
 The **Lineage** card lets workspace maintainers configure where Nextflow [data lineage](../monitoring/run-details#lineage) records are stored and whether lineage tracking is on by default for every run launched in the workspace.
 
-<!-- TODO: design to supply ./_images/workspace-lineage-card.png screenshot of the Lineage card on the workspace Settings tab. Re-add the image reference once the asset is committed: ![Workspace Lineage card](./_images/workspace-lineage-card.png) -->
-
 Select **Edit settings** to open the **Edit lineage settings** form:
-
-<!-- TODO: design to supply ./_images/workspace-lineage-edit.png screenshot of the Edit lineage settings form. Re-add the image reference once the asset is committed: ![Edit lineage settings](./_images/workspace-lineage-edit.png) -->
 
 | Field | Required | Description |
 |-------|----------|-------------|
