@@ -1,15 +1,15 @@
 ---
 title: "Working with other coding agents"
-description: "Install and maintain the Seqera AI skill for other coding agents"
+description: "Install and maintain the Co-Scientist skill for other coding agents"
 date created: "2026-03-11"
 tags: [seqera-ai, cli, skills, coding-agents]
 ---
 
 :::note
-Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
+Seqera Cloud users receive $20 in free credits to get started with Co-Scientist. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
 :::
 
-The `seqera skill` command installs a skill file that enables coding agents such as [Cursor](https://www.cursor.com/), [OpenCode](https://opencode.ai/), [Pi](https://github.com/badlogic/pi-mono), and [Windsurf](https://windsurf.com/) to use Seqera AI as a subagent. Once installed, these agents can invoke Seqera AI directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
+The `seqera skill` command installs a skill file that enables coding agents such as [Cursor](https://www.cursor.com/), [OpenCode](https://opencode.ai/), [Pi](https://github.com/badlogic/pi-mono), and [Windsurf](https://windsurf.com/) to use Co-Scientist as a subagent. Once installed, these agents can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
 
 ### Supported agents
 
@@ -98,6 +98,6 @@ seqera skill check [OPTIONS]
 ### Learn more
 
 - [Skills](./skills.md): Discover, create, and install skills
-- [Use cases](./use-cases.md): Seqera AI CLI use cases
+- [Use cases](./use-cases.md): Co-Scientist CLI use cases
 - [Code intelligence](./nextflow-lsp.md): Language-aware coding support
 - [Installation](./installation.md): Detailed installation instructions

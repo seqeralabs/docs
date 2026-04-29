@@ -1,22 +1,22 @@
 ---
 title: "Use cases"
-description: "Learn how to use Seqera AI CLI for bioinformatics workflows, pipeline development, and data management"
+description: "Learn how to use Co-Scientist CLI for bioinformatics workflows, pipeline development, and data management"
 date created: "2026-03-11"
 tags: [seqera-ai, cli, ai, use cases]
 ---
 
 :::note
-Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
+Seqera Cloud users receive $20 in free credits to get started with Co-Scientist. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
 :::
 
-Seqera AI is an intelligent command-line assistant that helps you build, run, and manage bioinformatics workflows. The following sections describe several common use cases.
+Co-Scientist is an intelligent command-line assistant that helps you build, run, and manage bioinformatics workflows. The following sections describe several common use cases.
 
 ## Work with Nextflow
 
-Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-powered analysis and code generation.
+Co-Scientist helps you develop, debug, and understand Nextflow pipelines with AI-powered analysis and code generation.
 
 <div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
-<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/qJ46rsIbZsY?autoplay=1&mute=1" title="Use Seqera AI CLI to debug Nextflow pipeline scripts" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/qJ46rsIbZsY?autoplay=1&mute=1" title="Use Co-Scientist CLI to debug Nextflow pipeline scripts" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 
 <details open>
@@ -43,7 +43,7 @@ Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-po
 ```
 
 <div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
-<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/jZy-5OtJ5Wc?autoplay=1&mute=1" title="Use Seqera AI CLI to generate a Nextflow config file" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/jZy-5OtJ5Wc?autoplay=1&mute=1" title="Use Co-Scientist CLI to generate a Nextflow config file" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 
 **Debug your pipeline**:
@@ -75,7 +75,7 @@ Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-po
 ```
 
 <div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
-<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/KxNzu7mqPjo?autoplay=1&mute=1" title="Use Seqera AI CLI to generate a Nextflow schema file" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/KxNzu7mqPjo?autoplay=1&mute=1" title="Use Co-Scientist CLI to generate a Nextflow schema file" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 
 **Convert scripts to Nextflow**:
@@ -85,7 +85,7 @@ Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-po
 ```
 
 <div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
-<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/93m4qsn8NO8?autoplay=1&mute=1" title="Use Seqera AI CLI to convert scripts to Nextflow" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/93m4qsn8NO8?autoplay=1&mute=1" title="Use Co-Scientist CLI to convert scripts to Nextflow" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 
 **Fix strict syntax issues**:
@@ -107,7 +107,7 @@ Seqera AI helps you develop, debug, and understand Nextflow pipelines with AI-po
 Use Seqera Platform capabilities to run and manage workflows at scale with AI assistance.
 
 <div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
-<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/69QSCQdgVR0?autoplay=1&mute=1" title="Use Seqera AI CLI to debug Platform run errors" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/69QSCQdgVR0?autoplay=1&mute=1" title="Use Co-Scientist CLI to debug Platform run errors" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 
 <details open>
@@ -139,10 +139,10 @@ Use Seqera Platform capabilities to run and manage workflows at scale with AI as
 
 ## Build containers with Wave
 
-Seqera AI can create containerized environments using Wave, without the need to write Dockerfiles.
+Co-Scientist can create containerized environments using Wave, without the need to write Dockerfiles.
 
 <div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
-<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/lihF6g9C3RY?autoplay=1&mute=1" title="Use Seqera AI CLI to build containers with Wave" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/lihF6g9C3RY?autoplay=1&mute=1" title="Use Co-Scientist CLI to build containers with Wave" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 
 <details open>
@@ -250,7 +250,7 @@ Plan mode is designed for read-only analysis. To execute commands, edit files, o
 
 ## Use goal mode for longer tasks
 
-Use **goal mode** when you want Seqera AI to keep working toward a task over multiple model attempts.
+Use **goal mode** when you want Co-Scientist to keep working toward a task over multiple model attempts.
 
 <details open>
 <summary>**Working in goal mode**</summary>
@@ -281,7 +281,7 @@ Goal mode automatically switches command approval to `full` so the assistant can
 
 ## Exit the assistant
 
-End your Seqera AI session when done.
+End your Co-Scientist session when done.
 
 <details open>
 <summary>**Exit the assistant**</summary>
@@ -299,7 +299,7 @@ Your conversation history is preserved. You can resume a session later with `seq
 
 ## Use slash commands
 
-Seqera AI includes built-in slash commands for common workflows.
+Co-Scientist includes built-in slash commands for common workflows.
 
 <details open>
 <summary>**TUI commands**</summary>
@@ -348,13 +348,13 @@ These commands are sent to the AI backend for processing:
 | `/convert-jupyter-notebook` | Convert Jupyter notebook to Nextflow |
 | `/write-nf-test` | Write nf-tests for your pipeline |
 
-Skills exposed by your Seqera AI deployment also appear in the `/` command palette and in `/help`.
+Skills exposed by your Co-Scientist deployment also appear in the `/` command palette and in `/help`.
 
 </details>
 
 ## Work with skills
 
-Seqera AI can use reusable skills from your current project, your user profile, and the backend skill catalog exposed by your deployment.
+Co-Scientist can use reusable skills from your current project, your user profile, and the backend skill catalog exposed by your deployment.
 
 <details open>
 <summary>**Using skills**</summary>
@@ -379,7 +379,7 @@ Examples include:
 
 Create a `SKILL.md` file in `.agents/skills/` or `.seqera/skills/` and restart `seqera ai`.
 
-**Install Seqera AI into coding agents**:
+**Install Co-Scientist into coding agents**:
 
 ```bash
 seqera skill install
@@ -389,7 +389,7 @@ seqera skill install
 
 ## Work with data
 
-Seqera AI helps you manage data through Platform data links and access reference datasets.
+Co-Scientist helps you manage data through Platform data links and access reference datasets.
 
 <details open>
 <summary>**Working with data**</summary>
@@ -428,7 +428,7 @@ Seqera AI helps you manage data through Platform data links and access reference
 
 ## Work with local files
 
-Seqera AI can interact with files in your current working directory.
+Co-Scientist can interact with files in your current working directory.
 
 <details open>
 <summary>**Work with local files**</summary>
@@ -458,7 +458,7 @@ Local file operations are controlled by [approval modes](./command-approval.md#a
 
 ## Work with nf-core modules
 
-Seqera AI provides access to over 1,000 nf-core modules for common bioinformatics tasks.
+Co-Scientist provides access to over 1,000 nf-core modules for common bioinformatics tasks.
 
 <details open>
 <summary>**Working with nf-core modules**</summary>
@@ -496,7 +496,7 @@ The assistant can generate the exact Nextflow command with proper parameters for
 Use Seqera Platform capabilities to run and manage workflows at scale with AI assistance.
 
 <!-- TODO: Replace with OpenTUI screenshots -->
-![Use Seqera AI CLI to debug Platform run errors](./_images/sp-run-debug.gif)
+![Use Co-Scientist CLI to debug Platform run errors](./_images/sp-run-debug.gif)
 
 <details open>
 <summary>**Working with Seqera Platform**</summary>
@@ -527,7 +527,7 @@ Use Seqera Platform capabilities to run and manage workflows at scale with AI as
 
 ## Headless mode
 
-Run Seqera AI in headless mode for scripting and automation. Output is sent to stdout instead of the interactive TUI.
+Run Co-Scientist in headless mode for scripting and automation. Output is sent to stdout instead of the interactive TUI.
 
 <details open>
 <summary>**Headless mode**</summary>
@@ -558,7 +558,7 @@ Headless mode is also auto-detected when stdout is piped (e.g., `seqera ai "quer
 
 ## Session management
 
-Seqera AI preserves your conversation history across sessions. You can resume previous sessions to continue your work.
+Co-Scientist preserves your conversation history across sessions. You can resume previous sessions to continue your work.
 
 <details open>
 <summary>**Session management**</summary>
@@ -583,10 +583,9 @@ seqera ai -s <session-id>
 
 </details>
 
->>>>>>> f7f424c5 (Update Seqera AI CLI docs: Python CLI to OpenTUI CLI)
 <h2>Learn more</h2>
 
-- [Seqera AI CLI](index.md): Seqera AI CLI overview
+- [Co-Scientist CLI](index.md): Co-Scientist CLI overview
 - [Installation](./installation.md): Detailed installation instructions
 - [Authentication](./authentication.md): Log in, log out, and session management
 - [Skills](./skills.md): Discover, create, and install skills
