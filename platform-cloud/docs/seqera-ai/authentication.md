@@ -2,12 +2,8 @@
 title: "Authentication"
 description: "Login, logout, and session management for Seqera CLI"
 date created: "2025-12-15"
-tags: [seqera-ai, cli, authentication, login]
+tags: [seqera-ai, co-scientist, cli, authentication, login]
 ---
-
-:::note
-Seqera Cloud users receive $20 in free credits to get started with Co-Scientist. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
-:::
 
 Co-Scientist uses your Seqera Platform account for authentication. This page describes authentication concepts and step-by-step instructions for managing your sessions.
 
@@ -137,4 +133,5 @@ Co-Scientist CLI automatically refreshes your authentication token when needed. 
 - [Installation](./installation.md): Detailed installation instructions
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Use cases](./use-cases.md): Co-Scientist use cases
+- [Credits](./credits.md): Co-Scientist credits and how to request more
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

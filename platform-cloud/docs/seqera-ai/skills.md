@@ -2,12 +2,8 @@
 title: "Skills"
 description: "Discover, create, and install skills in Co-Scientist CLI"
 date created: "2026-03-11"
-tags: [seqera-ai, cli, skills]
+tags: [seqera-ai, co-scientist, cli, skills]
 ---
-
-:::note
-Seqera Cloud users receive $20 in free credits to get started with Co-Scientist. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
-:::
 
 Skills are reusable instruction sets that extend Co-Scientist with domain-specific workflows, prompts, and operating guidance.
 
@@ -157,3 +153,4 @@ To keep session payloads small, Co-Scientist caps discovered skill context at **
 - [Working with Codex](./skill-codex.md): Install Co-Scientist as a skill for Codex
 - [Working with GitHub Copilot](./skill-github-copilot.md): Install Co-Scientist as a skill for GitHub Copilot
 - [Working with other coding agents](./skill-other-agents.md): Install Co-Scientist for other coding agents
+- [Credits](./credits.md): Co-Scientist credits and how to request more
