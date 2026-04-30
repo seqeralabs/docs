@@ -88,6 +88,7 @@ Select **Lineage** to open the **Edit lineage settings** form:
 
 The credentials required for lineage are indicated below in an example AWS policy.
 
+```
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -135,7 +136,7 @@ The credentials required for lineage are indicated below in an example AWS polic
         }
     ]
 }
-
+```
 
 :::note
 Platform creates and manages the lineage storage bucket using the configured workspace credentials. You do not need to pre-create a bucket. Platform handles bucket creation through the same credentials model used by [Data Explorer](../data/data-explorer). Platform also manages configuration of object store notifications, and SQS.
