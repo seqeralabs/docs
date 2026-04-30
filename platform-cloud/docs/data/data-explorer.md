@@ -93,7 +93,6 @@ Select an object to preview. When lineage data is available, this displays:
 
 | Field | Source | Description |
 |-------|--------|-------------|
-| **Lineage ID** | `LID` | Lineage ID (LID) of the object's `FileOutput` record. Click the LID to navigate to the lineage record. |
 | **Lineage Labels** | `labels` | Lineage labels assigned to the output. Each label is a clickable link to the lineage record for that label. See the Nextflow [`label` directive][nextflow-label-directive] for assignment details. |
 | **Produced by** | `pipeline-run` | Workflow run ID that created this object. Click the run ID to navigate to the workflow run.  |
 | **Source for** | `pipeline-run` | Workflow run ID that used this file as an input. Click the run ID to navigate to the workflow run. |
