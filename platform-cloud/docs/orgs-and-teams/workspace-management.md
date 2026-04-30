@@ -161,7 +161,6 @@ Workspace **owners** can edit their workspace name from the workspace **Settings
 
 - Select **Edit workspace** to update the workspace name, full name, description, and sharing. Select **Update** to save changes.
 - Select **Delete workspace** to delete the workspace and its associated resources. This action cannot be reversed.
-``
 
 ## Add a new participant
 
