@@ -27,10 +27,13 @@ Select the tabs below the workflow run progress bar to view further run details:
 - **Run Info**: View details about the [run](#run-details), [infrastructure](#infrastructure-details), [executor](#executors-details), and [lineage](#lineage).
 
 :::tip
+Data lineage is made available on request. Please contact your Seqera account manager.
+
 Lineage-aware fields and tabs only display data when the run was executed with data lineage enabled. There are three ways to enable lineage:
 
 - [**Settings > Lineage**][workspace-lineage-settings]. A workspace maintainer configures the cloud credentials, region, and (optionally) bucket name where lineage records are stored. Select **Enable lineage by default** to make the launch form lineage toggle default to on for every run launched in the workspace.
 - **Launch form toggle**. When launching a pipeline, toggle lineage on or off for the individual run.
+- **Nextflow configuration**. Set `lineage.enabled = true` in your pipeline's Nextflow config.
 
 See [Getting started with data lineage][nextflow-lineage-tutorial] for the underlying lineage data model.
 :::
@@ -84,6 +87,7 @@ The **Tasks** panel shows all the tasks that were executed in the run, including
 | **wchar** | Number of characters written to storage. |
 | **vol_ctxt** | Number of voluntary context switches. |
 | **inv_ctxt** | Number of involuntary context switches. |
+| **lineage_id** | Lineage ID (LID) of the task's `TaskRun` record. Populated only when lineage tracking is active for the run. Select the LID to navigate to the lineage record. |
 
 Use the search bar to filter tasks with substrings in the table columns such as **process**, **tag**, **hash**, and **status**. For example, if you enter `succeeded` in the **Search task** field, the table displays only tasks that succeeded.
 
@@ -102,7 +106,7 @@ Select a task in the task table to open the **Task details** dialog. The dialog 
 :::note
 If lineage is enabled for the run, the **About** tab content includes **Inputs** and **Outputs** tabs.
 
-The **Inputs** and **Outputs** tabs show every input or output consumed by the task, including the name and the lineage labels assigned to it. Select a name to open the file in [Data Explorer](../data/data-explorer).
+The **Inputs** and **Outputs** tabs show every input or output consumed by the task, including the name, its lineage type (`Collection` or `Path`), the source path, the lineage labels assigned to it, and the lineage ID of the corresponding lineage record. Select a name to open the file in [Data Explorer](../data/data-explorer). Select a lineage ID or label to navigate to that lineage record.
 :::
 
 #### About
@@ -296,13 +300,27 @@ The **Command** window displays the Nextflow command used for the run.
 </TabItem>
 <TabItem value="Inputs" label="Inputs" default>
 
-The **Inputs** tab consolidates the pipeline parameters and the datasets used by the run.
+The **Inputs** tab consolidates the pipeline parameters and the input files used by the run.
 
 #### Parameters
 
 ![Parameters](./_images/parameters.png)
 
 The **Parameters** window displays the pipeline parameters configured for the run, with options to view, copy, or download the parameters in Groovy, JSON, or YAML format.
+
+#### Input files
+
+The **Input files** table displays every dataset, file, and collection that was used as input for the run:
+
+| Column | Description |
+|--------|-------------|
+| **Input Name** | Display name of the input. Select the name to open the file in [Data Explorer](../data/data-explorer) or in the corresponding [Dataset](../data/datasets). |
+| **Type** | Lineage type, such as `Collection` or `Path`. |
+| **File Path** | Full path to the input. The path is truncated; hover for the complete path. Select the path to open it in [Data Explorer](../data/data-explorer). |
+| **Lineage ID** | Lineage ID (LID) of the input's lineage record. Only populated when [lineage tracking is enabled][nextflow-lineage-tutorial]. |
+| **Lineage Labels** | Lineage labels assigned to the input. Each label is a clickable link that navigates to the lineage record for that label. |
+
+If the run was not launched with any input files or datasets, the table is empty.
 
 </TabItem>
 <TabItem value="Outputs" label="Outputs" default>
@@ -379,6 +397,44 @@ View run executor details:
 - The **Nextflow version** and **Nextflow session ID** for the run.
 - The version of [**Fusion**](https://docs.seqera.io/fusion) used in the run, if enabled.
 - Whether the run used [**Wave**](https://docs.seqera.io/wave) (**Enabled** or **Disabled**).
+
+#### Lineage
+
+When the run was executed with [data lineage tracking enabled][nextflow-lineage-tutorial], the **Run Info** tab displays a **Lineage** view that exposes the workflow run's lineage record. Select a Lineage ID or lineage label to navigate to the corresponding lineage record.
+
+:::note
+Seqera Platform labels and Nextflow lineage labels are distinct entities. Both propagate to the lineage record and are namespaced for clarity. Resource Labels are intentionally excluded.
+
+- Platform labels (set via the [Labels](../labels/overview) interface) are **mutable**.
+- Lineage labels (set via the Nextflow [`label` directive][nextflow-label-directive]) are **immutable**.
+
+Editing a Platform label after a run has completed does not retroactively update the corresponding lineage record.
+:::
+
+| Field | Source | Description |
+|-------|--------|-------------|
+| **Lineage ID** | `LID` | Lineage ID (LID) of the workflow run's `WorkflowRun` record. Select the LID to navigate to the lineage record for the run. |
+| **Lineage Labels** | `labels` | Lineage labels assigned to the run. Each label is a clickable link to the lineage record for that label. |
+| **User ID** | `platform.user.id` | Seqera Platform user ID of the user who launched the run. |
+| **User Name** | `platform.user.userName` | Seqera Platform user name of the user who launched the run. |
+| **Workspace ID** | `platform.workspace.id` | Seqera Platform workspace ID where the run was launched. |
+| **Workspace Name** | `platform.workspace.name` | Seqera Platform workspace name where the run was launched. |
+| **Workspace Org** | `platform.workspace.organization` | Parent organization name of the workspace. |
+| **Compute Env** | `platform.computeEnv.id` | Seqera Platform compute environment ID used for the run. |
+| **Compute Env Name** | `platform.computeEnv.name` | Seqera Platform compute environment name. |
+| **Compute Env Platform** | `platform.computeEnv.platform` | The compute environment platform (for example, `aws-cloud`). |
+| **Pipeline ID** | `platform.pipeline.id` | Seqera Platform pipeline ID. |
+| **Pipeline Name** | `platform.pipeline.name` | Seqera Platform pipeline name. |
+| **Pipeline Revision** | `platform.pipeline.revision` | Pipeline revision used for the run. |
+| **Pipeline Commit ID** | `platform.pipeline.commitId` | Pipeline Git commit ID used for the run. |
+
+#### Empty and error states
+
+| Condition | Behavior |
+|-----------|----------|
+| Lineage was not enabled for this run | The Lineage view is hidden. A note reads: *"Lineage tracking was not enabled for this run. Add `lineage.enabled = true` to your Nextflow config to capture lineage data, or toggle lineage on in the launch form."* To make lineage the default for all runs in this workspace, configure [**Workspace settings → Lineage**][workspace-lineage-settings] and enable **Enable lineage by default**. |
+| Lineage was enabled but no records were found | The Lineage view displays: *"No workflow lineage records found for this run."* The Inputs, Outputs, and Tasks tabs each display the equivalent message for their record type. |
+| The lineage indexer is unavailable | The Lineage view displays an error state with a retry action. |
 
 </TabItem>
 </Tabs>
