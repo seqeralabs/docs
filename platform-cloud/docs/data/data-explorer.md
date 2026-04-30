@@ -101,7 +101,7 @@ Select an object to preview. When lineage data is available, this displays:
 If the object was not produced by a lineage-enabled run, no lineage fields appear in the preview.
 
 :::tip
-Each Lineage ID and lineage label in the preview is a navigable link. Use these links to retrace the run, task, and inputs that produced an object, without leaving Seqera Platform.
+Each lineage ID, lineage label, produced by, and source for in the preview is a navigable link. Use these links to retrace the run, task, inputs that produced an object, or outputs created by the object without leaving Seqera Platform.
 
 To capture lineage data, lineage must be enabled for the run that produced the object. Enable lineage from [**Workspace settings → Lineage**][workspace-lineage-settings] or the launch form lineage toggle. See [Getting started with data lineage][nextflow-lineage-tutorial] for the underlying lineage data model.
 :::
