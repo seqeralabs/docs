@@ -48,16 +48,7 @@
       "collapsed": true,
       "items": [
         "nextflow/use-cases",
-        "nextflow/configuration",
-        {
-          "type": "category",
-          "label": "Guides",
-          "collapsed": true,
-          "items": [
-            "nextflow/bundle-scripts",
-            "nextflow/reduce-api-calls"
-          ]
-        }
+        "nextflow/configuration"
       ]
     },
     {
@@ -113,6 +104,15 @@
             "migrations/1-21-0"
           ]
         }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Guides",
+      "collapsed": true,
+      "items": [
+        "guides/bundle-scripts",
+        "guides/reduce-api-calls"
       ]
     },
     "seqera-containers",
