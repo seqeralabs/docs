@@ -128,7 +128,7 @@
       },
      {
       "type": "category",
-      "label": "Seqera AI CLI",
+      "label": "Co-Scientist",
       "link": {"type": "doc", "id": "seqera-ai/index"},
       "collapsed": true,
       "items": [
@@ -143,7 +143,8 @@
         "seqera-ai/skill-codex",
         "seqera-ai/skill-github-copilot",
         "seqera-ai/skill-other-agents",
-        "seqera-ai/nextflow-lsp"
+        "seqera-ai/nextflow-lsp",
+        "seqera-ai/projects"
       ]
     },
      {
@@ -188,12 +189,12 @@
         "items": [
           {
             "type": "link",
-            "label": "API",
+            "label": "Platform API",
             "href": "https://docs.seqera.io/platform-api"
           },
           {
             "type": "link",
-            "label": "CLI",
+            "label": "Platform CLI",
             "href": "https://docs.seqera.io/platform-cli"
           },
             {
