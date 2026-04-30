@@ -2,12 +2,8 @@
 title: "Command approval"
 description: "Control which local commands require user approval in Co-Scientist"
 date created: "2025-12-15"
-tags: [seqera-ai, cli, approval, security]
+tags: [seqera-ai, co-scientist, cli, approval, security]
 ---
-
-:::note
-Seqera Cloud users receive $20 in free credits to get started with Co-Scientist. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
-:::
 
 Co-Scientist can execute local commands and edit files in your environment. This page explains approval modes that control which operations run automatically versus which require your permission, including dangerous commands, workspace boundaries, and best practices.
 
@@ -231,4 +227,5 @@ seqera ai
 - [Installation](./installation): Detailed installation instructions
 - [Authentication](./authentication): Log in, log out, and session management
 - [Use cases](./use-cases.md): Co-Scientist use cases
+- [Credits](./credits.md): Co-Scientist credits and how to request more
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

@@ -2,12 +2,8 @@
 title: "Language server"
 description: "Use language-server code intelligence features in Co-Scientist"
 date created: "2026-02-26"
-tags: [seqera-ai, cli, lsp, code-intelligence]
+tags: [seqera-ai, co-scientist, cli, lsp, code-intelligence]
 ---
-
-:::note
-Seqera Cloud users receive $20 in free credits to get started with Co-Scientist. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
-:::
 
 When you ask Co-Scientist to help with code in your workspace, it uses language server (LSP) context to provide:
 
@@ -40,3 +36,4 @@ See [Nextflow Language Server](https://github.com/nextflow-io/language-server) f
 - [Co-Scientist CLI](./index.md): Co-Scientist overview
 - [Get started](./get-started.md): Start using Co-Scientist
 - [Use cases](./use-cases.md): Co-Scientist CLI use cases
+- [Credits](./credits.md): Co-Scientist credits and how to request more

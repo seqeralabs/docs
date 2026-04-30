@@ -3,12 +3,8 @@ title: "Co-Scientist in the Seqera CLI"
 description: "AI-powered assistant for bioinformatics workflows and Seqera Platform"
 date created: "2026-03-11"
 last updated: "2026-04-29"
-tags: [seqera-ai, cli, ai]
+tags: [seqera-ai, co-scientist, cli, ai]
 ---
-
-:::note
-Seqera Cloud users receive $20 in free credits to get started with Co-Scientist. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
-:::
 
 Co-Scientist combines self-service bioinformatics, interactive intelligence, and autonomous execution into one unified experience.
 
@@ -92,4 +88,5 @@ Organize a workspace into projects by applying Seqera Platform labels prefixed w
 - [Code intelligence](./nextflow-lsp.md): Language-server support in Co-Scientist
 - [Use cases](./use-cases.md): Seqera CLI use cases
 - [Projects](./projects.md): Organize workspace resources into projects using Platform labels
+- [Credits](./credits.md): Co-Scientist credits and how to request more
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors
