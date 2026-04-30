@@ -69,9 +69,9 @@ Select **Edit labels** to manage the workspace [labels and resource labels](../l
 
 ### Lineage
 
-The **Lineage** card lets workspace maintainers configure where Nextflow [data lineage](../monitoring/run-details#lineage) records are stored and whether lineage tracking is on by default for every run launched in the workspace.
+The **Lineage** card lets workspace maintainers configure where Nextflow records are stored and whether lineage tracking is on by default for every run launched in the workspace.
 
-Select **Edit settings** to open the **Edit lineage settings** form:
+Select **Lineage** to open the **Edit lineage settings** form:
 
 | Field | Required | Description |
 |-------|----------|-------------|
