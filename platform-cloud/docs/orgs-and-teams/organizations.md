@@ -33,7 +33,7 @@ You can invite or add additional members to the workspace from the workspace **S
 
 Organization owners can view, edit, and delete organizations in the **Organization settings** screen. Select your organization from the drop-down menu, then select **Settings** in the sidebar.
 
-Cloud Pro organizations can also configure and manage [single sign-on (SSO)](./single-sign-on) from the organization settings page.
+Cloud Pro organizations can also configure and manage [single sign-on (SSO)](../getting-started/single-sign-on) from the organization settings page.
 
 #### Edit or delete an organization
 

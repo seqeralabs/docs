@@ -21,6 +21,7 @@
         "items": [
           "getting-started/deployment-options",
           "getting-started/workspace-setup",
+          "getting-started/single-sign-on",
           "getting-started/quickstart-demo/add-pipelines",
           "getting-started/quickstart-demo/add-data",
           "getting-started/quickstart-demo/launch-pipelines",
@@ -176,7 +177,6 @@
         "label": "Administration",
         "items": [
           "orgs-and-teams/organizations",
-          "orgs-and-teams/single-sign-on",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/roles",
           "orgs-and-teams/custom-roles",
