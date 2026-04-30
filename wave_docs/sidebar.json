@@ -2,14 +2,14 @@
   "sidebar": [
     {
       "type": "category",
-      "label": "Wave",
+      "label": "Wave containers",
       "link": {
         "type": "doc",
         "id": "index"
       },
       "collapsed": true,
       "items": [
-        "architecture",
+        "how-wave-works",
         {
           "type": "category",
           "label": "Features",
