@@ -396,44 +396,6 @@ View run executor details:
 - The version of [**Fusion**](https://docs.seqera.io/fusion) used in the run, if enabled.
 - Whether the run used [**Wave**](https://docs.seqera.io/wave) (**Enabled** or **Disabled**).
 
-#### Lineage
-
-When the run was executed with [data lineage tracking enabled][nextflow-lineage-tutorial], the **Run Info** tab displays a **Lineage** view that exposes the workflow run's lineage record. Select a Lineage ID or lineage label to navigate to the corresponding lineage record.
-
-:::note
-Seqera Platform labels and Nextflow lineage labels are distinct entities. Both propagate to the lineage record and are namespaced for clarity. Resource Labels are intentionally excluded.
-
-- Platform labels (set via the [Labels](../labels/overview) interface) are **mutable**.
-- Lineage labels (set via the Nextflow [`label` directive][nextflow-label-directive]) are **immutable**.
-
-Editing a Platform label after a run has completed does not retroactively update the corresponding lineage record.
-:::
-
-| Field | Source | Description |
-|-------|--------|-------------|
-| **Lineage ID** | `LID` | Lineage ID (LID) of the workflow run's `WorkflowRun` record. Select the LID to navigate to the lineage record for the run. |
-| **Lineage Labels** | `labels` | Lineage labels assigned to the run. Each label is a clickable link to the lineage record for that label. |
-| **User ID** | `platform.user.id` | Seqera Platform user ID of the user who launched the run. |
-| **User Name** | `platform.user.userName` | Seqera Platform user name of the user who launched the run. |
-| **Workspace ID** | `platform.workspace.id` | Seqera Platform workspace ID where the run was launched. |
-| **Workspace Name** | `platform.workspace.name` | Seqera Platform workspace name where the run was launched. |
-| **Workspace Org** | `platform.workspace.organization` | Parent organization name of the workspace. |
-| **Compute Env** | `platform.computeEnv.id` | Seqera Platform compute environment ID used for the run. |
-| **Compute Env Name** | `platform.computeEnv.name` | Seqera Platform compute environment name. |
-| **Compute Env Platform** | `platform.computeEnv.platform` | The compute environment platform (for example, `aws-cloud`). |
-| **Pipeline ID** | `platform.pipeline.id` | Seqera Platform pipeline ID. |
-| **Pipeline Name** | `platform.pipeline.name` | Seqera Platform pipeline name. |
-| **Pipeline Revision** | `platform.pipeline.revision` | Pipeline revision used for the run. |
-| **Pipeline Commit ID** | `platform.pipeline.commitId` | Pipeline Git commit ID used for the run. |
-
-#### Empty and error states
-
-| Condition | Behavior |
-|-----------|----------|
-| Lineage was not enabled for this run | The Lineage view is hidden. A note reads: *"Lineage tracking was not enabled for this run. Add `lineage.enabled = true` to your Nextflow config to capture lineage data, or toggle lineage on in the launch form."* To make lineage the default for all runs in this workspace, configure [**Workspace settings → Lineage**][workspace-lineage-settings] and enable **Enable lineage by default**. |
-| Lineage was enabled but no records were found | The Lineage view displays: *"No workflow lineage records found for this run."* The Inputs, Outputs, and Tasks tabs each display the equivalent message for their record type. |
-| The lineage indexer is unavailable | The Lineage view displays an error state with a retry action. |
-
 </TabItem>
 </Tabs>
 
