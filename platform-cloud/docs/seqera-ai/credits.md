@@ -5,7 +5,8 @@ date created: "2026-04-30"
 tags: [seqera-ai, credits, co-scientist]
 ---
 
-Co-Scientist usage on Seqera Cloud is metered through credits. Credits are managed at the organization level and shared across all users in the organization.
+Co-Scientist usage on Seqera Cloud is metered through credits.
+Users receive a monthly credit allowance. Organizations can purchase additional credits, managed at the organization level and shared across all users.
 
 ## Usage
 
