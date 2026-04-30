@@ -93,7 +93,7 @@ When lineage is enabled:
 - The [Run details](../monitoring/run-details) page surfaces lineage IDs and labels on the Run Info, Tasks, Inputs, and Outputs tabs.
 - [Data Explorer](../data/data-explorer) object previews show the lineage ID and labels for files produced by lineage-enabled runs.
 
-Users can also enable lineage for an individual run via the launch form toggle, or by setting `lineage.enabled = true` in their Nextflow configuration. The launch form toggle's default state is controlled by **Enable lineage by default**. See [Getting started with data lineage](https://docs.seqera.io/nextflow/tutorials/data-lineage) for the underlying lineage data model.
+The launch form toggle's default state is controlled by **Enable lineage by default**. Users can override default behavior for an individual run via the launch form toggle. See [Getting started with data lineage](https://docs.seqera.io/nextflow/tutorials/data-lineage) for the underlying lineage data model.
 
 ### Edit or delete a workspace
 
