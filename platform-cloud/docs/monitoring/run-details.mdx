@@ -21,7 +21,7 @@ Select the tabs below the workflow run progress bar to view further run details:
 - **Logs**: View and download the pipeline run's execution logs.
 - **Metrics**: View resource [metrics](#wall-time) for the run.
 - **Configuration**: View Nextflow configuration files and the resolved [configuration](#configuration) used for the run.
-- **Inputs**: View pipeline parameters and input files used by the run, including their lineage records.
+- **Inputs**: View pipeline parameters used by the run, including their lineage records.
 - **Outputs**: View files produced by the run, including reports and lineage records for every published file.
 - **Containers**: View the details of containers used in the run, if any.
 - **Run Info**: View details about the [run](#run-details), [infrastructure](#infrastructure-details), [executor](#executors-details), and [lineage](#lineage).
@@ -296,27 +296,13 @@ The **Command** window displays the Nextflow command used for the run.
 </TabItem>
 <TabItem value="Inputs" label="Inputs" default>
 
-The **Inputs** tab consolidates the pipeline parameters and the input files used by the run.
+The **Inputs** tab consolidates the pipeline parameters and the datasets used by the run.
 
 #### Parameters
 
 ![Parameters](./_images/parameters.png)
 
 The **Parameters** window displays the pipeline parameters configured for the run, with options to view, copy, or download the parameters in Groovy, JSON, or YAML format.
-
-#### Input files
-
-The **Input files** table displays every dataset, file, and collection that was used as input for the run:
-
-| Column | Description |
-|--------|-------------|
-| **Input Name** | Display name of the input. Select the name to open the file in [Data Explorer](../data/data-explorer) or in the corresponding [Dataset](../data/datasets). |
-| **Type** | Lineage type, such as `Collection` or `Path`. |
-| **File Path** | Full path to the input. The path is truncated; hover for the complete path. Select the path to open it in [Data Explorer](../data/data-explorer). |
-| **Lineage ID** | Lineage ID (LID) of the input's lineage record. Only populated when [lineage tracking is enabled][nextflow-lineage-tutorial]. |
-| **Lineage Labels** | Lineage labels assigned to the input. Each label is a clickable link that navigates to the lineage record for that label. |
-
-If the run was not launched with any input files or datasets, the table is empty.
 
 </TabItem>
 <TabItem value="Outputs" label="Outputs" default>
