@@ -194,7 +194,7 @@ For the full list of configuration options, see the [agent-backend chart documen
 |-------|-------------|---------|
 | `agentBackend.replicaCount` | Number of replicas | `1` |
 | `agentBackend.image.registry` | Image registry | `cr.seqera.io` |
-| `agentBackend.image.repository` | Image repository | `private/nf-tower-enterprise/agent-backend` |
+| `agentBackend.image.repository` | Image repository | `ai/agent-backend/backend` |
 | `anthropicApiKeyExistingSecretName` | Existing secret containing `ANTHROPIC_API_KEY` | `""` |
 | `tokenEncryptionKeyExistingSecretName` | Existing secret containing `TOKEN_ENCRYPTION_KEY` | `""` |
 
