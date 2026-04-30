@@ -81,7 +81,7 @@ Select **Lineage** to open the **Edit lineage settings** form:
 | **Enable lineage by default** | No (toggle) | When enabled, the launch form lineage toggle defaults to on for every run launched in this workspace. Users can still override per run. |
 
 :::note
-Platform creates and manages the lineage storage bucket using the configured workspace credentials. You do not need to pre-create a bucket. Platform handles bucket creation through the same credentials model used by [Data Explorer](../data/data-explorer).
+Platform creates and manages the lineage storage bucket using the configured workspace credentials. You do not need to pre-create a bucket. Platform handles bucket creation through the same credentials model used by [Data Explorer](../data/data-explorer). Platform also manages configuration of object store notifications, and SQS.
 :::
 
 :::tip
