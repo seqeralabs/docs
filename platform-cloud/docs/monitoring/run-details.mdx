@@ -2,16 +2,14 @@
 title: "Run details"
 description: "Monitoring a Nextflow pipeline executed through Seqera Platform."
 date created: "2023-04-21"
-last updated: "2025-08-01"
-tags: [logging, monitoring, runs, details, workflow, execution]
+last updated: "2026-04-29"
+tags: [logging, monitoring, runs, details, workflow, execution, lineage]
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 Select a workflow run from the **Runs** list to open a run details page.
-
-![Run details and progress overview](./_images/progress-bar.png)
 
 The top of the page contains basic run details and a progress overview for an at-a-glance view of the run's status:
 - View and copy the run ID, pipeline name and repository, pipeline work directory, compute environment, and launch date.
@@ -23,10 +21,22 @@ Select the tabs below the workflow run progress bar to view further run details:
 - **Logs**: View and download the pipeline run's execution logs.
 - **Metrics**: View resource [metrics](#wall-time) for the run.
 - **Configuration**: View Nextflow configuration files and the resolved [configuration](#configuration) used for the run.
-- **Datasets**: View [datasets](../data/datasets) used as input for the run, if any.
-- **Reports**: View [reports](../reports/overview) for the run, if any were configured.
+- **Inputs**: View pipeline parameters used by the run, including their lineage records.
+- **Outputs**: View files produced by the run, including reports and lineage records for every published file.
 - **Containers**: View the details of containers used in the run, if any.
-- **Run Info**: View details about the [run](#run-details), [infrastructure](#infrastructure-details), and [executor](#executors-details).
+- **Run Info**: View details about the [run](#run-details), [infrastructure](#infrastructure-details), [executor](#executors-details), and [lineage](#lineage).
+
+:::tip
+Data lineage is made available on request. Please contact your Seqera account manager.
+
+Lineage-aware fields and tabs only display data when the run was executed with data lineage enabled. There are three ways to enable lineage:
+
+- [**Settings > Lineage**][workspace-lineage-settings]. A workspace maintainer configures the cloud credentials, region, and (optionally) bucket name where lineage records are stored. Select **Enable lineage by default** to make the launch form lineage toggle default to on for every run launched in the workspace.
+- **Launch form toggle**. When launching a pipeline, toggle lineage on or off for the individual run.
+- **Nextflow configuration**. Set `lineage.enabled = true` in your pipeline's Nextflow config.
+
+See [Getting started with data lineage][nextflow-lineage-tutorial] for the underlying lineage data model.
+:::
 
 <Tabs>
 <TabItem value="Tasks" label="Tasks" default>
@@ -77,6 +87,7 @@ The **Tasks** panel shows all the tasks that were executed in the run, including
 | **wchar** | Number of characters written to storage. |
 | **vol_ctxt** | Number of voluntary context switches. |
 | **inv_ctxt** | Number of involuntary context switches. |
+| **lineage_id** | Lineage ID (LID) of the task's `TaskRun` record. Populated only when lineage tracking is active for the run. Select the LID to navigate to the lineage record. |
 
 Use the search bar to filter tasks with substrings in the table columns such as **process**, **tag**, **hash**, and **status**. For example, if you enter `succeeded` in the **Search task** field, the table displays only tasks that succeeded.
 
@@ -84,42 +95,62 @@ Use the search bar to filter tasks with substrings in the table columns such as 
 
 ![Task details](./_images/task-details.png)
 
-Select a task in the task table to open the **Task details** dialog. The dialog has four tabs: **About**, **Execution log**, **Data Explorer**, and **Container**.
+Select a task in the task table to open the **Task details** dialog. The dialog has the following tabs:
+
+- **About**
+- **Metrics**
+- **Execution log**
+- **Data Explorer**
+- **Container**
+
+:::note
+If lineage is enabled for the run, the **About** tab content includes **Inputs** and **Outputs** tabs.
+
+The **Inputs** and **Outputs** tabs show every input or output consumed by the task, including the name, its lineage type (`Collection` or `Path`), the source path, the lineage labels assigned to it, and the lineage ID of the corresponding lineage record. Select a name to open the file in [Data Explorer](../data/data-explorer). Select a lineage ID or label to navigate to that lineage record.
+:::
 
 #### About
 
 - **Name**: Process name and tag.
-- **Command**: Task script, defined in the pipeline process.
 - **Status**: Exit code, task status, attempts.
-- **Work directory**: Directory where the task was executed.
+- **Native ID**: Unique identifier assigned by the underlying execution executor to a specific job.
+- **Command**: Task script, defined in the pipeline process.
 - **Environment**: Environment variables supplied to the task.
+- **Work directory**: Directory where the task was executed.
+- **Inputs**: File inputs to the task and associated lineage data.
+- **Outputs**: File outputs from the task and associated lineage data.
+- **Upstream**: Links to related upstream tasks.
+- **Downstream**: Links to related downstream tasks.
+
+#### Metrics
+
 - **Execution time**: Metrics for task submission, start, and completion time:
 
   | Label | Description |
   |-------|-------------|
-  | **submit** | Task submission timestamp. |
-  | **start** | Task execution timestamp. |
-  | **complete** | Task completion timestamp. |
-  | **duration** | Time elapsed from task submission to completion, including scheduling time. |
-  | **realtime** | Task script execution time. |
+  | **submitted** | Task submission timestamp. |
+  | **started** | Task execution timestamp. |
+  | **completed** | Task completion timestamp. |
+  | **total duration** | Time elapsed from task submission to completion, including scheduling time. |
+  | **script execution time** | Task script execution time. |
 
-- **Resources requested**: Metrics for the resources requested by the task:
+- **Requested resources**: Metrics for the resources requested by the task:
 
   | Label | Description |
   |-------|-------------|
-  | **container** | Container image name used to execute the task. |
+  | **container image** | Container image name used to execute the task. |
   | **queue** | The queue that the executor used to run the process. |
   | **cpus** | Number of CPUs requested for task execution. |
   | **memory** | Memory requested for task execution. |
-  | **disk** | Disk space requested for task executiuon. |
-  | **time** | Time requested for task execution. |
+  | **disk space** | Disk space requested for task execution. |
+  | **time limit** | Time requested for task execution. |
   | **executor** | The Nextflow executor used for this task. |
-  | **machineType** | The virtual machine type used for this task. |
   | **cloudZone** | The cloud zone (region) where the task was executed. |
+  | **machineType** | The virtual machine type used for this task. |
   | **priceModel** | The price model used to calculate the task computation cost. |
-  | **cost** | The estimated cost to compute this task. |
+  | **estimated cost** | The estimated cost to compute this task. |
 
-- **Resources used**: Metrics for the actual resources used by the task:
+- **Used resources**: Metrics for the actual resources used by the task:
 
   | Label | Description |
   |-------|-------------|
@@ -251,13 +282,8 @@ Hover the cursor over each box plot to show more details.
 </TabItem>
 <TabItem value="Configuration" label="Configuration" default>
 
-The **Configuration** tab contains information about the pipeline parameters, Nextflow configuration, and Nextflow command used for the run.
+The **Configuration** tab contains information about the Nextflow configuration files and the Nextflow command used for the run.
 
-#### Parameters
-
-![Parameters](./_images/parameters.png)
-
-The **Parameters** window displays the pipeline parameters configured for the run, with options to view, copy, or download the parameters in Groovy, JSON, or YAML format.
 
 #### Configuration
 
@@ -272,18 +298,43 @@ The **Configuration** window displays the locations of the Nextflow configuratio
 The **Command** window displays the Nextflow command used for the run.
 
 </TabItem>
-<TabItem value="Datasets" label="Datasets" default>
+<TabItem value="Inputs" label="Inputs" default>
 
-![Datasets](./_images/datasets.png)
+The **Inputs** tab consolidates the pipeline parameters and the input files used by the run.
 
-The **Datasets** tab displays information about the [datasets](../data/datasets) used as input for the run. This view is empty if no datasets were selected.
+#### Parameters
+
+![Parameters](./_images/parameters.png)
+
+The **Parameters** window displays the pipeline parameters configured for the run, with options to view, copy, or download the parameters in Groovy, JSON, or YAML format.
+
+#### Input files
+
+The **Input files** table displays every dataset, file, and collection that was used as input for the run:
+
+| Column | Description |
+|--------|-------------|
+| **Input Name** | Display name of the input. Select the name to open the file in [Data Explorer](../data/data-explorer) or in the corresponding [Dataset](../data/datasets). |
+| **Type** | Lineage type, such as `Collection` or `Path`. |
+| **File Path** | Full path to the input. The path is truncated; hover for the complete path. Select the path to open it in [Data Explorer](../data/data-explorer). |
+| **Lineage ID** | Lineage ID (LID) of the input's lineage record. Only populated when [lineage tracking is enabled][nextflow-lineage-tutorial]. |
+| **Lineage Labels** | Lineage labels assigned to the input. Each label is a clickable link that navigates to the lineage record for that label. |
+
+If the run was not launched with any input files or datasets, the table is empty.
 
 </TabItem>
-<TabItem value="Reports" label="Reports" default>
+<TabItem value="Outputs" label="Outputs" default>
+
+The **Outputs** tab links to every file the run published to its output directory:
+
+- **Reports** — The named report files configured for the run, such as the MultiQC report or any reports declared in `tower.yml`.
+
+#### Reports
 
 ![Reports](./_images/reports.png)
 
-The **Reports** tab contains a table with the names, details, and paths to all [reports](../reports/overview) generated by the run, if any were configured. Select a report to open a Data Explorer file preview of the report, with options to open the report in a new tab or download it.
+The **Reports** sub-tab contains a table with the names, details, and paths to all [reports](../reports/overview) generated by the run, if any were configured. Select a report to open a Data Explorer file preview of the report, with options to open the report in a new tab or download it.
+
 
 </TabItem>
 <TabItem value="Containers" label="Containers" default>
@@ -309,7 +360,7 @@ The **Containers** tab displays the details of containers used in the run, if an
 </TabItem>
 <TabItem value="Run Info" label="Run Info" default>
 
-The **Run Info** tab contains at-a-glance details about the run, infrastructure, and executor. Hover over the information icon next to a card's name to view a value description. Select the icons next to any run detail values to copy them.
+The **Run Info** tab contains at-a-glance details about the run, infrastructure, and executor. When lineage tracking is enabled, it also displays lineage information. Hover over the information icon next to a card's name to view a value description. Select the icons next to any run detail values to copy them.
 
 #### Run details
 
@@ -347,5 +398,47 @@ View run executor details:
 - The version of [**Fusion**](https://docs.seqera.io/fusion) used in the run, if enabled.
 - Whether the run used [**Wave**](https://docs.seqera.io/wave) (**Enabled** or **Disabled**).
 
+#### Lineage
+
+When the run was executed with [data lineage tracking enabled][nextflow-lineage-tutorial], the **Run Info** tab displays a **Lineage** view that exposes the workflow run's lineage record. Select a Lineage ID or lineage label to navigate to the corresponding lineage record.
+
+:::note
+Seqera Platform labels and Nextflow lineage labels are distinct entities. Both propagate to the lineage record and are namespaced for clarity. Resource Labels are intentionally excluded.
+
+- Platform labels (set via the [Labels](../labels/overview) interface) are **mutable**.
+- Lineage labels (set via the Nextflow [`label` directive][nextflow-label-directive]) are **immutable**.
+
+Editing a Platform label after a run has completed does not retroactively update the corresponding lineage record.
+:::
+
+| Field | Source | Description |
+|-------|--------|-------------|
+| **Lineage ID** | `LID` | Lineage ID (LID) of the workflow run's `WorkflowRun` record. Select the LID to navigate to the lineage record for the run. |
+| **Lineage Labels** | `labels` | Lineage labels assigned to the run. Each label is a clickable link to the lineage record for that label. |
+| **User ID** | `platform.user.id` | Seqera Platform user ID of the user who launched the run. |
+| **User Name** | `platform.user.userName` | Seqera Platform user name of the user who launched the run. |
+| **Workspace ID** | `platform.workspace.id` | Seqera Platform workspace ID where the run was launched. |
+| **Workspace Name** | `platform.workspace.name` | Seqera Platform workspace name where the run was launched. |
+| **Workspace Org** | `platform.workspace.organization` | Parent organization name of the workspace. |
+| **Compute Env** | `platform.computeEnv.id` | Seqera Platform compute environment ID used for the run. |
+| **Compute Env Name** | `platform.computeEnv.name` | Seqera Platform compute environment name. |
+| **Compute Env Platform** | `platform.computeEnv.platform` | The compute environment platform (for example, `aws-cloud`). |
+| **Pipeline ID** | `platform.pipeline.id` | Seqera Platform pipeline ID. |
+| **Pipeline Name** | `platform.pipeline.name` | Seqera Platform pipeline name. |
+| **Pipeline Revision** | `platform.pipeline.revision` | Pipeline revision used for the run. |
+| **Pipeline Commit ID** | `platform.pipeline.commitId` | Pipeline Git commit ID used for the run. |
+
+#### Empty and error states
+
+| Condition | Behavior |
+|-----------|----------|
+| Lineage was not enabled for this run | The Lineage view is hidden. A note reads: *"Lineage tracking was not enabled for this run. Add `lineage.enabled = true` to your Nextflow config to capture lineage data, or toggle lineage on in the launch form."* To make lineage the default for all runs in this workspace, configure [**Workspace settings → Lineage**][workspace-lineage-settings] and enable **Enable lineage by default**. |
+| Lineage was enabled but no records were found | The Lineage view displays: *"No workflow lineage records found for this run."* The Inputs, Outputs, and Tasks tabs each display the equivalent message for their record type. |
+| The lineage indexer is unavailable | The Lineage view displays an error state with a retry action. |
+
 </TabItem>
 </Tabs>
+
+[nextflow-lineage-tutorial]: https://docs.seqera.io/nextflow/tutorials/data-lineage
+[nextflow-label-directive]: https://docs.seqera.io/nextflow/reference/process#label
+[workspace-lineage-settings]: ../orgs-and-teams/workspace-management#lineage

@@ -1,6 +1,6 @@
 ---
-title: "Seqera AI CLI"
-description: "Seqera AI CLI troubleshooting."
+title: "Co-Scientist CLI"
+description: "Co-Scientist CLI troubleshooting."
 date created: "2024-12-15"
 last updated: "2025-12-15"
 tags: [faq, help, seqera ai, troubleshooting]
