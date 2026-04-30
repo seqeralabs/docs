@@ -60,7 +60,6 @@
         }
       ]
     },
-    "seqera-containers",
     {
       "type": "category",
       "label": "Developer tools",
@@ -116,6 +115,7 @@
         }
       ]
     },
+    "seqera-containers",
     "faq",
     {
       "type": "link",
