@@ -1,20 +1,20 @@
 ---
 title: "Skills"
-description: "Discover, create, and install skills in Seqera AI CLI"
+description: "Discover, create, and install skills in Co-Scientist CLI"
 date created: "2026-03-11"
 tags: [seqera-ai, cli, skills]
 ---
 
 :::note
-Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
+Seqera Cloud users receive $20 in free credits to get started with Co-Scientist. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
 :::
 
-Skills are reusable instruction sets that extend Seqera AI with domain-specific workflows, prompts, and operating guidance.
+Skills are reusable instruction sets that extend Co-Scientist with domain-specific workflows, prompts, and operating guidance.
 
-Seqera AI supports two skill workflows:
+Co-Scientist supports two skill workflows:
 
 - **CLI skills**: `SKILL.md` files discovered from project and user skill directories and sent to the backend as session context
-- **Agent integrations**: skill files installed by `seqera skill install` so other coding agents can invoke Seqera AI as a subagent
+- **Agent integrations**: skill files installed by `seqera skill install` so other coding agents can invoke Co-Scientist as a subagent
 
 ## Use skills in the CLI
 
@@ -24,11 +24,11 @@ You can:
 
 - Type `/` to browse built-in commands and backend skills
 - Run `/help` to see commands and skill descriptions in the terminal
-- Add project-specific `SKILL.md` files so Seqera AI starts each session with the right context
+- Add project-specific `SKILL.md` files so Co-Scientist starts each session with the right context
 
 ## Built-in skills
 
-Your Seqera AI deployment can expose built-in skills as slash commands. These appear in the `/` command palette and in `/help`.
+Your Co-Scientist deployment can expose built-in skills as slash commands. These appear in the `/` command palette and in `/help`.
 
 The CLI includes the following built-in skills by default:
 
@@ -79,7 +79,7 @@ Detailed instructions, examples, and guidelines.
 
 ## Discovery directories
 
-Seqera AI searches these directories in order. The first directory to register a skill name takes precedence, and later skills with the same name are ignored.
+Co-Scientist searches these directories in order. The first directory to register a skill name takes precedence, and later skills with the same name are ignored.
 
 | Priority | Path | Scope |
 |----------|------|-------|
@@ -96,7 +96,7 @@ Project skills take priority over user skills, so you can override a global skil
 
 `.agents/skills/` follows the [Agent Skills](https://agentskills.io) convention, which makes skills portable across coding agents. `.seqera/skills/` is Seqera-specific.
 
-## Install skills into Seqera AI
+## Install skills into Co-Scientist
 
 You can add skills by creating the directory structure manually or by installing them from the [Agent Skills](https://agentskills.io) ecosystem:
 
@@ -106,9 +106,9 @@ npx skills add https://github.com/vercel-labs/agent-skills --skill vercel-react-
 
 After adding a skill, restart `seqera ai` so the new skill is loaded into the session.
 
-## Install Seqera AI into coding agents
+## Install Co-Scientist into coding agents
 
-Use `seqera skill install` to install Seqera AI as a skill or instruction file for another agent:
+Use `seqera skill install` to install Co-Scientist as a skill or instruction file for another agent:
 
 ```bash
 seqera skill install
@@ -148,12 +148,12 @@ seqera skill check --update
 
 ## Payload limits
 
-To keep session payloads small, Seqera AI caps discovered skill context at **5 KB**. The total session payload cap is **20 KB**.
+To keep session payloads small, Co-Scientist caps discovered skill context at **5 KB**. The total session payload cap is **20 KB**.
 
 ## Learn more
 
 - [Modes](./modes.md): Work in build mode, plan mode, and goal mode
-- [Working with Claude Code](./skill-claude-code.md): Install Seqera AI as a skill for Claude Code
-- [Working with Codex](./skill-codex.md): Install Seqera AI as a skill for Codex
-- [Working with GitHub Copilot](./skill-github-copilot.md): Install Seqera AI as a skill for GitHub Copilot
-- [Working with other coding agents](./skill-other-agents.md): Install Seqera AI for other coding agents
+- [Working with Claude Code](./skill-claude-code.md): Install Co-Scientist as a skill for Claude Code
+- [Working with Codex](./skill-codex.md): Install Co-Scientist as a skill for Codex
+- [Working with GitHub Copilot](./skill-github-copilot.md): Install Co-Scientist as a skill for GitHub Copilot
+- [Working with other coding agents](./skill-other-agents.md): Install Co-Scientist for other coding agents

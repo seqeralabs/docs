@@ -1,17 +1,17 @@
 ---
 title: "Authentication"
-description: "Login, logout, and session management for Seqera AI CLI"
+description: "Login, logout, and session management for Seqera CLI"
 date created: "2025-12-15"
 tags: [seqera-ai, cli, authentication, login]
 ---
 
 :::note
-Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
+Seqera Cloud users receive $20 in free credits to get started with Co-Scientist. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
 :::
 
-Seqera AI uses your Seqera Platform account for authentication. This page describes authentication concepts and step-by-step instructions for managing your sessions.
+Co-Scientist uses your Seqera Platform account for authentication. This page describes authentication concepts and step-by-step instructions for managing your sessions.
 
-## Authenticating Seqera AI
+## Authenticating Co-Scientist
 
 ### Log in
 
@@ -55,15 +55,15 @@ seqera ai
 
 When this environment variable is set, the CLI skips the OAuth login flow and uses the provided token directly.
 
-### Point a development build at the hosted Seqera AI backend
+### Point a development build at the hosted Co-Scientist backend
 
-If you are testing a development build of the CLI against the hosted production Seqera AI service, set the following environment variables before starting `seqera ai`.
+If you are testing a development build of the CLI against the hosted production Co-Scientist service, set the following environment variables before starting `seqera ai`.
 
 | Variable | Purpose | Example value |
 | --- | --- | --- |
-| `SEQERA_AI_BACKEND_URL` | Seqera AI backend endpoint used by the CLI | `https://ai-api.seqera.io` |
+| `SEQERA_AI_BACKEND_URL` | Co-Scientist backend endpoint used by the CLI | `https://ai-api.seqera.io` |
 | `SEQERA_AUTH_DOMAIN` | Platform API base URL used for browser-based login | `https://cloud.seqera.io/api` |
-| `SEQERA_AUTH_CLI_CLIENT_ID` | OAuth client ID for the Seqera AI CLI | `seqera_ai_cli` |
+| `SEQERA_AUTH_CLI_CLIENT_ID` | OAuth client ID for the Co-Scientist CLI | `seqera_ai_cli` |
 | `TOWER_ACCESS_TOKEN` | Platform personal access token used instead of browser login | `<PLATFORM_ACCESS_TOKEN>` |
 
 Use the OAuth login flow:
@@ -97,7 +97,7 @@ This command revokes your current authentication token and removes locally store
 
 ## Organization management
 
-Seqera AI CLI supports managing your organization selection for billing. Use the `seqera org` command to view and switch organizations.
+Co-Scientist CLI supports managing your organization selection for billing. Use the `seqera org` command to view and switch organizations.
 
 **View current organization**:
 
@@ -125,7 +125,7 @@ seqera org clear
 
 ## Token refresh
 
-Seqera AI CLI automatically refreshes your authentication token when needed. You are not required to log in again unless:
+Co-Scientist CLI automatically refreshes your authentication token when needed. You are not required to log in again unless:
 
 - You explicitly log out
 - Your refresh token expires (typically after extended inactivity)
@@ -133,8 +133,8 @@ Seqera AI CLI automatically refreshes your authentication token when needed. You
 
 ## Learn more
 
-- [Seqera AI CLI](index.md): Seqera AI CLI overview
+- [Co-Scientist CLI](index.md): Co-Scientist CLI overview
 - [Installation](./installation.md): Detailed installation instructions
 - [Command approval](./command-approval.md): Control which commands run automatically
-- [Use cases](./use-cases.md): Seqera AI use cases
+- [Use cases](./use-cases.md): Co-Scientist use cases
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors
