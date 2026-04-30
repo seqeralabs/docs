@@ -53,22 +53,15 @@
     },
     {
       "type": "category",
-      "label": "Developer tools",
+      "label": "Wave CLI",
+      "link": {"type": "doc", "id": "cli/index"},
       "collapsed": true,
       "items": [
-        "api",
-        {
-          "type": "category",
-          "label": "CLI",
-          "link": {"type": "doc", "id": "cli/index"},
-          "collapsed": true,
-          "items": [
-            "cli/installation",
-            "cli/use-cases"
-          ]
-        }
+        "cli/installation",
+        "cli/use-cases"
       ]
     },
+    "api",
     {
       "type": "category",
       "label": "Self-hosted Wave",
