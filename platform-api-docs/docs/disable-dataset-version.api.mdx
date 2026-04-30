@@ -1,0 +1,66 @@
+---
+id: disable-dataset-version
+title: "Disable dataset version"
+description: "Disables the specified dataset version. Disabled dataset versions cannot be used in workflow runs and cannot be re-enabled."
+sidebar_label: "Disable dataset version"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVU1v2zAM/SuCThuQxukW7ODT2nUDigFt0e7jUOSg2Eyi1pFUSU4XGP7vI2U5ceoswbbDdkosPonvkU9Uxb2YO57e81x44cA7PhnwHFxmpfFSK57yC+nEtADH/AKYM5DJmYScxQ1sBdYhcMgirhdxLBNKac+mwEqHcanYs7aPs0I/M1tiXKi8g7FwAiqcNOQDrg1YQUwu8y2XiybDtyYBooywYgkev1FLxRV+IDoSwZ0DLkmKEX7Be/oiXeetVHMmc1CeJFpK77IFLAVPK+7Xhs5sULwecAtPpbSAtLwtoR5s0q42tI4njVimyuUULPOa5Y3Evcml8jAHi6GZtkvhm6V344N0qNbOiAy2dXgqwa57nL63QGIDVmbHavFrOvWECDmD3QdHO96MxvSzm/D6MzthV5plGg9SnlSMR6M+7lzkjOSB85irRSNMGFPILNgjeXCErTostxW550twTsyB3B3J6+kDZHSeseQxLxuiLbDfcWTnpS9o6aO12t5GfRipA/O3exS27mVkblGg5ZFPQO+pxxViZrpU+f+qEoMOstJKvw737ByEBXtWosHT+wk1HS/hQtNNNTo0K5g/5Uk7XpJqcynrpB0QSRX/1Ul0P7kN7Kq9z6Ut8JCF98alSSKMHGaFLvOhgyes71DqnpfvQoTdFMKTN9kHwrOzm0tOLFsRd1TFpiJdKZuiUMbW+PQ9DSBcaf58al3/8OxD5aSa6bA9VjCyoLTHCJJcmeGUbcDUfpGF9u+K70pGB8giXLqZfr8NIJF2BKX8dHg6Hg1HtEgtWYpgnzga4jh9ObFfkq22bvzHr0Hsi4cfPjGFwGGGukKBqmi1zks24Gn3BWgJ0HpHaDQcumJBlsUDqmqKm77aoq5puRmWZMOIRXvPROHgQJWOjdK9Oh5h3RvXK1GUhAy2XQkrA9nfI/PqNo6I1+zgW7eXVFwUat1l05Ld1pcenL+idPAl/ANqbYvrCUIXIHK8uFS3JnqWZWB8Z19vyO5Ms5vruy8IFrvj4cU4CMfvJYWOCogv+hEUuqrl6OmbGNb1T5gOTXk=
+sidebar_class_name: "post api-method"
+info_path: platform-api//seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Disable dataset version"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/datasets/{datasetId}/versions/{version}/disable"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Disables the specified dataset version. Disabled dataset versions cannot be used in workflow runs and cannot be re-enabled.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./disable-dataset-version.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./disable-dataset-version.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./disable-dataset-version.StatusCodes.json")}
+>
+
+</StatusCodes>

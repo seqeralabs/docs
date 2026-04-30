@@ -5,7 +5,7 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Unique action name. Must be unique within the user or workspace context.
 - Name: source
   Type: string
   Req/Opt: Optional
@@ -137,6 +137,35 @@
   Type: string
   Req/Opt: Optional
   Description: Timestamp when the launch configuration was created.
+- Name: bucket
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: bucket.dataLinkId
+  Type: string
+  Req/Opt: Optional
+  Description: Data-link string identifier that provides the bucket location and
+    credentials.
+- Name: bucket.datasetId
+  Type: string
+  Req/Opt: Optional
+  Description: Dataset string identifier where bucket event changesets are stored
+    as new versions.
+- Name: bucket.events
+  Type: array
+  Req/Opt: Optional
+  Description: Array of bucket event types that trigger the action, for example
+    `object:created`.
+- Name: bucket.filter
+  Type: string
+  Req/Opt: Optional
+  Description: Glob pattern used to match object keys. Supports `*` and `?`
+    wildcards; when omitted, all objects in the bucket match.
+- Name: bucket.markerFile
+  Type: string
+  Req/Opt: Optional
+  Description: Marker file name that signals batch completion and triggers the
+    pending bucket event batch to be flushed.
 - Name: "**UpdateAction**"
   Type: ""
   Req/Opt: ""
@@ -144,7 +173,7 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: ""
+  Description: Updated action name. Must remain unique within the user or workspace context.
 - Name: launch
   Type: object
   Req/Opt: Optional
@@ -272,6 +301,35 @@
   Type: string
   Req/Opt: Optional
   Description: Timestamp when the launch configuration was created.
+- Name: bucket
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: bucket.dataLinkId
+  Type: string
+  Req/Opt: Optional
+  Description: Data-link string identifier that provides the bucket location and
+    credentials.
+- Name: bucket.datasetId
+  Type: string
+  Req/Opt: Optional
+  Description: Dataset string identifier where bucket event changesets are stored
+    as new versions.
+- Name: bucket.events
+  Type: array
+  Req/Opt: Optional
+  Description: Array of bucket event types that trigger the action, for example
+    `object:created`.
+- Name: bucket.filter
+  Type: string
+  Req/Opt: Optional
+  Description: Glob pattern used to match object keys. Supports `*` and `?`
+    wildcards; when omitted, all objects in the bucket match.
+- Name: bucket.markerFile
+  Type: string
+  Req/Opt: Optional
+  Description: Marker file name that signals batch completion and triggers the
+    pending bucket event batch to be flushed.
 - Name: "**LaunchAction**"
   Type: ""
   Req/Opt: ""

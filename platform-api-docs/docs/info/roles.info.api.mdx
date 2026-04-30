@@ -1,0 +1,30 @@
+---
+id: roles-info
+title: "Roles"
+description: "API operations for predefined and custom organization roles in Seqera Platform"
+sidebar_label: Roles
+hide_title: false
+custom_edit_url: null
+---
+
+import ApiLogo from "@theme/ApiLogo";
+import Heading from "@theme/Heading";
+import SchemaTabs from "@theme/SchemaTabs";
+import TabItem from "@theme/TabItem";
+import Export from "@theme/ApiExplorer/Export";
+import MDXComponents from "@theme-original/MDXComponents";
+
+
+[Roles](https://docs.seqera.io/platform-cloud/orgs-and-teams/roles) define the permissions that organization members receive in Seqera Platform. Predefined roles are managed by the system, while custom roles can be created and maintained for an organization.
+
+Use these endpoints to list predefined and custom roles, inspect assignable permissions, and create, update, validate, or delete custom roles in an organization context.
+
+Use `List role permissions` as the discovery endpoint for the permission names accepted by `Create role` and `Update role`. Custom role changes apply at the organization level and can affect access across workspaces where the role is assigned.
+
+### Path and query parameters
+
+::table{file=parameter-tables/roles/parameters.yml}
+
+### Request body parameters
+
+::table{file=parameter-tables/roles/request-bodies.yml}

@@ -1,15 +1,11 @@
 ---
 title: "Working with other coding agents"
-description: "Install and maintain the Seqera AI skill for other coding agents"
-date: "2026-02-26"
-tags: [seqera-ai, cli, skills, coding-agents]
+description: "Install and maintain the Co-Scientist skill for other coding agents"
+date created: "2026-03-11"
+tags: [seqera-ai, co-scientist, cli, skills, coding-agents]
 ---
 
-:::note
-Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
-:::
-
-The `seqera skill` command installs a skill file that enables coding agents such as [Cursor](https://www.cursor.com/), [OpenCode](https://opencode.ai/), [Pi](https://github.com/badlogic/pi-mono), and [Windsurf](https://windsurf.com/) to use Seqera AI as a subagent. Once installed, these agents can invoke Seqera AI directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
+The `seqera skill` command installs a skill file that enables coding agents such as [Cursor](https://www.cursor.com/), [OpenCode](https://opencode.ai/), [Pi](https://github.com/badlogic/pi-mono), and [Windsurf](https://windsurf.com/) to use Co-Scientist as a subagent. Once installed, these agents can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
 
 ### Supported agents
 
@@ -22,10 +18,22 @@ The `seqera skill` command installs a skill file that enables coding agents such
 
 ### `seqera skill install`
 
+Launch the interactive installer:
+
+```bash
+seqera skill install
+```
+
 Install to a specific agent path:
 
 ```bash
 seqera skill install --path <agent-path>
+```
+
+Install into the current repository root:
+
+```bash
+seqera skill install --local
 ```
 
 Or install to your home directory:
@@ -50,6 +58,7 @@ seqera skill install [OPTIONS]
 
 | Option | Short | Description |
 |--------|-------|-------------|
+| `--local` | `-l` | Install to repo root |
 | `--path <PATH>` | `-p` | Install to a custom path (relative or absolute) |
 | `--global` | `-g` | Install to home directory |
 | `--detect` | `-d` | Auto-detect an existing installation and update it |
@@ -84,6 +93,8 @@ seqera skill check [OPTIONS]
 
 ### Learn more
 
-- [Use cases](./use-cases.md): Seqera AI CLI use cases
+- [Skills](./skills.md): Discover, create, and install skills
+- [Use cases](./use-cases.md): Co-Scientist CLI use cases
 - [Code intelligence](./nextflow-lsp.md): Language-aware coding support
 - [Installation](./installation.md): Detailed installation instructions
+- [Credits](./credits.md): Co-Scientist credits and how to request more

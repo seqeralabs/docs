@@ -1,0 +1,66 @@
+---
+id: hide-datasets
+title: "Hide datasets"
+description: "Hides the datasets identified by the provided `datasetIds`. Hidden datasets are excluded from default list results unless `visibility` is adjusted."
+sidebar_label: "Hide datasets"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVVFPGzEM/itRnktbNrQHngaMaWjSQMC2B4REeuf2UnKXkPhaqlP/++zcpT1aBNvbXqqeY8efP/tzGolqFuTxncwVqgAY5P1A5hAyrx1qW8lj+U3Tt8ACRPIRZKlQTzXkYrKKR87bBVlz8dA5XeThYSgolly3gcqDgOfM1Ow69bYUOUxVbVAYHVB4CPQ/iLoyEIJ4WOigJ9poXD0ITdH5vA4I+VAOpHXgFSO8yDuMX1IFA+mUVyUgeC6tkRV9kNPS+sfgVAYUMpCaa3uqwa/kbsW/k6Oo6hK8zrYFe84dsgJKJY8biSvHN+sKYQaejqbWlwpb06cjuV4TnR4oTcBTm6845mWuDrXYlipqR3yB6MI4YWYpQYUcrZwzOouVj+aBr2j28djJHDLcq+uvclEniVrUECLYTTd71yvvFbOmEcq+PaDX1Uyud/OesL+w0zQHonXssUrzZUUo7FJYLwqyD4m6gUSNhi8+K1Q1Sw3+tUF/3aIm13XLsvZA04C+hmgIzlahrePD+Gif+8vv4kD8sCLRS0FH4/G+36nKE0P/0owtojtZ0jyrGbC6dnv0kvDkuM9qj49z762/7urj8iPyj69UmFQiKotCGWOXhIfdA2S1Jw6jQE6BhOlPaizo855nltRTWFaWs7Fop/hMjpKSR9wklgL4RZJZ7Q25FIguHI9GyulhZmydDwM8EYqhtnsDeRNPxJVRyMIRZ+wvTq4uJGNIEG+Y0ZadPtANQZwxqZK/J9GJLO2fr0mS8yXG0rlT11tNnj+r0hnYnfa7RPz9mpfF1MaMXQM64Iz0vZqYIZ3RBm2deXpUFqfnJV99lmiAtIlLZGo/bw8ICJPd5jkcHh6Nh2M2co9KFaevW3W8Dzdbdxdisx3h/3S5d41FeMaRM4pWNVUZ6Wq6Sew9WAMZZ5EGpuBZpaOmmdDRT2/Waza3S54nNNdBTQwrcqpMgDd4ee8JeBXhI6z2npmFMjV7xoleKK8ZQFQZ4QWV06Aysjb0rM1/cMu3b2P31sx6kCJOsgwcvunbV/PV5c0tC6N7ikqbc4xXSzLyL+Hkp5Wjo96irZGG1m8dt5Js72QZqZcq3FFdrCq9F9Wqh5C6Ez1u7SNU1KHEG/I3waXL/wDI5gA+
+sidebar_class_name: "post api-method"
+info_path: platform-api//seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Hide datasets"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/datasets/hide"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Hides the datasets identified by the provided `datasetIds`. Hidden datasets are excluded from default list results unless `visibility` is adjusted.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./hide-datasets.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./hide-datasets.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./hide-datasets.StatusCodes.json")}
+>
+
+</StatusCodes>

@@ -15,7 +15,7 @@ a large storage volume for temporary pipeline data.
 This configuration requires Docker or a similar container engine to run pipeline tasks.
 :::
 
-1. Set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables to grant Nextflow and Fusion access to your storage credentials. See [Credentials](https://docs.seqera.io/nextflow/google#credentials) for more information.
+1. Set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables to grant Nextflow and Fusion access to your storage credentials. See [Credentials](https://docs.seqera.io/nextflow/amazons3#security-credentials) for more information.
 
 1. Add the following to your `nextflow.config` file:
 
@@ -47,3 +47,40 @@ To achieve optimal performance, set up an SSD volume as the temporary directory.
 The option `fusion.exportStorageCredentials` leaks credentials on the task launcher script created by Nextflow.
 This option should only be used for testing and development purposes.
 :::
+
+
+### IAM permissions
+
+Configure with the following IAM permissions:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::<S3_BUCKET>"
+            ]
+        },
+        {
+            "Action": [
+                "s3:GetObject",
+                "s3:GetObjectTagging",
+                "s3:PutObject",
+                "s3:PutObjectTagging",
+                "s3:DeleteObject",
+                "s3:CopyObject",
+                "s3:AbortMultipartUpload"
+            ],
+            "Resource": [
+                "arn:aws:s3:::<S3_BUCKET>/*"
+            ],
+            "Effect": "Allow"
+        }
+    ]
+}
+```

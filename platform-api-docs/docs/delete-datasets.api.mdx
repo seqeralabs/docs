@@ -1,0 +1,66 @@
+---
+id: delete-datasets
+title: "Delete datasets"
+description: "Deletes the datasets identified by the provided `datasetIds`. Append `?workspaceId` to delete datasets in a workspace context."
+sidebar_label: "Delete datasets"
+hide_title: true
+hide_table_of_contents: true
+api: eJztVlFvEzEM/itRnktbYOJhL9DRIlUgMW1DPEyT5l7cNmvuEpLcRlX1v2Pn7tprb9pAAiEkXqqe49ifP9uxNzLCIsjTa6kgQsAY5E1PKgyZ1y5qW8hTOUaDEYOISxSNltAKi6jnGpWYrdOR8/aepErc1kpTFW77YuQcFiR8+2D9KjjIcKpuRbRCJbMti4UAsVMSmS0ifo992ZPWoQcGM1U7OOMGbk868JCTyHMcG1nQB6m13JGO5kC+lejX8ji8rzuXRZmj19k+Ns/eQ7bEHOTpRsa1Y8uagC3Q09Hc+hxiJXpzIrdb4s4juQnxzKo130lhFJH/gnNGZymQwV1g35uucTu7wyx2QNbhillpVi9q5mpPjJG4J46ixsCm9vy3DIP3wMHriHlbHqLXxUJujz2OWF/YeZMgUSm2yAn7LPYp9p6MOhrsZOiigkka24od7ZHyGH2JvxRluh2cLUIV5avhMAV7YOHzRwrxN3F+gaE0kSmAHQk/xX8oswzDnya/QqFE7W1eGrNOLM1BG2b4z6Z+CZF6tDRKFJZ4wQbP06VQ5Y9rgZReDU+6GTy8IUhHNGn/n9p/JrUnjzXnGaiG2V9J5f7NuJY50QEL5CF1nOHDRDWKXUpaIUy8t76D/PUjz0ozgRIjYIx9IDysHjArvY7rNHrOEDz6URmX9HnD04Dm0tLy1KooTNOKT+VA7QdYQH/fTK/SGzpdxujC6WAATvczY0vVD/iNIPS17dTyZToR5wYizyPxnvXF6HwqGUCD75LprKhpo9yxwx6bYcffs6REkurPh2bS3T3EFDen6WI/6ibfIXcGj6fPdcP6zZZn8NwmjzX7NXBG+lxMzJCmVqiVuXQgS6VzyFebJaoebdJsntt3+wMCwmRXfl72X54M+0MWOhtiDqn06g1ifLigHINszfa/vyLVWeTPgTNA6w6FlLjZ1BV3uOEtKVqWbTYzkn3xZrtlcbUhcR0qHWCW3po5mHA8qduxP7c/PQpthevOjnYPpmTNVLf34DUDSI1EeBEUlSMjq66+r/y/uGLr+7udl2Tba26M6C118UnddsOOJ58mVxNugHqTy63iWx4eSMi/hJR3U76f+irJNtJAsSjT0yMrq9wucNhtR92V4mpe9GLdwkj5SRpXdoUF5ahhLvI3ASbjPwBxMR65
+sidebar_class_name: "delete api-method"
+info_path: platform-api//seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete datasets"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/datasets"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Deletes the datasets identified by the provided `datasetIds`. Append `?workspaceId` to delete datasets in a workspace context.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./delete-datasets.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./delete-datasets.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./delete-datasets.StatusCodes.json")}
+>
+
+</StatusCodes>

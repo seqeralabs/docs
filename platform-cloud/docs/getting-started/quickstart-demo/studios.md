@@ -6,7 +6,7 @@ tags: [platform, data,  studios]
 ---
 
 :::info
-This guide provides an introduction to Studios using a demo Studio in the Community Showcase workspace. See [Studios](../../studios/overview) to learn how to create Studios in your own workspace. 
+This guide provides an introduction to Studios using a demo Studio in the Community Showcase workspace. See [Studios](../../studios/overview) to learn how to create Studios in your own workspace.
 :::
 
 Interactive analysis of pipeline results is often performed in platforms like Jupyter Notebook or an [R-IDE](https://github.com/seqeralabs/r-ide). Setting up the infrastructure for these platforms, including accessing pipeline data and the necessary bioinformatics packages, can be complex and time-consuming.
@@ -26,14 +26,14 @@ Select the options menu next to a Studio to:
 
 Studios is used to perform bespoke analysis on the results of upstream workflows. For example, in the Community Showcase workspace we have run the *nf-core/rnaseq* workflow to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. The workspace contains a Studio with these results from cloud storage mounted into the Studio to perform further analysis. One of these outputs is an RShiny application, which can be deployed for interactive analysis.
 
-### Open the RNAseq analysis Studio 
+### Open the RNAseq analysis Studio
 
-Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an R-IDE that uses an existing compute environment available in the Community Showcase workspace. The Studio also contains mounted data generated from the *nf-core/rnaseq* and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3. 
+Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an R-IDE that uses an existing compute environment available in the Community Showcase workspace. The Studio also contains mounted data generated from the *nf-core/rnaseq* and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3.
 
 ![RNAseq Studio details](assets/rnaseq-diffab-studio-details.gif)
 
 :::info
-Studios allows you to specify the resources each Studio will use. When [creating your own Studios](../../studios/overview) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent Studio or pipeline run interruptions. 
+Studios allows you to specify the resources each Studio will use. When [creating your own Studios](../../studios/overview) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent Studio or pipeline run interruptions.
 :::
 
 ### Connect to the Studio
@@ -54,7 +54,7 @@ The RShiny app will deploy in a separate browser window, providing a data interf
 
 In the **QC/Exploratory** tab, select the PCA (Principal Component Analysis) plot to visualize how the samples group together based on their gene expression profiles.
 
-In this example, we used RNA sequencing data from the publicly-available ENCODE project, which includes samples from four different cell lines: 
+In this example, we used RNA sequencing data from the publicly-available ENCODE project, which includes samples from four different cell lines:
 
 - **GM12878** — a lymphoblastoid cell line
 - **K562** — a chronic myelogenous leukemia cell line
@@ -70,7 +70,7 @@ From this PCA plot, you can gain insights into the consistency and quality of yo
 
 ![RShiny PCA plot](assets/rnaseq-diffab-rshiny-pca-plot.gif)
 
-#### Gene expression changes with Volcano plots 
+#### Gene expression changes with Volcano plots
 
 In the **Differential** tab, select **Volcano plots** to compare genes with significant changes in expression between two samples. For example, filter for `Type: H1 vs MCF-7` to view the differences in expression between these two cell lines.
 

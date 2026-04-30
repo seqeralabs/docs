@@ -1,0 +1,66 @@
+---
+id: list-user-roles-in-organization
+title: "List user roles in organization"
+description: "Lists an organization member or collaborator's workspace roles and effective permissions across the organization identified by `orgId`."
+sidebar_label: "List user roles in organization"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNWN9v4zYM/lcEv2wD0qS3FXvI03J3vaFYtxVpi3soilWxmVitbfkkObks8P8+UvLvOInb24A9JbYp8iP5kRK18wxfaW/64EmFv48jLwDtK5EaIRNv6l0LbTTjCcPPPBF/c3rPYogXoPAd82UU8YVU3Ej1nWYbqV50yn1gSkZACwMGyyX4RqyBpaBioTVqwC++klozE0JbtQggMWIpIGCLLXvCb1fB09gbeRJXW5GroMB1r0HNycxV8mdDBcqmXPEYDCjybOcl+IBrrC78KsixlJvQ63rbVMOSLAYl/BqRIhgKvmRCAWIwKoORp/0QYu5Nd57ZpmRFJAZWoFB0KVXMjXv184WX56MKSobQT2Ah7/4DDI+0XKeYAtC04sfzc/rpxOE3XOpL1JIY+srTNBK+DcvkWZPIbt+oXDxjnvf8mDFyFrnRwyAdipQFYLiIHFcq/pxFsIaowaIGdygEqSI+GOGcIAt9SNpSzibR53Sgul787hjfl498VKZzSAKc8B+WBpW4Nkokq14KEGGYXO4XivPGmsc8iOi0uksSYzwIkAD6lM6lUNoMg/mJRNkQoBEfqvOaD1TJ19xwdVrhzMoxEfMVsPv5NcPEHFVM1OtTC8gB2y83iU2wW2LrpW6F1Ei/npHo2ZrbHOpBa4wwZJUaEXU26hnVO0fBj4uPRh5vXEV3LuuqdFRDhFWBfZUIWNH2c1lxuuEsV4pvqTsZiPXpEq90nOkUfCwLv79wLRRe2O9WZ1X6byvQCsOhGq30DyNgQx/KV4z4hijNbFAYx1isEkyDkTYtFA0mEoxLvXlS3GzKZKb8ogS4KZbG6NZ++A7R9ZBXFostsD5Alb+3FsGdVdrdJW4b6KCz9XewHioikQRiLYKMRyQEPG4WwWedztsQEJQLyR2KDuVJklGNkUa3W/Y6QbZ7mMM2ISTWPeuU0JipEGWojJZKxpg1WjlmH/CItAD2RMaexm2ghwj3CmCUp38DSpnI4aYJ9FtNH867glUWcUqX3mosn79sZ9TN7Fdwmz3wvtmxiBzUDPO9SqPCJF66LhRCZA+TzWozoWicVm2UGo3qW4q8VsNWiidmWKU7pLbK7Somemq8Vn260m9qGJY9B7C0KvdVXa6wezz41nbLLzJY+zE+nN3ageM57h8vDrrbSfsxbunjhjev2fX6NuCG7dY4My/O5yhBMhd9J/T3PGA0BoA2rzmq15PDAx5CtMbDkK25E+dmJ7if+4YHl0pJtYf8p57ZopzjWCJxS4siuUE8JK7Bz7CpbO3M9h64AjXLcDKaPjzS2IIDXShp9luBxUhD09Sb0Nw62dnZLp9QZPHJncfzieMyaVbrchjMFB6VvdCYVE8nE56KsR/JLBhr+ILAxmL/cHVrv7CbiBvaXNgHkmezmyuPYJWobynILmBN7FXMyKJXzGr0vLBC+Mb9+VRuW88bY6MhkqW0y4sAFyjI7CmA5K7AE10hTOzgvmVH2/mmy8UMYc3+Un9AIBQ5Z+fd+N3F+fjcNkupTcwtu4qRlijs6sxVgWjfGXRB72rS/o8uGYpcGfhqJmnEcTqnY7Kyw5UjXHFRMvKm5XWC5Ry9qIZ6RzvkRohRoiW73YJruFdRntNrLFtFLMe/OB0ItxEjNQOh6T9yfMkj3d2WmxH7fl4U8g9swJ1Fr1dle0+oua95lNET/n2BbXVXQjcWbwJ15PLiDWCKwOaPKBkCD2jYx3C5jzPfh9Q0lu11wFbz+PXyDmV5uzY7tWi190LCRFqJO/kCCSazRGjomQDm+T9cvcYt
+sidebar_class_name: "get api-method"
+info_path: platform-api//seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List user roles in organization"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/orgs/{orgId}/users/{userId}/roles"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Lists an organization member or collaborator's workspace roles and effective permissions across the organization identified by `orgId`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./list-user-roles-in-organization.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./list-user-roles-in-organization.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./list-user-roles-in-organization.StatusCodes.json")}
+>
+
+</StatusCodes>

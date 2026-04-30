@@ -76,7 +76,7 @@ jobs:
 
       - name: Checkout docs repo (for version check)
         if: steps.check-pr.outputs.pr_exists != 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
         with:
           sparse-checkout: |
             platform-api-docs/scripts/specs
@@ -99,12 +99,12 @@ jobs:
 
       - name: Checkout docs repo (full)
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
         # Don't specify ref - use the branch that triggered the workflow
 
       - name: Checkout Platform repo
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
         with:
           repository: seqeralabs/platform
           path: platform-repo
@@ -112,19 +112,19 @@ jobs:
 
       - name: Set up Python
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # ratchet:actions/setup-python@v6.2.0
         with:
-          python-version: '3.11'
+          python-version: '3.14'
 
       - name: Install Python dependencies
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
         run: |
-          pip install pyyaml anthropic
+          pip install pyyaml==6.0.3 anthropic==0.86.0
 
       - name: Install Speakeasy CLI
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
         run: |
-          curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | sh
+          VERSION=1.759.2 curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | sh
           echo "$HOME/.speakeasy/bin" >> $GITHUB_PATH
 
       - name: Copy new base spec from Platform repo
@@ -265,7 +265,7 @@ jobs:
 
       - name: Create draft PR
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # ratchet:peter-evans/create-pull-request@v8.1.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: |

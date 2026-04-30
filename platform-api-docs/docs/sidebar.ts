@@ -130,6 +130,18 @@ const sidebar: SidebarsConfig = {
           label: "Define primary compute environment",
           className: "api-method post",
         },
+        {
+          type: "doc",
+          id: "enable-compute-env",
+          label: "Enable compute environment",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "disable-compute-env",
+          label: "Disable compute environment",
+          className: "api-method post",
+        },
       ],
     },
     {
@@ -171,6 +183,12 @@ const sidebar: SidebarsConfig = {
           id: "delete-credentials",
           label: "Delete credentials",
           className: "api-method delete",
+        },
+        {
+          type: "doc",
+          id: "get-encrypted-credentials",
+          label: "Get encrypted credentials",
+          className: "api-method get",
         },
       ],
     },
@@ -300,6 +318,12 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
+          id: "delete-datasets",
+          label: "Delete datasets",
+          className: "api-method delete",
+        },
+        {
+          type: "doc",
           id: "list-latest-dataset-versions-v-2",
           label: "List latest dataset versions",
           className: "api-method get",
@@ -390,15 +414,51 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
-          id: "download-dataset",
-          label: "Download dataset content",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
           id: "list-dataset-versions",
           label: "(Deprecated) List all dataset versions",
           className: "menu__list-item--deprecated api-method get",
+        },
+        {
+          type: "doc",
+          id: "hide-datasets",
+          label: "Hide datasets",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "show-datasets",
+          label: "Show datasets",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "disable-dataset-version",
+          label: "Disable dataset version",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "preview-dataset-url",
+          label: "Preview content from a URL",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "validate-dataset-url",
+          label: "Validate URL for dataset linking",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "link-dataset-version",
+          label: "Link external URL as dataset version",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "preview-dataset-version",
+          label: "Preview linked dataset content",
+          className: "api-method get",
         },
       ],
     },
@@ -439,7 +499,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "ga-4-gh-service-info",
-          label: "GA4GH workflow execution service API info",
+          label: "Get GA4GH WES service info",
           className: "api-method get",
         },
       ],
@@ -592,6 +652,24 @@ const sidebar: SidebarsConfig = {
           label: "Remove labels from workflows",
           className: "api-method post",
         },
+        {
+          type: "doc",
+          id: "add-labels-to-datasets",
+          label: "Add labels to datasets",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "apply-labels-to-datasets",
+          label: "Replace dataset labels",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "remove-labels-from-datasets",
+          label: "Remove labels from datasets",
+          className: "api-method post",
+        },
       ],
     },
     {
@@ -688,6 +766,36 @@ const sidebar: SidebarsConfig = {
           label: "Describe organization quotas",
           className: "api-method get",
         },
+        {
+          type: "doc",
+          id: "list-user-roles-in-organization",
+          label: "List user roles in organization",
+          className: "api-method get",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "permissions",
+      items: [
+        {
+          type: "doc",
+          id: "retrieve-permissions",
+          label: "Retrieve permissions",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "check-permission",
+          label: "Check permission",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "list-available-features",
+          label: "List available features",
+          className: "api-method get",
+        },
       ],
     },
     {
@@ -733,7 +841,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "update-pipeline",
-          label: "Update pipeline",
+          label: "Update pipeline (default version)",
           className: "api-method put",
         },
         {
@@ -824,6 +932,54 @@ const sidebar: SidebarsConfig = {
     },
     {
       type: "category",
+      label: "roles",
+      items: [
+        {
+          type: "doc",
+          id: "list-roles",
+          label: "List roles",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "create-role",
+          label: "Create role",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "list-role-permissions",
+          label: "List role permissions",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "describe-role",
+          label: "Describe role",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "update-role",
+          label: "Update role",
+          className: "api-method put",
+        },
+        {
+          type: "doc",
+          id: "delete-role",
+          label: "Delete role",
+          className: "api-method delete",
+        },
+        {
+          type: "doc",
+          id: "validate-role-name",
+          label: "Validate role name",
+          className: "api-method get",
+        },
+      ],
+    },
+    {
+      type: "category",
       label: "service-info",
       items: [
         {
@@ -879,6 +1035,12 @@ const sidebar: SidebarsConfig = {
           id: "delete-data-studio",
           label: "Delete Studio",
           className: "api-method delete",
+        },
+        {
+          type: "doc",
+          id: "update-data-studio",
+          label: "Update a Studio",
+          className: "api-method put",
         },
         {
           type: "doc",
@@ -1299,6 +1461,96 @@ const sidebar: SidebarsConfig = {
           id: "list-workspaces-user",
           label: "List user workspaces",
           className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "delete-workspace-user",
+          label: "Delete workspace user",
+          className: "api-method delete",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "pipeline-schemas",
+      items: [
+        {
+          type: "doc",
+          id: "create-pipeline-schema",
+          label: "Create pipeline schema",
+          className: "api-method post",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "pipeline-versions",
+      items: [
+        {
+          type: "doc",
+          id: "list-pipeline-versions",
+          label: "List pipeline versions",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "validate-pipeline-version-name",
+          label: "Validate pipeline version name",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "update-pipeline-version",
+          label: "Update pipeline version",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "manage-pipeline-version",
+          label: "Manage pipeline version",
+          className: "api-method put",
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "ssh-keys",
+      items: [
+        {
+          type: "doc",
+          id: "list-ssh-keys",
+          label: "List SSH keys",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "create-ssh-key",
+          label: "Create SSH key",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "validate-ssh-key",
+          label: "Validate SSH key",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "validate-ssh-key-name",
+          label: "Validate SSH key name",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "describe-ssh-key",
+          label: "Describe SSH key",
+          className: "api-method get",
+        },
+        {
+          type: "doc",
+          id: "delete-ssh-key",
+          label: "Delete SSH key",
+          className: "api-method delete",
         },
       ],
     },

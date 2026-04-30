@@ -1,0 +1,66 @@
+---
+id: disable-compute-env
+title: "Disable compute environment"
+description: "Disables the compute environment identified by the given `computeEnvId`. A disabled compute environment cannot be used to launch workflows. If the compute environment is primary, it is automatically unset as primary."
+sidebar_label: "Disable compute environment"
+hide_title: true
+hide_table_of_contents: true
+api: eJzdVcFu2zoQ/BWCpz7Asd3W6MGnJmkKBAXaIEnRQxCga2ltMaFIhqTsCoL+vbuUFDu2X/tyfRfDoobL2eHsqJERVkHO72RmS1dFPEGzDvJ+JHMMmVcuKmvkXH5SARYag4gFih4qCKq8NSWaKFROv2qpMBeLOqFWao1G/OzBF2Z9mf8ci1ORd6Xyo2UyMMZGsUBRBYJEKzRUJivExvrHpbabMBaXy39nEYTzqgRfj4RKj1BFW0JUGWhdi8oEjAKeUWM5ktahB27zMt82ev7MmhAOPJQY0bNQjTT0QMjdxgikWCYHsZD72p0fIQraFWCqEr3Kttp55hOyAkuQ80bG2vFBIXplVrIdSY9PlfJIPKOvsB09c2F1goMMt1SeKvT1AZcfA1D8x8OVibhCT6+W1pOQ3dKHmWzb+44Qhnhm85r3vDzronSxFj1ELAjDJ2SWKprIcHBO08UwfPIQeE9zSMAuHjCLtDGqqHEoyyded5WJSZu0Cc7S9Qbe+246O+Tz7Ys4EV+tGBjQptl0eog7g3xg/Rq+28u5kyWGACvkOdpvw3k2XFQd0QF4eNvtTsfeW3/d99e3O5u+P9LhYGXBQ0SOtxviw/CAWeVVrJOBzxA8+tOKvDq/u+d7JHcXlu3vbGo6+XguJ7uhMGl2Hd9O+jlm06BfD8NReU0bixhdmE8m4NQ407bKxwGfiNtY2QNL3qQ34kpDZIuJc8aL06tLycwG4jesc6fZLv1n2fjEwb/8vEggWun+fB7M+7CJSRC+v+utey9+QelY7Kbl+VnaVLrXv2fIlP5GnqVQGeVkB2bzQJbM81KYXTnIP0qnuVraj9sXRIRV7c55O347m46nvMhXVEIyXz/9fWYdS8R9ws3Wz//nTO9NEfFXnDgNFIgkXLqBpvf23gdvJOd7eT7YmzxY8FDQjqZZQMDvXrctL3cJy6Yf2pfzJeiAf9D8b/l7lPgj1gcZvwZdMTINyRq8SmRfR+bNdR9Z/4hXfqOO0uwXwdS7/Ab6L+Rt7wlfIOQ0osy5g5x3zE5uudC2xEHs8oev23GaZejiH7G76Xb17eaWI6H/XJU25z0eNrTIv4muTUqlpElrjdRgVlVKadnV5ACBl/mzlzepq6OCkIkS4tY+oiEjDfpEfmZh2vY3tmFb8A==
+sidebar_class_name: "post api-method"
+info_path: platform-api//seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Disable compute environment"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/compute-envs/{computeEnvId}/disable"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Disables the compute environment identified by the given `computeEnvId`. A disabled compute environment cannot be used to launch workflows. If the compute environment is primary, it is automatically unset as primary.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./disable-compute-env.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./disable-compute-env.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./disable-compute-env.StatusCodes.json")}
+>
+
+</StatusCodes>

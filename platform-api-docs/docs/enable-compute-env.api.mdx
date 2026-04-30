@@ -1,0 +1,66 @@
+---
+id: enable-compute-env
+title: "Enable compute environment"
+description: "Enables the compute environment identified by the given `computeEnvId`. An enabled compute environment can be used to launch workflows."
+sidebar_label: "Enable compute environment"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNlVFv2jAQx7+K5adNokA3tIc8jaJOqiatFe20hwqpJjmI28R2bQcaRfnuu3MSoAS169teEHH+d/7d+e9Lxb1YOx7d81jnpvBwBmrj+GLAE3CxlcZLrXjEL5VYZuCYT4G1SoZKabXKQXkmE/yVKwkJW5ZBtZYbUOyhFV+qzVXyMGRThWGUKjmZJhaKLYEVDt97zTJRqDhlW22fVpneuiEfcG3ACqK6SnZcs90mKDDCihw8WCqr4gofUHjIgSJJRRnhU35c6ewElshMKlSRg5XxvlRLOC5OIRc8qrgvDW3kvJVqzesBt/BcSAuI6W0B9WDHQvU4I2LYozwXYMsey59OyP5xc6k8rMHiq5W2ufDN0rcJr+tFAwTOX+ikpJijE86NL1krYUvU0A6xxozKk1wYk8k4tH706Cim6gPo5SPEHgO99Bl0aWnHeZMZSerQG2e0cuAo9st40ue5/snO2C/NOgIMmozHfd2FSDrqj/DuD+ee5+CcWAO5/rgMY8lvXjagnbB/2vVBxdZqO2/ra8udjL+eqLBzMlOaPIYORx6SO4gLK30ZDHwBwoKdFujV6H5B54juTjW53+hQdPBxxEeHV3hUHTq+HjW3jjwDdtPdjcJmGJd6b1w0Ggkjh3Gmi2To4BnRhlL3HHkb3rCbTHhyGJuRnk1vrjiBddy31OamZYf0u67Rjp196XkZRLjS/PnRefdx60M/6Pjme/NevojcUK+rmq7PSofUbftbQkJ6D55aIWOcao2YvCPi4J3XjTlsB9pHZuFarfT3/QsEoa42+5wPzyfj4ZgW6YRyEbzXXv5mYp2afse81d7N/9H8bY/Qw4sfmUzg9MIyQ7+q1ohH35IBj46Gb+tFNExKBsaAqloKB79tVte03ExDcmgiXaDl0UpkDt7o0Huz8iT3E5S9ebwRWUHK4OiNsDLAfgzm07wdL5/ZB78nJzHbRaHKQ74O/1V36wXqUxAJ3idibiSzhuzsjhLtU/RGJH2kmohpHIPxb2oPJ9HN9e0d3d/205LrhGKs2OIi/QZcHToVxkJYq3gm1LoIE5U3Oem2i9fD4mg4hKpONgRNFBR3+gkUGqnrj6dnakxd/wU0Rh2Y
+sidebar_class_name: "post api-method"
+info_path: platform-api//seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Enable compute environment"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/compute-envs/{computeEnvId}/enable"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Enables the compute environment identified by the given `computeEnvId`. An enabled compute environment can be used to launch workflows.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./enable-compute-env.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./enable-compute-env.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./enable-compute-env.StatusCodes.json")}
+>
+
+</StatusCodes>

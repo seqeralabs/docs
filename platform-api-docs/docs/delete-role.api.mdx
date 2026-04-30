@@ -1,0 +1,66 @@
+---
+id: delete-role
+title: "Delete role"
+description: "Deletes the custom role identified by `roleName` in the organization identified by `orgId`. Predefined roles cannot be deleted."
+sidebar_label: "Delete role"
+hide_title: true
+hide_table_of_contents: true
+api: eJzNVU1v2zAM/SuCThuQJekW7ODT2jUDig1d0W6nIkAVm4nVypIr0e0yw/99pGznG1uxU0+JyCfxkXyka4lqGWRyK70zEORsIDMIqdclamdlIs/BAEIQmINIq4CuEIwUOgOLeqEhE/OVuGPbpSrgTmgbsc4vldW/FT+zDybfRXY3FFceMlhoS+YYXaTKWodiDiKLYbOhHEhXgo/PXGRrPtcEJ1epPMVE8JxBLS0dCNJzIYDmFEqFudzPi18QfIFDeHisNJGRCfoKBjKkORRKJrXEVclPBvTaLmXTDNZRYhJ9iMcK/OogxvftGtiqAK/TTS38iyJri7AET9CF84XC1vRxQlxmfD2UzgZqHN14P57wzx6Hr+KduHQidfSQRdkM5GQ8PsSdKWoCkYGAFKtHE0yVpdFpzGF0Hxhbb7Hc8L+VBYSglsAa6si7+T2k/F7puYuoW6I98Fh9JWo0bJp67/x1lx95msj8w5EMe30I1o4yxj0Tn4g+Uo+27wRcuMpmrzVVcgZIK69xFZV9BsqDP61IyMntjDtPss8dD0Q7KXEY2CtHcZRGdT8FjeS3/FM/JJU3hMoRy5CMRqrUw9S4KhsGeKQ6DrU7kPFN9Igro5A1KD4zXpxeXUgm0vO84UK1SW+zXefNEWUncD7PI4gs7Z8vvbrvnzEWR9uFi9e7InUsOOy/CHK6OqV90oK5wyqNHd5NfjtlarI2cbgW7tPGQUS4cm2ck+HJZDwcs7F0AQsVFdLtg3YxxUW2T7DeiOwV7NOuHwi/cFQaRfuL8omFqTsN9R+DgUzWu5Q6nVPO7KzruQrw05umYXO7+1hamQ5qbnhCFsoE+EsV3lx3w/RWvGBJHmX8AKutLfykTMWYKMkn5TUT+X9SO1+Ho+E7o7Kr7eg9rXXZmhlhc1AZSZ3ZtO7TNIUSty4ebJ6dET+ffpv+mBJc7Y7U3gjFAEd5Ucci4od7ANs0a5rIZ+bYNH8AxSjENw==
+sidebar_class_name: "delete api-method"
+info_path: platform-api//seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Delete role"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/roles/{roleName}"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Deletes the custom role identified by `roleName` in the organization identified by `orgId`. Predefined roles cannot be deleted.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./delete-role.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./delete-role.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./delete-role.StatusCodes.json")}
+>
+
+</StatusCodes>

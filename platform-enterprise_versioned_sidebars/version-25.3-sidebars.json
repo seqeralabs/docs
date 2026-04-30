@@ -124,7 +124,8 @@
         "getting-started/quickstart-demo/add-data",
         "getting-started/quickstart-demo/launch-pipelines",
         "getting-started/quickstart-demo/monitor-runs",
-        "getting-started/quickstart-demo/automation"
+        "getting-started/quickstart-demo/automation",
+        "getting-started/production-checklist"
       ]
     },
     {
@@ -164,6 +165,7 @@
             "compute-envs/aws-batch",
             "compute-envs/aws-cloud",
             "compute-envs/azure-batch",
+            "compute-envs/azure-cloud",
             "compute-envs/google-cloud-batch",
             "compute-envs/google-cloud",
             "compute-envs/eks",
@@ -218,6 +220,22 @@
         "secrets/overview",
         "pipeline-optimization/overview",
         "launch/advanced"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Seqera AI CLI",
+      "link": {
+        "type": "doc",
+        "id": "seqera-ai/index"
+      },
+      "collapsed": true,
+      "items": [
+        "seqera-ai/get-started",
+        "seqera-ai/installation",
+        "seqera-ai/authentication",
+        "seqera-ai/command-approval",
+        "seqera-ai/use-cases"
       ]
     },
     {

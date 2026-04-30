@@ -181,9 +181,9 @@ See [here](https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html) 
 
 ```
  [scheduled-executor-thread-2] - WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 1366, SQLState: HY000
- 
+
  [scheduled-executor-thread-2] - ERROR o.h.e.jdbc.spi.SqlExceptionHelper - (conn=34) Incorrect string value: '\xF0\x9F\x94\x8D |...' for column 'error_report' at row 1
- 
+
  [scheduled-executor-thread-2] - ERROR i.s.t.service.job.JobSchedulerImpl - Unable to save status of job id=18165; name=nf-workflow-26uD5XXXXXXXX; opId=nf-workflow-26uD5XXXXXXXX; status=UNKNOWN
 ```
 

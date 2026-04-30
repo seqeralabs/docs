@@ -53,10 +53,10 @@ Platform normally looks for an existing job definition that matches your workflo
 ```bash
 jobs=$(aws --region eu-west-1 batch describe-job-definitions | jq -r .jobDefinitions[].jobDefinitionArn)
 
-for x in $jobs; do 
-  echo "Deregister $x"; 
-  sleep 0.01;  
-  aws --region eu-west-1 batch deregister-job-definition --job-definition $x; 
+for x in $jobs; do
+  echo "Deregister $x";
+  sleep 0.01;
+  aws --region eu-west-1 batch deregister-job-definition --job-definition $x;
 done
 ```
 

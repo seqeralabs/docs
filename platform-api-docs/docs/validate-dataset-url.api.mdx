@@ -1,0 +1,66 @@
+---
+id: validate-dataset-url
+title: "Validate URL for dataset linking"
+description: "Validates that a remote dataset URL is accessible and returns a supported CSV/TSV format, without creating a dataset."
+sidebar_label: "Validate URL for dataset linking"
+hide_title: true
+hide_table_of_contents: true
+api: eJzFVlFP40gM/iujeS4tu4dOpz4ddDnd6hYtooV7QEjrJm4zMMlkZyZAVfW/r+1J2tByy6F7uBdKJo79+bP9edY6x5B5U0fjKj3WN2BNDhGDigVEBcpj6SIqOoOAUV1ffVEmKMgyDMHMLSqocjKKja/oWIWmrp2PmKvJ9GY0m96ohfMlxIF6MrFwTVSZR4imWpJx63SoB9rV6IExfM57KD4lg2tvyaQGDyVG9EGPb9can2vrctTjBdiAA20Y/vcG/YpsK7KkxyfnH0INGZLXgQ5ZgSXo8VonTGRgqvjrCds31gJlo8fRN+QsrmpMr3GJXm82dwPtkbyHeObyFfvIHL2sIv8LdW1NJvBH94F5XPeC1Z6TiwYDPzWUC/20AUL0RAUBeFmFP2ezS+W84t+pcB6demxJGaoLeDZlUyqL1TIWXI+Pxye/qawghjImaEiIt0m4+T1mkWJEEznDLbtE61XKicw3+xg4ahuSDlSbvU48GI954mrDB6F2VUj5fTw+/g/stJ99kcRerdReZfZRT5KDo+RBFQg5es6jQUqhbc35irobVUD/iH6oJlCpOapv3ATflFmoykVFuB5NjjlROdDovfMT6ba3SncBWWEqPKIuz7mj+hyKG5WRn/2g9DI0MlO7eBf0BMt/EfKaEjlaQMZDdRCtTF7eCFhAOI+w7MWaO2cRqoNgfxdYKRmSHocdW6QAlTqfwbIjfsH5FlAtSUFodDN2IgFLzA3MJNRb6X2SD6ls8o1i41ey6SW+AGMbjxJHjt+fVitzVERC36mc5HogcjynonPG4jvmLo3Ma4P39S8GfvLOOdpN5a1ua67vDrG8HLfyn1pM0mhhn3Mf/QzwGeRbeRDkv7DDvaQ6fZfhAmvdE2FlXwGzxpu4ElE/Q/DoTxse/ts7Vl3qStZ73e6KwEnRFigc74naiSLVwPZ61NmMOqk8amRzpCZNa0P0Vxcx1mE8GkFthpl1TT4M+J0QDo07aI2pvFGXFiKrkZqwvTq9/KwZXwd/ypVIrPaT2BLLEbsdJI0oRnSS/vmj07n7pyi0cIWvdhvn/BnK2uJ2g2wLxYtv4SRQW68WLwN8KxUmxpAItMbcbLRAdkE6mvrkUL8ZKwq8cL/vXvCsEccpzofhh5Pj4TEfcolKkGZtl3I3BjJkLBDd3cKa6uEVAegNwf92PWmLGPE5jmoLdNeg1NpVnrqv16Gt6nT9R01ScJ+SyXo9JxOa/82Gj9NthbsyN4FlJt/eZh5wdXB/kS1Gp9J3j+BNurHQnFAE0VvxlT7tFqFo7O7bAxHZDLovTom0Ov7Utj97l1+nM27f9jpUynbUHp74ikB/CSdf6/hrmQo5W2tLy6ARzdHJJzc7vJyVvdmQrNpXUK16CIlPsZi5B6yI0463yM8El5z/AH9vxgI=
+sidebar_class_name: "post api-method"
+info_path: platform-api//seqera-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Validate URL for dataset linking"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/datasets/validate-url"}
+  context={"endpoint"}
+>
+
+</MethodEndpoint>
+
+
+
+Validates that a remote dataset URL is accessible and returns a supported CSV/TSV format, without creating a dataset.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./validate-dataset-url.ParamsDetails.json")}
+>
+
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./validate-dataset-url.RequestSchema.json")}
+>
+
+</RequestSchema>
+
+<StatusCodes
+  {...require("./validate-dataset-url.StatusCodes.json")}
+>
+
+</StatusCodes>

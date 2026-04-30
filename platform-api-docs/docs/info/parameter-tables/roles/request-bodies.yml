@@ -1,0 +1,34 @@
+- Name: "**CreateRole**"
+  Type: ""
+  Req/Opt: ""
+  Description: Create role
+- Name: name
+  Type: string
+  Req/Opt: Optional
+  Description: Custom role name. Must be unique in the organization and meet role
+    name length and format requirements.
+- Name: description
+  Type: string
+  Req/Opt: Optional
+  Description: Custom role description. Must be between 1 and 120 characters.
+- Name: permissions
+  Type: array
+  Req/Opt: Optional
+  Description: Array of permission names assigned to the custom role.
+- Name: "**UpdateRole**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update role
+- Name: name
+  Type: string
+  Req/Opt: Optional
+  Description: Updated custom role name. Must be unique in the organization and
+    meet role name length and format requirements.
+- Name: description
+  Type: string
+  Req/Opt: Optional
+  Description: Updated custom role description. Must be between 1 and 120 characters.
+- Name: permissions
+  Type: array
+  Req/Opt: Optional
+  Description: Array of permission names assigned to the custom role.

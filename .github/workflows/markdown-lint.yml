@@ -8,15 +8,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
-               
-      - uses: tj-actions/changed-files@v46
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+
+      - uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # ratchet:tj-actions/changed-files@v47.0.6
         id: changed-files
         with:
           files: '**/*.md'
           separator: ","
 
-      - uses: DavidAnson/markdownlint-cli2-action@v16
+      - uses: DavidAnson/markdownlint-cli2-action@6b51ade7a9e4a75a7ad929842dd298a3804ebe8b # ratchet:DavidAnson/markdownlint-cli2-action@v23.1.0
         if: steps.changed-files.outputs.any_changed == 'true'
         with:
           globs: ${{ steps.changed-files.outputs.all_changed_files }}

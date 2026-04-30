@@ -1,15 +1,16 @@
 ---
 title: "Usage limits"
-description: "An overview of Seqera Cloud usage limits"
-date: "19 Feb 2025"
-tags: [limits]
+description: "An overview of Seqera usage limits"
+date created: "2025-02-19"
+last updated: "2026-03-13"
+tags: [limits, usage-limits, cloud-pro, cloud-enterprise]
 ---
 
 Seqera Platform elements and features have default limits per organization and workspace.
 
 ### Organizations
 
-| Description             | Basic | Cloud Pro + Enterprise | 
+| Description             | Basic | Cloud Pro + Enterprise |
 | ----------------------- | ----- | ---------------------- |
 | Members                 | 3     | 50, or per license     |
 | Workspaces              | 50    | 50, or per license     |
@@ -18,8 +19,8 @@ Seqera Platform elements and features have default limits per organization and w
 | Active runs             | 3     | 100, or per license    |
 | Running Studio sessions | 1     | 1000, or per license   |
 
-:::info 
-Academic institutions and commercial organizations evaluating Seqera Platform are subject to custom usage limits. [Contact us](https://seqera.io/contact-us/) for more information. 
+:::info
+Academic institutions and commercial organizations evaluating Seqera Platform are subject to custom usage limits. [Contact us](https://seqera.io/contact-us/) for more information.
 :::
 
 ### Workspaces
@@ -31,7 +32,7 @@ Academic institutions and commercial organizations evaluating Seqera Platform ar
 | Datasets     | 100   | 1000, or per license   |
 | Labels       | 1000  | 1000, or per license   |
 
-:::note 
+:::note
 Some Enterprise instances on older licenses are limited to 100 labels per workspace. [Contact support](mailto:support@seqera.io) to upgrade your license.
 :::
 
