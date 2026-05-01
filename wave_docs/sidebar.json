@@ -58,6 +58,7 @@
       "collapsed": true,
       "items": [
         "cli/installation",
+        "cli/configuration",
         "cli/use-cases"
       ]
     },
