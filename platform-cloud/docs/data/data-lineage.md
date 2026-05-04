@@ -7,11 +7,9 @@ tags: [data lineage data-lineage provenance governance reproducibility lineage-i
 ---
 
 :::info
-Data lineage in platform is currently in public preview.
+Data lineage in Platform is in public preview. It requires Nextflow v25.04 or later. Enable it per-pipeline (`lineage.enabled = true` in your Nextflow config) or workspace-wide via the **Lineage** workspace setting.
 
-Data lineage requires Nextflow v25.04 or later with either `lineage.enabled = true` in your Nextflow pipeline configuration (for per pipeline configuration) or defined in the **Lineage** workspace setting. The feature is experimental and subject to change.
-
-Please consult this guide for the latest information on recommended configuration and limitations.
+The feature is experimental and subject to change. See this guide for the latest configuration recommendations and limitations.
 :::
 
 Data lineage tracks the full provenance of every pipeline run — what executed, what data was consumed, and what outputs were produced (both task-level and workflow-level). This allows auditing of pipeline results, verification of reproducibility, and tracing file provenance.
