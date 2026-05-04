@@ -46,7 +46,7 @@ Changing the lineage storage bucket path after lineage data is generated results
 
 ### Enable per pipeline lineage in Nextflow
 
-To test lineage within a single pipeline, add the following to your Nextflow configuration file before running your pipeline:
+To test lineage within a single pipeline, add the following to your Nextflow config file before running your pipeline:
 
 ```groovy
 lineage.enabled = true
