@@ -3,10 +3,31 @@
     {
       "type": "category",
       "label": "Wave containers",
-      "link": {"type": "doc", "id": "index"},
+      "link": {
+        "type": "doc",
+        "id": "index"
+      },
       "collapsed": true,
       "items": [
-          "provisioning"
+        "how-wave-works",
+        {
+          "type": "category",
+          "label": "Features",
+          "link": {
+            "type": "doc",
+            "id": "features/index"
+          },
+          "collapsed": true,
+          "items": [
+            "features/augmentation",
+            "features/inspection",
+            "features/authentication",
+            "features/container-builds",
+            "features/container-freezes",
+            "features/mirroring",
+            "features/security"
+          ]
+        }
       ]
     },
     {
@@ -20,43 +41,28 @@
           "tutorials/wave-cli"
       ]
     },
-    {
+{
       "type": "category",
       "label": "Nextflow integration",
       "link": {"type": "doc", "id": "nextflow/index"},
       "collapsed": true,
       "items": [
         "nextflow/use-cases",
-        "nextflow/configuration",
-        {
-          "type": "category",
-          "label": "Guides",
-          "collapsed": true,
-          "items": [
-            "nextflow/bundle-scripts",
-            "nextflow/reduce-api-calls"
-          ]
-        }
+        "nextflow/configuration"
       ]
     },
     {
       "type": "category",
-      "label": "Developer tools",
+      "label": "Wave CLI",
+      "link": {"type": "doc", "id": "cli/index"},
       "collapsed": true,
       "items": [
-        "api",
-        {
-          "type": "category",
-          "label": "CLI",
-          "link": {"type": "doc", "id": "cli/index"},
-          "collapsed": true,
-          "items": [
-            "cli/installation",
-            "cli/use-cases"
-          ]
-        }
+        "cli/installation",
+        "cli/configuration",
+        "cli/use-cases"
       ]
     },
+    "api",
     {
       "type": "category",
       "label": "Self-hosted Wave",
@@ -77,7 +83,6 @@
           "label": "Configuration",
           "collapsed": true,
           "items": [
-            "wave-lite",
             "configure-wave",
             "configuration"
           ]
@@ -95,6 +100,16 @@
         }
       ]
     },
+    {
+      "type": "category",
+      "label": "Guides",
+      "collapsed": true,
+      "items": [
+        "guides/bundle-scripts",
+        "guides/reduce-api-calls"
+      ]
+    },
+    "seqera-containers",
     "faq",
     {
       "type": "link",
