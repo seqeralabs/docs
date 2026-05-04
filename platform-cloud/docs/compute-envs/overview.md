@@ -27,13 +27,17 @@ Each compute environment must be configured to enable Seqera to submit tasks. Se
 - [Amazon EKS](./eks)
 - [Google Kubernetes Engine](./gke)
 
+:::note
+Compute Environments now support descriptions. Enter a description during creation to provide context and information. To update a description, select **Edit** from the menu of the relevant compute environment. You can update descriptions at any time (e.g., to reflect a status change), up to a 1000-character limit. You can also add descriptions to existing compute environments that don't have one.
+:::
+
 ## Select default compute environment
 
 If you have more than one compute environment, you can select a workspace primary compute environment to be used as the default when launching pipelines in that workspace. In a workspace, select **Compute Environments**. Then select **Make primary** from the options menu next to the compute environment you wish to use as default.
 
 ## Rename compute environment
 
-You can edit the names of compute environments in private and organization workspaces. Select **Rename** from the options menu next to the compute environment you wish to edit.
+You can edit the names of compute environments in private and organization workspaces. Select **Edit** from the options menu next to the compute environment you wish to edit.
 
 Select **Update** on the edit page to save your changes after you have updated the compute environment name.
 
