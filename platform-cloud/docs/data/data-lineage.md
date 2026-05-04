@@ -86,7 +86,7 @@ Assign lineage labels to output files using the `label` directive in your Nextfl
 Both Seqera Platform labels and Nextflow lineage labels propagate to lineage records. Seqera Platform excludes resource labels as they relate to underlying compute resources, not the data itself.
 
 :::info
-Nextflow lineage labels are **immutable** — they are set at execution time and cannot be changed. Seqera Platform labels are **mutable**. If you update Platform labels after a run completes, a mismatch between Platform run labels and lineage labels is possible. This is expected behavior.
+Nextflow lineage labels are immutable. They are set at execution time and cannot be changed. Seqera Platform labels are mutable. Updating Platform labels after a run completes can produce a mismatch between Platform run labels and lineage labels. This is expected behavior.
 :::
 
 {/* links */}
