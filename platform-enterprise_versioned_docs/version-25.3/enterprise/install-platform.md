@@ -25,6 +25,8 @@ Before you begin, you need:
 - A MySQL 8 database
 - A Redis 7 instance
 
+Supported production Redis options include a self-managed Redis 7 deployment or one of the managed Redis services documented in the platform deployment guides: Amazon ElastiCache, Azure Cache for Redis, or Google Memorystore. If you plan to use another Redis-compatible service, confirm support with Seqera before deploying to production.
+
 :::note
 MySQL 8 is the only supported database version from Seqera Enterprise version 23.4 onwards. MySQL 5.6 and 5.7 are not supported.
 :::
