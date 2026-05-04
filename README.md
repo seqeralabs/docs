@@ -59,7 +59,7 @@ We currently use basic standard hooks to remove trailing whitespaces, make sure 
    $ pre-commit install
    $ pre-commit install-hooks
    ```
-You shouldn't experience any issues but if you do, share them in the #team-documentation channel so we can try help.
+You shouldn't experience any issues but if you do, share them in the #team-documentation channel.
 
 :::note
   You only have to install pre-commit once.
