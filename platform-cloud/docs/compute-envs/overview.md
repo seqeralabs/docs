@@ -28,7 +28,7 @@ Each compute environment must be configured to enable Seqera to submit tasks. Se
 - [Google Kubernetes Engine](./gke)
 
 :::note
-Compute Environments now support descriptions. You can enter a description of the compute environment during creation to help provide context and information. Descriptions can be updated by using the **Edit** option from the menu of the relevant compute environment. Descriptions can be updated at any point (e.g., to reflect a change in status) and are limited to 1000 characters. Existing compute environments without descriptions can also be updated with one.
+Compute Environments now support descriptions. Enter a description during creation to provide context and information. To update a description, select **Edit** from the menu of the relevant compute environment. You can update descriptions at any time (e.g., to reflect a status change), up to a 1000-character limit. You can also add descriptions to existing compute environments that don't have one.
 :::
 
 ## Select default compute environment
