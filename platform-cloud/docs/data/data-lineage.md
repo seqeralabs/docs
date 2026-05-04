@@ -53,7 +53,7 @@ lineage.enabled = true
 lineage.store.location = '<PATH_TO_STORAGE>'
 ```
 
-Only runs executed with this setting generate lineage data. Runs without it display a note on the Run Info tab:
+Only runs executed with this setting generate lineage data. Runs without it display a note on the **Run Info** tab:
 
 > *Lineage tracking was not enabled for this run. Add `lineage.enabled = true` to your Nextflow config to capture lineage data.*
 
