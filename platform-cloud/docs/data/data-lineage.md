@@ -38,7 +38,7 @@ Each record gets a **lineage ID (LID)** — a `lid://` URI that uniquely identif
 
 ### Configure workspace settings
 
-Before collecting lineage data, configure the lineage storage location for your workspace. Go to **Workspace Settings** and open the [**Lineage** settings][workspace-lineage] to set the storage bucket and path where the lineage data is stored and indexed. This applies to **all** pipeline runs in the workspace.
+Before collecting lineage data, configure the lineage storage location for your workspace. Go to **Workspace Settings** and open the [**Lineage** settings][workspace-lineage] to set the storage bucket and path where lineage data is stored and indexed. This applies to all pipeline runs in the workspace.
 
 :::danger
 Changing the lineage storage bucket path after runs have generated lineage data will result in historic data loss. The lineage index is tied to this location — changing it makes existing records inaccessible. If you need to move the lineage data storage location, first copy all existing lineage data to the new bucket and path (for example, `aws s3 cp --recursive s3://old-bucket/path s3://new-bucket/path`), then update the workspace setting.
