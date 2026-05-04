@@ -16,7 +16,7 @@ Data lineage tracks the full provenance of every pipeline run at both the task a
 
 ## Why data lineage matters
 
-Production pipelines generate results that teams need to trust, audit, and reproduce. Data lineage answers the question "how exactly was this result produced?" with a precise, immutable record.
+Production pipelines generate results that teams need to trust, audit, and reproduce. Data lineage provides a precise, immutable record of how each result was produced.
 
 - **Reproducibility**: Every run, task, and output file receives a unique **lineage ID (LID)** — a traversable URI pointing to a structured record of exactly what ran. You can verify that two runs produced identical results, or identify precisely where they diverged.
 - **Auditing and compliance**: For teams in regulated industries (pharma, clinical genomics, CROs), lineage provides the audit trail needed for regulatory compliance. Each record captures inputs, outputs, parameters, compute environment, and the user who launched the run.
