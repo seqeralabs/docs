@@ -6,7 +6,7 @@ last updated: "2026-04-27"
 tags: [seqera compute, compute environment, co-scientist, billing]
 ---
 
-Seqera Compute environments and Co-Scientist both consume credits from a shared credit pool. Compute credits are deducted in real time at task completion. Co-Scientist usage is included up to a per-plan monthly allowance, with credits charged only for usage above that allowance.
+Seqera Compute environments and Co-Scientist share a credit pool at the organization level. Each user also receives a monthly Co-Scientist allowance based on their plan. Once a user exhausts their allowance, further Co-Scientist usage draws from the shared pool. Compute credits are deducted from the shared pool in real time at task completion.
 
 One Seqera credit equals $1 USD. Compute resources are charged at AWS on-demand rates for the selected region, with transparent pass-through pricing.
 
