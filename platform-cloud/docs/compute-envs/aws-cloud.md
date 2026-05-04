@@ -426,6 +426,202 @@ Use the IAM role ARN which Seqera must use for accessing your AWS resources in *
 
 Existing credentials created before March 2026 continue to work without changes.
 
+## Seqera Intelligent Compute
+
+Seqera Intelligent Compute is an optional capability that, when enabled, executes Nextflow tasks on a Seqera-managed Amazon ECS cluster instead of running them entirely on the head EC2 instance. This lets the AWS Cloud compute environment scale beyond the resources of a single instance while preserving its fast startup behavior.
+
+When Seqera Intelligent Compute is enabled, Seqera provisions and manages all ECS infrastructure on your behalf — clusters, capacity providers, task definitions, IAM roles, and (optionally) Auto Scaling Groups for spot and on-demand capacity. All managed resources use the `seqera-sched-` prefix and are torn down automatically when no longer needed.
+
+### Additional IAM permissions
+
+Enabling Seqera Intelligent Compute requires an additional IAM policy on top of the [Required Platform IAM permissions](#required-platform-iam-permissions). Attach it to the same IAM user or role that Seqera uses to access your AWS account.
+
+Every action that AWS allows to be scoped by ARN is restricted to the `seqera-sched-*` prefix. The remaining `Resource: "*"` entries correspond to AWS APIs that do not support resource-level permissions (for example, EC2 `Describe*`, ECR authorization tokens, or Cost Explorer).
+
+<details>
+<summary>Seqera Intelligent Compute policy</summary>
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ECSScopedOperations",
+      "Effect": "Allow",
+      "Action": [
+        "ecs:CreateCluster",
+        "ecs:DeleteCluster",
+        "ecs:DescribeClusters",
+        "ecs:ListTasks",
+        "ecs:PutClusterCapacityProviders",
+        "ecs:CreateCapacityProvider",
+        "ecs:DeleteCapacityProvider",
+        "ecs:DescribeCapacityProviders",
+        "ecs:DeregisterTaskDefinition",
+        "ecs:DescribeTaskDefinition",
+        "ecs:RunTask",
+        "ecs:StopTask",
+        "ecs:DescribeTasks",
+        "ecs:DescribeContainerInstances",
+        "ecs:TagResource"
+      ],
+      "Resource": "arn:aws:ecs:*:*:*/seqera-sched-*"
+    },
+    {
+      "Sid": "ECSUnscopedOperations",
+      "Effect": "Allow",
+      "Action": [
+        "ecs:RegisterTaskDefinition",
+        "ecs:ListTaskDefinitions",
+        "ecs:ListTaskDefinitionFamilies"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "IAMRoleManagement",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateRole",
+        "iam:GetRole",
+        "iam:DeleteRole",
+        "iam:PutRolePolicy",
+        "iam:DeleteRolePolicy",
+        "iam:ListRolePolicies",
+        "iam:AttachRolePolicy",
+        "iam:DetachRolePolicy",
+        "iam:ListAttachedRolePolicies",
+        "iam:CreateInstanceProfile",
+        "iam:GetInstanceProfile",
+        "iam:AddRoleToInstanceProfile",
+        "iam:ListInstanceProfilesForRole",
+        "iam:RemoveRoleFromInstanceProfile",
+        "iam:DeleteInstanceProfile"
+      ],
+      "Resource": [
+        "arn:aws:iam::*:role/seqera-sched-*",
+        "arn:aws:iam::*:instance-profile/seqera-sched-*"
+      ]
+    },
+    {
+      "Sid": "PassRoleToECS",
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": "arn:aws:iam::*:role/seqera-sched-*",
+      "Condition": {
+        "StringEquals": {
+          "iam:PassedToService": [
+            "ecs-tasks.amazonaws.com",
+            "ecs.amazonaws.com",
+            "ec2.amazonaws.com"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "CloudWatchLogs",
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:DeleteLogGroup",
+        "logs:PutRetentionPolicy",
+        "logs:DescribeLogStreams",
+        "logs:GetLogEvents",
+        "logs:TagResource"
+      ],
+      "Resource": "arn:aws:logs:*:*:log-group:/seqera/sched*"
+    },
+    {
+      "Sid": "EC2NetworkDiscovery",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeVpcs",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeRouteTables",
+        "ec2:DescribeVpcEndpoints",
+        "ec2:DescribeInstances",
+        "ec2:CreateSecurityGroup",
+        "ec2:CreateVpcEndpoint",
+        "ec2:AuthorizeSecurityGroupEgress",
+        "ec2:DeleteSecurityGroup",
+        "ec2:CreateTags"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ECRAccess",
+      "Effect": "Allow",
+      "Action": [
+        "ecr:GetAuthorizationToken",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:BatchGetImage"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "S3Access",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:ListAllMyBuckets"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ASGEC2Operations",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstanceTypes",
+        "ec2:CreateLaunchTemplate",
+        "ec2:DeleteLaunchTemplate",
+        "ec2:RunInstances"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ASGManagement",
+      "Effect": "Allow",
+      "Action": [
+        "autoscaling:CreateAutoScalingGroup",
+        "autoscaling:UpdateAutoScalingGroup",
+        "autoscaling:DeleteAutoScalingGroup",
+        "autoscaling:CreateOrUpdateTags"
+      ],
+      "Resource": "arn:aws:autoscaling:*:*:*/seqera-sched-*"
+    },
+    {
+      "Sid": "ASGDescribe",
+      "Effect": "Allow",
+      "Action": "autoscaling:DescribeAutoScalingGroups",
+      "Resource": "*"
+    },
+    {
+      "Sid": "SSMECSOptimizedAmi",
+      "Effect": "Allow",
+      "Action": "ssm:GetParameter",
+      "Resource": "arn:aws:ssm:*:*:parameter/aws/service/ecs/optimized-ami/*"
+    },
+    {
+      "Sid": "CostExplorer",
+      "Effect": "Allow",
+      "Action": "ce:GetCostAndUsage",
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+</details>
+
+:::note
+- The `ASGEC2Operations` and `ASGManagement` statements are only required if you enable Auto Scaling Group-backed clusters (managed instances). They can be omitted for Fargate-only deployments.
+- The `CostExplorer` statement is only required if you enable Cost Analysis.
+:::
+
+Like the base AWS Cloud policy, you can attach this policy directly to the IAM user or to an IAM role that the user assumes. See [Create the IAM policy](#create-the-iam-policy) for the AWS Console steps.
+
 ## Managed Amazon Machine Image (AMI)
 
 The AWS Cloud compute environment uses a public AMI maintained by Seqera, and the pipeline launch procedure assumes that some basic tooling is already present in the image itself. If you want to provide your own AMI, it must include at least the following:
