@@ -543,7 +543,6 @@ Every action that AWS allows to be scoped by ARN is restricted to the `seqera-sc
         "ec2:CreateSecurityGroup",
         "ec2:CreateVpcEndpoint",
         "ec2:AuthorizeSecurityGroupEgress",
-        "ec2:DeleteSecurityGroup",
         "ec2:CreateTags"
       ],
       "Resource": "*"
