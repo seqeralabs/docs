@@ -7,7 +7,7 @@ tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, l
 ---
 
 :::info
-Data lineage in Platform is in public preview. It requires Nextflow v25.04 or later.
+Data lineage in Platform is in public preview. It requires Nextflow v25.04 or later, and AWS S3 object storage.
 :::
 
 :::warning
@@ -24,7 +24,7 @@ Production pipelines generate results that teams need to trust, audit, and repro
 - **Auditing and compliance**: For teams in regulated industries such as pharma, clinical genomics, and CROs, lineage provides the audit trail needed for regulatory compliance. Each record captures inputs, outputs, parameters, compute environment, and the user who launched the run.
 - **Debugging**: When a cached task unexpectedly re-executes, or a pipeline produces an unexpected result, lineage traces backward from any output to all contributing tasks and parameters. Compare two task runs to isolate what changed.
 - **Broader team access**: Exploring Nextflow lineage previously required CLI access and comfort reading raw JSON. Platform now surfaces lineage data in pipeline run detail pages and Data Explorer. Users can inspect provenance directly.
-- **Cross-workflow discoverability**: [Workflow output labels][workflow-labels] make output files discoverable across runs. Query lineage records by label to find all matching outputs workspace-wide, without knowing which specific run produced a file.
+- **Cross-workflow discoverability**: [Workflow output labels][workflow-labels] make output files discoverable across runs. Navigate lineage records by label to find all matching outputs workspace-wide, without knowing which specific run produced a file.
 
 ## How data lineage works
 
@@ -38,28 +38,105 @@ Nextflow creates a structured JSON record for each entity in your pipeline when 
 
 Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the entity. Every LID and lineage label renders as a clickable link, and you can navigate to all related entities across your organization.
 
-### Configure workspace settings
+## Enable data lineage
 
-Before collecting lineage data, configure the lineage storage location for your workspace. Go to **Settings > Workspace Settings**. Select **Lineage** to set the storage bucket and path where lineage data is stored and indexed. This applies to all pipeline runs in the workspace. See [Lineage][workspace-lineage] for more information about the settings.
+To start collecting data lineage for all pipeline runs in your workspace, go to **Settings > Workspace Settings**. Select **Lineage** and define the credentials, region, and (optionally) storage bucket and path where lineage data is stored and indexed. Toggle the **Enable lineage by default** on to collect data lineage for all pipeline runs in the workspace or toggle off to require per pipeline launch configuration.
 
-:::danger
-Changing the lineage storage bucket path after lineage data is generated results in historic data loss. The lineage index is tied to this location. Changing it makes existing records inaccessible. To move the storage location, first copy all existing lineage data to the new bucket and path (for example, `aws s3 cp --recursive s3://old-bucket/path s3://new-bucket/path`), then update the workspace setting.
+:::tip
+If the storage bucket field is empty, a default bucket is generated for storing lineage data.
 :::
 
-### Enable per pipeline lineage in Nextflow
+Once set, all pipeline runs in the workspace generate data lineage. See [Lineage][workspace-lineage] for more information about the settings.
 
-To test lineage within a single pipeline, add the following to your Nextflow config file before running your pipeline:
+:::danger
+Changing the lineage storage bucket path after lineage data is generated will result in historic data loss. The lineage index is tied to the lineage storage bucket. Changing it makes existing records inaccessible. To move the storage location, first copy all existing lineage data to the new bucket and path (for example, `aws s3 cp --recursive s3://old-bucket/path s3://new-bucket/path`), then update the workspace setting.
+:::
+
+When launching a pipeline in a data-lineage enabled workspace, the **Enable lineage** toggle in the pipeline **Run setup** reflects the **Enable lineage by default** workspace setting. This can be turned off to _explicitly exclude_ data lineage creation for the pipeline run.
+
+### Additional IAM permissions required
+
+If using existing AWS Batch or AWS Cloud compute environments with custom IAM roles, the following service role policies are required:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ListObjectsInBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": "arn:aws:s3:::seqera-lineage-<workspace-id>"
+        },
+        {
+            "Sid": "AllObjectActions",
+            "Effect": "Allow",
+            "Action": "s3:*Object",
+            "Resource": "arn:aws:s3:::seqera-lineage-<workspace-id>/*"
+        },
+        {
+            "Sid": "AllowObjectTagging",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObjectTagging",
+                "s3:GetObjectTagging"
+            ],
+            "Resource": "arn:aws:s3:::seqera-lineage-<workspace-id>/*"
+        }
+    ]
+}
+```
+
+Platform integration credentials require the following additional permissions:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "sqs:CreateQueue",
+                "sqs:GetQueueAttributes",
+                "sqs:SetQueueAttributes",
+                "sqs:GetQueueUrl",
+                "sqs:ReceiveMessage",
+                "sqs:DeleteMessage"
+            ],
+            "Resource": "arn:aws:sqs:*:*:seqera-lineage-*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:CreateBucket",
+                "s3:GetBucketNotificationConfiguration",
+                "s3:PutBucketNotificationConfiguration",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": "arn:aws:s3:::seqera-lineage-*"
+        }
+    ]
+}
+```
+
+### Advanced: Experimenting with data lineage
+
+To test or troubleshoot data lineage for a _specific pipeline_, add the following to your **Nextflow config file** under **Advanced options** when _adding_ a pipeline to the launchpad.
 
 ```groovy
 lineage.enabled = true
 lineage.store.location = '<PATH_TO_STORAGE>'
 ```
 
-Only runs executed with this setting generate lineage data. Runs without it display a note on the **Run Info** tab:
+To test for a _single pipeline run_, add the same code to your **Nextflow config file** under **Advanced options** when _launching_ the pipeline run.
 
-> *Lineage tracking was not enabled for this run. Add `lineage.enabled = true` to your Nextflow config to capture lineage data.*
+:::warning
+If data lineage is defined for a workspace, only that data is displayed in Platform. Any unique _specific pipeline_ or _single pipeline run_ lineage data is only accessible via the AWS S3 console and other related services (such as Amazon Athena).
+:::
 
-## Data lineage displayed in Seqera Platform
+## Data lineage displayed in Platform
 
 ### Workflow run details
 
