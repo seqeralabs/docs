@@ -588,7 +588,7 @@ To successfully use pipeline secrets, the IAM roles manually created must follow
 
 ### Userdata script error detection (optional)
 
-Seqera can retrieve the EC2 instance console output to detect errors in the userdata script that bootstraps the VM during instance startup. If the userdata script fails, Seqera surfaces the failure as a warning on the workflow. Without this permission, userdata script failures are not detected and no warning is shown.
+Platform can retrieve the EC2 instance console output to detect errors in the userdata script that bootstraps the VM during instance startup. If the userdata script fails, Platform surfaces the failure as a warning on the workflow. Without this permission, userdata script failures are not detected and no warning is shown.
 
 ```json
 {
