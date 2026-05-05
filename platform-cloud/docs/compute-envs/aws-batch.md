@@ -262,6 +262,14 @@ A permissive and broad policy with all the required permissions is provided here
         "secretsmanager:CreateSecret"
       ],
       "Resource": "arn:aws:secretsmanager:*:*:secret:tower-*"
+    },
+    {
+      "Sid": "OptionalUserdataCheck",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:GetConsoleOutput"
+      ],
+      "Resource": "*"
     }
   ]
 }
@@ -577,6 +585,21 @@ The listing of secrets cannot be restricted, but the management actions can be r
 #### Additional steps required to use secrets in a pipeline
 
 To successfully use pipeline secrets, the IAM roles manually created must follow the steps detailed in the [documentation](../secrets/overview#aws-secrets-manager-integration).
+
+### Pre-run script error detection (optional)
+
+Seqera can retrieve the EC2 instance console output to detect errors in the pre-run script (userdata) executed during instance startup. If the pre-run script fails, Seqera surfaces the failure as a warning on the workflow. Without this permission, pre-run script failures are not detected and no warning is shown.
+
+```json
+{
+  "Sid": "OptionalUserdataCheck",
+  "Effect": "Allow",
+  "Action": [
+    "ec2:GetConsoleOutput"
+  ],
+  "Resource": "*"
+}
+```
 
 ## Create the IAM policy
 

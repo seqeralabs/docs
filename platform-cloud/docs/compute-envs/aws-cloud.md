@@ -157,6 +157,14 @@ A permissive and broad policy with all the required permissions is provided here
         "s3:ListAllMyBuckets"
       ],
       "Resource": "*"
+    },
+    {
+      "Sid": "AwsCloudUserdataCheck",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:GetConsoleOutput"
+      ],
+      "Resource": "*"
     }
   ]
 }
@@ -290,6 +298,21 @@ The following permissions enable Seqera to populate values for dropdown fields. 
     "ec2:DescribeSubnets",
     "ec2:DescribeSecurityGroups",
     "s3:ListAllMyBuckets"
+  ],
+  "Resource": "*"
+}
+```
+
+### Pre-run script error detection (optional)
+
+Seqera can retrieve the EC2 instance console output to detect errors in the pre-run script (userdata) executed during instance startup. If the pre-run script fails, Seqera surfaces the failure as a warning on the workflow. Without this permission, pre-run script failures are not detected and no warning is shown.
+
+```json
+{
+  "Sid": "AwsCloudUserdataCheck",
+  "Effect": "Allow",
+  "Action": [
+    "ec2:GetConsoleOutput"
   ],
   "Resource": "*"
 }

@@ -91,6 +91,10 @@ To create and launch pipelines or Studio sessions with this compute environment 
 
 If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal [on each bucket individually](https://docs.seqera.io/platform-cloud/compute-envs/google-cloud-batch#cloud-storage-bucket). For each Google Cloud compute environment created in the Seqera platform, a separate service account is created with the necessary permissions to launch pipelines/studios.
 
+#### Pre-run script error detection (optional)
+
+Seqera can retrieve the serial port output of the Compute Engine instance to detect errors in the pre-run script executed during instance startup. This capability is included in the `roles/compute.instanceAdmin.v1` role listed above. If you use a custom role instead, ensure it includes the `compute.instances.getSerialPortOutput` permission. Without this permission, pre-run script failures are not detected and no warning is shown.
+
 ## Advanced options
 
 - **Use an ARM64 architecture instance**: Select this option to enable an ARM architecture instance to be created for your compute workload. This option defaults to using a [C4A machine series](https://cloud.google.com/compute/docs/general-purpose-machines#c4a_series) VM with Google's ARM-based Axion™ processor.
