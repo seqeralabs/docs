@@ -36,7 +36,7 @@ Nextflow creates a structured JSON record for each entity in your pipeline when 
 | **TaskRun** | Individual task execution: script, code checksum, inputs, outputs, container, and dependencies |
 | **FileOutput** | Output file: path, checksum, size, timestamp, and links back to the task and workflow that produced it |
 
-Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the entity. Every LID and lineage label renders as a clickable link, letting you navigate to all related entities across your organization.
+Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the entity. Every LID and lineage label renders as a clickable link, and you can navigate to all related entities across your organization.
 
 ### Configure workspace settings
 
