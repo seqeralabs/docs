@@ -428,9 +428,9 @@ Existing credentials created before March 2026 continue to work without changes.
 
 ## Seqera Intelligent Compute
 
-Seqera Intelligent Compute is an optional capability that, when enabled, executes Nextflow tasks on a Seqera-managed Amazon ECS cluster instead of running them entirely on the head EC2 instance. This lets the AWS Cloud compute environment scale beyond the resources of a single instance while preserving its fast startup behavior.
+Seqera Intelligent Compute is an optional capability that executes Nextflow tasks on a Seqera-managed Amazon ECS cluster instead of running them entirely on the head EC2 instance. The AWS Cloud compute environment scales beyond the resources of a single instance while preserving its fast startup behavior.
 
-When Seqera Intelligent Compute is enabled, Seqera provisions and manages all ECS infrastructure on your behalf — clusters, capacity providers, task definitions, IAM roles, and (optionally) Auto Scaling Groups for spot and on-demand capacity. All managed resources use the `seqera-sched-` prefix and are torn down automatically when no longer needed.
+When you enable Seqera Intelligent Compute, Seqera provisions and manages all ECS infrastructure on your behalf, including clusters, capacity providers, task definitions, IAM roles, and (optionally) Auto Scaling Groups for spot and on-demand capacity. All managed resources use the `seqera-sched-` prefix and are torn down automatically when no longer needed.
 
 ### Additional IAM permissions
 
