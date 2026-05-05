@@ -109,7 +109,7 @@ This requires the following steps in the GCP Console:
 3. Set the **Allowed audiences**. If left empty, GCP derives a default audience from the provider resource path in the format `//iam.googleapis.com/projects/{PROJECT}/locations/global/workloadIden
   tityPools/{POOL}/providers/{PROVIDER}`. If you specify a custom value, it must match exactly what you enter in the Token audience field when creating the Google WIF credential in Seqera.
 4. Define an attribute mapping and condition. At a minimum set `google.subject=assertion.sub`. This maps the subject claim from Seqera's JWT to GCP's identity space. For more information see [here](https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-providers#mappings-and-conditions)
-5. Grant `roles/iam.workloadIdentityUser` on the service account created above to the Workload Identity Pool principal. This can be set for all pool identities or for a specific workspace. 
+5. Grant `roles/iam.workloadIdentityUser` on the service account that WIF will impersonate to the Workload Identity Pool principal. This can be set for all pool identities or for a specific workspace. If you have not yet created a service account do so following the guidelines above.
 
 After setting up WIF in the GCP Console, you need the following information to create a credential in Seqera Platform:
 
