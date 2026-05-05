@@ -2,11 +2,9 @@
 title: "AWS Cloud"
 description: "Instructions to set up an AWS Cloud CE in Seqera Platform"
 date created: "2025-05-15"
-last updated: "2026-01-30"
-tags: [cloud, vm, amazon, compute environment]
+last updated: "2026-05-05"
+tags: [cloud, vm, amazon, compute-environment]
 ---
-
-# AWS Cloud
 
 :::note
 This compute environment type is currently in public preview. Please consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have an AWS account with a valid AWS subscription.
