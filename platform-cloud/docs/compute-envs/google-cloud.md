@@ -93,7 +93,7 @@ If your Google Cloud project does not require access restrictions on any of its 
 
 #### Userdata script error detection (optional)
 
-Seqera can retrieve the serial port output of the Compute Engine instance to detect errors in the userdata script that bootstraps the VM during instance startup. This capability is included in the `roles/compute.instanceAdmin.v1` role listed above. If you use a custom role instead, ensure it includes the `compute.instances.getSerialPortOutput` permission. Without this permission, userdata script failures are not detected and no warning is shown.
+Seqera can retrieve the serial port output of the Compute Engine instance to detect errors in the userdata script that bootstraps the VM during instance startup. This capability is included in the `roles/compute.instanceAdmin.v1` role listed above. If you use a custom role instead, include the `compute.instances.getSerialPortOutput` permission. Without this permission, userdata script failures are not detected, and no warning is shown.
 
 ## Advanced options
 
