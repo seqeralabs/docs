@@ -62,10 +62,14 @@ Do **not** call `subagent_type: "voice-tone"` (or terminology / clarity / docs-f
 ### Step 4: Collation
 
 - Concatenate all agent outputs.
-- Deduplicate by `(FILE, LINE, SUGGESTION)` — exact string match.
-- When two agents disagree on the same line, keep the suggestion from the higher-priority agent: **terminology > voice-tone > clarity**.
+- **Exact dedup.** Drop blocks where `(FILE, LINE, SUGGESTION)` is identical to another block.
+- **Same-line, different SUGGESTIONs — try to merge first.** When two agents emit different SUGGESTIONs for the same `FILE:LINE`:
+  1. Compare each agent's `SUGGESTION` against `ORIGINAL` to identify what each changed. If the two agents touched **non-overlapping spans** of the line — for example, voice-tone changed `"Users can"` mid-sentence and terminology changed `"Platform"` earlier in the same sentence — produce **one merged block** that applies both edits. Use the higher-priority agent's `ISSUE` (or combine: `"<terminology issue> + <voice-tone issue>"`).
+  2. If the agents touched **overlapping spans** — both want to rewrite the same words differently — fall back to priority and keep only the higher-priority agent's block: **terminology > voice-tone > clarity**. Drop the lower-priority block.
 - Sort by `FILE`, then `LINE` ascending.
 - Drop any block missing `FILE`, `LINE`, or `SUGGESTION` — the parser silently ignores those, and emitting them wastes tokens.
+
+> **Why merge instead of always picking the higher-priority agent?** GitHub inline suggestions are full-line replacements — the user can only apply one per line. If terminology rewrites a line to fix "Platform" → "Seqera Platform" but leaves "Users can" untouched, applying that suggestion silently discards voice-tone's third-person fix. Merging is the only way to deliver both fixes when they don't conflict.
 
 ### Step 5: Verification (mandatory)
 
