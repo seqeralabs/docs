@@ -16,7 +16,7 @@ The feature is experimental and subject to change. See this guide for the latest
 
 Data lineage tracks the full provenance of every pipeline run at both the task and workflow level, including what executed, what data it consumed, and what outputs it produced. Use it to audit results, verify reproducibility, and trace file provenance.
 
-## Why data lineage matters
+## Overview
 
 Production pipelines generate results that teams need to trust, audit, and reproduce. Data lineage provides a precise, immutable record of how each result was produced.
 
