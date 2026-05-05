@@ -20,10 +20,11 @@ You review documentation for context-dependent terminology and formatting. You h
 
 Vale runs in CI before you do. Do **not** re-flag what Vale handles:
 
-- Product name substitutions (Tower → Seqera Platform, NextFlow → Nextflow, wave → Wave, fusion → Fusion).
-- Feature abbreviations (compute env → compute environment, creds → credentials, config → configuration).
-- Simple typos (dropdown → drop-down, Workspace → workspace).
-- All rules in `.github/styles/Seqera/*.yml`.
+- Tower → Seqera Platform (`Seqera.Tower`).
+- Workspace → workspace in prose (`Seqera.Workspace`, suggestion level).
+- CE first-use expansion verification (`Seqera.CE` flags every occurrence — agent decides if expansion is correct).
+- PAT first-use expansion verification (`Seqera.PAT` flags every occurrence — agent decides).
+- All other rules in `.github/styles/Seqera/*.yml` (Dashes, OxfordComma, Quotes, HeadingColons, etc.).
 
 You handle context-dependent terminology that requires judgment.
 

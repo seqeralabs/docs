@@ -98,21 +98,6 @@ Improves readability by flagging complex sentences and jargon.
 - Complex constructions
 - Missing prerequisites
 
-### punctuation
-
-Ensures consistent punctuation across documentation.
-
-**Configuration:** `.claude/agents/punctuation.md`
-
-**Checks:**
-- List punctuation parallelism
-- Oxford commas in series of three or more
-- Quotation mark placement (American style)
-- Dash usage (em / en / hyphen)
-- Trailing colons in headings
-
-**Defers to:** markdownlint (heading periods, blank lines, basic list formatting), Vale (rules in `.github/styles/Seqera/*.yml`).
-
 ## GitHub Actions integration
 
 ### Documentation review workflow
@@ -166,11 +151,12 @@ Editorial review can also be run locally via Claude Code CLI using the `/editori
 |-------------|-------------------------------|-----------------------|-------------------------------------------------|
 | voice-tone  | `.claude/agents/voice-tone.md`  | ✅ yes                | yes (`--agents=voice-tone`)                     |
 | terminology | `.claude/agents/terminology.md` | ✅ yes                | yes (`--agents=terminology`)                    |
-| punctuation | `.claude/agents/punctuation.md` | ⏸ no — but ready      | yes (`--profile=comprehensive`, `--agents=punctuation`) |
 | clarity     | `.claude/agents/clarity.md`     | ❌ no                 | yes (`workflow_dispatch` choice, `--profile=comprehensive`) |
 | docs-fix    | `.claude/agents/docs-fix.md`    | ❌ no — `auto-fix` job has `if: false` | local CLI only |
 
 **To enable an agent in CI by default:** edit the agent-selection table in `.claude/skills/editorial-review/SKILL.md`.
+
+Punctuation is handled by Vale (`.github/styles/Seqera/OxfordComma.yml`, `Quotes.yml`, `Dashes.yml`, `HeadingColons.yml`) plus markdownlint. The `punctuation` agent was retired in favor of static analysis.
 
 ## Agent output format
 
@@ -299,7 +285,6 @@ vale platform-enterprise_docs/
 ├── agents/
 │   ├── voice-tone.md                  # Run by default in CI
 │   ├── terminology.md                 # Run by default in CI
-│   ├── punctuation.md                 # Available, opt-in
 │   ├── clarity.md                     # Opt-in only
 │   └── docs-fix.md                    # Local CLI only
 └── skills/

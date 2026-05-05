@@ -33,12 +33,14 @@ For every invocation:
 | Scope                              | Agents to launch                                          |
 |------------------------------------|-----------------------------------------------------------|
 | Default (any scope)                | voice-tone, terminology                                   |
-| `--profile=quick`                   | voice-tone, terminology                                   |
-| `--profile=comprehensive`           | voice-tone, terminology, punctuation, clarity             |
-| User named specific agents          | only the named agents (e.g., `--agents=punctuation`)      |
-| User asked to "fix" issues          | run review agents first, then docs-fix on the findings    |
+| `--profile=quick`                  | voice-tone, terminology                                   |
+| `--profile=comprehensive`          | voice-tone, terminology, clarity                          |
+| User named specific agents         | only the named agents (e.g., `--agents=clarity`)          |
+| User asked to "fix" issues         | run review agents first, then docs-fix on the findings    |
 
-`punctuation`, `clarity`, and `docs-fix` are opt-in only. See `.claude/README.md` for canonical agent status. To change the default-run set, edit this table (and update `.claude/README.md` to match).
+`clarity` and `docs-fix` are opt-in only. See `.claude/README.md` for canonical agent status. To change the default-run set, edit this table (and update `.claude/README.md` to match).
+
+Punctuation is now handled by Vale rules in `.github/styles/Seqera/` (Dashes, OxfordComma, Quotes, HeadingColons). The `punctuation` agent has been retired.
 
 ### Step 3: Parallel execution
 
@@ -52,7 +54,7 @@ In a single message, send one Task call per selected agent. Each agent receives:
 
 - Concatenate all agent outputs.
 - Deduplicate by `(FILE, LINE, SUGGESTION)` — exact string match.
-- When two agents disagree on the same line, keep the suggestion from the higher-priority agent: **terminology > voice-tone > punctuation > clarity**.
+- When two agents disagree on the same line, keep the suggestion from the higher-priority agent: **terminology > voice-tone > clarity**.
 - Sort by `FILE`, then `LINE` ascending.
 - Drop any block missing `FILE`, `LINE`, or `SUGGESTION` — the parser silently ignores those, and emitting them wastes tokens.
 

@@ -1,0 +1,10 @@
+# Flags 'Tower' usage in current docs.
+# 'Tower' is acceptable only in legacy contexts (< v23.1).
+# 'TowerForge' is unaffected (no word boundary between Tower and Forge).
+extends: substitution
+message: "Replace '%s' with '%s' in current docs (Tower is acceptable only in legacy contexts)."
+level: warning
+nonword: true
+ignorecase: false
+swap:
+  '\bTower\b': Seqera Platform

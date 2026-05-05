@@ -220,7 +220,7 @@ jobs:
   # Smart gate - prevents wasteful LLM runs
   smart-gate:
     needs: [setup, changes]
-    if: needs.changes.outputs.docs == 'true' && needs.changes.outputs.pr_type != 'rename'
+    if: needs.changes.outputs.docs == 'true' && needs.changes.outputs.pr_type == 'content'
     runs-on: ubuntu-latest
     outputs:
       should_run: ${{ steps.decide.outputs.should_run }}
@@ -254,38 +254,6 @@ jobs:
           echo "lines_changed=$LINES_CHANGED" >> $GITHUB_OUTPUT
           echo "📊 Lines changed: $LINES_CHANGED"
 
-      - name: Detect code-block-only changes
-        id: code-only
-        run: |
-          # Count lines changed OUTSIDE fenced code blocks.
-          NON_CODE=$(git diff --ignore-all-space --ignore-blank-lines \
-              origin/${{ github.base_ref }}...HEAD -- '*.md' '*.mdx' \
-            | awk '
-                /^[+-]?```/    { c = !c; next }      # toggle on fence lines
-                /^[+-]{3} /    { next }               # diff file headers
-                /^@@/          { next }               # hunk headers
-                /^[+-]/ && !c  { count++ }
-                END            { print count+0 }
-              ')
-          echo "non_code_lines=$NON_CODE" >> $GITHUB_OUTPUT
-          echo "📊 Non-code-block changed lines: $NON_CODE"
-
-      - name: Detect front-matter-only changes
-        id: fm-only
-        run: |
-          # Count lines changed OUTSIDE YAML front-matter blocks (--- ... ---).
-          NON_FM=$(git diff --ignore-all-space --ignore-blank-lines \
-              origin/${{ github.base_ref }}...HEAD -- '*.md' '*.mdx' \
-            | awk '
-                /^[+-]{3} /        { fm = 0; next }   # diff file headers reset
-                /^@@/              { fm = 0; next }   # hunk header resets
-                /^[+-]?---[[:space:]]*$/ { fm = !fm; next }   # toggle on FM fence
-                /^[+-]/ && !fm     { count++ }
-                END                { print count+0 }
-              ')
-          echo "non_fm_lines=$NON_FM" >> $GITHUB_OUTPUT
-          echo "📊 Non-front-matter changed lines: $NON_FM"
-
       - name: Run static analysis
         id: static-check
         continue-on-error: true
@@ -308,33 +276,16 @@ jobs:
           MINUTES=${{ steps.last-review.outputs.minutes_since_last || '999' }}
           LINES=${{ steps.changes-size.outputs.lines_changed || '0' }}
           STATIC_ISSUES=${{ steps.static-check.outputs.static_issues || '0' }}
-          NON_CODE=${{ steps.code-only.outputs.non_code_lines || '0' }}
-          NON_FM=${{ steps.fm-only.outputs.non_fm_lines || '0' }}
 
           echo "⏱️  Minutes since last review: $MINUTES"
           echo "📏 Lines changed: $LINES"
           echo "🔍 Static issues: $STATIC_ISSUES"
-          echo "🔣 Non-code-block lines: $NON_CODE"
-          echo "📋 Non-front-matter lines: $NON_FM"
 
           # Skip if reviewed <60 minutes ago
           if [ "$MINUTES" -lt 60 ]; then
             echo "should_run=false" >> $GITHUB_OUTPUT
             echo "skip_reason=⏭️ Reviewed $MINUTES minutes ago. Wait at least 60 minutes between reviews." >> $GITHUB_OUTPUT
-            exit 0
-          fi
-
-          # Skip if all changes are in code blocks
-          if [ "$NON_CODE" -lt 3 ]; then
-            echo "should_run=false" >> $GITHUB_OUTPUT
-            echo "skip_reason=⏭️ All meaningful changes are inside code blocks. Editorial review only checks prose — nothing for the agents to do here." >> $GITHUB_OUTPUT
-            exit 0
-          fi
-
-          # Skip if all changes are in front-matter
-          if [ "$NON_FM" -lt 3 ]; then
-            echo "should_run=false" >> $GITHUB_OUTPUT
-            echo "skip_reason=⏭️ Only front-matter changes detected. Editorial review checks prose, not metadata." >> $GITHUB_OUTPUT
+            echo "⏭️ SKIPPING: Too soon since last review"
             exit 0
           fi
 
@@ -342,6 +293,7 @@ jobs:
           if [ "$LINES" -lt 10 ]; then
             echo "should_run=false" >> $GITHUB_OUTPUT
             echo "skip_reason=⏭️ Only $LINES lines changed (minimum: 10). Changes too small for LLM review." >> $GITHUB_OUTPUT
+            echo "⏭️ SKIPPING: Changes too small"
             exit 0
           fi
 
@@ -349,12 +301,14 @@ jobs:
           if [ "$STATIC_ISSUES" -gt 5 ]; then
             echo "should_run=false" >> $GITHUB_OUTPUT
             echo "skip_reason=⏭️ Found $STATIC_ISSUES formatting issues. Run \`npx markdownlint-cli2\` locally and fix those first." >> $GITHUB_OUTPUT
+            echo "⏭️ SKIPPING: Fix formatting issues first"
             exit 0
           fi
 
           # Passed all gates
           echo "should_run=true" >> $GITHUB_OUTPUT
           echo "skip_reason=✅ Passed all pre-checks. Running LLM review." >> $GITHUB_OUTPUT
+          echo "✅ PROCEEDING: All gates passed"
 
       - name: Post skip message
         if: steps.decide.outputs.should_run == 'false'
@@ -399,17 +353,13 @@ jobs:
           prompt: |
             Run /editorial-review on the changed documentation files in this PR.
 
-            PR classification: ${{ needs.changes.outputs.pr_type }}
             Changed files:
             ${{ needs.changes.outputs.docs_files }}
+
             Review type: ${{ needs.setup.outputs.review_type }}
 
-            Behavior by classification:
-            - "minor"   → run voice-tone, terminology only.
-            - "content" → run voice-tone, terminology (default).
-            - "major"   → run voice-tone, terminology, plus clarity (--profile=comprehensive).
-
             Output all findings to /tmp/editorial-review-suggestions.txt in this format:
+
             FILE: path/to/file.md
             LINE: 42
             ISSUE: Brief description
@@ -418,6 +368,9 @@ jobs:
             SUGGESTION: |
             corrected text
             ---
+
+            The /editorial-review skill will orchestrate the appropriate agents
+            (voice-tone, terminology) based on the review type.
           use_sticky_comment: true
           claude_args: |
             --allowedTools "Read,Grep,Glob,Write,Skill(editorial-review),Task"
@@ -541,17 +494,6 @@ jobs:
               { name: 'Editorial review (AI)', status: '${{ needs.editorial-review-skill.result }}' },
               { name: 'Consolidated review', status: '${{ needs.consolidated-review.result }}' }
             ];
-
-            const prType = '${{ needs.changes.outputs.pr_type }}';
-            const prTypeMeta = {
-              'rename':  { emoji: '🏷️', note: 'This PR is primarily file renames/moves. Only Vale ran.' },
-              'minor':   { emoji: '✏️',  note: 'Small change — voice-tone and terminology only.' },
-              'content': { emoji: '📝', note: 'Standard content edit.' },
-              'major':   { emoji: '🚀', note: '**Major change** — comprehensive review.' }
-            };
-            const { emoji: prTypeEmoji, note: prTypeNote } = prTypeMeta[prType] || { emoji: '❓', note: 'Unknown PR type.' };
-            let summary = `## ${prTypeEmoji} Documentation Review Summary (${prType})\n\n`;
-            summary += `> ${prTypeNote}\n\n`;
 
   # Auto-fix workflow (triggered by /fix-docs comment)
   auto-fix:

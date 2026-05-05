@@ -1,0 +1,5 @@
+extends: existence
+message: "Found 'foo'"
+level: warning
+tokens:
+  - foo
