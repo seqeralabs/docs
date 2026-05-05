@@ -236,6 +236,9 @@ Enable **Spot** to use Spot instances, which have significantly reduced cost com
 
 :::note
 From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow#spot-instance-failures-and-retries-in-nextflow).
+
+Selecting the 'enable Fusion snapshots' option (GCP Batch) will change the default Spot reclamation retry setting to `5`
+
 :::
 
 :::info
