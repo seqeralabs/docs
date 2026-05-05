@@ -1,254 +1,111 @@
 ---
 name: editorial-review
-description: Run editorial review on documentation files using specialized agents (voice-tone, terminology, punctuation, clarity). Use when you need to review documentation for style, consistency, tone, or formatting issues. Triggers include requests to review docs, check editorial quality, or run style checks on markdown files.
+description: Run editorial review on documentation files. Use when reviewing markdown docs for voice, terminology, punctuation, or clarity. Triggers include "/review", "/editorial-review", "review docs", "editorial pass", "doc style check", or a PR comment of /editorial-review.
 ---
 
 # Editorial review orchestrator
 
-## Purpose
-Orchestrate a comprehensive editorial review of documentation using specialized SME agents. Provides structured, actionable feedback on editorial quality across multiple dimensions.
+Coordinate specialized review agents to produce parser-ready findings on documentation files.
 
-## Deployment
-**CI/CD:** `.github/workflows/docs-review.yml`
-**Invocation paths:**
-- GitHub PR comment `/editorial-review` (triggers the CI workflow)
-- Manual run from the GitHub Actions tab via `workflow_dispatch`
-- Local `/editorial-review` skill invocation (runs outside GitHub Actions)
+## How this skill is invoked
 
-## Workflow
+- **Local CLI:** `/review <path>` or `/editorial-review <path>`
+- **GitHub PR comment:** `/editorial-review` on any PR (handled by `.github/workflows/docs-review.yml`)
+- **Manual workflow dispatch:** Actions → Documentation Review → Run workflow
 
-This skill coordinates multiple specialized agents to provide comprehensive editorial feedback:
+## What you do
 
-1. **Identify review scope** (PR files or specified files)
-2. **Spawn specialized agents in parallel** for efficiency
-3. **Collate findings** into structured report
-4. **Provide actionable summary** with priorities
+For every invocation:
 
-## Available review agents
+1. Identify scope — the files to review.
+2. Pick agents — based on what changed.
+3. Launch agents in parallel via the Task tool — each as a `subagent_type`.
+4. Collate — concatenate, deduplicate, sort.
+5. Emit — parser-format blocks only.
 
-### Core editorial agents (always run)
-- **voice-tone**: Second person, active voice, present tense, confidence
-- **terminology**: Product names, feature names, formatting conventions
-- **punctuation**: List punctuation, Oxford commas, quotation marks, dashes
+### Step 1: Scope
 
-### Structural agents (run for major changes)
-- **clarity**: Sentence length, jargon, complexity, prerequisites
-
-### Specialized agents (run as final pass)
-- **docs-fix**: Apply corrections (only when explicitly requested)
-
-## Usage patterns
-
-### PR review (automated)
-```
-Use editorial-review skill on changed files: [file list]
-Focus: voice-tone, terminology, punctuation
-Scope: comprehensive
-Output: GitHub PR comment format
-```about:blank#blocked
-
-### Local review (manual)
-```
-Use editorial-review skill on: [directory or file]
-Focus: all agents
-Scope: thorough
-Output: development report format
-```
-
-### Targeted review (specific issues)
-```
-Use editorial-review skill on: [files]
-Focus: [specific agents]
-Scope: focused
-Output: issue-specific report
-```
-
-## Orchestration logic
-
-### Step 1: Scope analysis
-```
-Determine files to review:
-- PR mode: Use git diff to find changed .md/.mdx files
-- Manual mode: Use provided file/directory paths
-- Exclude: code files, changelog files (unless specifically requested)
-```
+- **CI invocation:** review the file list passed in the prompt (these are the changed `*.md` / `*.mdx` files in the PR).
+- **Local invocation:** review the path the user gave you. If a directory, glob for `**/*.md` and `**/*.mdx`. Exclude `changelog/**`, `node_modules/**`, `.github/**`.
 
 ### Step 2: Agent selection
-```
-Based on review type and file changes:
-- New files: all agents
-- Content changes: voice-tone, terminology, punctuation, clarity
-- Minor edits: voice-tone, terminology
-- Force comprehensive: all agents except docs-fix
-```
+
+| Scope                              | Agents to launch                                          |
+|------------------------------------|-----------------------------------------------------------|
+| New file                            | voice-tone, terminology, punctuation                      |
+| Edit to existing file               | voice-tone, terminology, punctuation                      |
+| Minor edit (<10 changed lines)      | voice-tone, terminology                                   |
+| `--profile=quick`                   | voice-tone, terminology                                   |
+| `--profile=comprehensive`           | voice-tone, terminology, punctuation, clarity             |
+| User asked to "fix" issues          | run review agents first, then docs-fix on the findings    |
+
+`clarity` and `docs-fix` are opt-in only. See `.claude/README.md` for canonical agent status.
+
+If the user named specific agents (e.g., `--agents=voice-tone`), launch only those.
 
 ### Step 3: Parallel execution
+
+In a single message, send one Task call per selected agent. Each agent receives:
+
+- The file list (absolute paths).
+- The shared anti-hallucination rules (below).
+- The output contract (below).
+
+### Step 4: Collation
+
+- Concatenate all agent outputs.
+- Deduplicate by `(FILE, LINE, SUGGESTION)` — exact string match.
+- When two agents disagree on the same line, keep the suggestion from the higher-priority agent: **terminology > voice-tone > punctuation > clarity**.
+- Sort by `FILE`, then `LINE` ascending.
+- Drop any block missing `FILE`, `LINE`, or `SUGGESTION` — the parser silently ignores those, and emitting them wastes tokens.
+
+### Step 5: Output contract
+
+This is the **only** format `post-inline-suggestions.sh` accepts. Emit zero or more blocks, exactly:
+
 ```
-Launch selected agents concurrently:
-- Each agent reviews all files in scope
-- Each agent returns findings with file:line references
-- Wait for all agents to complete before proceeding
-```
-
-### Step 4: Report generation
-```
-Structure findings by priority:
-- Critical: Issues that affect user comprehension
-- Important: Brand/style consistency issues
-- Minor: Polish improvements
-- Info: Style preferences and suggestions
-```
-
-## Output format
-
-### GitHub PR comment format
-```markdown
-## 📝 Editorial Review Summary
-
-### Critical Issues ❌
-| File | Line | Agent | Issue | Suggestion |
-|------|------|-------|-------|------------|
-| ... | ... | ... | ... | ... |
-
-### Important Issues ⚠️
-| File | Line | Agent | Issue | Suggestion |
-|------|------|-------|-------|------------|
-| ... | ... | ... | ... | ... |
-
-### Minor Issues 💡
-| File | Line | Agent | Issue | Suggestion |
-|------|------|-------|------------|
-| ... | ... | ... | ... | ... |
-
-### Summary
-- **Files reviewed:** X
-- **Agents used:** [list]
-- **Total suggestions:** X critical, X important, X minor
-- **Focus areas:** [top 3 issue categories]
-
+FILE: path/relative/to/repo/root.md
+LINE: 42
+ISSUE: One-sentence problem statement
+ORIGINAL: |
+exact text from the file at this line
+SUGGESTION: |
+replacement text — must be a valid full-line replacement
 ---
-*To apply fixes: Comment `/fix-docs` on this PR*
-*Review powered by Claude Code SME agents*
 ```
 
-### Development report format
-```markdown
-# Editorial Review Report
+Rules:
 
-## Overview
-- **Scope:** [files/directories reviewed]
-- **Agents:** [agents used]
-- **Generated:** [timestamp]
+- One block per finding. A multi-line issue picks the most salient single line.
+- `LINE` is the line number from the Read tool output, not a guess.
+- `ORIGINAL` must be character-for-character what's in the file. The parser ignores it but it's how a human reviewer (and you, on second read) verify the finding is real.
+- `SUGGESTION` is the full replacement line, not a fragment.
+- Anything else you write — preamble, summary, agent labels — is discarded by the parser. Don't emit it.
 
-## Findings by File
+### Step 6: Where to write
 
-### file1.md
-#### voice-tone
-- Line X: [issue] → [suggestion]
+- **CI invocation:** write all blocks to `/tmp/editorial-review-suggestions.txt` using the Write tool. The workflow uploads this as an artifact and feeds it to `post-inline-suggestions.sh`.
+- **Local invocation:** print all blocks to stdout in the chat reply.
 
-#### terminology
-- Line Y: [issue] → [suggestion]
+## Shared anti-hallucination rules
 
-### file2.md
-[similar structure]
+The orchestrator and every agent must follow these. They're embedded into each agent's prompt at launch:
 
-## Priority Actions
-1. **Fix immediately:** [critical issues]
-2. **Address soon:** [important issues]
-3. **Consider for next revision:** [minor issues]
+1. **Read first, then analyze.** Use the Read tool to view each file in full before flagging anything.
+2. **Quote everything.** For every finding, copy the exact text from the file into `ORIGINAL`. If you can't quote it, the issue doesn't exist.
+3. **Verify line numbers.** The `LINE` value must match the line number in the Read output.
+4. **No training data.** Do not flag "common" or "typical" issues you'd expect to see — flag only what's in the file you read.
+5. **High confidence only.** If you're not certain the finding is real and the suggestion is correct, drop it.
 
-## Agent Performance
-- voice-tone: X issues found
-- terminology: X issues found
-- punctuation: X issues found
-[etc.]
-```
+## CI gating (informational, not enforced by this skill)
 
-## Implementation
+The workflow applies a smart-gate before invoking this skill, but only for PRs classified as `content`:
 
-### Core orchestration script
-```typescript
-async function runEditorialReview(scope, options) {
-  // 1. Determine files to review
-  const files = await identifyReviewFiles(scope);
+- Skip if a review ran on the same PR less than 60 minutes ago.
+- Skip if the diff is fewer than 10 lines.
+- Skip if more than 5 markdownlint issues remain (the workflow asks the user to run `markdownlint-cli2` first).
+- Cap inline suggestions at 60 per PR.
 
-  // 2. Select agents based on options/changes
-  const agents = selectAgents(files, options);
+Vale runs as a separate sibling job before this skill — the terminology agent should defer Vale-handled rules to it.
 
-  // 3. Launch agents in parallel
-  const results = await Promise.all(
-    agents.map(agent => runAgent(agent, files))
-  );
-
-  // 4. Collate and structure findings
-  const report = await generateReport(results, options.format);
-
-  return report;
-}
-```
-
-### Agent communication protocol
-Each agent returns standardized findings:
-```json
-{
-  "agent": "voice-tone",
-  "files": [
-    {
-      "path": "docs/example.md",
-      "findings": [
-        {
-          "line": 42,
-          "severity": "important",
-          "issue": "Passive voice construction",
-          "current": "The pipeline is configured by the user",
-          "suggestion": "Configure the pipeline",
-          "rule": "Use active voice for instructions"
-        }
-      ]
-    }
-  ]
-}
-```
-
-## Quality gates
-
-### Before publishing report
-- Validate all line references exist
-- Remove duplicate findings between agents
-- Sort findings by file, then line number
-- Apply severity scoring consistently
-- Verify suggestions don't conflict
-
-### Agent coordination
-- Prevent multiple agents from flagging same issue
-- Ensure terminology agent has priority over punctuation for product names
-
-## Customization
-
-### Review profiles
-```yaml
-# .claude/agents/review-config.yaml
-profiles:
-  quick:
-    agents: [voice-tone, terminology]
-    focus: ["critical", "important"]
-  comprehensive:
-    agents: [voice-tone, terminology, punctuation, clarity]
-    focus: ["critical", "important", "minor"]
-  new-content:
-    agents: [voice-tone, terminology, punctuation, clarity]
-    focus: ["critical", "important"]
-```
-
-### File filters
-```yaml
-include_patterns:
-  - "**/*.md"
-  - "**/*.mdx"
-exclude_patterns:
-  - "changelog/**"
-  - "node_modules/**"
-  - ".github/**"
-```
-
-This orchestrator skill provides the structured, parallel approach you requested while maintaining the lightweight coordination design.
+Local invocations bypass all of this, by design.

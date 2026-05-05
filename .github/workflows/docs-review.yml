@@ -479,10 +479,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # Summary report
+# Summary report
   summary:
-    needs: [setup, changes, voice-tone-review, terminology-review, consolidated-review]
-    # Removed clarity-review from dependencies since it's currently disabled
+    needs: [setup, changes, vale-lint, editorial-review-skill, consolidated-review]
     if: always() && needs.changes.outputs.docs == 'true'
     runs-on: ubuntu-latest
     steps:
@@ -492,46 +491,9 @@ jobs:
           script: |
             const jobs = [
               { name: 'Terminology (Vale)', status: '${{ needs.vale-lint.result }}' },
-              { name: 'Voice/Tone (AI)', status: '${{ needs.voice-tone-review.result }}' },
-              { name: 'Terminology (AI)', status: '${{ needs.terminology-review.result }}' }
-              // Clarity review temporarily disabled
+              { name: 'Editorial review (AI)', status: '${{ needs.editorial-review-skill.result }}' },
+              { name: 'Consolidated review', status: '${{ needs.consolidated-review.result }}' }
             ];
-
-            const statusEmoji = {
-              'success': '✅',
-              'failure': '❌',
-              'skipped': '⏭️',
-              'cancelled': '🚫'
-            };
-
-            const prType = '${{ needs.changes.outputs.pr_type }}';
-            const prTypeEmoji = prType === 'rename' ? '🏷️' : '📝';
-
-            let summary = `## ${prTypeEmoji} Documentation Review Summary (PR type: ${prType})\n\n`;
-
-            if (prType === 'rename') {
-              summary += '> This PR is primarily file renames/moves. Only critical checks were run.\n\n';
-            }
-
-            summary += '| Check | Status |\n|-------|--------|\n';
-
-            for (const job of jobs) {
-              const emoji = statusEmoji[job.status] || '❓';
-              summary += `| ${job.name} | ${emoji} ${job.status} |\n`;
-            }
-
-            summary += '\n---\n';
-            summary += '*Review powered by Claude Code editorial agents*\n';
-            summary += '\n**To apply suggestions:**\n';
-            summary += '- Click "Commit suggestion" on individual inline comments\n';
-            summary += '- Select multiple suggestions and batch commit them together';
-
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: ${{ needs.setup.outputs.pr_number }},
-              body: summary
-            });
 
   # Auto-fix workflow (triggered by /fix-docs comment)
   auto-fix:
