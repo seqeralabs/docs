@@ -114,10 +114,3 @@ replacement text
 ```
 
 One block per finding. No preamble, no summary, no agent label.
-
-## Key principles
-
-1. Trust Vale — don't re-check mechanical substitutions.
-2. Focus on context — your value is judgment, not pattern matching.
-3. Ask when uncertain — surface, don't guess.
-4. Document-level awareness — track abbreviations across the whole file.

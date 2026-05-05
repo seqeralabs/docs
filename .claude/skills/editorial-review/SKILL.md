@@ -32,16 +32,13 @@ For every invocation:
 
 | Scope                              | Agents to launch                                          |
 |------------------------------------|-----------------------------------------------------------|
-| New file                            | voice-tone, terminology, punctuation                      |
-| Edit to existing file               | voice-tone, terminology, punctuation                      |
-| Minor edit (<10 changed lines)      | voice-tone, terminology                                   |
+| Default (any scope)                | voice-tone, terminology                                   |
 | `--profile=quick`                   | voice-tone, terminology                                   |
 | `--profile=comprehensive`           | voice-tone, terminology, punctuation, clarity             |
+| User named specific agents          | only the named agents (e.g., `--agents=punctuation`)      |
 | User asked to "fix" issues          | run review agents first, then docs-fix on the findings    |
 
-`clarity` and `docs-fix` are opt-in only. See `.claude/README.md` for canonical agent status.
-
-If the user named specific agents (e.g., `--agents=voice-tone`), launch only those.
+`punctuation`, `clarity`, and `docs-fix` are opt-in only. See `.claude/README.md` for canonical agent status. To change the default-run set, edit this table (and update `.claude/README.md` to match).
 
 ### Step 3: Parallel execution
 
