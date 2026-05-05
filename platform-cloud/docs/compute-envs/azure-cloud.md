@@ -287,9 +287,9 @@ The following permissions are required to fetch logs for the pipeline execution 
 }
 ```
 
-#### Pre-run script error detection (optional)
+#### Userdata script error detection (optional)
 
-Seqera can retrieve the serial console output of the Azure VM to detect errors in the pre-run script executed during instance startup. If the pre-run script fails, Seqera surfaces the failure as a warning on the workflow. Without this permission, pre-run script failures are not detected and no warning is shown.
+Seqera can retrieve the serial console output of the Azure VM to detect errors in the userdata script that bootstraps the VM during instance startup. If the userdata script fails, Seqera surfaces the failure as a warning on the workflow. Without this permission, userdata script failures are not detected and no warning is shown.
 
 This requires [boot diagnostics](https://learn.microsoft.com/en-us/azure/virtual-machines/boot-diagnostics) to be enabled on the VM and the following permission on the service principal:
 

@@ -303,9 +303,9 @@ The following permissions enable Seqera to populate values for dropdown fields. 
 }
 ```
 
-### Pre-run script error detection (optional)
+### Userdata script error detection (optional)
 
-Seqera can retrieve the EC2 instance console output to detect errors in the pre-run script (userdata) executed during instance startup. If the pre-run script fails, Seqera surfaces the failure as a warning on the workflow. Without this permission, pre-run script failures are not detected and no warning is shown.
+Seqera can retrieve the EC2 instance console output to detect errors in the userdata script that bootstraps the VM during instance startup. If the userdata script fails, Seqera surfaces the failure as a warning on the workflow. Without this permission, userdata script failures are not detected and no warning is shown.
 
 ```json
 {
