@@ -118,7 +118,12 @@ After setting up WIF in the GCP Console, you need the following information to c
 3. **Token Audience** (optional): The intended audience for the OIDC token. Configure this if your Workload Identity Provider requires a specific audience value. Ensure this matches what you have configured in the **Allowed Audiences** value in the GCP console.
 
 :::caution
-If WIF authentication fails, verify that the Workload Identity Provider path is correctly formatted, the service account has the required permissions, and the Kubernetes service account is properly annotated for your deployment environment. Check your Seqera Platform logs for specific error details. A `400` error typically indicates an invalid provider format, while a `401` error indicates a token exchange failure.
+If WIF authentication fails at runtime, verify that:
+
+- The service account has the required roles (see [Service account permissions](#service-account-permissions))
+- The Workload Identity Pool principal has `roles/iam.workloadIdentityUser` on the service account
+- The Issuer URL configured in the WIF provider matches Platform's URL
+- The Token Audience in the credential (if set) matches the Allowed Audiences in the WIF provider
 :::
 
 ### Cloud Storage bucket
