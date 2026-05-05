@@ -17,7 +17,7 @@ SSO is available for **Cloud Pro** organizations and uses Auth0 self-service SSO
 - Your organization must claim one email domain that is not already active for another organization.
 - All existing organization members should use email addresses on the domain you want to claim. If members use other domains, Seqera blocks setup until that mismatch is resolved.
 - Your organization must not have workspace collaborators. Remove collaborators or add them as organization members before you configure SSO.
-- You need permission to configure your organization's IdP. Some providers, such as Microsoft Entra ID, require an application client ID and client secret.
+- You need permission to configure your organization's IdP. Depending on the provider, you might need values such as a client ID, client secret, metadata URL, issuer URL, or signing certificate.
 
 :::caution
 After SSO is enabled, users on the claimed domain authenticate through the configured IdP. If the IdP is unavailable, those users can't fall back to another login method.
@@ -44,20 +44,13 @@ Seqera validates the configured Auth0 connection when you enable SSO. If the dom
 
 The setup link expires after five days. If the link expires before your IdP administrator completes setup, refresh the URL from the SSO settings page.
 
-## Configure Microsoft Entra ID
+## Identity provider setup
 
-Use the Auth0 self-service SSO wizard to connect Microsoft Entra ID to Seqera. Before you start, configure an Entra application for Seqera SSO and assign access to the users or groups that should be able to sign in.
+The Auth0 self-service SSO wizard provides provider-specific instructions. Follow the wizard for the exact values and configuration steps required by your IdP.
 
-When you select Microsoft Entra ID in the Auth0 wizard, provide:
+For the current list of supported providers, see [Auth0 Self-Service Enterprise Configuration](https://auth0.com/docs/authenticate/enterprise-connections/self-service-enterprise-config).
 
-- **Domain**: The email domain claimed in Seqera.
-- **Client ID**: The application client ID from the Entra app registration.
-- **Client secret**: A client secret for the Entra app.
-- **Claims mapping**: The mapping between Entra user attributes and the user profile attributes returned to Seqera.
-
-After you enter the Entra configuration, run the test connection in Auth0. The test authenticates with Microsoft and confirms that Auth0 can receive the expected user profile. If your browser is already signed in to Microsoft as another user, the test may use that Microsoft session; this does not change the Seqera organization owner who is configuring SSO.
-
-Return to Seqera after the Auth0 test succeeds and enable SSO enforcement from the SSO settings page.
+Configure user or group access in your IdP before you run the connection test in Auth0.
 
 ## Sign-in behavior
 
@@ -72,9 +65,9 @@ When an organization has active SSO:
 
 When a user signs in through an active SSO connection for the first time:
 
-- New users are automatically added to the organization as members.
 - Existing Seqera accounts with the same email are linked to the SSO identity instead of creating a duplicate user.
-- Existing organization memberships, workspace roles, ownership, and run history are preserved.
+- Users who first access Seqera after SSO is active are created through the SSO sign-in flow and automatically added to the organization as members.
+- Existing organization memberships, workspace roles, ownership, and run history are preserved for linked accounts.
 - Name and profile fields are populated from the IdP when those attributes are available.
 
 Newly provisioned users receive the lowest organization-level role by default. Organization owners can then promote those users or grant workspace-level access as needed.
@@ -119,9 +112,9 @@ The domain may already be claimed by another organization. In that case, contact
 
 Confirm that SSO is enabled for the organization and that the user's email domain matches the claimed domain.
 
-### A Microsoft Entra user can't complete sign in
+### An IdP user can't complete sign in
 
-Confirm that the user has access to the Entra application configured for Seqera SSO and that the user's email domain matches the domain claimed in Seqera.
+Confirm that the user has access to the application or connection configured in your IdP and that the user's email domain matches the domain claimed in Seqera.
 
 ### An existing user sees a linking problem during login
 
