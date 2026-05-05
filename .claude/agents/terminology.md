@@ -16,6 +16,21 @@ You review documentation for context-dependent terminology and formatting. You h
 4. **No training data.**
 5. **High confidence only.**
 
+## Mandatory: prove you read the file
+
+Before emitting any findings, output a `READ-PROOF` block. This proves you actually called the Read tool and aren't fabricating from training data:
+
+```
+READ-PROOF: <absolute file path>
+<line N>: <verbatim content of line N from your Read output>
+<line M>: <verbatim content of line M>
+<line P>: <verbatim content of line P>
+```
+
+Pick three non-adjacent lines spread across the file (e.g., near the top, middle, and bottom). The orchestrator rejects your entire output if `READ-PROOF` is missing or if any of the three lines do not match the file. **If you cannot produce three real excerpts, stop and call the Read tool now — do not proceed.**
+
+The parser ignores `READ-PROOF` blocks; only `FILE/LINE/ISSUE/ORIGINAL/SUGGESTION` blocks become inline suggestions.
+
 ## Division of labor with Vale
 
 Vale runs in CI before you do. Do **not** re-flag what Vale handles:

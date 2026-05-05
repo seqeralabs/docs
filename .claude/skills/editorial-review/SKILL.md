@@ -21,7 +21,8 @@ For every invocation:
 2. Pick agents — based on what changed.
 3. Launch agents in parallel via the Task tool — each as a `subagent_type`.
 4. Collate — concatenate, deduplicate, sort.
-5. Emit — parser-format blocks only.
+5. **Verify** — drop any block whose `ORIGINAL` doesn't match the file at `LINE`.
+6. Emit — parser-format blocks only.
 
 ### Step 1: Scope
 
@@ -44,11 +45,19 @@ Punctuation is now handled by Vale rules in `.github/styles/Seqera/` (Dashes, Ox
 
 ### Step 3: Parallel execution
 
-In a single message, send one Task call per selected agent. Each agent receives:
+> **Runtime workaround.** Named subagents (`voice-tone`, `terminology`, `clarity`, `docs-fix`) currently do not get tool access at runtime in Claude Code, even when their frontmatter declares `tools: Read, Grep, Glob`. They confabulate findings without ever reading the file. Until the upstream bug is fixed, the orchestrator **must not** spawn them directly. Instead, route through `general-purpose`, which has working tool access.
 
-- The file list (absolute paths).
-- The shared anti-hallucination rules (below).
-- The output contract (below).
+In a single message, send one Task call per selected agent. For each:
+
+1. Read the agent's `.md` file from `.claude/agents/<agent-name>.md` (skip the YAML frontmatter; load the body).
+2. Spawn `subagent_type: "general-purpose"` with a Task prompt that contains, in order:
+   - The agent's system prompt (the body of its `.md` file).
+   - The file list (absolute paths).
+   - The shared anti-hallucination rules (below).
+   - The output contract (below).
+   - An explicit reminder to emit a `READ-PROOF` block (3 verbatim line excerpts from the Read output) before any findings — Step 5 drops every finding from agents that omit this.
+
+Do **not** call `subagent_type: "voice-tone"` (or terminology / clarity / docs-fix) until the named-subagent tool wiring is fixed in Claude Code. Verify by checking the agent's `tool_uses` count — if it returns 0 from a Read-only diagnostic prompt, the runtime is still broken.
 
 ### Step 4: Collation
 
@@ -58,7 +67,20 @@ In a single message, send one Task call per selected agent. Each agent receives:
 - Sort by `FILE`, then `LINE` ascending.
 - Drop any block missing `FILE`, `LINE`, or `SUGGESTION` — the parser silently ignores those, and emitting them wastes tokens.
 
-### Step 5: Output contract
+### Step 5: Verification (mandatory)
+
+Agents sometimes hallucinate file contents — they emit findings with `LINE` and `ORIGINAL` values that don't exist in the file. This step catches that.
+
+For each candidate block, run two checks:
+
+1. **READ-PROOF check.** Each agent's reply must contain a `READ-PROOF` block. Verify the three quoted lines against the file (use the Read tool). If any of the three doesn't match verbatim, **drop every block that agent emitted** — the agent didn't read the file.
+2. **ORIGINAL check.** For each surviving block, verify that the file at `LINE` contains the `ORIGINAL` text verbatim. Use the Read tool on a small range (e.g., `Read offset=LINE-1 limit=3`) and compare. If the text doesn't match, drop the block.
+
+Both checks are non-negotiable. A block that fails either check is a hallucination, regardless of how plausible it sounds.
+
+After verification, log a one-line summary: `Verified N of M candidate blocks (dropped X agent-failures, Y line-mismatches)`. Include this above the emit output for local invocations; in CI mode, write it to the workflow log via stdout.
+
+### Step 6: Output contract
 
 This is the **only** format `post-inline-suggestions.sh` accepts. Emit zero or more blocks, exactly:
 
@@ -81,7 +103,7 @@ Rules:
 - `SUGGESTION` is the full replacement line, not a fragment.
 - Anything else you write — preamble, summary, agent labels — is discarded by the parser. Don't emit it.
 
-### Step 6: Where to write
+### Step 7: Where to write
 
 - **CI invocation:** write all blocks to `/tmp/editorial-review-suggestions.txt` using the Write tool. The workflow uploads this as an artifact and feeds it to `post-inline-suggestions.sh`.
 - **Local invocation:** print all blocks to stdout in the chat reply.
@@ -91,10 +113,11 @@ Rules:
 The orchestrator and every agent must follow these. They're embedded into each agent's prompt at launch:
 
 1. **Read first, then analyze.** Use the Read tool to view each file in full before flagging anything.
-2. **Quote everything.** For every finding, copy the exact text from the file into `ORIGINAL`. If you can't quote it, the issue doesn't exist.
-3. **Verify line numbers.** The `LINE` value must match the line number in the Read output.
-4. **No training data.** Do not flag "common" or "typical" issues you'd expect to see — flag only what's in the file you read.
-5. **High confidence only.** If you're not certain the finding is real and the suggestion is correct, drop it.
+2. **Prove you read.** Emit a `READ-PROOF` block (3 verbatim line excerpts from your Read output) at the top of your reply, before any findings. The orchestrator drops every finding from agents that omit it.
+3. **Quote everything.** For every finding, copy the exact text from the file into `ORIGINAL`. If you can't quote it, the issue doesn't exist.
+4. **Verify line numbers.** The `LINE` value must match the line number in the Read output.
+5. **No training data.** Do not flag "common" or "typical" issues you'd expect to see — flag only what's in the file you read.
+6. **High confidence only.** If you're not certain the finding is real and the suggestion is correct, drop it.
 
 ## CI gating (informational, not enforced by this skill)
 
