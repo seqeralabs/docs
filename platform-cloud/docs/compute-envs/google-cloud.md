@@ -2,10 +2,9 @@
 title: "Google Cloud"
 description: "Instructions to set up an Google Cloud CE in Seqera Platform"
 date created: "2025-07-15"
-tags: [cloud, vm, google, compute environment]
+last updated: "2026-05-05"
+tags: [cloud, vm, google, compute-environment]
 ---
-
-# Google Cloud
 
 :::note
 This compute environment type is currently in public preview. Consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have a GCP account with a valid subscription.
