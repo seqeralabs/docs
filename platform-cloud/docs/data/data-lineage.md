@@ -7,7 +7,7 @@ tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, l
 ---
 
 :::info
-Data lineage in Platform is in public preview. It requires Nextflow v25.04 or later, and AWS S3 object storage.
+Data lineage in Seqera Platform is in public preview. It requires Nextflow v25.04 or later, and AWS S3 object storage.
 :::
 
 :::warning
@@ -40,7 +40,7 @@ Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the
 
 ## Enable data lineage
 
-To start collecting data lineage for all pipeline runs in your workspace, go to **Settings > Workspace Settings**. Select **Lineage** and define the credentials, region, and (optionally) storage bucket and path where lineage data is stored and indexed. Toggle the **Enable lineage by default** on to collect data lineage for all pipeline runs in the workspace or toggle off to require per pipeline launch configuration.
+To start collecting data lineage for all pipeline runs in your workspace, go to **Settings > Workspace Settings**. Select **Lineage** and define the credentials, region, and (optionally) storage bucket and path where lineage data is stored and indexed. Toggle **Enable lineage by default** on to collect data lineage for all pipeline runs in the workspace or toggle off to require per pipeline launch configuration.
 
 :::tip
 If the storage bucket field is empty, a default bucket is generated for storing lineage data.
@@ -49,14 +49,14 @@ If the storage bucket field is empty, a default bucket is generated for storing 
 Once set, all pipeline runs in the workspace generate data lineage. See [Lineage][workspace-lineage] for more information about the settings.
 
 :::danger
-Changing the lineage storage bucket path after lineage data is generated will result in historic data loss. The lineage index is tied to the lineage storage bucket. Changing it makes existing records inaccessible. To move the storage location, first copy all existing lineage data to the new bucket and path (for example, `aws s3 cp --recursive s3://old-bucket/path s3://new-bucket/path`), then update the workspace setting.
+Changing the lineage storage bucket path after lineage data is generated results in historic data loss. The lineage index is tied to the lineage storage bucket. Changing it makes existing records inaccessible. To move the storage location, first copy all existing lineage data to the new bucket and path (for example, `aws s3 cp --recursive s3://old-bucket/path s3://new-bucket/path`), then update the workspace setting.
 :::
 
-When launching a pipeline in a data-lineage enabled workspace, the **Enable lineage** toggle in the pipeline **Run setup** reflects the **Enable lineage by default** workspace setting. This can be turned off to _explicitly exclude_ data lineage creation for the pipeline run.
+When launching a pipeline in a data-lineage enabled workspace, the **Enable lineage** toggle in the pipeline **Run setup** reflects the **Enable lineage by default** workspace setting. Turn it off to _explicitly exclude_ data lineage creation for the pipeline run.
 
 ### Additional IAM permissions required
 
-If using existing AWS Batch or AWS Cloud compute environments with custom IAM roles, the following service role policies are required:
+If you use existing AWS Batch or AWS Cloud compute environments with custom IAM roles, add the following service role policies:
 
 ```json
 {
@@ -123,7 +123,7 @@ Platform integration credentials require the following additional permissions:
 
 ### Advanced: Experimenting with data lineage
 
-To test or troubleshoot data lineage for a _specific pipeline_, add the following to your **Nextflow config file** under **Advanced options** when _adding_ a pipeline to the launchpad.
+To test or troubleshoot data lineage for a _specific pipeline_, add the following to your **Nextflow config file** under **Advanced options** when _adding_ a pipeline to the **Launchpad**.
 
 ```groovy
 lineage.enabled = true
