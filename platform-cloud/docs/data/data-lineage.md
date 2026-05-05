@@ -8,7 +8,9 @@ tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, l
 
 :::info
 Data lineage in Platform is in public preview. It requires Nextflow v25.04 or later. Enable it per-pipeline (`lineage.enabled = true` in your Nextflow config) or workspace-wide via the **Lineage** workspace setting.
+:::
 
+:::warning
 The feature is experimental and subject to change. See this guide for the latest configuration recommendations and limitations.
 :::
 
