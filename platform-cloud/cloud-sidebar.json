@@ -30,7 +30,103 @@
       },
       {
         "type": "category",
-        "label": "Credentials",
+        "label": "Integrations",
+        "link": {"type": "doc", "id": "integrations/overview"},
+        "collapsed": true,
+        "items": [
+          {
+            "type": "category",
+            "label": "Cloud providers",
+            "link": {"type": "doc", "id": "integrations/cloud-providers/overview"},
+            "collapsed": true,
+            "items": [
+              {
+                "type": "category",
+                "label": "AWS",
+                "link": {"type": "doc", "id": "integrations/cloud-providers/aws/overview"},
+                "collapsed": true,
+                "items": [
+                  "integrations/cloud-providers/aws/iam-policies",
+                  "integrations/cloud-providers/aws/credentials",
+                  "integrations/cloud-providers/aws/data-access",
+                  "integrations/cloud-providers/aws/eks-additions",
+                  "integrations/cloud-providers/aws/manual-setup"
+                ]
+              },
+              {
+                "type": "category",
+                "label": "Azure",
+                "link": {"type": "doc", "id": "integrations/cloud-providers/azure/overview"},
+                "collapsed": true,
+                "items": [
+                  "integrations/cloud-providers/azure/roles-and-service-principals",
+                  "integrations/cloud-providers/azure/credentials",
+                  "integrations/cloud-providers/azure/storage-access",
+                  "integrations/cloud-providers/azure/manual-setup"
+                ]
+              },
+              {
+                "type": "category",
+                "label": "Google Cloud",
+                "link": {"type": "doc", "id": "integrations/cloud-providers/google/overview"},
+                "collapsed": true,
+                "items": [
+                  "integrations/cloud-providers/google/iam",
+                  "integrations/cloud-providers/google/credentials",
+                  "integrations/cloud-providers/google/storage-access"
+                ]
+              }
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Git providers",
+            "link": {"type": "doc", "id": "integrations/git-providers/overview"},
+            "collapsed": true,
+            "items": [
+              "integrations/git-providers/github",
+              "integrations/git-providers/gitlab",
+              "integrations/git-providers/bitbucket",
+              "integrations/git-providers/gitea",
+              "integrations/git-providers/azure-devops",
+              "integrations/git-providers/codecommit",
+              "integrations/git-providers/multiple-credentials",
+              "integrations/git-providers/seqera-ai"
+            ]
+          },
+          {
+            "type": "category",
+            "label": "Container registries",
+            "link": {"type": "doc", "id": "integrations/container-registries/overview"},
+            "collapsed": true,
+            "items": [
+              "integrations/container-registries/aws",
+              "integrations/container-registries/azure",
+              "integrations/container-registries/docker-hub",
+              "integrations/container-registries/gitea",
+              "integrations/container-registries/github",
+              "integrations/container-registries/gitlab",
+              "integrations/container-registries/google",
+              "integrations/container-registries/quay"
+            ]
+          },
+          "integrations/data-sources/overview",
+          {
+            "type": "category",
+            "label": "Identity & access",
+            "collapsed": true,
+            "items": [
+              "integrations/identity/managed-identities",
+              "integrations/identity/ssh-credentials"
+            ]
+          },
+          "integrations/agent/credentials"
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Credentials (legacy)",
+        "collapsed": true,
         "items": [
           "credentials/overview",
           "git/overview",
