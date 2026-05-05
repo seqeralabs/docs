@@ -23,6 +23,7 @@ For every invocation:
 4. Collate — concatenate, deduplicate, sort.
 5. **Verify** — drop any block whose `ORIGINAL` doesn't match the file at `LINE`.
 6. Emit — parser-format blocks only.
+7. Output — write to artifact (CI) or print and offer to apply (local).
 
 ### Step 1: Scope
 
@@ -107,10 +108,27 @@ Rules:
 - `SUGGESTION` is the full replacement line, not a fragment.
 - Anything else you write — preamble, summary, agent labels — is discarded by the parser. Don't emit it.
 
-### Step 7: Where to write
+### Step 7: Output
 
-- **CI invocation:** write all blocks to `/tmp/editorial-review-suggestions.txt` using the Write tool. The workflow uploads this as an artifact and feeds it to `post-inline-suggestions.sh`.
-- **Local invocation:** print all blocks to stdout in the chat reply.
+#### CI invocation
+
+Write all verified blocks to `/tmp/editorial-review-suggestions.txt` using the Write tool. The workflow uploads this as an artifact and feeds it to `post-inline-suggestions.sh`, which posts each block as a GitHub inline review suggestion on the affected line. The user gets one-click "Commit suggestion" buttons in the PR review.
+
+#### Local invocation
+
+Chat doesn't render inline suggestions on top of files, so reproduce that experience using the Edit tool. After printing the verified blocks to stdout, ask the user:
+
+> Apply these N fixes via Edit? (yes / no / pick)
+
+- **yes** — Iterate over the blocks in order. For each, call Edit with `old_string=<the block's ORIGINAL>` and `new_string=<the block's SUGGESTION>`. Claude Code's tool-permission flow shows the diff per Edit; the user approves or rejects each one. Continue through all blocks even if some are rejected. At the end, report `Applied N of M (skipped X for non-unique match, Y declined)`.
+- **no** — Stop. The user applies manually.
+- **pick** — Prompt for block numbers (1-based, e.g. `1,3-5`). Apply only the selected blocks via the same Edit flow.
+
+Edge cases:
+
+- If `ORIGINAL` appears more than once in the file, Edit fails with a non-unique-match error. Catch it, report `skipped (non-unique match): <line N>`, and continue. The block will need manual handling.
+- If `ORIGINAL` no longer matches (file changed since review), report `skipped (no longer present): <line N>`. Don't try to recover — re-run the review.
+- Don't use `replace_all`. The contract is one-line one-fix; replacing all occurrences risks editing unrelated lines.
 
 ## Shared anti-hallucination rules
 
