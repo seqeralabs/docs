@@ -18,11 +18,11 @@ Data lineage tracks the full provenance of every pipeline run at both the task a
 
 Production pipelines generate results that teams need to trust, audit, and reproduce. Data lineage provides a precise, immutable record of how each result was produced.
 
-- **Reproducibility**: Every run, task, and output file receives a unique **lineage ID (LID)** — a traversable URI pointing to a structured record of exactly what ran. You can verify that two runs produced identical results, or identify precisely where they diverged.
-- **Auditing and compliance**: For teams in regulated industries (pharma, clinical genomics, CROs), lineage provides the audit trail needed for regulatory compliance. Each record captures inputs, outputs, parameters, compute environment, and the user who launched the run.
-- **Debugging**: When a cached task unexpectedly re-executes or a pipeline produces an unexpected result, lineage lets you trace backward from any output to all contributing tasks and parameters. You can compare two task runs to isolate exactly what changed.
-- **Broader team access**: Previously, exploring Nextflow lineage required CLI access and comfort reading raw JSON. Lineage data is surfaced in both pipeline run details pages and Data Explorer, so users can inspect provenance directly.
-- **Cross-workflow discoverability**: [Workflow output labels][workflow-labels] make output files discoverable across runs. Rather than knowing which specific run produced a file, query lineage records by label to find all matching outputs workspace-wide.
+- **Reproducibility**: Every run, task, and output file receives a unique lineage ID (LID), a traversable URI that points to a structured record of what ran. Verify that two runs produced identical results, or identify where they diverged.
+- **Auditing and compliance**: For teams in regulated industries such as pharma, clinical genomics, and CROs, lineage provides the audit trail needed for regulatory compliance. Each record captures inputs, outputs, parameters, compute environment, and the user who launched the run.
+- **Debugging**: When a cached task unexpectedly re-executes, or a pipeline produces an unexpected result, lineage traces backward from any output to all contributing tasks and parameters. Compare two task runs to isolate what changed.
+- **Broader team access**: Exploring Nextflow lineage previously required CLI access and comfort reading raw JSON. Platform now surfaces lineage data in pipeline run detail pages and Data Explorer. Users can inspect provenance directly.
+- **Cross-workflow discoverability**: [Workflow output labels][workflow-labels] make output files discoverable across runs. Query lineage records by label to find all matching outputs workspace-wide, without knowing which specific run produced a file.
 
 ## How data lineage works
 
@@ -34,7 +34,7 @@ Nextflow creates a structured JSON record for each entity in your pipeline when 
 | **TaskRun** | Individual task execution: script, code checksum, inputs, outputs, container, and dependencies |
 | **FileOutput** | Output file: path, checksum, size, timestamp, and links back to the task and workflow that produced it |
 
-Each record gets a **lineage ID (LID)** — a `lid://` URI that uniquely identifies the entity. LIDs are navigable: every LID and lineage label is a clickable link that queries all related entities across your organization.
+Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the entity. Every LID and lineage label renders as a clickable link, letting you navigate to all related entities across your organization.
 
 ### Configure workspace settings
 
@@ -63,13 +63,10 @@ Only runs executed with this setting generate lineage data. Runs without it disp
 
 When a run was executed with lineage enabled, the [run details page][run-details] displays lineage data across the following tabs:
 
-**Run Info** — shows the lineage ID, lineage labels, and the full Platform context captured at execution time: user, workspace, compute environment, pipeline name, revision, and commit ID.
-
-**Tasks** — displays the lineage ID and lineage labels for each `TaskRun` alongside existing task data, so you can trace any task back to its lineage record. All task file inputs and outputs, and upstream and downstream tasks linked by lineage records are displayed.
-
-**Inputs** — lists all input datasets and parameters with file paths, types, and lineage IDs and lineage labels where available.
-
-**Outputs** — lists all `FileOutput` records linked to the workflow run: output name, file path, type, lineage ID, and lineage labels. Files link directly to [Data Explorer][data-explorer].
+- **Run Info**: Shows the lineage ID, lineage labels, and the full Platform context captured at execution time: user, workspace, compute environment, pipeline name, revision, and commit ID.
+- **Tasks**: Displays the lineage ID and lineage labels for each `TaskRun` alongside existing task data, so you can trace any task back to its lineage record. All task file inputs and outputs, and upstream and downstream tasks linked by lineage records, are displayed.
+- **Inputs**: Lists all input datasets and parameters with file paths, types, and lineage IDs and lineage labels where available.
+- **Outputs**: Lists all `FileOutput` records linked to the workflow run: output name, file path, type, lineage ID, and lineage labels. Files link directly to [Data Explorer][data-explorer].
 
 :::tip
 All LIDs and lineage labels are clickable links. Click any LID to open the organization-level lineage search pre-filled with that identifier.
