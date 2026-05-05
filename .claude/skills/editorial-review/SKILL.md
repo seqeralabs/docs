@@ -120,9 +120,21 @@ Chat doesn't render inline suggestions on top of files, so reproduce that experi
 
 > Apply these N fixes via Edit? (yes / no / pick)
 
-- **yes** — Iterate over the blocks in order. For each, call Edit with `old_string=<the block's ORIGINAL>` and `new_string=<the block's SUGGESTION>`. Claude Code's tool-permission flow shows the diff per Edit; the user approves or rejects each one. Continue through all blocks even if some are rejected. At the end, report `Applied N of M (skipped X for non-unique match, Y declined)`.
+- **yes** — Walk through the blocks one at a time, gating each at the chat level (see below).
 - **no** — Stop. The user applies manually.
-- **pick** — Prompt for block numbers (1-based, e.g. `1,3-5`). Apply only the selected blocks via the same Edit flow.
+- **pick** — Prompt for block numbers (1-based, e.g. `1,3-5`). Apply only the selected blocks via the same per-fix gate.
+
+##### Per-fix gate (mandatory)
+
+Do **not** call Edit in a batch. Claude Code may be running in `acceptEdits` permission mode, in which case Edit calls auto-apply with no user prompt — silently bypassing the approve/reject gate. Drive the gate from chat instead, one block at a time:
+
+1. Print a compact diff for block N: file path with line link, ISSUE, then a before/after of just the changed words (not the full line — keep it scannable).
+2. Ask: `Apply this fix? (y / n / q)`
+3. On `y`, call Edit with `old_string=<ORIGINAL>` and `new_string=<SUGGESTION>`.
+4. On `n`, skip and move to block N+1.
+5. On `q`, stop the apply pass — leave the remaining blocks unapplied.
+
+After all blocks, report: `Applied N of M (X declined, Y stopped early, Z non-unique match)`.
 
 Edge cases:
 
