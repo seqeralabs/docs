@@ -2,7 +2,7 @@
 title: "Single sign-on (SSO)"
 description: "Configure single sign-on for a Seqera Platform Cloud organization."
 date created: "2026-03-10"
-last updated: "2026-05-04"
+last updated: "2026-05-05"
 tags: [sso, authentication, organization-settings, cloud-pro]
 ---
 
@@ -30,6 +30,18 @@ In **Organization settings**, the SSO experience depends on your subscription ti
 - Cloud Pro organization owners see an option to configure SSO.
 - Cloud Basic organization owners see an upgrade prompt stating that enterprise SSO is available on Cloud Pro, with a link to pricing information.
 
+## Prepare users before setup
+
+Before you configure SSO, resolve any users who can't authenticate through the domain you want to claim:
+
+- Remove organization members whose email addresses don't use the claimed domain, or update their accounts to use email addresses on the claimed domain.
+- Remove all workspace collaborators. If external users need continued access, add them to your IdP as guest or external accounts so they can sign in through SSO and be provisioned as organization members.
+- If an existing collaborator already uses the claimed domain, add them as an organization member before you claim the domain.
+
+Seqera blocks domain claiming when the organization has members with email addresses outside the claimed domain or existing workspace collaborators. The setup flow lists the affected users so you can resolve them before trying again.
+
+Full claims-based provisioning for collaborator migration is planned for Q2 2026. Until then, external users must be added to the IdP and provisioned through the SSO sign-in flow.
+
 ## Configure SSO
 
 1.  Open your organization, then select **Settings**.
@@ -42,7 +54,7 @@ In **Organization settings**, the SSO experience depends on your subscription ti
 
 Seqera validates the configured Auth0 connection when you enable SSO. If the domain configured in Auth0 doesn't match the domain claimed in Seqera, activation fails. Correct the Auth0 configuration or delete the SSO configuration and create a new one with the correct domain.
 
-The setup link expires after five days. If the link expires before your IdP administrator completes setup, refresh the URL from the SSO settings page.
+The setup link expires after five days. After an IdP administrator opens the Auth0 access ticket, the ticket expires after five hours. If the wizard requires DNS verification for the claimed domain, verification can take up to 48 hours. If the ticket expires before verification or setup is complete, refresh the URL from the SSO settings page.
 
 ## Identity provider setup
 
@@ -72,7 +84,7 @@ When a user signs in through an active SSO connection for the first time:
 
 Newly provisioned users receive the lowest organization-level role by default. Organization owners can then promote those users or grant workspace-level access as needed.
 
-SSO applies only to users with the claimed email domain. External users who need workspace access must be invited as organization members and authenticate through the configured IdP. Active SSO blocks new workspace collaborator assignments.
+SSO applies only to users with the claimed email domain. External users who need workspace access must be added to the organization's IdP as guest or external accounts, provisioned as organization members through SSO, and granted the appropriate workspace access. Active SSO blocks new workspace collaborator assignments.
 
 ## Manage an existing connection
 
@@ -98,11 +110,11 @@ SSO activity is recorded in the audit log for compliance and troubleshooting. Au
 
 ### The setup link isn't generated
 
-Check whether your organization already contains members with email addresses outside the domain you are trying to claim.
+Check whether your organization already contains members with email addresses outside the domain you are trying to claim or existing workspace collaborators.
 
 ### Setup is blocked because the organization has collaborators
 
-Remove existing workspace collaborators or add them as organization members before you configure SSO. After SSO is active, external users must be organization members to access workspaces.
+Remove existing workspace collaborators before you configure SSO. If external users need continued access, add them to your IdP as guest or external accounts so they can sign in through SSO and be provisioned as organization members.
 
 ### The claimed domain is rejected
 
