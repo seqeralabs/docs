@@ -82,7 +82,7 @@
           },
           {
             "Name": "cron",
-            "Image": "cr.seqera.io/private/nf-tower-enterprise/backend:v24.1.8",
+            "Image": "cr.seqera.io/enterprise/platform/backend:v24.1.8",
             "Memory": 2000,
             "Cpu": 0,
             "Links": ["redis"],
@@ -188,7 +188,7 @@
           },
           {
             "Name": "frontend",
-            "Image": "cr.seqera.io/private/nf-tower-enterprise/frontend:v24.1.8",
+            "Image": "cr.seqera.io/enterprise/platform/frontend:v24.1.8",
             "Memory": 2000,
             "Cpu": 0,
             "Essential": false,
@@ -211,7 +211,7 @@
             "Hostname": "backend",
             "Memory": 2000,
             "Cpu": 0,
-            "Image": "cr.seqera.io/private/nf-tower-enterprise/backend:v24.1.8",
+            "Image": "cr.seqera.io/enterprise/platform/backend:v24.1.8",
             "PortMappings": [
               {
                 "ContainerPort": 8080,
