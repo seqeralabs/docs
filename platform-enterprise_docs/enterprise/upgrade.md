@@ -1,16 +1,16 @@
 ---
 title: "Upgrade deployment"
-description: "Guidance for upgrading to Platform Enterprise version 25.3"
+description: "Guidance for upgrading to Platform Enterprise version 26.1"
 date created: "2025-11-11"
-last updated: "2026-01-30"
+last updated: "2026-05-06"
 tags: [enterprise, update, install]
 ---
 
-This page outlines the steps to upgrade your database instance and Platform Enterprise installation to version 25.3, including special considerations for upgrading from versions prior to 25.1.
+This page outlines the steps to upgrade your database instance and Platform Enterprise installation to version 26.1, including special considerations for upgrading from earlier versions.
 
 :::note
 - Make a backup of your Platform database prior to upgrade.
-- If you are upgrading from a version prior to 25.1, complete all intermediate major version upgrades before upgrading to 25.3.
+- If you are upgrading from a version prior to 25.1, complete all intermediate major version upgrades before upgrading to 26.1.
 - Ensure that no pipelines are in a running state during this upgrade as active run data may be lost.
 :::
 
@@ -65,14 +65,45 @@ To configure [secret key rotation](../enterprise/configuration/overview.mdx#secr
 - All backend pods or containers for your Enterprise deployment must contain the same previous and new secret key values in their configuration.
 - All backend pods or containers must be in a ready/running state before starting the Platform cron service.
 
+### Version 26.1 upgrade considerations
+
+**Database version requirements have changed**
+
+- MySQL 5.7, MySQL 8.0, and MariaDB are no longer supported.
+- MySQL 8.4 LTS is the new supported and tested default.
+
+Upgrade your database instance to MySQL 8.4 before upgrading to 26.1. Follow your cloud provider's upgrade procedure (for example, Amazon RDS minor and major version upgrades) and verify the upgrade in a non-production environment first.
+
+**Cache layer: Redis EoL and Valkey support**
+
+- Redis 6.x is end-of-life and no longer supported.
+- Valkey 7+ is newly supported as a drop-in replacement. Use the `valkey://` scheme (or `valkeyss://` for SSL) in `TOWER_REDIS_URL` when connecting to Valkey.
+- Redis 9 is not supported.
+
+If you are running Redis 6.x, plan an upgrade to Redis 7 (still supported) or migrate to Valkey 7+ before upgrading to 26.1.
+
+**Frontend image: root user variant removed**
+
+The frontend image running as root user, deprecated in earlier releases, has been removed in 26.1. The unprivileged ("rootless") image is now the only supported variant. Switch to the [unprivileged frontend image](./platform-kubernetes#seqera-frontend-unprivileged) before upgrading.
+
+**Studios is enabled in all workspaces by default**
+
+In 26.1, Studios is enabled in all workspaces by default. The behaviour is controlled by [`TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`](./configuration/overview#data-features):
+
+- Unset (default): Studios is enabled in all workspaces.
+- Empty string: Studios is disabled in all workspaces.
+- Comma-separated list of workspace IDs: Studios is enabled only in those workspaces.
+
+If you do not want Studios available in every workspace, set `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES` to an empty string or to a specific list of workspace IDs before upgrading.
+
+**AWS data lineage tracking via SQS (preview, AWS only)**
+
+26.1 introduces a preview of AWS data lineage tracking that depends on an Amazon SQS queue. This feature is AWS-only and disabled by default. If you plan to enable it, ensure your IAM policies grant the Seqera role the relevant SQS permissions in addition to the existing [Seqera IAM permissions](../compute-envs/aws-batch#iam-user-creation).
+
 ### General upgrade steps
 
 :::caution
 The database volume is persistent on the local machine by default if you use the `volumes` key in the `db` or `redis` section of your `docker-compose.yml` file to specify a local path to the DB or Redis instance. If your database is not persistent, you must back up your database before performing any application or database upgrades.
-:::
-
-:::info
-Starting from version 26.1, the frontend image running as root user will be deprecated. We recommend starting to switch to the [root-less image (also known as "unprivileged" image)](./platform-kubernetes#seqera-frontend-unprivileged) during this upgrade.
 :::
 
 1. Make a backup of the Seqera database. If you use the pipeline optimization service and your `groundswell` database resides in a database instance separate from your Seqera database, make a backup of your `groundswell` database as well.
