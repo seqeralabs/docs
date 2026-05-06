@@ -92,19 +92,10 @@ For a complete example, see the [Co-Scientist Helm example](https://github.com/s
 
 When MCP runs under the Platform parent chart, leave `mcp.oidcToken` unset unless you need to override the default wiring. The parent chart sets it to the Platform backend Secret key `OIDC_CLIENT_REGISTRATION_TOKEN`.
 
-```yaml
-mcp:
-  enabled: true
-  oauth:
-    audience: platform
-    jwtSeedSecretName: seqera-ai-secrets
-```
-
-MCP uses the `oauth-platform` Micronaut environment by default. This configures Platform as the OAuth provider and sets the expected audience to `platform`.
 
 ## Configure the agent backend
 
-The agent backend needs MySQL, Redis or Valkey, inference provider access, MCP connectivity, and a stable token encryption key.
+The agent backend needs MySQL, Redis or Valkey, inference provider access, MCP connectivity, and a stable token encryption key. In this example sensitive values (db and redis passwords, token encryption key, etc) are stored in a kubernetes secret named `seqera-ai-secrets`, which needs to already exist before the chart installation, either created manually or with automated secret extraction tools (like External Secrets, not covered in this tutorial).
 
 ```yaml
 agent-backend:
