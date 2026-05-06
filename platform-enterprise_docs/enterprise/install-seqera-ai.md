@@ -57,12 +57,12 @@ Documentation semantic search is configured separately from chat inference. Use 
 
 ## Deployment topology
 
-The recommended Enterprise topology is a single Platform Helm release with the `mcp`, `agent-backend`, and `portal-web` subcharts enabled. The Platform Helm chart includes these subcharts, and the parent chart wires the MCP OIDC client registration token from the Platform backend Secret automatically.
+The recommended Enterprise topology is using the `platform` Seqera Helm chart with the `mcp`, `agent-backend`, and `portal-web` subcharts enabled. The Platform Helm chart automatically wires the MCP OIDC client registration token from the Platform backend Secret, reducing the number of manual steps required.
 
-Use separate Helm releases only when your environment requires separate lifecycle ownership. If you deploy the charts separately, you must manually configure:
+Use separate Helm releases when you cannot convert your existing Platform installation to using the Helm chart or your environment requires separate lifecycle ownership. If you deploy the charts separately, you must manually configure:
 
-- `global.platformServiceAddress` and `global.platformServicePort` so the agent backend and portal web interface can reach the internal Platform backend service.
-- `mcp.oidcToken.existingSecretName` and `mcp.oidcToken.existingSecretKey` with the same OIDC client registration token configured for the Platform backend.
+- `global.platformServiceAddress` and `global.platformServicePort` on each AI chart so they can reach the Platform backend service using the cluster-internal endpoint.
+- `oidcToken.existingSecretName` and `oidcToken.existingSecretKey` with the same OIDC client registration token configured for the Platform backend.
 - Matching external DNS and TLS for `global.mcpDomain`, `global.agentBackendDomain`, and `global.portalWebDomain`.
 
 ## Configure Helm values
