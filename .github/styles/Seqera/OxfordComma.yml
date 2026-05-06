@@ -1,0 +1,11 @@
+# Flags missing Oxford commas in series of three or more items.
+# Pattern matches "X, Y and Z" or "X, Y phrase and Z" — any series where
+# the last conjunction is missing a preceding comma.
+extends: existence
+message: "Use the Oxford comma in '%s'."
+link: https://docs.microsoft.com/en-us/style-guide/punctuation/commas
+level: warning
+nonword: true
+scope: text
+tokens:
+  - '\w+,\s+\w+(?:\s+\w+)*\s+(?:and|or)\s+\w+'

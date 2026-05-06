@@ -1,43 +1,35 @@
 #!/bin/bash
-# Classifies PR as "rename" or "content" based on git diff analysis
-
+# Classify a PR by the kind of changes it contains.
+# Output: "rename", "minor", "content", or "major"
 set -e
 
-BASE_REF=${1:-master}
-HEAD_REF=${2:-HEAD}
+BASE="${1:-origin/master}"
+HEAD="${2:-HEAD}"
 
-# Get diff stats
-SUMMARY=$(git diff --summary "$BASE_REF...$HEAD_REF")
-DIFF=$(git diff --numstat "$BASE_REF...$HEAD_REF")
+GLOB=( '*.md' '*.mdx' )
 
-# Count rename operations
-RENAME_COUNT=$(echo "$SUMMARY" | grep -c "rename" || true)
+RENAMED=$(git diff --diff-filter=R --name-only "$BASE...$HEAD" -- "${GLOB[@]}" | grep -c . || true)
+ADDED=$(git diff --diff-filter=A --name-only "$BASE...$HEAD" -- "${GLOB[@]}" | grep -c . || true)
+TOTAL=$(git diff --name-only "$BASE...$HEAD" -- "${GLOB[@]}" | grep -c . || true)
 
-# Count total changed files
-TOTAL_FILES=$(echo "$DIFF" | wc -l | tr -d ' ')
+NUMSTAT=$(git diff --numstat "$BASE...$HEAD" -- "${GLOB[@]}")
+LINES_ADDED=$(echo "$NUMSTAT" | awk '$1 != "-" { sum += $1 } END { print sum+0 }')
+LINES_REMOVED=$(echo "$NUMSTAT" | awk '$2 != "-" { sum += $2 } END { print sum+0 }')
+NET_LINES=$((LINES_ADDED + LINES_REMOVED))
 
-# Count files with significant content changes (>10 lines added+deleted)
-CONTENT_CHANGES=$(echo "$DIFF" | awk '{if ($1+$2 > 10) print}' | wc -l | tr -d ' ')
-
-# Calculate rename ratio
-if [[ $TOTAL_FILES -gt 0 ]]; then
-  RENAME_RATIO=$((RENAME_COUNT * 100 / TOTAL_FILES))
-else
-  RENAME_RATIO=0
+if [ "$ADDED" -gt 0 ] || [ "$LINES_ADDED" -gt 200 ]; then
+  echo "major"
+  exit 0
 fi
 
-# Classification logic:
-# - If >70% of files are renames AND <5 files have significant content changes: "rename"
-# - Otherwise: "content"
-
-if [[ $RENAME_RATIO -gt 70 ]] && [[ $CONTENT_CHANGES -lt 5 ]]; then
+if [ "$TOTAL" -gt 0 ] && [ "$RENAMED" -eq "$TOTAL" ]; then
   echo "rename"
-else
-  echo "content"
+  exit 0
 fi
 
-# Debug output (appears in GitHub Actions logs)
-echo "  Rename count: $RENAME_COUNT" >&2
-echo "  Total files: $TOTAL_FILES" >&2
-echo "  Content changes: $CONTENT_CHANGES" >&2
-echo "  Rename ratio: ${RENAME_RATIO}%" >&2
+if [ "$NET_LINES" -lt 50 ]; then
+  echo "minor"
+  exit 0
+fi
+
+echo "content"

@@ -15,10 +15,10 @@ BlockIgnores = (?s) *(`{3}.*?`{3}), (?s)^---.*?---
 TokenIgnores = (`[^`]+`)
 
 # Context-dependent terminology — warn, don't block
-Seqera.CE = warning
-Seqera.Workspace = suggestion
-Seqera.PAT = warning
-Seqera.Tower = warning
+Seqera.Features.CE = warning
+Seqera.Features.Workspace = warning
+Seqera.Features.PAT = warning
+Seqera.Products.Tower = warning
 
 # write-good overrides — keep the useful checks, mute the noisy ones
 write-good.Weasel = NO
@@ -33,10 +33,10 @@ BasedOnStyles = Vale, Seqera, write-good
 BlockIgnores = (?s) *(`{3}.*?`{3}), (?s)^---.*?---
 TokenIgnores = (`[^`]+`)
 
-Seqera.CE = warning
-Seqera.Workspace = suggestion
-Seqera.PAT = warning
-Seqera.Tower = warning
+Seqera.Features.CE = warning
+Seqera.Features.Workspace = warning
+Seqera.Features.PAT = warning
+Seqera.Products.Tower = warning
 
 write-good.Weasel = NO
 write-good.ThereIs = NO
