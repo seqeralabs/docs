@@ -1,4 +1,6 @@
-# If this workflow fails on your PR:
+# If pre-commit finds issues on your PR, this workflow posts inline suggestions
+# on the PR. To apply them:
+#   - Click "Commit suggestion" on each inline comment, OR
 #   - Comment `fix formatting` on the PR to auto-fix and push, OR
 #   - Run `pre-commit install` locally and commit again.
 # See instructions in the README.md in the repo root for more details.
@@ -10,6 +12,18 @@ jobs:
   pre_commit:
     name: "pre-commit"
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
-      - uses: j178/prek-action@6ad80277337ad479fe43bd70701c3f7f8aa74db3 # ratchet:j178/prek-action@v2.0.3
+      - id: prek
+        uses: j178/prek-action@6ad80277337ad479fe43bd70701c3f7f8aa74db3 # ratchet:j178/prek-action@v2.0.3
+        continue-on-error: true
+      - name: Suggest fixes on the PR
+        if: steps.prek.outcome == 'failure'
+        uses: reviewdog/action-suggester@aa38384ceb608d00f84b4690cacc83a5aba307ff # ratchet:reviewdog/action-suggester@v1.24.0
+        with:
+          tool_name: pre-commit
+          filter_mode: nofilter
+          level: warning
