@@ -115,9 +115,6 @@ agent-backend:
     existingSecretKey: AGENT_BACKEND_REDIS_PASSWORD
 
   tokenEncryptionKeyExistingSecretName: seqera-ai-secrets
-  extraEnvVars:
-    - name: ORG_CREDITS_ENABLED
-      value: "false"
 ```
 
 Use the `redis` values block for Redis-compatible services, including Valkey.
