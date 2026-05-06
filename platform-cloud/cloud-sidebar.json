@@ -98,7 +98,8 @@
         "label": "Data",
         "items": [
           "data/data-explorer",
-          "data/datasets"
+          "data/datasets",
+          "data/data-lineage"
         ]
       },
       {
