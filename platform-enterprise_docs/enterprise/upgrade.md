@@ -68,7 +68,7 @@ This page outlines the steps to upgrade your database instance and Platform Ente
 
 ## Version 26.1 upgrade considerations
 
-### Database changes — review before upgrade
+### Database changes
 
 26.1 changes the supported database baseline. Review your current database against the table below **before upgrading**.
 
@@ -83,7 +83,7 @@ This page outlines the steps to upgrade your database instance and Platform Ente
 
 If you are running on MySQL 5.7, MySQL 8.0, or MariaDB, complete your database migration **before** running the 26.1 application upgrade. The Seqera-supplied `migrate-db` container will not run against an unsupported database version.
 
-### Cache layer changes — Redis EoL and Valkey support
+### Cache layer changes: Redis EoL and Valkey support
 
 26.1 introduces Valkey support and tightens Redis version requirements.
 
@@ -114,7 +114,7 @@ See the [unprivileged frontend image documentation](https://docs.seqera.io/platf
 
 In 26.1, Studios is enabled on every workspace in your instance by default. This is a behavior change from earlier versions where Studios required explicit per-workspace enablement.
 
-The new `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES` environment variable controls Studios availability:
+The [`TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`](./configuration/overview#data-features) environment variable controls Studios availability:
 
 | Value | Behaviour |
 | --- | --- |
