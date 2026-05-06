@@ -119,15 +119,6 @@ agent-backend:
 
 Use the `redis` values block for Redis-compatible services, including Valkey.
 
-The chart derives these runtime URLs from `global.*` values:
-
-| Environment variable | Derived from |
-| --- | --- |
-| `SEQERA_PLATFORM_URL` | `https://<global.platformExternalDomain>` |
-| `SEQERA_PLATFORM_API_URL` | `http://<global.platformServiceAddress>:<global.platformServicePort>` |
-| `SEQERA_MCP_URL` | `https://<global.mcpDomain>/mcp` |
-| `ORG_CREDITS_ENABLED` | Set with `agent-backend.extraEnvVars`; use `false` for Enterprise deployments that do not use Seqera Cloud credits. |
-
 ### Configure AWS Bedrock
 
 Configure Bedrock so Claude inference and Titan embeddings run in your AWS account. Bedrock is the recommended Enterprise configuration.
