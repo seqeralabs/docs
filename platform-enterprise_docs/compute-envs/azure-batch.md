@@ -158,7 +158,7 @@ Therefore, you must create both an Entra service principal and a managed identit
 3. When using Batch Forge, provide the managed identity resource ID for each managed identity. Seqera Platform assigns the identity to each pool during creation.
 
 :::note
-Entra service principal credentials support both Batch Forge and Manual compute environments. Some features, such as VNet/subnet configuration, require Entra credentials. When using Entra credentials, a managed identity is recommended for best security practices, but is not mandatory.
+Entra service principal credentials support both Batch Forge and Manual compute environments. Some features, such as VNet/subnet configuration and managed identities, require Entra credentials. When using Entra credentials, a managed identity is recommended for best security practices, but is not mandatory.
 :::
 
 ##### Service principal
@@ -171,9 +171,10 @@ To create an Entra service principal:
 2. Provide a name for the application. The application will automatically have a service principal associated with it.
 3. Assign roles to the service principal:
    1. Go to the Azure Storage account. Under **Access Control (IAM)**, select **Add role assignment**.
-   2. Select the **Storage Blob Data Reader** and **Storage Blob Data Contributor** roles.
+   2. Select the **Storage Blob Data Contributor** role.
    3. Select **Members**, then **Select Members**. Search for your newly created service principal and assign the role.
-   4. Repeat the same process for the Azure Batch account, using the **Azure Batch Data Contributor** role.
+   4. Repeat the same process for the Azure Batch account, using the **Azure Batch Contributor** role. This role is sufficient for pool creation and is narrower than the general **Contributor** role.
+   5. If you create a managed identity (recommended), also assign the **Managed Identity Operator** role to the service principal on each managed identity. Without this role, Seqera cannot attach the managed identity to a Batch pool.
 4. Platform will need credentials to authenticate as the service principal:
    1. Navigate back to the app registration. On the **Overview** page, save the **Application (client) ID** value for use in Platform.
    2. Select **Certificates & secrets**, then **New client secret**. A new secret is created containing a value and secret ID. Save both values securely for use in Platform.
@@ -181,7 +182,7 @@ To create an Entra service principal:
    - Enter a **Name** for the credentials
    - **Provider**: Azure
    - Select the **Entra** tab
-   - Complete the remaining fields: **Batch account name**, **Blob Storage account name**, **Tenant ID** (Application (client) ID in Azure), **Client ID** (Client secret ID in Azure), **Client secret** (Client secret value in Azure).
+   - Complete the remaining fields: **Batch account name**, **Blob Storage account name**, **Tenant ID** (Directory (tenant) ID in Azure), **Client ID** (Application (client) ID in Azure), **Client secret** (Client secret value in Azure).
 6. Delete the ID and secret values from their temporary location after they have been added to a credential in Platform.
 
 ##### Managed identity
@@ -190,24 +191,38 @@ To create an Entra service principal:
 To use managed identities, Seqera requires Nextflow version 24.06.0-edge or later.
 :::
 
-Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure.
+Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but it must run on Azure infrastructure and requires Entra service principal credentials. Pool creation with a managed identity attached uses the Azure Batch management plane, which only accepts Entra (AAD) tokens, so shared-key credentials cannot create pools with managed identities.
 
-When you use a compute environment with a managed identity attached to the Azure Batch Pool, Nextflow can use this managed identity for authentication. However, Seqera still needs to use access keys or an Entra service principal to submit the initial task to Azure Batch to run Nextflow, which will then proceed with the managed identity for subsequent authentication.
+When you use a compute environment with a managed identity attached to the Azure Batch pool, Nextflow uses this managed identity for authentication. Seqera still uses the Entra service principal to submit the initial Nextflow task; that task then proceeds with the managed identity for subsequent authentication.
 
 1. In Azure, create a user-assigned managed identity. See [Manage user-assigned managed identities][azure-managed-identity] for detailed steps. Take note of both the **client ID** and the **resource ID** of the managed identity when you create it.
-2. The user-assigned managed identity must have the necessary access roles for Nextflow. See [Required role assignments][nf-azure-roles] for more information.
-3. Associate the user-assigned managed identity with the Azure Batch Pool. See [Set up managed identity in your Batch pool][azure-batch-mi-pool] for more information.
+2. Assign the following roles to the managed identity:
+   - **Storage Blob Data Contributor** on the Azure Storage account, so the pool VMs can read inputs and write outputs.
+   - **AcrPull** on any Azure Container Registry the pipeline pulls images from. Without this role, container pulls fail when the pool VM authenticates via the managed identity.
+
+   See [Required role assignments][nf-azure-roles] for more information.
+3. Associate the user-assigned managed identity with the Azure Batch pool. See [Set up managed identity in your Batch pool][azure-batch-mi-pool] for more information.
 
    :::note
-   When you use separate head and worker pools, you can assign a different managed identity to head and worker pools. Each pool receives only the managed identity relevant to its role.
+   When you use separate head and worker pools, you can assign a different managed identity to each pool. Typically, the head managed identity needs broader Batch and storage permissions, while the worker managed identity only needs storage and `AcrPull` access.
    :::
 
-4. When you set up the Seqera compute environment, select the Azure Batch pool by name and enter the managed identity **client ID** and (optionally) the **resource ID** in the specified fields. The resource ID is the full ARM path of the managed identity (e.g., `/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}`).
+4. When you set up the Seqera compute environment, provide the managed identity details in the specified fields. The form has four managed identity fields — a **client ID** and a **resource ID** for both the head pool and the worker pool:
 
-When you submit a pipeline to this compute environment, Nextflow will authenticate using the managed identity associated with the Azure Batch node it runs on, rather than relying on access keys.
+   - **Resource IDs** are the full ARM paths of the managed identities (e.g., `/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}`). Seqera passes these to Azure Batch at pool-create time to attach the managed identity to the head pool and worker pool VMs respectively. Resource IDs are required when using Batch Forge.
+   - **Client IDs** are passed to Nextflow, Fusion, and AzCopy on the pool VMs. The Azure Instance Metadata Service uses the client ID to mint a token for the correct managed identity. A VM can have multiple managed identities attached, so the consumer must specify which one to use.
+
+   You can use the same managed identity for both head and worker pools by entering the same values in both pairs of fields, but separate identities are recommended so that worker RBAC can stay narrower than head RBAC.
+
+   The four fields work for both single-pool and dual-pool topologies:
+
+   - **Single-pool** (head pool only): both managed identities are attached to the same VMs. The client IDs disambiguate which managed identity each consumer authenticates as.
+   - **Dual-pool** (separate head and worker pools): each pool has only its own managed identity attached, so disambiguation is implicit at the VM level. The client IDs are still required so that consumers know which managed identity is theirs.
+
+When you submit a pipeline to this compute environment, Nextflow authenticates using the managed identity associated with the Azure Batch node it runs on, rather than relying on access keys.
 
 :::caution
-If a managed identity is misconfigured (e.g., invalid client ID or missing RBAC roles), the pipeline will fail with an explicit error. Seqera will not silently fall back to access key authentication.
+If a managed identity is misconfigured (for example, invalid client ID or missing RBAC roles), the pipeline fails with an explicit error. Seqera will not silently fall back to access key authentication.
 :::
 
 ## Add Seqera compute environment
