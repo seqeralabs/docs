@@ -390,6 +390,18 @@ Configuration values to enable computing platforms and customize Batch Forge res
 </TabItem>
 </Tabs>
 
+### Compute environment cleanup
+
+A scheduled cron job can transition compute environments that are stuck in `CREATING` or `DELETING` states into terminal states (`ERRORED` or `INVALID`). The cleanup job is disabled by default.
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+::table{file=configtables/compute_env_cleanup_env.yml}
+
+</TabItem>
+</Tabs>
+
 ## Git integration
 
 Seqera Platform has built-in support for public and private Git repositories. Create [Git provider credentials](../../git/overview) to allow Seqera to interact with the following services:
@@ -601,6 +613,18 @@ logger:
     org.hibernate.type: TRACE
     io.seqera.tower: TRACE
 ```
+
+</TabItem>
+</Tabs>
+
+### Audit log v2
+
+Configuration values for the v2 audit log subsystem and the audit log cleanup cron job. The v2 audit log adds support for pre/post change state capture and CSV export limits, and runs alongside the existing v1 table when `TOWER_AUDIT_LOG_V2_WRITE_MODE` is set to `dual`.
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+::table{file=configtables/audit_log_v2_env.yml}
 
 </TabItem>
 </Tabs>

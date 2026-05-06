@@ -1,12 +1,12 @@
 ---
 title: "Upgrade deployment"
 description: "Guidance for upgrading to Platform Enterprise version 26.1"
-date created: "2026-05-06"
+date created: "2025-11-11"
 last updated: "2026-05-06"
 tags: [enterprise, update, install]
 ---
 
-This page outlines the steps to upgrade your database instance and Platform Enterprise installation to version 26.1, including special considerations for upgrading from versions prior to 25.3.
+This page outlines the steps to upgrade your database instance and Platform Enterprise installation to version 26.1, including special considerations for upgrading from earlier versions.
 
 :::note
 - Make a backup of your Platform database prior to upgrade.
@@ -128,87 +128,40 @@ To preserve previous opt-in behaviour after upgrading, set `TOWER_DATA_STUDIO_AL
 
 The recommended Studios container template version for 26.1 is **0.9**. If you have customized your Studios container templates, update them to the 0.9 base images during this upgrade. Templates pinned to earlier Connect versions may no longer be supported. See the [Studios migration documentation](https://docs.seqera.io/platform-enterprise/studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
 
-### AWS lineage tracking via SQS (preview, AWS only)
+### AWS data lineage tracking via SQS (preview, AWS only)**
 
-26.1 introduces an optional lineage tracking dependency on Amazon SQS. **This is a preview feature available only on AWS deployments.** Self-hosted deployments and deployments on Azure or GCP are unaffected — no configuration change is required.
+26.1 introduces a preview of AWS data lineage tracking that depends on an Amazon SQS queue. This feature is AWS-only and disabled by default. If you plan to enable it, ensure your IAM policies grant the Seqera role the relevant SQS permissions in addition to the existing [Seqera IAM permissions](../compute-envs/aws-batch#iam-user-creation).
 
-If you are running on AWS and want to enable lineage tracking:
-
-1. Create an SQS standard queue in the same region as your Seqera deployment.
-2. Grant the Seqera IAM role `sqs:SendMessage`, `sqs:ReceiveMessage`, `sqs:DeleteMessage`, and `sqs:GetQueueAttributes` on the queue.
-3. Configure the queue URL via the lineage env var (variable name to be confirmed before release).
-
-This feature is in preview and is not enabled by default. It can be left unconfigured without affecting the upgrade.
-
-### Default Nextflow launcher
-
-The default Nextflow version embedded in the launcher image for 26.1 is **25.10.x** *(confirm exact tag at release cut)*. If you have customized the launcher image or are pinning to a specific Nextflow version via `NXF_VER`, review the [Nextflow 25.10 migration guide](https://www.nextflow.io/docs/latest/migrations.html) before upgrading.
-
-The launcher image tag for 26.1 is `quay.io/seqeralabs/nf-launcher:j17-25.10.x` *(confirm exact tag at release cut)*.
-
-### New environment variables in 26.1
-
-The following environment variables are new or changed in 26.1. See the [Configuration overview](../configuration/overview) for full descriptions.
-
-| Variable | Status | Notes |
-| --- | --- | --- |
-| `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES` | New | Controls Studios availability per workspace; default behaviour is "enabled on all workspaces" |
-
-*(Populate the rest from the diff of `ENVIRONMENT-VARIABLES.md` between v25.3 and v26.1 release tags before publishing.)*
-
-## General upgrade steps
+### General upgrade steps
 
 :::caution
 The database volume is persistent on the local machine by default if you use the `volumes` key in the `db` or `redis` section of your `docker-compose.yml` file to specify a local path to the DB or Redis instance. If your database is not persistent, you must back up your database before performing any application or database upgrades.
 :::
 
-1. Make a backup of the Seqera database. If you use the pipeline optimization service and your `groundswell` database resides in a separate database instance from your Seqera database, back up your `groundswell` database as well.
+1. Make a backup of the Seqera database. If you use the pipeline optimization service and your `groundswell` database resides in a database instance separate from your Seqera database, make a backup of your `groundswell` database as well.
+1. Download the latest versions of your deployment templates and update your Seqera container versions:
+    - [docker-compose.yml](./_templates/docker/docker-compose.yml) for Docker Compose deployments
+    - [tower-cron.yml](./_templates/k8s/tower-cron.yml) and [tower-svc.yml](./_templates/k8s/tower-svc.yml) for Kubernetes deployments
+1. If you're using Studios, download and apply the latest versions of the Kubernetes manifests:
+    - [proxy.yml](./_templates/k8s/data_studios/proxy.yml)
+    - [server.yml](./_templates/k8s/data_studios/server.yml)
 
-2. **If applicable, complete the prerequisite migrations covered in "Version 26.1 upgrade considerations" above** before continuing:
-   - Database upgrade (MySQL 5.7 / 8.0 / MariaDB → MySQL 8.4)
-   - Redis 6 upgrade (→ Redis 7.2+ or Valkey 7+)
-   - Frontend image migration (root → unprivileged)
-   - Studios opt-out configuration if you do not want Studios enabled on all workspaces
+    :::warning
+    If you have customized the default Studios container template images, you must ensure that you update to latest recommended versions. Templates using earlier versions of Connect (than defined in the latest `proxy.yml` and `server.yml`) may no longer be supported in your existing Studios environments. Refer to the [Studios migration documentation](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template) for guidance on migrating to the most recent versions of Connect server and clients.
+    :::
 
-3. Download the latest deployment templates and update your Seqera container versions:
-   - `docker-compose.yml` for Docker Compose deployments
-   - `tower-cron.yml` and `tower-svc.yml` for Kubernetes deployments
+1. Restart the application.
+1. If you're using a containerized database as part of your implementation:
+    1. Stop the application.
+    1. Upgrade the MySQL image.
+    1. Restart the application.
+1. If you're using Amazon RDS or other managed database services:
+    1. Stop the application.
+    1. Upgrade your database instance.
+    1. Restart the application.
+1. If you're using the pipeline optimization service (`groundswell` database) in a database separate from your Seqera database, update the MySQL image for your `groundswell` database instance while the application is down (during step 4 or 5 above). If you're using the same database instance for both, the `groundswell` update will happen automatically during the Seqera database update.
 
-4. **JVM memory configuration defaults (recommended)**: The following `JAVA_OPTS` environment variable is included in the deployment templates downloaded in the preceding step, to optimize JVM memory settings:
-
-   ```
-   JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
-   ```
-
-   These baseline values are suitable for most deployments running moderate concurrent workflow loads.
-
-   :::tip
-   These are starting recommendations that may require tuning based on your deployment's workload. See [Backend memory requirements](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#backend-memory-requirements) for detailed guidance on when and how to adjust these values for your environment.
-   :::
-
-5. If you're using Studios, download and apply the latest 26.1 versions of the Kubernetes manifests:
-   - `proxy.yml`
-   - `server.yml`
-
-  :::warning
-  If you have customized the default Studios container template images, you must ensure that you update to the latest recommended versions for 26.1 (template version 0.9). Templates using earlier versions of Connect may no longer be supported in your existing Studios environments. Refer to the [Studios migration documentation](https://docs.seqera.io/platform-enterprise/studios/managing#migrate-a-studio-from-an-earlier-container-image-template) for guidance on migrating to the most recent versions of Connect server and clients.
-  :::
-
-6. Restart the application.
-
-7. If you're using a containerized database as part of your implementation:
-   1. Stop the application.
-   2. Upgrade the MySQL image to MySQL 8.4.
-   3. Restart the application.
-
-8. If you're using Amazon RDS or other managed database services:
-   1. Stop the application.
-   2. Upgrade your database instance per the database table above (MySQL 5.7 / 8.0 → 8.4).
-   3. Restart the application.
-
-9. If you're using the pipeline optimization service (`groundswell` database) in a database separate from your Seqera database, update the MySQL image for your `groundswell` database instance while the application is down (during step 7 or 8 above). If you're using the same database instance for both, the `groundswell` update will happen automatically during the Seqera database update.
-
-## Custom deployments
+### Custom deployments
 
 - Run the `/migrate-db.sh` script provided in the `migrate-db` container. This will migrate the database schema.
 - Deploy Seqera following your usual procedures.
