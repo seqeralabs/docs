@@ -2,10 +2,9 @@
 title: "Google Cloud"
 description: "Instructions to set up an Google Cloud CE in Seqera Platform"
 date created: "2025-07-15"
-tags: [cloud, vm, google, compute environment]
+last updated: "2026-05-05"
+tags: [cloud, vm, google, compute-environment]
 ---
-
-# Google Cloud
 
 :::note
 This compute environment type is currently in public preview. Consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have a GCP account with a valid subscription.
@@ -90,6 +89,10 @@ To create and launch pipelines or Studio sessions with this compute environment 
 - Service Usage Consumer (`roles/serviceusage.serviceUsageConsumer`)
 
 If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal [on each bucket individually](https://docs.seqera.io/platform-cloud/compute-envs/google-cloud-batch#cloud-storage-bucket). For each Google Cloud compute environment created in the Seqera platform, a separate service account is created with the necessary permissions to launch pipelines/studios.
+
+#### Userdata script error detection (optional)
+
+Platform can retrieve the serial port output of the Compute Engine instance to detect errors in the userdata script that bootstraps the VM during instance startup. This capability is included in the `roles/compute.instanceAdmin.v1` role listed above. If you use a custom role instead, include the `compute.instances.getSerialPortOutput` permission. Without this permission, userdata script failures are not detected, and no warning is shown.
 
 ## Advanced options
 
