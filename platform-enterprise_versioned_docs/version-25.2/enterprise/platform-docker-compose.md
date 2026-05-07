@@ -32,6 +32,10 @@ See [Database configuration](./configuration/overview#seqera-and-redis-databases
 
 ## Redis configuration
 
+:::info
+The bundled `redis` container in `docker-compose.yml` is intended for evaluation and small workloads. For production, use a managed service or an [official Redis installation source](https://redis.io/docs/latest/operate/oss_and_stack/install/).
+:::
+
 Configure the Redis connection URL in your Seqera environment:
 
 ```bash
@@ -52,7 +56,7 @@ Use a managed Redis service for production:
 
 3. Download and configure the [docker-compose.yml](_templates/docker/docker-compose.yml) file:
 
-      - The `db` container should be used only for local testing. If you have configured this service elsewhere, you can remove this container.
+      - The `db` and `redis` containers should be used only for local testing. If you have configured these services elsewhere, you can remove these containers.
 
       - To configure the Seqera pipeline optimization service (`groundswell`), see [Pipeline optimization](./configuration/pipeline_optimization).
 
@@ -76,11 +80,11 @@ For more information on configuration, see [Configuration options](./configurati
 
 An unprivileged version of the Seqera frontend image is also available. This image listens on an unprivileged port and therefore doesn't need to be run as the root user.
 
-Replace the tag of the frontend image `cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x` with `cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x-unprivileged`. Then update the `frontend` section of the `docker-compose.yml` file as follows, replacing the port mappings as needed:
+Replace the tag of the frontend image `cr.seqera.io/enterprise/platform/frontend:v24.x.x` with `cr.seqera.io/enterprise/platform/frontend:v24.x.x-unprivileged`. Then update the `frontend` section of the `docker-compose.yml` file as follows, replacing the port mappings as needed:
 
 ```yaml
   frontend:
-    image: cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x-unprivileged
+    image: cr.seqera.io/enterprise/platform/frontend:v24.x.x-unprivileged
     platform: linux/amd64
     environment:
       NGINX_LISTEN_PORT: 8001  # If not defined, defaults to 8000

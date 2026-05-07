@@ -1,15 +1,11 @@
 ---
 title: "Working with Codex"
-description: "Install and maintain the Seqera AI skill for Codex"
+description: "Install and maintain the Co-Scientist skill for Codex"
 date created: "2026-03-11"
-tags: [seqera-ai, cli, skills, codex]
+tags: [seqera-ai, co-scientist, cli, skills, codex]
 ---
 
-:::note
-Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
-:::
-
-The `seqera skill` command installs a skill file that enables [Codex](https://openai.com/codex) to use Seqera AI as a subagent. Once installed, Codex can invoke Seqera AI directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
+The `seqera skill` command installs a skill file that enables [Codex](https://openai.com/codex) to use Co-Scientist as a subagent. Once installed, Codex can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
 
 ### `seqera skill install`
 
@@ -89,6 +85,7 @@ seqera skill check [OPTIONS]
 ### Learn more
 
 - [Skills](./skills.md): Discover, create, and install skills
-- [Use cases](./use-cases.md): Seqera AI CLI use cases
+- [Use cases](./use-cases.md): Co-Scientist CLI use cases
 - [Code intelligence](./nextflow-lsp.md): Language-aware coding support
 - [Installation](./installation.md): Detailed installation instructions
+- [Credits](./credits.md): Co-Scientist credits and how to request more

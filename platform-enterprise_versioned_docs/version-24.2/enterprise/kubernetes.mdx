@@ -74,6 +74,10 @@ The `configmap.yml` manifest includes both the `tower.env` and `tower.yml` files
 
 ### Redis
 
+:::warning
+The in-cluster Redis manifests below are provided for convenience only. They pull from Docker Hub's public registry (rate limits apply without authentication). For production deployments, use a managed Redis service or an [official Redis installation source](https://redis.io/docs/latest/operate/oss_and_stack/install/).
+:::
+
 Seqera Enterprise requires a Redis database for caching purposes. Configure Redis manually by deploying a manifest to your cluster, or configure a managed Redis service.
 
 #### Deploy a Redis manifest to your cluster
@@ -164,7 +168,7 @@ To deploy the manifest to your cluster, run the following:
 
 An unprivileged version of the Seqera frontend image is also available. This image listens on an unprivileged port and therefore doesn't need to be run as the root user.
 
-Replace the tag of the frontend image `cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x` with `cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x-unprivileged`. In the `frontend` service below, specify the `targetPort` to match the environment variable `NGINX_LISTEN_PORT` (see below):
+Replace the tag of the frontend image `cr.seqera.io/enterprise/platform/frontend:v24.x.x` with `cr.seqera.io/enterprise/platform/frontend:v24.x.x-unprivileged`. In the `frontend` service below, specify the `targetPort` to match the environment variable `NGINX_LISTEN_PORT` (see below):
 
 ```yaml
 ---
@@ -178,7 +182,7 @@ spec:
   ...
       containers:
         - name: frontend
-          image: cr.seqera.io/private/nf-tower-enterprise/frontend:v24.2.4-unprivileged
+          image: cr.seqera.io/enterprise/platform/frontend:v24.2.4-unprivileged
           env:
             - name: NGINX_LISTEN_PORT  # If not defined, defaults to 8000.
               value: 8000
@@ -253,24 +257,6 @@ Seqera Platform offers a service that optimizes pipeline resource requests. Refe
 :::note
 Studios is currently in **public preview** and is available from Seqera Platform v24.1. If you experience any problems during the deployment process [contact Seqera support](https://support.seqera.io). Studios in Enterprise is not installed by default.
 :::
-
-### Database console
-
-Use the [dbconsole.yml](_templates/k8s/dbconsole.yml) manifest to deploy a simple web frontend to the Seqera database. Though not required, this can be useful for administrative purposes.
-
-1. Deploy the database console:
-
-    ```bash
-    kubectl apply -f dbconsole.yml
-    ```
-
-1. Enable a port-forward for the database console to your local machine:
-
-    ```bash
-    kubectl port-forward deployment/dbconsole 8080:8080
-    ```
-
-1. Access the database console in a web browser at `http://localhost:8080`.
 
 ### High availability
 

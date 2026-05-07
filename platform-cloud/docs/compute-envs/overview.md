@@ -27,13 +27,17 @@ Each compute environment must be configured to enable Seqera to submit tasks. Se
 - [Amazon EKS](./eks)
 - [Google Kubernetes Engine](./gke)
 
+:::note
+Compute Environments now support descriptions. Enter a description during creation to provide context and information. To update a description, select **Edit** from the menu of the relevant compute environment. You can update descriptions at any time (e.g., to reflect a status change), up to a 1000-character limit. You can also add descriptions to existing compute environments that don't have one.
+:::
+
 ## Select default compute environment
 
 If you have more than one compute environment, you can select a workspace primary compute environment to be used as the default when launching pipelines in that workspace. In a workspace, select **Compute Environments**. Then select **Make primary** from the options menu next to the compute environment you wish to use as default.
 
 ## Rename compute environment
 
-You can edit the names of compute environments in private and organization workspaces. Select **Rename** from the options menu next to the compute environment you wish to edit.
+You can edit the names of compute environments in private and organization workspaces. Select **Edit** from the options menu next to the compute environment you wish to edit.
 
 Select **Update** on the edit page to save your changes after you have updated the compute environment name.
 
@@ -78,3 +82,40 @@ process {
   }
 }
 ```
+
+### GPU metrics
+
+:::note
+Detailed GPU metrics are only available for tasks that run with Fusion version 2.5.10 onwards and using Nextflow version 26.03.3-edge onwards
+:::
+
+When [Fusion](https://docs.seqera.io/fusion) is enabled, Seqera Platform automatically collects GPU metrics for tasks that run on NVIDIA GPU instances. No additional configuration is required beyond enabling Fusion and provisioning GPU instances in your compute environment.
+
+The following metrics are collected per task:
+
+- **GPU type**: The GPU model (e.g., NVIDIA A10G, A100).
+- **Driver version**: The NVIDIA driver version in use.
+- **GPU utilization %**: The percentage of GPU compute capacity used.
+- **GPU memory peak**: The maximum GPU memory used during execution.
+- **GPU memory average**: The average GPU memory used during execution.
+
+For tasks that use multiple GPUs, metrics are aggregated (average or peak across all GPUs assigned to the task) and displayed as a single combined value per task.
+
+#### Where GPU metrics appear
+
+- **Task detail view**: Select a GPU task in the task table to view GPU type, driver version, utilization, and memory metrics alongside existing CPU metrics.
+
+  ![GPU metrics in task detail view](./_images/gpu-metrics-task.png)
+
+- **Metrics tab**: A dedicated **GPU** section displays box-and-whisker plots grouped by task name, with tabs for **GPU Utilization %**, **Memory Peak**, and **Memory Average**. This section appears only when the workflow includes tasks with GPU data.
+
+  ![GPU utilization](./_images/gpu-metrics-utilization.png)
+
+  ![GPU memory peak](./_images/gpu-metrics-memory-peak.png)
+
+  ![GPU memory average](./_images/gpu-metrics-memory-average.png)
+- **Platform API**: GPU metrics are included in [task](https://docs.seqera.io/platform-api/describe-workflow-task) and [workflow](https://docs.seqera.io/platform-api/list-workflow-tasks) API responses for programmatic access.
+
+:::note
+GPU metrics are only available for tasks that run with Fusion enabled on NVIDIA GPU instances. Non-GPU tasks do not display a GPU metrics section. For tasks that fail mid-execution, partial metrics collected up to the point of failure are shown.
+:::

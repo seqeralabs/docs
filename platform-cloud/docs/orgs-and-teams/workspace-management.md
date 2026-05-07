@@ -2,7 +2,7 @@
 title: "Workspaces"
 description: "Manage users and teams for an organization in Seqera Platform."
 date created: "2023-04-23"
-last updated: "2026-03-02"
+last updated: "2026-04-29"
 tags: [workspaces, teams, users, administration, user-workspace, create-workspace, credits, settings]
 ---
 
@@ -35,7 +35,7 @@ Apart from the **Participants** tab, the _organization_ workspace is similar to 
 
 ## Workspace settings
 
-Select the **Settings** tab within a workspace to manage credits, Studios settings, workspace labels, and edit or delete the workspace.
+Select the **Settings** tab within a workspace to manage credits, Studios settings, workspace labels, lineage storage and defaults, and edit or delete the workspace.
 
 ### Credits
 
@@ -66,6 +66,92 @@ Studios sessions created in shared workspaces are not shared across all the work
 ### Edit labels
 
 Select **Edit labels** to manage the workspace [labels and resource labels](../labels/overview).
+
+### Lineage
+
+:::note
+Data lineage is made available on request. Please contact your Seqera account manager.
+:::
+
+The **Lineage** card lets workspace maintainers configure where Nextflow records are stored and whether lineage tracking is on by default for every run launched in the workspace.
+
+Select **Lineage** to open the **Edit lineage settings** form:
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| **Credentials** | Yes | The workspace credentials Platform uses to create and access the lineage storage bucket. The credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage auto provisioned SQS . See [Credentials](#credentials). |
+| **Region** | Yes | Cloud region where the lineage storage bucket is created (for example, `us-east-1`, `eu-west-1`). |
+| **Bucket name** | No | Bucket where lineage records are stored. If left empty, Platform generates a default bucket name in the form `seqera-lineage-<workspace-id>`. |
+| **Enable lineage by default** | No (toggle) | When enabled, the launch form lineage toggle defaults to on for every run launched in this workspace. Users can still override per run. |
+
+#### Credentials
+
+The credentials required for lineage are indicated below in an example AWS policy.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+  ///  ---- LINEAGE SPECIFIC
+            "Sid": "SQSQueueActions",
+            "Effect": "Allow",
+            "Action": [
+                "sqs:CreateQueue",
+                "sqs:GetQueueAttributes",
+                "sqs:SetQueueAttributes",
+                "sqs:ReceiveMessage",
+                "sqs:DeleteMessage"
+            ],
+            "Resource": "arn:aws:sqs:*:*:seqera-lineage-*"
+        },
+///  ----
+        {
+            "Sid": "S3BucketActions",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:CreateBucket",
+/// LINEAGE SPECIFIC
+                "s3:PutBucketNotification",
+                "s3:GetBucketNotification"
+/// ----
+            ],
+            "Resource": "arn:aws:s3:::seqera-lineage-*"
+        },
+        {
+            "Sid": "S3ObjectActions",
+            "Effect": "Allow",
+            "Action": "s3:*Object",
+            "Resource": "arn:aws:s3:::seqera-lineage-*/*"
+        },
+        {
+            "Sid": "S3ObjectTagging",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObjectTagging",
+                "s3:GetObjectTagging"
+            ],
+            "Resource": "arn:aws:s3:::seqera-lineage-*/*"
+        }
+    ]
+}
+```
+
+:::note
+Platform creates and manages the lineage storage bucket using the configured workspace credentials. You do not need to pre-create a bucket. Platform handles bucket creation through the same credentials model used by [Data Explorer](../data/data-explorer). Platform also manages configuration of object store notifications, and SQS.
+:::
+
+:::tip
+For compliance-driven teams (regulated industries, audit-tracked work), set **Enable lineage by default** to on so every run automatically captures provenance. Lineage records persist for the lifetime of the configured bucket, so coordinate with your team on retention policies.
+:::
+
+When lineage is enabled:
+
+- The [Run details](../monitoring/run-details) page surfaces lineage IDs and labels on the Run Info, Tasks, Inputs, and Outputs tabs.
+- [Data Explorer](../data/data-explorer) object previews show the lineage ID and labels for files produced by lineage-enabled runs.
+
+The launch form toggle's default state is controlled by **Enable lineage by default**. Users can override default behavior for an individual run via the launch form toggle. See [Getting started with data lineage](https://docs.seqera.io/nextflow/tutorials/data-lineage) for the underlying lineage data model.
 
 ### Edit or delete a workspace
 
