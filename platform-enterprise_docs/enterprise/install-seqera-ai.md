@@ -1,233 +1,268 @@
 ---
-title: "Seqera AI"
-description: Install and configure Seqera AI for Seqera Platform Enterprise
-date: "2026-02-03"
+title: "Co-Scientist"
+description: Install and configure Co-Scientist for Seqera Platform Enterprise
+date: "2026-05-04"
 tags: [seqera-ai, installation, deployment, aws, helm]
 ---
 
 :::caution
-Seqera AI requires Seqera Platform Enterprise 26.1 or later for the agent backend, MCP server, portal web interface, and CLI integration.
+Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. This guide covers the Enterprise 26.1 deployment path for the agent backend, MCP server, web interface, and Seqera CLI.
 :::
 
-Seqera AI is an intelligent command-line assistant that helps you build, run, and manage bioinformatics workflows. This guide describes how to deploy Seqera AI in a Seqera Enterprise deployment.
+Deploy the agent backend, Seqera MCP server, and web interface alongside Platform to provide Co-Scientist assistance for workflows, data, projects, and Platform resources in the Seqera CLI and browser.
 
 ## Prerequisites
 
-Before you begin, you need:
+Before you begin, make sure you have:
 
-- **Seqera Enterprise 26.1+** deployed via [Helm](./platform-helm.md)
-- **MySQL 8.0+ database**
-- **API key** from a supported inference provider (see below)
-- **MCP server** deployed and accessible from your cluster
-- **OIDC-compatible identity provider** for the portal web interface, MCP server, and CLI login flow
-- **Token encryption key** for encrypting sensitive tokens at rest. Generate with:
+- Seqera Platform Enterprise 25.3.6 or later deployed with the [Seqera Platform Helm chart](./platform-helm.md).
+- Helm v3 and `kubectl` installed locally.
+- DNS names and TLS certificates for the Platform, agent backend, MCP server, and portal web interface hosts. By default, the Helm charts derive `mcp.<platformExternalDomain>`, `ai-api.<platformExternalDomain>`, and `ai.<platformExternalDomain>`. Override `global.mcpDomain`, `global.agentBackendDomain`, and `global.portalWebDomain` if you use different hostnames.
+- Access to pull the images required by the Helm charts from the configured container registry, or mirrored copies in your internal registry. See [Seqera container images](./advanced-topics/seqera-container-images.md) and [Mirroring container images](./configuration/mirroring.md).
+- A MySQL 8.4 LTS-compatible database for the agent backend. You can use the same MySQL instance as Platform with a separate database and user, or a separate instance.
+- A Redis 7.2-compatible or Valkey 7.2-compatible instance for agent backend task coordination.
+- A stable Fernet token encryption key for the agent backend if you use Kustomize or need encrypted values to survive chart upgrades. Helm-only installs can let the chart generate this key, but explicitly setting it avoids accidental regeneration.
+- Access to a supported Claude inference provider. AWS Bedrock is recommended for Enterprise deployments; direct Anthropic API access is also supported.
+- If you use AWS Bedrock, access to the required Claude model or inference profile and the Amazon Titan embedding model. See AWS documentation to [add or remove access to Amazon Bedrock foundation models](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access-modify.html).
+- If you use direct Anthropic API access, an Anthropic API key stored in a Kubernetes Secret.
 
-    ```bash
-    python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
-    ```
-- [Helm v3](https://helm.sh/docs/intro/install) and [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
+Generate a Fernet token encryption key when you set the key manually:
 
-## Supported inference providers
+```bash
+python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+```
 
-Seqera AI uses Claude models from Anthropic. The following inference providers are supported for Enterprise deployments:
+Store database passwords, Redis or Valkey passwords, OIDC token values, image pull credentials, and encryption keys in Kubernetes Secrets. Reference those Secrets from Helm values instead of committing plaintext values.
+
+## Inference providers
+
+Co-Scientist supports two Claude inference providers. AWS Bedrock is recommended for Enterprise deployments, especially when inference must run in your AWS account or your organization wants to avoid direct egress to Anthropic. Direct Anthropic API access remains supported when your organization has approved that integration.
 
 | Inference provider | Description |
-|--------------------|-------------|
-| **Anthropic API** | Direct access to Claude models via Anthropic's API ([console.anthropic.com](https://console.anthropic.com/)) |
-| **AWS Bedrock** | Access Claude models through [AWS Bedrock](https://aws.amazon.com/bedrock/) in your AWS account |
+| --- | --- |
+| AWS Bedrock | Recommended. Runs Claude inference in your AWS account through Bedrock. |
+| Anthropic API | Uses Anthropic-hosted Claude models through an Anthropic API key. |
 
-## Architecture
+Documentation semantic search is configured separately from chat inference. Use Amazon Titan embeddings through Bedrock when you enable improved documentation search.
 
-Seqera AI connects your local CLI environment to your Platform resources through a secure backend service:
-
-![Seqera AI infrastructure architecture](./_images/seqera-ai-infrastructure.png)
-
-**Components:**
+## Components
 
 | Component | Description |
-|-----------|-------------|
-| **Agent backend** | FastAPI service that orchestrates AI interactions. Deployed as a Helm subchart alongside Platform. |
-| **MCP server** | Model Context Protocol server providing Platform-aware tools (workflows, datasets, compute environments). |
-| **Portal web interface** | Browser-based interface for Seqera AI and related Platform features. |
-| **MySQL database** | Dedicated database for session state and conversation history. **Separate from Platform database**. |
+| --- | --- |
+| Agent backend | FastAPI and LangGraph service that orchestrates Co-Scientist sessions, validates Platform tokens, calls the configured inference provider, connects to MCP, and streams Server-Sent Events (SSE) to clients. |
+| Seqera MCP server | Model Context Protocol server that exposes Platform-aware tools for workflows, datasets, compute environments, Wave, Hub, and nf-core. |
+| Portal web interface | Browser interface for Co-Scientist chat, projects, thread history, report viewing, and related Platform workflows. |
+| MySQL | Agent backend database for sessions, threads, token usage records, and conversation history. |
+| Redis or Valkey | Agent backend queue and coordination store. |
 
-**Flow:**
+## Deployment topology
 
-1. Users authenticate via `seqera login`, which initiates OIDC authentication with Platform.
-1. The CLI creates a session with the agent backend, passing the Platform access token.
-1. The agent backend validates tokens against Platform's `/user-info` endpoint.
-1. User prompts are processed by the inference provider, which can invoke Platform tools via MCP.
-1. MCP tools execute Platform operations using the user's credentials.
-1. Results stream back to the CLI via Server-Sent Events (SSE).
+The recommended Enterprise topology is using the `platform` Seqera Helm chart with the `mcp`, `agent-backend`, and `portal-web` subcharts enabled. The Platform Helm chart automatically wires the MCP OIDC client registration token from the Platform backend Secret, reducing the number of manual steps required.
+
+Use separate Helm releases when you cannot convert your existing Platform installation to using the Helm chart or your environment requires separate lifecycle ownership. If you deploy the charts separately, you must manually configure:
+
+- `global.platformServiceAddress` and `global.platformServicePort` on each AI chart so they can reach the Platform backend service using the cluster-internal endpoint.
+- `oidcToken.existingSecretName` and `oidcToken.existingSecretKey` with the same OIDC client registration token configured for the Platform backend.
+- Matching external DNS and TLS for `global.mcpDomain`, `global.agentBackendDomain`, and `global.portalWebDomain`.
 
 ## Configure Helm values
 
-The Seqera AI components can be installed using the [Seqera Helm charts](https://github.com/seqeralabs/helm-charts). Refer to the examples in the repository for sample configurations.
-Some values (like database passwords, API keys, sensitive OIDC settings, cryptographic keys) are recommended to be stored as Kubernetes secrets and referenced in the Helm values in production installations, rather than be specified as plain text.
+Enable the three Co-Scientist subcharts in your Platform values file. This example uses the Platform parent chart, so the same Helm release also deploys or upgrades Platform. Include the required Platform values from your existing installation in addition to these Co-Scientist values.
 
-The Seqera AI components can be installed alongside Platform and other subcharts in a single Helm release, or can be installed individually as separate releases.
+```yaml
+global:
+  platformExternalDomain: platform.example.com
+  mcpDomain: mcp.platform.example.com
+  agentBackendDomain: ai-api.platform.example.com
+  portalWebDomain: ai.platform.example.com
 
-Documentation for the individual charts is available at:
-- [Agent backend](https://github.com/seqeralabs/helm-charts/tree/master/platform/charts/agent-backend)
-- [MCP server](https://github.com/seqeralabs/helm-charts/tree/master/platform/charts/mcp)
-- [Portal web interface](https://github.com/seqeralabs/helm-charts/tree/master/platform/charts/portal-web)
+mcp:
+  enabled: true
 
-### Additional configuration
+agent-backend:
+  enabled: true
 
-The following optional environment variables are not covered by the Helm chart values. Set them in the `.extraEnvVars` section of each chart as needed.
+portal-web:
+  enabled: true
+```
 
-#### Agent backend
+For a complete example, see the [Co-Scientist Helm example](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/examples/seqera-ai).
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `ANTHROPIC_MODEL` | Primary model for AI interactions | `claude-sonnet-4-6` |
-| `FAST_MODEL` | Model for quick tasks (search, summaries) | `claude-haiku-4-5-20251001` |
-| `DEEP_MODEL` | Model for complex planning tasks | `claude-opus-4-5-20251101` |
-| `SEQERA_PLATFORM_URL` | Platform UI URL for constructing links to runs and pipelines | Automatically derived from platform domain |
-| `SESSION_TIMEOUT_SECONDS` | Session timeout | `86400` (24 hours) |
-| `MAX_SESSIONS_PER_USER` | Max concurrent sessions per user | `10` |
-| `SESSION_RETENTION_DAYS` | Days to retain session data | `14` |
-| `CORS_ORIGINS` | Allowed CORS origins (JSON array) | `["*"]` |
+## Configure MCP
+
+When MCP runs under the Platform parent chart, leave `mcp.oidcToken` unset unless you need to override the default wiring. The parent chart sets it to the Platform backend Secret key `OIDC_CLIENT_REGISTRATION_TOKEN`.
+
+
+## Configure the agent backend
+
+The agent backend needs MySQL, Redis or Valkey, inference provider access, MCP connectivity, and a stable token encryption key. In this example sensitive values (db and redis passwords, token encryption key, etc) are stored in a kubernetes secret named `seqera-ai-secrets`, which needs to already exist before the chart installation, either created manually or with automated secret extraction tools (like External Secrets, not covered in this tutorial).
+
+```yaml
+agent-backend:
+  enabled: true
+
+  database:
+    host: mysql.example.com
+    name: agent_backend
+    username: agent_backend
+    existingSecretName: seqera-ai-secrets
+    existingSecretKey: AGENT_BACKEND_DB_PASSWORD
+
+  redis:
+    host: redis.example.com
+    db: 0
+    existingSecretName: seqera-ai-secrets
+    existingSecretKey: AGENT_BACKEND_REDIS_PASSWORD
+
+  tokenEncryptionKeyExistingSecretName: seqera-ai-secrets
+```
+
+Use the `redis` values block for Redis-compatible services, including Valkey.
+
+### Configure AWS Bedrock
+
+Configure Bedrock so Claude inference and Titan embeddings run in your AWS account. Bedrock is the recommended Enterprise configuration.
+
+```yaml
+agent-backend:
+  bedrockAssumeRoleArn: arn:aws:iam::<account-id>:role/<bedrock-access-role>
+  bedrockAnthropicModel: arn:aws:bedrock:<region>:<account-id>:inference-profile/<profile-name>
+
+  embeddings:
+    bedrock:
+      region: eu-west-2
+      modelId: amazon.titan-embed-text-v2:0
+      dimensions: "1024"
+```
+
+Use `bedrockAssumeRoleArn` when the agent backend pod must assume a role for Bedrock inference, Bedrock embeddings, or AgentCore access. Leave it empty when the pod already has direct AWS credentials for the target account.
+
+### Configure direct Anthropic API access
+
+Use direct Anthropic API access only when your organization has approved Anthropic-hosted Claude models. Set the Anthropic API key from a Secret and disable Bedrock inference:
+
+```yaml
+agent-backend:
+  anthropicApiKeyExistingSecretName: seqera-ai-secrets
+  extraEnvVars:
+    - name: USE_BEDROCK_INFERENCE
+      value: "false"
+```
+
+Documentation search embeddings are independent from chat inference. Keep Titan embeddings configured through Bedrock when you use improved documentation search.
+
+### Configure AgentCore sandbox sessions
+
+If your deployment uses AWS Bedrock AgentCore for sandboxed execution, set the AgentCore runtime ARN:
+
+```yaml
+agent-backend:
+  bedrockAgentCoreArn: arn:aws:bedrock-agentcore:<region>:<account-id>:runtime/<runtime-id>
+```
+
+## Configure the portal web interface
+
+The portal web chart serves the browser interface and proxies requests to the agent backend. It derives Platform OIDC settings from the Platform domain and uses the fixed Enterprise client values required by the application.
+
+```yaml
+portal-web:
+  enabled: true
+```
+
+Expose MCP, agent backend, and portal web through the chart ingress only if you use Kubernetes Ingress. If you use the Gateway API or another network layer, configure that layer instead.
+
+The chart sets:
+
+| Environment variable | Value |
+| --- | --- |
+| `SEQERA_PLATFORM_API_URL` | `http://<global.platformServiceAddress>:<global.platformServicePort>` |
+| `SEQERA_PLATFORM_APP_URL` | `https://<global.platformExternalDomain>` |
+| `SEQERA_AGENT_BACKEND_URL` | `https://<global.agentBackendDomain>` |
+| `SEQERA_AUTH_DOMAIN` | `https://<global.platformExternalDomain>/api` |
+
+Set optional observability or feature flag variables with `portal-web.extraEnvVars` only if your Enterprise environment uses them.
+
+## Install or upgrade
+
+Run Helm with your Platform values and Co-Scientist overrides:
+
+```bash
+helm upgrade --install seqera oci://public.cr.seqera.io/charts/platform \
+  --namespace seqera \
+  --values values.yaml
+```
+
+After installation, verify the pods are ready:
+
+```bash
+kubectl get pods -n seqera -l app.kubernetes.io/component=mcp
+kubectl get pods -n seqera -l app.kubernetes.io/component=agent-backend
+kubectl get pods -n seqera -l app.kubernetes.io/component=portal-web
+```
 
 ## Verify the installation
 
-1. Check the health endpoint of the agent backend and mcp to verify connectivity:
+Check the public endpoints:
 
-    ```bash
-    curl -i https://ai-api.platform.example.com/health
-    curl -i https://mcp.platform.example.com/health
-    curl -i https://mcp.platform.example.com/service-info
-    ```
+```bash
+curl -i https://ai-api.platform.example.com/health
+curl -i https://mcp.platform.example.com/health
+curl -i https://mcp.platform.example.com/service-info
+curl -I https://ai.platform.example.com
+```
 
-## Connect the CLI to Seqera AI
+The agent backend `/health` endpoint returns `200 OK` when the service starts and required dependencies are reachable. The MCP server exposes `/health` for reachability and `/service-info` for server and protocol information. The portal web interface does not expose a matching `/service-info` endpoint; use the HTTP response and browser sign-in test to confirm it is reachable.
 
-Set `SEQERA_AI_BACKEND_URL` before running `seqera ai` so the CLI connects to the correct backend.
+Open the portal web interface, for example `https://ai.platform.example.com`, and sign in with your Platform account. A successful login confirms that Platform OIDC, portal web, and the agent backend are connected.
 
-Install the CLI first by following [Seqera AI CLI installation](../seqera-ai/installation.mdx), or install it directly with:
+## Connect the Seqera CLI to Co-Scientist
+
+Install the CLI from the official [`seqera` npm package](https://www.npmjs.com/package/seqera):
 
 ```bash
 npm install -g seqera
 ```
 
-Use your Enterprise deployment:
+Point the CLI at your Enterprise deployment:
 
 ```bash
 export SEQERA_AUTH_DOMAIN=https://platform.example.com/api
-export SEQERA_AUTH_CLI_CLIENT_ID=seqera_ai_cli
-export SEQERA_AI_BACKEND_URL=https://ai.platform.example.com
-seqera login
+export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com
 seqera ai
 ```
 
-If your Enterprise deployment uses a different OAuth client ID for the CLI, replace `seqera_ai_cli` with the value configured for your installation.
+Set `SEQERA_AUTH_CLI_CLIENT_ID` only if your deployment uses a CLI OAuth client ID other than the default `seqera_ai_cli`.
 
-If you are testing a development build of the CLI against the hosted production Seqera AI service, use the following settings instead:
-
-| Variable | Purpose | Example value |
-| --- | --- | --- |
-| `SEQERA_AI_BACKEND_URL` | Seqera AI backend endpoint used by the CLI | `https://ai-api.seqera.io` |
-| `SEQERA_AUTH_DOMAIN` | Platform API base URL used for browser-based login | `https://cloud.seqera.io/api` |
-| `SEQERA_AUTH_CLI_CLIENT_ID` | OAuth client ID for the Seqera AI CLI | `seqera_ai_cli` |
-| `SEQERA_ACCESS_TOKEN` | Platform personal access token used instead of browser login (`TOWER_ACCESS_TOKEN` also supported) | `<PLATFORM_ACCESS_TOKEN>` |
-
-Use the OAuth login flow:
+For automated environments, use a Platform access token instead of browser login. Current CLI builds still require `SEQERA_AUTH_DOMAIN` so the CLI can target the correct Enterprise Platform authority.
 
 ```bash
-export SEQERA_AUTH_DOMAIN=https://cloud.seqera.io/api
-export SEQERA_AUTH_CLI_CLIENT_ID=seqera_ai_cli
-export SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io
+export SEQERA_AUTH_DOMAIN=https://platform.example.com/api
+export TOWER_ACCESS_TOKEN=<PLATFORM_ACCESS_TOKEN>
+export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com
 seqera ai
 ```
 
-Use a Platform personal access token instead of browser login:
+Set `SEQERA_AUTH_CLI_CLIENT_ID` only for OAuth deployments that use a non-default CLI client ID. `SEQERA_ACCESS_TOKEN` and `TOWER_ACCESS_TOKEN` are supported for token-based authentication.
 
-```bash
-export SEQERA_ACCESS_TOKEN=<PLATFORM_ACCESS_TOKEN>
-export SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io
-seqera ai
-```
+## Usage and cost
 
-You only need `SEQERA_AUTH_DOMAIN` and `SEQERA_AUTH_CLI_CLIENT_ID` when using the OAuth login flow. `SEQERA_ACCESS_TOKEN` (`TOWER_ACCESS_TOKEN`) is also supported.
+Enterprise deployments do not use Seqera Cloud credit balances or the Cloud credit request flow. Usage and inference costs are managed by your organization through the configured inference provider, such as AWS Bedrock or Anthropic API.
 
-## Environment variables reference
-
-### Required
-
-| Variable | Description |
-|----------|-------------|
-| `SEQERA_PLATFORM_API_URL` | Platform API URL (e.g., `https://platform.example.com/api`) |
-| `SEQERA_MCP_URL` | MCP server URL (e.g., `https://mcp.example.com/mcp`) |
-| `ANTHROPIC_API_KEY` | API key for inference provider |
-| `AGENT_BACKEND_DB_HOST` | MySQL database hostname |
-| `AGENT_BACKEND_DB_NAME` | MySQL database name |
-| `AGENT_BACKEND_DB_USER` | MySQL database username |
-| `AGENT_BACKEND_DB_PASSWORD` | MySQL database password |
-| `TOKEN_ENCRYPTION_KEY` | Fernet encryption key for encrypting sensitive tokens at rest. Also accepted as `AGENT_BACKEND_TOKEN_ENCRYPTION_KEY`. |
-
-### Optional
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `SEQERA_PLATFORM_URL` | Platform UI URL for constructing links to runs and pipelines | Derived from platform domain |
-| `AGENT_BACKEND_DB_PORT` | MySQL port | `3306` |
-| `SESSION_TIMEOUT_SECONDS` | Session timeout | `86400` (24 hours) |
-| `MAX_SESSIONS_PER_USER` | Max concurrent sessions per user | `10` |
-| `SESSION_RETENTION_DAYS` | Days to retain session data | `14` |
-| `LOG_LEVEL` | Application log level (`CRITICAL`, `ERROR`, `WARNING`, `INFO`, `DEBUG`) | `INFO` |
-| `CORS_ORIGINS` | Allowed CORS origins (JSON array) | `["*"]` |
-
-## Helm values reference
-
-For the full list of configuration options, see the [agent-backend chart documentation](https://github.com/seqeralabs/helm-charts/tree/master/platform/charts/agent-backend).
-
-### Global
-
-| Value | Description | Default |
-|-------|-------------|---------|
-| `global.platformExternalDomain` | Domain where Seqera Platform listens | `example.com` |
-| `global.agentBackendDomain` | Domain where the agent backend listens | `""` |
-| `global.mcpDomain` | Domain where MCP server listens | `""` |
-
-### Agent backend
-
-| Value | Description | Default |
-|-------|-------------|---------|
-| `agentBackend.replicaCount` | Number of replicas | `1` |
-| `agentBackend.image.registry` | Image registry | `cr.seqera.io` |
-| `agentBackend.image.repository` | Image repository | `ai/agent-backend/backend` |
-| `anthropicApiKeyExistingSecretName` | Existing secret containing `ANTHROPIC_API_KEY` | `""` |
-| `tokenEncryptionKeyExistingSecretName` | Existing secret containing `TOKEN_ENCRYPTION_KEY` | `""` |
-
-### Database
-
-| Value | Description | Default |
-|-------|-------------|---------|
-| `database.host` | MySQL hostname | `""` |
-| `database.port` | MySQL port | `3306` |
-| `database.name` | MySQL database name | `""` |
-| `database.username` | MySQL username | `""` |
-| `database.existingSecretName` | Existing secret with DB password | `""` |
-| `database.existingSecretKey` | Key in the secret | `DB_PASSWORD` |
-
-### Ingress
-
-| Value | Description | Default |
-|-------|-------------|---------|
-| `ingress.enabled` | Enable ingress | `false` |
-| `ingress.path` | Ingress path (use `/*` for AWS ALB) | `/` |
-| `ingress.ingressClassName` | Ingress class name | `""` |
-| `ingress.annotations` | Ingress annotations | `{}` |
-| `ingress.tls` | TLS configuration | `[]` |
+When `ORG_CREDITS_ENABLED=false` is set on the agent backend deployment, the CLI `/credits` command reports that usage is managed by your organization and directs users to their Seqera administrator.
 
 ## Security considerations
 
-- **Token validation**: Every request validates the user's Platform token
-- **User isolation**: Sessions are isolated by user ID
-- **Credential passthrough**: MCP tools use the user's credentials for Platform operations
-- **Token encryption**: Sensitive tokens (e.g., GitHub PATs) are encrypted at rest using Fernet symmetric encryption before storage in the database
-- **No credential storage**: The agent backend does not store user credentials
-- **TLS required**: All communication should use HTTPS
+- Use HTTPS for every exposed hostname.
+- Store all sensitive values in Kubernetes Secrets.
+- Keep the agent backend Fernet token encryption key stable across upgrades. Changing it prevents the backend from decrypting existing encrypted values.
+- For user-scoped operations, MCP uses the signed-in user's Platform token to call Platform APIs. Do not configure a shared administrator token for these calls.
+- Use a separate MySQL database and user for the agent backend, even if they are hosted on the same MySQL instance as Platform.
+- Enable Redis or Valkey TLS and MySQL TLS when your managed services require encrypted connections.
 
-## Next steps
+## Learn more
 
-- See [Use cases](../seqera-ai/use-cases.md) for CLI usage.
+- [Co-Scientist in the Seqera CLI](../seqera-ai/index.md): Co-Scientist documentation.
+- [Co-Scientist Helm example](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/examples/seqera-ai): Example Platform values for the Co-Scientist subcharts.
+- [Agent backend chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/agent-backend): Full agent backend values reference.
+- [MCP chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/mcp): Full MCP values reference.
+- [Portal web chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/portal-web): Full portal web values reference.

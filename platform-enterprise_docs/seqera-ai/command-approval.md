@@ -1,19 +1,15 @@
 ---
 title: "Command approval"
-description: "Control which local commands require user approval in Seqera AI"
-date: "15 Dec 2025"
-tags: [seqera-ai, cli, approval, security]
+description: "Control which local commands require user approval in Co-Scientist"
+date created: "2025-12-15"
+tags: [seqera-ai, co-scientist, cli, approval, security]
 ---
 
-:::caution Seqera AI CLI is in beta
-Seqera AI CLI is currently in beta. Features and commands may change as we continue to improve the product.
-:::
+Co-Scientist can execute local commands and edit files in your environment. This page explains approval modes that control which operations run automatically versus which require your permission, including dangerous commands, workspace boundaries, and best practices.
 
-:::note
-Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
+:::info
+Starting a persistent task with `/goal <task>` switches the session to `full` approval mode automatically so Co-Scientist can continue working without repeated prompts.
 :::
-
-Seqera AI can execute local commands and edit files in your environment. This page explains approval modes that control which operations run automatically versus which require your permission, including dangerous commands, workspace boundaries, and best practices.
 
 ## Approval prompts
 
@@ -38,7 +34,7 @@ You can:
 
 ## Approval modes
 
-Approval modes control which local commands Seqera AI can execute automatically and which require your explicit approval. This provides a balance between convenience and safety when working with local files and commands.
+Approval modes control which local commands Co-Scientist can execute automatically and which require your explicit approval. This provides a balance between convenience and safety when working with local files and commands.
 
 There are three approval modes:
 
@@ -227,8 +223,9 @@ seqera ai
 
 ## Learn more
 
-- [Seqera AI CLI](index.md): Seqera AI CLI overview
+- [Seqera CLI](index.md): Seqera CLI overview
 - [Installation](./installation): Detailed installation instructions
 - [Authentication](./authentication): Log in, log out, and session management
-- [Use cases](./use-cases.md): Seqera AI use cases
+- [Use cases](./use-cases.md): Co-Scientist use cases
+- [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors
