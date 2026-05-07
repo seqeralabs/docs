@@ -128,7 +128,7 @@ To preserve previous opt-in behaviour after upgrading, set `TOWER_DATA_STUDIO_AL
 
 The recommended Studios container template version for 26.1 is **0.9**. If you have customized your Studios container templates, update them to the 0.9 base images during this upgrade. Templates pinned to earlier Connect versions may no longer be supported. See the [Studios migration documentation](https://docs.seqera.io/platform-enterprise/studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
 
-### AWS data lineage tracking via SQS (preview, AWS only)**
+### AWS data lineage tracking via SQS (preview, AWS only)
 
 26.1 introduces a preview of AWS data lineage tracking that depends on an Amazon SQS queue. This feature is AWS-only and disabled by default. If you plan to enable it, ensure your IAM policies grant the Seqera role the relevant SQS permissions in addition to the existing [Seqera IAM permissions](../compute-envs/aws-batch#iam-user-creation).
 
