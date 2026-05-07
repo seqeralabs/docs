@@ -39,8 +39,8 @@ This page outlines the steps to upgrade your database instance and Platform Ente
 
   - From Seqera Enterprise version 24.2, Redis version 6.2 or greater was required. **In 26.1, Redis 6.x is no longer supported — see the [26.1 cache considerations](#cache-layer-changes-redis-eol-and-valkey-support) below.**
   - From Seqera Enterprise version 24.2, `redisson.*` configuration properties are deprecated. If you previously set `redisson.*` properties directly:
-    - Replace `/redisson/*` references in AWS Parameter Store entries with `TOWER_REDIS_*`.
-    - Replace `redisson.*` references in `tower.yml` with `TOWER_REDIS_*`.
+    - Replace `/redisson/*` references in AWS Parameter Store entries with `TOWER_REDIS_*` environment variables.
+    - Replace `redisson.*` references in `tower.yml` with `TOWER_REDIS_*` environment variables.
 
   :::note
   Set `TOWER_REDIS_*` values directly in the `tower.yml` or AWS Parameter Store entry (for example, `TOWER_REDIS_URL: redis://...`).
