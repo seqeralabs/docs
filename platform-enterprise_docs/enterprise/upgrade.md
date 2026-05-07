@@ -19,7 +19,7 @@ This page outlines the steps to upgrade your database instance and Platform Ente
 - If you are upgrading from a version older than 23.4.1, update your installation to version 23.4.4 **first**, before updating to version 26.1 with the steps on this page.
 - **MySQL 8 required**
 
-  From Seqera Enterprise version 23.4, MySQL 8 was the only supported database version. If you are running MySQL 5.6 or 5.7, you must upgrade your database to a supported MySQL version (see the 26.1 considerations below for the new database baseline) before upgrading.
+  From Seqera Enterprise version 23.4, MySQL 8 was the only supported database version. If you are running MySQL 5.6 or 5.7, you must upgrade your database to a supported MySQL version (see the [26.1 database considerations below](#database-changes) for the new baseline) before upgrading.
 
 ## Considerations for versions 24.1 – 25.1
 
