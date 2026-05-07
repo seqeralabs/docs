@@ -24,6 +24,7 @@
   Description: >
     Allow log and report files from Nextflow CLI runs (`-with-tower`) to be accessible in the Seqera UI. Run output files must be accessible to your Seqera workspace primary compute environment.
   Value:                'Default: `false`'
+# TODO(26.1): not in platform repo's ENVIRONMENT-VARIABLES.md — verify still valid
 -
   Environment variable:            '`TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES`'
   Description: >

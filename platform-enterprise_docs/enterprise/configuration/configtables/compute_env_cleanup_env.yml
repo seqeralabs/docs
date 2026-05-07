@@ -1,0 +1,36 @@
+---
+-
+  Environment variable:            '`TOWER_COMPUTE_ENV_CLEANUP_ENABLED`'
+  Description: >
+    Enable the compute environment cleanup cron job, which transitions compute environments stuck in `CREATING` or `DELETING` states.
+  Value:                'Default: `false`'
+-
+  Environment variable:            '`TOWER_COMPUTE_ENV_CLEANUP_DELAY`'
+  Description: >
+    Initial delay before the compute environment cleanup cron job runs for the first time after application startup.
+  Value:                'Default: `1m`'
+-
+  Environment variable:            '`TOWER_COMPUTE_ENV_CLEANUP_INTERVAL`'
+  Description: >
+    Interval at which the compute environment cleanup cron job runs.
+  Value:                'Default: `1h`'
+-
+  Environment variable:            '`TOWER_COMPUTE_ENV_CLEANUP_BATCH_SIZE`'
+  Description: >
+    Number of organizations processed per batch in the compute environment cleanup job.
+  Value:                'Default: `10`'
+-
+  Environment variable:            '`TOWER_COMPUTE_ENV_CLEANUP_TIME_OFFSET`'
+  Description: >
+    Delay between consecutive batch tasks in the compute environment cleanup job.
+  Value:                'Default: `60s`'
+-
+  Environment variable:            '`TOWER_COMPUTE_ENV_CLEANUP_STUCK_CREATING_TIMEOUT`'
+  Description: >
+    Time after which a compute environment stuck in the `CREATING` state is transitioned to `ERRORED`.
+  Value:                'Default: `1h`'
+-
+  Environment variable:            '`TOWER_COMPUTE_ENV_CLEANUP_STUCK_DELETING_TIMEOUT`'
+  Description: >
+    Time after which a compute environment stuck in the `DELETING` state is transitioned to `INVALID`.
+  Value:                'Default: `1h`'

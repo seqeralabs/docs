@@ -230,7 +230,8 @@
         "seqera-ai/installation",
         "seqera-ai/authentication",
         "seqera-ai/command-approval",
-        "seqera-ai/use-cases"
+        "seqera-ai/use-cases",
+        "seqera-ai/projects"
       ]
     },
        {
