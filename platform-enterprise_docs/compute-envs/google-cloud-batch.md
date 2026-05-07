@@ -54,16 +54,87 @@ Seqera requires a service account with appropriate permissions to interact with 
 By default, Google Cloud Batch uses the default Compute Engine service account to submit jobs. This service account is granted the Editor (`roles/Editor`) role. While this service account has the necessary permissions needed by Seqera, this role is not recommended for production environments. Control job access using a custom service account with only the permissions necessary for Seqera to execute Batch jobs instead.
 :::
 
-#### Service account permissions
+#### Seqera Platform Service Account Permissions (mandatory)
+Create a GCP service account for Seqera Platform to use when executing operations against your GCP Project.
 
-[Create a custom service account][create-sa] with at least the following permissions:
-
+##### Core Permissions
 - Batch Agent Reporter (`roles/batch.agentReporter`) on the project
 - Batch Job Editor (`roles/batch.jobsEditor`) on the project
 - Logs Writer (`roles/logging.logWriter`) on the project (to let jobs generate logs in Cloud Logging)
+- Logs Viewer (`roles/logging.logViewer`) on the project (to view and retrieve logs from Cloud Logging)
 - Service Account User (`roles/iam.serviceAccountUser`)
 
-If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below.
+##### Storage Permissions
+TODO: Figure out with @schaluva. Considerations:
+1. Minimum permissions for Platform to handle pipeline operations.
+2. Studios. Preliminary suggestion:
+    - `roles/storage.objectUser` for read/write.
+    - `roles/storage.objectViewer` for read-only.
+
+**Shortcut: project-level Storage Admin**
+
+Granting `roles/storage.admin` at the **project** level covers everything
+above and significantly simplifies setup. The tradeoff is a looser security
+posture — the Service Account can then touch any bucket in the project,
+including buckets unrelated to the pipeline. Confirm this is acceptable
+under your organization's security directives before using it.
+
+
+#### Custom Nextflow Service Account permissions (optional)
+Create a GCP service account for the Nextflow pipeline to use rather than the default Compute Engine service account.
+
+##### Core Permissions
+- Batch Agent Reporter (`roles/batch.agentReporter`) on the project
+- Batch Job Editor (`roles/batch.jobsEditor`) on the project
+- Logs Writer (`roles/logging.logWriter`) on the project (to let jobs generate logs in Cloud Logging)
+- Logs Viewer (`roles/logging.logViewer`) on the project (to view and retrieve logs from Cloud Logging)
+- Service Account User (`roles/iam.serviceAccountUser`)
+
+##### Storage Permissions
+The Service Account used by your Nextflow Pipeline requires some combination of the following permissions, depending on the method used to interact with object storage:
+
+| Permission | Allows | GCSFuse | Fusion | 
+|------------|--------| ------- | ------ |
+| `storage.buckets.get`     | Resolving bucket metadata at mount   | N | Y |
+| `storage.objects.list`    | Listing work directory contents      | Y | Y |
+| `storage.objects.get`     | Reading inputs and intermediates     | Y | Y |
+| `storage.objects.create`  | Writing outputs (work-dir only)      | Y | Y |
+| `storage.objects.delete`  | Cleanup of work-dir intermediate files & publishDir overwrites | Y | Y |
+
+
+**GCSFuse-based pipelines**
+
+- Grant on the **work-dir bucket**:
+    - `roles/storage.objectUser` (preferred; legacy: `roles/storage.objectAdmin`)
+
+- Grant on **every other bucket the pipeline reads from**:
+    - `roles/storage.objectViewer` — read objects
+
+- Grant on **publishDir bucket if different than work-dir bucket**:
+    - `roles/storage.objectUser`
+
+
+**Fusion-based pipelines**
+
+- Grant on the **work-dir bucket**:
+    - `roles/storage.objectUser` (preferred; legacy: `roles/storage.objectAdmin`)
+
+- Grant on **every other bucket the pipeline reads from**:
+    - `roles/storage.objectViewer` — read objects
+    - `roles/storage.bucketViewer` — read bucket metadata (required by for mount-time bucket inspection)
+
+- Grant on **publishDir bucket if different than work-dir bucket**:
+    - `roles/storage.objectUser`
+
+
+**Shortcut: project-level Storage Admin**
+
+Granting `roles/storage.admin` at the **project** level covers everything
+above and significantly simplifies setup. The tradeoff is a looser security
+posture — the Service Account can then touch any bucket in the project,
+including buckets unrelated to the pipeline. Confirm this is acceptable
+under your organization's security directives before using it.
+
 
 #### User permissions
 
@@ -116,7 +187,7 @@ Google Cloud Storage is a type of **object storage**. To access files and store 
 1. After the bucket is created, you are redirected to the **Bucket details** page.
 2. Select **Permissions**, then **Grant access** under **View by principals**.
 3. Copy the email address of your service account into **New principals**.
-4. Select the **Storage Admin** role, then select **Save**.
+4. Select the [required role](#storage-permissions), then select **Save**.
 
 :::tip
 You've created a project, enabled the necessary Google APIs, created a bucket, and created a service account JSON key file with the required credentials. You now have what you need to set up a new compute environment in Seqera.
