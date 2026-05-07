@@ -4,7 +4,7 @@ This repository contains the documentation published to [docs.seqera.io](https:/
 
 Changes merged to [master](https://github.com/seqeralabs/docs) are deployed to production automatically via Netlify. Pull requests have their own deployment preview.
 
-The source of truth for all products' documentation lives in their respective product repositories, such as [wave](https://github.com/seqeralabs/wave). These repositories contain a `docs` folder which house the _latest_ version of that product's documentation.
+The source of truth for all products' documentation lives in their respective product repositories, such as [Wave](https://github.com/seqeralabs/wave). These repositories contain a `docs` folder which house the _latest_ version of that product's documentation.
 
 For more information, see:
 
