@@ -12,6 +12,10 @@ Organization owners can assign role-based access levels to individual **particip
 You can group **members** and **collaborators** into **teams** and apply a role to that team. Members and collaborators inherit the access role of the team.
 :::
 
+:::note
+Cloud Pro organizations with active [single sign-on (SSO)](../getting-started/single-sign-on) can't add external workspace collaborators. External users who need workspace access must be invited as organization members and authenticate through the configured IdP.
+:::
+
 ### Organization user roles
 
 - **Owner**: After an organization is created, the user who created the organization is the default owner of that organization. Additional users can be assigned as organization owners. Owners have full read/write access to modify members, teams, collaborators, and settings within an organization. Organization owners always have full owner access to organization workspaces, regardless of their participant roles at the workspace level.
