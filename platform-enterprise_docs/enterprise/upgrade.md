@@ -10,7 +10,7 @@ This page outlines the steps to upgrade your database instance and Platform Ente
 
 :::note
 - Make a backup of your Platform database prior to upgrade.
-- If you are upgrading from a version prior to 25.1, complete all intermediate major version upgrades before upgrading to 26.1.
+- If you are upgrading from a version prior to 25.1, complete all intermediate major version upgrades before upgrading to 26.1, for example from 23.1 upgrade to 24.1, then 25.1, and finally 26.1. More specific requirements are detailed below for each major version.
 - Ensure that no pipelines are in a running state during this upgrade as active run data may be lost.
 :::
 
