@@ -118,7 +118,7 @@ The [`TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`](./configuration/overview#data-featu
 
 | Value | Behaviour |
 | --- | --- |
-| Unset (default) | Studios enabled on **all workspaces** |
+| Unset (new default) | Studios enabled on **all workspaces** |
 | `""` (empty string) | Studios disabled on all workspaces |
 | Comma-separated workspace IDs | Studios enabled only on the listed workspaces |
 
