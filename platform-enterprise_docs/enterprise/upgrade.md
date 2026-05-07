@@ -169,7 +169,7 @@ The database volume is persistent on the local machine by default if you use the
 
 ## Nextflow launcher image
 
-If you host your nf-launcher container image on a private image registry, copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j17-25.10.x) *(confirm exact tag at release cut)* to your private registry. Then update your `tower.env` with the launch container environment variable:
+If you host your nf-launcher container image on a private image registry, copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j17-25.10.x) *(confirm exact tag at release cut)* to your private registry. Then set the launch container environment variable on your backend environment:
 
 ```
 TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>
