@@ -9,6 +9,7 @@
   Description: >
     Disable Data Explorer automatic cloud bucket retrieval per workspace.
   Value:                'Example: `<workspace-id1>,<workspace-id2>`'
+# TODO(26.1): not in platform repo's ENVIRONMENT-VARIABLES.md — verify still valid
 -
   Environment variable:            '`TOWER_DATA_EXPLORER_CREDENTIALS_TTL`'
   Description: >
@@ -34,6 +35,7 @@
   Description: >
     The period of time that retry attempts will be made even when max retries has been exceeded.
   Value:                'Default: `1d`'
+# TODO(26.1): not in platform repo's ENVIRONMENT-VARIABLES.md — verify still valid
 -
   Environment variable:            '`TOWER_CONTENT_MAX_FILE_SIZE`'
   Description: >
@@ -49,11 +51,13 @@
   Description: >
     The custom image repository for Wave containers. Ignored if custom image registry is not present.
   Value:                'Default: `data-studios/<tool>`'
+# TODO(26.1): default conflict between docs and platform manifest — needs Studios team confirmation
 -
   Environment variable:            '`TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_NAME_STRATEGY`'
   Description: >
     The custom image name strategy for Wave containers. See the [Wave documentation](https://docs.seqera.io/wave/configuration#container-registry) for available options.
   Value:                'Default: `imageSuffix`'
+# TODO(26.1): default conflict between docs and platform manifest — needs Studios team confirmation
 -
   Environment variable:            '`TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY`'
   Description: >
@@ -99,3 +103,58 @@
   Description: >
     	This is set only if the SSH server runs on a different domain to the Connect proxy.
   Value:                'Example: `ssh.example.com`'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`'
+  Description: >
+    Control which workspaces have Studios enabled. Leave unset (default) to enable Studios in all workspaces, set to an empty string to disable Studios for all workspaces, or provide a comma-separated list of workspace IDs to enable Studios only in those workspaces.
+  Value:                'Default: Enabled for all workspaces'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_DEFAULT_LIFESPAN`'
+  Description: >
+    Default lifespan in hours for Studios when no workspace-specific settings are configured.
+  Value:                'Default: `8`'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_PRIVATE_STUDIO_BY_DEFAULT`'
+  Description: >
+    Default privacy setting for Studios when no workspace-specific or Studio-specific settings are configured. Set to `true` to make Studios private by default; the default value (`false`) makes Studios collaborative unless overridden on creation.
+  Value:                'Default: `false`'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_LIST_MAX_ALLOWED`'
+  Description: >
+    Maximum and default number of items returned in a single page when listing Studios.
+  Value:                'Default: `100`'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_FEATURE_MANIFEST_URL`'
+  Description: >
+    The manifest URL used for feature version compatibility checks of Studio clients.
+  Value:                'Example: `https://example.com/manifest.json`'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_CONNECT_IFRAME_ALLOWED_WORKSPACES`'
+  Description: >
+    Control which workspaces have the Studio iframe in Connect enabled. Set to `null` (undefined) to disable for all workspaces, set to an empty string to enable for all workspaces, or provide a comma-separated list of workspace IDs to enable per workspace.
+  Value:                'Default: null'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_WAVE_STATUS_CHECK_INITIAL_DELAY`'
+  Description: >
+    Initial delay before the job that checks Wave build status for Studios in building status runs for the first time.
+  Value:                'Default: `5s`'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_WAVE_STATUS_CHECK_RATE`'
+  Description: >
+    Fixed rate at which Wave build status is checked for Studios in building status.
+  Value:                'Default: `30s`'
+-
+  Environment variable:            '`TOWER_DATA_STUDIO_WAVE_DISALLOWED_REGISTRIES`'
+  Description: >
+    Comma-separated list of registry URLs that are not allowed as build destinations for dockerfile-based Studio images. Registries in this list won't be used for pushing dockerfile builds.
+  Value:                'Default: `community.wave.seqera.io`'
+-
+  Environment variable:            '`TOWER_STUDIO_METRICS_ENABLED_WORKSPACES`'
+  Description: >
+    Control which workspaces have Studio startup metrics collection enabled. Set to `null` (undefined) to disable for all workspaces, set to an empty string to enable for all workspaces, or provide a comma-separated list of workspace IDs to enable per workspace.
+  Value:                'Default: null'
+-
+  Environment variable:            '`TOWER_STUDIO_METRICS_RETENTION_DAYS`'
+  Description: >
+    Number of days to retain Studio startup metrics in the database before automatic deletion. Metrics older than this threshold are deleted by a daily scheduled job.
+  Value:                'Default: `90`'

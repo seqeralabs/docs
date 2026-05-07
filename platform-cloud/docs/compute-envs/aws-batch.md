@@ -2,8 +2,8 @@
 title: "AWS Batch"
 description: "Instructions to set up AWS Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2025-12-18"
-tags: [aws, batch, compute environment]
+last updated: "2026-05-05"
+tags: [aws, batch, compute-environment]
 ---
 
 :::tip
@@ -262,6 +262,14 @@ A permissive and broad policy with all the required permissions is provided here
         "secretsmanager:CreateSecret"
       ],
       "Resource": "arn:aws:secretsmanager:*:*:secret:tower-*"
+    },
+    {
+      "Sid": "OptionalUserdataCheck",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:GetConsoleOutput"
+      ],
+      "Resource": "*"
     }
   ]
 }
@@ -577,6 +585,21 @@ The listing of secrets cannot be restricted, but the management actions can be r
 #### Additional steps required to use secrets in a pipeline
 
 To successfully use pipeline secrets, the IAM roles manually created must follow the steps detailed in the [documentation](../secrets/overview#aws-secrets-manager-integration).
+
+### Userdata script error detection (optional)
+
+Platform can retrieve the EC2 instance console output to detect errors in the userdata script that bootstraps the VM during instance startup. If the userdata script fails, Platform surfaces the failure as a warning on the workflow. Without this permission, userdata script failures are not detected and no warning is shown.
+
+```json
+{
+  "Sid": "OptionalUserdataCheck",
+  "Effect": "Allow",
+  "Action": [
+    "ec2:GetConsoleOutput"
+  ],
+  "Resource": "*"
+}
+```
 
 ## Create the IAM policy
 
