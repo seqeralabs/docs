@@ -66,8 +66,9 @@
 -
   Environment variable:            '`TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`'
   Description: >
-    An access token used to register new clients in Seqera Platform. Any alphanumeric value is allowed. See [Studios deployment](../install-studios).
-  Value:                'd5XDoRzHpWo1c............mDnfBpB'
+    An access token used to register new clients in Seqera Platform. Any alphanumeric value is allowed.
+    See [Studios deployment](../install-studios). Requires the OIDC provider to be configured. See [Cryptographic options](#cryptographic-options).
+  Value:                '`d5XDoRzHpWo1c............mDnfBp`'
 -
   Environment variable:            '`TOWER_DATA_STUDIO_ENABLE_PATH_ROUTING`'
   Description: >
