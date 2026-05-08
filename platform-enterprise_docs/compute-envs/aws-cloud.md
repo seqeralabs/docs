@@ -402,6 +402,17 @@ Every action that AWS allows to be scoped by ARN is restricted to the `seqera-sc
       "Resource": "*"
     },
     {
+      "Sid": "CreateECSServiceLinkedRole",
+      "Effect": "Allow",
+      "Action": "iam:CreateServiceLinkedRole",
+      "Resource": "arn:aws:iam::*:role/aws-service-role/ecs-compute.amazonaws.com/AWSServiceRoleForECSCompute",
+      "Condition": {
+        "StringEquals": {
+          "iam:AWSServiceName": "ecs-compute.amazonaws.com"
+        }
+      }
+    },
+    {
       "Sid": "SSMECSOptimizedAmi",
       "Effect": "Allow",
       "Action": "ssm:GetParameter",
@@ -421,6 +432,7 @@ Every action that AWS allows to be scoped by ARN is restricted to the `seqera-sc
 
 :::note
 - The `ASGEC2Operations` and `ASGManagement` statements are only required if you enable Auto Scaling Group-backed clusters (managed instances). They can be omitted for Fargate-only deployments.
+- The `CreateECSServiceLinkedRole` is required only if the Service Role is not already created.
 - The `CostExplorer` statement is only required if you enable Cost Analysis.
 :::
 

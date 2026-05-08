@@ -597,6 +597,17 @@ The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The 
       "Resource": "*"
     },
     {
+      "Sid": "CreateECSServiceLinkedRole",
+      "Effect": "Allow",
+      "Action": "iam:CreateServiceLinkedRole",
+      "Resource": "arn:aws:iam::*:role/aws-service-role/ecs-compute.amazonaws.com/AWSServiceRoleForECSCompute",
+      "Condition": {
+        "StringEquals": {
+          "iam:AWSServiceName": "ecs-compute.amazonaws.com"
+        }
+      }
+    },
+    {
       "Sid": "SSMECSOptimizedAmi",
       "Effect": "Allow",
       "Action": "ssm:GetParameter",
@@ -616,6 +627,7 @@ The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The 
 
 :::note
 - The `ASGEC2Operations` and `ASGManagement` statements are required only if you enable Auto Scaling Group-backed clusters (managed instances). Omit them for Fargate-only deployments.
+- The `CreateECSServiceLinkedRole` is required only if the Service Role is not already created.
 - The `CostExplorer` statement is required only if you enable Cost Analysis.
 :::
 
