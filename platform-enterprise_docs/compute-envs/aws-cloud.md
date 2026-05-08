@@ -233,15 +233,15 @@ The following permissions enable Seqera to populate values for dropdown fields. 
 
 ## Seqera Intelligent Compute
 
-Seqera Intelligent Compute is an optional capability that, when enabled, executes Nextflow tasks on a Seqera-managed Amazon ECS cluster instead of running them entirely on the head EC2 instance. This lets the AWS Cloud compute environment scale beyond the resources of a single instance while preserving its fast startup behavior.
+Seqera Intelligent Compute is an optional capability that executes Nextflow tasks on a Seqera-managed Amazon ECS cluster instead of running them entirely on the head EC2 instance. The AWS Cloud compute environment scales beyond the resources of a single instance while preserving its fast startup behavior.
 
-When Seqera Intelligent Compute is enabled, Seqera provisions and manages all ECS infrastructure on your behalf — clusters, capacity providers, task definitions, IAM roles, and (optionally) Auto Scaling Groups for spot and on-demand capacity. All managed resources use the `seqera-sched-` prefix and are torn down automatically when no longer needed.
+When you enable Seqera Intelligent Compute, Seqera provisions and manages all ECS infrastructure on your behalf, including clusters, capacity providers, task definitions, IAM roles, and (optionally) Auto Scaling Groups for spot and on-demand capacity. All managed resources use the `seqera-sched-` prefix and are torn down automatically when no longer needed.
 
 ### Additional IAM permissions
 
-Enabling Seqera Intelligent Compute requires the following IAM policy in addition to the [Required permissions](#required-permissions) listed above. Attach it to the same IAM user or role that Seqera uses to access your AWS account.
+Enabling Seqera Intelligent Compute requires an additional IAM policy in addition to the [Required Platform IAM permissions](#required-platform-iam-permissions). Attach it to the same IAM user or role that Seqera uses to access your AWS account.
 
-Every action that AWS allows to be scoped by ARN is restricted to the `seqera-sched-*` prefix. The remaining `Resource: "*"` entries correspond to AWS APIs that do not support resource-level permissions (for example, EC2 `Describe*`, ECR authorization tokens, or Cost Explorer).
+The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The remaining `Resource: "*"` entries correspond to AWS APIs that do not support resource-level permissions, such as EC2 `Describe*`, ECR authorization tokens, and Cost Explorer.
 
 <details>
 <summary>Seqera Intelligent Compute policy</summary>
@@ -431,7 +431,7 @@ Every action that AWS allows to be scoped by ARN is restricted to the `seqera-sc
 </details>
 
 :::note
-- The `ASGEC2Operations` and `ASGManagement` statements are only required if you enable Auto Scaling Group-backed clusters (managed instances). They can be omitted for Fargate-only deployments.
+- The `ASGEC2Operations` and `ASGManagement` statements are required only if you enable Auto Scaling Group-backed clusters (managed instances). Omit them for Fargate-only deployments.
 - The `CreateECSServiceLinkedRole` is required only if the Service Role is not already created.
 - The `CostExplorer` statement is only required if you enable Cost Analysis.
 :::
