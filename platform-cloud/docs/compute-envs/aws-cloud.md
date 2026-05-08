@@ -615,8 +615,8 @@ The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The 
 </details>
 
 :::note
-- The `ASGEC2Operations` and `ASGManagement` statements are only required if you enable Auto Scaling Group-backed clusters (managed instances). They can be omitted for Fargate-only deployments.
-- The `CostExplorer` statement is only required if you enable Cost Analysis.
+- The `ASGEC2Operations` and `ASGManagement` statements are required only if you enable Auto Scaling Group-backed clusters (managed instances). Omit them for Fargate-only deployments.
+- The `CostExplorer` statement is required only if you enable Cost Analysis.
 :::
 
 Like the base AWS Cloud policy, you can attach this policy directly to the IAM user or to an IAM role that the user assumes. See [Create the IAM policy](#create-the-iam-policy) for the AWS Console steps.
