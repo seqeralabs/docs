@@ -452,13 +452,10 @@ The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The 
         "ecs:CreateCluster",
         "ecs:DeleteCluster",
         "ecs:DescribeClusters",
-        "ecs:ListTasks",
         "ecs:PutClusterCapacityProviders",
         "ecs:CreateCapacityProvider",
         "ecs:DeleteCapacityProvider",
         "ecs:DescribeCapacityProviders",
-        "ecs:DeregisterTaskDefinition",
-        "ecs:DescribeTaskDefinition",
         "ecs:RunTask",
         "ecs:StopTask",
         "ecs:DescribeTasks",
@@ -472,8 +469,11 @@ The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The 
       "Effect": "Allow",
       "Action": [
         "ecs:RegisterTaskDefinition",
+        "ecs:DeregisterTaskDefinition",
+        "ecs:DescribeTaskDefinition",
         "ecs:ListTaskDefinitions",
-        "ecs:ListTaskDefinitionFamilies"
+        "ecs:ListTaskDefinitionFamilies",
+        "ecs:ListTasks"
       ],
       "Resource": "*"
     },
@@ -513,6 +513,22 @@ The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The 
             "ecs-tasks.amazonaws.com",
             "ecs.amazonaws.com",
             "ec2.amazonaws.com"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "ServiceLinkedRoles",
+      "Effect": "Allow",
+      "Action": "iam:CreateServiceLinkedRole",
+      "Resource": "arn:aws:iam::*:role/aws-service-role/*",
+      "Condition": {
+        "StringEquals": {
+          "iam:AWSServiceName": [
+            "ecs.amazonaws.com",
+            "ecs-compute.amazonaws.com",
+            "autoscaling.amazonaws.com",
+            "spot.amazonaws.com"
           ]
         }
       }
@@ -595,17 +611,6 @@ The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The 
       "Effect": "Allow",
       "Action": "autoscaling:DescribeAutoScalingGroups",
       "Resource": "*"
-    },
-    {
-      "Sid": "CreateECSServiceLinkedRole",
-      "Effect": "Allow",
-      "Action": "iam:CreateServiceLinkedRole",
-      "Resource": "arn:aws:iam::*:role/aws-service-role/ecs-compute.amazonaws.com/AWSServiceRoleForECSCompute",
-      "Condition": {
-        "StringEquals": {
-          "iam:AWSServiceName": "ecs-compute.amazonaws.com"
-        }
-      }
     },
     {
       "Sid": "SSMECSOptimizedAmi",
