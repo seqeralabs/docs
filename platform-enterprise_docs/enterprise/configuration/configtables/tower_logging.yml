@@ -39,11 +39,13 @@
   Description: >
      The maximum file size of the Platform backend log file. When this limit is reached, a new log file is created.
   Value:
+# TODO(26.1): not in platform repo's ENVIRONMENT-VARIABLES.md — verify still valid
 -
   Environment variable:            '`LOGGER_LEVELS_IO_SEQERA_TOWER_AGENT`'
   Description: >
      Tower Agent logging detail level.
   Value:                'Options: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`'
+# TODO(26.1): not in platform repo's ENVIRONMENT-VARIABLES.md — verify still valid
 -
   Environment variable:            '`TOWER_AGENT_HEARTBEAT`'
   Description: >
