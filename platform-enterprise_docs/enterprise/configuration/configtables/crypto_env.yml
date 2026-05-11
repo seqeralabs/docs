@@ -11,7 +11,7 @@
     This is required for [Studios](../install-studios) and for
     [Google Cloud Batch Workload Identity Federation](../../compute-envs/google-cloud-batch#credentials).
   Value:                'Example: `/oidc.rsa.pem`'
-- 
+-
   Environment variable:            '`TOWER_JWT_SECRET`'
   Description: >
     The secret used to generate the login JWT token (**required**).
