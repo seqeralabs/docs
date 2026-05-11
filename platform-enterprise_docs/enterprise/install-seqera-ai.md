@@ -21,7 +21,7 @@ Before you begin, make sure you have:
 - Access to pull the images required by the Helm charts from the configured container registry, or mirrored copies in your internal registry. See [Seqera container images](./advanced-topics/seqera-container-images.md) and [Mirroring container images](./configuration/mirroring.md).
 - A MySQL 8.4 LTS-compatible database for the agent backend. You can use the same MySQL instance as Platform with a separate database and user, or a separate instance.
 - A Redis 7.2-compatible or Valkey 7.2-compatible instance for agent backend task coordination.
-- A stable Fernet token encryption key for the agent backend if you use Kustomize or need encrypted values to survive chart upgrades. Helm-only installs can let the chart generate this key, but explicitly setting it avoids accidental regeneration.
+- A stable Fernet token encryption key for the agent backend if you use Kustomize. Helm-only installs can let the chart generate this key, but explicitly setting it avoids accidental regeneration.
 - Access to a supported Claude inference provider. AWS Bedrock is recommended for Enterprise deployments; direct Anthropic API access is also supported.
 - If you use AWS Bedrock, access to the required Claude model or inference profile and the Amazon Titan embedding model. See AWS documentation to [add or remove access to Amazon Bedrock foundation models](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access-modify.html).
 - If you use direct Anthropic API access, an Anthropic API key stored in a Kubernetes Secret.
