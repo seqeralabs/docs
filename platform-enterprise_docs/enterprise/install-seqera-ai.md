@@ -160,6 +160,8 @@ agent-backend:
   bedrockAgentCoreArn: arn:aws:bedrock-agentcore:<region>:<account-id>:runtime/<runtime-id>
 ```
 
+If the `bedrockAssumeRoleArn` value is defined, agent backend will first assume the role before interacting with the agent core runtime.
+
 ## Configure the portal web interface
 
 The portal web chart serves the browser interface and proxies requests to the agent backend. It derives Platform OIDC settings from the Platform domain and uses the fixed Enterprise client values required by the application.
