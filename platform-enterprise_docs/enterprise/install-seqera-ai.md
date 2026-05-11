@@ -173,17 +173,6 @@ portal-web:
 
 Expose MCP, agent backend, and portal web through the chart ingress only if you use Kubernetes Ingress. If you use the Gateway API or another network layer, configure that layer instead.
 
-The chart sets:
-
-| Environment variable | Value |
-| --- | --- |
-| `SEQERA_PLATFORM_API_URL` | `http://<global.platformServiceAddress>:<global.platformServicePort>` |
-| `SEQERA_PLATFORM_APP_URL` | `https://<global.platformExternalDomain>` |
-| `SEQERA_AGENT_BACKEND_URL` | `https://<global.agentBackendDomain>` |
-| `SEQERA_AUTH_DOMAIN` | `https://<global.platformExternalDomain>/api` |
-
-Set optional observability or feature flag variables with `portal-web.extraEnvVars` only if your Enterprise environment uses them.
-
 ## Install or upgrade
 
 Run Helm with your Platform values and Co-Scientist overrides:
