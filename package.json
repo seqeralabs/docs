@@ -10,7 +10,7 @@
     "katex": "^0.16.10",
     "postman-code-generators": "2.1.1",
     "gray-matter": {
-      "js-yaml": "3.14.2"
+      "js-yaml": "4.1.1"
     },
     "openapi-to-postmanv2": {
       "js-yaml": ">=4.1.1"
