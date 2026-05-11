@@ -234,6 +234,7 @@ export default async function createConfigAsync() {
     clientModules: [
     require.resolve('./src/client-modules/cross-site-nav.js'),
     require.resolve('./src/client-modules/posthog-search.js'),
+    require.resolve('./src/client-modules/katex-css.js'),
     ],
 
 

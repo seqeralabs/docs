@@ -2,10 +2,9 @@
 title: "Google Cloud"
 description: "Instructions to set up an Google Cloud CE in Seqera Platform"
 date created: "2025-07-15"
-tags: [cloud, vm, google, compute environment]
+last updated: "2026-05-05"
+tags: [cloud, vm, google, compute-environment]
 ---
-
-# Google Cloud
 
 :::note
 This compute environment type is currently in public preview. Consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have a GCP account with a valid subscription.
@@ -114,6 +113,10 @@ posture — the Service Account can then touch any bucket in the project,
 including buckets unrelated to the pipeline. Confirm this is acceptable
 under your organization's security directives before using it.
 
+
+#### Userdata script error detection (optional)
+
+Platform can retrieve the serial port output of the Compute Engine instance to detect errors in the userdata script that bootstraps the VM during instance startup. This capability is included in the `roles/compute.instanceAdmin.v1` role listed above. If you use a custom role instead, include the `compute.instances.getSerialPortOutput` permission. Without this permission, userdata script failures are not detected, and no warning is shown.
 
 ## Advanced options
 
