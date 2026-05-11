@@ -20,7 +20,7 @@ Read the `seqera-brand-guidelines` skill (SKILL.md) for Seqera product terminolo
 
 Also read `references/docusaurus-conventions.md` in this skill's directory for Seqera-specific formatting patterns (admonitions, link references, frontmatter, heading hierarchy).
 
-**Confirm the PR target repo before doing anything else.** Ask the user which repo the eventual PR should target. Default to `seqeralabs/docs`, but offer alternatives like `seqeralabs/platform-enterprise_docs`, a fork, or a feature-specific repo. Hold onto the answer — you'll need it in Phase 6. Also confirm the base branch (default: `master` or `main`, whichever the repo uses).
+**Confirm the PR target repo before doing anything else.** Default to `seqeralabs/docs`, but offer alternatives like a fork, or a feature-specific repo. Hold onto the answer — you'll need it in Phase 6. Also confirm the base branch (default: `master).
 
 ## How the skill works
 
