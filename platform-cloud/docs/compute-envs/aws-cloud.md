@@ -367,7 +367,7 @@ If [data lineage](../data/data-lineage) is enabled in your workspace, the Platfo
 }
 ```
 
-If you manage your own EC2 instance role (rather than letting Seqera create it automatically), attach the additional S3 policy described in [Manual AWS Batch configuration](../enterprise/advanced-topics/manual-aws-batch-setup#create-an-ec2-instance-role) to that role.
+If you manage your own EC2 instance role (rather than letting Seqera create it automatically), see [Manual AWS Batch configuration](../enterprise/advanced-topics/manual-aws-batch-setup#create-an-ec2-instance-role) for the additional S3 policy to attach to that role.
 
 ## Create the IAM policy
 
