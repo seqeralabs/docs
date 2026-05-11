@@ -25,7 +25,7 @@ Go to the [Google Project Selector page](https://console.cloud.google.com/projec
 
 Enter a name for your new project, e.g., *tower-nf*.
 
-If you are part of an organization, the location will default to your organization.
+If you are part of an organization, the location defaults to your organization.
 
 ### Enable billing
 
@@ -109,7 +109,7 @@ Workload Identity Federation (WIF) is the recommended authentication method for 
 4. Define an attribute mapping and condition. At a minimum set `google.subject=assertion.sub`. This maps the subject claim from Seqera's JWT to GCP's identity space. For more information see [here](https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-providers#mappings-and-conditions)
 5. Grant `roles/iam.workloadIdentityUser` on the service account created above to the Workload Identity Pool principal. This can be set for all pool identities or for a specific workspace.
 
-WIF requires an OIDC signing key and for Seqera Platform's OIDC provider to  be configured. See [Cryptographic options](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#cryptographic-options).
+WIF requires an OIDC signing key and for Seqera Platform's OIDC provider to be configured. See [Cryptographic options](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#cryptographic-options).
 
 **Generate the OIDC signing key**
 
@@ -121,9 +121,7 @@ openssl rsa -in private.pem -outform PEM -pubout -out public.pem
 cat private.pem public.pem > oidc.pem
 ```
 
-Set `TOWER_OIDC_PEM_PATH` to the path of the `oidc.pem` file in your Platform deployment. For example:
-
-`TOWER_OIDC_PEM_PATH=/path/to/oidc.pem`.
+Set `TOWER_OIDC_PEM_PATH` to the path of the `oidc.pem` file in your Platform deployment. For example, `TOWER_OIDC_PEM_PATH=/path/to/oidc.pem`.
 
 If you have not generated and set an RSA keypair as part of your Enterprise deployment, any authentication will fail with the message `WIF credentials require the OIDC provider to be configured (tower.oidc.pem.path)`.
 
@@ -147,8 +145,8 @@ Google Cloud Storage is a type of **object storage**. To access files and store 
 
 1. In the hamburger menu (**≡**), select **Cloud Storage**.
 2. From the **Buckets** tab, select **Create**.
-3. Enter a name for your bucket. You will reference this name when you create the compute environment in Seqera.
-4. Select **Region** for the **Location type** and select the **Location** for your bucket. You'll reference this location when you create the compute environment in Seqera.
+3. Enter a name for your bucket. You reference this name when you create the compute environment in Seqera.
+4. Select **Region** for the **Location type** and select the **Location** for your bucket. Use this location when you create the compute environment in Seqera.
 
    :::note
    The Batch API is available in a limited number of [locations](https://cloud.google.com/batch/docs/locations). These locations are only used to store metadata about the pipeline operations. The storage bucket and compute resources can be in any region.
@@ -174,10 +172,10 @@ You've created a project, enabled the necessary Google APIs, created a bucket, a
 ### Seqera compute environment
 
 :::caution
-Your Seqera compute environment uses resources that you may be charged for in your Google Cloud account. See [Cloud costs](https://docs.seqera.io/platform-enterprise/monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
+Your Seqera compute environment uses resources that incur charges in your Google Cloud account. See [Cloud costs](https://docs.seqera.io/platform-enterprise/monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
-After your Google Cloud resources have been created, create a new Seqera compute environment:
+After you create your Google Cloud resources, create a Seqera Platform compute environment:
 
 1. In a workspace, select **Compute Environments > New Environment**.
 2. Enter a descriptive name for this environment, e.g., *Google Cloud Batch (europe-north1)*.
@@ -193,7 +191,7 @@ After your Google Cloud resources have been created, create a new Seqera compute
 
 #### Location and work directory
 
-Select the **Location** where you will execute your pipelines. See [Location](https://cloud.google.com/compute/docs/regions-zones#available) to learn more.
+Select the **Location** where you execute your pipelines. See [Location](https://cloud.google.com/compute/docs/regions-zones#available) to learn more.
 
 In the **Pipeline work directory** field, enter your storage bucket URL, e.g., `gs://my-bucket`. This bucket must be accessible in the location selected in the previous step.
 
@@ -216,7 +214,7 @@ The compute recommendations below are based on internal benchmarking performed b
 1. Use Seqera Platform version 23.1 or later.
 2. Use a Google Cloud Storage bucket as the pipeline work directory.
 3. Enable **Wave containers** and **Fusion v2**.
-4. Specify suitable virtual machine types and local storage settings, or accept the default machine settings listed below. An `n2-highmem-16-lssd` VM or larger is recommended for production use.
+4. Specify suitable virtual machine types and local storage settings, or accept the default machine settings listed below. Use an `n2-highmem-16-lssd` VM or larger for production.
 
 :::note
 To specify virtual machine settings in Platform during compute environment creation, use the **Global Nextflow config** field to apply custom Nextflow process directives to all pipeline runs launched with this compute environment.
@@ -224,14 +222,14 @@ To specify virtual machine settings in Platform during compute environment creat
 To specify virtual machine settings per pipeline run in Platform, or as a persistent configuration in your Nextflow pipeline repository, use Nextflow process directives. See [Google Cloud Batch process definition](https://docs.seqera.io/nextflow/google#process-definition) for more information.
 :::
 
-When Fusion v2 is enabled, the following virtual machine settings are applied:
+When Fusion v2 is enabled, Seqera Platform applies the following virtual machine settings:
 
 * A 375 GB local NVMe SSD is selected for all compute jobs.
-* If you do not specify a machine type, a VM from families that support local SSDs is selected.
+* If you do not specify a machine type, Seqera selects a VM from families that support local SSDs.
 * Any machine types you specify in the Nextflow config must support local SSDs.
 * Local SSDs are only offered in multiples of 375 GB. You can increment the number of SSDs used per process with the `disk` directive to request multiples of 375 GB. To work with files larger than 100 GB, use at least two SSDs (750 GB or more).
 * Fusion v2 can also use persistent disks for caching. Override the disk requested by Fusion using the `disk` directive and the `type: pd-standard`.
-* The `machineType` directive can be used to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
+* Use the `machineType` directive to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
 
 :::note
 Wave containers and Fusion v2 are recommended features for added capability and improved performance, but neither are required to execute workflows in your compute environment.
@@ -242,9 +240,9 @@ Wave containers and Fusion v2 are recommended features for added capability and 
 Enable **Spot** to use Spot instances, which have significantly reduced cost compared to On-Demand instances.
 
 :::note
-From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow#spot-instance-failures-and-retries-in-nextflow).
+From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow treats these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow#spot-instance-failures-and-retries-in-nextflow).
 
-Selecting the 'enable Fusion snapshots' option (GCP Batch) will change the default Spot reclamation retry setting to `5`
+Selecting the 'enable Fusion snapshots' option (Google Cloud Batch) changes the default Spot reclamation retry setting to `5`.
 
 :::
 
@@ -280,7 +278,7 @@ Apply [**Resource labels**](../resource-labels/overview) to the cloud resources 
 #### Advanced options
 
 :::note
-If you use VM instance templates for the head or compute jobs (see step 8 below), resource allocation and networking values specified in the templates override any conflicting values you specify while creating your Seqera compute environment.
+If you use VM instance templates for the head or compute jobs (see step 8 below), resource allocation and networking values in the templates override any conflicting values you set while creating your Seqera compute environment.
 :::
 
 1. Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
