@@ -29,11 +29,11 @@ If you are part of an organization, the location will default to your organizati
 
 ### Enable billing
 
-See [here](https://cloud.google.com/billing/docs/how-to/modify-project) to enable billing in your Google Cloud account.
+See [Enable, disable, or change billing for a project](https://cloud.google.com/billing/docs/how-to/modify-project) to enable billing in your Google Cloud account.
 
 ### Enable APIs
 
-See [here](https://console.cloud.google.com/flows/enableapi?apiid=batch.googleapis.com%2Ccompute.googleapis.com%2Cstorage-api.googleapis.com) to enable the following APIs for your project:
+See [Enable API wizard](https://console.cloud.google.com/flows/enableapi?apiid=batch.googleapis.com%2Ccompute.googleapis.com%2Cstorage-api.googleapis.com) to enable the following APIs for your project:
 
 * Batch API
 * Compute Engine API
@@ -41,7 +41,7 @@ See [here](https://console.cloud.google.com/flows/enableapi?apiid=batch.googleap
 
 Select your project from the drop-down menu and select **Enable**.
 
-Alternatively, you can enable each API manually by selecting your project in the navigation bar and visiting each API page:
+Alternatively, enable each API manually by selecting your project in the navigation bar and visiting each API page:
 
 * [Batch API](https://console.cloud.google.com/marketplace/product/google/batch.googleapis.com)
 * [Compute Engine API](https://console.cloud.google.com/marketplace/product/google/compute.googleapis.com)
