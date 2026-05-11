@@ -164,7 +164,7 @@ If the `bedrockAssumeRoleArn` value is defined, agent backend will first assume 
 
 ## Configure the portal web interface
 
-The portal web chart serves the browser interface and proxies requests to the agent backend. It derives Platform OIDC settings from the Platform domain and uses the fixed Enterprise client values required by the application.
+The portal web chart serves the browser interface and proxies requests to the agent backend. It authenticates users through Seqera Platform.
 
 ```yaml
 portal-web:
