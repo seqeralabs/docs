@@ -434,7 +434,7 @@ When you enable Seqera Intelligent Compute, Seqera provisions and manages all EC
 
 ### Additional IAM permissions
 
-Enabling Seqera Intelligent Compute requires an additional IAM policy in addition to the [Required Platform IAM permissions](#required-platform-iam-permissions). Attach it to the same IAM user or role that Seqera uses to access your AWS account.
+To enable Seqera Intelligent Compute, attach an additional IAM policy (beyond the [Required Platform IAM permissions](#required-platform-iam-permissions)) to the same IAM user or role that Seqera uses to access your AWS account.
 
 The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The remaining `Resource: "*"` entries correspond to AWS APIs that do not support resource-level permissions, such as EC2 `Describe*`, ECR authorization tokens, and Cost Explorer.
 
