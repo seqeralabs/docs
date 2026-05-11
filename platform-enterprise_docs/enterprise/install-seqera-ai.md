@@ -204,7 +204,7 @@ curl -I https://ai.platform.example.com
 
 The agent backend `/health` endpoint returns `200 OK` when the service starts and required dependencies are reachable. The MCP server exposes `/health` for reachability and `/service-info` for server and protocol information. The portal web interface does not expose a matching `/service-info` endpoint; use the HTTP response and browser sign-in test to confirm it is reachable.
 
-Open the portal web interface, for example `https://ai.platform.example.com`, and sign in with your Platform account. A successful login confirms that Platform OIDC, portal web, and the agent backend are connected.
+Open the portal web interface, for example `https://ai.platform.example.com`, and sign in with your Platform account. A successful login confirms that Platform OIDC, portal web, and the agent backend are connected. Start a chat in the interface to test the inference provider configuration; if sandboxing was configured, try asking a specific question that would trigger a sandbox execution, e.g. `What's the accurate square root of 98723516236?`, which should prompt the model to write a small Python script that should run in the sandbox.
 
 ## Connect the Seqera CLI to Co-Scientist
 
