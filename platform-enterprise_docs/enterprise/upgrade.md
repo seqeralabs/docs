@@ -129,7 +129,7 @@ To preserve previous opt-in behaviour after upgrading, set `TOWER_DATA_STUDIO_AL
 
 #### Studios container template version
 
-The recommended Studios container template version for 26.1 is **0.9**. If you have customized your Studios container templates, update them to the 0.9 base images during this upgrade. Templates pinned to earlier Connect versions may no longer be supported. See the [Studios migration documentation](https://docs.seqera.io/platform-enterprise/studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
+The recommended Studios container template version for 26.1 is **0.12**. If you have customized your Studios container templates, update them to the 0.12 base images during this upgrade. Templates pinned to earlier Connect versions may no longer be supported. See the [Studios migration documentation](https://docs.seqera.io/platform-enterprise/studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
 
 ### AWS data lineage tracking via SQS (preview, AWS only)
 
