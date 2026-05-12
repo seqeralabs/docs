@@ -44,6 +44,7 @@ Read everything before writing anything. The value of this skill is in the cross
 - Google Docs may need to be accessed via the browser's authenticated session. If `get_page_text` doesn't return the document body, try using `fetch()` with the `/export?format=txt` endpoint from within the page context.
 - GitHub PR pages can be very large. Use `document.querySelector('.markdown-body')?.innerText` via the JavaScript tool to extract just the PR description.
 - Some content may be blocked by browser content filters (especially text containing credentials or keys). Extract in smaller sections or use alternative methods.
+
 ### Phase 2: Gap analysis
 
 Compare what the current docs say against what the sources say should be true. For each gap, document:
@@ -116,6 +117,7 @@ Once Phase 5 verification passes, open a PR against the target repo confirmed in
 - The user explicitly asked for gap analysis only (Mode A) or draft-only output.
 - Phase 5 verification has open ❌ items that you can't resolve from the available sources — surface these and ask the user how to proceed before pushing.
 - The user hasn't confirmed the target repo or in-repo file path. Ask, don't guess.
+
 ## Naming conventions for output files
 
 All artifacts for a run live in `outputs/feature-docs/{page-name}-{YYYY-MM-DD}/`. Inside that folder, use descriptive names based on the doc being updated:
