@@ -92,7 +92,7 @@ Organization owners can manage the SSO connection from **Organization settings**
 
 - Disable SSO enforcement without deleting the existing configuration.
 - Re-enable a previously disabled connection if no other organization has activated the same domain.
-- Generate a management link for IdP-side changes, such as certificate rotation or provider configuration updates.
+- Generate an Auth0 connection management link for active connections. Enabling IdP configuration changes such as credential rotation or other provider updates.
 - Delete the connection and release the claimed domain.
 
 :::note
