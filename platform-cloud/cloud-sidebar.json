@@ -22,6 +22,28 @@
           "getting-started/deployment-options",
           "getting-started/workspace-setup",
           "getting-started/single-sign-on",
+          {
+            "type": "category",
+            "label": "IdP delegation",
+            "link": {"type": "doc", "id": "getting-started/idp-delegation/overview"},
+            "collapsed": true,
+            "items": [
+              {
+                "type": "category",
+                "label": "Group catalog",
+                "link": {"type": "doc", "id": "getting-started/idp-delegation/group-catalog/overview"},
+                "collapsed": true,
+                "items": [
+                  "getting-started/idp-delegation/group-catalog/scim-okta",
+                  "getting-started/idp-delegation/group-catalog/scim-entra-id",
+                  "getting-started/idp-delegation/group-catalog/manual-google-workspace",
+                  "getting-started/idp-delegation/group-catalog/manual-keycloak"
+                ]
+              },
+              "getting-started/idp-delegation/auth0-connection-mapping",
+              "getting-started/idp-delegation/delegate-a-team"
+            ]
+          },
           "getting-started/quickstart-demo/add-pipelines",
           "getting-started/quickstart-demo/add-data",
           "getting-started/quickstart-demo/launch-pipelines",

@@ -65,6 +65,10 @@ For information about what happens when a user deletes their account, see [user 
 
 **Teams** allow organization **owners** to group members and collaborators together into a single unit and to manage them as a whole.
 
+:::note
+If your organization has [single sign-on (SSO)](../getting-started/single-sign-on) configured, the Team form includes an **IdP Group** field. Leave it empty to manage Team membership manually, or select an IdP group to delegate membership to your identity provider. See [Delegate a Team to an IdP group](../getting-started/idp-delegation/delegate-a-team).
+:::
+
 ### Create a new team
 
 To create a new team:
@@ -76,6 +80,12 @@ To create a new team:
 5. Select **Add**.
 
 To start adding members to your team, select **Edit > Members of team > Add member** and enter the name or email address of the organization members or collaborators.
+
+### Delegate a Team to an IdP group
+
+Cloud Pro organizations with an active SSO connection can delegate Team membership to an identity provider (IdP) group. Once a Team is delegated, the IdP becomes the sole authority for who belongs — Seqera evaluates each user's IdP claims at every login and adjusts membership automatically. The Team's manual **Add member** and **Remove member** controls are hidden while delegation is active.
+
+For the full procedure and how delegation evaluates at login, see [Delegate a Team to an IdP group](../getting-started/idp-delegation/delegate-a-team).
 
 ## Collaborators
 
