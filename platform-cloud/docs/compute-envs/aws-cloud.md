@@ -338,7 +338,7 @@ Platform can retrieve the EC2 instance console output to detect errors in the us
 
 ### Data lineage (optional)
 
-If [data lineage](../data/data-lineage) is enabled in your workspace, the Platform integration credentials require the following additional permissions to create the queue infrastructure and bucket notifications used by the lineage service:
+If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials to create the queue infrastructure and bucket notifications used by the lineage service:
 
 ```json
 {
