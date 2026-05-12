@@ -95,7 +95,7 @@ Create a role that controls which AWS resources the EC2 instances launched by AW
 	- `seqera-batchjob` (the instance role policy created above)
 1. Enter `seqera-instancerole` as the role name and add an optional description and tags if needed, then select **Create**.
 
-If [data lineage](../../data/data-lineage) is enabled in your workspace, attach the following additional policy to this role to allow access to the lineage S3 bucket:
+If you enable [data lineage](../data/data-lineage) in your workspace, attach the following additional policy to this role to allow access to the lineage S3 bucket:
 
 ```json
 {
