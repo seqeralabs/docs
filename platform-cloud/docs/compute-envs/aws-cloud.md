@@ -525,7 +525,7 @@ The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The 
 
 ### Create the IAM policy
 
-The policy above must be created in the AWS account where the AWS Batch resources need to be created.
+The policy above must be created in the AWS account where the AWS Cloud resources need to be created.
 
 1. Open the [AWS IAM console](https://console.aws.amazon.com/iam) in the account where you want to create the AWS Batch resources.
 1. From the left navigation menu, select **Policies** under **Access management**.
