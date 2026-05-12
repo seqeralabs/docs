@@ -2,11 +2,9 @@
 title: "AWS Cloud"
 description: "Instructions to set up an AWS Cloud CE in Seqera Platform"
 date created: "2025-05-15"
-last updated: "2026-01-30"
-tags: [cloud, vm, amazon, compute environment]
+last updated: "2026-05-05"
+tags: [cloud, vm, amazon, compute-environment]
 ---
-
-# AWS Cloud
 
 :::note
 This compute environment type is currently in public preview. Please consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have an AWS account with a valid AWS subscription.
@@ -181,6 +179,14 @@ A permissive and broad policy with all the required permissions is provided here
         "s3:ListAllMyBuckets"
       ],
       "Resource": "*"
+    },
+    {
+      "Sid": "AwsCloudUserdataCheck",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:GetConsoleOutput"
+      ],
+      "Resource": "*"
     }
   ]
 }
@@ -319,7 +325,22 @@ The following permissions enable Seqera to populate values for dropdown fields. 
 }
 ```
 
-#### Seqera Intelligent Compute permissions
+### Userdata script error detection (optional)
+
+Platform can retrieve the EC2 instance console output to detect errors in the userdata script that bootstraps the VM during instance startup. If the userdata script fails, Platform surfaces the failure as a warning on the workflow. Without this permission, userdata script failures are not detected and no warning is shown.
+
+```json
+{
+  "Sid": "AwsCloudUserdataCheck",
+  "Effect": "Allow",
+  "Action": [
+    "ec2:GetConsoleOutput"
+  ],
+  "Resource": "*"
+}
+```
+
+## Create the IAM policy
 
 If you've enabled [Seqera Intelligent Compute](#seqera-intelligent-compute), attach the following additional policy to the same IAM user or role that Seqera uses to access your AWS account.
 
