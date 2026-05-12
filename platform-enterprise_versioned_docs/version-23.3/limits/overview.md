@@ -18,7 +18,7 @@ Seqera Platform elements and features have default limits per workspace and orga
 | Datasets     | 100   |
 | Labels       | 1000  |
 
-:::note 
+:::note
 Some Enterprise instances on older licenses are limited to 100 labels per workspace. [Contact support](mailto:support@seqera.io) to upgrade your license.
 :::
 

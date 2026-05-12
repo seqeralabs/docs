@@ -59,7 +59,7 @@ reports:
 ```
 
 :::info
-See [Reports](../../reports/overview) to configure reports for pipeline runs in your own workspace. 
+See [Reports](../../reports/overview) to configure reports for pipeline runs in your own workspace.
 :::
 
 ### View general information
@@ -128,7 +128,7 @@ Platform uses [Nextflow resume](../../launch/cache-resume) to resume a failed or
 
 ![Resume a run](assets/sp-cloud-resume-a-run.gif)
 
-:::info 
+:::info
 To resume a run in your own workspace:
 
 - Select **Resume** from the options menu next to the run.

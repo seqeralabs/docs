@@ -6,7 +6,7 @@ last updated: "2025-07-01"
 tags: [organizations, administration, workspaces, create-organization, organization-settings]
 ---
 
-Organizations are the top-level structure and contain workspaces, members, and teams. Before you start using Platform, consider the projects, research areas, and resources you'd like to build out and who'll be using them so that you can scale up easily. 
+Organizations are the top-level structure and contain workspaces, members, and teams. Before you start using Platform, consider the projects, research areas, and resources you'd like to build out and who'll be using them so that you can scale up easily.
 
 You can create multiple organizations, each of which can contain multiple workspaces with shared users and resources. This means you can customize and organize the use of resources while maintaining an access control layer for users associated with a workspace. A workspace can be public (shared across the organization) or private (accessible only to the user who created it)
 
@@ -27,21 +27,21 @@ When you create an organization, you become the organization owner. Organization
 3. Enter any other optional fields as needed: **Description**, **Location**, **Website URL**, and **Logo**.
 4. Select **Add**.
 
-You can invite or add additional members to the workspace from the workspace **Settings** page. 
+You can invite or add additional members to the workspace from the workspace **Settings** page.
 
-### Organization settings 
+### Organization settings
 
 Organization owners can view, edit, and delete organizations in the **Organization settings** screen. Select your organization from the drop-down menu, then select **Settings** in the sidebar.
 
-#### Edit or delete an organization 
+#### Edit or delete an organization
 
 Select **Edit** in the **Edit organization** row to update the organization name, full name, description, location, website URL, and logo. Select **Update** to save.
 
-To delete your organization, select **Delete** in the **Delete organization** card. 
+To delete your organization, select **Delete** in the **Delete organization** card.
 
 ## Members
 
-You can view the list of all **Members** from the organization's landing page. 
+You can view the list of all **Members** from the organization's landing page.
 
 Seqera provides access control for members of an organization by classifying them either as an **Owner** or a **Member**. Each organization can have multiple owners and members.
 
@@ -85,34 +85,33 @@ New collaborators to an organization's workspace can be added as **Participants*
 **Collaborators** can only be added from a workspace. For more information, see [workspace management](./workspace-management#create-a-new-workspace).
 :::
 
-## Organization resource usage tracking 
+## Organization resource usage tracking
 
 Select **Usage overview** next to the organization and workspace selector dropdown to view a window with the following usage details:
 
-- **Run history**: The total number of pipeline runs. 
+- **Run history**: The total number of pipeline runs.
 - **Concurrent runs**: Total simultaneous pipeline runs.
 - **Running Studio sessions**: Number of concurrent running Studio sessions.
-- **Users**: Total users per organization. 
+- **Users**: Total users per organization.
 
-Organization resource usage information is also displayed on the organization's **Settings** tab in the sidebar of the organization landing page. 
+Organization resource usage information is also displayed on the organization's **Settings** tab in the sidebar of the organization landing page.
 
-Select **Contact us to upgrade** if you need to increase your Platform usage limits for your organization. 
+Select **Contact us to upgrade** if you need to increase your Platform usage limits for your organization.
 
 :::info
-Usage limits differ per organization and [subscription type](https://seqera.io/pricing/). [Contact us](https://seqera.io/contact-us/) to discuss your needs. 
+Usage limits differ per organization and [subscription type](https://seqera.io/pricing/). [Contact us](https://seqera.io/contact-us/) to discuss your needs.
 :::
 
-### Credits 
+### Credits
 
 [Seqera Compute](../compute-envs/seqera-compute) environments consume credits when running pipelines or Studio sessions. Credits are consumed for CPU time, memory and storage usage, and network costs. One Seqera Compute credit is equivalent to $1 (USD), and resources are charged at the following rates:
 
 - CPU time: 1 CPU/Hr = 0.1 credits
-- Memory: 1 GiB/Hr = 0.025 credits 
-- Storage: 1 GB = 0.025 credits per month 
+- Memory: 1 GiB/Hr = 0.025 credits
+- Storage: 1 GB = 0.025 credits per month
 
-:::note 
-Storage and network costs vary per region and are charged at standard AWS rates. Data ingress and egress across regions incur additional costs. 
+:::note
+Storage and network costs vary per region and are charged at standard AWS rates. Data ingress and egress across regions incur additional costs.
 :::
 
-Your available credit balance depends on the credits purchased and limits applied to your Seqera license. The **Credits** view contains the current credit balance available to the organization, and the total credits spent in the organization's workspaces. Select **Contact us to upgrade** to request additional credits for your organization. 
-
+Your available credit balance depends on the credits purchased and limits applied to your Seqera license. The **Credits** view contains the current credit balance available to the organization, and the total credits spent in the organization's workspaces. Select **Contact us to upgrade** to request additional credits for your organization.

@@ -1,12 +1,12 @@
 ---
 title: "Explore Seqera Cloud"
-description: "Explore your free workspace resources and launch your first pipelines in Seqera Cloud."
+description: "Explore your free workspace resources and launch your first pipelines with Seqera Compute."
 date created: "2025-10-16"
 toc_max_heading_level: 4
 tags: [pipelines, versioning, nextflow, parameters]
 ---
 
-When you create a new Seqera Cloud account with a verified work email, Seqera automatically provisions starter resources on your first login. These resources give you everything you need to start running bioinformatics pipelines immediately, including a Seqera compute environment and $100 in free credits to launch pipelines and Studios.
+When you create a new Seqera Cloud account with a verified work email, Seqera automatically provisions starter resources on your first login. These resources are completely managed by Seqera. These resources give you everything you need to start running bioinformatics pipelines immediately, including a Seqera compute environment and $100 in free credits to launch pipelines and Studios.
 
 :::note
 Generic email domains like Gmail are not eligible for the free resources detailed in this guide.
@@ -18,17 +18,17 @@ This guide shows you how to launch your first pipelines with the starter resourc
 
 When you first log in after verifying your email, Seqera automatically creates an organization and workspace for you. You can **Explore Platform** and look around your workspace while starter resources are provisioned in the background, or wait for the setup to complete. Resource provisioning typically takes under a minute. Once setup is complete, you'll see a banner confirming that starter resources are ready for you to start launching pipelines.
 
-Seqera provisions four types of resources to get you started: 
-- A [Seqera Compute environment](./compute-envs/seqera-compute.md) with $100 in free credits
+Seqera provisions four types of resources to get you started:
+- A [Seqera Compute environment](./compute-envs/seqera-compute.md) with $100 in free credits. These credits can be used to run pipelines or Studios
 - [Credentials](./credentials/overview.md) used by your compute environment to create and manage cloud resources on your behalf
 - A cloud storage bucket in [Data Explorer](./data/data-explorer.md)
 - Pre-configured nf-core pipelines, ready to launch
 
 ### Seqera Compute environment
 
-Your organization workspace includes a pre-configured [Seqera Compute](https://docs.seqera.io/platform-cloud/compute-envs/seqera-compute) environment that requires no cloud account setup or configuration. This environment includes $100 in free credits that can be used to run pipelines or Studios.
+Your organization workspace includes a pre-configured [Seqera Compute](https://docs.seqera.io/platform-cloud/compute-envs/seqera-compute) environment that requires no cloud account setup or configuration.
 
-Credits are consumed based on the computational resources your pipeline runs and Studio session use, calculated from CPU-hours, GB-hours, and network and storage costs. You can monitor your credit balance in the **Usage overview** dropdown in the top navigation bar, or view detailed usage in your organization or workspace **Settings** tab.
+Your $100 in free credits are consumed based on the computational resources your pipeline runs and Studio session use, calculated from CPU-hours, GB-hours, and network and storage costs. You can monitor your credit balance in the **Usage overview** dropdown in the top navigation bar, or view detailed usage in your organization or workspace **Settings** tab.
 
 See [Credit management](./administration/credit-management) for more information on monitoring usage and requesting additional credits.
 
@@ -37,7 +37,7 @@ See [Credit management](./administration/credit-management) for more information
 Your workspace includes an automatically provisioned cloud storage bucket in [Data Explorer](https://docs.seqera.io/platform-cloud/data/data-explorer), linked to your Seqera Compute environment. This bucket provides storage for pipeline outputs, intermediate files, and any data you want to browse or manage through the Seqera interface. Your organization includes 25 GB of free cloud storage.
 
 :::tip
-After completing pipeline test runs, delete working directory files and other data you no longer need to manage your cloud storage optimally. 
+After completing pipeline test runs, delete working directory files and other data you no longer need to manage your cloud storage optimally.
 :::
 
 ### Launchpad
@@ -51,7 +51,7 @@ Nextflow's [Hello World](https://github.com/nextflow-io/hello) — a simple exam
 **To launch this pipeline**:
 
 1. From the **Launchpad** in the left navigation menu, select **Launch** next to the **nextflow-io/hello** pipeline.
-1. While this pipeline requires no inputs to run, you can optionally explore the parameters in the launch form. For example, note the **Work directory** is pre-populated with your compute environment work directory path. 
+1. While this pipeline requires no inputs to run, you can optionally explore the parameters in the launch form. For example, note the **Work directory** is pre-populated with your compute environment work directory path.
 1. Select **Launch**.
 
 #### nf-core/demultiplex
@@ -128,7 +128,7 @@ Single-cell RNA-seq allows researchers to measure gene expression in individual 
 
 Seqera Studios provides cloud-based, on-demand development environments for interactive bioinformatics work. Studios are fully integrated with Seqera Platform and offer VS Code or JupyterLab interfaces with access to your pipeline data and compute resources.
 
-While your free workspace does not include an existing Studio, see [Studios for interactive analysis](https://docs.seqera.io/platform-cloud/studios/overview) to learn how to configure and run Studios on your Seqera Compute environment. The guide includes instructions for adding publicly available data to analyze in your Studios. 
+While your free workspace does not include an existing Studio, see [Studios for interactive analysis](https://docs.seqera.io/platform-cloud/studios/overview) to learn how to configure and run Studios on your Seqera Compute environment. The guide includes instructions for adding publicly available data to analyze in your Studios.
 
 ## Next steps
 

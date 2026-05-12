@@ -19,7 +19,7 @@ You can group **members** and **collaborators** into **teams** and apply a role 
 ### Workspace participant roles
 
 :::note
-Workspace participants with any role can leave the workspace, i.e., remove themselves as a workspace participant. However, only workspace owners and admins can add or remove workspace participants other than themselves. 
+Workspace participants with any role can leave the workspace, i.e., remove themselves as a workspace participant. However, only workspace owners and admins can add or remove workspace participants other than themselves.
 :::
 
 | Permission / Role                                                                 | Owner | Admin | Maintain | Launch | Connect | View |

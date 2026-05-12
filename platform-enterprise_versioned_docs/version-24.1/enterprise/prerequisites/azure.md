@@ -277,8 +277,8 @@ See [Configuration](../configuration/overview).
 [azure-linux-vm-portal]: https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal?tabs=ubuntu
 [azure-rg-cli]: https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-cli#create-a-resource-group
 [azure-rg-portal]: https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal
-[azure-sendmail]: https://docs.microsoft.com/en-us/azure/virtual-network/troubleshoot-outbound-smtp-connectivity#recommended-method-of-sending-email 
+[azure-sendmail]: https://docs.microsoft.com/en-us/azure/virtual-network/troubleshoot-outbound-smtp-connectivity#recommended-method-of-sending-email
 [azure-storage-portal]: https://learn.microsoft.com/en-ca/azure/storage/common/storage-account-create?tabs=azure-portal#create-a-storage-account-1
 [azure-storage-cli]: https://learn.microsoft.com/en-us/cli/azure/storage/account?view=azure-cli-latest#az-storage-account-create
 [msft-365]: https://docs.microsoft.com/en-us/exchange/mail-flow-best-practices/how-to-set-up-a-multifunction-device-or-application-to-send-email-using-microsoft-365-or-office-365
-[sendgrid]: https://docs.sendgrid.com/for-developers/partners/microsoft-azure-2021 
+[sendgrid]: https://docs.sendgrid.com/for-developers/partners/microsoft-azure-2021

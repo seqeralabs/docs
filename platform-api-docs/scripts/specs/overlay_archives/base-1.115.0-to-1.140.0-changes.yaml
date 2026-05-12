@@ -1,0 +1,1548 @@
+overlay: 1.0.0
+x-speakeasy-jsonpath: rfc9535
+info:
+  title: Overlay seqera-api-1.115.0.yaml => seqera-api-1.140.0.yaml
+  version: 0.0.0
+actions:
+  - target: $["components"]["schemas"]["Action.ConfigType"]["discriminator"]["mapping"]
+    update:
+      bucket: "#/components/schemas/BucketActionConfig"
+  - target: $["components"]["schemas"]["Action.ConfigType"]["oneOf"]
+    update:
+      - $ref: "#/components/schemas/BucketActionConfig"
+  - target: $["components"]["schemas"]["Action.EventType"]["discriminator"]["mapping"]
+    update:
+      bucket: "#/components/schemas/BucketActionEvent"
+  - target: $["components"]["schemas"]["Action.EventType"]["oneOf"]
+    update:
+      - $ref: "#/components/schemas/BucketActionEvent"
+  - target: $["components"]["schemas"]["Action.Source"]["enum"]
+    update:
+      - bucket
+  - target: $["components"]["schemas"]["Action.Source"]["x-enum-varnames"]
+    update:
+      - bucket
+  - target: $["components"]["schemas"]["ActionResponseDto"]["properties"]
+    update:
+      error:
+        type: string
+  - target: $["components"]["schemas"]["ActionResponseDto"]["properties"]["message"]
+    remove: true
+  - target: $["components"]["schemas"]["ActiveConnection"]["allOf"][1]
+    update:
+      type: object
+  - target: $["components"]["schemas"]["AwsBatchConfig"]["properties"]["forgedResources"]["items"]["additionalProperties"]
+    update:
+      type: object
+  - target: $["components"]["schemas"]["AwsCloudConfig"]["properties"]["forgedResources"]["items"]["additionalProperties"]
+    update:
+      type: object
+  - target: $["components"]["schemas"]["AwsCloudConfig"]["properties"]
+    update:
+      schedConfig:
+        $ref: "#/components/schemas/SchedConfig"
+  - target: $["components"]["schemas"]["AwsCloudConfig"]["properties"]
+    update:
+      schedEnabled:
+        type: boolean
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]["deleteJobsOnCompletion"]
+    update:
+      allOf:
+        - $ref: "#/components/schemas/JobCleanupPolicy"
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]["deleteJobsOnCompletion"]
+    update:
+      nullable: true
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]["deleteJobsOnCompletion"]
+    update:
+      readOnly: true
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]["deleteJobsOnCompletion"]["$ref"]
+    remove: true
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]
+    update:
+      deleteJobsOnCompletionEnabled:
+        nullable: true
+        type: boolean
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]
+    update:
+      deleteTasksOnCompletion:
+        nullable: true
+        type: boolean
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]
+    update:
+      headJobCpus:
+        description: Number of CPU slots reserved on the head pool VM for the Nextflow head job. Defaults to 1 so multiple head jobs can share a head pool VM; increase to dedicate more CPU and memory to each head job.
+        example: 1
+        format: int32
+        nullable: true
+        type: integer
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]
+    update:
+      headJobMemoryMb:
+        description: "Memory in MiB reserved for the Nextflow head job container. When omitted, the value is derived from the head pool VM size as the per-slot share (vmMemory / vmCpus) multiplied by the requested slot count."
+        example: 4096
+        format: int32
+        nullable: true
+        type: integer
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]
+    update:
+      jobMaxWallClockTime:
+        description: "Maximum wall clock time for Azure Batch jobs before automatic termination. Accepts human-readable duration syntax (e.g., '7d', '1d1h1m'). Defaults to 7d when not specified. Maximum: 180 days."
+        example: 7d
+        nullable: true
+        type: string
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]
+    update:
+      managedIdentityHeadResourceId:
+        nullable: true
+        type: string
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]
+    update:
+      managedIdentityPoolClientId:
+        nullable: true
+        type: string
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]
+    update:
+      managedIdentityPoolResourceId:
+        nullable: true
+        type: string
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]
+    update:
+      subnetId:
+        description: Azure VNet subnet resource ID for private network isolation. Requires Entra (service principal) credentials.
+        example: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myRg/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet
+        nullable: true
+        type: string
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]
+    update:
+      terminateJobsOnCompletion:
+        nullable: true
+        type: boolean
+  - target: $["components"]["schemas"]["AzBatchConfig"]["properties"]
+    update:
+      workerPool:
+        type: string
+  - target: $["components"]["schemas"]["AzBatchForgeConfig"]["properties"]
+    update:
+      dualPoolConfig:
+        type: boolean
+  - target: $["components"]["schemas"]["AzBatchForgeConfig"]["properties"]
+    update:
+      headPool:
+        allOf:
+          - $ref: "#/components/schemas/AzBatchPoolConfig"
+        description: Head pool configuration for dual pool mode
+  - target: $["components"]["schemas"]["AzBatchForgeConfig"]["properties"]
+    update:
+      workerPool:
+        allOf:
+          - $ref: "#/components/schemas/AzBatchPoolConfig"
+        description: Worker pool configuration for dual pool mode
+  - target: $["components"]["schemas"]
+    update:
+      AzBatchPoolConfig:
+        description: Azure Batch pool configuration for head or worker pool
+        properties:
+          autoScale:
+            type: boolean
+          vmCount:
+            format: int32
+            type: integer
+          vmType:
+            type: string
+        type: object
+  - target: $["components"]["schemas"]
+    update:
+      BucketActionConfig:
+        properties:
+          bucketName:
+            type: string
+          dataLinkId:
+            type: string
+          datasetId:
+            type: string
+          discriminator:
+            type: string
+          events:
+            items:
+              type: string
+            type: array
+          filter:
+            type: string
+          markerFile:
+            type: string
+          subscriptionArn:
+            type: string
+          topicArn:
+            type: string
+        title: Bucket action config
+        type: object
+  - target: $["components"]["schemas"]
+    update:
+      BucketActionEvent:
+        properties:
+          bucketName:
+            type: string
+          discriminator:
+            type: string
+          eventName:
+            type: string
+          provider:
+            type: string
+          recordCount:
+            format: int32
+            type: integer
+          timestamp:
+            format: date-time
+            type: string
+        title: Bucket action event
+        type: object
+  - target: $["components"]["schemas"]
+    update:
+      BucketActionRequest:
+        properties:
+          dataLinkId:
+            type: string
+          datasetId:
+            type: string
+          events:
+            items:
+              type: string
+            type: array
+          filter:
+            type: string
+          markerFile:
+            type: string
+        type: object
+  - target: $["components"]["schemas"]
+    update:
+      ChangeStatus:
+        enum:
+          - UNCHANGED
+          - CHANGED
+          - UNKNOWN
+          - UNAVAILABLE
+        type: string
+  - target: $["components"]["schemas"]["ComputeConfig"]["oneOf"][*]
+    remove: true
+  - target: $["components"]["schemas"]["ComputeConfig"]["oneOf"]
+    update:
+      - $ref: "#/components/schemas/AwsBatchConfig"
+      - $ref: "#/components/schemas/AwsCloudConfig"
+      - $ref: "#/components/schemas/SeqeraComputeConfig"
+      - $ref: "#/components/schemas/GoogleBatchConfig"
+      - $ref: "#/components/schemas/GoogleCloudConfig"
+      - $ref: "#/components/schemas/AzBatchConfig"
+      - $ref: "#/components/schemas/AzCloudConfig"
+      - $ref: "#/components/schemas/LsfComputeConfig"
+      - $ref: "#/components/schemas/SlurmComputeConfig"
+      - $ref: "#/components/schemas/K8sComputeConfig"
+      - $ref: "#/components/schemas/EksComputeConfig"
+      - $ref: "#/components/schemas/GkeComputeConfig"
+      - $ref: "#/components/schemas/UnivaComputeConfig"
+      - $ref: "#/components/schemas/AltairPbsComputeConfig"
+      - $ref: "#/components/schemas/MoabComputeConfig"
+      - $ref: "#/components/schemas/LocalComputeConfig"
+      - $ref: "#/components/schemas/GoogleLifeSciencesConfig"
+  - target: $["components"]["schemas"]["ComputeEnvResponseDto"]["properties"]["platform"]["enum"][*]
+    remove: true
+  - target: $["components"]["schemas"]["ComputeEnvResponseDto"]["properties"]["platform"]["enum"]
+    update:
+      - aws-batch
+      - aws-cloud
+      - seqeracompute-platform
+      - google-batch
+      - google-cloud
+      - azure-batch
+      - azure-cloud
+      - k8s-platform
+      - eks-platform
+      - gke-platform
+      - uge-platform
+      - slurm-platform
+      - lsf-platform
+      - altair-platform
+      - moab-platform
+      - local-platform
+      - google-lifesciences
+  - target: $["components"]["schemas"]["ComputeEnv_ComputeConfig_"]["properties"]["platform"]["enum"][*]
+    remove: true
+  - target: $["components"]["schemas"]["ComputeEnv_ComputeConfig_"]["properties"]["platform"]["enum"]
+    update:
+      - aws-batch
+      - aws-cloud
+      - seqeracompute-platform
+      - google-batch
+      - google-cloud
+      - azure-batch
+      - azure-cloud
+      - k8s-platform
+      - eks-platform
+      - gke-platform
+      - uge-platform
+      - slurm-platform
+      - lsf-platform
+      - altair-platform
+      - moab-platform
+      - local-platform
+      - google-lifesciences
+  - target: $["components"]["schemas"]["CreateActionRequest"]["properties"]
+    update:
+      bucket:
+        $ref: "#/components/schemas/BucketActionRequest"
+  - target: $["components"]["schemas"]["CreateDatasetRequest"]["properties"]
+    update:
+      sourceType:
+        $ref: "#/components/schemas/SourceType"
+  - target: $["components"]["schemas"]
+    update:
+      CreateRoleRequest:
+        properties:
+          description:
+            maxLength: 120
+            minLength: 1
+            type: string
+          name:
+            type: string
+          permissions:
+            items:
+              type: string
+            type: array
+        required:
+          - description
+        type: object
+  - target: $["components"]["schemas"]
+    update:
+      CreateRoleResponse:
+        properties:
+          description:
+            type: string
+          name:
+            type: string
+          permissions:
+            items:
+              type: string
+            type: array
+        type: object
+  - target: $["components"]["schemas"]["Credentials"]["properties"]["provider"]["enum"][*]
+    remove: true
+  - target: $["components"]["schemas"]["Credentials"]["properties"]["provider"]["enum"]
+    update:
+      - aws
+      - azure
+      - azure_entra
+      - google
+      - github
+      - github_app
+      - gitlab
+      - bitbucket
+      - ssh
+      - k8s
+      - container-reg
+      - tw-agent
+      - codecommit
+      - gitea
+      - azurerepos
+      - seqeracompute
+      - azure-cloud
+      - s3
+  - target: $["components"]["schemas"]["DataLinkDownloadUrlResponse"]["properties"]
+    update:
+      resolvedMimeType:
+        type: string
+  - target: $["components"]["schemas"]["DataLinkDownloadUrlResponse"]["properties"]
+    update:
+      resolvedPath:
+        type: string
+  - target: $["components"]["schemas"]["DataLinkDownloadUrlResponse"]["properties"]
+    update:
+      warning:
+        type: string
+  - target: $["components"]["schemas"]["DataLinkItemType"]["enum"]
+    update:
+      - FUSION_SYMLINK_FILE
+  - target: $["components"]["schemas"]["DataStudioComputeEnvDto"]["allOf"][1]
+    update:
+      type: object
+  - target: $["components"]["schemas"]["DataStudioStartRequest"]["properties"]
+    update:
+      name:
+        maxLength: 80
+        minLength: 1
+        nullable: true
+        type: string
+  - target: $["components"]["schemas"]
+    update:
+      DataStudioUpdateRequest:
+        properties:
+          configuration:
+            allOf:
+              - $ref: "#/components/schemas/DataStudioConfiguration"
+            nullable: true
+          description:
+            maxLength: 2048
+            nullable: true
+            type: string
+          labelIds:
+            items:
+              format: int64
+              type: integer
+            nullable: true
+            type: array
+          name:
+            maxLength: 80
+            minLength: 1
+            nullable: true
+            type: string
+        type: object
+  - target: $["components"]["schemas"]["DataStudioWorkspaceSettingsRequest"]["properties"]["containerRepository"]
+    update:
+      description: "Container repository where Wave pushes images built for Studios in this workspace (e.g. 'cr.seqera.io/my-org/studios'). When null, the platform default is used."
+  - target: $["components"]["schemas"]["DataStudioWorkspaceSettingsRequest"]["properties"]["lifespanHours"]
+    update:
+      description: Maximum number of hours a Studio session may run before it is automatically stopped. Use 0 for unlimited lifespan.
+  - target: $["components"]["schemas"]["DataStudioWorkspaceSettingsRequest"]["properties"]["lifespanHours"]["minimum"]
+    remove: true
+  - target: $["components"]["schemas"]["DataStudioWorkspaceSettingsRequest"]["properties"]
+    update:
+      nameStrategy:
+        description: "Wave image naming strategy applied to container images built for Studios in this workspace. When null, the platform default strategy is used."
+        enum:
+          - none
+          - tagPrefix
+          - imageSuffix
+        nullable: true
+        type: string
+  - target: $["components"]["schemas"]["DataStudioWorkspaceSettingsRequest"]["properties"]["privateStudioByDefault"]
+    update:
+      description: "When true, newly created Studio sessions are private by default and only accessible to their creator."
+  - target: $["components"]["schemas"]["DataStudioWorkspaceSettingsResponse"]["properties"]
+    update:
+      nameStrategy:
+        nullable: true
+        type: string
+  - target: $["components"]["schemas"]["DatasetDto"]["properties"]
+    update:
+      sourceType:
+        $ref: "#/components/schemas/SourceType"
+  - target: $["components"]["schemas"]
+    update:
+      DatasetPreviewResponse:
+        properties:
+          content:
+            type: string
+          fileTooLarge:
+            type: boolean
+          reachable:
+            type: boolean
+        type: object
+  - target: $["components"]["schemas"]["DatasetVersionDto"]["properties"]
+    update:
+      linkedSource:
+        $ref: "#/components/schemas/LinkedSourceDto"
+  - target: $["components"]["schemas"]
+    update:
+      DescribeRoleResponse:
+        properties:
+          role:
+            $ref: "#/components/schemas/RoleDto"
+        type: object
+  - target: $["components"]["schemas"]
+    update:
+      GitHubAppSecurityKeys:
+        properties:
+          appId:
+            type: string
+          clientId:
+            type: string
+          clientSecret:
+            type: string
+            writeOnly: true
+          discriminator:
+            type: string
+          privateKey:
+            type: string
+            writeOnly: true
+          slug:
+            type: string
+          webhookSecret:
+            type: string
+            writeOnly: true
+        type: object
+  - target: $["components"]["schemas"]["GoogleBatchConfig"]["properties"]
+    update:
+      bootDiskImage:
+        type: string
+  - target: $["components"]["schemas"]["GoogleBatchConfig"]["properties"]
+    update:
+      computeJobsMachineType:
+        items:
+          type: string
+        type: array
+  - target: $["components"]["schemas"]["GoogleBatchConfig"]["properties"]
+    update:
+      fusionSnapshots:
+        type: boolean
+  - target: $["components"]["schemas"]["GoogleBatchConfig"]["properties"]
+    update:
+      networkTags:
+        items:
+          type: string
+        type: array
+  - target: $["components"]["schemas"]["GoogleCloudConfig"]["properties"]["forgedResources"]["items"]["additionalProperties"]
+    update:
+      type: object
+  - target: $["components"]["schemas"]["GoogleImage"]["properties"]
+    update:
+      qualifiedName:
+        type: string
+  - target: $["components"]["schemas"]["GooglePlatformMetainfo"]["properties"]
+    update:
+      images:
+        items:
+          $ref: "#/components/schemas/GoogleImage"
+        type: array
+  - target: $["components"]["schemas"]["GooglePlatformMetainfo"]["properties"]
+    update:
+      instanceTypes:
+        items:
+          $ref: "#/components/schemas/GoogleInstanceType"
+        type: array
+  - target: $["components"]["schemas"]["GoogleSecurityKeys"]["properties"]
+    update:
+      serviceAccountEmail:
+        type: string
+  - target: $["components"]["schemas"]["GoogleSecurityKeys"]["properties"]
+    update:
+      tokenAudience:
+        type: string
+  - target: $["components"]["schemas"]["GoogleSecurityKeys"]["properties"]
+    update:
+      workloadIdentityProvider:
+        type: string
+  - target: $["components"]["schemas"]["LaunchActionRequest"]["properties"]["params"]["additionalProperties"]
+    update:
+      type: object
+  - target: $["components"]["schemas"]
+    update:
+      LinkVersionRequest:
+        properties:
+          hasHeader:
+            type: boolean
+          url:
+            type: string
+        type: object
+  - target: $["components"]["schemas"]
+    update:
+      LinkedSourceDto:
+        properties:
+          changeStatus:
+            $ref: "#/components/schemas/ChangeStatus"
+          checkedAt:
+            format: date-time
+            type: string
+          hasChangeIndicators:
+            type: boolean
+          url:
+            type: string
+        type: object
+  - target: $["components"]["schemas"]["ListActionsResponse.ActionInfo"]["properties"]
+    update:
+      error:
+        type: string
+  - target: $["components"]["schemas"]["ListActionsResponse.ActionInfo"]["properties"]
+    update:
+      hint:
+        type: string
+  - target: $["components"]["schemas"]
+    update:
+      ListRolePermissionsResponse:
+        properties:
+          permissions:
+            items:
+              $ref: "#/components/schemas/RolePermissionResponseDto"
+            type: array
+        type: object
+  - target: $["components"]["schemas"]
+    update:
+      ListRolesResponse:
+        properties:
+          roles:
+            items:
+              $ref: "#/components/schemas/ListRolesResponse.RoleInfo"
+            type: array
+          totalSize:
+            format: int32
+            type: integer
+        type: object
+  - target: $["components"]["schemas"]
+    update:
+      ListRolesResponse.RoleInfo:
+        properties:
+          description:
+            type: string
+          isPredefined:
+            type: boolean
+          name:
+            type: string
+        type: object
+  - target: $["components"]["schemas"]
+    update:
+      ListUserRolesResponse:
+        properties:
+          user:
+            $ref: "#/components/schemas/MemberDbDto"
+          userWorkspaces:
+            items:
+              $ref: "#/components/schemas/UserWorkspaceRolesDto"
+            type: array
+        type: object
+  - target: $["components"]["schemas"]["LocalComputeConfig"]
+    update:
+      properties:
+        discriminator:
+          description: property to select the compute config platform
+          type: string
+        environment:
+          items:
+            $ref: "#/components/schemas/ConfigEnvVariable"
+          type: array
+        fusion2Enabled:
+          type: boolean
+        nextflowConfig:
+          type: string
+        postRunScript:
+          description: "Add a script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          type: string
+        preRunScript:
+          description: "Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
+          type: string
+        schedConfig:
+          $ref: "#/components/schemas/SchedConfig"
+        schedEnabled:
+          type: boolean
+        waveEnabled:
+          type: boolean
+        workDir:
+          description: Compute environment working directory
+          type: string
+  - target: $["components"]["schemas"]["LocalComputeConfig"]["allOf"]
+    remove: true
+  - target: $["components"]["schemas"]
+    update:
+      ResourceAllocation:
+        properties:
+          acceleratorCount:
+            format: int32
+            type: integer
+          acceleratorName:
+            type: string
+          acceleratorType:
+            type: string
+          cpuShares:
+            format: int32
+            type: integer
+          memoryMiB:
+            format: int32
+            type: integer
+          time:
+            type: string
+        type: object
+  - target: $["components"]["schemas"]
+    update:
+      RoleDto:
+        properties:
+          description:
+            type: string
+          isPredefined:
+            type: boolean
+          name:
+            type: string
+          permissions:
+            items:
+              type: string
+            type: array
+        type: object
+  - target: $["components"]["schemas"]
+    update:
+      RolePermissionResponseDto:
+        properties:
+          category:
+            type: string
+          name:
+            type: string
+        type: object
+  - target: $["components"]["schemas"]["RunLog"]["properties"]["outputs"]
+    update:
+      type: object
+  - target: $["components"]["schemas"]
+    update:
+      SchedConfig:
+        properties:
+          provisioningModel:
+            enum:
+              - spot
+              - spotFirst
+              - ondemand
+            type: string
+        type: object
+  - target: $["components"]["schemas"]["SecurityKeys"]["discriminator"]["mapping"]
+    update:
+      github_app: "#/components/schemas/GitHubAppSecurityKeys"
+  - target: $["components"]["schemas"]["SecurityKeys"]["oneOf"][*]
+    remove: true
+  - target: $["components"]["schemas"]["SecurityKeys"]["oneOf"]
+    update:
+      - $ref: "#/components/schemas/AwsSecurityKeys"
+      - $ref: "#/components/schemas/GoogleSecurityKeys"
+      - $ref: "#/components/schemas/GitHubSecurityKeys"
+      - $ref: "#/components/schemas/GitHubAppSecurityKeys"
+      - $ref: "#/components/schemas/GitLabSecurityKeys"
+      - $ref: "#/components/schemas/BitBucketSecurityKeys"
+      - $ref: "#/components/schemas/GiteaSecurityKeys"
+      - $ref: "#/components/schemas/SSHSecurityKeys"
+      - $ref: "#/components/schemas/K8sSecurityKeys"
+      - $ref: "#/components/schemas/AzureSecurityKeys"
+      - $ref: "#/components/schemas/AzureCloudKeys"
+      - $ref: "#/components/schemas/AzureReposSecurityKeys"
+      - $ref: "#/components/schemas/ContainerRegistryKeys"
+      - $ref: "#/components/schemas/AgentSecurityKeys"
+      - $ref: "#/components/schemas/CodeCommitSecurityKeys"
+      - $ref: "#/components/schemas/AzureEntraKeys"
+      - $ref: "#/components/schemas/SeqeraComputeSecurityKeys"
+      - $ref: "#/components/schemas/S3SecurityKeys"
+      - $ref: "#/components/schemas/LocalSecurityKeys"
+  - target: $["components"]["schemas"]["ServiceInfo"]["properties"]
+    update:
+      launchParamsTextMaxSize:
+        format: int32
+        type: integer
+  - target: $["components"]["schemas"]
+    update:
+      SourceType:
+        enum:
+          - UPLOADED
+          - LINKED
+        type: string
+  - target: $["components"]["schemas"]["Task"]["properties"]
+    update:
+      errorMessage:
+        nullable: true
+        type: string
+  - target: $["components"]["schemas"]["Task"]["properties"]
+    update:
+      logStreamId:
+        type: string
+  - target: $["components"]["schemas"]["Task"]["properties"]
+    update:
+      resourceAllocation:
+        $ref: "#/components/schemas/ResourceAllocation"
+  - target: $["components"]["schemas"]
+    update:
+      TeamType:
+        enum:
+          - regular
+          - system_owners
+        type: string
+        x-enum-varnames:
+          - regular
+          - system_owners
+  - target: $["components"]["schemas"]
+    update:
+      TraceCreateMetadata:
+        properties:
+          commitId:
+            nullable: true
+            type: string
+          computeEnvId:
+            nullable: true
+            type: string
+          computeEnvName:
+            nullable: true
+            type: string
+          computeEnvPlatform:
+            nullable: true
+            type: string
+          labels:
+            items:
+              type: string
+            nullable: true
+            type: array
+          orgName:
+            nullable: true
+            type: string
+          pipelineId:
+            format: int64
+            nullable: true
+            type: integer
+          pipelineName:
+            nullable: true
+            type: string
+          revision:
+            nullable: true
+            type: string
+          userId:
+            format: int64
+            type: integer
+          userName:
+            type: string
+          userOrganization:
+            nullable: true
+            type: string
+          workspaceFullName:
+            nullable: true
+            type: string
+          workspaceId:
+            format: int64
+            nullable: true
+            type: integer
+          workspaceName:
+            nullable: true
+            type: string
+        type: object
+  - target: $["components"]["schemas"]["TraceCreateResponse"]["properties"]
+    update:
+      metadata:
+        allOf:
+          - $ref: "#/components/schemas/TraceCreateMetadata"
+        nullable: true
+  - target: $["components"]["schemas"]["UpdateActionRequest"]["properties"]
+    update:
+      bucket:
+        $ref: "#/components/schemas/BucketActionRequest"
+  - target: $["components"]["schemas"]
+    update:
+      UpdateRoleRequest:
+        properties:
+          description:
+            maxLength: 120
+            minLength: 1
+            type: string
+          name:
+            type: string
+          permissions:
+            items:
+              type: string
+            type: array
+        required:
+          - description
+        type: object
+  - target: $["components"]["schemas"]
+    update:
+      UserWorkspacePermissionDto:
+        properties:
+          permission:
+            type: string
+          roles:
+            items:
+              type: string
+            type: array
+        type: object
+  - target: $["components"]["schemas"]
+    update:
+      UserWorkspaceRoleDto:
+        properties:
+          role:
+            type: string
+          roleSourceType:
+            $ref: "#/components/schemas/WspRoleSourceType"
+          sourceTeamId:
+            format: int64
+            type: integer
+          sourceTeamName:
+            type: string
+          sourceTeamType:
+            $ref: "#/components/schemas/TeamType"
+        type: object
+  - target: $["components"]["schemas"]
+    update:
+      UserWorkspaceRolesDto:
+        properties:
+          permissions:
+            items:
+              $ref: "#/components/schemas/UserWorkspacePermissionDto"
+            type: array
+          roles:
+            items:
+              $ref: "#/components/schemas/UserWorkspaceRoleDto"
+            type: array
+          workspaceId:
+            format: int64
+            type: integer
+          workspaceName:
+            type: string
+        type: object
+  - target: $["components"]["schemas"]
+    update:
+      ValidateUrlRequest:
+        properties:
+          url:
+            type: string
+        type: object
+  - target: $["components"]["schemas"]
+    update:
+      ValidateUrlResponse:
+        properties:
+          contentLength:
+            format: int64
+            type: integer
+          errorCode:
+            type: string
+          errorMessage:
+            type: string
+          hasEtag:
+            type: boolean
+          mediaType:
+            type: string
+          valid:
+            type: boolean
+        type: object
+  - target: $["components"]["schemas"]["Workflow"]["properties"]["params"]["additionalProperties"]
+    update:
+      type: object
+  - target: $["components"]["schemas"]["WorkflowDbDto"]["properties"]["params"]["additionalProperties"]
+    update:
+      type: object
+  - target: $["components"]["schemas"]["WorkflowMaxDbDto"]["allOf"][1]
+    update:
+      type: object
+  - target: $["components"]["schemas"]
+    update:
+      WspRoleSourceType:
+        enum:
+          - individual
+          - team
+        type: string
+        x-enum-varnames:
+          - individual
+          - team
+  - target: $["info"]["version"]
+    update: 1.140.0
+  - target: $["paths"]["/avatars"]["post"]["requestBody"]["content"]["multipart/form-data"]["encoding"]["image"]
+    update:
+      explode: false
+  - target: $["paths"]["/data-links/{dataLinkId}/generate-download-url"]["get"]["parameters"][*]
+    remove: true
+  - target: $["paths"]["/data-links/{dataLinkId}/generate-download-url"]["get"]["parameters"]
+    update:
+      - description: Data-link string identifier
+        in: path
+        name: dataLinkId
+        required: true
+        schema:
+          type: string
+      - description: File path to download
+        in: query
+        name: filePath
+        schema:
+          type: string
+      - description: Credentials string identifier
+        in: query
+        name: credentialsId
+        schema:
+          type: string
+      - description: Workspace numeric identifier
+        in: query
+        name: workspaceId
+        schema:
+          format: int64
+          type: integer
+      - description: "Whether to generate the URL for preview purposes or direct download (default: false)"
+        in: query
+        name: preview
+        schema:
+          type: boolean
+      - description: "When true, treats the file as a Fusion symlink and resolves its target (default: false)"
+        in: query
+        name: resolveSymlink
+        schema:
+          type: boolean
+  - target: $["paths"]
+    update:
+      /datasets/preview-url:
+        post:
+          description: "Fetches a partial content preview from an arbitrary HTTP/HTTPS URL, without creating a dataset. Intended for the dataset form preview after URL validation."
+          operationId: PreviewDatasetUrl
+          parameters:
+            - explode: false
+              in: query
+              name: workspaceId
+              schema:
+                format: int64
+                nullable: true
+                type: integer
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ValidateUrlRequest"
+            description: URL preview request
+            required: true
+          responses:
+            "200":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/DatasetPreviewResponse"
+              description: OK
+            "400":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+              description: Bad request
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+          summary: Preview content from a URL
+          tags:
+            - datasets
+  - target: $["paths"]
+    update:
+      /datasets/validate-url:
+        post:
+          description: "Validates that a remote dataset URL is accessible and returns a supported CSV/TSV format, without creating a dataset."
+          operationId: ValidateDatasetUrl
+          parameters:
+            - explode: false
+              in: query
+              name: workspaceId
+              schema:
+                format: int64
+                nullable: true
+                type: integer
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ValidateUrlRequest"
+            description: URL validation request
+            required: true
+          responses:
+            "200":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ValidateUrlResponse"
+              description: OK
+            "400":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+              description: Bad request
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+          summary: Validate URL for dataset linking
+          tags:
+            - datasets
+  - target: $["paths"]
+    update:
+      /datasets/{datasetId}/link:
+        post:
+          description: Creates a new linked DatasetVersion for an existing LINKED dataset by supplying a public HTTP/HTTPS URL.
+          operationId: LinkDatasetVersion
+          parameters:
+            - description: Workspace numeric identifier
+              in: query
+              name: workspaceId
+              schema:
+                format: int64
+                type: integer
+            - description: Dataset string identifier
+              in: path
+              name: datasetId
+              required: true
+              schema:
+                type: string
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/LinkVersionRequest"
+            description: Link version request
+            required: true
+          responses:
+            "200":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/UploadDatasetVersionResponse"
+              description: OK
+            "400":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+              description: Bad request
+            "403":
+              description: Operation not allowed
+            "404":
+              description: Dataset not found
+          security:
+            - BearerAuth: []
+          summary: Link external URL as dataset version
+          tags:
+            - datasets
+  - target: $["paths"]["/datasets/{datasetId}/v/{version}/n/{fileName}"]["get"]["responses"]
+    update:
+      "307":
+        description: Temporary redirect to linked source URL
+  - target: $["paths"]
+    update:
+      /datasets/{datasetId}/v/{version}/preview:
+        get:
+          description: Fetches a partial preview of the content for a linked dataset version.
+          operationId: PreviewDatasetVersion
+          parameters:
+            - description: Workspace numeric identifier
+              in: query
+              name: workspaceId
+              schema:
+                format: int64
+                type: integer
+            - description: Dataset string identifier
+              in: path
+              name: datasetId
+              required: true
+              schema:
+                type: string
+            - description: Dataset version number
+              in: path
+              name: version
+              required: true
+              schema:
+                format: int64
+                type: integer
+          responses:
+            "200":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/DatasetPreviewResponse"
+              description: OK
+            "400":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+              description: Bad request
+            "403":
+              description: Operation not allowed
+            "404":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+              description: Dataset or version not found
+          security:
+            - BearerAuth: []
+          summary: Preview linked dataset content
+          tags:
+            - datasets
+  - target: $["paths"]["/orgs/{orgId}/teams/{teamId}/members"]["get"]["parameters"][4]
+    update:
+      explode: false
+  - target: $["paths"]
+    update:
+      /orgs/{orgId}/users/{userId}/roles:
+        get:
+          description: List all user roles and permissions in an organization; also list the sources of those roles (via team assignment or direct user assignment).
+          operationId: ListUserRolesInOrganization
+          parameters:
+            - description: Organization numeric identifier
+              in: path
+              name: orgId
+              required: true
+              schema:
+                format: int64
+                type: integer
+            - description: User numeric identifier
+              in: path
+              name: userId
+              required: true
+              schema:
+                format: int64
+                type: integer
+          responses:
+            "200":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ListUserRolesResponse"
+              description: OK
+            "400":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+              description: Bad request
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+          summary: List all user roles and permissions in an organization
+          tags:
+            - orgs
+  - target: $["paths"]["/orgs/{orgId}/workspaces/{workspaceId}/participants/add"]["put"]["responses"]["409"]["description"]
+    update: Duplicate element or collaborator not permitted for organization with active SSO
+  - target: $["paths"]["/pipelines/{pipelineId}"]["put"]["description"]
+    update: |-
+      Updates the details of the pipeline identified by the given `pipelineId`.
+                  **Note**: If `labelIds` is `null`, empty, or omitted, existing pipeline labels are removed.
+                  Include `labelIds: [<label-id-1>,<label-id-2>]` to override existing labels. Labels to be preserved must be included.
+                  To append a list of labels to multiple pipelines, use `/pipelines/labels/add`.
+  - target: $["paths"]["/platforms/{platformId}"]["get"]["parameters"][2]
+    update:
+      explode: false
+  - target: $["paths"]["/platforms/{platformId}"]["get"]["parameters"][3]
+    update:
+      explode: false
+  - target: $["paths"]
+    update:
+      /roles:
+        get:
+          operationId: ListRoles
+          parameters:
+            - description: Numeric identifier of the organization
+              in: query
+              name: orgId
+              schema:
+                format: int64
+                type: integer
+            - description: Pagination max results
+              in: query
+              name: max
+              schema:
+                format: int32
+                type: integer
+            - description: Pagination offset
+              in: query
+              name: offset
+              schema:
+                format: int32
+                type: integer
+            - description: Search by name parameter
+              in: query
+              name: name
+              schema:
+                type: string
+            - description: "Filter by role type (predefined, custom)"
+              in: query
+              name: type
+              schema:
+                type: string
+          responses:
+            "200":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ListRolesResponse"
+              description: OK
+            "400":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+              description: Bad request
+            "403":
+              description: Operation not allowed
+          security:
+            - BearerAuth: []
+          summary: List all roles
+          tags:
+            - roles
+        post:
+          operationId: CreateRole
+          parameters:
+            - description: Numeric identifier of the organization
+              in: query
+              name: orgId
+              schema:
+                format: int64
+                type: integer
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/CreateRoleRequest"
+            description: Create role request
+            required: true
+          responses:
+            "201":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/CreateRoleResponse"
+              description: Created
+            "400":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+              description: Bad request
+            "403":
+              description: Operation not allowed
+            "409":
+              description: Duplicate role name
+          security:
+            - BearerAuth: []
+          summary: Create a role with the given name
+          tags:
+            - roles
+  - target: $["paths"]
+    update:
+      /roles/permissions:
+        get:
+          operationId: ListRolePermissions
+          parameters:
+            - description: Numeric identifier of the organization
+              in: query
+              name: orgId
+              required: true
+              schema:
+                format: int64
+                type: integer
+            - description: Search query for name filtering
+              in: query
+              name: name
+              required: false
+              schema:
+                format: int64
+                type: integer
+          responses:
+            "200":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ListRolePermissionsResponse"
+              description: OK
+            "400":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+              description: Bad request
+            "403":
+              description: Operation not allowed
+            "404":
+              description: Not Found
+          security:
+            - BearerAuth: []
+          summary: List all role permissions available in the system
+          tags:
+            - roles
+  - target: $["paths"]
+    update:
+      /roles/validate:
+        get:
+          operationId: ValidateRoleName
+          parameters:
+            - description: The role name
+              in: query
+              name: name
+              schema:
+                type: string
+            - description: Numeric identifier of the organization
+              in: query
+              name: orgId
+              schema:
+                format: int64
+                type: integer
+          responses:
+            "204":
+              description: No content - Role name is valid and available
+            "400":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+              description: Bad request
+            "403":
+              description: Operation not allowed
+            "409":
+              description: Role name already exists
+          security:
+            - BearerAuth: []
+          summary: Validate if a role name is available within the organization
+          tags:
+            - roles
+  - target: $["paths"]
+    update:
+      /roles/{roleName}:
+        delete:
+          operationId: DeleteRole
+          parameters:
+            - description: The role name
+              in: path
+              name: roleName
+              required: true
+              schema:
+                type: string
+            - description: Numeric identifier of the organization
+              in: query
+              name: orgId
+              schema:
+                format: int64
+                type: integer
+          responses:
+            "204":
+              description: No Content - Role deleted successfully
+            "400":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+              description: Bad request
+            "403":
+              description: Operation not allowed
+            "404":
+              description: Role not found
+          security:
+            - BearerAuth: []
+          summary: Delete a role with the given name
+          tags:
+            - roles
+        get:
+          operationId: DescribeRole
+          parameters:
+            - description: The role name
+              in: path
+              name: roleName
+              required: true
+              schema:
+                type: string
+            - description: Numeric identifier of the organization
+              in: query
+              name: orgId
+              schema:
+                format: int64
+                type: integer
+          responses:
+            "200":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/DescribeRoleResponse"
+              description: OK
+            "400":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+              description: Bad request
+            "403":
+              description: Operation not allowed
+            "404":
+              description: Role not found
+          security:
+            - BearerAuth: []
+          summary: Describe role and its permissions fetching by role name
+          tags:
+            - roles
+        put:
+          operationId: UpdateRole
+          parameters:
+            - description: The role name
+              in: path
+              name: roleName
+              required: true
+              schema:
+                type: string
+            - description: Numeric identifier of the organization
+              in: query
+              name: orgId
+              schema:
+                format: int64
+                type: integer
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/UpdateRoleRequest"
+            description: Update role request
+            required: true
+          responses:
+            "204":
+              description: No Content - Role updated successfully
+            "400":
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/ErrorResponse"
+              description: Bad request
+            "403":
+              description: Operation not allowed
+            "404":
+              description: Role not found
+            "409":
+              description: Duplicate role name
+          security:
+            - BearerAuth: []
+          summary: Update a role with the given name
+          tags:
+            - roles
+  - target: $["paths"]["/studios/{sessionId}"]
+    update:
+      put:
+        description: Updates the given Studio session ID. Can only update non-running Studios.
+        operationId: UpdateDataStudio
+        parameters:
+          - description: Studio session numeric identifier
+            in: path
+            name: sessionId
+            required: true
+            schema:
+              type: string
+          - description: Workspace numeric identifier
+            in: query
+            name: workspaceId
+            schema:
+              format: int64
+              type: integer
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DataStudioUpdateRequest"
+          description: Fields to update on the studio.
+          required: true
+        responses:
+          "200":
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/DataStudioDto"
+            description: OK
+          "400":
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ErrorResponse"
+            description: BadRequest
+          "403":
+            description: Operation not allowed.
+          "404":
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ErrorResponse"
+            description: "NotFound, when the Studio is not found or when the API is disabled for the workspace."
+          "409":
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ErrorResponse"
+            description: Conflict - duplicated name
+        security:
+          - BearerAuth: []
+        summary: Update a Studio
+        tags:
+          - studios
+  - target: $["paths"]["/workspaces/{workspaceId}/datasets/versions"]["get"]["parameters"][1]
+    update:
+      explode: false
+  - target: $["paths"]["/workspaces/{workspaceId}/datasets/{datasetId}/v/{version}/n/{fileName}"]
+    remove: true

@@ -13,14 +13,14 @@ This demo tutorial provides an introduction to the Seqera Cloud Community Showca
 - Select pipeline input data with [Data Explorer](../../data/data-explorer) and Platform [datasets](../../data/datasets).
 - Perform interactive analysis of pipeline results with [Studios](../../studios/overview).
 
-The Platform Community Showcase is a Seqera-managed demonstration workspace with all the resources needed to follow along with this tutorial. All [Seqera Cloud](https://cloud.seqera.io) users have access to this example workspace by default. 
+The Platform Community Showcase is a Seqera-managed demonstration workspace with all the resources needed to follow along with this tutorial. All [Seqera Cloud](https://cloud.seqera.io) users have access to this example workspace by default.
 :::
 
 The Launchpad in every Platform workspace allows users to easily create and share Nextflow pipelines that can be executed on any supported infrastructure, including all public clouds and most HPC schedulers. A Launchpad pipeline consists of a pre-configured workflow repository, [compute environment](../../compute-envs/overview), and launch parameters.
 
-The Community Showcase contains 15 preconfigured pipelines, including [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq), a bioinformatics pipeline used to analyze RNA sequencing data. 
+The Community Showcase contains 15 preconfigured pipelines, including [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq), a bioinformatics pipeline used to analyze RNA sequencing data.
 
-The workspace also includes three preconfigured AWS Batch compute environments to run Community Showcase pipelines, and various Platform datasets and public data sources (accessed via Data Explorer) to use as pipeline input. 
+The workspace also includes three preconfigured AWS Batch compute environments to run Community Showcase pipelines, and various Platform datasets and public data sources (accessed via Data Explorer) to use as pipeline input.
 
 :::note
 To skip this Community Showcase demo and start running pipelines on your own infrastructure:
@@ -32,14 +32,14 @@ To skip this Community Showcase demo and start running pipelines on your own inf
 ## Launch the nf-core/rnaseq pipeline
 
 :::note
-This guide is based on version 3.14.0 of the *nf-core/rnaseq* pipeline. Launch form parameters may differ in other versions. 
+This guide is based on version 3.14.0 of the *nf-core/rnaseq* pipeline. Launch form parameters may differ in other versions.
 :::
 
 Navigate to the Launchpad in the `community/showcase` workspace and select **Launch** next to the *nf-core-rnaseq* pipeline to open the launch form.
 
  ![Launch a pipeline](../_images/cs-launch-form-1.gif)
 
-The launch form consists of **General config**, **Run parameters**, and **Advanced options** sections to specify your run parameters before execution, and an execution summary. Use section headings or select the **Previous** and **Next** buttons at the bottom of the page to navigate between sections. 
+The launch form consists of **General config**, **Run parameters**, and **Advanced options** sections to specify your run parameters before execution, and an execution summary. Use section headings or select the **Previous** and **Next** buttons at the bottom of the page to navigate between sections.
 
 <details>
   <summary>Nextflow parameter schema</summary>
@@ -47,19 +47,19 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
   The launch form lets you configure the pipeline execution. The pipeline parameters in this form are rendered from a [pipeline schema](../../pipeline-schema/overview) file in the root of the pipeline Git repository. `nextflow_schema.json` is a simple JSON-based schema describing pipeline parameters for pipeline developers to easily adapt their in-house Nextflow pipelines to be executed in Platform.
 
   :::tip
-  See [Best Practices for Deploying Pipelines with the Seqera Platform](https://seqera.io/blog/best-practices-for-deploying-pipelines-with-seqera-platform/) to learn how to build the parameter schema for any Nextflow pipeline automatically with tooling maintained by the nf-core community. 
+  See [Best Practices for Deploying Pipelines with the Seqera Platform](https://seqera.io/blog/best-practices-for-deploying-pipelines-with-seqera-platform/) to learn how to build the parameter schema for any Nextflow pipeline automatically with tooling maintained by the nf-core community.
   :::
 
 </details>
 
-### General config 
+### General config
 
 Most Showcase pipeline parameters are prefilled. Specify the following fields to identify your run amongst other workspace runs:
 
 - **Workflow run name**: A unique identifier for the run, pre-filled with a random name. This can be customized.
 - **Labels**: Assign new or existing labels to the run. For example, a project ID or genome version.
 
-### Run parameters 
+### Run parameters
 
 There are three ways to enter **Run parameters** prior to launch:
 
@@ -69,7 +69,7 @@ There are three ways to enter **Run parameters** prior to launch:
 
 #### input
 
-Most nf-core pipelines use the `input` parameter in a standardized way to specify an input samplesheet that contains paths to input files (such as FASTQ files) and any additional metadata needed to run the pipeline. Use **Browse** to select either a file path in cloud storage via **Data Explorer**, or a pre-loaded **Dataset**: 
+Most nf-core pipelines use the `input` parameter in a standardized way to specify an input samplesheet that contains paths to input files (such as FASTQ files) and any additional metadata needed to run the pipeline. Use **Browse** to select either a file path in cloud storage via **Data Explorer**, or a pre-loaded **Dataset**:
 
 - In the **Data Explorer** tab, select the `nf-tower-data` bucket, then search for and select the `rnaseq_sample_data.csv` file.
 - In the **Datasets** tab, search for and select `rnaseq_sample_data`.
@@ -82,11 +82,11 @@ See [Add data](./add-data) to learn how to add datasets and Data Explorer cloud 
 
 #### output
 
-Most nf-core pipelines use the `outdir` parameter in a standardized way to specify where the final results created by the pipeline are published. `outdir` must be unique for each pipeline run. Otherwise, your results will be overwritten. 
+Most nf-core pipelines use the `outdir` parameter in a standardized way to specify where the final results created by the pipeline are published. `outdir` must be unique for each pipeline run. Otherwise, your results will be overwritten.
 
 For this tutorial test run, keep the default `outdir` value (`./results`).
 
-:::tip 
+:::tip
 For the `outdir` parameter in pipeline runs in your own workspace, select **Browse** to specify a cloud storage directory using Data Explorer, or enter a cloud storage directory path to publish pipeline results to manually.
 :::
 
@@ -98,7 +98,7 @@ Modify other parameters to customize the pipeline execution through the paramete
 
 Select **Launch** to start the run and be directed to the **Runs** tab with your run in a **submitted** status at the top of the list.
 
-## View run information 
+## View run information
 
 ### Run details page
 
@@ -136,7 +136,7 @@ Most Nextflow pipelines generate reports or output files which are useful to ins
 
   #### Specify outputs in reports
 
-  To customize and instruct Platform where to find reports generated by the pipeline, a [tower.yml](https://github.com/nf-core/rnaseq/blob/master/tower.yml) file that contains the locations of the generated reports must be included in the pipeline repository. 
+  To customize and instruct Platform where to find reports generated by the pipeline, a [tower.yml](https://github.com/nf-core/rnaseq/blob/master/tower.yml) file that contains the locations of the generated reports must be included in the pipeline repository.
 
   In the *nf-core/rnaseq* pipeline, the `MULTIQC` process step generates a MultiQC report file in HTML format:
 
@@ -147,7 +147,7 @@ Most Nextflow pipelines generate reports or output files which are useful to ins
   ```
 </details>
 :::note
-See [Reports](../../reports/overview) to configure reports for pipeline runs in your own workspace. 
+See [Reports](../../reports/overview) to configure reports for pipeline runs in your own workspace.
 :::
 ### View general information
 The **Run details** page includes general information about who executed the run and when, the Git hash and tag used, and additional details about the compute environment and Nextflow version used.
@@ -188,7 +188,7 @@ The task details table provides further information on every step in the pipelin
   The **Execution log** tab provides a real-time log of the selected task's execution. Task execution and other logs (such as stdout and stderr) are available for download from here, if still available in your compute environment.
 </details>
 ### Task work directory in Data Explorer
-If a task fails, a good place to begin troubleshooting is the task's work directory. Nextflow hash-addresses each task of the pipeline and creates unique directories based on these hashes. 
+If a task fails, a good place to begin troubleshooting is the task's work directory. Nextflow hash-addresses each task of the pipeline and creates unique directories based on these hashes.
 <details>
   <summary>View task log and output files</summary>
   Instead of navigating through a bucket on the cloud console or filesystem, use the **Data Explorer** tab in the Task window to view the work directory.
@@ -201,14 +201,14 @@ Interactive analysis of pipeline results is often performed in platforms like Ju
 ### Analyze RNAseq data in Studios
 In the **Studios** tab, you can monitor and see the details of the Studios in the Community Showcase workspace.
 Studios is used to perform bespoke analysis on the results of upstream workflows. For example, in the Community Showcase workspace we have run the *nf-core/rnaseq* pipeline to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. The workspace contains a Studio with these results from cloud storage mounted into the Studio to perform further analysis. One of these outputs is an RShiny application, which can be deployed for interactive analysis.
-#### Connect to the RNAseq analysis Studio 
-Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an R-IDE that uses an existing compute environment available in the Community Showcase workspace. The Studio also contains mounted data generated from the *nf-core/rnaseq* and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3. 
+#### Connect to the RNAseq analysis Studio
+Select the *rnaseq_to_differentialabundance* Studio. This Studio consists of an R-IDE that uses an existing compute environment available in the Community Showcase workspace. The Studio also contains mounted data generated from the *nf-core/rnaseq* and subsequent *nf-core/differentialabundance* pipeline runs, directly from AWS S3.
 ![RNAseq Studio details](assets/rnaseq-diffab-studio-details.gif)
 Select **Connect** to view the running R-IDE session. The *rnaseq_to_differentialabundance* Studio includes the necessary R packages for deploying a web app to visualize the RNAseq data.
 Deploy the RShiny app in the Studio by selecting the play button on the last chunk of the R script:
 ![Run RShiny app](./assets/rnaseq-diffab-run-rshiny-app.png)
 :::note
-You can specify the resources each Studio will use. When [you create your own Studios](../../studios/overview) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent Studio or pipeline run interruptions. 
+You can specify the resources each Studio will use. When [you create your own Studios](../../studios/overview) with shared compute environment resources, you must allocate sufficient resources to the compute environment to prevent Studio or pipeline run interruptions.
 :::
 ### Explore results
 The RShiny app will deploy in a separate browser window, providing a data interface. Here you can view information about your sample data, perform QC or exploratory analysis, and view the results of differential expression analyses.
@@ -216,7 +216,7 @@ The RShiny app will deploy in a separate browser window, providing a data interf
 <details>
   <summary>Sample clustering with PCA plots</summary>
   In the **QC/Exploratory** tab, select the PCA (Principal Component Analysis) plot to visualize how the samples group together based on their gene expression profiles.
-  In this example, we used RNA sequencing data from the publicly-available ENCODE project, which includes samples from four different cell lines: 
+  In this example, we used RNA sequencing data from the publicly-available ENCODE project, which includes samples from four different cell lines:
   - **GM12878**: a lymphoblastoid cell line
   - **K562**: a chronic myelogenous leukemia cell line
   - **MCF-7**: a breast cancer cell line
@@ -252,10 +252,10 @@ The RShiny app will deploy in a separate browser window, providing a data interf
 To share the results of your RNAseq analysis or allow colleagues to perform exploratory analysis, select the options menu for the Studio you want to share then select **Copy Studio URL**. With this link, other authenticated users with the **Connect** [role](../../orgs-and-teams/roles) (or greater) can access the session directly.
 
 :::note
-See [Studios](../../studios/overview) to learn how to create Studios in your own workspace. 
+See [Studios](../../studios/overview) to learn how to create Studios in your own workspace.
 :::
 
-## Pipeline optimization 
+## Pipeline optimization
 
 Seqera Platform's task-level resource usage metrics allow you to determine the resources requested for a task and what was actually used. This information helps you fine-tune your configuration more accurately.
 
@@ -274,9 +274,9 @@ Pipeline optimization analyzes resource usage data from previous runs to optimiz
 
   This profile consists of Nextflow configuration settings for each process and each resource directive (where applicable): **cpus**, **memory**, and **time**. The optimized setting for a given process and resource directive is based on the maximum use of that resource across all tasks in that process.
 
-  Once optimization is selected, subsequent runs of that pipeline will inherit the optimized configuration profile, indicated by the black lightbulb icon with a checkmark. 
+  Once optimization is selected, subsequent runs of that pipeline will inherit the optimized configuration profile, indicated by the black lightbulb icon with a checkmark.
 
-  :::note 
+  :::note
   Optimization profiles are generated from one run at a time, defaulting to the most recent run, and _not_ an aggregation of previous runs.
   :::
 

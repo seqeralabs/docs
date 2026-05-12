@@ -5,15 +5,16 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: Role name.
+  Description: Custom role name. Must be unique in the organization and meet role
+    name length and format requirements.
 - Name: description
   Type: string
   Req/Opt: Optional
-  Description: Role description.
+  Description: Custom role description. Must be between 1 and 120 characters.
 - Name: permissions
   Type: array
   Req/Opt: Optional
-  Description: List of permission names assigned to the role.
+  Description: Array of permission names assigned to the custom role.
 - Name: "**UpdateRole**"
   Type: ""
   Req/Opt: ""
@@ -21,12 +22,13 @@
 - Name: name
   Type: string
   Req/Opt: Optional
-  Description: Role name.
+  Description: Updated custom role name. Must be unique in the organization and
+    meet role name length and format requirements.
 - Name: description
   Type: string
   Req/Opt: Optional
-  Description: Role description.
+  Description: Updated custom role description. Must be between 1 and 120 characters.
 - Name: permissions
   Type: array
   Req/Opt: Optional
-  Description: List of permission names assigned to the role.
+  Description: Array of permission names assigned to the custom role.
