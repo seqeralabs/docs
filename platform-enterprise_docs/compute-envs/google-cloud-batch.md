@@ -193,7 +193,7 @@ After you create your Google Cloud resources, create a Seqera Platform compute e
 
 Select the **Location** where you execute your pipelines. See [Location](https://cloud.google.com/compute/docs/regions-zones#available) to learn more.
 
-In the **Pipeline work directory** field, enter your storage bucket URL, e.g., `gs://my-bucket`. This bucket must be accessible in the location selected in the previous step.
+In the **Pipeline work directory** field, enter your storage bucket URL. For example, `gs://my-bucket`. This bucket must be accessible in the location selected in the previous step.
 
 :::note
 When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
