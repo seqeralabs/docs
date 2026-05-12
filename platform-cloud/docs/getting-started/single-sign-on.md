@@ -77,7 +77,7 @@ When an organization has active SSO:
 
 When a user signs in through an active SSO connection for the first time:
 
-- Existing Seqera accounts with the same email are linked to the SSO identity instead of creating a duplicate user.
+- Existing Auth0 accounts with the same email are linked to the SSO identity instead of creating a duplicate user.
 - Users who first access Seqera after SSO is active are created through the SSO sign-in flow and automatically added to the organization as members.
 - Existing organization memberships, workspace roles, ownership, and run history are preserved for linked accounts.
 - Name and profile fields are populated from the IdP when those attributes are available.
