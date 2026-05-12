@@ -131,7 +131,7 @@ After setting up WIF in Google Cloud, you need the following information to crea
 * **Workload Identity Provider**: The full resource path of the Workload Identity Provider (e.g., `projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID`).
 * **Token Audience** (optional): The intended audience for the OIDC token. Configure this if your Workload Identity Provider requires a specific audience value. Ensure this matches what you have configured in the **Allowed Audiences** value in the GCP console.
 
-The issuer URL is ${TOWER_SERVER_URL}/api for all deployments, not just Cloud. In the GCP WIF provider, set the issuer to https://{your-platform-domain}/api regardless of whether it's Cloud or Enterprise. The discovery endpoints are at /api/.well-known/openid-configuration and /api/.well-known/jwks.json, and both must be publicly reachable from GCP STS.
+The issuer URL is `${TOWER_SERVER_URL}/api` for all deployments, not just Cloud. In the GCP WIF provider, set the issuer to `https://{your-platform-domain}/api` regardless of whether it's Cloud or Enterprise. The discovery endpoints are at `/api/.well-known/openid-configuration` and `/api/.well-known/jwks.json`, and both must be publicly reachable from GCP STS.
 
 :::caution
 If WIF authentication fails, verify that the Workload Identity Provider path is correctly formatted, the service account has the required permissions, and the Kubernetes service account is properly annotated for your deployment environment. Check your Seqera Platform logs for specific error details. A `400` error typically indicates an invalid provider format, while a `401` error indicates a token exchange failure.
