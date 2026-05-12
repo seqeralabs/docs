@@ -131,7 +131,7 @@ The recommended Studios container template version for 26.1 is **0.9**. If you h
 
 ### AWS data lineage tracking via SQS (preview, AWS only)
 
-26.1 introduces a preview of AWS data lineage tracking that depends on an Amazon SQS queue. This feature is AWS-only and disabled by default. If you plan to enable it, ensure your IAM policies grant the Seqera role the relevant SQS permissions in addition to the existing [Seqera IAM permissions](../compute-envs/aws-batch#iam-user-creation).
+26.1 introduces a preview of AWS data lineage tracking that depends on an Amazon SQS queue. This feature is AWS-only and disabled by default. If you plan to enable it, ensure your IAM policies grant the Seqera role the relevant [SQS permissions](../data/data-lineage#additional-iam-permissions-required) in addition to the existing [Seqera IAM permissions](../compute-envs/aws-batch#iam-user-creation).
 
 ### General upgrade steps
 
