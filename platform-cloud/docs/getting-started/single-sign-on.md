@@ -108,17 +108,13 @@ SSO activity is recorded in the audit log for compliance and troubleshooting. Au
 
 ## Troubleshooting
 
-### The setup link isn't generated
+### Setup Issues
 
-Check whether your organization already contains members with email addresses outside the domain you are trying to claim or existing workspace collaborators.
+These issues can occur either when you first claim a domain to create an SSO connection, or later when the connection is enabled:
 
-### Setup is blocked because the organization has collaborators
-
-Remove existing workspace collaborators before you configure SSO. If external users need continued access, add them to your IdP as guest or external accounts so they can sign in through SSO and be provisioned as organization members.
-
-### The claimed domain is rejected
-
-The domain may already be claimed by another organization. In that case, contact Seqera support.
+- Organization contains members with email addresses outside the claimed domain. Remove them or migrate them to the claimed domain.
+- Organization has existing workspace collaborators. If external users need continued access, add them to your IdP as guest or external accounts so they can sign in through SSO and be provisioned as organization members.
+- The claimed domain is rejected or becomes unclaimable. The domain may already be claimed by another organization — either at the time you attempt to claim it, or because another organization has since enabled a connection with the same domain claim. Contact Seqera support.
 
 ### Users are not redirected to the corporate IdP
 
