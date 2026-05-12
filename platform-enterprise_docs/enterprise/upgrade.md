@@ -91,7 +91,9 @@ If you are running on MySQL 5.7, MySQL 8.0, or MariaDB, complete your database m
 | --- | --- | --- |
 | Redis 6.x | EoL upstream — no longer supported | Upgrade to Redis 7.2+ or migrate to Valkey 7+ |
 | Redis 7.2 | Supported | No action |
-| Redis 8.x | Supported | No action |
+| Redis 7.4 | Supported | No action |
+| Redis 8.0 | Not supported | Upgrade to Redis 8.2+ or migrate to Valkey 7+ |
+| Redis 8.2+ | Supported | No action |
 | Redis 9.x | Not supported | Do not upgrade Redis to version 9 |
 | Valkey 7.x | Newly supported in 26.1 | Optional migration path from Redis |
 | Valkey 8.x | Supported | Optional migration path from Redis |
