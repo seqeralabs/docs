@@ -52,6 +52,23 @@ Studios sessions created in shared workspaces are not shared across all the work
 
 Select **Edit labels** to manage the workspace [labels and resource labels](../labels/overview).
 
+### Lineage
+
+:::note
+Data lineage is made available on request. Please contact your Seqera account manager.
+:::
+
+The **Lineage** card lets workspace maintainers configure where Nextflow records are stored and whether lineage tracking is on by default for every run launched in the workspace.
+
+Select **Lineage** to open the **Edit lineage settings** form:
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| **Credentials** | Yes | The workspace credentials Platform uses to create and access the lineage storage bucket. The credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage auto provisioned SQS . See [Credentials](#credentials). |
+| **Region** | Yes | Cloud region where the lineage storage bucket is created (for example, `us-east-1`, `eu-west-1`). |
+| **Bucket name** | No | Bucket where lineage records are stored. If left empty, Platform generates a default bucket name in the form `seqera-lineage-<workspace-id>`. |
+| **Enable lineage by default** | No (toggle) | When enabled, the launch form lineage toggle defaults to on for every run launched in this workspace. Users can still override per run. |
+
 ### Edit or delete a workspace
 
 :::note
