@@ -121,15 +121,6 @@ Creating the Seqera AI database on your existing Platform database instance simp
 If you have strict isolation requirements, you can provision a separate instance instead.
 :::
 
-Connect to your database instance and create the Seqera AI database and user:
-
-```sql
-CREATE DATABASE seqera_ai;
-CREATE USER 'seqera_ai'@'%' IDENTIFIED BY '<secure-password>';
-GRANT ALL PRIVILEGES ON seqera_ai.* TO 'seqera_ai'@'%';
-FLUSH PRIVILEGES;
-```
-
 ### Checkpoint: Verify database connectivity
 
 Confirm the database is accessible from your cluster:
