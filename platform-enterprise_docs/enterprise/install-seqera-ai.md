@@ -9,7 +9,7 @@ tags: [seqera-ai, installation, deployment, aws, helm]
 Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. This guide covers the Enterprise 26.1 deployment path for the agent backend, MCP server, web interface, and Seqera CLI.
 :::
 
-Deploy the agent backend, Seqera MCP server, and web interface alongside Platform to provide Co-Scientist assistance for workflows, data, projects, and Platform resources in the Seqera CLI and browser.
+Deploy the agent backend, Seqera MCP server, and web interface alongside Platform to provide Co-Scientist assistance for workflows, data, projects, and Platform resources in the Seqera CLI and browser. The MCP, agent backend, and portal web Helm charts provide the option to define Kubernetes ingresses. Other methods to expose the services can be used, e.g. via the `extraDeploy` resource.
 
 ## Prerequisites
 
@@ -170,8 +170,6 @@ The portal web chart serves the browser interface and proxies requests to the ag
 portal-web:
   enabled: true
 ```
-
-The MCP, agent backend and portal web Helm charts provide the option to define Kubernetes ingresses: other methods to expose the services can be used, e.g. via the `extraDeploy` resource.
 
 ## Install or upgrade
 
