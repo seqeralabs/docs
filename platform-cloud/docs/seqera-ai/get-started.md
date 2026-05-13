@@ -2,18 +2,14 @@
 title: "Get started"
 description: "AI-powered assistant for bioinformatics workflows and Seqera Platform"
 date created: "2026-03-11"
-tags: [seqera-ai, cli, ai]
+tags: [seqera-ai, co-scientist, cli, ai]
 ---
-
-:::note
-Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
-:::
 
 ## Get started
 
-To get started with Seqera AI:
+To get started with Co-Scientist:
 
-1. Install the Seqera AI CLI:
+1. Install the Co-Scientist CLI:
 
     ```bash
     npm install -g seqera
@@ -29,10 +25,10 @@ To get started with Seqera AI:
 
     See [Authentication](./authentication.md) for a comprehensive authentication guide.
 
-    If you are testing a development build of the CLI against the hosted production Seqera AI service, set `SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io` first. See [Authentication](./authentication.md#point-a-development-build-at-the-hosted-seqera-ai-backend) for the full environment variable reference.
+    If you are testing a development build of the CLI against the hosted production Co-Scientist service, set `SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io` first. See [Authentication](./authentication.md#point-a-development-build-at-the-hosted-co-scientist-backend) for the full environment variable reference.
 
 
-1. Start Seqera AI:
+1. Start Co-Scientist:
 
     ```bash
     seqera ai
@@ -79,5 +75,6 @@ To get started with Seqera AI:
 - [Skills](./skills.md): Discover, create, and install skills
 - [Modes](./modes.md): Work in build mode, plan mode, and goal mode
 - [Command approval](./command-approval.md): Control which commands run automatically
-- [Use cases](./use-cases.md): Seqera AI CLI use cases
+- [Use cases](./use-cases.md): Co-Scientist CLI use cases
+- [Credits](./credits.md): Co-Scientist credits and how to request more
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors
