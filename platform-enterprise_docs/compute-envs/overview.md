@@ -36,6 +36,21 @@ You can edit the names of compute environments in private and organization works
 
 Select **Update** on the edit page to save your changes after you have updated the compute environment name.
 
+## Disable compute environment
+
+Users with **Admin** or **Owner** [workspace permissions](../orgs-and-teams/roles#workspace-participant-roles) can disable and enable compute environments.
+
+When you disable a compute environment:
+
+- Actions that use this compute environment will fail to run. **Update actions to use a new compute environment**.
+- New pipelines and Studio sessions will not run on the disabled compute environment. **Update pipelines and Studios to use a new compute environment**.
+- **Running pipelines and Studio sessions are not terminated**. Ongoing runs and Studio sessions will finish gracefully.
+- If the compute environment was set as primary, it will be unset. Until you select a new primary compute environment, new runs will default to the next available compute environment.
+
+To disable a compute environment, select **Disable** from the options menu next to the compute environment in your workspace **Compute Environments** page.
+
+To re-enable a disabled compute environment, select **Enable** from the options menu. Enabled compute environments can run new pipelines and Studio sessions.
+
 ## Delete compute environment
 
 Compute environments can be deleted when they are no longer required. You must delete the compute environment before deleting its associated credentials. If the credentials are deleted first, the compute environment deletion will fail with an error. If this happens, the entry needs to be manually deleted from the database to fully remove it.
