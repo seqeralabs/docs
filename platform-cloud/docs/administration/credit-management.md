@@ -40,7 +40,7 @@ Co-Scientist follows a tiered billing model:
 - **Included usage**: Each plan includes a monthly allowance of Co-Scientist usage. Usage within this allowance is not charged. The included allowance resets monthly.
 - **Credit overage**: Usage above the included allowance is billed against your organization's credit balance, deducted per AI inference call.
 
-The **Credit usage** dialog in Co-Scientist shows your usage on both tiers — included usage with a monthly progress bar, and remaining org credits with the credit expiration date. When included usage is exhausted, requests automatically continue to draw from credits if available.
+The **Credit usage** dialog in Co-Scientist shows your usage on both tiers, including included usage with a monthly progress bar and remaining org credits with the credit expiration date. When included usage is exhausted, requests automatically draw from available credits.
 
 :::info
 Co-Scientist usage is tracked per workspace. Your organization administrator can review per-workspace AI consumption alongside compute spend in the workspace **Settings**.
