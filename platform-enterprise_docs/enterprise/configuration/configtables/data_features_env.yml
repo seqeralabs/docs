@@ -158,3 +158,9 @@
   Description: >
     Number of days to retain Studio startup metrics in the database before automatic deletion. Metrics older than this threshold are deleted by a daily scheduled job.
   Value:                'Default: `90`'
+-
+  Environment variable:            '`TOWER_LINEAGE_ALLOWED_WORKSPACES`'
+  Description: >
+    Enable date lineage. Set to `null` (undefined) to disable for all workspaces, set to an empty string to enable for all workspaces, or provide a comma-separated list of workspace IDs to enable per workspace.
+  Value:                'Default: `null`'
+-
