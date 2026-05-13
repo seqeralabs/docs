@@ -54,72 +54,12 @@ Changing the lineage storage bucket path after lineage data is generated will re
 
 When launching a pipeline in a data-lineage enabled workspace, the **Enable lineage** toggle in the pipeline **Run setup** reflects the **Enable lineage by default** workspace setting. This can be turned off to _explicitly exclude_ data lineage creation for the pipeline run.
 
-### Additional IAM permissions required
+### IAM permissions required
 
-If using existing AWS Batch or AWS Cloud compute environments with custom IAM roles, the following service role policies are required:
+Data lineage requires additional AWS IAM permissions. The permissions required depend on the role:
 
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "ListObjectsInBucket",
-            "Effect": "Allow",
-            "Action": [
-                "s3:ListBucket"
-            ],
-            "Resource": "arn:aws:s3:::seqera-lineage-<workspace-id>"
-        },
-        {
-            "Sid": "AllObjectActions",
-            "Effect": "Allow",
-            "Action": "s3:*Object",
-            "Resource": "arn:aws:s3:::seqera-lineage-<workspace-id>/*"
-        },
-        {
-            "Sid": "AllowObjectTagging",
-            "Effect": "Allow",
-            "Action": [
-                "s3:PutObjectTagging",
-                "s3:GetObjectTagging"
-            ],
-            "Resource": "arn:aws:s3:::seqera-lineage-<workspace-id>/*"
-        }
-    ]
-}
-```
-
-Platform integration credentials require the following additional permissions:
-
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "sqs:CreateQueue",
-                "sqs:GetQueueAttributes",
-                "sqs:SetQueueAttributes",
-                "sqs:GetQueueUrl",
-                "sqs:ReceiveMessage",
-                "sqs:DeleteMessage"
-            ],
-            "Resource": "arn:aws:sqs:*:*:seqera-lineage-*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:CreateBucket",
-                "s3:GetBucketNotificationConfiguration",
-                "s3:PutBucketNotificationConfiguration",
-                "s3:GetBucketLocation"
-            ],
-            "Resource": "arn:aws:s3:::seqera-lineage-*"
-        }
-    ]
-}
-```
+- **Platform integration credentials** (IAM user): see [AWS Batch — Data lineage](../compute-envs/aws-batch#data-lineage-optional) or [AWS Cloud — Data lineage](../compute-envs/aws-cloud#data-lineage-optional)
+- **EC2 instance role / head job role** (manually managed): see [Manual AWS Batch configuration](../enterprise/advanced-topics/manual-aws-batch-setup#create-an-ec2-instance-role)
 
 ### Advanced: Experimenting with data lineage
 
