@@ -166,6 +166,7 @@
               "compute-envs/aws-batch",
               "compute-envs/aws-cloud",
               "compute-envs/azure-batch",
+              "compute-envs/azure-cloud",
               "compute-envs/google-cloud-batch",
               "compute-envs/google-cloud",
               "compute-envs/eks",
@@ -229,7 +230,8 @@
         "seqera-ai/installation",
         "seqera-ai/authentication",
         "seqera-ai/command-approval",
-        "seqera-ai/use-cases"
+        "seqera-ai/use-cases",
+        "seqera-ai/projects"
       ]
     },
        {

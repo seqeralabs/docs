@@ -31,7 +31,7 @@ For AWS Batch compute environments:
 - **CPUs allocated**: The default allocation is 2 CPUs.
 - **GPUs allocated**: Available only if the selected compute environment has GPU support enabled. For more information about GPUs on AWS, see [Amazon ECS task definitions for GPU workloads][aws-gpu]. The default allocation is 0 GPUs.
 - **Maximum memory allocated**: The default allocation is 8192 MiB of memory.
-   
+
 ### Mount data
 
 Select **Mount data**, and then from the **Mount data** modal, select data to mount. Select **Mount data** to confirm your selection.
@@ -61,7 +61,7 @@ If there is an existing defined session lifespan workspace setting, you won't be
 #### Environment variables
 
 For the selected compute environment, all existing environment variable key-value pairs are displayed and automatically inherited by the studio session. Additional per-session environment variables can be defined for the Studio.
-     
+
 Session-level environment variables take precedence. You can overwrite an existing compute environment-defined environment variable key-value pair by defining the same key and a different value.
 
 ### Custom container template image (BYOC)
@@ -79,13 +79,13 @@ Customize the following fields:
       - To not immediately start the session, select **Add only**.
       - If you want to save and immediately start the Studio, select **Add and start**.
 
-The Studio you created will be listed on the Studios landing page with a status of either **stopped** or **starting**, based on whether you elected to **Add** it or to **Add and start** a session as well. Select a Studio to inspect its configuration details. 
+The Studio you created will be listed on the Studios landing page with a status of either **stopped** or **starting**, based on whether you elected to **Add** it or to **Add and start** a session as well. Select a Studio to inspect its configuration details.
 
 ### Path-based routing/non-wildcard SSL/TLS certificates
 
-Connect, the Studios webserver, uses dynamic subdomains to manage session routing of requests, which require a wildcard SSL/TLS certificate. 
+Connect, the Studios webserver, uses dynamic subdomains to manage session routing of requests, which require a wildcard SSL/TLS certificate.
 
-For example: 
+For example:
 - `https://a1234abc.connect.cloud.seqera.io/`
 - `https://a5678abcd.connect.cloud.seqera.io/`
 

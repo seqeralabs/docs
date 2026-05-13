@@ -10,6 +10,11 @@
   Type: string
   Req/Opt: Optional
   Description: Optional description of the dataset purpose and contents.
+- Name: sourceType
+  Type: string
+  Req/Opt: Optional
+  Description: Dataset source type. Accepts `UPLOADED` for uploaded dataset files
+    or `LINKED` for externally linked dataset URLs.
 - Name: "**DeleteDatasets**"
   Type: ""
   Req/Opt: ""
@@ -42,6 +47,11 @@
   Type: string
   Req/Opt: Optional
   Description: Optional description of the dataset purpose and contents.
+- Name: sourceType
+  Type: string
+  Req/Opt: Optional
+  Description: Dataset source type. Accepts `UPLOADED` for uploaded dataset files
+    or `LINKED` for externally linked dataset URLs.
 - Name: "**UpdateDataset**"
   Type: ""
   Req/Opt: ""
@@ -70,3 +80,33 @@
   Type: array
   Req/Opt: Optional
   Description: Array of dataset string identifiers to show or hide.
+- Name: "**PreviewDatasetUrl**"
+  Type: ""
+  Req/Opt: ""
+  Description: Preview content from a URL
+- Name: url
+  Type: string
+  Req/Opt: Optional
+  Description: HTTP or HTTPS URL to validate. Maximum length is 2048 characters.
+- Name: "**ValidateDatasetUrl**"
+  Type: ""
+  Req/Opt: ""
+  Description: Validate URL for dataset linking
+- Name: url
+  Type: string
+  Req/Opt: Optional
+  Description: HTTP or HTTPS URL to validate. Maximum length is 2048 characters.
+- Name: "**LinkDatasetVersion**"
+  Type: ""
+  Req/Opt: ""
+  Description: Link external URL as dataset version
+- Name: hasHeader
+  Type: boolean
+  Req/Opt: Optional
+  Description: When true, treats the first row of the linked CSV or TSV file as a
+    header row. Defaults to `true`.
+- Name: url
+  Type: string
+  Req/Opt: Optional
+  Description: HTTP or HTTPS URL pointing to a public CSV or TSV file. Maximum
+    length is 2048 characters.

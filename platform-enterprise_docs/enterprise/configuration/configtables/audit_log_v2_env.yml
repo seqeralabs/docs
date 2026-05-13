@@ -1,0 +1,36 @@
+---
+-
+  Environment variable:            '`TOWER_AUDIT_LOG_V2_WRITE_MODE`'
+  Description: >
+    Determine which audit log tables receive write operations. Accepted values are `v1` (legacy table only), `v2` (v2 table only), or `dual` (both tables simultaneously).
+  Value:                'Default: `v1`'
+-
+  Environment variable:            '`TOWER_AUDIT_LOG_V2_CSV_EXPORT_MAX_LOGS`'
+  Description: >
+    Maximum number of records allowed in a single audit log CSV export.
+  Value:                'Default: `500000`'
+-
+  Environment variable:            '`TOWER_AUDIT_LOG_V2_PRE_POST_CHANGE_ENABLED`'
+  Description: >
+    Enable capturing pre/post change state images for audit log target resources.
+  Value:                'Default: `false`'
+-
+  Environment variable:            '`TOWER_CRON_AUDIT_LOG_CLEAN_UP_ENABLED`'
+  Description: >
+    Enable the audit log cleanup cron job.
+  Value:                'Default: `true`'
+-
+  Environment variable:            '`TOWER_CRON_AUDIT_LOG_CLEAN_UP_INTERVAL`'
+  Description: >
+    Interval at which the audit log cleanup cron job runs.
+  Value:                'Default: `5m`'
+-
+  Environment variable:            '`TOWER_CRON_AUDIT_LOG_CLEAN_UP_DELAY`'
+  Description: >
+    Initial delay before the audit log cleanup cron job starts after application startup.
+  Value:                'Default: `10s`'
+-
+  Environment variable:            '`TOWER_CRON_AUDIT_LOG_CLEAN_UP_CHUNK_SIZE`'
+  Description: >
+    Maximum number of audit log records deleted per cleanup run.
+  Value:                'Default: `1000`'

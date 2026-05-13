@@ -2,7 +2,7 @@
 title: "Azure Cloud"
 description: "Instructions to set up an Azure Cloud compute environment in Seqera Platform"
 date created: "2025-09-29"
-last updated: "2025-09-29"
+last updated: "2026-05-05"
 tags: [cloud, vm, azure, compute-environment]
 ---
 
@@ -133,6 +133,8 @@ For granular control over the permissions granted to Seqera, use [Azure custom r
                     "Microsoft.OperationalInsights/workspaces/tables/delete",
                     "Microsoft.OperationalInsights/workspaces/query/read",
                     "Microsoft.OperationalInsights/workspaces/query/Tables.Custom/read",
+
+                    "Microsoft.Compute/virtualMachines/retrieveBootDiagnosticsData/action",
 
                     "Microsoft.Storage/storageAccounts/blobServices/containers/read",
                     "Microsoft.Storage/storageAccounts/blobServices/generateUserDelegationKey/action"
@@ -285,6 +287,34 @@ The following permissions are required to fetch logs for the pipeline execution 
 }
 ```
 
+#### Userdata script error detection (optional)
+
+Platform can retrieve the serial console output of the Azure VM to detect errors in the userdata script that bootstraps the VM during instance startup. If the userdata script fails, Platform surfaces the failure as a warning on the workflow. Without this permission, userdata script failures are not detected and no warning is shown.
+
+This requires [boot diagnostics](https://learn.microsoft.com/en-us/azure/virtual-machines/boot-diagnostics) to be enabled on the VM and the following permission on the service principal:
+
+```json
+{
+    "properties": {
+        "roleName": "seqera-azure-cloud-userdata-check",
+        "description": "Role to retrieve boot diagnostics for pre-run script error detection",
+        "assignableScopes": [
+            "/subscriptions/<SUBSCRIPTION-ID>"
+        ],
+        "permissions": [
+            {
+                "actions": [
+                    "Microsoft.Compute/virtualMachines/retrieveBootDiagnosticsData/action"
+                ],
+                "notActions": [],
+                "dataActions": [],
+                "notDataActions": []
+            }
+        ]
+    }
+}
+```
+
 #### Data-links
 
 The following permissions are required to work with [Data Explorer](../data/data-explorer) data-links on Azure:
@@ -362,7 +392,7 @@ First, you must create a custom role with the permissions required for Seqera to
 
 1. Save the relevant permissions from the preceding sections to a local JSON file. Replace `<SUBSCRIPTION-ID>` in the `assignableScopes` field of each permission with your Azure subscription ID.
 1. In the Azure Portal, go to **Subscriptions** and select your subscription.
-1. To create a custom role, select **Access control (IAM)**, then **Add** in the **Create a custom role** section. 
+1. To create a custom role, select **Access control (IAM)**, then **Add** in the **Create a custom role** section.
 1. Provide the following details:
    - **Custom role name**: e.g., `seqera-azure-cloud`
    - **Description**: e.g., `Role for Seqera Platform to manage Azure Cloud compute environments`
@@ -378,9 +408,9 @@ First, you must create a custom role with the permissions required for Seqera to
 Create an application for Seqera to use for authentication:
 
 1. In the Azure Portal, go to **App registrations** and select **New registration**.
-1. Give the app a descriptive name, such as `SeqeraPlatformApp`. 
+1. Give the app a descriptive name, such as `SeqeraPlatformApp`.
 1. Select `Single tenant` for the supported account types.
-1. Create a client secret for the application. Seqera will use this value to authenticate to Azure, so keep it secret and store it securely. 
+1. Create a client secret for the application. Seqera will use this value to authenticate to Azure, so keep it secret and store it securely.
 1. Under **Certificates & secrets**, select **New client secret** and give it a description such as `SeqeraPlatformSecret`. Set the expiration to a duration that matches your security policy. Select **Add**.
 
 After registration, you'll be taken to the application overview page. Copy and save the following values:

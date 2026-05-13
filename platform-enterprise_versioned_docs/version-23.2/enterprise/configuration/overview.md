@@ -44,7 +44,7 @@ Specify general Tower configuration values in your environment variables. The bo
 
 `TOWER_USER_WORKSPACE_ENABLED`: Enable or disable the showing of the user private workspace context. (default: `true`, requires Tower 22.1.0 or later).
 
-`TOWER_ENABLE_ARM64`: Enable support for ARM64 CPU architectures. Required to enable Graviton in AWS Batch compute environments. 
+`TOWER_ENABLE_ARM64`: Enable support for ARM64 CPU architectures. Required to enable Graviton in AWS Batch compute environments.
 ```
 
 </details>

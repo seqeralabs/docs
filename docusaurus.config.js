@@ -234,6 +234,7 @@ export default async function createConfigAsync() {
     clientModules: [
     require.resolve('./src/client-modules/cross-site-nav.js'),
     require.resolve('./src/client-modules/posthog-search.js'),
+    require.resolve('./src/client-modules/katex-css.js'),
     ],
 
 
@@ -416,6 +417,15 @@ export default async function createConfigAsync() {
     ].filter(Boolean),
 
     themeConfig: getSeqeraThemeConfig({
+      seqera: {
+        docs: {
+          versionDropdown: {
+            'platform-enterprise': {
+              showCurrent: process.env.INCLUDE_NEXT ? true : false,
+            },
+          },
+        },
+      },
       typesense: {
         typesenseCollectionName: 'seqera_docs',
         searchPagePath: '/search',
@@ -432,6 +442,8 @@ export default async function createConfigAsync() {
         },
         typesenseSearchParameters: {
           query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',
+          query_by_weights: '1,1,4,3,2',
+          drop_tokens_threshold: 0,
           group_by: 'url',
           group_limit: 1,
           per_page: 20,

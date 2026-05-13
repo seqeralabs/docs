@@ -14,7 +14,7 @@ Data Studios uses the [Wave][wave-home] service to build custom container templa
 ### Prerequisites
 
 - Wave must be configured. For more information, see [Wave containers][wave].
- 
+
  :::note
  To augment Seqera-provided images, Enterprise deployments must either allow access to the public Wave server, or self-host their own Wave server.
  :::

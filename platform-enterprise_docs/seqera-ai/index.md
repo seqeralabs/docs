@@ -63,10 +63,15 @@ Resume previous sessions to continue your work. Use `seqera ai -c` to continue y
 
 Full access to Platform capabilities including compute environments, datasets, data links, and workspace management.
 
+### Projects
+
+Organize a workspace into projects by applying Seqera Platform labels prefixed with `project_`. Each project scopes the pipelines, datasets, workflow runs, and chat context the AI sees, without needing a separate CRUD surface in Seqera AI.
+
 ## Learn more
 
 - [Installation](./installation.mdx): Detailed installation instructions
 - [Authentication](./authentication.md): Log in, log out, and session management
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Use cases](./use-cases.md): Seqera AI CLI use cases
+- [Projects](./projects.md): Organize workspace resources into projects using Platform labels
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors
