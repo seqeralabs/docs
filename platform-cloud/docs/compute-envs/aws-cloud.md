@@ -163,6 +163,26 @@ A permissive and broad policy with all the required permissions is provided here
         "ec2:GetConsoleOutput"
       ],
       "Resource": "*"
+    },
+    {
+      "Sid": "OptionalLineageIntegrationSQSAndS3",
+      "Effect": "Allow",
+      "Action": [
+        "sqs:CreateQueue",
+        "sqs:GetQueueAttributes",
+        "sqs:SetQueueAttributes",
+        "sqs:GetQueueUrl",
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "s3:CreateBucket",
+        "s3:GetBucketNotificationConfiguration",
+        "s3:PutBucketNotificationConfiguration",
+        "s3:GetBucketLocation"
+      ],
+      "Resource": [
+        "arn:aws:sqs:*:*:seqera-lineage-*",
+        "arn:aws:s3:::seqera-lineage-*"
+      ]
     }
   ]
 }
@@ -315,6 +335,39 @@ Platform can retrieve the EC2 instance console output to detect errors in the us
   "Resource": "*"
 }
 ```
+
+### Data lineage (optional)
+
+If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials to create the queue infrastructure and bucket notifications used by the lineage service:
+
+```json
+{
+  "Sid": "LineageIntegrationSQS",
+  "Effect": "Allow",
+  "Action": [
+    "sqs:CreateQueue",
+    "sqs:GetQueueAttributes",
+    "sqs:SetQueueAttributes",
+    "sqs:GetQueueUrl",
+    "sqs:ReceiveMessage",
+    "sqs:DeleteMessage"
+  ],
+  "Resource": "arn:aws:sqs:<REGION>:<ACCOUNT_ID>:seqera-lineage-*"
+},
+{
+  "Sid": "LineageIntegrationS3",
+  "Effect": "Allow",
+  "Action": [
+    "s3:CreateBucket",
+    "s3:GetBucketNotificationConfiguration",
+    "s3:PutBucketNotificationConfiguration",
+    "s3:GetBucketLocation"
+  ],
+  "Resource": "arn:aws:s3:::seqera-lineage-*"
+}
+```
+
+If you manage your own EC2 instance role (rather than letting Seqera create it automatically), see [Manual AWS Batch configuration](../enterprise/advanced-topics/manual-aws-batch-setup#create-an-ec2-instance-role) for the additional S3 policy to attach to that role.
 
 ## Create the IAM policy
 
