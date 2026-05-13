@@ -91,7 +91,9 @@ If you are running on MySQL 5.7, MySQL 8.0, or MariaDB, complete your database m
 | --- | --- | --- |
 | Redis 6.x | EoL upstream — no longer supported | Upgrade to Redis 7.2+ or migrate to Valkey 7+ |
 | Redis 7.2 | Supported | No action |
-| Redis 8.x | Supported | No action |
+| Redis 7.4 | Supported | No action |
+| Redis 8.0 | Not supported | Upgrade to Redis 8.2+ or migrate to Valkey 7+ |
+| Redis 8.2+ | Supported | No action |
 | Redis 9.x | Not supported | Do not upgrade Redis to version 9 |
 | Valkey 7.x | Newly supported in 26.1 | Optional migration path from Redis |
 | Valkey 8.x | Supported | Optional migration path from Redis |
@@ -127,11 +129,11 @@ To preserve previous opt-in behaviour after upgrading, set `TOWER_DATA_STUDIO_AL
 
 #### Studios container template version
 
-The recommended Studios container template version for 26.1 is **0.9**. If you have customized your Studios container templates, update them to the 0.9 base images during this upgrade. Templates pinned to earlier Connect versions may no longer be supported. See the [Studios migration documentation](https://docs.seqera.io/platform-enterprise/studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
+The recommended Studios container template version for 26.1 is **0.12**. If you have customized your Studios container templates, update them to the 0.12 base images during this upgrade. Templates pinned to earlier Connect versions may no longer be supported. See the [Studios migration documentation](https://docs.seqera.io/platform-enterprise/studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
 
 ### AWS data lineage tracking via SQS (preview, AWS only)
 
-26.1 introduces a preview of AWS data lineage tracking that depends on an Amazon SQS queue. This feature is AWS-only and disabled by default. If you plan to enable it, ensure your IAM policies grant the Seqera role the relevant SQS permissions in addition to the existing [Seqera IAM permissions](../compute-envs/aws-batch#iam-user-creation).
+26.1 introduces a preview of AWS data lineage tracking that depends on an Amazon SQS queue. This feature is AWS-only and disabled by default. If you plan to enable it, ensure your IAM policies grant the Seqera role the relevant [SQS permissions](../data/data-lineage#additional-iam-permissions-required) in addition to the existing [Seqera IAM permissions](../compute-envs/aws-batch#iam-user-creation).
 
 ### General upgrade steps
 
@@ -176,5 +178,5 @@ TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>
 ```
 
 :::caution
-If you're using AWS Batch, you will need to [configure a custom job definition](https://docs.seqera.io/platform-enterprise/enterprise/advanced-topics/custom-launch-container) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
+If you're using AWS Batch, you will need to [configure a custom job definition](../enterprise/advanced-topics/custom-launch-container) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
 :::
