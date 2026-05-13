@@ -44,6 +44,31 @@ If you didn’t notice any performance improvement with Fusion, the bottleneck m
 - [Amazon Elastic Kubernetes Service](https://docs.seqera.io/platform-cloud/compute-envs/eks)
 - [Google Kubernetes Engine](https://docs.seqera.io/platform-cloud/compute-envs/gke)
 
+### How does the scratch process directive interact with Fusion?
+
+The Nextflow [`scratch`](https://www.nextflow.io/docs/latest/reference/process.html#scratch) process directive controls where a task runs:
+
+- `process.scratch = false`: Tasks read and write directly through the Fusion-mounted work directory in cloud object storage.
+- `process.scratch = true`: Nextflow stages task inputs to a local scratch directory (the path set by `$TMPDIR`, or `/tmp` if unset), runs the task there, and copies outputs back to the work directory. This bypasses Fusion for the task body and runs the workload on local instance storage.
+
+For most workloads, `process.scratch = false` is faster and is the recommended default. Consider `process.scratch = true` for tasks that perform heavy small-file I/O. For example, processes that read or write many thousands of small files.
+
+Apply `scratch = true` selectively to the affected processes rather than globally:
+
+```groovy
+process {
+    // Default: tasks run directly on the Fusion-mounted work directory
+    scratch = false
+
+    // Use local scratch for processes with heavy small-file I/O
+    withName: 'PROCESS_NAME' {
+        scratch = true
+    }
+}
+```
+
+Ensure the compute environment provides enough fast local storage for the staged inputs and outputs.
+
 ### Can I pin a specific Fusion version to use with Nextflow?
 
 Yes. Add the Fusion version's config URL using the `containerConfigUrl` option in the Fusion block of your Nextflow configuration (replace `v2.4.2` with the version of your choice):
