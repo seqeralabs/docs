@@ -171,7 +171,7 @@ portal-web:
   enabled: true
 ```
 
-Expose MCP, agent backend, and portal web through the chart ingress only if you use Kubernetes Ingress. If you use the Gateway API or another network layer, configure that layer instead.
+The MCP, agent backend and portal web Helm charts provide the option to define Kubernetes ingresses: other methods to expose the services can be used, e.g. via the `extraDeploy` resource.
 
 ## Install or upgrade
 
