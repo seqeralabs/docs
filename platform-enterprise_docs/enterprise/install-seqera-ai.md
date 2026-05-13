@@ -29,7 +29,7 @@ Each step below includes a verification checkpoint so you can confirm the compon
 
 Before you begin, you need:
 
-- **Seqera Enterprise 26.1+** deployed and accessible. Platform can be deployed via [Helm](./platform-helm.md), [Kubernetes](./platform-kubernetes.md), or [Docker Compose](./platform-docker-compose.md) — a Helm-based deployment is not required.
+- **Seqera Enterprise 26.1+** deployed and accessible.
 - **MySQL 8.0+ database**
 - **Redis 6.0+** instance accessible from your cluster
 - **API key** from a supported inference provider (see below)
