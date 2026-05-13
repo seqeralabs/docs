@@ -138,7 +138,6 @@ You should see a result set with the value `1`. If this fails, check security gr
 Seqera AI requires a Redis instance for caching and session management. Use a managed Redis service or a self-managed instance, as long as it is accessible from your cluster on port 6379.
 
 - **Engine**: Redis 6.0+
-- **Security group**: Allow inbound Redis (port 6379) from your cluster
 
 ### Checkpoint: Verify Redis connectivity
 
