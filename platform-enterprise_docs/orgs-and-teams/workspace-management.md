@@ -54,13 +54,13 @@ Select **Edit labels** to manage the workspace [labels and resource labels](../l
 
 ### Lineage
 
-:::note
-Data lineage is made available on request. Please contact your Seqera account manager.
-:::
-
 The **Lineage** card lets workspace maintainers configure where Nextflow records are stored and whether lineage tracking is on by default for every run launched in the workspace.
 
-Select **Lineage** to open the **Edit lineage settings** form:
+:::note
+Data lineage is not enabled by default. See [Configuration options](../enterprise/configuration/overview#data-features).
+:::
+
+Once enabled, select **Settings > Lineage** to open the **Edit lineage settings** form:
 
 | Field | Required | Description |
 |-------|----------|-------------|
