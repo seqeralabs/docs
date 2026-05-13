@@ -36,7 +36,7 @@ Nextflow creates a structured JSON record for each entity in your pipeline when 
 | **TaskRun** | Individual task execution: script, code checksum, inputs, outputs, container, and dependencies |
 | **FileOutput** | Output file: path, checksum, size, timestamp, and links back to the task and workflow that produced it |
 
-Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the entity. Every LID and lineage label renders as a clickable link, and you can navigate to all related entities across your organization.
+Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the entity.
 
 ## Enable data lineage
 
@@ -147,19 +147,13 @@ When a run was executed with lineage enabled, the [run details page][run-details
 - **Inputs**: Lists all input datasets and parameters with file paths, types, and lineage IDs and lineage labels where available.
 - **Outputs**: Lists all `FileOutput` records linked to the workflow run: output name, file path, type, lineage ID, and lineage labels. Files link directly to [Data Explorer][data-explorer].
 
-:::tip
-All LIDs and lineage labels are clickable links. Click any LID to open the organization-level lineage search pre-filled with that identifier.
-:::
-
 ### Data Explorer
 
 Output objects from a lineage-enabled run display their LID and any lineage labels when you preview the object in Data Explorer. You can trace any file back to the pipeline run that produced it.
 
 ## Lineage labels
 
-Assign lineage labels to output files using the `label` directive in your Nextflow process definitions. Labels appear in lineage records and are searchable across your workspace.
-
-Both Seqera Platform labels and Nextflow lineage labels propagate to lineage records. Seqera Platform excludes resource labels as they relate to underlying compute resources, not the data itself.
+Assign lineage labels to output files using the `label` directive in your Nextflow process definitions. Labels appear in lineage records. Both Seqera Platform labels and Nextflow lineage labels propagate to lineage records. Seqera Platform excludes resource labels as they relate to underlying compute resources, not the data itself.
 
 :::info
 Nextflow lineage labels are immutable. They are set at execution time and cannot be changed. Seqera Platform labels are mutable. Updating Platform labels after a run completes can produce a mismatch between Platform run labels and lineage labels. This is expected behavior.
