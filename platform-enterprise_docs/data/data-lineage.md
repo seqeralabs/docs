@@ -7,7 +7,7 @@ tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, l
 ---
 
 :::info
-Data lineage in Platform is in public preview. It requires Nextflow v25.04 or later, and AWS S3 object storage.
+Data lineage in Platform is in public preview. It is currently supported in AWS compute environments. It requires Nextflow v25.04 or later, and AWS S3 object storage.
 :::
 
 :::warning
