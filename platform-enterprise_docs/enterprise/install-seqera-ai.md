@@ -75,7 +75,7 @@ Seqera AI connects your local CLI environment to your Platform resources through
 | **Agent backend** | FastAPI service that orchestrates AI interactions. Deployed as a Helm subchart alongside Platform. |
 | **MCP server** | Model Context Protocol server providing Platform-aware tools (workflows, datasets, compute environments). |
 | **Portal web interface** | Browser-based interface for Seqera AI and related Platform features. |
-| **MySQL database** | Database for session state and conversation history. Can share the same instance as Platform (recommended) or use a dedicated instance. |
+| MySQL database | Dedicated database for session state and conversation history. 
 | **Redis** | Caching and session management layer used by the agent backend. |
 
 **Flow:**
