@@ -6,7 +6,7 @@ last updated: "2026-05-12"
 tags: [sso, google-workspace, idp-delegation, administration, cloud-pro]
 ---
 
-Google Workspace doesn't expose a SCIM 2.0 group provisioning API, so the Seqera group catalog is populated manually for Google Workspace organizations. This guide explains the format Platform expects and where to find the right value in your Google Workspace administrator console.
+Google Workspace doesn't expose a SCIM 2.0 group provisioning API, so the Platform group catalog is populated manually for Google Workspace organizations. This guide explains the format Platform expects and where to find the right value in your Google Workspace administrator console.
 
 ## Before you begin
 
