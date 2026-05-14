@@ -122,7 +122,7 @@ When your organization or workspace credit balance is exhausted, all credit-bill
 2. **Seqera Compute buckets locked**: Data can no longer be browsed or downloaded from Data Explorer.
 3. **New launches blocked**: No new pipeline runs or Studios can be started using Seqera Compute environments.
 4. **Co-Scientist requests blocked**: Once both your included monthly AI usage and your org credit balance are exhausted, new requests are blocked until credits are added.
-5. **Resume runs manually**: After purchasing additional credits, manually [resume](https://docs.seqera.io/platform-cloud/launch/cache-resume) paused pipelines.
+5. **Resume runs manually**: After purchasing additional credits, manually [resume](../launch/cache-resume) paused pipelines.
 
 :::warning
 Long-running tasks are periodically monitored. If a single task's estimated cost would exceed remaining credits, the workflow is preemptively paused.
