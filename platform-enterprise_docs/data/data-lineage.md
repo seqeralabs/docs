@@ -1,13 +1,13 @@
 ---
 title: "Data Lineage"
 description: "Using data lineage in Seqera Platform."
-date created: "2026-05-04"
-last updated: "2026-05-04"
+date created: "2026-05-11"
+last updated: "2026-05-11"
 tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, label]
 ---
 
 :::info
-Data lineage in Platform is in public preview. It requires Nextflow v25.04 or later, and AWS S3 object storage.
+Data lineage in Platform is in public preview. It is currently supported in AWS compute environments. It requires Nextflow v25.04 or later, and AWS S3 object storage.
 :::
 
 :::warning
@@ -36,7 +36,7 @@ Nextflow creates a structured JSON record for each entity in your pipeline when 
 | **TaskRun** | Individual task execution: script, code checksum, inputs, outputs, container, and dependencies |
 | **FileOutput** | Output file: path, checksum, size, timestamp, and links back to the task and workflow that produced it |
 
-Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the entity. Every LID and lineage label renders as a clickable link, and you can navigate to all related entities across your organization.
+Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the entity.
 
 ## Enable data lineage
 
@@ -54,12 +54,72 @@ Changing the lineage storage bucket path after lineage data is generated will re
 
 When launching a pipeline in a data-lineage enabled workspace, the **Enable lineage** toggle in the pipeline **Run setup** reflects the **Enable lineage by default** workspace setting. This can be turned off to _explicitly exclude_ data lineage creation for the pipeline run.
 
-### IAM permissions required
+### Additional IAM permissions required
 
-Data lineage requires additional AWS IAM permissions. The permissions required depend on the role:
+If using existing AWS Batch or AWS Cloud compute environments with custom IAM roles, the following service role policies are required:
 
-- **Platform integration credentials** (IAM user): see [AWS Batch — Data lineage](../compute-envs/aws-batch#data-lineage-optional) or [AWS Cloud — Data lineage](../compute-envs/aws-cloud#data-lineage-optional)
-- **EC2 instance role / head job role** (manually managed): see [Manual AWS Batch configuration](../enterprise/advanced-topics/manual-aws-batch-setup#create-an-ec2-instance-role)
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ListObjectsInBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": "arn:aws:s3:::seqera-lineage-<workspace-id>"
+        },
+        {
+            "Sid": "AllObjectActions",
+            "Effect": "Allow",
+            "Action": "s3:*Object",
+            "Resource": "arn:aws:s3:::seqera-lineage-<workspace-id>/*"
+        },
+        {
+            "Sid": "AllowObjectTagging",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObjectTagging",
+                "s3:GetObjectTagging"
+            ],
+            "Resource": "arn:aws:s3:::seqera-lineage-<workspace-id>/*"
+        }
+    ]
+}
+```
+
+Platform integration credentials require the following additional permissions:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "sqs:CreateQueue",
+                "sqs:GetQueueAttributes",
+                "sqs:SetQueueAttributes",
+                "sqs:GetQueueUrl",
+                "sqs:ReceiveMessage",
+                "sqs:DeleteMessage"
+            ],
+            "Resource": "arn:aws:sqs:*:*:seqera-lineage-*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:CreateBucket",
+                "s3:GetBucketNotificationConfiguration",
+                "s3:PutBucketNotificationConfiguration",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": "arn:aws:s3:::seqera-lineage-*"
+        }
+    ]
+}
+```
 
 ### Advanced: Experimenting with data lineage
 
@@ -87,19 +147,13 @@ When a run was executed with lineage enabled, the [run details page][run-details
 - **Inputs**: Lists all input datasets and parameters with file paths, types, and lineage IDs and lineage labels where available.
 - **Outputs**: Lists all `FileOutput` records linked to the workflow run: output name, file path, type, lineage ID, and lineage labels. Files link directly to [Data Explorer][data-explorer].
 
-:::tip
-All LIDs and lineage labels are clickable links. Click any LID to open the organization-level lineage search pre-filled with that identifier.
-:::
-
 ### Data Explorer
 
 Output objects from a lineage-enabled run display their LID and any lineage labels when you preview the object in Data Explorer. You can trace any file back to the pipeline run that produced it.
 
 ## Lineage labels
 
-Assign lineage labels to output files using the `label` directive in your Nextflow process definitions. Labels appear in lineage records and are searchable across your workspace.
-
-Both Seqera Platform labels and Nextflow lineage labels propagate to lineage records. Seqera Platform excludes resource labels as they relate to underlying compute resources, not the data itself.
+Assign lineage labels to output files using the `label` directive in your Nextflow process definitions. Labels appear in lineage records. Both Seqera Platform labels and Nextflow lineage labels propagate to lineage records. Seqera Platform excludes resource labels as they relate to underlying compute resources, not the data itself.
 
 :::info
 Nextflow lineage labels are immutable. They are set at execution time and cannot be changed. Seqera Platform labels are mutable. Updating Platform labels after a run completes can produce a mismatch between Platform run labels and lineage labels. This is expected behavior.
