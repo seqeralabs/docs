@@ -95,6 +95,39 @@ Create a role that controls which AWS resources the EC2 instances launched by AW
 	- `seqera-batchjob` (the instance role policy created above)
 1. Enter `seqera-instancerole` as the role name and add an optional description and tags if needed, then select **Create**.
 
+If you enable [data lineage](../data/data-lineage) in your workspace, attach the following additional policy to this role to allow access to the lineage S3 bucket:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "LineageListBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": "arn:aws:s3:::seqera-lineage-<workspace-id>"
+        },
+        {
+            "Sid": "LineageObjectAccess",
+            "Effect": "Allow",
+            "Action": "s3:*Object",
+            "Resource": "arn:aws:s3:::seqera-lineage-<workspace-id>/*"
+        },
+        {
+            "Sid": "LineageObjectTagging",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObjectTagging",
+                "s3:GetObjectTagging"
+            ],
+            "Resource": "arn:aws:s3:::seqera-lineage-<workspace-id>/*"
+        }
+    ]
+}
+```
+
 ### Create a Nextflow head job role
 
 Create an IAM role for the Nextflow head job. This role is attached to the Nextflow head job container and grants it the permissions needed to orchestrate workflow tasks and retrieve task logs from CloudWatch. You specify this role in the **Head Job role** field when creating a manual compute environment in Seqera Platform.

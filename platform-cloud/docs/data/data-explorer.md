@@ -3,7 +3,7 @@ title: "Data Explorer"
 description: "Using Seqera Data Explorer."
 date created: "2023-04-21"
 last updated: "2026-03-31"
-tags: [data, explorer, igv, molstar, object, storage]
+tags: [data, explorer, igv, molstar, object, storage, lineage]
 ---
 
 With Data Explorer, you can browse and interact with remote data repositories from organization workspaces in Seqera Platform. It supports AWS S3, Azure Blob Storage, Google Cloud Storage, and Amazon S3-compatible API storage (for example, but not limited to, Cloudflare R2, MinIO, Nebius, and Oracle Cloud).
@@ -82,6 +82,30 @@ If you remove a data-link associated with a repository, the repository is automa
 - **Copy object paths**
 
   Select the **Path** of an object on the **View data repository** page to copy its absolute path to the clipboard. Use these object paths to specify input data locations during [pipeline launch](../launch/launchpad), add them to a [dataset](../data/datasets) for pipeline input, or when mounting data during Studio creation.
+
+### View lineage data for objects
+
+:::note
+Data lineage is made available on request. Please contact your Seqera account manager.
+:::
+
+When an object in Data Explorer was produced by a Nextflow run with [data lineage tracking enabled][workspace-lineage-settings], the object preview displays the object's lineage data alongside its file metadata.
+
+Select an object to preview. When lineage data is available, this displays:
+
+| Field | Source | Description |
+|-------|--------|-------------|
+| **Lineage Labels** | `labels` | Lineage labels assigned to the output. Each label is a clickable link to the lineage record for that label. See the Nextflow [`label` directive][nextflow-label-directive] for assignment details. |
+| **Produced by** | `pipeline-run` | Workflow run ID that created this object. Click the run ID to navigate to the workflow run.  |
+| **Source for** | `pipeline-run` | Workflow run ID that used this file as an input. Click the run ID to navigate to the workflow run. |
+
+If the object was not produced by a lineage-enabled run, no lineage fields appear in the preview.
+
+:::tip
+Each lineage ID, lineage label, produced by, and source for in the preview is a navigable link. Use these links to retrace the run, task, inputs that produced an object, or outputs created by the object without leaving Seqera Platform.
+
+To capture lineage data, lineage must be enabled for the run that produced the object. Enable lineage from [**Workspace settings → Lineage**][workspace-lineage-settings] or the launch form lineage toggle. See [Getting started with data lineage][nextflow-lineage-tutorial] for the underlying lineage data model.
+:::
 
 ## Isolate view, read, and write permissions to specific data repository paths
 
@@ -258,3 +282,6 @@ Compute environment and Fusion multi-credential support will resolve this existi
 [roles]: ../orgs-and-teams/roles
 [molstar]: https://molstar.org/
 [igv]: https://igv.org/doc/igvjs/
+[nextflow-lineage-tutorial]: https://docs.seqera.io/nextflow/tutorials/data-lineage
+[nextflow-label-directive]: https://docs.seqera.io/nextflow/reference/process#label
+[workspace-lineage-settings]: ../orgs-and-teams/workspace-management#lineage
