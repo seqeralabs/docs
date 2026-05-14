@@ -298,6 +298,27 @@ All directories support editorial review via `/editorial-review` command:
 | `wave_docs/` | Wave docs | ~43 files |
 | `changelog/` | Release notes | ~232 files |
 
+## Enterprise release version bumps
+
+When cutting an enterprise point release (e.g., `25.3.4` → `25.3.5`), the following files under `platform-enterprise_versioned_docs/version-25.3/` need manual version bumps:
+
+- `enterprise/_templates/docker/docker-compose.yml`
+- `enterprise/_templates/k8s/tower-cron.yml`
+- `enterprise/_templates/k8s/tower-svc.yml`
+- `enterprise/configuration/mirroring.md`
+- `enterprise/platform-kubernetes.md`
+- `functionality_matrix/overview.md`
+
+The equivalent files under `platform-enterprise_docs/` do **not** need bumping here — they always point at the next upcoming enterprise version and are updated through the normal doc workflow.
+
+Use the following to surface anything that drifted before editing:
+
+```bash
+grep -rl "{old-version}" platform-enterprise_versioned_docs/version-25.3/
+```
+
+> **Note:** When the minor version rolls (e.g., a 25.4 release), the target directory changes to `platform-enterprise_versioned_docs/version-25.4/`. Verify the correct versioned directory before applying changes.
+
 ## Troubleshooting
 
 **Q: Too many suggestions?**

@@ -227,3 +227,21 @@ If you rely on silent Spot retries (the previous default behavior), you may now 
 - **Google**: Spot reclamation typically produces a specific code, but is now surfaced as a recognizable task failure in Nextflow logs.
 
 Since the default for Spot retries is now zero, you must actively enable a retry strategy if you want Nextflow to handle reclaimed Spot instances automatically. For more information, see [manage Spot interruptions](../tutorials/retry-strategy).
+
+### Nextflow syntax parser
+
+Up to version 25.10, Nextflow uses the v1 syntax parser (also known as the legacy parser) by default. The v2 parser introduces stricter validation and is available as an opt-in via `NXF_SYNTAX_PARSER=v2`.
+
+From version 26.04, Nextflow uses the v2 syntax parser by default. Pipelines that run without modification under the v1 parser may fail under v2.
+
+**Pin the v1 parser**
+
+To run existing pipelines unchanged under Nextflow 26, set `NXF_SYNTAX_PARSER` to `v1` in a [pre-run script](../launch/advanced#pre-and-post-run-scripts):
+
+```
+export NXF_SYNTAX_PARSER=v1
+```
+
+This restores the legacy parser behavior.
+
+For migration guidance to the v2 parser, see [Preparing for strict syntax](https://docs.seqera.io/nextflow/strict-syntax).
