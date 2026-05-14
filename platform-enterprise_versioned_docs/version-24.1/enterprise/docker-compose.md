@@ -21,7 +21,7 @@ The DB or Redis volume is persistent after a Docker restart by default. Use the 
 
 3. Download and configure the [docker-compose.yml](_templates/docker/docker-compose.yml) file:
 
-      - The `db` container should be used only for local testing. If you have configured this service elsewhere, you can remove this container.
+      - The `db` and `redis` containers should be used only for local testing. If you have configured these services elsewhere, you can remove these containers.
 
       - To configure the Seqera pipeline resource optimization service (`groundswell`), see [Pipeline resource optimization](./configuration/pipeline_optimization).
 

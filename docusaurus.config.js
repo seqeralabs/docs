@@ -227,6 +227,20 @@ export default async function createConfigAsync() {
     //   },
     // },
 
+    markdown: {
+      // The vendored MultiQC `config_schema.md` is auto-generated from a Python
+      // schema and contains literal `{...}` examples and `<details>` blocks
+      // around fenced code that the MDX parser rejects. Force CommonMark for
+      // that file so its content renders as plain markdown + HTML.
+      parseFrontMatter: async ({ filePath, fileContent, defaultParseFrontMatter }) => {
+        const result = await defaultParseFrontMatter({ filePath, fileContent });
+        if (filePath.endsWith("multiqc_docs/multiqc_repo/docs/markdown/config_schema.md")) {
+          result.frontMatter.mdx = { ...(result.frontMatter.mdx || {}), format: "md" };
+        }
+        return result;
+      },
+    },
+
     customFields: {
       // Put your custom environment here
     },
@@ -234,6 +248,7 @@ export default async function createConfigAsync() {
     clientModules: [
     require.resolve('./src/client-modules/cross-site-nav.js'),
     require.resolve('./src/client-modules/posthog-search.js'),
+    require.resolve('./src/client-modules/katex-css.js'),
     ],
 
 
