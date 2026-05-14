@@ -119,48 +119,79 @@ agent-backend:
 
 Use the `redis` values block for Redis-compatible services, including Valkey.
 
+### Configure inference and embeddings providers
+
+Declare which provider serves each capability using the `inference.provider`, `embeddings.provider`, and `sandbox.provider` values. `inference.provider` is required. `embeddings.provider` and `sandbox.provider` are optional; leave them empty to disable those features.
+
 ### Configure AWS Bedrock
 
 Configure Bedrock so Claude inference and Titan embeddings run in your AWS account. Bedrock is the recommended Enterprise configuration.
 
 ```yaml
 agent-backend:
-  bedrockAssumeRoleArn: arn:aws:iam::<account-id>:role/<bedrock-access-role>
-  bedrockAnthropicModel: arn:aws:bedrock:<region>:<account-id>:inference-profile/<profile-name>
+  inference:
+    provider: bedrock
 
   embeddings:
-    bedrock:
-      region: eu-west-2
-      modelId: amazon.titan-embed-text-v2:0
-      dimensions: "1024"
+    provider: bedrock
+
+  bedrock:
+    # Default credentials applied to all Bedrock-backed services unless overridden per-service.
+    default:
+      assumeRoleArn: arn:aws:iam::<account-id>:role/<bedrock-access-role>
+      region: <region>
+
+    inference:
+      # Anthropic inference profile ARN on Bedrock.
+      anthropicModel: arn:aws:bedrock:<region>:<account-id>:inference-profile/<profile-name>
+
+    embeddings:
+      model: amazon.titan-embed-text-v2:0
 ```
 
-Use `bedrockAssumeRoleArn` when the agent backend pod must assume a role for Bedrock inference, Bedrock embeddings, or AgentCore access. Leave it empty when the pod already has direct AWS credentials for the target account.
+Use `bedrock.default.assumeRoleArn` when the agent backend pod must assume a role for Bedrock inference, Bedrock embeddings, or AgentCore access. Leave it empty when the pod already has direct AWS credentials for the target account. Per-service overrides (`bedrock.inference.assumeRoleArn`, `bedrock.embeddings.assumeRoleArn`) can be set when different roles are required per capability.
 
 ### Configure direct Anthropic API access
 
-Use direct Anthropic API access only when your organization has approved Anthropic-hosted Claude models. Set the Anthropic API key from a Secret and disable Bedrock inference:
+Use direct Anthropic API access only when your organization has approved Anthropic-hosted Claude models. Set `inference.provider` to `anthropic` and reference the Anthropic API key from a Kubernetes Secret:
 
 ```yaml
 agent-backend:
-  anthropicApiKeyExistingSecretName: seqera-ai-secrets
-  extraEnvVars:
-    - name: USE_BEDROCK_INFERENCE
-      value: "false"
+  inference:
+    provider: anthropic
+
+  anthropic:
+    existingSecretName: seqera-ai-secrets
+
+  # Optionally enable Bedrock embeddings alongside Anthropic inference.
+  embeddings:
+    provider: bedrock
+
+  bedrock:
+    default:
+      assumeRoleArn: arn:aws:iam::<account-id>:role/<bedrock-access-role>
+      region: <region>
+    embeddings:
+      model: amazon.titan-embed-text-v2:0
 ```
 
-Documentation search embeddings are independent from chat inference. Keep Titan embeddings configured through Bedrock when you use improved documentation search.
+Documentation search embeddings are configured separately from chat inference. Enable Bedrock embeddings alongside Anthropic inference when you want improved documentation search.
 
 ### Configure AgentCore sandbox sessions
 
-If your deployment uses AWS Bedrock AgentCore for sandboxed execution, set the AgentCore runtime ARN:
+If your deployment uses AWS Bedrock AgentCore for sandboxed execution, set `sandbox.provider` to `bedrock` and provide the AgentCore runtime ARN:
 
 ```yaml
 agent-backend:
-  bedrockAgentCoreArn: arn:aws:bedrock-agentcore:<region>:<account-id>:runtime/<runtime-id>
+  sandbox:
+    provider: bedrock
+
+  bedrock:
+    sandbox:
+      runtimeArn: arn:aws:bedrock-agentcore:<region>:<account-id>:runtime/<runtime-id>
 ```
 
-If the `bedrockAssumeRoleArn` value is defined, agent backend will first assume the role before interacting with the agent core runtime.
+If `bedrock.default.assumeRoleArn` is defined, the agent backend assumes that role before interacting with the AgentCore runtime. Use `bedrock.sandbox.assumeRoleArn` to override the role for sandbox access specifically.
 
 ## Configure the portal web interface
 
