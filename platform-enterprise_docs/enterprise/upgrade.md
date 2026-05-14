@@ -21,7 +21,7 @@ This page outlines the steps to upgrade your database instance and Platform Ente
 
   From Seqera Enterprise version 23.4, MySQL 8 was the only supported database version. If you are running MySQL 5.6 or 5.7, you must upgrade your database to a supported MySQL version (see the [26.1 database considerations below](#database-changes) for the new baseline) before upgrading.
 
-## Considerations for versions 24.1 – 25.1
+## Considerations for versions 24.1 - 25.1
 
 - **OIDC Secrets injection modifications**
 
@@ -102,14 +102,14 @@ To migrate from Redis to Valkey, update the `TOWER_REDIS_URL` connection scheme 
 Redis password and ACL configuration carry over unchanged when migrating to Valkey.
 :::
 
-### Frontend image — root user deprecation
+### Frontend image root user deprecation
 
-The frontend image running as root user is deprecated in 26.1 in favor of the unprivileged ("rootless") image. The privileged image running as root will be removed in a future major release. If you have not already migrated, update your Kubernetes[link] or Docker Compose[link] manifests to reference the unprivileged image when downloading the new templates in the General upgrade steps below.
+The frontend image running as root user is deprecated in 26.1 in favor of the unprivileged ("rootless") image. The privileged image running as root will be removed in a future major release. If you have not already migrated, update your [Kubernetes](../enterprise/platform-kubernetes) or [Docker Compose](../enterprise/platform-docker) manifests to reference the unprivileged image when downloading the new templates in the General upgrade steps below.
 
-See the [unprivileged frontend image documentation](https://docs.seqera.io/platform-enterprise/enterprise/platform-kubernetes#seqera-frontend-unprivileged) for security context, file system, and port differences.
-The unprivileged image is a requirement for the installation via the Helm chart[link].
+See the [unprivileged frontend image documentation](../enterprise/platform-kubernetes#seqera-frontend-unprivileged) for security context, file system, and port differences.
+The unprivileged image is a requirement for the installation via the [Helm chart](../enterprise/platform-helm).
 
-### Studios — enabled on all workspaces by default
+### Studios enabled on all workspaces by default
 
 In 26.1, Studios is enabled on every workspace in your instance by default. This is a behavior change from earlier versions where Studios required explicit per-workspace enablement.
 
@@ -125,7 +125,7 @@ To preserve previous opt-in behaviour after upgrading, set `TOWER_DATA_STUDIO_AL
 
 #### Studios container template version
 
-The recommended Studios container template version for 26.1 is **0.12**. If you have customized your Studios container templates, update them to the 0.12 base images during this upgrade. Templates pinned to earlier Connect versions may no longer be supported. See the [Studios migration documentation](https://docs.seqera.io/platform-enterprise/studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
+The recommended Studios container template version for 26.1 is **0.12**. If you have customized your Studios container templates, update them to the 0.12 base images during this upgrade. Templates pinned to earlier Connect versions may no longer be supported. See the [Studios migration documentation](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
 
 ### AWS data lineage tracking via SQS (preview, AWS only)
 
