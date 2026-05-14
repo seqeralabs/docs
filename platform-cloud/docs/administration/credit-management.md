@@ -68,7 +68,7 @@ To calculate the credit spend for this run, the vCPUs and memory **requested** f
 | FASTQ_FASTQC_UMITOOLS_TRIMGALORE:FASTQC (WT_REP2)                             | 46 s     | 4    | 15.0 GB |
 
 :::info
-The **Tasks** tab of the [run details](https://docs.seqera.io/platform-cloud/monitoring/run-details) page lists the processes and tasks executed during the run. Select a task from the list to view the task's details, including metrics for **Execution time** and **Resources requested**.
+The **Tasks** tab of the [run details](../monitoring/run-details) page lists the processes and tasks executed during the run. Select a task from the list to view the task's details, including metrics for **Execution time** and **Resources requested**.
 :::
 
 The usage report for this run shows the CPU and memory cost as separate line items:
