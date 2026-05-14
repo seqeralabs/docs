@@ -59,7 +59,7 @@ The following regions are currently supported:
 ## Seqera Intelligent Compute
 
 :::info[Private preview]
-Seqera Intelligent Compute is in Private preview. [Contact us](https://seqera.io/intelligent-compute/) to request access.
+Seqera Intelligent Compute is in private preview. [Contact us](https://seqera.io/intelligent-compute/) to request access.
 :::
 
 Seqera Intelligent Compute is a next-generation compute and scheduling service that runs large-scale Nextflow pipelines on a Seqera-managed Amazon ECS cluster, scaling beyond a single instance while preserving the fast startup of the AWS Cloud compute environment
@@ -398,6 +398,10 @@ If you enable [data lineage](../data/data-lineage) in your workspace, add the fo
 If you manage your own EC2 instance role (rather than letting Seqera create it automatically), see [Manual AWS Batch configuration](../enterprise/advanced-topics/manual-aws-batch-setup#create-an-ec2-instance-role) for the additional S3 policy to attach to that role.
 
 ## Create the IAM policy
+
+:::info[Private preview]
+Seqera Intelligent Compute is in private preview. [Contact us](https://seqera.io/intelligent-compute/) to request access.
+:::
 
 If you've enabled [Seqera Intelligent Compute](#seqera-intelligent-compute), attach the following additional policy to the same IAM user or role that Seqera uses to access your AWS account.
 

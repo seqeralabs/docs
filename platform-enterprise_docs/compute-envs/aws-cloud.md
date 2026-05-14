@@ -234,7 +234,7 @@ The following permissions enable Seqera to populate values for dropdown fields. 
 ## Seqera Intelligent Compute
 
 :::info[Private preview]
-Seqera Intelligent Compute is in Private preview. [Contact us](https://seqera.io/intelligent-compute/) to request access.
+Seqera Intelligent Compute is in private preview. [Contact us](https://seqera.io/intelligent-compute/) to request access.
 :::
 
 Seqera Intelligent Compute is an optional capability that executes Nextflow tasks on a Seqera-managed Amazon ECS cluster instead of running them entirely on the head EC2 instance. The AWS Cloud compute environment scales beyond the resources of a single instance while preserving its fast startup behavior.
@@ -242,6 +242,10 @@ Seqera Intelligent Compute is an optional capability that executes Nextflow task
 When you enable Seqera Intelligent Compute, Seqera provisions and manages all ECS infrastructure on your behalf, including clusters, capacity providers, task definitions, IAM roles, and (optionally) Auto Scaling Groups for spot and on-demand capacity. All managed resources use the `seqera-sched-` prefix and are torn down automatically when no longer needed.
 
 ### Additional IAM permissions
+
+:::info[Private preview]
+Seqera Intelligent Compute is in private preview. [Contact us](https://seqera.io/intelligent-compute/) to request access.
+:::
 
 To enable Seqera Intelligent Compute, attach an additional IAM policy (beyond the [Required Platform IAM permissions](#required-platform-iam-permissions)) to the same IAM user or role that Seqera uses to access your AWS account.
 
