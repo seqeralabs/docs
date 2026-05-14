@@ -2,7 +2,7 @@
 title: "User roles"
 description: "Understand the various roles in Seqera Platform."
 date created: "2024-06-10"
-last updated: "2025-11-18"
+last updated: "2026-04-17"
 tags: [roles, user-roles]
 ---
 
@@ -32,7 +32,7 @@ As a best practice, use teams as the primary vehicle for assigning rights within
 ## Workspace participant roles
 
 The default workspace participant roles are:
-- **Owner**: The user who created the workspace is its first owner. Owners have full administrative privileges over a workspace and its resources, including permission to delete the workspace. Regular participants can also be promoted to workspace owners. 
+- **Owner**: The user who created the workspace is its first owner. Owners have full administrative privileges over a workspace and its resources, including permission to delete the workspace. Regular participants can also be promoted to workspace owners.
 - **Admin**: Workspace admins share most of the administrative privileges of workspace owners, but admins cannot delete a workspace.
 - **Maintain**: Workspace maintainers can use and manage all workspace resources, but cannot create workspace credentials, compute environments, or Studios
 - **Launch**: Launch users can use existing workspace resources and launch pipelines, but they cannot modify workspace resources.

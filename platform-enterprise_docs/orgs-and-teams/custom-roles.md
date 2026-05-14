@@ -2,11 +2,11 @@
 title: "Custom roles"
 description: "Introduction to custom roles in Seqera Platform."
 date created: "2025-11-17"
-last updated: "2025-11-17"
+last updated: "2026-04-17"
 tags: [roles, user-roles, custom roles, rbac, permissions]
 ---
 
-Seqera Platform supports custom roles to define permissions-based access control at a more granular level than the six default [workspace participant roles](./roles.md#workspace-participant-roles). 
+Seqera Platform supports custom roles to define permissions-based access control at a more granular level than the six default [workspace participant roles](./roles.md#workspace-participant-roles).
 
 ### Create custom roles
 
@@ -15,15 +15,15 @@ Organization owners can add custom roles and assign read, write, execute, admin,
 1. Select your organization name from the organization and workspace switcher in the top navigation.
 1. Select **Access control** to view the list of default and custom roles available in your organization.
 1. Select **Add role**.
-1. Enter a role **Name** and optional **Description**. 
-1. From the **Permissions** list, select the **Read**, **Write**, **Execute**, **Admin**, and **Delete** permissions your custom role requires for each resource type. 
-1. Select **Add** to create the custom role and return to the **Access control** roles list. 
+1. Enter a role **Name** and optional **Description**.
+1. From the **Permissions** list, select the **Read**, **Write**, **Execute**, **Admin**, and **Delete** permissions your custom role requires for each resource type.
+1. Select **Add** to create the custom role and return to the **Access control** roles list.
 
-Select **Edit** or **Delete** to manage existing custom roles in the list. 
+Select **Edit** or **Delete** to manage existing custom roles in the list.
 
 ### Permissions
 
-Individual permissions grant read, write, execute, admin, or delete access for each Seqera entity. Individual read and write permissions may grant access for multiple operations via the Platform UI, API, and other programmatic tools such as Platform CLI. For example, the `action:read` permission allows a user to view the list of actions in a workspace, view the details of a specific action, and view available action types. 
+Individual permissions grant read, write, execute, admin, or delete access for each Seqera entity. Individual read and write permissions may grant access for multiple operations via the Platform UI, API, and other programmatic tools such as Platform CLI. For example, the `action:read` permission allows a user to view the list of actions in a workspace, view the details of a specific action, and view available action types.
 
 #### Compute
 
@@ -34,8 +34,6 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 | **compute_environment:write** | Create a new compute environment | `POST /compute-envs` |
 |  | Edit an existing compute environment | `PUT /compute-envs/{computeEnvId}` |
 |  | Set a compute environment as primary | `POST /compute-envs/{computeEnvId}/primary` |
-|  | Disable compute environment | `POST /compute-envs/{computeEnvId}/disable` |
-|  | Enable compute environment | `POST /compute-envs/{computeEnvId}/enable` |
 |  | Validate compute environment name availability | `GET /compute-envs/validate` |
 | **compute_environment:delete** | Delete a compute environment | `DELETE /compute-envs/{computeEnvId}` |
 | **credentials:read** | List all credentials in workspace | `GET /credentials` |
@@ -62,17 +60,14 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 |------------|-------------|--------------|
 | **data_link:read** | List all data-links (cloud buckets) | `GET /data-links` |
 |  | Browse data-link contents | `GET /data-links/{dataLinkId}/browse` |
-|  | Browse data-link contents at the given path | `GET /data-links/{dataLinkId}/browse/{path}` |
 |  | View data-link details | `GET /data-links/{dataLinkId}` |
 | **data_link:write** | Refresh data-link cache | `GET /data-links/cache/refresh` |
 |  | Browse data-link directory tree | `GET /data-links/{dataLinkId}/browse-tree` |
-|  | Download files from data-link | `GET /data-links/{dataLinkId}/download/{filePath}` |
+|  | Download files from data-link | `GET /data-links/{dataLinkId}/download` |
 |  | Generate download URL for data-link files | `GET /data-links/{dataLinkId}/generate-download-url` |
 |  | Generate download script | `GET /data-links/{dataLinkId}/script/download` |
 |  | Upload files to data-link | `POST /data-links/{dataLinkId}/upload` |
-|  | Upload files to data-link at the given path | `POST /data-links/{dataLinkId}/upload/{dirPath}` |
 |  | Complete file upload to data-link | `POST /data-links/{dataLinkId}/upload/finish` |
-|  | Complete file upload to data-link at the given path | `POST /data-links/{dataLinkId}/upload/finish/{dirPath}` |
 |  | Create a custom data-link | `POST /data-links` |
 |  | Edit data-link metadata | `PUT /data-links/{dataLinkId}` |
 | **data_link:delete** | Delete files from data-link | `DELETE /data-links/{dataLinkId}/content` |
@@ -136,20 +131,23 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 |  | List available pipeline repositories | `GET /pipelines/repositories` |
 |  | List all pipelines in workspace | `GET /pipelines` |
 |  | View pipeline details | `GET /pipelines/{pipelineId}` |
+|  | List pipeline versions | `GET /pipelines/{pipelineId}/versions` |
 |  | Fetch pipeline optimization | _(Used by Platform)_ |
-|  | List pipeline versions | _(Used by Platform)_ |
 | **pipeline:write** | Modify pipeline details when launching a pipeline run | Sub-operation on `POST /workflow/launch` |
 |  | Add a new pipeline to workspace | `POST /pipelines` |
-|  | Edit pipeline configuration | `PUT /pipelines/{pipelineId}` |
+|  | Edit pipeline (default version) configuration | `PUT /pipelines/{pipelineId}` |
 |  | Configure pipeline | _(Used by Platform)_ |
 |  | Validate pipeline name availability | `GET /pipelines/validate` |
-|  | Validate pipeline version name availability | _(Used by Platform)_ |
-|  | Manage pipeline version | _(Used by Platform)_ |
+|  | Create a pipeline schema | `POST /pipeline-schemas` |
+|  | Validate pipeline version name availability | `GET /pipelines/{pipelineId}/versions/validate` |
+|  | Manage pipeline version | `PUT /pipelines/{pipelineId}/versions/{versionId}/manage` |
+|  | Edit pipeline version configuration | `POST /pipelines/{pipelineId}/versions/{versionId}` |
 | **pipeline:delete** | Delete a pipeline | `DELETE /pipelines/{pipelineId}` |
 | **pipeline_label:write** | Apply resource labels when launching a pipeline run | Sub-operation on `POST /workflow/launch` |
 |  | Add labels to pipelines | `POST /pipelines/labels/add` |
 |  | Apply resource labels when adding a pipeline | Sub-operation on `POST /pipelines` |
-|  | Apply resource labels when editing a pipeline | Sub-operation on `PUT /pipelines/{pipelineId}` |
+|  | Apply resource labels when editing a pipeline (default version) | Sub-operation on `PUT /pipelines/{pipelineId}` |
+|  | Apply resource labels when editing a pipeline version | Sub-operation on `POST /pipelines/{pipelineId}/versions/{versionId}` |
 |  | Remove labels from pipelines | `POST /pipelines/labels/remove` |
 |  | Apply label sets to pipelines | `POST /pipelines/labels/apply` |
 | **workflow:read** | View run details | `GET /workflow/{workflowId}` |
@@ -239,4 +237,3 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 | **studio_session:read** | Open a studio | _(Used by Platform)_ |
 | **studio_session:execute** | Extend studio session lifespan (iframe) | _(Used by Platform)_ |
 |  | Extend studio session lifespan | `POST /studios/{sessionId}/lifespan` |
-| | Extend studio session lifespan | `POST /studios/{sessionId}/lifespan` |

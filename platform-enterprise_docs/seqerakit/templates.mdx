@@ -25,31 +25,31 @@ import EndToEnd from '!!raw-loader!./templates/seqerakit-e2e.yaml';
 Customize YAML configuration templates to use in `seqerakit` commands to create, update, or delete Seqera resources. Create or delete multiple resources with a single command by combining them into a single configuration file.
 
 To use the templates on this page:
-1. Copy the template text or download the YAML files you need. 
+1. Copy the template text or download the YAML files you need.
 1. Edit the values to specify your resource details, and save as a `.yaml` file.
-1. Specify the YAML template file in your `seqerakit` commands: 
+1. Specify the YAML template file in your `seqerakit` commands:
     - To create the resources specified in the file:
-    ```shell-session 
+    ```shell-session
     seqerakit file.yaml
     ```
     - To delete the existing resources specified in the file:
-    ```shell-session 
+    ```shell-session
     seqerakit file.yaml --delete
     ```
 
-:::info 
-See [Specify targets](./commands#specify-targets) to create or delete only selected resources from configuration templates that contain multiple resource entries. 
-::: 
+:::info
+See [Specify targets](./commands#specify-targets) to create or delete only selected resources from configuration templates that contain multiple resource entries.
+:::
 
-See [End-to-end example](#end-to-end-example) for a template that contains examples of all Seqera resources that can be created with Seqerakit. 
+See [End-to-end example](#end-to-end-example) for a template that contains examples of all Seqera resources that can be created with Seqerakit.
 
 ### Administration
 
-Manage organizations, organization members, workspaces, teams, and participants. 
+Manage organizations, organization members, workspaces, teams, and participants.
 
 #### Organizations
 
-Add or delete organizations. 
+Add or delete organizations.
 
 <CodeBlock language="yaml">
 {Organizations}
@@ -59,7 +59,7 @@ Add or delete organizations.
 
 #### Members
 
-Add or delete organization members. 
+Add or delete organization members.
 
 <CodeBlock language="yaml">
 {Members}
@@ -67,9 +67,9 @@ Add or delete organization members.
 
 [Download members.yaml](./templates/members.yaml)
 
-#### Workspaces 
+#### Workspaces
 
-Add or delete workspaces. 
+Add or delete workspaces.
 
 <CodeBlock language="yaml">
 {Workspaces}
@@ -77,9 +77,9 @@ Add or delete workspaces.
 
 [Download workspaces.yaml](./templates/workspaces.yaml)
 
-#### Teams 
+#### Teams
 
-Add or delete teams. 
+Add or delete teams.
 
 <CodeBlock language="yaml">
 {Teams}
@@ -87,9 +87,9 @@ Add or delete teams.
 
 [Download teams.yaml](./templates/teams.yaml)
 
-#### Participants 
+#### Participants
 
-Add or delete participants in workspaces and teams. 
+Add or delete participants in workspaces and teams.
 
 <CodeBlock language="yaml">
 {Participants}
@@ -107,9 +107,9 @@ Add or delete compute environment, Git, and container registry credentials in wo
 
 [Download credentials.yaml](./templates/credentials.yaml)
 
-### Compute environments 
+### Compute environments
 
-Add or delete compute environments. 
+Add or delete compute environments.
 
 <CodeBlock language="yaml">
 {ComputeEnvironments}
@@ -117,9 +117,9 @@ Add or delete compute environments.
 
 [Download compute-envs.yaml](./templates/compute-envs.yaml)
 
-### Pipelines 
+### Pipelines
 
-Add or delete pipelines in workspace Launchpads. 
+Add or delete pipelines in workspace Launchpads.
 
 <CodeBlock language="yaml">
 {Pipelines}
@@ -182,16 +182,16 @@ Add or delete pipeline actions.
 A template to create the following resources:
 
 - An organization
-- A workspace 
+- A workspace
 - A team
 - Participants
 - Credentials
-- Secrets 
+- Secrets
 - Compute environments
-- Datasets 
-- Pipelines 
+- Datasets
+- Pipelines
 
-The template also contains `launch` entries to launch saved pipelines. 
+The template also contains `launch` entries to launch saved pipelines.
 
 <CodeBlock language="yaml">
 {EndToEnd}

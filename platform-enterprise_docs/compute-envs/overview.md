@@ -38,7 +38,7 @@ Select **Update** on the edit page to save your changes after you have updated t
 
 ## Delete compute environment
 
-Compute environments can be deleted when they are no longer required. You must delete the compute environment before deleting its associated credentials. If the credentials are deleted first, the compute environment deletion will fail with an error. If this happens, the entry needs to be manually deleted from the database to fully remove it. 
+Compute environments can be deleted when they are no longer required. You must delete the compute environment before deleting its associated credentials. If the credentials are deleted first, the compute environment deletion will fail with an error. If this happens, the entry needs to be manually deleted from the database to fully remove it.
 
 ## GPU usage
 
