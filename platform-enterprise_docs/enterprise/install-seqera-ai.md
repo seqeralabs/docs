@@ -97,10 +97,15 @@ When MCP runs under the Platform parent chart, leave `mcp.oidcToken` unset unles
 
 The agent backend needs MySQL, Redis or Valkey, inference provider access, MCP connectivity, and a stable token encryption key. In this example sensitive values (db and redis passwords, token encryption key, etc) are stored in a kubernetes secret named `seqera-ai-secrets`, which needs to already exist before the chart installation, either created manually or with automated secret extraction tools (like External Secrets, not covered in this tutorial).
 
+Declare which provider serves each capability using `inference.provider`, `embeddings.provider`, and `sandbox.provider`. `inference.provider` is required; `embeddings.provider` and `sandbox.provider` are optional — leave them empty to disable those features. The `bedrock` block holds credentials and configuration shared across all Bedrock-backed services, with per-service overrides available when needed.
+
+The following example shows a full Bedrock configuration with embeddings and AgentCore sandbox enabled. For Anthropic inference, see the note after the example.
+
 ```yaml
 agent-backend:
   enabled: true
 
+  # -- Database
   database:
     host: mysql.example.com
     name: agent_backend
@@ -108,6 +113,7 @@ agent-backend:
     existingSecretName: seqera-ai-secrets
     existingSecretKey: AGENT_BACKEND_DB_PASSWORD
 
+  # -- Redis or Valkey
   redis:
     host: redis.example.com
     db: 0
@@ -115,28 +121,21 @@ agent-backend:
     existingSecretKey: AGENT_BACKEND_REDIS_PASSWORD
 
   tokenEncryptionKeyExistingSecretName: seqera-ai-secrets
-```
 
-Use the `redis` values block for Redis-compatible services, including Valkey.
-
-### Configure inference and embeddings providers
-
-Declare which provider serves each capability using the `inference.provider`, `embeddings.provider`, and `sandbox.provider` values. `inference.provider` is required. `embeddings.provider` and `sandbox.provider` are optional; leave them empty to disable those features.
-
-### Configure AWS Bedrock
-
-Configure Bedrock so Claude inference and Titan embeddings run in your AWS account. Bedrock is the recommended Enterprise configuration.
-
-```yaml
-agent-backend:
+  # -- Provider routing: declare which provider serves each capability
   inference:
-    provider: bedrock
+    provider: bedrock   # required; "bedrock" or "anthropic"
 
   embeddings:
-    provider: bedrock
+    provider: bedrock   # optional; omit to disable documentation search
 
+  sandbox:
+    provider: bedrock   # optional; omit to disable AgentCore sandbox sessions
+
+  # -- Bedrock configuration
   bedrock:
     # Default credentials applied to all Bedrock-backed services unless overridden per-service.
+    # Use this when inference, embeddings, and sandbox all share the same role and region.
     default:
       assumeRoleArn: arn:aws:iam::<account-id>:role/<bedrock-access-role>
       region: <region>
@@ -147,23 +146,23 @@ agent-backend:
 
     embeddings:
       model: amazon.titan-embed-text-v2:0
+
+    sandbox:
+      # AgentCore runtime ARN — required when sandbox.provider is "bedrock".
+      runtimeArn: arn:aws:bedrock-agentcore:<region>:<account-id>:runtime/<runtime-id>
 ```
 
-Use `bedrock.default.assumeRoleArn` when the agent backend pod must assume a role for Bedrock inference, Bedrock embeddings, or AgentCore access. Leave it empty when the pod already has direct AWS credentials for the target account. Per-service overrides (`bedrock.inference.assumeRoleArn`, `bedrock.embeddings.assumeRoleArn`) can be set when different roles are required per capability.
+Use `bedrock.default.assumeRoleArn` when the pod must assume a role to access Bedrock services. Leave it empty when the pod already has direct AWS credentials for the target account. Per-service overrides (`bedrock.inference.assumeRoleArn`, `bedrock.embeddings.assumeRoleArn`, `bedrock.sandbox.assumeRoleArn`) are available when different roles are required per capability.
 
-### Configure direct Anthropic API access
-
-Use direct Anthropic API access only when your organization has approved Anthropic-hosted Claude models. Set `inference.provider` to `anthropic` and reference the Anthropic API key from a Kubernetes Secret:
+To use direct Anthropic API access instead of Bedrock for inference, replace the `inference` and `bedrock.inference` blocks above with the following, and add the `anthropic` block. Bedrock embeddings can still be enabled alongside Anthropic inference:
 
 ```yaml
-agent-backend:
   inference:
     provider: anthropic
 
   anthropic:
     existingSecretName: seqera-ai-secrets
 
-  # Optionally enable Bedrock embeddings alongside Anthropic inference.
   embeddings:
     provider: bedrock
 
@@ -175,23 +174,7 @@ agent-backend:
       model: amazon.titan-embed-text-v2:0
 ```
 
-Documentation search embeddings are configured separately from chat inference. Enable Bedrock embeddings alongside Anthropic inference when you want improved documentation search.
-
-### Configure AgentCore sandbox sessions
-
-If your deployment uses AWS Bedrock AgentCore for sandboxed execution, set `sandbox.provider` to `bedrock` and provide the AgentCore runtime ARN:
-
-```yaml
-agent-backend:
-  sandbox:
-    provider: bedrock
-
-  bedrock:
-    sandbox:
-      runtimeArn: arn:aws:bedrock-agentcore:<region>:<account-id>:runtime/<runtime-id>
-```
-
-If `bedrock.default.assumeRoleArn` is defined, the agent backend assumes that role before interacting with the AgentCore runtime. Use `bedrock.sandbox.assumeRoleArn` to override the role for sandbox access specifically.
+Use direct Anthropic API access only when your organization has approved Anthropic-hosted Claude models.
 
 ## Configure the portal web interface
 
