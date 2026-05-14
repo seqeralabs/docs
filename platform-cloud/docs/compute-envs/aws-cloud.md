@@ -461,6 +461,7 @@ The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The 
       "Sid": "EC2NetworkDiscovery",
       "Effect": "Allow",
       "Action": [
+      "Action": [
        "ec2:DescribeImages",
         "ec2:DescribeVpcs",
         "ec2:DescribeSubnets",
