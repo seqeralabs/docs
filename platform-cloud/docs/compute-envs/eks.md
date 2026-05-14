@@ -22,6 +22,10 @@ Once you meet all the prerequisites, configure an [Amazon EKS Compute Environmen
 
 ## Required Platform IAM permissions
 
+:::tip Canonical reference moved
+The IAM permissions, IAM user/role creation, and EKS-specific setup (Service Account IAM role for Fusion v2, `aws-auth` ConfigMap) are now consolidated in [AWS integration > IAM policies](/platform-cloud/integrations/cloud-providers/aws/iam-policies) (select the **Amazon EKS** tab), [AWS integration > Credentials](/platform-cloud/integrations/cloud-providers/aws/credentials), and [AWS integration > EKS additions](/platform-cloud/integrations/cloud-providers/aws/eks-additions). The same content remains here for now and will be removed in a future release.
+:::
+
 Seqera Platform requires an IAM user with specific permissions to launch pipelines, explore buckets with Data Explorer, and run Studio sessions on the AWS EKS compute environment. Some permissions are mandatory for the compute environment to function correctly, while others are optional and enable features like populating dropdown lists in the Platform UI.
 
 Attach permissions directly to an [IAM user](#iam-user-creation), or to an [IAM role](#iam-role-creation-optional) that the IAM user can assume.
@@ -405,7 +409,7 @@ Once all prerequisites are met, create a Seqera EKS compute environment:
 1. From the **Credentials** drop-down, select existing AWS credentials, or select **+** to add new credentials. If you're using existing credentials, skip to step 9. The user must have the IAM permissions required to describe and list EKS clusters, per Service Account role requirements.
 
     :::note
-    You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview).
+    You can create multiple credentials in your Seqera environment. See [Credentials](/platform-cloud/integrations/overview).
     :::
 
 1. Enter a name, e.g., `EKS Credentials`.

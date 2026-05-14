@@ -31,9 +31,9 @@ The launch form accepts URL query parameters. See [Populate launch form with URL
 
 ### General config
 
-- **Pipeline to launch**: A Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited. Private repositories require [access credentials](../credentials/overview).
+- **Pipeline to launch**: A Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited. Private repositories require [access credentials](/platform-cloud/integrations/overview).
   :::note
-  Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](../git/overview) in the Seqera docs and [Pipeline sharing](https://docs.seqera.io/nextflow/sharing) in the Nextflow docs for more details.
+  Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration](/platform-cloud/integrations/git-providers/overview) in the Seqera docs and [Pipeline sharing](https://docs.seqera.io/nextflow/sharing) in the Nextflow docs for more details.
   :::
 - **Revision**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch.
 - **Commit ID**: Pin pipeline revision to the most recent HEAD commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.

@@ -63,6 +63,10 @@ See [Register an application in Microsoft Entra ID](https://learn.microsoft.com/
 
 ### Required permissions
 
+:::tip Canonical reference moved
+The custom role JSON, app registration steps, and credential setup for Azure Cloud are now consolidated in [Azure integration > Roles & service principals](/platform-cloud/integrations/cloud-providers/azure/roles-and-service-principals) and [Azure integration > Credentials](/platform-cloud/integrations/cloud-providers/azure/credentials). The same content remains here for now and will be removed in a future release.
+:::
+
 For granular control over the permissions granted to Seqera, use [Azure custom roles](https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles) and [assign](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal) them to the service principal. The full role JSON definition is:
 
 ```json

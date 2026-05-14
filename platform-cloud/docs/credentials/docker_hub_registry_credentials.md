@@ -6,6 +6,10 @@ last updated: "2025-10-21"
 tags: [docker, registry, credentials]
 ---
 
+:::info This page has moved
+Documentation for this credential type now lives at [/platform-cloud/integrations/container-registries/docker-hub](/platform-cloud/integrations/container-registries/docker-hub). The old URL is preserved during the migration but will be removed in a future release. Update your bookmarks.
+:::
+
 Docker Hub credentials allow the Wave container service to authenticate and pull container images from your Docker Hub repositories. Docker Hub uses personal access tokens (PATs) with read-only permissions for secure programmatic access.
 
 :::note

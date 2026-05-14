@@ -6,6 +6,10 @@ last updated: "2025-10-21"
 tags: [credentials, container-registry, wave, docker, authentication]
 ---
 
+:::info This page has moved
+Documentation for this credential type now lives at [/platform-cloud/integrations/container-registries/overview](/platform-cloud/integrations/container-registries/overview). The old URL is preserved during the migration but will be removed in a future release. Update your bookmarks.
+:::
+
 Seqera Platform supports the configuration of credentials for the Wave container service to authenticate to private and public container registries. For more information about Wave, see [Wave containers](https://docs.seqera.io/wave).
 
 :::note

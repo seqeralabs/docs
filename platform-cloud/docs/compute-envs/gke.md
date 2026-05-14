@@ -58,7 +58,7 @@ After you've prepared your Kubernetes cluster and granted cluster access to your
 1. Enter a name for the credentials, e.g., _GKE Credentials_.
 1. Enter the **Service account key** for your Google service account.
     :::tip
-    You can create multiple credentials in your Seqera environment. See [Credentials](../credentials/overview).
+    You can create multiple credentials in your Seqera environment. See [Credentials](/platform-cloud/integrations/overview).
     :::
 1. Select the **Location** of your GKE cluster.
     :::caution

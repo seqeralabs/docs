@@ -23,9 +23,9 @@ To launch pipelines into an **HPC** cluster from Seqera, the following requireme
 
 ## Credentials
 
-Seqera requires SSH access to your HPC cluster to run pipelines. Use [managed identities](../credentials/managed_identities) to enable granular access control and preserve individual cluster user identities.
+Seqera requires SSH access to your HPC cluster to run pipelines. Use [managed identities](/platform-cloud/integrations/identity/managed-identities) to enable granular access control and preserve individual cluster user identities.
 
-You can also use workspace [SSH credentials](../credentials/ssh_credentials) for cluster login, but this provides service account access to your HPC to all Platform users. This means that all users will be granted the same file system access, and all activity is logged under the same user account on your HPC cluster.
+You can also use workspace [SSH credentials](/platform-cloud/integrations/identity/ssh-credentials) for cluster login, but this provides service account access to your HPC to all Platform users. This means that all users will be granted the same file system access, and all activity is logged under the same user account on your HPC cluster.
 
 For HPC clusters that do not allow direct access through an SSH client, a secure connection can be authenticated with [Tower Agent](../supported_software/agent/overview).
 

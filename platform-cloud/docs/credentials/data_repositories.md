@@ -6,6 +6,10 @@ last updated: "2025-10-21"
 tags: [data explorer, aws, azure, gcp, s3-compatible, api, credentials]
 ---
 
+:::info This page has moved
+Documentation for this credential type now lives at [/platform-cloud/integrations/data-sources/overview](/platform-cloud/integrations/data-sources/overview). The old URL is preserved during the migration but will be removed in a future release. Update your bookmarks.
+:::
+
 Data Explorer requires programmatic access via valid credentials to browse and interact with remotely hosted private data repositories.
 
 To automatically connect to one or more data repositories, create a new credential that includes **Name** and **Provider**. Specific data repositories require additional information to connect.

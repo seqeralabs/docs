@@ -6,6 +6,10 @@ last updated: "2025-10-21"
 tags: [agent, credentials]
 ---
 
+:::info This page has moved
+Documentation for this credential type now lives at [/platform-cloud/integrations/agent/credentials](/platform-cloud/integrations/agent/credentials). The old URL is preserved during the migration but will be removed in a future release. Update your bookmarks.
+:::
+
 [Tower Agent](../supported_software/agent/overview) enables Seqera Platform to launch pipelines on HPC clusters that do not allow direct access through an SSH client. Tower Agent authenticates a secure connection with Seqera using a Tower Agent credential.
 
 ## Tower Agent sharing

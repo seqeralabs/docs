@@ -82,7 +82,7 @@ After you've prepared your Kubernetes cluster for Seqera integration, create a c
 1. From the **Credentials** drop-down, select existing Kubernetes credentials, or select **+** to add new credentials. If you choose to use existing credentials, skip to step 7.
 
     :::tip
-    You can create multiple credentials in your Seqera workspace. See [Credentials](../credentials/overview).
+    You can create multiple credentials in your Seqera workspace. See [Credentials](/platform-cloud/integrations/overview).
     :::
 
 1. Enter a name, such as _K8s Credentials_.
