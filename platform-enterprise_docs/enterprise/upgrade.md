@@ -64,6 +64,39 @@ This page outlines the steps to upgrade your database instance and Platform Ente
 
 ## Version 26.1 upgrade considerations
 
+### Breaking changes
+
+#### Audit log versions in 26.1
+
+Seqera Platform Enterprise 26.1 introduces the audit log v2 schema as a **breaking change** for direct database consumers and custom ETL jobs.
+
+- The legacy audit log schema remains in the `tw_audit_log` table.
+- The new audit log v2 schema is written to a separate `tw_audit_log_v2` table.
+- The v2 schema is not backward-compatible with the legacy schema. Field names, structure, and pagination behavior differ.
+- The v2 Admin panel view and CSV export are available when `TOWER_AUDIT_LOG_V2_WRITE_MODE` is set to `dual` or `v2`.
+
+Use `TOWER_AUDIT_LOG_V2_WRITE_MODE` to control how new audit events are written:
+
+- `v1`: Write new events to the legacy `tw_audit_log` table only. This is the default in 26.1.
+- `dual`: Write new events to both `tw_audit_log` and `tw_audit_log_v2`. This is the recommended 26.1 migration mode if you need to validate the v2 schema while keeping existing v1 integrations unchanged.
+- `v2`: Write new events to `tw_audit_log_v2` only.
+
+##### Upgrade path for existing integrations
+
+If you have existing scripts, exports, or ETL processes that read from the legacy audit log schema, plan the 26.1 upgrade in two stages:
+
+1. Upgrade to 26.1 and set `TOWER_AUDIT_LOG_V2_WRITE_MODE=dual`.
+2. Validate your integrations against the v2 schema while your existing v1 readers continue to work from the legacy table.
+
+In the 26.1 migration plan, dual-write is transitional. Plan for 26.2 to make v2 the only write-side schema, while the legacy v1 data remains available for reads as long as your retention policy still covers the required historical period.
+
+#### Configuration changes
+
+- `TOWER_AUDIT_LOG_V2_ENABLED` and `TOWER_AUDIT_LOG_V2_WRITE_MODE` added as configuration options.
+
+  - `TOWER_AUDIT_LOG_V2_WRITE_MODE`: Turns on the v2 Audit Log for parallel writes with v1 Audit Log.
+  - `TOWER_AUDIT_LOG_V2_ENABLED`: Turns on or off the v2 Audit Log view from the Admin Panel.
+
 ### Database changes
 
 26.1 changes the supported database baseline. Review your current database against the table below **before upgrading**.
@@ -159,6 +192,10 @@ The database volume is persistent on the local machine by default if you use the
     1. Upgrade your database instance.
     1. Restart the application.
 1. If you're using the pipeline optimization service (`groundswell` database) in a database separate from your Seqera database, update the MySQL image for your `groundswell` database instance while the application is down (during step 4 or 5 above). If you're using the same database instance for both, the `groundswell` update will happen automatically during the Seqera database update.
+
+### Database migrations
+
+Database migrations run automatically during upgrade. No manual steps required.
 
 ### Custom deployments
 
