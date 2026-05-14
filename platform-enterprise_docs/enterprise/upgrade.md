@@ -42,10 +42,6 @@ This page outlines the steps to upgrade your database instance and Platform Ente
     - Replace `/redisson/*` references in AWS Parameter Store entries with `TOWER_REDIS_*` environment variables.
     - Replace `redisson.*` references in `tower.yml` with `TOWER_REDIS_*` environment variables.
 
-  :::note
-  Set `TOWER_REDIS_*` values directly in the `tower.yml` or AWS Parameter Store entry (for example, `TOWER_REDIS_URL: redis://...`).
-  :::
-
 - **Micronaut property key changes**
 
   In version 24.1, the property that determines the expiration time of the JWT access token (used for authenticating web sessions and Nextflow-Platform interactions) changed:
