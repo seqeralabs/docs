@@ -54,7 +54,7 @@
               "enterprise/configuration/pipeline_optimization"
             ]
           },
-          "enterprise/install-seqera-co-scientist",
+          "enterprise/install-seqera-coscientist",
           {
             "type": "category",
             "label": "Configuration",
