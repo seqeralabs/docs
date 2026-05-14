@@ -410,21 +410,24 @@ The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The 
         "arn:aws:iam::*:instance-profile/seqera-sched-*"
       ]
     },
-    {
-      "Sid": "PassRoleToECS",
-      "Effect": "Allow",
-      "Action": "iam:PassRole",
-      "Resource": "arn:aws:iam::*:role/seqera-sched-*",
-      "Condition": {
-        "StringEquals": {
-          "iam:PassedToService": [
-            "ecs-tasks.amazonaws.com",
-            "ecs.amazonaws.com",
-            "ec2.amazonaws.com"
-          ]
-        }
-      }
-    },
+	{
+	  "Sid": "PassRoleToECS",
+	  "Effect": "Allow",
+	  "Action": "iam:PassRole",
+	  "Resource": [
+	    "arn:aws:iam::*:role/seqera-sched-*",
+	    "arn:aws:iam::*:role/TowerForge-*"
+	  ],
+	  "Condition": {
+	    "StringEquals": {
+	      "iam:PassedToService": [
+	        "ecs-tasks.amazonaws.com",
+	        "ecs.amazonaws.com",
+	        "ec2.amazonaws.com"
+	      ]
+	    }
+	  }
+	},
     {
       "Sid": "ServiceLinkedRoles",
       "Effect": "Allow",
@@ -458,6 +461,7 @@ The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The 
       "Sid": "EC2NetworkDiscovery",
       "Effect": "Allow",
       "Action": [
+       "ec2:DescribeImages",
         "ec2:DescribeVpcs",
         "ec2:DescribeSubnets",
         "ec2:DescribeSecurityGroups",
