@@ -1,7 +1,8 @@
 ---
 title: "Co-Scientist"
 description: Install and configure Co-Scientist for Seqera Platform Enterprise
-date: "2026-05-04"
+date created: "2026-05-04"
+last updated: "2026-05-14"
 tags: [seqera-ai, installation, deployment, aws, helm]
 ---
 
