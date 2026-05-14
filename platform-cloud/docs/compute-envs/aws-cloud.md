@@ -58,6 +58,10 @@ The following regions are currently supported:
 
 ## Seqera Intelligent Compute
 
+:::info[Private preview]
+Seqera Intelligent Compute is in Private preview. [Contact us](https://seqera.io/intelligent-compute/) to request access.
+:::
+
 Seqera Intelligent Compute is a next-generation compute and scheduling service that runs large-scale Nextflow pipelines on a Seqera-managed Amazon ECS cluster, scaling beyond a single instance while preserving the fast startup of the AWS Cloud compute environment
 
 When you enable Seqera Intelligent Compute, Seqera provisions and manages all ECS infrastructure on your behalf, including clusters, capacity providers, task definitions, IAM roles, and (optionally) Auto Scaling Groups for spot and on-demand capacity. All managed resources use the `seqera-sched-` prefix and are torn down automatically when no longer needed.
