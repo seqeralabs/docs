@@ -33,7 +33,7 @@ The value is case-insensitive but must include the full domain. Platform matches
 
 ## Add the group to Seqera
 
-1. In Seqera, open **Organization settings** and select **Manage single sign-on**, then **Group mapping**.
+1. In Platform, open **Organization settings** and select **Manage single sign-on**, then **Group mapping**.
 2. Select **Add group manually**.
 3. In **Group identifier**, paste the group's email address.
 4. (Optional) In **Display name**, enter a human-friendly label for the group. This appears in the **IdP Group** dropdown on the team form.
@@ -47,9 +47,9 @@ If a delegated team isn't picking up users you expect, the most common cause is 
 
 To inspect the value:
 
-1. Sign in to a Seqera Cloud Pro test account using SSO.
+1. Sign in to a Cloud Pro test account using SSO.
 2. In your Auth0 tenant, open **Monitoring**, then **Logs**, and find the **Success Login** event for your test user.
-  3. Look for `user.groups` in the event details. The values listed there are the exact strings Platform matches against the catalog.
+3. Look for `user.groups` in the event details. The values listed there are the exact strings Platform matches against the catalog.
 
 ## Limitations
 
