@@ -268,8 +268,6 @@ Set `SEQERA_AUTH_CLI_CLIENT_ID` only for OAuth deployments that use a non-defaul
 
 Usage and inference costs are managed by your organization through the configured inference provider, such as AWS Bedrock or Anthropic API.
 
-When `ORG_CREDITS_ENABLED=false` is set on the agent backend deployment, the CLI `/credits` command reports that usage is managed by your organization and directs users to their Seqera administrator.
-
 ## Security considerations
 
 - Use HTTPS for every exposed hostname.
