@@ -40,7 +40,7 @@ Fusion Snapshots on Google Batch work best when the underlying compute environme
 - For production workloads, start with an `n2-highmem-16-lssd` VM or larger, then validate checkpoint duration with your workload profile.
 - If your workload has larger memory footprints, increase the machine size conservatively and re-test snapshot and restore times before widening usage.
 
-See [Google Cloud Batch compute environment configuration](../../platform-cloud/docs/compute-envs/google-cloud-batch.md#use-fusion-v2) for the underlying Fusion v2 compute recommendations that also apply to Fusion Snapshots on Google Batch.
+See [Google Cloud Batch compute environment configuration](https://docs.seqera.io/platform-cloud/compute-envs/google-cloud-batch#use-fusion-v2) for the underlying Fusion v2 compute recommendations that also apply to Fusion Snapshots on Google Batch.
 
 ## Resource limits
 
