@@ -26,7 +26,7 @@ An Azure resource group is a logical container that holds related Azure resource
 
 #### Accounts
 
-Azure uses accounts for each service. For example, an [Azure Storage account][azure-storage-account] will house a collection of blob containers, file shares, queues, and tables. An Azure subscription can have multiple Azure Storage and Azure Batch accounts - however, a Platform compute environment can only use one of each. Multiple Platform compute environments can be created to use separate credentials, Azure Storage accounts, and Azure Batch accounts.
+Azure uses accounts for each service. For example, an [Azure Storage account][azure-storage-account] will house a collection of blob containers, file shares, queues, and tables. An Azure subscription can have multiple Azure Storage and Azure Batch accounts - however, a Platform compute environment can only use one of each. Multiple compute environments can be created to use separate credentials, Azure Storage accounts, and Azure Batch accounts. At a minimum, you will require an Azure Batch account and an Azure storage account to run pipelines with Azure Batch with Seqera. This is because Azure uses accounts for each service.
 
 #### Service principals
 
@@ -59,13 +59,13 @@ After creating a resource group, set up an [Azure Storage account][azure-storage
    :::
 2. Enter a name for the storage account, such as *seqeracomputestorage*.
 3. Choose the preferred region. This must be the same region as the Batch account.
-4. Platform supports all performance or redundancy settings — select the most appropriate settings for your use case.
+4. Platform supports all performance or redundancy settings. Select the most appropriate settings for your use case.
 5. Select **Next: Advanced**.
 6. Enable *storage account key access*.
 7. Select **Next: Networking**.
    - Enable public access from all networks. You can enable public access from selected virtual networks and IP addresses, but you will be unable to use Forge to create compute resources. Disabling public access is not supported.
 8. Select **Data protection**.
-   - Configure appropriate settings. All settings are supported by the platform.
+   - Configure appropriate settings. All settings are supported Platform.
 9. Select **Encryption**.
    - Only Microsoft-managed keys (MMK) are supported.
 10. In **tags**, add any required tags for the storage account.
@@ -74,10 +74,10 @@ After creating a resource group, set up an [Azure Storage account][azure-storage
     - You will need at least one Blob Storage container to act as a working directory for Nextflow.
 13. Go to your new storage account and select **+ Container** to create a new Blob Storage container. A new container dialogue will open. Enter a suitable name, such as *seqeracomputestorage-container*.
 14. Go to the **Access Keys** section of your new storage account (*seqeracomputestorage* in this example).
-15. Store the access keys for your Azure Storage account, to be used when you create a Seqera compute environment.
+15. Store the access keys for your Azure Storage account, to be used when you create a compute environment.
 
 :::caution
-Blob container storage credentials are associated with the Batch pool configuration. Avoid changing these credentials in your Seqera instance after you have created the compute environment.
+Blob container storage credentials are associated with the Batch pool configuration. Avoid changing these credentials in Platform after you have created the compute environment.
 :::
 
 ### Batch account
@@ -91,13 +91,13 @@ After you have created a resource group and Storage account, create a [Batch acc
 5. Select **Advanced**.
 6. For **Pool allocation mode**, select **Batch service**.
 7. For **Authentication mode**, select *Shared Key*.
+   - Microsoft Entra ID is now the recommended credential mechanism for Azure authentication where supported. Use Shared Key here only if your setup requires it for compute environment configuration.
 8. Select **Networking**. Ensure networking access is sufficient for Platform and any additional required resources.
 9. Add any **Tags** to the Batch account, if needed.
 10. Select **Review and Create**.
 11. Select **Create**.
 12. Go to your new Batch account, then select **Access Keys**.
 13. Store the access keys for your Azure Batch account, to be used when you create a Seqera compute environment.
-
     :::caution
     A newly-created Azure Batch account may not be entitled to create virtual machines without making a service request to Azure.
     See [Azure Batch service quotas and limits][azure-batch-quotas] for more information.
@@ -188,17 +188,19 @@ To create an Entra service principal:
 ##### Managed identity
 
 :::info
-To use managed identities, Seqera requires Nextflow version 24.06.0-edge or later.
+To use managed identities, Platform requires Nextflow version 24.06.0-edge or later.
 :::
 
 Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but it must run on Azure infrastructure and requires Entra service principal credentials. Pool creation with a managed identity attached uses the Azure Batch management plane, which only accepts Entra (AAD) tokens, so shared-key credentials cannot create pools with managed identities.
 
 When you use a compute environment with a managed identity attached to the Azure Batch pool, Nextflow uses this managed identity for authentication. Seqera still uses the Entra service principal to submit the initial Nextflow task; that task then proceeds with the managed identity for subsequent authentication.
 
+When you don't attach a head managed identity, Platform passes the service principal credentials to the head job so it can authenticate to Azure Storage and Azure Container Registry at runtime. This places a long-lived secret on the compute node. Attaching a user-assigned managed identity removes that secret — the VM obtains short-lived tokens from the Azure Instance Metadata Service instead. For this reason, a managed identity is recommended for production deployments. The same applies to the worker pool managed identity used by compute tasks.
+
 1. In Azure, create a user-assigned managed identity. See [Manage user-assigned managed identities][azure-managed-identity] for detailed steps. Take note of both the **client ID** and the **resource ID** of the managed identity when you create it.
 2. Assign the following roles to the managed identity:
    - **Storage Blob Data Contributor** on the Azure Storage account, so the pool VMs can read inputs and write outputs.
-   - **AcrPull** on any Azure Container Registry the pipeline pulls images from. Without this role, container pulls fail when the pool VM authenticates via the managed identity.
+   - **AcrPull** on any Azure Container Registry the pipeline pulls images from. Without thƒis role, container pulls fail when the pool VM authenticates via the managed identity.
 
    See [Required role assignments][nf-azure-roles] for more information.
 3. Associate the user-assigned managed identity with the Azure Batch pool. See [Set up managed identity in your Batch pool][azure-batch-mi-pool] for more information.
@@ -222,19 +224,19 @@ When you use a compute environment with a managed identity attached to the Azure
 When you submit a pipeline to this compute environment, Nextflow authenticates using the managed identity associated with the Azure Batch node it runs on, rather than relying on access keys.
 
 :::caution
-If a managed identity is misconfigured (for example, invalid client ID or missing RBAC roles), the pipeline fails with an explicit error. Seqera will not silently fall back to access key authentication.
+If a managed identity is misconfigured (for example, invalid client ID or missing RBAC roles), the pipeline fails with an explicit error. Seqera does not silently fall back to the service principal at runtime.
 :::
 
-## Add Seqera compute environment
+## Add compute environment
 
-There are two ways to create an Azure Batch compute environment in Seqera Platform:
+There are two ways to create an Azure Batch compute environment in Platform:
 
 - [**Batch Forge**](#batch-forge): Automatically creates Azure Batch resources.
 - [**Manual**](#manual): For using existing Azure Batch resources.
 
 ### VM size considerations
 
-Azure Batch requires you to select an appropriate VM size for your compute environment. There are a number of considerations when selecting VM sizes — See [Sizes for virtual machines in Azure][azure-vm-sizes-overview] for more information.
+Azure Batch requires you to select an appropriate VM size for your compute environment. There are a number of considerations when selecting VM sizes. See [Sizes for virtual machines in Azure][azure-vm-sizes-overview] for more information.
 
 1. **Family**: The first letter of the VM size name indicates the machine family. For example, `Standard_E16d_v5` is a member of the E family.
    - *A*: Economical machines, low power machines.
@@ -333,7 +335,7 @@ Create a Batch Forge Azure Batch compute environment:
 16. Enable **Dispose resources** for Seqera to automatically delete the Batch pools if the compute environment is deleted on the platform.
 
 :::info
-Batch Forge creates separate Azure Batch pools for the Nextflow head job and compute tasks by default (named `tower-pool-{envId}-head` and `tower-pool-{envId}-worker`). This prevents the head node from competing for resources with compute tasks and allows independent sizing of each pool.
+Batch Forge creates separate Azure Batch pools for the Nextflow head job and compute tasks by default (named `tower-pool-{envId}-head` and `tower-pool-{envId}-worker`). This prevents the head node from competing for resources with compute tasks and allows independent sizing of each pool. See [Batch service quotas and limits](https://learn.microsoft.com/en-us/azure/batch/batch-quota-limit) for information about limits when running multiple compute environments.
 :::
 
 17. Select or create [**Container registry credentials**][azure-registry-credentials] to authenticate a registry (used by the [Wave containers][nf-wave] service). It is recommended to use an [Azure Container registry][azure-container-registry] within the same region for maximum performance.
