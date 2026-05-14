@@ -10,7 +10,7 @@
 - Environment variable: "`TOWER_AUDIT_LOG_V2_WRITE_MODE`"
   Description: >
     Determines which audit log tables receive new write operations. Use `v1` for the legacy table only, `dual` to write to both legacy and v2 tables during the 26.1 migration period, or `v2` for the new table only.
-  Value: "Options: `v1`, `dual`, `v2`. Default: `v1`"
+  Value: "Options: `v1`, `dual`, `v2`. Default: `dual`"
 - Environment variable: "`TOWER_AUDIT_LOG_V2_CSV_EXPORT_MAX_LOGS`"
   Description: >
     Maximum number of audit log v2 records allowed in a single CSV export.
