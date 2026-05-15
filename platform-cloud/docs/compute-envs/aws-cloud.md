@@ -66,7 +66,7 @@ Seqera Intelligent Compute is a next-generation compute and scheduling service t
 
 When you enable Seqera Intelligent Compute, Seqera provisions and manages all ECS infrastructure on your behalf, including clusters, capacity providers, task definitions, IAM roles, and (optionally) Auto Scaling Groups for spot and on-demand capacity. All managed resources use the `seqera-sched-` prefix and are torn down automatically when no longer needed.
 
-If you enable Seqera Intelligent Compute, you must attach the additional permissions described [Create the IAM policy](#create-the-iam-policy).
+If you enable Seqera Intelligent Compute, you must attach the additional permissions described in [Seqera Intelligent Compute permissions](#seqera-intelligent-compute-permissions).
 
 ## Managed Amazon Machine Image (AMI)
 
@@ -84,7 +84,7 @@ The AMI is based on the [Amazon Linux 2023 image](https://docs.aws.amazon.com/li
 
 To use the AWS Cloud compute environment, grant Seqera Platform access to your AWS account. Create an IAM policy with the permissions Platform needs, then attach it to either an IAM user (for long-lived access keys) or an IAM role (for assumed-role credentials) depending on which credential type suits your security model.
 
-### Required Platform IAM permissions
+### IAM permissions
 
 To create and launch pipelines, explore buckets with Data Explorer or run Studio sessions with the AWS Cloud compute environment, an IAM user with specific permissions must be provided. Some permissions are mandatory for the compute environment to be created and function correctly, while others are optional and used for example to provide list of values to pick from in the Platform UI.
 
@@ -93,7 +93,7 @@ Permissions can be attached directly to an [IAM user](#iam-user-creation), or to
 A permissive and broad policy with all the required permissions is provided here for a quick start. However, follow the principle of least privilege and only grant the necessary permissions for your use case, as shown in the following sections.
 
 <details>
-<summary>Full permissive policy (For reference)</summary>
+<summary>Full permissive policy (for reference)</summary>
 
 ```json
 {
@@ -349,7 +349,7 @@ The following permissions enable Seqera to populate values for dropdown fields. 
 }
 ```
 
-### Userdata script error detection (optional)
+#### Userdata script error detection (optional)
 
 Platform can retrieve the EC2 instance console output to detect errors in the userdata script that bootstraps the VM during instance startup. If the userdata script fails, Platform surfaces the failure as a warning on the workflow. Without this permission, userdata script failures are not detected and no warning is shown.
 
@@ -364,7 +364,7 @@ Platform can retrieve the EC2 instance console output to detect errors in the us
 }
 ```
 
-### Data lineage (optional)
+#### Data lineage (optional)
 
 If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials to create the queue infrastructure and bucket notifications used by the lineage service:
 
@@ -397,7 +397,7 @@ If you enable [data lineage](../data/data-lineage) in your workspace, add the fo
 
 If you manage your own EC2 instance role (rather than letting Seqera create it automatically), see [Manual AWS Batch configuration](../enterprise/advanced-topics/manual-aws-batch-setup#create-an-ec2-instance-role) for the additional S3 policy to attach to that role.
 
-## Create the IAM policy
+#### Seqera Intelligent Compute permissions
 
 :::info[Private preview]
 Seqera Intelligent Compute is in private preview. [Contact us](https://seqera.io/intelligent-compute/) to request access.
@@ -618,7 +618,7 @@ The policy above must be created in the AWS account where the AWS Cloud resource
 1. From the left navigation menu, select **Policies** under **Access management**.
 1. Select **Create policy**.
 1. On the **Policy editor** section, select the **JSON** tab.
-1. Following the instructions detailed in the [IAM permissions breakdown section](#required-platform-iam-permissions) replace the default text in the policy editor area under the **JSON** tab with a policy adapted to your use case, then select **Next**.
+1. Following the instructions detailed in the [IAM permissions breakdown section](#iam-permissions) replace the default text in the policy editor area under the **JSON** tab with a policy adapted to your use case, then select **Next**.
 1. Enter a name and description for the policy on the **Review and create** page, then select **Create policy**.
 
 If you are also enabling Seqera Intelligent Compute, repeat these steps to create a second policy using the [Seqera Intelligent Compute permissions](#seqera-intelligent-compute-permissions) JSON.
@@ -645,9 +645,11 @@ Seqera requires an Identity and Access Management (IAM) User to create and manag
 
 In certain scenarios, for example when multiple users need to access the same AWS account and provision AWS Batch resources, an IAM role with the required permissions can be created instead, and the IAM user can assume that role when accessing AWS resources, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section.
 
-Depending whether you choose to let Seqera automatically create the required AWS Batch resources in your account, or prefer to set them up manually, the IAM user must have specific permissions as detailed in the [Required Platform IAM permissions](#required-platform-iam-permissions) section. Alternatively, you can create an IAM role with the required permissions and allow the IAM user to assume that role when accessing AWS resources, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section.
+Depending whether you choose to let Seqera automatically create the required AWS Batch resources in your account, or prefer to set them up manually, the IAM user must have specific permissions as detailed in the [IAM permissions](#iam-permissions) section. Alternatively, you can create an IAM role with the required permissions and allow the IAM user to assume that role when accessing AWS resources, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section.
 
 #### Create an IAM user
+
+To create an IAM user:
 
 1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Users** in the left navigation menu, then select **Create User** at the top right of the page.
 1. Enter a name for your user (e.g., _seqera_) and select **Next**.
@@ -673,7 +675,7 @@ The user has now been created. The most up-to-date instructions for creating an 
 
 #### Obtain IAM user credentials
 
-To get the credentials needed to connect Seqera to your AWS account, follow these steps:
+To get the credentials needed to connect Seqera to your AWS account:
 
 1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Users** in the left navigation menu, then select the newly created user from the users table.
 1. Select the **Security credentials** tab, then select **Create access key** under the **Access keys** section.
@@ -683,7 +685,7 @@ To get the credentials needed to connect Seqera to your AWS account, follow thes
 
 ### IAM role creation (optional)
 
-Rather than attaching permissions directly to the IAM user, you can create an IAM role with the required permissions and allow the IAM user to assume that role when accessing AWS resources. This is useful when multiple IAM users are used to access the same AWS account: this way the actual permissions to operate on the resources are only granted to a single centralized role.
+Rather than attaching permissions directly to the IAM user, you can create an IAM role with the required permissions and allow the IAM user to assume that role when accessing AWS resources. This is useful when multiple IAM users are used to access the same AWS account. This way the permissions to operate on the resources are only granted to a single centralized role.
 
 1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Roles** in the left navigation menu, then select **Create role** at the top right of the page.
 1. Select **Custom trust policy** as the type of trusted entity, provide the following policy and edit the AWS principal with the ARN of the IAM user created in the [IAM user creation](#iam-user-creation) section, then select **Next**.
