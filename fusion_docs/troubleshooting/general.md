@@ -19,3 +19,20 @@ To resolve this issue, increase the `ulimit` for the container. Append the follo
 ```groovy
 process.containerOptions = '--ulimit nofile=1048576:1048576'
 ```
+
+## Exit code `143` on Kubernetes
+
+Tasks fail with exit code `143` and the pipeline halts instead of retrying the affected task.
+
+Exit code `143` indicates the container received `SIGTERM` and shut down gracefully. On Kubernetes this most commonly signals Spot instance reclamation.
+
+To retry tasks that exit with `143`, configure an `errorStrategy` in your Nextflow configuration:
+
+```groovy
+process {
+    maxRetries = 3
+    errorStrategy = { task.exitStatus == 143 ? 'retry' : 'terminate' }
+}
+```
+
+See [`errorStrategy`](https://docs.seqera.io/nextflow/reference/process#errorstrategy) for more configuration options.
