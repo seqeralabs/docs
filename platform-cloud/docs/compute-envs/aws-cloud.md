@@ -602,13 +602,13 @@ The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The 
 }
 ```
 
-</details>
+Some statements in the policy above are conditional and can be omitted depending on your deployment:
 
-:::note
 - The `ASGEC2Operations` and `ASGManagement` statements are required only if you enable Auto Scaling Group-backed clusters (managed instances). Omit them for Fargate-only deployments.
 - The `CreateECSServiceLinkedRole` is required only if the Service Role is not already created.
 - The `CostExplorer` statement is required only if you enable Cost Analysis.
-:::
+
+</details>
 
 ### Create the IAM policy
 
