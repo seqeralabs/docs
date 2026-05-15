@@ -66,7 +66,7 @@ Seqera Intelligent Compute is a next-generation compute and scheduling service t
 
 When you enable Seqera Intelligent Compute, Seqera provisions and manages all ECS infrastructure on your behalf, including clusters, capacity providers, task definitions, IAM roles, and (optionally) Auto Scaling Groups for spot and on-demand capacity. All managed resources use the `seqera-sched-` prefix and are torn down automatically when no longer needed.
 
-If you enable this capability, you must attach the additional permissions described in [Seqera Intelligent Compute permissions](#seqera-intelligent-compute-permissions) below.
+If you enable Seqera Intelligent Compute, you must attach the additional permissions described [Create the IAM policy](#create-the-iam-policy).
 
 ## Managed Amazon Machine Image (AMI)
 
