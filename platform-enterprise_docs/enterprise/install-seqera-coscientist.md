@@ -30,7 +30,12 @@ Before you begin, make sure you have:
 Generate a Fernet token encryption key when you set the key manually:
 
 ```bash
-python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+# using uv Python package manager (installed if not available)
+uv --version >/dev/null 2>&1 || curl -LsSf https://astral.sh/uv/install.sh | sh
+uv run --with cryptography python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+
+# using Python directly, cryptography dependency module must be installed in environment
+python3 -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
 ```
 
 Store database passwords, Redis or Valkey passwords, OIDC token values, image pull credentials, and encryption keys in Kubernetes Secrets. Reference those Secrets from Helm values instead of committing plaintext values.
