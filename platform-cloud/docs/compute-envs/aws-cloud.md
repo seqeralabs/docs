@@ -4,6 +4,8 @@ description: "Instructions to set up an AWS Cloud CE in Seqera Platform"
 date created: "2025-05-15"
 last updated: "2026-05-05"
 tags: [cloud, vm, amazon, compute-environment]
+toc_min_heading_level: 2
+toc_max_heading_level: 4
 ---
 
 :::note
@@ -84,7 +86,7 @@ The AMI is based on the [Amazon Linux 2023 image](https://docs.aws.amazon.com/li
 
 To use the AWS Cloud compute environment, grant Seqera Platform access to your AWS account. Create an IAM policy with the permissions Platform needs, then attach it to either an IAM user (for long-lived access keys) or an IAM role (for assumed-role credentials) depending on which credential type suits your security model.
 
-### IAM permissions
+### Required Platform IAM permissions
 
 To create and launch pipelines, explore buckets with Data Explorer or run Studio sessions with the AWS Cloud compute environment, an IAM user with specific permissions must be provided. Some permissions are mandatory for the compute environment to be created and function correctly, while others are optional and used for example to provide list of values to pick from in the Platform UI.
 
@@ -610,7 +612,7 @@ Some statements in the policy above are conditional and can be omitted depending
 
 </details>
 
-### IAM policy
+### Create the IAM policy
 
 The policy above must be created in the AWS account where the AWS Cloud resources need to be created.
 
@@ -618,12 +620,12 @@ The policy above must be created in the AWS account where the AWS Cloud resource
 1. From the left navigation menu, select **Policies** under **Access management**.
 1. Select **Create policy**.
 1. On the **Policy editor** section, select the **JSON** tab.
-1. Following the instructions detailed in the [IAM permissions breakdown section](#iam-permissions) replace the default text in the policy editor area under the **JSON** tab with a policy adapted to your use case, then select **Next**.
+1. Following the instructions detailed in the [IAM permissions breakdown section](#required-platform-iam-permissions) replace the default text in the policy editor area under the **JSON** tab with a policy adapted to your use case, then select **Next**.
 1. Enter a name and description for the policy on the **Review and create** page, then select **Create policy**.
 
 If you are also enabling Seqera Intelligent Compute, repeat these steps to create a second policy using the [Seqera Intelligent Compute permissions](#seqera-intelligent-compute-permissions) JSON.
 
-### AWS credentials
+### AWS credential options
 
 Before creating an IAM user or role, decide how Seqera will authenticate to your AWS account. AWS credentials can be configured in two ways:
 
@@ -645,7 +647,7 @@ Seqera requires an Identity and Access Management (IAM) User to create and manag
 
 In certain scenarios, for example when multiple users need to access the same AWS account and provision AWS Batch resources, an IAM role with the required permissions can be created instead, and the IAM user can assume that role when accessing AWS resources, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section.
 
-Depending whether you choose to let Seqera automatically create the required AWS Batch resources in your account, or prefer to set them up manually, the IAM user must have specific permissions as detailed in the [IAM permissions](#iam-permissions) section. Alternatively, you can create an IAM role with the required permissions and allow the IAM user to assume that role when accessing AWS resources, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section.
+Depending whether you choose to let Seqera automatically create the required AWS Batch resources in your account, or prefer to set them up manually, the IAM user must have specific permissions as detailed in the [Required Platform IAM permissions](#required-platform-iam-permissions) section. Alternatively, you can create an IAM role with the required permissions and allow the IAM user to assume that role when accessing AWS resources, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section.
 
 ##### Create an IAM user
 
@@ -706,7 +708,7 @@ Rather than attaching permissions directly to the IAM user, you can create an IA
      ]
    }
    ```
-1. On the **Permissions** page, search for and select the policy created in the [IAM policy](#iam-policy) section, then select **Next**.
+1. On the **Permissions** page, search for and select the policy created in the [IAM user creation](#iam-user-creation) section, then select **Next**.
 1. Give the role a name and optionally a description, review the details of the role, optionally provide tags to help you identify the role, then select **Create role**.
 
 Multiple users can be specified in the trust policy by adding more ARNs to the `Principal` section.
