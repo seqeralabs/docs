@@ -1,15 +1,15 @@
 ---
 title: "Working with Antigravity/Gemini"
-description: "Install and maintain the Seqera AI skill for Google's Antigravity/Gemini IDE"
+description: "Install and maintain the Co-Scientist skill for Google's Antigravity/Gemini IDE"
 date created: "2026-04-29"
 tags: [seqera-ai, cli, skills, antigravity, gemini]
 ---
 
 :::note
-Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
+Seqera Cloud users receive $20 in free credits to get started with Co-Scientist. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
 :::
 
-The `seqera skill` command installs a skill file that enables [Antigravity/Gemini](https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/) to use Seqera AI as a subagent. Once installed, Antigravity can invoke Seqera AI directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
+The `seqera skill` command installs a skill file that enables [Antigravity/Gemini](https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/) to use Co-Scientist as a subagent. Once installed, Antigravity can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
 
 ### Antigravity/Gemini skill format
 
@@ -62,15 +62,15 @@ If the automated installer does not support your agent platform, you can manuall
     ```markdown
     ---
     name: seqera-ai-subagent
-    description: Invokes the Seqera AI CLI as a domain-expert subagent for Nextflow
+    description: Invokes Co-Scientist as a domain-expert subagent for Nextflow
     pipeline development, nf-core module management, Seqera Platform workspace
     operations, and Wave container builds.
     ---
 
-    # Seqera AI Subagent
+    # Co-Scientist Subagent
 
     When the user asks about Nextflow pipelines, nf-core modules, Seqera Platform,
-    or Wave containers, invoke the Seqera AI CLI:
+    or Wave containers, invoke Co-Scientist:
 
     seqera ai --headless --approval-mode basic "<query>" 2>&1
     ```
@@ -82,7 +82,7 @@ If the automated installer does not support your agent platform, you can manuall
 
 ### Invocation patterns
 
-Antigravity invokes Seqera AI dynamically via shell commands rather than static context injection. The recommended patterns are:
+Antigravity invokes Co-Scientist dynamically via shell commands rather than static context injection. The recommended patterns are:
 
 | Pattern | Command | Use case |
 |---------|---------|----------|
@@ -93,7 +93,7 @@ Antigravity invokes Seqera AI dynamically via shell commands rather than static 
 
 ### Validated use case: nf-core module QA
 
-Antigravity uses Seqera AI as a domain-expert QA gate before pushing nf-core module PRs. In [PR #11377](https://github.com/nf-core/modules/pull/11377) (emmtyper), Seqera AI caught that `emmtyper --version | sed` was fragile across Docker/Conda environments due to Click version differences, and recommended using `python -c "import emmtyper; print(emmtyper.__version__)"` instead.
+Antigravity uses Co-Scientist as a domain-expert QA gate before pushing nf-core module PRs. In [PR #11377](https://github.com/nf-core/modules/pull/11377) (emmtyper), Co-Scientist caught that `emmtyper --version | sed` was fragile across Docker/Conda environments due to Click version differences, and recommended using `python -c "import emmtyper; print(emmtyper.__version__)"` instead.
 
 ```bash
 seqera ai --headless --approval-mode basic \
@@ -148,6 +148,6 @@ seqera skill check [OPTIONS]
 ### Learn more
 
 - [Skills](./skills.md): Discover, create, and install skills
-- [Use cases](./use-cases.md): Seqera AI CLI use cases
+- [Use cases](./use-cases.md): Seqera CLI use cases
 - [Code intelligence](./nextflow-lsp.md): Language-aware coding support
 - [Installation](./installation.md): Detailed installation instructions
