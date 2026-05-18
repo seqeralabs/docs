@@ -175,6 +175,7 @@ To create an Entra service principal:
    3. Select **Members**, then **Select Members**. Search for your newly created service principal and assign the role.
    4. Repeat the same process for the Azure Batch account, using the **Azure Batch Data Contributor** role. This role is sufficient for pool creation and is narrower than the general **Azure Batch Account Contributor** role.
    5. If you create a managed identity (recommended), also assign the **Managed Identity Operator** role to the service principal on each managed identity. Without this role, Seqera cannot attach the managed identity to a Batch pool.
+   6. If you plan to deploy Batch pools into a private VNet (by specifying a Subnet ID when creating the compute environment), also assign the Network Contributor role (or a custom role granting `Microsoft.Network/virtualNetworks/subnets/join/action`) to the service principal on the VNet. Only the service principal needs VNet permissions (the head and pool managed identities do not).
 4. Platform will need credentials to authenticate as the service principal:
    1. Navigate back to the app registration. On the **Overview** page, save the **Application (client) ID** value for use in Platform.
    2. Select **Certificates & secrets**, then **New client secret**. A new secret is created containing a value and secret ID. Save both values securely for use in Platform.
