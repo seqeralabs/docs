@@ -65,7 +65,7 @@ After creating a resource group, set up an [Azure Storage account][azure-storage
 7. Select **Next: Networking**.
    - Enable public access from all networks. You can enable public access from selected virtual networks and IP addresses, but you will be unable to use Forge to create compute resources. Disabling public access is not supported.
 8. Select **Data protection**.
-   - Configure appropriate settings. All settings are supported Platform.
+   - Configure appropriate settings. All settings are supported by Platform.
 9. Select **Encryption**.
    - Only Microsoft-managed keys (MMK) are supported.
 10. In **tags**, add any required tags for the storage account.
