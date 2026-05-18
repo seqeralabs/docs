@@ -2,8 +2,8 @@
 title: "AWS Batch"
 description: "Instructions to set up AWS Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2025-12-18"
-tags: [aws, batch, compute environment]
+last updated: "2026-05-05"
+tags: [aws, batch, compute-environment]
 ---
 
 :::tip
@@ -264,6 +264,34 @@ A permissive and broad policy with all the required permissions is provided here
         "secretsmanager:CreateSecret"
       ],
       "Resource": "arn:aws:secretsmanager:*:*:secret:tower-*"
+    },
+    {
+      "Sid": "OptionalUserdataCheck",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:GetConsoleOutput"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "OptionalLineageIntegrationSQSAndS3",
+      "Effect": "Allow",
+      "Action": [
+        "sqs:CreateQueue",
+        "sqs:GetQueueAttributes",
+        "sqs:SetQueueAttributes",
+        "sqs:GetQueueUrl",
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "s3:CreateBucket",
+        "s3:GetBucketNotificationConfiguration",
+        "s3:PutBucketNotificationConfiguration",
+        "s3:GetBucketLocation"
+      ],
+      "Resource": [
+        "arn:aws:sqs:*:*:seqera-lineage-*",
+        "arn:aws:s3:::seqera-lineage-*"
+      ]
     }
   ]
 }
@@ -579,6 +607,54 @@ The listing of secrets cannot be restricted, but the management actions can be r
 #### Additional steps required to use secrets in a pipeline
 
 To successfully use pipeline secrets, the IAM roles manually created must follow the steps detailed in the [documentation](../secrets/overview#aws-secrets-manager-integration).
+
+### Userdata script error detection (optional)
+
+Platform can retrieve the EC2 instance console output to detect errors in the userdata script that bootstraps the VM during instance startup. If the userdata script fails, Platform surfaces the failure as a warning on the workflow. Without this permission, userdata script failures are not detected and no warning is shown.
+
+```json
+{
+  "Sid": "OptionalUserdataCheck",
+  "Effect": "Allow",
+  "Action": [
+    "ec2:GetConsoleOutput"
+  ],
+  "Resource": "*"
+}
+```
+
+### Data lineage (optional)
+
+If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials to create the queue infrastructure and bucket notifications used by the lineage service:
+
+```json
+{
+  "Sid": "LineageIntegrationSQS",
+  "Effect": "Allow",
+  "Action": [
+    "sqs:CreateQueue",
+    "sqs:GetQueueAttributes",
+    "sqs:SetQueueAttributes",
+    "sqs:GetQueueUrl",
+    "sqs:ReceiveMessage",
+    "sqs:DeleteMessage"
+  ],
+  "Resource": "arn:aws:sqs:<REGION>:<ACCOUNT_ID>:seqera-lineage-*"
+},
+{
+  "Sid": "LineageIntegrationS3",
+  "Effect": "Allow",
+  "Action": [
+    "s3:CreateBucket",
+    "s3:GetBucketNotificationConfiguration",
+    "s3:PutBucketNotificationConfiguration",
+    "s3:GetBucketLocation"
+  ],
+  "Resource": "arn:aws:s3:::seqera-lineage-*"
+}
+```
+
+If you manage your own EC2 instance role or head job role (rather than letting Seqera create them with Batch Forge), see [Manual AWS Batch configuration](../enterprise/advanced-topics/manual-aws-batch-setup#create-an-ec2-instance-role) for additional S3 permissions to add to those roles.
 
 ## Create the IAM policy
 

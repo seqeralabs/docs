@@ -9,14 +9,15 @@ Kubernetes deployments are recommended for production workloads requiring high a
 
 :::info Prerequisites <span id="prerequisites" />
 Other than the basic requirements [already listed in the Platform installation overview](./install-platform#prerequisites), you will need:
+
 - A Kubernetes cluster
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
 :::
 
 ### Recommended resources
 
-| Component | CPU | Memory |
-| :-------- | :-- | :----- |
+| Component   | CPU    | Memory                    |
+| :---------- | :----- | :------------------------ |
 | Backend pod | 1 core | 4000 Mi request and limit |
 
 ## Container images
@@ -48,6 +49,7 @@ TOWER_REDIS_URL=redis://<redis-host>:6379
 ```
 
 Use a managed Redis service for production:
+
 - [Amazon ElastiCache](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html) (`cache.m4.large` or larger)
 - [Azure Cache for Redis](https://learn.microsoft.com/en-gb/azure/azure-cache-for-redis/cache-overview) (C3 tier or larger)
 - [Google Memorystore](https://cloud.google.com/memorystore/docs/redis) (M2 tier or larger)
@@ -105,7 +107,7 @@ kubectl apply -f tower-svc.yml
 
 An unprivileged version of the Seqera frontend image is also available. This image listens on an unprivileged port and therefore doesn't need to be run as the root user.
 
-Replace the tag of the frontend image `cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x` with `cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x-unprivileged`. In the `frontend` service below, specify the `targetPort` to match the environment variable `NGINX_LISTEN_PORT` (see below):
+Replace the tag of the frontend image `cr.seqera.io/enterprise/platform/frontend:v24.x.x` with `cr.seqera.io/enterprise/platform/frontend:v24.x.x-unprivileged`. In the `frontend` service below, specify the `targetPort` to match the environment variable `NGINX_LISTEN_PORT` (see below):
 
 ```yaml
 ---
@@ -119,7 +121,7 @@ spec:
   ...
       containers:
         - name: frontend
-          image: cr.seqera.io/private/nf-tower-enterprise/frontend:v25.3.0-unprivileged
+          image: cr.seqera.io/enterprise/platform/frontend:v25.3.0-unprivileged
           env:
             - name: NGINX_LISTEN_PORT  # If not defined, defaults to 8000.
               value: 8000
