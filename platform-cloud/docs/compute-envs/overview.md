@@ -41,6 +41,30 @@ You can edit the names of compute environments in private and organization works
 
 Select **Update** on the edit page to save your changes after you have updated the compute environment name.
 
+## Export compute environment
+
+You can export a compute environment's configuration as a JSON file for troubleshooting, audits, or as a reference when recreating it.
+
+:::note
+The exported JSON is for reference only. Re-importing it through the Seqera Platform UI is not supported.
+:::
+
+Any user with the Maintain, Launch, or View role on the workspace can export. The compute environment detail page, or the form page for a specific compute environment.
+
+**What's included**:
+
+- Name, platform, region, and work directory
+- Forge or manual configuration block
+- Fusion and Wave settings
+- Environment variables
+- Pre- and post-run scripts
+- Labels
+- A reference to the credential used (the credential itself is excluded)
+
+**What's not included**:
+
+- Credentials and secrets
+
 ## Disable compute environment
 
 Users with **Admin** or **Owner** [workspace permissions](../orgs-and-teams/roles#workspace-participant-roles) can disable and enable compute environments.
