@@ -43,11 +43,27 @@ Select **Update** on the edit page to save your changes after you have updated t
 
 ## Export compute environment
 
-You can export a compute environment's configuration as a JSON file for troubleshooting, audit, or as a reference when recreating it. Any user with the Maintain, Launch, or View role on the workspace can export a compute environment. Export it from the compute environment detail page or from the form page for a specific compute environment. Re-import via Seqera Platform UI is not supported.
+You can export a compute environment's configuration as a JSON file for troubleshooting, audits, or as a reference when recreating it.
 
-**What's included**: the compute environment name, platform, region, work directory, Forge or manual configuration block, Fusion and Wave settings, environment variables, pre- and post-run scripts, labels, and a reference to the credential used but not the credential itself.
+:::note
+The exported JSON is for reference only. Re-importing it through the Seqera Platform UI is not supported.
+:::
 
-**What's not included**: credentials and secrets. 
+Any user with the Maintain, Launch, or View role on the workspace can export. The compute environment detail page, or the form page for a specific compute environment.
+
+**What's included**:
+
+- Name, platform, region, and work directory
+- Forge or manual configuration block
+- Fusion and Wave settings
+- Environment variables
+- Pre- and post-run scripts
+- Labels
+- A reference to the credential used (the credential itself is excluded)
+
+**What's not included**:
+
+- Credentials and secrets
 
 ## Disable compute environment
 
