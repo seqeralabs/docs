@@ -146,7 +146,7 @@ See [Add pipelines][add-pipelines] for instructions to add pipelines to your wor
 Pipeline names must be unique per workspace.
 :::
 :::tip
-To create your own customized Nextflow schema for your pipeline, see [Pipeline schema][pipeline-schema] and the `nf-core` workflows that have adopted this. [nf-core/eager](https://github.com/nf-core/eager/blob/master/nextflow_schema.json) and [nf-core/rnaseq](https://github.com/nf-core/rnaseq/blob/master/nextflow_schema.json) are good examples.
+To create your own customized Nextflow schema for your pipeline, see [Pipeline schema][pipeline-schema] and the `nf-core` workflows that have adopted this; [nf-core/eager](https://github.com/nf-core/eager/blob/master/nextflow_schema.json) and [nf-core/rnaseq](https://github.com/nf-core/rnaseq/blob/master/nextflow_schema.json) are good examples.
 :::
 
 ## Email notifications
