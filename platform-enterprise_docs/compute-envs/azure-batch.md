@@ -200,7 +200,7 @@ When you don't attach a head managed identity, Platform passes the service princ
 1. In Azure, create a user-assigned managed identity. See [Manage user-assigned managed identities][azure-managed-identity] for detailed steps. Take note of both the **client ID** and the **resource ID** of the managed identity when you create it.
 2. Assign the following roles to the managed identity:
    - **Storage Blob Data Contributor** on the Azure Storage account, so the pool VMs can read inputs and write outputs.
-   - **AcrPull** on any Azure Container Registry the pipeline pulls images from. Without thƒis role, container pulls fail when the pool VM authenticates via the managed identity.
+   - **AcrPull** on any Azure Container Registry the pipeline pulls images from. Without this role, container pulls fail when the pool VM authenticates via the managed identity.
 
    See [Required role assignments][nf-azure-roles] for more information.
 3. Associate the user-assigned managed identity with the Azure Batch pool. See [Set up managed identity in your Batch pool][azure-batch-mi-pool] for more information.
