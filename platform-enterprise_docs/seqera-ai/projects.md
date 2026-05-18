@@ -2,28 +2,28 @@
 title: "Projects"
 description: "Organize workspace resources into projects using Seqera Platform labels"
 date: "2026-04-22"
-tags: [seqera-ai, projects, labels]
+tags: [seqera-ai, co-scientist, projects, labels]
 ---
 
-:::caution Seqera AI is in beta
-Seqera AI is currently in beta. Features and behavior may change as we continue to improve the product.
+:::caution Co-Scientist is in beta
+Co-Scientist is currently in beta. Features and behavior may change as we continue to improve the product.
 :::
 
-Projects in Seqera AI group the pipelines, datasets, and workflow runs that belong to a single piece of work. You can view and chat about them without the noise of the rest of the workspace.
+Projects in Co-Scientist group the pipelines, datasets, and workflow runs that belong to a single piece of work, so you can view and chat about them without the noise of the rest of the workspace.
 
-Projects are not created inside Seqera AI. They are derived from **workspace labels in Seqera Platform** whose names start with `project_`. Each matching label surfaces in Seqera AI as a separate project scope, with the Platform label acting as the source of truth for membership.
+Projects are not created inside Co-Scientist. They are derived from **workspace labels in Seqera Platform** whose names start with `project_`. Each matching label surfaces in Co-Scientist as a separate project scope, with the Platform label acting as the source of truth for membership.
 
 :::note
-Projects are part of the Seqera AI **portal web interface**. The portal must be deployed alongside Seqera AI in your Enterprise installation. See [Install Seqera AI](../enterprise/install-seqera-ai.md) for more information.
+Projects are part of the Co-Scientist web interface. The portal must be deployed alongside Co-Scientist in your Enterprise installation. See [Install Co-Scientist](../enterprise/install-seqera-ai.md) for more information.
 :::
 
 ## How projects are derived
 
-When you open a workspace in the Seqera AI portal web interface:
+When you open a workspace in the Co-Scientist web interface:
 
-1. Seqera AI reads the list of workspace labels from the Seqera Platform API.
+1. Co-Scientist reads the list of workspace labels from the Seqera Platform API.
 2. Any label whose name starts with `project_` becomes a project.
-3. An **Entire workspace** view is included alongside your projects. You can see every resource in the workspace.
+3. An **Entire workspace** view is always included alongside your projects so you can see every resource in the workspace.
 4. Pipelines, datasets, and workflow runs are scoped to a project by matching on its `project_*` label.
 
 Because membership lives on the Platform label, adding or removing a resource from a project is the same action as applying or removing the label in Platform.
@@ -38,17 +38,17 @@ To create a project:
     - `project_variant_calling`
     - `project_chip_seq`
 3. Apply the label to the pipelines and datasets that belong to the project.
-4. Open Seqera AI. The new project appears on the **Projects** page and in the chat project selector on the next page load.
+4. Open Co-Scientist. The new project appears on the **Projects** page and in the chat project selector on the next page load.
 
 :::tip
-Create the label in workspace settings **before** applying it to resources. This ensures the label has a Platform-assigned ID, which Seqera AI needs to auto-attach the label when you upload new datasets into the project.
+Create the label in workspace settings **before** applying it to resources. This ensures the label has a Platform-assigned ID, which Co-Scientist needs to auto-attach the label when you upload new datasets into the project.
 :::
 
 ## Display names
 
-Seqera AI strips the `project_` prefix to produce the display name shown in the portal:
+Co-Scientist strips the `project_` prefix to produce the display name shown in the web interface:
 
-| Platform label        | Seqera AI display name  |
+| Platform label        | Co-Scientist display name  |
 |-----------------------|-------------------------|
 | `project_rnaseq`      | Project rnaseq          |
 | `project_wgs`         | Project wgs             |
@@ -69,7 +69,7 @@ Once a `project_*` label exists in the workspace and is applied to at least one 
 
 ### A resource carries a `project_*` label that isn't in the workspace label list
 
-If a pipeline has a `project_*` label but the label has not been created in workspace settings, Seqera AI still surfaces the project, inferred from the pipeline. In this case:
+If a pipeline has a `project_*` label but the label has not been created in workspace settings, Co-Scientist still surfaces the project, inferred from the pipeline. In this case:
 
 - The project has no Platform-assigned label ID.
 - Dataset uploads into the project cannot auto-attach the label.
@@ -88,5 +88,7 @@ Ask a workspace admin to create the first `project_*` label to enable projects f
 
 ## Learn more
 
-- [Install Seqera AI](../enterprise/install-seqera-ai.md): Deploy Seqera AI and the portal web interface in Enterprise
-- [Get started with Seqera AI](./get-started.md): Install and authenticate the Seqera AI CLI
+- [Install Co-Scientist](../enterprise/install-seqera-ai.md): Deploy the agent backend, MCP server, and web interface in Enterprise
+- [Seqera Platform labels](https://docs.seqera.io/platform-cloud/labels/overview): Create and manage workspace labels
+- [Get started with Co-Scientist](./get-started.md): Install and authenticate Co-Scientist
+- [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
