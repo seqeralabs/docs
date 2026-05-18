@@ -173,7 +173,7 @@ To create an Entra service principal:
    1. Go to the Azure Storage account. Under **Access Control (IAM)**, select **Add role assignment**.
    2. Select the **Storage Blob Data Contributor** role.
    3. Select **Members**, then **Select Members**. Search for your newly created service principal and assign the role.
-   4. Repeat the same process for the Azure Batch account, using the **Azure Batch Contributor** role. This role is sufficient for pool creation and is narrower than the general **Contributor** role.
+   4. Repeat the same process for the Azure Batch account, using the **Azure Batch Data Contributor** role. This role is sufficient for pool creation and is narrower than the general **Azure Batch Account Contributor** role.
    5. If you create a managed identity (recommended), also assign the **Managed Identity Operator** role to the service principal on each managed identity. Without this role, Seqera cannot attach the managed identity to a Batch pool.
 4. Platform will need credentials to authenticate as the service principal:
    1. Navigate back to the app registration. On the **Overview** page, save the **Application (client) ID** value for use in Platform.
