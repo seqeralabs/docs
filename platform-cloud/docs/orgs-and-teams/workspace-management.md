@@ -88,7 +88,7 @@ If configuring **manually**, two additional settings can be defined:
 | Field | Required | Description |
 |-------|----------|-------------|
 | **SQS Queue name** | No | The Amazon Simple Queue Service (SQS) name. If left empty, Platform generates a default queue name in the form `<bucket-name>-notifications`. |
-| **SQS Quene ARN** | No | The ARN of the SQS queue. This is useful if you Platform deployment requires cross-account access. |
+| **SQS Queue ARN** | No | The ARN of the SQS queue. This is useful if your Platform deployment requires cross-account access. |
 
 #### Credentials
 

@@ -42,7 +42,7 @@ The launch form accepts URL query parameters. See [Populate launch form with URL
 - **Commit ID**: Pin pipeline revision to the most recent HEAD commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
 - **Pull latest**: Fetch the most recent HEAD commit ID of the pipeline revision at launch time. Unpins the **Commit ID**, if set.
   :::info
-  See [Git revision management][pipeline-revision] for more information on **Revision**, **Commit ID**, and **Pull latest**, behavior.
+  See [Git revision management][pipeline-revision] for more information on **Revision**, **Commit ID**, and **Pull latest** behavior.
   :::
 - **Work directory**: The cloud storage or file system path where pipeline scratch data is stored. Seqera will create a scratch sub-folder if only a cloud bucket location is specified. Use file system paths for local or HPC compute environments.
   :::note
