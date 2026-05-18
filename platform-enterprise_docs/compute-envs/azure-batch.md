@@ -218,7 +218,7 @@ When you don't attach a head managed identity, Platform passes the service princ
 
    The four fields work for both single-pool and dual-pool topologies:
 
-   - **Single-pool** (head pool only): both managed identities are attached to the same VMs. The client IDs disambiguate which managed identity each consumer authenticates as.
+   - **Single-pool** (head pool only): both managed identities are attached to the same VMs. The client IDs are required to disambiguate which managed identity each consumer authenticates as — when a VM has more than one user-assigned managed identity, the Azure Instance Metadata Service (IMDS) does not pick a default, so each consumer must pass its UAMI's `client_id` on the IMDS request.
    - **Dual-pool** (separate head and worker pools): each pool has only its own managed identity attached, so disambiguation is implicit at the VM level. The client IDs are still required so that consumers know which managed identity is theirs.
 
 When you submit a pipeline to this compute environment, Nextflow authenticates using the managed identity associated with the Azure Batch node it runs on, rather than relying on access keys.
