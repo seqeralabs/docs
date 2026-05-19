@@ -7,7 +7,7 @@ tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, l
 ---
 
 :::info
-Data lineage in Platform is in public preview. It requires Nextflow v25.04 or later, AWS S3 object storage, and Amazon Simple Queue Service (SQS).
+Data lineage in Platform is in public preview. Requires at least Nextflow `v25.04`, AWS S3 object storage, and Amazon Simple Queue Service (SQS). Best results with Nextflow `v26.04` and higher.
 :::
 
 :::warning
@@ -28,7 +28,7 @@ Production pipelines generate results that teams need to trust, audit, and repro
 
 ## How data lineage works
 
-Nextflow creates a structured JSON record for each entity in your pipeline when lineage is enabled:
+Nextflow creates a structured JSON record for each entity in your pipeline during the execution of the workflow when lineage is enabled:
 
 | Record type | Description |
 |---|---|
@@ -64,20 +64,27 @@ Data lineage requires additional AWS IAM permissions. The permissions required d
 - **Platform integration credentials** (IAM user): see [AWS Batch — Data lineage](../compute-envs/aws-batch#data-lineage-optional) or [AWS Cloud — Data lineage](../compute-envs/aws-cloud#data-lineage-optional)
 - **EC2 instance role / head job role** (manually managed): see [Manual AWS Batch configuration](../enterprise/advanced-topics/manual-aws-batch-setup#create-an-ec2-instance-role)
 
-### Advanced: Experimenting with data lineage
+### Lineage labels
 
-To test or troubleshoot data lineage for a _specific pipeline_, add the following to your **Nextflow config file** under **Advanced options** when _adding_ a pipeline to the launchpad.
+Assign lineage labels to output files using the `label` directive in your Nextflow process definitions. Labels appear in lineage records.
 
-```groovy
-lineage.enabled = true
-lineage.store.location = '<PATH_TO_STORAGE>'
-```
+Both Platform labels and Nextflow lineage labels propagate to lineage records. Platform excludes resource labels as they relate to underlying compute resources, not the data itself.
 
-To test for a _single pipeline run_, add the same code to your **Nextflow config file** under **Advanced options** when _launching_ the pipeline run.
-
-:::warning
-If data lineage is defined for a workspace, only that data is displayed in Platform. Any unique _specific pipeline_ or _single pipeline run_ lineage data is only accessible via the AWS S3 console and other related services (such as Amazon Athena).
+:::info
+Nextflow lineage labels are **immutable**. They are set at execution time and cannot be changed. Platform labels are _mutable_ by design and can be changed after a run launches. Changing Platform labels post-launch will produce a mismatch between Platform run labels and Nextflow lineage labels.
 :::
+
+### How data lineage works
+
+1. Nextflow appends lineage data to the defined object storage bucket.
+1. The object storage bucket is configured to send object store notifications to the SQS queue.
+1. Platform reads the queue, returning the lineage objects created, and indexes them in the database.
+1. The index enriches the [run details][run-details]
+1. The index enriches the display of workflow-generated objects in Data Explorer with links to the origin pipeline run and task, sources of the object, and any lineage labels associated with the object.
+
+### Disabling data lineage
+
+If data lineage is deactivated, historic data is not automatically deleted and cloud provider resources remain in place.
 
 ## Data lineage displayed in Platform
 
@@ -98,15 +105,26 @@ All LIDs and lineage labels are clickable links. Click any LID to open the organ
 
 Output objects from a lineage-enabled run display their LID and any lineage labels when you preview the object in Data Explorer. You can trace any file back to the pipeline run that produced it.
 
-## Lineage labels
+## Advanced: Experimenting with data lineage
 
-Assign lineage labels to output files using the `label` directive in your Nextflow process definitions. Labels appear in lineage records and are searchable across your workspace.
+To test or troubleshoot data lineage for a _specific pipeline_, add the following to your **Nextflow config file** under **Advanced options** when _adding_ a pipeline to the launchpad.
 
-Both Seqera Platform labels and Nextflow lineage labels propagate to lineage records. Seqera Platform excludes resource labels as they relate to underlying compute resources, not the data itself.
+```groovy
+lineage.enabled = true
+lineage.store.location = '<PATH_TO_STORAGE>'
+```
 
-:::info
-Nextflow lineage labels are immutable. They are set at execution time and cannot be changed. Seqera Platform labels are mutable. Updating Platform labels after a run completes can produce a mismatch between Platform run labels and lineage labels. This is expected behavior.
+To test for a _single pipeline run_, add the same code to your **Nextflow config file** under **Advanced options** when _launching_ the pipeline run.
+
+:::warning
+If data lineage is defined for a workspace, only that data is displayed in Platform. Any unique _specific pipeline_ or _single pipeline run_ lineage data is only accessible via the AWS S3 console and other related services (such as Amazon Athena).
 :::
+
+## Costs associated with data lineage
+
+Monthly S3 object storage bucket and SQS costs will scale based on the number of pipeline runs launched with lineage enabled. 
+
+Typical SQS queue costs for a single rnaseq pipeline run daily are less than $10 USD/month.
 
 {/* links */}
 [workflow-labels]: https://docs.seqera.io/nextflow/workflow#labels

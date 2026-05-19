@@ -70,25 +70,47 @@ Select **Manage** to open the workspace [labels and resource labels](../labels/o
 ### Lineage
 
 :::note
-Data lineage is in public preview and made available on request. Please contact your Seqera account manager.
+Data lineage is in public preview and made available on request. Requires at least Nextflow `v25.04`. Best results with Nextflow `v26.04` and higher. Please contact your Seqera account manager.
 :::
 
 Configure where Nextflow lineage data are stored and whether lineage tracking is on by default for every run launched in the workspace.
 
+:::tip
+For compliance-driven teams (regulated industries, audit-tracked work), set **Enable lineage by default** to on so every pipeline run automatically captures provenance. Lineage records persist for the lifetime of the configured bucket, so coordinate with your team on retention policies.
+:::
+
 Select **Manage** and then choose to enable lineage by default for all pipeline runs in the workspace. Configure the lineage settings manually or automatically.
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| **Credentials** | Yes | The workspace credentials Platform uses to create and access the lineage storage bucket. The credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage the SQS queue. See [Credentials](#credentials). |
-| **Region** | Yes | Cloud region where the lineage storage bucket is created (for example, `us-east-1`, `eu-west-1`). |
-| **Bucket name** | No | Bucket where lineage records are stored. If left empty, Platform generates a default bucket name in the form `seqera-lineage-<workspace-id>`. |
+| Field | Description |
+|-------|-------------|
+| **Credentials** | The workspace credentials Platform uses to create and access the lineage storage bucket and SQS queue. The credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage the SQS queue. See [Credentials](#credentials). |
+| **Region** | Cloud region where the lineage storage bucket is created (for example, `us-east-1`, `eu-west-1`). |
 
-If configuring **manually**, two additional settings can be defined:
+If configuring **manually**, two additional settings are required:
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| **SQS Queue name** | No | The Amazon Simple Queue Service (SQS) name. If left empty, Platform generates a default queue name in the form `<bucket-name>-notifications`. |
-| **SQS Quene ARN** | No | The ARN of the SQS queue. This is useful if you Platform deployment requires cross-account access. |
+| Field | Description |
+|-------|-------------|
+| **Bucket name** | Object storage bucket where lineage records are stored. |
+| **SQS Queue ARN** | ARN of the SQS queue. This is useful if your Platform deployment requires cross-account access. |
+
+If configuring **automatically**, Platform generates the object storage bucket and SQS queue.
+
+| Field | Auto-generated name pattern |
+|-------|-----------------------------|
+| **Bucket name** | `seqera-lineage-<workspace-id>` |
+| **SQS Queue ARN** | `seqera-lineage-<workspace-id>-notifications` |
+
+:::note
+Automated configuration uses the **configured workspace credentials** through the same model as [Data Explorer](../data/data-explorer).
+:::
+
+When lineage is enabled:
+
+- The [Run details](../monitoring/run-details) page surfaces lineage IDs and labels on the Run Info, Tasks, Inputs, and Outputs tabs.
+- [Data Explorer](../data/data-explorer) object previews show the lineage ID and labels for files produced by lineage-enabled runs.
+
+The pipeline launch form toggle's default state is controlled by **Enable lineage by default**. Maintain role and higher users can override default behavior for an individual run via the launch form toggle. See [Getting started with data lineage](https://docs.seqera.io/nextflow/tutorials/data-lineage) for the underlying Nextflow lineage data model and example JSON payloads.
+
 
 #### Credentials
 
@@ -143,21 +165,6 @@ The credentials required for lineage are indicated below in an example AWS polic
     ]
 }
 ```
-
-:::note
-Platform creates and manages the lineage storage bucket using the configured workspace credentials. You do not need to pre-create a bucket. Platform handles bucket creation through the same credentials model used by [Data Explorer](../data/data-explorer). Platform also manages configuration of object store notifications, and SQS.
-:::
-
-:::tip
-For compliance-driven teams (regulated industries, audit-tracked work), set **Enable lineage by default** to on so every run automatically captures provenance. Lineage records persist for the lifetime of the configured bucket, so coordinate with your team on retention policies.
-:::
-
-When lineage is enabled:
-
-- The [Run details](../monitoring/run-details) page surfaces lineage IDs and labels on the Run Info, Tasks, Inputs, and Outputs tabs.
-- [Data Explorer](../data/data-explorer) object previews show the lineage ID and labels for files produced by lineage-enabled runs.
-
-The pipeline launch form toggle's default state is controlled by **Enable lineage by default**. Maintain role and higher users can override default behavior for an individual run via the launch form toggle. See [Getting started with data lineage](https://docs.seqera.io/nextflow/tutorials/data-lineage) for the underlying Nextflow lineage data model and example payloads.
 
 ### Edit or delete a workspace
 
