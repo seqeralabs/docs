@@ -88,7 +88,31 @@ To create and launch pipelines or Studio sessions with this compute environment 
 - Service Account User (`roles/iam.serviceAccountUser`)
 - Service Usage Consumer (`roles/serviceusage.serviceUsageConsumer`)
 
-If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal [on each bucket individually](https://docs.seqera.io/platform-cloud/compute-envs/google-cloud-batch#cloud-storage-bucket). For each Google Cloud compute environment created in the Seqera platform, a separate service account is created with the necessary permissions to launch pipelines/studios.
+#### Storage Permissions
+The Service Account created by Seqera Platform for use by the Google Cloud compute environmet is provisioned with the following roles:
+
+- `roles/storage.objectAdmin` (_on work-dir bucket_)
+- `roles/storage.bucketViewer`
+- `roles/storage.objectViewer`
+
+If your workflow uses additional GCS buckets beyond the work-dir, you must add additional permissions as follows:
+
+- Grant on **every other bucket the pipeline reads from**:
+    - `roles/storage.objectViewer` — read objects
+    - `roles/storage.bucketViewer` — read bucket metadata (required by for mount-time bucket inspection)
+
+- Grant on **publishDir bucket if different than work-dir bucket**:
+    - `roles/storage.objectUser`
+    - `roles/storage.bucketViewer`
+
+**Shortcut: project-level Storage Admin**
+
+Granting `roles/storage.admin` at the **project** level covers everything
+above and significantly simplifies setup. The tradeoff is a looser security
+posture — the Service Account can then touch any bucket in the project,
+including buckets unrelated to the pipeline. Confirm this is acceptable
+under your organization's security directives before using it.
+
 
 #### Userdata script error detection (optional)
 
