@@ -38,14 +38,23 @@ Nextflow creates a structured JSON record for each entity in your pipeline durin
 
 Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the entity. Every LID and lineage label renders as a clickable link, and you can navigate to all related entities across your organization.
 
+### Functional flow
+
+1. Nextflow appends lineage record objects (`*.data.json`) to the defined object storage bucket.
+1. The bucket is configured to filter for objects matching `.data.json` and sends object store notifications to the queue.
+1. SQS queue receives `s3:ObjectCreated:*` events
+1. Platform reads the queue, returning the lineage objects created, and indexes them in the database.
+1. The index enriches the [run details][run-details]
+1. The index enriches the display of workflow-generated objects in Data Explorer with links to the origin pipeline run and task, sources of the object, and any lineage labels associated with the object.
+
 ## Enable data lineage
 
 To start collecting data lineage for all pipeline runs in your workspace, go to **Settings > Workspace Settings**. Select **Lineage**. Toggle the **Enable lineage by default** on to collect data lineage for all pipeline runs in the workspace or toggle off to require per pipeline launch configuration. Choose either a **Manual** or an **Automatic** configuration for lineage resources: 
 
-- **Manual**: Define the credentials, region, object storage bucket and path, SQS queue name, and (optionally) SQS queue ARN.
-- **Automatic**: Define the credentials, region, and (optionally) the object storage bucket and path where lineage data is stored and indexed. This is the default setting. If the storage bucket field is empty, a default bucket is generated for storing lineage data.
+- **Manual**: Define the credentials, region, object storage bucket and path, and SQS queue ARN.
+- **Automatic**: Define the credentials and region. The object storage bucket and path, and SQS queue, is managed by Platform.
 
-Once set and enabled, all pipeline runs in the workspace generate data lineage. See [Lineage][workspace-lineage] for more information about the settings.
+Once set and enabled, all pipeline runs in the workspace generate data lineage. See [Lineage][workspace-lineage] for more information about the settings. An indexer runs continuously in the background per workspace, long-polling the SQS queue for S3 event notifications. Failed event messages are left on the queue so they can be retried after the visibility timeout.
 
 :::danger
 Updating the lineage settings after pipelines have generated lineage data will result in historic data loss. The lineage index is tied to the lineage storage bucket and path. Changing it makes existing records inaccessible. To avoid data loss when updating the storage location, first copy all existing lineage data to the new bucket and path (for example, `aws s3 cp --recursive s3://old-bucket/path s3://new-bucket/path`), then update the workspace setting.
@@ -74,17 +83,20 @@ Both Platform labels and Nextflow lineage labels propagate to lineage records. P
 Nextflow lineage labels are **immutable**. They are set at execution time and cannot be changed. Platform labels are _mutable_ by design and can be changed after a run launches. Changing Platform labels post-launch will produce a mismatch between Platform run labels and Nextflow lineage labels.
 :::
 
-### How data lineage works
+### Changing or disabling data lineage
 
-1. Nextflow appends lineage data to the defined object storage bucket.
-1. The object storage bucket is configured to send object store notifications to the SQS queue.
-1. Platform reads the queue, returning the lineage objects created, and indexes them in the database.
-1. The index enriches the [run details][run-details]
-1. The index enriches the display of workflow-generated objects in Data Explorer with links to the origin pipeline run and task, sources of the object, and any lineage labels associated with the object.
+If data lineage is **changed** from automatically-provisioned to manually-provisioned:
 
-### Disabling data lineage
+- **New object storage bucket**: Bucket notification rule is cleared, Platform-managed SQS queue is deleted. Events may be missed. Bucket and data are preserved.
+- **Same object storage bucket, different SQS queue**: Redirect bucket notification rule to new SQS queue ARN, old Platform-managed SQS queue is deleted. Events may be missed. Bucket and data are preserved.
+- **Same object storage bucket, same SQS queue**: No changes to cloud provider resources. All events preserved. Bucket and data are preserved.
 
-If data lineage is deactivated, historic data is not automatically deleted and cloud provider resources remain in place.
+If data lineage is **changed** from manually provisioned to automatically provisioned a new object storage bucket, SQS queue, and notification are created by Platform. Previously defined bucket, SQS queue and notifications are preserved.
+
+If data lineage is **deactivated**:
+
+- **Automatically provisioned**: Queue notification rule is cleared on the bucket, SQS queue deleted. Bucket and data are preserved.
+- **Manually provisioned**: No change to cloud resources. Bucket and data are preserved.
 
 ## Data lineage displayed in Platform
 
@@ -99,6 +111,10 @@ When a run was executed with lineage enabled, the [run details page][run-details
 
 :::tip
 All LIDs and lineage labels are clickable links. Click any LID to open the organization-level lineage search pre-filled with that identifier.
+:::
+
+:::note
+If more than one Nextflow run publishes a file to the same destination, there will be **two** lineage records. The `FileOutput` records for published files are saved under the lineage ID of the workflow run and can be used to differentiate them.
 :::
 
 ### Data Explorer
