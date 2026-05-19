@@ -39,14 +39,14 @@ The value is case-insensitive but must include the full domain. Seqera matches t
 1. In Seqera, open **Organization settings** and select **Manage single sign-on**, then **Group mapping**.
 2. Select **Add group manually**.
 3. In **Group identifier**, paste the group's email address.
-4. (Optional) In **Display name**, enter a human-friendly label for the group. This appears in the **IdP Group** dropdown on the Team form.
-5. Save.
+4. (Optional) In **Display name**, enter a human-friendly label for the group. This appears in the **IdP Group** dropdown on the team form.
+5. Select **Save**.
 
-The group now appears in the catalog and in the **IdP Group** dropdown on the Team form. To delegate a Team to this group, see [Delegate a Team to an IdP group](../../../../../orgs-and-teams/teams#delegate-a-team-to-an-idp-group).
+The group now appears in the catalog and in the **IdP Group** dropdown menu on the team form. To delegate a team to this group, see [Delegate a Team to an IdP group](../../../../../orgs-and-teams/teams#delegate-a-team-to-an-idp-group).
 
 ## Verify the value at login
 
-If a delegated Team isn't picking up users you expect, inspect what Google Workspace is actually emitting:
+If a delegated team isn't picking up users you expect, inspect what Google Workspace is actually emitting:
 
 1. Sign in to a Seqera test account using SSO.
 2. In your Seqera Enterprise instance logs, look for the SSO callback log line. It records the full claim set the platform received.

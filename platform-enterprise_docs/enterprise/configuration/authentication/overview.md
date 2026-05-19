@@ -44,7 +44,7 @@ https://<HOST_OR_IP>/oauth/callback/oidc
 ```
 
 :::note
-If you plan to use IdP-delegated Teams, your OIDC token must include a `groups` claim. See [IdP claim mapping](./idp-delegation/claim-mapping) for the per-IdP configuration steps.
+If you plan to use IdP-delegated teams, your OIDC token must include a `groups` claim. See [IdP claim mapping](./idp-delegation/claim-mapping) for the per-IdP configuration steps.
 :::
 
 ## Root users
@@ -161,7 +161,7 @@ tower:
 
 ## IdP delegation and group claims
 
-Seqera Platform Enterprise supports IdP-delegated Teams: organization owners can map a Seqera Team to an IdP group, after which the IdP becomes the sole authority for who belongs to that Team. Memberships are evaluated on every SSO login.
+Seqera Platform Enterprise supports IdP-delegated teams: organization owners can map a Seqera team to an IdP group, after which the IdP becomes the sole authority for who belongs to that team. Memberships are evaluated on every SSO login.
 
 For delegation to work, your IdP must:
 

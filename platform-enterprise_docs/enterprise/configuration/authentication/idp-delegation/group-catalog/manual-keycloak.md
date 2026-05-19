@@ -5,14 +5,14 @@ date: "2026-05-12"
 tags: [sso, keycloak, idp-delegation, administration, enterprise]
 ---
 
-Keycloak doesn't expose a SCIM 2.0 group provisioning API by default, so the Seqera group catalog is populated manually for Keycloak realms. This guide explains the format Seqera expects and where to find the right value in your Keycloak administrator console.
+Keycloak doesn't expose a SCIM 2.0 group provisioning API by default, so the Platform group catalog is populated manually for Keycloak realms. This guide explains the format Seqera expects and where to find the right value in your Keycloak administrator console.
 
 ## Before you begin
 
 - Administrator access to your Keycloak realm.
 - Organization owner access to your Seqera organization.
 - An active SSO connection. See [Keycloak authentication](../../keycloak).
-- A **Group Membership** mapper configured on the client scope your Seqera connection uses, so the `groups` claim is included in tokens. See [IdP claim mapping](../claim-mapping#keycloak).
+- A **Group Membership** mapper configured on the client scope your Platform connection uses, so the `groups` claim is included in tokens. See [IdP claim mapping](../claim-mapping#keycloak).
 
 ## What value to enter
 
@@ -43,11 +43,11 @@ Check the **Full group path** setting on your Group Membership mapper before add
 4. (Optional) In **Display name**, enter a human-friendly label for the group.
 5. Save.
 
-The group now appears in the catalog and in the **IdP Group** dropdown on the Team form. To delegate a Team to this group, see [Delegate a Team to an IdP group](../../../../../orgs-and-teams/teams#delegate-a-team-to-an-idp-group).
+The group now appears in the catalog and in the **IdP Group** dropdown on the team form. To delegate a team to this group, see [Delegate a Team to an IdP group](../../../../../orgs-and-teams/teams#delegate-a-team-to-an-idp-group).
 
 ## Verify the value at login
 
-If a delegated Team isn't picking up users you expect, inspect what Keycloak is actually emitting:
+If a delegated team isn't picking up users you expect, inspect what Keycloak is actually emitting:
 
 1. Sign in to a Seqera test account using SSO.
 2. In your Seqera Enterprise instance logs, look for the SSO callback log line. It records the full claim set the platform received.

@@ -41,7 +41,7 @@ There is no per-organization override. Uniqueness is enforced at the instance le
 
 ## Cross-organization users
 
-A user who's a member of multiple organizations on the same instance is evaluated against every organization's delegated Teams at login. Because group display names are guaranteed unique, each `groups` claim value resolves to exactly one organization's catalog — there's no ambiguity. The user is added to delegated Teams in any organization where their groups match.
+A user who's a member of multiple organizations on the same instance is evaluated against every organization's delegated teams at login. Because group display names are guaranteed unique, each `groups` claim value resolves to exactly one organization's catalog — there's no ambiguity. The user is added to delegated teams in any organization where their groups match.
 
 ## Operator guidance for new instances
 
