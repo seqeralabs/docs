@@ -101,6 +101,11 @@
     Enable SSH key management for Studios SSH connection functionality.
   Value:                'Default: false'
 -
+  Environment variable:            '`TOWER_SSH_KEYS_SUPPORTED_TYPES`'
+  Description: >
+    Comma-separated list of supported SSH public key types for user SSH key registration.
+  Value:                'Default: `ssh-rsa,ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521`'
+-
   Environment variable:            '`TOWER_DATA_STUDIO_CONNECT_SSH_KEY_FINGERPRINT`'
   Description: >
     SSH key fingerprint. This allows only SSH connections that have been authenticated with Seqera to connect to the server and is recommended for production environments. To generate the fingerprint, use `ssh-keygen -lf <path-to-ssh-key>`. See [Studios deployment](../install-studios).
