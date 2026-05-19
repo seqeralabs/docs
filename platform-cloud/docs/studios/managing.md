@@ -194,44 +194,7 @@ If your compute environment work directory uses an S3 bucket with **versioning e
 Only the latest version of each checkpoint file is read by Platform. However, non-current S3 object versions are not automatically removed and will continue to accrue storage costs until explicitly deleted or expired.
 :::
 
-**Recommended mitigation:** Apply an S3 Lifecycle rule to expire non-current object versions on the `.studios/checkpoints/` prefix. A one-day expiry retains the current version while removing intermediate five-minute writes:
-
-```json
-{
-  "Rules": [
-    {
-      "ID": "expire-studios-checkpoint-noncurrent-versions",
-      "Filter": { "Prefix": ".studios/checkpoints/" },
-      "Status": "Enabled",
-      "NoncurrentVersionExpiration": { "NoncurrentDays": 1 }
-    }
-  ]
-}
-```
-
-To apply this rule using the AWS CLI:
-
-```bash
-aws s3api put-bucket-lifecycle-configuration \
-  --bucket <your-work-bucket> \
-  --lifecycle-configuration file://lifecycle.json
-```
-
-To remove existing accumulated non-current versions on the `.studios/checkpoints/` prefix:
-
-```bash
-aws s3api list-object-versions \
-  --bucket <your-work-bucket> \
-  --prefix ".studios/checkpoints/" \
-  --query 'Versions[?IsLatest==`false`].[Key,VersionId]' \
-  --output text | \
-while IFS=$'\t' read -r key version_id; do
-  aws s3api delete-object \
-    --bucket <your-work-bucket> \
-    --key "$key" \
-    --version-id "$version_id"
-done
-```
+**Recommended mitigation:** Apply an S3 Lifecycle rule to expire non-current object versions on the `.studios/checkpoints/` prefix. A one-day expiry retains the current version while removing intermediate five-minute writes. You can also delete existing accumulated non-current versions manually using your cloud provider's console or CLI.
 
 :::note
 Non-current object versions (intermediate checkpoint writes) are safe to delete. Do **not** delete the current (latest) version of any checkpoint file or the checkpoint directory itself — doing so will corrupt the Studio session and it cannot be recovered.
