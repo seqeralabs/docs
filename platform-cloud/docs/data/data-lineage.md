@@ -91,7 +91,7 @@ If data lineage is **changed** from automatically-provisioned to manually-provis
 - **Same object storage bucket, different SQS queue**: Redirect bucket notification rule to new SQS queue ARN, old Platform-managed SQS queue is deleted. Events may be missed. Bucket and data are preserved.
 - **Same object storage bucket, same SQS queue**: No changes to cloud provider resources. All events preserved. Bucket and data are preserved.
 
-If data lineage is **changed** from manually provisioned to automatically provisioned a new object storage bucket, SQS queue, and notification are created by Platform. Previously defined bucket, SQS queue and notifications are preserved.
+If data lineage is **changed** from manually provisioned to automatically provisioned a new object storage bucket, SQS queue, and notification are created by Platform. Previously defined bucket and data, SQS queue and notifications are preserved.
 
 If data lineage is **deactivated**:
 
