@@ -40,7 +40,7 @@ Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the
 
 ## Enable data lineage
 
-To start collecting data lineage for all pipeline runs in your workspace, go to **Settings > Workspace Settings**. Select **Lineage**. Toggle the **Enable lineage by default** on to collect data lineage for all pipeline runs in the workspace or toggle off to require per pipeline launch configuration. Choose either a **Manual** or an **Automatic** configuration for lineage resources: 
+To start collecting data lineage for all pipeline runs in your workspace, go to **Settings > Workspace Settings**. Select **Lineage**. Toggle the **Enable lineage by default** on to collect data lineage for all pipeline runs in the workspace or toggle off to require per pipeline launch configuration. Choose either a **Manual** or an **Automatic** configuration for lineage resources:
 
 - **Manual**: Define the credentials, region, object storage bucket and path, SQS queue name, and (optionally) SQS queue ARN.
 - **Automatic**: Define the credentials, region, and (optionally) the object storage bucket and path where lineage data is stored and indexed. This is the default setting. If the storage bucket field is empty, a default bucket is generated for storing lineage data.
