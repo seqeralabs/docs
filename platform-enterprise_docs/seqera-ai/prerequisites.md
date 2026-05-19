@@ -1,15 +1,16 @@
 ---
-title: "Seqera AI prerequisites"
-description: "Prerequisites for Seqera AI"
+title: "Prerequisites"
+description: "Prerequisites for Co-Scientist"
 date created: "2026-04-20"
+last updated: "2026-05-14"
 tags: [seqera-ai, prerequisites]
 ---
 
 ## Overview
 
-Everything you need to have in place before installing Seqera AI. Complete these requirements, then proceed to the Bedrock Setup Guide to configure your AWS account.
+Everything you need to have in place before installing Co-Scientist. Complete these requirements, then proceed to the Bedrock Setup Guide to configure your AWS account.
 
-Seqera AI enables users to interact with Seqera Platform through a conversational AI interface, available through both the web (portal) and the CLI. The following components are deployed in sequence:
+Co-Scientist enables users to interact with Seqera Platform through a conversational AI interface, available through both the web (portal) and the CLI. The following components are deployed in sequence:
 
 | Order | Component            | Purpose                                                                                                                                                               |
 | ----- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -17,17 +18,17 @@ Seqera AI enables users to interact with Seqera Platform through a conversationa
 | 2     | MySQL database       | Dedicated database for session state and conversation history.                                                                                                        |
 | 3     | Redis                | Caching and session management layer for the agent backend.                                                                                                           |
 | 4     | Agent backend        | FastAPI service that orchestrates AI interactions between the CLI/web, Bedrock, and MCP.                                                                              |
-| 5     | Portal web interface | Browser-based interface for Seqera AI.                                                                                                                                |
+| 5     | Portal web interface | Browser-based interface for Co-Scientist.                                                                                                                                |
 
 
 ## Platform
 
-- Seqera AI is in Early Access for Platform Enterprise and may require an Enterprise version upgrade. [Contact Seqera support](https://support.seqera.io) for more information
+- Co-Scientist is in Early Access for Platform Enterprise and may require an Enterprise version upgrade. [Contact Seqera support](https://support.seqera.io) for more information
 - **OIDC** configured in Platform for authentication
 
 ## AWS Account
 
-Seqera AI uses Claude models via [Amazon Bedrock](https://aws.amazon.com/bedrock/). You need an AWS account with Bedrock available in your chosen region.
+Co-Scientist uses Claude models via [Amazon Bedrock](https://aws.amazon.com/bedrock/). You need an AWS account with Bedrock available in your chosen region.
 
 ### Models
 
@@ -41,18 +42,18 @@ The following Bedrock model access must be enabled in your account:
 
 ## Database
 
-- **MySQL 8.0+** — for Seqera AI session state and conversation history
-- A dedicated schema, separate from the Seqera Platform schema
-- A dedicated database host is **recommended**. Co-locating the Seqera AI schema on the Platform's MySQL host is technically supported, but a separate host isolates resource usage, maintenance windows, and backups across Seqera products
-- You will need the hostname, database name, username, and password ready for Helm configuration
+- **MySQL 8.0+** for Co-Scientist session state and conversation history.
+- A dedicated schema, separate from the Seqera Platform schema.
+- A dedicated database host is **recommended**. Co-locating the Co-Scientist schema on the Platform's MySQL host is technically supported, but a separate host isolates resource usage, maintenance windows, and backups across Seqera products.
+- You will need the hostname, database name, username, and password ready for Helm configuration.
 
 ## Redis
 
-- **Redis 7.2+ or Valkey 7.2+** for caching, session state, and the automations task queue
-  - Redis 8.x is supported (the search/JSON/bloom modules moved into core in Redis 8.0)
-  - Valkey 7.2+ and 8.x are supported for the default caching and task-queue workload. If you enable the optional Redis-backed knowledge index (off by default), Redis Stack 7.x or Redis 8+ is required — Valkey does not ship the `RediSearch` module
-- Accessible from your cluster
-- You will need the hostname and port ready for Helm configuration
+- **Redis 7.2+ or Valkey 7.2+** for caching, session state, and the automations task queue.
+  - Redis 8.x is supported (the search/JSON/bloom modules moved into core in Redis 8.0).
+  - Valkey 7.2+ and 8.x are supported for the default caching and task-queue workload. If you enable the optional Redis-backed knowledge index (off by default), Redis Stack 7.x or Redis 8+ is required — Valkey does not ship the `RediSearch` module.
+- Accessible from your cluster.
+- You will need the hostname and port ready for Helm configuration.
 
 ## Networking and DNS
 
@@ -64,8 +65,8 @@ Three domains are required, each serving a different component:
 | MCP server           | `mcp.platform.example.com`    | Model Context Protocol server       |
 | Portal web interface | `ai.platform.example.com`     | Browser-based UI                    |
 
-- TLS certificates for all three domains
-- Ingress controller configured in your cluster
+- TLS certificates for all three domains.
+- Ingress controller configured in your cluster.
 
 ## Encryption key
 
@@ -95,9 +96,9 @@ Store the following values as Kubernetes Secrets before installing the chart. Do
 | MCP JWT seed                    | `MCP_OAUTH_JWT_SECRET` — 32+ char random string, `openssl rand -base64 32` | MCP server     |
 | MCP initial access token        | `MCP_OAUTH_INITIAL_ACCESS_TOKEN` (standalone MCP deploys only)           | MCP server     |
 
-When MCP is deployed as a subchart of the Platform parent chart, the initial access token is wired automatically from the Platform backend secret — you do not need to create it separately. When deploying MCP standalone, copy the value out of the Platform backend secret (typically named `<platform-release>-backend`, e.g. `platform-backend`, under the data key `OIDC_CLIENT_REGISTRATION_TOKEN`) into a new secret and reference it via `oidcToken.existingSecretName`. The MCP container loads this value as `MCP_OAUTH_INITIAL_ACCESS_TOKEN` at runtime.
+When MCP is deployed as a subchart of the Platform parent chart, the initial access token is wired automatically from the Platform backend secret - you do not need to create it separately. When deploying MCP standalone, copy the value out of the Platform backend secret (typically named `<platform-release>-backend`, e.g. `platform-backend`, under the data key `OIDC_CLIENT_REGISTRATION_TOKEN`) into a new secret and reference it via `oidcToken.existingSecretName`. The MCP container loads this value as `MCP_OAUTH_INITIAL_ACCESS_TOKEN` at runtime.
 
-Bedrock authentication uses AWS IAM credentials — no API key secret is needed for the Bedrock path. On EKS, **EKS Pod Identity is the recommended approach** but IRSA or static AWS credentials on the pod are also supported.
+Bedrock authentication uses AWS IAM credentials and no API key secret is needed for the Bedrock path. On EKS, **EKS Pod Identity is the recommended approach** but IRSA or static AWS credentials on the pod are also supported.
 
 ## Local tooling
 
@@ -107,7 +108,7 @@ Bedrock authentication uses AWS IAM credentials — no API key secret is needed 
 
 ## Container images
 
-Seqera AI container images are hosted at `cr.seqera.io`. The exact repository paths are defined by each component's Helm chart — see the chart READMEs for the authoritative `image.registry` / `image.repository` defaults and for [vendoring the Seqera container images to your own registry](https://docs.seqera.io/platform-enterprise/enterprise/prerequisites/common#vendoring-seqera-container-images-to-your-own-registry):
+Co-Scientist container images are hosted at `cr.seqera.io`. The exact repository paths are defined by each component's Helm chart. See the chart READMEs for the authoritative `image.registry` / `image.repository` defaults and for [vendoring the Seqera container images to your own registry](https://docs.seqera.io/platform-enterprise/enterprise/prerequisites/common#vendoring-seqera-container-images-to-your-own-registry):
 
 | Image                | Chart                                                                                                          |
 | -------------------- | -------------------------------------------------------------------------------------------------------------- |

@@ -1,21 +1,13 @@
 ---
 title: "Authentication"
-description: "Login, logout, and session management for Seqera AI CLI"
-date: "15 Dec 2025"
-tags: [seqera-ai, cli, authentication, login]
+description: "Login, logout, and session management for Seqera CLI"
+date created: "2025-12-15"
+tags: [seqera-ai, co-scientist, cli, authentication, login]
 ---
 
-:::caution Seqera AI CLI is in beta
-Seqera AI CLI is currently in beta. Features and commands may change as we continue to improve the product.
-:::
+Co-Scientist uses your Seqera Platform account for authentication. This page describes authentication concepts and step-by-step instructions for managing your sessions.
 
-:::note
-Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
-:::
-
-Seqera AI uses your Seqera Platform account for authentication. This page describes authentication concepts and step-by-step instructions for managing your sessions.
-
-## Authenticating Seqera AI
+## Authenticating Co-Scientist
 
 ### Log in
 
@@ -27,10 +19,10 @@ seqera login
 
 This will:
 
-1. Open your default browser to the Seqera login page
-1. Prompt you to sign in with your Seqera Platform credentials
-1. Automatically capture the authentication token
-1. Display a success message in your terminal
+1. Open your default browser to the Seqera login page.
+1. Prompt you to sign in with your Seqera Platform credentials.
+1. Automatically capture the authentication token.
+1. Display a success message in your terminal.
 
    ```
    [Login] Starting Seqera CLI authentication...
@@ -59,7 +51,36 @@ seqera ai
 
 When this environment variable is set, the CLI skips the OAuth login flow and uses the provided token directly.
 
-For Enterprise backend connection settings and development-build examples, see [Install Seqera AI](../enterprise/install-seqera-ai.md#connect-the-cli-to-seqera-ai).
+### Connect to an Enterprise backend
+
+Set the following environment variables before starting `seqera ai`:
+
+| Variable | Purpose | Example value |
+| --- | --- | --- |
+| `SEQERA_AI_BACKEND_URL` | Co-Scientist backend endpoint used by the CLI | `https://ai-api.platform.example.com` |
+| `SEQERA_AUTH_DOMAIN` | OIDC authority base URL. The CLI fetches OpenID configuration from this URL and opens the discovered authorization endpoint in your browser. | `https://platform.example.com/api` |
+| `SEQERA_AUTH_CLI_CLIENT_ID` | OAuth client ID for the Seqera CLI | `seqera_ai_cli` |
+| `TOWER_ACCESS_TOKEN` | Platform personal access token used instead of browser login | `<PLATFORM_ACCESS_TOKEN>` |
+
+Use the OAuth login flow:
+
+```bash
+export SEQERA_AUTH_DOMAIN=https://platform.example.com/api
+export SEQERA_AUTH_CLI_CLIENT_ID=seqera_ai_cli
+export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com
+seqera ai
+```
+
+Use a Platform personal access token instead of browser login:
+
+```bash
+export SEQERA_AUTH_DOMAIN=https://platform.example.com/api
+export TOWER_ACCESS_TOKEN=<PLATFORM_ACCESS_TOKEN>
+export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com
+seqera ai
+```
+
+Set `SEQERA_AUTH_CLI_CLIENT_ID` only for OAuth deployments that use a non-default CLI client ID. Current CLI builds still require `SEQERA_AUTH_DOMAIN` for Enterprise token-based authentication so the CLI can target the correct Platform authority.
 
 ### Log out
 
@@ -73,7 +94,7 @@ This command revokes your current authentication token and removes locally store
 
 ## Organization management
 
-Seqera AI CLI supports managing your organization selection for billing. Use the `seqera org` command to view and switch organizations.
+The Seqera CLI supports managing your organization selection for billing. Use the `seqera org` command to view and switch organizations.
 
 **View current organization**:
 
@@ -101,7 +122,7 @@ seqera org clear
 
 ## Token refresh
 
-Seqera AI CLI automatically refreshes your authentication token when needed. You are not required to log in again unless:
+The Seqera CLI automatically refreshes your authentication token when needed. You are not required to log in again unless:
 
 - You explicitly log out
 - Your refresh token expires (typically after extended inactivity)
@@ -109,8 +130,9 @@ Seqera AI CLI automatically refreshes your authentication token when needed. You
 
 ## Learn more
 
-- [Seqera AI CLI](index.md): Seqera AI CLI overview
+- [Seqera CLI](index.md): Seqera CLI overview
 - [Installation](./installation.mdx): Detailed installation instructions
 - [Command approval](./command-approval.md): Control which commands run automatically
-- [Use cases](./use-cases.md): Seqera AI use cases
+- [Use cases](./use-cases.md): Co-Scientist use cases
+- [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

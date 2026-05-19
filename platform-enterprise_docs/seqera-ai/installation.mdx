@@ -1,133 +1,98 @@
 ---
 title: "Installation"
-description: "Install and configure Seqera AI CLI"
-date: "15 Dec 2025"
-tags: [seqera-ai, cli, installation]
+description: "Install and configure the Seqera CLI"
+date created: "2026-03-11"
+tags: [seqera-ai, co-scientist, cli, installation]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+### Requirements
 
-:::caution Seqera AI CLI is in beta
-Seqera AI CLI is currently in beta. Features and commands may change as we continue to improve the product.
-:::
+- Node.js 18 or later
+- macOS, Linux, or Windows with WSL
+- A user account on your Seqera Platform Enterprise deployment
+- Network access to your Enterprise agent backend
 
-:::note
-Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
-:::
-
-## Requirements
-
-- macOS (Apple Silicon or Intel) or Linux x64
-- A Seqera Platform account ([sign up for free](https://cloud.seqera.io))
-- An internet connection
-
-## Install
-
-<Tabs>
-<TabItem value="npm" label="npm (recommended)" default>
-
-Install globally with npm:
+### npm install
 
 ```bash
 npm install -g seqera
 ```
 
-Verify your installation:
+Install the development build:
 
 ```bash
-seqera --help
-```
-
-:::tip
-You can also install with yarn, pnpm, or bun:
-
-```bash
-yarn global add seqera
-# or
-pnpm add -g seqera
-# or
-bun add -g seqera
-```
-:::
-
-</TabItem>
-<TabItem value="binary" label="Standalone binary">
-
-Download the binary for your platform:
-
-| Platform | Binary |
-|----------|--------|
-| macOS Apple Silicon | `seqera-darwin-arm64.tar.gz` |
-| macOS Intel | `seqera-darwin-x64.tar.gz` |
-| Linux x64 | `seqera-linux-x64.tar.gz` |
-
-Extract and add to your PATH:
-
-```bash
-# Example: macOS Apple Silicon
-tar -xzf seqera-darwin-arm64.tar.gz
-chmod +x seqera
-sudo mv seqera /usr/local/bin/
+npm install -g seqera@dev
 ```
 
 Verify your installation:
 
 ```bash
-seqera --help
+seqera --version
 ```
 
-</TabItem>
-</Tabs>
-
-## Upgrade
-
-<Tabs>
-<TabItem value="npm" label="npm" default>
+### npm update
 
 ```bash
 npm update -g seqera
 ```
 
-</TabItem>
-<TabItem value="binary" label="Standalone binary">
+### Enterprise configuration
 
-Download the latest binary for your platform and replace the existing binary.
+Set the agent backend URL before starting Co-Scientist:
 
-</TabItem>
-</Tabs>
+```bash
+export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com
+```
 
-## Developer configuration
+If your Enterprise deployment uses Platform OIDC, also set the OIDC authority base URL. The CLI fetches OpenID configuration from this URL and opens the discovered authorization endpoint in your browser:
 
-If you are testing a development build of the CLI against the hosted production Seqera AI service, set `SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io` before running `seqera ai`.
+```bash
+export SEQERA_AUTH_DOMAIN=https://platform.example.com/api
+```
 
-See [Install Seqera AI](../enterprise/install-seqera-ai.md#connect-the-cli-to-seqera-ai) for the complete environment variable reference and OAuth versus token-based examples.
+See [Authentication](./authentication.md#connect-to-an-enterprise-backend) for the complete environment variable reference and OAuth versus token-based examples.
 
-## Uninstall
+### Install agent integrations
 
-<Tabs>
-<TabItem value="npm" label="npm" default>
+Install Co-Scientist as a skill for your coding agent:
+
+```bash
+seqera skill install
+```
+
+Install directly into the current repository:
+
+```bash
+seqera skill install --local
+```
+
+Check installed skills and update them after upgrading the CLI:
+
+```bash
+seqera skill check --update
+```
+
+:::info
+If you use Co-Scientist as a skill for a coding agent, run `seqera skill check --update` after updating the CLI to keep your installed skills in sync with the current version. By default, this scans both local and global installations. Use `--global` or `--local` to narrow the scope. See [Working with Claude Code](./skill-claude-code.md), [Working with Codex](./skill-codex.md), [Working with GitHub Copilot](./skill-github-copilot.md), and [Working with other coding agents](./skill-other-agents.md).
+
+```bash
+seqera skill check --update
+```
+:::
+
+### npm uninstall
 
 ```bash
 npm uninstall -g seqera
 ```
 
-</TabItem>
-<TabItem value="binary" label="Standalone binary">
+### Learn more
 
-Remove the `seqera` binary from your PATH:
-
-```bash
-sudo rm /usr/local/bin/seqera
-```
-
-</TabItem>
-</Tabs>
-
-## Learn more
-
-- [Seqera AI CLI](index.md): Seqera AI CLI overview
+- [Seqera CLI](index.md): Seqera CLI overview
 - [Authentication](./authentication.md): Login, logout, and session management
+- [Skills](./skills.md): Discover, create, and install skills
+- [Modes](./modes.md): Work in build mode, plan mode, and goal mode
 - [Command approval](./command-approval.md): Control which commands run automatically
-- [Use cases](./use-cases.md): Seqera AI CLI use cases
+- [Use cases](./use-cases.md): Seqera CLI use cases
+- [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors
