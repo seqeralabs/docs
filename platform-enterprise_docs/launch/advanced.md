@@ -146,7 +146,7 @@ The v2 parser is scheduled to become the **default** in Nextflow 26.04. Once tha
 
 The v2 parser implements Nextflow's [strict syntax](https://nextflow.io/docs/latest/strict-syntax.html). Use the **Enable Nextflow syntax parser v2** toggle to select which Nextflow language parser is used at runtime. Existing pipelines continue to launch with v1. This toggle only selects the Nextflow language parser. It does not change the Nextflow runtime version, the pipeline source, or any pipeline parameters.
 
-- **Off (default)**: Workflows run with the v1 parser, which accepts the full Groovy syntax that Nextflow has historically supported. Platform exports `NXF_SYNTAX_PARSER=v1` to the Nextflow execution environment.
+- **Off (default)**: Workflows run with the v1 parser, which accepts the full Groovy syntax that Nextflow has historically supported. Platform exports `NXF_SYNTAX_PARSER=v1`.
 - **On**: Workflows run with the v2 parser. Platform exports `NXF_SYNTAX_PARSER=v2`.
 
 :::caution
