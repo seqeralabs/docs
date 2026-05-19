@@ -42,6 +42,16 @@
     Data Explorer download file size limit. **Increasing this value may degrade performance.**
   Value:                'Default: `25MB`'
 -
+  Environment variable:            '`TOWER_DATA_DATASETS_LIST_MAX_ALLOWED`'
+  Description: >
+    Maximum and default number of items returned in a single page when listing datasets.
+  Value:                'Default: `100`'
+-
+  Environment variable:            '`TOWER_DATA_DATASET_VERSIONS_LIST_MAX_ALLOWED`'
+  Description: >
+    Maximum and default number of items returned in a single page when listing dataset versions.
+  Value:                'Default: `100`'
+-
   Environment variable:            '`TOWER_DATA_STUDIO_CONNECT_URL`'
   Description: >
     The URL of the Studios connect proxy. The connect proxy is used internally by Seqera Platform. See [Studios deployment](../install-studios).
