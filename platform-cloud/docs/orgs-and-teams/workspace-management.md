@@ -70,7 +70,7 @@ Select **Manage** to open the workspace [labels and resource labels](../labels/o
 ### Lineage
 
 :::note
-Data lineage is in public preview and made available on request. Requires at least Nextflow `v25.04`. Best results with Nextflow `v26.04` and higher. Please contact your Seqera account manager.
+Data lineage is currently in public preview. It requires Nextflow 25.04 or later, AWS S3 object storage, and Amazon Simple Queue Service (SQS). For best results, use Nextflow 26.04 or higher.
 :::
 
 Configure where Nextflow lineage data are stored and whether lineage tracking is on by default for every run launched in the workspace.
