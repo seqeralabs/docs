@@ -36,7 +36,7 @@ The value is case-insensitive but must include the full domain. Seqera matches t
 
 ## Add the group to Seqera
 
-1. In Seqera, open **Organization settings** and select **Manage single sign-on**, then **Group mapping**.
+1. In Platform, open **Settings > Organization settings > Group mapping** and select **Manage**.
 2. Select **Add manual group**.
 3. In **Group name**, paste the group's email address.
 4. (Optional) In **Display name**, enter a human-friendly label for the group. This appears in the **IdP Group** dropdown on the team form.
