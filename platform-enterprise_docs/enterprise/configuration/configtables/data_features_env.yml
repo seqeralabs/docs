@@ -11,11 +11,6 @@
   Value:                'Example: `<workspace-id1>,<workspace-id2>`'
 # TODO(26.1): not in platform repo's ENVIRONMENT-VARIABLES.md — verify still valid
 -
-  Environment variable:            '`TOWER_DATA_EXPLORER_CREDENTIALS_TTL`'
-  Description: >
-    Data Explorer interval to fetch credentials from cloud providers for new buckets.
-  Value:                'Default: `20m`'
--
   Environment variable:            '`TOWER_DATA_EXPLORER_LINK_STORE_TTL`'
   Description: >
     Data Explorer cloud bucket cache duration.
@@ -71,9 +66,8 @@
 -
   Environment variable:            '`TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY`'
   Description: >
-    The custom image registry for Wave containers, used as the destination for Studio images that are customized with a conda environment.
-   The custom image registry for Wave containers, used as the destination for Studio images that are customized with a conda environment. When left null, defers to whatever Wave has configured as the default.
- Value:                'Default: null'
+    The custom image registry for Wave containers, used as the destination for Studio images that are customized with a conda environment. When left null, defers to whatever Wave has configured as the default.
+  Value:                'Default: null'
 -
   Environment variable:            '`TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`'
   Description: >
