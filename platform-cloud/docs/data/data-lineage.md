@@ -54,7 +54,7 @@ To start collecting data lineage for all pipeline runs in your workspace, go to 
 - **Manual**: Define the credentials, region, object storage bucket and path, and SQS queue ARN.
 - **Automatic**: Define the credentials and region. The object storage bucket and path, and SQS queue, is managed by Platform.
 
-Once set and enabled, all pipeline runs in the workspace generate data lineage. See [Lineage][workspace-lineage] for more information about the settings. An indexer runs continuously in the background per workspace, long-polling the SQS queue for S3 event notifications. Failed event messages are left on the queue so they can be retried after the visibility timeout.
+Once set and enabled, all pipeline runs in the workspace generate data lineage. See [Lineage][workspace-lineage] for more information about the settings. An indexer runs continuously in the background per workspace, long-polling the SQS queue for S3 event notifications. Failed event messages remain in the queue and can be retried after the visibility timeout.
 
 :::danger
 Updating the lineage settings after pipelines have generated lineage data will result in historic data loss. The lineage index is tied to the lineage storage bucket and path. Changing it makes existing records inaccessible. To avoid data loss when updating the storage location, first copy all existing lineage data to the new bucket and path (for example, `aws s3 cp --recursive s3://old-bucket/path s3://new-bucket/path`), then update the workspace setting.
