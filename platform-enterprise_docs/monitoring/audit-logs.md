@@ -31,7 +31,7 @@ Use `TOWER_AUDIT_LOG_V2_WRITE_MODE` to control how new audit events are written:
 
 If you have existing scripts, exports, or ETL processes that read from the legacy audit log schema, plan the 26.1 upgrade in two stages:
 
-1. Upgrade to 26.1 and set `TOWER_AUDIT_LOG_V2_WRITE_MODE=dual`.
+1. Upgrade to 26.1.
 2. Validate your integrations against the v2 schema while your existing v1 readers continue to work from the legacy table.
 
 In the 26.1 migration plan, dual-write is transitional. Plan for 26.2 to make v2 the only write-side schema, while the legacy v1 data remains available for reads as long as your retention policy still covers the required historical period.
