@@ -2,7 +2,7 @@
 title: "Azure Batch"
 description: "Instructions to set up Azure Batch in Seqera Platform"
 date created: "2024-01-04"
-last updated: "2026-04-16"
+last updated: "2026-05-20"
 tags: [azure, batch, compute environment]
 ---
 
@@ -544,6 +544,74 @@ The following settings can be modified after creating a pool:
 :::info
 See [Launch pipelines][launch-pipelines] to start executing workflows in your Azure Batch compute environment.
 :::
+
+## Fusion on Azure Batch with Ubuntu 24.04
+
+The `ubuntu-hpc` image in Azure Batch now defaults to Ubuntu 24.04, whose kernel and AppArmor policy block the unprivileged user namespaces and FUSE mounts Fusion needs. Running Fusion on Ubuntu 24.04+ pools therefore requires an AppArmor profile that permits Fusion mounts to be loaded on every node, plus a matching `--security-opt` on each task container.
+
+**Forge compute environments**
+
+Seqera Platform handles everything automatically. No action required.
+
+**Manual compute environments**
+
+When Fusion is enabled and the pool's image SKU is 2404 or higher, Seqera Platform will automatically append the options below to the generated Nextflow configuration:
+
+`process.containerOptions = '--security-opt apparmor=seqera-fusionfs-container'`
+
+### Install the AppArmor profile on pool nodes
+
+A Fusion-specific seqera-fusionfs-container AppArmor profile must be loaded into the kernel on every node before any Fusion tasks run. The contents of the profile are as follows:
+
+```
+abi <abi/4.0>,
+include <tunables/global>
+
+profile seqera-fusionfs-container flags=(default_allow) {
+  userns,
+  mount fstype=fuse.fusion -> /fusion/,
+  mount fstype=fuse.fusion -> /fusion/**,
+  umount,
+  include <abstractions/base>
+  include <abstractions/nameservice>
+
+  include if exists <local/seqera-fusionfs-container>
+}
+```
+
+The profile can be delivered into the nodes by any suitable mechanism: for example, it can be embedded in a custom VM image, distributed via configuration management, or written during node bootstrap.
+
+Note that the profile name (`seqera-fusionfs-container`) is mandatory because Seqera Platform code will refer to it, but its location and load mechanism are flexible. Here are some common ways to get the profile loaded:
+
+- Drop the file at `/etc/apparmor.d/seqera-fusionfs-container` in a custom VM image. Ubuntu's apparmor.service will automatically load profiles from `/etc/apparmor.d/` at boot, so no explicit loading is needed.
+- Place the profile anywhere and call `apparmor_parser -r <path>` to load the profile during node bootstrap (pool start task, cloud-init, configuration management run). This is what Seqera Platform does for Forge-provisioned compute environments.
+- Place the profile in a subdirectory and configure a boot-time `systemd` unit that runs `apparmor_parser -r` against it on every boot. This is useful if the profile lives in a non-standard location to ensure the profile is re-loaded after every reboot.
+
+### Caveat: overriding `process.containerOptions`
+
+A `process.containerOptions` value explicitly set in a compute environment's Nextflow config field will override the one Platform injects. For these cases, including `seqera-fusionfs-container` as a Docker `security-opt` is mandatory:
+
+`process.containerOptions = '--security-opt apparmor=seqera-fusionfs-container <your other options>'`
+
+### Troubleshooting
+
+The following checks can be done by SSHing into a pool node:
+
+```
+# 1.Is the profile loaded into the kernel on this node?
+aa-status | grep seqera-fusionfs-container
+
+# 2. Is the profile applied to a running task container?
+
+docker inspect <task-container> --format '{{.AppArmorProfile}}'
+```
+
+| Symptom | Likely cause |
+|--------|---------|
+| Workflow task fails with `Operation not permitted` on `/fusion/`, host `dmesg` / `/var/log/kern.log` shows `apparmor="DENIED" ... profile="docker-default"` | The AppArmor profile is loaded on the node, but `--security-opt apparmor=seqera-fusionfs-container` is not being applied. Check whether `process.containerOptions` is overridden in the compute environment's Nextflow config |
+| `apparmor="DENIED" ... profile="unconfined"` or `aa-status` does not list `seqera-fusionfs-container` | The profile is not loaded on this node. Re-run `apparmor_parser -r <path>` or fix the boot-time mechanism that should load it. |
+| `apparmor_parser` itself fails with a syntax error | The profile contents were corrupted in transit (check for stray indentation or encoding changes). Compare against the canonical version above. |
+| Task container shows `AppArmorProfile: seqera-fusionfs-container` but Fusion still fails to mount | AppArmor is not the issue. Check the Fusion logs and that the FUSE device (`/dev/fuse`) is available inside the container. |
 
 [azure-free]: https://azure.microsoft.com/en-us/free/
 [azure-storage-account]: https://learn.microsoft.com/en-us/azure/storage/common/storage-account-overview
