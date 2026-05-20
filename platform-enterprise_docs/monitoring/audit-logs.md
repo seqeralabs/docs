@@ -58,3 +58,13 @@ CSV exports use the same v2 schema and date filters as the Admin panel view. You
 Audit logs include administration, security, and application resource events.
 
 ::table{file=configtables/log_events.yml}
+
+### Pre and post state change capture
+
+When enabled, audit log v2 captures full resource state snapshots or images immediately before and after each change event. This provides a complete record of what changed and satisfies regulatory requirements (such as GxP/21 CFR Part 11).
+
+:::info
+State snapshots increase database storage requirements. For a deployment with 2 million audit log records, the snapshots can consume between 3 GB and 40 GB depending on the events and the size and complexity of the tracked resources. Plan your database capacity and retention policy accordingly before enabling this feature.
+:::
+
+This feature is enabled once the GxP add-on is attached to your Seqera license. [Contact us](https://seqera.io/contact-us/) to obtain the GxP add-on.
