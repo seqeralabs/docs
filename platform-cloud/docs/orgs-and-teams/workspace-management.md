@@ -106,7 +106,7 @@ Automated configuration uses the **configured workspace credentials** through th
 
 When lineage is enabled:
 
-- The [Run details](../monitoring/run-details) page surfaces lineage IDs and labels on the Run Info, Tasks, Inputs, and Outputs tabs.
+- The [Run details](../monitoring/run-details) page surfaces lineage IDs and labels on the **Run Info**, **Tasks**, **Inputs**, and **Outputs** tabs.
 - [Data Explorer](../data/data-explorer) object previews show the lineage ID and labels for files produced by lineage-enabled runs.
 
 The pipeline launch form toggle's default state is controlled by **Enable lineage by default**. Maintain role and higher users can override default behavior for an individual run via the launch form toggle. See [Getting started with data lineage](https://docs.seqera.io/nextflow/tutorials/data-lineage) for the underlying Nextflow lineage data model and example JSON payloads.
