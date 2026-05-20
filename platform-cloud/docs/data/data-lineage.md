@@ -28,7 +28,7 @@ Production pipelines generate results that teams need to trust, audit, and repro
 
 ## How data lineage works
 
-Nextflow creates a structured JSON record for each entity in your pipeline during the execution of the workflow when lineage is enabled:
+When lineage is enabled, Nextflow generates a structured JSON record for each entity in your pipeline during workflow execution:
 
 | Record type | Description |
 |---|---|
