@@ -31,7 +31,7 @@ Use `TOWER_AUDIT_LOG_V2_WRITE_MODE` to control how new audit events are written:
 
 If you have existing scripts, exports, or ETL processes that read from the legacy audit log schema, plan the 26.1 upgrade in two stages:
 
-1. Upgrade to 26.1 and set `TOWER_AUDIT_LOG_V2_WRITE_MODE=dual`.
+1. Upgrade to 26.1.
 2. Validate your integrations against the v2 schema while your existing v1 readers continue to work from the legacy table.
 
 In the 26.1 migration plan, dual-write is transitional. Plan for 26.2 to make v2 the only write-side schema, while the legacy v1 data remains available for reads as long as your retention policy still covers the required historical period.
@@ -58,3 +58,13 @@ CSV exports use the same v2 schema and date filters as the Admin panel view. You
 Audit logs include administration, security, and application resource events.
 
 ::table{file=configtables/log_events.yml}
+
+### Pre and post state change capture
+
+When enabled, audit log v2 captures full resource state snapshots or images immediately before and after each change event. This provides a complete record of what changed and satisfies regulatory requirements (such as GxP/21 CFR Part 11).
+
+:::info
+State snapshots increase database storage requirements. For a deployment with 2 million audit log records, the snapshots can consume between 3 GB and 40 GB depending on the events and the size and complexity of the tracked resources. Plan your database capacity and retention policy accordingly before enabling this feature.
+:::
+
+This feature is enabled once the GxP add-on is attached to your Seqera license. [Contact us](https://seqera.io/contact-us/) to obtain the GxP add-on.

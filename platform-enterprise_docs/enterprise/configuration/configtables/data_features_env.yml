@@ -3,18 +3,13 @@
   Environment variable:            '`TOWER_DATA_EXPLORER_ENABLED`'
   Description: >
     Enable [Data Explorer](https://docs.seqera.io/platform-cloud/data/data-explorer) in all workspaces. To mount data inside a Studio, you must enable Data Explorer.
-  Value:                'Default: `false`'
+  Value:                'Default: `true`'
 -
   Environment variable:            '`TOWER_DATA_EXPLORER_CLOUD_DISABLED_WORKSPACES`'
   Description: >
     Disable Data Explorer automatic cloud bucket retrieval per workspace.
   Value:                'Example: `<workspace-id1>,<workspace-id2>`'
 # TODO(26.1): not in platform repo's ENVIRONMENT-VARIABLES.md — verify still valid
--
-  Environment variable:            '`TOWER_DATA_EXPLORER_CREDENTIALS_TTL`'
-  Description: >
-    Data Explorer interval to fetch credentials from cloud providers for new buckets.
-  Value:                'Default: `20m`'
 -
   Environment variable:            '`TOWER_DATA_EXPLORER_LINK_STORE_TTL`'
   Description: >
@@ -42,6 +37,16 @@
     Data Explorer download file size limit. **Increasing this value may degrade performance.**
   Value:                'Default: `25MB`'
 -
+  Environment variable:            '`TOWER_DATA_DATASETS_LIST_MAX_ALLOWED`'
+  Description: >
+    Maximum and default number of items returned in a single page when listing datasets.
+  Value:                'Default: `100`'
+-
+  Environment variable:            '`TOWER_DATA_DATASET_VERSIONS_LIST_MAX_ALLOWED`'
+  Description: >
+    Maximum and default number of items returned in a single page when listing dataset versions.
+  Value:                'Default: `100`'
+-
   Environment variable:            '`TOWER_DATA_STUDIO_CONNECT_URL`'
   Description: >
     The URL of the Studios connect proxy. The connect proxy is used internally by Seqera Platform. See [Studios deployment](../install-studios).
@@ -56,13 +61,14 @@
   Environment variable:            '`TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_NAME_STRATEGY`'
   Description: >
     The custom image name strategy for Wave containers. See the [Wave documentation](https://docs.seqera.io/wave/configuration#container-registry) for available options.
-  Value:                'Default: `imageSuffix`'
+  Value:                'Default: `tagPrefix`'
 # TODO(26.1): default conflict between docs and platform manifest — needs Studios team confirmation
 -
   Environment variable:            '`TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY`'
   Description: >
     The custom image registry for Wave containers, used as the destination for Studio images that are customized with a conda environment.
-  Value:                'Default: `docker.io`'
+   The custom image registry for Wave containers, used as the destination for Studio images that are customized with a conda environment. When left null, defers to whatever Wave has configured as the default.
+ Value:                'Default: null'
 -
   Environment variable:            '`TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`'
   Description: >
@@ -89,6 +95,11 @@
   Description: >
     Enable SSH key management for Studios SSH connection functionality.
   Value:                'Default: false'
+-
+  Environment variable:            '`TOWER_SSH_KEYS_SUPPORTED_TYPES`'
+  Description: >
+    Comma-separated list of supported SSH public key types for user SSH key registration.
+  Value:                'Default: `ssh-rsa,ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521`'
 -
   Environment variable:            '`TOWER_DATA_STUDIO_CONNECT_SSH_KEY_FINGERPRINT`'
   Description: >
