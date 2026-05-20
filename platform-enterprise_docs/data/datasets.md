@@ -31,7 +31,7 @@ On the datasets screen, you can:
 
 ## Format
 
-The most commonly used datasets for Nextflow pipelines are samplesheets, where each row consists of a sample, the location of files for that sample (such as FASTQ files), and other sample details. For example, [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq) works with input datasets (samplesheets) containing sample names, FASTQ file locations, and indications of strandedness. The Seqera Community Showcase sample dataset for *nf-core/rnaseq* looks like this:
+The most commonly used datasets for Nextflow pipelines are sample sheets, where each row consists of a sample identifier, the location of the sample's files (e.g., FASTQ files), and other sample details. For example, [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq) works with input datasets (sample sheets) that include sample names, FASTQ file locations, and strandedness annotations. The Seqera Community Showcase sample dataset for *nf-core/rnaseq* looks like this:
 
 **Example rnaseq dataset**
 
