@@ -12,7 +12,7 @@
 -
   Environment variable:            '`TOWER_AUDIT_LOG_V2_PRE_POST_CHANGE_ENABLED`'
   Description: >
-    Enable capturing pre/post change state images for audit log target resources.
+    Enable capturing pre- and post-change state images for audit log target resources in air-gapped Enterprise deployments. In deployments that are not air-gapped this is enabled through License Manager.
   Value:                'Default: `false`'
 -
   Environment variable:            '`TOWER_CRON_AUDIT_LOG_CLEAN_UP_ENABLED`'
