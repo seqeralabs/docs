@@ -76,7 +76,7 @@ Data lineage is currently in public preview. It requires Nextflow 25.04 or later
 Configure where Nextflow lineage data are stored and whether lineage tracking is on by default for every run launched in the workspace.
 
 :::tip
-For compliance-driven teams (regulated industries, audit-tracked work), set **Enable lineage by default** to on so every pipeline run automatically captures provenance. Lineage records persist for the lifetime of the configured bucket, so coordinate with your team on retention policies.
+For compliance-driven teams (regulated industries, audit-tracked work), set **Enable lineage by default** to automatically capture provenance for every pipeline run. Lineage records persist for the lifetime of the configured bucket. Coordinate with your team on retention policies.
 :::
 
 Select **Manage** and then choose to enable lineage by default for all pipeline runs in the workspace. Configure the lineage settings manually or automatically.
