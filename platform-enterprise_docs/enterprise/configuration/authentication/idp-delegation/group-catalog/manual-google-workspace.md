@@ -25,7 +25,7 @@ Google Workspace identifies groups in OIDC tokens by the **group's primary email
 nextflow-admins@yourcompany.com
 ```
 
-The value is case-insensitive but must include the full domain. Seqera matches the user's `groups` claim against this value at login.
+The value is case-sensitive and must include the full domain. Seqera matches the user's `groups` claim against this value at login.
 
 ## Find a group's primary email
 
