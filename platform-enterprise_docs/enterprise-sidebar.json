@@ -95,9 +95,7 @@
                         },
                         "items": [
                           "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-okta",
-                          "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-entra-id",
-                          "enterprise/configuration/authentication/idp-delegation/group-catalog/manual-google-workspace",
-                          "enterprise/configuration/authentication/idp-delegation/group-catalog/manual-keycloak"
+                          "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-entra-id"
                         ]
                       },
                       "enterprise/configuration/authentication/idp-delegation/claim-mapping",
