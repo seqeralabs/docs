@@ -11,11 +11,6 @@
   Value:                'Example: `<workspace-id1>,<workspace-id2>`'
 # TODO(26.1): not in platform repo's ENVIRONMENT-VARIABLES.md — verify still valid
 -
-  Environment variable:            '`TOWER_DATA_EXPLORER_CREDENTIALS_TTL`'
-  Description: >
-    Data Explorer interval to fetch credentials from cloud providers for new buckets.
-  Value:                'Default: `20m`'
--
   Environment variable:            '`TOWER_DATA_EXPLORER_LINK_STORE_TTL`'
   Description: >
     Data Explorer cloud bucket cache duration.
