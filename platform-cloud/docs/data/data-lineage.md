@@ -42,7 +42,7 @@ Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the
 
 1. Nextflow appends lineage record objects (`*.data.json`) to the defined object storage bucket.
 1. The bucket is configured to filter for objects matching `.data.json` and sends object store notifications to the queue.
-1. SQS queue receives `s3:ObjectCreated:*` events
+1. SQS queue receives `s3:ObjectCreated:*` events.
 1. Platform reads the queue, returning the lineage objects created, and indexes them in the database.
 1. The index enriches the [run details][run-details]
 1. The index enriches the display of workflow-generated objects in Data Explorer with links to the origin pipeline run and task, sources of the object, and any lineage labels associated with the object.
