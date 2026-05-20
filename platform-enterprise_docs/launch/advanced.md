@@ -140,35 +140,21 @@ Replace Nextflow process commands with command [stubs](https://docs.seqera.io/ne
 
 ## Enable Nextflow syntax parser v2
 
-:::info
-The v2 parser is scheduled to become the **default** in Nextflow 26.04. Once that release is in use, this toggle has no effect and existing pipelines run with v2 regardless of the toggle's state.
-:::
+Use the new Nextflow language parser. Requires Nextflow 25.02.0-edge or later. Older runtimes ignore this setting.
 
-The v2 parser implements Nextflow's [strict syntax](https://nextflow.io/docs/latest/strict-syntax.html). Use the **Enable Nextflow syntax parser v2** toggle to select which Nextflow language parser is used at runtime. Existing pipelines continue to launch with v1. This toggle only selects the Nextflow language parser. It does not change the Nextflow runtime version, the pipeline source, or any pipeline parameters.
+The v2 parser implements Nextflow's [strict syntax](https://nextflow.io/docs/latest/strict-syntax.html). Platform exports `NXF_SYNTAX_PARSER` to the launch environment:
 
-- **Off (default)**: Workflows run with the v1 parser, which accepts the full Groovy syntax that Nextflow has historically supported. Platform exports `NXF_SYNTAX_PARSER=v1`.
+- **Off (default)**: Workflows run with the v1 parser. Platform exports `NXF_SYNTAX_PARSER=v1`.
 - **On**: Workflows run with the v2 parser. Platform exports `NXF_SYNTAX_PARSER=v2`.
 
-:::caution
-Test pipelines on a non-production run before enabling the parser. The [Nextflow strict syntax documentation](https://nextflow.io/docs/latest/strict-syntax.html) describes which constructs are accepted.
+v2 becomes the default parser in Nextflow 26.04.0:
+
+- **Before Nextflow 26.04.0**: Turn the toggle on to opt in to v2.
+- **From Nextflow 26.04.0**: v2 is the runtime default. Switch new pipelines on to match it, or turn the toggle off to pin a pipeline to v1.
+
+:::note
+The launch form inherits this setting from the pipeline. You can override it per launch without changing the stored value. Changing the toggle on the pipeline edit form creates a new pipeline version.
 :::
-
-### How the value resolves
-
-The launch form inherits its initial value from the pipeline. You can override it for a single run without changing the pipeline:
-
-| Pipeline toggle | Launch form toggle (default) | Launched workflow | Pipeline stored value after launch |
-|-----------------|------------------------------|-------------------|------------------------------------|
-| Off             | Off                          | v1                | Unchanged (off)                    |
-| On              | On (inherited)               | v2                | Unchanged (on)                     |
-| On              | Off (overridden at launch)   | v1                | Unchanged (on)                     |
-| Off             | On (overridden at launch)    | v2                | Unchanged (off)                    |
-
-Changing the toggle on the pipeline edit form creates a new pipeline version, the same way a change to **Pull latest** or **Stub run** does.
-
-### Nextflow version requirement
-
-The v2 parser is available in **Nextflow 25.02.0-edge and later**. To upgrade Nextflow for a compute environment, see [Pre and post-run scripts](#pre-and-post-run-scripts) for the `NXF_VER` pattern, or pin the version in the compute environment configuration.
 
 ## Main script
 
