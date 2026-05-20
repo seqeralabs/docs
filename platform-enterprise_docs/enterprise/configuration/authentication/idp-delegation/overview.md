@@ -7,7 +7,7 @@ tags: [sso, idp-delegation, teams, administration, enterprise]
 
 IdP delegation lets you map a Seqera team to a group in your identity provider (IdP). After you delegate a team, the IdP becomes the sole authority for membership: every time a user signs in through SSO, Seqera reads the `groups` claim from their token and updates the user's delegated-team memberships to match.
 
-IdP delegation requires an active SSO connection. To set up SSO before configuring delegation, see [Authentication](../overview).
+IdP delegation requires a working OIDC SSO connection. To set up SSO before configuring delegation, see [Authentication](../overview).
 
 ## How it works
 
