@@ -66,9 +66,8 @@
 -
   Environment variable:            '`TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY`'
   Description: >
-    The custom image registry for Wave containers, used as the destination for Studio images that are customized with a conda environment.
-   The custom image registry for Wave containers, used as the destination for Studio images that are customized with a conda environment. When left null, defers to whatever Wave has configured as the default.
- Value:                'Default: null'
+    The custom image registry for Wave containers, used as the destination for Studio images that are customized with a conda environment. When left null, defers to whatever Wave has configured as the default.
+  Value:                'Default: null'
 -
   Environment variable:            '`TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN`'
   Description: >
