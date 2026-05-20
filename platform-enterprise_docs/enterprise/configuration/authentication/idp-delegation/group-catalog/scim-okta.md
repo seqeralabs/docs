@@ -15,8 +15,8 @@ Configure Okta to push your organization's groups to Platform over SCIM 2.0. Onc
 
 ## Get the Seqera SCIM connection details
 
-1. In Seqera, open **Organization settings** and select **Manage single sign-on**, then **Group mapping**.
-2. Copy the **SCIM endpoint URL**. It has the form `https://<seqera-host>/orgs/<orgId>/scim/v2/Groups`.
+1. In Seqera, open **Organization settings > Group mapping**.
+2. Copy the **SCIM endpoint URL**. It has the form `https://<seqera-host>/api/orgs/<orgId>/scim/v2`.
 3. Select **Generate token** to issue a SCIM bearer token. Copy it immediately; you can't view it again after closing the dialog.
 
 :::caution
@@ -45,7 +45,7 @@ The bearer token grants write access to your group catalog. Store it in a secret
 
 1. Return to Platform's **Group mapping** panel.
 2. Refresh the page. The pushed Okta groups should appear in the catalog list within a few seconds.
-3. Open any team's edit form. The **IdP Group** drop-down menu is now populated with the synced groups.
+3. Open the group mapping page. The **IdP Group** drop-down menu is now populated with the synced groups.
 
 If groups don't appear, check the **Push Groups** status column in Okta for error details, and confirm that the **Provisioning** tab shows **Push Groups: ON**.
 

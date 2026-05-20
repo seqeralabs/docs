@@ -5,7 +5,7 @@ date: "2026-05-12"
 tags: [sso, scim, idp-delegation, administration, enterprise]
 ---
 
-Seqera maintains a per-organization catalog of identity provider (IdP) groups. The catalog populates the **IdP Group** dropdown on the team form, so organization owners can select a group when delegating a team. The catalog is independent of user activity and groups appear as soon as they're synced or entered, before any user has signed in.
+Seqera maintains a per-organization catalog of identity provider (IdP) groups. The catalog is independent of user activity and groups appear as soon as they're synced or entered, before any user has signed in.
 
 Use the table below to choose the path that fits your IdP.
 
@@ -13,9 +13,14 @@ Use the table below to choose the path that fits your IdP.
 |-----|------------------|-------------|
 | Okta | SCIM push | [SCIM provisioning with Okta](./scim-okta) |
 | Entra ID | SCIM push | [SCIM provisioning with Entra ID](./scim-entra-id) |
-| Google Workspace | Manual entry | [Manual entry for Google Workspace](./manual-google-workspace) |
-| Keycloak | Manual entry | [Manual entry for Keycloak](./manual-keycloak) |
-| Other | SCIM push if your IdP supports SCIM 2.0 group provisioning; otherwise manual entry. | — |
+
+:::info
+Other identity providers
+
+SCIM provisioning is officially supported with Okta and Microsoft Entra ID. Any OIDC or SAML identity provider can authenticate users through Auth0, but group membership won't sync automatically and lifecycle events (joiners, movers, leavers) need to be handled manually in Seqera.
+
+If you use Google Workspace, Keycloak, Ping, OneLogin, or another OIDC/SAML provider and want to delegate team membership, contact your Seqera account team to discuss your setup.
+:::
 
 ## SCIM push
 
@@ -23,10 +28,10 @@ If your IdP supports SCIM 2.0 group provisioning, Platform exposes a per-organiz
 
 To set up SCIM:
 
-1. Open **Organization settings** and select **Manage single sign-on**, then **Group mapping**.
+1. Open **Organization settings > Group mapping**.
 2. Copy the **SCIM endpoint URL** and the generated **bearer token**.
 3. Configure these values in your IdP's SCIM provisioning settings.
-4. Trigger an initial sync from the IdP.
+4. Trigger an initial sync from the IdP or wait until the IdP performs an scheduled sync.
 
 After the sync completes, the catalog displays every group your IdP shared, and the **IdP Group** drop-down menu on the team form is populated.
 
@@ -36,13 +41,14 @@ Treat the SCIM bearer token like a password. It grants write access to your orga
 
 ## Manual entry
 
-If your IdP doesn't support SCIM group sync, populate the catalog by entering group identifiers manually. The value to enter depends on your IdP. See the per-IdP guides for the format and where to find it.
+1. Open **Organization settings** and select **Group mapping**.
+2. Select **Add manual group**.
 
 To add a group manually:
 
-1. Open **Organization settings** and select **Manage single sign-on**, then **Group mapping**.
+To delete a manually-entered group, select **Delete** on its row. If any delegated team references the group, its members are immediately purged.
 2. Select **Add group manually**.
-3. Enter the group identifier exactly as it appears in your IdP's `groups` claim. The form links to per-IdP guidance.
+3. Enter the group identifier exactly as it appears in your IdP's `groups` claim.
 4. Select **Save**.
 
 To delete a manually-entered group, select **Delete** on its row. If any delegated team references the group, its members are immediately purged and a warning indicates that the team has lost its source of membership.

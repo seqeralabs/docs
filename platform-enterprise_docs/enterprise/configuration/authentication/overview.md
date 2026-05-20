@@ -163,6 +163,9 @@ tower:
 
 Seqera Platform Enterprise supports IdP-delegated teams: organization owners can map a Seqera team to an IdP group, after which the IdP becomes the sole authority for who belongs to that team. Memberships are evaluated on every SSO login.
 
+TOWER_IDP_CLAIMS_MAPPING_ENABLED=true (or tower.yml etc)
+
+
 For delegation to work, your IdP must:
 
 - Push or expose its group directory to Seqera. See [Manage your IdP group catalog](./idp-delegation/group-catalog/overview) for the SCIM 2.0 push and manual-entry options.

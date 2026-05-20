@@ -5,7 +5,7 @@ date: "2026-05-12"
 tags: [sso, idp-delegation, enterprise, administration]
 ---
 
-Cloud Pro tokens carry an `org_id` claim that scopes every IdP delegation evaluation to a single organization. Enterprise SSO tokens don't carry such a claim, so the platform routes by deployment topology and relies on a cross-organization uniqueness invariant on group display names.
+Cloud Pro tokens carry an `org_id` claim that scopes every IdP delegation evaluation to a single organization. Enterprise SSO tokens don't carry such a claim, so Platform routes by deployment topology and relies on a cross-organization uniqueness invariant on group display names.
 
 Read this page if your Enterprise instance hosts more than one organization, or you anticipate hosting more than one in the future.
 
@@ -14,15 +14,15 @@ Read this page if your Enterprise instance hosts more than one organization, or 
 | Topology | How users are routed | Group-name uniqueness |
 |----------|----------------------|------------------------|
 | **No SSO** | Not applicable. | Not applicable. |
-| **Single organization** | Trivially scoped to the single organization. | Not enforced — there is no second organization to collide with. |
-| **Multi-organization** | Evaluated against every organization the user is a member of. | **Enforced** — group display names must be unique across all organizations on the instance. |
+| **Single organization** | Trivially scoped to the single organization. | Not enforced; there is no second organization to collide with. |
+| **Multi-organization** | Evaluated against every organization the user is a member of. | **Enforced**. Group display names must be unique across all organizations on the instance. |
 
 ## The uniqueness invariant
 
 In a multi-organization Enterprise instance, when an administrator adds a group to the catalog (manually or through SCIM), Seqera checks the group's display name against every other organization's catalog on the instance. If another organization already has a row with the same display name, the operation fails:
 
-- **Manual add** — the form rejects the value with a `409 Conflict` and a message naming the conflicting organization.
-- **SCIM push** — the SCIM endpoint returns `409 Conflict` for that group. The IdP's provisioning agent retries and surfaces the error in its administrator console.
+- **Manual add**: The form rejects the value with a `409 Conflict` and a message naming the conflicting organization.
+- **SCIM push**: The SCIM endpoint returns `409 Conflict` for that group. The IdP's provisioning agent retries and surfaces the error in its administrator console.
 
 This is the mechanism that lets Seqera resolve a `groups` claim back to a specific organization's catalog at login. Without it, two organizations could both have a group called `engineering` and Seqera couldn't determine which delegation rules to apply.
 

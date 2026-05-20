@@ -15,7 +15,7 @@ Delegation has three components that you configure once per organization.
 
 ### 1. The IdP group catalog
 
-Seqera maintains a per-organization catalog of IdP groups. The catalog populates the **IdP Group** dropdown on the team form, so organization owners can select an IdP group when delegating a team. Groups appear in the catalog as soon as they're synced or entered — before any user has signed in.
+Seqera maintains a per-organization catalog of IdP groups. The catalog populates the **IdP Group** drop-down menu on the group mapping page, so organization owners can select an IdP group when delegating a team. Groups appear in the catalog as soon as they're synced or entered — before any user has signed in.
 
 The catalog is populated in one of two ways:
 
@@ -39,7 +39,7 @@ When an organization owner sets the **IdP Group** field on a team, the team beco
 - Blocks team deletion until the field is cleared.
 - Leaves the team's name, description, avatar, and workspace assignments editable.
 
-The same IdP group can be assigned to more than one team. Each team can reference exactly one IdP group. See [Delegate a Team to an IdP group](../../../../orgs-and-teams/teams#delegate-a-team-to-an-idp-group).
+The same IdP group can only be assigned to a single team. Each team can reference exactly one IdP group. See [Delegate a Team to an IdP group](../../../../orgs-and-teams/teams#delegate-a-team-to-an-idp-group).
 
 ## What happens at login
 

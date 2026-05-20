@@ -15,7 +15,7 @@ Configure Microsoft Entra ID (formerly Azure AD) to push your tenant's groups to
 
 ## Get the Seqera SCIM connection details
 
-1. In Seqera, open **Organization settings** and select **Manage single sign-on**, then **Group mapping**.
+1. In Seqera, open **Organization settings > Group mapping**.
 2. Copy the **SCIM endpoint URL** — it has the form `https://<seqera-host>/orgs/<orgId>/scim/v2`.
 3. Select **Generate token** to issue a SCIM bearer token. Copy it immediately; you can't view it again after closing the dialog.
 
@@ -59,7 +59,7 @@ Pick one approach for your tenant and use it consistently. The GUID and the disp
 
 1. Return to Platform's **Group mapping** panel.
 2. Refresh the page. The assigned Entra ID groups should appear in the catalog list after the first provisioning cycle.
-3. Open any team's edit form. The **IdP Group** drop-down menu is now populated with the synced groups.
+3. Open the group mapping panel. The **IdP Group** drop-down menu is now populated with the synced groups.
 
 If groups don't appear, open the **Provisioning logs** for the application in Entra ID and review any failed actions.
 
