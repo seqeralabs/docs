@@ -31,7 +31,7 @@ To set up SCIM:
 After the sync completes, the catalog displays every group your IdP shared, and the **IdP Group** drop-down menu on the team form is populated.
 
 :::caution
-Treat the SCIM bearer token like a password. It grants write access to your organization's group catalog. If the token is compromised, rotate it immediately using **Generate new token** in the **Group mapping** panel. The previous token is revoked atomically.
+Treat the SCIM bearer token like a password. It grants write access to your organization's group catalog. If the token is compromised, rotate it immediately using **Rotate** in the **Group mapping** panel. The previous token is revoked atomically.
 :::
 
 ## Manual entry
