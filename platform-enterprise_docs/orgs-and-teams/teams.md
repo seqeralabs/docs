@@ -34,7 +34,7 @@ The same surface is used to delete a team. The **Delete** action is disabled for
 
 ## Delegate a Team to an IdP group
 
-Organizations with an active SSO connection can delegate team membership to an identity provider (IdP) group. Once a team is delegated, the IdP becomes the sole authority for who belongs — Seqera evaluates each user's IdP claims at every SSO login and adjusts membership automatically.
+Organizations with an active OIDC SSO connection can delegate team membership to an identity provider (IdP) group. Once a team is delegated, the IdP becomes the sole authority for who belongs. Platform evaluates each user's IdP claims at every login and adjusts membership automatically.
 
 For the runtime model behind delegation, see [IdP delegation overview](../enterprise/configuration/authentication/idp-delegation/overview).
 
