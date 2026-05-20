@@ -37,12 +37,13 @@ The value is case-insensitive but must include the full domain. Seqera matches t
 ## Add the group to Seqera
 
 1. In Seqera, open **Organization settings** and select **Manage single sign-on**, then **Group mapping**.
-2. Select **Add group manually**.
-3. In **Group identifier**, paste the group's email address.
+2. Select **Add manual group**.
+3. In **Group name**, paste the group's email address.
 4. (Optional) In **Display name**, enter a human-friendly label for the group. This appears in the **IdP Group** dropdown on the team form.
-5. Select **Save**.
+6. (Optional) Select a Linked team
+7. Select **Add**.
 
-The group now appears in the catalog and in the **IdP Group** dropdown menu on the team form. To delegate a team to this group, see [Delegate a Team to an IdP group](../../../../../orgs-and-teams/teams#delegate-a-team-to-an-idp-group).
+The group now appears in the catalog. To delegate a team to this group, see [Delegate a Team to an IdP group](../../../../../orgs-and-teams/teams#delegate-a-team-to-an-idp-group).
 
 ## Verify the value at login
 
