@@ -14,14 +14,14 @@ This page outlines the steps to upgrade your database instance and Platform Ente
 - Ensure that no pipelines are in a running state during this upgrade as active run data may be lost.
 :::
 
-## Considerations for versions prior to 24.1
+## Upgrading from versions prior to 24.1
 
 - If you are upgrading from a version older than 23.4.1, update your installation to version 23.4.4 **first**, before updating to version 26.1 with the steps on this page.
 - **MySQL 8 required**
 
   From Seqera Enterprise version 23.4, MySQL 8 was the only supported database version. If you are running MySQL 5.6 or 5.7, you must upgrade your database to a supported MySQL version (see the [26.1 database considerations below](#database-changes) for the new baseline) before upgrading.
 
-## Considerations for versions 24.1 - 25.1
+## Upgrading from versions 24.1 - 25.1
 
 - **OIDC Secrets injection modifications**
 
@@ -52,7 +52,9 @@ This page outlines the steps to upgrade your database instance and Platform Ente
 
   Enterprise deployments that have customized this value previously will need to adopt the new format.
 
-## Considerations for version 25.3
+## Upgrading from version 25.3.x to 26.1
+
+You can upgrade directly from 25.3.x to 26.1. However, take note of the breaking changes as well as the upgrade steps in this document.
 
 - **Secret key rotation requires backup and careful configuration**
 
@@ -62,11 +64,9 @@ This page outlines the steps to upgrade your database instance and Platform Ente
   - All backend pods or containers for your Enterprise deployment must contain the same previous and new secret key values in their configuration.
   - All backend pods or containers must be in a ready/running state before starting the Platform cron service.
 
-## Version 26.1 upgrade considerations
+## 26.1 upgrade breaking changes 
 
-### Breaking changes
-
-#### Audit log versions in 26.1
+### Audit log versions in 26.1
 
 Seqera Platform Enterprise 26.1 introduces the audit log v2 schema as a **breaking change** for direct database consumers and custom ETL jobs.
 
@@ -81,7 +81,7 @@ Use `TOWER_AUDIT_LOG_V2_WRITE_MODE` to control how new audit events are written:
 - `dual`: Write new events to both `tw_audit_log` and `tw_audit_log_v2`. This is the recommended 26.1 migration mode if you need to validate the v2 schema while keeping existing v1 integrations unchanged.
 - `v2`: Write new events to `tw_audit_log_v2` only.
 
-##### Upgrade path for existing integrations
+#### Upgrade path for existing integrations
 
 If you have existing scripts, exports, or ETL processes that read from the legacy audit log schema, plan the 26.1 upgrade in two stages:
 
@@ -90,7 +90,7 @@ If you have existing scripts, exports, or ETL processes that read from the legac
 
 In the 26.1 migration plan, dual-write is transitional. Plan for 26.2 to make v2 the only write-side schema, while the legacy v1 data remains available for reads as long as your retention policy still covers the required historical period.
 
-### Database changes
+## Database changes
 
 26.1 changes the supported database baseline. Review your current database against the table below **before upgrading**.
 
@@ -105,7 +105,7 @@ In the 26.1 migration plan, dual-write is transitional. Plan for 26.2 to make v2
 
 If you are running on MySQL 5.7, MySQL 8.0, or MariaDB, complete your database migration **before** running the 26.1 application upgrade. The Seqera-supplied `migrate-db` container will not run against an unsupported database version.
 
-### Cache layer changes: Redis EoL and Valkey support
+## Cache layer changes: Redis EoL and Valkey support
 
 26.1 introduces Valkey support and tightens Redis version requirements.
 
@@ -120,7 +120,7 @@ If you are running on MySQL 5.7, MySQL 8.0, or MariaDB, complete your database m
 | Valkey 7.x | Newly supported in 26.1 | Optional migration path from Redis |
 | Valkey 8.x | Supported | Optional migration path from Redis |
 
-#### Migrating from Redis to Valkey
+### Migrating from Redis to Valkey
 
 To migrate from Redis to Valkey, update the `TOWER_REDIS_URL` connection scheme to use `valkey://` (or `valkeyss://` for TLS). The Redisson client embedded in Platform 26.1 has been upgraded to support Valkey 7 and 8 dial schemes; no further configuration is required.
 
@@ -128,14 +128,14 @@ To migrate from Redis to Valkey, update the `TOWER_REDIS_URL` connection scheme 
 Redis password and ACL configuration carry over unchanged when migrating to Valkey.
 :::
 
-### Frontend image root user deprecation
+## Frontend image root user deprecation
 
 The frontend image running as root user is deprecated in 26.1 in favor of the unprivileged ("rootless") image. The privileged image running as root will be removed in a future major release. If you have not already migrated, update your [Kubernetes](../enterprise/platform-kubernetes) or [Docker Compose](../enterprise/platform-docker) manifests to reference the unprivileged image when downloading the new templates in the General upgrade steps below.
 
 See the [unprivileged frontend image documentation](../enterprise/platform-kubernetes#seqera-frontend-unprivileged) for security context, file system, and port differences.
 The unprivileged image is a requirement for the installation via the [Helm chart](../enterprise/platform-helm).
 
-### Studios enabled on all workspaces by default
+## Studios enabled on all workspaces by default
 
 In 26.1, Studios is enabled on every workspace in your instance by default. This is a behavior change from earlier versions where Studios required explicit per-workspace enablement.
 
@@ -149,15 +149,15 @@ The [`TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`](./configuration/overview#data-featu
 
 To preserve previous opt-in behaviour after upgrading, set `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES=""` before the upgrade, or set it to a comma-separated list of workspace IDs to allow.
 
-#### Studios container template version
+### Studios container template version
 
 The recommended Studios container template version for 26.1 is **0.12**. If you have customized your Studios container templates, update them to the 0.12 base images during this upgrade. Templates pinned to earlier Connect versions may no longer be supported. See the [Studios migration documentation](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
 
-### AWS data lineage tracking via SQS (preview, AWS only)
+## AWS data lineage tracking via SQS (preview, AWS only)
 
 26.1 introduces a preview of AWS data lineage tracking that depends on an Amazon SQS queue. This feature is AWS-only and disabled by default. If you plan to enable it, ensure your IAM policies grant the Seqera role the relevant [SQS permissions](../data/data-lineage#additional-iam-permissions-required) in addition to the existing [Seqera IAM permissions](../compute-envs/aws-batch#iam-user-creation).
 
-### General upgrade steps
+## General upgrade steps
 
 :::caution
 The database volume is persistent on the local machine by default if you use the `volumes` key in the `db` or `redis` section of your `docker-compose.yml` file to specify a local path to the DB or Redis instance. If your database is not persistent, you must back up your database before performing any application or database upgrades.
