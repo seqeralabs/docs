@@ -1,7 +1,8 @@
 ---
 title: "Authentication"
 description: Configure authentication and identity providers for Seqera Platform
-date: "2026-01-27"
+date created: "2026-01-27"
+last updated: "2026-05-20"
 tags: [authentication, configuration, sso, oidc]
 ---
 
@@ -163,8 +164,11 @@ tower:
 
 Seqera Platform Enterprise supports IdP-delegated teams: organization owners can map a Seqera team to an IdP group, after which the IdP becomes the sole authority for who belongs to that team. Memberships are evaluated on every SSO login.
 
-TOWER_IDP_CLAIMS_MAPPING_ENABLED=true (or tower.yml etc)
+**Environment variable**
 
+```env
+TOWER_IDP_CLAIMS_MAPPING_ENABLED=true
+```
 
 For delegation to work, your IdP must:
 
