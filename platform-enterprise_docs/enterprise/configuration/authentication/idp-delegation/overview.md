@@ -39,17 +39,11 @@ When an organization owner sets the **IdP Group** field on a team, the team beco
 - Blocks team deletion until the field is cleared.
 - Leaves the team's name, description, avatar, and workspace assignments editable.
 
-The same IdP group can only be assigned to a single team. Each team can reference exactly one IdP group. See [Delegate a Team to an IdP group](../../../../orgs-and-teams/teams#delegate-a-team-to-an-idp-group).
+The same IdP group can only be assigned to a single team. Each team can reference exactly one IdP group. See [Delegate a team to an IdP group](../../../../orgs-and-teams/teams#delegate-a-team-to-an-idp-group).
 
 When a user logs in via SSO, Seqera evaluates their group claims and adds them to any delegated teams that match. The user must already exist in the Platform, but does not need to be a member of the organization that owns the team. 
 
-:::info Multi-organization deployments
-In deployments with more than one organization, a user does not need to be an existing member of an organization to be added to a delegated team in that organization. When their IdP group claim matches a delegated team, the user is added to both the team and its owning organization automatically.
-:::
-
-When a user logs in via SSO, Seqera evaluates their group claims and adds them to any delegated teams that match. The user must already exist in the Platform, but does not need to be a member of the organization that owns the team. 
-
-:::info Multi-organization deployments
+:::info
 In deployments with more than one organization, a user does not need to be an existing member of an organization to be added to a delegated team in that organization. When their IdP group claim matches a delegated team, the user is added to both the team and its owning organization automatically.
 :::
 
