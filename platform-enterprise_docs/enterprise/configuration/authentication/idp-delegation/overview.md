@@ -47,6 +47,12 @@ When a user logs in via SSO, Seqera evaluates their group claims and adds them t
 In deployments with more than one organization, a user does not need to be an existing member of an organization to be added to a delegated team in that organization. When their IdP group claim matches a delegated team, the user is added to both the team and its owning organization automatically.
 :::
 
+When a user logs in via SSO, Seqera evaluates their group claims and adds them to any delegated teams that match. The user must already exist in the Platform, but does not need to be a member of the organization that owns the team. 
+
+:::info Multi-organization deployments
+In deployments with more than one organization, a user does not need to be an existing member of an organization to be added to a delegated team in that organization. When their IdP group claim matches a delegated team, the user is added to both the team and its owning organization automatically.
+:::
+
 ## What happens at login
 
 On every SSO login, Seqera evaluates each delegated team in your organization against the user's `groups` claim:
