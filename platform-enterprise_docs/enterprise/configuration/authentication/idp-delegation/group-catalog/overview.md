@@ -41,20 +41,17 @@ Treat the SCIM bearer token like a password. It grants write access to your orga
 
 ## Manual entry
 
-1. Open **Organization settings** and select **Group mapping**.
-2. Select **Add manual group**.
-
 To add a group manually:
 
-To delete a manually-entered group, select **Delete** on its row. If any delegated team references the group, its members are immediately purged.
-2. Select **Add manual group**.
+1. Open **Organization settings** and select **Group mapping**.
+2. Select **Add group manually**.
 3. Enter the group identifier exactly as it appears in your IdP's `groups` claim.
 4. Select **Save**.
 
-To delete a manually-entered group, select **Delete** on its row. If any delegated team references the group, its members are immediately purged and a warning indicates that the team has lost its source of membership.
+To delete a manually-entered group, select **Delete** on its row. If any delegated team references the group, its members are immediately purged.
 
 :::info
-A manually-entered group is automatically promoted to SCIM-managed if your IdP later pushes the same group via SCIM. The promotion happens in place; the catalog row is reused, and any delegated teams that reference it continue to work without interruption. After promotion, the row's lifecycle is fully driven by SCIM, and the manual **Delete** action is no longer available; the row is removed when your IdP issues a SCIM `DELETE`.
+A manually-entered group is automatically promoted to SCIM-managed if your IdP later pushes the same group via SCIM. The promotion happens in place. The catalog row is reused, and any delegated teams that reference it continue to work without interruption. After promotion, the row's lifecycle is fully driven by SCIM, and the manual **Delete** action is no longer available. The row is removed when your IdP issues a SCIM `DELETE`.
 :::
 
 ## Remove catalog entry
