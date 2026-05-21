@@ -22,7 +22,7 @@ Read this page if your Enterprise instance hosts more than one organization, or 
 In a multi-organization Enterprise instance, when an administrator adds a group to the catalog (manually or through SCIM), Seqera checks the group's display name against every other organization's catalog on the instance. If another organization already has a row with the same display name, the operation fails:
 
 - **Manual add**: The form rejects the value with a `409 Conflict` and a message naming the conflicting organization.
-- **SCIM push**: The SCIM endpoint returns `409 Conflict` for that group. The IdP's provisioning agent retries and surfaces the error in its administrator console.
+- **SCIM push**: Platform's SCIM endpoint returns `409 Conflict` for that group. The IdP's provisioning agent retries and surfaces the error in its administrator console.
 
 This is the mechanism that lets Seqera resolve a `groups` claim back to a specific organization's catalog at login. Without it, two organizations could both have a group called `engineering` and Seqera couldn't determine which delegation rules to apply.
 
