@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@docusaurus/faster": "^3.9.2",
-    "@rspack/core": "^1.4.11",
+    "@rspack/core": "^2.0.0",
     "@seqera/docusaurus-preset-seqera": "^1.0.38",
     "image-size": "^2.0.2",
     "postcss-import": "^16.1.1",
