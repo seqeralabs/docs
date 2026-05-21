@@ -57,7 +57,7 @@ On every SSO login, Seqera evaluates each delegated team in your organization ag
 
 Manual assignments to non-delegated teams are never touched by this evaluation. Users added manually to a team with no **IdP Group** value keep their membership regardless of their IdP claims.
 
-If the user's token has no `groups` claim or the claim is malformed, Seqera treats it as no group memberships and revokes any delegation-driven team memberships the user previously had.
+If the user's token has no `groups` claim or the claim is malformed, no changes take place.
 
 ## Multi-organization deployments
 
