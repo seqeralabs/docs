@@ -8,6 +8,11 @@ toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
 
+import CodeBlock from '@theme/CodeBlock';
+import Button from '@site/src/components/Button';
+import AwsCloudFullPolicy from './_policies/aws-cloud-full-policy.json?raw';
+import AwsCloudIntelligentComputePolicy from './_policies/aws-cloud-intelligent-compute-policy.json?raw';
+
 :::note
 This compute environment type is currently in public preview. Please consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have an AWS account with a valid AWS subscription.
 :::
@@ -97,128 +102,11 @@ A permissive and broad policy with all the required permissions is provided here
 <details>
 <summary>Full permissive policy (for reference)</summary>
 
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "AwsCloudCreate",
-      "Effect": "Allow",
-      "Action": [
-        "iam:CreateRole",
-        "iam:AddRoleToInstanceProfile",
-        "iam:CreateInstanceProfile",
-        "iam:AttachRolePolicy",
-        "iam:PutRolePolicy",
-        "iam:TagRole",
-        "iam:TagInstanceProfile"
-      ],
-      "Resource": [
-        "arn:aws:iam::*:role/TowerForge-*",
-        "arn:aws:iam::*:instance-profile/TowerForge-*"
-      ]
-    },
-    {
-      "Sid": "AwsCloudCreatePassRole",
-      "Effect": "Allow",
-      "Action": [
-        "iam:PassRole"
-      ],
-      "Resource": "arn:aws:iam::*:role/TowerForge-*"
-    },
-    {
-      "Sid": "AwsCloudLaunchEC2",
-      "Effect": "Allow",
-      "Action": [
-        "ec2:CreateTags",
-        "ec2:DeleteTags",
-        "ec2:DescribeInstances",
-        "ec2:RunInstances",
-        "ec2:TerminateInstances"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "AwsCloudLaunchLogs",
-      "Effect": "Allow",
-      "Action": [
-        "logs:GetLogEvents"
-      ],
-      "Resource": "arn:aws:logs:*:*:log-group:*:log-stream:*"
-    },
-    {
-      "Sid": "AwsCloudLaunchS3",
-      "Effect": "Allow",
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "AwsCloudDelete",
-      "Effect": "Allow",
-      "Action": [
-        "iam:GetRole",
-        "iam:ListAttachedRolePolicies",
-        "iam:ListRolePolicies",
-        "iam:DeleteRole",
-        "iam:DeleteInstanceProfile",
-        "iam:RemoveRoleFromInstanceProfile",
-        "iam:DetachRolePolicy",
-        "iam:DeleteRolePolicy"
-      ],
-      "Resource": [
-        "arn:aws:iam::*:role/TowerForge-*",
-        "arn:aws:iam::*:instance-profile/TowerForge-*"
-      ]
-    },
-    {
-      "Sid": "AwsCloudRead",
-      "Effect": "Allow",
-      "Action": [
-        "ec2:DescribeInstanceTypes",
-        "ec2:DescribeKeyPairs",
-        "ec2:DescribeVpcs",
-        "ec2:DescribeImages",
-        "ec2:DescribeSubnets",
-        "ec2:DescribeSecurityGroups",
-        "s3:ListAllMyBuckets"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "AwsCloudUserdataCheck",
-      "Effect": "Allow",
-      "Action": [
-        "ec2:GetConsoleOutput"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "OptionalLineageIntegrationSQSAndS3",
-      "Effect": "Allow",
-      "Action": [
-        "sqs:CreateQueue",
-        "sqs:GetQueueAttributes",
-        "sqs:SetQueueAttributes",
-        "sqs:GetQueueUrl",
-        "sqs:ReceiveMessage",
-        "sqs:DeleteMessage",
-        "s3:CreateBucket",
-        "s3:GetBucketNotificationConfiguration",
-        "s3:PutBucketNotificationConfiguration",
-        "s3:GetBucketLocation"
-      ],
-      "Resource": [
-        "arn:aws:sqs:*:*:seqera-lineage-*",
-        "arn:aws:s3:::seqera-lineage-*"
-      ]
-    }
-  ]
-}
-```
+<CodeBlock language="json">{AwsCloudFullPolicy}</CodeBlock>
 
 </details>
+
+<Button to="./_policies/aws-cloud-full-policy.json" medium>Download aws-cloud-full-policy.json</Button>
 
 #### Compute environment creation
 
@@ -412,197 +300,7 @@ The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The 
 <details>
 <summary>Seqera Intelligent Compute policy</summary>
 
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "ECSScopedOperations",
-      "Effect": "Allow",
-      "Action": [
-        "ecs:CreateCluster",
-        "ecs:DeleteCluster",
-        "ecs:DescribeClusters",
-        "ecs:PutClusterCapacityProviders",
-        "ecs:CreateCapacityProvider",
-        "ecs:DeleteCapacityProvider",
-        "ecs:DescribeCapacityProviders",
-        "ecs:RunTask",
-        "ecs:StopTask",
-        "ecs:DescribeTasks",
-        "ecs:DescribeContainerInstances",
-        "ecs:TagResource"
-      ],
-      "Resource": "arn:aws:ecs:*:*:*/seqera-sched-*"
-    },
-    {
-      "Sid": "ECSUnscopedOperations",
-      "Effect": "Allow",
-      "Action": [
-        "ecs:RegisterTaskDefinition",
-        "ecs:DeregisterTaskDefinition",
-        "ecs:DescribeTaskDefinition",
-        "ecs:ListTaskDefinitions",
-        "ecs:ListTaskDefinitionFamilies",
-        "ecs:ListTasks"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "IAMRoleManagement",
-      "Effect": "Allow",
-      "Action": [
-        "iam:CreateRole",
-        "iam:GetRole",
-        "iam:DeleteRole",
-        "iam:PutRolePolicy",
-        "iam:DeleteRolePolicy",
-        "iam:ListRolePolicies",
-        "iam:AttachRolePolicy",
-        "iam:DetachRolePolicy",
-        "iam:ListAttachedRolePolicies",
-        "iam:CreateInstanceProfile",
-        "iam:GetInstanceProfile",
-        "iam:AddRoleToInstanceProfile",
-        "iam:ListInstanceProfilesForRole",
-        "iam:RemoveRoleFromInstanceProfile",
-        "iam:DeleteInstanceProfile"
-      ],
-      "Resource": [
-        "arn:aws:iam::*:role/seqera-sched-*",
-        "arn:aws:iam::*:instance-profile/seqera-sched-*"
-      ]
-    },
-	{
-	  "Sid": "PassRoleToECS",
-	  "Effect": "Allow",
-	  "Action": "iam:PassRole",
-	  "Resource": [
-	    "arn:aws:iam::*:role/seqera-sched-*",
-	    "arn:aws:iam::*:role/TowerForge-*"
-	  ],
-	  "Condition": {
-	    "StringEquals": {
-	      "iam:PassedToService": [
-	        "ecs-tasks.amazonaws.com",
-	        "ecs.amazonaws.com",
-	        "ec2.amazonaws.com"
-	      ]
-	    }
-	  }
-	},
-    {
-      "Sid": "ServiceLinkedRoles",
-      "Effect": "Allow",
-      "Action": "iam:CreateServiceLinkedRole",
-      "Resource": "arn:aws:iam::*:role/aws-service-role/*",
-      "Condition": {
-        "StringEquals": {
-          "iam:AWSServiceName": [
-            "ecs.amazonaws.com",
-            "ecs-compute.amazonaws.com",
-            "autoscaling.amazonaws.com",
-            "spot.amazonaws.com"
-          ]
-        }
-      }
-    },
-    {
-      "Sid": "CloudWatchLogs",
-      "Effect": "Allow",
-      "Action": [
-        "logs:CreateLogGroup",
-        "logs:DeleteLogGroup",
-        "logs:PutRetentionPolicy",
-        "logs:DescribeLogStreams",
-        "logs:GetLogEvents",
-        "logs:TagResource"
-      ],
-      "Resource": "arn:aws:logs:*:*:log-group:/seqera/sched*"
-    },
-    {
-      "Sid": "EC2NetworkDiscovery",
-      "Effect": "Allow",
-      "Action": [
-      "Action": [
-       "ec2:DescribeImages",
-        "ec2:DescribeVpcs",
-        "ec2:DescribeSubnets",
-        "ec2:DescribeSecurityGroups",
-        "ec2:DescribeRouteTables",
-        "ec2:DescribeVpcEndpoints",
-        "ec2:DescribeInstances",
-        "ec2:CreateSecurityGroup",
-        "ec2:CreateVpcEndpoint",
-        "ec2:AuthorizeSecurityGroupEgress",
-        "ec2:CreateTags"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "ECRAccess",
-      "Effect": "Allow",
-      "Action": [
-        "ecr:GetAuthorizationToken",
-        "ecr:BatchCheckLayerAvailability",
-        "ecr:GetDownloadUrlForLayer",
-        "ecr:BatchGetImage"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "S3Access",
-      "Effect": "Allow",
-      "Action": [
-        "s3:GetObject",
-        "s3:ListBucket",
-        "s3:ListAllMyBuckets"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "ASGEC2Operations",
-      "Effect": "Allow",
-      "Action": [
-        "ec2:DescribeInstanceTypes",
-        "ec2:CreateLaunchTemplate",
-        "ec2:DeleteLaunchTemplate",
-        "ec2:RunInstances"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "ASGManagement",
-      "Effect": "Allow",
-      "Action": [
-        "autoscaling:CreateAutoScalingGroup",
-        "autoscaling:UpdateAutoScalingGroup",
-        "autoscaling:DeleteAutoScalingGroup",
-        "autoscaling:CreateOrUpdateTags"
-      ],
-      "Resource": "arn:aws:autoscaling:*:*:*/seqera-sched-*"
-    },
-    {
-      "Sid": "ASGDescribe",
-      "Effect": "Allow",
-      "Action": "autoscaling:DescribeAutoScalingGroups",
-      "Resource": "*"
-    },
-    {
-      "Sid": "SSMECSOptimizedAmi",
-      "Effect": "Allow",
-      "Action": "ssm:GetParameter",
-      "Resource": "arn:aws:ssm:*:*:parameter/aws/service/ecs/optimized-ami/*"
-    },
-    {
-      "Sid": "CostExplorer",
-      "Effect": "Allow",
-      "Action": "ce:GetCostAndUsage",
-      "Resource": "*"
-    }
-  ]
-}
-```
+<CodeBlock language="json">{AwsCloudIntelligentComputePolicy}</CodeBlock>
 
 Some statements in the policy above are conditional and can be omitted depending on your deployment:
 
@@ -611,6 +309,8 @@ Some statements in the policy above are conditional and can be omitted depending
 - The `CostExplorer` statement is required only if you enable Cost Analysis.
 
 </details>
+
+<Button to="./_policies/aws-cloud-intelligent-compute-policy.json" medium>Download aws-cloud-intelligent-compute-policy.json</Button>
 
 ### Create the IAM policy
 

@@ -5,6 +5,10 @@ date: "2026-02-04"
 tags: [eks, amazon, compute environment, ce]
 ---
 
+import CodeBlock from '@theme/CodeBlock';
+import Button from '@site/src/components/Button';
+import EksFullPolicy from './_policies/eks-full-policy.json?raw';
+
 [Amazon EKS](https://aws.amazon.com/eks/) provides managed Kubernetes clusters that enable the execution of containerized workloads at scale. Seqera Platform offers native support for Amazon EKS clusters as Compute Environments for Nextflow pipelines.
 
 ## Requirements
@@ -31,36 +35,11 @@ A permissive and broad policy with all the required permissions is provided here
 <details>
 <summary>Full permissive policy (for reference)</summary>
 
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "EKSClusterAccessCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "eks:DescribeCluster",
-        "eks:ListClusters"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "OptionalS3PlatformDataAccessCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "s3:Get*",
-        "s3:List*",
-        "s3:PutObject",
-        "s3:PutObjectTagging",
-        "s3:DeleteObject"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-```
+<CodeBlock language="json">{EksFullPolicy}</CodeBlock>
 
 </details>
+
+<Button to="./_policies/eks-full-policy.json" medium>Download eks-full-policy.json</Button>
 
 ### EKS cluster access
 
