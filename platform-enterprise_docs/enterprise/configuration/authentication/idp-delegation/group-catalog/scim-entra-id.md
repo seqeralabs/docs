@@ -15,9 +15,9 @@ You will need the following to get started:
 - Administrator access to your Entra ID tenant with permission to manage application provisioning.
 :::
 
-## Get the Seqera SCIM connection details
+## Get the Platform SCIM connection details
 
-1. In Seqera, open **Organization settings > Group mapping**.
+1. In Platform, open **Organization settings > Group mapping**.
 2. Copy the **SCIM endpoint URL**. It has the form `https://<seqera-host>/orgs/<orgId>/scim/v2`.
 3. Select **Generate token** to issue a SCIM bearer token. Copy your bearer token immediately. You can't view it again after closing the dialog.
 
@@ -59,7 +59,7 @@ Pick one approach for your tenant and use it consistently. The GUID and the disp
 
 ## Verify in Platform
 
-1. Open **Organization settings** and select **Group mapping** panel.
+1. In Platform, open **Organization settings > Group mapping**.
 2. The assigned Entra ID groups should appear in the catalog list after the first provisioning cycle.
 3. Open the group mapping panel. The **IdP Group** drop-down menu is now populated with the synced groups.
 
