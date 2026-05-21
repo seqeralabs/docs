@@ -5,7 +5,7 @@ date: "2026-05-12"
 tags: [sso, scim, idp-delegation, administration, enterprise]
 ---
 
-Seqera maintains a per-organization catalog of identity provider (IdP) groups. The catalog is independent of user activity and groups appear as soon as they're synced or entered, before any user has signed in.
+Seqera maintains a per-organization catalog of identity provider (IdP) groups. Groups appear in the catalog as soon as they're synced from the IdP or added manually. They don't depend on any user having signed in.
 
 Use the table below to choose the path that fits your IdP.
 
