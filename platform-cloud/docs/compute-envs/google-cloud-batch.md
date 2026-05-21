@@ -110,7 +110,7 @@ Setting up WIF requires the following steps in the GCP Console:
 2. Set Seqera as an OIDC provider within the pool. Set the Issuer URL to `https://cloud.seqera.io/api`.
 3. Set the **Allowed audiences**. If left empty, GCP derives a default audience from the provider resource path in the format `//iam.googleapis.com/projects/{PROJECT}/locations/global/workloadIden
   tityPools/{POOL}/providers/{PROVIDER}`. If you specify a custom value, it must match exactly what you enter in the Token audience field when creating the Google WIF credential in Seqera.
-4. Define an attribute mapping and condition. At a minimum set `google.subject=assertion.sub`. This maps the subject claim from Seqera's JWT to GCP's identity space. For more information see [here](https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-providers#mappings-and-conditions). **N.B**: You may see a pop-up asking to configure your application and provide an OIDC ID token path. This pop-up can be dismissed. 
+4. Define an attribute mapping and condition. At a minimum set `google.subject=assertion.sub`. This maps the subject claim from Seqera's JWT to GCP's identity space. For more information see [here](https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-providers#mappings-and-conditions). You may see a pop-up asking to configure your application and provide an OIDC ID token path. This pop-up can be dismissed. 
 5. Grant `roles/iam.workloadIdentityUser` on the service account that WIF will impersonate to the Workload Identity Pool principal. This can be set for all pool identities or for a specific workspace. If you have not yet created a service account do so following the guidelines above.
 
 After setting up WIF in the GCP Console, you need the following information to create a credential in Seqera Platform:
@@ -122,10 +122,10 @@ After setting up WIF in the GCP Console, you need the following information to c
 :::caution
 If WIF authentication fails at runtime, verify that:
 
-- The service account has the required roles (see [Service account permissions](#service-account-permissions))
-- The Workload Identity Pool principal has `roles/iam.workloadIdentityUser` on the service account
-- The Issuer URL configured in the WIF provider matches Platform's URL
-- The Token Audience in the credential (if set) matches the Allowed Audiences in the WIF provider
+- The service account has the required roles (see [Service account permissions](#service-account-permissions)).
+- The Workload Identity Pool principal has `roles/iam.workloadIdentityUser` on the service account.
+- The Issuer URL configured in the WIF provider matches Platform's URL.
+- The Token Audience in the credential (if set) matches the Allowed Audiences in the WIF provider.
 :::
 
 ### Cloud Storage bucket
@@ -136,7 +136,7 @@ Google Cloud Storage is a type of **object storage**. To access files and store 
 
 1. In the hamburger menu (**≡**), select **Cloud Storage**.
 2. From the **Buckets** tab, select **Create**.
-3. Enter a name for your bucket. You will reference this name when you create the compute environment in Seqera.
+3. Enter a name for your bucket. You will reference this name when you create the compute environment in Platform.
 4. Select **Region** for the **Location type** and select the **Location** for your bucket. You'll reference this location when you create the compute environment in Seqera.
 
     :::note
@@ -166,7 +166,7 @@ You've created a project, enabled the necessary Google APIs, created a bucket, a
 Your Seqera compute environment uses resources that you may be charged for in your Google Cloud account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
-After your Google Cloud resources have been created, create a new Seqera compute environment:
+After your Google Cloud resources have been created, create a new Platform compute environment:
 
 1. In a workspace, select **Compute Environments > New Environment**.
 2. Enter a descriptive name for this environment, e.g., _Google Cloud Batch (europe-north1)_.
@@ -174,7 +174,7 @@ After your Google Cloud resources have been created, create a new Seqera compute
 
 #### Credentials
 
-1. From the **Credentials** drop-down, select existing Google credentials or select **+** to add new credentials. If you choose to use existing credentials, skip to the next section.
+1. From the **Credentials** drop-down menu, select existing Google credentials or select **+** to add new credentials. If you choose to use existing credentials, skip to the next section.
 2. Enter a name for the credentials, e.g., _Google Cloud Credentials_.
 3. Paste the contents of the JSON file created previously in the **Service account key** field.
 
@@ -190,11 +190,8 @@ When you specify a Cloud Storage bucket as your work directory, this bucket is u
 
 #### Seqera features
 
-Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
-
-Select **Enable Fusion v2** to allow access to your Google Cloud Storage data via the [Fusion v2][fusion-docs] virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system][platform-fusion-docs] for configuration details.
-
-##### Use Fusion v2
+- Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
+- Select **Enable Fusion v2** to allow access to your Google Cloud Storage data via the [Fusion v2][fusion-docs] virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system][platform-fusion-docs] for configuration details.
 
 :::note
 The compute recommendations below are based on internal benchmarking performed by Seqera. Benchmark runs of [nf-core/rnaseq](https://github.com/nf-core/rnaseq) used profile `test_full`, consisting of an input dataset with 16 FASTQ files and a total size of approximately 123.5 GB.
@@ -253,8 +250,6 @@ Apply [**Resource labels**][resource-labels] to the cloud resources consumed by 
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
-
-
 - Specify custom **Environment variables** for the head and compute jobs.
 
 #### Advanced options
@@ -265,8 +260,8 @@ If you use VM instance templates for the head or compute jobs (see below), resou
 
 1. Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
 1. Use **Boot disk size** to control the persistent disk size that each task and the head job are provided.
-1. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The dropdown is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional — if not set, Google Batch uses the default image.
-1. Use **Instance Type** to select a specific machine type for the compute instances. The dropdown is populated with available instance types for the selected region and supports autocomplete filtering. This field is optional — if not set, Google Batch selects an appropriate machine type automatically.
+1. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The drop-down menu is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional. If not set, Google Batch uses the default image.
+1. Use **Instance Type** to select a specific machine type for the compute instances. The drop-down menu is populated with available instance types for the selected region and supports autocomplete filtering. This field is optional. If not set, Google Batch selects an appropriate machine type automatically.
     :::note
     The **Instance Type** field sets a default machine type at the compute environment level. You can override this for individual processes using the `machineType` [process directive](https://docs.seqera.io/nextflow/google#process-definition) in your Nextflow configuration.
     :::
