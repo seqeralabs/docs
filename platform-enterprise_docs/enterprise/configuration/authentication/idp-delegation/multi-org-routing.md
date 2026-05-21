@@ -24,7 +24,7 @@ In a multi-organization Enterprise instance, when an administrator adds a group 
 - **Manual add**: The form rejects the value with a `409 Conflict` and a message naming the conflicting organization.
 - **SCIM push**: Platform's SCIM endpoint returns `409 Conflict` for that group. The IdP's provisioning agent retries and surfaces the error in its administrator console.
 
-This is the mechanism that lets Seqera resolve a `groups` claim back to a specific organization's catalog at login. Without it, two organizations could both have a group called `engineering` and Seqera couldn't determine which delegation rules to apply.
+This is the mechanism that lets Seqera resolve a `groups` claim back to a specific organization's catalog at login. Without it, two organizations could both have a group called `engineering` and Platform couldn't determine which delegation rules to apply.
 
 :::info
 On Cloud Pro, the uniqueness check is skipped because the `org_id` claim disambiguates without it.
