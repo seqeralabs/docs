@@ -68,7 +68,7 @@ Seqera doesn't validate your dataset file contents. While datasets can contain s
 All Seqera user roles have access to the datasets feature in organization workspaces. There are two ways to add a dataset:
 
 1. Direct upload: This is the best option if immutability is a requirement but size cannot exceed 10 MB.
-1. Link to an externally hosted file: This is the best option for very large size files but relies on the external hosting service for availability and immutability.
+2. Link to an externally hosted file: This is the best option for very large size files but relies on the external hosting service for availability and immutability.
 
 ### Direct upload
 
