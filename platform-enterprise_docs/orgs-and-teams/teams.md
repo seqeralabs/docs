@@ -55,9 +55,8 @@ You will need the following to get started:
 ### Delegate the team
 
 1. From the organization's landing page, open **Settings > Group mapping**.
-2. Select the team you want to delegate, then **Edit**.
-3. In the **IdP groups** field, select a group from the dropdown. The dropdown is populated from your organization's IdP group catalog.
-4. Select **Update** to save.
+2. In the **IdP groups** field, select a group from the dropdown. The dropdown is populated from your organization's IdP group catalog.
+3. Select **Update** to save.
 
 The same IdP group can be assigned to more than one team. Each team can reference exactly one IdP group.
 
