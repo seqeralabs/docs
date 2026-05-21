@@ -106,10 +106,10 @@ For linked datasets, versioning is unavailable.
 ### Add a dataset version
 
 1. Select the three dots next to the dataset you want to add a new version for.
-1. Select **Add version**.
-2. Upload a dataset to your workspace with drag-and-drop or use the system **Upload file** file explorer dialog.
-3. For datasets that use their first row for column names, customize the dataset view using the **Set first row as header** option.
-4. Select **Add**.
+2. Select **Add version**.
+3. Upload a dataset to your workspace with drag-and-drop or use the system **Upload file** file explorer dialog.
+4. For datasets that use their first row for column names, customize the dataset view using the **Set first row as header** option.
+5. Select **Add**.
 
 :::caution
 All subsequent versions of a dataset must be the same format (CSV or TSV) as the initial version.
