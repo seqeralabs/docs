@@ -19,6 +19,10 @@ Use [Amazon Certificate Manager](https://aws.amazon.com/certificate-manager/) (A
 
 If you secure related infrastructure (such as private Git repositories) with certificates issued by a private Certificate Authority, these certificates must be loaded into the Seqera Enterprise containers. You can achieve this in several ways.
 
+:::note
+If your deployment uses self-hosted Wave, install the same private CA root certificate in every service that must initiate TLS connections to those endpoints. At minimum, this includes the `backend`, `cron`, and self-hosted Wave containers. If you terminate TLS with an NGINX reverse proxy, make the required certificate material available to that proxy container as part of the same setup.
+:::
+
 **Configure private certificate trust**
 
 1. This guide assumes you're using the original containers supplied by Seqera.
@@ -33,7 +37,7 @@ If you secure related infrastructure (such as private Git repositories) with cer
 keytool -printcert -rfc -sslserver TARGET_HOSTNAME:443  >  /PRIVATE_CERT.pem
 ```
 
-2. Modify the `backend` and `cron` container configuration blocks in `docker-compose.yml`:
+2. Modify the `backend`, `cron`, and any self-hosted Wave service container configuration blocks in `docker-compose.yml`:
 
 ```yaml
 CONTAINER_NAME:
@@ -67,7 +71,7 @@ keytool -printcert -rfc -sslserver TARGET_HOSTNAME:443 > /PRIVATE_CERT.pem
 kubectl create configmap private-cert-pemstore --from-file=/PRIVATE_CERT.pem
 ```
 
-3. Modify both the `backend` and `cron` Deployment objects:
+3. Modify the `backend`, `cron`, and any self-hosted Wave Deployment objects:
 
 - Define a new volume based on the certificate `ConfigMap`:
 
@@ -113,7 +117,7 @@ kubectl create configmap private-cert-pemstore --from-file=/PRIVATE_CERT.pem
 
 **Download on Pod start**
 
-1. Modify both the `backend` and `cron` Deployment objects to retrieve and load the certificate prior to running your Seqera instance:
+1. Modify the `backend`, `cron`, and any self-hosted Wave Deployment objects to retrieve and load the certificate prior to running your Seqera instance:
 
 ```yaml
 spec:
