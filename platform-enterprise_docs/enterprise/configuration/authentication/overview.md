@@ -169,6 +169,13 @@ Seqera Platform Enterprise supports IdP-delegated teams: organization owners can
 ```env
 TOWER_IDP_CLAIMS_MAPPING_ENABLED=true
 ```
+**tower.yml**
+
+```
+tower:
+    idp-claims-mapping:
+      enabled: true
+```
 
 For delegation to work, your IdP must:
 
