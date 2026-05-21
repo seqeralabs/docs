@@ -22,7 +22,7 @@ process.containerOptions = '--ulimit nofile=1048576:1048576'
 
 ## Exit code `143` on Kubernetes
 
-Tasks fail with exit code `143` and the pipeline halts instead of retrying the affected task.
+When a task fails with exit code `143`, pipelines halt instead of retrying the affected task.
 
 Exit code `143` indicates the container received `SIGTERM` and shut down gracefully. On Kubernetes this most commonly signals Spot instance reclamation.
 
