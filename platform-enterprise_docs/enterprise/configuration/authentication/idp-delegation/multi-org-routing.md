@@ -5,9 +5,9 @@ date: "2026-05-12"
 tags: [sso, idp-delegation, enterprise, administration]
 ---
 
-Cloud Pro tokens carry an `org_id` claim that scopes every IdP delegation evaluation to a single organization. Enterprise SSO tokens don't carry such a claim, so Platform routes by deployment topology and relies on a cross-organization uniqueness invariant on group display names.
+Cloud Pro tokens carry an `org_id` claim that scopes every IdP delegation evaluation to a single organization. Enterprise SSO tokens don't carry such a claim. Platform routes by deployment topology and relies on a cross-organization uniqueness invariant on group display names.
 
-Read this page if your Enterprise instance hosts more than one organization, or you anticipate hosting more than one in the future.
+The rules on this page determine how Platform resolves a user's groups claim against each organization's catalog.
 
 ## Topology decision table
 
@@ -41,7 +41,7 @@ There is no per-organization override. Uniqueness is enforced at the instance le
 
 ## Cross-organization users
 
-A user who's a member of multiple organizations on the same instance is evaluated against every organization's delegated teams at login. Because group display names are guaranteed unique, each `groups` claim value resolves to exactly one organization's catalog — there's no ambiguity. The user is added to delegated teams in any organization where their groups match.
+When a user belongs to multiple organizations on the same instance, Platform evaluates their `groups` claim against every organization's delegated teams at login. Because group display names are unique instance-wide, each claim value maps unambiguously to one organization's catalog, and the user joins the matching teams in every organization where they apply.
 
 ## Operator guidance for new instances
 
