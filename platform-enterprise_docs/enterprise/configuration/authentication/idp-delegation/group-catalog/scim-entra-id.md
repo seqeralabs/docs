@@ -7,20 +7,22 @@ tags: [sso, scim, entra-id, idp-delegation, administration, enterprise]
 
 Configure Microsoft Entra ID (formerly Azure AD) to push your tenant's groups to Platform over SCIM 2.0. Once provisioning is enabled, the groups you assign to your Seqera Enterprise application appear in Platform's IdP group catalog and stay in sync with renames, additions, and deletions automatically.
 
-## Before you begin
+:::info[**Prerequisites**]{#prerequisites}
+You will need the following to get started:
 
 - An Entra ID enterprise application configured as your Seqera SSO connection. See [Entra ID authentication](../../entra).
 - Organization owner access to your Seqera organization.
 - Administrator access to your Entra ID tenant with permission to manage application provisioning.
+:::
 
 ## Get the Seqera SCIM connection details
 
 1. In Seqera, open **Organization settings > Group mapping**.
-2. Copy the **SCIM endpoint URL** — it has the form `https://<seqera-host>/orgs/<orgId>/scim/v2`.
-3. Select **Generate token** to issue a SCIM bearer token. Copy it immediately; you can't view it again after closing the dialog.
+2. Copy the **SCIM endpoint URL**. It has the form `https://<seqera-host>/orgs/<orgId>/scim/v2`.
+3. Select **Generate token** to issue a SCIM bearer token. Copy your bearer token immediately. You can't view it again after closing the dialog.
 
 :::caution
-The bearer token grants write access to your group catalog. Store it in a secrets manager and rotate it on a schedule. To rotate, generate a new token in Seqera and update Entra ID's configuration; the previous token is revoked when the new one is issued.
+The bearer token grants write access to your group catalog. Store it in a secrets manager and rotate it on a schedule. To rotate, generate a new token in Seqera and update Entra ID's configuration. The previous token is revoked when the new token is issued.
 :::
 
 ## Enable provisioning in Entra ID
@@ -57,7 +59,7 @@ Pick one approach for your tenant and use it consistently. The GUID and the disp
 
 ## Verify in Platform
 
-1. Return to Platform's **Group mapping** panel.
+1. Open **Organization settings** and select **Group mapping** panel.
 2. Refresh the page. The assigned Entra ID groups should appear in the catalog list after the first provisioning cycle.
 3. Open the group mapping panel. The **IdP Group** drop-down menu is now populated with the synced groups.
 
