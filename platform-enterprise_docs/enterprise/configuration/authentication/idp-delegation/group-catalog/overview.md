@@ -5,7 +5,7 @@ date: "2026-05-12"
 tags: [sso, scim, idp-delegation, administration, enterprise]
 ---
 
-Seqera maintains a per-organization catalog of identity provider (IdP) groups. Groups appear in the catalog as soon as they're synced from the IdP or added manually. They don't depend on any user having signed in.
+Platform maintains a per-organization catalog of identity provider (IdP) groups. Groups appear in the catalog as soon as they're synced from the IdP or added manually. They don't depend on any user having signed in.
 
 Use the table below to choose the path that fits your IdP.
 
@@ -28,7 +28,7 @@ If your IdP supports SCIM 2.0 group provisioning, Platform exposes a per-organiz
 
 To set up SCIM:
 
-1. Open **Organization settings > Group mapping**.
+1. In Platform, open **Organization settings > Group mapping**.
 2. Copy the **SCIM endpoint URL** and the generated **bearer token**.
 3. Configure these values in your IdP's SCIM provisioning settings.
 4. Trigger an initial sync from the IdP or wait until the IdP performs an scheduled sync.
@@ -43,7 +43,7 @@ Treat the SCIM bearer token like a password. It grants write access to your orga
 
 To add a group manually:
 
-1. Open **Organization settings** and select **Group mapping**.
+1. In Platform, open **Organization settings > Group mapping**.
 2. Select **Add group manually**.
 3. Enter the group identifier exactly as it appears in your IdP's `groups` claim.
 4. Select **Save**.
