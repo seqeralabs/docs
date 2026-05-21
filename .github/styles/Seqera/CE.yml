@@ -1,0 +1,10 @@
+# Flags 'CE' for first-use expansion verification.
+# Use 'compute environment (CE)' on first occurrence.
+extends: existence
+message: "Verify '%s' is expanded as 'compute environment (CE)' on first use in this document."
+level: warning
+nonword: true
+scope: text
+ignorecase: false
+tokens:
+  - '\bCE\b'

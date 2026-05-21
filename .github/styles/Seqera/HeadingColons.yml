@@ -1,0 +1,11 @@
+# Flags trailing colons in markdown headings.
+# Note: markdownlint's MD026 already catches trailing periods/punctuation
+# in headings — this rule narrows to the colon-specific case which MD026
+# may permit depending on its configuration.
+extends: existence
+message: "Avoid trailing colons in headings unless introducing a list or code block immediately below ('%s')."
+level: suggestion
+nonword: true
+scope: heading
+tokens:
+  - ':\s*$'

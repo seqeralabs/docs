@@ -1,0 +1,8 @@
+# Flags British-style quotation: punctuation outside the closing quote.
+# American style places commas and periods inside ("text," not "text",).
+extends: existence
+message: "Use American-style punctuation: commas and periods belong inside quotation marks ('%s')."
+level: warning
+scope: text
+tokens:
+  - '"\s*[,.]'

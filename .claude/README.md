@@ -98,18 +98,6 @@ Improves readability by flagging complex sentences and jargon.
 - Complex constructions
 - Missing prerequisites
 
-### punctuation
-
-Ensures consistent punctuation across documentation.
-
-**Status:** Not yet implemented as separate agent
-
-**Checks:**
-- Oxford commas
-- List punctuation
-- Quotation marks
-- Dash usage
-
 ## GitHub Actions integration
 
 ### Documentation review workflow
@@ -159,15 +147,16 @@ Editorial review can also be run locally via Claude Code CLI using the `/editori
 - Analyzes git diff to determine PR type
 - Outputs "rename" or "content" for workflow decisions
 
-### Agent status
+| Agent       | File                          | Run by default in CI? | Available manually?                             |
+|-------------|-------------------------------|-----------------------|-------------------------------------------------|
+| voice-tone  | `.claude/agents/voice-tone.md`  | ✅ yes                | yes (`--agents=voice-tone`)                     |
+| terminology | `.claude/agents/terminology.md` | ✅ yes                | yes (`--agents=terminology`)                    |
+| clarity     | `.claude/agents/clarity.md`     | ❌ no                 | yes (`workflow_dispatch` choice, `--profile=comprehensive`) |
+| docs-fix    | `.claude/agents/docs-fix.md`    | ❌ no — `auto-fix` job has `if: false` | local CLI only |
 
-| Agent | Status | Used in CI |
-|-------|--------|------------|
-| voice-tone | ✅ Active | Yes |
-| terminology | ✅ Active | Yes |
-| punctuation | 📋 Planned | No |
-| clarity | ⚠️ Disabled | No |
-| docs-fix | 📝 Local only | No |
+**To enable an agent in CI by default:** edit the agent-selection table in `.claude/skills/editorial-review/SKILL.md`.
+
+Punctuation is handled by Vale (`.github/styles/Seqera/OxfordComma.yml`, `Quotes.yml`, `Dashes.yml`, `HeadingColons.yml`) plus markdownlint. The `punctuation` agent was retired in favor of static analysis.
 
 ## Agent output format
 
@@ -292,12 +281,15 @@ vale platform-enterprise_docs/
 
 ```
 .claude/
-├── README.md                    # This file
+├── README.md                          # This file (canonical agent status)
 ├── agents/
-│   ├── voice-tone.md           # Agent definitions
-│   ├── terminology.md
-│   └── clarity.md
+│   ├── voice-tone.md                  # Run by default in CI
+│   ├── terminology.md                 # Run by default in CI
+│   ├── clarity.md                     # Opt-in only
+│   └── docs-fix.md                    # Local CLI only
 └── skills/
+    ├── editorial-review/
+    │   └── SKILL.md                   # Editorial review orchestrator
     └── openapi-overlay-generator/
         └── SKILL.md
 ```

@@ -1,0 +1,9 @@
+# Flags capitalized 'Workspace' in prose.
+# Capitalize only when referring to a UI element name.
+extends: substitution
+message: "Use lowercase '%s' instead of '%s' in prose (capitalize only for UI element names)."
+level: suggestion
+nonword: true
+ignorecase: false
+swap:
+  '\bWorkspace\b': workspace

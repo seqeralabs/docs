@@ -1,0 +1,9 @@
+# Flags 'PAT' for first-use expansion verification.
+extends: existence
+message: "Verify '%s' is expanded as 'personal access token (PAT)' on first use in this document."
+level: warning
+nonword: true
+scope: text
+ignorecase: false
+tokens:
+  - '\bPAT\b'

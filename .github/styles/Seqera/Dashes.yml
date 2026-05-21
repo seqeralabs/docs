@@ -1,0 +1,10 @@
+# Flags double hyphens used as em dashes in prose.
+# scope: text excludes inline code (so `--profile` in backticks is fine).
+extends: existence
+message: "Use an em dash (—) instead of double hyphens ('%s')."
+level: warning
+nonword: true
+scope: text
+tokens:
+  - '\w--\w'
+  - '\s--\s'
