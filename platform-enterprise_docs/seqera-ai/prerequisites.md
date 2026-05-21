@@ -2,13 +2,17 @@
 title: "Prerequisites"
 description: "Prerequisites for Co-Scientist"
 date created: "2026-04-20"
-last updated: "2026-05-14"
+last updated: "2026-05-21"
 tags: [seqera-ai, prerequisites]
 ---
 
 ## Overview
 
 Everything you need to have in place before installing Co-Scientist. Complete these requirements, then proceed to the Bedrock Setup Guide to configure your AWS account.
+
+:::caution
+Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. It is currently only available on AWS.
+:::
 
 Co-Scientist enables users to interact with Seqera Platform through a conversational AI interface, available through both the web (portal) and the CLI. The following components are deployed in sequence:
 
@@ -18,15 +22,14 @@ Co-Scientist enables users to interact with Seqera Platform through a conversati
 | 2     | MySQL database       | Dedicated database for session state and conversation history.                                                                                                        |
 | 3     | Redis                | Caching and session management layer for the agent backend.                                                                                                           |
 | 4     | Agent backend        | FastAPI service that orchestrates AI interactions between the CLI/web, Bedrock, and MCP.                                                                              |
-| 5     | Portal web interface | Browser-based interface for Co-Scientist.                                                                                                                                |
-
+| 5     | Portal web interface | Browser-based interface for Co-Scientist.                                                                                                                             |
 
 ## Platform
 
-- Co-Scientist is in Early Access for Platform Enterprise and may require an Enterprise version upgrade. [Contact Seqera support](https://support.seqera.io) for more information
-- **OIDC** configured in Platform for authentication
+- Co-Scientist is in Early Access for Platform Enterprise and may require an Enterprise version upgrade. [Contact Seqera support](https://support.seqera.io) for more information.
+- **OIDC** configured in Platform for authentication.
 
-## AWS Account
+## AWS account
 
 Co-Scientist uses Claude models via [Amazon Bedrock](https://aws.amazon.com/bedrock/). You need an AWS account with Bedrock available in your chosen region.
 
@@ -85,7 +88,7 @@ Store this as a Kubernetes secret. It will be referenced as `AGENT_BACKEND_TOKEN
 
 ## Kubernetes secrets
 
-Store the following values as Kubernetes Secrets before installing the chart. Do not inline them in `values.yaml`.
+Store the following values as Kubernetes secrets before installing the chart. Do not inline them in `values.yaml`.
 
 | Secret                          | Contains                                                                 | Used by        |
 | ------------------------------- | ------------------------------------------------------------------------ | -------------- |
@@ -93,7 +96,7 @@ Store the following values as Kubernetes Secrets before installing the chart. Do
 | Redis password (if applicable)  | `AGENT_BACKEND_REDIS_PASSWORD`                                           | Agent backend  |
 | Token encryption key            | `AGENT_BACKEND_TOKEN_ENCRYPTION_KEY`                                     | Agent backend  |
 | Anthropic API key               | `ANTHROPIC_API_KEY` (direct Anthropic path only)                         | Agent backend  |
-| MCP JWT seed                    | `MCP_OAUTH_JWT_SECRET` — 32+ char random string, `openssl rand -base64 32` | MCP server     |
+| MCP JWT seed                    | `MCP_OAUTH_JWT_SECRET` 32+ char random string, `openssl rand -base64 32` | MCP server     |
 | MCP initial access token        | `MCP_OAUTH_INITIAL_ACCESS_TOKEN` (standalone MCP deploys only)           | MCP server     |
 
 When MCP is deployed as a subchart of the Platform parent chart, the initial access token is wired automatically from the Platform backend secret - you do not need to create it separately. When deploying MCP standalone, copy the value out of the Platform backend secret (typically named `<platform-release>-backend`, e.g. `platform-backend`, under the data key `OIDC_CLIENT_REGISTRATION_TOKEN`) into a new secret and reference it via `oidcToken.existingSecretName`. The MCP container loads this value as `MCP_OAUTH_INITIAL_ACCESS_TOKEN` at runtime.
@@ -117,24 +120,3 @@ Co-Scientist container images are hosted at `cr.seqera.io`. The exact repository
 | Portal web interface | [portal-web chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/portal-web)    |
 
 Ensure your cluster can pull from `cr.seqera.io`, or if your cluster runs in a restricted network, mirror these images to your own registry.
-
----
-
-## Checklist
-
-- [ ] Seqera Platform Enterprise 25.3.6 or above
-- [ ] OIDC identity provider configured
-- [ ] AWS Bedrock setup complete
-- [ ] MySQL 8.0+ database provisioned (dedicated schema; dedicated host recommended)
-- [ ] Redis 7.2+ or Valkey 7.2+ instance provisioned
-- [ ] Three DNS records and TLS certificates ready
-- [ ] Ingress controller configured
-- [ ] Fernet encryption key generated and stored as a K8s secret
-- [ ] Database password stored as a K8s secret
-- [ ] AWS IAM credentials configured for Bedrock access (EKS Pod Identity recommended; IRSA or static credentials also supported) (Bedrock path only)
-- [ ] Helm v3 and kubectl installed
-- [ ] Cluster can pull images from `cr.seqera.io`
-- [ ] MCP JWT seed generated and stored as a K8s secret
-- [ ] OIDC client registration token available (standalone MCP only)
-- [ ] MCP initial access token available (standalone MCP only)
-- [ ] Anthropic API key stored as a K8s secret (direct Anthropic path only)
