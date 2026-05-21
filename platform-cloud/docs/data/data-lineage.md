@@ -138,7 +138,7 @@ If data lineage is defined for a workspace, only that data is displayed in Platf
 
 ## Costs associated with data lineage
 
-Monthly S3 object storage bucket and SQS costs will scale based on the number of pipeline runs launched with lineage enabled. 
+Monthly S3 object storage bucket and SQS costs will scale based on the number of pipeline runs launched with lineage enabled.
 
 Typical SQS queue costs for a single rnaseq pipeline run daily are less than $10 USD/month.
 
