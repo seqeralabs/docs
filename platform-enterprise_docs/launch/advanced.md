@@ -140,7 +140,7 @@ Replace Nextflow process commands with command [stubs](https://docs.seqera.io/ne
 
 ## Enable Nextflow syntax parser v2
 
-Use the new Nextflow language parser. Requires Nextflow 25.02.0-edge or later. Older runtimes ignore this setting.
+Use the new v2 Nextflow language parser. Requires Nextflow 25.02.0-edge or later. Older runtimes ignore this setting.
 
 The v2 parser implements Nextflow's [strict syntax](https://nextflow.io/docs/latest/strict-syntax.html). Platform exports `NXF_SYNTAX_PARSER` to the launch environment:
 
