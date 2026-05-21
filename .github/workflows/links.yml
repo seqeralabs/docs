@@ -22,7 +22,7 @@ jobs:
 
       - name: Check external links in documentation
         id: lychee
-        uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # ratchet:lycheeverse/lychee-action@v2
+        uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2.8.0
         with:
           args: --base . -v -n -s https -s http './**/*.mdx'
 

@@ -6,7 +6,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const buildDir = path.join(__dirname, "..", "build");
-const outputFile = path.join(buildDir, "llms.txt");
 
 const localFiles = [
   "llms-enterprise.txt",
@@ -18,8 +17,22 @@ const localFiles = [
   "llms-wave.txt",
 ];
 
+const localFullFiles = [
+  "llms-enterprise-full.txt",
+  "llms-cloud-full.txt",
+  "llms-api-full.txt",
+  "llms-cli-full.txt",
+  "llms-multiqc-full.txt",
+  "llms-fusion-full.txt",
+  "llms-wave-full.txt",
+];
+
 const remoteFiles = [
   { filename: "llms-nextflow.txt", url: "https://docs-migration.netlify.app/llms-nextflow.txt" },
+];
+
+const remoteFullFiles = [
+  { filename: "llms-nextflow-full.txt", url: "https://docs-migration.netlify.app/llms-nextflow-full.txt" },
 ];
 
 const header = `# Seqera Docs
@@ -28,33 +41,47 @@ const header = `# Seqera Docs
 
 This file contains links to all Seqera product documentation following the llmstxt.org standard.`;
 
-const parts = [header];
+const fullHeader = `# Seqera Docs
 
-for (const file of localFiles) {
-  const filePath = path.join(buildDir, file);
-  if (await fs.pathExists(filePath)) {
-    const content = await fs.readFile(filePath, "utf-8");
-    parts.push(content.trim());
-    console.log(`  Merged ${file}`);
-  } else {
-    console.warn(`  Skipped ${file} (not found)`);
-  }
-}
+> Complete reference documentation for Seqera Platform, Nextflow, MultiQC, Fusion, and Wave.
 
-for (const { filename, url } of remoteFiles) {
-  try {
-    const response = await fetch(url);
-    if (response.ok) {
-      const content = await response.text();
+Use this file for deep technical lookups across all Seqera products. It contains the full content of every documentation page, including API references, configuration options, and CLI commands.`;
+
+async function mergeFiles(files, remotes, outputFile, headerText) {
+  const parts = [headerText];
+
+  for (const file of files) {
+    const filePath = path.join(buildDir, file);
+    if (await fs.pathExists(filePath)) {
+      const content = await fs.readFile(filePath, "utf-8");
       parts.push(content.trim());
-      console.log(`  Merged ${filename} (from ${url})`);
+      console.log(`  Merged ${file}`);
     } else {
-      console.warn(`  Skipped ${filename} (HTTP ${response.status})`);
+      console.warn(`  Skipped ${file} (not found)`);
     }
-  } catch (err) {
-    console.warn(`  Skipped ${filename} (fetch failed: ${err.message})`);
   }
+
+  for (const { filename, url } of remotes) {
+    try {
+      const response = await fetch(url);
+      if (response.ok) {
+        const content = await response.text();
+        parts.push(content.trim());
+        console.log(`  Merged ${filename} (from ${url})`);
+      } else {
+        console.warn(`  Skipped ${filename} (HTTP ${response.status})`);
+      }
+    } catch (err) {
+      console.warn(`  Skipped ${filename} (fetch failed: ${err.message})`);
+    }
+  }
+
+  await fs.writeFile(outputFile, parts.join("\n\n") + "\n");
+  console.log(`\nWrote ${outputFile}`);
 }
 
-await fs.writeFile(outputFile, parts.join("\n\n") + "\n");
-console.log(`\nWrote ${outputFile}`);
+console.log("Merging llms.txt...");
+await mergeFiles(localFiles, remoteFiles, path.join(buildDir, "llms.txt"), header);
+
+console.log("Merging llms-full.txt...");
+await mergeFiles(localFullFiles, remoteFullFiles, path.join(buildDir, "llms-full.txt"), fullHeader);

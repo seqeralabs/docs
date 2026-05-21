@@ -1,7 +1,8 @@
 ---
 title: "Azure Batch"
 description: "Instructions to set up Azure Batch in Seqera Platform"
-date: "04 Jan 2024"
+date created: "2024-01-04"
+last updated: "2026-04-17"
 tags: [azure, batch, compute environment]
 ---
 
@@ -100,10 +101,10 @@ After you have created a resource group and Storage account, create a [Batch acc
 1. Select the **+ Quotas** tab of the Azure Batch account to check and increase existing quotas if necessary.
 1. Select **+ Request quota increase** and add the quantity of resources you require. Here is a brief guideline:
     - **Active jobs and schedules**: Each Nextflow process will require an active Azure Batch job per pipeline while running, so increase this number to a high level. See [here][az-learn-jobs] to learn more about jobs in Azure Batch.
-    - **Pools**: Each platform compute environment requires one Azure Batch pool. Each pool is composed of multiple machines of one virtual machine size.
-    :::note
-    To use separate pools for head and compute nodes, see [this FAQ entry](../troubleshooting_and_faqs/azure_troubleshooting).
-    :::
+    - **Pools**: Each platform compute environment requires at least one Azure Batch pool. Batch Forge creates two pools by default (one for the head job and one for compute tasks). Each pool is composed of multiple machines of one virtual machine size.
+     :::note
+     To use separate pools for head and compute nodes, see [this FAQ entry](../troubleshooting_and_faqs/azure_troubleshooting).
+     :::
     - **Batch accounts per region per subscription**: Set this to the number of Azure Batch accounts per region per subscription. Only one is required.
     - **Total Dedicated vCPUs per VM series**: See the Azure documentation for [virtual machine sizes][az-vm-sizes] to help determine the machine size you need. We recommend the latest version of the ED series available in your region as a cost-effective and appropriately-sized machine for running Nextflow. However, you will need to select alternative machine series that have additional requirements, such as those with additional GPUs or faster storage. Increase the quota by the number of required concurrent CPUs. In Azure, machines are charged per cpu minute so there is no additional cost for a higher number.
 
@@ -112,24 +113,25 @@ After you have created a resource group and Storage account, create a [Batch acc
 There are two types of Azure credentials available: access keys and Entra service principals.
 
 Access keys are simple to use but have several limitations:
+
 - Access keys are long-lived.
 - Access keys provide full access to the Azure Storage and Azure Batch accounts.
 - Azure allows only two access keys per account, making them a single point of failure.
+- Access keys do not support VNet/subnet configuration.
 
 Entra service principals are accounts which can be granted access to Azure Batch and Azure Storage resources:
+
 - Service principals enable role-based access control with more precise permissions.
 - Service principals map to a many-to-many relationship with Azure Batch and Azure Storage accounts.
-- Some Azure Batch features are only available when using a service principal.
+- Some Azure Batch features, such as VNet/subnet configuration, are only available when using Microsoft Entra.
+
+Both credential types support Batch Forge and Manual compute environment modes.
 
 :::note
 The two Azure credential types use different authentication methods. You can add more than one credential to a workspace, but Platform compute environments use only one credential at any given time. While separate credentials can be used by separate compute environments concurrently, they are not cross-compatible — access granted by one credential will not be shared with the other.
 :::
 
 #### Access keys
-
-:::info
-Batch Forge compute environments must use access keys for authentication. Service principals are only supported in manual compute environments.
-:::
 
 To create an access key:
 
@@ -147,12 +149,14 @@ To create an access key:
 
 To use Entra for authentication, you must create a service principal and managed identity. Seqera uses the service principal to authenticate to Azure Batch and Azure Storage. It submits a Nextflow task as the head process to run Nextflow, which authenticates to Azure Batch and Storage using the managed identity attached to the node pool.
 
-Therefore, you must create both an Entra service principal and a managed identity. You add the service principal to your Seqera credentials and attach the managed identity to your Azure Batch node pool which will run Nextflow.
+Therefore, you must create both an Entra service principal and a managed identity:
 
-:::info
-Batch Forge compute environments must use access keys for authentication. Service principals are only supported in manual compute environments.
+1. Add the service principal details as credentials in Seqera Platform.
+2. Assign the managed identity to each Azure Batch node pool with the relevant permissions.
+3. When using Batch Forge, provide the managed identity resource ID for each managed identity. Seqera Platform assigns the identity to each pool during creation.
 
-The use of Entra service principals in manual compute environments requires the use of a [managed identity](#managed-identity).
+:::note
+Entra service principal credentials support both Batch Forge and Manual compute environments. Some features, such as VNet/subnet configuration, require Entra credentials. When using Entra credentials, a managed identity is recommended for best security practices, but is not mandatory.
 :::
 
 ##### Service principal
@@ -186,14 +190,23 @@ To use managed identities, Seqera requires Nextflow version 24.06.0-edge or late
 
 Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure.
 
-When you use a manually-configured compute environment with a managed identity attached to the Azure Batch Pool, Nextflow can use this managed identity for authentication. However, Seqera still needs to use access keys or an Entra service principal to submit the initial task to Azure Batch to run Nextflow, which will then proceed with the managed identity for subsequent authentication.
+When you use a compute environment with a managed identity attached to the Azure Batch Pool, Nextflow can use this managed identity for authentication. However, Seqera still needs to use access keys or an Entra service principal to submit the initial task to Azure Batch to run Nextflow, which will then proceed with the managed identity for subsequent authentication.
 
-1. In Azure, create a user-assigned managed identity. See [Manage user-assigned managed identities](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities) for detailed steps. Take note of the client ID of the managed identity when you create it.
+1. In Azure, create a user-assigned managed identity. See [Manage user-assigned managed identities](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities) for detailed steps. Take note of both the **client ID** and the **resource ID** of the managed identity when you create it.
 1. The user-assigned managed identity must have the necessary access roles for Nextflow. See [Required role assignments](https://docs.seqera.io/nextflow/azure#required-role-assignments) for more information.
 1. Associate the user-assigned managed identity with the Azure Batch Pool. See [Set up managed identity in your Batch pool](https://learn.microsoft.com/en-us/troubleshoot/azure/hpc/batch/use-managed-identities-azure-batch-account-pool#set-up-managed-identity-in-your-batch-pool) for more information.
-1. When you set up the Seqera compute environment, select the Azure Batch pool by name and enter the managed identity client ID in the specified field as instructed above.
+
+   :::note
+   When you use separate head and worker pools, you can assign separate managed identities to the head and compute pools. Each pool receives only the managed identity relevant to its role.
+   :::
+
+1. When you set up the Seqera compute environment, select the Azure Batch pool by name and enter the managed identity **client ID** and (optionally) the **resource ID** in the specified fields. The resource ID is the full ARM path of the managed identity (e.g., `/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}`).
 
 When you submit a pipeline to this compute environment, Nextflow will authenticate using the managed identity associated with the Azure Batch node it runs on, rather than relying on access keys.
+
+:::caution
+If a managed identity is misconfigured (e.g., invalid client ID or missing RBAC roles), the pipeline will fail with an explicit error. Seqera will not silently fall back to access key authentication.
+:::
 
 ## Add Seqera compute environment
 
@@ -245,9 +258,10 @@ Create a Batch Forge Azure Batch compute environment:
 1. Enter a descriptive name, such as _Azure Batch (east-us)_.
 1. Select **Azure Batch** as the target platform.
 1. Choose existing Azure credentials or add a new credential.
-    :::info
-    Batch Forge compute environments must use access keys for authentication. Entra service principals are only supported in manual compute environments.
-    :::
+
+   :::note
+   Both access keys and Entra service principal credentials are supported for Batch Forge. Some features, such as VNet/subnet configuration, require Entra credentials.
+   :::
 1. Add the **Batch account** and **Blob Storage** account names and access keys.
 1. Select a **Region**, such as _eastus_.
 1. In the **Work directory** field, enter the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
@@ -280,13 +294,32 @@ Create a Batch Forge Azure Batch compute environment:
 
     </details>
 
+1. (Optional) Enter a **Subnet ID** to connect the Batch pool nodes to a private Azure VNet. Enter the full Azure ARM subnet resource ID in the following format:
+
+    ```
+    /subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Network/virtualNetworks/{vnetName}/subnets/{subnetName}
+    ```
+
+    :::note
+    VNet/subnet configuration requires Entra credentials. This field is only available when Entra credentials are selected. If no subnet ID is provided, default networking is used.
+    :::
+
 1. Set the **Config mode** to **Batch Forge**.
-1. Enter the default **VMs type**, depending on your quota limits set previously. The default is _Standard_D4_v3_.
-1. Enter the **VMs count**. If autoscaling is enabled (default), this is the maximum number of VMs you wish the pool to scale up to. If autoscaling is disabled, this is the fixed number of virtual machines in the pool.
-1. Enable **Autoscale** to scale up and down automatically, based on the number of pipeline tasks. The number of VMs will vary from **0** to **VMs count**.
-1. Enable **Dispose resources** for Seqera to automatically delete the Batch pool if the compute environment is deleted on the platform.
+1. Enter the default **VMs type** for compute tasks, depending on your quota limits set previously. The default is _Standard_D4_v3_.
+1. Enter the **VMs count**. If autoscaling is enabled (default), this is the maximum number of VMs the compute pool will scale up to. If autoscaling is disabled, this is the fixed number of virtual machines in the compute pool.
+1. (Optional) Configure **Head job resources** to control the VM type and resources allocated to the Nextflow head job:
+    - **Head VM type**: The VM size for the head node pool. If not specified, the same VM type as the compute pool is used.
+    - **Head job CPUs**: The number of CPUs allocated to the Nextflow head job.
+    - **Head job memory**: The amount of memory allocated to the Nextflow head job.
+1. Enable **Autoscale** to scale the compute pool up and down automatically, based on the number of pipeline tasks. The number of VMs will vary from **0** to **VMs count**.
+1. Enable **Dispose resources** for Seqera to automatically delete the Batch pools if the compute environment is deleted on the platform.
+
+:::info
+Batch Forge creates separate Azure Batch pools for the Nextflow head job and compute tasks by default (named `tower-pool-{envId}-head` and `tower-pool-{envId}-worker`). This prevents the head node from competing for resources with compute tasks and allows independent sizing of each pool.
+:::
+
 1. Select or create [**Container registry credentials**](../credentials/azure_registry_credentials) to authenticate a registry (used by the [Wave containers](https://docs.seqera.io/nextflow/wave) service). It is recommended to use an [Azure Container registry](https://azure.microsoft.com/en-gb/products/container-registry) within the same region for maximum performance.
-1. Apply [**Resource labels**](../resource-labels/overview). This will populate the **Metadata** fields of the Azure Batch pool.
+1. Apply [**Resource labels**](../resource-labels/overview). This will populate the **Metadata** fields of the Azure Batch pools and jobs.
 1. Expand **Staging options** to include:
     - Optional [pre- or post-run Bash scripts](../launch/advanced#pre-and-post-run-scripts) that execute before or after the Nextflow pipeline execution in your environment.
     - Global Nextflow configuration settings for all pipeline runs launched with this compute environment. Values defined here are pre-filled in the **Nextflow config file** field in the pipeline launch form. These values can be overridden during pipeline launch.
@@ -295,7 +328,19 @@ Create a Batch Forge Azure Batch compute environment:
     :::
 1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
 1. Configure any advanced options you need:
-    - Use **Jobs cleanup policy** to control how Nextflow process jobs are deleted on completion. Active jobs consume the quota of the Azure Batch account. By default, jobs are terminated by Nextflow and removed from the quota when all tasks succesfully complete. If set to _Always_, all jobs are deleted by Nextflow after pipeline completion. If set to _Never_, jobs are never deleted. If set to _On success_, successful tasks are removed but failed tasks will be left for debugging purposes.
+
+    - Use **Max wallclock time** to set the maximum duration a job can run. The default is 7 days. Accepts human-readable duration syntax (e.g., `7d`, `12h`, `1d6h30m`). The maximum allowed by Azure Batch is 180 days. Existing compute environments without this setting use Nextflow's default of 30 days.
+
+    - **Job cleanup toggles** control how Nextflow process jobs are managed on completion. Active jobs consume the quota of your Azure Batch account. Three independent toggles are available:
+
+      | Toggle | Default | Description |
+      |--------|---------|-------------|
+      | **Delete jobs on completion** | Off | Permanently deletes all jobs and their tasks from Azure Batch when the workflow finishes. |
+      | **Delete tasks on completion** | On | Deletes individual tasks from jobs when they complete successfully. Failed tasks are preserved for debugging. |
+      | **Terminate jobs on completion** | On | Sets jobs to terminate when all their tasks complete. Jobs remain in "completed" state but are no longer active. |
+
+      Existing compute environments retain their current cleanup behavior.
+
     - Use **Token duration** to control the duration of the SAS token generated by Nextflow. This must be as long as the longest period of time the pipeline will run.
 1. Select **Add** to finalize the compute environment setup. It will take a few seconds for all the resources to be created before the compute environment is ready to launch pipelines.
 
@@ -390,9 +435,10 @@ The following settings can be modified after creating a pool:
 1. Enter a descriptive name for this environment, such as _Azure Batch (east-us)_.
 1. For **Provider**, select **Azure Batch**.
 1. Select your existing Azure credentials (access keys or Entra service principal) or select **+** to add new credentials.
-    :::note
-    To authenticate using an Entra service principal, you must include a user-assigned managed identity. See [Managed identity](#managed-identity) below.
-    :::
+
+   :::note
+   Both access keys and Entra service principal credentials are supported. Some features, such as VNet/subnet configuration, require Entra credentials. To use Entra with a managed identity, see [Managed identity](#managed-identity) below.
+   :::
 1. Select a **Region**, such as _eastus (East US)_.
 1. In the **Work directory** field, add the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
     :::note

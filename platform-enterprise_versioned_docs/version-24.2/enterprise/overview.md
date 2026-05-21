@@ -80,9 +80,9 @@ Seqera Enterprise is distributed as a collection of Docker containers available 
 3. Pull the application container images:
 
    ```bash
-   docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v24.2.4
+   docker pull cr.seqera.io/enterprise/platform/backend:v24.2.4
 
-   docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v24.2.4
+   docker pull cr.seqera.io/enterprise/platform/frontend:v24.2.4
    ```
 
 ## Support

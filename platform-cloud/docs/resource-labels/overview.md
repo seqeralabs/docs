@@ -60,7 +60,7 @@ When a Studio starts with resource labels attached:
 
 ## Create resource labels
 
-**Workspace-level labels**: Create resource labels at the workspace level for consistent use across compute environments, pipelines, actions, runs, and Studios:
+**Workspace-level resource labels**: Create resource labels at the workspace level for consistent use across compute environments, pipelines, actions, runs, and Studios:
 
 1. In your workspace,  select **Settings** > **Edit labels**.
 1. Select **Add label**.
@@ -69,10 +69,10 @@ When a Studio starts with resource labels attached:
 1. Enter a **Value**:
     - **Standard resource labels**: `<USERNAME>`, `TEAM_NAME`
     - **[Dynamic resource labels](#dynamic-resource-labels)**: Use variable syntax — `${sessionId}`, `${userName}`, or `${workflowId}`
-1. Optionally, enable **Use as default in compute environment form** to automatically apply this label to all new compute environments in this workspace.
+1. Optionally, enable **Use as default in compute environment form** to automatically apply this resource label to all new compute environments in this workspace.
 1. Select **Save**.
 
-**Create labels during compute environment, pipeline, action, run, and Studio creation**: Resource labels can also be created and added to new Platform entities on the fly.
+**Create resource labels during compute environment, pipeline, action, run, and Studio creation**: Resource labels can also be created and added to new Platform entities on the fly.
 
 The deletion of a resource label from a workspace has no influence on the cloud environment.
 
@@ -123,7 +123,7 @@ Additional dynamic values, such as the user or team that launched a run, will be
 Dynamic resource labels provide several key advantages:
 
 - **Granular cost tracking**: Associate cloud costs with specific workflow runs rather than entire compute environments or projects.
-- **Automated attribution**: Apply labels automatically at execution time - no manual tagging of individual runs.
+- **Automated attribution**: Apply resource labels automatically at execution time - no manual tagging of individual runs.
 - **Enhanced reporting**: Filter and group costs by individual workflow runs in your cloud provider's cost management tools.
 - **Audit trails**: Track resource usage patterns for specific workflows over time.
 
@@ -135,7 +135,7 @@ Search and filter pipelines on the Launchpad, and runs on the **Runs** tab, usin
 
 ### AWS
 
-The following resources are tagged using the labels associated with the compute environment (either [Batch](../compute-envs/aws-batch.md) or [Cloud](../compute-envs/aws-cloud.md)):
+The following resources are tagged using the resource labels associated with the compute environment (either [Batch](../compute-envs/aws-batch) or [Cloud](../compute-envs/aws-cloud)):
 
 **Batch**:
 
@@ -165,7 +165,7 @@ The following resources are tagged using the labels associated with the compute 
 
 At execution time, when jobs are submitted to Batch, the requests are set up to propagate tags to all the instances and volumes created by the head job.
 
-The [IAM permissions](../compute-envs/aws-batch.md#required-platform-iam-permissions) contain the roles needed for Batch Forge-created AWS Batch compute environments to tag AWS resources. Specifically, the required roles are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
+The [IAM permissions](../compute-envs/aws-batch#required-platform-iam-permissions) contain the roles needed for Batch Forge-created AWS Batch compute environments to tag AWS resources. Specifically, the required roles are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
 
 To view and manage the resource labels applied to AWS resources by Seqera and Nextflow, go to the [AWS Tag Editor](https://docs.aws.amazon.com/tag-editor/latest/userguide/find-resources-to-tag.html) (as an administrative user) and follow these steps:
 
@@ -247,25 +247,37 @@ See [here](https://cloud.google.com/resource-manager/docs/creating-managing-labe
 
 ### Azure
 
-The system used for labeling resources in Azure differs depending on your compute environment type:
-- In an **Azure Batch** compute environment created with Batch Forge, resource labels are added to the Pool parameters — this adds set of `key=value` **metadata** pairs to the Azure Batch Pool.
-- In an **Azure Cloud** (single instance) compute environment, resource labels are propagated to VMs and related resources as **tags**.
+The following resources receive the labels associated with the compute environment (either [Batch](../compute-envs/azure-batch.md) or [Cloud](../compute-envs/azure-cloud.md)):
 
-:::warning
-In Azure Batch compute environments, the [Azure Batch node pool](https://learn.microsoft.com/en-us/azure/batch/nodes-and-pools) is managed by the compute environment and **resource labels are fixed at the time of creation**.
-:::
+**Batch**:
+
+- **Compute environment creation time**
+  - Pool metadata (Azure Batch Pool)
+
+- **Submission time**
+  - Jobs
+
+- **Execution time**
+  - Tasks
+
+Static resource labels from the compute environment are written to the Azure Batch Pool `metadata` fields when the compute environment is created, and are also propagated to Azure Batch jobs and tasks at submission and execution time. Resource labels added or overridden when you launch a pipeline are applied only to Azure Batch submission and execution time resources. Dynamic resource labels do not modify the existing Pool metadata.
+
+**Cloud**:
+
+- **Submission and execution time**
+  - Virtual machines and related resources
 
 #### View costs by resource labels in Azure
 
-Azure supports cost analysis by tags. However, you must configure tag inheritance and cost allocation.
+Azure cost analysis by tags applies to Azure Resource Manager resources that support tags, such as Azure Cloud virtual machines and related resources. Azure Batch uses `metadata` pairs rather than Azure Resource Manager tags, so Azure Batch resource labels may have limited or no visibility in Azure Cost Management.
 
 :::note
-Dynamic resource labels create tags in the form of metadata pairs on Azure Batch resources. However, Azure's cost reporting integration has some limitations. Azure tags may not always appear immediately in **Cost Management**.
+For Azure Batch, both static and dynamic resource labels are added as `key=value` metadata pairs on Azure Batch jobs and tasks. Dynamic resource labels are not applied to the Azure Batch Pool itself. Because Azure Batch uses metadata rather than Azure Resource Manager tags, these labels may not be available for filtering or grouping in **Cost Management**.
 :::
 
-**Prerequisites**: Billing profile contributor/owner permissions for billing profile tags, and Contributor role or Tag Contributor role for resource tagging.
+**Prerequisites for tag-based Azure cost tracking**: Billing profile contributor/owner permissions for billing profile tags, and Contributor role or Tag Contributor role for resource tagging.
 
-**Steps to enable cost tracking**:
+**Steps to enable tag-based cost tracking for Azure-tagged resources**:
 
 1. **Enable Tag Inheritance** (recommended): Navigate to Cost Management in the Azure portal, select a billing account or subscription scope, and under **Settings** > **Configuration** > **Tag inheritance**, enable **Automatically apply subscription and resource group tags to new data**. See [Azure tag inheritance documentation](https://docs.microsoft.com/en-us/azure/cost-management-billing/costs/enable-tag-inheritance) for detailed steps.
 2. **View Tagged Costs**: Navigate to **Cost Management + Billing** > **Cost Management** > **Cost analysis** and select **Group by** for your tag key.
@@ -287,13 +299,13 @@ See [here](https://learn.microsoft.com/en-us/azure/azure-resource-manager/manage
 
 ### Kubernetes
 
-Both the Head pod and Work pod specs will contain the set of labels associated with the compute environment in addition to the standard labels applied by Seqera Platform and Nextflow.
+Both the Head pod and Work pod specs will contain the set of resource labels associated with the compute environment in addition to the standard resource labels applied by Seqera Platform and Nextflow.
 
 :::caution
 Currently, tagging with resource labels is not available for the files created during a workflow execution. The cloud instances are the elements being tagged.
 :::
 
-The following resources will be tagged using the labels associated with the compute environment:
+The following resources will be tagged using the resource labels associated with the compute environment:
 
 **Compute environment creation time**
 - Deployment
@@ -319,7 +331,7 @@ See [Syntax and character set](https://kubernetes.io/docs/concepts/overview/work
 
 - **Use descriptive keys**: Choose tag keys that clearly indicate their purpose (e.g., `workflow-id`, `pipeline-run`, `session-id`).
 - **Plan for cost analysis**: Consider how you'll group and filter costs in your cloud provider's tools when designing your tag schema.
-- **Combine static and dynamic labels**: Use dynamic resource labels alongside static labels for comprehensive cost attribution (e.g., static `project=genomics` with dynamic `platformRun=${workflowId}`).
+- **Combine static and dynamic resource labels**: Use dynamic resource labels alongside static resource labels for comprehensive cost attribution (e.g., static `project=genomics` with dynamic `platformRun=${workflowId}`).
 - **Monitor tag limits**: Stay within cloud provider tag limits (25 tags per resource for AWS/GCP/Azure).
 - **Document your schema**: Maintain documentation of your tagging strategy for team members who will analyze costs.
 

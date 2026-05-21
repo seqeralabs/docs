@@ -60,7 +60,7 @@ When a Studio starts with resource labels attached:
 
 ## Create resource labels
 
-**Workspace-level labels**: Create resource labels at the workspace level for consistent use across compute environments, pipelines, actions, runs, and Studios:
+**Workspace-level resource labels**: Create resource labels at the workspace level for consistent use across compute environments, pipelines, actions, runs, and Studios:
 
 1. In your workspace,  select **Settings** > **Edit labels**.
 1. Select **Add label**.
@@ -69,10 +69,10 @@ When a Studio starts with resource labels attached:
 1. Enter a **Value**:
     - **Standard resource labels**: `<USERNAME>`, `TEAM_NAME`
     - **[Dynamic resource labels](#dynamic-resource-labels)**: Use variable syntax — `${sessionId}`, `${userName}`, or `${workflowId}`
-1. Optionally, enable **Use as default in compute environment form** to automatically apply this label to all new compute environments in this workspace.
+1. Optionally, enable **Use as default in compute environment form** to automatically apply this resource label to all new compute environments in this workspace.
 1. Select **Save**.
 
-**Create labels during compute environment, pipeline, action, run, and Studio creation**: Resource labels can also be created and added to new Platform entities on the fly.
+**Create resource labels during compute environment, pipeline, action, run, and Studio creation**: Resource labels can also be created and added to new Platform entities on the fly.
 
 The deletion of a resource label from a workspace has no influence on the cloud environment.
 
@@ -123,7 +123,7 @@ Additional dynamic values, such as the user or team that launched a run, will be
 Dynamic resource labels provide several key advantages:
 
 - **Granular cost tracking**: Associate cloud costs with specific workflow runs rather than entire compute environments or projects.
-- **Automated attribution**: Apply labels automatically at execution time - no manual tagging of individual runs.
+- **Automated attribution**: Apply resource labels automatically at execution time - no manual tagging of individual runs.
 - **Enhanced reporting**: Filter and group costs by individual workflow runs in your cloud provider's cost management tools.
 - **Audit trails**: Track resource usage patterns for specific workflows over time.
 
@@ -135,7 +135,7 @@ Search and filter pipelines on the Launchpad, and runs on the **Runs** tab, usin
 
 ### AWS
 
-The following resources are tagged using the labels associated with the compute environment (either [Batch](../compute-envs/aws-batch.md) or [Cloud](../compute-envs/aws-cloud.md)):
+The following resources are tagged using the resource labels associated with the compute environment (either [Batch](../compute-envs/aws-batch.md) or [Cloud](../compute-envs/aws-cloud.md)):
 
 **Batch**:
 
@@ -287,13 +287,13 @@ See [here](https://learn.microsoft.com/en-us/azure/azure-resource-manager/manage
 
 ### Kubernetes
 
-Both the Head pod and Work pod specs will contain the set of labels associated with the compute environment in addition to the standard labels applied by Seqera Platform and Nextflow.
+Both the Head pod and Work pod specs will contain the set of resource labels associated with the compute environment in addition to the standard resource labels applied by Seqera Platform and Nextflow.
 
 :::caution
 Currently, tagging with resource labels is not available for the files created during a workflow execution. The cloud instances are the elements being tagged.
 :::
 
-The following resources will be tagged using the labels associated with the compute environment:
+The following resources will be tagged using the resource labels associated with the compute environment:
 
 **Compute environment creation time**
 - Deployment
@@ -319,7 +319,7 @@ See [Syntax and character set](https://kubernetes.io/docs/concepts/overview/work
 
 - **Use descriptive keys**: Choose tag keys that clearly indicate their purpose (e.g., `workflow-id`, `pipeline-run`, `session-id`).
 - **Plan for cost analysis**: Consider how you'll group and filter costs in your cloud provider's tools when designing your tag schema.
-- **Combine static and dynamic labels**: Use dynamic resource labels alongside static labels for comprehensive cost attribution (e.g., static `project=genomics` with dynamic `platformRun=${workflowId}`).
+- **Combine static and dynamic resource labels**: Use dynamic resource labels alongside static resource labels for comprehensive cost attribution (e.g., static `project=genomics` with dynamic `platformRun=${workflowId}`).
 - **Monitor tag limits**: Stay within cloud provider tag limits (25 tags per resource for AWS/GCP/Azure).
 - **Document your schema**: Maintain documentation of your tagging strategy for team members who will analyze costs.
 

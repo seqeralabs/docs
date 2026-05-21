@@ -25,13 +25,6 @@
 /platform/23.1.0/enterprise/*  /platform-enterprise/23.1/enterprise/:splat   301
 /platform/22.4.0/enterprise/*  /platform-enterprise/22.4/enterprise/:splat   301
 
-/platform/24.1.1/*  /platform-cloud/:splat   301
-/platform/23.4.0/*  /platform-cloud/:splat   301
-/platform/23.3.0/*  /platform-cloud/:splat   301
-/platform/23.2.0/*  /platform-cloud/:splat   301
-/platform/23.1.0/*  /platform-cloud/:splat   301
-/platform/22.4.0/*  /platform-cloud/:splat   301
-
 # Redirect from old FAQ to new FAQ
 /platform/24.1/faqs/*  /platform-cloud/troubleshooting_and_faqs/troubleshooting/:splat   301
 /platform/24.2/faqs/*  /platform-cloud/troubleshooting_and_faqs/troubleshooting/:splat   301
@@ -48,7 +41,6 @@
 /platform-cloud/cli/*                        /platform-cli               301
 /platform-enterprise/cli/*                   /platform-cli               301
 /platform-enterprise/*/cli/*                 /platform-cli               301
-/platform-enterprise/:version/cli/*          /platform-cli               301
 
 # Redirect mcp to overview page not platform-cloud
 /platform-cloud/seqera-mcp                   /platform-cloud/seqera-mcp/overview               301
@@ -68,7 +60,6 @@
 /platform-cloud/compute-envs/google-cloud-lifesciences   /platform-cloud/compute-envs/overview   301
 
 #Redirect platform-api to intro page
-/platform-api/info/seqera-api               /platform-api   301
 /platform-enterprise/:version/api/overview  /platform-api   301
 /platform-cloud/api/overview                /platform-api   301
 

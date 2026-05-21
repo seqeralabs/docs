@@ -227,6 +227,20 @@ export default async function createConfigAsync() {
     //   },
     // },
 
+    markdown: {
+      // The vendored MultiQC `config_schema.md` is auto-generated from a Python
+      // schema and contains literal `{...}` examples and `<details>` blocks
+      // around fenced code that the MDX parser rejects. Force CommonMark for
+      // that file so its content renders as plain markdown + HTML.
+      parseFrontMatter: async ({ filePath, fileContent, defaultParseFrontMatter }) => {
+        const result = await defaultParseFrontMatter({ filePath, fileContent });
+        if (filePath.endsWith("multiqc_docs/multiqc_repo/docs/markdown/config_schema.md")) {
+          result.frontMatter.mdx = { ...(result.frontMatter.mdx || {}), format: "md" };
+        }
+        return result;
+      },
+    },
+
     customFields: {
       // Put your custom environment here
     },
@@ -234,6 +248,7 @@ export default async function createConfigAsync() {
     clientModules: [
     require.resolve('./src/client-modules/cross-site-nav.js'),
     require.resolve('./src/client-modules/posthog-search.js'),
+    require.resolve('./src/client-modules/katex-css.js'),
     ],
 
 
@@ -284,11 +299,12 @@ export default async function createConfigAsync() {
         id: 'llms-enterprise',
         docsDir: 'platform-enterprise_docs',
         llmsTxtFilename: 'llms-enterprise.txt',
+        llmsFullTxtFilename: 'llms-enterprise-full.txt',
         title: 'Seqera Platform Enterprise',
         description: 'Documentation for Seqera Platform Enterprise.',
         rootContent: 'This file contains links to Seqera Platform Enterprise documentation following the llmstxt.org standard.',
         generateLLMsTxt: true,
-        generateLLMsFullTxt: false,
+        generateLLMsFullTxt: true,
         generateMarkdownFiles: true,
         includeBlog: false,
         excludeImports: true,
@@ -300,11 +316,12 @@ export default async function createConfigAsync() {
         id: 'llms-cloud',
         docsDir: 'platform-cloud/docs',
         llmsTxtFilename: 'llms-cloud.txt',
+        llmsFullTxtFilename: 'llms-cloud-full.txt',
         title: 'Seqera Platform Cloud',
         description: 'Documentation for Seqera Platform Cloud.',
         rootContent: 'This file contains links to Seqera Platform Cloud documentation following the llmstxt.org standard.',
         generateLLMsTxt: true,
-        generateLLMsFullTxt: false,
+        generateLLMsFullTxt: true,
         generateMarkdownFiles: true,
         includeBlog: false,
         excludeImports: true,
@@ -316,11 +333,12 @@ export default async function createConfigAsync() {
         id: 'llms-api',
         docsDir: 'platform-api-docs/docs',
         llmsTxtFilename: 'llms-api.txt',
+        llmsFullTxtFilename: 'llms-api-full.txt',
         title: 'Seqera Platform API',
         description: 'API reference documentation for the Seqera Platform REST API.',
         rootContent: 'This file contains links to Seqera Platform API reference documentation following the llmstxt.org standard.',
         generateLLMsTxt: true,
-        generateLLMsFullTxt: false,
+        generateLLMsFullTxt: true,
         generateMarkdownFiles: true,
         includeBlog: false,
         excludeImports: true,
@@ -332,11 +350,12 @@ export default async function createConfigAsync() {
         id: 'llms-cli',
         docsDir: 'platform-cli-docs/docs',
         llmsTxtFilename: 'llms-cli.txt',
+        llmsFullTxtFilename: 'llms-cli-full.txt',
         title: 'Seqera Platform CLI',
         description: 'Documentation for the Seqera Platform command-line interface.',
         rootContent: 'This file contains links to Seqera Platform CLI documentation following the llmstxt.org standard.',
         generateLLMsTxt: true,
-        generateLLMsFullTxt: false,
+        generateLLMsFullTxt: true,
         generateMarkdownFiles: true,
         includeBlog: false,
         excludeImports: true,
@@ -348,11 +367,12 @@ export default async function createConfigAsync() {
         id: 'llms-multiqc',
         docsDir: 'multiqc_docs/multiqc_repo/docs/markdown',
         llmsTxtFilename: 'llms-multiqc.txt',
+        llmsFullTxtFilename: 'llms-multiqc-full.txt',
         title: 'MultiQC',
         description: 'Documentation for MultiQC',
         rootContent: 'This file contains links to MultiQC documentation following the llmstxt.org standard.',
         generateLLMsTxt: true,
-        generateLLMsFullTxt: false,
+        generateLLMsFullTxt: true,
         generateMarkdownFiles: true,
         includeBlog: false,
         excludeImports: true,
@@ -364,11 +384,12 @@ export default async function createConfigAsync() {
         id: 'llms-fusion',
         docsDir: 'fusion_docs',
         llmsTxtFilename: 'llms-fusion.txt',
+        llmsFullTxtFilename: 'llms-fusion-full.txt',
         title: 'Fusion',
         description: 'Documentation for Fusion.',
         rootContent: 'This file contains links to Fusion documentation following the llmstxt.org standard.',
         generateLLMsTxt: true,
-        generateLLMsFullTxt: false,
+        generateLLMsFullTxt: true,
         generateMarkdownFiles: true,
         includeBlog: false,
         excludeImports: true,
@@ -380,11 +401,12 @@ export default async function createConfigAsync() {
         id: 'llms-wave',
         docsDir: 'wave_docs/wave_repo/docs',
         llmsTxtFilename: 'llms-wave.txt',
+        llmsFullTxtFilename: 'llms-wave-full.txt',
         title: 'Wave',
         description: 'Documentation for Wave.',
         rootContent: 'This file contains links to Wave documentation following the llmstxt.org standard.',
         generateLLMsTxt: true,
-        generateLLMsFullTxt: false,
+        generateLLMsFullTxt: true,
         generateMarkdownFiles: true,
         includeBlog: false,
         excludeImports: true,
@@ -425,6 +447,8 @@ export default async function createConfigAsync() {
         },
         typesenseSearchParameters: {
           query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',
+          query_by_weights: '1,1,4,3,2',
+          drop_tokens_threshold: 0,
           group_by: 'url',
           group_limit: 1,
           per_page: 20,
