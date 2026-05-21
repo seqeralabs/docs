@@ -588,4 +588,3 @@ seqera ai -s <session-id>
 - [Modes](./modes.md): Work in build mode, plan mode, and goal mode
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
-- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

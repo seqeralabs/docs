@@ -129,7 +129,7 @@ Redis password and ACL configuration carry over unchanged when migrating to Valk
 
 ## Frontend image root user deprecation
 
-The frontend image running as root user is deprecated in 26.1 in favor of the unprivileged ("rootless") image. The privileged image running as root will be removed in a future major release. If you have not already migrated, update your [Kubernetes](../enterprise/platform-kubernetes) or [Docker Compose](../enterprise/platform-docker) manifests to reference the unprivileged image when downloading the new templates in the General upgrade steps below.
+The frontend image running as root user is deprecated in 26.1 in favor of the unprivileged ("rootless") image. The privileged image running as root will be removed in a future major release. If you have not already migrated, update your [Kubernetes](../enterprise/platform-kubernetes) or [Docker Compose](../enterprise/platform-docker-compose) manifests to reference the unprivileged image when downloading the new templates in the General upgrade steps below.
 
 See the [unprivileged frontend image documentation](../enterprise/platform-kubernetes#seqera-frontend-unprivileged) for security context, file system, and port differences.
 The unprivileged image is a requirement for the installation via the [Helm chart](../enterprise/platform-helm).
