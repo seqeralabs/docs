@@ -47,7 +47,7 @@ Treat the SCIM bearer token like a password. It grants write access to your orga
 To add a group manually:
 
 To delete a manually-entered group, select **Delete** on its row. If any delegated team references the group, its members are immediately purged.
-2. Select **Add group manually**.
+2. Select **Add manual group**.
 3. Enter the group identifier exactly as it appears in your IdP's `groups` claim.
 4. Select **Save**.
 
