@@ -5,7 +5,7 @@ date: "2026-05-12"
 tags: [sso, idp-delegation, teams, administration, enterprise]
 ---
 
-IdP delegation lets you map a Seqera team to a group in your identity provider (IdP). After you delegate a team, the IdP becomes the sole authority for membership: every time a user signs in through SSO, Seqera reads the `groups` claim from their token and updates the user's delegated-team memberships to match.
+IdP delegation lets you map a Seqera team to a group in your identity provider (IdP). After you delegate a team, the IdP becomes the sole authority for membership. Every time a user signs in through SSO, Seqera reads the `groups` claim from their token and updates the user's delegated-team memberships to match.
 
 IdP delegation requires a working OIDC SSO connection. To set up SSO before configuring delegation, see [Authentication](../overview).
 
@@ -13,9 +13,9 @@ IdP delegation requires a working OIDC SSO connection. To set up SSO before conf
 
 Delegation has three components that you configure once per organization.
 
-### 1. The IdP group catalog
+### The IdP group catalog
 
-Seqera maintains a per-organization catalog of IdP groups. The catalog populates the **IdP Group** drop-down menu on the group mapping page, so organization owners can select an IdP group when delegating a team. Groups appear in the catalog as soon as they're synced or entered — before any user has signed in.
+Seqera maintains a per-organization catalog of IdP groups. The catalog populates the **IdP Group** drop-down menu on the group mapping page. Oorganization owners can select an IdP group when delegating a team. Groups appear in the catalog as soon as they're synced or entered, before any user has signed in.
 
 The catalog is populated in one of two ways:
 
@@ -24,20 +24,20 @@ The catalog is populated in one of two ways:
 
 A manually-entered group is automatically promoted to SCIM-managed if your IdP later pushes the same group. See [Manage your IdP group catalog](./group-catalog/overview).
 
-### 2. The `groups` claim
+### The `groups` claim
 
 At login, Seqera reads the user's IdP claims to decide which delegated teams they belong to. The `groups` claim must be present in the token and must contain the same group identifiers as your catalog.
 
-Unlike Cloud Pro — which authenticates through Auth0 and requires a connection-level mapping — Enterprise reads the IdP's tokens directly. Configure the claim at the IdP itself. See [IdP claim mapping](./claim-mapping).
+Unlike Cloud Pro, which authenticates through Auth0 and requires a connection-level mapping, Enterprise reads the IdP's tokens directly. Configure the claim at the IdP itself. See [IdP claim mapping](./claim-mapping).
 
-### 3. The Team's `IdP Group` field
+### The Team's `IdP Group` field
 
-When an organization owner sets the **IdP Group** field on a team, the team becomes delegated. This:
+When an organization owner sets the **IdP Group** field on a team, the team becomes delegated. Delegation has the following effects:
 
-- Marks the team as "Managed in IdP" in the teams list.
-- Hides the **Add member** and **Remove member** controls.
-- Blocks team deletion until the field is cleared.
-- Leaves the team's name, description, avatar, and workspace assignments editable.
+- The team is labeled **Managed in IdP** in the teams list.
+- The **Add member** and **Remove member** controls are hidden.
+- The team cannot be deleted until the **IdP Group** field is cleared.
+- The team's name, description, avatar, and workspace assignments remain editable.
 
 The same IdP group can only be assigned to a single team. Each team can reference exactly one IdP group. See [Delegate a team to an IdP group](../../../../orgs-and-teams/teams#delegate-a-team-to-an-idp-group).
 
@@ -51,9 +51,9 @@ In deployments with more than one organization, a user does not need to be an ex
 
 On every SSO login, Seqera evaluates each delegated team in your organization against the user's `groups` claim:
 
-- **Match found** — the user is added to the team if they aren't already a member.
-- **No match** and the user was previously a member — they're removed from the team.
-- **No match** and the user was never a delegation-driven member — no change.
+- **Match found**: The user is added to the team if they aren't already a member.
+- **No match and the user was previously a member**: The user is removed from the team.
+- **No match and the user was never a delegation-driven member**: no change.
 
 Manual assignments to non-delegated teams are never touched by this evaluation. Users added manually to a team with no **IdP Group** value keep their membership regardless of their IdP claims.
 
@@ -71,14 +71,14 @@ Delegation activity is recorded in the [audit log](../../../../monitoring/audit-
 - Each delegation-driven membership change at login produces a `team_member_added` or `team_member_removed` event.
 - Group catalog operations produce `idp_group_created`, `idp_group_updated`, and `idp_group_deleted` events so you can correlate catalog changes with downstream membership changes.
 
-SCIM-originated entries — operations performed by your IdP's provisioning agent against Seqera's SCIM endpoint — are attributed to a **System** operator rather than to a named administrator, because they authenticate with a SCIM bearer token. To correlate a SCIM event with a specific administrator action, match by `displayName` and timestamp against your IdP's provisioning logs.
+SCIM-originated entries (operations performed by your IdP's provisioning agent against Seqera's SCIM endpoint) are attributed to a **System** operator rather than to a named administrator, because they authenticate with a SCIM bearer token. To correlate a SCIM event with a specific administrator action, match by `displayName` and timestamp against your IdP's provisioning logs.
 
 ## Set up delegation
 
 Complete these steps in order. Each step links to a dedicated guide.
 
 1. [Configure authentication](../overview) for your Enterprise instance if you haven't already.
-2. [Populate the IdP group catalog](./group-catalog/overview) — choose SCIM push or manual entry depending on your IdP.
+2. [Populate the IdP group catalog](./group-catalog/overview). Choose SCIM push or manual entry depending on your IdP.
 3. [Configure the IdP to emit the `groups` claim](./claim-mapping) so it reaches Seqera at login.
 4. If your instance hosts multiple organizations, review the [multi-organization routing rules](./multi-org-routing).
 5. [Delegate a Team to an IdP group](../../../../orgs-and-teams/teams#delegate-a-team-to-an-idp-group).
