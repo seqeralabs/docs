@@ -30,7 +30,7 @@ To add members to the team, select **Edit**, then **Members of team**, then **Ad
 3. Update the **Name**, **Description**, **Avatar**, or membership.
 4. Select **Update** to save.
 
-The same surface is used to delete a team. The **Delete** action is disabled for delegated teams; clear the **IdP Group** field first.
+The same surface is used to delete a team. The **Delete** action is disabled for delegated teams. Clear the **IdP Group** field first.
 
 ## Delegate a team to an IdP group
 
