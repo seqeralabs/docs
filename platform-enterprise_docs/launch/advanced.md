@@ -152,7 +152,7 @@ The toggle only selects the parser. It does not change the Nextflow runtime vers
 The v2 parser becomes the default in Nextflow 26.04:
 
 - **Before Nextflow 26.04**: Turn the toggle on to opt in to v2.
-- **From Nextflow 26.04**: v2 is the runtime default. Switch new pipelines on to match it, or turn the toggle off to pin a pipeline to v1.
+- **From Nextflow 26.04**: v2 is the runtime default. Turn the toggle off to pin a pipeline to v1.
 
 :::note
 The launch form inherits this setting from the pipeline. You can override it per launch without changing the stored value. Changing the toggle on the pipeline edit form creates a new pipeline version.
