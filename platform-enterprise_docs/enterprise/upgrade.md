@@ -64,7 +64,7 @@ You can upgrade directly from 25.3.x to 26.1. However, take note of the breaking
   - All backend pods or containers for your Enterprise deployment must contain the same previous and new secret key values in their configuration.
   - All backend pods or containers must be in a ready/running state before starting the Platform cron service.
 
-## 26.1 upgrade breaking changes 
+## 26.1 upgrade breaking changes
 
 ### Audit log versions in 26.1
 
