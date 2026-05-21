@@ -87,13 +87,13 @@ The size of the uploaded dataset file cannot exceed 10 MB.
 ### Link to an externally hosted file
 
 1. In the sidebar navigation, select **Datasets**.
-1. Select **Add Dataset** and choose **Link to URL**.
-1. Complete the **Name** and **Description** fields using information relevant to your dataset.
-1. Optionally add one or more **Labels** to your dataset. You can use labels as a search filter but they don't apply to other resources in Seqera.
-1. Copy and paste the dataset URL into the **Dataset URL** field.
-1. For datasets that use their first row for column names, customize the dataset view using the **Set first row as header** option.
-1. Select **Add**.
-1. The dataset will be displayed with a `Linked` badge for easy identification.
+2. Select **Add Dataset** and choose **Link to URL**.
+3. Complete the **Name** and **Description** fields using information relevant to your dataset.
+4. Optionally add one or more **Labels** to your dataset. You can use labels as a search filter but they don't apply to other resources in Seqera.
+5. Copy and paste the dataset URL into the **Dataset URL** field.
+6. For datasets that use their first row for column names, customize the dataset view using the **Set first row as header** option.
+7. Select **Add**.
+8. The dataset will be displayed with a `Linked` badge for easy identification.
 
 ## Manage dataset versions
 
