@@ -481,8 +481,7 @@ jobs:
 
   # Summary report
   summary:
-    needs: [setup, changes, voice-tone-review, terminology-review, consolidated-review]
-    # Removed clarity-review from dependencies since it's currently disabled
+    needs: [setup, changes, vale-lint, editorial-review-skill, consolidated-review]
     if: always() && needs.changes.outputs.docs == 'true'
     runs-on: ubuntu-latest
     steps:
@@ -492,9 +491,8 @@ jobs:
           script: |
             const jobs = [
               { name: 'Terminology (Vale)', status: '${{ needs.vale-lint.result }}' },
-              { name: 'Voice/Tone (AI)', status: '${{ needs.voice-tone-review.result }}' },
-              { name: 'Terminology (AI)', status: '${{ needs.terminology-review.result }}' }
-              // Clarity review temporarily disabled
+              { name: 'Editorial Review (AI)', status: '${{ needs.editorial-review-skill.result }}' },
+              { name: 'Consolidated Review', status: '${{ needs.consolidated-review.result }}' }
             ];
 
             const statusEmoji = {
