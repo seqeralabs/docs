@@ -19,8 +19,8 @@ Seqera maintains a per-organization catalog of IdP groups. The catalog populates
 
 The catalog is populated in one of two ways:
 
-- **SCIM 2.0 push** — your IdP pushes its group directory to Seqera's per-organization SCIM endpoint. Used with Okta and Entra ID.
-- **Manual entry** — for IdPs that don't support SCIM group sync (Google Workspace, Keycloak), an organization owner enters group identifiers in the catalog UI.
+- **SCIM 2.0 push**: Your IdP pushes its group directory to Seqera's per-organization SCIM endpoint. Used with Okta and Entra ID.
+- **Manual entry**: For IdPs that don't support SCIM group sync (Google Workspace, Keycloak), an organization owner enters group identifiers in the catalog UI.
 
 A manually-entered group is automatically promoted to SCIM-managed if your IdP later pushes the same group. See [Manage your IdP group catalog](./group-catalog/overview).
 
@@ -36,7 +36,7 @@ When an organization owner sets the **IdP Group** field on a team, the team beco
 
 - The team is labeled **Managed in IdP** in the teams list.
 - The **Add member** and **Remove member** controls are hidden.
-- The team cannot be deleted until the **IdP Group** field is cleared.
+- The team cannot be deleted until the **IdP groups** field is cleared.
 - The team's name, description, avatar, and workspace assignments remain editable.
 
 The same IdP group can only be assigned to a single team. Each team can reference exactly one IdP group. See [Delegate a team to an IdP group](../../../../orgs-and-teams/teams#delegate-a-team-to-an-idp-group).

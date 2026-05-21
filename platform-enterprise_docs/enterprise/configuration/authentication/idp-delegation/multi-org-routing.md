@@ -47,8 +47,8 @@ When a user belongs to multiple organizations on the same instance, Platform eva
 
 For new multi-organization Enterprise deployments, establish a naming convention for IdP groups before onboarding the first organization. Common patterns:
 
-- **Organization prefix** — `acme-eng-admins`, `beta-eng-admins`. Easy to read; explicit ownership.
-- **Reverse-DNS namespace** — `io.acme.eng.admins`. Compact; aligns with IdP best practice.
-- **Functional grouping with project codes** — `eng-NF-admins` where `NF` denotes a project. Useful when groups span organizations but require unique names.
+- **Organization prefix**: `acme-eng-admins`, `beta-eng-admins`. Easy to read; explicit ownership.
+- **Reverse-DNS namespace**: `io.acme.eng.admins`. Compact; aligns with IdP best practice.
+- **Functional grouping with project codes**: `eng-NF-admins` where `NF` denotes a project. Useful when groups span organizations but require unique names.
 
 Document the convention in your organization onboarding checklist so administrators avoid `409 Conflict` errors when they configure delegation.

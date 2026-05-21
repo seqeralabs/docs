@@ -51,5 +51,5 @@ After saving the IdP changes, confirm the claim is reaching Platform::
 3. Confirm the `groups` claim is present and contains the expected group identifiers.
 
 :::caution
-Platform treats an absent or empty `groups` claim as no-membership, not as "no change." If the claim ever stops flowing after an IdP config rollback, a misapplied policy, or a token-format change, affected users lose their delegated team access at their next login. Fix the IdP-side mapping before delegating production teams.
+If the user's token has no `groups` claim or the claim is malformed, no changes take place.
 :::

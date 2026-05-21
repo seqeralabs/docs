@@ -7,21 +7,17 @@ tags: [sso, scim, okta, idp-delegation, administration, enterprise]
 
 Configure Okta to push your organization's groups to Platform over SCIM 2.0. Once provisioning is enabled, your Okta group directory appears in Seqera's IdP group catalog and stays in sync with renames, additions, and deletions automatically.
 
-## Before you begin
-
-- An Okta application configured as your Platform SSO connection. See [Okta authentication](../../okta).
-- Organization owner access to your Platform organization.
 :::info[**Prerequisites**]{#prerequisites}
 You will need the following to get started:
 
 - An Okta application configured as your Platform SSO connection. See [Okta authentication](../../okta).
-- Organization owner access to your Playform organization.
+- Organization owner access to your Platform organization.
 - Administrator access to your Okta tenant.
 :::
 
 ## Get the Seqera SCIM connection details
 
-1. In Seqera, open **Organization settings > Group mapping**.
+1. In Platform, open **Organization settings > Group mapping**.
 2. Copy the **SCIM endpoint URL**. It has the form `https://<seqera-host>/api/orgs/<orgId>/scim/v2`.
 3. Select **Generate token** to issue a SCIM bearer token. Copy it immediately. You can't view it again after closing the dialog.
 
@@ -49,9 +45,9 @@ The bearer token grants write access to your group catalog. Store it in a secret
 
 ## Verify in Platform
 
-1. Return to Platform's **Organization settings** and select **Group mapping** panel.
-2. Refresh the page. The pushed Okta groups should appear in the catalog list within a few seconds.
-3. Open the group mapping page. The **IdP Group** drop-down menu is now populated with the synced groups.
+1. In Platform, open **Organization settings > Group mapping**.
+2. Select **Refresh**. The pushed Okta groups should appear in the catalog list within a few seconds.
+3. The **Linked team** drop-down menu is now populated with the synced groups.
 
 If groups don't appear, check the **Push Groups** status column in Okta for error details, and confirm that the **Provisioning** tab shows **Push Groups: ON**.
 

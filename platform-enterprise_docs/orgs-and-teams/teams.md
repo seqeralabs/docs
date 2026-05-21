@@ -38,11 +38,6 @@ Organizations with an active OIDC SSO connection can delegate team membership to
 
 For the runtime model behind delegation, see [IdP delegation overview](../enterprise/configuration/authentication/idp-delegation/overview).
 
-### Before you begin
-
-- An active OIDC SSO connection on your organization. See [Authentication](../enterprise/configuration/authentication/overview).
-- A populated IdP group catalog. See [Manage your IdP group catalog](../enterprise/configuration/authentication/idp-delegation/group-catalog/overview).
-- An IdP that emits the `groups` claim in OIDC tokens. See [IdP claim mapping](../enterprise/configuration/authentication/idp-delegation/claim-mapping).
 :::info[**Prerequisites**]{#prerequisites}
 You will need the following to get started:
 
@@ -54,13 +49,13 @@ You will need the following to get started:
 
 ### Delegate the team
 
-1. From the organization's landing page, open **Settings > Group mapping**.
-2. In the **IdP groups** field, select a group from the dropdown. The dropdown is populated from your organization's IdP group catalog.
+1. In Platform, open **Organization settings > Group mapping**.
+2. In the **IdP groups** field, select a group from the drop-down menu, which is populated from your organization's IdP group catalog.
 3. Select **Update** to save.
 
 The same IdP group can be assigned to more than one team. Each team can reference exactly one IdP group.
 
-### What changes when a Team is delegated
+### What changes when a team is delegated
 
 After you delegate a team:
 
@@ -74,19 +69,19 @@ After you delegate a team:
 
 On every SSO login, Seqera evaluates each delegated team against the user's `groups` claim and updates membership accordingly:
 
-- **Match found**: the user is added to the team if they aren't already a member.
-- **No match**: and the user was previously a member - they're removed from the team.
-- **No match**: and the user was never a delegation-driven member - no change.
+- **Match found**: The user is added to the team if they aren't already a member.
+- **No match**: And the user was previously a member - they're removed from the team.
+- **No match**: And the user was never a delegation-driven member - no change.
 
 Users added manually to a team with no **IdP Group** value keep their membership regardless of their IdP claims.
 
-If the user's token has no `groups` claim, or the claim is malformed, Seqera treats it as no group memberships and revokes any delegation-driven team memberships the user previously had. To diagnose claim issues, see [IdP claim mapping](../enterprise/configuration/authentication/idp-delegation/claim-mapping).
+If the user's token has no `groups` claim or the claim is malformed, no changes take place..
 
 ### Stop delegating a team
 
 To convert a delegated team back to manual management:
 
-1. Open the team's **Edit** page.
+1. In Platform, open **Organization settings > Group mapping**.
 2. Clear the **IdP Group** field.
 3. Select **Update** to save.
 

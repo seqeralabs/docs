@@ -10,8 +10,8 @@ Configure Microsoft Entra ID (formerly Azure AD) to push your tenant's groups to
 :::info[**Prerequisites**]{#prerequisites}
 You will need the following to get started:
 
-- An Entra ID enterprise application configured as your Seqera SSO connection. See [Entra ID authentication](../../entra).
-- Organization owner access to your Seqera organization.
+- An Entra ID enterprise application configured as your Platform SSO connection. See [Entra ID authentication](../../entra).
+- Organization owner access to your Platform organization.
 - Administrator access to your Entra ID tenant with permission to manage application provisioning.
 :::
 
@@ -60,8 +60,8 @@ Pick one approach for your tenant and use it consistently. The GUID and the disp
 ## Verify in Platform
 
 1. In Platform, open **Organization settings > Group mapping**.
-2. The assigned Entra ID groups should appear in the catalog list after the first provisioning cycle.
-3. Open the group mapping panel. The **IdP Group** drop-down menu is now populated with the synced groups.
+2. Select **Refresh**. The assigned Entra ID groups should appear in the catalog list after the first provisioning cycle.
+3. The **Linked team** drop-down menu is now populated with the synced groups.
 
 If groups don't appear, open the **Provisioning logs** for the application in Entra ID and review any failed actions.
 
