@@ -14,10 +14,10 @@ Use the table below to choose the path that fits your IdP.
 | Okta | SCIM push | [SCIM provisioning with Okta](./scim-okta) |
 | Entra ID | SCIM push | [SCIM provisioning with Entra ID](./scim-entra-id) |
 
-:::info
-Other identity providers
+:::info[Other identity providers]
+SCIM-based provisioning is supported for Okta and Microsoft Entra ID. With these providers, group membership syncs automatically, including lifecycle events (joiners, movers, leavers).
 
-SCIM provisioning is officially supported with Okta and Microsoft Entra ID. Any OIDC or SAML identity provider can authenticate users through Auth0, but group membership won't sync automatically and lifecycle events (joiners, movers, leavers) need to be handled manually in Seqera.
+Other OIDC or SAML identity providers can authenticate users through Auth0, but group membership doesn't sync automatically. An admin must update memberships in Seqera as users join, move, or leave.
 
 If you use Google Workspace, Keycloak, Ping, OneLogin, or another OIDC/SAML provider and want to delegate team membership, contact your Seqera account team to discuss your setup.
 :::
