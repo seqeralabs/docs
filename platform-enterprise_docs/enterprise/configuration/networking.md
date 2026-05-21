@@ -1,7 +1,8 @@
 ---
 title: "Networking"
 description: Seqera configuration options for networking
-date: "2026-01-27"
+date created: "2026-01-27"
+last updated: "2026-05-21"
 tags: [networking, configuration]
 ---
 
@@ -21,8 +22,7 @@ Understanding the distinction between Platform and Compute environment networkin
 
 **Compute environment requirements** refer to the network connectivity needed by the infrastructure where Nextflow pipeline jobs execute, which is provisioned on-demand by your Platform Enterprise installation. This includes connections for pulling pipeline code, downloading container images, accessing data sources, and using Seqera enterprise features, like Fusion or Wave. These connections originate from your compute resources (e.g., Kubernetes clusters, AWS Batch, Azure Batch, HPC clusters).
 
-Refer to the [Platform architecture](../overview) for details on how Platform works.
-In many deployments, Platform and Compute environments are isolated from each other with different network security policies. Ensure you configure firewall rules for both environments according to their respective requirements.
+Refer to the [Platform architecture](../overview) for details on how Platform works. In many deployments, Platform and Compute environments are isolated from each other with different network security policies. Ensure you configure firewall rules for both environments according to their respective requirements.
 
 ## Networking requirements
 
@@ -155,8 +155,8 @@ For IP-based allowlists, see [https://www.cloudflare.com/ips-v4/](https://www.cl
 | `public.cr.seqera.io`       | 443  | Optional | Container registry      |
 | `auth.cr.seqera.io`         | 443  | Optional | Container registry auth |
 | `private.cr.seqera.io`      | 443  | Optional | Container registry      |
-| `ai.seqera.io`              | 443  | Optional | Seqera AI               |
-| `ai-api.seqera.io`          | 443  | Optional | Seqera AI               |
+| `ai.seqera.io`              | 443  | Optional | Co-Scientist            |
+| `ai-api.seqera.io`          | 443  | Optional | Con-Scientist           |
 | `mcp.seqera.io`             | 443  | Optional | Seqera MCP              |
 | `api.multiqc.info`          | 443  | Optional | MultiQC reports         |
 
