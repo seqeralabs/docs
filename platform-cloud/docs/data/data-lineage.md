@@ -7,7 +7,7 @@ tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, l
 ---
 
 :::info
-Data lineage in Platform is in public preview. It requires Nextflow v25.04 or later, and AWS S3 object storage.
+Data lineage in Platform is currently in public preview. It requires Nextflow 25.04 or later, AWS S3 object storage, and Amazon Simple Queue Service (SQS). For best results, use Nextflow 26.04 or higher.
 :::
 
 :::warning
@@ -28,7 +28,7 @@ Production pipelines generate results that teams need to trust, audit, and repro
 
 ## How data lineage works
 
-Nextflow creates a structured JSON record for each entity in your pipeline when lineage is enabled:
+When lineage is enabled, Nextflow generates a structured JSON record for each entity in your pipeline during workflow execution:
 
 | Record type | Description |
 |---|---|
@@ -38,21 +38,33 @@ Nextflow creates a structured JSON record for each entity in your pipeline when 
 
 Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the entity. Every LID and lineage label renders as a clickable link, and you can navigate to all related entities across your organization.
 
+### Functional flow
+
+1. Nextflow appends lineage record objects (`*.data.json`) to the defined object storage bucket.
+1. The bucket is configured to filter for objects matching `.data.json` and sends object store notifications to the queue.
+1. SQS queue receives `s3:ObjectCreated:*` events.
+1. Platform reads the queue, returning the lineage objects created, and indexes them in the database.
+1. The index enriches the [run details][run-details]
+1. The index enriches the display of workflow-generated objects in Data Explorer with links to the origin pipeline run and task, sources of the object, and any lineage labels associated with the object.
+
 ## Enable data lineage
 
-To start collecting data lineage for all pipeline runs in your workspace, go to **Settings > Workspace Settings**. Select **Lineage** and define the credentials, region, and (optionally) storage bucket and path where lineage data is stored and indexed. Toggle the **Enable lineage by default** on to collect data lineage for all pipeline runs in the workspace or toggle off to require per pipeline launch configuration.
+To start collecting data lineage for all pipeline runs in your workspace, go to **Settings > Workspace Settings**. Select **Lineage**. Toggle the **Enable lineage by default** on to collect data lineage for all pipeline runs in the workspace or toggle off to require per pipeline launch configuration. Choose either a **Manual** or an **Automatic** configuration for lineage resources:
 
-:::tip
-If the storage bucket field is empty, a default bucket is generated for storing lineage data.
-:::
+- **Manual**: Define the credentials, region, object storage bucket and path, and SQS queue ARN.
+- **Automatic**: Define the credentials and region. The object storage bucket and path, and SQS queue, is managed by Platform.
 
-Once set, all pipeline runs in the workspace generate data lineage. See [Lineage][workspace-lineage] for more information about the settings.
+Once set and enabled, all pipeline runs in the workspace generate data lineage. See [Lineage][workspace-lineage] for more information about the settings. An indexer runs continuously in the background per workspace, long-polling the SQS queue for S3 event notifications. Failed event messages remain in the queue and can be retried after the visibility timeout.
 
 :::danger
-Changing the lineage storage bucket path after lineage data is generated will result in historic data loss. The lineage index is tied to the lineage storage bucket. Changing it makes existing records inaccessible. To move the storage location, first copy all existing lineage data to the new bucket and path (for example, `aws s3 cp --recursive s3://old-bucket/path s3://new-bucket/path`), then update the workspace setting.
+Updating the lineage settings after pipelines have generated lineage data will result in historic data loss. The lineage index is tied to the lineage storage bucket and path. Changing it makes existing records inaccessible. To avoid data loss when updating the storage location, first copy all existing lineage data to the new bucket and path (for example, `aws s3 cp --recursive s3://old-bucket/path s3://new-bucket/path`), then update the workspace setting.
 :::
 
 When launching a pipeline in a data-lineage enabled workspace, the **Enable lineage** toggle in the pipeline **Run setup** reflects the **Enable lineage by default** workspace setting. This can be turned off to _explicitly exclude_ data lineage creation for the pipeline run.
+
+:::tip
+Maintain role users and above can optionally toggle lineage on or off when launching a specific pipeline run.
+:::
 
 ### IAM permissions required
 
@@ -61,20 +73,30 @@ Data lineage requires additional AWS IAM permissions. The permissions required d
 - **Platform integration credentials** (IAM user): see [AWS Batch — Data lineage](../compute-envs/aws-batch#data-lineage-optional) or [AWS Cloud — Data lineage](../compute-envs/aws-cloud#data-lineage-optional)
 - **EC2 instance role / head job role** (manually managed): see [Manual AWS Batch configuration](../enterprise/advanced-topics/manual-aws-batch-setup#create-an-ec2-instance-role)
 
-### Advanced: Experimenting with data lineage
+### Lineage labels
 
-To test or troubleshoot data lineage for a _specific pipeline_, add the following to your **Nextflow config file** under **Advanced options** when _adding_ a pipeline to the launchpad.
+Assign lineage labels to output files using the `label` directive in your Nextflow process definitions. Labels appear in lineage records.
 
-```groovy
-lineage.enabled = true
-lineage.store.location = '<PATH_TO_STORAGE>'
-```
+Both Platform labels and Nextflow lineage labels propagate to lineage records. Platform excludes resource labels as they relate to underlying compute resources, not the data itself.
 
-To test for a _single pipeline run_, add the same code to your **Nextflow config file** under **Advanced options** when _launching_ the pipeline run.
-
-:::warning
-If data lineage is defined for a workspace, only that data is displayed in Platform. Any unique _specific pipeline_ or _single pipeline run_ lineage data is only accessible via the AWS S3 console and other related services (such as Amazon Athena).
+:::info
+Nextflow lineage labels are **immutable**. They are set at execution time and cannot be changed. Platform labels are _mutable_ by design and can be changed after a run launches. Changing Platform labels post-launch will produce a mismatch between Platform run labels and Nextflow lineage labels.
 :::
+
+### Changing or disabling data lineage
+
+If data lineage is **changed** from automatically-provisioned to manually-provisioned:
+
+- **New object storage bucket**: The bucket notification rule is cleared and the Platform-managed SQS queue is deleted. Some events may be missed. The bucket and its data are preserved.
+- **Same object storage bucket, different SQS queue**: The bucket notification rule is redirected to the new SQS queue ARN, and the old Platform-managed SQS queue is deleted. Some events may be missed. The bucket and its data are preserved.
+- **Same object storage bucket, same SQS queue**: No cloud provider resources change. All events, the bucket, and its data are preserved.
+
+If data lineage is **changed** from manually provisioned to automatically provisioned a new object storage bucket, SQS queue, and notification are created by Platform. Previously defined bucket and data, SQS queue and notifications are preserved.
+
+If data lineage is **deactivated**:
+
+- **Automatically provisioned**: Queue notification rule is cleared on the bucket, SQS queue deleted. Bucket and data are preserved.
+- **Manually provisioned**: No change to cloud resources. Bucket and data are preserved.
 
 ## Data lineage displayed in Platform
 
@@ -91,19 +113,34 @@ When a run was executed with lineage enabled, the [run details page][run-details
 All LIDs and lineage labels are clickable links. Click any LID to open the organization-level lineage search pre-filled with that identifier.
 :::
 
+:::note
+If more than one Nextflow run publishes a file to the same destination, there will be **two** lineage records. The `FileOutput` records for published files are saved under the lineage ID of the workflow run and can be used to differentiate them.
+:::
+
 ### Data Explorer
 
 Output objects from a lineage-enabled run display their LID and any lineage labels when you preview the object in Data Explorer. You can trace any file back to the pipeline run that produced it.
 
-## Lineage labels
+## Advanced: Experimenting with data lineage
 
-Assign lineage labels to output files using the `label` directive in your Nextflow process definitions. Labels appear in lineage records and are searchable across your workspace.
+To test or troubleshoot data lineage for a _specific pipeline_, add the following to your **Nextflow config file** under **Advanced options** when _adding_ a pipeline to the launchpad.
 
-Both Seqera Platform labels and Nextflow lineage labels propagate to lineage records. Seqera Platform excludes resource labels as they relate to underlying compute resources, not the data itself.
+```groovy
+lineage.enabled = true
+lineage.store.location = '<PATH_TO_STORAGE>'
+```
 
-:::info
-Nextflow lineage labels are immutable. They are set at execution time and cannot be changed. Seqera Platform labels are mutable. Updating Platform labels after a run completes can produce a mismatch between Platform run labels and lineage labels. This is expected behavior.
+To test for a _single pipeline run_, add the same code to your **Nextflow config file** under **Advanced options** when _launching_ the pipeline run.
+
+:::warning
+If data lineage is defined for a workspace, only that data is displayed in Platform. Any unique _specific pipeline_ or _single pipeline run_ lineage data is only accessible via the AWS S3 console and other related services (such as Amazon Athena).
 :::
+
+## Costs associated with data lineage
+
+Monthly S3 object storage bucket and SQS costs will scale based on the number of pipeline runs launched with lineage enabled. 
+
+Typical SQS queue costs for a single rnaseq pipeline run daily are less than $10 USD/month.
 
 {/* links */}
 [workflow-labels]: https://docs.seqera.io/nextflow/workflow#labels
