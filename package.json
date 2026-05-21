@@ -7,7 +7,7 @@
     "glob": "^11.1.0",
     "immutable": "^5.1.5",
     "serialize-javascript": "^7.0.3",
-    "katex": "^0.16.10",
+    "katex": "^0.16.45",
     "postman-code-generators": "2.1.1",
     "gray-matter": {
       "js-yaml": "4.1.1"
