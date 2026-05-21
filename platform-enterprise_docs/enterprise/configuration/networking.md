@@ -156,6 +156,8 @@ For IP-based allowlists, see [https://www.cloudflare.com/ips-v4/](https://www.cl
 | `auth.cr.seqera.io`         | 443  | Optional | Container registry auth |
 | `private.cr.seqera.io`      | 443  | Optional | Container registry      |
 | `ai.seqera.io`              | 443  | Optional | Seqera AI               |
+| `ai-api.seqera.io`          | 443  | Optional | Seqera AI               |
+| `mcp.seqera.io`             | 443  | Optional | Seqera MCP              |
 | `api.multiqc.info`          | 443  | Optional | MultiQC reports         |
 
 ### Compute environment domains
