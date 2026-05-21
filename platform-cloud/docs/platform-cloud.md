@@ -1,7 +1,7 @@
 ---
 title: "Seqera Platform Cloud"
 description: "Introduction to Seqera Platform Cloud."
-date: "21 May 2026"
+date created: "2026-05-21"
 slug: /
 ---
 
