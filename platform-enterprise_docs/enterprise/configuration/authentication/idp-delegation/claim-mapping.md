@@ -25,7 +25,7 @@ Enterprise reads the IdP's tokens directly.
 
 ### Entra ID
 
-Entra ID requires an app-registration change, plus attention to the format Entra emits.
+Entra ID requires an app-registration change and attention to the format Entra emits.
 
 1. In the Azure portal, open the app registration that backs your Platform connection.
 2. Open **Token configuration**, then **Add groups claim**.
@@ -44,10 +44,12 @@ The GUID and the display name don't both flow at the same time, so pick one appr
 
 ## Verify the mapping
 
-To confirm the `groups` claim is reaching Platform:
+After saving the IdP changes, confirm the claim is reaching Platform::
 
-1. Have a test user sign in via SSO.
+1. Sign in to Platform as a test user via SSO.
 2. In your Platform instance logs, look for the SSO callback log line. It records the full claim set received.
 3. Confirm the `groups` claim is present and contains the expected group identifiers.
 
-If the claim is missing or empty, the user's delegated-team memberships are revoked at login (this is by design — Seqera treats absent claims as no-membership). Fix the IdP-side mapping before delegating production teams.
+:::caution
+Platform treats an absent or empty `groups` claim as no-membership, not as "no change." If the claim ever stops flowing after an IdP config rollback, a misapplied policy, or a token-format change, affected users lose their delegated team access at their next login. Fix the IdP-side mapping before delegating production teams.
+:::
