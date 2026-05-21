@@ -138,6 +138,52 @@ micronaut:
           cookie-max-age: 10h
 ```
 
+## Ephemeral endpoint configuration
+
+Ephemeral endpoints provide temporary, single-use URLs for sensitive operations like passing pipeline parameters from Platform to Nextflow. These endpoints have a configurable lifetime to ensure security while supporting long-running workflows.
+
+:::caution
+If a submitted job takes longer to be scheduled than the refresh token expiration period (6 hours by default), the job will fail because Nextflow no longer has valid tokens to communicate with Platform. For workflows with extended queue times, increase both the refresh token expiration and ephemeral endpoint duration accordingly.
+:::
+
+| Setting                    | Default | Description                                                              |
+| :------------------------- | :------ | :----------------------------------------------------------------------- |
+| `tower.ephemeral.duration` | 6h      | Lifetime of ephemeral endpoints used for parameter passing to Nextflow   |
+
+The ephemeral endpoint duration should align with your refresh token expiration to ensure that:
+- Tokens remain valid for the duration that endpoints are accessible
+- Jobs scheduled after extended queue times can still authenticate with Platform
+- Nextflow can successfully retrieve parameters and communicate with Platform
+
+**tower.yml**
+
+```yaml
+tower:
+  ephemeral:
+    duration: 8h
+```
+
+**Example configuration for long-running workflows**
+
+For environments where jobs may wait in queue for extended periods, configure both settings together:
+
+```yaml
+tower:
+  ephemeral:
+    duration: 12h
+
+micronaut:
+  security:
+    token:
+      jwt:
+        signatures:
+          refresh-token:
+            expiration: 12h
+      refresh:
+        cookie:
+          cookie-max-age: 14h
+```
+
 ## User access allow list
 
 Restrict access to specific user email addresses or domains. Allow list entries are case-insensitive.
