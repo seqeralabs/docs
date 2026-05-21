@@ -64,29 +64,28 @@ You can upgrade directly from 25.3.x to 26.1. However, take note of the breaking
   - All backend pods or containers for your Enterprise deployment must contain the same previous and new secret key values in their configuration.
   - All backend pods or containers must be in a ready/running state before starting the Platform cron service.
 
-## 26.1 upgrade breaking changes 
+## 26.1 upgrade breaking changes
 
 ### Audit log versions in 26.1
 
 Seqera Platform Enterprise 26.1 introduces the audit log v2 schema as a **breaking change** for direct database consumers and custom ETL jobs.
 
-- The legacy audit log schema remains in the `tw_audit_log` table.
-- The new audit log v2 schema is written to a separate `tw_audit_log_v2` table.
+- The legacy audit log schema remains in the `tw_audit_log` table. This table is now deprecated.
+- The new audit log v2 schema is written to a separate table.
 - The v2 schema is not backward-compatible with the legacy schema. Field names, structure, and pagination behavior differ.
 - The v2 Admin panel view and CSV export are available when `TOWER_AUDIT_LOG_V2_WRITE_MODE` is set to `dual` or `v2`.
 
 Use `TOWER_AUDIT_LOG_V2_WRITE_MODE` to control how new audit events are written:
 
-- `v1`: Write new events to the legacy `tw_audit_log` table only. This is the default in 26.1.
-- `dual`: Write new events to both `tw_audit_log` and `tw_audit_log_v2`. This is the recommended 26.1 migration mode if you need to validate the v2 schema while keeping existing v1 integrations unchanged.
-- `v2`: Write new events to `tw_audit_log_v2` only.
+- `dual`: Default. Write new events to both `v1` schema and `v2` schema. This is the recommended 26.1 migration mode if you need to validate the v2 schema while keeping existing v1 integrations unchanged.
+- `v2`: Write new events to `v2` schema only.
 
 #### Upgrade path for existing integrations
 
 If you have existing scripts, exports, or ETL processes that read from the legacy audit log schema, plan the 26.1 upgrade in two stages:
 
 1. Upgrade to 26.1.
-2. Validate your integrations against the v2 schema while your existing v1 readers continue to work from the legacy table.
+2. Validate your integrations against v2 while your existing v1 readers continue to work from the legacy table.
 
 In the 26.1 migration plan, dual-write is transitional. Plan for 26.2 to make v2 the only write-side schema, while the legacy v1 data remains available for reads as long as your retention policy still covers the required historical period.
 
@@ -141,7 +140,7 @@ In 26.1, Studios is enabled on every workspace in your instance by default. This
 
 The [`TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`](./configuration/overview#data-features) environment variable controls Studios availability:
 
-| Value | Behaviour |
+| Value | Behavior |
 | --- | --- |
 | Unset (new default) | Studios enabled on **all workspaces** |
 | `""` (empty string) | Studios disabled on all workspaces |

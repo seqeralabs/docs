@@ -25,7 +25,7 @@ Before you begin, you need:
 - A Redis 7 instance separate from the one used by Seqera Platform
 - TLS certificates for the Studios subdomains `*.connect.example.com`
   * A single certificate covering both Platform and Studios subdomains can be used; if preferring to use separate certificates, you may need to configure a separate ingress when working with plain Kubernetes manifests (the Studios Helm chart already uses separate ingresses)
-  * The studios subdomain must share the same "root domain" with the Platform installation, for example with platform installed at `example.com` or `platform.example.com`, Studios can be installed at:
+  * The Studios subdomain must share the same "root domain" with the Platform installation, for example with Platform installed at `example.com` or `platform.example.com`, Studios can be installed at:
     - `connect.example.com` or using another name such as `studios.example.com`
     - `connect.platform.example.com`
     - `connect.another.subdomain.example.com`
@@ -53,7 +53,7 @@ You can configure which organizational workspaces have access to Studios by sett
 
 Each of the provided environments includes a particular version of the underlying software package and the version of Seqera Connect, an integrated web- and file-server.
 
-To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the R-IDE is `2025.04.1-0.9`, version `2025.04.01` is the R-IDE version and `0.9` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../studios/container-images).
+To quickly identify which version of the software an image includes, the version string for each container is in the form of `<software_version>-<seqera_connect_version>`. For example, if the version string for the R-IDE is `2025.04.1-0.12`, version `2025.04.01` is the R-IDE version and `0.12` is the Connect version of this Seqera-built container image. Learn more about Studios [environment versioning](../studios/container-images).
 
 - To see the list of all JupyterLab image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [public.cr.seqera.io/repo/platform/data-studio-jupyter][ds-jupyter].
 - To see the list of all R-IDE image templates available, including security scan results or to inspect the container specification (including container specifications, configuration, and manifest), see [https://public.cr.seqera.io/repo/platform/data-studio-ride][ds-ride].
