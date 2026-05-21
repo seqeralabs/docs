@@ -186,6 +186,20 @@ When starting a Studio session, a *checkpoint* is automatically created. A check
 Checkpoints vary in size depending on libraries installed in your session environment. This can potentially result in many large files stored in the compute environment's pipeline work directory and saved to cloud storage. This storage will incur costs based on the cloud provider. Due to the architecture of Studios, you cannot delete any checkpoint files to save on storage costs. Deleting a Studio session's checkpoints will result in a corrupted Studio session that cannot be started nor recovered.
 :::
 
+### S3 versioning and checkpoint storage costs
+
+If your compute environment work directory uses an S3 bucket with **versioning enabled**, checkpoint writes create a new S3 object version every five minutes rather than overwriting the previous one. For an active Studio session, this produces up to 96 new object versions per day per session. Over time, these non-current versions accumulate and can significantly increase storage costs.
+
+:::warning
+Only the latest version of each checkpoint file is read by Platform. However, non-current S3 object versions are not automatically removed and will continue to accrue storage costs until explicitly deleted or expired.
+:::
+
+**Recommended mitigation:** Apply an S3 Lifecycle rule to expire non-current object versions on the `.studios/checkpoints/` prefix. A one-day expiry retains the current version while removing intermediate five-minute writes. You can also delete existing accumulated non-current versions manually using your cloud provider's console or CLI.
+
+:::note
+Non-current object versions (intermediate checkpoint writes) are safe to delete. Do **not** delete the current (latest) version of any checkpoint file or the checkpoint directory itself — doing so will corrupt the Studio session and it cannot be recovered.
+:::
+
 When you stop and start a session, or start a new session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available. Changes made to mounted data are not included in a checkpoint.
 
 Checkpoints can be renamed and the name has to be unique per Studio. Spaces in checkpoint names are converted to underscores automatically.
