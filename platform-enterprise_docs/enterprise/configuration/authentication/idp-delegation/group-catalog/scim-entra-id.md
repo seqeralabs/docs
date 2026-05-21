@@ -76,7 +76,7 @@ Renames and deletes propagate automatically through SCIM:
 
 ### Groups appear in Entra ID but not in Platform
 
-Confirm the bearer token configured in Entra ID matches the latest token that was issued. If you generated a new token after configuring Entra ID, the previous one is revoked.
+Confirm the bearer token configured in Entra ID matches the latest token that was issued. If you generated a new token after configuring Entra ID, the previous token is revoked.
 
 ### Provisioning logs show `401 Unauthorized`
 
