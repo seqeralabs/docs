@@ -142,7 +142,7 @@ Replace Nextflow process commands with command [stubs](https://docs.seqera.io/ne
 
 Use the new v2 Nextflow language parser. Requires Nextflow 25.02.0-edge or later. Older runtimes ignore this setting.
 
-The v2 parser implements Nextflow's [strict syntax](https://nextflow.io/docs/latest/strict-syntax.html). Platform exports `NXF_SYNTAX_PARSER` to the launch environment:
+The v2 parser implements Nextflow's [strict syntax](https://nextflow.io/docs/latest/strict-syntax.html). Platform selects it by exporting `NXF_SYNTAX_PARSER` to the launch environment:
 
 - **Off (default)**: Workflows run with the v1 parser. Platform exports `NXF_SYNTAX_PARSER=v1`.
 - **On**: Workflows run with the v2 parser. Platform exports `NXF_SYNTAX_PARSER=v2`.
@@ -151,8 +151,10 @@ The toggle only selects the parser. It does not change the Nextflow runtime vers
 
 The v2 parser becomes the default in Nextflow 26.04:
 
-- **Before Nextflow 26.04**: Turn the toggle on to opt in to v2.
+- **Before Nextflow 26.04**: v1 is the runtime default. Turn the toggle on to opt in to v2.
 - **From Nextflow 26.04**: v2 is the runtime default. Turn the toggle off to pin a pipeline to v1.
+
+A [pre-run script](#pre-and-post-run-scripts) that exports `NXF_SYNTAX_PARSER` overrides this toggle.
 
 :::note
 The launch form inherits this setting from the pipeline. You can override it per launch without changing the stored value. Changing the toggle on the pipeline edit form creates a new pipeline version.
