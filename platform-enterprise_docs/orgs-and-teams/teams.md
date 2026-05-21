@@ -8,7 +8,7 @@ tags: [teams, organizations, administration, sso, idp-delegation, enterprise]
 **Teams** allow organization owners to group members and collaborators together into a single unit and to manage them as a whole. Apply a workspace role to a team and every member inherits that access. See [User roles](./roles) for the available roles.
 
 :::note
-If your organization has [single sign-on (SSO)](../enterprise/configuration/authentication/overview) and IdP group claims mapping enabled, the team form includes an **IdP Group** field. Leave it empty to manage team membership manually, or select an IdP group to delegate membership to your identity provider. See [Delegate a team to an IdP group](#delegate-a-team-to-an-idp-group).
+If your organization has [single sign-on (SSO)](../enterprise/configuration/authentication/overview) and IdP group claims mapping enabled, the team can be delegated to **IdP Groups**. See [Delegate a team to an IdP group](#delegate-a-team-to-an-idp-group).
 :::
 
 ## Create a team
