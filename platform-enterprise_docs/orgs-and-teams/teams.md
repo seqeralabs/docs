@@ -45,7 +45,7 @@ For the runtime model behind delegation, see [IdP delegation overview](../enterp
 - An IdP that emits the `groups` claim in OIDC tokens. See [IdP claim mapping](../enterprise/configuration/authentication/idp-delegation/claim-mapping).
 - Organization owner access to your Seqera organization.
 
-### Delegate the Team
+### Delegate the team
 
 1. From the organization's landing page, open the **Teams** tab.
 2. Select the team you want to delegate, then **Edit**.
