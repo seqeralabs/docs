@@ -43,7 +43,14 @@ For the runtime model behind delegation, see [IdP delegation overview](../enterp
 - An active OIDC SSO connection on your organization. See [Authentication](../enterprise/configuration/authentication/overview).
 - A populated IdP group catalog. See [Manage your IdP group catalog](../enterprise/configuration/authentication/idp-delegation/group-catalog/overview).
 - An IdP that emits the `groups` claim in OIDC tokens. See [IdP claim mapping](../enterprise/configuration/authentication/idp-delegation/claim-mapping).
+:::info[**Prerequisites**]{#prerequisites}
+You will need the following to get started:
+
+- An active OIDC SSO connection on your organization. See [Authentication](../enterprise/configuration/authentication/overview).
+- A populated IdP group catalog. See [Manage your IdP group catalog](../enterprise/configuration/authentication/idp-delegation/group-catalog/overview).
+- An IdP that emits the `groups` claim in OIDC tokens. See [IdP claim mapping](../enterprise/configuration/authentication/idp-delegation/claim-mapping).
 - Organization owner access to your Seqera organization.
+:::
 
 ### Delegate the team
 
