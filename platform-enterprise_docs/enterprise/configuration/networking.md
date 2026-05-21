@@ -171,6 +171,7 @@ For IP-based allowlists, see [https://www.cloudflare.com/ips-v4/](https://www.cl
 | `nf-xpack.seqera.io.cdn.cloudflare.net`                   | 443  | Conditional | Enterprise plugins (CDN)                       |
 | `wave.seqera.io`                                          | 443  | Conditional | Wave container services                        |
 | `community.wave.seqera.io`                                | 443  | Conditional | Wave community services                        |
+| `cerbero.seqera.io`                                       | 443  | Conditional | Auth service for Community CR                  |
 | `wave-cache-prod-cloudflare.seqera.io`                    | 443  | Conditional | Wave cache                                     |
 | `wave-cache-prod-cloudflare.seqera.io.cdn.cloudflare.net` | 443  | Conditional | Wave cache (CDN)                               |
 | `community-cr-prod.seqera.io`                             | 443  | Conditional | Container registry                             |
