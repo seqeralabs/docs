@@ -62,9 +62,9 @@ A manually-entered group is automatically promoted to SCIM-managed if your IdP l
 When a group is removed from the catalog, by SCIM `DELETE`, manual deletion, or IdP-side rename detection, the following happens asynchronously:
 
 - The catalog row is removed.
-- Every delegated team that referenced the group has its delegation-driven members purged. The team's other settings — name, workspace assignments, role — are preserved.
+- Every delegated team that referenced the group has its delegation-driven members purged. The team's other settings (name, workspace assignments, role) are preserved.
 - If a group is deleted on the IdP side, the team's membership can be reset by setting its **IdP Group** field to a different group, or clearing the field to convert the team back to manual management.
 
 ## Multi-organization deployments
 
-On Enterprise instances that host more than one organization, group display names must be unique across all organizations on the instance. If you add a group that conflicts with another organization's catalog entry, this will fail with a `409 Conflict`. See [Multi-organization routing](../multi-org-routing) for the full rules.
+On Enterprise instances that host more than one organization, group display names must be unique across all organizations on the instance. If you add a group that conflicts with another organization's catalog entry, it will fail with a `409 Conflict`. See [Multi-organization routing](../multi-org-routing) for more information.
