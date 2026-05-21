@@ -33,7 +33,7 @@ To set up SCIM:
 3. Configure these values in your IdP's SCIM provisioning settings.
 4. Trigger an initial sync from the IdP or wait until the IdP performs an scheduled sync.
 
-After the sync completes, the catalog displays every group your IdP shared, and the **IdP Group** drop-down menu on the team form is populated.
+After the sync completes, the catalog displays every group your IdP shared, and the **Linked team** drop-down menu on **Group mapping > IdP groups** is populated.
 
 :::caution
 Treat the SCIM bearer token like a password. It grants write access to your organization's group catalog. If the token is compromised, rotate it immediately using **Rotate** in the **Group mapping** panel. The previous token is revoked atomically.
