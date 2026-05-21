@@ -205,7 +205,7 @@ jobs:
           ref: ${{ github.event_name == 'issue_comment' && steps.pr-ref.outputs.head_ref || '' }}
 
       - name: Vale Terminology Check
-        uses: errata-ai/vale-action@d89dee975228ae261d22c15adcd03578634d429c # v2.1.1
+        uses: errata-ai/vale-action@85f9f7f2c5f449ac0ae5b66662961bae3f77ca6a # v2.1.2
         with:
           files: |
             platform-enterprise_docs
@@ -347,7 +347,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run Editorial Review Skill
-        uses: anthropics/claude-code-action@dde2242db6af13460b916652159b6ba19a598f30 # v1.0.120
+        uses: anthropics/claude-code-action@20c8abf165d5f85ab3fc970db9498436377dc9d1 # v1.0.128
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |
@@ -481,8 +481,7 @@ jobs:
 
   # Summary report
   summary:
-    needs: [setup, changes, voice-tone-review, terminology-review, consolidated-review]
-    # Removed clarity-review from dependencies since it's currently disabled
+    needs: [setup, changes, vale-lint, editorial-review-skill, consolidated-review]
     if: always() && needs.changes.outputs.docs == 'true'
     runs-on: ubuntu-latest
     steps:
@@ -492,9 +491,8 @@ jobs:
           script: |
             const jobs = [
               { name: 'Terminology (Vale)', status: '${{ needs.vale-lint.result }}' },
-              { name: 'Voice/Tone (AI)', status: '${{ needs.voice-tone-review.result }}' },
-              { name: 'Terminology (AI)', status: '${{ needs.terminology-review.result }}' }
-              // Clarity review temporarily disabled
+              { name: 'Editorial Review (AI)', status: '${{ needs.editorial-review-skill.result }}' },
+              { name: 'Consolidated Review', status: '${{ needs.consolidated-review.result }}' }
             ];
 
             const statusEmoji = {
@@ -548,7 +546,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Apply Fixes
-        uses: anthropics/claude-code-action@dde2242db6af13460b916652159b6ba19a598f30 # v1.0.120
+        uses: anthropics/claude-code-action@20c8abf165d5f85ab3fc970db9498436377dc9d1 # v1.0.128
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |

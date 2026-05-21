@@ -6,6 +6,10 @@ last updated: "2026-05-05"
 tags: [aws, batch, compute-environment]
 ---
 
+import CodeBlock from '@theme/CodeBlock';
+import Button from '@site/src/components/Button';
+import AwsBatchFullPolicy from './_policies/aws-batch-full-policy.json?raw';
+
 :::tip
 This guide assumes you have an existing [Amazon Web Service (AWS)](https://aws.amazon.com/) account.
 
@@ -78,204 +82,11 @@ A permissive and broad policy with all the required permissions is provided here
 <details>
 <summary>Full permissive policy (for reference)</summary>
 
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "BatchEnvironmentManagementCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "batch:CreateComputeEnvironment",
-        "batch:CreateJobQueue",
-        "batch:DeleteComputeEnvironment",
-        "batch:DeleteJobQueue",
-        "batch:UpdateComputeEnvironment",
-        "batch:UpdateJobQueue"
-      ],
-      "Resource": [
-        "arn:aws:batch:*:*:compute-environment/TowerForge-*",
-        "arn:aws:batch:*:*:job-queue/TowerForge-*"
-      ]
-    },
-    {
-      "Sid": "BatchEnvironmentListing",
-      "Effect": "Allow",
-      "Action": [
-        "batch:DescribeComputeEnvironments",
-        "batch:DescribeJobDefinitions",
-        "batch:DescribeJobQueues",
-        "batch:DescribeJobs"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "BatchJobsManagementCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "batch:CancelJob",
-        "batch:RegisterJobDefinition",
-        "batch:SubmitJob",
-        "batch:TagResource",
-        "batch:TerminateJob"
-      ],
-      "Resource": [
-        "arn:aws:batch:*:*:job-definition/*",
-        "arn:aws:batch:*:*:job-queue/TowerForge-*",
-        "arn:aws:batch:*:*:job/*"
-      ]
-    },
-    {
-      "Sid": "LaunchTemplateManagement",
-      "Effect": "Allow",
-      "Action": [
-        "ec2:CreateLaunchTemplate",
-        "ec2:DeleteLaunchTemplate",
-        "ec2:DescribeLaunchTemplates",
-        "ec2:DescribeLaunchTemplateVersions"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "PassRolesToBatchCanBeRestricted",
-      "Effect": "Allow",
-      "Action": "iam:PassRole",
-      "Resource": "*",
-      "Condition": {
-        "StringEquals": {
-          "iam:PassedToService": [
-            "batch.amazonaws.com",
-            "ec2.amazonaws.com"
-          ]
-        }
-      }
-    },
-    {
-      "Sid": "CloudWatchLogsAccessCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "logs:Describe*",
-        "logs:FilterLogEvents",
-        "logs:Get*",
-        "logs:List*",
-        "logs:StartQuery",
-        "logs:StopQuery",
-        "logs:TestMetricFilter"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "OptionalS3PlatformDataAccessCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "s3:Get*",
-        "s3:List*",
-        "s3:PutObject"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "OptionalIAMManagementCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "iam:AddRoleToInstanceProfile",
-        "iam:AttachRolePolicy",
-        "iam:CreateInstanceProfile",
-        "iam:CreateRole",
-        "iam:DeleteInstanceProfile",
-        "iam:DeleteRole",
-        "iam:DeleteRolePolicy",
-        "iam:DetachRolePolicy",
-        "iam:GetRole",
-        "iam:ListAttachedRolePolicies",
-        "iam:ListRolePolicies",
-        "iam:PutRolePolicy",
-        "iam:RemoveRoleFromInstanceProfile",
-        "iam:TagInstanceProfile",
-        "iam:TagRole"
-      ],
-      "Resource": [
-        "arn:aws:iam::*:role/TowerForge-*",
-        "arn:aws:iam::*:instance-profile/TowerForge-*"
-      ]
-    },
-    {
-      "Sid": "OptionalFetchOptimizedAMIMetadata",
-      "Effect": "Allow",
-      "Action": "ssm:GetParameters",
-      "Resource": "arn:aws:ssm:*:*:parameter/aws/service/ecs/*"
-    },
-    {
-      "Sid": "OptionalEC2MetadataDescribe",
-      "Effect": "Allow",
-      "Action": [
-        "ec2:DescribeAccountAttributes",
-        "ec2:DescribeImages",
-        "ec2:DescribeInstanceTypeOfferings",
-        "ec2:DescribeInstanceTypes",
-        "ec2:DescribeKeyPairs",
-        "ec2:DescribeSecurityGroups",
-        "ec2:DescribeSubnets",
-        "ec2:DescribeVpcs"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "OptionalFSXManagementCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "fsx:CreateFileSystem",
-        "fsx:DeleteFileSystem",
-        "fsx:DescribeFileSystems",
-        "fsx:TagResource"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "OptionalEFSManagementCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "elasticfilesystem:CreateFileSystem",
-        "elasticfilesystem:DeleteFileSystem",
-        "elasticfilesystem:CreateMountTarget",
-        "elasticfilesystem:DeleteMountTarget",
-        "elasticfilesystem:DescribeFileSystems",
-        "elasticfilesystem:DescribeMountTargets",
-        "elasticfilesystem:UpdateFileSystem",
-        "elasticfilesystem:PutLifecycleConfiguration",
-        "elasticfilesystem:TagResource"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "OptionalPipelineSecretsListing",
-      "Effect": "Allow",
-      "Action": "secretsmanager:ListSecrets",
-      "Resource": "*"
-    },
-    {
-      "Sid": "OptionalPipelineSecretsManagementCanBeRestricted",
-      "Effect": "Allow",
-      "Action": [
-        "secretsmanager:DescribeSecret",
-        "secretsmanager:DeleteSecret",
-        "secretsmanager:CreateSecret"
-      ],
-      "Resource": "arn:aws:secretsmanager:*:*:secret:tower-*"
-    },
-    {
-      "Sid": "OptionalUserdataCheck",
-      "Effect": "Allow",
-      "Action": [
-        "ec2:GetConsoleOutput"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-```
+<CodeBlock language="json">{AwsBatchFullPolicy}</CodeBlock>
 
 </details>
+
+<Button to="./_policies/aws-batch-full-policy.json" medium>Download aws-batch-full-policy.json</Button>
 
 ### AWS Batch management
 
@@ -600,6 +411,39 @@ Platform can retrieve the EC2 instance console output to detect errors in the us
   "Resource": "*"
 }
 ```
+
+### Data lineage (optional)
+
+If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials to create the queue infrastructure and bucket notifications used by the lineage service:
+
+```json
+{
+  "Sid": "LineageIntegrationSQS",
+  "Effect": "Allow",
+  "Action": [
+    "sqs:CreateQueue",
+    "sqs:GetQueueAttributes",
+    "sqs:SetQueueAttributes",
+    "sqs:GetQueueUrl",
+    "sqs:ReceiveMessage",
+    "sqs:DeleteMessage"
+  ],
+  "Resource": "arn:aws:sqs:<REGION>:<ACCOUNT_ID>:seqera-lineage-*"
+},
+{
+  "Sid": "LineageIntegrationS3",
+  "Effect": "Allow",
+  "Action": [
+    "s3:CreateBucket",
+    "s3:GetBucketNotificationConfiguration",
+    "s3:PutBucketNotificationConfiguration",
+    "s3:GetBucketLocation"
+  ],
+  "Resource": "arn:aws:s3:::seqera-lineage-*"
+}
+```
+
+If you manage your own EC2 instance role or head job role (rather than letting Seqera create them with Batch Forge), see [Manual AWS Batch configuration](../enterprise/advanced-topics/manual-aws-batch-setup#create-an-ec2-instance-role) for additional S3 permissions to add to those roles.
 
 ## Create the IAM policy
 
