@@ -35,7 +35,7 @@ Apart from the **Participants** tab, the _organization_ workspace is similar to 
 
 ## Workspace settings
 
-### Studios settings
+### Studios
 
 - **Collaboration mode**: Limit which members can connect to a running Studio in the workspace. Toggle between **Collaborative**  (any member with the right permissions can connect) and **Private** (only the creator can connect). Default is **Collaborative** mode.
 - **Session lifespan**: Set a predefined lifespan (between 1 and 120 hours), after which all Studio sessions in the workspace are automatically stopped. To keep all workspace Studios running indefinitely, select **Always keep the session running**. Default is a session lifespan of **8 hours**.
@@ -48,9 +48,32 @@ Apart from the **Participants** tab, the _organization_ workspace is similar to 
 Studios sessions created in shared workspaces are not shared across all the workspaces in an organization.
 :::
 
-### Edit labels
+### Labels
 
-Select **Edit labels** to manage the workspace [labels and resource labels](../labels/overview).
+Select **Manage** to open the workspace [labels and resource labels](../labels/overview).
+
+### Lineage
+
+:::note
+Data lineage is in public preview and not enabled by default. See [Configuration options](../enterprise/configuration/overview#data-features).
+:::
+
+Configure where Nextflow lineage data are stored and whether lineage tracking is on by default for every run launched in the workspace.
+
+Select **Manage** and then choose to enable lineage by default for all pipeline runs in the workspace. Configure the lineage settings manually or automatically.
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| **Credentials** | Yes | The workspace credentials Platform uses to create and access the lineage storage bucket. The credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage the SQS queue. See [Credentials](#credentials). |
+| **Region** | Yes | Cloud region where the lineage storage bucket is created (for example, `us-east-1`, `eu-west-1`). |
+| **Bucket name** | No | Bucket where lineage records are stored. If left empty, Platform generates a default bucket name in the form `seqera-lineage-<workspace-id>`. |
+
+If configuring **manually**, two additional settings can be defined:
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| **SQS Queue name** | No | The Amazon Simple Queue Service (SQS) name. If left empty, Platform generates a default queue name in the form `<bucket-name>-notifications`. |
+| **SQS Queue ARN** | No | The ARN of the SQS queue. This is useful if your Platform deployment requires cross-account access. |
 
 ### Edit or delete a workspace
 

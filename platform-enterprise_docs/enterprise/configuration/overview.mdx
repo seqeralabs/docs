@@ -6,8 +6,8 @@ last updated: "2026-01-30"
 tags: [configuration]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 :::note
 Nextflow Tower Enterprise is now Seqera Platform Enterprise. Existing configuration parameters, configuration files, and API endpoints that include _Tower_ currently remain unchanged.
@@ -105,10 +105,11 @@ Basic configuration options such as the Seqera instance server URL, application 
 YAML configuration keys in this table are listed in "dot" notation, i.e., a nested value:
 
 ```yaml
+
 ...
 mail:
-    smtp:
-        host: "your.smtphost.com"
+  smtp:
+    host: "your.smtphost.com"
 ...
 ```
 
@@ -136,10 +137,12 @@ Configuration values that control Seqera's interaction with databases and Redis 
 **Database version requirements:**
 
 From Seqera Enterprise version 23.4:
+
 - MySQL 8 is the officially supported and tested database version.
 - MySQL versions 5.6 and 5.7 are no longer supported.
 
 From Seqera Enterprise version 24.2:
+
 - Redis version 6.2 or greater is required.
 - Redis version 7 is officially supported.
 
@@ -213,9 +216,9 @@ TOWER_REDIS_URL=redis://<redis private IP>:6379
 
 If you run the Redis service as a container in your Docker or Kubernetes installation, specify the service name as part of the `TOWER_REDIS_URL`:
 
-  ```bash
-  TOWER_REDIS_URL=redis://redis:6379
-  ```
+```bash
+TOWER_REDIS_URL=redis://redis:6379
+```
 
 </TabItem>
 </Tabs>
@@ -241,10 +244,11 @@ We recommend using managed cloud database services for production deployments.
 YAML configuration keys in this table are listed in "dot" notation, i.e., a nested value:
 
 ```yaml
+
 ...
 mail:
-    smtp:
-        host: "your.smtphost.com"
+  smtp:
+    host: "your.smtphost.com"
 ...
 ```
 
@@ -282,7 +286,7 @@ Configuration values that enable opt-in Seqera features per instance or workspac
 
 ### Data features
 
-Configuration values used by Seqera for Data Explorer.
+Configuration values used by Seqera for Datasets, Data Explorer, Data Lineage, and Studios.
 
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>
@@ -316,10 +320,11 @@ Do not modify your crypto secret key between starts. Changing this value will pr
 YAML configuration keys in this table are listed in "dot" notation, i.e., a nested value:
 
 ```yaml
+
 ...
 mail:
-    smtp:
-        host: "your.smtphost.com"
+  smtp:
+    host: "your.smtphost.com"
 ...
 ```
 
@@ -372,9 +377,10 @@ Enable rotation by setting the following configuration values:
 With rotation enabled and the previous and new key values set, secret key rotation will run as part of the Platform cron service during application startup. Normal application startup is not affected by this process, and Platform is fully operational while the credentials and secrets in your database are being encrypted using your new secret key.
 
 :::warning
+
 - To prevent data loss, perform a backup of your Platform database and securely back up your current crypto secret key before enabling and performing key rotation.
 - All backend pods or containers for your Enterprise deployment must contain the same previous and new secret key values in their Platform config and must be in a ready/running state before starting the Platform cron service.
-:::
+  :::
 
 The [Admin panel](../../administration/overview.md#encryption) **Encryption** tab displays the status of completed or errored encryption tasks.
 
@@ -386,6 +392,18 @@ Configuration values to enable computing platforms and customize Batch Forge res
 <TabItem value="Environment variables" label="Environment variables" default>
 
 ::table{file=configtables/compute_env.yml}
+
+</TabItem>
+</Tabs>
+
+### Compute environment cleanup
+
+A scheduled cron job can transition compute environments that are stuck in `CREATING` or `DELETING` states into terminal states (`ERRORED` or `INVALID`). The cleanup job is disabled by default.
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+::table{file=configtables/compute_env_cleanup_env.yml}
 
 </TabItem>
 </Tabs>
@@ -421,10 +439,11 @@ Credentials and other secrets must not be stored in plain text in production env
 YAML configuration keys in this table are listed in "dot" notation, i.e., a nested value:
 
 ```yaml
+
 ...
 mail:
-    smtp:
-        host: "your.smtphost.com"
+  smtp:
+    host: "your.smtphost.com"
 ...
 ```
 
@@ -480,10 +499,11 @@ Your organization's email security policy may prevent the `TOWER_CONTACT_EMAIL` 
 YAML configuration keys in this table are listed in "dot" notation, i.e., a nested value:
 
 ```yaml
+
 ...
 mail:
-    smtp:
-        host: "your.smtphost.com"
+  smtp:
+    host: "your.smtphost.com"
 ...
 ```
 
@@ -515,9 +535,9 @@ To configure AWS SES as your Seqera email service:
 
 1. Set `TOWER_ENABLE_AWS_SES=true` in your environment variables.
 2. Specify the email address used to send Seqera emails with one of the following:
-    - the `TOWER_CONTACT_EMAIL` environment variable
-    - a `mail.from` entry in `tower.yml`
-    - a `/config/<application_name>/mail/from` AWS Parameter Store entry
+   - the `TOWER_CONTACT_EMAIL` environment variable
+   - a `mail.from` entry in `tower.yml`
+   - a `/config/<application_name>/mail/from` AWS Parameter Store entry
 3. The [AWS SES service](https://docs.aws.amazon.com/ses/index.html) must run in the same region as your Seqera instance.
 4. The [Seqera IAM role](../../compute-envs/aws-batch#iam-user-creation) must include the `ses:SendRawEmail` permission.
 
@@ -530,9 +550,9 @@ Do not replace the [Seqera-provided default image](../../functionality_matrix/ov
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>
 
-| Environment Variable      | Description                                                                                                     | Value                              |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
-| `TOWER_LAUNCH_CONTAINER`  | The container image to run the Nextflow execution. This setting overrides the launch container selection for all organizations and workspaces in your account. | Example: `quay.io/seqeralabs/nf-launcher:j17-23.04.3` |
+| Environment Variable     | Description                                                                                                                                                    | Value                                                 |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `TOWER_LAUNCH_CONTAINER` | The container image to run the Nextflow execution. This setting overrides the launch container selection for all organizations and workspaces in your account. | Example: `quay.io/seqeralabs/nf-launcher:j17-23.04.3` |
 
 </TabItem>
 </Tabs>
@@ -548,12 +568,12 @@ To configure API rate limit environment variables, you must add `ratelim` to the
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>
 
-| Environment variable   | Description                                                                   | Value           |
-| ---------------------- | ----------------------------------------------------------------------------- | --------------- |
-| `TOWER_ENABLE_OPENAPI` | Enable the OpenAPI documentation endpoint, e.g., [cloud.seqera.io/openapi/index.html](https://cloud.seqera.io/openapi/index.html). | Default: `false` |
-| `TOWER_RATELIMIT_PERIOD` | Specify the maximum number of HTTP requests that can be made during the `TOWER_RATELIMIT_REFRESH` period. | Default: `20` |
-| `TOWER_RATELIMIT_REFRESH` | API rate limit refresh period. | Default: `1s` |
-| `TOWER_RATELIMIT_TIMEOUT` | The waiting period before rejecting requests over the `TOWER_RATELIMIT_PERIOD` limit during the refresh period. | Default: `500ms` |
+| Environment variable      | Description                                                                                                                        | Value            |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `TOWER_ENABLE_OPENAPI`    | Enable the OpenAPI documentation endpoint, e.g., [cloud.seqera.io/openapi/index.html](https://cloud.seqera.io/openapi/index.html). | Default: `false` |
+| `TOWER_RATELIMIT_PERIOD`  | Specify the maximum number of HTTP requests that can be made during the `TOWER_RATELIMIT_REFRESH` period.                          | Default: `20`    |
+| `TOWER_RATELIMIT_REFRESH` | API rate limit refresh period.                                                                                                     | Default: `1s`    |
+| `TOWER_RATELIMIT_TIMEOUT` | The waiting period before rejecting requests over the `TOWER_RATELIMIT_PERIOD` limit during the refresh period.                    | Default: `500ms` |
 
 </TabItem>
 </Tabs>
@@ -580,7 +600,7 @@ tower:
 
 ## Logging
 
-Logging-related configuration values to aid troubleshooting. See [Audit logs](../../monitoring/audit-logs) for more information on application event logging.
+Logging-related configuration values to aid troubleshooting. See [Audit logs](../../monitoring/audit-logs) for more information on application event logging. In 26.1, use `TOWER_AUDIT_LOG_V2_WRITE_MODE` to control whether audit events are written to the legacy schema, the v2 schema, or both. Use `TOWER_CRON_AUDIT_LOG_CLEAN_UP_ENABLED` to disable automatic audit log deletion, and restart Platform after changing audit log settings.
 
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>
@@ -601,6 +621,18 @@ logger:
     org.hibernate.type: TRACE
     io.seqera.tower: TRACE
 ```
+
+</TabItem>
+</Tabs>
+
+### Audit log v2
+
+Configuration values for the v2 audit log subsystem and the audit log cleanup cron job. The v2 audit log adds support for pre/post change state capture and CSV export limits, and runs alongside the existing v1 table when `TOWER_AUDIT_LOG_V2_WRITE_MODE` is set to `dual`.
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+::table{file=configtables/audit_log_v2_env.yml}
 
 </TabItem>
 </Tabs>

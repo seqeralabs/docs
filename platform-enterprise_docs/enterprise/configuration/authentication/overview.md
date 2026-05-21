@@ -1,7 +1,8 @@
 ---
 title: "Authentication"
 description: Configure authentication and identity providers for Seqera Platform
-date: "2026-01-27"
+date created: "2026-01-27"
+last updated: "2026-05-20"
 tags: [authentication, configuration, sso, oidc]
 ---
 
@@ -42,6 +43,10 @@ In your OpenID provider settings, specify the following URL as a callback addres
 ```
 https://<HOST_OR_IP>/oauth/callback/oidc
 ```
+
+:::note
+If you plan to use IdP-delegated teams, your OIDC token must include a `groups` claim. See [IdP claim mapping](./idp-delegation/claim-mapping) for the per-IdP configuration steps.
+:::
 
 ## Root users
 
@@ -154,3 +159,29 @@ tower:
         - "*@your-company.example.com"
         - "specific-user@another-company.example.net"
 ```
+
+## IdP delegation and group claims
+
+Seqera Platform Enterprise supports IdP-delegated teams: organization owners can map a Seqera team to an IdP group, after which the IdP becomes the sole authority for who belongs to that team. Memberships are evaluated on every SSO login.
+
+**Environment variable**
+
+```env
+TOWER_IDP_CLAIMS_MAPPING_ENABLED=true
+```
+**tower.yml**
+
+```
+tower:
+    idp-claims-mapping:
+      enabled: true
+```
+
+For delegation to work, your IdP must:
+
+- Push or expose its group directory to Seqera. See [Manage your IdP group catalog](./idp-delegation/group-catalog/overview) for the SCIM 2.0 push and manual-entry options.
+- Include a `groups` claim in the tokens it issues. See [IdP claim mapping](./idp-delegation/claim-mapping) for protocol-specific guidance.
+
+Once those two pieces are in place, see [IdP delegation overview](./idp-delegation/overview) for the runtime model and [Delegate a Team to an IdP group](../../../orgs-and-teams/teams#delegate-a-team-to-an-idp-group) for the administrator procedure.
+
+If your Enterprise instance hosts more than one organization, review the [multi-organization routing rules](./idp-delegation/multi-org-routing) before configuring delegation.

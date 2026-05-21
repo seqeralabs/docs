@@ -17,7 +17,7 @@
   DOCUSAURUS_SSG_WORKER_THREAD_COUNT = "1"
 
 [context.deploy-preview.build.environment]
-  INCLUDE_NEXT=""
+  INCLUDE_NEXT="true"
   EXCLUDE_CHANGELOG=""
   EXCLUDE_PLATFORM_CLI="true"
   EXCLUDE_PLATFORM_ENTERPRISE=""
