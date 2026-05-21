@@ -149,7 +149,7 @@ The v2 parser implements Nextflow's [strict syntax](https://nextflow.io/docs/lat
 
 The toggle only selects the parser. It does not change the Nextflow runtime version, the pipeline source, or any pipeline parameters.
 
-v2 becomes the default parser in Nextflow 26.04:
+The v2 parser becomes the default in Nextflow 26.04:
 
 - **Before Nextflow 26.04**: Turn the toggle on to opt in to v2.
 - **From Nextflow 26.04**: v2 is the runtime default. Switch new pipelines on to match it, or turn the toggle off to pin a pipeline to v1.
