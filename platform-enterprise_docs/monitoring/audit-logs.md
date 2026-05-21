@@ -17,15 +17,14 @@ Application event audit logs are retained for 365 days by default. In Platform E
 Seqera Platform Enterprise 26.1 introduces the audit log v2 schema as a **breaking change** for direct database consumers and custom ETL jobs.
 
 - The legacy audit log schema remains in the `tw_audit_log` table.
-- The new audit log v2 schema is written to a separate `tw_audit_log_v2` table.
+- The new audit log v2 schema is written to a separate table.
 - The v2 schema is not backward-compatible with the legacy schema. Field names, structure, and pagination behavior differ.
 - The v2 Admin panel view and CSV export are available when `TOWER_AUDIT_LOG_V2_WRITE_MODE` is set to `dual` or `v2`.
 
 Use `TOWER_AUDIT_LOG_V2_WRITE_MODE` to control how new audit events are written:
 
-- `v1`: Write new events to the legacy `tw_audit_log` table only. This is the default in 26.1.
-- `dual`: Write new events to both `tw_audit_log` and `tw_audit_log_v2`. This is the recommended 26.1 migration mode if you need to validate the v2 schema while keeping existing v1 integrations unchanged.
-- `v2`: Write new events to `tw_audit_log_v2` only.
+- `dual`: Write new events to both `v1` schema and `v2` schema. This is the recommended 26.1 migration mode if you need to validate the v2 schema while keeping existing v1 integrations unchanged.
+- `v2`: Write new events to `v2` schema only.
 
 ## Upgrade path for existing integrations
 
