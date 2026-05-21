@@ -63,7 +63,7 @@ When a group is removed from the catalog, by SCIM `DELETE`, manual deletion, or 
 
 - The catalog row is removed.
 - Every delegated team that referenced the group has its delegation-driven members purged. The team's other settings — name, workspace assignments, role — are preserved.
-- An orphaned-team warning appears in the **Group mapping** panel, listing the affected teams. To restore the team's membership, set its **IdP Group** field to a different group, or clear the field to convert the team back to manual management.
+- If a group is deleted on the IdP side, the team's membership can be reset by setting its **IdP Group** field to a different group, or clearing the field to convert the team back to manual management.
 
 ## Multi-organization deployments
 
