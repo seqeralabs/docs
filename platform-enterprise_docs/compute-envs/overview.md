@@ -157,4 +157,3 @@ For tasks that use multiple GPUs, metrics are aggregated (average or peak across
 :::note
 GPU metrics are only available for tasks that run with Fusion enabled on NVIDIA GPU instances. Non-GPU tasks do not display a GPU metrics section. For tasks that fail mid-execution, partial metrics collected up to the point of failure are shown.
 :::
-
