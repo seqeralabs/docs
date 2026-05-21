@@ -68,7 +68,7 @@ After you delegate a team:
 - The team cannot be deleted. To delete a delegated team, clear the **IdP Group** field first.
 - The team's name, description, avatar, and **IdP Group** value remain editable.
 - Existing manual workspace and role assignments on the team are preserved.
-- The team is marked **Managed in IdP** in the teams list.
+- The team is marked **IdP Delegated** in the teams list.
 
 ### What happens at login
 
