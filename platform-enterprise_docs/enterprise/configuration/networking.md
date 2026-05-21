@@ -108,6 +108,7 @@ Required if using [Wave](https://docs.seqera.io/wave). Compute environments must
 
 - `wave.seqera.io`
 - `community.wave.seqera.io`
+- `cerbero.seqera.io`
 - `wave-cache-prod-cloudflare.seqera.io`
 - `wave-cache-prod-cloudflare.seqera.io.cdn.cloudflare.net`
 
