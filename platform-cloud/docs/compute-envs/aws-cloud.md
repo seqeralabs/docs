@@ -2,11 +2,11 @@
 title: "AWS Cloud"
 description: "Instructions to set up an AWS Cloud CE in Seqera Platform"
 date created: "2025-05-15"
-last updated: "2026-01-30"
-tags: [cloud, vm, amazon, compute environment]
+last updated: "2026-05-05"
+tags: [cloud, vm, amazon, compute-environment]
+toc_min_heading_level: 2
+toc_max_heading_level: 4
 ---
-
-# AWS Cloud
 
 :::note
 This compute environment type is currently in public preview. Please consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have an AWS account with a valid AWS subscription.
@@ -27,9 +27,9 @@ The AWS Cloud compute environment addresses these pain points with:
 
 This type of compute environment is best suited to run Studios and small to medium-sized pipelines. It offers more predictable compute pricing, given the fixed instance types. It spins up a standalone EC2 instance and executes a Nextflow pipeline or Studio session with a local executor on the EC2 machine. At the end of the execution, the instance is terminated.
 
-## Limitations
-
-- The Nextflow pipeline will run entirely on a single EC2 instance. If the instance does not have sufficient resources, the pipeline execution will fail. For this reason, the number of tasks Nextflow can execute in parallel is limited by the number of cores of the instance type selected. If you need more computing resources, you must create a new compute environment with a larger instance type. This makes the compute environment less suited for larger, more complex pipelines.
+:::caution Limitations
+The Nextflow pipeline will run entirely on a single EC2 instance. If the instance does not have sufficient resources, the pipeline execution will fail. For this reason, the number of tasks Nextflow can execute in parallel is limited by the number of cores of the instance type selected. If you need more computing resources, you must create a new compute environment with a larger instance type. This makes the compute environment less suited for larger, more complex pipelines.
+:::
 
 ## Supported regions
 
@@ -58,7 +58,35 @@ The following regions are currently supported:
 - `us-west-1`
 - `us-west-2`
 
-## Required Platform IAM permissions
+## Seqera Intelligent Compute
+
+:::info[Private preview]
+Seqera Intelligent Compute is in private preview. [Contact us](https://seqera.io/intelligent-compute/) to request access.
+:::
+
+Seqera Intelligent Compute is a next-generation compute and scheduling service that runs large-scale Nextflow pipelines on a Seqera-managed Amazon ECS cluster, scaling beyond a single instance while preserving the fast startup of the AWS Cloud compute environment
+
+When you enable Seqera Intelligent Compute, Seqera provisions and manages all ECS infrastructure on your behalf, including clusters, capacity providers, task definitions, IAM roles, and (optionally) Auto Scaling Groups for spot and on-demand capacity. All managed resources use the `seqera-sched-` prefix and are torn down automatically when no longer needed.
+
+If you enable Seqera Intelligent Compute, you must attach the additional permissions described in [Seqera Intelligent Compute permissions](#seqera-intelligent-compute-permissions).
+
+## Managed Amazon Machine Image (AMI)
+
+The AWS Cloud compute environment uses a public AMI maintained by Seqera, and the pipeline launch procedure assumes that some basic tooling is already present in the image itself. If you want to provide your own AMI, it must include at least the following:
+
+- Docker engine, configured to run at startup.
+- CloudWatch agent.
+- The ability to shut down with the `shutdown` command. If this is missing, EC2 instances will keep running and accumulate additional costs.
+
+### Release cadence and software updates
+
+The AMI is based on the [Amazon Linux 2023 image](https://docs.aws.amazon.com/linux/al2023/ug/what-is-amazon-linux.html). System package versions are pinned for each specific Amazon Linux 2023 version. Seqera subscribes to the [AWS SNS topic](https://docs.aws.amazon.com/linux/al2023/ug/receive-update-notification.html) to receive Amazon Linux 2023 update notifications. When updates are available, this triggers a new Seqera AMI release built on the latest image, which includes system package updates and security patches.
+
+## Setup
+
+To use the AWS Cloud compute environment, grant Seqera Platform access to your AWS account. Create an IAM policy with the permissions Platform needs, then attach it to either an IAM user (for long-lived access keys) or an IAM role (for assumed-role credentials) depending on which credential type suits your security model.
+
+### Required Platform IAM permissions
 
 To create and launch pipelines, explore buckets with Data Explorer or run Studio sessions with the AWS Cloud compute environment, an IAM user with specific permissions must be provided. Some permissions are mandatory for the compute environment to be created and function correctly, while others are optional and used for example to provide list of values to pick from in the Platform UI.
 
@@ -67,7 +95,7 @@ Permissions can be attached directly to an [IAM user](#iam-user-creation), or to
 A permissive and broad policy with all the required permissions is provided here for a quick start. However, follow the principle of least privilege and only grant the necessary permissions for your use case, as shown in the following sections.
 
 <details>
-<summary>Full permissive policy (For reference)</summary>
+<summary>Full permissive policy (for reference)</summary>
 
 ```json
 {
@@ -157,6 +185,34 @@ A permissive and broad policy with all the required permissions is provided here
         "s3:ListAllMyBuckets"
       ],
       "Resource": "*"
+    },
+    {
+      "Sid": "AwsCloudUserdataCheck",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:GetConsoleOutput"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "OptionalLineageIntegrationSQSAndS3",
+      "Effect": "Allow",
+      "Action": [
+        "sqs:CreateQueue",
+        "sqs:GetQueueAttributes",
+        "sqs:SetQueueAttributes",
+        "sqs:GetQueueUrl",
+        "sqs:ReceiveMessage",
+        "sqs:DeleteMessage",
+        "s3:CreateBucket",
+        "s3:GetBucketNotificationConfiguration",
+        "s3:PutBucketNotificationConfiguration",
+        "s3:GetBucketLocation"
+      ],
+      "Resource": [
+        "arn:aws:sqs:*:*:seqera-lineage-*",
+        "arn:aws:s3:::seqera-lineage-*"
+      ]
     }
   ]
 }
@@ -164,7 +220,7 @@ A permissive and broad policy with all the required permissions is provided here
 
 </details>
 
-### Compute environment creation
+#### Compute environment creation
 
 The following permissions are required to provision resources in the AWS account. Only IAM roles that will be assumed by the EC2 instance must be provisioned:
 
@@ -196,7 +252,7 @@ The following permissions are required to provision resources in the AWS account
 }
 ```
 
-### Compute environment validation
+#### Compute environment validation
 
 The following permissions are required to validate the compute environment at creation time. Seqera validates the input provided and that the resource ARNs exist in the target AWS account:
 
@@ -214,7 +270,7 @@ The following permissions are required to validate the compute environment at cr
 }
 ```
 
-### Pipeline and Studio session management
+#### Pipeline and Studio session management
 
 The following permissions are required to launch pipelines, run Studio sessions, fetch live execution logs from CloudWatch, download logs from S3, and stop the execution:
 
@@ -249,7 +305,7 @@ The following permissions are required to launch pipelines, run Studio sessions,
 }
 ```
 
-### Compute environment termination and resource disposal
+#### Compute environment termination and resource disposal
 
 The following permissions are required to remove resources created by Seqera when the compute environment is deleted:
 
@@ -274,7 +330,7 @@ The following permissions are required to remove resources created by Seqera whe
 }
 ```
 
-### Optional permissions
+#### Optional permissions
 
 The following permissions enable Seqera to populate values for dropdown fields. If missing, the input fields will not be auto-populated but can still be manually entered. Though optional, these permissions are recommended for a smoother and less error-prone user experience:
 
@@ -295,9 +351,269 @@ The following permissions enable Seqera to populate values for dropdown fields. 
 }
 ```
 
-## Create the IAM policy
+#### Userdata script error detection (optional)
 
-The policy above must be created in the AWS account where the AWS Batch resources need to be created.
+Platform can retrieve the EC2 instance console output to detect errors in the userdata script that bootstraps the VM during instance startup. If the userdata script fails, Platform surfaces the failure as a warning on the workflow. Without this permission, userdata script failures are not detected and no warning is shown.
+
+```json
+{
+  "Sid": "AwsCloudUserdataCheck",
+  "Effect": "Allow",
+  "Action": [
+    "ec2:GetConsoleOutput"
+  ],
+  "Resource": "*"
+}
+```
+
+#### Data lineage (optional)
+
+If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials to create the queue infrastructure and bucket notifications used by the lineage service:
+
+```json
+{
+  "Sid": "LineageIntegrationSQS",
+  "Effect": "Allow",
+  "Action": [
+    "sqs:CreateQueue",
+    "sqs:GetQueueAttributes",
+    "sqs:SetQueueAttributes",
+    "sqs:GetQueueUrl",
+    "sqs:ReceiveMessage",
+    "sqs:DeleteMessage"
+  ],
+  "Resource": "arn:aws:sqs:<REGION>:<ACCOUNT_ID>:seqera-lineage-*"
+},
+{
+  "Sid": "LineageIntegrationS3",
+  "Effect": "Allow",
+  "Action": [
+    "s3:CreateBucket",
+    "s3:GetBucketNotificationConfiguration",
+    "s3:PutBucketNotificationConfiguration",
+    "s3:GetBucketLocation"
+  ],
+  "Resource": "arn:aws:s3:::seqera-lineage-*"
+}
+```
+
+If you manage your own EC2 instance role (rather than letting Seqera create it automatically), see [Custom instance profile](#custom-instance-profile) for the minimum permissions to attach.
+
+#### Seqera Intelligent Compute permissions
+
+:::info[Private preview]
+Seqera Intelligent Compute is in private preview. [Contact us](https://seqera.io/intelligent-compute/) to request access.
+:::
+
+If you've enabled [Seqera Intelligent Compute](#seqera-intelligent-compute), attach the following additional policy to the same IAM user or role that Seqera uses to access your AWS account.
+
+The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The remaining `Resource: "*"` entries correspond to AWS APIs that do not support resource-level permissions, such as EC2 `Describe*`, ECR authorization tokens, and Cost Explorer.
+
+<details>
+<summary>Seqera Intelligent Compute policy</summary>
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ECSScopedOperations",
+      "Effect": "Allow",
+      "Action": [
+        "ecs:CreateCluster",
+        "ecs:DeleteCluster",
+        "ecs:DescribeClusters",
+        "ecs:PutClusterCapacityProviders",
+        "ecs:CreateCapacityProvider",
+        "ecs:DeleteCapacityProvider",
+        "ecs:DescribeCapacityProviders",
+        "ecs:RunTask",
+        "ecs:StopTask",
+        "ecs:DescribeTasks",
+        "ecs:DescribeContainerInstances",
+        "ecs:TagResource"
+      ],
+      "Resource": "arn:aws:ecs:*:*:*/seqera-sched-*"
+    },
+    {
+      "Sid": "ECSUnscopedOperations",
+      "Effect": "Allow",
+      "Action": [
+        "ecs:RegisterTaskDefinition",
+        "ecs:DeregisterTaskDefinition",
+        "ecs:DescribeTaskDefinition",
+        "ecs:ListTaskDefinitions",
+        "ecs:ListTaskDefinitionFamilies",
+        "ecs:ListTasks"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "IAMRoleManagement",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateRole",
+        "iam:GetRole",
+        "iam:DeleteRole",
+        "iam:PutRolePolicy",
+        "iam:DeleteRolePolicy",
+        "iam:ListRolePolicies",
+        "iam:AttachRolePolicy",
+        "iam:DetachRolePolicy",
+        "iam:ListAttachedRolePolicies",
+        "iam:CreateInstanceProfile",
+        "iam:GetInstanceProfile",
+        "iam:AddRoleToInstanceProfile",
+        "iam:ListInstanceProfilesForRole",
+        "iam:RemoveRoleFromInstanceProfile",
+        "iam:DeleteInstanceProfile"
+      ],
+      "Resource": [
+        "arn:aws:iam::*:role/seqera-sched-*",
+        "arn:aws:iam::*:instance-profile/seqera-sched-*"
+      ]
+    },
+	{
+	  "Sid": "PassRoleToECS",
+	  "Effect": "Allow",
+	  "Action": "iam:PassRole",
+	  "Resource": [
+	    "arn:aws:iam::*:role/seqera-sched-*",
+	    "arn:aws:iam::*:role/TowerForge-*"
+	  ],
+	  "Condition": {
+	    "StringEquals": {
+	      "iam:PassedToService": [
+	        "ecs-tasks.amazonaws.com",
+	        "ecs.amazonaws.com",
+	        "ec2.amazonaws.com"
+	      ]
+	    }
+	  }
+	},
+    {
+      "Sid": "ServiceLinkedRoles",
+      "Effect": "Allow",
+      "Action": "iam:CreateServiceLinkedRole",
+      "Resource": "arn:aws:iam::*:role/aws-service-role/*",
+      "Condition": {
+        "StringEquals": {
+          "iam:AWSServiceName": [
+            "ecs.amazonaws.com",
+            "ecs-compute.amazonaws.com",
+            "autoscaling.amazonaws.com",
+            "spot.amazonaws.com"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "CloudWatchLogs",
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:DeleteLogGroup",
+        "logs:PutRetentionPolicy",
+        "logs:DescribeLogStreams",
+        "logs:GetLogEvents",
+        "logs:TagResource"
+      ],
+      "Resource": "arn:aws:logs:*:*:log-group:/seqera/sched*"
+    },
+    {
+      "Sid": "EC2NetworkDiscovery",
+      "Effect": "Allow",
+      "Action": [
+       "ec2:DescribeImages",
+        "ec2:DescribeVpcs",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeRouteTables",
+        "ec2:DescribeVpcEndpoints",
+        "ec2:DescribeInstances",
+        "ec2:CreateSecurityGroup",
+        "ec2:CreateVpcEndpoint",
+        "ec2:AuthorizeSecurityGroupEgress",
+        "ec2:CreateTags"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ECRAccess",
+      "Effect": "Allow",
+      "Action": [
+        "ecr:GetAuthorizationToken",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:BatchGetImage"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "S3Access",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:ListAllMyBuckets"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ASGEC2Operations",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeInstanceTypes",
+        "ec2:CreateLaunchTemplate",
+        "ec2:DeleteLaunchTemplate",
+        "ec2:RunInstances"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ASGManagement",
+      "Effect": "Allow",
+      "Action": [
+        "autoscaling:CreateAutoScalingGroup",
+        "autoscaling:UpdateAutoScalingGroup",
+        "autoscaling:DeleteAutoScalingGroup",
+        "autoscaling:CreateOrUpdateTags"
+      ],
+      "Resource": "arn:aws:autoscaling:*:*:*/seqera-sched-*"
+    },
+    {
+      "Sid": "ASGDescribe",
+      "Effect": "Allow",
+      "Action": "autoscaling:DescribeAutoScalingGroups",
+      "Resource": "*"
+    },
+    {
+      "Sid": "SSMECSOptimizedAmi",
+      "Effect": "Allow",
+      "Action": "ssm:GetParameter",
+      "Resource": "arn:aws:ssm:*:*:parameter/aws/service/ecs/optimized-ami/*"
+    },
+    {
+      "Sid": "CostExplorer",
+      "Effect": "Allow",
+      "Action": "ce:GetCostAndUsage",
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+Some statements in the policy above are conditional and can be omitted depending on your deployment:
+
+- The `ASGEC2Operations` and `ASGManagement` statements are required only if you enable Auto Scaling Group-backed clusters (managed instances). Omit them for Fargate-only deployments.
+- The `CreateECSServiceLinkedRole` is required only if the Service Role is not already created.
+- The `CostExplorer` statement is required only if you enable Cost Analysis.
+
+</details>
+
+### Create the IAM policy
+
+The policy above must be created in the AWS account where the AWS Cloud resources need to be created.
 
 1. Open the [AWS IAM console](https://console.aws.amazon.com/iam) in the account where you want to create the AWS Batch resources.
 1. From the left navigation menu, select **Policies** under **Access management**.
@@ -306,7 +622,25 @@ The policy above must be created in the AWS account where the AWS Batch resource
 1. Following the instructions detailed in the [IAM permissions breakdown section](#required-platform-iam-permissions) replace the default text in the policy editor area under the **JSON** tab with a policy adapted to your use case, then select **Next**.
 1. Enter a name and description for the policy on the **Review and create** page, then select **Create policy**.
 
-## IAM user creation
+If you are also enabling Seqera Intelligent Compute, repeat these steps to create a second policy using the [Seqera Intelligent Compute permissions](#seqera-intelligent-compute-permissions) JSON.
+
+### AWS credential options
+
+Before creating an IAM user or role, decide how Seqera will authenticate to your AWS account. AWS credentials can be configured in two ways:
+
+- **Key-based credentials**: Access key and secret key with direct IAM permissions. If you provide a role ARN in **Assume role**, the **Generate External ID** switch is displayed and External ID generation is optional.
+- **Role-based credentials (recommended)**: Use role assumption only (no static keys). Paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. External ID is generated automatically when you save.
+
+Use the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. This field is available for both key-based and role-based credentials. It is optional for key-based credentials and required for role-based credentials.
+
+Existing credentials created before March 2026 continue to work without changes.
+
+The next two sections cover the AWS-side setup for each option:
+
+- For **key-based credentials**, follow [IAM user creation](#iam-user-creation) to create a user and obtain access keys.
+- For **role-based credentials**, follow both [IAM user creation](#iam-user-creation) (for the assuming principal) and [IAM role creation (optional)](#iam-role-creation-optional) to create the role Seqera will assume.
+
+#### IAM user creation
 
 Seqera requires an Identity and Access Management (IAM) User to create and manage AWS Batch resources in your AWS account. We recommend creating a separate IAM policy rather than an IAM User inline policy, as the latter only allows 2048 characters, which may not be sufficient for all the required permissions.
 
@@ -314,7 +648,7 @@ In certain scenarios, for example when multiple users need to access the same AW
 
 Depending whether you choose to let Seqera automatically create the required AWS Batch resources in your account, or prefer to set them up manually, the IAM user must have specific permissions as detailed in the [Required Platform IAM permissions](#required-platform-iam-permissions) section. Alternatively, you can create an IAM role with the required permissions and allow the IAM user to assume that role when accessing AWS resources, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section.
 
-### Create an IAM user
+##### Create an IAM user
 
 1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Users** in the left navigation menu, then select **Create User** at the top right of the page.
 1. Enter a name for your user (e.g., _seqera_) and select **Next**.
@@ -338,9 +672,7 @@ Depending whether you choose to let Seqera automatically create the required AWS
 
 The user has now been created. The most up-to-date instructions for creating an IAM user can be found in the [AWS documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html).
 
-### Obtain IAM user credentials
-
-To get the credentials needed to connect Seqera to your AWS account, follow these steps:
+##### Obtain IAM user credentials
 
 1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Users** in the left navigation menu, then select the newly created user from the users table.
 1. Select the **Security credentials** tab, then select **Create access key** under the **Access keys** section.
@@ -348,9 +680,11 @@ To get the credentials needed to connect Seqera to your AWS account, follow thes
 1. Optionally provide a description for the access key, like the reason for creating it, then select **Create access key**.
 1. Save the **Access key** and **Secret access key** in a secure location as you will need to provide them when creating credentials in Seqera.
 
-## IAM role creation (optional)
+#### IAM role creation (optional)
 
-Rather than attaching permissions directly to the IAM user, you can create an IAM role with the required permissions and allow the IAM user to assume that role when accessing AWS resources. This is useful when multiple IAM users are used to access the same AWS account: this way the actual permissions to operate on the resources are only granted to a single centralized role.
+Rather than attaching permissions directly to the IAM user, you can create an IAM role with the required permissions and allow the IAM user to assume that role when accessing AWS resources. This is useful when multiple IAM users are used to access the same AWS account. This way the permissions to operate on the resources are only granted to a single centralized role.
+
+##### Create an IAM role
 
 1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Roles** in the left navigation menu, then select **Create role** at the top right of the page.
 1. Select **Custom trust policy** as the type of trusted entity, provide the following policy and edit the AWS principal with the ARN of the IAM user created in the [IAM user creation](#iam-user-creation) section, then select **Next**.
@@ -384,7 +718,7 @@ Multiple users can be specified in the trust policy by adding more ARNs to the `
 Seqera Platform generates the `External ID` value during AWS credential creation. For role-based credentials, use this exact value in your IAM trust policy (`sts:ExternalId`).
 :::
 
-### Role-based trust policy example (Seqera Cloud)
+##### Role-based trust policy example (Seqera Cloud)
 
 For role-based AWS credentials in Seqera Cloud, allow the Seqera Cloud access role `arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole` in your trust policy and enforce the `External ID` generated during credential creation:
 
@@ -415,29 +749,6 @@ For role-based AWS credentials in Seqera Cloud, allow the Seqera Cloud access ro
 }
 ```
 
-## AWS credential options
-
-AWS credentials can be configured in two ways:
-
-- **Key-based credentials**: Access key and secret key with direct IAM permissions. If you provide a role ARN in **Assume role**, the **Generate External ID** switch is displayed and External ID generation is optional.
-- **Role-based credentials (recommended)**: Use role assumption only (no static keys). Paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. External ID is generated automatically when you save.
-
-Use the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. This field is available for both key-based and role-based credentials. It is optional for key-based credentials and required for role-based credentials.
-
-Existing credentials created before March 2026 continue to work without changes.
-
-## Managed Amazon Machine Image (AMI)
-
-The AWS Cloud compute environment uses a public AMI maintained by Seqera, and the pipeline launch procedure assumes that some basic tooling is already present in the image itself. If you want to provide your own AMI, it must include at least the following:
-
-- Docker engine, configured to run at startup.
-- CloudWatch agent.
-- The ability to shut down with the `shutdown` command. If this is missing, EC2 instances will keep running and accumulate additional costs.
-
-### Release cadence and software updates
-
-The AMI is based on the [Amazon Linux 2023 image](https://docs.aws.amazon.com/linux/al2023/ug/what-is-amazon-linux.html). System package versions are pinned for each specific Amazon Linux 2023 version. Seqera subscribes to the [AWS SNS topic](https://docs.aws.amazon.com/linux/al2023/ug/receive-update-notification.html) to receive Amazon Linux 2023 update notifications. When updates are available, this triggers a new Seqera AMI release built on the latest image, which includes system package updates and security patches.
-
 ## Advanced options
 
 - **Instance Type**: The EC2 instance type used by the compute environment. Choosing the instance type will directly allocate the CPU and memory available for computation. See [EC2 instance types](https://aws.amazon.com/ec2/instance-types/) for a comprehensive list of instance types and their resource limitations.
@@ -447,5 +758,115 @@ The AMI is based on the [Amazon Linux 2023 image](https://docs.aws.amazon.com/li
 - **VPC ID**: The ID of the VPC where the EC2 instance will be launched. If unspecified, the default VPC will be used.
 - **Subnets**: The list of VPC subnets where the EC2 instance will run. If unspecified, all the subnets of the VPC will be used.
 - **Security groups**: The security groups the EC2 instance will be a part of. If unspecified, no security groups will be used.
-- **Instance Profile**: The ARN of the `InstanceProfile` used by the EC2 instance to assume a role while running. If unspecified, Seqera will provision one with enough permissions to run.
+- **Instance Profile**: The ARN of the `InstanceProfile` used by the EC2 instance to assume a role while running. If unspecified, Seqera will provision one with enough permissions to run. See [Custom instance profile](#custom-instance-profile) for the minimum permissions required if you provide your own.
 - **Boot disk size**: The size of the EBS boot disk for the EC2 instance. If undefined, a default 50 GB `gp3` volume will be used.
+
+### Custom instance profile
+
+When you specify a custom **Instance Profile** ARN in Advanced options, the IAM role attached to that instance profile must include the following minimum permissions. These mirror what Seqera provisions automatically when no instance profile is specified.
+
+#### Trust policy
+
+The role must be assumable by the EC2 service:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": {
+    "Effect": "Allow",
+    "Action": "sts:AssumeRole",
+    "Principal": {
+      "Service": "ec2.amazonaws.com"
+    }
+  }
+}
+```
+
+#### AWS managed policies
+
+Attach the following AWS managed policies to the role:
+
+| Policy | Purpose |
+|--------|---------|
+| `arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy` | Push metrics and logs to CloudWatch |
+| `arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess` | Read-only access to S3 (required by Fusion and Nextflow) |
+| `arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPullOnly` | Pull container images from private ECR repositories |
+
+#### Inline policies
+
+In addition to the managed policies, attach the following inline policies:
+
+**S3 read/write** — grants full object access on the compute environment work directory bucket. Add one statement per bucket if you configure additional buckets under **Allow buckets**:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ListObjectsInBucket",
+      "Effect": "Allow",
+      "Action": ["s3:ListBucket"],
+      "Resource": "arn:aws:s3:::<BUCKET_NAME>"
+    },
+    {
+      "Sid": "AllObjectActions",
+      "Effect": "Allow",
+      "Action": "s3:*Object",
+      "Resource": "arn:aws:s3:::<BUCKET_NAME>/*"
+    },
+    {
+      "Sid": "AllowObjectTagging",
+      "Effect": "Allow",
+      "Action": ["s3:PutObjectTagging", "s3:GetObjectTagging"],
+      "Resource": "arn:aws:s3:::<BUCKET_NAME>/*"
+    }
+  ]
+}
+```
+
+**Secrets Manager** — grants access to credentials stored in Seqera, which are prefixed with `tower-`:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": {
+    "Effect": "Allow",
+    "Action": ["secretsmanager:GetSecretValue", "secretsmanager:ListSecrets"],
+    "Resource": ["arn:aws:secretsmanager:<REGION>:*:secret:tower-*"]
+  }
+}
+```
+
+**KMS for S3** — required if any of the S3 buckets used by the compute environment are encrypted with a customer-managed KMS key (SSE-KMS):
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "KmsS3Read",
+      "Effect": "Allow",
+      "Action": ["kms:Decrypt", "kms:DescribeKey"],
+      "Resource": "arn:aws:kms:*:*:key/*",
+      "Condition": {
+        "StringLike": { "kms:ViaService": "s3.*.amazonaws.com" }
+      }
+    },
+    {
+      "Sid": "KmsS3Write",
+      "Effect": "Allow",
+      "Action": ["kms:Encrypt", "kms:ReEncrypt*", "kms:GenerateDataKey*"],
+      "Resource": "arn:aws:kms:*:*:key/*",
+      "Condition": {
+        "StringLike": { "kms:ViaService": "s3.*.amazonaws.com" }
+      }
+    }
+  ]
+}
+```
+
+:::note
+If your AWS account enforces EBS volume encryption at the account level (either via account default encryption settings or an SCP that requires `encrypted=true` on `RunInstances`), the EC2 instance will use a KMS key to encrypt its boot volume. In this case, the instance role must also have `kms:Decrypt`, `kms:GenerateDataKey`, `kms:CreateGrant`, and `kms:DescribeKey` permissions on the relevant KMS key — these are not included in the KMS for S3 policy above, which is scoped to S3 only. Contact your AWS administrator to identify the correct KMS key ARN and add permissions accordingly.
+:::
+
+When you use a custom instance profile, note that Seqera will not create or manage the IAM role — you are responsible for keeping it up to date as requirements change.
