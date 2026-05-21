@@ -7,7 +7,7 @@ tags: [seqera-ai, installation, deployment, aws, helm]
 ---
 
 :::caution
-Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. This guide covers the Enterprise 26.1 deployment path for the agent backend, MCP server, web interface, and Seqera CLI.
+Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. This guide covers the Enterprise 26.1 deployment path for the agent backend, MCP server, web interface, and Seqera CLI. It is currently only available on AWS.
 :::
 
 Deploy the agent backend, Seqera MCP server, and web interface alongside Platform to provide Co-Scientist assistance for workflows, data, projects, and Platform resources in the Seqera CLI and browser. The MCP, agent backend, and portal web Helm charts provide the option to define Kubernetes ingresses. Other methods to expose the services can be used, e.g. via the `extraDeploy` resource.
@@ -63,7 +63,7 @@ Documentation semantic search is configured separately from chat inference. Use 
 
 ## Deployment topology
 
-The recommended Enterprise topology is using the `platform` Seqera Helm chart with the `mcp`, `agent-backend`, and `portal-web` subcharts enabled. The Platform Helm chart automatically wires the MCP OIDC client registration token from the Platform backend Secret, reducing the number of manual steps required.
+The recommended Enterprise topology is using the `platform` Seqera Helm chart with the `mcp`, `agent-backend`, and `portal-web` subcharts enabled. The Platform Helm chart automatically wires the MCP OIDC client registration token from the Platform backend secret, reducing the number of manual steps required.
 
 Use separate Helm releases when you cannot convert your existing Platform installation to using the Helm chart or your environment requires separate lifecycle ownership. If you deploy the charts separately, you must manually configure:
 
@@ -96,14 +96,13 @@ For a complete example, see the [Co-Scientist Helm example](https://github.com/s
 
 ## Configure MCP
 
-When MCP runs under the Platform parent chart, leave `mcp.oidcToken` unset unless you need to override the default wiring. The parent chart sets it to the Platform backend Secret key `OIDC_CLIENT_REGISTRATION_TOKEN`.
-
+When MCP runs under the Platform parent chart, leave `mcp.oidcToken` unset unless you need to override the default wiring. The parent chart sets it to the Platform backend secret key `OIDC_CLIENT_REGISTRATION_TOKEN`.
 
 ## Configure the agent backend
 
-The agent backend needs MySQL, Redis or Valkey, inference provider access, MCP connectivity, and a stable token encryption key. In this example sensitive values (db and redis passwords, token encryption key, etc) are stored in a kubernetes secret named `seqera-ai-secrets`, which needs to already exist before the chart installation, either created manually or with automated secret extraction tools (like External Secrets, not covered in this tutorial).
+The agent backend needs MySQL, Redis or Valkey, inference provider access, MCP connectivity, and a stable token encryption key. In this example sensitive values (db and redis passwords, token encryption key, etc) are stored in a Kubernetes secret named `seqera-ai-secrets`, which needs to already exist before the chart installation, either created manually or with automated secret extraction tools (like External Secrets, not covered in this tutorial).
 
-Declare which provider serves each capability using `inference.provider`, `embeddings.provider`, and `sandbox.provider`. `inference.provider` is required; `embeddings.provider` and `sandbox.provider` are optional — leave them empty to disable those features. The `bedrock` block holds credentials and configuration shared across all Bedrock-backed services, with per-service overrides available when needed.
+Declare which provider serves each capability using `inference.provider`, `embeddings.provider`, and `sandbox.provider`. `inference.provider` is required; `embeddings.provider` and `sandbox.provider` are optional. Leave them empty to disable those features. The `bedrock` block holds credentials and configuration shared across all Bedrock-backed services, with per-service overrides available when needed.
 
 The following example shows a full Bedrock configuration with embeddings and AgentCore sandbox enabled. For Anthropic inference, see the note after the example.
 
