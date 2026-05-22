@@ -1,0 +1,136 @@
+---
+title: "Workspaces"
+description: "Manage users and teams for an organization in Seqera Platform."
+date created: "2023-04-24"
+last updated: "2026-03-02"
+tags: [workspaces, teams, users, administration]
+---
+
+Each user has a unique **user workspace** to manage resources such as pipelines, compute environments, and credentials. You can also create multiple workspaces within an organization context and associate each of these workspaces with dedicated teams of users, while providing fine-grained access control for each of the teams.
+
+**Organization workspaces** extend the functionality of user workspaces by adding the ability to fine-tune access levels for specific members, collaborators, or teams. This is achieved by managing **participants** in the organization workspaces.
+
+Organizations consist of members, while workspaces consist of participants.
+
+:::note
+A workspace participant may be a member of the workspace organization or a collaborator within that workspace only. Collaborators count toward the total number of workspace participants. See [Usage limits](../limits/overview).
+:::
+
+## Create a new workspace
+
+Organization owners and admins can create a new workspace within an organization:
+
+1. Go to the **Workspaces** tab of the organization page.
+2. Select **Add Workspace**.
+3. Enter the **Name** and **Full name** for the workspace.
+4. Optionally, add a **Description** for the workspace.
+5. Under **Visibility**, select either **Private** or **Shared**. Private visibility means that workspace pipelines are only accessible to workspace participants.
+6. Select **Add**.
+
+:::tip
+As a workspace owner, you can modify optional workspace fields after workspace creation. You can either select **Edit** on an organization's workspaces list or the **Settings** tab within the workspace page.
+:::
+
+Apart from the **Participants** tab, the _organization_ workspace is similar to the _user_ workspace. As such, the relation to [runs](../launch/launchpad), [actions](../pipeline-actions/overview), [compute environments](../compute-envs/overview), and [credentials](../credentials/overview) is the same.
+
+## Workspace settings
+
+### Studios
+
+- **Collaboration mode**: Limit which members can connect to a running Studio in the workspace. Toggle between **Collaborative**  (any member with the right permissions can connect) and **Private** (only the creator can connect). Default is **Collaborative** mode.
+- **Session lifespan**: Set a predefined lifespan (between 1 and 120 hours), after which all Studio sessions in the workspace are automatically stopped. To keep all workspace Studios running indefinitely, select **Always keep the session running**. Default is a session lifespan of **8 hours**.
+- **Container repository**: Define the target container repository where custom Studio images built with Wave will be pushed. The workspace must have a credential with read and write permissions to the target container registry. There is no default and custom builds will fail for self-hosted deployments.
+- **Container naming strategy**: Define your container registry naming strategy. Default for Seqera Cloud is **tagPrefix**.
+  - **tagPrefix**: Differentiate application versions within the same repository (e.g., `registry/image:prefix-version`). This strategy is recommended for organizing specific image types (`dev`, `staging`, `prod`) and typically results in fewer repositories with more tags.
+  - **imageSuffix**: Group different build types across repositories (e.g., `registry/image-suffix:version`). This strategy is recommended for managing permissions or different build environments (`front-end` vs. `back-end`, or `API` vs. `GUI`) and typically results in higher repository counts (i.e., one repository per environment/variant).
+
+:::note
+Studios sessions created in shared workspaces are not shared across all the workspaces in an organization.
+:::
+
+### Labels
+
+Select **Manage** to open the workspace [labels and resource labels](../labels/overview).
+
+### Lineage
+
+:::note
+Data lineage is in public preview and not enabled by default. See [Configuration options](../enterprise/configuration/overview#data-features).
+:::
+
+Configure where Nextflow lineage data are stored and whether lineage tracking is on by default for every run launched in the workspace.
+
+Select **Manage** and then choose to enable lineage by default for all pipeline runs in the workspace. Configure the lineage settings manually or automatically.
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| **Credentials** | Yes | The workspace credentials Platform uses to create and access the lineage storage bucket. The credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage the SQS queue. |
+| **Region** | Yes | Cloud region where the lineage storage bucket is created (for example, `us-east-1`, `eu-west-1`). |
+| **Bucket name** | No | Bucket where lineage records are stored. If left empty, Platform generates a default bucket name in the form `seqera-lineage-<workspace-id>`. |
+
+If configuring **manually**, two additional settings can be defined:
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| **SQS Queue name** | No | The Amazon Simple Queue Service (SQS) name. If left empty, Platform generates a default queue name in the form `<bucket-name>-notifications`. |
+| **SQS Queue ARN** | No | The ARN of the SQS queue. This is useful if your Platform deployment requires cross-account access. |
+
+### Edit or delete a workspace
+
+:::note
+From version 23.2, **workspace owners** can edit their workspace name, either from the workspace settings tab or the [Admin panel](../administration/overview).
+:::
+
+Select **Edit workspace** to update the workspace name, full name, description, and sharing. Select **Update** to save changes.
+
+Select **Delete workspace** to delete the workspace and its associated resources. This action cannot be reversed.
+
+## Add a new participant
+
+A new workspace participant can be an existing organization member, team, or collaborator. To add a new participant to a workspace:
+
+1. Go to the **Participants** tab in the workspace menu.
+2. Select **Add participant**.
+3. Enter the **Name** of the new participant.
+4. Optionally, update the participant **role**.
+
+## Workspace run monitoring
+
+To allow users executing pipelines from the command line to share their runs with a given workspace, see [deployment options](../getting-started/deployment-options#nextflow--with-tower).
+
+Seqera Platform introduces the concept of shared workspaces as a solution for synchronization and resource sharing within an organization. A shared workspace enables the creation of pipelines in a centralized location, making them accessible to all members of an organization.
+
+The benefits of using a shared workspace within an organization include:
+
+- **Define once and share everywhere**: Set up shared resources once and automatically share them across the organization.
+- **Centralize the management of key resources**: Organization administrators can ensure the correct pipeline configuration is used in all areas of an organization without the need to replicate pipelines across multiple workspaces.
+- **Immediate update adoption**: Updated parameters for a shared pipeline become immediately available across the entire organization, reducing the risk of pipeline discrepancies.
+- **Computational resource provision**: Pipelines in shared workflows can be shared along with the required computational resources. This eliminates the need to duplicate resource setup in individual workspaces across the organization. Shared workspaces centralize and simplify resource sharing within an organization.
+
+### Create a shared workspace
+
+Creating a shared workspace is similar to the creation of a private workspace, with the exception of the **Visibility** option, which must be set to **Shared**.
+
+### Create a shared pipeline
+
+When you create a pipeline in a shared workspace, associating it with a [compute environment](../compute-envs/overview) is optional.
+
+If a compute environment from the shared workspace is associated with the pipeline, it will be available to users in other organization workspaces to launch the shared pipeline with the associated compute environment by default.
+
+### Use shared pipelines from a private workspace
+
+Once a pipeline is set up in a shared workspace and associated with a compute environment in that workspace, any user can launch the pipeline from an organization workspace using the shared workspace's compute environment. This eliminates the need for users to replicate shared compute environments in their private workspaces.
+
+:::note
+The shared compute environment will not be available to launch other pipelines limited to that specific private workspace.
+:::
+
+If a pipeline from a shared workspace is shared **without** an associated compute environment, users can run it from other organization workspaces. By default, the **primary** compute environment of the launching workspace will be selected.
+
+### Make shared pipelines visible in a private workspace
+
+:::note
+Pipelines from _all_ shared workspaces are visible when the visibility is set to **Shared workspaces**.
+:::
+
+To view pipelines from shared workspaces, go to the [Launchpad](../launch/launchpad) and set the **Filter > Pipelines from** option to **This and shared workspaces**.

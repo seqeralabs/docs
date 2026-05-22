@@ -1,0 +1,6 @@
+## To see the full list of options available, run: "tw labels add -h"
+labels:
+  - name: 'label_name'                          # required
+    value: 'label_value'                        # required
+    workspace: 'your-organization/workspace-1'  # required
+    overwrite: True                             # optional
