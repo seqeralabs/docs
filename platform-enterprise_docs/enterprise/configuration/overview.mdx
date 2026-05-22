@@ -600,7 +600,7 @@ tower:
 
 ## Logging
 
-Logging-related configuration values to aid troubleshooting. See [Audit logs](../../monitoring/audit-logs) for more information on application event logging. In 26.1, use `TOWER_AUDIT_LOG_V2_WRITE_MODE` to control whether audit events are written to the legacy schema, the v2 schema, or both. Use `TOWER_CRON_AUDIT_LOG_CLEAN_UP_ENABLED` to disable automatic audit log deletion, and restart Platform after changing audit log settings.
+Logging-related configuration values to aid troubleshooting. See [Audit logs](../../monitoring/audit-logs) for more information on application event logging. In 26.1, use `TOWER_AUDIT_LOG_V2_WRITE_MODE` to control whether audit events are written to the v2 schema, or to both the legacy and the v2 schema. Use `TOWER_CRON_AUDIT_LOG_CLEAN_UP_ENABLED` to disable automatic audit log deletion, and restart Platform after changing audit log settings.
 
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>
