@@ -64,7 +64,7 @@ Select **Manage** and then choose to enable lineage by default for all pipeline 
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| **Credentials** | Yes | The workspace credentials Platform uses to create and access the lineage storage bucket. The credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage the SQS queue. See [Credentials](#credentials). |
+| **Credentials** | Yes | The workspace credentials Platform uses to create and access the lineage storage bucket. The credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage the SQS queue. |
 | **Region** | Yes | Cloud region where the lineage storage bucket is created (for example, `us-east-1`, `eu-west-1`). |
 | **Bucket name** | No | Bucket where lineage records are stored. If left empty, Platform generates a default bucket name in the form `seqera-lineage-<workspace-id>`. |
 

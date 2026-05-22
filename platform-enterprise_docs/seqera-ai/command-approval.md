@@ -228,4 +228,3 @@ seqera ai
 - [Authentication](./authentication): Log in, log out, and session management
 - [Use cases](./use-cases.md): Co-Scientist use cases
 - [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
-- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

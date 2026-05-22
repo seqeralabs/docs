@@ -91,4 +91,3 @@ Organize a workspace into projects by applying Seqera Platform labels prefixed w
 - [Use cases](./use-cases.md): Seqera CLI use cases
 - [Projects](./projects.md): Organize workspace resources into projects using Platform labels
 - [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
-- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

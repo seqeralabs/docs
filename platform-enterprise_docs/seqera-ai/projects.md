@@ -14,7 +14,7 @@ Projects in Co-Scientist group the pipelines, datasets, and workflow runs that b
 Projects are not created inside Co-Scientist. They are derived from **workspace labels in Seqera Platform** whose names start with `project_`. Each matching label surfaces in Co-Scientist as a separate project scope, with the Platform label acting as the source of truth for membership.
 
 :::note
-Projects are part of the Co-Scientist web interface. The portal must be deployed alongside Co-Scientist in your Enterprise installation. See [Install Co-Scientist](../enterprise/install-seqera-ai.md) for more information.
+Projects are part of the Co-Scientist web interface. The portal must be deployed alongside Co-Scientist in your Enterprise installation. See [Install Co-Scientist](../enterprise/install-seqera-coscientist.md) for more information.
 :::
 
 ## How projects are derived
@@ -88,7 +88,7 @@ Ask a workspace admin to create the first `project_*` label to enable projects f
 
 ## Learn more
 
-- [Install Co-Scientist](../enterprise/install-seqera-ai.md): Deploy the agent backend, MCP server, and web interface in Enterprise
+- [Install Co-Scientist](../enterprise/install-seqera-coscientist.md): Deploy the agent backend, MCP server, and web interface in Enterprise
 - [Seqera Platform labels](https://docs.seqera.io/platform-cloud/labels/overview): Create and manage workspace labels
 - [Get started with Co-Scientist](./get-started.md): Install and authenticate Co-Scientist
 - [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
