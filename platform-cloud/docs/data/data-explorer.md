@@ -22,7 +22,7 @@ Data Explorer lists public and private data repositories. Repositories accessibl
 
 - **Retrieve data repositories with workspace credentials**
 
-  Private data repositories accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The permissions required for your [AWS](../compute-envs/aws-batch#required-platform-iam-permissions), [Google Cloud](../compute-envs/google-cloud-batch#iam), [Azure Batch](../compute-envs/azure-batch#storage-account), or Amazon S3-compatible API storage: credentials allow full Data Explorer functionality.
+  Private data repositories accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The permissions required for your [AWS](../compute-envs/aws-batch#required-platform-iam-permissions), [Google Cloud](../compute-envs/google-cloud-batch#iam), [Azure Batch](../compute-envs/azure-batch#storage-account), or Amazon S3-compatible API storage credentials allow full Data Explorer functionality.
 
 - **Configure individual data repositories manually**
 
@@ -157,7 +157,7 @@ You must configure cross-origin resource sharing (CORS) for your data repository
 
 ## Download multiple files
 
-You can download up to a maximum of 1,000 files using the browser interface, or an unlimited number of files with the auto-generated download script that uses your data repositor provider's CLI and credentials.
+You can download up to a maximum of 1,000 files using the browser interface, or an unlimited number of files with the auto-generated download script that uses your data repository provider's CLI and credentials.
 
 :::note
 If you use a non-Chromium based browser, such as Safari or Firefox, file paths are concatenated with an underscore (`_`) character and the data repository directory structure is not reproduced locally. For example, the file `s3://example-us-east-1/path/to/files/my-file-1.txt` is saved as `path_to_files_my-file-1.txt`.
@@ -279,6 +279,7 @@ Using remote data repositories as inputs for pipelines or Studios currently requ
 Compute environment and Fusion multi-credential support will resolve this existing limitation, and is under active development.
 :::
 
+{/* links */}
 [roles]: ../orgs-and-teams/roles
 [molstar]: https://molstar.org/
 [igv]: https://igv.org/doc/igvjs/

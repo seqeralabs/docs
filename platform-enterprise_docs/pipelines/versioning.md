@@ -45,7 +45,7 @@ New draft versions are automatically generated during pipeline edit or launch wh
   - **Description**
   - **Labels**
   - **Resource labels**
-- Pipeline schema selection (see [Define pipeline schema](../pipeline-schema/overview.md#define-pipeline-schema))
+- Pipeline schema selection (see [Building pipeline schema files](../pipeline-schema/overview.md#building-pipeline-schema-files))
 
 Published versions provide a stable reference for team-wide pipeline launches. Users with Maintain or higher permissions can publish a draft version, giving it a name and optionally setting it as the default version. This makes important configurations easy to identify, share, and promote across your team.
 
@@ -59,7 +59,7 @@ Seqera maintains a history of all draft and published versions, providing an aud
 
 Users with [Maintain or higher](../orgs-and-teams/roles.md) permissions can upload a `nextflow_schema.json` file to Seqera Platform to control which pipeline parameters appear in the launch form. Changes to the Seqera Platform schema trigger a new draft version of the pipeline.
 
-For more information, see [Define pipeline schema](../pipeline-schema/overview.md#define-pipeline-schema).
+For more information, see [Building pipeline schema files](../pipeline-schema/overview.md#building-pipeline-schema-files).
 
 ### Manage pipeline versions
 
