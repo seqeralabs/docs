@@ -38,7 +38,7 @@
  Environment variable: "`TOWER_LOG_DIR`"
  Description: >
    Base directory to store Platform logs.
- Value:
+ Value: "Default: `/.` (deployment root directory)"
 -
  Environment variable: "`TOWER_LOG_PATTERN`"
  Description: >
@@ -48,12 +48,12 @@
  Environment variable: "`TOWER_LOG_MAX_HISTORY`"
  Description: >
    The maximum number of backend log files retained by the system.
- Value:
+ Value: "Default: `10` (days)"
 -
  Environment variable: "`TOWER_LOG_MAX_SIZE`"
  Description: >
    The maximum file size of the Platform backend log file. When this limit is reached, a new log file is created.
- Value:
+ Value: "Default: `200MB`"
 -
   Environment variable: "`LOGGER_LEVELS_IO_SEQERA_TOWER_AGENT`"
   Description: >
