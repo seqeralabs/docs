@@ -40,12 +40,14 @@ Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the
 
 ## Enable data lineage
 
-To start collecting data lineage for all pipeline runs in your workspace, go to **Settings > Workspace Settings**. Select **Lineage**. Toggle the **Enable lineage by default** on to collect data lineage for all pipeline runs in the workspace or toggle off to require per pipeline launch configuration. Choose either a **Manual** or an **Automatic** configuration for lineage resources:
+To start collecting data lineage for all pipeline runs in your workspace: 
 
-- **Manual**: Define the credentials, region, object storage bucket and path, SQS queue name, and (optionally) SQS queue ARN.
-- **Automatic**: Define the credentials, region, and (optionally) the object storage bucket and path where lineage data is stored and indexed. This is the default setting. If the storage bucket field is empty, a default bucket is generated for storing lineage data.
-
-Once set and enabled, all pipeline runs in the workspace generate data lineage. See [Lineage][workspace-lineage] for more information about the settings.
+1. Open **Settings > Workspace Settings**.
+2. Select **Lineage**.
+3. Toggle the **Enable lineage by default** on to collect data lineage for all pipeline runs in the workspace or toggle off to require per pipeline launch configuration. Choose either a **Manual** or an **Automatic** configuration for lineage resources:
+    - **Manual**: Define the credentials, region, object storage bucket and path, SQS queue name, and (optionally) SQS queue ARN.
+    - **Automatic**: Define the credentials, region, and (optionally) the object storage bucket and path where lineage data is stored and indexed. This is the default setting. If the storage bucket field is empty, a default bucket is generated for storing lineage data.
+4. Once set and enabled, all pipeline runs in the workspace generate data lineage. See [Lineage][workspace-lineage] for more information about the settings.
 
 :::danger
 Updating the lineage settings after pipelines have generated lineage data will result in historic data loss. The lineage index is tied to the lineage storage bucket and path. Changing it makes existing records inaccessible. To avoid data loss when updating the storage location, first copy all existing lineage data to the new bucket and path (for example, `aws s3 cp --recursive s3://old-bucket/path s3://new-bucket/path`), then update the workspace setting.
