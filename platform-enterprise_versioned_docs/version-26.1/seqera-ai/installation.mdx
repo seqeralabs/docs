@@ -1,0 +1,97 @@
+---
+title: "Installation"
+description: "Install and configure the Seqera CLI"
+date created: "2026-03-11"
+tags: [seqera-ai, co-scientist, cli, installation]
+---
+
+### Requirements
+
+- Node.js 18 or later
+- macOS, Linux, or Windows with WSL
+- A user account on your Seqera Platform Enterprise deployment
+- Network access to your Enterprise agent backend
+
+### npm install
+
+```bash
+npm install -g seqera
+```
+
+Install the development build:
+
+```bash
+npm install -g seqera@dev
+```
+
+Verify your installation:
+
+```bash
+seqera --version
+```
+
+### npm update
+
+```bash
+npm update -g seqera
+```
+
+### Enterprise configuration
+
+Set the agent backend URL before starting Co-Scientist:
+
+```bash
+export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com
+```
+
+If your Enterprise deployment uses Platform OIDC, also set the OIDC authority base URL. The CLI fetches OpenID configuration from this URL and opens the discovered authorization endpoint in your browser:
+
+```bash
+export SEQERA_AUTH_DOMAIN=https://platform.example.com/api
+```
+
+See [Authentication](./authentication.md#connect-to-an-enterprise-backend) for the complete environment variable reference and OAuth versus token-based examples.
+
+### Install agent integrations
+
+Install Co-Scientist as a skill for your coding agent:
+
+```bash
+seqera skill install
+```
+
+Install directly into the current repository:
+
+```bash
+seqera skill install --local
+```
+
+Check installed skills and update them after upgrading the CLI:
+
+```bash
+seqera skill check --update
+```
+
+:::info
+If you use Co-Scientist as a skill for a coding agent, run `seqera skill check --update` after updating the CLI to keep your installed skills in sync with the current version. By default, this scans both local and global installations. Use `--global` or `--local` to narrow the scope. See [Working with Claude Code](./skill-claude-code.md), [Working with Codex](./skill-codex.md), [Working with GitHub Copilot](./skill-github-copilot.md), and [Working with other coding agents](./skill-other-agents.md).
+
+```bash
+seqera skill check --update
+```
+:::
+
+### npm uninstall
+
+```bash
+npm uninstall -g seqera
+```
+
+### Learn more
+
+- [Seqera CLI](index.md): Seqera CLI overview
+- [Authentication](./authentication.md): Login, logout, and session management
+- [Skills](./skills.md): Discover, create, and install skills
+- [Modes](./modes.md): Work in build mode, plan mode, and goal mode
+- [Command approval](./command-approval.md): Control which commands run automatically
+- [Use cases](./use-cases.md): Seqera CLI use cases
+- [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments

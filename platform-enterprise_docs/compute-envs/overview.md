@@ -2,7 +2,7 @@
 title: "Compute environment overview"
 description: "Overview of compute environments in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2025-07-31"
+last updated: "2026-05-21"
 tags: [compute-environment, compute-environments, workspace, environment]
 ---
 
@@ -26,6 +26,10 @@ Each compute environment must be configured to enable Seqera to submit tasks. Se
 - [Amazon EKS](./eks)
 - [Google Kubernetes Engine](./gke)
 
+:::note
+Compute Environments now support descriptions. Enter a description during creation to provide context and information. To update a description, select **Edit** from the menu of the relevant compute environment. You can update descriptions at any time (e.g., to reflect a status change), up to a 1000-character limit. You can also add descriptions to existing compute environments that don't have one.
+:::
+
 ## Select default compute environment
 
 If you have more than one compute environment, you can select a workspace primary compute environment to be used as the default when launching pipelines in that workspace. In a workspace, select **Compute Environments**. Then select **Make primary** from the options menu next to the compute environment you wish to use as default.
@@ -35,6 +39,59 @@ If you have more than one compute environment, you can select a workspace primar
 You can edit the names of compute environments in private and organization workspaces. Select **Rename** from the options menu next to the compute environment you wish to edit.
 
 Select **Update** on the edit page to save your changes after you have updated the compute environment name.
+
+## Disable compute environment
+
+Users with **Admin** or **Owner** [workspace permissions](../orgs-and-teams/roles#workspace-participant-roles) can disable and enable compute environments.
+
+When you disable a compute environment:
+
+- Actions that use this compute environment will fail to run. **Update actions to use a new compute environment**.
+- New pipelines and Studio sessions will not run on the disabled compute environment. **Update pipelines and Studios to use a new compute environment**.
+- **Running pipelines and Studio sessions are not terminated**. Ongoing runs and Studio sessions will finish gracefully.
+- If the compute environment was set as primary, it will be unset. Until you select a new primary compute environment, new runs will default to the next available compute environment.
+
+To disable a compute environment, select **Disable** from the options menu next to the compute environment in your workspace **Compute Environments** page.
+
+To re-enable a disabled compute environment, select **Enable** from the options menu. Enabled compute environments can run new pipelines and Studio sessions.
+
+## Export compute environment
+
+You can export a compute environment's configuration as a JSON file for troubleshooting, audits, or as a reference when recreating it.
+
+:::note
+The exported JSON is for reference only. Re-importing it through the Seqera Platform UI is not supported.
+:::
+
+Any user with the Maintain, Launch, or View role on the workspace can export. The compute environment detail page, or the form page for a specific compute environment.
+
+**What's included**:
+
+- Name, platform, region, and work directory
+- Forge or manual configuration block
+- Fusion and Wave settings
+- Environment variables
+- Pre- and post-run scripts
+- Labels
+- A reference to the credential used (the credential itself is excluded)
+
+**What's not included**:
+
+- Credentials and secrets
+
+## Disable compute environment
+
+Users with **Admin** or **Owner** [workspace permissions](../orgs-and-teams/roles#workspace-participant-roles) can disable and enable compute environments.
+
+When you disable a compute environment:
+- Actions that use this compute environment will fail to run. **Update actions to use a new compute environment**.
+- New pipelines and Studio sessions will not run on the disabled compute environment. **Update pipelines and Studios to use a new compute environment**.
+- **Running pipelines and Studio sessions are not terminated**. Ongoing runs and Studio sessions will finish gracefully.
+- If the compute environment was set as primary, it will be unset. Until you select a new primary compute environment, new runs will default to the next available compute environment.
+
+To disable a compute environment, select **Disable** from the options menu next to the compute environment in your workspace **Compute Environments** page.
+
+To re-enable a disabled compute environment, select **Enable** from the options menu. Enabled compute environments can run new pipelines and Studio sessions.
 
 ## Delete compute environment
 
@@ -63,3 +120,40 @@ process {
   }
 }
 ```
+
+### GPU metrics
+
+:::note
+Detailed GPU metrics are only available for tasks that run with Fusion version 2.5.10 onwards and using Nextflow version 26.03.3-edge onwards
+:::
+
+When [Fusion](https://docs.seqera.io/fusion) is enabled, Seqera Platform automatically collects GPU metrics for tasks that run on NVIDIA GPU instances. No additional configuration is required beyond enabling Fusion and provisioning GPU instances in your compute environment.
+
+The following metrics are collected per task:
+
+- **GPU type**: The GPU model (e.g., NVIDIA A10G, A100).
+- **Driver version**: The NVIDIA driver version in use.
+- **GPU utilization %**: The percentage of GPU compute capacity used.
+- **GPU memory peak**: The maximum GPU memory used during execution.
+- **GPU memory average**: The average GPU memory used during execution.
+
+For tasks that use multiple GPUs, metrics are aggregated (average or peak across all GPUs assigned to the task) and displayed as a single combined value per task.
+
+#### Where GPU metrics appear
+
+- **Task detail view**: Select a GPU task in the task table to view GPU type, driver version, utilization, and memory metrics alongside existing CPU metrics.
+
+  ![GPU metrics in task detail view](./_images/gpu-metrics-task.png)
+
+- **Metrics tab**: A dedicated **GPU** section displays box-and-whisker plots grouped by task name, with tabs for **GPU Utilization %**, **Memory Peak**, and **Memory Average**. This section appears only when the workflow includes tasks with GPU data.
+
+  ![GPU utilization](./_images/gpu-metrics-utilization.png)
+
+  ![GPU memory peak](./_images/gpu-metrics-memory-peak.png)
+
+  ![GPU memory average](./_images/gpu-metrics-memory-average.png)
+- **Platform API**: GPU metrics are included in [task](https://docs.seqera.io/platform-api/describe-workflow-task) and [workflow](https://docs.seqera.io/platform-api/list-workflow-tasks) API responses for programmatic access.
+
+:::note
+GPU metrics are only available for tasks that run with Fusion enabled on NVIDIA GPU instances. Non-GPU tasks do not display a GPU metrics section. For tasks that fail mid-execution, partial metrics collected up to the point of failure are shown.
+:::
