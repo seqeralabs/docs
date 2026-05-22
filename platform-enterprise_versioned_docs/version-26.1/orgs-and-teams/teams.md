@@ -1,7 +1,8 @@
 ---
 title: "Teams"
 description: "Create and manage teams in a Seqera Platform Enterprise organization, including IdP-delegated teams."
-date: "2026-05-12"
+date created: "2026-05-02"
+last updated: "2026-05-22"
 tags: [teams, organizations, administration, sso, idp-delegation, enterprise]
 ---
 
@@ -85,7 +86,7 @@ To convert a delegated team back to manual management:
 2. Clear the **IdP Group** field.
 3. Select **Update** to save.
 
-Existing members are kept. The **Add member** and **Remove member** controls become available again, and the team can be deleted as normal.
+Existing members are retained. The **Add member** and **Remove member** controls become available again, and the team can be deleted as normal.
 
 ## Workspace and role assignment
 
