@@ -25,7 +25,7 @@ To get started with Co-Scientist:
 
     See [Authentication](./authentication.md) for a comprehensive authentication guide.
 
-    For Enterprise deployments, set `SEQERA_AI_BACKEND_URL` to your organization's agent backend before you start Co-Scientist. Your administrator should provide this URL; it maps to `global.agentBackendDomain` in the [Co-Scientist install guide](../enterprise/install-seqera-ai.md). See [Authentication](./authentication.md#connect-to-an-enterprise-backend) for the full environment variable reference.
+    For Enterprise deployments, set `SEQERA_AI_BACKEND_URL` to your organization's agent backend before you start Co-Scientist. Your administrator should provide this URL; it maps to `global.agentBackendDomain` in the [Co-Scientist install guide](../enterprise/install-seqera-coscientist.md). See [Authentication](./authentication.md#connect-to-an-enterprise-backend) for the full environment variable reference.
 
 1. Start Co-Scientist:
 
@@ -76,4 +76,3 @@ To get started with Co-Scientist:
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Use cases](./use-cases.md): Seqera CLI use cases
 - [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
-- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

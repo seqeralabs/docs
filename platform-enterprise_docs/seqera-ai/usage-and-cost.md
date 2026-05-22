@@ -22,7 +22,7 @@ Administrators should manage:
 - Amazon Titan embedding access, if improved documentation search is enabled.
 - Any organization-specific policies for Co-Scientist availability.
 
-For deployment configuration, see [Co-Scientist](../enterprise/install-seqera-ai.md).
+For deployment configuration, see [Co-Scientist](../enterprise/install-seqera-coscientist.md).
 
 ## Learn more
 

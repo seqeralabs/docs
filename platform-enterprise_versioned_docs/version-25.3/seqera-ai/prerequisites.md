@@ -107,7 +107,7 @@ Bedrock authentication uses AWS IAM credentials — no API key secret is needed 
 
 ## Container images
 
-Seqera AI container images are hosted at `cr.seqera.io`. The exact repository paths are defined by each component's Helm chart — see the chart READMEs for the authoritative `image.registry` / `image.repository` defaults and for [vendoring the Seqera container images to your own registry](https://docs.seqera.io/platform-enterprise/enterprise/prerequisites/common#vendoring-seqera-container-images-to-your-own-registry):
+Seqera AI container images are hosted at `cr.seqera.io`. The exact repository paths are defined by each component's Helm chart — see the chart READMEs for the authoritative `image.registry` / `image.repository` defaults and for vendoring guidance:
 
 | Image                | Chart                                                                                                          |
 | -------------------- | -------------------------------------------------------------------------------------------------------------- |

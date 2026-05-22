@@ -135,4 +135,3 @@ The Seqera CLI automatically refreshes your authentication token when needed. Yo
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Use cases](./use-cases.md): Co-Scientist use cases
 - [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
-- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors
