@@ -279,6 +279,7 @@ Using remote data repositories as inputs for pipelines or Studios currently requ
 Compute environment and Fusion multi-credential support will resolve this existing limitation, and is under active development.
 :::
 
+{/* links */}
 [roles]: ../orgs-and-teams/roles
 [molstar]: https://molstar.org/
 [igv]: https://igv.org/doc/igvjs/
