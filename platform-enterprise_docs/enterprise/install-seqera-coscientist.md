@@ -225,6 +225,27 @@ Open the portal web interface, for example `https://ai.platform.example.com`, an
 
 ## Connect the Seqera CLI to Co-Scientist
 
+There are two options available to install Seqera CLI:
+
+**Use the install endpoint**
+
+Once Platform is installed with agent-backend and portal-web enabled, use the install endpoint to install CLI:
+
+```
+curl -fsSL https://<global.portalWebDomain>/install | bash
+curl -fsSL https://ai.platform.example.com/install | bash
+```
+
+For automated environments, use a Platform access token instead of browser login.
+```bash
+export TOWER_ACCESS_TOKEN=<PLATFORM_ACCESS_TOKEN>
+seqera ai
+```
+
+Set `SEQERA_AUTH_CLI_CLIENT_ID` only for OAuth deployments that use a non-default CLI client ID. `SEQERA_ACCESS_TOKEN` and `TOWER_ACCESS_TOKEN` are supported for token-based authentication.
+
+**Use the official npm package**
+
 Install the CLI from the official [`seqera` npm package](https://www.npmjs.com/package/seqera):
 
 ```bash
