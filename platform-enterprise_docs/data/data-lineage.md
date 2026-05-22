@@ -2,7 +2,7 @@
 title: "Data Lineage"
 description: "Using data lineage in Seqera Platform."
 date created: "2026-05-11"
-last updated: "2026-05-11"
+last updated: "2026-05-22"
 tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, label]
 ---
 
@@ -42,7 +42,7 @@ Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the
 
 To start collecting data lineage for all pipeline runs in your workspace: 
 
-1. Open **Settings > Workspace Settings**.
+1. Open **Settings > Workspace settings**.
 2. Select **Lineage**.
 3. Toggle the **Enable lineage by default** on to collect data lineage for all pipeline runs in the workspace or toggle off to require per pipeline launch configuration. Choose either a **Manual** or an **Automatic** configuration for lineage resources:
     - **Manual**: Define the credentials, region, object storage bucket and path, SQS queue name, and (optionally) SQS queue ARN.
