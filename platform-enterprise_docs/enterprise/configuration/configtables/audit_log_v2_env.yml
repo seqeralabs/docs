@@ -3,7 +3,7 @@
   Environment variable:            '`TOWER_AUDIT_LOG_V2_WRITE_MODE`'
   Description: >
     Determine which audit log tables receive write operations. Accepted values are `v1` (legacy table only), `v2` (v2 table only), or `dual` (both tables simultaneously).
-  Value:                'Default: `v1`'
+  Value:                'Default: `dual`'
 -
   Environment variable:            '`TOWER_AUDIT_LOG_V2_CSV_EXPORT_MAX_LOGS`'
   Description: >
