@@ -2,12 +2,9 @@
 title: "Working with Antigravity/Gemini"
 description: "Install and maintain the Co-Scientist skill for Google's Antigravity/Gemini IDE"
 date created: "2026-04-29"
+last updated: "2026-05-21"
 tags: [seqera-ai, cli, skills, antigravity, gemini]
 ---
-
-:::note
-Seqera Cloud users receive $20 in free credits to get started with Co-Scientist. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
-:::
 
 The `seqera skill` command installs a skill file that enables [Antigravity/Gemini](https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/) to use Co-Scientist as a subagent. Once installed, Antigravity can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
 
@@ -93,7 +90,7 @@ Antigravity invokes Co-Scientist dynamically via shell commands rather than stat
 
 ### Validated use case: nf-core module QA
 
-Antigravity uses Co-Scientist as a domain-expert QA gate before pushing nf-core module PRs. In [PR #11377](https://github.com/nf-core/modules/pull/11377) (emmtyper), Co-Scientist caught that `emmtyper --version | sed` was fragile across Docker/Conda environments due to Click version differences, and recommended using `python -c "import emmtyper; print(emmtyper.__version__)"` instead.
+Antigravity uses Co-Scientist as a domain-expert QA gate before pushing nf-core module PRs. In [PR #11377](https://github.com/nf-core/modules/pull/11377) (emmtyper), Co-Scientist caught that `emmtyper --version | sed` was fragile across Docker/conda environments due to Click version differences, and recommended using `python -c "import emmtyper; print(emmtyper.__version__)"` instead.
 
 ```bash
 seqera ai --headless --approval-mode basic \
