@@ -1,42 +1,50 @@
 ---
 title: "Installation"
-description: "Install and configure the Seqera CLI"
+description: "Install and configure the Co-Scientist CLI"
 date created: "2026-03-11"
 tags: [seqera-ai, co-scientist, cli, installation]
 ---
 
-### Requirements
+The Co-Scientist CLI runs in your terminal on macOS, Linux, or Windows (via WSL). It connects to Seqera Platform and to your Enterprise agent backend so you can build, run, and debug Nextflow pipelines from a single interactive session.
+
+This page covers how to install, update, and uninstall the CLI with npm, how to switch to a development build, and how to point the CLI at your Enterprise agent backend.
+Once the CLI is on your PATH, see [Get started](./get-started.md) to log in and start a session.
+
+:::info[**Prerequisites**]{#prerequisites}
+You will need the following to get started:
 
 - Node.js 18 or later
 - macOS, Linux, or Windows with WSL
 - A user account on your Seqera Platform Enterprise deployment
 - Network access to your Enterprise agent backend
 
-### npm install
+:::
+
+## Install the CLI
+
+To install the CLI globally with npm, run:
 
 ```bash
 npm install -g seqera
 ```
 
-Install the development build:
-
-```bash
-npm install -g seqera@dev
-```
-
-Verify your installation:
+Then confirm the CLI is on your PATH:
 
 ```bash
 seqera --version
 ```
 
-### npm update
+### Install a development build
+
+To install the latest pre-release, run:
 
 ```bash
-npm update -g seqera
+npm install -g seqera@dev
 ```
 
-### Enterprise configuration
+The `@dev` tag tracks the latest pre-release CLI. Use it only to test unreleased features. Otherwise install the default tag.
+
+## Configure the Enterprise backend
 
 Set the agent backend URL before starting Co-Scientist:
 
@@ -52,46 +60,31 @@ export SEQERA_AUTH_DOMAIN=https://platform.example.com/api
 
 See [Authentication](./authentication.md#connect-to-an-enterprise-backend) for the complete environment variable reference and OAuth versus token-based examples.
 
-### Install agent integrations
+## Update the CLI
 
-Install Co-Scientist as a skill for your coding agent:
-
-```bash
-seqera skill install
-```
-
-Install directly into the current repository:
+To update the CLI to the latest published version, run:
 
 ```bash
-seqera skill install --local
+npm update -g seqera
 ```
 
-Check installed skills and update them after upgrading the CLI:
+If you use Co-Scientist as a skill for a coding agent, run `seqera skill check --update` after updating the CLI to keep installed skills in sync with the new version. By default, this scans both local and global installations — pass `--global` or `--local` to narrow the scope.
 
 ```bash
 seqera skill check --update
 ```
 
-:::info
-If you use Co-Scientist as a skill for a coding agent, run `seqera skill check --update` after updating the CLI to keep your installed skills in sync with the current version. By default, this scans both local and global installations. Use `--global` or `--local` to narrow the scope. See [Working with Claude Code](./skill-claude-code.md), [Working with Codex](./skill-codex.md), [Working with GitHub Copilot](./skill-github-copilot.md), and [Working with other coding agents](./skill-other-agents.md).
+## Uninstall the CLI
 
-```bash
-seqera skill check --update
-```
-:::
-
-### npm uninstall
+To remove the CLI from your system, run:
 
 ```bash
 npm uninstall -g seqera
 ```
 
-### Learn more
+## Next steps
 
-- [Seqera CLI](index.md): Seqera CLI overview
-- [Authentication](./authentication.md): Login, logout, and session management
-- [Skills](./skills.md): Discover, create, and install skills
-- [Modes](./modes.md): Work in build mode, plan mode, and goal mode
-- [Command approval](./command-approval.md): Control which commands run automatically
-- [Use cases](./use-cases.md): Seqera CLI use cases
+- [Get started](./get-started.md): Run your first Co-Scientist session
+- [Authentication](./authentication.md): Log in, log out, and manage sessions
+- [Skills](./skills.md#install-co-scientist-into-coding-agents): Install Co-Scientist as a skill for your coding agent
 - [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
