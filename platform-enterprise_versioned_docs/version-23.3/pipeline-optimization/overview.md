@@ -5,8 +5,6 @@ description: "Optimize the resource usage of your pipelines to save time and mon
 tags: [compute, resource, optimization]
 ---
 
-**Available from version 23.3.0**
-
 Pipeline resource optimization takes the resource usage information from previous workflow runs to optimize subsequent runs.
 
 When a run completes successfully, an _optimized profile_ is created. This profile consists of Nextflow configuration settings for each process and each resource directive (where applicable): `cpus`, `memory`, and `time`. The optimized setting for a given process and resource directive is based on the maximum use of that resource across all tasks in that process.
