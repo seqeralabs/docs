@@ -40,7 +40,7 @@ Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the
 
 ## Enable data lineage
 
-To start collecting data lineage for all pipeline runs in your workspace: 
+To start collecting data lineage for all pipeline runs in your workspace:
 
 1. Open **Settings > Workspace settings**.
 2. Select **Lineage**.
