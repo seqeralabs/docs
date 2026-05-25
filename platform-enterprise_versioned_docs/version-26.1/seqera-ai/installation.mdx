@@ -46,19 +46,19 @@ The `@dev` tag tracks the latest pre-release CLI. Use it only to test unreleased
 
 ## Configure the Enterprise backend
 
-Set the agent backend URL before starting Co-Scientist:
+Configure the Enterprise backend, set the agent backend URL before starting Co-Scientist:
 
 ```bash
 export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com
 ```
 
-If your Enterprise deployment uses Platform OIDC, also set the OIDC authority base URL. The CLI fetches OpenID configuration from this URL and opens the discovered authorization endpoint in your browser:
+If your Enterprise deployment uses Platform OIDC, also set the OIDC authority base URL:
 
 ```bash
 export SEQERA_AUTH_DOMAIN=https://platform.example.com/api
 ```
 
-See [Authentication](./authentication.md#connect-to-an-enterprise-backend) for the complete environment variable reference and OAuth versus token-based examples.
+The CLI fetches OpenID configuration from this URL and opens the discovered authorization endpoint in your browser. See [Authentication](./authentication.md#connect-to-an-enterprise-backend) for the complete environment variable reference and OAuth versus token-based examples.
 
 ## Update the CLI
 
@@ -68,13 +68,11 @@ To update the CLI to the latest published version, run:
 npm update -g seqera
 ```
 
-If you use Co-Scientist as a skill for a coding agent, sync your installed skills with the new CLI version after upgrading:
+If you use Co-Scientist as a skill for a coding agent, run `seqera skill check --update` after updating the CLI to keep installed skills in sync with the new version. By default, this scans both local and global installations — pass `--global` or `--local` to narrow the scope.
 
 ```bash
 seqera skill check --update
 ```
-
-This scans both local and global installations by default. Pass `--global` or `--local` to narrow the scope.
 
 ## Uninstall the CLI
 

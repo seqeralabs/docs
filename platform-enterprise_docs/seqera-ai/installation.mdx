@@ -46,19 +46,19 @@ The `@dev` tag tracks the latest pre-release CLI. Use it only to test unreleased
 
 ## Configure the Enterprise backend
 
-Set the agent backend URL before starting Co-Scientist:
+Configure the Enterprise backend, set the agent backend URL before starting Co-Scientist:
 
 ```bash
 export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com
 ```
 
-If your Enterprise deployment uses Platform OIDC, also set the OIDC authority base URL. The CLI fetches OpenID configuration from this URL and opens the discovered authorization endpoint in your browser:
+If your Enterprise deployment uses Platform OIDC, also set the OIDC authority base URL:
 
 ```bash
 export SEQERA_AUTH_DOMAIN=https://platform.example.com/api
 ```
 
-See [Authentication](./authentication.md#connect-to-an-enterprise-backend) for the complete environment variable reference and OAuth versus token-based examples.
+The CLI fetches OpenID configuration from this URL and opens the discovered authorization endpoint in your browser. See [Authentication](./authentication.md#connect-to-an-enterprise-backend) for the complete environment variable reference and OAuth versus token-based examples.
 
 ## Update the CLI
 

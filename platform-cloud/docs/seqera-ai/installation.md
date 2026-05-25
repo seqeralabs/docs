@@ -41,9 +41,13 @@ To install the latest pre-release, run:
 npm install -g seqera@dev
 ```
 
-The `@dev` tag tracks the latest pre-release CLI. Use it only to test unreleased features. Otherwise install the default tag.
+The `@dev` tag tracks the latest pre-release CLI. Use it only to test unreleased features. Otherwise install the default tag. To point a development build at the hosted Co-Scientist backend, set:
 
-To point a development build at the hosted Co-Scientist backend, set `SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io`. See [Authentication](./authentication.md#point-a-development-build-at-the-hosted-co-scientist-backend) for the full environment variable reference.
+```bash
+SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io
+```
+
+See [Authentication](./authentication.md#point-a-development-build-at-the-hosted-co-scientist-backend) for the full environment variable reference.
 
 ## Update the CLI
 
