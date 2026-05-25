@@ -53,11 +53,13 @@ To update the CLI to the latest published version, run:
 npm update -g seqera
 ```
 
-If you use Co-Scientist as a skill for a coding agent, run `seqera skill check --update` after updating the CLI to keep installed skills in sync with the new version. By default, this scans both local and global installations — pass `--global` or `--local` to narrow the scope.
+If you use Co-Scientist as a skill for a coding agent, sync your installed skills with the new CLI version after upgrading:
 
 ```bash
 seqera skill check --update
 ```
+
+This scans both local and global installations by default. Pass `--global` or `--local` to narrow the scope.
 
 ## Uninstall the CLI
 
