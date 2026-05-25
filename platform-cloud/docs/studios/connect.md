@@ -1,7 +1,7 @@
 ---
 title: Connect changelog
 date created: "2025-07-30"
-last updated: "2026-03-11"
+last updated: "2026-05-20"
 tags: [connect, changelog, connect-changelog]
 ---
 

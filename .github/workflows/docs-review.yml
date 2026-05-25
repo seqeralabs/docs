@@ -347,7 +347,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run Editorial Review Skill
-        uses: anthropics/claude-code-action@1dc994ee7a008f0ecc866d9ac23ef036b7229f84 # v1.0.127
+        uses: anthropics/claude-code-action@20c8abf165d5f85ab3fc970db9498436377dc9d1 # v1.0.128
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |
@@ -481,8 +481,7 @@ jobs:
 
   # Summary report
   summary:
-    needs: [setup, changes, voice-tone-review, terminology-review, consolidated-review]
-    # Removed clarity-review from dependencies since it's currently disabled
+    needs: [setup, changes, vale-lint, editorial-review-skill, consolidated-review]
     if: always() && needs.changes.outputs.docs == 'true'
     runs-on: ubuntu-latest
     steps:
@@ -492,9 +491,8 @@ jobs:
           script: |
             const jobs = [
               { name: 'Terminology (Vale)', status: '${{ needs.vale-lint.result }}' },
-              { name: 'Voice/Tone (AI)', status: '${{ needs.voice-tone-review.result }}' },
-              { name: 'Terminology (AI)', status: '${{ needs.terminology-review.result }}' }
-              // Clarity review temporarily disabled
+              { name: 'Editorial Review (AI)', status: '${{ needs.editorial-review-skill.result }}' },
+              { name: 'Consolidated Review', status: '${{ needs.consolidated-review.result }}' }
             ];
 
             const statusEmoji = {
@@ -548,7 +546,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Apply Fixes
-        uses: anthropics/claude-code-action@1dc994ee7a008f0ecc866d9ac23ef036b7229f84 # v1.0.127
+        uses: anthropics/claude-code-action@20c8abf165d5f85ab3fc970db9498436377dc9d1 # v1.0.128
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |
