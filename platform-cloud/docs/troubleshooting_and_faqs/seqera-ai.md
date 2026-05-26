@@ -50,6 +50,14 @@ If you encounter permission errors during installation:
    export PATH="$HOME/.npm-global/bin:$PATH"
    ```
 
+##### `EACCES` permission errors on global install
+
+Avoid running `sudo npm install`. Either [fix npm permissions](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally) or install Node through a version manager such as [nvm](https://github.com/nvm-sh/nvm).
+
+##### `seqera: command not found` after install
+
+Confirm npm's global `bin` directory is on your PATH. Run `npm config get prefix` to find it.
+
 ## Authentication
 
 ##### Browser doesn't open

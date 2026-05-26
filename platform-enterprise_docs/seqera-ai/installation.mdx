@@ -1,133 +1,92 @@
 ---
 title: "Installation"
-description: "Install and configure Seqera AI CLI"
-date: "15 Dec 2025"
-tags: [seqera-ai, cli, installation]
+description: "Install and configure the Co-Scientist CLI"
+date created: "2026-03-11"
+tags: [seqera-ai, co-scientist, cli, installation]
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+The Co-Scientist CLI runs in your terminal on macOS, Linux, or Windows (via WSL). It connects to Seqera Platform and to your Enterprise agent backend so you can build, run, and debug Nextflow pipelines from a single interactive session.
 
-:::caution Seqera AI CLI is in beta
-Seqera AI CLI is currently in beta. Features and commands may change as we continue to improve the product.
+This page covers how to install, update, and uninstall the CLI with npm, how to switch to a development build, and how to point the CLI at your Enterprise agent backend.
+Once the CLI is on your PATH, see [Get started](./get-started.md) to log in and start a session.
+
+:::info[**Prerequisites**]{#prerequisites}
+You will need the following to get started:
+
+- Node.js 18 or later
+- macOS, Linux, or Windows with WSL
+- A user account on your Seqera Platform Enterprise deployment
+- Network access to your Enterprise agent backend
+
 :::
 
-:::note
-Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
-:::
+## Install the CLI
 
-## Requirements
-
-- macOS (Apple Silicon or Intel) or Linux x64
-- A Seqera Platform account ([sign up for free](https://cloud.seqera.io))
-- An internet connection
-
-## Install
-
-<Tabs>
-<TabItem value="npm" label="npm (recommended)" default>
-
-Install globally with npm:
+To install the CLI globally with npm, run:
 
 ```bash
 npm install -g seqera
 ```
 
-Verify your installation:
+Then confirm the CLI is on your PATH:
 
 ```bash
-seqera --help
+seqera --version
 ```
 
-:::tip
-You can also install with yarn, pnpm, or bun:
+### Install a development build
+
+To install the latest pre-release, run:
 
 ```bash
-yarn global add seqera
-# or
-pnpm add -g seqera
-# or
-bun add -g seqera
+npm install -g seqera@dev
 ```
-:::
 
-</TabItem>
-<TabItem value="binary" label="Standalone binary">
+The `@dev` tag tracks the latest pre-release CLI. Use it only to test unreleased features. Otherwise install the default tag.
 
-Download the binary for your platform:
+## Configure the Enterprise backend
 
-| Platform | Binary |
-|----------|--------|
-| macOS Apple Silicon | `seqera-darwin-arm64.tar.gz` |
-| macOS Intel | `seqera-darwin-x64.tar.gz` |
-| Linux x64 | `seqera-linux-x64.tar.gz` |
-
-Extract and add to your PATH:
+Configure the Enterprise backend, set the agent backend URL before starting Co-Scientist:
 
 ```bash
-# Example: macOS Apple Silicon
-tar -xzf seqera-darwin-arm64.tar.gz
-chmod +x seqera
-sudo mv seqera /usr/local/bin/
+export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com
 ```
 
-Verify your installation:
+If your Enterprise deployment uses Platform OIDC, also set the OIDC authority base URL:
 
 ```bash
-seqera --help
+export SEQERA_AUTH_DOMAIN=https://platform.example.com/api
 ```
 
-</TabItem>
-</Tabs>
+The CLI fetches OpenID configuration from this URL and opens the discovered authorization endpoint in your browser. See [Authentication](./authentication.md#connect-to-an-enterprise-backend) for the complete environment variable reference and OAuth versus token-based examples.
 
-## Upgrade
+## Update the CLI
 
-<Tabs>
-<TabItem value="npm" label="npm" default>
+To update the CLI to the latest published version, run:
 
 ```bash
 npm update -g seqera
 ```
 
-</TabItem>
-<TabItem value="binary" label="Standalone binary">
+If you use Co-Scientist as a skill for a coding agent, sync your installed skills with the new CLI version after upgrading:
 
-Download the latest binary for your platform and replace the existing binary.
+```bash
+seqera skill check --update
+```
 
-</TabItem>
-</Tabs>
+This scans both local and global installations by default. Pass `--global` or `--local` to narrow the scope.
 
-## Developer configuration
+## Uninstall the CLI
 
-If you are testing a development build of the CLI against the hosted production Seqera AI service, set `SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io` before running `seqera ai`.
-
-See [Install Seqera AI](../enterprise/install-seqera-ai.md#connect-the-cli-to-seqera-ai) for the complete environment variable reference and OAuth versus token-based examples.
-
-## Uninstall
-
-<Tabs>
-<TabItem value="npm" label="npm" default>
+To remove the CLI from your system, run:
 
 ```bash
 npm uninstall -g seqera
 ```
 
-</TabItem>
-<TabItem value="binary" label="Standalone binary">
+## Next steps
 
-Remove the `seqera` binary from your PATH:
-
-```bash
-sudo rm /usr/local/bin/seqera
-```
-
-</TabItem>
-</Tabs>
-
-## Learn more
-
-- [Seqera AI CLI](index.md): Seqera AI CLI overview
-- [Authentication](./authentication.md): Login, logout, and session management
-- [Command approval](./command-approval.md): Control which commands run automatically
-- [Use cases](./use-cases.md): Seqera AI CLI use cases
-- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors
+- [Get started](./get-started.md): Run your first Co-Scientist session
+- [Authentication](./authentication.md): Log in, log out, and manage sessions
+- [Skills](./skills.md#install-co-scientist-into-coding-agents): Install Co-Scientist as a skill for your coding agent
+- [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
