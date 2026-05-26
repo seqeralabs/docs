@@ -223,7 +223,7 @@ seqera ai
 
 ## Learn more
 
-- [Co-Scientist CLI](index.md): Co-Scientist CLI overview
+- [Co-Scientist](index.md): Co-Scientist overview
 - [Installation](./installation): Detailed installation instructions
 - [Authentication](./authentication): Log in, log out, and session management
 - [Use cases](./use-cases.md): Co-Scientist use cases

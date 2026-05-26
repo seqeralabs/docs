@@ -1,6 +1,6 @@
 ---
 title: "Skills"
-description: "Discover, create, and install skills in Co-Scientist CLI"
+description: "Discover, create, and install skills in the Seqera CLI"
 date created: "2026-03-11"
 tags: [seqera-ai, co-scientist, cli, skills]
 ---

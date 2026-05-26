@@ -33,7 +33,7 @@ See [Nextflow Language Server](https://github.com/nextflow-io/language-server) f
 
 ### Learn more
 
-- [Co-Scientist CLI](./index.md): Co-Scientist overview
-- [Get started](./get-started.md): Start using Co-Scientist
-- [Use cases](./use-cases.md): Co-Scientist CLI use cases
+- [Co-Scientist](./index.md): Co-Scientist overview
+- [Quickstart](./quickstart.md): Start using Co-Scientist
+- [Use cases](./use-cases.md): Seqera CLI use cases
 - [Credits](./credits.md): Co-Scientist credits and how to request more

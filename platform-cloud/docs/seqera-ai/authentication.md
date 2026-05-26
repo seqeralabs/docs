@@ -59,7 +59,7 @@ If you are testing a development build of the CLI against the hosted production 
 | --- | --- | --- |
 | `SEQERA_AI_BACKEND_URL` | Co-Scientist backend endpoint used by the CLI | `https://ai-api.seqera.io` |
 | `SEQERA_AUTH_DOMAIN` | Platform API base URL used for browser-based login | `https://cloud.seqera.io/api` |
-| `SEQERA_AUTH_CLI_CLIENT_ID` | OAuth client ID for the Co-Scientist CLI | `seqera_ai_cli` |
+| `SEQERA_AUTH_CLI_CLIENT_ID` | OAuth client ID for the Seqera CLI | `seqera_ai_cli` |
 | `TOWER_ACCESS_TOKEN` | Platform personal access token used instead of browser login | `<PLATFORM_ACCESS_TOKEN>` |
 
 Use the OAuth login flow:
@@ -93,7 +93,7 @@ This command revokes your current authentication token and removes locally store
 
 ## Organization management
 
-Co-Scientist CLI supports managing your organization selection for billing. Use the `seqera org` command to view and switch organizations.
+The Seqera CLI supports managing your organization selection for billing. Use the `seqera org` command to view and switch organizations.
 
 **View current organization**:
 
@@ -121,7 +121,7 @@ seqera org clear
 
 ## Token refresh
 
-Co-Scientist CLI automatically refreshes your authentication token when needed. You are not required to log in again unless:
+The Seqera CLI automatically refreshes your authentication token when needed. You are not required to log in again unless:
 
 - You explicitly log out
 - Your refresh token expires (typically after extended inactivity)
@@ -129,7 +129,7 @@ Co-Scientist CLI automatically refreshes your authentication token when needed. 
 
 ## Learn more
 
-- [Co-Scientist CLI](index.md): Co-Scientist CLI overview
+- [Co-Scientist](index.md): Co-Scientist overview
 - [Installation](./installation.md): Detailed installation instructions
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Use cases](./use-cases.md): Co-Scientist use cases

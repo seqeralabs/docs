@@ -85,7 +85,7 @@ seqera skill check [OPTIONS]
 ### Learn more
 
 - [Skills](./skills.md): Discover, create, and install skills
-- [Use cases](./use-cases.md): Co-Scientist CLI use cases
+- [Use cases](./use-cases.md): Seqera CLI use cases
 - [Code intelligence](./nextflow-lsp.md): Language-aware coding support
 - [Installation](./installation.md): Detailed installation instructions
 - [Credits](./credits.md): Co-Scientist credits and how to request more

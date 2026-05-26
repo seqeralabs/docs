@@ -1,6 +1,6 @@
 ---
 title: "Modes"
-description: "Work in build mode, plan mode, and goal mode in Co-Scientist CLI"
+description: "Work in build mode, plan mode, and goal mode in the Seqera CLI"
 date created: "2026-03-11"
 tags: [seqera-ai, co-scientist, cli, modes]
 ---
@@ -108,5 +108,5 @@ Inspect this repository and outline the changes needed for Seqera Platform deplo
 
 - [Skills](./skills.md): Discover, create, and install skills
 - [Command approval](./command-approval.md): Control which commands run automatically
-- [Use cases](./use-cases.md): Co-Scientist CLI use cases
+- [Use cases](./use-cases.md): Seqera CLI use cases
 - [Credits](./credits.md): Co-Scientist credits and how to request more

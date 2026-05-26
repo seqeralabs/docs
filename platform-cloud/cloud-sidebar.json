@@ -134,8 +134,8 @@
       "link": {"type": "doc", "id": "seqera-ai/index"},
       "collapsed": true,
       "items": [
-        "seqera-ai/get-started",
         "seqera-ai/installation",
+        "seqera-ai/quickstart",
         "seqera-ai/authentication",
         "seqera-ai/credits",
         "seqera-ai/skills",
