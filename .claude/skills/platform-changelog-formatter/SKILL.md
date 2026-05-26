@@ -1,34 +1,15 @@
-# Platform changelog formatter skill
+---
+name: platform-changelog-formatter
+description: "Format and style-check Seqera Platform changelogs (Cloud and Enterprise only) for consistency in voice, tense, component-based organization, and formatting conventions. Use when formatting a Platform changelog, checking changelog style for Cloud or Enterprise releases, or working with files in changelog/seqera-cloud/ or changelog/seqera-enterprise/. Does not apply to Wave, Nextflow, or Fusion changelogs — use os-changelog-formatter for those."
+---
 
-## Description
-Format and style-check **Seqera Platform** changelogs (Cloud and Enterprise only) to ensure consistency in voice, tone, formatting, and component-based organization.
+# Process
 
-**Scope**: ONLY Seqera Platform Cloud and Enterprise changelogs.
-**Does NOT apply to**: Wave, Nextflow, or Fusion changelogs.
+## 1. Verify scope and read the changelog
 
-## Deployment
-**CI/CD:** Not used | **Invocation:** Local manual use only
+Confirm the file is in `changelog/seqera-cloud/*.md` or `changelog/seqera-enterprise/*.md`. If not, stop and inform the user this skill is Platform-only (Wave/Nextflow/Fusion use a different format with attribution and PR links).
 
-## When to use
-Use this skill when:
-- User asks to "format a Platform changelog"
-- User provides a Cloud or Enterprise changelog file needing formatting
-- User asks to check Platform changelog style
-- File path contains `changelog/seqera-cloud/` or `changelog/seqera-enterprise/`
-
-## Process
-
-### 1. Read the changelog file
-Read the Platform changelog file (Cloud or Enterprise).
-
-### 2. Verify it's a Platform changelog
-Confirm the file is in:
-- `changelog/seqera-cloud/*.md` OR
-- `changelog/seqera-enterprise/*.md`
-
-If NOT a Platform changelog, stop and inform user this skill is Platform-only.
-
-### 3. Apply universal style rules
+## 2. Apply universal style rules
 
 #### Tense
 - ✅ Use past tense: "Added", "Fixed", "Improved", "Updated"
@@ -79,7 +60,7 @@ Use bold for UI elements:
 - ✅ Descriptive: `[managed identity and managed credentials endpoint](URL)`
 - ❌ Never: `[here](URL)` or `[click here](URL)`
 
-### 4. Apply Platform-specific component organization
+## 3. Apply Platform-specific component organization
 
 Platform changelogs MUST use component-based organization:
 
@@ -138,7 +119,7 @@ Platform changelogs MUST use component-based organization:
 - NO author attribution (unlike Wave/Nextflow)
 - NO GitHub links to PRs/commits (unlike Wave/Nextflow)
 
-### 5. Cloud versus Enterprise specifics
+## 4. Cloud versus Enterprise specifics
 
 **Seqera Cloud changelogs:**
 - ❌ NEVER include "Upgrade notes" section (Cloud auto-upgrades)
@@ -150,7 +131,7 @@ Platform changelogs MUST use component-based organization:
 - ✅ May mention environment variables
 - ✅ May mention breaking changes if applicable
 
-### 6. Preserve important content
+## 5. Preserve important content
 
 **DO preserve:**
 - Frontmatter (YAML headers with title, date, tags)
@@ -165,7 +146,7 @@ Platform changelogs MUST use component-based organization:
 - Commit hashes
 - New content not in original
 
-### 7. Quality checks
+## 6. Quality checks
 
 Before outputting, verify:
 - [ ] Past tense throughout
@@ -181,17 +162,11 @@ Before outputting, verify:
 - [ ] Descriptive link text
 - [ ] Frontmatter unchanged
 
-### 8. Output formatted changelog
+## 7. Output formatted changelog
 
-Write the formatted changelog to the same file or a new file as requested.
+Write the formatted changelog to the same file or a new file as requested. Provide a summary: tense corrections, backticks added, items reorganized, and any difficult categorizations.
 
-Provide a summary of changes made:
-- How many tense corrections
-- How many code element backticks added
-- How many items reorganized
-- Any items that were difficult to categorize
-
-## Example transformations
+## Example transformation
 
 ### Before (incorrect)
 ```markdown
@@ -224,10 +199,8 @@ Provide a summary of changes made:
 - Updated container max-width from `1120px` to `1672px`
 ```
 
-## Important notes
+## Key constraints
 
-- **Platform-only**: This skill applies ONLY to Platform Cloud and Enterprise changelogs
-- **No Wave/Nextflow**: Wave/Nextflow changelogs use different format (attribution, links)
-- **Preserve content**: Only reorganize and format, never add or remove information
-- **Default to General**: Better to put items in General than miscategorize
-- **Ask for confirmation**: Before overwriting files
+- Only reorganize and format — never add or remove information
+- Default to "General" rather than miscategorize
+- Ask for confirmation before overwriting files

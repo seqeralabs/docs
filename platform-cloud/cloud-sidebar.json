@@ -21,6 +21,7 @@
         "items": [
           "getting-started/deployment-options",
           "getting-started/workspace-setup",
+          "getting-started/single-sign-on",
           "getting-started/quickstart-demo/add-pipelines",
           "getting-started/quickstart-demo/add-data",
           "getting-started/quickstart-demo/launch-pipelines",

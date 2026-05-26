@@ -72,7 +72,12 @@ Three domains are required, each serving a different component:
 Generate a Fernet encryption key for encrypting sensitive tokens at rest:
 
 ```bash
-python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+# using uv Python package manager (installed if not available)
+uv --version >/dev/null 2>&1 || curl -LsSf https://astral.sh/uv/install.sh | sh
+uv run --with cryptography python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+
+# using Python directly, cryptography dependency module must be installed in environment
+python3 -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
 ```
 
 Store this as a Kubernetes secret. It will be referenced as `AGENT_BACKEND_TOKEN_ENCRYPTION_KEY` in the Helm values (this is the default key the `agent-backend` chart reads from `tokenEncryptionKeyExistingSecretName`).
@@ -102,7 +107,7 @@ Bedrock authentication uses AWS IAM credentials — no API key secret is needed 
 
 ## Container images
 
-Seqera AI container images are hosted at `cr.seqera.io`. The exact repository paths are defined by each component's Helm chart — see the chart READMEs for the authoritative `image.registry` / `image.repository` defaults and for [vendoring the Seqera container images to your own registry](https://docs.seqera.io/platform-enterprise/enterprise/prerequisites/common#vendoring-seqera-container-images-to-your-own-registry):
+Seqera AI container images are hosted at `cr.seqera.io`. The exact repository paths are defined by each component's Helm chart — see the chart READMEs for the authoritative `image.registry` / `image.repository` defaults and for vendoring guidance:
 
 | Image                | Chart                                                                                                          |
 | -------------------- | -------------------------------------------------------------------------------------------------------------- |
