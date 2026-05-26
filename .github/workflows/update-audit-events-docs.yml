@@ -1,0 +1,181 @@
+# .github/workflows/update-audit-events-docs.yml
+#
+# This workflow runs in the seqeralabs/docs repository.
+# Triggered by Platform repo when audit events docs are updated.
+
+name: Update Audit Events Documentation
+
+on:
+  repository_dispatch:
+    types: [audit-events-docs-updated]
+  workflow_dispatch:
+    inputs:
+      changed_files:
+        description: 'Comma-separated list of changed files (e.g., docs/audit_events.md)'
+        required: true
+        type: string
+      platform_ref:
+        description: 'Platform ref to read audit_events.md from (tag, branch, or SHA)'
+        required: true
+        type: string
+      previous_tag:
+        description: 'Previous Enterprise release tag used for comparison'
+        required: false
+        type: string
+
+jobs:
+  update-audit-events:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate payload
+        id: validate
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          DISPATCH_CHANGED_FILES: ${{ github.event.client_payload.changed_files }}
+          DISPATCH_TRIGGERED_BY: ${{ github.event.client_payload.triggered_by }}
+          DISPATCH_PLATFORM_COMMIT: ${{ github.event.client_payload.platform_commit }}
+          DISPATCH_COMMIT_MESSAGE: ${{ github.event.client_payload.platform_commit_message }}
+          DISPATCH_TAG_NAME: ${{ github.event.client_payload.tag_name }}
+          DISPATCH_PREVIOUS_TAG: ${{ github.event.client_payload.previous_tag }}
+          INPUT_CHANGED_FILES: ${{ github.event.inputs.changed_files }}
+          INPUT_PLATFORM_REF: ${{ github.event.inputs.platform_ref }}
+          INPUT_PREVIOUS_TAG: ${{ github.event.inputs.previous_tag }}
+        run: |
+          if [ "$EVENT_NAME" = "repository_dispatch" ]; then
+            CHANGED_FILES="$DISPATCH_CHANGED_FILES"
+            TRIGGERED_BY="$DISPATCH_TRIGGERED_BY"
+            PLATFORM_COMMIT="$DISPATCH_PLATFORM_COMMIT"
+            COMMIT_MESSAGE="$DISPATCH_COMMIT_MESSAGE"
+            PLATFORM_REF="$DISPATCH_TAG_NAME"
+            PREVIOUS_TAG="$DISPATCH_PREVIOUS_TAG"
+          else
+            CHANGED_FILES="$INPUT_CHANGED_FILES"
+            TRIGGERED_BY="${{ github.actor }}"
+            PLATFORM_COMMIT="$INPUT_PLATFORM_REF"
+            COMMIT_MESSAGE="Manual workflow trigger"
+            PLATFORM_REF="$INPUT_PLATFORM_REF"
+            PREVIOUS_TAG="$INPUT_PREVIOUS_TAG"
+          fi
+
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "Error: changed_files is empty"
+            exit 1
+          fi
+
+          if [ -z "$PLATFORM_REF" ]; then
+            echo "Error: Platform ref is empty"
+            exit 1
+          fi
+
+          for file in ${CHANGED_FILES//,/ }; do
+            if [ "$file" != "docs/audit_events.md" ]; then
+              echo "Error: Unexpected file path: $file"
+              exit 1
+            fi
+          done
+
+          BRANCH_REF=$(printf '%s' "$PLATFORM_REF" | tr -c '0-9A-Za-z._-' '-')
+
+          {
+            echo "changed_files=$CHANGED_FILES"
+            echo "triggered_by=$TRIGGERED_BY"
+            echo "platform_commit=$PLATFORM_COMMIT"
+            echo "commit_message=$COMMIT_MESSAGE"
+            echo "platform_ref=$PLATFORM_REF"
+            echo "previous_tag=$PREVIOUS_TAG"
+            echo "branch_ref=$BRANCH_REF"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "Validation passed"
+          echo "Changed files: $CHANGED_FILES"
+          echo "Platform ref: $PLATFORM_REF"
+          echo "Previous tag: $PREVIOUS_TAG"
+
+      - name: Checkout docs repo
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+
+      - name: Checkout Platform repo
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+        with:
+          repository: seqeralabs/platform
+          ref: ${{ steps.validate.outputs.platform_ref }}
+          path: platform-repo
+          token: ${{ secrets.PLATFORM_REPO_PAT }}
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # ratchet:actions/setup-python@v6.2.0
+        with:
+          python-version: '3.14'
+
+      - name: Update audit events documentation
+        run: |
+          python3 .github/scripts/update-audit-events-tables.py \
+            --platform-repo platform-repo \
+            --changed-files "${{ steps.validate.outputs.changed_files }}"
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --quiet; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "No changes detected in documentation"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "Changes detected"
+            git diff --stat
+          fi
+
+      - name: Create Pull Request
+        if: steps.check_changes.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # ratchet:peter-evans/create-pull-request@v8.1.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            Update audit events documentation from Platform
+
+            Platform ref: ${{ steps.validate.outputs.platform_ref }}
+            Platform commit: ${{ steps.validate.outputs.platform_commit }}
+            Previous tag: ${{ steps.validate.outputs.previous_tag }}
+            Changed files: ${{ steps.validate.outputs.changed_files }}
+            Triggered by: ${{ steps.validate.outputs.triggered_by }}
+
+            ${{ steps.validate.outputs.commit_message }}
+          branch: audit-events-docs-update-${{ steps.validate.outputs.branch_ref }}
+          delete-branch: true
+          draft: true
+          title: 'Update audit events documentation from Platform'
+          body: |
+            ## Audit Events Documentation Update
+
+            This draft PR was automatically generated by the audit events docs update workflow.
+
+            ### Source Information
+
+            - **Platform ref**: ${{ steps.validate.outputs.platform_ref }}
+            - **Platform commit**: ${{ steps.validate.outputs.platform_commit }}
+            - **Previous tag**: ${{ steps.validate.outputs.previous_tag }}
+            - **Changed files**: ${{ steps.validate.outputs.changed_files }}
+            - **Triggered by**: ${{ steps.validate.outputs.triggered_by }}
+            - **Commit message**: ${{ steps.validate.outputs.commit_message }}
+
+            ### Updated Documentation Files
+
+            This PR updates the generated Enterprise audit logs event tables from Platform's `docs/audit_events.md` source file:
+
+            - `platform-enterprise_docs/monitoring/configtables/audit_events_v2.yml`
+            - `platform-enterprise_docs/monitoring/configtables/audit_events_deprecated.yml`
+
+            The unversioned Audit logs page renders the v2 event table and deprecated event table only. Legacy audit event summary tables and versioned docs are not updated by this workflow.
+
+            ### Review Checklist
+
+            - [ ] Verify table content matches Platform source
+            - [ ] Check that table formatting is correct
+            - [ ] Confirm the Audit logs page renders correctly in the docs preview
+
+      - name: Report no changes
+        if: steps.check_changes.outputs.has_changes == 'false'
+        run: |
+          echo "No changes were made to documentation files."
+          echo "This might mean the audit events tables are already up to date."
