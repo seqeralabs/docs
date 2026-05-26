@@ -1,22 +1,22 @@
 ---
 title: "Seqera Platform Cloud"
 description: "Introduction to Seqera Platform Cloud."
-date: "1 Apr 2025"
+date created: "2026-05-21"
 slug: /
 ---
 
-Seqera Platform Cloud is an intuitive, centralized command post designed to make scientific analysis accessible at any scale.
-
-Seqera acts as a pane of glass to effortlessly launch, manage, monitor, and collaborate on scalable [Nextflow](https://www.nextflow.io) data analysis using your own computing resources and infrastructure. Researchers can focus on the science that matters, rather than worrying about infrastructure engineering.
+Seqera Platform Cloud is a centralized environment that makes scientific analysis accessible at any scale. Run pipelines, work interactively in managed analysis environments, manage data, and collaborate across teams using your own compute resources and infrastructure.
 
 Seqera helps organizations:
 
-- Launch, manage, and monitor portable Nextflow pipelines from anywhere in real time
-- Enable non-technical users to run pipelines via the intuitive Launchpad interface
-- Easily provision and leverage cloud-based and HPC compute environments
-- Share pipelines and data and collaborate securely between local and remote teams
-- Access a [curated library](https://seqera.io/pipelines/) of production-proven Nextflow community pipelines from [nf-core](https://nf-co.re/) and others
-- [Automate](/platform-cloud/getting-started/quickstart-demo/automation) complex tasks as part of broader enterprise processes
+- **Run pipelines**: Launch, manage, and monitor [Nextflow](https://www.nextflow.io) pipelines on cloud or HPC compute, with a [Launchpad](/platform-cloud/launch/launchpad) interface for non-technical users.
+- **Analyze interactively**: Spin up [Studios](/platform-cloud/studios/overview) with JupyterLab, R-IDE, VS Code, or Xpra remote desktops on a connected compute environment.
+- **Manage data**: Browse data across AWS, Azure, and Google Cloud buckets with [Data Explorer](/platform-cloud/data/data-explorer), and trace pipeline provenance with [Data Lineage](/platform-cloud/data/data-lineage) (public preview).
+- **Optimize cost and performance**: Get automated resource recommendations from [pipeline optimization](/platform-cloud/pipeline-optimization/overview).
+- **Work with AI**: Use [Co-Scientist](/platform-cloud/seqera-ai/) and MCP-compatible agents to write, debug, and run pipelines.
+- **Collaborate securely**: Share pipelines, data, and compute across [organizations and teams](/platform-cloud/orgs-and-teams/workspace-management).
+- **Access curated pipelines**: Run production-tested [community pipelines](https://seqera.io/pipelines/) from [nf-core](https://nf-co.re/) and others.
+- **Automate workflows**: [Automate](/platform-cloud/getting-started/quickstart-demo/automation) launches as part of larger enterprise processes.
 
 :::tip
 [**Sign up**](https://cloud.seqera.io "Seqera Platform Cloud") to try Seqera Cloud for free, or request a [**Seqera Enterprise demo**](https://seqera.io/demo "Seqera Platform Enterprise Demo") for deployments in your own on-premises or cloud environment.
@@ -24,17 +24,9 @@ Seqera helps organizations:
 
 ### Access Seqera Cloud
 
-Log in to [Seqera Cloud](https://cloud.seqera.io/login) with your GitHub or Google account, or by providing an email address. If you are signing in for the first time, Seqera Cloud will send an authentication link to the email address to enable login.
+Log in to [Seqera Cloud](https://cloud.seqera.io/login) with your GitHub or Google account, or by providing an email address. If you are signing in for the first time, Seqera Cloud sends an authentication link to the email address to enable login.
 
 Upon your first login, you arrive in `community/showcase`, a workspace pre-filled with resources to launch your first pipeline with public data.
 
 - To begin launching Showcase pipelines, see [Launch pipelines](/platform-cloud/getting-started/quickstart-demo/launch-pipelines).
 - To skip the Showcase and begin adding your own pipelines and resources, see [Set up your workspace](/platform-cloud/getting-started/workspace-setup) to first create your own organizations and workspaces.
-
-### What is Nextflow?
-
-[Nextflow](https://www.nextflow.io) is a framework for the development of data workflows. It enables engineers and data scientists to create and securely deploy custom, parallel data applications to the cloud or traditional on-premises infrastructure. Nextflow is characterized by its powerful dataflow programming paradigm and execution engines that allow for transparent deployment.
-
-Nextflow is both a programming workflow language and an execution runtime that supports a wide range of execution platforms, including popular traditional grid scheduling systems such as Slurm and IBM LSF, and cloud services such as AWS, Azure, and Google Cloud Batch.
-
-See the [Nextflow documentation](https://docs.seqera.io/nextflow/) to learn more.
