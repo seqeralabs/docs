@@ -74,7 +74,7 @@ For the application to select the most appropriate credential for your repositor
 
 ## Seqera AI
 
-[Seqera AI](https://seqera.io/ask-ai/chat-v2) integrates with your pipeline GitHub repositories to provide intelligent assistance with pipeline development and modification. To fully utilize the power of Seqera AI, it needs access to your pipeline codebase to analyze, suggest changes, and even create pull requests on your behalf.
+[Seqera AI](https://ai.seqera.io) integrates with your pipeline GitHub repositories to provide intelligent assistance with pipeline development and modification. To fully utilize the power of Seqera AI, it needs access to your pipeline codebase to analyze, suggest changes, and even create pull requests on your behalf.
 
 ### Set up GitHub access
 
@@ -88,7 +88,7 @@ To enable Seqera AI to interact with your pipeline GitHub repositories:
    - Your token value will be displayed only once. Copy it before navigating away from the tokens page.
 
 2. **Add the token to Seqera AI**
-   - Open [Seqera AI](https://seqera.io/ask-ai/chat-v2).
+   - Open [Seqera AI](https://ai.seqera.io).
    - In the bottom-left user menu, select **Add token**.
    - Enter your personal access token in the field provided, then select **Set token**.
 

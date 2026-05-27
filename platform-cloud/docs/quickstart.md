@@ -141,4 +141,4 @@ When you're ready to run pipelines and Studios with your own data, you can:
 - [Add new pipelines](./getting-started/quickstart-demo/add-pipelines.md)
 - [Add participants](./getting-started/workspace-setup.md) to collaborate with your team
 
-Contact the [Seqera community forum](https://community.seqera.io/) or ask [Seqera AI](https://seqera.io/ask-ai/chat-v2) if you encounter any unexpected issues or need assistance.
+Contact the [Seqera community forum](https://community.seqera.io/) or ask [Seqera AI](https://ai.seqera.io) if you encounter any unexpected issues or need assistance.
