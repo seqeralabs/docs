@@ -98,7 +98,7 @@ Co-Scientist works across model turns until the goal completes or the attempt li
 
 ## Learn more
 
-- [Skills](./skills.md): Discover, create, and install skills
+- [Skills configuration](./skills.md): Discover, create, and install skills
 - [Modes](./modes.md): Build, plan, and goal modes in depth
 - [Use cases](./use-cases.md): Seqera CLI use cases
-- [Skills reference](./reference/skills-reference.md): Built-in skills, slash commands, and session limits
+- [Skills](./reference/skills-reference.md): Built-in skills, slash commands, and session limits

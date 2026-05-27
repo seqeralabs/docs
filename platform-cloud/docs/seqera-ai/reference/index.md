@@ -9,6 +9,6 @@ Look up Seqera CLI commands, environment variables, and the built-in skills and 
 
 ## In this section
 
-- [CLI reference](./cli.md): Seqera CLI commands and options
+- [CLI](./cli.md): Seqera CLI commands and options
 - [Environment variables](./environment-variables.md): Variables for authenticating and configuring the CLI
-- [Skills reference](./skills-reference.md): Built-in skills, slash commands, and session limits
+- [Skills](./skills-reference.md): Built-in skills, slash commands, and session limits

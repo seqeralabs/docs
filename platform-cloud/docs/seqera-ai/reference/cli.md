@@ -5,7 +5,7 @@ date created: "2026-05-28"
 tags: [co-scientist, cli, reference]
 ---
 
-Reference for the `seqera` commands used with Co-Scientist. To install the CLI, see [Installation](../installation.mdx). For the slash commands available inside a session, see [Skills reference](./skills-reference.md).
+Reference for the `seqera` commands used with Co-Scientist. To install the CLI, see [Installation](../installation.mdx). For the slash commands available inside a session, see [Skills](./skills-reference.md).
 
 ## seqera login
 
@@ -97,5 +97,5 @@ seqera --version
 - [Installation](../installation.mdx): Install, update, and configure the CLI
 - [Sessions](../sessions.md): Start, continue, resume, and exit sessions
 - [Coding agents](../coding-agents.md): Install Co-Scientist as a skill in your coding agent
-- [Skills reference](./skills-reference.md): Built-in skills and slash commands
+- [Skills](./skills-reference.md): Built-in skills, slash commands, and session limits
 - [Environment variables](./environment-variables.md): Variables for authenticating and configuring the CLI

@@ -87,4 +87,4 @@ Your conversation history is preserved, so you can resume later with `seqera ai 
 - [Modes](./modes.md): Work in build, plan, and goal modes
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Quickstart](./quickstart.md): Run your first Co-Scientist session
-- [Skills reference](./reference/skills-reference.md): Built-in skills, slash commands, and session limits
+- [Skills](./reference/skills-reference.md): Built-in skills, slash commands, and session limits

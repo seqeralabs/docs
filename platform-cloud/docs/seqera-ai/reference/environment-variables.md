@@ -23,5 +23,5 @@ The Seqera CLI reads the following environment variables for authentication and 
 
 - [Authentication](../authentication.md): Log in, log out, and manage tokens
 - [Installation](../installation.mdx): Install, update, and configure the CLI
-- [CLI reference](./cli.md): Seqera CLI commands and options
-- [Skills reference](./skills-reference.md): Built-in skills and slash commands
+- [CLI](./cli.md): Seqera CLI commands and options
+- [Skills](./skills-reference.md): Built-in skills, slash commands, and session limits
