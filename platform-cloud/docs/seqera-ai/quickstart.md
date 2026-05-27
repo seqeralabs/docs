@@ -10,7 +10,7 @@ This page walks you through your first Co-Scientist session: log in, start a ses
 :::info[**Prerequisites**]{#prerequisites}
 You will need the following to get started:
 
-- [Seqera CLI](./installation.md)
+- [Seqera CLI](./installation.mdx)
 - A Seqera Platform account ([sign up for free](https://cloud.seqera.io))
 :::
 
@@ -35,7 +35,9 @@ This will:
    [Login] ✓ Organization set: <org_name>
    ```
 
+:::tip
 See [Authentication](./authentication.md) for more information about how to log in and out, authenticate in automated environments, and manage your organization.
+:::
 
 ## Step 2: Start an interactive session
 

@@ -5,19 +5,40 @@ date created: "2026-03-11"
 tags: [seqera-ai, co-scientist, cli, installation]
 ---
 
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
 The Seqera CLI runs in your terminal on macOS, Linux, or Windows (via WSL). It connects to Seqera Platform and to an AI backend so you can build, run, and debug Nextflow pipelines from a single interactive session.
 
-This page covers how to install, update, and uninstall the CLI with npm, and how to switch to a development build. After the CLI is on your PATH, continue to the [Quickstart](./quickstart.md) to log in and start your first session.
+This page covers how to install, update, and uninstall the CLI, and how to switch to a development build. After the CLI is on your PATH, continue to the [Quickstart](./quickstart.md) to log in and start your first session.
 
-## Requirements
-
+:::info[**Prerequisites**]{#prerequisites}
 You will need the following to get started:
 
 - Node.js 18 or later
 - macOS, Linux, or Windows with WSL
 - A Seqera Platform account ([sign up for free](https://cloud.seqera.io))
+:::
 
-## Install Seqera CLI
+## Install the CLI
+
+<Tabs groupId="install-method">
+<TabItem value="seqera-binaries" label="Seqera binaries" default>
+
+To install the CLI with Platform's install endpoint, run:
+
+```bash
+curl -fsSL https://ai.seqera.io/install | bash
+```
+
+Then confirm the CLI is on your PATH:
+
+```bash
+seqera --version
+```
+
+</TabItem>
+<TabItem value="npm" label="npm package">
 
 To install the CLI globally with npm, run:
 
@@ -31,7 +52,22 @@ Then confirm the CLI is on your PATH:
 seqera --version
 ```
 
+</TabItem>
+</Tabs>
+
 ### Install a development build
+
+<Tabs groupId="install-method">
+<TabItem value="seqera-binaries" label="Seqera binaries" default>
+
+To install the latest pre-release, use the development channel:
+
+```bash
+curl -fsSL https://ai.seqera.io/install | bash -s -- --channel dev
+```
+
+</TabItem>
+<TabItem value="npm" label="npm package">
 
 To install the latest pre-release, run:
 
@@ -47,13 +83,31 @@ SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io
 
 See [Authentication](./authentication.md#point-a-development-build-at-the-hosted-co-scientist-backend) for the full environment variable reference.
 
-## Update Seqera CLI
+</TabItem>
+</Tabs>
+
+## Update the CLI
+
+<Tabs groupId="install-method">
+<TabItem value="seqera-binaries" label="Seqera binaries" default>
+
+To update the CLI, run the install endpoint again. The install script updates the CLI in place:
+
+```bash
+curl -fsSL https://ai.seqera.io/install | bash
+```
+
+</TabItem>
+<TabItem value="npm" label="npm package">
 
 To update the CLI to the latest published version, run:
 
 ```bash
 npm update -g seqera
 ```
+
+</TabItem>
+</Tabs>
 
 If you use Co-Scientist as a skill for a coding agent, sync your installed skills with the new CLI version after upgrading:
 
@@ -63,13 +117,29 @@ seqera skill check --update
 
 This scans both local and global installations by default. Pass `--global` or `--local` to narrow the scope.
 
-## Uninstall Seqera CLI
+## Uninstall the CLI
+
+<Tabs groupId="install-method">
+<TabItem value="seqera-binaries" label="Seqera binaries" default>
+
+To remove the CLI from your system, run:
+
+```bash
+rm ~/.config/seqera-ai/*
+rm ~/.seqera/bin/seqera
+```
+
+</TabItem>
+<TabItem value="npm" label="npm package">
 
 To remove the CLI from your system, run:
 
 ```bash
 npm uninstall -g seqera
 ```
+
+</TabItem>
+</Tabs>
 
 ## Learn more
 

@@ -68,3 +68,6 @@
 
 #Wave page renaming and moving
 /wave/install/configure-wave               /wave/configure-wave             301
+
+# Co-Scientist (Cloud) docs restructure
+/platform-cloud/seqera-ai/get-started      /platform-cloud/seqera-ai/quickstart   301

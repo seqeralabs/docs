@@ -65,7 +65,7 @@ To keep session payloads small, Co-Scientist caps discovered skill context at **
 
 ## Learn more
 
-- [Installation](./installation.md): Install, update, and configure the CLI
+- [Installation](./installation.mdx): Install, update, and configure the CLI
 - [Quickstart](./quickstart.md): Run your first Co-Scientist session
 - [Authentication](./authentication.md): Log in, log out, and manage sessions
 - [Use cases](./use-cases.md): Seqera CLI use cases
