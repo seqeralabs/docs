@@ -12,7 +12,9 @@ Co-Scientist supports two skill workflows:
 - **CLI skills**: `SKILL.md` files discovered from project and user skill directories and sent to the backend as session context
 - **Agent integrations**: skill files installed by `seqera skill install` so other coding agents can invoke Co-Scientist as a subagent
 
-For the built-in skills and slash commands available in a session, see [Skills reference](./skills-reference.md).
+:::tip
+See [Skills](./skills-reference.md) for a list of the available built-in skills and slash commands.
+:::
 
 ## Use skills in the CLI
 

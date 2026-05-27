@@ -1,5 +1,5 @@
 ---
-title: "Skills reference"
+title: "Skills"
 description: "Built-in skills, slash commands, and session limits for the Seqera CLI"
 date created: "2026-05-27"
 tags: [seqera-ai, co-scientist, cli, skills, reference]
