@@ -442,6 +442,39 @@ export default async function createConfigAsync() {
           },
         };
       },
+
+      // The OpenAPI docs theme statically bundles postman-code-generators (all
+      // 35 language codegens) and postman-collection into the CLIENT bundle for
+      // the API Explorer code snippets. Those reference Node core modules that
+      // Webpack 4 auto-polyfilled but Rspack/Webpack 5 do not, so the client
+      // build fails with "Can't resolve 'path'" etc. Provide browser polyfills
+      // for what's actually used (path, url, buffer) and stub the rest; promote
+      // a stub to a real polyfill if a runtime error surfaces.
+      function openApiNodePolyfillsPlugin() {
+        return {
+          name: 'openapi-node-polyfills',
+          configureWebpack() {
+            return {
+              resolve: {
+                fallback: {
+                  path: require.resolve('path-browserify'),
+                  url: require.resolve('url/'),
+                  buffer: require.resolve('buffer/'),
+                  fs: false,
+                  stream: false,
+                  util: false,
+                  querystring: false,
+                  http: false,
+                  https: false,
+                  crypto: false,
+                  os: false,
+                  zlib: false,
+                },
+              },
+            };
+          },
+        };
+      },
     ].filter(Boolean),
 
     themeConfig: getSeqeraThemeConfig({

@@ -29,9 +29,9 @@
   DISABLE_RSPACK_INCREMENTAL = "true"
 
 [context.deploy-preview.build.environment]
-  # TEMP EXPERIMENT (PR #1490): full scope re-enabled to stress bundler memory
-  # and measure whether DISABLE_RSPACK_INCREMENTAL gets it under ~10 GiB. Revert
-  # to the lean scope (exclude API/CLI/Wave) once measured.
+  # TEMP EXPERIMENT (PR #1490): full scope incl. API to test the OpenAPI Node
+  # polyfill fix (openApiNodePolyfillsPlugin) end-to-end, with the 1s memory
+  # probe and DISABLE_RSPACK_INCREMENTAL. Revert to lean scope once concluded.
   INCLUDE_NEXT=""
   EXCLUDE_CHANGELOG=""
   EXCLUDE_PLATFORM_CLI=""
