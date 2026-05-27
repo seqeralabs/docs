@@ -170,6 +170,8 @@ The workflow listens for the `permissions-docs-updated` dispatch event from Plat
 
 When changes are detected, the workflow checks out Platform, regenerates the permissions tables, and opens a draft PR against this repository. The generated PR branch is named `permissions-docs-update-{platform_commit}`.
 
+The Platform trigger runs for Cloud release tags such as `v26.1.0-cycle41` and Enterprise release candidate tags such as `v26.2.0-RC1-enterprise`. Cloud tags compare against the previous Cloud release tag. Enterprise RC tags compare against the previous stable Enterprise release tag, such as `v26.1.0-enterprise`.
+
 ### Audit event tables
 **Applies to Enterprise documentation only**
 Audit event documentation is updated by [.github/workflows/update-audit-events-docs.yml](.github/workflows/update-audit-events-docs.yml), using [.github/scripts/update-audit-events-tables.py](.github/scripts/update-audit-events-tables.py).
@@ -187,6 +189,8 @@ You can run either workflow manually from the GitHub Actions tab in this reposit
 For permissions, run **Update Permissions Documentation** and provide:
 
 - `changed_files`: `docs/grants_roles.md`, `docs/grants_operations.md`, or both as a comma-separated list.
+- `platform_ref`: optional Platform tag, branch, or commit SHA to read grants files from. Use the release tag when reproducing an automated release update.
+- `previous_tag`: optional context for the generated PR body.
 
 For audit events, run **Update Audit Events Documentation** and provide:
 
@@ -200,7 +204,7 @@ You can also trigger the Platform-side workflows manually from the Platform repo
 
 If the docs workflow does not start:
 
-- Confirm the Platform-side workflow ran on a matching tag pattern. Permissions use Cloud release tags such as `v*-cycle*`; audit events use Enterprise RC tags such as `v*-RC*-enterprise`.
+- Confirm the Platform-side workflow ran on a matching tag pattern. Permissions use Cloud release tags such as `v*-cycle*` and Enterprise RC tags such as `v*-RC*-enterprise`; audit events use Enterprise RC tags such as `v*-RC*-enterprise`.
 - Confirm the Platform-side workflow detected one of the expected source files. If the tag diff does not include the source file, no dispatch event is sent.
 - Check that the Platform workflow dispatched the expected event type: `permissions-docs-updated` or `audit-events-docs-updated`.
 - Confirm the Platform repository has the docs bot secrets required to dispatch to this repository.
