@@ -4,12 +4,10 @@
 
 [build]
   trailingSlash = true
-  # TEMP DIAGNOSTIC: print the build container's real memory cap before building.
-  # Inside Netlify containers `free`/`nproc`/os.totalmem() report the HOST, not the
-  # enforced cgroup limit — and the cgroup cap is what triggers 137 OOM kills. This
-  # logs both so we can tune SSG concurrency/threads against the true cap. Remove
-  # once captured.
-  command = "echo '--- cgroup mem cap (bytes) ---'; cat /sys/fs/cgroup/memory.max 2>/dev/null || cat /sys/fs/cgroup/memory/memory.limit_in_bytes 2>/dev/null; echo '--- host view (misleading inside container) ---'; nproc; free -h; npm run build"
+  # TEMP DIAGNOSTIC: wrap the build to report VM resources and peak memory
+  # pressure, validating that a full-scope build fits under ~10 GiB. Remove once
+  # validated (restore to default `npm run build`).
+  command = "bash internal/build-mem-probe.sh"
 
 [build.environment]
   NODE_VERSION = "22"
@@ -28,17 +26,18 @@
   DOCUSAURUS_SSG_WORKER_THREAD_TASK_SIZE = "8"
 
 [context.deploy-preview.build.environment]
+  # VALIDATION: build the full scope (all products) in PR previews to confirm the
+  # recycling SSG worker pool keeps a heavy build under the VM's ~10 GiB. Building
+  # platform-api locally also makes the non-forced /platform-api/* proxy fall
+  # through to the freshly built pages, so previews become self-contained instead
+  # of pulling that section from the production API site.
   INCLUDE_NEXT=""
   EXCLUDE_CHANGELOG=""
-  EXCLUDE_PLATFORM_CLI="true"
+  EXCLUDE_PLATFORM_CLI=""
   EXCLUDE_PLATFORM_ENTERPRISE=""
-  # EXCLUDE_PLATFORM_API gates the API content plugin, the OpenAPI preset, and
-  # the llms-api plugin together. Set to "true" because the API docs are too
-  # large to build/host on Netlify and are offloaded to the separate
-  # seqera-docs-api site (see the /platform-api/* redirect below).
-  EXCLUDE_PLATFORM_API="true"
+  EXCLUDE_PLATFORM_API=""
   EXCLUDE_MULTIQC=""
-  EXCLUDE_WAVE="true"
+  EXCLUDE_WAVE=""
 
 # Asset and image routing handled by Edge Function
 # See netlify/edge-functions/asset-proxy.js
