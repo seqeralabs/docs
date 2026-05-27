@@ -38,6 +38,7 @@ In order for you to access resources such as Fusion tarballs, `nf-xpack` files, 
 - `tower.nf`
 - `connect.cloud.seqera.io` and its subdomains `*.connect.cloud.seqera.io`
 - `hub.seqera.io`
+- `ai.seqera.io`
 - `ai-api.seqera.io`
 - `wave.seqera.io`
 - `community.wave.seqera.io`
