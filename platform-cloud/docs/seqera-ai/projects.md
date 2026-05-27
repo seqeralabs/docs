@@ -81,4 +81,4 @@ Ask a workspace admin to create the first `project_*` label to enable projects f
 - [Seqera Platform labels](https://docs.seqera.io/platform-cloud/labels/overview): Create and manage workspace labels
 - [Quickstart](./quickstart.md): Run your first Co-Scientist session
 - [Credits](./credits.md): Co-Scientist credits and how to request more
-- [Skills reference](./skills-reference.md): Built-in skills, slash commands, and session limits
+- [Skills reference](./reference/skills-reference.md): Built-in skills, slash commands, and session limits

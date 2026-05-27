@@ -228,5 +228,5 @@ seqera ai
 - [Authentication](./authentication): Log in, log out, and session management
 - [Use cases](./use-cases.md): Co-Scientist use cases
 - [Credits](./credits.md): Co-Scientist credits and how to request more
-- [Skills reference](./skills-reference.md): Built-in skills, slash commands, and session limits
+- [Skills reference](./reference/skills-reference.md): Built-in skills, slash commands, and session limits
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

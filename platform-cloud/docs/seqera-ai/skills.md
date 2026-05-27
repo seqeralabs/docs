@@ -13,7 +13,7 @@ Co-Scientist supports two skill workflows:
 - **Agent integrations**: skill files installed by `seqera skill install` so other coding agents can invoke Co-Scientist as a subagent
 
 :::tip
-See [Skills](./skills-reference.md) for a list of the available built-in skills and slash commands.
+See [Skills](./reference/skills-reference.md) for a list of the available built-in skills and slash commands.
 :::
 
 ## Use skills in the CLI
@@ -88,5 +88,5 @@ Co-Scientist can install itself as a skill or instruction file so another coding
 - [Use cases](./use-cases.md): Seqera CLI use cases
 - [Configuration](./configuration.md): Configure modes, sessions, skills, command approval, and more
 - [Coding Agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
-- [Skills reference](./skills-reference.md): Built-in skills, slash commands, and session limits
+- [Skills reference](./reference/skills-reference.md): Built-in skills, slash commands, and session limits
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

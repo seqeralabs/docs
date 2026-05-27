@@ -259,7 +259,7 @@ Local file operations are controlled by [approval modes](./command-approval.md#a
 
 - [Modes](./modes.md): Work in build, plan, and goal modes
 - [Skills configuration](./skills.md): Discover, create, and install skills
-- [Skills reference](./skills-reference.md): The built-in skills behind these slash commands
+- [Skills reference](./reference/skills-reference.md): The built-in skills behind these slash commands
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Code intelligence](./nextflow-lsp.md): Language-server support for Nextflow, Python, and R
 - [Projects](./projects.md): Organize workspace resources into projects using Platform labels

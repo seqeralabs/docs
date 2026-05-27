@@ -171,7 +171,9 @@
           "label": "Reference",
           "collapsed": true,
           "items": [
-            "seqera-ai/skills-reference"
+            "seqera-ai/reference/cli",
+            "seqera-ai/reference/environment-variables",
+            "seqera-ai/reference/skills-reference"
           ]
         }
       ]

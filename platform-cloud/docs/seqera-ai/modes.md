@@ -111,4 +111,4 @@ Co-Scientist currently gives goal mode up to **3 model attempts** before it stop
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Use cases](./use-cases.md): Seqera CLI use cases
 - [Credits](./credits.md): Co-Scientist credits and how to request more
-- [Skills reference](./skills-reference.md): Built-in skills, slash commands, and session limits
+- [Skills reference](./reference/skills-reference.md): Built-in skills, slash commands, and session limits

@@ -37,4 +37,4 @@ See [Nextflow Language Server](https://github.com/nextflow-io/language-server) f
 - [Quickstart](./quickstart.md): Start using Co-Scientist
 - [Use cases](./use-cases.md): Seqera CLI use cases
 - [Credits](./credits.md): Co-Scientist credits and how to request more
-- [Skills reference](./skills-reference.md): Built-in skills, slash commands, and session limits
+- [Skills reference](./reference/skills-reference.md): Built-in skills, slash commands, and session limits

@@ -5,7 +5,7 @@ date created: "2026-05-27"
 tags: [seqera-ai, co-scientist, cli, skills, reference]
 ---
 
-This page lists the slash commands and built-in skills available in a Co-Scientist session. To learn how to discover, author, and install skills, see [Skills configuration](./skills.md).
+This page lists the slash commands and built-in skills available in a Co-Scientist session. To learn how to discover, author, and install skills, see [Skills configuration](../skills.md).
 
 ## Slash commands
 
@@ -65,10 +65,10 @@ To keep session payloads small, Co-Scientist caps discovered skill context at **
 
 ## Learn more
 
-- [Installation](./installation.mdx): Install, update, and configure the CLI
-- [Quickstart](./quickstart.md): Run your first Co-Scientist session
-- [Authentication](./authentication.md): Log in, log out, and manage sessions
-- [Use cases](./use-cases.md): Seqera CLI use cases
-- [Configuration](./configuration.md): Configure modes, sessions, skills, command approval, and more
-- [Coding Agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
-- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors
+- [Installation](../installation.mdx): Install, update, and configure the CLI
+- [Quickstart](../quickstart.md): Run your first Co-Scientist session
+- [Authentication](../authentication.md): Log in, log out, and manage sessions
+- [Use cases](../use-cases.md): Seqera CLI use cases
+- [Configuration](../configuration.md): Configure modes, sessions, skills, command approval, and more
+- [Coding Agents](../coding-agents.md): Install Co-Scientist as a skill in your coding agent
+- [Troubleshooting](../../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

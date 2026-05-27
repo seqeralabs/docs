@@ -62,5 +62,5 @@ Interact in plain English, or use reusable [skills](./skills.md) exposed as slas
 - [Use cases](./use-cases.md): Seqera CLI use cases
 - [Configuration](./configuration.md): Configure modes, sessions, skills, command approval, and more
 - [Coding Agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
-- [Skills reference](./skills-reference.md): Built-in skills, slash commands, and session limits
+- [Skills reference](./reference/skills-reference.md): Built-in skills, slash commands, and session limits
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors
