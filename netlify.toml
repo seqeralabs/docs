@@ -4,6 +4,12 @@
 
 [build]
   trailingSlash = true
+  # TEMP DIAGNOSTIC: print the build container's real memory cap before building.
+  # Inside Netlify containers `free`/`nproc`/os.totalmem() report the HOST, not the
+  # enforced cgroup limit — and the cgroup cap is what triggers 137 OOM kills. This
+  # logs both so we can tune SSG concurrency/threads against the true cap. Remove
+  # once captured.
+  command = "echo '--- cgroup mem cap (bytes) ---'; cat /sys/fs/cgroup/memory.max 2>/dev/null || cat /sys/fs/cgroup/memory/memory.limit_in_bytes 2>/dev/null; echo '--- host view (misleading inside container) ---'; nproc; free -h; npm run build"
 
 [build.environment]
   NODE_VERSION = "22"
@@ -21,13 +27,13 @@
   EXCLUDE_CHANGELOG=""
   EXCLUDE_PLATFORM_CLI="true"
   EXCLUDE_PLATFORM_ENTERPRISE=""
-  EXCLUDE_PLATFORM_API="false"
-  EXCLUDE_PLATFORM_OPENAPI="false"
+  # EXCLUDE_PLATFORM_API gates the API content plugin, the OpenAPI preset, and
+  # the llms-api plugin together. Set to "true" because the API docs are too
+  # large to build/host on Netlify and are offloaded to the separate
+  # seqera-docs-api site (see the /platform-api/* redirect below).
+  EXCLUDE_PLATFORM_API="true"
   EXCLUDE_MULTIQC=""
   EXCLUDE_WAVE="true"
-
-# Seqera API docs are too large to host / build on netlify on their own.
-# The appropriate ENVVAR is set to disable the API Builds on Netlify for the main docs site.
 
 # Asset and image routing handled by Edge Function
 # See netlify/edge-functions/asset-proxy.js

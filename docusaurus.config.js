@@ -16,6 +16,15 @@ const oldEnterpriseVersionTags = platformEnterpriseVersions
   .map((v) => `docs-platform-enterprise-${v}`);
 const searchFilterBy = `docusaurus_tag:!=[default,doc_tag_doc_list,blog_posts_list,blog_tags_posts,doc_tags_list,blog_tags_list${oldEnterpriseVersionTags.length ? `,${oldEnterpriseVersionTags.join(",")}` : ""}]`;
 
+// Parse an env var as a boolean flag. Unset, empty, "false", "0", "no", and
+// "off" all read as false; anything else (e.g. "true", "1") reads as true.
+// Without this, a bare `process.env.X ?` check treats the string "false" as
+// truthy, so `EXCLUDE_PLATFORM_API="false"` would wrongly exclude the API docs.
+const envFlag = (name) => {
+  const v = (process.env[name] ?? "").trim().toLowerCase();
+  return v !== "" && v !== "false" && v !== "0" && v !== "no" && v !== "off";
+};
+
 export default async function createConfigAsync() {
 
   const changelog = {
@@ -44,7 +53,7 @@ export default async function createConfigAsync() {
       routeBasePath: "/platform-enterprise",
       path: "platform-enterprise_docs",
       // For PR Previews we want to see the latest doc-set with expected changes.
-      includeCurrentVersion: process.env.INCLUDE_NEXT ? true : false,
+      includeCurrentVersion: envFlag("INCLUDE_NEXT"),
       lastVersion: platform_enterprise_latest_version,
       remarkPlugins: [
         (await import("remark-code-import")).default,
@@ -165,21 +174,17 @@ export default async function createConfigAsync() {
   ];
 
   console.log(
-    "\n  EXCLUDE_CHANGELOG: " + (process.env.EXCLUDE_CHANGELOG ? true : false),
-    "\n  EXCLUDE_PLATFORM_ENTERPRISE: " +
-      (process.env.EXCLUDE_PLATFORM_ENTERPRISE ? true : false),
-    "\n  EXCLUDE_PLATFORM_CLOUD: " +
-      (process.env.EXCLUDE_PLATFORM_CLOUD ? true : false),
-    "\n  EXCLUDE_PLATFORM_API: " +
-      (process.env.EXCLUDE_PLATFORM_API ? true : false),
-    "\n  EXCLUDE_PLATFORM_CLI: " +
-      (process.env.EXCLUDE_PLATFORM_CLI ? true : false),
-    "\n  EXCLUDE_PLATFORM_OPENAPI: " +
-      (process.env.EXCLUDE_PLATFORM_OPENAPI ? true : false),
-    "\n  EXCLUDE_MULTIQC: " + (process.env.EXCLUDE_MULTIQC ? true : false),
-    "\n  EXCLUDE_FUSION: " + (process.env.EXCLUDE_FUSION ? true : false),
-    "\n  EXCLUDE_WAVE: " + (process.env.EXCLUDE_WAVE ? true : false),
-    "\n  INCLUDE_NEXT: " + (process.env.INCLUDE_NEXT ? true : false),
+    "\n  EXCLUDE_CHANGELOG: " + envFlag("EXCLUDE_CHANGELOG"),
+    "\n  EXCLUDE_PLATFORM_ENTERPRISE: " + envFlag("EXCLUDE_PLATFORM_ENTERPRISE"),
+    "\n  EXCLUDE_PLATFORM_CLOUD: " + envFlag("EXCLUDE_PLATFORM_CLOUD"),
+    // EXCLUDE_PLATFORM_API now gates the API content plugin, the OpenAPI
+    // preset, and the llms-api plugin (all read from platform-api-docs/docs).
+    "\n  EXCLUDE_PLATFORM_API: " + envFlag("EXCLUDE_PLATFORM_API"),
+    "\n  EXCLUDE_PLATFORM_CLI: " + envFlag("EXCLUDE_PLATFORM_CLI"),
+    "\n  EXCLUDE_MULTIQC: " + envFlag("EXCLUDE_MULTIQC"),
+    "\n  EXCLUDE_FUSION: " + envFlag("EXCLUDE_FUSION"),
+    "\n  EXCLUDE_WAVE: " + envFlag("EXCLUDE_WAVE"),
+    "\n  INCLUDE_NEXT: " + envFlag("INCLUDE_NEXT"),
   );
 
   return createSeqeraConfig({
@@ -261,7 +266,10 @@ export default async function createConfigAsync() {
           theme: {
             customCss: require.resolve("./src/custom.css"),
           },
-          openapi: process.env.EXCLUDE_PLATFORM_OPENAPI
+          // OpenAPI generation operates on the same platform-api-docs/docs
+          // content as the API content plugin and llms-api below, so all three
+          // are gated by the single EXCLUDE_PLATFORM_API lever.
+          openapi: envFlag("EXCLUDE_PLATFORM_API")
             ? false
             : {
                 id: "api",
@@ -287,13 +295,13 @@ export default async function createConfigAsync() {
       ],
     ],
     plugins: [
-      process.env.EXCLUDE_PLATFORM_ENTERPRISE ? null : docs_platform_enterprise,
-      process.env.EXCLUDE_PLATFORM_CLOUD ? null : docs_platform_cloud,
-      process.env.EXCLUDE_PLATFORM_API ? null : docs_platform_api,
-      process.env.EXCLUDE_PLATFORM_CLI ? null : docs_platform_cli,
-      process.env.EXCLUDE_MULTIQC ? null : docs_multiqc,
-      process.env.EXCLUDE_FUSION ? null : docs_fusion,
-      process.env.EXCLUDE_WAVE ? null : docs_wave,
+      envFlag("EXCLUDE_PLATFORM_ENTERPRISE") ? null : docs_platform_enterprise,
+      envFlag("EXCLUDE_PLATFORM_CLOUD") ? null : docs_platform_cloud,
+      envFlag("EXCLUDE_PLATFORM_API") ? null : docs_platform_api,
+      envFlag("EXCLUDE_PLATFORM_CLI") ? null : docs_platform_cli,
+      envFlag("EXCLUDE_MULTIQC") ? null : docs_multiqc,
+      envFlag("EXCLUDE_FUSION") ? null : docs_fusion,
+      envFlag("EXCLUDE_WAVE") ? null : docs_wave,
 
       ['docusaurus-plugin-llms', {
         id: 'llms-enterprise',
@@ -329,7 +337,7 @@ export default async function createConfigAsync() {
         ignoreFiles: ['**/tags', '**/tags/**'],
         processingBatchSize: 50,
       }],
-      ['docusaurus-plugin-llms', {
+      envFlag("EXCLUDE_PLATFORM_API") ? null : ['docusaurus-plugin-llms', {
         id: 'llms-api',
         docsDir: 'platform-api-docs/docs',
         llmsTxtFilename: 'llms-api.txt',
@@ -435,7 +443,7 @@ export default async function createConfigAsync() {
         docs: {
           versionDropdown: {
             'platform-enterprise': {
-              showCurrent: process.env.INCLUDE_NEXT ? true : false,
+              showCurrent: envFlag("INCLUDE_NEXT"),
             },
           },
         },
