@@ -267,7 +267,7 @@ export default async function createConfigAsync() {
       [
         "@seqera/docusaurus-preset-seqera",
         await getSeqeraPresetOptions({
-          blog: process.env.EXCLUDE_CHANGELOG ? false : changelog,
+          blog: envFlag("EXCLUDE_CHANGELOG") ? false : changelog,
           docs: false,
           theme: {
             customCss: require.resolve("./src/custom.css"),
