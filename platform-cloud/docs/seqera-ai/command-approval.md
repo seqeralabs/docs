@@ -2,7 +2,7 @@
 title: "Command approval"
 description: "Control which local commands require user approval in Co-Scientist"
 date created: "2025-12-15"
-tags: [seqera-ai, co-scientist, cli, approval, security]
+tags: [co-scientist, cli, approval, security]
 ---
 
 Co-Scientist can execute local commands and edit files in your environment. This page explains approval modes that control which operations run automatically versus which require your permission, including dangerous commands, workspace boundaries, and best practices.

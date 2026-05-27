@@ -2,7 +2,7 @@
 title: "Credits"
 description: "Co-Scientist credits and how to request more"
 date created: "2026-04-30"
-tags: [seqera-ai, co-scientist, cli, credits]
+tags: [co-scientist, cli, credits]
 ---
 
 Co-Scientist usage on Seqera Cloud is metered through credits.

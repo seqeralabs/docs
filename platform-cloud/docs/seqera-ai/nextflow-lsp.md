@@ -2,7 +2,7 @@
 title: "Code intelligence"
 description: "Use language-server code intelligence in Co-Scientist"
 date created: "2026-02-26"
-tags: [seqera-ai, co-scientist, cli, lsp, code-intelligence]
+tags: [co-scientist, cli, lsp, code-intelligence]
 ---
 
 When you ask Co-Scientist to help with code in your workspace, it uses language server (LSP) context to provide:

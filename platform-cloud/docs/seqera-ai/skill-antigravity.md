@@ -3,7 +3,7 @@ title: "Antigravity/Gemini"
 description: "Install and maintain the Co-Scientist skill for Google's Antigravity/Gemini IDE"
 date created: "2026-04-29"
 last updated: "2026-05-21"
-tags: [seqera-ai, co-scientist, cli, skills, antigravity, gemini]
+tags: [co-scientist, cli, skills, antigravity, gemini]
 ---
 
 The `seqera skill` command installs a skill file that enables [Antigravity/Gemini](https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/) to use Co-Scientist as a subagent. Once installed, Antigravity can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.

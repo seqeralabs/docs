@@ -2,7 +2,7 @@
 title: "CLI"
 description: "Seqera CLI commands and options for Co-Scientist"
 date created: "2026-05-28"
-tags: [seqera-ai, co-scientist, cli, reference]
+tags: [co-scientist, cli, reference]
 ---
 
 Reference for the `seqera` commands used with Co-Scientist. To install the CLI, see [Installation](../installation.mdx). For the slash commands available inside a session, see [Skills reference](./skills-reference.md).

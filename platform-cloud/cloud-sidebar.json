@@ -169,6 +169,7 @@
         {
           "type": "category",
           "label": "Reference",
+          "link": {"type": "doc", "id": "seqera-ai/reference/index"},
           "collapsed": true,
           "items": [
             "seqera-ai/reference/cli",

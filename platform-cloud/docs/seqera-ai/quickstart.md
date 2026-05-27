@@ -2,7 +2,7 @@
 title: "Quickstart"
 description: "Run your first Co-Scientist session in the Seqera CLI"
 date created: "2026-03-11"
-tags: [seqera-ai, co-scientist, cli, ai]
+tags: [co-scientist, cli, ai]
 ---
 
 This page walks you through your first Co-Scientist session: log in, start a session, switch between build mode and plan mode, debug a Platform run with a built-in skill, and set a long-running goal.

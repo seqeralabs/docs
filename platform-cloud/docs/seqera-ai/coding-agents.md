@@ -2,7 +2,7 @@
 title: "Coding agents"
 description: "Install Co-Scientist as a skill so your coding agent can drive Seqera Platform"
 date created: "2026-05-27"
-tags: [seqera-ai, co-scientist, cli, skills, coding-agents]
+tags: [co-scientist, cli, skills, coding-agents]
 ---
 
 The `seqera skill` command installs a skill file that lets your coding agent use Co-Scientist as a subagent. Once installed, the agent can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.

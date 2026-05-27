@@ -2,7 +2,7 @@
 title: "Projects"
 description: "Organize workspace resources into projects using Seqera Platform labels"
 date created: "2026-04-22"
-tags: [seqera-ai, co-scientist, cli, projects, labels]
+tags: [co-scientist, cli, projects, labels]
 ---
 
 Projects in Co-Scientist group the pipelines, datasets, and workflow runs that belong to a single piece of work, so you can view and chat about them without the noise of the rest of the workspace.

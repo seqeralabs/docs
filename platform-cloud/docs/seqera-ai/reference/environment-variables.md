@@ -2,7 +2,7 @@
 title: "Environment variables"
 description: "Environment variables for authenticating and configuring the Seqera CLI"
 date created: "2026-05-28"
-tags: [seqera-ai, co-scientist, cli, reference]
+tags: [co-scientist, cli, reference]
 ---
 
 The Seqera CLI reads the following environment variables for authentication and for pointing development builds at a backend.

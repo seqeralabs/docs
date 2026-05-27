@@ -2,7 +2,7 @@
 title: "Using Co-Scientist"
 description: "Use Co-Scientist day to day in the Seqera CLI"
 date created: "2026-05-27"
-tags: [seqera-ai, co-scientist, cli, configuration]
+tags: [co-scientist, cli, configuration]
 ---
 
 Use Co-Scientist day to day: explore common tasks, switch between modes, manage sessions, add skills, control command approval, and organize your workspace.

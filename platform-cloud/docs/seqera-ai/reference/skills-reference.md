@@ -2,7 +2,7 @@
 title: "Skills"
 description: "Built-in skills, slash commands, and session limits for the Seqera CLI"
 date created: "2026-05-27"
-tags: [seqera-ai, co-scientist, cli, skills, reference]
+tags: [co-scientist, cli, skills, reference]
 ---
 
 This page lists the slash commands and built-in skills available in a Co-Scientist session. To learn how to discover, author, and install skills, see [Skills configuration](../skills.md).

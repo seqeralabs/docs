@@ -2,7 +2,7 @@
 title: "Modes"
 description: "Work in build mode, plan mode, and goal mode in the Seqera CLI"
 date created: "2026-03-11"
-tags: [seqera-ai, co-scientist, cli, modes]
+tags: [co-scientist, cli, modes]
 ---
 
 Choose the right level of autonomy for each task with [Build mode](#build-mode), [Plan mode](#plan-mode), and [Goal mode](#goal-mode).

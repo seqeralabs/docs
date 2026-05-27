@@ -2,7 +2,7 @@
 title: "Skills configuration"
 description: "Discover, create, and install skills in the Seqera CLI"
 date created: "2026-03-11"
-tags: [seqera-ai, co-scientist, cli, skills]
+tags: [co-scientist, cli, skills]
 ---
 
 Skills are reusable instruction sets that extend Co-Scientist with domain-specific workflows, prompts, and operating guidance.

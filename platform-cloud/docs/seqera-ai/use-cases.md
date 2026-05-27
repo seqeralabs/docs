@@ -2,7 +2,7 @@
 title: "Use cases"
 description: "Common tasks you can do with Co-Scientist, with example prompts"
 date created: "2026-03-11"
-tags: [seqera-ai, co-scientist, cli, ai, use cases]
+tags: [co-scientist, cli, ai, use cases]
 ---
 
 Co-Scientist is an intelligent command-line assistant that helps you build, run, and manage bioinformatics workflows. The sections below walk through common tasks with example prompts you can adapt to your own work:

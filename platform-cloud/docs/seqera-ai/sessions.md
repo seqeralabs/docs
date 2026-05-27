@@ -2,7 +2,7 @@
 title: "Sessions"
 description: "Start, continue, resume, and exit Co-Scientist sessions, and run non-interactively"
 date created: "2026-05-27"
-tags: [seqera-ai, co-scientist, cli, sessions]
+tags: [co-scientist, cli, sessions]
 ---
 
 A session is one interactive conversation with Co-Scientist. Co-Scientist preserves your conversation history, so you can resume earlier sessions to continue your work. This page covers how to start, continue, and exit sessions, and how to run non-interactively.

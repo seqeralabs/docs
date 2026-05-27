@@ -2,7 +2,7 @@
 title: "Codex"
 description: "Install and maintain the Co-Scientist skill for Codex"
 date created: "2026-03-11"
-tags: [seqera-ai, co-scientist, cli, skills, codex]
+tags: [co-scientist, cli, skills, codex]
 ---
 
 The `seqera skill` command installs a skill file that enables [Codex](https://openai.com/codex) to use Co-Scientist as a subagent. Once installed, Codex can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.

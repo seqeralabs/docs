@@ -2,7 +2,7 @@
 title: "Authentication"
 description: "Log in, log out, and manage organizations and tokens in the Seqera CLI"
 date created: "2025-12-15"
-tags: [seqera-ai, co-scientist, cli, authentication, login]
+tags: [co-scientist, cli, authentication, login]
 ---
 
 Co-Scientist uses your Seqera Platform account for authentication. This page covers how to log in and out, authenticate in automated environments, manage your organization, and how token refresh works.
