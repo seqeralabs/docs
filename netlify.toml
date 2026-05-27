@@ -4,10 +4,6 @@
 
 [build]
   trailingSlash = true
-  # TEMP DIAGNOSTIC: wrap the build to report VM resources and peak memory
-  # pressure, validating that a full-scope build fits under ~10 GiB. Remove once
-  # validated (restore to default `npm run build`).
-  command = "bash internal/build-mem-probe.sh"
 
 [build.environment]
   NODE_VERSION = "22"
@@ -26,18 +22,18 @@
   DOCUSAURUS_SSG_WORKER_THREAD_TASK_SIZE = "8"
 
 [context.deploy-preview.build.environment]
-  # VALIDATION: build the full scope (all products) in PR previews to confirm the
-  # recycling SSG worker pool keeps a heavy build under the VM's ~10 GiB. Building
-  # platform-api locally also makes the non-forced /platform-api/* proxy fall
-  # through to the freshly built pages, so previews become self-contained instead
-  # of pulling that section from the production API site.
+  # platform-api is excluded because a full-scope build OOMs (137) during Rspack
+  # bundling on the ~10 GiB build VM — confirmed by validation on PR #1490. The
+  # API docs are offloaded to the separate seqera-docs-api site and surfaced via
+  # the non-forced /platform-api/* proxy below. CLI and Wave are also excluded to
+  # keep preview builds lean and fast.
   INCLUDE_NEXT=""
   EXCLUDE_CHANGELOG=""
-  EXCLUDE_PLATFORM_CLI=""
+  EXCLUDE_PLATFORM_CLI="true"
   EXCLUDE_PLATFORM_ENTERPRISE=""
-  EXCLUDE_PLATFORM_API=""
+  EXCLUDE_PLATFORM_API="true"
   EXCLUDE_MULTIQC=""
-  EXCLUDE_WAVE=""
+  EXCLUDE_WAVE="true"
 
 # Asset and image routing handled by Edge Function
 # See netlify/edge-functions/asset-proxy.js
