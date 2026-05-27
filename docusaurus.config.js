@@ -212,6 +212,12 @@ export default async function createConfigAsync() {
         rspackBundler: true,
         rspackPersistentCache: false,
         mdxCrossCompilerCache: false,
+        // Render pages across a recycling worker-thread pool instead of inline
+        // in a single process. Parallelizes SSG across the build VM's CPUs and
+        // lets the recycler free retained memory between tasks. Pool size and
+        // recycle threshold are tuned via DOCUSAURUS_SSG_WORKER_THREAD_* env
+        // vars in netlify.toml.
+        ssgWorkerThreads: true,
       },
     },
 

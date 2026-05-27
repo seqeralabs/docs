@@ -13,14 +13,19 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  # Per-process V8 heap ceiling. The build runs on a Firecracker MicroVM with
+  # ~10 GiB dedicated RAM and 6 vCPUs (measured), so each worker has ample room.
   NODE_OPTIONS = "--max-old-space-size=4096"
-  # Limit SSG worker threads to prevent OOM errors in Netlify builds
-  # Docusaurus defaults to 32 threads with 1GB memory each, but Netlify's
-  # memory limits aren't properly enforced, causing out-of-memory 137 errors.
-  # Limiting thread processing avoids this issue with some build time impact however,
-  # build are still significantly faster than without SSG in-use.
-  # Reference: https://github.com/facebook/docusaurus/discussions/11199
-  DOCUSAURUS_SSG_WORKER_THREAD_COUNT = "1"
+  # SSG runs on a recycling worker-thread pool (enabled via
+  # future.experimental_faster.ssgWorkerThreads in docusaurus.config.js). These
+  # vars bound peak memory: 4 workers recycled past ~1.5 GB each + the main
+  # process ≈ 7–8 GB peak, comfortably under the VM's ~10 GiB. The recycler tears
+  # down and respawns a worker once it exceeds the limit, freeing retained
+  # memory between tasks — this is what prevents the historical 137 OOM kills.
+  # Reference: https://github.com/facebook/docusaurus/pull/11166
+  DOCUSAURUS_SSG_WORKER_THREAD_COUNT = "4"
+  DOCUSAURUS_SSG_WORKER_THREAD_RECYCLER_MAX_MEMORY = "1500000000"
+  DOCUSAURUS_SSG_WORKER_THREAD_TASK_SIZE = "8"
 
 [context.deploy-preview.build.environment]
   INCLUDE_NEXT=""
