@@ -1,13 +1,13 @@
 ---
-title: "Configuration"
-description: "Configure how Co-Scientist behaves in the Seqera CLI"
+title: "Working with Co-Scientist"
+description: "Work with Co-Scientist day to day in the Seqera CLI"
 date created: "2026-05-27"
 tags: [seqera-ai, co-scientist, cli, configuration]
 ---
 
-Configure how Co-Scientist behaves. Switch between modes, manage sessions, add skills, control command approval, and organize your workspace.
+Work with Co-Scientist day to day: switch between modes, manage sessions, add skills, control command approval, and organize your workspace.
 
-## Configuration options
+## In this section
 
 - [Modes](./modes.md): Work in build, plan, and goal modes
 - [Sessions](./sessions.md): Start, continue, resume, and exit sessions, and run non-interactively

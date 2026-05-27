@@ -16,20 +16,27 @@ Co-Scientist works across three contexts:
 
 ## Get started
 
-Install the CLI globally with npm:
+To get started with Co-Scientist:
 
-```bash
-npm install -g seqera
-```
+1. Install Seqera CLI:
 
-Then log in and start your first session:
+   ```bash
+   npm install -g seqera
+   ```
 
-```bash
-seqera login
-seqera ai
-```
+1. Log in to Seqera:
 
-See [Installation](./installation.mdx) for prerequisites, updates, and development builds, then the [Quickstart](./quickstart.md) to walk through your first session.
+   ```bash
+   seqera login
+   ```
+
+1. Start your first session:
+
+   ```bash
+   seqera ai
+   ```
+
+See [Installation](./installation.mdx) for prerequisites, updates, and development builds. Then see [Quickstart](./quickstart.md) to walk through your first session.
 
 ## What you can do
 
