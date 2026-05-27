@@ -33,7 +33,7 @@ Use Seqera Platform capabilities to run and manage workflows at scale with AI as
 > Get the logs for the failed task in my last run
 ```
 
-## Dubug your most recent run
+## Debug your most recent run
 
 ```
 > /debug-last-run-on-seqera
@@ -45,3 +45,4 @@ Use Seqera Platform capabilities to run and manage workflows at scale with AI as
 - [Work with data](./data.md): Browse data links and reference datasets
 - [Projects](../projects.md): Organize workspace resources into projects using Platform labels
 - [Skills](../skills.md): Discover, create, and install skills
+- [Skills reference](../skills-reference.md): Built-in skills, slash commands, and session limits

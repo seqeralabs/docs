@@ -38,3 +38,4 @@ Co-Scientist generates a Wave container URL that you can use directly in your Ne
 - [Use cases](../use-cases.md): More Co-Scientist use cases
 - [Develop and debug Nextflow pipelines](./nextflow.md): Use your containers in a pipeline
 - [Skills](../skills.md): Discover, create, and install skills
+- [Skills reference](../skills-reference.md): Built-in skills, slash commands, and session limits

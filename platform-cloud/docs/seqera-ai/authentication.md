@@ -7,12 +7,12 @@ tags: [seqera-ai, co-scientist, cli, authentication, login]
 
 Co-Scientist uses your Seqera Platform account for authentication. This page covers how to log in and out, authenticate in automated environments, manage your organization, and how token refresh works.
 
-:::info[**Prerequisites**]{#prerequisites}
+## Requirements
+
 You will need the following to get started:
 
 - [Seqera CLI](./installation.md)
 - A Seqera Platform account ([sign up for free](https://cloud.seqera.io))
-:::
 
 ## Log in
 
@@ -134,9 +134,9 @@ seqera logout
 
 ## Learn more
 
-- [Co-Scientist](index.md): Co-Scientist overview
-- [Installation](./installation.md): Detailed installation instructions
-- [Command approval](./command-approval.md): Control which commands run automatically
-- [Use cases](./use-cases.md): Co-Scientist use cases
-- [Credits](./credits.md): Co-Scientist credits and how to request more
+- [Quickstart](./quickstart.md): Run your first Co-Scientist session
+- [Use cases](./use-cases.md): Seqera CLI use cases
+- [Configuration](./configuration.md): Configure modes, sessions, skills, command approval, and more
+- [Coding Agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
+- [Skills reference](./skills-reference.md): Built-in skills, slash commands, and session limits
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

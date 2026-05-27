@@ -9,13 +9,13 @@ The Seqera CLI runs in your terminal on macOS, Linux, or Windows (via WSL). It c
 
 This page covers how to install, update, and uninstall the CLI with npm, and how to switch to a development build. After the CLI is on your PATH, continue to the [Quickstart](./quickstart.md) to log in and start your first session.
 
-:::info[**Prerequisites**]{#prerequisites}
+## Requirements
+
 You will need the following to get started:
 
 - Node.js 18 or later
 - macOS, Linux, or Windows with WSL
 - A Seqera Platform account ([sign up for free](https://cloud.seqera.io))
-:::
 
 ## Install Seqera CLI
 
@@ -71,9 +71,12 @@ To remove the CLI from your system, run:
 npm uninstall -g seqera
 ```
 
-## Next steps
+## Learn more
 
-- [Quickstart](./quickstart.md): Log in and run your first Co-Scientist session
+- [Quickstart](./quickstart.md): Run your first Co-Scientist session
 - [Authentication](./authentication.md): Log in, log out, and manage sessions
-- [Coding agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
-- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Resolve installation, login, and runtime issues
+- [Use cases](./use-cases.md): Seqera CLI use cases
+- [Configuration](./configuration.md): Configure modes, sessions, skills, command approval, and more
+- [Coding Agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
+- [Skills reference](./skills-reference.md): Built-in skills, slash commands, and session limits
+- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

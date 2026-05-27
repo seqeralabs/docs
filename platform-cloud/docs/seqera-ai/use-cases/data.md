@@ -42,3 +42,4 @@ Co-Scientist helps you manage data through Platform data links and access refere
 - [Use cases](../use-cases.md): More Co-Scientist use cases
 - [Run pipelines on Seqera Platform](./seqera-platform.md): Launch and monitor workflow runs
 - [Edit local project files](./local-files.md): Work with files in your working directory
+- [Skills reference](../skills-reference.md): Built-in skills, slash commands, and session limits

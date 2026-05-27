@@ -115,3 +115,4 @@ Inspect this repository and outline the changes needed for Seqera Platform deplo
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Use cases](./use-cases.md): Seqera CLI use cases
 - [Credits](./credits.md): Co-Scientist credits and how to request more
+- [Skills reference](./skills-reference.md): Built-in skills, slash commands, and session limits

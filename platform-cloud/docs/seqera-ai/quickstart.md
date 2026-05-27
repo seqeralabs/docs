@@ -94,8 +94,9 @@ Give Co-Scientist a goal to work toward across multiple turns:
 
 Co-Scientist works across model turns until the goal completes or the attempt limit is reached. See [Use cases](./use-cases.md) for more example prompts.
 
-## Next steps
+## Learn more
 
 - [Skills](./skills.md): Discover, create, and install skills
 - [Modes](./modes.md): Build, plan, and goal modes in depth
 - [Use cases](./use-cases.md): Seqera CLI use cases
+- [Skills reference](./skills-reference.md): Built-in skills, slash commands, and session limits

@@ -9,7 +9,7 @@ The `seqera skill` command installs a skill file that enables [Codex](https://op
 
 This page covers how to install the skill into Codex and keep it in sync as you update the CLI.
 
-### `seqera skill install`
+## `seqera skill install`
 
 Use `seqera skill install` to add the Co-Scientist skill to Codex. Run it without options to launch an interactive installer that detects your setup and prompts for a location, or pass a flag to install directly to a specific path.
 
@@ -60,7 +60,7 @@ seqera skill install [OPTIONS]
 | `--global` | `-g` | Install to home directory |
 | `--detect` | `-d` | Auto-detect an existing installation and update it |
 
-### `seqera skill check`
+## `seqera skill check`
 
 The skill file is tied to the version of the CLI that created it, so it can fall out of date when you upgrade. Use `seqera skill check` to confirm your installed skill still matches your current CLI version, and update it when it doesn't.
 
@@ -92,10 +92,13 @@ seqera skill check [OPTIONS]
 | `--global` | | Check only global installations |
 | `--local` | | Check only local (repository) installations |
 
-### Learn more
+## Learn more
 
-- [Skills](./skills.md): Discover, create, and install skills
+- [Installation](./installation.md): Install, update, and configure the CLI
+- [Quickstart](./quickstart.md): Run your first Co-Scientist session
+- [Authentication](./authentication.md): Log in, log out, and manage sessions
 - [Use cases](./use-cases.md): Seqera CLI use cases
-- [Code intelligence](./nextflow-lsp.md): Language-aware coding support
-- [Installation](./installation.md): Detailed installation instructions
-- [Credits](./credits.md): Co-Scientist credits and how to request more
+- [Configuration](./configuration.md): Configure modes, sessions, skills, command approval, and more
+- [Coding Agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
+- [Skills reference](./skills-reference.md): Built-in skills, slash commands, and session limits
+- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

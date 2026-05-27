@@ -154,6 +154,7 @@
         {
           "type": "category",
           "label": "Configuration",
+          "link": {"type": "doc", "id": "seqera-ai/configuration"},
           "collapsed": true,
           "items": [
             "seqera-ai/modes",

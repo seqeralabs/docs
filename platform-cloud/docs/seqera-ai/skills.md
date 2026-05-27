@@ -80,7 +80,11 @@ Co-Scientist can install itself as a skill or instruction file so another coding
 
 ## Learn more
 
+- [Installation](./installation.md): Install, update, and configure the CLI
+- [Quickstart](./quickstart.md): Run your first Co-Scientist session
+- [Authentication](./authentication.md): Log in, log out, and manage sessions
+- [Use cases](./use-cases.md): Seqera CLI use cases
+- [Configuration](./configuration.md): Configure modes, sessions, skills, command approval, and more
+- [Coding Agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
 - [Skills reference](./skills-reference.md): Built-in skills, slash commands, and session limits
-- [Modes](./modes.md): Work in build mode, plan mode, and goal mode
-- [Coding agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
-- [Credits](./credits.md): Co-Scientist credits and how to request more
+- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

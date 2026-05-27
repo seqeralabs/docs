@@ -9,6 +9,8 @@ Co-Scientist is an intelligent command-line assistant that helps you build, run,
 
 ## What you can do
 
+Choose a task to see the example prompts and commands for it:
+
 - [Develop and debug Nextflow pipelines](./use-cases/nextflow.md): Understand pipeline structure, generate config and schema files, debug runs, and convert scripts to Nextflow.
 - [Run pipelines on Seqera Platform](./use-cases/seqera-platform.md): Launch, monitor, and debug workflow runs in your workspace.
 - [Build containers with Wave](./use-cases/wave-containers.md): Create containers from conda or pip packages without writing a Dockerfile.

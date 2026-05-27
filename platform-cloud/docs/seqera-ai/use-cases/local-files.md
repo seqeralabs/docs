@@ -33,3 +33,4 @@ Local file operations are controlled by [approval modes](../command-approval.md#
 - [Use cases](../use-cases.md): More Co-Scientist use cases
 - [Command approval](../command-approval.md): Control which commands run automatically
 - [Develop and debug Nextflow pipelines](./nextflow.md): AI-assisted pipeline development
+- [Skills reference](../skills-reference.md): Built-in skills, slash commands, and session limits

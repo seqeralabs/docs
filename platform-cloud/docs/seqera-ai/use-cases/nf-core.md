@@ -38,3 +38,4 @@ Co-Scientist can generate the exact Nextflow command with the correct parameters
 - [Use cases](../use-cases.md): More Co-Scientist use cases
 - [Develop and debug Nextflow pipelines](./nextflow.md): Build the modules into a pipeline
 - [Build containers with Wave](./wave-containers.md): Create containers for your tools
+- [Skills reference](../skills-reference.md): Built-in skills, slash commands, and session limits

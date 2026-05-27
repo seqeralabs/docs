@@ -19,7 +19,10 @@ Co-Scientist installs as a skill into any of the following agents. Each guide co
 
 ## Learn more
 
-- [Skills](./skills.md): Discover, create, and install skills
-- [Use cases](./use-cases.md): Seqera CLI use cases
 - [Installation](./installation.md): Install, update, and configure the CLI
-- [Credits](./credits.md): Co-Scientist credits and how to request more
+- [Quickstart](./quickstart.md): Run your first Co-Scientist session
+- [Authentication](./authentication.md): Log in, log out, and manage sessions
+- [Use cases](./use-cases.md): Seqera CLI use cases
+- [Configuration](./configuration.md): Configure modes, sessions, skills, command approval, and more
+- [Skills reference](./skills-reference.md): Built-in skills, slash commands, and session limits
+- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

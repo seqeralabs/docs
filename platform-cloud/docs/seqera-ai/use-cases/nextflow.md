@@ -45,7 +45,7 @@ Co-Scientist helps you develop, debug, and understand Nextflow pipelines with AI
 > Why is my pipeline failing?
 ```
 
-## Review local execution history d
+## Review local execution history
 
 ```
 > /nf-run-history
@@ -77,13 +77,13 @@ Trace output provenance with data lineage:
 <iframe style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src="https://www.youtube.com/embed/93m4qsn8NO8?autoplay=1&mute=1" title="Use Co-Scientist to convert scripts to Nextflow" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 
-## Fix strict and migrate syntax
+## Fix strict syntax
 
 ```
 > /fix-strict-syntax
 ```
 
-## Migrate old schema definitions:
+## Migrate old schema definitions
 
 ```
 > /nf-schema-migration

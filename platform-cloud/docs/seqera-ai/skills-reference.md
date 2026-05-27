@@ -65,6 +65,10 @@ To keep session payloads small, Co-Scientist caps discovered skill context at **
 
 ## Learn more
 
-- [Skills configuration](./skills.md): Discover, create, and install skills
-- [Modes](./modes.md): Work in build mode, plan mode, and goal mode
-- [Coding agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
+- [Installation](./installation.md): Install, update, and configure the CLI
+- [Quickstart](./quickstart.md): Run your first Co-Scientist session
+- [Authentication](./authentication.md): Log in, log out, and manage sessions
+- [Use cases](./use-cases.md): Seqera CLI use cases
+- [Configuration](./configuration.md): Configure modes, sessions, skills, command approval, and more
+- [Coding Agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
+- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

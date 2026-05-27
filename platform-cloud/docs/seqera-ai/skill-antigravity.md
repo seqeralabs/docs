@@ -3,14 +3,14 @@ title: "Antigravity/Gemini"
 description: "Install and maintain the Co-Scientist skill for Google's Antigravity/Gemini IDE"
 date created: "2026-04-29"
 last updated: "2026-05-21"
-tags: [seqera-ai, cli, skills, antigravity, gemini]
+tags: [seqera-ai, co-scientist, cli, skills, antigravity, gemini]
 ---
 
 The `seqera skill` command installs a skill file that enables [Antigravity/Gemini](https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/) to use Co-Scientist as a subagent. Once installed, Antigravity can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
 
 This page covers the Antigravity skill format, how to install the skill automatically or by hand, the invocation patterns Antigravity uses, and how to keep the skill in sync as you update the CLI.
 
-### Antigravity/Gemini skill format
+## Antigravity/Gemini skill format
 
 Antigravity/Gemini discovers skills from the `.agents/skills/` directory at the repository root. Each skill is a folder containing a `SKILL.md` file with YAML frontmatter (name, description) and detailed instructions.
 
@@ -18,7 +18,7 @@ Antigravity/Gemini discovers skills from the `.agents/skills/` directory at the 
 |-------|--------|
 | [Antigravity/Gemini](https://blog.google/technology/google-deepmind/) | `.agents/skills/` |
 
-### `seqera skill install`
+## `seqera skill install`
 
 Use `seqera skill install` to add the Co-Scientist skill to Antigravity. Install it to the Antigravity skill directory, or pass another flag to choose a different location. If the installer can't write the skill, create it by hand with [Manual installation](#manual-installation).
 
@@ -50,7 +50,24 @@ seqera skill install --detect
 If you encounter a `ENOENT: no such file or directory, scandir '/$bunfs/root/content/seqera'` error with `seqera skill install`, you can manually create the skill file. See [Manual installation](#manual-installation) below.
 :::
 
-### Manual installation
+### Usage
+
+```bash
+seqera skill install [OPTIONS]
+```
+
+### Options
+
+`seqera skill install` accepts the following options:
+
+| Option | Short | Description |
+|--------|-------|-------------|
+| `--local` | `-l` | Install to repo root |
+| `--path <PATH>` | `-p` | Install to a custom path (relative or absolute) |
+| `--global` | `-g` | Install to home directory |
+| `--detect` | `-d` | Auto-detect an existing installation and update it |
+
+## Manual installation
 
 If the automated installer does not support your agent platform, you can manually create the skill file:
 
@@ -81,7 +98,7 @@ If the automated installer does not support your agent platform, you can manuall
     seqera skill check
     ```
 
-### Invocation patterns
+## Invocation patterns
 
 Antigravity invokes Co-Scientist dynamically via shell commands rather than static context injection. The recommended patterns are:
 
@@ -92,7 +109,7 @@ Antigravity invokes Co-Scientist dynamically via shell commands rather than stat
 | Goal mode | `seqera ai --headless --approval-mode full "/goal <task>"` | Multi-step autonomous work |
 | Module QA review | `seqera ai --headless --approval-mode basic "Review modules/nf-core/<module>/main.nf for correctness"` | Pre-push nf-core module validation |
 
-### Validated use case: nf-core module QA
+## Validated use case: nf-core module QA
 
 Antigravity uses Co-Scientist as a domain-expert QA gate before pushing nf-core module PRs. In [PR #11377](https://github.com/nf-core/modules/pull/11377) (emmtyper), Co-Scientist caught that `emmtyper --version | sed` was fragile across Docker/conda environments due to Click version differences, and recommended using `python -c "import emmtyper; print(emmtyper.__version__)"` instead.
 
@@ -103,24 +120,7 @@ seqera ai --headless --approval-mode basic \
 
 This pattern complements `nf-core modules lint` by catching semantic issues that static linting misses.
 
-### Usage
-
-```bash
-seqera skill install [OPTIONS]
-```
-
-### Options
-
-`seqera skill install` accepts the following options:
-
-| Option | Short | Description |
-|--------|-------|-------------|
-| `--local` | `-l` | Install to repo root |
-| `--path <PATH>` | `-p` | Install to a custom path (relative or absolute) |
-| `--global` | `-g` | Install to home directory |
-| `--detect` | `-d` | Auto-detect an existing installation and update it |
-
-### `seqera skill check`
+## `seqera skill check`
 
 The skill file is tied to the version of the CLI that created it, so it can fall out of date when you upgrade. Use `seqera skill check` to confirm your installed skill still matches your current CLI version, and update it when it doesn't.
 
@@ -152,9 +152,13 @@ seqera skill check [OPTIONS]
 | `--global` | | Check only global installations |
 | `--local` | | Check only local (repository) installations |
 
-### Learn more
+## Learn more
 
-- [Skills](./skills.md): Discover, create, and install skills
+- [Installation](./installation.md): Install, update, and configure the CLI
+- [Quickstart](./quickstart.md): Run your first Co-Scientist session
+- [Authentication](./authentication.md): Log in, log out, and manage sessions
 - [Use cases](./use-cases.md): Seqera CLI use cases
-- [Code intelligence](./nextflow-lsp.md): Language-aware coding support
-- [Installation](./installation.md): Detailed installation instructions
+- [Configuration](./configuration.md): Configure modes, sessions, skills, command approval, and more
+- [Coding Agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
+- [Skills reference](./skills-reference.md): Built-in skills, slash commands, and session limits
+- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors
