@@ -160,7 +160,7 @@ export GH_TOKEN=$(gh auth token)
 Some Platform reference tables are generated from source files in the `seqeralabs/platform` repository. Platform release workflows send a `repository_dispatch` event to this repository, and the docs workflow opens a draft PR with the generated table updates.
 
 ### Permissions tables
-
+**Applies to Enterprise and Cloud documentation**
 Permissions documentation is updated by [.github/workflows/update-permissions-docs.yml](.github/workflows/update-permissions-docs.yml), using [.github/scripts/update-permissions-tables.py](.github/scripts/update-permissions-tables.py).
 
 The workflow listens for the `permissions-docs-updated` dispatch event from Platform. It expects `changed_files` to include one or both of:
