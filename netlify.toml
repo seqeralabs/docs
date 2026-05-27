@@ -7,32 +7,23 @@
 
 [build.environment]
   NODE_VERSION = "22"
-  # Per-process V8 heap ceiling. The build runs on a Firecracker MicroVM with
-  # ~10 GiB dedicated RAM and 6 vCPUs (measured), so each worker has ample room.
+  # Per-process V8 heap ceiling. Build VM has ~10 GiB RAM / 6 vCPUs.
   NODE_OPTIONS = "--max-old-space-size=4096"
-  # SSG runs on a recycling worker-thread pool (enabled via
-  # future.experimental_faster.ssgWorkerThreads in docusaurus.config.js). These
-  # vars bound peak memory: 4 workers recycled past ~1.5 GB each + the main
-  # process ≈ 7–8 GB peak, comfortably under the VM's ~10 GiB. The recycler tears
-  # down and respawns a worker once it exceeds the limit, freeing retained
-  # memory between tasks — this is what prevents the historical 137 OOM kills.
-  # Reference: https://github.com/facebook/docusaurus/pull/11166
+  # SSG worker-thread pool (enabled by ssgWorkerThreads in docusaurus.config.js).
+  # Cap workers and recycle each past ~1.5 GB to bound peak memory under the VM's
+  # ~10 GiB. Recycler: https://github.com/facebook/docusaurus/pull/11166
   DOCUSAURUS_SSG_WORKER_THREAD_COUNT = "4"
   DOCUSAURUS_SSG_WORKER_THREAD_RECYCLER_MAX_MEMORY = "1500000000"
   DOCUSAURUS_SSG_WORKER_THREAD_TASK_SIZE = "8"
-  # Drop Rspack incremental-compilation state to trim peak bundler memory. No
-  # downside on cold CI builds (incremental only benefits warm rebuilds). Kept
-  # as a precaution against the occasional build OOM. Honored at
-  # @docusaurus/core webpack/base.js.
+  # Drop Rspack incremental-compilation state to trim peak bundler memory; no
+  # downside on cold CI builds. Read by @docusaurus/core webpack/base.js.
   DISABLE_RSPACK_INCREMENTAL = "true"
 
 [context.deploy-preview.build.environment]
-  # Lean preview scope. platform-api is excluded because a full-scope build peaks
-  # at 100% of the ~10.7 GiB build VM and OOMs (137) during Rspack bundling —
-  # confirmed on PR #1490 even with the OpenAPI polyfill fix and incremental
-  # disabled. API is offloaded to the separate seqera-docs-api site and surfaced
-  # via the non-forced /platform-api/* proxy below. CLI and Wave are excluded to
-  # keep previews lean and fast.
+  # Lean preview scope. platform-api is excluded because building it OOMs (137)
+  # during Rspack bundling on the build VM; it's offloaded to the seqera-docs-api
+  # site and served via the non-forced /platform-api/* proxy below. CLI and Wave
+  # are excluded to keep previews fast.
   INCLUDE_NEXT=""
   EXCLUDE_CHANGELOG=""
   EXCLUDE_PLATFORM_CLI="true"

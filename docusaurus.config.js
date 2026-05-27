@@ -16,10 +16,9 @@ const oldEnterpriseVersionTags = platformEnterpriseVersions
   .map((v) => `docs-platform-enterprise-${v}`);
 const searchFilterBy = `docusaurus_tag:!=[default,doc_tag_doc_list,blog_posts_list,blog_tags_posts,doc_tags_list,blog_tags_list${oldEnterpriseVersionTags.length ? `,${oldEnterpriseVersionTags.join(",")}` : ""}]`;
 
-// Parse an env var as a boolean flag. Unset, empty, "false", "0", "no", and
-// "off" all read as false; anything else (e.g. "true", "1") reads as true.
-// Without this, a bare `process.env.X ?` check treats the string "false" as
-// truthy, so `EXCLUDE_PLATFORM_API="false"` would wrongly exclude the API docs.
+// Read an env var as a boolean: unset, "", "false", "0", "no", "off" → false;
+// anything else → true. A bare `process.env.X ?` check treats the string
+// "false" as truthy, so this avoids EXCLUDE_*="false" silently excluding.
 const envFlag = (name) => {
   const v = (process.env[name] ?? "").trim().toLowerCase();
   return v !== "" && v !== "false" && v !== "0" && v !== "no" && v !== "off";
@@ -177,8 +176,6 @@ export default async function createConfigAsync() {
     "\n  EXCLUDE_CHANGELOG: " + envFlag("EXCLUDE_CHANGELOG"),
     "\n  EXCLUDE_PLATFORM_ENTERPRISE: " + envFlag("EXCLUDE_PLATFORM_ENTERPRISE"),
     "\n  EXCLUDE_PLATFORM_CLOUD: " + envFlag("EXCLUDE_PLATFORM_CLOUD"),
-    // EXCLUDE_PLATFORM_API now gates the API content plugin, the OpenAPI
-    // preset, and the llms-api plugin (all read from platform-api-docs/docs).
     "\n  EXCLUDE_PLATFORM_API: " + envFlag("EXCLUDE_PLATFORM_API"),
     "\n  EXCLUDE_PLATFORM_CLI: " + envFlag("EXCLUDE_PLATFORM_CLI"),
     "\n  EXCLUDE_MULTIQC: " + envFlag("EXCLUDE_MULTIQC"),
@@ -212,11 +209,10 @@ export default async function createConfigAsync() {
         rspackBundler: true,
         rspackPersistentCache: false,
         mdxCrossCompilerCache: false,
-        // Render pages across a recycling worker-thread pool instead of inline
-        // in a single process. Parallelizes SSG across the build VM's CPUs and
-        // lets the recycler free retained memory between tasks. Pool size and
-        // recycle threshold are tuned via DOCUSAURUS_SSG_WORKER_THREAD_* env
-        // vars in netlify.toml.
+        // Render pages on a recycling worker-thread pool: parallelizes SSG
+        // across CPUs and frees retained memory between tasks. Pool size and
+        // recycle threshold set via the DOCUSAURUS_SSG_WORKER_THREAD_* env vars
+        // in netlify.toml.
         ssgWorkerThreads: true,
       },
     },
@@ -272,9 +268,9 @@ export default async function createConfigAsync() {
           theme: {
             customCss: require.resolve("./src/custom.css"),
           },
-          // OpenAPI generation operates on the same platform-api-docs/docs
-          // content as the API content plugin and llms-api below, so all three
-          // are gated by the single EXCLUDE_PLATFORM_API lever.
+          // The OpenAPI preset, the API content plugin, and llms-api all read
+          // from platform-api-docs/docs, so one EXCLUDE_PLATFORM_API lever gates
+          // all three.
           openapi: envFlag("EXCLUDE_PLATFORM_API")
             ? false
             : {
@@ -443,13 +439,11 @@ export default async function createConfigAsync() {
         };
       },
 
-      // The OpenAPI docs theme statically bundles postman-code-generators (all
-      // 35 language codegens) and postman-collection into the CLIENT bundle for
-      // the API Explorer code snippets. Those reference Node core modules that
-      // Webpack 4 auto-polyfilled but Rspack/Webpack 5 do not, so the client
-      // build fails with "Can't resolve 'path'" etc. Provide browser polyfills
-      // for what's actually used (path, url, buffer) and stub the rest; promote
-      // a stub to a real polyfill if a runtime error surfaces.
+      // The OpenAPI theme bundles postman-code-generators (all 35 codegens) and
+      // postman-collection into the CLIENT bundle for API Explorer snippets.
+      // They require Node core modules that Rspack doesn't auto-polyfill, which
+      // breaks the client build ("Can't resolve 'path'"). Polyfill path/url/
+      // buffer for the browser; stub the rest.
       function openApiNodePolyfillsPlugin() {
         return {
           name: 'openapi-node-polyfills',
