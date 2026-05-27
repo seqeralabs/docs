@@ -171,7 +171,7 @@ The workflow listens for the `permissions-docs-updated` dispatch event from Plat
 When changes are detected, the workflow checks out Platform, regenerates the permissions tables, and opens a draft PR against this repository. The generated PR branch is named `permissions-docs-update-{platform_commit}`.
 
 ### Audit event tables
-
+**Applies to Enterprise documentation only**
 Audit event documentation is updated by [.github/workflows/update-audit-events-docs.yml](.github/workflows/update-audit-events-docs.yml), using [.github/scripts/update-audit-events-tables.py](.github/scripts/update-audit-events-tables.py).
 
 The workflow listens for the `audit-events-docs-updated` dispatch event from Platform. It expects `changed_files` to include:
