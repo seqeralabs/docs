@@ -1,5 +1,5 @@
 ---
-title: "Working with Antigravity/Gemini"
+title: "Antigravity/Gemini"
 description: "Install and maintain the Co-Scientist skill for Google's Antigravity/Gemini IDE"
 date created: "2026-04-29"
 last updated: "2026-05-21"
@@ -7,6 +7,8 @@ tags: [seqera-ai, cli, skills, antigravity, gemini]
 ---
 
 The `seqera skill` command installs a skill file that enables [Antigravity/Gemini](https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/) to use Co-Scientist as a subagent. Once installed, Antigravity can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
+
+This page covers the Antigravity skill format, how to install the skill automatically or by hand, the invocation patterns Antigravity uses, and how to keep the skill in sync as you update the CLI.
 
 ### Antigravity/Gemini skill format
 
@@ -17,6 +19,8 @@ Antigravity/Gemini discovers skills from the `.agents/skills/` directory at the 
 | [Antigravity/Gemini](https://blog.google/technology/google-deepmind/) | `.agents/skills/` |
 
 ### `seqera skill install`
+
+Use `seqera skill install` to add the Co-Scientist skill to Antigravity. Install it to the Antigravity skill directory, or pass another flag to choose a different location. If the installer can't write the skill, create it by hand with [Manual installation](#manual-installation).
 
 Install to the Antigravity skill directory:
 
@@ -107,6 +111,8 @@ seqera skill install [OPTIONS]
 
 ### Options
 
+`seqera skill install` accepts the following options:
+
 | Option | Short | Description |
 |--------|-------|-------------|
 | `--local` | `-l` | Install to repo root |
@@ -115,6 +121,8 @@ seqera skill install [OPTIONS]
 | `--detect` | `-d` | Auto-detect an existing installation and update it |
 
 ### `seqera skill check`
+
+The skill file is tied to the version of the CLI that created it, so it can fall out of date when you upgrade. Use `seqera skill check` to confirm your installed skill still matches your current CLI version, and update it when it doesn't.
 
 Verify that your installed skill matches your current CLI version:
 
@@ -135,6 +143,8 @@ seqera skill check [OPTIONS]
 ```
 
 ### Options
+
+`seqera skill check` accepts the following options:
 
 | Option | Short | Description |
 |--------|-------|-------------|

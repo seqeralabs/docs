@@ -75,5 +75,5 @@ npm uninstall -g seqera
 
 - [Quickstart](./quickstart.md): Log in and run your first Co-Scientist session
 - [Authentication](./authentication.md): Log in, log out, and manage sessions
-- [Use Co-Scientist with a coding agent](./skills.md#install-co-scientist-into-coding-agents): Install Co-Scientist as a skill
+- [Coding agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Resolve installation, login, and runtime issues

@@ -56,6 +56,6 @@ Interact in plain English, or use reusable [skills](./skills.md) exposed as slas
 - [Use cases](./use-cases.md): Seqera CLI use cases
 - [Projects](./projects.md): Organize workspace resources into projects using Platform labels
 - [Credits](./credits.md): Co-Scientist credits and how to request more
-- [Use Co-Scientist with a coding agent](./skills.md#install-co-scientist-into-coding-agents): [Claude Code](./skill-claude-code.md), [Codex](./skill-codex.md), [GitHub Copilot](./skill-github-copilot.md), [Antigravity/Gemini](./skill-antigravity.md), or [other agents](./skill-other-agents.md)
+- [Coding agents](./coding-agents.md): Install Co-Scientist as a skill in Claude Code, Codex, GitHub Copilot, Antigravity/Gemini, or other agents
 - [Code intelligence](./nextflow-lsp.md): Language-server support in Co-Scientist
 - [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

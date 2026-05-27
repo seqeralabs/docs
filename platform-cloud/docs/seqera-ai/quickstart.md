@@ -22,7 +22,20 @@ Authenticate the CLI against your Seqera Platform account:
 seqera login
 ```
 
-The CLI opens a browser window. After you authorize, the terminal confirms the login and stores a session token locally. For headless environments, token-based login, or session management, see [Authentication](./authentication.md).
+This will:
+
+1. Open your default browser to the Seqera login page.
+1. Prompt you to sign in with your Seqera Platform credentials.
+1. Automatically capture the authentication token.
+1. Display a success message in your terminal:
+
+   ```console
+   [Login] Starting Seqera CLI authentication...
+   [Login] ✓ Authentication successful!
+   [Login] ✓ Organization set: <org_name>
+   ```
+
+See [Authentication](./authentication.md) for more information about how to log in and out, authenticate in automated environments, and manage your organization.
 
 ## Step 2: Start an interactive session
 
@@ -32,9 +45,9 @@ Launch an interactive Co-Scientist session:
 seqera ai
 ```
 
-The Co-Scientist prompt appears, with a footer showing the active mode (**build** by default).
+The Co-Scientist prompt appears, with a footer showing the active mode (**build** by default). See [Modes](./modes.md) for more information.
 
-## Step 3: List the available commands and skills
+## Step 3: List commands and skills
 
 Show the built-in commands and available skills:
 
@@ -61,7 +74,7 @@ Try plan mode with a comparison prompt:
 Compare whether I should add FastQC or fastp as the first QC step in this RNA-seq pipeline, including the workflow changes each option would require
 ```
 
-## Step 5: Debug a Seqera Platform run with a built-in skill
+## Step 5: Debug a Seqera Platform run
 
 Run the built-in debugging skill against your most recent workspace run:
 

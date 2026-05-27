@@ -1,5 +1,5 @@
 ---
-title: "Working with GitHub Copilot"
+title: "GitHub Copilot"
 description: "Install and maintain the Co-Scientist skill for GitHub Copilot"
 date created: "2026-03-11"
 tags: [seqera-ai, co-scientist, cli, skills, github-copilot]
@@ -7,7 +7,11 @@ tags: [seqera-ai, co-scientist, cli, skills, github-copilot]
 
 The `seqera skill` command installs a skill file that enables [GitHub Copilot](https://github.com/features/copilot) to use Co-Scientist as a subagent. Once installed, GitHub Copilot can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
 
+This page covers how to install the skill into GitHub Copilot and keep it in sync as you update the CLI.
+
 ### `seqera skill install`
+
+Use `seqera skill install` to add the Co-Scientist skill to GitHub Copilot. Run it without options to launch an interactive installer that detects your setup and prompts for a location, or pass a flag to install directly to a specific path.
 
 Launch the interactive installer:
 
@@ -47,6 +51,8 @@ seqera skill install [OPTIONS]
 
 ### Options
 
+`seqera skill install` accepts the following options:
+
 | Option | Short | Description |
 |--------|-------|-------------|
 | `--local` | `-l` | Install to repo root |
@@ -55,6 +61,8 @@ seqera skill install [OPTIONS]
 | `--detect` | `-d` | Auto-detect an existing installation and update it |
 
 ### `seqera skill check`
+
+The skill file is tied to the version of the CLI that created it, so it can fall out of date when you upgrade. Use `seqera skill check` to confirm your installed skill still matches your current CLI version, and update it when it doesn't.
 
 Verify that your installed skill matches your current CLI version:
 
@@ -75,6 +83,8 @@ seqera skill check [OPTIONS]
 ```
 
 ### Options
+
+`seqera skill check` accepts the following options:
 
 | Option | Short | Description |
 |--------|-------|-------------|

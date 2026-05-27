@@ -137,17 +137,48 @@
         "seqera-ai/installation",
         "seqera-ai/quickstart",
         "seqera-ai/authentication",
-        "seqera-ai/credits",
-        "seqera-ai/skills",
-        "seqera-ai/modes",
-        "seqera-ai/use-cases",
-        "seqera-ai/command-approval",
-        "seqera-ai/skill-claude-code",
-        "seqera-ai/skill-codex",
-        "seqera-ai/skill-github-copilot",
-        "seqera-ai/skill-other-agents",
-        "seqera-ai/nextflow-lsp",
-        "seqera-ai/projects"
+        {
+          "type": "category",
+          "label": "Use cases",
+          "link": {"type": "doc", "id": "seqera-ai/use-cases"},
+          "collapsed": true,
+          "items": [
+            "seqera-ai/use-cases/nextflow",
+            "seqera-ai/use-cases/seqera-platform",
+            "seqera-ai/use-cases/wave-containers",
+            "seqera-ai/use-cases/data",
+            "seqera-ai/use-cases/nf-core",
+            "seqera-ai/use-cases/local-files"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Configuration",
+          "collapsed": true,
+          "items": [
+            "seqera-ai/modes",
+            "seqera-ai/sessions",
+            "seqera-ai/skills",
+            "seqera-ai/command-approval",
+            "seqera-ai/nextflow-lsp",
+            "seqera-ai/projects"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Coding Agents",
+          "link": {"type": "doc", "id": "seqera-ai/coding-agents"},
+          "collapsed": true,
+          "items": [
+            "seqera-ai/skill-claude-code",
+            "seqera-ai/skill-codex",
+            "seqera-ai/skill-github-copilot",
+            "seqera-ai/skill-antigravity",
+            "seqera-ai/skill-other-agents"
+          ]
+        },
+        "seqera-ai/skills-reference",
+        "seqera-ai/credits"
       ]
     },
      {

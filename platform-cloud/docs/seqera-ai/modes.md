@@ -91,6 +91,10 @@ Compare whether I should add FastQC or fastp as the first QC step in this RNA-se
 ```
 
 ```text
+Plan the work to add GPU support to this pipeline
+```
+
+```text
 Inspect this repository and outline the changes needed for Seqera Platform deployment
 ```
 
@@ -106,6 +110,7 @@ Inspect this repository and outline the changes needed for Seqera Platform deplo
 
 ## Learn more
 
+- [Sessions](./sessions.md): Start, continue, resume, and exit sessions
 - [Skills](./skills.md): Discover, create, and install skills
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Use cases](./use-cases.md): Seqera CLI use cases
