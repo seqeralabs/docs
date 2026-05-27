@@ -4,9 +4,6 @@
 
 [build]
   trailingSlash = true
-  # TEMP EXPERIMENT (PR #1490): measure full-scope bundler memory with
-  # DISABLE_RSPACK_INCREMENTAL. Restore to default `npm run build` when done.
-  command = "bash internal/build-mem-probe.sh"
 
 [build.environment]
   NODE_VERSION = "22"
@@ -23,22 +20,26 @@
   DOCUSAURUS_SSG_WORKER_THREAD_COUNT = "4"
   DOCUSAURUS_SSG_WORKER_THREAD_RECYCLER_MAX_MEMORY = "1500000000"
   DOCUSAURUS_SSG_WORKER_THREAD_TASK_SIZE = "8"
-  # TEMP EXPERIMENT: drop Rspack incremental-compilation state to lower peak
-  # bundler memory (no benefit on cold CI builds anyway). Honored at
-  # @docusaurus/core webpack/base.js. Keep if it measurably helps.
+  # Drop Rspack incremental-compilation state to trim peak bundler memory. No
+  # downside on cold CI builds (incremental only benefits warm rebuilds). Kept
+  # as a precaution against the occasional build OOM. Honored at
+  # @docusaurus/core webpack/base.js.
   DISABLE_RSPACK_INCREMENTAL = "true"
 
 [context.deploy-preview.build.environment]
-  # TEMP EXPERIMENT (PR #1490): full scope incl. API to test the OpenAPI Node
-  # polyfill fix (openApiNodePolyfillsPlugin) end-to-end, with the 1s memory
-  # probe and DISABLE_RSPACK_INCREMENTAL. Revert to lean scope once concluded.
+  # Lean preview scope. platform-api is excluded because a full-scope build peaks
+  # at 100% of the ~10.7 GiB build VM and OOMs (137) during Rspack bundling —
+  # confirmed on PR #1490 even with the OpenAPI polyfill fix and incremental
+  # disabled. API is offloaded to the separate seqera-docs-api site and surfaced
+  # via the non-forced /platform-api/* proxy below. CLI and Wave are excluded to
+  # keep previews lean and fast.
   INCLUDE_NEXT=""
   EXCLUDE_CHANGELOG=""
-  EXCLUDE_PLATFORM_CLI=""
+  EXCLUDE_PLATFORM_CLI="true"
   EXCLUDE_PLATFORM_ENTERPRISE=""
-  EXCLUDE_PLATFORM_API=""
+  EXCLUDE_PLATFORM_API="true"
   EXCLUDE_MULTIQC=""
-  EXCLUDE_WAVE=""
+  EXCLUDE_WAVE="true"
 
 # Asset and image routing handled by Edge Function
 # See netlify/edge-functions/asset-proxy.js
