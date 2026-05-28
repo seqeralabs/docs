@@ -7,7 +7,7 @@ tags: [co-scientist, cli, reference]
 
 The Seqera CLI reads the following environment variables for authentication and for connecting to your Enterprise agent backend.
 
-| Variable | Purpose |
+| Variable | Description |
 | --- | --- |
 | <code style={{whiteSpace: 'nowrap'}}>SEQERA_ACCESS_TOKEN</code> | Platform access token for non-interactive use. When set, the CLI skips the browser login flow and uses this token directly. |
 | <code style={{whiteSpace: 'nowrap'}}>SEQERA_AI_BACKEND_URL</code> | Co-Scientist agent backend endpoint used by the CLI. |
