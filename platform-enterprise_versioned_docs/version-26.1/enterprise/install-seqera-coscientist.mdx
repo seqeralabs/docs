@@ -6,6 +6,9 @@ last updated: "2026-05-14"
 tags: [seqera-ai, installation, deployment, aws, helm]
 ---
 
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
 :::caution
 Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. This guide covers the Enterprise 26.1 deployment path for the agent backend, MCP server, web interface, and Seqera CLI. It is currently only available on AWS.
 :::
@@ -227,7 +230,8 @@ Open the portal web interface, for example `https://ai.platform.example.com`, an
 
 There are two options available to install Seqera CLI:
 
-**Use the install endpoint**
+<Tabs>
+<TabItem value="Seqera binaries" label="Seqera binaries" default>
 
 Once Platform is installed with agent-backend and portal-web enabled, use the install endpoint to install CLI:
 
@@ -244,7 +248,8 @@ seqera ai
 
 Set `SEQERA_AUTH_CLI_CLIENT_ID` only for OAuth deployments that use a non-default CLI client ID. `SEQERA_ACCESS_TOKEN` and `TOWER_ACCESS_TOKEN` are supported for token-based authentication.
 
-**Use the official npm package**
+</TabItem>
+<TabItem value="npm package" label="npm package" default>
 
 Install the CLI from the official [`seqera` npm package](https://www.npmjs.com/package/seqera):
 
@@ -272,6 +277,9 @@ seqera ai
 ```
 
 Set `SEQERA_AUTH_CLI_CLIENT_ID` only for OAuth deployments that use a non-default CLI client ID. `SEQERA_ACCESS_TOKEN` and `TOWER_ACCESS_TOKEN` are supported for token-based authentication.
+
+</TabItem>
+</Tabs>
 
 ## Usage and cost
 
