@@ -16,6 +16,7 @@ For more information, see:
   - [Fixing legacy content](#fixing-legacy-content)
   - [Creating internal links](#creating-internal-links)
   - [Changelog automation](#changelog-automation)
+  - [Platform table update workflows](#platform-table-update-workflows)
 
 ## Architecture
 
@@ -153,6 +154,67 @@ export GH_TOKEN=$(gh auth token)
 | Wave     | `changelog/wave/`    | `.md`     |
 | Nextflow | `changelog/nextflow/`| `.md`     |
 | MultiQC  | `changelog/multiqc/` | `.mdx`    |
+
+## Platform table update workflows
+
+Some Platform reference tables are generated from source files in the `seqeralabs/platform` repository. Platform release workflows send a `repository_dispatch` event to this repository, and the docs workflow opens a draft PR with the generated table updates.
+
+### Permissions tables
+**Applies to Enterprise and Cloud documentation**
+Permissions documentation is updated by [.github/workflows/update-permissions-docs.yml](.github/workflows/update-permissions-docs.yml), using [.github/scripts/update-permissions-tables.py](.github/scripts/update-permissions-tables.py).
+
+The workflow listens for the `permissions-docs-updated` dispatch event from Platform. It expects `changed_files` to include one or both of:
+
+- `docs/grants_roles.md`
+- `docs/grants_operations.md`
+
+When changes are detected, the workflow checks out Platform, regenerates the permissions tables, and opens a draft PR against this repository. The generated PR branch is named `permissions-docs-update-{platform_commit}`.
+
+The Platform trigger runs for Cloud release tags such as `v26.1.0-cycle41` and Enterprise release candidate tags such as `v26.2.0-RC1-enterprise`. Cloud tags compare against the previous Cloud release tag. Enterprise RC tags compare against the previous stable Enterprise release tag, such as `v26.1.0-enterprise`.
+
+### Audit event tables
+**Applies to Enterprise documentation only**
+Audit event documentation is updated by [.github/workflows/update-audit-events-docs.yml](.github/workflows/update-audit-events-docs.yml), using [.github/scripts/update-audit-events-tables.py](.github/scripts/update-audit-events-tables.py).
+
+The workflow listens for the `audit-events-docs-updated` dispatch event from Platform. It expects `changed_files` to include:
+
+- `docs/audit_events.md`
+
+The Platform trigger is intended for Enterprise release candidate tags, such as `v26.1.0-RC5-enterprise`. The docs workflow checks out the Platform ref from the dispatch payload, regenerates the unversioned Enterprise audit event tables from `docs/audit_events.md`, and opens a draft PR. Versioned docs are not updated by this workflow; make versioned updates manually when required.
+
+### Manual workflow runs
+
+You can run either workflow manually from the GitHub Actions tab in this repository.
+
+For permissions, run **Update Permissions Documentation** and provide:
+
+- `changed_files`: `docs/grants_roles.md`, `docs/grants_operations.md`, or both as a comma-separated list.
+- `platform_ref`: optional Platform tag, branch, or commit SHA to read grants files from. Use the release tag when reproducing an automated release update.
+- `previous_tag`: optional context for the generated PR body.
+
+For audit events, run **Update Audit Events Documentation** and provide:
+
+- `changed_files`: `docs/audit_events.md`
+- `platform_ref`: the Platform tag, branch, or commit SHA to read `docs/audit_events.md` from, such as `v26.1.0-RC5-enterprise`
+- `previous_tag`: optional context for the generated PR body
+
+You can also trigger the Platform-side workflows manually from the Platform repository. Use the exact source file paths above in `changed_files` if you want to bypass tag-diff detection.
+
+### Troubleshooting
+
+If the docs workflow does not start:
+
+- Confirm the Platform-side workflow ran on a matching tag pattern. Permissions use Cloud release tags such as `v*-cycle*` and Enterprise RC tags such as `v*-RC*-enterprise`; audit events use Enterprise RC tags such as `v*-RC*-enterprise`.
+- Confirm the Platform-side workflow detected one of the expected source files. If the tag diff does not include the source file, no dispatch event is sent.
+- Check that the Platform workflow dispatched the expected event type: `permissions-docs-updated` or `audit-events-docs-updated`.
+- Confirm the Platform repository has the docs bot secrets required to dispatch to this repository.
+
+If the docs workflow starts but fails:
+
+- Check the **Validate payload** step. The workflows reject unexpected file paths.
+- Check the Platform checkout step. Private Platform checkout requires `PLATFORM_REPO_PAT`.
+- Check the update script output. Parse failures usually mean the source table headings or columns changed.
+- Check the **Check for changes** step. If the generated tables already match, the workflow exits without opening a PR.
 
 ## Workaround for Netlify memory problems (May 2025)
 
