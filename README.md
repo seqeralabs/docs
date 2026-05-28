@@ -168,7 +168,7 @@ The workflow listens for the `permissions-docs-updated` dispatch event from Plat
 - `docs/grants_roles.md`
 - `docs/grants_operations.md`
 
-When changes are detected, the workflow checks out Platform, regenerates the permissions tables, and opens a draft PR against this repository. The generated PR branch is named `permissions-docs-update-{platform_commit}`.
+When changes are detected, the workflow checks out Platform with a Platform-scoped docs bot app token, regenerates the permissions tables, and opens a draft PR against this repository with a Docs-scoped docs bot app token. The generated PR branch is named `permissions-docs-update-{platform_ref}`.
 
 The Platform trigger runs for Cloud release tags such as `v26.1.0-cycle41` and Enterprise release candidate tags such as `v26.2.0-RC1-enterprise`. Cloud tags compare against the previous Cloud release tag. Enterprise RC tags compare against the previous stable Enterprise release tag, such as `v26.1.0-enterprise`.
 
@@ -208,11 +208,13 @@ If the docs workflow does not start:
 - Confirm the Platform-side workflow detected one of the expected source files. If the tag diff does not include the source file, no dispatch event is sent.
 - Check that the Platform workflow dispatched the expected event type: `permissions-docs-updated` or `audit-events-docs-updated`.
 - Confirm the Platform repository has the docs bot secrets required to dispatch to this repository.
+- Confirm this repository has the docs bot secrets required to read Platform and create draft PRs: `DOCS_BOT_APP_ID` and `DOCS_BOT_APP_PRIVATE_KEY`.
 
 If the docs workflow starts but fails:
 
 - Check the **Validate payload** step. The workflows reject unexpected file paths.
-- Check the Platform checkout step. Private Platform checkout requires `PLATFORM_REPO_PAT`.
+- Check the Platform app token and checkout steps. The docs bot GitHub App must be installed on Platform with contents read access.
+- Check the docs app token step. Draft PR creation requires the docs bot GitHub App to be installed on this repository with contents and pull request write access.
 - Check the update script output. Parse failures usually mean the source table headings or columns changed.
 - Check the **Check for changes** step. If the generated tables already match, the workflow exits without opening a PR.
 
