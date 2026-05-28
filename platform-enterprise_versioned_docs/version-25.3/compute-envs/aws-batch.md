@@ -825,11 +825,11 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
-1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**:
+1. Under **Environment variables**, add the variables you need. For each variable, provide a **Name** and **Value**, then select a **Target Environment**:
 
-    - **Head job**: Variables are injected into the Nextflow head job — the orchestrator container that evaluates `nextflow.config`, submits tasks, and reports status back to Platform. Use this scope for variables consumed by Nextflow itself or its plugins, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings used by the head node when it contacts external services.
-    - **Compute jobs**: Variables are injected into the per-task worker containers that execute individual pipeline processes. Use this scope for variables consumed by the tools or scripts your processes run — for example, `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials used inside the task container, or tool-specific configuration like `JAVA_HOME`.
-    - **Both Head job and Compute jobs**: Enable both toggles when the same variable is needed in both contexts — for example, an HTTP proxy that Nextflow and the task tools must both honor, or a credential consumed by code that runs in the head job and again inside individual tasks.
+    - **Head job**: Inject the variable into the Nextflow head job — the orchestrator container that evaluates `nextflow.config`, submits tasks, and reports status back to Platform. Use this target for variables consumed by Nextflow itself or its plugins, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings used by the head node when it contacts external services.
+    - **Compute job**: Inject the variable into the per-task worker containers that execute individual pipeline processes. Use this target for variables consumed by the tools or scripts your processes run — for example, `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials used inside the task container, or tool-specific configuration like `JAVA_HOME`.
+    - **Head and Compute jobs**: Inject the variable into both the head job and compute jobs — for example, an HTTP proxy that Nextflow and the task tools must both honor, or a credential consumed by code that runs in the head job and again inside individual tasks.
 
     :::note
     For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation — rotating a value requires recreating the compute environment.
@@ -874,13 +874,13 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
     Setting Min CPUs to a value greater than 0 will keep the required compute instances active, even when your pipelines are not running. This will result in additional AWS charges.
     :::
 
-- Use **Head Job CPUs** and **Head Job Memory** to specify the hardware resources allocated for the Nextflow head job. The default head job memory allocation is 4096 MiB.
+- Use **Head job CPUs** and **Head job memory** to specify the hardware resources allocated for the Nextflow head job. The default head job memory allocation is 4096 MiB.
 
     :::warning
-    Setting Head Job values will also limit the size of any Studio session that can be created in the compute environment.
+    Setting head job values will also limit the size of any Studio session that can be created in the compute environment.
     :::
 
-- Use **Head Job role** and **Compute Job role** to grant fine-grained IAM permissions to the **Head Job** and **Compute Jobs**.
+- Use **Head job role** and **Compute job role** to grant fine-grained IAM permissions to the **Head job** and **Compute jobs**.
 - Add an execution role ARN to the **Batch execution role** field to grant permissions to make API calls on your behalf to the ECS container used by Batch. This is required if the pipeline launched with this compute environment needs access to the secrets stored in this workspace. This field can be ignored if you are not using secrets.
 - Specify an EBS block size (in GB) in the **EBS auto-expandable block size** field to control the initial size of the EBS auto-expandable volume. New blocks of this size are added when the volume begins to run out of free space. This feature is deprecated, and is not compatible with Fusion v2.
 - Enter the **Boot disk size** (in GB) to specify the size of the boot disk in the VMs created by this compute environment.
@@ -985,11 +985,11 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
-1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**:
+1. Under **Environment variables**, add the variables you need. For each variable, provide a **Name** and **Value**, then select a **Target Environment**:
 
-    - **Head job**: Variables are injected into the Nextflow head job — the orchestrator container that evaluates `nextflow.config`, submits tasks, and reports status back to Platform. Use this scope for variables consumed by Nextflow itself or its plugins, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings used by the head node when it contacts external services.
-    - **Compute jobs**: Variables are injected into the per-task worker containers that execute individual pipeline processes. Use this scope for variables consumed by the tools or scripts your processes run — for example, `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials used inside the task container, or tool-specific configuration like `JAVA_HOME`.
-    - **Both Head job and Compute jobs**: Enable both toggles when the same variable is needed in both contexts — for example, an HTTP proxy that Nextflow and the task tools must both honor, or a credential consumed by code that runs in the head job and again inside individual tasks.
+    - **Head job**: Inject the variable into the Nextflow head job — the orchestrator container that evaluates `nextflow.config`, submits tasks, and reports status back to Platform. Use this target for variables consumed by Nextflow itself or its plugins, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings used by the head node when it contacts external services.
+    - **Compute job**: Inject the variable into the per-task worker containers that execute individual pipeline processes. Use this target for variables consumed by the tools or scripts your processes run — for example, `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials used inside the task container, or tool-specific configuration like `JAVA_HOME`.
+    - **Head and Compute jobs**: Inject the variable into both the head job and compute jobs — for example, an HTTP proxy that Nextflow and the task tools must both honor, or a credential consumed by code that runs in the head job and again inside individual tasks.
 
     :::note
     For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation — rotating a value requires recreating the compute environment.
@@ -1008,8 +1008,8 @@ Seqera compute environments for AWS Batch include advanced options to configure 
 - Configure a custom networking setup using the **VPC ID**, **Subnets**, and **Security groups** fields.
   * If not defined, the default VPC, subnets, and security groups for the selected region will be used.
   * When using EFS or FSx file systems, select the security group previously created to allow access to the file system. The VPC ID the security group belongs to needs to match the VPC ID defined for the Seqera Batch compute environment.
-- Use **Head Job CPUs** and **Head Job Memory** to specify the hardware resources allocated for the Nextflow head job. The default head job memory allocation is 4096 MiB.
-- Use **Head Job role** and **Compute Job role** to grant fine-grained IAM permissions to the Head Job and Compute Jobs,
+- Use **Head job CPUs** and **Head job memory** to specify the hardware resources allocated for the Nextflow head job. The default head job memory allocation is 4096 MiB.
+- Use **Head job role** and **Compute job role** to grant fine-grained IAM permissions to the head job and compute jobs,
 - Add an execution role ARN to the **Batch execution role** field to grant permissions to make API calls on your behalf to the ECS container used by Batch. This is required if the pipeline launched with this compute environment needs access to the secrets stored in this workspace. This field can be ignored if you are not using secrets.
 - Use **AWS CLI tool path** to specify the location of the `aws` CLI.
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.

@@ -121,11 +121,11 @@ After you've prepared your Kubernetes cluster for Seqera integration, create a c
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
-1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**:
+1. Under **Environment variables**, add the variables you need. For each variable, provide a **Name** and **Value**, then select a **Target Environment**:
 
-    - **Head job**: Variables are injected into the Nextflow head job — the orchestrator container that evaluates `nextflow.config`, submits tasks, and reports status back to Platform. Use this scope for variables consumed by Nextflow itself or its plugins, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings used by the head node when it contacts external services.
-    - **Compute jobs**: Variables are injected into the per-task worker containers that execute individual pipeline processes. Use this scope for variables consumed by the tools or scripts your processes run — for example, `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials used inside the task container, or tool-specific configuration like `JAVA_HOME`.
-    - **Both Head job and Compute jobs**: Enable both toggles when the same variable is needed in both contexts — for example, an HTTP proxy that Nextflow and the task tools must both honor, or a credential consumed by code that runs in the head job and again inside individual tasks.
+    - **Head job**: Inject the variable into the Nextflow head job — the orchestrator container that evaluates `nextflow.config`, submits tasks, and reports status back to Platform. Use this target for variables consumed by Nextflow itself or its plugins, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings used by the head node when it contacts external services.
+    - **Compute job**: Inject the variable into the per-task worker containers that execute individual pipeline processes. Use this target for variables consumed by the tools or scripts your processes run — for example, `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials used inside the task container, or tool-specific configuration like `JAVA_HOME`.
+    - **Head and Compute jobs**: Inject the variable into both the head job and compute jobs — for example, an HTTP proxy that Nextflow and the task tools must both honor, or a credential consumed by code that runs in the head job and again inside individual tasks.
 
     :::note
     For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation — rotating a value requires recreating the compute environment.
@@ -154,4 +154,4 @@ spec:
 ```
 
 - Use **Custom service pod specs** to provide custom options for the compute environment pod. See above for an example.
-- Use **Head Job CPUs** and **Head Job memory** to specify the hardware resources allocated to the Nextflow workflow pod.
+- Use **Head job CPUs** and **Head job memory** to specify the hardware resources allocated to the Nextflow workflow pod.
