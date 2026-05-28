@@ -1,36 +1,31 @@
-# .github/workflows/update-permissions-docs.yml
+# .github/workflows/update-audit-events-docs.yml
 #
 # This workflow runs in the seqeralabs/docs repository.
-# Triggered by Platform repo when permissions docs are updated.
+# Triggered by Platform repo when audit events docs are updated.
 
-name: Update Permissions Documentation
+name: Update Audit Events Documentation
 
 on:
   repository_dispatch:
-    types: [permissions-docs-updated]
+    types: [audit-events-docs-updated]
   workflow_dispatch:
     inputs:
       changed_files:
-        description: 'Comma-separated list of changed files (e.g., docs/grants_operations.md,docs/grants_roles.md)'
+        description: 'Comma-separated list of changed files (e.g., docs/audit_events.md)'
         required: true
         type: string
       platform_ref:
-        description: 'Platform ref to read grants files from (tag, branch, or SHA; defaults to master)'
-        required: false
+        description: 'Platform ref to read audit_events.md from (tag, branch, or SHA)'
+        required: true
         type: string
       previous_tag:
-        description: 'Previous release tag used for comparison'
+        description: 'Previous Enterprise release tag used for comparison'
         required: false
         type: string
 
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
-  update-permissions:
+  update-audit-events:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
 
     steps:
       - name: Validate payload
@@ -46,21 +41,20 @@ jobs:
           INPUT_CHANGED_FILES: ${{ github.event.inputs.changed_files }}
           INPUT_PLATFORM_REF: ${{ github.event.inputs.platform_ref }}
           INPUT_PREVIOUS_TAG: ${{ github.event.inputs.previous_tag }}
-          GH_ACTOR: ${{ github.actor }}
         run: |
           if [ "$EVENT_NAME" = "repository_dispatch" ]; then
             CHANGED_FILES="$DISPATCH_CHANGED_FILES"
             TRIGGERED_BY="$DISPATCH_TRIGGERED_BY"
             PLATFORM_COMMIT="$DISPATCH_PLATFORM_COMMIT"
             COMMIT_MESSAGE="$DISPATCH_COMMIT_MESSAGE"
-            PLATFORM_REF="${DISPATCH_TAG_NAME:-$DISPATCH_PLATFORM_COMMIT}"
+            PLATFORM_REF="$DISPATCH_TAG_NAME"
             PREVIOUS_TAG="$DISPATCH_PREVIOUS_TAG"
           else
             CHANGED_FILES="$INPUT_CHANGED_FILES"
-            TRIGGERED_BY="$GH_ACTOR"
-            PLATFORM_REF="${INPUT_PLATFORM_REF:-master}"
-            PLATFORM_COMMIT="$PLATFORM_REF"
+            TRIGGERED_BY="${{ github.actor }}"
+            PLATFORM_COMMIT="$INPUT_PLATFORM_REF"
             COMMIT_MESSAGE="Manual workflow trigger"
+            PLATFORM_REF="$INPUT_PLATFORM_REF"
             PREVIOUS_TAG="$INPUT_PREVIOUS_TAG"
           fi
 
@@ -75,14 +69,10 @@ jobs:
           fi
 
           for file in ${CHANGED_FILES//,/ }; do
-            case "$file" in
-              docs/grants_operations.md|docs/grants_roles.md)
-                ;;
-              *)
-                echo "Error: Unexpected file path: $file"
-                exit 1
-                ;;
-            esac
+            if [ "$file" != "docs/audit_events.md" ]; then
+              echo "Error: Unexpected file path: $file"
+              exit 1
+            fi
           done
 
           BRANCH_REF=$(printf '%s' "$PLATFORM_REF" | tr -c '0-9A-Za-z._-' '-')
@@ -91,17 +81,14 @@ jobs:
             echo "changed_files=$CHANGED_FILES"
             echo "triggered_by=$TRIGGERED_BY"
             echo "platform_commit=$PLATFORM_COMMIT"
+            echo "commit_message=$COMMIT_MESSAGE"
             echo "platform_ref=$PLATFORM_REF"
             echo "previous_tag=$PREVIOUS_TAG"
             echo "branch_ref=$BRANCH_REF"
-            echo "commit_message<<GHEOF"
-            printf '%s\n' "$COMMIT_MESSAGE"
-            echo "GHEOF"
           } >> "$GITHUB_OUTPUT"
 
           echo "Validation passed"
           echo "Changed files: $CHANGED_FILES"
-          echo "Triggered by: $TRIGGERED_BY"
           echo "Platform ref: $PLATFORM_REF"
           echo "Previous tag: $PREVIOUS_TAG"
 
@@ -121,10 +108,9 @@ jobs:
         with:
           python-version: '3.14'
 
-      - name: Update permissions documentation
-        id: update
+      - name: Update audit events documentation
         run: |
-          python3 .github/scripts/update-permissions-tables.py \
+          python3 .github/scripts/update-audit-events-tables.py \
             --platform-repo platform-repo \
             --changed-files "${{ steps.validate.outputs.changed_files }}"
 
@@ -146,7 +132,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: |
-            Update permissions documentation from Platform
+            Update audit events documentation from Platform
 
             Platform ref: ${{ steps.validate.outputs.platform_ref }}
             Platform commit: ${{ steps.validate.outputs.platform_commit }}
@@ -155,14 +141,14 @@ jobs:
             Triggered by: ${{ steps.validate.outputs.triggered_by }}
 
             ${{ steps.validate.outputs.commit_message }}
-          branch: permissions-docs-update-${{ steps.validate.outputs.branch_ref }}
+          branch: audit-events-docs-update-${{ steps.validate.outputs.branch_ref }}
           delete-branch: true
           draft: true
-          title: 'Update permissions documentation from Platform'
+          title: 'Update audit events documentation from Platform'
           body: |
-            ## Permissions Documentation Update
+            ## Audit Events Documentation Update
 
-            This draft PR was automatically generated by the permissions docs update workflow.
+            This draft PR was automatically generated by the audit events docs update workflow.
 
             ### Source Information
 
@@ -175,33 +161,21 @@ jobs:
 
             ### Updated Documentation Files
 
-            This PR updates the following documentation files based on changes to Platform's grants files:
+            This PR updates the generated Enterprise audit logs event tables from Platform's `docs/audit_events.md` source file:
 
-            #### From `docs/grants_roles.md`:
-            - `platform-cloud/docs/orgs-and-teams/roles.md` (Role permissions table)
-            - `platform-enterprise_docs/orgs-and-teams/roles.md` (Role permissions table)
+            - `platform-enterprise_docs/monitoring/configtables/audit_events_v2.yml`
+            - `platform-enterprise_docs/monitoring/configtables/audit_events_deprecated.yml`
 
-            #### From `docs/grants_operations.md`:
-            - `platform-cloud/docs/orgs-and-teams/custom-roles.md` (Operations tables by section)
-            - `platform-enterprise_docs/orgs-and-teams/custom-roles.md` (Operations tables by section)
+            The unversioned Audit logs page renders the v2 event table and deprecated event table only. Legacy audit event summary tables and versioned docs are not updated by this workflow.
 
             ### Review Checklist
 
             - [ ] Verify table content matches Platform source
             - [ ] Check that table formatting is correct
-            - [ ] Ensure surrounding documentation context is preserved
-            - [ ] Review for any error reports (see UPDATE_ERRORS.md if present)
-            - [ ] Test table rendering in docs preview
-
-            ### Next Steps
-
-            1. Review the changes carefully
-            2. If there's an UPDATE_ERRORS.md file, address any reported issues
-            3. Run docs build to verify no formatting issues
-            4. Merge when ready
+            - [ ] Confirm the Audit logs page renders correctly in the docs preview
 
       - name: Report no changes
         if: steps.check_changes.outputs.has_changes == 'false'
         run: |
           echo "No changes were made to documentation files."
-          echo "This might mean the tables are already up to date."
+          echo "This might mean the audit events tables are already up to date."
