@@ -1,0 +1,112 @@
+---
+-
+  Event: '`compute_environment_made_primary`'
+  Replacement: '`compute_environment_updated`'
+-
+  Event: '`compute_environment_made_non_primary`'
+  Replacement: '`compute_environment_updated`'
+-
+  Event: '`compute_profile_created`'
+  Replacement: '`compute_environment_created`'
+-
+  Event: '`compute_profile_updated`'
+  Replacement: '`compute_environment_updated`'
+-
+  Event: '`compute_profile_deleted`'
+  Replacement: '`compute_environment_deleted`'
+-
+  Event: '`compute_profile_made_primary`'
+  Replacement: '`compute_environment_made_primary`'
+-
+  Event: '`compute_profile_made_non_primary`'
+  Replacement: '`compute_environment_made_non_primary`'
+-
+  Event: '`organization_settings_updated`'
+  Replacement: '`organization_updated`'
+-
+  Event: '`participant_added`'
+  Replacement: '`participant_created`'
+-
+  Event: '`participant_removed`'
+  Replacement: '`participant_deleted`'
+-
+  Event: '`participant_role_update`'
+  Replacement: '`participant_role_updated`'
+-
+  Event: '`member_added`'
+  Replacement: '`member_created`'
+-
+  Event: '`member_removed`'
+  Replacement: '`member_deleted`'
+-
+  Event: '`member_role_update`'
+  Replacement: '`member_role_updated`'
+-
+  Event: '`team_member_added`'
+  Replacement: '`team_member_created`'
+-
+  Event: '`team_member_removed`'
+  Replacement: '`team_member_deleted`'
+-
+  Event: '`data_link_file_delete`'
+  Replacement: '`data_link_file_deleted`'
+-
+  Event: '`data_studio_session_created`'
+  Replacement: '`studio_session_created`'
+-
+  Event: '`data_studio_session_deleted`'
+  Replacement: '`studio_session_deleted`'
+-
+  Event: '`data_studio_session_started`'
+  Replacement: '`studio_session_started`'
+-
+  Event: '`data_studio_session_stopped`'
+  Replacement: '`studio_session_stopped`'
+-
+  Event: '`data_studio_session_connected`'
+  Replacement: '`studio_session_connected`'
+-
+  Event: '`data_studio_session_disconnected`'
+  Replacement: '`studio_session_disconnected`'
+-
+  Event: '`data_studio_session_build_started`'
+  Replacement: '`studio_session_build_started`'
+-
+  Event: '`data_studio_session_build_failed`'
+  Replacement: '`studio_session_build_failed`'
+-
+  Event: '`data_studio_session_build_succeeded`'
+  Replacement: '`studio_session_build_succeeded`'
+-
+  Event: '`data_studio_session_lifespan_extended`'
+  Replacement: '`studio_session_lifespan_extended`'
+-
+  Event: '`data_studio_session_ssh_auth_succeeded`'
+  Replacement: '`studio_session_ssh_auth_succeeded`'
+-
+  Event: '`data_studio_session_ssh_auth_failed`'
+  Replacement: '`studio_session_ssh_auth_failed`'
+-
+  Event: '`role_grant_association_created`'
+  Replacement: '-'
+-
+  Event: '`role_grant_association_deleted`'
+  Replacement: '-'
+-
+  Event: '`action_paused`'
+  Replacement: '`action_updated`'
+-
+  Event: '`action_unpaused`'
+  Replacement: '`action_updated`'
+-
+  Event: '`user_trusted`'
+  Replacement: '`user_updated`'
+-
+  Event: '`user_enabled`'
+  Replacement: '`user_updated`'
+-
+  Event: '`user_disabled`'
+  Replacement: '`user_updated`'
+-
+  Event: '`workflow_status_changed`'
+  Replacement: '`workflow_updated`'
