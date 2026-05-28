@@ -6,7 +6,7 @@ last updated: "2026-04-29"
 tags: [co-scientist, cli, ai]
 ---
 
-Co-Scientist is an interactive CLI that builds, runs, and debugs Nextflow pipelines, manages your data, and drives Seqera Platform from a single terminal session. It combines self-service bioinformatics, conversational intelligence, and autonomous execution in one experience.
+Co-Scientist is Seqera's AI assistant for bioinformatics. You interact with it through the [Seqera CLI](./installation.mdx) (`seqera ai`) to build, run, and debug Nextflow pipelines, manage your data, and drive Seqera Platform from a single terminal session. It combines self-service bioinformatics, conversational intelligence, and autonomous execution in one experience.
 
 Co-Scientist works across three contexts:
 

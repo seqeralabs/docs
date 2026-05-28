@@ -1,11 +1,11 @@
 ---
 title: "Modes"
-description: "Work in build mode, plan mode, and goal mode in the Seqera CLI"
+description: "Work in Co-Scientist's build, plan, and goal modes"
 date created: "2026-03-11"
 tags: [co-scientist, cli, modes]
 ---
 
-Choose the right level of autonomy for each task with [Build mode](#build-mode), [Plan mode](#plan-mode), and [Goal mode](#goal-mode).
+Co-Scientist offers three modes that control how much autonomy it has in a session. Choose the right level for each task with [Build mode](#build-mode), [Plan mode](#plan-mode), and [Goal mode](#goal-mode).
 
 ## Build mode
 

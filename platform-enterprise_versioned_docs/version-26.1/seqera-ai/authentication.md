@@ -5,7 +5,7 @@ date created: "2025-12-15"
 tags: [co-scientist, cli, authentication, login]
 ---
 
-Co-Scientist uses your Seqera Platform account for authentication. This page covers how to log in and out, authenticate in automated environments, connect to your Enterprise backend, and how token refresh works.
+The Seqera CLI uses your Seqera Platform account to authenticate you with Co-Scientist. This page covers how to log in and out, authenticate in automated environments, connect to your Enterprise backend, and how token refresh works.
 
 :::info[**Prerequisites**]{#prerequisites}
 You will need the following to get started:

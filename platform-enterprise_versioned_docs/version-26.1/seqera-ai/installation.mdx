@@ -8,9 +8,9 @@ tags: [co-scientist, cli, installation]
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-The Seqera CLI runs in your terminal on macOS, Linux, or Windows (via WSL). It connects to Seqera Platform and to your Enterprise agent backend so you can build, run, and debug Nextflow pipelines from a single interactive session.
+The Seqera CLI runs in your terminal on macOS, Linux, or Windows (via WSL). It connects to Seqera Platform and to the Co-Scientist backend in your Enterprise deployment so you can build, run, and debug Nextflow pipelines from a single interactive session.
 
-This page covers how to install, update, and uninstall the CLI with npm, how to switch to a development build, and how to point the CLI at your Enterprise agent backend.
+This page covers how to install, update, and uninstall the CLI with npm, how to switch to a development build, and how to point the CLI at the Co-Scientist backend.
 Once the CLI is on your PATH, see the [Quickstart](./quickstart.md) to log in and start your first session.
 
 :::info[**Prerequisites**]{#prerequisites}
@@ -19,7 +19,7 @@ You will need the following to get started:
 - Node.js 18 or later
 - macOS, Linux, or Windows with WSL
 - A user account on your Seqera Platform Enterprise deployment
-- Network access to your Enterprise agent backend
+- Network access to the Co-Scientist backend
 
 :::
 
@@ -139,9 +139,9 @@ npm uninstall -g seqera
 </TabItem>
 </Tabs>
 
-## Configure the Enterprise backend
+## Configure the Co-Scientist backend
 
-To configure the Enterprise backend, set the agent backend URL before starting Co-Scientist:
+To configure the Co-Scientist backend, set the backend URL before starting Co-Scientist:
 
 ```bash
 export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com

@@ -5,7 +5,7 @@ date created: "2026-03-11"
 tags: [co-scientist, cli, ai, use cases]
 ---
 
-Co-Scientist is an intelligent command-line assistant that helps you build, run, and manage bioinformatics workflows. The sections below walk through common tasks with example prompts you can adapt to your own work:
+Co-Scientist is an AI assistant for building, running, and managing bioinformatics workflows, available through the Seqera CLI. The sections below walk through common tasks with example prompts you can adapt to your own work:
 
 - [Develop and debug Nextflow pipelines](#develop-and-debug-nextflow-pipelines): Understand pipeline structure, generate config and schema files, debug runs, and convert scripts to Nextflow.
 - [Run pipelines on Seqera Platform](#run-pipelines-on-seqera-platform): Launch, monitor, and debug workflow runs in your workspace.
