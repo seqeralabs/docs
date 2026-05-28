@@ -71,3 +71,7 @@
 
 # Co-Scientist (Cloud) docs restructure
 /platform-cloud/seqera-ai/get-started      /platform-cloud/seqera-ai/quickstart   301
+
+# Co-Scientist (Enterprise) docs restructure
+/platform-enterprise/seqera-ai/get-started       /platform-enterprise/seqera-ai/quickstart        301
+/platform-enterprise/26.1/seqera-ai/get-started  /platform-enterprise/26.1/seqera-ai/quickstart   301
