@@ -1,13 +1,17 @@
 ---
-title: "Working with GitHub Copilot"
+title: "GitHub Copilot"
 description: "Install and maintain the Co-Scientist skill for GitHub Copilot"
 date created: "2026-03-11"
-tags: [seqera-ai, co-scientist, cli, skills, github-copilot]
+tags: [co-scientist, cli, skills, github-copilot]
 ---
 
 The `seqera skill` command installs a skill file that enables [GitHub Copilot](https://github.com/features/copilot) to use Co-Scientist as a subagent. Once installed, GitHub Copilot can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
 
-### `seqera skill install`
+This page covers how to install the skill into GitHub Copilot and keep it in sync as you update the CLI.
+
+## `seqera skill install`
+
+Use `seqera skill install` to add the Co-Scientist skill to GitHub Copilot. Run it without options to launch an interactive installer that detects your setup and prompts for a location, or pass a flag to install directly to a specific path.
 
 Launch the interactive installer:
 
@@ -47,6 +51,8 @@ seqera skill install [OPTIONS]
 
 ### Options
 
+`seqera skill install` accepts the following options:
+
 | Option | Short | Description |
 |--------|-------|-------------|
 | `--local` | `-l` | Install to repo root |
@@ -54,7 +60,9 @@ seqera skill install [OPTIONS]
 | `--global` | `-g` | Install to home directory |
 | `--detect` | `-d` | Auto-detect an existing installation and update it |
 
-### `seqera skill check`
+## `seqera skill check`
+
+The skill file is tied to the version of the CLI that created it, so it can fall out of date when you upgrade. Use `seqera skill check` to confirm your installed skill still matches your current CLI version, and update it when it doesn't.
 
 Verify that your installed skill matches your current CLI version:
 
@@ -76,16 +84,20 @@ seqera skill check [OPTIONS]
 
 ### Options
 
+`seqera skill check` accepts the following options:
+
 | Option | Short | Description |
 |--------|-------|-------------|
 | `--update` | `-u` | Automatically update outdated skills |
 | `--global` | | Check only global installations |
 | `--local` | | Check only local (repository) installations |
 
-### Learn more
+## Learn more
 
-- [Skills](./skills.md): Discover, create, and install skills
+- [Installation](./installation.mdx): Install, update, and configure the CLI
+- [Quickstart](./quickstart.md): Run your first Co-Scientist session
+- [Authentication](./authentication.md): Log in, log out, and manage sessions
 - [Use cases](./use-cases.md): Seqera CLI use cases
-- [Code intelligence](./nextflow-lsp.md): Language-aware coding support
-- [Installation](./installation.mdx): Detailed installation instructions
-- [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
+- [Using Co-Scientist](./configuration.md): Configure modes, sessions, skills, command approval, and more
+- [Coding Agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
+- [Skills](./reference/skills-reference.md): Built-in skills, slash commands, and session limits

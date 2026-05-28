@@ -1,13 +1,9 @@
 ---
 title: "Projects"
 description: "Organize workspace resources into projects using Seqera Platform labels"
-date: "2026-04-22"
-tags: [seqera-ai, co-scientist, projects, labels]
+date created: "2026-04-22"
+tags: [co-scientist, cli, projects, labels]
 ---
-
-:::caution Co-Scientist is in beta
-Co-Scientist is currently in beta. Features and behavior may change as we continue to improve the product.
-:::
 
 Projects in Co-Scientist group the pipelines, datasets, and workflow runs that belong to a single piece of work, so you can view and chat about them without the noise of the rest of the workspace.
 
@@ -88,7 +84,7 @@ Ask a workspace admin to create the first `project_*` label to enable projects f
 
 ## Learn more
 
-- [Install Co-Scientist](../enterprise/install-seqera-coscientist.md): Deploy the agent backend, MCP server, and web interface in Enterprise
 - [Seqera Platform labels](https://docs.seqera.io/platform-cloud/labels/overview): Create and manage workspace labels
-- [Get started with Co-Scientist](./get-started.md): Install and authenticate Co-Scientist
+- [Quickstart](./quickstart.md): Run your first Co-Scientist session
 - [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
+- [Install Co-Scientist](../enterprise/install-seqera-coscientist.md): Deploy the agent backend, MCP server, and web interface in Enterprise
