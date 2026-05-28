@@ -424,6 +424,11 @@ export default async function createConfigAsync() {
               optimization: {
                 concatenateModules:  false,
               },
+              resolve: {
+                fallback: {
+                  path: require.resolve('path-browserify'),
+                },
+              },
             };
           },
         };
