@@ -33,6 +33,44 @@ Before you begin, you need:
 - Data Explorer enabled in your Seqera Platform instance (automatic with Helm deployments)
 :::
 
+## Connect environment variables
+
+These are the environment variables used to configure the components of Connect.
+
+| Environment variable                     | Default                     | Required   |   Used by    | Description                                                                                       |
+|------------------------------------------|-----------------------------|------------|--------------|---------------------------------------------------------------------------------------------------|
+| `CONNECT_REDIS_ADDRESS`                  | `redis:6379`                  | yes      | server,proxy | The address of the Redis server. Default applies to the server; the proxy requires it explicitly. |
+| `CONNECT_REDIS_USER`                     |                               | no       | server,proxy | The username to authenticate with Redis.                                                          |
+| `CONNECT_REDIS_PASSWORD`                 |                               | no       | server,proxy | The password to authenticate with Redis.                                                          |
+| `CONNECT_REDIS_DB`                       | `0`                           | no       | server,proxy | The Redis database to use.                                                                        |
+| `CONNECT_REDIS_PREFIX`                   | `connect:session`             | no       | server,proxy | A prefix to use for tunnel keys in Redis.                                                         |
+| `CONNECT_REDIS_TLS_ENABLE`               | `false`                       | no       | server,proxy | Enable TLS connection.                                                                            |
+| `CONNECT_REDIS_TLS_SKIP_VERIFY`          | `false`                       | no       | server,proxy | Sets the insecure skip verify TLS option.                                                         |
+| `CONNECT_REDIS_TLS_KEY_FILE`             |                               | no       | server,proxy | The path to a certificate key file for TLS connection.                                            |
+| `CONNECT_REDIS_TLS_CERT_FILE`            |                               | no       | server,proxy | The path to a certificate file for TLS connection.                                                |
+| `CONNECT_LISTENER_PORT`                  | `7777`                        | no       | server       | The port where the server listens for connections.                                                |
+| `CONNECT_TUNNEL_PORT`                    | `7070`                        | no       | server       | The port to open a new tunnel.                                                                    |
+| `CONNECT_MANAGEMENT_PORT`                |                               | no       | server,proxy | The port where the server listens for metrics, readiness, and shutdown.                           |
+| `CONNECT_MANAGEMENT_AUTH_KEY`            |                               | no       | server       | Auth key protecting the management service endpoints.                                             |
+| `CONNECT_HOST_DOMAIN`                    |                               | no       | server       | The host domain suffix for the server.                                                            |
+| `CONNECT_HTTP_PORT`                      | `80`                          | no       | proxy        | The port where the proxy listens for incoming connections.                                        |
+| `CONNECT_PROXY_URL`                      |                               | yes      | proxy        | The base domain name of Connect.                                                                  |
+| `CONNECT_TUNNEL_URL`                     |                               | yes      | proxy        | The address of the connect server. Format: `<service-name>:<port>`.                               |
+| `PLATFORM_URL`                           |                               | yes      | proxy        | The base URL of Seqera Platform.                                                                  |
+| `CONNECT_STORAGE_ROOT`                   | `/data`                       | no       | proxy        | The root directory to store the proxy data.                                                       |
+| `CONNECT_LOG_LEVEL`                      | `INFO`                        | no       | server,proxy | Log level for the server and proxy.                                                               |
+| `CONNECT_CLIENT_NAME`                    | `tower-connect-proxy-client`  | no       | proxy        | OIDC client name used by the proxy's Studio provider.                                             |
+| `CONNECT_GRANT_TYPE`                     | `authorization_code`          | no       | proxy        | OAuth grant type used by the proxy's Studio provider.                                             |
+| `CONNECT_OIDC_CLIENT_REGISTRATION_TOKEN` |                               | no       | proxy        | OIDC initial access token used by the proxy.                                                      |
+| `LOCAL_CACHE_TTL`                        | `2m`                          | no       | proxy        | TTL for the proxy's local session cache before syncing with redis.                                |
+| `CONNECT_SSH_ENABLED`                    | `false`                       | no       | proxy        | Enable the SSH proxy server.                                                                      |
+| `CONNECT_SSH_ADDR`                       | `:2222`                       | no       | proxy        | The address the SSH proxy server listens on.                                                      |
+| `CONNECT_SSH_KEY_PATH`                   |                               | no       | proxy        | Path to SSH host key file. Takes precedence over `CONNECT_SSH_KEY_VALUE_BASE64` when set.         |
+| `CONNECT_SSH_KEY_VALUE_BASE64`           |                               | no       | proxy        | Base64-encoded PEM SSH host key. Used as fallback when `CONNECT_SSH_KEY_PATH` is not set.         |
+| `CONNECT_SSH_MAX_CONNECTIONS`            | `2000`                        | no       | proxy        | Max number of concurrent ssh connections that the server will handle before start rejecting them. |
+| `CONNECT_SSH_MAX_CONN_CHANNELS`          | `30`                          | no       | proxy        | Max number of concurrent channels that a client can open per connection.                          |
+| `CONNECT_SSH_HANDSHAKE_TIMEOUT`          | `1m`                          | no       | proxy        | SSH handshake timeout.                                                                            |
+
 ## DNS configuration
 
 Each Studio is reachable at a unique URL that includes a randomly generated subdomain name. For example: `https://abcd.connect.example.com/`, where `connect.example.com` is the Studios service domain.
