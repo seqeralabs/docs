@@ -1,7 +1,8 @@
 ---
 title: "HPC compute environments"
 description: "Instructions to set up HPC compute environments in Seqera Platform"
-date: "11 May 2023"
+date created: "2023-05-11"
+last updated: "2026-05-28"
 tags: [slurm, lsf, pbs, grid, altair, ibm, moab, slurm, compute environment]
 ---
 
@@ -72,7 +73,15 @@ To create a new **HPC** compute environment:
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
-1. Specify custom **Environment variables** for the head job and/or compute jobs.
+1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**:
+
+    - **Head job**: Variables are injected into the Nextflow head job — the orchestrator container that evaluates `nextflow.config`, submits tasks, and reports status back to Platform. Use this scope for variables consumed by Nextflow itself or its plugins, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings used by the head node when it contacts external services.
+    - **Compute jobs**: Variables are injected into the per-task worker containers that execute individual pipeline processes. Use this scope for variables consumed by the tools or scripts your processes run — for example, `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials used inside the task container, or tool-specific configuration like `JAVA_HOME`.
+    - **Both Head job and Compute jobs**: Enable both toggles when the same variable is needed in both contexts — for example, an HTTP proxy that Nextflow and the task tools must both honor, or a credential consumed by code that runs in the head job and again inside individual tasks.
+
+    :::note
+    For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation — rotating a value requires recreating the compute environment.
+    :::
 1. Configure any advanced options needed:
     - Use the **Nextflow queue size** to limit the number of jobs that Nextflow can submit to the scheduler at the same time.
     - Use the **Head job submit options** to add platform-specific submit options for the head job. You can optionally apply these options to compute jobs as well:
