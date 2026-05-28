@@ -23,9 +23,13 @@ on:
         required: false
         type: string
 
+permissions:
+  contents: read
+
 jobs:
   update-audit-events:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Validate payload
@@ -41,6 +45,7 @@ jobs:
           INPUT_CHANGED_FILES: ${{ github.event.inputs.changed_files }}
           INPUT_PLATFORM_REF: ${{ github.event.inputs.platform_ref }}
           INPUT_PREVIOUS_TAG: ${{ github.event.inputs.previous_tag }}
+          GH_ACTOR: ${{ github.actor }}
         run: |
           if [ "$EVENT_NAME" = "repository_dispatch" ]; then
             CHANGED_FILES="$DISPATCH_CHANGED_FILES"
@@ -51,7 +56,7 @@ jobs:
             PREVIOUS_TAG="$DISPATCH_PREVIOUS_TAG"
           else
             CHANGED_FILES="$INPUT_CHANGED_FILES"
-            TRIGGERED_BY="${{ github.actor }}"
+            TRIGGERED_BY="$GH_ACTOR"
             PLATFORM_COMMIT="$INPUT_PLATFORM_REF"
             COMMIT_MESSAGE="Manual workflow trigger"
             PLATFORM_REF="$INPUT_PLATFORM_REF"
@@ -81,10 +86,12 @@ jobs:
             echo "changed_files=$CHANGED_FILES"
             echo "triggered_by=$TRIGGERED_BY"
             echo "platform_commit=$PLATFORM_COMMIT"
-            echo "commit_message=$COMMIT_MESSAGE"
             echo "platform_ref=$PLATFORM_REF"
             echo "previous_tag=$PREVIOUS_TAG"
             echo "branch_ref=$BRANCH_REF"
+            echo "commit_message<<GHEOF"
+            printf '%s\n' "$COMMIT_MESSAGE"
+            echo "GHEOF"
           } >> "$GITHUB_OUTPUT"
 
           echo "Validation passed"
@@ -95,13 +102,22 @@ jobs:
       - name: Checkout docs repo
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
 
+      - name: Generate Platform app token
+        id: platform-app-token
+        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # ratchet:actions/create-github-app-token@v3.0.0
+        with:
+          app-id: ${{ secrets.DOCS_BOT_APP_ID }}
+          private-key: ${{ secrets.DOCS_BOT_APP_PRIVATE_KEY }}
+          owner: seqeralabs
+          repositories: platform
+
       - name: Checkout Platform repo
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
         with:
           repository: seqeralabs/platform
           ref: ${{ steps.validate.outputs.platform_ref }}
           path: platform-repo
-          token: ${{ secrets.PLATFORM_REPO_PAT }}
+          token: ${{ steps.platform-app-token.outputs.token }}
 
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # ratchet:actions/setup-python@v6.2.0
@@ -126,11 +142,21 @@ jobs:
             git diff --stat
           fi
 
+      - name: Generate docs app token
+        if: steps.check_changes.outputs.has_changes == 'true'
+        id: docs-app-token
+        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # ratchet:actions/create-github-app-token@v3.0.0
+        with:
+          app-id: ${{ secrets.DOCS_BOT_APP_ID }}
+          private-key: ${{ secrets.DOCS_BOT_APP_PRIVATE_KEY }}
+          owner: seqeralabs
+          repositories: docs
+
       - name: Create Pull Request
         if: steps.check_changes.outputs.has_changes == 'true'
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # ratchet:peter-evans/create-pull-request@v8.1.1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.docs-app-token.outputs.token }}
           commit-message: |
             Update audit events documentation from Platform
 
