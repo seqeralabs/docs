@@ -52,11 +52,17 @@ For organization-scoped, personal workspace-scoped, or system-wide targets, the 
 
 CSV exports use the same v2 schema and date filters as the Admin panel view. You can control the maximum export size with `TOWER_AUDIT_LOG_V2_CSV_EXPORT_MAX_LOGS`.
 
-### Audit log events
+### Audit log v2 events
 
-Audit logs include administration, security, and application resource events.
+Audit log v2 emits the following event names.
 
-::table{file=configtables/log_events.yml}
+::table{file=configtables/audit_events_v2.yml}
+
+### Deprecated audit events
+
+The following legacy event names are deprecated. Use the replacement event when one is available.
+
+::table{file=configtables/audit_events_deprecated.yml}
 
 ### Pre and post state change capture
 

@@ -1,93 +1,65 @@
 ---
-title: "Co-Scientist in the Seqera CLI"
+title: "Co-Scientist in Seqera CLI"
 description: "AI-powered assistant for bioinformatics workflows and Seqera Platform"
 date created: "2026-03-11"
 last updated: "2026-04-29"
-tags: [seqera-ai, co-scientist, cli, ai]
+tags: [co-scientist, cli, ai]
 ---
 
-Co-Scientist combines self-service bioinformatics, interactive intelligence, and autonomous execution into one unified experience.
+Co-Scientist is Seqera's AI assistant for bioinformatics. You interact with it through the [Seqera CLI](./installation.mdx) (`seqera ai`) to build, run, and debug Nextflow pipelines, manage your data, and drive Seqera Platform from a single terminal session. It combines self-service bioinformatics, conversational intelligence, and autonomous execution in one experience.
 
-You can use the Seqera CLI to build, run, and manage bioinformatics workflows in an interactive terminal experience for working with Nextflow pipelines and Seqera Platform.
+Co-Scientist works across three contexts:
 
-Co-Scientist has access to:
+- **Your Seqera Platform workspace**: View and manage workflows, pipelines, and data through your authenticated account.
+- **Your local environment**: Run commands and edit files in your working directory, with configurable approval controls.
+- **AI capabilities**: Natural language understanding, code generation, and intelligent suggestions.
 
-- **Your Seqera Platform workspace**: View and manage workflows, pipelines, and data through your authenticated account
-- **Your local environment**: Execute commands and edit files in your working directory (with configurable approval controls)
-- **AI capabilities**: Natural language understanding, code generation, and intelligent suggestions
+## Get started
 
-Co-Scientist can load local project context, including instruction files such as `AGENTS.md`, `CLAUDE.md`, and `CONTEXT.md`, project skills, and files under `.seqera/docs` and `.seqera/memory`. Review local context files before starting a session in a repository that contains sensitive instructions or private run history.
+To get started with Co-Scientist:
 
-## Co-Scientist features
+1. Install Seqera CLI:
 
-### Skills
+   ```bash
+   npm install -g seqera
+   ```
 
-Co-Scientist supports reusable skills for common workflows. Backend skills are exposed as slash commands in the `/` command palette and `/help`, and project or user `SKILL.md` files are discovered automatically from standard skill directories.
+1. Log in to Seqera:
 
-### Natural language interface
+   ```bash
+   seqera login
+   ```
 
-Interact with Seqera Platform using plain English. Ask questions, launch workflows, and manage pipelines through conversational commands.
+1. Start your first session:
 
-### Build and plan modes
+   ```bash
+   seqera ai
+   ```
 
-Switch between **build** and **plan** modes during an interactive session with `Shift+Tab`. Build mode is the default for execution and file changes, while plan mode is optimized for analysis, implementation planning, and read-only investigation.
+See [Installation](./installation.mdx) for prerequisites, updates, and development builds. Then see [Quickstart](./quickstart.md) to walk through your first session.
 
-### Goal mode
+## What you can do
 
-Use `/goal <task>` to set a persistent goal. Co-Scientist will keep working toward that goal across multiple model attempts until it is complete or the goal attempt limit is reached.
+Co-Scientist helps across the full pipeline lifecycle, from writing code to running it on Seqera Platform:
 
-### Workflow management
+### Develop pipelines
 
-Launch, monitor, and debug Nextflow workflows directly from your terminal. Get real-time status updates, view logs, and analyze run metrics.
+Generate Nextflow configurations and pipeline schemas, convert scripts from other languages (WDL, R) to Nextflow, and discover over 1,000 nf-core modules with ready-to-run commands. Build reproducible Wave containers from conda or pip packages without writing a Dockerfile. Real-time LSP code intelligence detects errors and powers AI navigation across Nextflow, Python, and R files.
 
-### Pipeline development
+### Run and debug on Platform
 
-Generate Nextflow configurations, create pipeline schemas, and convert scripts from other workflow languages (WDL, R) to Nextflow.
+Launch, monitor, and debug Nextflow workflows from your terminal with real-time status, logs, and run metrics. Browse cloud storage through data links, manage datasets, generate upload and download URLs, and access reference genomes. Co-Scientist has full access to your compute environments, datasets, and workspace.
 
-### nf-core integration
+### Work your way
 
-Search and discover nf-core modules, get detailed execution information, and access ready-to-run Nextflow commands for over 1,000 standardized bioinformatics tools.
-
-### Data management
-
-Browse cloud storage through data links, manage datasets, generate download and upload URLs, and access reference genomes and sequencing data.
-
-### Wave containers
-
-Build containerized environments on-the-fly with conda packages, pip packages, or custom Docker images. Create reproducible containers for your bioinformatics tools without writing Dockerfiles.
-
-### Local file operations
-
-Edit files, run commands, and manage your local development environment with AI assistance and configurable approval modes.
-
-### LSP code intelligence
-
-Real-time error detection and AI-powered code navigation for Nextflow, Python, and R files in your workspace.
-
-### Session management
-
-Resume previous sessions to continue your work. Use `seqera ai -c` to continue your most recent session or `seqera ai -s <id>` to resume a specific session.
-
-### Seqera Platform integration
-
-Full access to Platform capabilities including compute environments, datasets, data links, and workspace management.
-
-### Projects
-
-Organize a workspace into projects by applying Seqera Platform labels prefixed with `project_`. Each project scopes the pipelines, datasets, workflow runs, and chat context the AI sees — without needing a separate CRUD surface in Co-Scientist.
+Interact in plain English, or use reusable [skills](./skills.md) exposed as slash commands in the `/` palette. Switch between [build, plan, and goal modes](./modes.md) to match execution, analysis, or long-running tasks. Resume earlier sessions with `seqera ai -c`, and organize workspace resources into [projects](./projects.md) using Platform labels.
 
 ## Learn more
 
-- [Installation](./installation.mdx): Detailed installation instructions
-- [Authentication](./authentication.md): Log in, log out, and session management
-- [Skills](./skills.md): Discover, create, and install skills
-- [Modes](./modes.md): Work in build mode, plan mode, and goal mode
-- [Command approval](./command-approval.md): Control which commands run automatically
-- [Working with Claude Code](./skill-claude-code.md): Install Co-Scientist as a skill for Claude Code
-- [Working with Codex](./skill-codex.md): Install Co-Scientist as a skill for Codex
-- [Working with GitHub Copilot](./skill-github-copilot.md): Install Co-Scientist as a skill for GitHub Copilot
-- [Working with other coding agents](./skill-other-agents.md): Install Co-Scientist for other coding agents
-- [Code intelligence](./nextflow-lsp.md): Language-server support in Co-Scientist
+- [Installation](./installation.mdx): Install, update, and configure the CLI
+- [Quickstart](./quickstart.md): Run your first Co-Scientist session
+- [Authentication](./authentication.md): Log in, log out, and manage sessions
 - [Use cases](./use-cases.md): Seqera CLI use cases
-- [Projects](./projects.md): Organize workspace resources into projects using Platform labels
-- [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
+- [Using Co-Scientist](./configuration.md): Configure modes, sessions, skills, command approval, and more
+- [Coding Agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
+- [Skills](./reference/skills-reference.md): Built-in skills, slash commands, and session limits
