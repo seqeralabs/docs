@@ -2,7 +2,7 @@
 title: "Credits"
 description: "Co-Scientist credits and how to request more"
 date created: "2026-04-30"
-tags: [seqera-ai, credits, co-scientist]
+tags: [co-scientist, cli, credits]
 ---
 
 Co-Scientist usage on Seqera Cloud is metered through credits.
@@ -25,3 +25,14 @@ Run `/credits` in an interactive Co-Scientist session to view your organization'
 ## Request more credits
 
 [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) to request additional credits for your organization.
+
+## Learn more
+
+- [Installation](./installation.mdx): Install, update, and configure the CLI
+- [Quickstart](./quickstart.md): Run your first Co-Scientist session
+- [Authentication](./authentication.md): Log in, log out, and manage sessions
+- [Use cases](./use-cases.md): Seqera CLI use cases
+- [Using Co-Scientist](./configuration.md): Configure modes, sessions, skills, command approval, and more
+- [Coding Agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
+- [Skills](./reference/skills-reference.md): Built-in skills, slash commands, and session limits
+- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

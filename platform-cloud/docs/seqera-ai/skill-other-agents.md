@@ -1,13 +1,17 @@
 ---
-title: "Working with other coding agents"
+title: "Other coding agents"
 description: "Install and maintain the Co-Scientist skill for other coding agents"
 date created: "2026-03-11"
-tags: [seqera-ai, co-scientist, cli, skills, coding-agents]
+tags: [co-scientist, cli, skills, coding-agents]
 ---
 
 The `seqera skill` command installs a skill file that enables coding agents such as [Cursor](https://www.cursor.com/), [OpenCode](https://opencode.ai/), [Pi](https://github.com/badlogic/pi-mono), and [Windsurf](https://windsurf.com/) to use Co-Scientist as a subagent. Once installed, these agents can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
 
-### Supported agents
+This page covers the agents the CLI supports, how to install the skill into one of them, and how to keep it in sync as you update the CLI.
+
+## Supported agents
+
+The CLI can install the skill into the following agents, each in the format that agent expects:
 
 | Agent | Format |
 |-------|--------|
@@ -16,7 +20,9 @@ The `seqera skill` command installs a skill file that enables coding agents such
 | [Pi](https://github.com/badlogic/pi-mono) | `.pi/` |
 | [Windsurf](https://windsurf.com/) | `.windsurf/rules/` |
 
-### `seqera skill install`
+## `seqera skill install`
+
+Use `seqera skill install` to add the Co-Scientist skill to your coding agent. Run it without options to launch an interactive installer that detects your setup and prompts for a location, or pass a flag to install directly to a specific path.
 
 Launch the interactive installer:
 
@@ -56,6 +62,8 @@ seqera skill install [OPTIONS]
 
 ### Options
 
+`seqera skill install` accepts the following options:
+
 | Option | Short | Description |
 |--------|-------|-------------|
 | `--local` | `-l` | Install to repo root |
@@ -63,7 +71,9 @@ seqera skill install [OPTIONS]
 | `--global` | `-g` | Install to home directory |
 | `--detect` | `-d` | Auto-detect an existing installation and update it |
 
-### `seqera skill check`
+## `seqera skill check`
+
+The skill file is tied to the version of the CLI that created it, so it can fall out of date when you upgrade. Use `seqera skill check` to confirm your installed skill still matches your current CLI version, and update it when it doesn't.
 
 Verify that your installed skill matches your current CLI version:
 
@@ -85,16 +95,21 @@ seqera skill check [OPTIONS]
 
 ### Options
 
+`seqera skill check` accepts the following options:
+
 | Option | Short | Description |
 |--------|-------|-------------|
 | `--update` | `-u` | Automatically update outdated skills |
 | `--global` | | Check only global installations |
 | `--local` | | Check only local (repository) installations |
 
-### Learn more
+## Learn more
 
-- [Skills](./skills.md): Discover, create, and install skills
-- [Use cases](./use-cases.md): Co-Scientist CLI use cases
-- [Code intelligence](./nextflow-lsp.md): Language-aware coding support
-- [Installation](./installation.md): Detailed installation instructions
-- [Credits](./credits.md): Co-Scientist credits and how to request more
+- [Installation](./installation.mdx): Install, update, and configure the CLI
+- [Quickstart](./quickstart.md): Run your first Co-Scientist session
+- [Authentication](./authentication.md): Log in, log out, and manage sessions
+- [Use cases](./use-cases.md): Seqera CLI use cases
+- [Using Co-Scientist](./configuration.md): Configure modes, sessions, skills, command approval, and more
+- [Coding Agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
+- [Skills](./reference/skills-reference.md): Built-in skills, slash commands, and session limits
+- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

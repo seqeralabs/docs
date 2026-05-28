@@ -134,20 +134,49 @@
       "link": {"type": "doc", "id": "seqera-ai/index"},
       "collapsed": true,
       "items": [
-        "seqera-ai/get-started",
         "seqera-ai/installation",
+        "seqera-ai/quickstart",
         "seqera-ai/authentication",
-        "seqera-ai/credits",
-        "seqera-ai/skills",
-        "seqera-ai/modes",
-        "seqera-ai/use-cases",
-        "seqera-ai/command-approval",
-        "seqera-ai/skill-claude-code",
-        "seqera-ai/skill-codex",
-        "seqera-ai/skill-github-copilot",
-        "seqera-ai/skill-other-agents",
-        "seqera-ai/nextflow-lsp",
-        "seqera-ai/projects"
+        {
+          "type": "category",
+          "label": "Using Co-Scientist",
+          "link": {"type": "doc", "id": "seqera-ai/configuration"},
+          "collapsed": true,
+          "items": [
+            "seqera-ai/use-cases",
+            "seqera-ai/modes",
+            "seqera-ai/sessions",
+            "seqera-ai/skills",
+            "seqera-ai/command-approval",
+            "seqera-ai/nextflow-lsp",
+            "seqera-ai/projects",
+            "seqera-ai/credits"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Coding Agents",
+          "link": {"type": "doc", "id": "seqera-ai/coding-agents"},
+          "collapsed": true,
+          "items": [
+            "seqera-ai/skill-claude-code",
+            "seqera-ai/skill-codex",
+            "seqera-ai/skill-github-copilot",
+            "seqera-ai/skill-antigravity",
+            "seqera-ai/skill-other-agents"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Reference",
+          "link": {"type": "doc", "id": "seqera-ai/reference/index"},
+          "collapsed": true,
+          "items": [
+            "seqera-ai/reference/cli",
+            "seqera-ai/reference/environment-variables",
+            "seqera-ai/reference/skills-reference"
+          ]
+        }
       ]
     },
      {

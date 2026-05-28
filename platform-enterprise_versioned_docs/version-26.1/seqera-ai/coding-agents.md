@@ -1,0 +1,17 @@
+---
+title: "Coding agents"
+description: "Install Co-Scientist as a skill so your coding agent can drive Seqera Platform"
+date created: "2026-05-27"
+tags: [co-scientist, cli, skills, coding-agents]
+---
+
+The `seqera skill` command installs a skill file that lets your coding agent use Co-Scientist as a subagent. Once installed, the agent can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
+
+## Supported agents
+
+Co-Scientist installs as a skill into any of the following agents. Each guide covers installation, update, and the available `seqera skill` options for that agent:
+
+- [Claude Code](./skill-claude-code.md): Install the skill for [Claude Code](https://claude.ai/code)
+- [Codex](./skill-codex.md): Install the skill for [Codex](https://openai.com/codex)
+- [GitHub Copilot](./skill-github-copilot.md): Install the skill for [GitHub Copilot](https://github.com/features/copilot)
+- [Other coding agents](./skill-other-agents.md): Install the skill for Cursor, OpenCode, Pi, Windsurf, and others
