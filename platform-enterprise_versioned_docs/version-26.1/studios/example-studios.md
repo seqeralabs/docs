@@ -2,6 +2,7 @@
 title: "Example custom Studios"
 description: "Example Dockerfiles and pre-built container images for running custom applications in Studios."
 date created: "2026-02-18"
+last updated: "2026-05-29"
 tags: [environments, custom, studio, examples]
 ---
 
@@ -86,7 +87,7 @@ To build any example image locally, clone the repository branch and run the Dock
 
 ```bash
 git clone --branch <example-branch> --single-branch https://github.com/seqeralabs/custom-studios-examples.git
-docker build --platform linux/amd64 --build-arg CONNECT_CLIENT_VERSION=0.8 -t <your-tag> .
+docker build --platform linux/amd64 --build-arg CONNECT_CLIENT_VERSION=0.12 -t <your-tag> .
 ```
 
 Replace `<example-branch>` with the branch name (such as `marimo` or `streamlit`) and `<your-tag>` with your preferred image tag. Then push the built image to your container registry, then use the image URI when you [deploy the Studio](#deploy).
