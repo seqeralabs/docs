@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2025-07-17"
+last updated: "2026-05-29"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -145,8 +145,8 @@ If the **SSH Connection** toggle doesn't appear when adding a Studio, or SSH-rel
 SSH access requires:
 
 - **Seqera Platform Enterprise v25.3.3 or later**
-- **connect-server/proxy v0.10.0 or later**
-- **connect-client v0.10.0 or later**
+- **connect-server/proxy v0.12.0 or later**
+- **connect-client v0.12.0 or later**
 
 If your Platform meets these requirements but SSH is still unavailable, verify your administrator configured the required environment variables during deployment.
 
