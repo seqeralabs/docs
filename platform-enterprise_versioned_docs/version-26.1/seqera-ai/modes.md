@@ -1,11 +1,11 @@
 ---
 title: "Modes"
-description: "Work in build mode, plan mode, and goal mode in the Seqera CLI"
+description: "Work in Co-Scientist's build, plan, and goal modes"
 date created: "2026-03-11"
-tags: [seqera-ai, co-scientist, cli, modes]
+tags: [co-scientist, cli, modes]
 ---
 
-Co-Scientist includes **build mode**, **plan mode**, and **goal mode** so you can choose the right level of autonomy for each task.
+Co-Scientist offers three modes that control how much autonomy it has in a session. Choose the right level for each task with [Build mode](#build-mode), [Plan mode](#plan-mode), and [Goal mode](#goal-mode).
 
 ## Build mode
 
@@ -38,6 +38,20 @@ Plan mode blocks write and execution tools, including:
 
 If the assistant tries to use one of these tools, the request is rejected and the assistant is told to switch back to build mode.
 
+For example:
+
+```text
+Compare whether I should add FastQC or fastp as the first QC step in this RNA-seq pipeline, including the workflow changes each option would require
+```
+
+```text
+Plan the work to add GPU support to this pipeline
+```
+
+```text
+Inspect this repository and outline the changes needed for Seqera Platform deployment
+```
+
 ## Switch between build mode and plan mode
 
 Toggle modes during a session with `Shift+Tab`.
@@ -56,6 +70,16 @@ Goal mode is a persistent workflow for longer tasks. Set a goal with:
 /goal <task description>
 ```
 
+For example:
+
+```text
+/goal migrate this pipeline to DSL2 and add nf-tests
+```
+
+```text
+/goal update this workflow for AWS Batch and verify the config
+```
+
 When goal mode is active, Co-Scientist:
 
 - Keeps working toward the same objective over multiple model attempts.
@@ -65,10 +89,8 @@ When goal mode is active, Co-Scientist:
 
 Goal mode commands:
 
-```bash
-/goal
-/goal off
-```
+- `/goal`
+- `/goal off`
 
 Run `/goal` without arguments to inspect the current goal. Run `/goal off` to disable goal mode.
 
@@ -79,34 +101,14 @@ Co-Scientist currently gives goal mode up to **3 model attempts** before it stop
 | Shortcut | Action |
 |----------|--------|
 | `Shift+Tab` | Toggle between build mode and plan mode. |
-| `Ctrl+Enter` | If your terminal supports it, interrupt the current response and send a queued follow-up immediately. |
+| <code style={{whiteSpace: 'nowrap'}}>Ctrl+Enter</code> | If your terminal supports it, interrupt the current response and send a queued follow-up immediately. |
 | `Esc` | Clear a queued follow-up or interrupt the current response. |
-
-## Examples
-
-### Plan mode
-
-```text
-Compare whether I should add FastQC or fastp as the first QC step in this RNA-seq pipeline, including the workflow changes each option would require
-```
-
-```text
-Inspect this repository and outline the changes needed for Seqera Platform deployment
-```
-
-### Goal mode
-
-```text
-/goal migrate this pipeline to DSL2 and add nf-tests
-```
-
-```text
-/goal update this workflow for AWS Batch and verify the config
-```
 
 ## Learn more
 
-- [Skills](./skills.md): Discover, create, and install skills
+- [Sessions](./sessions.md): Start, continue, resume, and exit sessions
+- [Skills configuration](./skills.md): Discover, create, and install skills
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Use cases](./use-cases.md): Seqera CLI use cases
 - [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
+- [Skills](./reference/skills-reference.md): Built-in skills, slash commands, and session limits

@@ -2,7 +2,7 @@
 title: "Usage and cost"
 description: "Understand Co-Scientist usage and inference costs in Seqera Platform Enterprise"
 date created: "2026-05-04"
-tags: [seqera-ai, co-scientist, enterprise, ai]
+tags: [co-scientist, enterprise, ai]
 ---
 
 Co-Scientist in Seqera Platform Enterprise runs in your self-hosted environment and uses your configured inference provider for Claude model access.
@@ -22,7 +22,7 @@ Administrators should manage:
 - Amazon Titan embedding access, if improved documentation search is enabled.
 - Any organization-specific policies for Co-Scientist availability.
 
-For deployment configuration, see [Co-Scientist](../enterprise/install-seqera-coscientist.md).
+For deployment configuration, see [Co-Scientist](../enterprise/install-seqera-coscientist.mdx).
 
 ## Learn more
 

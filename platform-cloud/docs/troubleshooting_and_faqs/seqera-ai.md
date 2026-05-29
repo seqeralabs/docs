@@ -1,6 +1,6 @@
 ---
-title: "Co-Scientist CLI"
-description: "Co-Scientist CLI troubleshooting."
+title: "Co-Scientist"
+description: "Co-Scientist troubleshooting."
 date created: "2024-12-15"
 last updated: "2025-12-15"
 tags: [faq, help, seqera ai, troubleshooting]
@@ -12,7 +12,7 @@ tags: [faq, help, seqera ai, troubleshooting]
 
 If you see `seqera: command not found` after installation:
 
-1. Verify the installation location:
+1. Verify the Seqera CLI installation location:
 
    ```bash
    which seqera
