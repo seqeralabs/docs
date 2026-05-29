@@ -99,22 +99,17 @@ _Cannot parse params file: /ephemeral/example.json - Cause: Server returned HTTP
 
 To resolve this problem, upgrade Nextflow to version 22.04.x or later.
 
-**Job fails after extended queue time: token expiration**
+**Job fails after extended queue time: ephemeral endpoint expiration**
 
-Jobs that remain in queue for longer than the refresh token expiration period (6 hours by default) will fail when they finally start execution. This occurs because:
-
-1. The refresh token expires after 6 hours by default
-2. When the job starts after the token has expired, Nextflow cannot authenticate with Platform
-3. The job fails with authentication errors or 403 responses
+Jobs that remain in queue longer than the ephemeral endpoint lifetime (8 hours by default) fail when they finally start, because Nextflow can no longer retrieve its parameters from Platform. The same applies if the refresh token expires before the job starts — Nextflow cannot authenticate.
 
 **Symptoms:**
-- Jobs submitted successfully but fail when starting after 6+ hours in queue
-- Error messages indicating expired tokens or authentication failures
-- 403 HTTP responses when Nextflow attempts to communicate with Platform
+- Jobs submitted successfully but fail when starting after 8+ hours in queue
+- Error messages indicating expired tokens or 403 responses from Platform
 
 **Solution:**
 
-Increase both the refresh token expiration and ephemeral endpoint duration in your Platform configuration to accommodate your expected queue times. For example, if jobs may wait up to 12 hours in queue, configure:
+Increase the ephemeral endpoint duration and the refresh token expiration to accommodate your expected queue times. For example, for queue times up to 12 hours:
 
 ```yaml
 tower:
@@ -133,7 +128,7 @@ micronaut:
           cookie-max-age: 14h
 ```
 
-See [Session management](../enterprise/configuration/authentication/overview#session-management) and [Ephemeral endpoint configuration](../enterprise/configuration/authentication/overview#ephemeral-endpoint-configuration) for more details.
+See [Ephemeral endpoint configuration](../secrets/overview#ephemeral-endpoint-configuration) and [Session management](../enterprise/configuration/authentication/overview#session-management).
 
 **Prevent Nextflow from uploading intermediate files from local scratch to AWS S3 work directory**
 
