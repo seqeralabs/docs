@@ -2,7 +2,7 @@
 title: "Azure Batch"
 description: "Instructions to set up Azure Batch in Seqera Platform"
 date created: "2024-01-04"
-last updated: "2026-05-20"
+last updated: "2026-05-28"
 tags: [azure, batch, compute environment]
 ---
 
@@ -349,7 +349,15 @@ Batch Forge creates separate Azure Batch pools for the Nextflow head job and com
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file][nf-config-file] for more information on configuration priority.
     :::
-20. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
+20. Under **Environment variables**, add each variable with a **Name**, **Value**, and **Target Environment**:
+
+    - **Head job**: Adds the variable to the Nextflow head job container, which evaluates `nextflow.config` and submits tasks to the compute backend. Use this target for variables that Nextflow or its plugins read, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings the head node uses to reach external services.
+    - **Compute job**: Adds the variable to the worker containers that run individual pipeline tasks. Use this target for variables your pipeline tools read, such as `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials needed inside the task container, or tool-specific settings like `JAVA_HOME`.
+    - **Head and Compute jobs**: Adds the variable to both the head job and the compute jobs. Use this target for values needed in both places, such as an HTTP proxy used by both Nextflow and task tools, or a credential needed in both the head job and individual compute tasks.
+
+    :::note
+    For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation. To rotate a value, recreate the compute environment.
+    :::
 21. Configure any advanced options you need:
 
     - Use **Max wallclock time** to set the maximum duration a job can run. The default is 7 days. Accepts human-readable duration syntax (e.g., `7d`, `12h`, `1d6h30m`). The maximum allowed by Azure Batch is 180 days. Existing compute environments without this setting use Nextflow's default of 30 days.
@@ -523,7 +531,15 @@ The following settings can be modified after creating a pool:
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file][nf-config-file] for more information on configuration priority.
     :::
-16. Define custom **Environment Variables** for the **Head Job** and/or **Compute Jobs**.
+16. Under **Environment variables**, add each variable with a **Name**, **Value**, and **Target Environment**:
+
+    - **Head job**: Adds the variable to the Nextflow head job container, which evaluates `nextflow.config` and submits tasks to the compute backend. Use this target for variables that Nextflow or its plugins read, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings the head node uses to reach external services.
+    - **Compute job**: Adds the variable to the worker containers that run individual pipeline tasks. Use this target for variables your pipeline tools read, such as `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials needed inside the task container, or tool-specific settings like `JAVA_HOME`.
+    - **Head and Compute jobs**: Adds the variable to both the head job and the compute jobs. Use this target for values needed in both places, such as an HTTP proxy used by both Nextflow and task tools, or a credential needed in both the head job and individual compute tasks.
+
+    :::note
+    For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation. To rotate a value, recreate the compute environment.
+    :::
 17. Configure any advanced options you need:
 
     - Use **Max wallclock time** to set the maximum duration a job can run. The default is 7 days. Accepts human-readable duration syntax (e.g., `7d`, `12h`, `1d6h30m`). The maximum allowed by Azure Batch is 180 days. Existing compute environments without this setting use Nextflow's default of 30 days.

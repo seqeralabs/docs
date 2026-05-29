@@ -13,7 +13,7 @@ description: >
   not on personas, information architecture, or where content should live in the doc site.
 ---
 
-# Docs State Assessment
+# Docs state assessment
 
 Produce a structured gap analysis for a Seqera product area by pulling from four sources and cross-referencing them.
 
