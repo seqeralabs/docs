@@ -101,15 +101,15 @@ Create a storage account:
 
 </details>
 
-### Azure MySQL DB instance 
+### Azure MySQL DB instance
 
 External databases for Seqera Enterprise deployments require:
 - A **MySQL8 Community** DB instance.
 - At least **2 vCPUs**, **8 GB memory**, and **30 GB** SSD storage.
 - Manual MySQL user and database schema creation. See [Database configuration](../configuration/overview.mdx#seqera-and-redis-databases) for more details.
 
-:::caution 
-Recommended instance performance and storage requirements depend on the number of parallel pipelines you expect to run. 
+:::caution
+Recommended instance performance and storage requirements depend on the number of parallel pipelines you expect to run.
 :::
 
 Create an Azure MySQL DB instance:
@@ -123,19 +123,19 @@ Create an Azure MySQL DB instance:
   1. Select **Create**.
   1. On the **Select Azure Database for MySQL deployment option** pane, select **Flexible server** as the deployment option.
   1. On the **Basics** tab, enter or select the following:
-      - Your **Subscription** name 
-      - Your **Resource group** name 
+      - Your **Subscription** name
+      - Your **Resource group** name
       - A **Server name** such as `towerdbserver`
       - Your **Region**
       - The **Workload type**, based on your required `max_connections`
-      - **High availability** — high availability is recommended for production deployments 
+      - **High availability** — high availability is recommended for production deployments
       - **Standby availability zone** — standby server zone location
-      - **MySQL version** — 8.0 
-      - An **Admin username** to access the server 
-      - A **Password** to access the server 
-      - Your **Compute + storage** requirements, considering the minimum performance requirements outlined above 
-  1. Configure networking options. 
-  1. Select **Review + create**, then **Create**. 
+      - **MySQL version** — 8.0
+      - An **Admin username** to access the server
+      - A **Password** to access the server
+      - Your **Compute + storage** requirements, considering the minimum performance requirements outlined above
+  1. Configure networking options.
+  1. Select **Review + create**, then **Create**.
 
 </details>
 <details>
@@ -151,11 +151,11 @@ Create an Azure MySQL DB instance:
 
   1. Run `az mysql flexible-server db create` to create a database on your server:
 
-      ```bash 
+      ```bash
       az mysql flexible-server db create --resource-group towerrg
                                       --server-name towerdbserver
                                       --database-name towerdb
-      ```                                
+      ```
 
 </details>
 
@@ -199,7 +199,7 @@ Create an Azure Linux VM:
   1. Select **Review + create** at the bottom of the page.
   1. Review your VM details, then select **Create**.
   1. When the **Generate new key pair** window opens, select **Download private key and create resource**. Your key file will be download as `myKey.pem`. Note the path to which it was downloaded.
-  1. On the page for your new VM, copy the **Public IP address**. 
+  1. On the page for your new VM, copy the **Public IP address**.
 
   To make the VM's IP address static:
 
@@ -244,7 +244,7 @@ Create an Azure Linux VM:
 
   Run `az vm create`:
 
-  ```bash 
+  ```bash
   az vm create \
     --resource-group towerrg \
     --name towervm \
@@ -277,9 +277,9 @@ container registry ([cr.seqera.io](https://cr.seqera.io)). Contact [support](htt
     docker pull cr.seqera.io/private/nf-tower-enterprise/frontend:v23.4.3
     ```
 
-## Next steps 
+## Next steps
 
-See [Configuration](../configuration/overview). 
+See [Configuration](../configuration/overview).
 
 [docker]: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 [aks-walkthrough]: https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-portal
@@ -291,8 +291,8 @@ See [Configuration](../configuration/overview).
 [azure-linux-vm-portal]: https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal?tabs=ubuntu
 [azure-rg-cli]: https://learn.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-cli#create-a-resource-group
 [azure-rg-portal]: https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal
-[azure-sendmail]: https://docs.microsoft.com/en-us/azure/virtual-network/troubleshoot-outbound-smtp-connectivity#recommended-method-of-sending-email 
+[azure-sendmail]: https://docs.microsoft.com/en-us/azure/virtual-network/troubleshoot-outbound-smtp-connectivity#recommended-method-of-sending-email
 [azure-storage-portal]: https://learn.microsoft.com/en-ca/azure/storage/common/storage-account-create?tabs=azure-portal#create-a-storage-account-1
 [azure-storage-cli]: https://learn.microsoft.com/en-us/cli/azure/storage/account?view=azure-cli-latest#az-storage-account-create
 [msft-365]: https://docs.microsoft.com/en-us/exchange/mail-flow-best-practices/how-to-set-up-a-multifunction-device-or-application-to-send-email-using-microsoft-365-or-office-365
-[sendgrid]: https://docs.sendgrid.com/for-developers/partners/microsoft-azure-2021 
+[sendgrid]: https://docs.sendgrid.com/for-developers/partners/microsoft-azure-2021

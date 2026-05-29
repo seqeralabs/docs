@@ -79,6 +79,29 @@
   Req/Opt: Optional
   Description: Remote repository configuration used to pre-fill the Studio form.
     Can be `null`.
+- Name: "**UpdateDataStudio**"
+  Type: ""
+  Req/Opt: ""
+  Description: Update a Studio
+- Name: configuration
+  Type: object
+  Req/Opt: Optional
+  Description: Updated Studio resource allocation and environment configuration.
+    Can be `null`.
+- Name: description
+  Type: string
+  Req/Opt: Optional
+  Description: Optional Studio description. Maximum length is 2048 characters. Can
+    be `null`.
+- Name: labelIds
+  Type: array
+  Req/Opt: Optional
+  Description: Array of label numeric identifiers to apply to the Studio. Can be `null`.
+- Name: name
+  Type: string
+  Req/Opt: Optional
+  Description: Optional Studio session name. Must be between 1 and 80 characters
+    when provided. Can be `null`.
 - Name: "**UpdateDataStudioCheckpoint**"
   Type: ""
   Req/Opt: ""
@@ -113,3 +136,8 @@
   Description: If `true`, requests spot or preemptible capacity for the started
     Studio when supported by the selected compute environment. `null` preserves
     the saved setting.
+- Name: name
+  Type: string
+  Req/Opt: Optional
+  Description: Optional Studio session name. Must be between 1 and 80 characters
+    when provided. Can be `null`.

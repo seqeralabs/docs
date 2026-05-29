@@ -119,6 +119,10 @@ module.exports = {
         { type: "doc", id: "hide-datasets", label: "Hide datasets", className: "api-method post" },
         { type: "doc", id: "show-datasets", label: "Show datasets", className: "api-method post" },
         { type: "doc", id: "disable-dataset-version", label: "Disable dataset version", className: "api-method post" },
+        { type: "doc", id: "preview-dataset-url", label: "Preview content from a URL", className: "api-method post" },
+        { type: "doc", id: "validate-dataset-url", label: "Validate URL for dataset linking", className: "api-method post" },
+        { type: "doc", id: "link-dataset-version", label: "Link external URL as dataset version", className: "api-method post" },
+        { type: "doc", id: "preview-dataset-version", label: "Preview linked dataset content", className: "api-method get" },
         {
           type: "category",
           label: "Deprecated",
@@ -131,7 +135,6 @@ module.exports = {
             { type: "doc", id: "delete-dataset", label: "Delete dataset", className: "menu__list-item--deprecated api-method delete" },
             { type: "doc", id: "describe-dataset", label: "Describe dataset", className: "menu__list-item--deprecated api-method get" },
             { type: "doc", id: "upload-dataset", label: "Upload new dataset version", className: "menu__list-item--deprecated api-method post" },
-            { type: "doc", id: "download-dataset", label: "(Deprecated) Download dataset content", className: "menu__list-item--deprecated api-method get" },
             { type: "doc", id: "list-dataset-versions", label: "List all dataset versions", className: "menu__list-item--deprecated api-method get" },
           ],
         },
@@ -296,6 +299,7 @@ module.exports = {
         { type: "doc", id: "extend-data-studio-lifespan", label: "ExtendDataStudioLifespan", className: "api-method post" },
         { type: "doc", id: "start-data-studio", label: "Start Studio", className: "api-method put" },
         { type: "doc", id: "stop-data-studio", label: "Stop Studio", className: "api-method put" },
+        { type: "doc", id: "update-data-studio", label: "Update a Studio", className: "api-method put" },
       ],
     },
     {
@@ -316,6 +320,21 @@ module.exports = {
         { type: "doc", id: "delete-organization-member", label: "Delete member", className: "api-method delete" },
         { type: "doc", id: "update-organization-member-role", label: "Update member role", className: "api-method put" },
         { type: "doc", id: "describe-organization-quotas", label: "Describe organization quotas", className: "api-method get" },
+        { type: "doc", id: "list-user-roles-in-organization", label: "List all user roles and permissions in an organization", className: "api-method get" },
+      ],
+    },
+    {
+      type: "category",
+      label: "Roles",
+      link: {type: 'doc', id: 'info/roles-info'},
+      items: [
+        { type: "doc", id: "list-roles", label: "List roles", className: "api-method get" },
+        { type: "doc", id: "create-role", label: "Create role", className: "api-method post" },
+        { type: "doc", id: "list-role-permissions", label: "List role permissions", className: "api-method get" },
+        { type: "doc", id: "validate-role-name", label: "Validate role name", className: "api-method get" },
+        { type: "doc", id: "describe-role", label: "Describe role", className: "api-method get" },
+        { type: "doc", id: "update-role", label: "Update role", className: "api-method put" },
+        { type: "doc", id: "delete-role", label: "Delete role", className: "api-method delete" },
       ],
     },
     {

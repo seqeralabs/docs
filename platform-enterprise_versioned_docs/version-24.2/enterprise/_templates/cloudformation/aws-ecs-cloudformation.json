@@ -69,7 +69,7 @@
                 "ContainerDefinitions": [
                     {
                     "Name": "redis",
-                    "Image": "cr.seqera.io/public/redis:7.0.10",
+                    "Image": "docker.io/library/redis:7.4",
                     "Memory": 2000,
                     "Cpu": 0,
                     "PortMappings": [{
@@ -80,7 +80,7 @@
                     },
                     {
                     "Name": "cron",
-                    "Image": "cr.seqera.io/private/nf-tower-enterprise/backend:v24.2.4",
+                    "Image": "cr.seqera.io/enterprise/platform/backend:v24.2.4",
                     "Memory": 2000,
                     "Cpu": 0,
                     "Links": [
@@ -188,7 +188,7 @@
                     },
                     {
                     "Name": "frontend",
-                    "Image": "cr.seqera.io/private/nf-tower-enterprise/frontend:v24.2.4",
+                    "Image": "cr.seqera.io/enterprise/platform/frontend:v24.2.4",
                     "Memory": 2000,
                     "Cpu": 0,
                     "Essential": false,
@@ -211,7 +211,7 @@
                     "Hostname": "backend",
                     "Memory": 2000,
                     "Cpu": 0,
-                    "Image": "cr.seqera.io/private/nf-tower-enterprise/backend:v24.2.4",
+                    "Image": "cr.seqera.io/enterprise/platform/backend:v24.2.4",
                     "PortMappings": [{
                         "ContainerPort": 8080,
                         "HostPort": 8080

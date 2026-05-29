@@ -17,7 +17,7 @@
       "items": [
           "tutorials/nextflow-wave",
           "tutorials/nextflow-seqera-containers",
-          "tutorials/wave-cli" 
+          "tutorials/wave-cli"
       ]
     },
     {
@@ -25,7 +25,7 @@
       "label": "Nextflow integration",
       "link": {"type": "doc", "id": "nextflow/index"},
       "collapsed": true,
-      "items": [   
+      "items": [
         "nextflow/use-cases",
         "nextflow/configuration",
         {
@@ -91,10 +91,10 @@
             "migrations/1-25-0",
             "migrations/1-24-0",
             "migrations/1-21-0"
-          ] 
+          ]
         }
       ]
-    },   
+    },
     "faq",
     {
       "type": "link",

@@ -2,7 +2,7 @@
 title: "User roles"
 description: "Understand the various roles in Seqera Platform."
 date created: "2024-06-10"
-last updated: "2025-07-03"
+last updated: "2026-05-22"
 tags: [roles, user-roles]
 ---
 
@@ -10,6 +10,10 @@ Organization owners can assign role-based access levels to individual **particip
 
 :::tip
 You can group **members** and **collaborators** into **teams** and apply a role to that team. Members and collaborators inherit the access role of the team.
+:::
+
+:::note
+Cloud Pro organizations with active [single sign-on (SSO)](../getting-started/single-sign-on) can't add external workspace collaborators. External users who need workspace access must be invited as organization members and authenticate through the configured IdP.
 :::
 
 ### Organization user roles
@@ -31,7 +35,7 @@ As a best practice, use teams as the primary vehicle for assigning rights within
 
 ## Workspace participant roles
 
-- **Owner**: The user who created the workspace is its first owner. Owners have full administrative privileges over a workspace and its resources, including permission to delete the workspace. Regular participants can also be promoted to workspace owners. 
+- **Owner**: The user who created the workspace is its first owner. Owners have full administrative privileges over a workspace and its resources, including permission to delete the workspace. Regular participants can also be promoted to workspace owners.
 - **Admin**: Workspace admins share most of the administrative privileges of workspace owners, but admins cannot delete a workspace.
 - **Maintain**: Workspace maintainers can use and manage all workspace resources, but cannot create workspace credentials or compute environments.
 - **Launch**: Launch users can use existing workspace resources and launch pipelines, but they cannot modify workspace resources.
@@ -74,6 +78,7 @@ The following table shows which operations are available to the default workspac
 | **label:write**                | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **label:delete**               | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **launch:read**                | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **lineage:read**               | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
 | **pipeline:read**              | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
 | **pipeline:write**             | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **pipeline:delete**            | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
@@ -83,7 +88,7 @@ The following table shows which operations are available to the default workspac
 | **pipeline_secrets:delete**    | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **platform:read**              | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
 | **studio:read**                | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
-| **studio:execute**             | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **studio:execute**             | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **studio:write**               | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **studio:delete**              | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **studio:admin**               | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
@@ -103,6 +108,8 @@ The following table shows which operations are available to the default workspac
 | **workspace:write**            | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
 | **workspace:delete**           | ✅     | ❌     | ❌        | ❌      | ❌       | ❌      |
 | **workspace:admin**            | ✅     | ❌     | ❌        | ❌      | ❌       | ❌      |
+| **workspace_lineage:read**     | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **workspace_lineage:write**    | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
 | **workspace_self:delete**      | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
 | **workspace_studio:read**      | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
 | **workspace_studio:write**     | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |

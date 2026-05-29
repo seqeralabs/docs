@@ -227,6 +227,20 @@ export default async function createConfigAsync() {
     //   },
     // },
 
+    markdown: {
+      // The vendored MultiQC `config_schema.md` is auto-generated from a Python
+      // schema and contains literal `{...}` examples and `<details>` blocks
+      // around fenced code that the MDX parser rejects. Force CommonMark for
+      // that file so its content renders as plain markdown + HTML.
+      parseFrontMatter: async ({ filePath, fileContent, defaultParseFrontMatter }) => {
+        const result = await defaultParseFrontMatter({ filePath, fileContent });
+        if (filePath.endsWith("multiqc_docs/multiqc_repo/docs/markdown/config_schema.md")) {
+          result.frontMatter.mdx = { ...(result.frontMatter.mdx || {}), format: "md" };
+        }
+        return result;
+      },
+    },
+
     customFields: {
       // Put your custom environment here
     },
@@ -234,6 +248,7 @@ export default async function createConfigAsync() {
     clientModules: [
     require.resolve('./src/client-modules/cross-site-nav.js'),
     require.resolve('./src/client-modules/posthog-search.js'),
+    require.resolve('./src/client-modules/katex-css.js'),
     ],
 
 
@@ -409,6 +424,11 @@ export default async function createConfigAsync() {
               optimization: {
                 concatenateModules:  false,
               },
+              resolve: {
+                fallback: {
+                  path: require.resolve('path-browserify'),
+                },
+              },
             };
           },
         };
@@ -416,6 +436,15 @@ export default async function createConfigAsync() {
     ].filter(Boolean),
 
     themeConfig: getSeqeraThemeConfig({
+      seqera: {
+        docs: {
+          versionDropdown: {
+            'platform-enterprise': {
+              showCurrent: process.env.INCLUDE_NEXT ? true : false,
+            },
+          },
+        },
+      },
       typesense: {
         typesenseCollectionName: 'seqera_docs',
         searchPagePath: '/search',
@@ -432,6 +461,8 @@ export default async function createConfigAsync() {
         },
         typesenseSearchParameters: {
           query_by: 'content,hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3',
+          query_by_weights: '1,1,4,3,2',
+          drop_tokens_threshold: 0,
           group_by: 'url',
           group_limit: 1,
           per_page: 20,

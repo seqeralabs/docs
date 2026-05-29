@@ -1,20 +1,20 @@
 ---
-title: "Skills"
-description: "Discover, create, and install skills in Seqera AI CLI"
+title: "Skills configuration"
+description: "Discover, create, and install skills in the Seqera CLI"
 date created: "2026-03-11"
-tags: [seqera-ai, cli, skills]
+tags: [co-scientist, cli, skills]
 ---
 
-:::note
-Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
+Skills are reusable instruction sets that extend Co-Scientist with domain-specific workflows, prompts, and operating guidance.
+
+Co-Scientist supports two skill workflows:
+
+- **Session skills**: `SKILL.md` files discovered from project and user skill directories and sent to the Co-Scientist backend as session context when you run `seqera ai`
+- **Agent integrations**: skill files installed by `seqera skill install` so other coding agents can invoke Co-Scientist as a subagent
+
+:::tip
+See [Skills](./reference/skills-reference.md) for a list of the available built-in skills and slash commands.
 :::
-
-Skills are reusable instruction sets that extend Seqera AI with domain-specific workflows, prompts, and operating guidance.
-
-Seqera AI supports two skill workflows:
-
-- **CLI skills**: `SKILL.md` files discovered from project and user skill directories and sent to the backend as session context
-- **Agent integrations**: skill files installed by `seqera skill install` so other coding agents can invoke Seqera AI as a subagent
 
 ## Use skills in the CLI
 
@@ -24,37 +24,7 @@ You can:
 
 - Type `/` to browse built-in commands and backend skills
 - Run `/help` to see commands and skill descriptions in the terminal
-- Add project-specific `SKILL.md` files so Seqera AI starts each session with the right context
-
-## Built-in skills
-
-Your Seqera AI deployment can expose built-in skills as slash commands. These appear in the `/` command palette and in `/help`.
-
-The CLI includes the following built-in skills by default:
-
-| Command | Description |
-|---------|-------------|
-| `/nextflow-config` | Generate and explain Nextflow configuration files |
-| `/nextflow-schema` | Generate `nextflow_schema.json` and sample sheet schema files |
-| `/debug-local-run` | Debug a local Nextflow pipeline run using `.nextflow.log`, work directories, and related artifacts |
-| `/debug-last-run-on-seqera` | Debug the last pipeline run on Seqera Platform |
-| `/convert-jupyter-notebook` | Convert Jupyter notebooks to Nextflow pipelines |
-| `/convert-python-script` | Convert Python scripts, including standalone scripts and Snakemake-style logic, to Nextflow |
-| `/convert-r-script` | Convert R scripts to Nextflow pipelines |
-| `/fix-strict-syntax` | Fix Nextflow strict syntax errors and help migrate pipelines to the v2 parser |
-| `/nf-aggregate` | Aggregate metrics from Nextflow runs on Seqera Platform using the `nf-aggregate` pipeline |
-| `/nf-data-lineage` | Explore Nextflow data lineage to trace which inputs and processes produced a result |
-| `/nf-pipeline-structure` | Analyze a local Nextflow pipeline structure, including processes, workflows, modules, and channel flow |
-| `/nf-run-history` | Analyze local Nextflow run history and summarize recent activity, progress, and recurring issues |
-| `/nf-schema-migration` | Migrate Nextflow pipelines from `nf-validation` to `nf-schema` v2 |
-| `/seqera-mcp` | Access Seqera Platform through MCP tools for structured, validated operations |
-| `/seqera-platform-api` | Query and manipulate Seqera Platform resources directly through the REST API |
-| `/seqerakit` | Write `seqerakit` YAML configuration for automating Seqera Platform setup |
-| `/simplify` | Review changed code for reuse, quality, and efficiency, then clean up issues found |
-
-:::note
-The exact built-in skills available in your environment may vary by deployment and release. Use `/help` or type `/` in the CLI to see the current list.
-:::
+- Add project-specific `SKILL.md` files so Co-Scientist starts each session with the right context
 
 ## Skill format
 
@@ -79,7 +49,7 @@ Detailed instructions, examples, and guidelines.
 
 ## Discovery directories
 
-Seqera AI searches these directories in order. The first directory to register a skill name takes precedence, and later skills with the same name are ignored.
+Co-Scientist searches these directories in order. The first directory to register a skill name takes precedence, and later skills with the same name are ignored.
 
 | Priority | Path | Scope |
 |----------|------|-------|
@@ -96,7 +66,7 @@ Project skills take priority over user skills, so you can override a global skil
 
 `.agents/skills/` follows the [Agent Skills](https://agentskills.io) convention, which makes skills portable across coding agents. `.seqera/skills/` is Seqera-specific.
 
-## Install skills into Seqera AI
+## Install skills into Co-Scientist
 
 You can add skills by creating the directory structure manually or by installing them from the [Agent Skills](https://agentskills.io) ecosystem:
 
@@ -106,54 +76,17 @@ npx skills add https://github.com/vercel-labs/agent-skills --skill vercel-react-
 
 After adding a skill, restart `seqera ai` so the new skill is loaded into the session.
 
-## Install Seqera AI into coding agents
+## Install Co-Scientist into coding agents
 
-Use `seqera skill install` to install Seqera AI as a skill or instruction file for another agent:
-
-```bash
-seqera skill install
-```
-
-Common installation flows:
-
-```bash
-seqera skill install --local
-seqera skill install --global
-seqera skill install --detect
-```
-
-Supported agents include:
-
-| Agent | Format |
-| --- | --- |
-| [Claude Code](https://claude.ai/code) | `.claude/skills/` |
-| [Codex](https://openai.com/codex) | `AGENTS.md` |
-| [Cursor](https://www.cursor.com/) | `.cursor/rules/` |
-| [GitHub Copilot](https://github.com/features/copilot) | `.github/copilot-instructions.md` |
-| [OpenCode](https://opencode.ai/) | `.opencode/` |
-| [Pi](https://github.com/badlogic/pi-mono) | `.pi/` |
-| [Windsurf](https://windsurf.com/) | `.windsurf/rules/` |
-
-Verify installed agent integrations with:
-
-```bash
-seqera skill check
-```
-
-Update outdated installations automatically:
-
-```bash
-seqera skill check --update
-```
-
-## Payload limits
-
-To keep session payloads small, Seqera AI caps discovered skill context at **5 KB**. The total session payload cap is **20 KB**.
+Co-Scientist can install itself as a skill or instruction file so another coding agent can invoke it as a subagent. See [Coding agents](./coding-agents.md) for the supported agents and the `seqera skill install` and `seqera skill check` commands.
 
 ## Learn more
 
-- [Modes](./modes.md): Work in build mode, plan mode, and goal mode
-- [Working with Claude Code](./skill-claude-code.md): Install Seqera AI as a skill for Claude Code
-- [Working with Codex](./skill-codex.md): Install Seqera AI as a skill for Codex
-- [Working with GitHub Copilot](./skill-github-copilot.md): Install Seqera AI as a skill for GitHub Copilot
-- [Working with other coding agents](./skill-other-agents.md): Install Seqera AI for other coding agents
+- [Installation](./installation.mdx): Install, update, and configure the CLI
+- [Quickstart](./quickstart.md): Run your first Co-Scientist session
+- [Authentication](./authentication.md): Log in, log out, and manage sessions
+- [Use cases](./use-cases.md): Seqera CLI use cases
+- [Using Co-Scientist](./configuration.md): Configure modes, sessions, skills, command approval, and more
+- [Coding Agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
+- [Skills](./reference/skills-reference.md): Built-in skills, slash commands, and session limits
+- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

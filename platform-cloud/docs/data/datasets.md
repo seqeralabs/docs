@@ -155,7 +155,7 @@ To view a list of all pipeline runs in a workspace that have used a specific dat
 
 **Toggle dataset visibility**
 
-Select the three dots next to a dataset and select **Mark dataset as hidden** to hide a dataset no longer used in your workspace. To show a hidden dataset, select "Mark dataset as visible" to make it visible. This filter applies to all workspace users. 
+Select the three dots next to a dataset and select **Mark dataset as hidden** to hide a dataset no longer used in your workspace. To show a hidden dataset, select "Mark dataset as visible" to make it visible. This filter applies to all workspace users.
 
 You can toggle between **Visible**, **Hidden**, and **All** datasets in the **Show** drop-down on the main datasets page.
 

@@ -1,0 +1,1053 @@
+{
+  "new_endpoints": [
+    {
+      "endpoint": "/datasets/preview-url",
+      "method": "POST",
+      "operation_id": "PreviewDatasetUrl",
+      "tag": "datasets",
+      "summary": "Preview content from a URL",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/datasets/validate-url",
+      "method": "POST",
+      "operation_id": "ValidateDatasetUrl",
+      "tag": "datasets",
+      "summary": "Validate URL for dataset linking",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/datasets/{datasetId}/link",
+      "method": "POST",
+      "operation_id": "LinkDatasetVersion",
+      "tag": "datasets",
+      "summary": "Link external URL as dataset version",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/datasets/{datasetId}/v/{version}/preview",
+      "method": "GET",
+      "operation_id": "PreviewDatasetVersion",
+      "tag": "datasets",
+      "summary": "Preview linked dataset content",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/orgs/{orgId}/users/{userId}/roles",
+      "method": "GET",
+      "operation_id": "ListUserRolesInOrganization",
+      "tag": "orgs",
+      "summary": "List all user roles and permissions in an organization",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/roles",
+      "method": "GET",
+      "operation_id": "ListRoles",
+      "tag": "roles",
+      "summary": "List all roles",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/roles",
+      "method": "POST",
+      "operation_id": "CreateRole",
+      "tag": "roles",
+      "summary": "Create a role with the given name",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/roles/permissions",
+      "method": "GET",
+      "operation_id": "ListRolePermissions",
+      "tag": "roles",
+      "summary": "List all role permissions available in the system",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/roles/validate",
+      "method": "GET",
+      "operation_id": "ValidateRoleName",
+      "tag": "roles",
+      "summary": "Validate if a role name is available within the organization",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/roles/{roleName}",
+      "method": "DELETE",
+      "operation_id": "DeleteRole",
+      "tag": "roles",
+      "summary": "Delete a role with the given name",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/roles/{roleName}",
+      "method": "GET",
+      "operation_id": "DescribeRole",
+      "tag": "roles",
+      "summary": "Describe role and its permissions fetching by role name",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/roles/{roleName}",
+      "method": "PUT",
+      "operation_id": "UpdateRole",
+      "tag": "roles",
+      "summary": "Update a role with the given name",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/studios/{sessionId}",
+      "method": "PUT",
+      "operation_id": "UpdateDataStudio",
+      "tag": "studios",
+      "summary": "Update a Studio",
+      "target": "$[\"paths\"][\"/studios/{sessionId}\"]"
+    }
+  ],
+  "modified_endpoints": [
+    {
+      "endpoint": "/avatars",
+      "method": "POST",
+      "operation_id": null,
+      "tag": "avatars",
+      "summary": null,
+      "target": "$[\"paths\"][\"/avatars\"][\"post\"][\"requestBody\"][\"content\"][\"multipart/form-data\"][\"encoding\"][\"image\"]"
+    },
+    {
+      "endpoint": "/datasets/{datasetId}/v/{version}/n/{fileName}",
+      "method": "GET",
+      "operation_id": null,
+      "tag": "datasets",
+      "summary": null,
+      "target": "$[\"paths\"][\"/datasets/{datasetId}/v/{version}/n/{fileName}\"][\"get\"][\"responses\"]"
+    },
+    {
+      "endpoint": "/orgs/{orgId}/workspaces/{workspaceId}/participants/add",
+      "method": "PUT",
+      "operation_id": null,
+      "tag": "orgs",
+      "summary": null,
+      "target": "$[\"paths\"][\"/orgs/{orgId}/workspaces/{workspaceId}/participants/add\"][\"put\"][\"responses\"][\"409\"][\"description\"]"
+    },
+    {
+      "endpoint": "/pipelines/{pipelineId}",
+      "method": "PUT",
+      "operation_id": null,
+      "tag": "pipelines",
+      "summary": null,
+      "target": "$[\"paths\"][\"/pipelines/{pipelineId}\"][\"put\"][\"description\"]"
+    }
+  ],
+  "new_schemas": [
+    {
+      "schema": "ActiveConnection",
+      "target": "$[\"components\"][\"schemas\"][\"ActiveConnection\"][\"allOf\"][1]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AzBatchPoolConfig",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "BucketActionConfig",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "BucketActionEvent",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "BucketActionRequest",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ChangeStatus",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "CreateRoleRequest",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "CreateRoleResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "DataStudioComputeEnvDto",
+      "target": "$[\"components\"][\"schemas\"][\"DataStudioComputeEnvDto\"][\"allOf\"][1]",
+      "is_property_change": false
+    },
+    {
+      "schema": "DataStudioUpdateRequest",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "DatasetPreviewResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "DescribeRoleResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "GitHubAppSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "LinkVersionRequest",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "LinkedSourceDto",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ListRolePermissionsResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ListRolesResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ListRolesResponse.RoleInfo",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ListUserRolesResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ResourceAllocation",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "RoleDto",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "RolePermissionResponseDto",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "SchedConfig",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "SourceType",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "TeamType",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "TraceCreateMetadata",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "UpdateRoleRequest",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "UserWorkspacePermissionDto",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "UserWorkspaceRoleDto",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "UserWorkspaceRolesDto",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ValidateUrlRequest",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ValidateUrlResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "WorkflowMaxDbDto",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowMaxDbDto\"][\"allOf\"][1]",
+      "is_property_change": false
+    },
+    {
+      "schema": "WspRoleSourceType",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    }
+  ],
+  "modified_schemas": [
+    {
+      "schema": "Action",
+      "target": "$[\"components\"][\"schemas\"][\"Action.ConfigType\"][\"discriminator\"][\"mapping\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Action",
+      "target": "$[\"components\"][\"schemas\"][\"Action.ConfigType\"][\"oneOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Action",
+      "target": "$[\"components\"][\"schemas\"][\"Action.EventType\"][\"discriminator\"][\"mapping\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Action",
+      "target": "$[\"components\"][\"schemas\"][\"Action.EventType\"][\"oneOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Action",
+      "target": "$[\"components\"][\"schemas\"][\"Action.Source\"][\"enum\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Action",
+      "target": "$[\"components\"][\"schemas\"][\"Action.Source\"][\"x-enum-varnames\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ActionResponseDto",
+      "target": "$[\"components\"][\"schemas\"][\"ActionResponseDto\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ActionResponseDto",
+      "target": "$[\"components\"][\"schemas\"][\"ActionResponseDto\"][\"properties\"][\"message\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsBatchConfig\"][\"properties\"][\"forgedResources\"][\"items\"][\"additionalProperties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsCloudConfig\"][\"properties\"][\"forgedResources\"][\"items\"][\"additionalProperties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsCloudConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsCloudConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"][\"deleteJobsOnCompletion\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"][\"deleteJobsOnCompletion\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"][\"deleteJobsOnCompletion\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"][\"deleteJobsOnCompletion\"][\"$ref\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchForgeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchForgeConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchForgeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchForgeConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchForgeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchForgeConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"ComputeConfig\"][\"oneOf\"][*]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"ComputeConfig\"][\"oneOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ComputeEnvResponseDto",
+      "target": "$[\"components\"][\"schemas\"][\"ComputeEnvResponseDto\"][\"properties\"][\"platform\"][\"enum\"][*]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ComputeEnvResponseDto",
+      "target": "$[\"components\"][\"schemas\"][\"ComputeEnvResponseDto\"][\"properties\"][\"platform\"][\"enum\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ComputeEnv_ComputeConfig_",
+      "target": "$[\"components\"][\"schemas\"][\"ComputeEnv_ComputeConfig_\"][\"properties\"][\"platform\"][\"enum\"][*]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ComputeEnv_ComputeConfig_",
+      "target": "$[\"components\"][\"schemas\"][\"ComputeEnv_ComputeConfig_\"][\"properties\"][\"platform\"][\"enum\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "CreateActionRequest",
+      "target": "$[\"components\"][\"schemas\"][\"CreateActionRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "CreateDatasetRequest",
+      "target": "$[\"components\"][\"schemas\"][\"CreateDatasetRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "Credentials",
+      "target": "$[\"components\"][\"schemas\"][\"Credentials\"][\"properties\"][\"provider\"][\"enum\"][*]",
+      "is_property_change": true
+    },
+    {
+      "schema": "Credentials",
+      "target": "$[\"components\"][\"schemas\"][\"Credentials\"][\"properties\"][\"provider\"][\"enum\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DataLinkDownloadUrlResponse",
+      "target": "$[\"components\"][\"schemas\"][\"DataLinkDownloadUrlResponse\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DataLinkDownloadUrlResponse",
+      "target": "$[\"components\"][\"schemas\"][\"DataLinkDownloadUrlResponse\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DataLinkDownloadUrlResponse",
+      "target": "$[\"components\"][\"schemas\"][\"DataLinkDownloadUrlResponse\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DataLinkItemType",
+      "target": "$[\"components\"][\"schemas\"][\"DataLinkItemType\"][\"enum\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "DataStudioStartRequest",
+      "target": "$[\"components\"][\"schemas\"][\"DataStudioStartRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DataStudioWorkspaceSettingsRequest",
+      "target": "$[\"components\"][\"schemas\"][\"DataStudioWorkspaceSettingsRequest\"][\"properties\"][\"containerRepository\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DataStudioWorkspaceSettingsRequest",
+      "target": "$[\"components\"][\"schemas\"][\"DataStudioWorkspaceSettingsRequest\"][\"properties\"][\"lifespanHours\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DataStudioWorkspaceSettingsRequest",
+      "target": "$[\"components\"][\"schemas\"][\"DataStudioWorkspaceSettingsRequest\"][\"properties\"][\"lifespanHours\"][\"minimum\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DataStudioWorkspaceSettingsRequest",
+      "target": "$[\"components\"][\"schemas\"][\"DataStudioWorkspaceSettingsRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DataStudioWorkspaceSettingsRequest",
+      "target": "$[\"components\"][\"schemas\"][\"DataStudioWorkspaceSettingsRequest\"][\"properties\"][\"privateStudioByDefault\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DataStudioWorkspaceSettingsResponse",
+      "target": "$[\"components\"][\"schemas\"][\"DataStudioWorkspaceSettingsResponse\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DatasetDto",
+      "target": "$[\"components\"][\"schemas\"][\"DatasetDto\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DatasetVersionDto",
+      "target": "$[\"components\"][\"schemas\"][\"DatasetVersionDto\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleBatchConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleBatchConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleBatchConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleBatchConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleCloudConfig\"][\"properties\"][\"forgedResources\"][\"items\"][\"additionalProperties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleImage",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleImage\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GooglePlatformMetainfo",
+      "target": "$[\"components\"][\"schemas\"][\"GooglePlatformMetainfo\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GooglePlatformMetainfo",
+      "target": "$[\"components\"][\"schemas\"][\"GooglePlatformMetainfo\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleSecurityKeys\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleSecurityKeys\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleSecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleSecurityKeys\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "LaunchActionRequest",
+      "target": "$[\"components\"][\"schemas\"][\"LaunchActionRequest\"][\"properties\"][\"params\"][\"additionalProperties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ListActionsResponse",
+      "target": "$[\"components\"][\"schemas\"][\"ListActionsResponse.ActionInfo\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ListActionsResponse",
+      "target": "$[\"components\"][\"schemas\"][\"ListActionsResponse.ActionInfo\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "LocalComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"LocalComputeConfig\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "LocalComputeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"LocalComputeConfig\"][\"allOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "RunLog",
+      "target": "$[\"components\"][\"schemas\"][\"RunLog\"][\"properties\"][\"outputs\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "SecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"SecurityKeys\"][\"discriminator\"][\"mapping\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "SecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"SecurityKeys\"][\"oneOf\"][*]",
+      "is_property_change": false
+    },
+    {
+      "schema": "SecurityKeys",
+      "target": "$[\"components\"][\"schemas\"][\"SecurityKeys\"][\"oneOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ServiceInfo",
+      "target": "$[\"components\"][\"schemas\"][\"ServiceInfo\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "Task",
+      "target": "$[\"components\"][\"schemas\"][\"Task\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "Task",
+      "target": "$[\"components\"][\"schemas\"][\"Task\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "Task",
+      "target": "$[\"components\"][\"schemas\"][\"Task\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "TraceCreateResponse",
+      "target": "$[\"components\"][\"schemas\"][\"TraceCreateResponse\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "UpdateActionRequest",
+      "target": "$[\"components\"][\"schemas\"][\"UpdateActionRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "Workflow",
+      "target": "$[\"components\"][\"schemas\"][\"Workflow\"][\"properties\"][\"params\"][\"additionalProperties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowDbDto",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowDbDto\"][\"properties\"][\"params\"][\"additionalProperties\"]",
+      "is_property_change": true
+    }
+  ],
+  "new_parameters": [
+    {
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/generate-download-url\"][\"get\"][\"parameters\"][*]",
+      "update": null
+    },
+    {
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/generate-download-url\"][\"get\"][\"parameters\"]",
+      "update": [
+        {
+          "description": "Data-link string identifier",
+          "in": "path",
+          "name": "dataLinkId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "description": "File path to download",
+          "in": "query",
+          "name": "filePath",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "description": "Credentials string identifier",
+          "in": "query",
+          "name": "credentialsId",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "description": "Workspace numeric identifier",
+          "in": "query",
+          "name": "workspaceId",
+          "schema": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        {
+          "description": "Whether to generate the URL for preview purposes or direct download (default: false)",
+          "in": "query",
+          "name": "preview",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "description": "When true, treats the file as a Fusion symlink and resolves its target (default: false)",
+          "in": "query",
+          "name": "resolveSymlink",
+          "schema": {
+            "type": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "target": "$[\"paths\"][\"/orgs/{orgId}/teams/{teamId}/members\"][\"get\"][\"parameters\"][4]",
+      "update": {
+        "explode": false
+      }
+    },
+    {
+      "target": "$[\"paths\"][\"/platforms/{platformId}\"][\"get\"][\"parameters\"][2]",
+      "update": {
+        "explode": false
+      }
+    },
+    {
+      "target": "$[\"paths\"][\"/platforms/{platformId}\"][\"get\"][\"parameters\"][3]",
+      "update": {
+        "explode": false
+      }
+    },
+    {
+      "target": "$[\"paths\"][\"/workspaces/{workspaceId}/datasets/versions\"][\"get\"][\"parameters\"][1]",
+      "update": {
+        "explode": false
+      }
+    }
+  ],
+  "deprecated_endpoints": [
+    {
+      "endpoint": "/workspaces/{workspaceId}/datasets/{datasetId}/v/{version}/n/{fileName}",
+      "method": "UNKNOWN",
+      "operation_id": null,
+      "tag": "workspaces",
+      "summary": null,
+      "target": "$[\"paths\"][\"/workspaces/{workspaceId}/datasets/{datasetId}/v/{version}/n/{fileName}\"]"
+    }
+  ],
+  "by_tag": {
+    "actions": {
+      "endpoints": [],
+      "schemas": [
+        {
+          "schema": "BucketActionConfig",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "BucketActionEvent",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "BucketActionRequest",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "compute-envs": {
+      "endpoints": [],
+      "schemas": [
+        {
+          "schema": "DataStudioComputeEnvDto",
+          "target": "$[\"components\"][\"schemas\"][\"DataStudioComputeEnvDto\"][\"allOf\"][1]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "studios": {
+      "endpoints": [
+        {
+          "endpoint": "/studios/{sessionId}",
+          "method": "PUT",
+          "operation_id": "UpdateDataStudio",
+          "tag": "studios",
+          "summary": "Update a Studio",
+          "target": "$[\"paths\"][\"/studios/{sessionId}\"]"
+        }
+      ],
+      "schemas": [
+        {
+          "schema": "DataStudioUpdateRequest",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "datasets": {
+      "endpoints": [
+        {
+          "endpoint": "/datasets/preview-url",
+          "method": "POST",
+          "operation_id": "PreviewDatasetUrl",
+          "tag": "datasets",
+          "summary": "Preview content from a URL",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/datasets/validate-url",
+          "method": "POST",
+          "operation_id": "ValidateDatasetUrl",
+          "tag": "datasets",
+          "summary": "Validate URL for dataset linking",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/datasets/{datasetId}/link",
+          "method": "POST",
+          "operation_id": "LinkDatasetVersion",
+          "tag": "datasets",
+          "summary": "Link external URL as dataset version",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/datasets/{datasetId}/v/{version}/preview",
+          "method": "GET",
+          "operation_id": "PreviewDatasetVersion",
+          "tag": "datasets",
+          "summary": "Preview linked dataset content",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": [
+        {
+          "schema": "DatasetPreviewResponse",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "users": {
+      "endpoints": [],
+      "schemas": [
+        {
+          "schema": "ListUserRolesResponse",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "teams": {
+      "endpoints": [],
+      "schemas": [
+        {
+          "schema": "TeamType",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "workspaces": {
+      "endpoints": [],
+      "schemas": [
+        {
+          "schema": "UserWorkspacePermissionDto",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "UserWorkspaceRoleDto",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "UserWorkspaceRolesDto",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "workflows": {
+      "endpoints": [],
+      "schemas": [
+        {
+          "schema": "WorkflowMaxDbDto",
+          "target": "$[\"components\"][\"schemas\"][\"WorkflowMaxDbDto\"][\"allOf\"][1]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "orgs": {
+      "endpoints": [
+        {
+          "endpoint": "/orgs/{orgId}/users/{userId}/roles",
+          "method": "GET",
+          "operation_id": "ListUserRolesInOrganization",
+          "tag": "orgs",
+          "summary": "List all user roles and permissions in an organization",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": []
+    },
+    "roles": {
+      "endpoints": [
+        {
+          "endpoint": "/roles",
+          "method": "GET",
+          "operation_id": "ListRoles",
+          "tag": "roles",
+          "summary": "List all roles",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/roles",
+          "method": "POST",
+          "operation_id": "CreateRole",
+          "tag": "roles",
+          "summary": "Create a role with the given name",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/roles/permissions",
+          "method": "GET",
+          "operation_id": "ListRolePermissions",
+          "tag": "roles",
+          "summary": "List all role permissions available in the system",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/roles/validate",
+          "method": "GET",
+          "operation_id": "ValidateRoleName",
+          "tag": "roles",
+          "summary": "Validate if a role name is available within the organization",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/roles/{roleName}",
+          "method": "DELETE",
+          "operation_id": "DeleteRole",
+          "tag": "roles",
+          "summary": "Delete a role with the given name",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/roles/{roleName}",
+          "method": "GET",
+          "operation_id": "DescribeRole",
+          "tag": "roles",
+          "summary": "Describe role and its permissions fetching by role name",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/roles/{roleName}",
+          "method": "PUT",
+          "operation_id": "UpdateRole",
+          "tag": "roles",
+          "summary": "Update a role with the given name",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": []
+    }
+  },
+  "summary": {
+    "total_new_endpoints": 13,
+    "total_modified_endpoints": 4,
+    "total_new_schemas": 34,
+    "total_modified_schemas": 81,
+    "affected_tags": [
+      "actions",
+      "compute-envs",
+      "studios",
+      "datasets",
+      "users",
+      "teams",
+      "workspaces",
+      "workflows",
+      "orgs",
+      "roles"
+    ],
+    "requires_new_category": true
+  }
+}

@@ -7,7 +7,7 @@ tags: [docker, compose, kubernetes, data, studios, deployment]
 
 Enable Data Studios as part of your Seqera Platform Enterprise instance. You must have Data Explorer enabled to use Data Studios. Only the AWS public cloud is currently supported.
 
-:::caution 
+:::caution
 You must complete the upgrade of your Seqera Enterprise installation to version 24.1.4 before enabling and configuring Data Studios.
 :::
 
@@ -21,7 +21,7 @@ Data Studios uses the following set of domains and subdomains:
 
 - The domain that you set for `TOWER_SERVER_URL`, such as `example.com`.
 - A wildcard subdomain that you must configure specifically for Data Studios. This wildcard subdomain is the parent for each unique data studios session URL, such as `abcd.example.com`.
-- The connection proxy, defined by `CONNECT_PROXY_URL`. This URL is a first-level subdomain of your `TOWER_SERVER_URL`. For example, `https://connect.example.com`. 
+- The connection proxy, defined by `CONNECT_PROXY_URL`. This URL is a first-level subdomain of your `TOWER_SERVER_URL`. For example, `https://connect.example.com`.
 
 ## Data Studios workspace availability
 
@@ -71,7 +71,7 @@ This guide assumes that all services will be run in the same container as the re
     openssl rsa -pubout -in private.pem -out public.pem
     ```
 
-1. Download the [data-studios-rsa.pem](./_templates/docker/data-studios-rsa.pem) file and replace its contents with the content of your private and public key files, in the same order (private key on top, public key directly beneath it). Save the file as `data-studios-rsa.pem`, in the same directory as your `docker-compose.yml` file. 
+1. Download the [data-studios-rsa.pem](./_templates/docker/data-studios-rsa.pem) file and replace its contents with the content of your private and public key files, in the same order (private key on top, public key directly beneath it). Save the file as `data-studios-rsa.pem`, in the same directory as your `docker-compose.yml` file.
 
 1. Open the `docker-compose.yml` and uncomment the volume mount for the PEM key file for the `backend` and `cron` services in the `volumes` list. Your PEM file must be named `data-studios-rsa.pem`.
 

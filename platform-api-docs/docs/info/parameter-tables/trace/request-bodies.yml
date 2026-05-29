@@ -1659,6 +1659,42 @@
   Type: string
   Req/Opt: Optional
   Description: Timestamp when the task record was last updated.
+- Name: tasks[].errorMessage
+  Type: string
+  Req/Opt: Optional
+  Description: Human-readable message for platform-specific task exit codes. Can be `null`.
+- Name: tasks[].logStreamId
+  Type: string
+  Req/Opt: Optional
+  Description: Provider log stream identifier associated with the task. Can be `null`.
+- Name: tasks[].resourceAllocation
+  Type: object
+  Req/Opt: Optional
+  Description: ""
+- Name: tasks[].resourceAllocation.acceleratorCount
+  Type: integer
+  Req/Opt: Optional
+  Description: Number of accelerator devices allocated to the task.
+- Name: tasks[].resourceAllocation.acceleratorName
+  Type: string
+  Req/Opt: Optional
+  Description: Accelerator model name allocated to the task.
+- Name: tasks[].resourceAllocation.acceleratorType
+  Type: string
+  Req/Opt: Optional
+  Description: Accelerator type allocated to the task.
+- Name: tasks[].resourceAllocation.cpuShares
+  Type: integer
+  Req/Opt: Optional
+  Description: Number of CPU shares allocated to the task by the scheduler.
+- Name: tasks[].resourceAllocation.memoryMiB
+  Type: integer
+  Req/Opt: Optional
+  Description: Memory allocated to the task by the scheduler, in MiB.
+- Name: tasks[].resourceAllocation.time
+  Type: string
+  Req/Opt: Optional
+  Description: Wall clock time allocated to the task by the scheduler.
 - Name: progress
   Type: object
   Req/Opt: Optional

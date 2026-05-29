@@ -179,7 +179,7 @@ This approach ensures that a session doesn't initially include unnecessary free 
 
 The maximum storage allocation for a session is limited by the compute environment disk boot size. By default, this is 30 GB. This limit is shared by all sessions running in the same compute environment.
 
-If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot. 
+If the maximum allocation size is reached, it is possible to reclaim storage space using a snapshot.
 
 Stop the active Studios session to trigger a snapshot from the active volume. The snapshot is uploaded to cloud storage with Fusion. When you start from the newly-saved snapshot, all previous data is loaded and the newly-started Studios session will have 2 GB of available space.
 

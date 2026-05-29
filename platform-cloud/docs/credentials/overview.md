@@ -25,4 +25,3 @@ Seqera Platform encrypts all credentials with AES-256 encryption before storing 
 [managed]: ./managed_identities
 [ssh]: ./ssh_credentials
 [agent]: ./agent_credentials
-

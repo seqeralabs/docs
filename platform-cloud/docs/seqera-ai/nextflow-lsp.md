@@ -1,15 +1,11 @@
 ---
-title: "Language server"
-description: "Use language-server code intelligence features in Seqera AI"
+title: "Code intelligence"
+description: "Use language-server code intelligence in Co-Scientist"
 date created: "2026-02-26"
-tags: [seqera-ai, cli, lsp, code-intelligence]
+tags: [co-scientist, cli, lsp, code-intelligence]
 ---
 
-:::note
-Seqera Cloud users receive $20 in free credits to get started with Seqera AI. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) for additional credits.
-:::
-
-When you ask Seqera AI to help with code in your workspace, it uses language server (LSP) context to provide:
+When you ask Co-Scientist to help with code in your workspace, it uses language server (LSP) context to provide:
 
 - Explanations for errors and warnings in your code.
 - Context-aware completions and suggestions.
@@ -17,7 +13,7 @@ When you ask Seqera AI to help with code in your workspace, it uses language ser
 
 For Nextflow projects, this includes diagnostics and code intelligence for scripts and config files.
 
-### Language support
+## Language support
 
 | LSP Server | Extensions | Requirements |
 |------------|------------|--------------|
@@ -27,16 +23,18 @@ For Nextflow projects, this includes diagnostics and code intelligence for scrip
 
 LSP servers automatically start when you work with files that match these extensions.
 
-### Workspace detection
+## Workspace detection
 
-Seqera AI detects the relevant language context from your active workspace and applies matching intelligence automatically.
+Co-Scientist detects the relevant language context from your active workspace and applies matching intelligence automatically.
 
 This means you can move between Nextflow, Python, and R files in the same project and get language-aware assistance without manual setup.
 
 See [Nextflow Language Server](https://github.com/nextflow-io/language-server) for advanced configuration details.
 
-### Learn more
+## Learn more
 
-- [Seqera AI CLI](./index.md): Seqera AI overview
-- [Get started](./get-started.md): Start using Seqera AI
-- [Use cases](./use-cases.md): Seqera AI CLI use cases
+- [Co-Scientist](./index.md): Co-Scientist overview
+- [Quickstart](./quickstart.md): Start using Co-Scientist
+- [Use cases](./use-cases.md): Seqera CLI use cases
+- [Credits](./credits.md): Co-Scientist credits and how to request more
+- [Skills](./reference/skills-reference.md): Built-in skills, slash commands, and session limits

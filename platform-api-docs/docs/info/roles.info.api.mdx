@@ -15,9 +15,11 @@ import Export from "@theme/ApiExplorer/Export";
 import MDXComponents from "@theme-original/MDXComponents";
 
 
-Use these endpoints to list predefined and custom roles, discover assignable permissions, and create, update, validate, or delete custom roles in an organization context.
+[Roles](https://docs.seqera.io/platform-cloud/orgs-and-teams/roles) define the permissions that organization members receive in Seqera Platform. Predefined roles are managed by the system, while custom roles can be created and maintained for an organization.
 
-Use `List role permissions` as the discovery endpoint for the permission names accepted by `Create role` and `Update role`.
+Use these endpoints to list predefined and custom roles, inspect assignable permissions, and create, update, validate, or delete custom roles in an organization context.
+
+Use `List role permissions` as the discovery endpoint for the permission names accepted by `Create role` and `Update role`. Custom role changes apply at the organization level and can affect access across workspaces where the role is assigned.
 
 ### Path and query parameters
 

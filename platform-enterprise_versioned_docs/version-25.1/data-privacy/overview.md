@@ -22,7 +22,7 @@ When a Platform user account is deleted, the following happens:
 - All of the user's organization, workspace, and team memberships are deleted.
 - All of the user's access tokens are deleted from their personal workspace.
 
-For Enterprise installations, in addition to the above: 
+For Enterprise installations, in addition to the above:
 
 - All the user's credentials are deleted from their personal workspace.
 - All the user's compute environments are deleted from their personal workspace.
@@ -30,7 +30,7 @@ For Enterprise installations, in addition to the above:
 
 #### Studios connectivity
 
-Studios is a stateless application that uses tokens to manage connections. By default, access tokens expire after one hour. This may pose a security risk if user access needs to be revoked within a period shorter than the typical one-hour lifespan. Seqera is actively working to bring continuous access evaluation to Studio sessions, which will help ensure the invalidation of access tokens in near real-time. Currently, this can be mitigated by a Maintain role workspace user stopping and starting all Studio sessions in the workspace where a user account has been deleted. 
+Studios is a stateless application that uses tokens to manage connections. By default, access tokens expire after one hour. This may pose a security risk if user access needs to be revoked within a period shorter than the typical one-hour lifespan. Seqera is actively working to bring continuous access evaluation to Studio sessions, which will help ensure the invalidation of access tokens in near real-time. Currently, this can be mitigated by a Maintain role workspace user stopping and starting all Studio sessions in the workspace where a user account has been deleted.
 
 ### Metadata stored by Seqera Platform
 

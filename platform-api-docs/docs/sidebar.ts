@@ -414,12 +414,6 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
-          id: "download-dataset",
-          label: "Download dataset content",
-          className: "api-method get",
-        },
-        {
-          type: "doc",
           id: "list-dataset-versions",
           label: "(Deprecated) List all dataset versions",
           className: "menu__list-item--deprecated api-method get",
@@ -441,6 +435,30 @@ const sidebar: SidebarsConfig = {
           id: "disable-dataset-version",
           label: "Disable dataset version",
           className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "preview-dataset-url",
+          label: "Preview content from a URL",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "validate-dataset-url",
+          label: "Validate URL for dataset linking",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "link-dataset-version",
+          label: "Link external URL as dataset version",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "preview-dataset-version",
+          label: "Preview linked dataset content",
+          className: "api-method get",
         },
       ],
     },
@@ -772,6 +790,12 @@ const sidebar: SidebarsConfig = {
           label: "Check permission",
           className: "api-method get",
         },
+        {
+          type: "doc",
+          id: "list-available-features",
+          label: "List available features",
+          className: "api-method get",
+        },
       ],
     },
     {
@@ -1011,6 +1035,12 @@ const sidebar: SidebarsConfig = {
           id: "delete-data-studio",
           label: "Delete Studio",
           className: "api-method delete",
+        },
+        {
+          type: "doc",
+          id: "update-data-studio",
+          label: "Update a Studio",
+          className: "api-method put",
         },
         {
           type: "doc",

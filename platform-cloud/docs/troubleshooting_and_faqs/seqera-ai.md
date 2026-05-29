@@ -1,6 +1,6 @@
 ---
-title: "Seqera AI CLI"
-description: "Seqera AI CLI troubleshooting."
+title: "Co-Scientist"
+description: "Co-Scientist troubleshooting."
 date created: "2024-12-15"
 last updated: "2025-12-15"
 tags: [faq, help, seqera ai, troubleshooting]
@@ -12,7 +12,7 @@ tags: [faq, help, seqera ai, troubleshooting]
 
 If you see `seqera: command not found` after installation:
 
-1. Verify the installation location:
+1. Verify the Seqera CLI installation location:
 
    ```bash
    which seqera
@@ -49,6 +49,14 @@ If you encounter permission errors during installation:
    ```bash
    export PATH="$HOME/.npm-global/bin:$PATH"
    ```
+
+##### `EACCES` permission errors on global install
+
+Avoid running `sudo npm install`. Either [fix npm permissions](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally) or install Node through a version manager such as [nvm](https://github.com/nvm-sh/nvm).
+
+##### `seqera: command not found` after install
+
+Confirm npm's global `bin` directory is on your PATH. Run `npm config get prefix` to find it.
 
 ## Authentication
 

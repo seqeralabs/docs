@@ -17,7 +17,7 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ### server/v0.8.3 - 2025-07-25
 
-* Extract Fusion version 
+* Extract Fusion version
 * Fix(proxy): include prefix in Location header
 
 ### server/v0.8.2 - 2025-07-21
@@ -104,8 +104,8 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 ### client/v0.8.5 - 2025-07-29
 
 * Feat: add eStargz support to client images
-* Feat: send squash notifications to platform 
-* Feat: extract Fusion version 
+* Feat: send squash notifications to platform
+* Feat: extract Fusion version
 
 ### client/v0.8.4 - 2025-07-18
 
@@ -115,7 +115,7 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ### client/v0.8.3 - 2025-06-19
 
-* Fix: return normal err when server closes connection 
+* Fix: return normal err when server closes connection
 
 ### client/v0.8.2 - 2025-06-17
 
@@ -138,7 +138,7 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 * fix: swap connector after closing previous
 
 ### client/v0.7.7 - 2025-03-07
- 
+
 * Feat: add 10 minutes waiting period before failing notifying Platform
 
 ### client/v0.7.6 - 2025-03-03

@@ -23,7 +23,7 @@ services:
       - $HOME/.tower/db/mysql:/var/lib/mysql
 
   redis:
-    image: cr.seqera.io/public/redis:6.0
+    image: cr.seqera.io/public/redis:7.4
     platform: linux/amd64
     networks:
       - backend
@@ -88,7 +88,7 @@ services:
     depends_on:
       - backend
 
-  # Uncomment the following section to enable the pipeline resource optimization service. Add TOWER_ENABLE_GROUNDSWELL 
+  # Uncomment the following section to enable the pipeline resource optimization service. Add TOWER_ENABLE_GROUNDSWELL
   # or GROUNDSWELL_SERVER_URL to tower.env environment variables
   # groundswell:
   #   image: cr.seqera.io/private/nf-tower-enterprise/groundswell:0.3.3

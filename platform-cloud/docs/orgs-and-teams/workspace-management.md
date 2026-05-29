@@ -2,7 +2,7 @@
 title: "Workspaces"
 description: "Manage users and teams for an organization in Seqera Platform."
 date created: "2023-04-23"
-last updated: "2026-03-02"
+last updated: "2026-04-29"
 tags: [workspaces, teams, users, administration, user-workspace, create-workspace, credits, settings]
 ---
 
@@ -35,7 +35,7 @@ Apart from the **Participants** tab, the _organization_ workspace is similar to 
 
 ## Workspace settings
 
-Select the **Settings** tab within a workspace to manage credits, Studios settings, workspace labels, and edit or delete the workspace.
+Select the **Settings** tab within a workspace to manage credits, Studios settings, workspace labels, lineage storage and defaults, and edit or delete the workspace.
 
 ### Credits
 
@@ -50,7 +50,7 @@ Storage and network costs vary per region, charged at standard AWS rates. Data i
 
 Your available credit balance depends on the credits purchased and limits applied to your Seqera license. The **Credits** view contains the current credit balance available to the organization, and the credits spent in the workspace. Select **Contact us to upgrade** to purchase additional credits for your organization.
 
-### Studios settings
+### Studios
 
 - **Collaboration mode**: Limit which members can connect to a running Studio in the workspace. Toggle between **Collaborative**  (any member with the right permissions can connect) and **Private** (only the creator can connect). Default is **Collaborative** mode.
 - **Session lifespan**: Set a predefined lifespan (between 1 and 120 hours), after which all Studio sessions in the workspace are automatically stopped. To keep all workspace Studios running indefinitely, select **Always keep the session running**. Default is a session lifespan of **8 hours**.
@@ -63,9 +63,108 @@ Your available credit balance depends on the credits purchased and limits applie
 Studios sessions created in shared workspaces are not shared across all the workspaces in an organization.
 :::
 
-### Edit labels
+### Labels
 
-Select **Edit labels** to manage the workspace [labels and resource labels](../labels/overview).
+Select **Manage** to open the workspace [labels and resource labels](../labels/overview).
+
+### Lineage
+
+:::note
+Data lineage is currently in public preview. It requires Nextflow 25.04 or later, AWS S3 object storage, and Amazon Simple Queue Service (SQS). For best results, use Nextflow 26.04 or higher.
+:::
+
+Configure where Nextflow lineage data are stored and whether lineage tracking is on by default for every run launched in the workspace.
+
+:::tip
+For compliance-driven teams (regulated industries, audit-tracked work), set **Enable lineage by default** to automatically capture provenance for every pipeline run. Lineage records persist for the lifetime of the configured bucket. Coordinate with your team on retention policies.
+:::
+
+Select **Manage** and then choose to enable lineage by default for all pipeline runs in the workspace. Configure the lineage settings manually or automatically.
+
+| Field | Description |
+|-------|-------------|
+| **Credentials** | The workspace credentials Platform uses to create and access the lineage storage bucket and SQS queue. The credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage the SQS queue. See [Credentials](#credentials). |
+| **Region** | Cloud region where the lineage storage bucket is created (for example, `us-east-1`, `eu-west-1`). |
+
+If configuring **manually**, two additional settings are required:
+
+| Field | Description |
+|-------|-------------|
+| **Bucket name** | Object storage bucket where lineage records are stored. |
+| **SQS Queue ARN** | ARN of the SQS queue. This is useful if your Platform deployment requires cross-account access. |
+
+If configuring **automatically**, Platform generates the object storage bucket and SQS queue.
+
+| Field | Auto-generated name pattern |
+|-------|-----------------------------|
+| **Bucket name** | `seqera-lineage-<workspace-id>` |
+| **SQS Queue ARN** | `seqera-lineage-<workspace-id>-notifications` |
+
+:::note
+Automated configuration uses the **configured workspace credentials** through the same model as [Data Explorer](../data/data-explorer).
+:::
+
+When lineage is enabled:
+
+- The [Run details](../monitoring/run-details) page surfaces lineage IDs and labels on the **Run Info**, **Tasks**, **Inputs**, and **Outputs** tabs.
+- [Data Explorer](../data/data-explorer) object previews show the lineage ID and labels for files produced by lineage-enabled runs.
+
+The pipeline launch form toggle's default state is controlled by **Enable lineage by default**. Maintain role and higher users can override default behavior for an individual run via the launch form toggle. See [Getting started with data lineage](https://docs.seqera.io/nextflow/tutorials/data-lineage) for the underlying Nextflow lineage data model and example JSON payloads.
+
+
+#### Credentials
+
+The credentials required for lineage are indicated below in an example AWS policy.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+  ///  ---- LINEAGE SPECIFIC
+            "Sid": "SQSQueueActions",
+            "Effect": "Allow",
+            "Action": [
+                "sqs:CreateQueue",
+                "sqs:GetQueueAttributes",
+                "sqs:SetQueueAttributes",
+                "sqs:ReceiveMessage",
+                "sqs:DeleteMessage"
+            ],
+            "Resource": "arn:aws:sqs:*:*:seqera-lineage-*"
+        },
+///  ----
+        {
+            "Sid": "S3BucketActions",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:CreateBucket",
+/// LINEAGE SPECIFIC
+                "s3:PutBucketNotification",
+                "s3:GetBucketNotification"
+/// ----
+            ],
+            "Resource": "arn:aws:s3:::seqera-lineage-*"
+        },
+        {
+            "Sid": "S3ObjectActions",
+            "Effect": "Allow",
+            "Action": "s3:*Object",
+            "Resource": "arn:aws:s3:::seqera-lineage-*/*"
+        },
+        {
+            "Sid": "S3ObjectTagging",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObjectTagging",
+                "s3:GetObjectTagging"
+            ],
+            "Resource": "arn:aws:s3:::seqera-lineage-*/*"
+        }
+    ]
+}
+```
 
 ### Edit or delete a workspace
 

@@ -1,4 +1,4 @@
-# PVC backed by local storage 
+# PVC backed by local storage
 # Only works for a single node cluster
 
 apiVersion: v1

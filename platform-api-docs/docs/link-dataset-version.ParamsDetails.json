@@ -1,0 +1,1 @@
+{"parameters":[{"name":"workspaceId","in":"query","description":"Workspace numeric identifier.","schema":{"format":"int64","type":"integer"}},{"name":"datasetId","in":"path","description":"Dataset string identifier.","required":true,"schema":{"type":"string"}}]}

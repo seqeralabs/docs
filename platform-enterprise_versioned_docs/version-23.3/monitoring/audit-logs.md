@@ -7,11 +7,11 @@ tags: [logging, audit logs, admin panel]
 
 Root users can view application even audit logs from the [Admin panel](../administration/overview) **Audit logs** tab.
 
-## Audit log event format 
+## Audit log event format
 
 Audit log entries record the following event details:
 
-- **Type**: A brief event description, such as `user_sign_in`, `credentials_created`, etc. 
+- **Type**: A brief event description, such as `user_sign_in`, `credentials_created`, etc.
 - **Target**: ID of the resource associated with the event, such as ID of created credentials, etc.
 - **Principal**: ID of the user that performed the action. User IDs for user-initiated events, `system` for Seqera-initiated events.
 - **Status**: Additional event information, such as workflow completion status, user sign-in method, etc.

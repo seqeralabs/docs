@@ -46,7 +46,7 @@ EOT
 
 **Problem with the SSL CA cert**
 
-This can occur if a tool/library in your task container requires SSL certificates to validate the identity of an external data source. Mount SSL certificates into the container to resolve this issue. 
+This can occur if a tool/library in your task container requires SSL certificates to validate the identity of an external data source. Mount SSL certificates into the container to resolve this issue.
 
 **Azure SQL database error: _Connections using insecure transport are prohibited while --require_secure_transport=ON_**
 

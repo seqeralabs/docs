@@ -17,19 +17,19 @@ This guide outlines best practices for mitigating the impact of Spot interruptio
 
 For workflows with a significant proportion of long-running processes, the costs of, and mitigations necessary for working with Spot may outweigh the benefits. You may find it simpler and cheaper to run those workloads in On-Demand compute environments.
 
-### Move long-running tasks to On-Demand 
+### Move long-running tasks to On-Demand
 
-Tasks with long runtimes are particularly vulnerable to Spot termination. If you don’t already have one, first create an On-Demand compute environment in Seqera Platform. Then, in Platform, you can explicitly assign critical or long-duration tasks to On-Demand queues and leave other tasks to run in a Spot queue by default: 
+Tasks with long runtimes are particularly vulnerable to Spot termination. If you don’t already have one, first create an On-Demand compute environment in Seqera Platform. Then, in Platform, you can explicitly assign critical or long-duration tasks to On-Demand queues and leave other tasks to run in a Spot queue by default:
 
 ```groovy
 process {
 	withName: 'run_bcl2fastq' {
 	     queue = 'TowerForge-MyOnDemandQueue'
-	} 
+	}
 }
 ```
 
-To find the queue name, open the **Compute Environments** tab in Seqera Platform, and open the relevant compute environment. Scroll down to the **Manual Config Attributes** section to view key configuration details, including queue names. Look for the queue name prefixed with `TowerForge-` if it was created by Forge. 
+To find the queue name, open the **Compute Environments** tab in Seqera Platform, and open the relevant compute environment. Scroll down to the **Manual Config Attributes** section to view key configuration details, including queue names. Look for the queue name prefixed with `TowerForge-` if it was created by Forge.
 
 ### Use retry strategies for Spot Interruptions
 
@@ -40,7 +40,7 @@ A retry strategy at the Nextflow level is more appropriate when run times are lo
 ```bash
 process {
    errorStrategy = 'retry'
-   maxRetries = 3 
+   maxRetries = 3
 }
 ```
 
@@ -58,7 +58,7 @@ This is a global setting (not configurable per process) that, in this example, a
 
 :::note
 Starting with Nextflow version 24.08.0-edge, the default value for this setting has been changed to `0` to help avoid unexpected expenses, and you should be careful when activating this setting.
-::: 
+:::
 
 ### Implement Spot-to-On-Demand fallback logic
 

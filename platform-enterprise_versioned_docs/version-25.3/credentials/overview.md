@@ -21,4 +21,3 @@ All credentials are (AES-256) encrypted before secure storage and not exposed in
 [data]: ../data/data-explorer
 [git]: ../git/overview
 [wave]: https://docs.seqera.io/wave/provisioning
-

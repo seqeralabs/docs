@@ -46,6 +46,7 @@
       "items": [
         "troubleshooting/general",
         "troubleshooting/fusion-snapshots",
+        "troubleshooting/fusion-doctor",
         "troubleshooting/error-codes-exit-messages"
       ]
     },
