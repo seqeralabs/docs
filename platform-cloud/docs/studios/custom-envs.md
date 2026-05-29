@@ -77,7 +77,7 @@ Customize the following Dockerfile to include any additional software that you r
 
 ```docker title="Minimal Dockerfile"
 # Add a default Connect client version. Can be overridden by build arg
-ARG CONNECT_CLIENT_VERSION="0.8"
+ARG CONNECT_CLIENT_VERSION="0.12"
 
 # Seqera base image
 # highlight-next-line
@@ -103,7 +103,7 @@ For example, to run a basic Python-based HTTP server, build a container from the
 
 ```docker title="Example Dockerfile with Python HTTP server"
 # Add a default Connect client version. Can be overridden by build arg
-ARG CONNECT_CLIENT_VERSION="0.8"
+ARG CONNECT_CLIENT_VERSION="0.12"
 
 # Seqera base image
 # highlight-next-line
