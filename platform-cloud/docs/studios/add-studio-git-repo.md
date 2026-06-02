@@ -1,13 +1,13 @@
 ---
-title: "Import from Git repository"
-description: "Add a Studio in Platform."
+title: "Import from a Git repository"
+description: "Add a Studio from a Git repository in Seqera Platform."
 date created: "2025-09-04"
 last updated: "2025-12-12"
 tags: [studio-git, git-repository, session, studios, git, version-control]
 ---
 
 :::info[**Prerequisites**]
-You will need the following to get started:
+You need the following:
 
 - **Maintain** role permissions or above
 - A compute environment with sufficient resources (scale based on data volume)
@@ -20,11 +20,11 @@ You will need the following to get started:
 
 - Compute environments are Platform-specific and cannot be defined in external Git repositories. Select the compute environment when you add a Studio.
 - Data-links currently cannot be referenced in Git repositories. Mount data manually when adding a Studio.
-- Git repositories with multiple Studio configurations are not supported. However, it is possible to use a Git repository with multiple branches and a single configuration per branch.
+- Git repositories with multiple Studio configurations are not supported. However, you can use a Git repository with multiple branches and a single configuration per branch.
 
 ### Create the required configuration files
 
-Create a `studio-config.yaml` file in the `.seqera` directory in your repository. Your `studio-config.yaml` should contain at least `schemaVersion `, `kind` and `session.template.kind`. All other fields are optional.
+Create a `studio-config.yaml` file in the `.seqera` directory in your repository. Your `studio-config.yaml` must contain at least `schemaVersion`, `kind`, and `session.template.kind`. All other fields are optional.
 
 ```yaml
 schemaVersion: "0.0.1"
@@ -58,26 +58,26 @@ session:
 
 The schema can define a custom `Dockerfile` or an `environment.yaml` file, which must be in the `.seqera` folder. The following limitations apply:
 
-- The workspace Admin needs to set a target repository per workspace, in **Settings > Studios > Container repository**. If no repository configuration is specified, the build will fail.
-- Each workspace needs to have valid credentials to push to the repository you've specified.
+- The workspace Admin needs to set a target repository per workspace, in **Settings > Studios > Container repository**. If no repository configuration is specified, the build fails.
+- Each workspace needs valid credentials to push to the specified repository.
 - The only supported repository and compute environment combination for a fully private Dockerfile-based Studio is ECR and AWS.
 - The files pulled for Dockerbuild context have individual and total file size limits:
   - Individual files cannot be larger than 5 MB.
   - Total file size cannot be more than 10 MB.
 
 :::tip
-To help you get started, a [GitHub repository][github-examples] with multiple branches for various use cases is publicly available. Each branch offers different configuration options.
+A public [GitHub repository][github-examples] provides branches for common use cases, each with different configuration options.
 :::
 
 ### Add a Studio
 
-You can add a Studio by referencing a Git repository containing Studio configuration files. You can also configure the following fields:
+Add a Studio by referencing a Git repository that contains Studio configuration files. You can also configure the following fields:
 
 - **Git repository**: Enter the full URL to your Git repository (e.g., `https://github.com/your-org/your-repo`).
 - **Revision**: Select a branch, tag, or commit from the dropdown. The dropdown is dynamically populated based on the repository URL. If no revision is selected, the default branch is used.
 - **Install Conda packages**: A list of conda packages to include with the Studio. For more information on package syntax, see [conda package syntax][conda-syntax].
-- **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default, but can be removed. Additional custom resource labels can be added or removed as needed.
-- **Environment variables**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence. To override an inherited variable, define the same key with a different value.
+- **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default, but you can remove it. Add or remove custom resource labels as needed.
+- **Environment variables**: Environment variables for the session. The session inherits and displays all variables from the selected compute environment. Add session-specific variables as needed. Session-level variables take precedence. To override an inherited variable, define the same key with a different value.
 - **Studio name**: The name for the Studio.
 - **Description** (optional): A description for the Studio.
 - **Collaboration**: Session access permissions. By default, all workspace users with the launch role and above can connect to the session. Toggle **Private** on to restrict connections to the session creator only.
@@ -108,24 +108,24 @@ Files uploaded to a mounted bucket during an active session may not be immediate
 
 ### Repository cloning
 
-When a Studio session starts from a Git repository, the repository contents are cloned into the session, using the same commit that was selected, or resolved, when the Studio was first created. For example, repository `https://github.com/seqeralabs/studio-templates.git` clones to `/workspace/` with `README.md` at `/workspace/README.md`.
+When a Studio session starts from a Git repository, the repository contents are cloned into the session using the same commit that was selected or resolved when the Studio was first created. For example, repository `https://github.com/seqeralabs/studio-templates.git` clones to `/workspace/` with `README.md` at `/workspace/README.md`.
 
-You can disable cloning, which allows you to share a public/private template. You can define the clone path configuration in the schema without the need to build a different Docker image.
+Disable cloning to share a public or private template. You can define the clone path in the schema without building a different Docker image.
 
 #### Limitations
 
 - Platform credentials are not shared with the Studio.
 - The `.git` folder is not synced and you cannot push/pull from the configured repository after initial Studio creation.
-- There are no preprovisioned Git credentials available to use in the Studio.
+- No preprovisioned Git credentials are available in the Studio.
 
 ## Save and start
 
-   1. Review the configuration to ensure all settings are correct.
+   1. Review the configuration.
    1. Save your configuration:
       - To save and immediately start your Studio, select **Add and start**.
       - To save but not immediately start your Studio, select **Add only**.
 
-Studios you create will be listed on the Studios landing page with a status of either **stopped** or **starting**. Select a Studio to inspect its configuration details.
+Studios you create are listed on the Studios landing page with a status of **stopped** or **starting**. Select a Studio to inspect its configuration details.
 
 {/* links */}
 [github-examples]: https://github.com/seqeralabs/studio-schema-examples
