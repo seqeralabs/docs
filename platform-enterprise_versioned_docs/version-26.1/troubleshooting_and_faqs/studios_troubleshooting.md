@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-05-29"
+last updated: "2026-06-03"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -96,6 +96,18 @@ This is an experimental feature and may cause consistency issues in the Fusion n
 ## When starting an existing Studio session, extra processes are not automatically restarted
 
 Any process that is manually started in a running Studio session (e.g. `eval $(ssh-agent)`) will not be automatically restarted on a Studio restart. This is because any user initiated daemon process is not managed by the Connect client and therefore the Studio session does not manage it. To add extra processes that are automatically started at each Studio restart would require a user-defined startup script or an integrated supervisor (e.g. `s6`, `s6-overlay`, `supervisord`), both of which are currently unsupported.
+
+## New compute environment doesn't appear in the dropdown when migrating a Studio
+
+When [migrating a Studio to a different compute environment](../studios/managing#migrate-a-studio-from-aws-batch-to-aws-cloud), the **Compute environment** dropdown filters out any compute environment that isn't compatible with the Studio's current one. Confirm the new compute environment is in the `AVAILABLE` status and is configured with the same `workDir` as the Studio's current compute environment.
+
+## Studio fails to start after switching compute environments
+
+The new compute environment's [credentials](../credentials/overview) must have read and write access to the `workDir` bucket. Check that the credentials attached to the new compute environment have the required S3 permissions on the checkpoint location.
+
+## Resource labels change after switching compute environments
+
+When you switch a Studio to a different compute environment, labels inherited from the previous compute environment are removed and the new compute environment's labels are added automatically. If you need a label that was tied to the old compute environment, attach it to the Studio directly so that it survives future compute environment switches. See [Resource label changes](../studios/managing#resource-labels-on-migration).
 
 ## Container template image security scan false positives
 
