@@ -75,7 +75,7 @@ Make sure the [Lustre client](https://docs.aws.amazon.com/fsx/latest/LustreGuide
 
 To create and launch pipelines, explore buckets with Data Explorer or run Studio sessions with the AWS Batch compute environment, an IAM user with specific permissions must be provided. Some permissions are mandatory for the compute environment to be created and function correctly, while others are optional and used for example to provide list of values to pick from in the Platform UI.
 
-Permissions can be attached directly to an [IAM user](#iam-user-creation), or to an [IAM role](#iam-role-based-creation-creation) that the IAM user can assume when accessing AWS resources.
+Permissions can be attached directly to an [IAM user](#iam-user-creation), or to an [IAM role](#iam-role-based-credential-creation) that the IAM user can assume when accessing AWS resources.
 
 A permissive and broad policy with all the required permissions is provided here for a quick start. However, we recommend following the principle of least privilege and only granting the necessary permissions for your use case, as shown in the following sections.
 
@@ -541,7 +541,7 @@ Rather than attaching permissions directly to the IAM user, you can create an IA
 }
 ```
 
-1. On the **Permissions** page, search for and select the policy created in the [IAM user creation](#create-the-iam-policy) section, then select **Next**.
+1. On the **Permissions** page, search for and select the policy created in the [Create the IAM policy](#create-the-iam-policy) section, then select **Next**.
 1. Give the role a name and optionally a description, review the details of the role, optionally provide tags to help you identify the role, then select **Create role**.
 
 :::note
@@ -579,7 +579,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
 1. Enter a name, e.g., _AWS Credentials_.
 1. Under **AWS credential mode**, select **Keys** or **Role**.
 1. For **Keys** mode:
-   - Add the **Access key** and **Secret key** you [previously obtained](#obtain-iam-user-credentials).
+   - Add the **Access key** and **Secret key** you [previously obtained](#obtain-iam-user-credentials-key-based).
    - Optionally paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**.
    - If you paste a role ARN in **Assume role**, the **Generate External ID** switch is displayed. Generating an External ID is optional in **Keys** mode.
    - If **Generate External ID** is selected, an External ID is automatically generated and shown after you save the credential.
@@ -827,7 +827,7 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
 1. Enter a name, e.g., _AWS Credentials_.
 1. Under **AWS credential mode**, select **Keys** or **Role**.
 1. For **Keys** mode:
-   - Add the **Access key** and **Secret key** you [previously obtained](#obtain-iam-user-credentials).
+   - Add the **Access key** and **Secret key** you [previously obtained](#obtain-iam-user-credentials-key-based).
    - Optionally paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**.
    - If you paste a role ARN in **Assume role**, the **Generate External ID** switch is displayed. Generating an External ID is optional in **Keys** mode.
    - If **Generate External ID** is selected, an External ID is automatically generated and shown after you save the credential.
