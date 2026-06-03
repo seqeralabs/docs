@@ -458,18 +458,24 @@ The policy above must be created in the AWS account where the AWS Batch resource
 
 ## IAM user creation
 
-Seqera requires an Identity and Access Management (IAM) User to create and manage AWS Batch resources in your AWS account. We recommend creating a separate IAM policy rather an IAM User inline policy, as the latter only allows 2048 characters, which may not be sufficient for all the required permissions.
+For key-based credentials, Seqera requires an Identity and Access Management (IAM) User to create and manage AWS Batch resources in your AWS account. We recommend creating a separate IAM policy rather an IAM User inline policy, as the latter only allows 2048 characters, which may not be sufficient for all the required permissions.
 
-In certain scenarios, for example when multiple users need to access the same AWS account and provision AWS Batch resources, an IAM role with the required permissions can be created instead, and the IAM user can assume that role when accessing AWS resources, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section.
+In certain scenarios, for example when multiple users need to access the same AWS account and provision AWS Batch resources, an IAM role with the required permissions can be created instead, and the IAM user can assume that role when accessing AWS resources, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section. For Cloud deployments, Seqera Cloud is the user that will manage resources with the permissions you give it, managed through a trust policy.
 
 Depending whether you choose to let Seqera automatically create the required AWS Batch resources in your account, or prefer to set them up manually, the IAM user must have specific permissions as detailed in the [Required Platform IAM permissions](#required-platform-iam-permissions) section. Alternatively, you can create an IAM role with the required permissions and allow the IAM user to assume that role when accessing AWS resources, as detailed in the [IAM role creation (optional)](#iam-role-creation-optional) section.
 
-### Create an IAM user
+### Create an IAM user (key-based)
 
 1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Users** in the left navigation menu, then select **Create User** at the top right of the page.
 1. Enter a name for your user (e.g., _seqera_) and select **Next**.
 1. Under **Permission options**, select **Attach policies directly**, then search for and select the policy created above, and select **Next**.
-   * If you prefer to make the IAM user assume a role to manage AWS resources (see the [IAM role creation (optional)](#iam-role-creation-optional) section), create a policy with the following content (edit the AWS principal with the ARN of the role created) and attach it to the IAM user:
+1. On the last page, review the user details and select **Create user**.
+
+The user has now been created. The most up-to-date instructions for creating an IAM user can be found in the [AWS documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html).
+
+### Create an IAM user (key-based)
+
+1. If you prefer to use role-based access, create a role with the following trust policy (edit the AWS principal with the ARN of Seqera's platform role) and grant it the necessary permissions:
 
    ```json
    {
@@ -486,9 +492,9 @@ Depending whether you choose to let Seqera automatically create the required AWS
    ```
 1. On the last page, review the user details and select **Create user**.
 
-The user has now been created. The most up-to-date instructions for creating an IAM user can be found in the [AWS documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html).
+The role has been created. The ARN value is required for creating a role-based access within Seqera Platform
 
-### Obtain IAM user credentials
+### Obtain IAM user credentials (key-based)
 
 To get the credentials needed to connect Seqera to your AWS account, follow these steps:
 
@@ -500,53 +506,10 @@ To get the credentials needed to connect Seqera to your AWS account, follow thes
 
 ## IAM role creation (optional)
 
-Rather than attaching permissions directly to the IAM user, you can create an IAM role with the required permissions and allow the IAM user to assume that role when accessing AWS resources. This is useful when multiple IAM users are used to access the same AWS account: this way the actual permissions to operate on the resources are only granted to a single centralized role.
+Rather than attaching permissions directly to the IAM user, you can create an IAM role with the required permissions and allow the Seqera Cloud to assume that role when accessing AWS resources. This is useful when multiple IAM users are used to access the same AWS account: this way the actual permissions to operate on the resources are only granted to a single centralized role.
 
 1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Roles** in the left navigation menu, then select **Create role** at the top right of the page.
-1. Select **Custom trust policy** as the type of trusted entity, provide the following policy and edit the AWS principal with the ARN of the IAM user created in the [IAM user creation](#iam-user-creation) section, then select **Next**.
-   ```json
-   {
-     "Version": "2012-10-17",
-     "Statement": [
-       {
-         "Effect": "Allow",
-         "Principal": {
-           "AWS": [
-              "arn:aws:iam::<ACCOUNT_ID>:user/<IAM_USER_NAME>"
-            ]
-         },
-         "Action": "sts:AssumeRole",
-         "Condition": {
-           "StringEquals": {
-             "sts:ExternalId": "<EXTERNAL_ID>"
-           }
-         }
-       },
-       {
-         "Effect": "Allow",
-         "Principal": {
-           "AWS": [
-              "arn:aws:iam::<ACCOUNT_ID>:user/<IAM_USER_NAME>"
-            ]
-         },
-         "Action": "sts:TagSession"
-       }
-     ]
-   }
-   ```
-1. On the **Permissions** page, search for and select the policy created in the [IAM user creation](#iam-user-creation) section, then select **Next**.
-1. Give the role a name and optionally a description, review the details of the role, optionally provide tags to help you identify the role, then select **Create role**.
-
-Multiple users can be specified in the trust policy by adding more ARNs to the `Principal` section.
-
-:::note
-Seqera Platform generates the `External ID` value during AWS credential creation. For role-based credentials, use this exact value in your IAM trust policy (`sts:ExternalId`).
-:::
-
-### Role-based trust policy example (Seqera Cloud)
-
-For role-based AWS credentials in Seqera Cloud, allow the Seqera Cloud access role `arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole` in your trust policy and enforce the `External ID` generated during credential creation:
-
+1. For role-based AWS credentials in Seqera Cloud, allow the Seqera Cloud access role `arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole` in your trust policy, then select **Next**.
 ```json
 {
   "Version": "2012-10-17",
@@ -573,17 +536,14 @@ For role-based AWS credentials in Seqera Cloud, allow the Seqera Cloud access ro
   ]
 }
 ```
+1. On the **Permissions** page, search for and select the policy created in the [IAM user creation](#iam-user-creation) section, then select **Next**.
+1. Give the role a name and optionally a description, review the details of the role, optionally provide tags to help you identify the role, then select **Create role**.
 
-## AWS credential options
 
-AWS credentials can be configured in two ways:
+:::note
+Seqera Platform generates the `External ID` value during AWS credential creation. For role-based credentials, use this exact value generated in your IAM trust policy as shown above (`sts:ExternalId`).
+:::
 
-- **Key-based credentials**: Access key and secret key with direct IAM permissions. If you provide a role ARN in **Assume role**, the **Generate External ID** switch is displayed and External ID generation is optional.
-- **Role-based credentials (recommended)**: Use role assumption only (no static keys). Paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. External ID is generated automatically when you save.
-
-Use the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. This field is available for both key-based and role-based credentials. It is optional for key-based credentials and required for role-based credentials.
-
-Existing credentials created before March 2026 continue to work without changes.
 
 ## Automatic configuration of Batch resources
 
