@@ -2,7 +2,7 @@
 title: "Container image templates"
 description: "Use container images with Studios."
 date created: "2025-10-16"
-last updated: "2025-10-16"
+last updated: "2026-05-29"
 tags: [container, container-images, session, studios]
 ---
 
@@ -16,7 +16,7 @@ The image template tag includes the version of the analysis application, an opti
 
 - `<tool_version>`: Third-party analysis application that follows its own semantic versioning `<major>.<minor>.<patch>`, such as `4.2.5` for JupyterLab.
 - `<update_version>`: Optional analysis application update version, such as `u1`, for instances where a backwards incompatible change is introduced.
-- `<connect_version>`: Seqera Connect client version, such as `0.10` or `0.10.0`.
+- `<connect_version>`: Seqera Connect client version, such as `0.12` or `0.12.0`.
 
 Additionally, the Seqera Connect client version string has the format:
 
