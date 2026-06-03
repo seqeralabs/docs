@@ -1,7 +1,8 @@
 ---
 title: "Amazon EKS"
 description: "Instructions to set up Amazon EKS in Seqera Platform"
-date: "2026-02-04"
+date created: "2026-02-04"
+last updated: "2026-05-28"
 tags: [eks, amazon, compute environment, ce]
 ---
 
@@ -472,7 +473,15 @@ Once all prerequisites are met, create a Seqera EKS compute environment:
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
 
-1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
+1. Under **Environment variables**, add each variable with a **Name**, **Value**, and **Target Environment**:
+
+    - **Head job**: Adds the variable to the Nextflow head job container, which evaluates `nextflow.config` and submits tasks to the compute backend. Use this target for variables that Nextflow or its plugins read, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings the head node uses to reach external services.
+    - **Compute job**: Adds the variable to the worker containers that run individual pipeline tasks. Use this target for variables your pipeline tools read, such as `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials needed inside the task container, or tool-specific settings like `JAVA_HOME`.
+    - **Head and Compute jobs**: Adds the variable to both the head job and the compute jobs. Use this target for values needed in both places, such as an HTTP proxy used by both Nextflow and task tools, or a credential needed in both the head job and individual compute tasks.
+
+    :::note
+    For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation. To rotate a value, recreate the compute environment.
+    :::
 1. Configure any advanced options described in the next section, as needed.
 
 ### Amazon EKS advanced options
@@ -498,7 +507,7 @@ spec:
     disktype: ssd
 ```
 
-- Use **Head Job CPUs** and **Head Job memory** to specify resource requirements of the Nextflow workflow pods.
+- Use **Head job CPUs** and **Head job memory** to specify resource requirements of the Nextflow workflow pods.
 
 :::info
 See [Launch pipelines](../launch/launchpad) to start executing workflows in your Amazon EKS compute environment.
