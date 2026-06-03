@@ -2,7 +2,7 @@
 title: "Import from a Git repository"
 description: "Add a Studio from a Git repository in Seqera Platform."
 date created: "2025-09-04"
-last updated: "2025-12-12"
+last updated: "2026-06-03"
 tags: [studio-git, git-repository, session, studios, git, version-control]
 ---
 
