@@ -2,7 +2,7 @@
 title: "Custom container template"
 description: "Add a Studio with a custom container template in Seqera Platform."
 date created: "2025-09-04"
-last updated: "2025-11-14"
+last updated: "2026-06-03"
 tags: [studio-custom, git-repository, session, studios]
 ---
 
