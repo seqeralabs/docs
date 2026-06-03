@@ -2,10 +2,9 @@
 # One tag per line. Lines starting with # are comments.
 # Enforced by the check-doc-tags pre-commit/prek hook.
 # Canonical form = the spelling most used in the repo today.
-# 310 tags. Add new canonical tags here intentionally.
 
 actions
-add-dataset-version
+add dataset version
 admin panel
 administration
 advanced
@@ -25,15 +24,11 @@ audit logs
 authentication
 automation
 aws
+aws batch
 aws eks
-aws help
-aws troubleshooting
-aws-batch
 azure
 azure batch
 azure blob
-azure help
-azure troubleshooting
 batch
 billing
 bioinformatics
@@ -44,38 +39,38 @@ certificate
 changelog
 checklist
 checkpoint
-claude-code
+claude code
 cli
 client
 cloud
 cloud costs
-cloud-enterprise
-cloud-pro
+cloud enterprise
+cloud pro
 cloudformation
 clusters
 co-scientist
-code-intelligence
+code intelligence
 codex
-coding-agents
+coding agents
 colabfold
 commands
 compatibility
 compose
 compute
-compute environment
+compute environments
 conda
 configuration
 configure
 connect
-connect-changelog
-container
-container-images
-container-registry
+connect changelog
+container images
+container registry
+containers
 content
 cost
-create-datasets
-create-organization
-create-workspace
+create datasets
+create organization
+create workspace
 credentials
 credits
 custom
@@ -100,41 +95,38 @@ email
 ena
 enterprise
 entra
-entra-id
+entra id
 environment
 environments
-error-codes
+error codes
 errors
 examples
 execution
-exit-codes
+exit codes
 explorer
 faq
 file system
 firewall
 fuse
 fusion
-fusion-doctor
-fusion-snapshots
+fusion doctor
+fusion snapshots
 gcp
 gcp batch
 gcs
 gemini
 geo
-get started
-getting-started
+getting started
 git
-git configuration
-git-repository
+git repository
 gitea
 github
-github-copilot
+github copilot
 gitlab
 gke
 google
 google cloud
 governance
-grid
 grid engine
 groundswell
 guides
@@ -143,11 +135,10 @@ help
 https
 iam
 ibm
-idp-delegation
+idp delegation
 igv
 image
 input
-install
 installation
 integration
 interactive
@@ -161,7 +152,6 @@ launch
 launchpad
 license
 lid
-life sciences
 limitations
 limits
 lineage
@@ -173,10 +163,10 @@ logs
 lsf
 lsp
 mail
-manage-datasets
+manage datasets
 managed identities
 mcp
-mcp-server
+mcp server
 meta-seqera.io
 metrics
 migration notes
@@ -189,8 +179,6 @@ monitoring
 multiqc
 networking
 nextflow
-nextflow help
-nextflow troubleshooting
 nf-canary
 nf-core
 nf-launcher
@@ -202,7 +190,7 @@ okta
 on-prem
 optimization
 oracle object storage
-organization-settings
+organization settings
 organizations
 output
 overview
@@ -211,9 +199,9 @@ passwordless
 pbs
 pbs pro
 permissions
-pipeline
 pipeline optimization
-pipeline-runs
+pipeline runs
+pipelines
 platform
 policy
 posix
@@ -236,12 +224,12 @@ registry
 relaunch
 reports
 reproducibility
-resource
 resource labels
+resources
 restore
 resume
 retry
-reverse-proxy
+reverse proxy
 ride
 rnaseq
 roles
@@ -256,20 +244,19 @@ secrets
 securestring
 security
 seqera
+seqera ai
 seqera cloud
 seqera compute
 seqera containers
 seqera enterprise
 seqera pipelines
-seqera-ai
-seqera-template
-seqera-template-studio
+seqera template
+seqera template studio
 seqerakit
 sequencing
 ses
-session
+sessions
 settings
-showcase tutorial
 singularity
 skills
 slurm
@@ -283,8 +270,8 @@ sso
 stats
 status
 storage
-studio-custom
-studio-git
+studio custom
+studio git
 studios
 tasks
 teams
@@ -296,21 +283,19 @@ tutorial
 unpublished
 update
 usage
-usage-limits
+usage limits
 use cases
 use configuration
-user-workspace
+user workspace
 users
-version-control
+version control
 versioning
 vm
 vscode
 wave
 wave cli
 webhooks
-workflow
+workflows
 workspaces
-workspaces help
-workspaces troubleshooting
 xpra
 yaml

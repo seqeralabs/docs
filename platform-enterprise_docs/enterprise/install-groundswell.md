@@ -2,7 +2,7 @@
 title: "Pipeline optimization"
 description: Install pipeline optimization for Seqera Platform Enterprise
 date: "2026-02-09"
-tags: [groundswell, pipeline, optimization, installation, deployment]
+tags: [groundswell, pipelines, optimization, installation, deployment]
 ---
 
 Pipeline optimization (Groundswell) uses resource usage data from previous workflow runs to optimize subsequent runs. Deploy after your Platform installation is complete.

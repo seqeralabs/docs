@@ -3,7 +3,7 @@ title: "Container image templates"
 description: "Use container images with Studios."
 date created: "2025-10-16"
 last updated: "2026-03-18"
-tags: [container, container-images, session, studios]
+tags: [containers, container images, sessions, studios]
 ---
 
 There are four container image templates provided: JupyterLab, R-IDE, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the Studio session container is built. You can install additional packages as needed during a Studio session.

@@ -3,7 +3,7 @@ title: "Datasets"
 description: "Using datasets in Seqera Platform."
 date created: "2023-04-23"
 last updated: "2025-10-30"
-tags: [datasets, manage-datasets, create-datasets, add-dataset-version]
+tags: [datasets, manage datasets, create datasets, add dataset version]
 ---
 
 :::note

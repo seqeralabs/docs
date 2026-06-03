@@ -3,7 +3,7 @@ title: "Single sign-on (SSO)"
 description: "Configure single sign-on for a Seqera Platform Cloud organization."
 date created: "2026-03-10"
 last updated: "2026-05-05"
-tags: [sso, authentication, organization-settings, cloud-pro]
+tags: [sso, authentication, organization settings, cloud pro]
 ---
 
 Single sign-on (SSO) lets a Seqera Platform Cloud organization use its corporate identity provider (IdP) for authentication. After SSO is enabled, users with a matching email domain are routed to the organization's IdP when they sign in.

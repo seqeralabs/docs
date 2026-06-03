@@ -3,7 +3,7 @@ title: "Kubernetes"
 description: "Instructions to set up Kubernetes in Seqera Platform"
 date created: "2023-04-21"
 last updated: "2026-05-28"
-tags: [k8s, kubernetes, compute environment]
+tags: [k8s, kubernetes, compute environments]
 ---
 
 [Kubernetes](https://kubernetes.io/) is the leading technology for the deployment and orchestration of containerized workloads in cloud-native environments.

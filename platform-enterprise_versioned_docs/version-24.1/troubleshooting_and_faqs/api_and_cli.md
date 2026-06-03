@@ -2,7 +2,7 @@
 title: "Developer tools"
 description: "API and CLI troubleshooting with Seqera Platform."
 date: "26 August 2024"
-tags: [faq, help, aws help, aws troubleshooting]
+tags: [faq, help, aws, troubleshooting]
 ---
 
 ## API

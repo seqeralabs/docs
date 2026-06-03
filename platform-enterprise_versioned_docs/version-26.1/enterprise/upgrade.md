@@ -3,7 +3,7 @@ title: "Upgrade deployment"
 description: "Guidance for upgrading to Platform Enterprise version 26.1"
 date created: "2025-11-11"
 last updated: "2026-05-06"
-tags: [enterprise, update, install]
+tags: [enterprise, update, installation]
 ---
 
 This page outlines the steps to upgrade your database instance and Platform Enterprise installation to version 26.1, including special considerations for upgrading from earlier versions.

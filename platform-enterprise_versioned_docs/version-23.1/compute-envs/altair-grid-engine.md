@@ -2,7 +2,7 @@
 title: "Grid Engine"
 description: "Instructions to set up Grid Engine in Nextflow Tower"
 date: "21 Apr 2023"
-tags: [grid engine, compute environment]
+tags: [grid engine, compute environments]
 ---
 
 [Altair Grid Engine](https://www.altair.com/grid-engine/) is a workload manager maintained by Altair Engineering, Inc.
