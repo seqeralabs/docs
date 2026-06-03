@@ -30,6 +30,22 @@ repos:
     verbose: true
     always_run: true
 
+# Validate doc frontmatter tags against the canonical allowlist
+- repo: local
+  hooks:
+  - id: check-doc-tags
+    name: Doc frontmatter tags allowlist
+    language: python
+    entry: python3 .github/scripts/check-doc-tags.py
+    files: \.(md|mdx)$
+    exclude: |
+      (?x)^(
+        node_modules/|
+        build/|
+        dist/|
+        \.git/
+      )
+
 # Standard pre-commit hooks
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v6.0.0
