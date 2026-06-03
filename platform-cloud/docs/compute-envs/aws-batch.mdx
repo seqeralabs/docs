@@ -480,21 +480,6 @@ Existing credentials created before March 2026 continue to work without changes.
 1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Users** in the left navigation menu, then select **Create User** at the top right of the page.
 1. Enter a name for your user (e.g., _seqera_) and select **Next**.
 1. Under **Permission options**, select **Attach policies directly**, then search for and select the policy created above, and select **Next**.
-  * If you want to use an external ID with a key, add the following trust policy to a user. Edit the AWS principal with the ARN of Seqera's platform role. Seqera Platform will need the access and secret key values, as well as the ARN in order to generate an external ID.
-
-   ```json
-   {
-     "Sid": "AssumeRoleToManageBatchResources",
-     "Effect": "Allow",
-     "Action": "sts:AssumeRole",
-     "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/<IAM_ROLE_NAME>",
-     "Condition": {
-       "StringEquals": {
-         "sts:ExternalId": "<EXTERNAL_ID>"
-       }
-     }
-   }
-   ```
 
 1. On the last page, review the user details and select **Create user**.
 
@@ -515,7 +500,21 @@ To get the credentials needed to connect Seqera to your AWS account, follow thes
 Rather than attaching permissions directly to the IAM user, you can create an IAM role with the required permissions and allow the Seqera Cloud to assume that role when accessing AWS resources. This is useful when multiple third parties access the same AWS account: this way the actual permissions to operate on the resources are only granted to a single centralized role.
 
 1. From the [AWS IAM console](https://console.aws.amazon.com/iam), select **Roles** in the left navigation menu, then select **Create role** at the top right of the page.
-1. For role-based AWS credentials in Seqera Cloud, allow the Seqera Cloud access role `arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole` in your trust policy, then select **Next**.
+1. Add the following to the role's Permission policy. This will allow the role to manage batch resources
+   ```json
+   {
+     "Sid": "AssumeRoleToManageBatchResources",
+     "Effect": "Allow",
+     "Action": "sts:AssumeRole",
+     "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/<IAM_ROLE_NAME>",
+     "Condition": {
+       "StringEquals": {
+         "sts:ExternalId": "<EXTERNAL_ID>"
+       }
+     }
+   }
+   ```
+1. Allow the Seqera Cloud access role `arn:aws:iam::161471496260:role/SeqeraPlatformCloudAccessRole` in your trust policy, then select **Next**.
 ```json
 {
   "Version": "2012-10-17",
