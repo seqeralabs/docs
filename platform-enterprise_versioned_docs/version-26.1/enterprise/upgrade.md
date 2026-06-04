@@ -3,7 +3,7 @@ title: "Upgrade deployment"
 description: "Guidance for upgrading to Platform Enterprise version 26.1"
 date created: "2025-11-11"
 last updated: "2026-05-06"
-tags: [enterprise, update, install]
+tags: [enterprise, update, installation]
 ---
 
 This page outlines the steps to upgrade your database instance and Platform Enterprise installation to version 26.1, including special considerations for upgrading from earlier versions.
@@ -113,15 +113,11 @@ If you are running on MySQL 5.7, MySQL 8.0, or MariaDB, complete your database m
 | Redis 6.x | EoL upstream — no longer supported | Upgrade to Redis 7.2+ or migrate to Valkey 7+ |
 | Redis 7.2 | Supported | No action |
 | Redis 7.4 | Supported | No action |
-| Redis 8.0 | Not supported | Upgrade to Redis 8.2+ or migrate to Valkey 7+ |
-| Redis 8.2+ | Supported | No action |
-| Redis 9.x | Not supported | Do not upgrade Redis to version 9 |
 | Valkey 7.x | Newly supported in 26.1 | Optional migration path from Redis |
-| Valkey 8.x | Supported | Optional migration path from Redis |
 
 ### Migrating from Redis to Valkey
 
-To migrate from Redis to Valkey, update the `TOWER_REDIS_URL` connection scheme to use `valkey://` (or `valkeyss://` for TLS). The Redisson client embedded in Platform 26.1 has been upgraded to support Valkey 7 and 8 dial schemes; no further configuration is required.
+To migrate from Redis to Valkey, update the `TOWER_REDIS_URL` environment variable. The Redisson client embedded in Platform 26.1 has been upgraded to support Valkey 7 dial schema; no further configuration is required.
 
 :::note
 Redis password and ACL configuration carry over unchanged when migrating to Valkey.

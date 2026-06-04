@@ -2,7 +2,7 @@
 title: "Compute environment overview"
 description: "Overview of compute environments in Seqera Platform"
 date: "21 Apr 2023"
-tags: [compute environment]
+tags: [compute environments]
 ---
 
 Seqera Platform **compute environments** define the execution platform where a pipeline will run. Compute environments enable users to launch pipelines on a growing number of **cloud** and **on-premises** platforms.

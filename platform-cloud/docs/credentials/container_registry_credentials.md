@@ -3,7 +3,7 @@ title: "Container registry credentials"
 description: "Configure container registry credentials for the Wave container service in Seqera Platform."
 date created: "2025-10-21"
 last updated: "2025-10-21"
-tags: [credentials, container-registry, wave, docker, authentication]
+tags: [credentials, container registry, wave, docker, authentication]
 ---
 
 Seqera Platform supports the configuration of credentials for the Wave container service to authenticate to private and public container registries. For more information about Wave, see [Wave containers](https://docs.seqera.io/wave).

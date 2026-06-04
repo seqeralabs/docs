@@ -2,7 +2,7 @@
 title: "Pipeline resource optimization"
 description: "Configure pipeline resource optimization in your Seqera Enterprise deployment."
 date: "12 Feb 2024"
-tags: [compute, resource, optimization, configuration]
+tags: [compute, resources, optimization, configuration]
 ---
 
 [Pipeline resource optimization](../../pipeline-optimization/overview) takes the resource usage information from previous workflow runs to optimize subsequent runs.

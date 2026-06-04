@@ -3,7 +3,7 @@ title: "Reports"
 description: "Overview of pipeline reports in Seqera Platform."
 date created: "2023-04-24"
 last updated: "2025-10-08"
-tags: [pipeline, schema, reports, metrics, logs]
+tags: [pipelines, schema, reports, metrics, logs]
 ---
 
 Most Nextflow pipelines will generate reports or output files which are useful to inspect at the end of the pipeline execution. Reports may be in various formats (e.g. HTML, PDF, TXT) and would typically contain quality control (QC) metrics that would be important to assess the integrity of the results.

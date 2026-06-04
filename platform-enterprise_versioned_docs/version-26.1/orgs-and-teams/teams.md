@@ -3,7 +3,7 @@ title: "Teams"
 description: "Create and manage teams in a Seqera Platform Enterprise organization, including IdP-delegated teams."
 date created: "2026-05-02"
 last updated: "2026-05-22"
-tags: [teams, organizations, administration, sso, idp-delegation, enterprise]
+tags: [teams, organizations, administration, sso, idp delegation, enterprise]
 ---
 
 **Teams** allow organization owners to group members and collaborators together into a single unit and to manage them as a whole. Apply a workspace role to a team and every member inherits that access. See [User roles](./roles) for the available roles.

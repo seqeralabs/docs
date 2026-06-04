@@ -3,7 +3,7 @@ title: "Google Kubernetes Engine"
 description: "Instructions to set up Google Kubernetes Engine in Seqera Platform"
 date created: "2023-04-21"
 last updated: "2026-05-28"
-tags: [gke, google, compute environment]
+tags: [gke, google, compute environments]
 ---
 
 [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine) is a managed Kubernetes cluster that allows the execution of containerized workloads in Google Cloud at scale.

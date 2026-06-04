@@ -2,7 +2,7 @@
 title: "Authentication"
 description: "Login, logout, and session management for Seqera AI CLI"
 date: "15 Dec 2025"
-tags: [seqera-ai, cli, authentication, login]
+tags: [seqera ai, cli, authentication, login]
 ---
 
 :::caution Seqera AI CLI is in beta

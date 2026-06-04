@@ -2,7 +2,7 @@
 title: "SCIM provisioning with Entra ID"
 description: "Configure Microsoft Entra ID to push group memberships to Seqera Platform Enterprise over SCIM 2.0."
 date: "2026-05-12"
-tags: [sso, scim, entra-id, idp-delegation, administration, enterprise]
+tags: [sso, scim, entra id, idp delegation, administration, enterprise]
 ---
 
 Configure Microsoft Entra ID (formerly Azure AD) to push your tenant's groups to Platform over SCIM 2.0. Once provisioning is enabled, the groups you assign to your Seqera Enterprise application appear in Platform's IdP group catalog and stay in sync with renames, additions, and deletions automatically.

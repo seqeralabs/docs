@@ -2,7 +2,7 @@
 title: "Seqera AI CLI"
 description: "AI-powered assistant for bioinformatics workflows and Seqera Platform"
 date: "2025-12-15"
-tags: [seqera-ai, cli, ai]
+tags: [seqera ai, cli, ai]
 ---
 
 :::caution Seqera AI CLI is in beta

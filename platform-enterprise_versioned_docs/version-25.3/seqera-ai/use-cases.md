@@ -2,7 +2,7 @@
 title: "Use cases"
 description: "Learn how to use Seqera AI CLI for bioinformatics workflows, pipeline development, and data management"
 date: "2025-12-15"
-tags: [seqera-ai, cli, ai, use cases]
+tags: [seqera ai, cli, ai, use cases]
 ---
 
 :::caution Seqera AI CLI is in beta
