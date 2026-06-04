@@ -1,8 +1,8 @@
 ---
 title: "Set up your workspace"
 description: "Create an organization workspace and add participants in Seqera Platform."
-date created: 2024-04-15
-last updated: 2026-06-04
+date created: "2024-04-15"
+last updated: "2026-06-04"
 tags: [platform, organizations, workspaces, users]
 ---
 
