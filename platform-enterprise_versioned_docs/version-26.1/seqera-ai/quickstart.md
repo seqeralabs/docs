@@ -12,7 +12,7 @@ You will need the following to get started:
 
 - [Seqera CLI](./installation.mdx)
 - A user account on your Seqera Platform Enterprise deployment
-- `SEQERA_AI_BACKEND_URL` set to your organization's agent backend (see [Installation](./installation.mdx#configure-the-enterprise-backend))
+- `SEQERA_AI_BACKEND_URL` set to your organization's agent backend (see [Installation](./installation.mdx#configure-the-co-scientist-backend))
 :::
 
 ## Step 1: Log in to Seqera Platform

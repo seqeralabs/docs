@@ -14,17 +14,42 @@ on:
         description: 'API version to generate overlays for'
         required: true
         type: string
+      platform_ref:
+        description: 'Platform ref to read the flattened OpenAPI spec from (tag, branch, or SHA; defaults to master)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
 jobs:
   generate-overlays:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get API version
+      - name: Validate payload
         id: version
         env:
-          RAW_VERSION: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.api_version || github.event.inputs.api_version }}
+          EVENT_NAME: ${{ github.event_name }}
+          DISPATCH_API_VERSION: ${{ github.event.client_payload.api_version }}
+          DISPATCH_TRIGGERED_BY: ${{ github.event.client_payload.triggered_by }}
+          DISPATCH_PLATFORM_COMMIT: ${{ github.event.client_payload.platform_commit }}
+          DISPATCH_TAG_NAME: ${{ github.event.client_payload.tag_name }}
+          INPUT_API_VERSION: ${{ github.event.inputs.api_version }}
+          INPUT_PLATFORM_REF: ${{ github.event.inputs.platform_ref }}
+          GH_ACTOR: ${{ github.actor }}
         run: |
-          VERSION="$RAW_VERSION"
+          if [ "$EVENT_NAME" = "repository_dispatch" ]; then
+            VERSION="$DISPATCH_API_VERSION"
+            TRIGGERED_BY="${DISPATCH_TRIGGERED_BY:-$GH_ACTOR}"
+            PLATFORM_COMMIT="$DISPATCH_PLATFORM_COMMIT"
+            PLATFORM_REF="${DISPATCH_TAG_NAME:-$DISPATCH_PLATFORM_COMMIT}"
+          else
+            VERSION="$INPUT_API_VERSION"
+            TRIGGERED_BY="$GH_ACTOR"
+            PLATFORM_REF="${INPUT_PLATFORM_REF:-master}"
+            PLATFORM_COMMIT="$PLATFORM_REF"
+          fi
 
           # Ensure the version is provided
           if [ -z "$VERSION" ]; then
@@ -38,8 +63,18 @@ jobs:
             exit 1
           fi
 
-          echo "api_version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "branch_name=api-docs-v${VERSION}" >> "$GITHUB_OUTPUT"
+          if [ -z "$PLATFORM_REF" ]; then
+            echo "Error: Platform ref is required but was not provided."
+            exit 1
+          fi
+
+          {
+            echo "api_version=$VERSION"
+            echo "branch_name=api-docs-v${VERSION}"
+            echo "platform_ref=$PLATFORM_REF"
+            echo "platform_commit=$PLATFORM_COMMIT"
+            echo "triggered_by=$TRIGGERED_BY"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Check for existing PR
         id: check-pr
@@ -102,13 +137,24 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
         # Don't specify ref - use the branch that triggered the workflow
 
+      - name: Generate Platform app token
+        if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
+        id: platform-app-token
+        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # ratchet:actions/create-github-app-token@v3.0.0
+        with:
+          app-id: ${{ secrets.DOCS_BOT_APP_ID }}
+          private-key: ${{ secrets.DOCS_BOT_APP_PRIVATE_KEY }}
+          owner: seqeralabs
+          repositories: platform
+
       - name: Checkout Platform repo
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
         with:
           repository: seqeralabs/platform
+          ref: ${{ steps.version.outputs.platform_ref }}
           path: platform-repo
-          token: ${{ secrets.PLATFORM_REPO_PAT }}
+          token: ${{ steps.platform-app-token.outputs.token }}
 
       - name: Set up Python
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
@@ -291,6 +337,12 @@ jobs:
             - ✅ Changes analyzed and categorized
             - ✅ Claude-generated overlay files (requires review)
 
+            ### Source Information
+
+            - **Platform ref**: ${{ steps.version.outputs.platform_ref }}
+            - **Platform commit**: ${{ steps.version.outputs.platform_commit }}
+            - **Triggered by**: ${{ steps.version.outputs.triggered_by }}
+
             ### Next steps
 
             1. **Review Claude-generated overlays** in `claude-generated-overlays.md`
@@ -303,11 +355,6 @@ jobs:
             ### Analysis Summary
 
             See analysis JSON file for detailed breakdown of changes.
-
-            ---
-
-            **Triggered by**: ${{ github.event.client_payload.triggered_by || github.actor }}
-            **Platform commit**: ${{ github.event.client_payload.platform_commit || 'manual trigger' }}
 
       - name: Workflow Summary
         if: always()
@@ -323,5 +370,6 @@ jobs:
           else
             echo "Status: Completed - New API version processed"
             echo "Version: ${{ steps.version.outputs.api_version }}"
+            echo "Platform ref: ${{ steps.version.outputs.platform_ref }}"
             echo "Branch: ${{ steps.version.outputs.branch_name }}"
           fi
