@@ -1,13 +1,13 @@
 ---
 title: "Custom container template"
-description: "Add a Studio in Platform."
+description: "Add a Studio with a custom container template in Seqera Platform."
 date created: "2025-09-04"
-last updated: "2025-11-14"
+last updated: "2026-06-03"
 tags: [studio-custom, git-repository, session, studios]
 ---
 
 :::info[**Prerequisites**]
-You will need the following to get started:
+You need the following:
 
 - Valid credentials for accessing cloud storage resources
 - **Maintain** role permissions or above
@@ -15,13 +15,13 @@ You will need the following to get started:
 - [Data Explorer](../data/data-explorer) enabled
 :::
 
-For ready-to-use examples, see [Example custom Studios][example-studios]. Select **Custom container template** and provide your own template (see [Custom container template image][custom-image]). When you select this option, you cannot **Install Conda packages**.
+Select **Custom container template** and provide your own template (see [Custom container template image][custom-image]). This option doesn't support **Install Conda packages**. For ready-to-use examples, see [Example custom Studios][example-studios].
 
 Configure the following fields:
 
 - **Container identifier**: The template for the container.
-- **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Additional custom resource labels can be added or removed as needed.
-- **Environment variables**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence. To override an inherited variable, define the same key with a different value.
+- **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default. Add or remove custom resource labels as needed.
+- **Environment variables**: Environment variables for the session. The session inherits and displays all variables from the selected compute environment. Add session-specific variables as needed. Session-level variables take precedence. To override an inherited variable, define the same key with a different value.
 - **Studio name**: The name for the Studio.
 - **Description** (optional): A description for the Studio.
 - **Collaboration**: Session access permissions. By default, all workspace users with the launch role and above can connect to the session. Toggle **Private** on to restrict connections to the session creator only.
@@ -48,12 +48,12 @@ Files uploaded to a mounted bucket during an active session may not be immediate
 
 ## Save and start
 
-   1. Review the configuration to ensure all settings are correct.
+   1. Review the configuration.
    1. Save your configuration:
       - To save and immediately start your Studio, select **Add and start**.
       - To save but not immediately start your Studio, select **Add only**.
 
-Studios you create will be listed on the Studios landing page with a status of either **stopped** or **starting**. Select a Studio to inspect its configuration details.
+Studios you create are listed on the Studios landing page with a status of **stopped** or **starting**. Select a Studio to inspect its configuration details.
 
 {/* links */}
 [contact]: https://support.seqera.io/
