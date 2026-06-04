@@ -121,7 +121,7 @@ If you are running on MySQL 5.7, MySQL 8.0, or MariaDB, complete your database m
 
 ### Migrating from Redis to Valkey
 
-To migrate from Redis to Valkey, update the `TOWER_REDIS_URL` connection scheme to use `valkey://` (or `valkeyss://` for TLS). The Redisson client embedded in Platform 26.1 has been upgraded to support Valkey 7 and 8 dial schemes; no further configuration is required.
+To migrate from Redis to Valkey, update the `TOWER_REDIS_URL` environment variable. The Redisson client embedded in Platform 26.1 has been upgraded to support Valkey 7 dial schema; no further configuration is required.
 
 :::note
 Redis password and ACL configuration carry over unchanged when migrating to Valkey.
