@@ -2,7 +2,7 @@
 title: "Manage your IdP group catalog"
 description: "Populate Seqera with your IdP's groups using SCIM push or manual entry."
 date: "2026-05-12"
-tags: [sso, scim, idp-delegation, administration, enterprise]
+tags: [sso, scim, idp delegation, administration, enterprise]
 ---
 
 Platform maintains a per-organization catalog of identity provider (IdP) groups. Groups appear in the catalog as soon as they're synced from the IdP or added manually. They don't depend on any user having signed in.

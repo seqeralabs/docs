@@ -2,7 +2,7 @@
 title: "Claude Code"
 description: "Install and maintain the Co-Scientist skill for Claude Code"
 date created: "2026-03-11"
-tags: [co-scientist, cli, skills, claude-code]
+tags: [co-scientist, cli, skills, claude code]
 ---
 
 The `seqera skill` command installs a skill file that enables [Claude Code](https://claude.ai/code) to use Co-Scientist as a subagent. Once installed, Claude Code can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
