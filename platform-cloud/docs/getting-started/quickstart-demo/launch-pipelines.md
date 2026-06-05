@@ -86,7 +86,7 @@ Use the `outdir` parameter to specify where the pipeline publishes outputs. `out
 
 #### Pipeline-specific parameters
 
-Modify other parameters to customize the pipeline execution through the parameters form. For example, in nf-core/rnaseq, change the `trimmer` under **Read trimming options** to `fastp` instead of `trimgalore`.
+Modify other parameters to customize the pipeline execution through the parameters form. For example, in [nf-core/rnaseq](https://github.com/nf-core/rnaseq) (version 3.15.1), change the `trimmer` under **Read trimming options** to `fastp` instead of `trimgalore`.
 
 ![Read trimming options](./assets/trimmer-settings.png)
 
