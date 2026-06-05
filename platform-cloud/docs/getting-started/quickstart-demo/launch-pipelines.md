@@ -19,10 +19,6 @@ You need the following:
 
 :::
 
-:::caution
-This guide is based on [nf-core/rnaseq](https://github.com/nf-core/rnaseq) version 3.15.1. Some launch form parameters differ between versions.
-:::
-
 ## Launch a pipeline
 
 Navigate to the Launchpad and select **Launch** next to your pipeline to open the launch form.
