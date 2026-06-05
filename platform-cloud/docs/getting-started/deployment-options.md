@@ -1,18 +1,18 @@
 ---
 title: "Deployment options"
-description: "Seqera Platform deployment editions and ways to access your Seqera instance."
+description: "Seqera Platform deployment options and ways to access your Seqera instance."
 date created: "2023-04-21"
 last updated: "2026-07-05"
 tags: [deployment]
 ---
 
-Seqera Platform is available in two deployment editions: Seqera Cloud, hosted by Seqera, and Seqera Enterprise, installed in your organization's own infrastructure. You can access either edition through the web-based user interface (UI), the API, the CLI, or directly in Nextflow.
+Seqera Platform is available in two deployment options: Seqera Cloud, hosted by Seqera, and Seqera Enterprise, installed in your organization's own infrastructure. You can access either deployment through the web-based user interface (UI), the API, the CLI, or directly in Nextflow.
 
-## Platform editions
+## Platform options
 
 ### Seqera Cloud
 
-[Seqera Cloud](https://cloud.seqera.io) is the hosted edition, recommended for users who are new to Platform and for individuals and organizations that want to set up quickly. The free tier includes up to five concurrent runs per user. Seqera Cloud Pro offers unlimited runs and dedicated support. [Contact us](https://cloud.seqera.io/demo/) for a demo to discuss your requirements.
+[Seqera Cloud](https://cloud.seqera.io) is the hosted deployment, recommended for users who are new to Platform and for individuals and organizations that want to set up quickly. The free tier includes up to five concurrent runs per user. Seqera Cloud Pro offers unlimited runs and dedicated support. [Contact us](https://cloud.seqera.io/demo/) for a demo to discuss your requirements.
 
 ### Seqera Enterprise
 
