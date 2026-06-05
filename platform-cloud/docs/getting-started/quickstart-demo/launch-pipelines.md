@@ -41,27 +41,30 @@ See [Best Practices for Deploying Pipelines with the Seqera Platform](https://se
 
 ### General config
 
-![General config tab](../_images/launch-form-2.gif)
-
 - **Pipeline to launch**: The pipeline Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited.
+- **Version name**: The version that will be selected as default for this pipeline.
+- **Version ID**: The ID of the pipeline version.
 - **Revision**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch.
 - **Commit ID**: Pin pipeline revision to the most recent HEAD commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
 - **Pull latest**: Fetch the most recent HEAD commit ID of the pipeline revision at launch time. Unpins the **Commit ID**, if set.
   :::info
   See [Git revision management](../../pipelines/revision.md) for more information on **Commit ID**, **Pull latest**, and **Revision** behavior.
   :::
-- (_Optional_) **Config profiles**: One or more [configuration profile](https://docs.seqera.io/nextflow/config#config-profiles) names to use for the execution.
+- **Main script**: The script file to execute (default: `main.nf`). Config profiles suggestions may update when this field changes.
+- **Config profiles**: One or more [configuration profile](https://docs.seqera.io/nextflow/config#config-profiles) names to use for the execution.
 - **Workflow run name**: An identifier for the run, pre-filled with a random name. This can be customized.
-- (_Optional_) **Labels**: Assign new or existing [labels](../../labels/overview) to the run.
+- **Labels**: Assign new or existing [labels](../../labels/overview) to the run.
 - **Compute environment**: Select an existing workspace [compute environment](../../compute-envs/overview).
 - **Work directory**: The (cloud or local) file storage path where pipeline scratch data is stored. If you specify only a cloud bucket location, Platform creates a scratch subfolder.
   :::note
   The credentials associated with the compute environment must have access to the work directory.
   :::
+- **Schema**: The schema to validate pipeline parameters and prevent runtime failures.
+  - **Repository default**: The default schema provided by the pipeline repository.
+  - **Repository path**: A schema at a specific path in the repository.
+  - **Seqera Platform schema**: A schema stored in Seqera Platform.
 
 ### Run parameters
-
-![Run parameters](../_images/launch-form-3.gif)
 
 There are three ways to enter **Run parameters** prior to launch:
 
@@ -93,7 +96,7 @@ Modify other parameters to customize the pipeline execution through the paramete
 ### Advanced settings
 
 - Use [resource labels](../../resource-labels/overview) to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, workspace admins can override them from the launch form. Applied resource label names must be unique.
-- [Pipeline secrets](../../secrets/overview) store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
+- Use [Pipeline secrets](../../secrets/overview) store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
 - See [Advanced options](../../launch/advanced) for more details.
 
 After you fill in the launch details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to open the [**View Workflow Run**](../../monitoring/overview) page, where you can view the configuration, parameters, status of individual tasks, and run report.
