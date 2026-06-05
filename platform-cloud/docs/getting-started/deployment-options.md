@@ -52,7 +52,7 @@ See [API](https://docs.seqera.io/platform-api) for the full endpoint reference a
 
 ### Seqera CLI
 
-The Seqera CLI (`tw`) brings Platform concepts such as pipelines and compute environments to the terminal. Launch pipelines, manage cloud resources, and administer your analyses from the command line, or define Platform resources declaratively to version and manage them as code. The CLI is available for macOS, Windows, and Linux.
+The Seqera CLI (`tw`) brings Platform concepts such as pipelines and compute environments to the terminal. Launch pipelines, manage cloud resources, and administer your analyses from the command line, or define Platform resources declaratively to version and manage them as code.
 
 See [CLI](https://docs.seqera.io/platform-cli) for installation instructions and the command reference.
 
