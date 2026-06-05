@@ -2,7 +2,7 @@
 title: "Deployment options"
 description: "Seqera Platform deployment editions and ways to access your Seqera instance."
 date created: "2023-04-21"
-last updated: "2025-08-08"
+last updated: "2026-07-05"
 tags: [deployment]
 ---
 
