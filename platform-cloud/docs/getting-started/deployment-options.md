@@ -1,22 +1,22 @@
 ---
-title: "Deploy Platform"
-description: "An overview of deployment versions and ways to run Seqera Platform."
+title: "Deployment options"
+description: "Seqera Platform deployment editions and ways to access your Seqera instance."
 date created: "2023-04-21"
 last updated: "2025-08-08"
 tags: [deployment]
 ---
 
-Seqera Platform is available in two deployment editions and can be accessed via the web-based user interface (UI), [API](https://docs.seqera.io/platform-api), [CLI](https://docs.seqera.io/platform-cli), or in Nextflow directly using a flag.
+Seqera Platform is available in two deployment editions: Seqera Cloud, hosted by Seqera, and Seqera Enterprise, installed in your organization's own infrastructure. You can access either edition through the web-based user interface (UI), the API, the CLI, or directly in Nextflow.
 
 ## Platform editions
 
 ### Seqera Cloud
 
-The hosted Seqera Cloud edition is recommended for users who are new to Platform. It's an ideal choice for individuals and organizations looking to set up quickly. [Seqera Cloud](https://cloud.seqera.io) has a free tier with a limit of five concurrent workflow runs per user. Seqera Cloud Pro offers unlimited runs, dedicated support, and more — [contact us](https://cloud.seqera.io/demo/) for a demo to discuss your requirements.
+[Seqera Cloud](https://cloud.seqera.io) is the hosted edition, recommended for users who are new to Platform and for individuals and organizations that want to set up quickly. The free tier includes up to five concurrent runs per user. Seqera Cloud Pro offers unlimited runs and dedicated support. [Contact us](https://cloud.seqera.io/demo/) for a demo to discuss your requirements.
 
 ### Seqera Enterprise
 
-[Seqera Enterprise](https://docs.seqera.io/platform-enterprise/enterprise) is installed in an organization's own cloud or on-premises infrastructure. It includes:
+[Seqera Enterprise](https://docs.seqera.io/platform-enterprise/enterprise) runs in your organization's own cloud or on-premises infrastructure. It includes:
 
 - Monitoring, logging, and observability
 - Pipeline execution Launchpad
@@ -27,18 +27,18 @@ The hosted Seqera Cloud edition is recommended for users who are new to Platform
 - Full-featured API
 - Dedicated support for Nextflow and Seqera Platform
 
-To install Platform in your organization's infrastructure, [contact us](https://cloud.seqera.io/demo/) for a demo to discuss your requirements.
+To install Platform in your organization's infrastructure, [contact us](https://cloud.seqera.io/demo/) for a demo.
 
-## How to use Platform
+## Access Platform
 
-You can access your Seqera instance through the UI, the [API](https://docs.seqera.io/platform-api), the [CLI](https://docs.seqera.io/platform-cli), or in Nextflow directly using the `-with-tower` option.
+Access your Seqera instance through the UI, the API, the CLI, or in Nextflow directly with the `-with-tower` run option.
 
-### Platform web-based UI
+### Web-based UI
 
-1. Create an account and log in to Seqera Cloud at [cloud.seqera.io](https://cloud.seqera.io).
+1. Create an account and sign in to Seqera Cloud at [cloud.seqera.io](https://cloud.seqera.io).
 
    :::note
-   Platform login sessions remain active as long as the application browser window remains open and active. When the browser window is terminated, automatic logout occurs within 6 hours by default.
+   Login sessions remain active while the browser window is open and active. After you close the browser window, Platform signs you out within 6 hours by default.
    :::
 
 2. Create and configure a new [compute environment](../compute-envs/overview).
@@ -46,27 +46,31 @@ You can access your Seqera instance through the UI, the [API](https://docs.seqer
 
 ### Seqera API
 
-See [API](https://docs.seqera.io/platform-api).
+The Seqera API provides programmatic access to Platform. Use the API to automate operations such as launching pipelines, creating compute environments, and managing workspaces, or to integrate Platform with your existing infrastructure and tooling. Authenticate API requests with a Platform access token.
+
+See [API](https://docs.seqera.io/platform-api) for the full endpoint reference and usage details.
 
 ### Seqera CLI
 
-See [CLI](https://docs.seqera.io/platform-cli).
+The Seqera CLI (`tw`) brings Platform concepts such as pipelines and compute environments to the terminal. Launch pipelines, manage cloud resources, and administer your analyses from the command line, or define Platform resources declaratively to version and manage them as code. The CLI is available for macOS, Windows, and Linux.
+
+See [CLI](https://docs.seqera.io/platform-cli) for installation instructions and the command reference.
 
 ### Nextflow `-with-tower`
 
-If you have an existing environment where you run Nextflow directly, you can still leverage Seqera Platform capabilities by executing your Nextflow run with a `with-tower` flag:
+If you run Nextflow directly in an existing environment, add the `-with-tower` option to your run command to use Platform capabilities:
 
-1. Create an account and log in to Seqera at [cloud.seqera.io](https://cloud.seqera.io).
-2. From your personal workspace: Go to the user menu and select **Settings > Your tokens**.
+1. Create an account and sign in to Seqera at [cloud.seqera.io](https://cloud.seqera.io).
+2. In your personal workspace, go to the user menu and select **Settings** > **Your tokens**.
 3. Select **Add token**.
 4. Enter a unique name for your token, then select **Add**.
 5. Copy and store your token securely.
 
     :::caution
-    The access token is displayed only once. Save the token value before closing the **Personal Access Token** window.
+    Platform displays the access token only once. Save the token value before you close the **Personal Access Token** window.
     :::
 
-6. Open a terminal window and create environment variables to store the Seqera access token and Nextflow version. Replace `<ACCESS TOKEN>` with your newly-created token.
+6. Open a terminal window and create environment variables to store the Seqera access token and Nextflow version. Replace `<ACCESS_TOKEN>` with your new token:
 
     ```bash
     export TOWER_ACCESS_TOKEN=<ACCESS_TOKEN>
@@ -74,7 +78,7 @@ If you have an existing environment where you run Nextflow directly, you can sti
     ```
 
     :::note
-    Bearer token support requires Nextflow version 20.10.0 or later. Set with the `NXF_VER` environment variable.
+    Bearer token support requires Nextflow version 20.10.0 or later. Set the version with the `NXF_VER` environment variable.
     :::
 
 7. To submit a pipeline to a [workspace](../orgs-and-teams/workspace-management) using Nextflow, add the workspace ID to your environment:
@@ -83,9 +87,9 @@ If you have an existing environment where you run Nextflow directly, you can sti
     export TOWER_WORKSPACE_ID=000000000000000
     ```
 
-    To find your workspace ID, select your organization in Seqera and navigate to the **Workspaces** tab.
+    To find your workspace ID, select your organization in Seqera and select the **Workspaces** tab.
 
-8. Run your Nextflow pipeline with the `-with-tower` flag:
+8. Run your Nextflow pipeline with the `-with-tower` option:
 
     ```bash
     nextflow run main.nf -with-tower
@@ -93,8 +97,8 @@ If you have an existing environment where you run Nextflow directly, you can sti
 
     Replace `main.nf` with the filename of your Nextflow script.
 
-You can now monitor your workflow runs in the Seqera interface. To configure and execute Nextflow pipelines in cloud environments, see [compute environments](../compute-envs/overview).
+You can now monitor your runs in the Seqera UI. To configure and run Nextflow pipelines in cloud environments, see [compute environments](../compute-envs/overview).
 
 :::tip
-See the [Nextflow documentation](https://docs.seqera.io/nextflow/config.html?highlight=tower#scope-tower) for further run configuration options using Nextflow configuration files.
+For additional run configuration options using Nextflow configuration files, see the [Nextflow documentation](https://docs.seqera.io/nextflow/config.html?highlight=tower#scope-tower).
 :::
