@@ -2,7 +2,7 @@
 title: "Administration overview"
 description: "Overview of Tower user and organization administration"
 date: "21 Apr 2023"
-tags: [administration, user, workspace, organization]
+tags: [administration, users, workspaces, organizations]
 ---
 
 ## Administration of users, organizations, teams, and memberships

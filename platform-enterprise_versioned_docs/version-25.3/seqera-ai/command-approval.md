@@ -2,7 +2,7 @@
 title: "Command approval"
 description: "Control which local commands require user approval in Seqera AI"
 date: "15 Dec 2025"
-tags: [seqera-ai, cli, approval, security]
+tags: [seqera ai, cli, approval, security]
 ---
 
 :::caution Seqera AI CLI is in beta

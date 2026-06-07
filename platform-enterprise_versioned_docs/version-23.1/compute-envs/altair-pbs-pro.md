@@ -2,7 +2,7 @@
 title: "Altair PBS Pro"
 description: "Instructions to set up Altair PBS Pro in Nextflow Tower"
 date: "21 Apr 2023"
-tags: [pbs pro, altair, compute environment]
+tags: [pbs pro, altair, compute environments]
 ---
 
 [Altair PBS Pro](https://www.altair.com/pbs-professional/) is a workload manager and job scheduling tool provided by Altair Engineering, Inc.

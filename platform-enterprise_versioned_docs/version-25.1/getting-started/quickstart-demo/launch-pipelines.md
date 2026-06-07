@@ -2,7 +2,7 @@
 title: "Launch pipelines"
 description: "An introduction to launching nf-core/rnaseq in the community/showcase workspace"
 date: "8 Jul 2024"
-tags: [platform, launch, pipelines, launchpad, showcase tutorial]
+tags: [platform, launch, pipelines, launchpad, tutorial]
 ---
 
 import Tabs from '@theme/Tabs';

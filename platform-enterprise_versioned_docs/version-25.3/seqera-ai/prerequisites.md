@@ -2,7 +2,7 @@
 title: "Seqera AI prerequisites"
 description: "Prerequisites for Seqera AI"
 date created: "2026-04-20"
-tags: [seqera-ai, prerequisites]
+tags: [seqera ai, prerequisites]
 ---
 
 ## Overview

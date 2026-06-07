@@ -3,7 +3,7 @@ title: "Seqera MCP"
 description: "Connect AI assistants to Seqera Platform using the Model Context Protocol"
 date created: "2025-12-12"
 last updated: "2026-01-21"
-tags: [mcp, integration, mcp-server, ai]
+tags: [mcp, integration, mcp server, ai]
 ---
 
 Seqera MCP is a [Model Context Protocol](https://modelcontextprotocol.io/) server that enables AI assistants to interact with the Seqera ecosystem. It provides access to Seqera Platform, Wave containers, nf-core modules, and bioinformatics data resources.
