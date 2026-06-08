@@ -229,16 +229,21 @@ jobs:
 
       - name: Generate overlay files with Claude
         if: steps.prev-version.outputs.has_previous == 'true'
+        id: claude-overlays
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
         run: |
-          # This step calls Claude API to generate overlay files
-          # The skill is available in the repo at .claude/skills/openapi-overlay-generator/
+          # Calls Claude API to generate overlay files using the
+          # openapi-overlay-generator skill at .claude/skills/.
+          # Retries transient failures (rate limits, overloaded API, 5xx)
+          # with exponential backoff before failing the step.
 
           python3 - <<'PYTHON_SCRIPT'
           import anthropic
           import json
           import os
+          import sys
+          import time
           from pathlib import Path
 
           # The analysis script creates a JSON file with the same name + -analysis.json
@@ -248,7 +253,7 @@ jobs:
 
           if not analysis_file.exists():
               print("⚠️  No analysis file found - may be no changes")
-              exit(0)
+              sys.exit(0)
 
           with open(analysis_file) as f:
               analysis = json.load(f)
@@ -287,27 +292,90 @@ jobs:
 
           Generate the overlay files as separate YAML code blocks, clearly labeled with the filename."""
 
-          message = client.messages.create(
-              model="claude-sonnet-4-5-20250929",
-              max_tokens=16000,
-              system=f"""You are an expert at generating OpenAPI overlay files for API documentation.
+          system_prompt = f"""You are an expert at generating OpenAPI overlay files for API documentation.
 
           {standards}
 
-          {patterns}""",
-              messages=[{
-                  "role": "user",
-                  "content": prompt
-              }]
-          )
+          {patterns}"""
 
-          # Save response for review
+          # Retry transient API errors with exponential backoff.
+          # anthropic.RateLimitError (429), APIStatusError 5xx, APIConnectionError, APITimeoutError.
+          retry_exceptions = (
+              anthropic.RateLimitError,
+              anthropic.APIConnectionError,
+              anthropic.APITimeoutError,
+              anthropic.InternalServerError,
+          )
+          max_attempts = 4
+          base_delay = 10  # seconds; doubles each retry: 10s, 20s, 40s
+
+          message = None
+          last_error = None
+          for attempt in range(1, max_attempts + 1):
+              try:
+                  message = client.messages.create(
+                      model="claude-sonnet-4-5-20250929",
+                      max_tokens=16000,
+                      system=system_prompt,
+                      messages=[{"role": "user", "content": prompt}],
+                  )
+                  break
+              except retry_exceptions as e:
+                  last_error = e
+                  if attempt == max_attempts:
+                      break
+                  delay = base_delay * (2 ** (attempt - 1))
+                  print(f"⚠️  Attempt {attempt}/{max_attempts} failed: {type(e).__name__}: {e}. Retrying in {delay}s...", flush=True)
+                  time.sleep(delay)
+              except anthropic.APIError as e:
+                  # Non-retryable API error (e.g. 400 bad request).
+                  print(f"❌ Non-retryable API error: {type(e).__name__}: {e}", flush=True)
+                  last_error = e
+                  break
+
+          if message is None:
+              # Write a stub so the draft PR shows visible evidence that the
+              # call failed and a maintainer needs to retry manually. The
+              # earlier workflow steps (base spec copy, comparison overlay,
+              # analysis JSON) have already produced useful artifacts.
+              output_file = specs_dir / "claude-generated-overlays.md"
+              output_file.write_text(
+                  f"# Overlay generation FAILED\n\n"
+                  f"The Claude API call failed after {max_attempts} attempts.\n\n"
+                  f"**Last error:** `{type(last_error).__name__}: {last_error}`\n\n"
+                  f"The base spec, comparison overlay, and analysis JSON were "
+                  f"generated successfully and are committed to this PR. To produce "
+                  f"the overlay files, re-run the 'Generate API Documentation "
+                  f"Overlays' workflow via workflow_dispatch with the same API "
+                  f"version, or run the openapi-overlay-generator skill locally "
+                  f"against the analysis JSON.\n"
+              )
+              # Exit non-zero so the workflow run shows a failure, but the
+              # subsequent draft-PR step still opens the PR via continue-on-error.
+              sys.exit(1)
+
           output_file = specs_dir / "claude-generated-overlays.md"
           output_file.write_text(message.content[0].text)
 
           print(f"✅ Generated overlay files (saved to {output_file})")
           print("Human review required before applying")
           PYTHON_SCRIPT
+        # Don't abort the workflow if the Claude call fails — partial state
+        # (base spec, comparison overlay, analysis JSON, failure stub) is
+        # still worth landing in a draft PR for a maintainer to retry.
+        continue-on-error: true
+
+      - name: Upload overlay generation artifacts
+        if: steps.prev-version.outputs.has_previous == 'true' && always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # ratchet:actions/upload-artifact@v7.0.1
+        with:
+          name: overlay-generation-${{ steps.version.outputs.api_version }}
+          path: |
+            platform-api-docs/scripts/specs/claude-generated-overlays.md
+            platform-api-docs/scripts/specs/base-*-to-*-changes.yaml
+            platform-api-docs/scripts/specs/*-analysis.json
+          if-no-files-found: warn
+          retention-days: 14
 
       - name: Create draft PR
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
