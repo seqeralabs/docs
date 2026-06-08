@@ -309,15 +309,21 @@ When cutting an enterprise point release (e.g., `25.3.4` → `25.3.5`), the foll
 - `enterprise/platform-kubernetes.md`
 - `functionality_matrix/overview.md`
 
-The equivalent files under `platform-enterprise_docs/` do **not** need bumping here — they always point at the next upcoming enterprise version and are updated through the normal doc workflow.
+The cloud-side compatibility table is a parallel copy of the enterprise functionality matrix and needs the same row addition each release:
+
+- `platform-cloud/docs/functionality_matrix/overview.md`
+
+Other files under `platform-enterprise_docs/` and `platform-cloud/` do **not** need bumping here — the unversioned enterprise tree always points at the next upcoming enterprise version, and cloud surfaces are updated through the normal doc workflow.
 
 Use the following to surface anything that drifted before editing:
 
 ```bash
-grep -rl "{old-version}" platform-enterprise_versioned_docs/version-25.3/
+grep -rl "{old-version}" platform-enterprise_versioned_docs/version-25.3/ platform-cloud/docs/functionality_matrix/overview.md
 ```
 
 > **Note:** When the minor version rolls (e.g., a 25.4 release), the target directory changes to `platform-enterprise_versioned_docs/version-25.4/`. Verify the correct versioned directory before applying changes.
+
+For the full version-bump playbook (including the Connect client surface), see `.claude/skills/version-bumps/SKILL.md`.
 
 ## Troubleshooting
 
