@@ -1,5 +1,5 @@
 ---
-name: release-impact-assessment
+name: release-impact
 description: >
   Triage the doc impact of a single Seqera release against three surfaces: environment variables
   (does the change add/rename/remove/alter a var listed in seqeralabs/docs under
