@@ -8,49 +8,43 @@ tags: [sso, authentication, organization settings, cloud pro]
 
 Single sign-on (SSO) lets a Seqera Platform Cloud organization use its corporate identity provider (IdP) for authentication. After SSO is enabled, users with a matching email domain are routed to the organization's IdP when they sign in.
 
-SSO is available for **Cloud Pro** organizations and uses Auth0 self-service SSO to connect supported SAML and OpenID Connect (OIDC) identity providers.
+SSO is available for Cloud Pro organizations and uses Auth0 self-service SSO to connect supported SAML and OpenID Connect (OIDC) identity providers.
 
-## Before you begin
+:::info[**Prerequisites**]
 
-- SSO is available only for [Cloud Pro](https://seqera.io/pricing/) organizations.
-- Only organization owners should configure or manage SSO. For more information, see [User roles](../orgs-and-teams/roles).
-- Your organization must claim one email domain that is not already active for another organization.
-- All existing organization members should use email addresses on the domain you want to claim. If members use other domains, Seqera blocks setup until that mismatch is resolved.
-- Your organization must not have workspace collaborators. Remove collaborators or add them as organization members before you configure SSO.
-- You need permission to configure your organization's IdP. Depending on the provider, you might need values such as a client ID, client secret, metadata URL, issuer URL, or signing certificate.
+You need the following:
 
-:::caution
-After SSO is enabled, users on the claimed domain authenticate through the configured IdP. If the IdP is unavailable, those users can't fall back to another login method.
+- A [Cloud Pro](https://seqera.io/pricing/) organization.
+- The organization owner role. See [User roles](../orgs-and-teams/roles).
+- An email domain that isn't already claimed by another organization.
+- Organization members and collaborators resolved to the claimed domain. See [Prepare users before setup](#prepare-users-before-setup).
+- Administrative access to your organization's IdP. Depending on the provider, you need values such as a client ID, client secret, metadata URL, issuer URL, or signing certificate.
+
 :::
 
-## Organization settings states
-
-In **Organization settings**, the SSO experience depends on your subscription tier:
-
-- Cloud Pro organization owners see an option to configure SSO.
-- Cloud Basic organization owners see an upgrade prompt stating that enterprise SSO is available on Cloud Pro, with a link to pricing information.
+:::caution
+After SSO is enabled, users on the claimed domain authenticate through the configured IdP. If the IdP is unavailable, those users can't fall back to another sign-in method.
+:::
 
 ## Prepare users before setup
 
-Before you configure SSO, resolve any users who can't authenticate through the domain you want to claim:
+Seqera blocks domain claiming when the organization has members with email addresses outside the claimed domain or existing workspace collaborators. The setup flow lists the affected users.
 
-- Remove organization members whose email addresses don't use the claimed domain, or update their accounts to use email addresses on the claimed domain.
+Before you configure SSO:
+
+- Remove organization members whose email addresses don't use the claimed domain, or update their accounts to use addresses on the claimed domain.
 - Remove all workspace collaborators. If external users need continued access, add them to your IdP as guest or external accounts so they can sign in through SSO and be provisioned as organization members.
-- If an existing collaborator already uses the claimed domain, add them as an organization member before you claim the domain.
-
-Seqera blocks domain claiming when the organization has members with email addresses outside the claimed domain or existing workspace collaborators. The setup flow lists the affected users so you can resolve them before trying again.
-
-Full claims-based provisioning for collaborator migration is planned for Q2 2026. Until then, external users must be added to the IdP and provisioned through the SSO sign-in flow.
+- Add any collaborator who already uses the claimed domain as an organization member before you claim the domain.
 
 ## Configure SSO
 
-1.  Open your organization, then select **Settings**.
-2.  Choose the option to configure SSO and enter the email domain your organization wants to claim.
-3.  Select **Generate setup URL**.
-4.  Open the setup URL to start the Auth0 self-service SSO wizard.
-5.  In the wizard, select your identity provider and complete the provider-specific configuration.
-6.  Run the connection test in the Auth0 wizard to confirm that authentication works.
-7.  Return to Seqera and select **Enable SSO** to activate the connection.
+1. Open your organization, then select **Settings**.
+2. Select the option to configure SSO and enter the email domain to claim.
+3. Select **Generate setup URL**.
+4. Open the setup URL to start the Auth0 self-service SSO wizard.
+5. In the wizard, select your identity provider and complete the provider-specific configuration.
+6. Run the connection test in the Auth0 wizard to confirm that authentication works.
+7. Return to Seqera and select **Enable SSO** to activate the connection.
 
 Seqera validates the configured Auth0 connection when you enable SSO. If the domain configured in Auth0 doesn't match the domain claimed in Seqera, activation fails. Correct the Auth0 configuration or delete the SSO configuration and create a new one with the correct domain.
 
@@ -70,7 +64,7 @@ When an organization has active SSO:
 
 - The sign-in flow starts with an email-first step.
 - Users whose email domain matches an active SSO connection are redirected to their corporate IdP.
-- Users whose email domain does not match an SSO connection continue with the standard Seqera login options.
+- Users whose email domain does not match an SSO connection continue with the standard Seqera sign-in options.
 - Users who previously signed in with a social provider and have a matching SSO domain are redirected to the corporate IdP instead.
 
 ## User provisioning and account linking
@@ -92,7 +86,7 @@ Organization owners can manage the SSO connection from **Organization settings**
 
 - Disable SSO enforcement without deleting the existing configuration.
 - Re-enable a previously disabled connection if no other organization has activated the same domain.
-- Generate an Auth0 connection management link for active connections. Enabling IdP configuration changes such as credential rotation or other provider updates.
+- Generate an Auth0 connection management link for an active connection to make IdP configuration changes such as credential rotation.
 - Delete the connection and release the claimed domain.
 
 :::note
@@ -101,29 +95,9 @@ You can't change the claimed domain through the edit flow. To move SSO to a diff
 
 ## Audit log coverage
 
-SSO activity is recorded in the audit log for compliance and troubleshooting. Audit coverage includes:
+The audit log records SSO activity for compliance and troubleshooting, including:
 
 - SSO configuration changes such as create, enable, disable, and delete
 - Identity-linking updates for existing users
 
-## Troubleshooting
-
-### Setup Issues
-
-These issues can occur either when you first claim a domain to create an SSO connection, or later when the connection is enabled:
-
-- Organization contains members with email addresses outside the claimed domain. Remove them or migrate them to the claimed domain.
-- Organization has existing workspace collaborators. If external users need continued access, add them to your IdP as guest or external accounts so they can sign in through SSO and be provisioned as organization members.
-- The claimed domain is rejected or becomes unclaimable. The domain may already be claimed by another organization — either at the time you attempt to claim it, or because another organization has since enabled a connection with the same domain claim. Contact Seqera support.
-
-### Users are not redirected to the corporate IdP
-
-Confirm that SSO is enabled for the organization and that the user's email domain matches the claimed domain.
-
-### An IdP user can't complete sign in
-
-Confirm that the user has access to the application or connection configured in your IdP and that the user's email domain matches the domain claimed in Seqera.
-
-### An existing user sees a linking problem during login
-
-If Seqera can't link an existing account to the SSO identity, the user should contact an organization owner or Seqera support before trying again.
+For setup, sign-in, and account-linking problems, see [SSO troubleshooting](../troubleshooting_and_faqs/sso_troubleshooting).

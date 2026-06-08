@@ -23,12 +23,17 @@ jobs:
       - name: Check if already documented
         id: check
         run: |
-          if [ -f "platform-cloud/docs/cli/metadata/cli-metadata-v${{ steps.cli-release.outputs.version }}.json" ]; then
+          # CLI metadata lives at platform-cli-docs/metadata/, not under
+          # platform-cloud/docs/cli/. The previous path never matched, so
+          # this check always evaluated to false and dispatched cli-release
+          # every single day for the same version.
+          METADATA_FILE="platform-cli-docs/metadata/cli-metadata-v${{ steps.cli-release.outputs.version }}.json"
+          if [ -f "$METADATA_FILE" ]; then
             echo "exists=true" >> $GITHUB_OUTPUT
-            echo "CLI v${{ steps.cli-release.outputs.version }} is already documented"
+            echo "CLI v${{ steps.cli-release.outputs.version }} is already documented ($METADATA_FILE)"
           else
             echo "exists=false" >> $GITHUB_OUTPUT
-            echo "CLI v${{ steps.cli-release.outputs.version }} needs documentation"
+            echo "CLI v${{ steps.cli-release.outputs.version }} needs documentation (expected $METADATA_FILE)"
           fi
 
       - name: Trigger update workflow
