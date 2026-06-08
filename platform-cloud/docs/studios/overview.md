@@ -10,10 +10,11 @@ Studios provides interactive analysis environments that pair a container image w
 
 On Seqera Cloud, the free tier permits only one running Studio session at a time. To run simultaneous sessions, [contact Seqera][contact] for a Seqera Cloud Pro license.
 
-- [Add a Studio](./add-studio): Configuration options for creating, running, and customizing Studio sessions.
 - [Container image templates](./container-images): Provided templates for JupyterLab, R-IDE, Visual Studio Code, and Xpra.
 - [Custom environments](./custom-envs): Augment the Seqera-provided images with Conda packages or your own base container template image.
+- [Add a Studio](./add-studio): Configuration options for creating, running, and customizing Studio sessions.
 - [Manage Studios](./managing): Manage Studios and collaborator access.
+- [Connect changelog](./connect): Release notes for the Seqera Connect client.
 
 :::note
 Studios supports [AWS Cloud][aws-cloud], [Google Cloud][google-cloud], and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
