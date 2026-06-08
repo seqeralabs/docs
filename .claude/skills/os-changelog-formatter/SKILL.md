@@ -1,5 +1,5 @@
 ---
-name: 0s-changelog-formatter
+name: os-changelog-formatter
 description: Format and style-check open source Nextflow and Wave changelogs to ensure consistency in voice, tense, attribution, linking, and component-based organization. Use when formatting a changelog in changelog/nextflow/ or changelog/wave/.
 ---
 
