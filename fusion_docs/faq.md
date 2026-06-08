@@ -48,6 +48,12 @@ If you didn’t notice any performance improvement with Fusion, the bottleneck m
 - [Amazon Elastic Kubernetes Service](https://docs.seqera.io/platform-cloud/compute-envs/eks)
 - [Google Kubernetes Engine](https://docs.seqera.io/platform-cloud/compute-envs/gke)
 
+### How much local disk does Fusion need?
+
+Fusion does not require local NVMe disk as large as your input or output files. Fusion uses local storage as a temporary cache. It stages data on the local disk, uploads it to cloud object storage in the background in chunks, and runs a built-in garbage collector that deletes cached entries as the disk fills.
+
+Size local storage for the data held by the tasks running concurrently on an instance rather than your total dataset size. For per-platform recommendations, see the compute environment pages listed in the question above.
+
 ### How does the scratch process directive interact with Fusion?
 
 The Nextflow [`scratch`](https://www.nextflow.io/docs/latest/reference/process.html#scratch) process directive controls where a task runs:
