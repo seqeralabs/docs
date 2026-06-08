@@ -13,9 +13,28 @@ on:
 jobs:
   update-cli-docs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      id-token: write
     steps:
+      - name: Generate docs app token
+        id: docs-app-token
+        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # ratchet:actions/create-github-app-token@v3.0.0
+        with:
+          app-id: ${{ secrets.DOCS_BOT_APP_ID }}
+          private-key: ${{ secrets.DOCS_BOT_APP_PRIVATE_KEY }}
+          owner: seqeralabs
+          repositories: docs
+
       - name: Checkout docs repo
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+        with:
+          # Authenticate git with the docs-bot app token so the generated
+          # PR triggers downstream workflows (check-internal-links,
+          # pre-commit-check, etc.). PRs created with secrets.GITHUB_TOKEN
+          # are authored by github-actions[bot] and skip CI by design.
+          token: ${{ steps.docs-app-token.outputs.token }}
 
       - name: Set up Java
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # ratchet:actions/setup-java@v5.2.0
@@ -123,7 +142,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # ratchet:peter-evans/create-pull-request@v8.1.1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.docs-app-token.outputs.token }}
           commit-message: |
             Update CLI documentation for v${{ steps.version.outputs.cli_version }}
 

@@ -27,8 +27,9 @@ on:
         type: string
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
+  pull-requests: read
+  id-token: write
 
 jobs:
   generate-changelogs:
@@ -55,9 +56,25 @@ jobs:
             echo "process=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Generate docs app token
+        if: steps.should-process.outputs.process == 'true'
+        id: docs-app-token
+        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # ratchet:actions/create-github-app-token@v3.0.0
+        with:
+          app-id: ${{ secrets.DOCS_BOT_APP_ID }}
+          private-key: ${{ secrets.DOCS_BOT_APP_PRIVATE_KEY }}
+          owner: seqeralabs
+          repositories: docs
+
       - name: Checkout docs repo
         if: steps.should-process.outputs.process == 'true'
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+        with:
+          # Authenticate git with the docs-bot app token so `git push` inside
+          # the script creates the branch as the bot. Required for the
+          # subsequent PR to trigger downstream workflows (PRs opened by
+          # github-actions[bot] do not).
+          token: ${{ steps.docs-app-token.outputs.token }}
 
       - name: Install uv
         if: steps.should-process.outputs.process == 'true'
@@ -66,15 +83,16 @@ jobs:
       - name: Configure git
         if: steps.should-process.outputs.process == 'true'
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "seqeralabs-docs-bot[bot]"
+          git config user.email "seqeralabs-docs-bot[bot]@users.noreply.github.com"
 
       - name: Generate changelogs and create PRs
         if: steps.should-process.outputs.process == 'true'
         env:
-          # GitHub token for API access
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # docs-bot app token so generated PRs are opened as the bot user
+          # and trigger downstream CI on this repo.
+          GH_TOKEN: ${{ steps.docs-app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.docs-app-token.outputs.token }}
           # Script configuration via environment variables
           CHANGELOG_REPO: ${{ matrix.repo }}
           CHANGELOG_RELEASE: ${{ github.event.inputs.release_tag }}
