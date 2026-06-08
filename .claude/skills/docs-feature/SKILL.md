@@ -1,5 +1,5 @@
 ---
-name: feature-docs
+name: docs-feature
 description: >
   Turn feature sources (Jira epics, PRDs, design docs, GitHub PRs) into documentation updates
   for Seqera Platform docs. Use this skill whenever the user wants to: write docs for a new feature,
@@ -72,10 +72,10 @@ Key principles:
 All artifacts for a single run go into a dedicated subfolder of the outputs directory:
 
 ```
-outputs/feature-docs/{page-name}-{YYYY-MM-DD}/
+outputs/docs-feature/{page-name}-{YYYY-MM-DD}/
 ```
 
-For example: `outputs/feature-docs/azure-batch-2026-05-07/`. Use the slugified name of the doc page being updated (e.g., `azure-batch`, `data-studios-overview`). If the run touches multiple pages, use the feature/epic slug instead (e.g., `outputs/feature-docs/managed-identities-2026-05-07/`).
+For example: `outputs/docs-feature/azure-batch-2026-05-07/`. Use the slugified name of the doc page being updated (e.g., `azure-batch`, `data-studios-overview`). If the run touches multiple pages, use the feature/epic slug instead (e.g., `outputs/docs-feature/managed-identities-2026-05-07/`).
 
 Write every artifact into that folder so the user can find everything from one run together.
 
@@ -120,7 +120,7 @@ Once Phase 5 verification passes, open a PR against the target repo confirmed in
 
 ## Naming conventions for output files
 
-All artifacts for a run live in `outputs/feature-docs/{page-name}-{YYYY-MM-DD}/`. Inside that folder, use descriptive names based on the doc being updated:
+All artifacts for a run live in `outputs/docs-feature/{page-name}-{YYYY-MM-DD}/`. Inside that folder, use descriptive names based on the doc being updated:
 
 - `{page-name}-gap-analysis.md` — Gap analysis (Mode A/B)
 - `{page-name}-updated.md` — Full replacement (Mode C) — this is what the PR commits
@@ -130,7 +130,7 @@ All artifacts for a run live in `outputs/feature-docs/{page-name}-{YYYY-MM-DD}/`
 For example, a run updating the Azure Batch page on 2026-05-07 produces:
 
 ```
-outputs/feature-docs/azure-batch-2026-05-07/
+outputs/docs-feature/azure-batch-2026-05-07/
   azure-batch-gap-analysis.md
   azure-batch-updated.md
   azure-batch-change-summary.md

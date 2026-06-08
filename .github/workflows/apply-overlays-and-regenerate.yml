@@ -339,7 +339,7 @@ jobs:
           ANALYSIS_FILE=$(ls -t *-analysis.json 2>/dev/null | head -n 1)
 
           if [ -n "$ANALYSIS_FILE" ]; then
-            python ../../../.claude/skills/openapi-overlay-generator/scripts/update_sidebar_v2.py \
+            python ../../../.claude/skills/api-overlay-generator/scripts/update_sidebar_v2.py \
               ../../docs/sidebar/sidebar.js \
               "$ANALYSIS_FILE"
 
