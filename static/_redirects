@@ -53,7 +53,7 @@
 /platform/:version/*    /platform-cloud/:splat
 /platform/*   /platform-cloud/:splat
 
-# Redirect from orphan Fusion page
+# Redirect from orphan Fusion guide page
 /fusion/guide  /fusion 301
 
 # Redirect Google Life Sciences page
