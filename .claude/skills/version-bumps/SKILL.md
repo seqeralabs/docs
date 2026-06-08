@@ -3,7 +3,8 @@ name: version-bumps
 description: >
   Bump hard-coded version numbers across the Seqera docs in the two places they recur:
   (1) enterprise point releases — six files in platform-enterprise_versioned_docs/version-XX.Y/
-  that pin Docker image tags and Kubernetes manifests to a released version, and
+  that pin Docker image tags and Kubernetes manifests to a released version, plus the
+  cloud-side functionality matrix that mirrors the enterprise compatibility table, and
   (2) the Connect client used by Studios — Dockerfile ARG defaults, docker build commands,
   prerequisite "or later" lines, and container-image tag samples scattered across
   platform-cloud/, platform-enterprise_docs/, and the versioned snapshots.
@@ -20,8 +21,8 @@ what to change, and what NOT to touch.
 
 ## Surface 1: Enterprise point release pins
 
-When an enterprise point release is cut (e.g. `25.3.4` → `25.3.5`), six files in the
-**versioned** docs tree pin Docker image tags and Kubernetes manifests to the released version:
+When an enterprise point release is cut (e.g. `25.3.4` → `25.3.5`), seven files need manual
+bumps. Six are in the **versioned** docs tree, which is frozen against the released version:
 
 - `platform-enterprise_versioned_docs/version-25.3/enterprise/_templates/docker/docker-compose.yml`
 - `platform-enterprise_versioned_docs/version-25.3/enterprise/_templates/k8s/tower-cron.yml`
@@ -30,9 +31,17 @@ When an enterprise point release is cut (e.g. `25.3.4` → `25.3.5`), six files 
 - `platform-enterprise_versioned_docs/version-25.3/enterprise/platform-kubernetes.md`
 - `platform-enterprise_versioned_docs/version-25.3/functionality_matrix/overview.md`
 
-**Why these and not their `platform-enterprise_docs/` equivalents:** the unversioned tree
-always points at the *next upcoming* enterprise version and flows through normal doc updates.
-The versioned tree is frozen against the released version, so the pins live there.
+The seventh lives in the cloud docs — a parallel copy of the enterprise compatibility table
+that needs the same row addition each release:
+
+- `platform-cloud/docs/functionality_matrix/overview.md`
+
+**Why these and not the rest of `platform-enterprise_docs/`:** the unversioned enterprise
+tree always points at the *next upcoming* enterprise version and flows through normal doc
+updates. The versioned tree is frozen against the released version, so the Docker/K8s pins
+live there. The cloud functionality matrix is the exception to "no cloud-side bumps" because
+it's a shared reference listing every released platform version regardless of surface — it
+must gain the new row alongside the enterprise versioned copy.
 
 **How to apply:**
 
@@ -41,11 +50,13 @@ The versioned tree is frozen against the released version, so the pins live ther
    editing.
 2. Surface anything that drifted:
    ```bash
-   grep -rl "<old-version>" platform-enterprise_versioned_docs/version-<MAJOR.MINOR>/
+   grep -rl "<old-version>" platform-enterprise_versioned_docs/version-<MAJOR.MINOR>/ platform-cloud/docs/functionality_matrix/overview.md
    ```
-3. Edit the six files manually. Version bumps in these files can be context-dependent
-   (Docker image tag in one place, a `helm install --version` flag in another), so don't
-   blanket-replace — review each hit.
+3. Edit the seven files manually. Version bumps in these files can be context-dependent
+   (Docker image tag in one place, a `helm install --version` flag in another, a new row
+   in a compatibility table), so don't blanket-replace — review each hit. For the two
+   functionality matrices, decide with the user whether to add a new row (keeps history)
+   or replace the existing row; if adding, keep the cloud and enterprise tables in sync.
 4. The changelog file `changelog/seqera-enterprise/v<version>.md` is a release notes artifact,
    not a version bump target.
 
@@ -127,7 +138,7 @@ After bumping either surface, run these to confirm the new state:
 
 ```bash
 # Enterprise release pins (substitute your version directory)
-grep -rn "<new-version>" platform-enterprise_versioned_docs/version-25.3/enterprise/_templates/ platform-enterprise_versioned_docs/version-25.3/enterprise/configuration/mirroring.md platform-enterprise_versioned_docs/version-25.3/enterprise/platform-kubernetes.md platform-enterprise_versioned_docs/version-25.3/functionality_matrix/overview.md
+grep -rn "<new-version>" platform-enterprise_versioned_docs/version-25.3/enterprise/_templates/ platform-enterprise_versioned_docs/version-25.3/enterprise/configuration/mirroring.md platform-enterprise_versioned_docs/version-25.3/enterprise/platform-kubernetes.md platform-enterprise_versioned_docs/version-25.3/functionality_matrix/overview.md platform-cloud/docs/functionality_matrix/overview.md
 
 # Connect client pins
 grep -rnIE "CONNECT_CLIENT_VERSION|connect-client[: ]v?[0-9]|connect-(client|server|server/proxy).{0,15}v?[0-9]+\.[0-9]+|Connect (client|server).{0,30}Version [0-9]" platform-cloud platform-enterprise_docs platform-enterprise_versioned_docs/version-26.1 --include="*.md" --include="*.mdx"
