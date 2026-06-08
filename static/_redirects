@@ -45,6 +45,11 @@
 # Redirect mcp to overview page not platform-cloud
 /platform-cloud/seqera-mcp                   /platform-cloud/seqera-mcp/overview               301
 
+# Co-Scientist (Cloud): must precede the /platform-cloud/:version/* rule below,
+# otherwise :version greedily matches "seqera-ai" and the rename never fires.
+/platform-cloud/seqera-ai/get-started   /platform-cloud/co-scientist/quickstart   301
+/platform-cloud/seqera-ai/*             /platform-cloud/co-scientist/:splat        301
+
 # Remove version from /platform-cloud paths
 /platform-cloud/:version/*    /platform-cloud/:splat
 
@@ -70,11 +75,10 @@
 /wave/install/configure-wave               /wave/configure-wave             301
 
 # Co-Scientist docs: seqera-ai path renamed to co-scientist
-/platform-cloud/seqera-ai/get-started            /platform-cloud/co-scientist/quickstart             301
+# (Cloud rules live above the /platform-cloud/:version/* stripper.)
 /platform-enterprise/seqera-ai/get-started       /platform-enterprise/co-scientist/quickstart        301
 /platform-enterprise/26.1/seqera-ai/get-started  /platform-enterprise/26.1/co-scientist/quickstart   301
 
-# Catch-all: rename seqera-ai path to co-scientist (Cloud and Enterprise, all versions)
-/platform-cloud/seqera-ai/*                     /platform-cloud/co-scientist/:splat                 301
+# Catch-all: rename seqera-ai path to co-scientist (Enterprise, all versions)
 /platform-enterprise/seqera-ai/*                /platform-enterprise/co-scientist/:splat            301
 /platform-enterprise/:version/seqera-ai/*       /platform-enterprise/:version/co-scientist/:splat   301
