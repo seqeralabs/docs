@@ -231,7 +231,7 @@ This repository ships 18 GitHub Actions workflows under [.github/workflows/](.gi
 | Pre-commit check | [pre-commit-check.yaml](.github/workflows/pre-commit-check.yaml) | `pull_request` | Automatic | Active |
 | Pre-commit fix | [pre-commit-fix.yaml](.github/workflows/pre-commit-fix.yaml) | PR comment `fix formatting` | Manual (comment) | Active |
 | Internal link checking | [check-internal-links.yml](.github/workflows/check-internal-links.yml) | `pull_request` | Automatic | Active |
-| External link check (Links) | [links.yml](.github/workflows/links.yml) | Weekly cron (Sun 18:00 UTC), `repository_dispatch`, manual | Automatic + manual | Active |
+|| External link check (Links) | [links.yml](.github/workflows/links.yml) | Weekly cron (Sat 18:00 UTC), `repository_dispatch`, manual | Automatic + manual | Active |
 | markdownlint-cli2 | [markdown-lint.yml](.github/workflows/markdown-lint.yml) | `workflow_dispatch` only | Manual | Disabled (manual-only) |
 | Trigger Netlify Build | [build-nightly.yml](.github/workflows/build-nightly.yml) | Daily cron (02:00 UTC), manual | Automatic + manual | Active |
 | Index docs in Typesense | [typesense-scraper.yml](.github/workflows/typesense-scraper.yml) | Daily cron (01:00 UTC), manual | Automatic + manual | Active |
