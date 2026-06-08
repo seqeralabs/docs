@@ -141,7 +141,7 @@ spec:
   ...
       containers:
         - name: frontend
-          image: cr.seqera.io/enterprise/platform/frontend:v26.1.1-unprivileged
+          image: cr.seqera.io/enterprise/platform/frontend:v26.1.2-unprivileged
           env:
             - name: NGINX_LISTEN_PORT  # If not defined, defaults to 8000.
               value: 8000
