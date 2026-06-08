@@ -226,15 +226,40 @@ jobs:
       should_run: ${{ steps.decide.outputs.should_run }}
       skip_reason: ${{ steps.decide.outputs.skip_reason }}
     steps:
+      - name: Resolve PR refs
+        id: pr-refs
+        run: |
+          # github.base_ref / github.head_ref are empty on issue_comment events,
+          # so derive both from the PR via gh.
+          if [ "${{ github.event_name }}" = "issue_comment" ]; then
+            PR_NUMBER="${{ needs.setup.outputs.pr_number }}"
+            REFS=$(gh pr view "$PR_NUMBER" --repo "${{ github.repository }}" --json baseRefName,headRefName)
+            BASE_REF=$(echo "$REFS" | jq -r '.baseRefName')
+            HEAD_REF=$(echo "$REFS" | jq -r '.headRefName')
+          else
+            BASE_REF="${{ github.base_ref }}"
+            HEAD_REF="${{ github.head_ref }}"
+          fi
+          BASE_REF="${BASE_REF:-master}"
+          echo "base_ref=$BASE_REF" >> $GITHUB_OUTPUT
+          echo "head_ref=$HEAD_REF" >> $GITHUB_OUTPUT
+          echo "📋 base=$BASE_REF head=$HEAD_REF"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
         with:
+          # Check out the PR head, not the default branch — required for the
+          # diff against base to be meaningful.
+          ref: ${{ steps.pr-refs.outputs.head_ref }}
           fetch-depth: 0
 
       - name: Check last review time
         id: last-review
         run: |
           # Get timestamp of last /editorial-review comment
-          LAST_REVIEW=$(gh api repos/${{ github.repository }}/issues/${{ needs.setup.outputs.pr_number }}/comments             --jq '[.[] | select(.body | startswith("/editorial-review")) | .created_at] | last' || echo "")
+          LAST_REVIEW=$(gh api "repos/${{ github.repository }}/issues/${{ needs.setup.outputs.pr_number }}/comments" \
+            --jq '[.[] | select(.body | startswith("/editorial-review")) | .created_at] | last' || echo "")
 
           if [ -n "$LAST_REVIEW" ]; then
             MINUTES_AGO=$(( ($(date +%s) - $(date -d "$LAST_REVIEW" +%s 2>/dev/null || date -j -f "%Y-%m-%dT%H:%M:%SZ" "$LAST_REVIEW" +%s)) / 60 ))
@@ -249,10 +274,12 @@ jobs:
       - name: Calculate meaningful changes
         id: changes-size
         run: |
-          # Count lines changed (excluding whitespace)
-          LINES_CHANGED=$(git diff --ignore-all-space --ignore-blank-lines origin/${{ github.base_ref }}...HEAD -- '*.md' '*.mdx' | wc -l | tr -d ' ')
+          BASE_REF="${{ steps.pr-refs.outputs.base_ref }}"
+          git fetch --no-tags --depth=1 origin "$BASE_REF" || git fetch --no-tags origin "$BASE_REF"
+          # Count lines changed (excluding whitespace) between PR base and head
+          LINES_CHANGED=$(git diff --ignore-all-space --ignore-blank-lines "origin/${BASE_REF}...HEAD" -- '*.md' '*.mdx' | wc -l | tr -d ' ')
           echo "lines_changed=$LINES_CHANGED" >> $GITHUB_OUTPUT
-          echo "📊 Lines changed: $LINES_CHANGED"
+          echo "📊 Lines changed against origin/$BASE_REF: $LINES_CHANGED"
 
       - name: Run static analysis
         id: static-check
@@ -262,7 +289,10 @@ jobs:
           if command -v npx &> /dev/null; then
             echo "Running markdownlint..."
             npx --yes markdownlint-cli2@0.22.0 ${{ needs.changes.outputs.docs_files }} 2>&1 | tee /tmp/static-results.txt || true
-            ISSUES=$(grep -c ":" /tmp/static-results.txt 2>/dev/null || echo "0")
+            # Count lines that contain a markdownlint rule code (MDxxx),
+            # not raw colons — markdownlint output has multiple colons per
+            # line and prints success lines too.
+            ISSUES=$(grep -cE 'MD[0-9]{3}' /tmp/static-results.txt 2>/dev/null || echo "0")
             echo "static_issues=$ISSUES" >> $GITHUB_OUTPUT
             echo "📋 Static issues found: $ISSUES"
           else
@@ -371,7 +401,11 @@ jobs:
 
             The /editorial-review skill will orchestrate the appropriate agents
             (voice-tone, terminology) based on the review type.
-          use_sticky_comment: true
+          # Sticky comment disabled — the consolidated-review job posts the
+          # actual inline suggestions and is the single source of output.
+          # Progress is visible in the workflow run UI linked from the
+          # "Editorial review started!" acknowledgement comment.
+          use_sticky_comment: false
           claude_args: |
             --allowedTools "Read,Grep,Glob,Write,Skill(editorial-review),Task"
 
@@ -479,57 +513,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # Summary report
-  summary:
-    needs: [setup, changes, vale-lint, editorial-review-skill, consolidated-review]
-    if: always() && needs.changes.outputs.docs == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Post Summary
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # ratchet:actions/github-script@v9.0.0
-        with:
-          script: |
-            const jobs = [
-              { name: 'Terminology (Vale)', status: '${{ needs.vale-lint.result }}' },
-              { name: 'Editorial Review (AI)', status: '${{ needs.editorial-review-skill.result }}' },
-              { name: 'Consolidated Review', status: '${{ needs.consolidated-review.result }}' }
-            ];
-
-            const statusEmoji = {
-              'success': '✅',
-              'failure': '❌',
-              'skipped': '⏭️',
-              'cancelled': '🚫'
-            };
-
-            const prType = '${{ needs.changes.outputs.pr_type }}';
-            const prTypeEmoji = prType === 'rename' ? '🏷️' : '📝';
-
-            let summary = `## ${prTypeEmoji} Documentation Review Summary (PR type: ${prType})\n\n`;
-
-            if (prType === 'rename') {
-              summary += '> This PR is primarily file renames/moves. Only critical checks were run.\n\n';
-            }
-
-            summary += '| Check | Status |\n|-------|--------|\n';
-
-            for (const job of jobs) {
-              const emoji = statusEmoji[job.status] || '❓';
-              summary += `| ${job.name} | ${emoji} ${job.status} |\n`;
-            }
-
-            summary += '\n---\n';
-            summary += '*Review powered by Claude Code editorial agents*\n';
-            summary += '\n**To apply suggestions:**\n';
-            summary += '- Click "Commit suggestion" on individual inline comments\n';
-            summary += '- Select multiple suggestions and batch commit them together';
-
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: ${{ needs.setup.outputs.pr_number }},
-              body: summary
-            });
+  # NOTE: a "summary" job that posted a status-table PR comment used to live
+  # here. Removed because it duplicated information already visible on the
+  # consolidated-review comment and the workflow run UI — three comments per
+  # /editorial-review made PR threads noisy.
 
   # Auto-fix workflow (triggered by /fix-docs comment)
   auto-fix:
