@@ -45,7 +45,7 @@
 # Redirect mcp to overview page not platform-cloud
 /platform-cloud/seqera-mcp                   /platform-cloud/seqera-mcp/overview               301
 
-# Remove version from /platform-cloud paths
+# Remove version from /platform-cloud path
 /platform-cloud/:version/*    /platform-cloud/:splat
 
 # Redirect old docs URLs to new (Enterprise or Cloud) docs URLs
