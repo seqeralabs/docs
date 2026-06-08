@@ -1,7 +1,8 @@
 ---
 title: "Automation"
 description: "An introduction to automation with APIs and CLI tools in Seqera Platform"
-date: "21 Jul 2024"
+date created: "2024-07-21"
+last updated: "2026-06-08"
 tags: [platform, automation, api, cli, seqerakit]
 ---
 
@@ -27,7 +28,7 @@ The token is only displayed once. Store your token in a secure place. Use this t
     ```
     curl -X POST "https://api.cloud.seqera.io/workflow/launch?workspaceId=38659136604200" \
         -H "Accept: application/json" \
-        -H "Authorization: Bearer <your_access_token>" \
+        -H "Authorization: Bearer <ACCESS_TOKEN>" \
         -H "Content-Type: application/json" \
         -H "Accept-Version:1" \
         -d '{

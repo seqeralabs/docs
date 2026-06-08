@@ -1,7 +1,8 @@
 ---
 title: "Automation"
 description: "An introduction to automation with APIs and CLI tools in Seqera Platform"
-date: "21 Jul 2024"
+date created: "2024-07-21"
+last updated: "2026-06-08"
 tags: [platform, automation, api, cli, seqerakit]
 ---
 

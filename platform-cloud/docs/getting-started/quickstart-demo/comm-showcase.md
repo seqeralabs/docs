@@ -1,8 +1,8 @@
 ---
 title: "Community Showcase"
 description: "Seqera Cloud Community showcase workspace walkthrough"
-date created: "8 Jul 2024"
-last updated: "14 June 2025"
+date created: "2024-07-08"
+last updated: "2026-06-08"
 tags: [platform, launch, pipelines, launchpad, tutorial]
 toc_max_heading_level: 3
 ---

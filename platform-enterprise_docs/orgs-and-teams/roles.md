@@ -2,7 +2,7 @@
 title: "User roles"
 description: "Understand the various roles in Seqera Platform."
 date created: "2024-06-10"
-last updated: "2026-05-22"
+last updated: "2026-06-08"
 tags: [roles]
 ---
 
@@ -87,7 +87,7 @@ The following table shows which operations are available to the default workspac
 | **pipeline_secrets:delete**    | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **platform:read**              | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
 | **studio:read**                | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
-| **studio:execute**             | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **studio:execute**             | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **studio:write**               | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **studio:delete**              | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **studio:admin**               | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |

@@ -1,7 +1,8 @@
 ---
 title: "Studios"
 description: "An introduction to Studios in Seqera Platform"
-date: "8 Jul 2024"
+date created: "2024-07-08"
+last updated: "2026-06-08"
 tags: [platform, data,  studios]
 ---
 
@@ -24,7 +25,7 @@ Select the options menu next to a Studio to:
 
 ### Analyze RNAseq data in Studios
 
-Studios is used to perform bespoke analysis on the results of upstream workflows. For example, in the Community Showcase workspace we have run the *nf-core/rnaseq* workflow to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. The workspace contains a Studio with these results from cloud storage mounted into the Studio to perform further analysis. One of these outputs is an RShiny application, which can be deployed for interactive analysis.
+Studios is used to perform bespoke analysis on the results of upstream workflows. For example, in the Community Showcase workspace we have run the *nf-core/rnaseq* workflow to quantify gene expression, followed by *nf-core/differentialabundance* to derive differential expression statistics. The workspace contains a Studio with these results from cloud storage mounted into the Studio to perform further analysis. One of these outputs is a web app, which can be deployed for interactive analysis.
 
 ### Open the RNAseq analysis Studio
 
@@ -42,13 +43,13 @@ This Studio will start an R-IDE which already contains the necessary R packages 
 
 Deploy the app in the Studio by selecting the play button on the last chunk of the R script:
 
-![Run RShiny app](./assets/rnaseq-diffab-run-rshiny-app.png)
+![Run web app](./assets/rnaseq-diffab-run-rshiny-app.png)
 
-### Explore results in the RShiny app
+### Explore results in the web app
 
-The RShiny app will deploy in a separate browser window, providing a data interface. Here you can view information about your sample data, perform QC or exploratory analysis, and view the differential expression analyses.
+The web app will deploy in a separate browser window, providing a data interface. Here you can view information about your sample data, perform QC or exploratory analysis, and view the differential expression analyses.
 
-![RShiny app exploration](assets/rnaseq-diffab-rshiny-app-explore.gif)
+![Web app exploration](assets/rnaseq-diffab-rshiny-app-explore.gif)
 
 #### Sample clustering with PCA plots
 
@@ -68,7 +69,7 @@ What to look for in the PCA plot:
 
 From this PCA plot, you can gain insights into the consistency and quality of your sequencing data, identify any potential issues, and understand the major sources of variation among your samples - all directly in Platform.
 
-![RShiny PCA plot](assets/rnaseq-diffab-rshiny-pca-plot.gif)
+![Web app PCA plot](assets/rnaseq-diffab-rshiny-pca-plot.gif)
 
 #### Gene expression changes with Volcano plots
 
@@ -86,7 +87,7 @@ In the **Differential** tab, select **Volcano plots** to compare genes with sign
 
 Using the volcano plot, you can effectively identify and explore the genes with the most significant changes in expression between your samples, providing a deeper understanding of the molecular differences.
 
-![RShiny volcano plot](assets/rnaseq-diffab-rshiny-volcano-plot.gif)
+![Web app volcano plot](assets/rnaseq-diffab-rshiny-volcano-plot.gif)
 
 ### Collaborate in the Studio
 

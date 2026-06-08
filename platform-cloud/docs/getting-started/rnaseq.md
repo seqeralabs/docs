@@ -2,7 +2,7 @@
 title: "RNA-Seq"
 description: "An introduction to running nf-core/rnaseq in Seqera Platform"
 date created: "2024-07-21"
-last updated: "2025-07-09"
+last updated: "2026-06-08"
 tags: [platform, seqera pipelines, studios, rnaseq, compute environments, aws]
 toc_max_heading_level: 2
 ---
@@ -320,7 +320,7 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
 **Studios** streamline the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, R-IDE, and VS Code, creating a Studio is as simple as adding and sharing pipelines or datasets. The Studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles) for real-time access and collaboration.
 
-For the purposes of this guide, an RStudio environment will be used to normalize the pipeline output data, perform differential expression analysis, and visualize the data with exploratory plots.
+For the purposes of this guide, an R-IDE environment will be used to normalize the pipeline output data, perform differential expression analysis, and visualize the data with exploratory plots.
 
 ### Prepare your data
 
@@ -459,7 +459,7 @@ The R-IDE environment can be configured with the packages you wish to install an
     print(y$samples)
     ```
 
-1. Create an MDS plot, displayed in RStudio plots viewer (`a`) and saved as a PNG file (`b`):
+1. Create an MDS plot, displayed in R-IDE plots viewer (`a`) and saved as a PNG file (`b`):
 
     :::info
     MDS plots are used to visualize the overall similarity between RNA-Seq samples based on their gene expression profiles, helping to identify sample clusters and potential batch effects.
@@ -467,7 +467,7 @@ The R-IDE environment can be configured with the packages you wish to install an
 
     ```r
     # Create MDS plot
-    # a. Display in RStudio
+    # a. Display in R-IDE
     plotMDS(y, col = as.numeric(factor(targets$Group)), labels = targets$Group)
     legend(
       "topright",
@@ -569,7 +569,7 @@ The R-IDE environment can be configured with the packages you wish to install an
     # Create volcano plots for each comparison
     for (name in names(results)) {
       p <- create_volcano_plot(results[[name]], name)
-      # Display in RStudio
+      # Display in R-IDE
       print(p)
       # Save to file (change `.png` to `.pdf` to create PDF files)
       ggsave(
@@ -605,7 +605,7 @@ The R-IDE environment can be configured with the packages you wish to install an
     my_palette <- colorRampPalette(c("blue", "white", "red"))(100)
 
     # Create a heatmap using heatmap.2
-    # Display in RStudio
+    # Display in R-IDE
     heatmap.2(
       as.matrix(top_gene_expr),
       scale = "row",
@@ -639,7 +639,7 @@ The R-IDE environment can be configured with the packages you wish to install an
     print(paste("Number of top DE genes in heatmap:", length(top_genes)))
     ```
 
-![RStudio plots](./_images/rstudio.gif)
+![R-IDE plots](./_images/rstudio.gif)
 
 ### Collaborate in the Studio
 

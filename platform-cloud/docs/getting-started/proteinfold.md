@@ -1,7 +1,8 @@
 ---
 title: "Protein structure prediction"
 description: "An introduction to running nf-core/proteinfold in Seqera Platform"
-date: "21 Jul 2024"
+date created: "2024-07-21"
+last updated: "2026-06-08"
 tags: [platform, seqera pipelines, studios, proteinfold, alphafold, colabfold, compute environments, aws]
 toc_max_heading_level: 2
 ---
@@ -304,7 +305,7 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
 ## Interactive analysis with Studios
 
-[Studios](../studios/overview) streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VS Code, creating a data studio is as simple as adding and sharing pipelines or datasets. The Studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles) for real-time access and collaboration.
+[Studios](../studios/overview) streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, R-IDE, and VS Code, creating a data studio is as simple as adding and sharing pipelines or datasets. The Studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles) for real-time access and collaboration.
 
 For the purposes of this guide, a Jupyter notebook environment will be used for interactive visualization of the predicted protein structures, optionally comparing AlphaFold2 and Colabfold structures for the same sequence data.
 

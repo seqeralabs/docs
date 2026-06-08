@@ -2,13 +2,13 @@
 title: "Tower Agent"
 description: "Instructions to use Tower Agent."
 date created: "2023-04-24"
-last updated: "2025-08-08"
+last updated: "2026-06-08"
 tags: [agent]
 ---
 
 Tower Agent enables Seqera Platform to launch pipelines on HPC clusters that don't allow direct access through an SSH client.
 
-Tower Agent is a standalone process that runs on a node that can submit jobs to the cluster (e.g., a login node). It establishes an authenticated secure reverse connection with Seqera, allowing Seqera to submit and monitor new jobs. The jobs are submitted on behalf of the user running the Agent.
+Tower Agent is a standalone process that runs on a node that can submit jobs to the cluster (e.g., a login node). It establishes an authenticated secure reverse connection with Seqera, allowing Seqera to submit and monitor new jobs. The jobs are submitted on behalf of the user running the agent.
 
 ### Installation
 
@@ -25,7 +25,7 @@ Tower Agent is distributed as a single executable file to simply download and ex
 
 ### Quickstart
 
-Before running the Agent:
+Before running the agent:
 
 1. Create a [**personal access token**](https://docs.seqera.io/platform-api/create-token).
 
@@ -35,20 +35,20 @@ Before running the Agent:
 To share a single Tower Agent instance with all members of a workspace, create a Tower Agent credential with **Shared agent** enabled.
 :::
 
-When you create the credentials, you receive an _Agent Connection ID_. You can use the default ID or enter a custom ID. The connection ID in the workspace credentials must match the ID entered when you run the Agent.
+When you create the credentials, you receive an _Agent Connection ID_. You can use the default ID or enter a custom ID. The connection ID in the workspace credentials must match the ID entered when you run the agent.
 
-The Agent should always be running in order to accept incoming requests from Seqera. We recommend that you use a terminal multiplexer like [tmux](https://github.com/tmux/tmux) or [GNU Screen](https://www.gnu.org/software/screen/), so that it keeps running even if you close your SSH session.
+The agent should always be running in order to accept incoming requests from Seqera. We recommend that you use a terminal multiplexer like [tmux](https://github.com/tmux/tmux) or [GNU Screen](https://www.gnu.org/software/screen/), so that it keeps running even if you close your SSH session.
 
 ```bash
-export TOWER_ACCESS_TOKEN=<YOUR TOKEN>
+export TOWER_ACCESS_TOKEN=<ACCESS_TOKEN>
 ./tw-agent <YOUR CONNECTION ID>
 ```
 
 ### Tips
 
-- If you're using the Agent with Seqera Platform Enterprise (on-prem), you can set the API URL using the `TOWER_API_ENDPOINT` environment variable or the `--url` option.
-- By default, the Agent uses the folder `${HOME}/work` as the Nextflow work directory. You can change this directory using the `--work-dir` option.
-- The work directory _must_ exist before running the Agent.
+- If you're using the agent with Seqera Platform Enterprise (on-prem), you can set the API URL using the `TOWER_API_ENDPOINT` environment variable or the `--url` option.
+- By default, the agent uses the folder `${HOME}/work` as the Nextflow work directory. You can change this directory using the `--work-dir` option.
+- The work directory _must_ exist before running the agent.
 - You can also change the work directory in Seqera when you create a compute environment or launch a pipeline.
 
 ### Usage

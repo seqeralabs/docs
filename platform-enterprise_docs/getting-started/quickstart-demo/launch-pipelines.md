@@ -1,7 +1,8 @@
 ---
 title: "Launch pipelines"
 description: "An introduction to launching nf-core/rnaseq in the community/showcase workspace"
-date: "8 Jul 2024"
+date created: "2024-07-08"
+last updated: "2026-06-08"
 tags: [platform, launch, pipelines, launchpad, tutorial]
 ---
 
@@ -43,20 +44,27 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 ![General config tab](../_images/launch-form-2.gif)
 
 - **Pipeline to launch**: The pipeline Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited.
+- **Version name**: The version that will be selected as default for this pipeline.
+- **Version ID**: The ID of the pipeline version.
 - **Revision**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch.
 - **Commit ID**: Pin pipeline revision to the most recent HEAD commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
 - **Pull latest**: Fetch the most recent HEAD commit ID of the pipeline revision at launch time. Unpins the **Commit ID**, if set.
   :::info
   See [Git revision management](../../pipelines/revision.md) for more information on **Commit ID**, **Pull latest**, and **Revision** behavior.
   :::
-- (*Optional*) **Config profiles**: One or more [configuration profile](https://docs.seqera.io/nextflow/config#config-profiles) names to use for the execution.
+- **Main script**: The script file to execute (default: `main.nf`). Config profiles suggestions may update when this field changes.
+- **Config profiles**: One or more [configuration profile](https://docs.seqera.io/nextflow/config#config-profiles) names to use for the execution.
 - **Workflow run name**: An identifier for the run, pre-filled with a random name. This can be customized.
-- (*Optional*) **Labels**: Assign new or existing [labels](../../labels/overview) to the run.
+- **Labels**: Assign new or existing [labels](../../labels/overview) to the run.
 - **Compute environment**: Select an existing workspace [compute environment](../../compute-envs/overview).
 - **Work directory**: The (cloud or local) file storage path where pipeline scratch data is stored. Platform will create a scratch sub-folder if only a cloud bucket location is specified.
   :::note
   The credentials associated with the compute environment must have access to the work directory.
   :::
+- **Schema**: The schema to validate pipeline parameters and prevent runtime failures.
+  - **Repository default**: The default schema provided by the pipeline repository.
+  - **Repository path**: A schema at a specific path in the repository.
+  - **Seqera Platform schema**: A schema stored in Seqera Platform.
 
 ### Run parameters
 

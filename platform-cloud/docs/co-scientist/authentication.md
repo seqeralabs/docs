@@ -2,6 +2,7 @@
 title: "Authentication"
 description: "Log in, log out, and manage organizations and tokens in the Seqera CLI"
 date created: "2025-12-15"
+last updated: "2026-06-08"
 tags: [co-scientist, cli, authentication, login]
 ---
 
@@ -78,8 +79,6 @@ export SEQERA_AI_BACKEND_URL=https://ai-api.seqera.io
 You only need `SEQERA_AUTH_DOMAIN` and `SEQERA_AUTH_CLI_CLIENT_ID` when using the OAuth login flow.
 :::
 
-This command revokes your current authentication token and removes locally stored credentials. You will need to re-authenticate on next use.
-
 ## Manage organizations
 
 The Seqera CLI operates against one organization at a time, which determines billing.
@@ -124,6 +123,8 @@ To sign out from the current session, run:
 ```bash
 seqera logout
 ```
+
+This command revokes your current authentication token and removes locally stored credentials. You will need to re-authenticate on next use.
 
 ## Learn more
 

@@ -2,7 +2,7 @@
 title: "Tower Agent credentials"
 description: "Create Tower Agent credentials in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2025-10-21"
+last updated: "2026-06-08"
 tags: [agent, credentials]
 ---
 
@@ -23,6 +23,6 @@ You can share a single Tower Agent instance with all members of a workspace. Cre
     - **Provider**: Select **Tower Agent**.
     - **Agent connection ID**: The connection ID used to run your Tower Agent instance. Must match the connection ID used when running the Agent (see **Usage** below).
     - **Shared agent**: Enables Tower Agent sharing for all workspace members.
-    - **Usage**: Populates a code snippet for Tower Agent download with your connection ID. Replace `<TOKEN_NAME>` with your [Seqera access token](https://docs.seqera.io/platform-api/create-token).
+    - **Usage**: Populates a code snippet for Tower Agent download with your connection ID. Replace `<ACCESS_TOKEN>` with your [Seqera access token](https://docs.seqera.io/platform-api/create-token).
 
 3. After you've completed all the form fields, select **Add**. The new credential is now listed under the **Credentials** tab.

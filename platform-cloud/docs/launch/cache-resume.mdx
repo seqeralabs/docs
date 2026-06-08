@@ -1,7 +1,8 @@
 ---
 title: "Nextflow cache and resume"
 description: "Guide to Nextflow cache and resume in Seqera Platform"
-date: "21 Apr 2023"
+date created: "2023-04-21"
+last updated: "2026-06-08"
 tags: [cache, launch, resume, relaunch]
 ---
 
@@ -12,7 +13,7 @@ Nextflow maintains a [cache](https://docs.seqera.io/nextflow/cache-and-resume) d
 
 ## Cache directory
 
-Nextflow stores all task executions to the task cache automatically, whether or not the resume or relaunch option is used. This makes it possible to resume or relaunch runs later if needed. Platform HPC and local compute environments use the default Nextflow cache directory (`.nextflow/cache`) to store the task cache. Cloud compute environments use the [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) mechanism to store the task cache in a sub-folder of the pipeline work directory.
+Nextflow stores all task executions to the task cache automatically, whether or not the resume or relaunch option is used. This makes it possible to resume or relaunch runs later if needed. Platform HPC and local compute environments use the default Nextflow cache directory (`.nextflow/cache`) to store the task cache. Cloud compute environments use the [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) mechanism to store the task cache in a sub-folder of the work directory.
 
 To override the default cloud cache location in cloud compute environments, specify an alternate directory with the [cache](https://docs.seqera.io/nextflow/process#process-cache) directive in your Nextflow configuration file (either in the **Advanced options > Nextflow config file** field on the launch form, or in the `nextflow.config` file in your pipeline repository).
 
@@ -152,4 +153,4 @@ For a detailed explanation of the Nextflow resume feature, see _Demystifying Nex
 
 #### Change compute environment during run resume
 
-Users with appropriate permissions can change the compute environment when resuming a run. The new compute environment must have access to the original run work directory. This means that the new compute environment must have a work directory that matches the root path of the original pipeline work directory. For example, if the original pipeline work directory is `s3://foo/work/12345`, the new compute environment must have access to `s3://foo/work`.
+Users with appropriate permissions can change the compute environment when resuming a run. The new compute environment must have access to the original run work directory. This means that the new compute environment must have a work directory that matches the root path of the original work directory. For example, if the original work directory is `s3://foo/work/12345`, the new compute environment must have access to `s3://foo/work`.

@@ -46,6 +46,24 @@ repos:
         \.git/
       )
 
+# Bump frontmatter `last updated:` to today on changed docs
+- repo: local
+  hooks:
+  - id: bump-last-updated
+    name: Bump frontmatter last updated date
+    language: python
+    entry: python3 .github/scripts/bump-last-updated.py
+    files: \.(md|mdx)$
+    exclude: |
+      (?x)^(
+        node_modules/|
+        build/|
+        dist/|
+        \.git/|
+        platform-enterprise_versioned_docs/|
+        changelog/
+      )
+
 # Standard pre-commit hooks
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v6.0.0

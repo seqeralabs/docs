@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-03-27"
+last updated: "2026-06-08"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -14,10 +14,10 @@ In your interactive analysis environment, open a new terminal and type `ls -la /
 
 ## Enabling AI coding assistants in Studios
 
-VS Code, RStudio, and Jupyter environments natively integrate with [GitHub Copilot][gh-copilot]. Enabling it requires a GitHub Account and an active Copilot subscription.
+VS Code, R-IDE, and Jupyter environments natively integrate with [GitHub Copilot][gh-copilot]. Enabling it requires a GitHub Account and an active Copilot subscription.
 
 - **VS Code:** To enable GitHub Copilot in your VS Code session, install the extension and then sign in with your GitHub account. [Learn more][vscode-blog].
-- **RStudio:** To enable GitHub Copilot in your RStudio session requires RStudio configuration changes. By default, the Studio session user has root permissions, so configuration changes are possible. You will need to restart the RStudio once the required changes have been made. [Learn more][posit-ghcopilot-guide].
+- **R-IDE:** To enable GitHub Copilot in your R-IDE session requires R-IDE configuration changes. By default, the Studio session user has root permissions, so configuration changes are possible. You will need to restart the R-IDE once the required changes have been made. [Learn more][posit-ghcopilot-guide].
 - **Jupyter:** [Notebook Intelligence (NBI)][nbi] is an AI coding assistant and extensible AI framework for Jupyter. It can use GitHub Copilot or AI models from any other LLM Provider. [Learn more][nbi-blog].
 
 ## Session size limited by compute environment advanced options: Head job CPUs and Head job memory
@@ -66,9 +66,9 @@ By default, AWS Batch compute environments that are created with Batch Forge res
 
 Check whether the instance type you selected [supports GPU](https://aws.amazon.com/ec2/instance-types/). If you specify multiple GPUs make sure that multi-GPU instances can be launched by your compute environment and are not limited by the maximum CPU config that you've set.
 
-## RStudio session initializes with error
+## R-IDE session initializes with error
 
-Connecting to a running RStudio session with R version 4.4.1 (2024-06-14) -- "Race for Your Life" returns a `[rsession-root]` error similar to the following:
+Connecting to a running R-IDE session with R version 4.4.1 (2024-06-14) -- "Race for Your Life" returns a `[rsession-root]` error similar to the following:
 
 ```
 ERROR system error 2 (No such file or directory) [path:/sys/fs/cgroup/memory/memory.limit_in_bytes]; OCCURRED AT rstudio::core::Error rstudio::core::FilePath::openForRead(std::shared_ptr<std::basic_istream<char> >&)

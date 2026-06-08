@@ -1,29 +1,51 @@
-name: Run pre-commit when requested via comment
+name: Run pre-commit on PRs or via comment
 on:
   issue_comment:
     types: [created]
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   pre_commit_fix:
     runs-on: ubuntu-latest
-    # Only run if comment is on a PR with the main repo, and if it contains the magic keywords
+    # Run when:
+    # - An "fix formatting" comment is posted on any PR (works for fork PRs too).
+    # - A PR is opened/updated from a same-repo branch (skip forks — they have
+    #   read-only tokens that can't push; fork contributors can still trigger
+    #   the fix via the comment route above).
     if: >
-      github.event.issue.pull_request &&
-      startsWith(github.event.comment.body, 'fix formatting')
+      (github.event_name == 'issue_comment' &&
+       github.event.issue.pull_request &&
+       startsWith(github.event.comment.body, 'fix formatting'))
+      ||
+      (github.event_name == 'pull_request' &&
+       github.event.pull_request.head.repo.full_name == github.repository &&
+       github.event.pull_request.user.login != 'seqera-docs-bot')
 
     permissions:
       contents: write
       pull-requests: read
 
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+      - name: Checkout default ref
+        if: github.event_name == 'issue_comment'
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
 
-      # Action runs on the issue comment, so we don't get the PR by default.
-      # Use the GitHub CLI to check out the PR.
-      - name: Checkout Pull Request
+      # issue_comment events don't give us the PR ref, so use gh CLI to switch.
+      - name: Checkout PR branch (comment trigger)
+        if: github.event_name == 'issue_comment'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh pr checkout ${{ github.event.issue.number }}
+
+      # pull_request events already supply head ref — use it directly so the
+      # subsequent push lands on the contributor's branch.
+      - name: Checkout PR branch (pull_request trigger)
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
 
       - uses: j178/prek-action@bdca6f102f98e2b4c7029491a53dfd366469e33d # ratchet:j178/prek-action@v2.0.4
         id: pre-commit

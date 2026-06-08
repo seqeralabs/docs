@@ -1,7 +1,8 @@
 ---
 title: "Pipeline actions"
 description: "Automate executions with pipeline actions and webhooks in Seqera Platform."
-date: "24 Apr 2023"
+date created: "2023-04-24"
+last updated: "2026-06-08"
 tags: [actions, webhooks, automation]
 ---
 
@@ -20,7 +21,7 @@ To create a new action, select the **Actions** tab and select **Add Action**.
 1. Enter a **Name** for your action.
 1. Select **GitHub webhook** as the **Event source**.
 1. Select the **Compute environment** where the pipeline will be executed.
-1. Select the **Pipeline to launch** and (optionally) the **Revision number**.
+1. Select the **Pipeline to launch** and (optionally) the **Revision**.
 1. Enter the **Work directory**, the **Config profiles**, and the **Pipeline parameters**.
 1. Select **Add**.
 
@@ -43,7 +44,7 @@ To create a new action, select the **Actions** tab and select **Add Action**.
 1. Enter a **Name** for your action.
 1. Select **Tower launch hook** as the event source.
 1. Select the **Compute environment** to execute your pipeline.
-1. Enter the **Pipeline to launch** and (optionally) the **Revision number**.
+1. Enter the **Pipeline to launch** and (optionally) the **Revision**.
 1. Enter the **Work directory**, the **Config profiles**, and the **Pipeline parameters**.
 1. Select **Add**.
 

@@ -1,7 +1,8 @@
 ---
 title: "IdP delegation overview"
 description: "Map Seqera teams to identity provider (IdP) groups so membership is controlled at the IdP and evaluated on every SSO login."
-date: "2026-05-12"
+date created: "2026-05-12"
+last updated: "2026-06-08"
 tags: [sso, idp delegation, teams, administration, enterprise]
 ---
 

@@ -1,13 +1,14 @@
 ---
 title: "Reports"
 description: "Overview of pipeline reports in Seqera Platform."
-date: "24 Apr 2023"
+date created: "2023-04-24"
+last updated: "2026-06-08"
 tags: [pipelines, schema]
 ---
 
 Most Nextflow pipelines will generate reports or output files which are useful to inspect at the end of the pipeline execution. Reports may be in various formats (e.g. HTML, PDF, TXT) and would typically contain quality control (QC) metrics that would be important to assess the integrity of the results.
 
-**Reports** allow you to directly visualise supported file types or to download them via the user interface (see [Limitations](#limitations)). This saves users the time and effort of having to retrieve and visualize output files from their local storage.
+**Reports** allow you to directly visualize supported file types or to download them via the user interface (see [Limitations](#limitations)). This saves users the time and effort of having to retrieve and visualize output files from their local storage.
 
 ### Visualize reports
 
@@ -15,7 +16,7 @@ Available reports are listed in a **Reports** tab on the **Runs** page. You can 
 
 To open a report preview, the file must be smaller than 10 MB.
 
-You can download a report directly or from the provided file path. Reports larger than 25MB cannot be downloaded directly — the option to download from file path is given instead.
+You can download a report directly or from the provided file path. Reports larger than 25 MB cannot be downloaded directly — the option to download from file path is given instead.
 
 ### Configure reports
 

@@ -2,7 +2,7 @@
 title: "RNA-Seq"
 description: "An introduction to running nf-core/rnaseq in Seqera Platform"
 date created: "2024-07-21"
-last updated: "2025-08-01"
+last updated: "2026-06-08"
 tags: [platform, seqera pipelines, studios, rnaseq, compute environments, aws]
 toc_max_heading_level: 2
 ---
@@ -72,7 +72,7 @@ From the **Compute Environments** tab in your organization workspace, select **A
 | **Access Key**                        | AWS access key ID.                                         |
 | **Secret Key**                        | AWS secret access key.                                     |
 | **Region**                            | The target execution region.                               |
-| **Pipeline work directory**           | An S3 bucket path in the same execution region.            |
+| **Work directory**           | An S3 bucket path in the same execution region.            |
 | **Enable Wave Containers**            | Use the Wave containers service to provision containers.   |
 | **Enable Fusion v2**                  | Access your S3-hosted data via the Fusion v2 file system.  |
 | **Enable fast instance storage**      | Use NVMe instance storage to speed up I/O and disk access. Requires Fusion v2.|
@@ -80,7 +80,7 @@ From the **Compute Environments** tab in your organization workspace, select **A
 | **Provisioning Model**                | Choose between Spot and On-demand instances.               |
 | **Max CPUs**                          | Sensible values for production use range between 2000 and 5000.|
 | **Enable Fargate for head job**       | Run the Nextflow head job using the Fargate container service to speed up pipeline launch. Requires Fusion v2.|
-| **Allowed S3 buckets**                | Additional S3 buckets or paths to be granted read-write permission for this compute environment. Add data paths to be mounted in your data studio here, if different from your pipeline work directory.|
+| **Allowed S3 buckets**                | Additional S3 buckets or paths to be granted read-write permission for this compute environment. Add data paths to be mounted in your data studio here, if different from your work directory.|
 | **Resource labels**                   | `name=value` pairs to tag the AWS resources created by this compute environment.|
 
 
@@ -195,7 +195,7 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 ### General config
 
 - **Pipeline to launch**: The pipeline Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited.
-- **Revision number**: A valid repository commit ID, tag, or branch name. For saved pipelines, this is prefilled and cannot be edited.
+- **Revision**: A valid repository commit ID, tag, or branch name. For saved pipelines, this is prefilled and cannot be edited.
 - **Config profiles**: One or more [configuration profile](https://docs.seqera.io/nextflow/config#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository.
 - **Workflow run name**: An identifier for the run, pre-filled with a random name. This can be customized.
 - **Labels**: Assign new or existing [labels](../labels/overview) to the run.
@@ -363,7 +363,7 @@ From the **Studios** tab, select **Add a studio** and complete the following:
 :::note
 Studio sessions compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and sessions. The default CPU and memory allocation for a Studio is 2 CPUs and 8192 MB RAM.
 :::
-- Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the pipeline work directory of your RNA-Seq run.
+- Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the work directory of your RNA-Seq run.
 - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
 - Select **Add**.
 - Once the Studio has been created, select the options menu next to it and select **Start**.
@@ -458,7 +458,7 @@ The R-IDE can be configured with the packages you wish to install and the R scri
 
     ```r
     # Create MDS plot
-    # a. Display in RStudio
+    # a. Display in R-IDE
     plotMDS(y, col = as.numeric(factor(targets$Group)), labels = targets$Group)
     legend(
       "topright",
@@ -560,7 +560,7 @@ The R-IDE can be configured with the packages you wish to install and the R scri
     # Create volcano plots for each comparison
     for (name in names(results)) {
       p <- create_volcano_plot(results[[name]], name)
-      # Display in RStudio
+      # Display in R-IDE
       print(p)
       # Save to file (change `.png` to `.pdf` to create PDF files)
       ggsave(
@@ -596,7 +596,7 @@ The R-IDE can be configured with the packages you wish to install and the R scri
     my_palette <- colorRampPalette(c("blue", "white", "red"))(100)
 
     # Create a heatmap using heatmap.2
-    # Display in RStudio
+    # Display in R-IDE
     heatmap.2(
       as.matrix(top_gene_expr),
       scale = "row",
@@ -630,7 +630,7 @@ The R-IDE can be configured with the packages you wish to install and the R scri
     print(paste("Number of top DE genes in heatmap:", length(top_genes)))
     ```
 
-![RStudio plots](./_images/rstudio.gif)
+![R-IDE plots](./_images/rstudio.gif)
 
 ### Collaborate in the Studio
 

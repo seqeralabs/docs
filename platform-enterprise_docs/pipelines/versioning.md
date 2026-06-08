@@ -2,7 +2,7 @@
 title: "Pipeline versioning"
 description: "Introduction to pipeline versioning in Seqera Platform."
 date created: "2025-11-14"
-last updated: "2026-04-17"
+last updated: "2026-06-08"
 tags: [pipelines, versioning, nextflow, parameters]
 ---
 
@@ -21,6 +21,9 @@ New draft versions are automatically generated during pipeline edit or launch wh
   intent with pipeline versioning is to allow the common variable inputs (e.g. fastq files) and outputs (e.g. outputDir) to be omitted for consideration during  versioning. To enable this
   behavior for specific parameters, add `"track_changes": false` to the parameter property definition in the schema:
     ```json
+    "my_parameter": {
+      "type": "string",
+      "description": "Changes to this parameter will not trigger a new pipeline version to be created",
       "track_changes": false
     }
     ```
@@ -61,7 +64,7 @@ Users with [Maintain or higher](../orgs-and-teams/roles.md) permissions can uplo
 
 For more information, see [Building pipeline schema files](../pipeline-schema/overview.md#building-pipeline-schema-files).
 
-### Manage pipeline versions
+#### Manage pipeline versions
 
 ![](./_images/pipeline-version-detail.jpg)
 
@@ -81,7 +84,7 @@ Select a pipeline from the workspace Launchpad to open the pipeline's details pa
   - Select **Edit** to open the pipeline edit form and either save a new draft or update the current published version.
   - Select **Unpublish** to turn this version back into a draft. Draft versions are still visible to launch users.
 
-Individual versions cannot be deleted. This ensures that the pipeline configuration audit trail is immutable. However, published versions can be unpublished or have their names reassigned to different versions.
+Individual draft versions cannot be deleted - the pipeline configuration audit trail is immutable. However, published versions can be unpublished or have their names reassigned to different draft versions.
 
 :::note
 Changes made at launch time in a target workspace cannot be saved. Changes to versions can only be saved and published from the pipeline's original workspace.

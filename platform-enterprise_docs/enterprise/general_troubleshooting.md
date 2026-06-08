@@ -1,7 +1,8 @@
 ---
 title: "Troubleshooting"
 description: Platform Enterprise troubleshooting guidance
-date: "21 Apr 2023"
+date created: "2023-04-21"
+last updated: "2026-06-08"
 tags: [troubleshooting]
 ---
 

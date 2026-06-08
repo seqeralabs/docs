@@ -2,7 +2,7 @@
 title: "Launch pipelines"
 description: "Curate and launch workflows in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-05-18"
+last updated: "2026-06-08"
 tags: [launchpad, launch, configure, pipelines, schema, configuration, nextflow, parameters, input, output]
 ---
 
@@ -10,7 +10,7 @@ View, configure, and launch pipelines from your workspace **Launchpad**.
 
 ## Launchpad
 
-The **Launchpad** enables workspace users to launch pre-configured pipelines, add new pipelines, or perform a quick launch of unsaved pipelines. Use the **Sort by:** dropdown to sort pipelines, either by name or most-recently updated.
+The **Launchpad** enables workspace users to launch pre-configured pipelines, add new pipelines, or perform a quick launch of unsaved pipelines. Use the **Sort by:** drop-down menu to sort pipelines, either by name or most-recently updated.
 
 :::note
 A pipeline is a repository containing a Nextflow workflow, a compute environment, and pipeline parameters.
@@ -36,13 +36,13 @@ The launch form accepts URL query parameters. See [Populate launch form with URL
   :::note
   Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration][git] in the Seqera docs and [Pipeline sharing][pipeline-sharing] in the Nextflow docs for more details.
   :::
-- **Version name**: The pipeline version name that will be selected as default for this pipeline run. See [Pipeline versioning][pipeline-version] for details.
+- **Version name**: The pipeline version name that will be selected as default for this pipeline run. See [Pipeline versioning][pipeline-versioning] for details.
 - **Version ID**: The pipeline version id that will be selected as default for this pipeline run. See [Pipeline versioning][pipeline-versioning] for details.
 - **Revision**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch.
 - **Commit ID**: Pin pipeline revision to the most recent HEAD commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
 - **Pull latest**: Fetch the most recent HEAD commit ID of the pipeline revision at launch time. Unpins the **Commit ID**, if set.
   :::info
-  See [Git revision management][pipeline-revision] for more information on **Revision**, **Commit ID**, and **Pull latest**, behavior.
+  See [Git revision management][pipeline-revision] for more information on **Revision**, **Commit ID**, and **Pull latest** behavior.
   :::
 - **Work directory**: The cloud storage or file system path where pipeline scratch data is stored. Seqera will create a scratch sub-folder if only a cloud bucket location is specified. Use file system paths for local or HPC compute environments.
   :::note
@@ -53,7 +53,6 @@ The launch form accepts URL query parameters. See [Populate launch form with URL
 - **Workflow run name**: A unique identifier for the run, pre-filled with a random name. This can be customized.
 - **Labels**: Assign new or existing [labels][labels] to the run.
 - **Compute environment**: The [compute environment][compute-envs] where the run will be launched.
-- **Work directory**: The bucket path where the pipeline scratch data is stored.
 - **Schema**: Select the [pipeline schema][pipeline-schema] to validate pipeline parameters and prevent runtime failures.
 - **Enable lineage**: Track the [provenance][data-lineage] of files produced by pipeline runs. Defaults to the [workspace setting][workspace-settings-lineage].
 
@@ -208,7 +207,7 @@ Platform will ignore added percent-encoding characters in form fields, so you do
 |------------------------------------------------|-----------------------------|
 | **General config**                             |                             |
 | Pipeline to launch                             | `pipeline`                  |
-| Revision number                                | `revision`                  |
+| Revision                                       | `revision`                  |
 | Config profiles                                | `configProfiles`            |
 | Workflow run name                              | `runName`                   |
 | Labels                                         | `labelIds`                  |

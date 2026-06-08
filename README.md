@@ -51,7 +51,14 @@ We have a script which can select a commit (or ideally release tag) to be used f
 ### Install pre-commit
 
 We use [pre-commit](https://pre-commit.com/) in our repo, which is invoked when a commit is made. When you (or Claude) are working locally and commit your changes in VS Code (or run `git commit`) the pre-commit hooks defined in the [precommit config file](./.pre-commit-config.yaml) are executed and may tweak the files you're staging.
-We currently use basic standard hooks to remove trailing whitespaces, make sure the file ends with a newline, we check yaml documents and we prevent very large files from getting committed. More hooks may get installed in the future.
+
+Current hooks:
+
+- **Standard formatting hooks** — trailing whitespace removal, end-of-file newline, YAML validity check, large-file guard.
+- **`check-netlify-excludes`** — reminds contributors which doc sections are included or excluded from deploy previews.
+- **`check-doc-tags`** — validates frontmatter `tags:` against the canonical allowlist in [.github/doc-tags-allowed.txt](.github/doc-tags-allowed.txt). Backed by [.github/scripts/check-doc-tags.py](.github/scripts/check-doc-tags.py).
+- **`bump-last-updated`** — bumps frontmatter `last updated:` to today's date on any changed `.md`/`.mdx` file. Inserts the field if the file has `date created:` but no `last updated:`. Backed by [.github/scripts/bump-last-updated.py](.github/scripts/bump-last-updated.py). Excludes `platform-enterprise_versioned_docs/` (frozen snapshots) and `changelog/` (entries don't follow the convention). If you skip the local install, [pre-commit-fix.yaml](.github/workflows/pre-commit-fix.yaml) runs the same logic in CI on every PR (same-repo only) and the bot commits the bump back.
+- **Vale** — manual-only (`pre-commit run vale --all-files`); doesn't block commits.
 
 1. Open up a Terminal window and navigate to the `docs` repository.
 2. Run the following commands to set up [pre-commit](https://github.com/pre-commit/pre-commit) hooks:
@@ -229,7 +236,7 @@ This repository ships 18 GitHub Actions workflows under [.github/workflows/](.gi
 |---|---|---|---|---|
 | No unresolved conflicts | [no-conflict-markers.yml](.github/workflows/no-conflict-markers.yml) | `pull_request` to `master` | Automatic | Active |
 | Pre-commit check | [pre-commit-check.yaml](.github/workflows/pre-commit-check.yaml) | `pull_request` | Automatic | Active |
-| Pre-commit fix | [pre-commit-fix.yaml](.github/workflows/pre-commit-fix.yaml) | PR comment `fix formatting` | Manual (comment) | Active |
+| Pre-commit fix | [pre-commit-fix.yaml](.github/workflows/pre-commit-fix.yaml) | `pull_request: opened/synchronize/reopened` (same-repo PRs only), PR comment `fix formatting` (any PR) | Automatic + manual | Active |
 | Internal link checking | [check-internal-links.yml](.github/workflows/check-internal-links.yml) | `pull_request` | Automatic | Active |
 || External link check (Links) | [links.yml](.github/workflows/links.yml) | Weekly cron (Sat 18:00 UTC), `repository_dispatch`, manual | Automatic + manual | Active |
 | markdownlint-cli2 | [markdown-lint.yml](.github/workflows/markdown-lint.yml) | `workflow_dispatch` only | Manual | Disabled (manual-only) |
@@ -251,8 +258,8 @@ This repository ships 18 GitHub Actions workflows under [.github/workflows/](.gi
 These checks gate merges; `pre-commit-fix.yaml` is an on-demand helper for fixing formatting failures.
 
 - **[no-conflict-markers.yml](.github/workflows/no-conflict-markers.yml)** — fails if any tracked file outside `.github/` contains `<<<<<<<`.
-- **[pre-commit-check.yaml](.github/workflows/pre-commit-check.yaml)** — runs the hooks defined in [.pre-commit-config.yaml](./.pre-commit-config.yaml) (whitespace, EOF newline, YAML validity, large-file guard, and the `check-doc-tags` hook backed by [.github/scripts/check-doc-tags.py](.github/scripts/check-doc-tags.py)). Paired with `pre-commit-fix.yaml` for one-click fixes.
-- **[pre-commit-fix.yaml](.github/workflows/pre-commit-fix.yaml)** — on-demand helper triggered by a PR comment starting with `fix formatting`; re-runs pre-commit, commits any changes, and pushes to the PR branch (not a required merge gate).
+- **[pre-commit-check.yaml](.github/workflows/pre-commit-check.yaml)** — runs the hooks defined in [.pre-commit-config.yaml](./.pre-commit-config.yaml) (whitespace, EOF newline, YAML validity, large-file guard, plus the `check-doc-tags` and `bump-last-updated` hooks backed by [.github/scripts/check-doc-tags.py](.github/scripts/check-doc-tags.py) and [.github/scripts/bump-last-updated.py](.github/scripts/bump-last-updated.py)). Paired with `pre-commit-fix.yaml` for one-click fixes.
+- **[pre-commit-fix.yaml](.github/workflows/pre-commit-fix.yaml)** — auto-runs on `pull_request` events from same-repo branches and on the `fix formatting` PR comment (the comment route covers fork PRs, which can't be auto-pushed to from CI). Re-runs pre-commit, commits any changes (formatting fixes, frontmatter `last updated:` bumps), and pushes to the PR branch as `Seqera Docs Bot`. Not a required merge gate, but ensures `last updated:` dates stay current even when contributors skip the local pre-commit install.
 - **[check-internal-links.yml](.github/workflows/check-internal-links.yml)** — runs `npm run build` with `FAIL_ON_BROKEN_LINKS=true`. The slowest required check; caches `.docusaurus` and `**/.cache` between runs.
 
 ### Scheduled/background jobs
@@ -315,10 +322,11 @@ Platform repo (release tag cut)
 tower-cli release
    └── check-cli-updates.yml ──► dispatch: cli-release ──► update-cli-docs.yml ──► PR
 
-PR comment `/editorial-review`  ──► docs-review.yml (gates + Vale + /editorial-review skill)
-PR comment `fix formatting`     ──► pre-commit-fix.yaml
-PR label `overlays-approved`    ──► apply-overlays-and-regenerate.yml
-@claude in comment/issue/review ──► claude.yml
+PR comment `/editorial-review`   ──► docs-review.yml (gates + Vale + /editorial-review skill)
+PR opened/synchronize (same-repo)──► pre-commit-fix.yaml (bumps last-updated, fixes formatting)
+PR comment `fix formatting`      ──► pre-commit-fix.yaml (manual route, works for fork PRs)
+PR label `overlays-approved`     ──► apply-overlays-and-regenerate.yml
+@claude in comment/issue/review  ──► claude.yml
 ```
 
 The two `repository_dispatch` content pipelines (permissions, audit events) and the API overlay pipeline are independent of each other — they share the `DOCS_BOT_APP_ID` / `DOCS_BOT_APP_PRIVATE_KEY` GitHub App credentials but otherwise don't interact.

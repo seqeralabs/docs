@@ -1,7 +1,8 @@
 ---
 title: "Pipeline optimization"
 description: "Configure pipeline optimization in your Seqera Enterprise deployment."
-date: "12 Feb 2024"
+date created: "2024-02-12"
+last updated: "2026-06-08"
 tags: [compute, resources, optimization, configuration]
 ---
 

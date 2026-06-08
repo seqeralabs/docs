@@ -1,7 +1,8 @@
 ---
 title: "Add data"
 description: "An introduction to adding pipeline input data in Seqera Platform"
-date: "21 Jul 2024"
+date created: "2024-07-21"
+last updated: "2026-06-08"
 tags: [platform, data, data explorer, datasets]
 ---
 

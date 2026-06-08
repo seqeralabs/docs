@@ -2,6 +2,7 @@
 title: "Skills"
 description: "Built-in skills, slash commands, and session limits for the Seqera CLI"
 date created: "2026-05-27"
+last updated: "2026-06-08"
 tags: [co-scientist, cli, skills, reference]
 ---
 
@@ -44,6 +45,8 @@ The CLI includes the following built-in skills by default:
 | `/convert-jupyter-notebook` | Convert Jupyter notebooks to Nextflow pipelines |
 | `/convert-python-script` | Convert Python scripts, including standalone scripts and Snakemake-style logic, to Nextflow |
 | `/convert-r-script` | Convert R scripts to Nextflow pipelines |
+| `/migrate-from-wdl` | Convert WDL to Nextflow |
+| `/write-nf-test` | Write nf-tests for your pipeline |
 | `/fix-strict-syntax` | Fix Nextflow strict syntax errors and help migrate pipelines to the v2 parser |
 | `/nf-aggregate` | Aggregate metrics from Nextflow runs on Seqera Platform using the `nf-aggregate` pipeline |
 | `/nf-data-lineage` | Explore Nextflow data lineage to trace which inputs and processes produced a result |

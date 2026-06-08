@@ -1,5 +1,40 @@
 # GitHub Actions scripts
 
+This directory contains scripts invoked by [.pre-commit-config.yaml](../../.pre-commit-config.yaml) or by the GitHub Actions workflows under [.github/workflows/](../workflows/). See the [README's "Workflows and actions audit"](../../README.md#workflows-and-actions-audit) section for how each workflow uses these.
+
+## bump-last-updated.py
+
+Pre-commit fixer hook that bumps frontmatter `last updated:` to today's date (`YYYY-MM-DD`) on changed Markdown files. If a file has `date created:` but no `last updated:`, it inserts the field immediately after `date created:`.
+
+### Invocation
+
+Invoked automatically by [pre-commit](https://pre-commit.com/) and the [pre-commit-fix.yaml](../workflows/pre-commit-fix.yaml) CI workflow. Pre-commit passes each changed `.md` / `.mdx` file as a positional argument:
+
+```bash
+python3 .github/scripts/bump-last-updated.py path/to/file1.md path/to/file2.md
+```
+
+### Behavior
+
+- Files with `date created:` and `last updated:` → bumps `last updated:` to today, no other changes.
+- Files with `date created:` only → inserts `last updated:` after `date created:` with today's date.
+- Files without `date created:` (changelog entries, partials) → skipped.
+- Idempotent: a second run with no changes exits 0.
+
+### Exit codes
+
+- `0` — no files were modified.
+- `1` — at least one file was modified (signals pre-commit to re-stage and re-run, per the standard fixer-hook convention).
+
+### Scope
+
+Excluded by `.pre-commit-config.yaml`:
+- `platform-enterprise_versioned_docs/` — frozen release snapshots; their `last updated:` should reflect when the snapshot was cut.
+- `changelog/` — entries don't follow the `date created:` / `last updated:` convention.
+- Standard build/vendor dirs (`node_modules/`, `build/`, `dist/`, `.git/`).
+
+---
+
 ## verify-agent-findings.py
 
 Validates agent output by checking that quoted text actually exists at the claimed line numbers, preventing hallucinations from being reported.

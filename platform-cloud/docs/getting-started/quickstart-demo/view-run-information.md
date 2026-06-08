@@ -1,7 +1,8 @@
 ---
 title: "View run information"
 description: "View pipeline run details in Seqera Platform"
-date: "8 Jul 2024"
+date created: "2024-07-08"
+last updated: "2026-06-08"
 tags: [platform, runs, pipelines, monitoring, tutorial]
 ---
 

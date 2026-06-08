@@ -1,7 +1,8 @@
 ---
 title: "IdP claim mapping"
 description: "Configure your identity provider to include the groups claim in OIDC tokens issued to Seqera Platform Enterprise."
-date: "2026-05-12"
+date created: "2026-05-12"
+last updated: "2026-06-08"
 tags: [sso, idp delegation, oidc, administration, enterprise]
 ---
 

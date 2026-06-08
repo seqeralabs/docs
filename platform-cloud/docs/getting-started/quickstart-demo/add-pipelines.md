@@ -1,7 +1,8 @@
 ---
 title: "Add pipelines"
 description: "An introduction to adding pipelines to Seqera Platform workspaces"
-date: "12 Jul 2024"
+date created: "2024-07-12"
+last updated: "2026-06-08"
 tags: [platform, launch, pipelines, launchpad]
 ---
 
