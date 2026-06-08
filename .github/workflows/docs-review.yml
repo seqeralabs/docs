@@ -351,26 +351,18 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |
-            Run /editorial-review on the changed documentation files in this PR.
+            Run the /editorial-review skill on the changed documentation files
+            in this PR.
 
             Changed files:
             ${{ needs.changes.outputs.docs_files }}
 
             Review type: ${{ needs.setup.outputs.review_type }}
 
-            Output all findings to /tmp/editorial-review-suggestions.txt in this format:
-
-            FILE: path/to/file.md
-            LINE: 42
-            ISSUE: Brief description
-            ORIGINAL: |
-            exact original text
-            SUGGESTION: |
-            corrected text
-            ---
-
-            The /editorial-review skill will orchestrate the appropriate agents
-            (voice-tone, terminology) based on the review type.
+            Write all findings to /tmp/editorial-review-suggestions.txt using
+            the output contract defined in
+            .claude/skills/editorial-review/SKILL.md. The skill owns the
+            format; do not redefine it here.
           use_sticky_comment: true
           claude_args: |
             --allowedTools "Read,Grep,Glob,Write,Skill(editorial-review),Task"
