@@ -26,7 +26,7 @@ Run `/editorial-review` in Claude Code when:
 
 **Environment:** Your local machine
 **Cost:** Your Claude API subscription
-**Agents available:** voice-tone, terminology (clarity disabled, punctuation not yet implemented)
+**Agents available:** voice-tone, terminology (CI invokes these by default; clarity, punctuation, and docs-fix are implemented as agents but not invoked by `docs-review.yml`)
 
 **Example:**
 ```bash
@@ -154,7 +154,7 @@ The `/editorial-review` skill orchestrates specialized agents to review your doc
 
 When gates pass, the workflow will:
 - Invoke `/editorial-review` skill
-- Skill runs agents: voice-tone, terminology (clarity disabled, punctuation not yet implemented)
+- Skill runs agents: voice-tone, terminology (CI invokes these by default; clarity, punctuation, and docs-fix are implemented as agents but not invoked by `docs-review.yml`)
 - Post up to 60 inline suggestions
 - Provide downloadable artifact if >60 suggestions found
 
@@ -164,10 +164,10 @@ When gates pass, the workflow will:
 
 Available agents:
 
-- **voice-tone**: Second person, active voice, present tense, confidence *(runs in CI)*
-- **terminology**: Product names, feature names, formatting conventions *(runs in CI)*
-- **punctuation**: List punctuation, Oxford commas, quotation marks, dashes *(planned, not yet implemented)*
-- **clarity**: Sentence length, jargon, complexity *(local only, disabled in CI)*
+- **voice-tone**: Second person, active voice, present tense, confidence *(invoked by `docs-review.yml`)*
+- **terminology**: Product names, feature names, formatting conventions *(invoked by `docs-review.yml`)*
+- **punctuation**: List punctuation, Oxford commas, quotation marks, dashes *(implemented; not invoked by `docs-review.yml` — local-only)*
+- **clarity**: Sentence length, jargon, complexity *(implemented; not invoked by `docs-review.yml` — local-only)*
 
 ### Review output
 
@@ -229,19 +229,23 @@ Checks for consistent product names, feature terminology, and formatting convent
 
 **For detailed terminology rules, see:** `.claude/agents/terminology.md`
 
-### clarity (disabled)
+### clarity (local-only)
 Checks for:
 - Sentence length (flag >30 words)
 - Undefined jargon
 - Complex constructions
 - Missing prerequisites
 
-### punctuation
+Not invoked by `docs-review.yml` — run via `/editorial-review` locally if needed.
+
+### punctuation (local-only)
 Checks for:
 - Oxford commas
 - List punctuation consistency
 - Quotation marks
 - Dash usage
+
+Not invoked by `docs-review.yml` — run via `/editorial-review` locally if needed.
 
 ## Security and responsible use
 
