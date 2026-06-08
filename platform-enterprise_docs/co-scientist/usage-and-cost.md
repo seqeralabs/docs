@@ -2,6 +2,7 @@
 title: "Usage and cost"
 description: "Understand Co-Scientist usage and inference costs in Seqera Platform Enterprise"
 date created: "2026-05-04"
+last updated: "2026-06-08"
 tags: [co-scientist, enterprise, ai]
 ---
 

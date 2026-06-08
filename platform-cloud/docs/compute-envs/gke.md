@@ -2,7 +2,7 @@
 title: "Google Kubernetes Engine"
 description: "Instructions to set up Google Kubernetes Engine in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-05-28"
+last updated: "2026-06-08"
 tags: [gke, google, compute environments]
 ---
 

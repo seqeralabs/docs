@@ -2,7 +2,7 @@
 title: "Overview"
 description: "Overview of Studios"
 date created: "2025-02-06"
-last updated: "2025-07-17"
+last updated: "2026-06-08"
 tags: [studios, containers, image, sessions, interactive, analysis]
 ---
 

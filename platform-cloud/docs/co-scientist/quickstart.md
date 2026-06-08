@@ -2,6 +2,7 @@
 title: "Quickstart"
 description: "Run your first Co-Scientist session in the Seqera CLI"
 date created: "2026-03-11"
+last updated: "2026-06-08"
 tags: [co-scientist, cli, ai]
 ---
 

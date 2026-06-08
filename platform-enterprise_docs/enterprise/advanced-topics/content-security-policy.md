@@ -2,7 +2,7 @@
 title: "Custom Content Security Policy headers"
 description: Seqera Platform Content Security Policy headers
 date created: "2025-03-17"
-last updated: "2025-12-04"
+last updated: "2026-06-08"
 tags: [data, explorer, content, security, policy, deployment]
 ---
 

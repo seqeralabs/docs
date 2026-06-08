@@ -2,6 +2,7 @@
 title: "Command approval"
 description: "Control which local commands require user approval in Co-Scientist"
 date created: "2025-12-15"
+last updated: "2026-06-08"
 tags: [co-scientist, cli, approval, security]
 ---
 

@@ -2,7 +2,7 @@
 title: "Azure container registry credentials"
 description: "Create Azure container registry credentials in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2025-10-21"
+last updated: "2026-06-08"
 tags: [azure, registry, credentials]
 ---
 

@@ -2,6 +2,7 @@
 title: "Other coding agents"
 description: "Install and maintain the Co-Scientist skill for other coding agents"
 date created: "2026-03-11"
+last updated: "2026-06-08"
 tags: [co-scientist, cli, skills, coding agents]
 ---
 

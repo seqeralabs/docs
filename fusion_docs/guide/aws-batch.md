@@ -2,7 +2,7 @@
 title: AWS Batch
 description: "Use Fusion with AWS Batch and S3 storage"
 date created: "2024-08-23"
-last updated: "2026-03-04"
+last updated: "2026-06-08"
 tags: [fusion, storage, compute, aws batch, s3]
 ---
 

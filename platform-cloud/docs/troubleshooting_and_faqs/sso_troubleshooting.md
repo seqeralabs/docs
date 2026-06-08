@@ -2,7 +2,7 @@
 title: "Single sign-on"
 description: "Single sign-on (SSO) troubleshooting with Seqera Platform."
 date created: "2026-06-05"
-last updated: "2026-06-05"
+last updated: "2026-06-08"
 tags: [faq, help, sso, troubleshooting]
 ---
 
