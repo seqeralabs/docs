@@ -85,7 +85,7 @@ services:
 
 
   backend:
-    image: cr.seqera.io/enterprise/platform/backend:v26.1.1
+    image: cr.seqera.io/enterprise/platform/backend:v26.1.2
     platform: linux/amd64
     command: -c '/wait-for-it.sh db:3306 -t 60; /tower.sh'
     networks:
