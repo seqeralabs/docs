@@ -98,7 +98,7 @@ In the 26.1 migration plan, dual-write is transitional. Plan for 26.2 to make v2
 | MySQL 5.7 | No longer tested or supported (upstream EoL) | Upgrade to MySQL 8.4 before upgrading to 26.1 |
 | MySQL 8.0 | No longer tested or supported (upstream EoL April 2026) | Upgrade to MySQL 8.4 |
 | MySQL 8.4 (LTS) | Recommended default | No action |
-| MariaDB | No longer tested or supported | Contact Seqera Professional Services for migration support |
+| MariaDB | MariaDB driver 3.x | No action |
 | AWS Aurora MySQL (provisioned) | Supported | No action |
 | AWS Aurora Serverless | Not supported (existing guidance) | Migrate to a supported configuration |
 

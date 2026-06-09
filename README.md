@@ -257,9 +257,9 @@ This repository ships 18 GitHub Actions workflows under [.github/workflows/](.gi
 
 These checks gate merges; `pre-commit-fix.yaml` is an on-demand helper for fixing formatting failures.
 
-- **[no-conflict-markers.yml](.github/workflows/no-conflict-markers.yml)** — fails if any tracked file outside `.github/` contains `<<<<<<<`.
-- **[pre-commit-check.yaml](.github/workflows/pre-commit-check.yaml)** — runs the hooks defined in [.pre-commit-config.yaml](./.pre-commit-config.yaml) (whitespace, EOF newline, YAML validity, large-file guard, plus the `check-doc-tags` and `bump-last-updated` hooks backed by [.github/scripts/check-doc-tags.py](.github/scripts/check-doc-tags.py) and [.github/scripts/bump-last-updated.py](.github/scripts/bump-last-updated.py)). Paired with `pre-commit-fix.yaml` for one-click fixes.
-- **[pre-commit-fix.yaml](.github/workflows/pre-commit-fix.yaml)** — auto-runs on `pull_request` events from same-repo branches and on the `fix formatting` PR comment (the comment route covers fork PRs, which can't be auto-pushed to from CI). Re-runs pre-commit, commits any changes (formatting fixes, frontmatter `last updated:` bumps), and pushes to the PR branch as `Seqera Docs Bot`. Not a required merge gate, but ensures `last updated:` dates stay current even when contributors skip the local pre-commit install.
+- **[no-conflict-markers.yml](.github/workflows/no-conflict-markers.yml)** — fails if any tracked file outside `.github/` contains a line that starts with a merge-conflict marker (for example, `<<<<<<< HEAD`).
+- **[pre-commit-check.yaml](.github/workflows/pre-commit-check.yaml)** — runs the hooks defined in [.pre-commit-config.yaml](./.pre-commit-config.yaml) (whitespace, EOF newline, YAML validity, large-file guard, and the `check-doc-tags` hook backed by [.github/scripts/check-doc-tags.py](.github/scripts/check-doc-tags.py)). Paired with `pre-commit-fix.yaml` for one-click fixes.
+- **[pre-commit-fix.yaml](.github/workflows/pre-commit-fix.yaml)** — on-demand helper triggered by a PR comment starting with `fix formatting`; re-runs pre-commit, commits any changes, and pushes to the PR branch (not a required merge gate).
 - **[check-internal-links.yml](.github/workflows/check-internal-links.yml)** — runs `npm run build` with `FAIL_ON_BROKEN_LINKS=true`. The slowest required check; caches `.docusaurus` and `**/.cache` between runs.
 
 ### Scheduled/background jobs
