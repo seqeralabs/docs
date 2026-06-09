@@ -46,13 +46,15 @@ repos:
         \.git/
       )
 
-# Bump frontmatter `last updated:` to today on changed docs
+# Check frontmatter `last updated:` is today's date on changed docs.
+# Reports stale dates with an invocable fix command; does not modify files.
+# Run the script directly (without --check) to apply the bump.
 - repo: local
   hooks:
   - id: bump-last-updated
-    name: Bump frontmatter last updated date
+    name: Check frontmatter last updated date is current
     language: python
-    entry: python3 .github/scripts/bump-last-updated.py
+    entry: python3 .github/scripts/bump-last-updated.py --check
     files: \.(md|mdx)$
     exclude: |
       (?x)^(

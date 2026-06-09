@@ -331,9 +331,15 @@ last updated: "YYYY-MM-DD"
 
 To stop `last updated:` from going stale silently, added:
 
-1. **[/.github/scripts/bump-last-updated.py](.github/scripts/bump-last-updated.py)** — pre-commit fixer hook. Bumps `last updated:` to today on changed `.md` / `.mdx` files. Inserts the field if `date created:` exists but `last updated:` doesn't. Skips files without `date created:` (changelog entries, partials). Idempotent.
-2. **[/.pre-commit-config.yaml](.pre-commit-config.yaml)** — registered the hook as `bump-last-updated`. Excludes `platform-enterprise_versioned_docs/` (frozen snapshots — `last updated` should reflect snapshot date, not edit date) and `changelog/` (entries don't follow the convention).
-3. **[/.github/workflows/pre-commit-fix.yaml](.github/workflows/pre-commit-fix.yaml)** — extended to trigger on `pull_request: opened/synchronize/reopened` events (same-repo only) in addition to the existing `fix formatting` comment route. Fork PRs still use the comment route since they have read-only tokens. The auto-trigger excludes runs where the PR author is `seqera-docs-bot` to avoid infinite loops.
+1. **[/.github/scripts/bump-last-updated.py](.github/scripts/bump-last-updated.py)** — two-mode utility. `--check` mode (used by the pre-commit hook) reports stale dates and prints the exact fix command, doesn't modify files. Default fix mode (used by CI and manual invocation) rewrites files in place: sets `last updated:` to today, or inserts the field if `date created:` exists but `last updated:` doesn't. Skips files without `date created:` (changelog entries, partials). Idempotent.
+2. **[/.pre-commit-config.yaml](.pre-commit-config.yaml)** — registered the hook as `bump-last-updated`, running the script with `--check`. Pattern matches the existing `check-doc-tags` hook in the same repo (fail loudly + invocable command, not silent auto-fix). Excludes `platform-enterprise_versioned_docs/` (frozen snapshots — `last updated` should reflect snapshot date, not edit date) and `changelog/` (entries don't follow the convention).
+3. **[/.github/workflows/pre-commit-fix.yaml](.github/workflows/pre-commit-fix.yaml)** — extended to trigger on `pull_request: opened/synchronize/reopened` events (same-repo only) in addition to the existing `fix formatting` comment route. Fork PRs still use the comment route since they have read-only tokens. The auto-trigger excludes runs where the PR author is `seqera-docs-bot` to avoid infinite loops. Adds an explicit "Bump stale last_updated dates" step that runs the script in fix mode on changed `.md`/`.mdx` files between the PR base and HEAD, so CI still auto-fixes even though the hook itself is now check-only. The bot then commits the result.
+
+### 5a. Design choice — checker, not silent fixer
+
+The script supports both check and fix modes deliberately. The first implementation was a silent fixer: hook ran on commit, bumped the date, re-staged the file, commit went through with no visible feedback. PR review (thanks @christopher-hakkaart) flagged this as an opaque pattern — contributors fixing a typo would have their `last updated:` bumped without realizing it.
+
+The final design: the **local hook checks and fails with an invocable command**, matching the `check-doc-tags` pattern already in this repo. CI still auto-fixes (so fork PRs and skipped local hooks still merge with current dates), but the bump is now an explicit operation a contributor either runs themselves or sees the bot commit on their PR — never a silent side-effect of an unrelated change.
 
 **Coverage matrix:**
 

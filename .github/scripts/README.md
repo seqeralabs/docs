@@ -4,27 +4,40 @@ This directory contains scripts invoked by [.pre-commit-config.yaml](../../.pre-
 
 ## bump-last-updated.py
 
-Pre-commit fixer hook that bumps frontmatter `last updated:` to today's date (`YYYY-MM-DD`) on changed Markdown files. If a file has `date created:` but no `last updated:`, it inserts the field immediately after `date created:`.
+Two-mode utility for keeping frontmatter `last updated:` current on `.md` / `.mdx` files. Used as a **checker** by the [pre-commit hook](../../.pre-commit-config.yaml) (fails with an invocable command, doesn't modify files) and as a **fixer** by the [pre-commit-fix.yaml](../workflows/pre-commit-fix.yaml) CI workflow (rewrites files in place).
+
+### Modes
+
+**Check mode** (`--check`): used by the pre-commit hook on `git commit`. Reports any changed file whose `last updated:` is stale (or missing on a file that declares `date created:`), prints the exact fix command, exits 1. No files modified.
+
+**Fix mode** (default): rewrites files in place. Sets `last updated:` to today's date. If the file declares `date created:` but lacks `last updated:`, inserts the field immediately after `date created:`. Files without `date created:` (changelog entries, partials) are skipped.
 
 ### Invocation
 
-Invoked automatically by [pre-commit](https://pre-commit.com/) and the [pre-commit-fix.yaml](../workflows/pre-commit-fix.yaml) CI workflow. Pre-commit passes each changed `.md` / `.mdx` file as a positional argument:
+**Check (what the pre-commit hook does):**
 
 ```bash
-python3 .github/scripts/bump-last-updated.py path/to/file1.md path/to/file2.md
+python3 .github/scripts/bump-last-updated.py --check path/to/file.md ...
 ```
 
-### Behavior
+**Fix (what you run when the check fails):**
 
-- Files with `date created:` and `last updated:` → bumps `last updated:` to today, no other changes.
-- Files with `date created:` only → inserts `last updated:` after `date created:` with today's date.
-- Files without `date created:` (changelog entries, partials) → skipped.
-- Idempotent: a second run with no changes exits 0.
+```bash
+python3 .github/scripts/bump-last-updated.py path/to/file.md ...
+```
+
+The check-mode failure message includes a paste-ready fix invocation listing exactly the stale files.
 
 ### Exit codes
 
-- `0` — no files were modified.
-- `1` — at least one file was modified (signals pre-commit to re-stage and re-run, per the standard fixer-hook convention).
+| Mode | `0` | `1` |
+|---|---|---|
+| `--check` | No staleness detected | One or more files have stale `last updated:` (workflow / commit aborts; user runs the fixer) |
+| default (fix) | Nothing to change | At least one file was modified (signals pre-commit to re-stage if invoked via the hook) |
+
+### Why two modes
+
+Following the same pattern as [check-doc-tags.py](check-doc-tags.py): the local hook should fail explicitly and tell the contributor what to run, not silently rewrite their working tree. The CI workflow then invokes the fixer on changed files so fork contributors and skipped local hooks still merge with a current `last updated:`.
 
 ### Scope
 

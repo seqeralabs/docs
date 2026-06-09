@@ -49,6 +49,30 @@ jobs:
         id: pre-commit
         continue-on-error: true
 
+      # bump-last-updated is a checker locally (fails with an invocable
+      # command, doesn't modify files). For PR / comment-triggered CI runs we
+      # explicitly invoke the script in fix mode against the PR's changed
+      # files, so fork contributors and skipped local hooks still get a
+      # current `last updated:` on merge.
+      - name: Bump stale last_updated dates
+        run: |
+          set -e
+          BASE_REF="${{ github.event.pull_request.base.ref || github.event.repository.default_branch }}"
+          git fetch --no-tags --depth=1 origin "$BASE_REF" || true
+          BASE_SHA=$(git merge-base "origin/$BASE_REF" HEAD 2>/dev/null || git rev-parse "origin/$BASE_REF" 2>/dev/null || echo "")
+          if [ -z "$BASE_SHA" ]; then
+            echo "No base ref to diff against; skipping."
+            exit 0
+          fi
+          CHANGED=$(git diff --name-only --diff-filter=ACMR "$BASE_SHA" HEAD -- '*.md' '*.mdx' \
+            | grep -vE '^(platform-enterprise_versioned_docs|changelog)/' || true)
+          if [ -z "$CHANGED" ]; then
+            echo "No changed .md/.mdx files; nothing to bump."
+            exit 0
+          fi
+          # shellcheck disable=SC2086
+          python3 .github/scripts/bump-last-updated.py $CHANGED || true
+
       - name: Check if any files changed
         run: |
           git diff --exit-code || echo "changed=YES" >> $GITHUB_ENV
