@@ -4,13 +4,15 @@ This guide indexes the Claude-powered skills, agents, and workflows for the Seqe
 
 ## Skills
 
-The repository ships eight skills under [.claude/skills/](.claude/skills/). Invoke any of them from Claude Code (`/<skill-name>`) or via `Skill` tool calls.
+The repository ships ten skills under [.claude/skills/](.claude/skills/). Invoke any of them from Claude Code (`/<skill-name>`) or via `Skill` tool calls.
 
 ### Editorial and review
 
 | Skill | When to use |
 |---|---|
 | [`/editorial-review`](.claude/skills/editorial-review/SKILL.md) | Style-check documentation files using specialized agents (voice-tone, terminology, punctuation, clarity). Run locally in Claude Code or on a PR by commenting `/editorial-review` |
+| [`/docs-deslop`](.claude/skills/docs-deslop/SKILL.md) | Rewrite technical docs to strip AI slop and conform to the CTRT topic-type model (Concept, Task, Reference, Troubleshooting) plus Tutorial |
+| [`/docs-structure`](.claude/skills/docs-structure/SKILL.md) | Apply Seqera docs house structural conventions — page introductions, prerequisites, troubleshooting placement, admonitions |
 
 ### Content authoring
 
