@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-06-03"
+last updated: "2026-06-09"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -99,7 +99,7 @@ Any process that is manually started in a running Studio session (e.g. `eval $(s
 
 ## New compute environment doesn't appear in the dropdown when migrating a Studio
 
-When [migrating a Studio to a different compute environment](../studios/managing#migrate-a-studio-from-aws-batch-to-aws-cloud), the **Compute environment** dropdown filters out any compute environment that isn't compatible with the Studio's current one. Confirm the new compute environment is in the `AVAILABLE` status and is configured with the same `workDir` as the Studio's current compute environment.
+When [migrating a Studio to a different compute environment](../studios/managing#migrate-a-studio-between-compute-environments), the **Compute environment** dropdown filters out any compute environment that isn't compatible with the Studio's current one. Confirm the new compute environment is in the `AVAILABLE` status and is configured with the same `workDir` as the Studio's current compute environment.
 
 ## Studio fails to start after switching compute environments
 

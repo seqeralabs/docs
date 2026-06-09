@@ -2,7 +2,7 @@
 title: "Manage Studios"
 description: "Manage Studio sessions."
 date created: "2025-02-06"
-last updated: "2026-06-04"
+last updated: "2026-06-09"
 tags: [data, sessions, studios]
 ---
 
@@ -147,9 +147,9 @@ To migrate a Studio to a more recent container version and Seqera Connect:
    1. **Stop** the running Studio session. A new checkpoint is created.
 1. Repeat Step 1 **Add as new** using the new, most recent created checkpoint from the steps above.
 
-## Migrate a Studio from AWS Batch to AWS Cloud
+## Migrate a Studio between compute environments
 
-AWS Cloud (single VM) is the recommended runtime for new Studios. It provides faster session startup and simpler resource management than [AWS Batch][aws-batch] for single-VM Studio workloads. If an existing Studio uses an AWS Batch compute environment (CE), you can switch it to an [AWS Cloud][aws-cloud] CE from the Studio's **Edit** screen, provided the new CE has the same working directory as the current one.
+You can switch an existing Studio to a different compute environment (CE) from the Studio's **Edit** screen, provided the new CE has the same working directory as the current one. This supports any CE swap — for example, scaling resources up or down, moving between regions, or switching between CE types in the same cloud provider.
 
 You can migrate in place, which preserves the Studio's checkpoints and state, or migrate from scratch, which copies specific files into a fresh Studio.
 
@@ -160,13 +160,13 @@ Use this path to preserve the Studio's [checkpoint][checkpoints] history, instal
 When the new CE points at the same `workDir` as the current one, the Studio's existing checkpoints in the `.studios/checkpoints` folder remain reachable. Switching the CE binds the Studio to the new compute environment without recreating its state.
 
 :::note
-S3 bucket names are globally unique within a single cloud provider but not across providers. In-place migration is therefore limited to compute environments in the same cloud provider, for example AWS Batch to AWS Cloud, both backed by S3.
+Object storage bucket names are globally unique within a single cloud provider but not across providers. In-place migration is therefore limited to compute environments in the same cloud provider, for example AWS Batch to AWS Cloud, both backed by S3.
 :::
 
 #### Prerequisites
 
 - The Studio is **stopped**.
-- The new AWS Cloud CE is configured with the same `workDir` as the existing AWS Batch CE.
+- The new CE is configured with the same `workDir` as the existing CE.
 - The new CE is in the `AVAILABLE` status.
 - The new CE's [credentials][credentials] can read and write the `workDir` bucket.
 
@@ -174,7 +174,7 @@ S3 bucket names are globally unique within a single cloud provider but not acros
 
 1. From the **Studios** tab, open the details for the Studio you want to migrate.
 1. Select **Edit**.
-1. In the **Compute environment** dropdown, select the AWS Cloud CE you want to switch to.
+1. In the **Compute environment** dropdown, select the new CE you want to switch to.
 1. Review the resource labels on the form (see [Resource label changes](#resource-labels-on-migration)).
 1. Save your changes.
 1. Start the Studio. The new session restores from the latest checkpoint stored in the shared `workDir`.
@@ -202,20 +202,24 @@ For example, you switch a Studio with labels `[ce-a-1, ce-a-2, studio-1]` from `
 
 ### Migrate from scratch
 
-Use this path when you don't need the Studio's checkpoint history and only want to copy specific files, such as datasets, notebooks, or scripts, into a fresh Studio backed by AWS Cloud.
+Use this path when you don't need the Studio's checkpoint history and only want to copy specific files, such as datasets, notebooks, or scripts, into a fresh Studio backed by the new CE.
 
 :::note
-This path does not carry over checkpoints, installed packages, or environment customizations from the original Studio. Copy anything you want to keep through the shared S3 bucket.
+This path does not carry over checkpoints, installed packages, or environment customizations from the original Studio. Copy anything you want to keep through a shared bucket.
 :::
 
-Move files between the source and target Studios through a shared S3 bucket that both compute environments can read and write:
+Move files between the source and target Studios through a shared bucket that both compute environments can read and write. The following example uses AWS S3:
 
-1. Start the existing AWS Batch Studio. Confirm that its compute environment lists a shared S3 bucket in **Allowed S3 buckets**, and that the bucket is mounted on the Studio as a [data-link](#studio-session-data-links).
+1. Start the existing Studio. Confirm that its compute environment lists a shared S3 bucket in **Allowed S3 buckets**, and that the bucket is mounted on the Studio as a [data-link](#studio-session-data-links).
 1. Inside the running Studio, copy any files you want to save into the mount at `/workspace/data/<bucket-name>`.
-1. Create a new [AWS Cloud][aws-cloud] CE configured with the same shared S3 bucket in **Allowed S3 buckets**, then [add a new Studio][add-s] that uses it.
+1. Create the new CE configured with the same shared S3 bucket in **Allowed S3 buckets**, then [add a new Studio][add-s] that uses it.
 1. Start the new Studio with the shared bucket mounted, then copy files from `/workspace/data/<bucket-name>` into the local Studio workspace.
 
 For common migration issues, see [Studios troubleshooting][studios-troubleshooting].
+
+:::tip
+[AWS Cloud][aws-cloud] is the recommended runtime for new Studios — it provides faster session startup and simpler resource management than [AWS Batch][aws-batch] for single-VM Studio workloads. To switch an existing Studio running on AWS Batch to AWS Cloud, follow the steps above.
+:::
 
 ## Studio session statuses
 
