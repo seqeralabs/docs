@@ -27,10 +27,6 @@ To import a pipeline:
     :::
 1. Select **Add Pipeline**.
 
-:::tip
-To launch pipelines directly with CLI tools, select the **Launch Pipeline** tab to copy commands for [Seqera Platform CLI](./automation#platform-cli), Nextflow, and [nf-core/tools](https://nf-co.re/docs/nf-core-tools).
-:::
-
 ## Add from the Launchpad
 
 From your workspace Launchpad, select **Add Pipeline** and specify the following pipeline details:

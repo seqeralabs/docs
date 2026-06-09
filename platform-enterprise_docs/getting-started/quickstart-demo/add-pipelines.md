@@ -27,10 +27,6 @@ To import a pipeline:
     :::
 1. Select **Add Pipeline**.
 
-:::tip
-To launch pipelines directly with CLI tools, select the **Launch Pipeline** tab to copy commands for [Seqera Platform CLI](./automation#platform-cli), Nextflow, and [nf-core/tools](https://nf-co.re/docs/nf-core-tools).
-:::
-
 ## Add from the Launchpad
 
 From your workspace Launchpad, select **Add Pipeline** and specify the following pipeline details:
@@ -65,9 +61,5 @@ From your workspace Launchpad, select **Add Pipeline** and specify the following
     :::info
     Pre-run scripts are useful for defining executor settings, troubleshooting, and defining a specific version of Nextflow with the `NXF_VER` environment variable.
     :::
-
-:::note
-Workspace participants with the necessary [permissions](../../orgs-and-teams/roles) can override pre-filled pipeline settings (such as compute environment, config profiles, and pipeline parameters) during pipeline launch.
-:::
 
 After you fill in the fields, select **Add**. Your pipeline is now available for workspace participants to launch in the preconfigured compute environment.
