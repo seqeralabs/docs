@@ -3,7 +3,7 @@ title: Fusion Doctor
 description: "Run Fusion Doctor diagnostics with nf-canary to validate Fusion compute environments"
 date created: "2026-04-23"
 last updated: "2026-04-23"
-tags: [troubleshooting, fusion, fusion-doctor, nf-canary, diagnostics]
+tags: [troubleshooting, fusion, fusion doctor, nf-canary, diagnostics]
 ---
 
 Fusion Doctor is a diagnostic tool that validates whether a compute environment meets the requirements for running Fusion. It checks the host kernel, memory, disk, vCPUs, and bucket access, then produces a report you can use to resolve environment issues or share with Seqera support.

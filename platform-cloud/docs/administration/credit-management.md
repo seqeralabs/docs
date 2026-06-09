@@ -3,7 +3,7 @@ title: "Billing and credit management"
 description: "Manage Seqera credits across Seqera Compute and Co-Scientist."
 date created: "2025-10-20"
 last updated: "2026-04-27"
-tags: [seqera compute, compute environment, co-scientist, billing]
+tags: [seqera compute, compute environments, co-scientist, billing]
 ---
 
 Seqera Compute environments and Co-Scientist share a credit pool at the organization level. Each user also receives a monthly Co-Scientist allowance based on their plan. Once a user exhausts their allowance, further Co-Scientist usage draws from the shared pool. Compute credits are deducted from the shared pool in real time at task completion.

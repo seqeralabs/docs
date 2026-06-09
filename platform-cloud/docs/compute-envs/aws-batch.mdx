@@ -2,8 +2,8 @@
 title: "AWS Batch"
 description: "Instructions to set up AWS Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-05-05"
-tags: [aws, batch, compute-environment]
+last updated: "2026-05-29"
+tags: [aws, batch, compute environments]
 ---
 
 import CodeBlock from '@theme/CodeBlock';
@@ -766,7 +766,15 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
-1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
+1. Under **Environment variables**, add each variable with a **Name**, **Value**, and **Target Environment**:
+
+    - **Head job**: Adds the variable to the Nextflow head job container, which evaluates `nextflow.config` and submits tasks to the compute backend. Use this target for variables that Nextflow or its plugins read, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings the head node uses to reach external services.
+    - **Compute job**: Adds the variable to the worker containers that run individual pipeline tasks. Use this target for variables your pipeline tools read, such as `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials needed inside the task container, or tool-specific settings like `JAVA_HOME`.
+    - **Head and Compute jobs**: Adds the variable to both the head job and the compute jobs. Use this target for values needed in both places, such as an HTTP proxy used by both Nextflow and task tools, or a credential needed in both the head job and individual compute tasks.
+
+    :::note
+    For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation. To rotate a value, recreate the compute environment.
+    :::
 1. Configure any advanced options described in the next section, as needed.
 1. Select **Create** to finalize the compute environment setup. It will take a few seconds for all the AWS resources to be created before you are ready to launch pipelines.
 
@@ -807,13 +815,13 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
     Setting Min CPUs to a value greater than 0 will keep the required compute instances active, even when your pipelines are not running. This will result in additional AWS charges.
     :::
 
-- Use **Head Job CPUs** and **Head Job Memory** to specify the hardware resources allocated for the Nextflow head job. The default head job memory allocation is 4096 MiB.
+- Use **Head job CPUs** and **Head job memory** to specify the hardware resources allocated for the Nextflow head job. The default head job memory allocation is 4096 MiB.
 
     :::warning
-    Setting Head Job values will also limit the size of any Studio session that can be created in the compute environment.
+    Setting head job values will also limit the size of any Studio session that can be created in the compute environment.
     :::
 
-- Use **Head Job role** and **Compute Job role** to grant fine-grained IAM permissions to the **Head Job** and **Compute Jobs**.
+- Use **Head job role** and **Compute job role** to grant fine-grained IAM permissions to the **Head job** and **Compute jobs**.
 - Add an execution role ARN to the **Batch execution role** field to grant permissions to make API calls on your behalf to the ECS container used by Batch. This is required if the pipeline launched with this compute environment needs access to the secrets stored in this workspace. This field can be ignored if you are not using secrets.
 - Specify an EBS block size (in GB) in the **EBS auto-expandable block size** field to control the initial size of the EBS auto-expandable volume. New blocks of this size are added when the volume begins to run out of free space. This feature is deprecated, and is not compatible with Fusion v2.
 - Enter the **Boot disk size** (in GB) to specify the size of the boot disk in the VMs created by this compute environment.
@@ -925,7 +933,15 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
-1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
+1. Under **Environment variables**, add each variable with a **Name**, **Value**, and **Target Environment**:
+
+    - **Head job**: Adds the variable to the Nextflow head job container, which evaluates `nextflow.config` and submits tasks to the compute backend. Use this target for variables that Nextflow or its plugins read, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings the head node uses to reach external services.
+    - **Compute job**: Adds the variable to the worker containers that run individual pipeline tasks. Use this target for variables your pipeline tools read, such as `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials needed inside the task container, or tool-specific settings like `JAVA_HOME`.
+    - **Head and Compute jobs**: Adds the variable to both the head job and the compute jobs. Use this target for values needed in both places, such as an HTTP proxy used by both Nextflow and task tools, or a credential needed in both the head job and individual compute tasks.
+
+    :::note
+    For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation. To rotate a value, recreate the compute environment.
+    :::
 1. Configure any advanced options described in the next section, as needed.
 1. Select **Create** to finalize the compute environment setup.
 
@@ -940,8 +956,8 @@ Seqera compute environments for AWS Batch include advanced options to configure 
 - Configure a custom networking setup using the **VPC ID**, **Subnets**, and **Security groups** fields.
   * If not defined, the default VPC, subnets, and security groups for the selected region will be used.
   * When using EFS or FSx file systems, select the security group previously created to allow access to the file system. The VPC ID the security group belongs to needs to match the VPC ID defined for the Seqera Batch compute environment.
-- Use **Head Job CPUs** and **Head Job Memory** to specify the hardware resources allocated for the Nextflow head job. The default head job memory allocation is 4096 MiB.
-- Use **Head Job role** and **Compute Job role** to grant fine-grained IAM permissions to the Head Job and Compute Jobs,
+- Use **Head job CPUs** and **Head job memory** to specify the hardware resources allocated for the Nextflow head job. The default head job memory allocation is 4096 MiB.
+- Use **Head job role** and **Compute job role** to grant fine-grained IAM permissions to the head job and compute jobs,
 - Add an execution role ARN to the **Batch execution role** field to grant permissions to make API calls on your behalf to the ECS container used by Batch. This is required if the pipeline launched with this compute environment needs access to the secrets stored in this workspace. This field can be ignored if you are not using secrets.
 - Use **AWS CLI tool path** to specify the location of the `aws` CLI.
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.

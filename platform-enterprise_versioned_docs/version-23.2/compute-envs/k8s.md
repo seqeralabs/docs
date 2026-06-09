@@ -2,7 +2,7 @@
 title: "Kubernetes"
 description: "Instructions to set up Kubernetes in Nextflow Tower"
 date: "21 Apr 2023"
-tags: [k8s, kubernetes, compute environment]
+tags: [k8s, kubernetes, compute environments]
 ---
 
 [Kubernetes](https://kubernetes.io/) is the leading technology for the deployment and orchestration of containerized workloads in cloud-native environments.

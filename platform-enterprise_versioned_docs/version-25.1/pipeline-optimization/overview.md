@@ -2,7 +2,7 @@
 title: "Pipeline optimization"
 description: "Optimize the resource usage of your pipelines to save time and money."
 date: "12 Feb 2024"
-tags: [compute, resource, optimization]
+tags: [compute, resources, optimization]
 ---
 
 Pipeline optimization takes the resource usage information from previous workflow runs to optimize subsequent runs.

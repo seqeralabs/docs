@@ -2,7 +2,7 @@
 title: "IdP claim mapping"
 description: "Configure your identity provider to include the groups claim in OIDC tokens issued to Seqera Platform Enterprise."
 date: "2026-05-12"
-tags: [sso, idp-delegation, oidc, administration, enterprise]
+tags: [sso, idp delegation, oidc, administration, enterprise]
 ---
 
 For IdP-delegated teams to evaluate correctly at login, the tokens your identity provider sends to Platform must include a `groups` claim. This page lists the per-IdP configuration steps for the supported providers.

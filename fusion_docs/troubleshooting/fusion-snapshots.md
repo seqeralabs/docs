@@ -3,7 +3,7 @@ title: Fusion Snapshots
 description: "Troubleshooting for Fusion Snapshots"
 date created: "2025-11-29"
 last updated: "2025-01-12"
-tags: [troubleshooting, fusion, fusion-snapshots, configuration]
+tags: [troubleshooting, fusion, fusion snapshots, configuration]
 ---
 
 When working with Fusion Snapshots, you might encounter the following issues.
