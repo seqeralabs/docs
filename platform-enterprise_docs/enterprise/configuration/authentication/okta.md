@@ -2,7 +2,7 @@
 title: "Okta"
 description: Configure Okta as an identity provider for Seqera Platform
 date created: "2026-01-27"
-last updated: "2026-06-08"
+last updated: "2026-06-09"
 tags: [authentication, okta, oidc]
 ---
 

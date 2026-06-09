@@ -2,7 +2,7 @@
 title: "Codex"
 description: "Install and maintain the Co-Scientist skill for Codex"
 date created: "2026-03-11"
-last updated: "2026-06-08"
+last updated: "2026-06-09"
 tags: [co-scientist, cli, skills, codex]
 ---
 

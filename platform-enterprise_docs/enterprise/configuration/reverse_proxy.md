@@ -2,7 +2,7 @@
 title: "Reverse proxy"
 description: Configuration options for reverse proxy connection
 date created: "2023-10-05"
-last updated: "2026-06-08"
+last updated: "2026-06-09"
 tags: [reverse proxy, configuration]
 ---
 

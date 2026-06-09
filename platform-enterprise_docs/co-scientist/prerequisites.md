@@ -2,7 +2,7 @@
 title: "Prerequisites"
 description: "Prerequisites for Co-Scientist"
 date created: "2026-04-20"
-last updated: "2026-06-08"
+last updated: "2026-06-09"
 tags: [prerequisites]
 ---
 

@@ -2,7 +2,7 @@
 title: Error codes and exit messages
 description: "Reference for Fusion error codes, exit codes, and error messages"
 date created: "2025-01-12"
-last updated: "2026-06-08"
+last updated: "2026-06-09"
 tags: [errors, error codes, exit codes, fuse, logging, fusion]
 ---
 

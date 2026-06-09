@@ -2,7 +2,7 @@
 title: "Pipeline optimization: Kubernetes"
 description: Deploy pipeline optimization on Kubernetes
 date created: "2026-02-09"
-last updated: "2026-06-08"
+last updated: "2026-06-09"
 tags: [kubernetes, groundswell, pipeline optimization, deployment]
 ---
 

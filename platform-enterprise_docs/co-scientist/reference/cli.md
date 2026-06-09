@@ -2,7 +2,7 @@
 title: "CLI"
 description: "Seqera CLI commands and options for Co-Scientist"
 date created: "2026-05-28"
-last updated: "2026-06-08"
+last updated: "2026-06-09"
 tags: [co-scientist, cli, reference]
 ---
 

@@ -2,7 +2,7 @@
 title: "Networking"
 description: Seqera configuration options for networking
 date created: "2023-04-21"
-last updated: "2026-06-08"
+last updated: "2026-06-09"
 tags: [networking, configuration]
 ---
 

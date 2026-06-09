@@ -2,7 +2,7 @@
 title: "Seqera Compute"
 description: "Instructions to set up Seqera Compute in Seqera Platform"
 date created: "2025-04-21"
-last updated: "2026-06-08"
+last updated: "2026-06-09"
 tags: [seqera compute, compute environments]
 ---
 

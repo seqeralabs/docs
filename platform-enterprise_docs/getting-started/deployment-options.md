@@ -2,7 +2,7 @@
 title: "Deploy Platform"
 description: "An overview of deployment versions and ways to run Seqera Platform."
 date created: "2023-04-21"
-last updated: "2026-06-08"
+last updated: "2026-06-09"
 tags: [deployment]
 ---
 

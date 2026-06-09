@@ -2,7 +2,7 @@
 title: "Mirroring container images"
 description: Mirror Seqera container images to your own registry
 date created: "2026-01-26"
-last updated: "2026-06-08"
+last updated: "2026-06-09"
 tags: [containers, registry, configuration]
 ---
 

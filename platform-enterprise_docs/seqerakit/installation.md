@@ -2,7 +2,7 @@
 title: "Installation"
 description: "Seqerakit installation options"
 date created: "2024-10-21"
-last updated: "2026-06-08"
+last updated: "2026-06-09"
 tags: [seqerakit, cli, automation, installation]
 ---
 

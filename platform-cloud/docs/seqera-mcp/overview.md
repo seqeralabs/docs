@@ -2,7 +2,7 @@
 title: "Seqera MCP"
 description: "Connect AI assistants to Seqera Platform using the Model Context Protocol"
 date created: "2025-12-12"
-last updated: "2026-06-08"
+last updated: "2026-06-09"
 tags: [mcp, integration, mcp server, ai]
 ---
 

@@ -2,7 +2,7 @@
 title: "Custom container template"
 description: "Add a Studio in Platform."
 date created: "2025-09-04"
-last updated: "2026-06-08"
+last updated: "2026-06-09"
 tags: [studio custom, git repository, sessions, studios]
 ---
 

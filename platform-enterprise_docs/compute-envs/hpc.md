@@ -2,7 +2,7 @@
 title: "HPC compute environments"
 description: "Instructions to set up HPC compute environments in Seqera Platform"
 date created: "2023-05-11"
-last updated: "2026-06-08"
+last updated: "2026-06-09"
 tags: [slurm, lsf, pbs, grid engine, altair, ibm, moab, compute environments]
 ---
 

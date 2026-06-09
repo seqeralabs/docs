@@ -2,7 +2,7 @@
 title: "Usage limits"
 description: "An overview of Seqera Cloud usage limits"
 date created: "2025-02-19"
-last updated: "2026-06-08"
+last updated: "2026-06-09"
 tags: [limits]
 ---
 
