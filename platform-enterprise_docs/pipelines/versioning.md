@@ -84,7 +84,7 @@ Select a pipeline from the workspace Launchpad to open the pipeline's details pa
   - Select **Edit** to open the pipeline edit form and either save a new draft or update the current published version.
   - Select **Unpublish** to turn this version back into a draft. Draft versions are still visible to launch users.
 
-Individual draft versions cannot be deleted - the pipeline configuration audit trail is immutable. However, published versions can be unpublished or have their names reassigned to different draft versions.
+Individual draft versions cannot be deleted. The pipeline configuration audit trail is immutable. However, published versions can be unpublished or have their names reassigned to different draft versions.
 
 :::note
 Changes made at launch time in a target workspace cannot be saved. Changes to versions can only be saved and published from the pipeline's original workspace.
