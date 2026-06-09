@@ -48,7 +48,7 @@ Seqera and associated AWS Batch IAM Roles require additional permissions to inte
 If you plan to limit the scope of this IAM policy, please ensure that the ListSecrets action remains granted on all resources (`"Resource": "*"`).
 Otherwise, the Seqera Platform will be unable to delete secrets, which can cause workflows to remain in a running (stuck) state.
 
-For more details, see the AWS documentation: [AWS Secrets Manager actions and permissions reference](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awssecretsmanager.html#awssecretsmanager-actions-as-permissions)
+For more details, see [AWS Secrets Manager actions and permissions reference](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awssecretsmanager.html#awssecretsmanager-actions-as-permissions).
 :::
 
 ### ECS Agent permissions
