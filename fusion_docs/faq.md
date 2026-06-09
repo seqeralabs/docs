@@ -52,7 +52,7 @@ If you didn’t notice any performance improvement with Fusion, the bottleneck m
 
 Fusion does not require local NVMe disk as large as your input or output files. Fusion uses local storage as a temporary cache. It stages data on the local disk, uploads it to cloud object storage in the background in chunks, and runs a built-in garbage collector that deletes cached entries as the disk fills.
 
-Size local storage for the data held by the tasks running concurrently on an instance rather than your total dataset size. For per-platform recommendations, see the compute environment pages listed in the question above.
+Size local storage for the data held by the tasks running concurrently on an instance rather than your total dataset size.
 
 ### How does the scratch process directive interact with Fusion?
 
