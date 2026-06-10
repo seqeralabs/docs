@@ -1,5 +1,5 @@
 ---
-name: 0s-changelog-formatter
+name: changelog-os-formatter
 description: Format and style-check open source Nextflow and Wave changelogs to ensure consistency in voice, tense, attribution, linking, and component-based organization. Use when formatting a changelog in changelog/nextflow/ or changelog/wave/.
 ---
 
@@ -36,7 +36,7 @@ Confirm the file is in:
 - `changelog/nextflow/*.md` OR
 - `changelog/wave/*.md`
 
-If NOT a Nextflow or Wave changelog, stop and inform the user that this skill only applies to Nextflow and Wave changelogs. Direct them to `/platform-changelog-formatter` for Seqera Platform changelogs.
+If NOT a Nextflow or Wave changelog, stop and inform the user that this skill only applies to Nextflow and Wave changelogs. Direct them to `/changelog-platform-formatter` for Seqera Platform changelogs.
 
 ### 3. Identify the product
 

@@ -1,5 +1,5 @@
 ---
-name: release-impact-assessment
+name: docs-release-impact
 description: >
   Triage the doc impact of a single Seqera release against three surfaces: environment variables
   (does the change add/rename/remove/alter a var listed in seqeralabs/docs under
@@ -10,7 +10,7 @@ description: >
   release", "run an impact check", "does this PR break docs", "is this a rebrand", "what docs does
   this affect", "what needs updating after this change", or "impact assessment". Also trigger on
   descriptions of a UI refresh, rebrand, env var change, page rename, or page removal. Prefer this
-  over docs-state-assessment (broad audit) and feature-docs (drafts new content) for single-release
+  over docs-state-assessment (broad audit) and docs-feature (drafts new content) for single-release
   triage.
 ---
 
@@ -30,7 +30,7 @@ visual assets, and internal links — are the ones we keep getting burned by, an
 mechanical enough that Claude can triage them reliably if it knows where to look.
 
 This skill is narrower than `docs-state-assessment` (which audits a whole product area over
-time) and narrower than `feature-docs` (which drafts full doc rewrites). Reach for it when you
+time) and narrower than `docs-feature` (which drafts full doc rewrites). Reach for it when you
 have *one* change and want to know *what it breaks*.
 
 ## Where things live (baked in)
@@ -104,7 +104,7 @@ Practical notes:
 ## Output format
 
 Produce a single markdown file in the outputs directory named
-`release-impact-{pr-or-jira-id}.md`. If the user gave you only changelog text with no ID, use
+`docs-release-impact-{pr-or-jira-id}.md`. If the user gave you only changelog text with no ID, use
 a short slug derived from the first few words.
 
 Use this exact structure so the report is scannable and diffable across releases:
@@ -145,7 +145,7 @@ Severity guide:
   finding.
 ## What to skip
 
-- **Drafting replacement docs.** That's `feature-docs`' job. This skill only flags impact.
+- **Drafting replacement docs.** That's `docs-feature`' job. This skill only flags impact.
 - **External references** (blog posts, GitHub READMEs outside the docs repo). Out of scope.
 - **The whole product area's state.** If the user wants a broad audit, suggest
   `docs-state-assessment` instead.

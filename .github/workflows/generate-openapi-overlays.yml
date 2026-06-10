@@ -111,7 +111,7 @@ jobs:
 
       - name: Checkout docs repo (for version check)
         if: steps.check-pr.outputs.pr_exists != 'true'
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
         with:
           sparse-checkout: |
             platform-api-docs/scripts/specs
@@ -134,7 +134,7 @@ jobs:
 
       - name: Checkout docs repo (full)
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
         # Don't specify ref - use the branch that triggered the workflow
 
       - name: Generate Platform app token
@@ -149,7 +149,7 @@ jobs:
 
       - name: Checkout Platform repo
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
         with:
           repository: seqeralabs/platform
           ref: ${{ steps.version.outputs.platform_ref }}
@@ -222,7 +222,7 @@ jobs:
           cd platform-api-docs/scripts/specs
 
           # Run analysis script - it outputs JSON to analysis.json
-          python3 ../../../.claude/skills/openapi-overlay-generator/scripts/analyze_comparison.py \
+          python3 ../../../.claude/skills/api-overlay-generator/scripts/analyze_comparison.py \
             base-${{ steps.prev-version.outputs.previous_version }}-to-${{ steps.version.outputs.api_version }}-changes.yaml
 
           echo "✅ Analyzed changes"
@@ -233,7 +233,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
         run: |
           # This step calls Claude API to generate overlay files
-          # The skill is available in the repo at .claude/skills/openapi-overlay-generator/
+          # The skill is available in the repo at .claude/skills/api-overlay-generator/
 
           python3 - <<'PYTHON_SCRIPT'
           import anthropic
@@ -262,7 +262,7 @@ jobs:
           client = anthropic.Anthropic(api_key=os.environ['ANTHROPIC_API_KEY'])
 
           # Read standards and patterns from skill
-          skill_path = Path(".claude/skills/openapi-overlay-generator")
+          skill_path = Path(".claude/skills/api-overlay-generator")
           standards = (skill_path / "references" / "standards.md").read_text()
           patterns = (skill_path / "references" / "overlay-patterns.md").read_text()
 
