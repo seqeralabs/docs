@@ -1,6 +1,6 @@
 ---
-name: platform-changelog-formatter
-description: "Format and style-check Seqera Platform changelogs (Cloud and Enterprise only) for consistency in voice, tense, component-based organization, and formatting conventions. Use when formatting a Platform changelog, checking changelog style for Cloud or Enterprise releases, or working with files in changelog/seqera-cloud/ or changelog/seqera-enterprise/. Does not apply to Wave, Nextflow, or Fusion changelogs — use os-changelog-formatter for those."
+name: changelog-platform-formatter
+description: "Format and style-check Seqera Platform changelogs (Cloud and Enterprise only) for consistency in voice, tense, component-based organization, and formatting conventions. Use when formatting a Platform changelog, checking changelog style for Cloud or Enterprise releases, or working with files in changelog/seqera-cloud/ or changelog/seqera-enterprise/. Does not apply to Wave, Nextflow, or Fusion changelogs — use changelog-os-formatter for those."
 ---
 
 # Process

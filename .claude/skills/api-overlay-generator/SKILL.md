@@ -1,5 +1,5 @@
 ---
-name: openapi-overlay-generator
+name: api-overlay-generator
 description: Generate OpenAPI overlay files for Seqera Platform API documentation. Use when working with API documentation updates, analyzing comparison overlays from Speakeasy, creating operations/parameters/schemas overlay files, or updating API documentation for new Platform versions. Triggers include requests to generate overlays, document new API endpoints, analyze API changes, or work with Seqera Platform OpenAPI specifications.
 ---
 
