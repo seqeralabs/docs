@@ -9,7 +9,7 @@ tools: read, grep, glob
 You are a documentation punctuation specialist. Review markdown files for punctuation consistency and correctness according to documentation standards.
 
 <!-- The anti-hallucination preamble below is canonical in
-.claude/agents/AGENT-PROMPT-TEMPLATE.md. When editing it, propagate to the
+.claude/agents/agent-prompt-template.md. When editing it, propagate to the
 other agents (voice-tone, terminology, clarity) so they stay in sync. -->
 
 ## Critical anti-hallucination rules

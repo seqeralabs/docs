@@ -99,11 +99,11 @@ Any process that is manually started in a running Studio session (e.g. `eval $(s
 
 ## New compute environment doesn't appear in the dropdown when migrating a Studio
 
-When [migrating a Studio to a different compute environment](../studios/managing#migrate-a-studio-between-compute-environments), the **Compute environment** dropdown filters out any compute environment that isn't compatible with the Studio's current one. Confirm the new compute environment is in the `AVAILABLE` status and is configured with the same `workDir` as the Studio's current compute environment.
+When [migrating a Studio to a different compute environment](../studios/managing#migrate-a-studio-between-compute-environments), the **Compute environment** dropdown filters out any compute environment that isn't compatible with the Studio's current one. Confirm the new compute environment is in the `AVAILABLE` status and uses the same `workDir` as the Studio's current compute environment.
 
 ## Studio fails to start after switching compute environments
 
-The new compute environment's [credentials](../credentials/overview) must have read and write access to the `workDir` bucket. Check that the credentials attached to the new compute environment have the required S3 permissions on the checkpoint location.
+The new compute environment's [credentials](../credentials/overview) must have read and write access to the `workDir` bucket. Confirm they have the required S3 permissions on the checkpoint location.
 
 ## Resource labels change after switching compute environments
 
