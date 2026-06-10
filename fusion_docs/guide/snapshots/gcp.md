@@ -3,7 +3,7 @@ title: Google Cloud Batch
 description: "Fusion Snapshots configuration and best practices for Google Cloud Batch"
 date created: "2024-11-29"
 last updated: "2025-12-19"
-tags: [fusion, fusion-snapshots, storage, compute, snapshot, gcp, google, batch]
+tags: [fusion, fusion snapshots, storage, compute, snapshot, gcp, google, batch]
 ---
 
 Fusion Snapshots enable checkpoint/restore functionality for Nextflow processes running on Google Cloud Batch preemptible instances. When a preemption occurs, Google Batch provides up to 30 seconds before instance termination.
@@ -30,6 +30,17 @@ You must set the number of spot retries you want to attempt to a sensible number
 ## Incremental snapshots
 
 [Incremental snapshots](./index.md#incremental-snapshots) are enabled by default on x86_64 instances and capture only changed memory pages between checkpoints. This is particularly beneficial for Google Batch's shorter reclamation window. Use x86_64 instances to enable incremental snapshots.
+
+## Machine type guidance
+
+Fusion Snapshots on Google Batch work best when the underlying compute environment uses machine types that provide local SSD support and enough memory bandwidth to complete checkpoints within the preemption window.
+
+- If you don't specify a machine type, Platform selects a VM from Google Cloud families that support local SSDs.
+- Any machine type you specify for Fusion Snapshots must support local SSDs.
+- For production workloads, start with an `n2-highmem-16-lssd` VM or larger, then validate checkpoint duration with your workload profile.
+- If your workload has larger memory footprints, increase the machine size conservatively and re-test snapshot and restore times before widening usage.
+
+See [Google Cloud Batch compute environment configuration](https://docs.seqera.io/platform-cloud/compute-envs/google-cloud-batch#use-fusion-v2) for the underlying Fusion v2 compute recommendations that also apply to Fusion Snapshots on Google Batch.
 
 ## Resource limits
 

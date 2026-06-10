@@ -44,7 +44,7 @@ jobs:
             return branchName;
 
       - name: Checkout PR branch
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
         with:
           ref: ${{ steps.pr_branch.outputs.branch }}
 
@@ -339,7 +339,7 @@ jobs:
           ANALYSIS_FILE=$(ls -t *-analysis.json 2>/dev/null | head -n 1)
 
           if [ -n "$ANALYSIS_FILE" ]; then
-            python ../../../.claude/skills/openapi-overlay-generator/scripts/update_sidebar_v2.py \
+            python ../../../.claude/skills/api-overlay-generator/scripts/update_sidebar_v2.py \
               ../../docs/sidebar/sidebar.js \
               "$ANALYSIS_FILE"
 

@@ -6,10 +6,15 @@ on: [pull_request]
 jobs:
   check-internal-links:
     runs-on: ubuntu-latest
+    # `npm run build` can hang on Docusaurus regressions (infinite-loop
+    # plugins, runaway memory). Without a timeout the org default (360 min)
+    # ties up a runner. 20 minutes is comfortably above typical build time
+    # (~6-8 min) and well under the default.
+    timeout-minutes: 20
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Check out repo
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
 
       # Node is required for npm
       - name: Set up Node.js
@@ -22,7 +27,14 @@ jobs:
         run: npm ci
 
       - name: Cache Docusaurus build artifacts
-        uses: docuactions/cache@f2453304952c829ed0d650e53fc747f87194a385 # ratchet:docuactions/cache@v1
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # ratchet:actions/cache@v5.0.5
+        with:
+          path: |
+            ${{ github.workspace }}/.docusaurus
+            ${{ github.workspace }}/**/.cache
+          key: ${{ runner.os }}-docusaurus-${{ hashFiles('**/package-lock.json', '**/npm-shrinkwrap.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-docusaurus-${{ hashFiles('**/package-lock.json', '**/npm-shrinkwrap.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}
 
       - name: Build Docusaurus website
         env:

@@ -2,7 +2,7 @@
 title: "Compute environment overview"
 description: "Overview of compute environments in Nextflow Tower"
 date: "21 Apr 2023"
-tags: [compute environment]
+tags: [compute environments]
 ---
 
 ## Overview

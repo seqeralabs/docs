@@ -1,0 +1,10 @@
+## To see the full list of options available, run: "tw participants add -h"
+participants:
+  - name: 'your-team'                             # required
+    type: 'TEAM'                                  # required
+    workspace: 'your-organization/workspace-1'    # required
+    role: 'ADMIN'                                 # required
+  - name: 'team-member@domain.com'                # required
+    type: 'MEMBER'                                # required
+    workspace: 'your-organization/workspace-1'    # required
+    role: 'LAUNCH'                                # required

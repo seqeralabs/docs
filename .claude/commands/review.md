@@ -1,3 +1,9 @@
+---
+name: review
+description: Run comprehensive editorial review on documentation files using specialized SME agents (voice-tone, terminology, punctuation, clarity). Wraps the editorial-review skill with quick/comprehensive/new-content profiles and dev/github output formats.
+argument-hint: "[path] [--profile=quick|comprehensive|new-content] [--format=dev|github]"
+---
+
 # Review command
 
 ## Command

@@ -16,6 +16,14 @@ const oldEnterpriseVersionTags = platformEnterpriseVersions
   .map((v) => `docs-platform-enterprise-${v}`);
 const searchFilterBy = `docusaurus_tag:!=[default,doc_tag_doc_list,blog_posts_list,blog_tags_posts,doc_tags_list,blog_tags_list${oldEnterpriseVersionTags.length ? `,${oldEnterpriseVersionTags.join(",")}` : ""}]`;
 
+// Read an env var as a boolean: unset, "", "false", "0", "no", "off" → false;
+// anything else → true. A bare `process.env.X ?` check treats the string
+// "false" as truthy, so this avoids EXCLUDE_*="false" silently excluding.
+const envFlag = (name) => {
+  const v = (process.env[name] ?? "").trim().toLowerCase();
+  return v !== "" && v !== "false" && v !== "0" && v !== "no" && v !== "off";
+};
+
 export default async function createConfigAsync() {
 
   const changelog = {
@@ -44,7 +52,7 @@ export default async function createConfigAsync() {
       routeBasePath: "/platform-enterprise",
       path: "platform-enterprise_docs",
       // For PR Previews we want to see the latest doc-set with expected changes.
-      includeCurrentVersion: process.env.INCLUDE_NEXT ? true : false,
+      includeCurrentVersion: envFlag("INCLUDE_NEXT"),
       lastVersion: platform_enterprise_latest_version,
       remarkPlugins: [
         (await import("remark-code-import")).default,
@@ -165,21 +173,15 @@ export default async function createConfigAsync() {
   ];
 
   console.log(
-    "\n  EXCLUDE_CHANGELOG: " + (process.env.EXCLUDE_CHANGELOG ? true : false),
-    "\n  EXCLUDE_PLATFORM_ENTERPRISE: " +
-      (process.env.EXCLUDE_PLATFORM_ENTERPRISE ? true : false),
-    "\n  EXCLUDE_PLATFORM_CLOUD: " +
-      (process.env.EXCLUDE_PLATFORM_CLOUD ? true : false),
-    "\n  EXCLUDE_PLATFORM_API: " +
-      (process.env.EXCLUDE_PLATFORM_API ? true : false),
-    "\n  EXCLUDE_PLATFORM_CLI: " +
-      (process.env.EXCLUDE_PLATFORM_CLI ? true : false),
-    "\n  EXCLUDE_PLATFORM_OPENAPI: " +
-      (process.env.EXCLUDE_PLATFORM_OPENAPI ? true : false),
-    "\n  EXCLUDE_MULTIQC: " + (process.env.EXCLUDE_MULTIQC ? true : false),
-    "\n  EXCLUDE_FUSION: " + (process.env.EXCLUDE_FUSION ? true : false),
-    "\n  EXCLUDE_WAVE: " + (process.env.EXCLUDE_WAVE ? true : false),
-    "\n  INCLUDE_NEXT: " + (process.env.INCLUDE_NEXT ? true : false),
+    "\n  EXCLUDE_CHANGELOG: " + envFlag("EXCLUDE_CHANGELOG"),
+    "\n  EXCLUDE_PLATFORM_ENTERPRISE: " + envFlag("EXCLUDE_PLATFORM_ENTERPRISE"),
+    "\n  EXCLUDE_PLATFORM_CLOUD: " + envFlag("EXCLUDE_PLATFORM_CLOUD"),
+    "\n  EXCLUDE_PLATFORM_API: " + envFlag("EXCLUDE_PLATFORM_API"),
+    "\n  EXCLUDE_PLATFORM_CLI: " + envFlag("EXCLUDE_PLATFORM_CLI"),
+    "\n  EXCLUDE_MULTIQC: " + envFlag("EXCLUDE_MULTIQC"),
+    "\n  EXCLUDE_FUSION: " + envFlag("EXCLUDE_FUSION"),
+    "\n  EXCLUDE_WAVE: " + envFlag("EXCLUDE_WAVE"),
+    "\n  INCLUDE_NEXT: " + envFlag("INCLUDE_NEXT"),
   );
 
   return createSeqeraConfig({
@@ -207,6 +209,11 @@ export default async function createConfigAsync() {
         rspackBundler: true,
         rspackPersistentCache: false,
         mdxCrossCompilerCache: false,
+        // Render pages on a recycling worker-thread pool: parallelizes SSG
+        // across CPUs and frees retained memory between tasks. Pool size and
+        // recycle threshold set via the DOCUSAURUS_SSG_WORKER_THREAD_* env vars
+        // in netlify.toml.
+        ssgWorkerThreads: true,
       },
     },
 
@@ -227,6 +234,20 @@ export default async function createConfigAsync() {
     //   },
     // },
 
+    markdown: {
+      // The vendored MultiQC `config_schema.md` is auto-generated from a Python
+      // schema and contains literal `{...}` examples and `<details>` blocks
+      // around fenced code that the MDX parser rejects. Force CommonMark for
+      // that file so its content renders as plain markdown + HTML.
+      parseFrontMatter: async ({ filePath, fileContent, defaultParseFrontMatter }) => {
+        const result = await defaultParseFrontMatter({ filePath, fileContent });
+        if (filePath.endsWith("multiqc_docs/multiqc_repo/docs/markdown/config_schema.md")) {
+          result.frontMatter.mdx = { ...(result.frontMatter.mdx || {}), format: "md" };
+        }
+        return result;
+      },
+    },
+
     customFields: {
       // Put your custom environment here
     },
@@ -242,12 +263,15 @@ export default async function createConfigAsync() {
       [
         "@seqera/docusaurus-preset-seqera",
         await getSeqeraPresetOptions({
-          blog: process.env.EXCLUDE_CHANGELOG ? false : changelog,
+          blog: envFlag("EXCLUDE_CHANGELOG") ? false : changelog,
           docs: false,
           theme: {
             customCss: require.resolve("./src/custom.css"),
           },
-          openapi: process.env.EXCLUDE_PLATFORM_OPENAPI
+          // The OpenAPI preset, the API content plugin, and llms-api all read
+          // from platform-api-docs/docs, so one EXCLUDE_PLATFORM_API lever gates
+          // all three.
+          openapi: envFlag("EXCLUDE_PLATFORM_API")
             ? false
             : {
                 id: "api",
@@ -273,13 +297,13 @@ export default async function createConfigAsync() {
       ],
     ],
     plugins: [
-      process.env.EXCLUDE_PLATFORM_ENTERPRISE ? null : docs_platform_enterprise,
-      process.env.EXCLUDE_PLATFORM_CLOUD ? null : docs_platform_cloud,
-      process.env.EXCLUDE_PLATFORM_API ? null : docs_platform_api,
-      process.env.EXCLUDE_PLATFORM_CLI ? null : docs_platform_cli,
-      process.env.EXCLUDE_MULTIQC ? null : docs_multiqc,
-      process.env.EXCLUDE_FUSION ? null : docs_fusion,
-      process.env.EXCLUDE_WAVE ? null : docs_wave,
+      envFlag("EXCLUDE_PLATFORM_ENTERPRISE") ? null : docs_platform_enterprise,
+      envFlag("EXCLUDE_PLATFORM_CLOUD") ? null : docs_platform_cloud,
+      envFlag("EXCLUDE_PLATFORM_API") ? null : docs_platform_api,
+      envFlag("EXCLUDE_PLATFORM_CLI") ? null : docs_platform_cli,
+      envFlag("EXCLUDE_MULTIQC") ? null : docs_multiqc,
+      envFlag("EXCLUDE_FUSION") ? null : docs_fusion,
+      envFlag("EXCLUDE_WAVE") ? null : docs_wave,
 
       ['docusaurus-plugin-llms', {
         id: 'llms-enterprise',
@@ -315,7 +339,7 @@ export default async function createConfigAsync() {
         ignoreFiles: ['**/tags', '**/tags/**'],
         processingBatchSize: 50,
       }],
-      ['docusaurus-plugin-llms', {
+      envFlag("EXCLUDE_PLATFORM_API") ? null : ['docusaurus-plugin-llms', {
         id: 'llms-api',
         docsDir: 'platform-api-docs/docs',
         llmsTxtFilename: 'llms-api.txt',
@@ -410,6 +434,42 @@ export default async function createConfigAsync() {
               optimization: {
                 concatenateModules:  false,
               },
+              resolve: {
+                fallback: {
+                  path: require.resolve('path-browserify'),
+                },
+              },
+            };
+          },
+        };
+      },
+
+      // The OpenAPI theme bundles postman-code-generators (all 35 codegens) and
+      // postman-collection into the CLIENT bundle for API Explorer snippets.
+      // They require Node core modules that Rspack doesn't auto-polyfill, which
+      // breaks the client build ("Can't resolve 'path'"). Polyfill path/url/
+      // buffer for the browser; stub the rest.
+      function openApiNodePolyfillsPlugin() {
+        return {
+          name: 'openapi-node-polyfills',
+          configureWebpack() {
+            return {
+              resolve: {
+                fallback: {
+                  path: require.resolve('path-browserify'),
+                  url: require.resolve('url/'),
+                  buffer: require.resolve('buffer/'),
+                  fs: false,
+                  stream: false,
+                  util: false,
+                  querystring: false,
+                  http: false,
+                  https: false,
+                  crypto: false,
+                  os: false,
+                  zlib: false,
+                },
+              },
             };
           },
         };
@@ -417,6 +477,15 @@ export default async function createConfigAsync() {
     ].filter(Boolean),
 
     themeConfig: getSeqeraThemeConfig({
+      seqera: {
+        docs: {
+          versionDropdown: {
+            'platform-enterprise': {
+              showCurrent: envFlag("INCLUDE_NEXT"),
+            },
+          },
+        },
+      },
       typesense: {
         typesenseCollectionName: 'seqera_docs',
         searchPagePath: '/search',
