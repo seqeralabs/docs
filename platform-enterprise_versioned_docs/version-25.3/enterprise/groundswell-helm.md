@@ -2,7 +2,7 @@
 title: "Pipeline Optimization: Helm"
 description: Deploy Pipeline Optimization Enterprise on Kubernetes with Helm
 date created: "2026-01-30"
-tags: [helm, deployment, installation, kubernetes, pipeline-optimization]
+tags: [helm, deployment, installation, kubernetes, pipeline optimization]
 ---
 
 [Helm](https://helm.sh) is an open-source command line tool used for managing Kubernetes applications. Seqera offers a [Helm chart](https://github.com/seqeralabs/helm-charts/tree/pipeline-optimization-0.2.4/platform/charts/pipeline-optimization) to deploy Pipeline Optimization Enterprise on a Kubernetes cluster.

@@ -3,7 +3,7 @@ title: Error codes and exit messages
 description: "Reference for Fusion error codes, exit codes, and error messages"
 date created: "2025-01-12"
 last updated: "2025-01-20"
-tags: [errors, error-codes, exit-codes, fuse, logging, fusion]
+tags: [errors, error codes, exit codes, fuse, logging, fusion]
 ---
 
 This page describes Fusion's error reporting system, including exit codes, FUSE status codes (errno values), cloud provider error categories, and internal error types.

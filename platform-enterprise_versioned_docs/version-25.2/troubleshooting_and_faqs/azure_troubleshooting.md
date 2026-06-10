@@ -2,7 +2,7 @@
 title: "Azure"
 description: "Azure troubleshooting with Seqera Platform."
 date: "26 August 2024"
-tags: [faq, help, azure help, azure troubleshooting]
+tags: [faq, help, azure, troubleshooting]
 ---
 
 ### Batch compute environments

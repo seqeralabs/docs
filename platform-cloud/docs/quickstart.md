@@ -2,23 +2,22 @@
 title: "Explore Seqera Cloud"
 description: "Explore your free workspace resources and launch your first pipelines with Seqera Compute."
 date created: "2025-10-16"
+last updated: "2026-06-04"
 toc_max_heading_level: 4
 tags: [pipelines, versioning, nextflow, parameters]
 ---
 
-When you create a new Seqera Cloud account with a verified work email, Seqera automatically provisions starter resources on your first login. These resources are completely managed by Seqera. These resources give you everything you need to start running bioinformatics pipelines immediately, including a Seqera compute environment and $100 in free credits to launch pipelines and Studios.
+When you create a Seqera Cloud account with a verified work email, Seqera provisions managed starter resources on your first login. These resources include a Seqera compute environment and $100 in free credits to launch pipelines and Studios.
 
 :::note
 Generic email domains like Gmail are not eligible for the free resources detailed in this guide.
 :::
 
-This guide shows you how to launch your first pipelines with the starter resources provided.
-
 ## Your free resources
 
-When you first log in after verifying your email, Seqera automatically creates an organization and workspace for you. You can **Explore Platform** and look around your workspace while starter resources are provisioned in the background, or wait for the setup to complete. Resource provisioning typically takes under a minute. Once setup is complete, you'll see a banner confirming that starter resources are ready for you to start launching pipelines.
+When you first log in after verifying your email, Platform creates an organization and workspace for you. Select **Explore Platform** to look around your workspace while starter resources provision in the background. Provisioning typically takes under a minute. When setup completes, a banner confirms that your starter resources are ready.
 
-Seqera provisions four types of resources to get you started:
+Platform provisions four types of resources to get you started:
 - A [Seqera Compute environment](./compute-envs/seqera-compute.md) with $100 in free credits. These credits can be used to run pipelines or Studios
 - [Credentials](./credentials/overview.md) used by your compute environment to create and manage cloud resources on your behalf
 - A cloud storage bucket in [Data Explorer](./data/data-explorer.md)
@@ -34,7 +33,7 @@ See [Credit management](./administration/credit-management) for more information
 
 ### Data Explorer
 
-Your workspace includes an automatically provisioned cloud storage bucket in [Data Explorer](https://docs.seqera.io/platform-cloud/data/data-explorer), linked to your Seqera Compute environment. This bucket provides storage for pipeline outputs, intermediate files, and any data you want to browse or manage through the Seqera interface. Your organization includes 25 GB of free cloud storage.
+Your workspace includes an automatically provisioned cloud storage bucket in [Data Explorer](https://docs.seqera.io/platform-cloud/data/data-explorer), linked to your Seqera Compute environment. This bucket provides storage for pipeline outputs, intermediate files, and any data you want to browse or manage through the Platform interface. Your organization includes 25 GB of free cloud storage.
 
 :::tip
 After completing pipeline test runs, delete working directory files and other data you no longer need to manage your cloud storage optimally.
@@ -42,11 +41,11 @@ After completing pipeline test runs, delete working directory files and other da
 
 ### Launchpad
 
-Your workspace Launchpad includes six pre-configured [nf-core](https://nf-co.re) pipelines, all set up with a `test` profile so you can launch them immediately with test data.
+Your workspace Launchpad includes six pre-configured [nf-core](https://nf-co.re) pipelines. Each uses a `test` profile and launches with test data.
 
 #### nextflow-io/hello
 
-Nextflow's [Hello World](https://github.com/nextflow-io/hello) — a simple example pipeline that demonstrates basic Nextflow functionality. This pipeline is ideal for verifying that your compute setup is working correctly and for understanding how pipeline execution works in Seqera.
+Nextflow's [Hello World](https://github.com/nextflow-io/hello) is an example pipeline that demonstrates basic Nextflow functionality. Use it to verify that your compute setup works and to see how pipeline execution works in Platform.
 
 **To launch this pipeline**:
 
@@ -58,13 +57,13 @@ Nextflow's [Hello World](https://github.com/nextflow-io/hello) — a simple exam
 
 The [nf-core/demultiplex](https://nf-co.re/demultiplex) pipeline separates pooled sequencing reads into individual samples based on barcode sequences. It supports Illumina sequencing data and can handle both single and dual indexing strategies.
 
-**Use case**: Sequencing facilities often pool multiple samples into a single sequencing run to reduce costs. This pipeline is used to separate the pooled data back into individual sample files based on the unique barcode assigned to each sample during library preparation.
+Sequencing facilities often pool multiple samples into a single sequencing run to reduce costs. This pipeline separates the pooled data back into individual sample files based on the unique barcode assigned to each sample during library preparation.
 
 **To launch this pipeline**:
 
 1. From the **Launchpad** in the left navigation menu, select **Launch** next to the **nf-core/demultiplex** pipeline.
 1. From the **General config** tab, scroll down and copy your **Work directory** path. You can optionally enter a custom **Workflow run name** or create and add **Labels** to the run.
-1. From the **Run parameters** tab, scroll to the **outdir** field and paste your work directory path. It is recommended to add `/demultiplex/outdir` to the end, to keep your cloud storage organized.
+1. From the **Run parameters** tab, scroll to the **outdir** field and paste your work directory path. Add `/demultiplex/outdir` to the end to keep your cloud storage organized.
 1. If the **input** field is not automatically populated, fetch and paste the example samplesheet URL from the [nf-core/demultiplex documentation](https://nf-co.re/demultiplex/latest/docs/usage#example-pipeline-samplesheet).
 1. Select **Launch**.
 
@@ -78,7 +77,7 @@ This pipeline is used in spatial biology and pathology research to understand ho
 
 1. From the **Launchpad** in the left navigation menu, select **Launch** next to the **nf-core/molkart** pipeline.
 1. From the **General config** tab, scroll down and copy your **Work directory** path. You can also optionally enter a custom **Workflow run name** or create and add **Labels** to the run.
-1. From the **Run parameters** tab, scroll to the **outdir** field and paste your work directory path. It is recommended to add `/molkart/outdir` to the end, to keep your cloud storage organized.
+1. From the **Run parameters** tab, scroll to the **outdir** field and paste your work directory path. Add `/molkart/outdir` to the end to keep your cloud storage organized.
 1. If the **input** field is not automatically populated, fetch and paste the example samplesheet URL from the [nf-core/molkart documentation](https://nf-co.re/molkart/latest/docs/usage#full-samplesheet).
 1. Select **Launch**.
 
@@ -92,13 +91,13 @@ The [nf-core/rnaseq](https://nf-co.re/rnaseq) pipeline performs RNA sequencing a
 
 1. From the **Launchpad** in the left navigation menu, select **Launch** next to the **nf-core/rnaseq** pipeline.
 1. From the **General config** tab, scroll down and copy your **Work directory** path. You can also optionally enter a custom **Workflow run name** or create and add **Labels** to the run.
-1. From the **Run parameters** tab, scroll to the **outdir** field and paste your work directory path. It is recommended to add `/rnaseq/outdir` to the end, to keep your cloud storage organized.
+1. From the **Run parameters** tab, scroll to the **outdir** field and paste your work directory path. Add `/rnaseq/outdir` to the end to keep your cloud storage organized.
 1. If the **input** field is not automatically populated, fetch and paste the example samplesheet URL from the [nf-core/rnaseq documentation](https://nf-co.re/rnaseq/latest/docs/usage#full-samplesheet).
 1. Select **Launch**.
 
 #### nf-core/sarek
 
-The [nf-core/sarek](https://nf-co.re/sarek) pipeline performs variant calling and annotation from whole genome or targeted sequencing data. It detects germline and somatic variants, including SNVs, indels, and structural variants, and provides comprehensive annotation.
+The [nf-core/sarek](https://nf-co.re/sarek) pipeline performs variant calling and annotation from whole genome or targeted sequencing data. It detects germline and somatic variants, including SNVs, indels, and structural variants, and annotates them.
 
 This pipeline is widely used in cancer genomics and rare disease research. Clinical researchers use Sarek to identify disease-causing mutations in patient genomes, while cancer researchers use it to detect somatic mutations in tumor samples and compare them to normal tissue.
 
@@ -106,7 +105,7 @@ This pipeline is widely used in cancer genomics and rare disease research. Clini
 
 1. From the **Launchpad** in the left navigation menu, select **Launch** next to the **nf-core/sarek** pipeline.
 1. From the **General config** tab, scroll down and copy your **Work directory** path. You can also optionally enter a custom **Workflow run name** or create and add **Labels** to the run.
-1. From the **Run parameters** tab, scroll to the **outdir** field and paste your work directory path. It is recommended to add `/sarek/outdir` to the end, to keep your cloud storage organized.
+1. From the **Run parameters** tab, scroll to the **outdir** field and paste your work directory path. Add `/sarek/outdir` to the end to keep your cloud storage organized.
 1. If the **input** field is not automatically populated, fetch and paste the example samplesheet URL from the [nf-core/sarek documentation](https://nf-co.re/sarek/latest/docs/usage#overview-samplesheet-columns).
 1. Select **Launch**.
 
@@ -120,13 +119,13 @@ Single-cell RNA-seq allows researchers to measure gene expression in individual 
 
 1. From the **Launchpad** in the left navigation menu, select **Launch** next to the **nf-core/scrnaseq** pipeline.
 1. From the **General config** tab, scroll down and copy your **Work directory** path. You can also optionally enter a custom **Workflow run name** or create and add **Labels** to the run.
-1. From the **Run parameters** tab, scroll to the **outdir** field and paste your work directory path. It is recommended to add `/scrnaseq/outdir` to the end, to keep your cloud storage organized.
+1. From the **Run parameters** tab, scroll to the **outdir** field and paste your work directory path. Add `/scrnaseq/outdir` to the end to keep your cloud storage organized.
 1. If the **input** field is not automatically populated, fetch and paste the example samplesheet URL from the [nf-core/scrnaseq documentation](https://nf-co.re/scrnaseq/latest/docs/usage#full-samplesheet).
 1. Select **Launch**.
 
 ### Studios
 
-Seqera Studios provides cloud-based, on-demand development environments for interactive bioinformatics work. Studios are fully integrated with Seqera Platform and offer VS Code or JupyterLab interfaces with access to your pipeline data and compute resources.
+Studios are cloud-based, on-demand development environments for interactive bioinformatics work. They integrate with Seqera Platform and offer VS Code or JupyterLab interfaces with access to your pipeline data and compute resources.
 
 While your free workspace does not include an existing Studio, see [Studios for interactive analysis](https://docs.seqera.io/platform-cloud/studios/overview) to learn how to configure and run Studios on your Seqera Compute environment. The guide includes instructions for adding publicly available data to analyze in your Studios.
 
@@ -141,4 +140,4 @@ When you're ready to run pipelines and Studios with your own data, you can:
 - [Add new pipelines](./getting-started/quickstart-demo/add-pipelines.md)
 - [Add participants](./getting-started/workspace-setup.md) to collaborate with your team
 
-Contact the [Seqera community forum](https://community.seqera.io/) or ask [Seqera AI](https://seqera.io/ask-ai/chat-v2) if you encounter any unexpected issues or need assistance.
+Contact the [Seqera community forum](https://community.seqera.io/) or ask [Co-scientist](https://ai.seqera.io) if you encounter any unexpected issues or need assistance.
