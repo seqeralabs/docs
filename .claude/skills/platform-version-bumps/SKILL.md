@@ -1,5 +1,5 @@
 ---
-name: version-bumps
+name: platform-version-bumps
 description: >
   Bump hard-coded version numbers across the Seqera docs in the two places they recur:
   (1) enterprise point releases — six files in platform-enterprise_versioned_docs/version-XX.Y/
