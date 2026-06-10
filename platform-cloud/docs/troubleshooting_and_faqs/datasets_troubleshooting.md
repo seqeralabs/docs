@@ -2,7 +2,7 @@
 title: "Datasets"
 description: "Dataset troubleshooting with Seqera Platform."
 date: "26 August 2024"
-tags: [faq, help, database, dataset]
+tags: [faq, help, database, datasets]
 ---
 
 ### API: Dataset upload failure

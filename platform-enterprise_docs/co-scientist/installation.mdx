@@ -1,0 +1,164 @@
+---
+title: "Installation"
+description: "Install and configure the Seqera CLI"
+date created: "2026-03-11"
+tags: [co-scientist, cli, installation]
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+The Seqera CLI runs in your terminal on macOS, Linux, or Windows (via WSL). It connects to Seqera Platform and to the Co-Scientist backend in your Enterprise deployment so you can build, run, and debug Nextflow pipelines from a single interactive session.
+
+This page covers how to install, update, and uninstall the CLI with npm, how to switch to a development build, and how to point the CLI at the Co-Scientist backend.
+Once the CLI is on your PATH, see the [Quickstart](./quickstart.md) to log in and start your first session.
+
+:::info[**Prerequisites**]{#prerequisites}
+You will need the following to get started:
+
+- Node.js 18 or later
+- macOS, Linux, or Windows with WSL
+- A user account on your Seqera Platform Enterprise deployment
+- Network access to the Co-Scientist backend
+
+:::
+
+## Install the CLI
+
+<Tabs groupId="install-method">
+<TabItem value="seqera-binaries" label="Seqera binaries" default>
+
+Once Platform is installed with agent-backend and portal-web enabled, use the install endpoint to install the CLI:
+
+```bash
+curl -fsSL https://<global.portalWebDomain>/install | bash
+curl -fsSL https://ai.platform.example.com/install | bash
+```
+
+Then confirm the CLI is on your PATH:
+
+```bash
+seqera --version
+```
+
+</TabItem>
+<TabItem value="npm" label="npm package">
+
+To install the CLI globally with npm, run:
+
+```bash
+npm install -g seqera
+```
+
+Then confirm the CLI is on your PATH:
+
+```bash
+seqera --version
+```
+
+</TabItem>
+</Tabs>
+
+### Install a development build
+
+<Tabs groupId="install-method">
+<TabItem value="seqera-binaries" label="Seqera binaries" default>
+
+To install the latest pre-release, use the development channel:
+
+```bash
+curl -fsSL https://ai.platform.example.com/install | bash -s -- --channel dev
+```
+
+</TabItem>
+<TabItem value="npm" label="npm package">
+
+To install the latest pre-release, run:
+
+```bash
+npm install -g seqera@dev
+```
+
+The `@dev` tag tracks the latest pre-release CLI. Use it only to test unreleased features. Otherwise install the default tag.
+
+</TabItem>
+</Tabs>
+
+## Update the CLI
+
+<Tabs groupId="install-method">
+<TabItem value="seqera-binaries" label="Seqera binaries" default>
+
+To update the CLI, run the install endpoint again. The install script updates the CLI in place:
+
+```bash
+curl -fsSL https://ai.platform.example.com/install | bash
+```
+
+</TabItem>
+<TabItem value="npm" label="npm package">
+
+To update the CLI to the latest published version, run:
+
+```bash
+npm update -g seqera
+```
+
+</TabItem>
+</Tabs>
+
+If you use Co-Scientist as a skill for a coding agent, sync your installed skills with the new CLI version after upgrading:
+
+```bash
+seqera skill check --update
+```
+
+This scans both local and global installations by default. Pass `--global` or `--local` to narrow the scope.
+
+## Uninstall the CLI
+
+<Tabs groupId="install-method">
+<TabItem value="seqera-binaries" label="Seqera binaries" default>
+
+To remove the CLI from your system, run:
+
+```bash
+rm ~/.config/seqera-ai/*
+rm ~/.seqera/bin/seqera
+```
+
+</TabItem>
+<TabItem value="npm" label="npm package">
+
+To remove the CLI from your system, run:
+
+```bash
+npm uninstall -g seqera
+```
+
+</TabItem>
+</Tabs>
+
+## Configure the Co-Scientist backend
+
+To configure the Co-Scientist backend, set the backend URL before starting Co-Scientist:
+
+```bash
+export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com
+```
+
+If your Enterprise deployment uses Platform OIDC, also set the OIDC authority base URL:
+
+```bash
+export SEQERA_AUTH_DOMAIN=https://platform.example.com/api
+```
+
+The CLI fetches OpenID configuration from this URL and opens the discovered authorization endpoint in your browser. See [Authentication](./authentication.md#connect-to-an-enterprise-backend) for the complete environment variable reference and OAuth versus token-based examples.
+
+## Learn more
+
+- [Quickstart](./quickstart.md): Run your first Co-Scientist session
+- [Authentication](./authentication.md): Log in, log out, and manage sessions
+- [Coding agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
+- [Using Co-Scientist](./configuration.md): Configure modes, sessions, skills, command approval, and more
+- [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments

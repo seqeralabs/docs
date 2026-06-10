@@ -18,7 +18,7 @@ This directory contains Claude Code agents, skills, and configuration for the Se
 
 Skills are AI-powered workflows that automate specific documentation tasks.
 
-### openapi-overlay-generator
+### api-overlay-generator
 
 Generates OpenAPI overlay files for Seqera Platform API documentation updates.
 
@@ -28,9 +28,9 @@ Generates OpenAPI overlay files for Seqera Platform API documentation updates.
 - Documenting new API endpoints or Platform version updates
 - Validating overlay files against documentation standards
 
-**Documentation:** See `skills/openapi-overlay-generator/SKILL.md`
+**Documentation:** See `skills/api-overlay-generator/SKILL.md`
 
-**Invocation:** `/openapi-overlay-generator`
+**Invocation:** `/api-overlay-generator`
 
 ### review
 
@@ -98,6 +98,18 @@ Improves readability by flagging complex sentences and jargon.
 - Complex constructions
 - Missing prerequisites
 
+### punctuation
+
+Ensures consistent punctuation across documentation.
+
+**Status:** Not yet implemented as separate agent
+
+**Checks:**
+- Oxford commas
+- List punctuation
+- Quotation marks
+- Dash usage
+
 ## GitHub Actions integration
 
 ### Documentation review workflow
@@ -147,20 +159,21 @@ Editorial review can also be run locally via Claude Code CLI using the `/editori
 - Analyzes git diff to determine PR type
 - Outputs "rename" or "content" for workflow decisions
 
-| Agent       | File                          | Run by default in CI? | Available manually?                             |
-|-------------|-------------------------------|-----------------------|-------------------------------------------------|
-| voice-tone  | `.claude/agents/voice-tone.md`  | ✅ yes                | yes (`--agents=voice-tone`)                     |
-| terminology | `.claude/agents/terminology.md` | ✅ yes                | yes (`--agents=terminology`)                    |
-| clarity     | `.claude/agents/clarity.md`     | ❌ no                 | yes (`workflow_dispatch` choice, `--profile=comprehensive`) |
-| docs-fix    | `.claude/agents/docs-fix.md`    | ❌ no — `auto-fix` job has `if: false` | local CLI only |
+### Agent status
 
-**To enable an agent in CI by default:** edit the agent-selection table in `.claude/skills/editorial-review/SKILL.md`.
+| Agent | Status | Used by `docs-review.yml` |
+|-------|--------|------------|
+| voice-tone | Implemented | Yes — runs on every `/editorial-review` |
+| terminology | Implemented | Yes — runs on every `/editorial-review` |
+| punctuation | Implemented | No — not invoked by the workflow prompt |
+| clarity | Implemented | No — `review_type` dispatch input lists it but the workflow prompt doesn't route to it (see [docs-review.yml](../.github/workflows/docs-review.yml)) |
+| docs-fix | Implemented | No — local-only; the `auto-fix` job that referenced it is hard-disabled |
 
-Punctuation is handled by Vale (`.github/styles/Seqera/OxfordComma.yml`, `Quotes.yml`, `Dashes.yml`, `HeadingColons.yml`) plus markdownlint. The `punctuation` agent was retired in favor of static analysis.
+"Implemented" means the agent file exists at `.claude/agents/<agent>.md` and works when invoked directly. "Used by `docs-review.yml`" means whether the workflow prompt actually spawns it. To wire `punctuation` or `clarity` into CI, edit the prompt in [docs-review.yml](../.github/workflows/docs-review.yml) — the agent files themselves are ready.
 
 ## Agent output format
 
-Agents output structured suggestions:
+Agents output structured suggestions. The canonical format spec lives in [`.claude/skills/editorial-review/SKILL.md`](skills/editorial-review/SKILL.md) — the workflow prompt no longer redefines it. The shape:
 
 ```
 FILE: path/to/file.md
@@ -209,7 +222,7 @@ When working on API documentation:
 /review platform-cloud/docs/
 
 # Test skill
-/openapi-overlay-generator
+/api-overlay-generator
 ```
 
 ## Development
@@ -281,16 +294,13 @@ vale platform-enterprise_docs/
 
 ```
 .claude/
-├── README.md                          # This file (canonical agent status)
+├── README.md                    # This file
 ├── agents/
-│   ├── voice-tone.md                  # Run by default in CI
-│   ├── terminology.md                 # Run by default in CI
-│   ├── clarity.md                     # Opt-in only
-│   └── docs-fix.md                    # Local CLI only
+│   ├── voice-tone.md           # Agent definitions
+│   ├── terminology.md
+│   └── clarity.md
 └── skills/
-    ├── editorial-review/
-    │   └── SKILL.md                   # Editorial review orchestrator
-    └── openapi-overlay-generator/
+    └── api-overlay-generator/
         └── SKILL.md
 ```
 

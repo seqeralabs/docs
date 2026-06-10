@@ -2,7 +2,7 @@
 title: "Git"
 description: Configuration options for Git
 date: "21 Apr 2023"
-tags: [git configuration]
+tags: [git, configuration]
 ---
 
 ## Private Git hosting services
