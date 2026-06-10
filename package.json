@@ -7,7 +7,7 @@
     "glob": "^11.1.0",
     "immutable": "^5.1.5",
     "serialize-javascript": "^7.0.3",
-    "katex": "^0.16.10",
+    "katex": "^0.17.0",
     "postman-code-generators": "2.1.1",
     "gray-matter": {
       "js-yaml": "^3.14.2"
@@ -42,9 +42,11 @@
   },
   "dependencies": {
     "@docusaurus/faster": "^3.9.2",
-    "@rspack/core": "^1.4.11",
+    "@rspack/core": "^2.0.0",
+    "buffer": "^6.0.3",
     "@seqera/docusaurus-preset-seqera": "^1.0.39",
     "image-size": "^2.0.2",
+    "path-browserify": "^1.0.1",
     "postcss-import": "^16.1.1",
     "postcss-loader": "^8.1.1",
     "postcss-nesting": "^14.0.0",
@@ -53,6 +55,7 @@
     "rehype-katex": "^7.0.1",
     "remark-deflist": "^1.0.0",
     "remark-math": "^6.0.0",
+    "url": "^0.11.4",
     "webpack-dev-server": "^5.2.1",
     "yaml": "^2.9.0"
   },

@@ -161,17 +161,19 @@ Editorial review can also be run locally via Claude Code CLI using the `/editori
 
 ### Agent status
 
-| Agent | Status | Used in CI |
+| Agent | Status | Used by `docs-review.yml` |
 |-------|--------|------------|
-| voice-tone | ✅ Active | Yes |
-| terminology | ✅ Active | Yes |
-| punctuation | 📋 Planned | No |
-| clarity | ⚠️ Disabled | No |
-| docs-fix | 📝 Local only | No |
+| voice-tone | Implemented | Yes — runs on every `/editorial-review` |
+| terminology | Implemented | Yes — runs on every `/editorial-review` |
+| punctuation | Implemented | No — not invoked by the workflow prompt |
+| clarity | Implemented | No — `review_type` dispatch input lists it but the workflow prompt doesn't route to it (see [docs-review.yml](../.github/workflows/docs-review.yml)) |
+| docs-fix | Implemented | No — local-only; the `auto-fix` job that referenced it is hard-disabled |
+
+"Implemented" means the agent file exists at `.claude/agents/<agent>.md` and works when invoked directly. "Used by `docs-review.yml`" means whether the workflow prompt actually spawns it. To wire `punctuation` or `clarity` into CI, edit the prompt in [docs-review.yml](../.github/workflows/docs-review.yml) — the agent files themselves are ready.
 
 ## Agent output format
 
-Agents output structured suggestions:
+Agents output structured suggestions. The canonical format spec lives in [`.claude/skills/editorial-review/SKILL.md`](skills/editorial-review/SKILL.md) — the workflow prompt no longer redefines it. The shape:
 
 ```
 FILE: path/to/file.md
