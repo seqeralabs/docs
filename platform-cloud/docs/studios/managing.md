@@ -271,7 +271,7 @@ If your compute environment work directory uses an object storage bucket with **
 Only the latest version of each checkpoint file is read by Platform. However, non-current object versions are not automatically removed and will continue to accrue storage costs until explicitly deleted or expired.
 :::
 
-**Recommended mitigation:** Apply an S3 Lifecycle rule to expire non-current object versions on the `.studios/checkpoints/` prefix. A one-day expiry retains the current version while removing intermediate five-minute writes. You can also delete existing accumulated non-current versions manually using your cloud provider's console or CLI.
+**Recommended mitigation:** Apply lifecycle rules to expire non-current object versions on the `.studios/checkpoints/` prefix. A one-day expiry retains the current version while removing intermediate five-minute writes. You can also delete existing accumulated non-current versions manually using your cloud provider's console or CLI.
 
 :::note
 Non-current object versions (intermediate checkpoint writes) are safe to delete. Do **not** delete the current (latest) version of any checkpoint file or the checkpoint directory itself — doing so will corrupt the Studio session and it cannot be recovered.
