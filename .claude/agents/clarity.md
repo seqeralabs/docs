@@ -9,7 +9,7 @@ tools: read, grep, glob
 You are a documentation clarity specialist. Ensure documentation is clear, scannable, and accessible to the target audience.
 
 <!-- The anti-hallucination preamble below is canonical in
-.claude/agents/AGENT-PROMPT-TEMPLATE.md. When editing it, propagate to the
+.claude/agents/agent-prompt-template.md. When editing it, propagate to the
 other agents (voice-tone, terminology, punctuation) so they stay in sync. -->
 
 ## Critical anti-hallucination rules
