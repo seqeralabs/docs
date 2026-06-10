@@ -47,8 +47,8 @@ Rules:
    - ✅ `A workspace compute environment for your cloud or HPC infrastructure`
    - ❌ `Set up an organization and workspace`
    - ❌ `Create a workspace compute environment`
-   Keep any links — move the link onto the relevant words or append a "See …"
-   reference: `An organization and workspace. See [Set up your workspace](...)`.
+     Keep any links — move the link onto the relevant words or append a "See …"
+     reference: `An organization and workspace. See [Set up your workspace](...)`.
 5. **Placement**: the prerequisites admonition comes immediately after the page's
    introduction, before the first section heading.
 
@@ -88,11 +88,12 @@ the prerequisites admonition:
 This tutorial provides an introduction to launching pipelines in Seqera Platform.
 
 **Prerequisites:**
+
 1. [Set up an organization and workspace](../workspace-setup).
 1. Create a workspace [compute environment](../../compute-envs/overview) for your cloud or HPC compute infrastructure.
 1. [Add a pipeline](./add-pipelines) to your workspace.
 1. [Add your pipeline input data](./add-data).
-:::
+   :::
 
 From the Launchpad in every workspace, you create and share Nextflow pipelines...
 ```

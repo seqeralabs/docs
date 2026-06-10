@@ -23,6 +23,7 @@ docs, `fusion_docs/`, `wave_docs/`, `multiqc_docs/`). Markdown/MDX pages.
 ## When to use
 
 Use this skill when:
+
 - The user asks to format, clean up, standardize, or fix the structure of a page.
 - Writing a new guide or tutorial that must follow house format.
 - A page's structure drifts from house conventions (non-standard admonitions, a
@@ -33,8 +34,8 @@ Use this skill when:
 Each area has a reference file under `references/`. Read the reference for the
 area you're working on and apply its spec.
 
-| Area            | Reference                       | Covers                                                                       |
-| --------------- | ------------------------------- | ---------------------------------------------------------------------------- |
+| Area            | Reference                       | Covers                                                                        |
+| --------------- | ------------------------------- | ----------------------------------------------------------------------------- |
 | Prerequisites   | `references/prerequisites.md`   | The `:::info[**Prerequisites**]` admonition, lead-in, bullet phrasing         |
 | Troubleshooting | `references/troubleshooting.md` | Moving inline troubleshooting sections to the product's troubleshooting pages |
 

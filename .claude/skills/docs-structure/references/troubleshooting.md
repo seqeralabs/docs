@@ -26,12 +26,12 @@ procedure for when something breaks moves.
 
 Each product has a troubleshooting directory of feature-scoped pages:
 
-| Product            | Directory                                                  |
-| ------------------ | ---------------------------------------------------------- |
-| Platform Cloud     | `platform-cloud/docs/troubleshooting_and_faqs/`            |
-| Platform Enterprise| `platform-enterprise_docs/troubleshooting_and_faqs/`       |
-| Fusion             | `fusion_docs/troubleshooting/` (and `fusion_docs/troubleshooting.md`) |
-| Wave               | `wave_docs/wave_repo/docs/troubleshoot.md`                 |
+| Product             | Directory                                                             |
+| ------------------- | --------------------------------------------------------------------- |
+| Platform Cloud      | `platform-cloud/docs/troubleshooting_and_faqs/`                       |
+| Platform Enterprise | `platform-enterprise_docs/troubleshooting_and_faqs/`                  |
+| Fusion              | `fusion_docs/troubleshooting/` (and `fusion_docs/troubleshooting.md`) |
+| Wave                | `wave_docs/wave_repo/docs/troubleshoot.md`                            |
 
 Within a directory, pages are scoped by product area or feature — for example, in
 Platform Cloud: `studios_troubleshooting.md`, `aws_troubleshooting.md`,
