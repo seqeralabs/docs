@@ -51,11 +51,7 @@ Seqera Platform requires a Redis-compatible cache store for transient data, prim
 | Redis 6.x       | Not supported (EoL upstream) |
 | Redis 7.2       | Supported                    |
 | Redis 7.4       | Supported                    |
-| Redis 8.0       | Not supported                |
-| Redis 8.2+      | Supported                    |
-| Redis 9.x       | Not supported                |
 | Valkey 7.x      | Supported (from 26.1)        |
-| Valkey 8.x      | Supported (from 26.1)        |
 
 ### Connection URL
 
@@ -65,10 +61,8 @@ Configure the connection URL in your Seqera environment using the scheme that ma
 | --------------- | ------------ | ---------------------------------------- |
 | Redis           | `redis://`   | `TOWER_REDIS_URL=redis://<host>:6379`    |
 | Redis with TLS  | `rediss://`  | `TOWER_REDIS_URL=rediss://<host>:6380`   |
-| Valkey          | `valkey://`  | `TOWER_REDIS_URL=valkey://<host>:6379`   |
-| Valkey with TLS | `valkeyss://`| `TOWER_REDIS_URL=valkeyss://<host>:6380` |
 
-The Redisson client embedded in Platform 26.1+ supports Valkey 7 and 8 dial schemes — no further configuration is required. Redis password and ACL configuration carry over unchanged when migrating to Valkey.
+The Redisson client embedded in Platform 26.1+ supports Valkey 7 dial schema — no further configuration is required. Redis password and ACL configuration carry over unchanged when migrating to Valkey.
 
 ### Managed service options
 
@@ -147,7 +141,7 @@ spec:
   ...
       containers:
         - name: frontend
-          image: cr.seqera.io/enterprise/platform/frontend:v25.3.0-unprivileged
+          image: cr.seqera.io/enterprise/platform/frontend:v26.1.2-unprivileged
           env:
             - name: NGINX_LISTEN_PORT  # If not defined, defaults to 8000.
               value: 8000

@@ -3,7 +3,7 @@ title: "Add data"
 description: "An introduction to adding pipeline input data in Seqera Platform"
 date created: "2024-07-21"
 last updated: "2025-08-01"
-tags: [platform, data, data-explorer, datasets]
+tags: [platform, data, data explorer, datasets]
 ---
 
 import Tabs from '@theme/Tabs';
@@ -67,7 +67,7 @@ Datasets in Platform are CSV (comma-separated values) and TSV (tab-separated val
 <details>
   <summary>**Example: nf-core/rnaseq test samplesheet**</summary>
 
-  The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline works with input datasets (samplesheets) containing sample names, FASTQ file locations, and indications of strandedness. The Seqera Community Showcase sample dataset for nf-core/rnaseq specifies the paths to 7 small sub-sampled FASTQ files from a yeast RNAseq dataset:
+  The [nf-core/rnaseq](https://github.com/nf-core/rnaseq) pipeline works with input datasets (samplesheets) containing sample names, FASTQ file locations, and indications of strandedness. The Seqera Community Showcase sample dataset for nf-core/rnaseq specifies the paths to seven small sub-sampled FASTQ files from a yeast RNAseq dataset:
 
   **Example nf-core/rnaseq dataset**
 

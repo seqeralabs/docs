@@ -1,27 +1,25 @@
 ---
 title: "Launch pipelines"
 description: "An introduction to launching nf-core/rnaseq in the community/showcase workspace"
-date: "8 Jul 2024"
-tags: [platform, launch, pipelines, launchpad, showcase tutorial]
+date created: "2024-07-08"
+last updated: "2026-06-05"
+tags: [platform, launch, pipelines, launchpad, tutorial]
 ---
 
-:::info
-This tutorial provides an introduction to launching pipelines in Seqera Platform.
+From the Launchpad in every workspace, you can create and share Nextflow pipelines that run on any supported infrastructure, including all public clouds and most HPC schedulers. A Launchpad pipeline consists of a preconfigured workflow Git repository, [compute environment](../../compute-envs/overview), and launch parameters. This tutorial walks you through launching the nf-core/rnaseq pipeline.
 
-**Prerequisites:**
-1. [Set up an organization and workspace](../workspace-setup).
-1. Create a workspace [compute environment](../../compute-envs/overview) for your cloud or HPC compute infrastructure.
-1. [Add a pipeline](./add-pipelines) to your workspace.
-1. [Add your pipeline input data](./add-data).
+:::info[**Prerequisites**]
+
+You need the following:
+
+- An organization and workspace. See [Set up an organization and workspace](../workspace-setup).
+- A workspace [compute environment](../../compute-envs/overview) for your cloud or HPC compute infrastructure.
+- A [pipeline](./add-pipelines) added to your workspace.
+- [Pipeline input data](./add-data) added to your workspace.
+
 :::
-
-The Launchpad in every Platform workspace allows users to easily create and share Nextflow pipelines that can be executed on any supported infrastructure, including all public clouds and most HPC schedulers. A Launchpad pipeline consists of a pre-configured workflow Git repository, [compute environment](../../compute-envs/overview), and launch parameters.
 
 ## Launch a pipeline
-
-:::note
-This guide is based on version 3.15.1 of the [nf-core/rnaseq pipeline](https://github.com/nf-core/rnaseq). Launch form parameters and tools will differ for other pipelines.
-:::
 
 Navigate to the Launchpad and select **Launch** next to your pipeline to open the launch form.
 
@@ -30,37 +28,40 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 <details>
   <summary>Nextflow parameter schema</summary>
 
-  The launch form lets you configure the pipeline execution. The pipeline parameters in this form are rendered from a [pipeline schema](../../pipeline-schema/overview) file in the root of the pipeline Git repository. `nextflow_schema.json` is a simple JSON-based schema describing pipeline parameters for pipeline developers to easily adapt their in-house Nextflow pipelines to be executed in Platform.
+The launch form configures the pipeline run. Platform renders the pipeline parameters in this form from a [pipeline schema](../../pipeline-schema/overview) file in the root of the pipeline Git repository. `nextflow_schema.json` is a JSON-based schema that describes pipeline parameters. Pipeline developers use it to adapt their in-house Nextflow pipelines to run in Platform.
 
-  :::tip
-  See [Best Practices for Deploying Pipelines with the Seqera Platform](https://seqera.io/blog/best-practices-for-deploying-pipelines-with-seqera-platform/) to learn how to build the parameter schema for any Nextflow pipeline automatically with tooling maintained by the nf-core community.
-  :::
+:::tip
+See [Best Practices for Deploying Pipelines with the Seqera Platform](https://seqera.io/blog/best-practices-for-deploying-pipelines-with-seqera-platform/) to learn how to build the parameter schema for any Nextflow pipeline automatically with tooling maintained by the nf-core community.
+:::
 
 </details>
 
 ### General config
 
-![General config tab](../_images/launch-form-2.gif)
-
 - **Pipeline to launch**: The pipeline Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited.
+- **Version name**: The version that will be selected as default for this pipeline.
+- **Version ID**: The ID of the pipeline version.
 - **Revision**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch.
 - **Commit ID**: Pin pipeline revision to the most recent HEAD commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
 - **Pull latest**: Fetch the most recent HEAD commit ID of the pipeline revision at launch time. Unpins the **Commit ID**, if set.
   :::info
   See [Git revision management](../../pipelines/revision.md) for more information on **Commit ID**, **Pull latest**, and **Revision** behavior.
   :::
-- (*Optional*) **Config profiles**: One or more [configuration profile](https://docs.seqera.io/nextflow/config#config-profiles) names to use for the execution.
+- **Main script**: The script file to execute (default: `main.nf`). Config profiles suggestions may update when this field changes.
+- **Config profiles**: One or more [configuration profile](https://docs.seqera.io/nextflow/config#config-profiles) names to use for the execution.
 - **Workflow run name**: An identifier for the run, pre-filled with a random name. This can be customized.
-- (*Optional*) **Labels**: Assign new or existing [labels](../../labels/overview) to the run.
+- **Labels**: Assign new or existing [labels](../../labels/overview) to the run.
 - **Compute environment**: Select an existing workspace [compute environment](../../compute-envs/overview).
-- **Work directory**: The (cloud or local) file storage path where pipeline scratch data is stored. Platform will create a scratch sub-folder if only a cloud bucket location is specified.
+- **Work directory**: The (cloud or local) file storage path where pipeline scratch data is stored. If you specify only a cloud bucket location, Platform creates a scratch subfolder.
   :::note
   The credentials associated with the compute environment must have access to the work directory.
   :::
+- **Schema**: The schema to validate pipeline parameters and prevent runtime failures.
+  - **Repository default**: The default schema provided by the pipeline repository.
+  - **Repository path**: A schema at a specific path in the repository.
+  - **Seqera Platform schema**: A schema stored in Seqera Platform.
 
 ### Run parameters
-
-![Run parameters](../_images/launch-form-3.gif)
 
 There are three ways to enter **Run parameters** prior to launch:
 
@@ -79,20 +80,20 @@ Use **Browse** to select your pipeline input data:
 
 #### outdir
 
-Use the `outdir` parameter to specify where the pipeline outputs are published. `outdir` must be unique for each pipeline run. Otherwise, your results will be overwritten.
+Use the `outdir` parameter to specify where the pipeline publishes outputs. `outdir` must be unique for each run to avoid overwriting results from a previous run.
 
 **Browse** and copy cloud storage directory paths using Data Explorer, or enter a path manually.
 
 #### Pipeline-specific parameters
 
-Modify other parameters to customize the pipeline execution through the parameters form. For example, in nf-core/rnaseq, change the `trimmer` under **Read trimming options** to `fastp` instead of `trimgalore`.
+Modify other parameters to customize the pipeline execution through the parameters form. For example, in [nf-core/rnaseq](https://github.com/nf-core/rnaseq) (version 3.15.1), change the `trimmer` under **Read trimming options** to `fastp` instead of `trimgalore`.
 
 ![Read trimming options](./assets/trimmer-settings.png)
 
 ### Advanced settings
 
 - Use [resource labels](../../resource-labels/overview) to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, workspace admins can override them from the launch form. Applied resource label names must be unique.
-- [Pipeline secrets](../../secrets/overview) store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
+- Use [Pipeline secrets](../../secrets/overview) to store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
 - See [Advanced options](../../launch/advanced) for more details.
 
-After you have filled the necessary launch details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to navigate to the [**View Workflow Run**](../../monitoring/overview) page and view the configuration, parameters, status of individual tasks, and run report.
+After you fill in the launch details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to open the [**View Workflow Run**](../../monitoring/overview) page, where you can view the configuration, parameters, status of individual tasks, and run report.

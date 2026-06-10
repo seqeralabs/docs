@@ -1,17 +1,28 @@
 ---
-title: "GitHub Copilot"
-description: "Install and maintain the Co-Scientist skill for GitHub Copilot"
+title: "Other coding agents"
+description: "Install and maintain the Co-Scientist skill for other coding agents"
 date created: "2026-03-11"
-tags: [co-scientist, cli, skills, github-copilot]
+tags: [co-scientist, cli, skills, coding agents]
 ---
 
-The `seqera skill` command installs a skill file that enables [GitHub Copilot](https://github.com/features/copilot) to use Co-Scientist as a subagent. Once installed, GitHub Copilot can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
+The `seqera skill` command installs a skill file that enables coding agents such as [Cursor](https://www.cursor.com/), [OpenCode](https://opencode.ai/), [Pi](https://github.com/badlogic/pi-mono), and [Windsurf](https://windsurf.com/) to use Co-Scientist as a subagent. Once installed, these agents can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
 
-This page covers how to install the skill into GitHub Copilot and keep it in sync as you update the CLI.
+This page covers the agents the CLI supports, how to install the skill into one of them, and how to keep it in sync as you update the CLI.
+
+## Supported agents
+
+The CLI can install the skill into the following agents, each in the format that agent expects:
+
+| Agent | Format |
+|-------|--------|
+| [Cursor](https://www.cursor.com/) | `.cursor/rules/` |
+| [OpenCode](https://opencode.ai/) | `.opencode/` |
+| [Pi](https://github.com/badlogic/pi-mono) | `.pi/` |
+| [Windsurf](https://windsurf.com/) | `.windsurf/rules/` |
 
 ## `seqera skill install`
 
-Use `seqera skill install` to add the Co-Scientist skill to GitHub Copilot. Run it without options to launch an interactive installer that detects your setup and prompts for a location, or pass a flag to install directly to a specific path.
+Use `seqera skill install` to add the Co-Scientist skill to your coding agent. Run it without options to launch an interactive installer that detects your setup and prompts for a location, or pass a flag to install directly to a specific path.
 
 Launch the interactive installer:
 
@@ -19,10 +30,10 @@ Launch the interactive installer:
 seqera skill install
 ```
 
-Install to the standard Copilot instructions file:
+Install to a specific agent path:
 
 ```bash
-seqera skill install --path .github/copilot-instructions.md
+seqera skill install --path <agent-path>
 ```
 
 Install into the current repository root:

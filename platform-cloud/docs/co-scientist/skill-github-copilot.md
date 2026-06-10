@@ -2,7 +2,7 @@
 title: "GitHub Copilot"
 description: "Install and maintain the Co-Scientist skill for GitHub Copilot"
 date created: "2026-03-11"
-tags: [co-scientist, cli, skills, github-copilot]
+tags: [co-scientist, cli, skills, github copilot]
 ---
 
 The `seqera skill` command installs a skill file that enables [GitHub Copilot](https://github.com/features/copilot) to use Co-Scientist as a subagent. Once installed, GitHub Copilot can invoke Co-Scientist directly to manage workflows, build containers, query nf-core modules, and more without leaving your environment.
@@ -101,3 +101,4 @@ seqera skill check [OPTIONS]
 - [Using Co-Scientist](./configuration.md): Configure modes, sessions, skills, command approval, and more
 - [Coding Agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
 - [Skills](./reference/skills-reference.md): Built-in skills, slash commands, and session limits
+- [Troubleshooting](../troubleshooting_and_faqs/seqera-ai.md): Troubleshoot common errors

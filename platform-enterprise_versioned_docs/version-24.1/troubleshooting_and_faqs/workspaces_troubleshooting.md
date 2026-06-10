@@ -2,7 +2,7 @@
 title: "Workspaces"
 description: "Workspaces troubleshooting with Seqera Platform."
 date: "26 August 2024"
-tags: [faq, help, workspaces help, workspaces troubleshooting]
+tags: [faq, help, workspaces, troubleshooting]
 ---
 
 **Seqera-invoked pipeline contacting a workspace other than the launch workspace**

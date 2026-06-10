@@ -3,12 +3,14 @@ title: "Container image templates"
 description: "Use container images with Studios."
 date created: "2025-10-16"
 last updated: "2026-06-03"
-tags: [container, container-images, session, studios]
+tags: [containers, container images, sessions, studios]
 ---
 
 Seqera provides four container image templates: JupyterLab, R-IDE, Visual Studio Code, and Xpra. The image templates install a limited number of packages when the Studio session container is built. You can install additional packages as needed during a Studio session.
 
-The image template tag includes the version of the analysis application, an optional incompatibility flag, and the Seqera Connect version. Connect is the proprietary Seqera web server client that manages communication with the container. The tag string looks like this:
+The image template tag includes the version of the analysis application, an optional incompatibility flag, and the Seqera Connect version. Connect is the proprietary Seqera web server client that manages communication with the container.
+
+The image template tag has the format:
 
 ```ignore title="Image template tag"
 <tool_version>-[u<update_version>]-<connect_version>
@@ -61,34 +63,34 @@ The default user is the `root` account. The following [conda-forge](https://cond
 
 To install additional Python packages during a running Studio session, execute `!pip install <packagename>` commands in your notebook environment. Install additional system-level packages in a terminal window with `apt install <packagename>`.
 
-To see the list of all JupyterLab image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-jupyter][ds-jupyter].
+To see all JupyterLab image templates, including security scan results, or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-jupyter][ds-jupyter].
 
 ## R-IDE 4.4.1
 
 The default user is the `root` account. To install R packages during a running Studio session, execute `install.packages("<packagename>")` commands in your notebook environment. Install additional system-level packages in a terminal window with `apt install <packagename>`.
 
-To see the list of all R-IDE image templates available, including security scan results or to inspect the container specification, see [https://public.cr.seqera.io/repo/platform/data-studio-ride][ds-ride].
+To see all R-IDE image templates, including security scan results, or to inspect the container specification, see [https://public.cr.seqera.io/repo/platform/data-studio-ride][ds-ride].
 
 ## Visual Studio Code 1.93.1
 
 [Visual Studio Code][def-vsc] is an integrated development environment (IDE) that supports many programming languages. The default user is the `root` account. The container template image ships with the latest stable version of [Nextflow] and the [VS Code extension for Nextflow][nf-lang-server] to make troubleshooting Nextflow workflows easier. To install additional extensions during a running Studio session, select **Extensions**. Install additional system-level packages in a terminal window with `apt install <packagename>`.
 
-To see the list of all Visual Studio Code image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/platform/data-studio-vscode][ds-vscode].
+To see all Visual Studio Code image templates, including security scan results, or to inspect the container specification, see [public.cr.seqera.io/platform/data-studio-vscode][ds-vscode].
 
 ### Docker-in-docker
 
-A primary use case for VS Code in Studios is to develop new, and troubleshoot existing, Nextflow pipelines. This commonly requires running Docker in the Dockerized container. The recommended method is to:
+A common use of VS Code in Studios is developing and troubleshooting Nextflow pipelines, which requires running Docker inside the Dockerized container. The recommended method is:
 
 **1. Create an [AWS Cloud][aws-cloud] compute environment:** By default, this type of compute environment is optimized for running Nextflow pipelines.
 
 :::tip
-Many standard nf-core pipelines such as [*nf-core/rnaseq*](https://nf-co.re/rnaseq) require at least 4 CPUs and 16 GB memory. In **Advanced options**, specify an instance type with at least this amount of resources (e.g., `m5d.xlarge`).
+Many standard nf-core pipelines such as [*nf-core/rnaseq*](https://nf-co.re/rnaseq) require at least 4 CPUs and 16 GB memory. In **Advanced options**, specify an instance type with at least these resources (e.g., `m5d.xlarge`).
 :::
 
 **2. Run only one Studio session per compute environment:** The session and Nextflow can then use all the available CPU and memory.
 
 :::tip
-The template for nf-core pipelines has recently been updated, and many existing pipelines don't yet use the new multi-line shell command defined in `nextflow.config`. To ensure maximum compatibility with the latest version of Nextflow (that ships with the VS Code container template image), include the following in your pipeline `nextflow.config` file.
+The nf-core pipeline template was updated, and many existing pipelines don't yet use the new multi-line shell command in `nextflow.config`. To ensure compatibility with the latest version of Nextflow (which ships with the VS Code container template image), include the following in your pipeline `nextflow.config` file.
 
 ```bash
 // Set bash options
@@ -109,11 +111,9 @@ process.shell = [
 
 The default user is the `root` account. The image is based on `ubuntu:jammy`. Install additional system-level packages during a running Studio session in a terminal window with `apt install <package_name>`.
 
-To see the list of all Xpra image templates available, including security scan results or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-xpra][ds-xpra].
+To see all Xpra image templates, including security scan results, or to inspect the container specification, see [public.cr.seqera.io/repo/platform/data-studio-xpra][ds-xpra].
 
-## Limitations
-
-### EFS file systems
+## EFS file system limitations
 
 If you configure your compute environment to include an EFS file system with **EFS file system > EFS mount path**, you must explicitly specify the mount path. The mount path cannot be the same as your compute environment work directory. If the EFS file system is mounted as your compute environment work directory, snapshots cannot be saved and sessions fail.
 
@@ -122,20 +122,15 @@ To mount an EFS volume in a Studio session (for example, if your organization ha
 For more information on AWS Batch configuration, see [AWS Batch][aws-batch].
 
 {/* links */}
-[contact]: https://support.seqera.io/
 [aws-cloud]: ../compute-envs/aws-cloud
 [aws-batch]: ../compute-envs/aws-batch
 [custom-envs]: ./custom-envs
 [build-status]: ./custom-envs#build-status
-[cloud-bucket-subdirectory]: ./managing#cloud-bucket-subdirectory
 [ds-jupyter]: https://public.cr.seqera.io/repo/platform/data-studio-jupyter
 [ds-vscode]: https://public.cr.seqera.io/repo/platform/data-studio-vscode
 [ds-xpra]: https://public.cr.seqera.io/repo/platform/data-studio-xpra
 [ds-ride]: https://public.cr.seqera.io/repo/platform/data-studio-ride
-[ds-rstudio]: https://public.cr.seqera.io/repo/platform/data-studio-rstudio
 [def-vsc]: https://code.visualstudio.com/
 [Nextflow]: https://nextflow.io/
 [nf-lang-server]: https://marketplace.visualstudio.com/items?itemName=nextflow.nextflow
 [def-xpra]: https://github.com/Xpra-org/xpra
-[Wave]: https://seqera.io/wave/
-[build-status]: ./custom-envs#build-status

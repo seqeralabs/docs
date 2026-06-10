@@ -2,7 +2,7 @@
 title: "SCIM provisioning with Okta"
 description: "Configure Okta to push group memberships to Seqera Platform Enterprise over SCIM 2.0."
 date: "2026-05-12"
-tags: [sso, scim, okta, idp-delegation, administration, enterprise]
+tags: [sso, scim, okta, idp delegation, administration, enterprise]
 ---
 
 Configure Okta to push your organization's groups to Platform over SCIM 2.0. Once provisioning is enabled, your Okta group directory appears in Seqera's IdP group catalog and stays in sync with renames, additions, and deletions automatically.

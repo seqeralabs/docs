@@ -3,7 +3,7 @@ title: "Seqera Compute"
 description: "Instructions to set up Seqera Compute in Seqera Platform"
 date created: "2025-04-21"
 last updated: "2026-05-28"
-tags: [seqera compute, compute environment]
+tags: [seqera compute, compute environments]
 ---
 
 Seqera Compute enables you to run pipelines and Studio sessions in Seqera Cloud in a fully managed and optimized AWS environment. Seqera automatically provisions and manages all the underlying resources, including AWS accounts, credentials, roles, compute environments, and S3 storage buckets, requiring minimal user configuration. Using prepaid credits enables control and visibility of the compute spend in each of your organization's workspaces.
