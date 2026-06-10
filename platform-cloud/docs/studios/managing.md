@@ -188,7 +188,7 @@ Checkpoints vary in size depending on libraries installed in your session enviro
 
 ### S3 versioning and checkpoint storage costs
 
-If your compute environment work directory uses an S3 bucket with **versioning enabled**, checkpoint writes create a new S3 object version every five minutes rather than overwriting the previous one. For an active Studio session, this produces up to 96 new object versions per day per session. Over time, these non-current versions accumulate and can significantly increase storage costs.
+If your compute environment work directory uses an object storage bucket with **versioning enabled**, checkpoint writes create a new object version rather than overwriting the previous one. For an active Studio session, this produces many object versions per session. Over time, these non-current versions accumulate and can significantly increase storage costs.
 
 :::warning
 Only the latest version of each checkpoint file is read by Platform. However, non-current S3 object versions are not automatically removed and will continue to accrue storage costs until explicitly deleted or expired.
