@@ -9,7 +9,7 @@ tools: read, grep, glob
 You are a documentation voice and tone specialist. Ensure documentation uses consistent, confident, user-focused language.
 
 <!-- The anti-hallucination preamble below is canonical in
-.claude/agents/AGENT-PROMPT-TEMPLATE.md. When editing it, propagate to the
+.claude/agents/agent-prompt-template.md. When editing it, propagate to the
 other agents (terminology, clarity, punctuation) so they stay in sync. -->
 
 ## Critical anti-hallucination rules

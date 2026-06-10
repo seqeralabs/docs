@@ -18,7 +18,7 @@ This directory contains Claude Code agents, skills, and configuration for the Se
 
 Skills are AI-powered workflows that automate specific documentation tasks.
 
-### openapi-overlay-generator
+### api-overlay-generator
 
 Generates OpenAPI overlay files for Seqera Platform API documentation updates.
 
@@ -28,9 +28,9 @@ Generates OpenAPI overlay files for Seqera Platform API documentation updates.
 - Documenting new API endpoints or Platform version updates
 - Validating overlay files against documentation standards
 
-**Documentation:** See `skills/openapi-overlay-generator/SKILL.md`
+**Documentation:** See `skills/api-overlay-generator/SKILL.md`
 
-**Invocation:** `/openapi-overlay-generator`
+**Invocation:** `/api-overlay-generator`
 
 ### review
 
@@ -222,7 +222,7 @@ When working on API documentation:
 /review platform-cloud/docs/
 
 # Test skill
-/openapi-overlay-generator
+/api-overlay-generator
 ```
 
 ## Development
@@ -300,7 +300,7 @@ vale platform-enterprise_docs/
 │   ├── terminology.md
 │   └── clarity.md
 └── skills/
-    └── openapi-overlay-generator/
+    └── api-overlay-generator/
         └── SKILL.md
 ```
 
