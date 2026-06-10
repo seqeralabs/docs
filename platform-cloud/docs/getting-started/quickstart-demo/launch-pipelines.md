@@ -93,7 +93,7 @@ Modify other parameters to customize the pipeline execution through the paramete
 ### Advanced settings
 
 - Use [resource labels](../../resource-labels/overview) to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, workspace admins can override them from the launch form. Applied resource label names must be unique.
-- Use [Pipeline secrets](../../secrets/overview) store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
+- Use [Pipeline secrets](../../secrets/overview) to store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
 - See [Advanced options](../../launch/advanced) for more details.
 
 After you fill in the launch details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to open the [**View Workflow Run**](../../monitoring/overview) page, where you can view the configuration, parameters, status of individual tasks, and run report.

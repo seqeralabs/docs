@@ -1,22 +1,23 @@
 ---
 title: "Overview"
-description: "Seqera Studios overview"
+description: "Interactive analysis environments in Seqera Platform"
 date created: "2025-02-06"
 last updated: "2026-06-09"
 tags: [studios, connect, xpra, ride, vscode, containers, docker]
 ---
 
-Studios is a unified platform where you can host a combination of container images and compute environments for interactive analysis using your preferred tools, like JupyterLab notebooks, an [R-IDE](https://github.com/seqeralabs/r-ide), Visual Studio Code IDEs, or Xpra remote desktops. Each Studio session is an individual interactive environment that encapsulates the live environment for dynamic data analysis.
+Studios provides interactive analysis environments that pair a container image with a compute environment and your preferred tools, such as JupyterLab notebooks, an [R-IDE](https://github.com/seqeralabs/r-ide), Visual Studio Code, or Xpra remote desktops. Each Studio session runs as an individual interactive environment for live data analysis.
 
 On Seqera Cloud, the free tier permits only one running Studio session at a time. To run simultaneous sessions, [contact Seqera][contact] for a Seqera Cloud Pro license.
 
-- [Add a Studio](./add-studio): Understand the configuration options for creating, running, and customizing Studio sessions.
-- [Container image templates](./container-images): Learn about the container image templates provided: JupyterLab, R-IDE, Visual Studio Code, and Xpra.
-- [Custom environments](./custom-envs): Augument the Seqera-provided images with a list of Conda packages or by providing your own base container template image.
-- [Manage Studios](./managing): Manage your Studios and how collaborators use them.
+- [Container image templates](./container-images): Provided templates for JupyterLab, R-IDE, Visual Studio Code, and Xpra.
+- [Custom environments](./custom-envs): Augment the Seqera-provided images with Conda packages or your own base container template image.
+- [Add a Studio](./add-studio): Configuration options for creating, running, and customizing Studio sessions.
+- [Manage Studios](./managing): Manage Studios and collaborator access.
+- [Connect changelog](./connect): Release notes for the Seqera Connect client.
 
 :::note
-Currently, Studios supports [AWS Cloud][aws-cloud], [Google Cloud][google-cloud], and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
+Studios supports [AWS Cloud][aws-cloud], [Google Cloud][google-cloud], and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
 :::
 
 {/* links */}
