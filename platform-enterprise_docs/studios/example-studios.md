@@ -2,7 +2,7 @@
 title: "Example custom Studios"
 description: "Example Dockerfiles and pre-built container images for running custom applications in Studios."
 date created: "2026-02-18"
-last updated: "2026-06-09"
+last updated: "2026-06-10"
 tags: [environments, custom, studios, examples]
 ---
 

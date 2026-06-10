@@ -2,7 +2,7 @@
 title: "Platform: Helm"
 description: Deploy Seqera Platform Enterprise on Kubernetes with Helm
 date created: "2025-11-21"
-last updated: "2026-06-09"
+last updated: "2026-06-10"
 tags: [helm, deployment, installation, kubernetes]
 ---
 

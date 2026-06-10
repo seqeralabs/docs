@@ -2,7 +2,7 @@
 title: "Custom AWS Batch launch container"
 description: Use a custom AWS Batch launch container
 date created: "2023-04-12"
-last updated: "2026-06-09"
+last updated: "2026-06-10"
 tags: [aws, batch, launch, containers]
 ---
 

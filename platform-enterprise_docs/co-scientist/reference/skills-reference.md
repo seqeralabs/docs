@@ -2,7 +2,7 @@
 title: "Skills"
 description: "Built-in skills, slash commands, and session limits for the Seqera CLI"
 date created: "2026-05-27"
-last updated: "2026-06-09"
+last updated: "2026-06-10"
 tags: [co-scientist, cli, skills, reference]
 ---
 

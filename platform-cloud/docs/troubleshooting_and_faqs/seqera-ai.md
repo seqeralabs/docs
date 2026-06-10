@@ -2,7 +2,7 @@
 title: "Co-Scientist"
 description: "Co-Scientist troubleshooting."
 date created: "2024-12-15"
-last updated: "2026-06-09"
+last updated: "2026-06-10"
 tags: [faq, help, seqera ai, troubleshooting]
 ---
 

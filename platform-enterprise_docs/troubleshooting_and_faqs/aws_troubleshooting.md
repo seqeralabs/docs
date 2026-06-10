@@ -2,7 +2,7 @@
 title: "AWS"
 description: "AWS troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-06-09"
+last updated: "2026-06-10"
 tags: [faq, help, aws, troubleshooting]
 ---
 

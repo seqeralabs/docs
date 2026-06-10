@@ -2,7 +2,7 @@
 title: "Launch pipelines"
 description: "An introduction to launching nf-core/rnaseq in the community/showcase workspace"
 date created: "2024-07-08"
-last updated: "2026-06-09"
+last updated: "2026-06-10"
 tags: [platform, launch, pipelines, launchpad, tutorial]
 ---
 

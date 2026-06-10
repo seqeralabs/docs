@@ -2,7 +2,7 @@
 title: "Amazon EKS"
 description: "Instructions to set up Amazon EKS in Seqera Platform"
 date created: "2026-02-04"
-last updated: "2026-06-09"
+last updated: "2026-06-10"
 tags: [eks, amazon, compute environments, ce]
 ---
 

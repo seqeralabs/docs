@@ -2,7 +2,7 @@
 title: "Data repositories"
 description: "Add data repositories to Seqera Platform"
 date created: "2025-10-15"
-last updated: "2026-06-09"
+last updated: "2026-06-10"
 tags: [data explorer, aws, azure, gcp, s3-compatible, api, credentials]
 ---
 
