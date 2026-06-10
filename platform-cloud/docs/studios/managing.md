@@ -191,7 +191,7 @@ Checkpoints vary in size depending on libraries installed in your session enviro
 If your compute environment work directory uses an object storage bucket with **versioning enabled**, checkpoint writes create a new object version rather than overwriting the previous one. For an active Studio session, this produces many object versions per session. Over time, these non-current versions accumulate and can significantly increase storage costs.
 
 :::warning
-Only the latest version of each checkpoint file is read by Platform. However, non-current S3 object versions are not automatically removed and will continue to accrue storage costs until explicitly deleted or expired.
+Only the latest version of each checkpoint file is read by Platform. However, non-current object versions are not automatically removed and will continue to accrue storage costs until explicitly deleted or expired.
 :::
 
 **Recommended mitigation:** Apply an S3 Lifecycle rule to expire non-current object versions on the `.studios/checkpoints/` prefix. A one-day expiry retains the current version while removing intermediate five-minute writes. You can also delete existing accumulated non-current versions manually using your cloud provider's console or CLI.
