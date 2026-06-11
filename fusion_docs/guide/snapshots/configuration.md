@@ -3,7 +3,7 @@ title: Advanced configuration
 description: "Advanced configuration options for Fusion Snapshots"
 date created: "2024-11-29"
 last updated: "2025-12-19"
-tags: [fusion, fusion-snapshots, snapshot, configuration, nextflow]
+tags: [fusion, fusion snapshots, snapshot, configuration, nextflow]
 ---
 
 Fusion Snapshots work optimally with default configuration for most workloads. You typically do not need to modify these settings unless you have specific organizational policies, experience issues with default behavior, or have edge case requirements.

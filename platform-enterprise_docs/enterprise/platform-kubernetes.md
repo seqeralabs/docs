@@ -40,19 +40,39 @@ GRANT ALL PRIVILEGES ON tower.* TO 'tower'@'%';
 
 See [Database configuration](./configuration/overview#seqera-and-redis-databases) for details.
 
-## Redis configuration
+## Redis or Valkey configuration
 
-Configure the Redis connection URL in your Seqera environment:
+Seqera Platform requires a Redis-compatible cache store for transient data, primarily Nextflow job metrics reporting. Both Redis and Valkey are supported.
 
-```bash
-TOWER_REDIS_URL=redis://<redis-host>:6379
-```
+### Supported versions
 
-Use a managed Redis service for production:
+| Cache / version | Status                       |
+| --------------- | ---------------------------- |
+| Redis 6.x       | Not supported (EoL upstream) |
+| Redis 7.2       | Supported                    |
+| Redis 7.4       | Supported                    |
+| Valkey 7.x      | Supported (from 26.1)        |
+
+### Connection URL
+
+Configure the connection URL in your Seqera environment using the scheme that matches your cache backend:
+
+| Backend         | Scheme       | Example                                  |
+| --------------- | ------------ | ---------------------------------------- |
+| Redis           | `redis://`   | `TOWER_REDIS_URL=redis://<host>:6379`    |
+| Redis with TLS  | `rediss://`  | `TOWER_REDIS_URL=rediss://<host>:6380`   |
+
+The Redisson client embedded in Platform 26.1+ supports Valkey 7 dial schema — no further configuration is required. Redis password and ACL configuration carry over unchanged when migrating to Valkey.
+
+### Managed service options
+
+Use a managed cache service for production:
 
 - [Amazon ElastiCache](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html) (`cache.m4.large` or larger)
 - [Azure Cache for Redis](https://learn.microsoft.com/en-gb/azure/azure-cache-for-redis/cache-overview) (C3 tier or larger)
 - [Google Memorystore](https://cloud.google.com/memorystore/docs/redis) (M2 tier or larger)
+
+For migration guidance from Redis to Valkey on an existing installation, see [Cache layer changes](./upgrade#cache-layer-changes-redis-eol-and-valkey-support).
 
 ## Deploy Seqera Enterprise
 
@@ -107,7 +127,7 @@ kubectl apply -f tower-svc.yml
 
 An unprivileged version of the Seqera frontend image is also available. This image listens on an unprivileged port and therefore doesn't need to be run as the root user.
 
-Replace the tag of the frontend image `cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x` with `cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x-unprivileged`. In the `frontend` service below, specify the `targetPort` to match the environment variable `NGINX_LISTEN_PORT` (see below):
+Replace the tag of the frontend image `cr.seqera.io/enterprise/platform/frontend:v24.x.x` with `cr.seqera.io/enterprise/platform/frontend:v24.x.x-unprivileged`. In the `frontend` service below, specify the `targetPort` to match the environment variable `NGINX_LISTEN_PORT` (see below):
 
 ```yaml
 ---
@@ -121,7 +141,7 @@ spec:
   ...
       containers:
         - name: frontend
-          image: cr.seqera.io/private/nf-tower-enterprise/frontend:v25.3.0-unprivileged
+          image: cr.seqera.io/enterprise/platform/frontend:v25.3.0-unprivileged
           env:
             - name: NGINX_LISTEN_PORT  # If not defined, defaults to 8000.
               value: 8000

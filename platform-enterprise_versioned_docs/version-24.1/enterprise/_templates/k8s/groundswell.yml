@@ -96,7 +96,7 @@ spec:
                 name: tower-groundswell-cfg
 
         - name: migrate-db
-          image: "cr.seqera.io/private/nf-tower-enterprise/groundswell:0.4.7"
+          image: "cr.seqera.io/enterprise/platform/pipeline-optimization:0.4.7"
           command: ['/opt/groundswell/bin/migrate-db.sh']
           envFrom:
             - configMapRef:
@@ -106,7 +106,7 @@ spec:
 
       containers:
         - name: groundswell
-          image: "cr.seqera.io/private/nf-tower-enterprise/groundswell:0.4.7"
+          image: "cr.seqera.io/enterprise/platform/pipeline-optimization:0.4.7"
           env:
             - name: MPLCONFIGDIR
               value: "/tmp"

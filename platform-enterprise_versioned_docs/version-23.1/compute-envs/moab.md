@@ -2,7 +2,7 @@
 title: "Moab"
 description: "Instructions to set up Moab in Nextflow Tower"
 date: "21 Apr 2023"
-tags: [moab, compute environment]
+tags: [moab, compute environments]
 ---
 
 [Moab](http://docs.adaptivecomputing.com/suite/8-0/basic/help.htm#topics/moabWorkloadManager/topics/intro/productOverview.htm) is a scheduling and management system designed for clusters, grids, and on-demand/utility computing systems. At a high level, Moab applies site policies and extensive optimizations to orchestrate jobs, services, and other workloads across the ideal combination of network, compute, and storage resources.

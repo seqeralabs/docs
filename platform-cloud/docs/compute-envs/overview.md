@@ -2,7 +2,7 @@
 title: "Compute environment overview"
 description: "Overview of compute environments in Seqera Platform"
 date: "21 Apr 2023"
-tags: [compute environment]
+tags: [compute environments]
 ---
 
 Seqera Platform **compute environments** define the execution platform where a pipeline will run. Compute environments enable users to launch pipelines on a growing number of **cloud** and **on-premises** platforms.
@@ -40,6 +40,30 @@ If you have more than one compute environment, you can select a workspace primar
 You can edit the names of compute environments in private and organization workspaces. Select **Edit** from the options menu next to the compute environment you wish to edit.
 
 Select **Update** on the edit page to save your changes after you have updated the compute environment name.
+
+## Export compute environment
+
+You can export a compute environment's configuration as a JSON file for troubleshooting, audits, or as a reference when recreating it.
+
+:::note
+The exported JSON is for reference only. Re-importing it through the Seqera Platform UI is not supported.
+:::
+
+Any user with the Maintain, Launch, or View role on the workspace can export. The compute environment detail page, or the form page for a specific compute environment.
+
+**What's included**:
+
+- Name, platform, region, and work directory
+- Forge or manual configuration block
+- Fusion and Wave settings
+- Environment variables
+- Pre- and post-run scripts
+- Labels
+- A reference to the credential used (the credential itself is excluded)
+
+**What's not included**:
+
+- Credentials and secrets
 
 ## Disable compute environment
 

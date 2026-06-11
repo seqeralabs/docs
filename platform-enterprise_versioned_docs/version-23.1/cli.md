@@ -2,7 +2,7 @@
 title: "Tower CLI"
 description: "Instructions to use Tower CLI."
 date: "24 Apr 2023"
-tags: [cli, tower]
+tags: [cli, platform]
 ---
 
 # Nextflow Tower CLI

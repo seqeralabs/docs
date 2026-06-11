@@ -3,7 +3,7 @@ title: "Organizations"
 description: "Manage organizations in Seqera Platform."
 date created: "2023-04-21"
 last updated: "2025-07-01"
-tags: [organizations, administration, workspaces, create-organization, organization-settings]
+tags: [organizations, administration, workspaces, create organization, organization settings]
 ---
 
 Organizations are the top-level structure and contain workspaces, members, and teams. Before you start using Platform, consider the projects, research areas, and resources you'd like to build out and who'll be using them so that you can scale up easily.
@@ -32,6 +32,8 @@ You can invite or add additional members to the workspace from the workspace **S
 ### Organization settings
 
 Organization owners can view, edit, and delete organizations in the **Organization settings** screen. Select your organization from the drop-down menu, then select **Settings** in the sidebar.
+
+Cloud Pro organizations can also configure and manage [single sign-on (SSO)](../getting-started/single-sign-on) from the organization settings page.
 
 #### Edit or delete an organization
 

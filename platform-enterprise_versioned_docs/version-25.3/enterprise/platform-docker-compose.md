@@ -80,11 +80,11 @@ For more information on configuration, see [Configuration options](./configurati
 
 An unprivileged version of the Seqera frontend image is also available. This image listens on an unprivileged port and therefore doesn't need to be run as the root user.
 
-Replace the tag of the frontend image `cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x` with `cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x-unprivileged`. Then update the `frontend` section of the `docker-compose.yml` file as follows, replacing the port mappings as needed:
+Replace the tag of the frontend image `cr.seqera.io/enterprise/platform/frontend:v24.x.x` with `cr.seqera.io/enterprise/platform/frontend:v24.x.x-unprivileged`. Then update the `frontend` section of the `docker-compose.yml` file as follows, replacing the port mappings as needed:
 
 ```yaml
   frontend:
-    image: cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x-unprivileged
+    image: cr.seqera.io/enterprise/platform/frontend:v24.x.x-unprivileged
     platform: linux/amd64
     environment:
       NGINX_LISTEN_PORT: 8001  # If not defined, defaults to 8000
