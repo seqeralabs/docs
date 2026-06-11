@@ -1,6 +1,61 @@
 # Add redirects for version non-existent 25.2 to current docs
 /platform-enterprise/25.2/*    /platform-enterprise/:splat    301
 
+# ── NEW (PostHog 404 data, 90d to 2026-06-11): retired Enterprise versions ──
+# Same pattern as the 25.2 rule above. ~120 hits/90d from bookmarks and Google's index.
+# NOTE: Netlify doesn't chain redirects, so versioned URLs for pages that were ALSO
+# renamed need the explicit :version rules further down to fire first — those are
+# placed BEFORE these strips.
+/platform-enterprise/:version/enterprise/configuration/authentication  /platform-enterprise/enterprise/configuration/authentication/overview  301
+/platform-enterprise/:version/enterprise/kubernetes       /platform-enterprise/enterprise/platform-kubernetes      301
+/platform-enterprise/:version/enterprise/docker-compose   /platform-enterprise/enterprise/platform-docker-compose  301
+/platform-enterprise/23.1/*    /platform-enterprise/:splat    301
+/platform-enterprise/23.2/*    /platform-enterprise/:splat    301
+/platform-enterprise/23.3/*    /platform-enterprise/:splat    301
+/platform-enterprise/23.4/*    /platform-enterprise/:splat    301
+/platform-enterprise/24.1/*    /platform-enterprise/:splat    301
+/platform-enterprise/24.2/*    /platform-enterprise/:splat    301
+/platform-enterprise/24.3/*    /platform-enterprise/:splat    301
+
+# ── NEW: Nextflow docs broken root-relative links (148 hits/90d) ──
+# Links inside /nextflow pages point at site root; fix the source links too.
+/overview            /nextflow/overview            301
+/install             /nextflow/install             301
+/your-first-script   /nextflow/your-first-script   301
+/developer-env       /nextflow/developer-env       301
+
+# Two URLs concatenated in the email HTML
+/platform-enterprise/data/data-lineageplatform-enterprise/launch/advanced   /platform-enterprise/data/data-lineage   301
+
+# ── NEW: Platform API old URL scheme ──
+/platform-api/info-pages/*     /platform-api/info/:splat    301
+/platform-api/info/seqera-api  /platform-api/seqera-api     301
+
+# ── NEW: supported software index pages (50 hits/90d) ──
+/platform-cloud/supported_software/agent    /platform-cloud/supported_software/agent/overview    301
+/platform-cloud/supported_software/fusion   /platform-cloud/supported_software/fusion/overview   301
+
+# ── NEW: HPC schedulers consolidated into the hpc page ──
+/platform-cloud/compute-envs/altair-pbs-pro   /platform-cloud/compute-envs/hpc   301
+/platform-cloud/compute-envs/moab             /platform-cloud/compute-envs/hpc   301
+/platform-cloud/compute-envs/lsf              /platform-cloud/compute-envs/hpc   301
+
+# ── NEW: orgs & teams / admin / enterprise config ──
+/platform-cloud/orgs-and-teams/overview      /platform-cloud/orgs-and-teams/organizations   301
+/platform-cloud/administration/overview      /platform-cloud/orgs-and-teams/organizations   301
+/platform-enterprise/enterprise/configuration/authentication   /platform-enterprise/enterprise/configuration/authentication/overview   301
+
+# ── NEW: changelog tag shortcuts ──
+/changelog/seqera-cloud        /changelog/tags/seqera-cloud        301
+/changelog/seqera-enterprise   /changelog/tags/seqera-enterprise   301
+
+# New targets
+/platform-enterprise/enterprise/install-co-scientist   /platform-enterprise/co-scientist/installation   301
+/platform-enterprise/enterprise/install-seqera-ai      /platform-enterprise/enterprise/install-seqera-coscientist   301
+/platform-cloud/monitoring/tasks                       /platform-cloud/monitoring/run-details           301
+/platform-cloud/launch/relaunch                        /platform-cloud/launch/cache-resume              301
+/multiqc/development/modules/custom-content            /multiqc/custom-content                          301
+
 # These redirects reverse the existing 301's
 # See https://moz.com/blog/can-you-reverse-a-301-redirect
 /platform-cloud/platform-cloud /platform-cloud 301
