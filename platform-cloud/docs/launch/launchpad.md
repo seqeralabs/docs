@@ -43,7 +43,7 @@ Configure the core settings for your run, including the pipeline source, compute
 - **Version name**: The pipeline version name selected as the default for this run. See [Pipeline versioning][pipeline-version] for details.
 - **Version ID**: The pipeline version ID selected as the default for this run. See [Pipeline versioning][pipeline-versioning] for details.
 - **Revision**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch.
-- **Commit ID**: Pin pipeline revision to the most recent HEAD commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
+- **Commit ID**: The pipeline revision commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
 - **Pull latest**: Pull the most recent HEAD commit ID of the pipeline revision at launch time. Unpins the **Commit ID**, if set.
   :::info
   See [Git revision management][pipeline-revision] for more information on **Revision**, **Commit ID**, and **Pull latest**, behavior.
@@ -91,7 +91,7 @@ Configure the core settings for your run, including the pipeline source, compute
   :::note
   The credentials associated with the compute environment must have access to the work directory.
   :::
-- **Schema**: Select the [pipeline schema][pipeline-schema] to validate pipeline parameters and prevent runtime failures. Options are **Repository default**, **Repository path**, and **Seqera Platform schema**.
+- **Schema**: The [pipeline schema][pipeline-schema] to validate pipeline parameters and prevent runtime failures. Options include **Repository default**, **Repository path**, and **Seqera Platform schema**.
 
 ### Run parameters
 
@@ -115,7 +115,7 @@ Configure platform resources, pipeline secrets, and advanced Nextflow options be
 
 #### Platform config
 
-- **Resource labels**: Use [resource labels][resource-labels] to tag the computing resources created during a run. The run inherits resource labels from the compute environment and pipeline, but admins can override them from the launch form. Applied resource label names must be unique.
+- **Resource labels**: [Resource labels][resource-labels] to tag the computing resources created during a run. The run inherits resource labels from the compute environment and pipeline, but admins can override them from the launch form. Applied resource label names must be unique.
 
 #### Pipeline secrets
 
@@ -128,16 +128,16 @@ In AWS Batch compute environments, Seqera Platform passes stored secrets to jobs
 
 #### Advanced options
 
-- **Nextflow config file**: Add or override Nextflow configuration settings for the run.
-- **Seqera Cloud config file**: Configure per-pipeline Seqera reporting behavior.
-- **Pre-run scripts**: Run custom shell commands before or after the Nextflow execution.
-- **Post-run scripts**: Run custom shell commands before or after the Nextflow execution.
+- **Nextflow config file**: Additional Nextflow configuration settings.
+- **Seqera Cloud config file**: Additional Seqera Cloud configuration settings to override the `tower.yml` file.
+- **Pre-run scripts**: Custom shell commands to run before the execution.
+- **Post-run scripts**: Custom shell commands to run after the execution.
 - **Stub run**: Replace process commands with [stubs](https://docs.seqera.io/nextflow/process#stub), where defined, before execution.
 - **Enable Nextflow syntax parser v2**: Run the pipeline with the v2 Nextflow language parser.
-- **Workflow entry name**: Launch a named DSL2 workflow other than the default.
-- **Schema name**: Specify the name of a pipeline schema file in the workflow repository root folder to override the default `nextflow_schema.json`.
-- **Head job CPUs**: Set the number of CPUs for the Nextflow head job. Fields are only displayed for runs executing on [AWS Batch](../compute-envs/aws-batch) and [Azure Batch](../compute-envs/azure-batch) compute environments.
-- **Head job memory**: Set the memory for the Nextflow head job, in MiB. Fields are only displayed for runs executing on [AWS Batch](../compute-envs/aws-batch) and [Azure Batch](../compute-envs/azure-batch) compute environments.
+- **Workflow entry name**: A named DSL2 workflow other than the default.
+- **Schema name**: The name of a pipeline schema file in the workflow repository root folder to override the default `nextflow_schema.json`.
+- **Head job CPUs**: The number of CPUs for the Nextflow head job. Fields are only displayed for runs executing on [AWS Batch](../compute-envs/aws-batch) and [Azure Batch](../compute-envs/azure-batch) compute environments.
+- **Head job memory**: The memory for the Nextflow head job, in MiB. Fields are only displayed for runs executing on [AWS Batch](../compute-envs/aws-batch) and [Azure Batch](../compute-envs/azure-batch) compute environments.
 
 See [Advanced options][advanced-options] for detailed guidance.
 
