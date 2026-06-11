@@ -2,7 +2,7 @@
 title: User guide
 description: "Overview of the Fusion v2 file system"
 date created: "2024-08-23"
-last updated: "2026-06-10"
+last updated: "2026-06-11"
 tags: [fusion, storage, compute, file system, posix, client]
 ---
 

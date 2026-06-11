@@ -2,7 +2,7 @@
 title: "Installation"
 description: "Seqera Platform CLI installation and configuration instructions."
 date created: "2024-07-16"
-last updated: "2026-06-10"
+last updated: "2026-06-11"
 tags: [cli, platform, installation, configuration]
 ---
 

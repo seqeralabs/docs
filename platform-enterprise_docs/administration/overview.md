@@ -2,7 +2,7 @@
 title: "Admin panel"
 description: "Overview of Seqera user and organization administration"
 date created: "2023-04-21"
-last updated: "2026-06-10"
+last updated: "2026-06-11"
 tags: [administration, users, workspaces, organizations]
 ---
 

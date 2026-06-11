@@ -2,7 +2,7 @@
 title: "Upgrade deployment"
 description: "Guidance for upgrading to Platform Enterprise version 26.1"
 date created: "2025-11-11"
-last updated: "2026-06-10"
+last updated: "2026-06-11"
 tags: [enterprise, update, installation]
 ---
 

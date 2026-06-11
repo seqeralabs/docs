@@ -2,7 +2,7 @@
 title: "Firewall configuration"
 description: Configure your firewall to allow Seqera Cloud access
 date created: "2023-04-12"
-last updated: "2026-06-10"
+last updated: "2026-06-11"
 tags: [firewall, configuration]
 ---
 

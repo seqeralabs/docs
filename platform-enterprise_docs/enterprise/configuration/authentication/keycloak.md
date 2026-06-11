@@ -2,7 +2,7 @@
 title: "Keycloak"
 description: Configure Keycloak as an identity provider for Seqera Platform
 date created: "2026-01-27"
-last updated: "2026-06-10"
+last updated: "2026-06-11"
 tags: [authentication, keycloak, oidc]
 ---
 

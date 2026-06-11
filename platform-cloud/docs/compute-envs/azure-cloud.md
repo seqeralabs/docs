@@ -2,7 +2,7 @@
 title: "Azure Cloud"
 description: "Instructions to set up an Azure Cloud compute environment in Seqera Platform"
 date created: "2025-09-29"
-last updated: "2026-06-10"
+last updated: "2026-06-11"
 tags: [cloud, vm, azure, compute environments]
 ---
 

@@ -2,7 +2,7 @@
 title: "Seqera Platform Monitoring"
 description: "A guide on relevant platform metrics"
 date created: "2025-12-17"
-last updated: "2026-06-10"
+last updated: "2026-06-11"
 tags: [platform, monitoring]
 ---
 

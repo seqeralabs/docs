@@ -2,7 +2,7 @@
 title: "Illumina DRAGEN"
 description: "Instructions to integrate Illumina DRAGEN with Seqera Platform."
 date created: "2023-08-24"
-last updated: "2026-06-10"
+last updated: "2026-06-11"
 tags: [dragen, integration]
 ---
 
