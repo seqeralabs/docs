@@ -1,142 +1,157 @@
 ---
 title: "Launch pipelines"
-description: "Curate and launch workflows in Seqera Platform"
+description: "Curate and launch pipelines in Seqera Platform"
 date created: "2023-04-21"
 last updated: "2026-05-18"
 tags: [launchpad, launch, configure, pipelines, schema, configuration, nextflow, parameters, input, output]
 ---
 
-View, configure, and launch pipelines from your workspace **Launchpad**.
+Use the Seqera Platform **Launchpad** to launch pre-configured pipelines, add new pipelines, or quick-launch unsaved pipelines.
 
-## Launchpad
+## Sort and filter pipelines
 
-The **Launchpad** enables workspace users to launch pre-configured pipelines, add new pipelines, or perform a quick launch of unsaved pipelines. Use the **Sort by:** dropdown to sort pipelines, either by name or most-recently updated.
+Select the **Sort by:** dropdown to sort pipelines by name or by most-recently updated. Select the filter icon to filter by workspace and labels.
+
+The list layout is the default **Launchpad** view. Select the tiles icon to switch between the list and tile layout. Both views display the compute environment of each pipeline.
 
 :::note
 A pipeline is a repository containing a Nextflow workflow, a compute environment, and pipeline parameters.
 :::
 
-The list layout is the default **Launchpad** view. Use the toggle next to the **Search** field to switch between the list and tile views. Both views display the compute environment of each pipeline for easy reference.
+## Launch pipelines
 
-## Launch form
+Use the launch form to launch pipelines and add pipelines to the **Launchpad**. Select **Launch** next to a saved pipeline in the list, or select **Quick launch** to quick-launch an unsaved pipeline.
 
-The launch form is used to launch pipelines and to add pipelines to the **Launchpad**. Select **Launch** next to a saved pipeline in the list, or select **launch a run without configuration** to perform a quick launch of an unsaved pipeline.
-
-The launch form consists of [General config](#general-config), [Run parameters](#run-parameters), and [Advanced options](#advanced-options) sections to specify your run parameters before execution, and an execution summary. Use section headings or select the **Previous** and **Next** buttons at the bottom of the page to navigate between sections.
+The launch form consists of [General config](#general-config), [Run parameters](#run-parameters), [Advanced settings](#advanced-settings), and [Summary](#summary) tabs to configure and view your run before execution. Use section headings or select **Previous** or **Next** at the bottom of the page to navigate between sections.
 
 For saved pipelines, **General config** and **Run parameters** fields are prefilled and can be edited before launch.
 
 :::info
-The launch form accepts URL query parameters. See [Populate launch form with URL query parameters](#populate-launch-form-with-url-query-parameters) for more information.
+The launch form accepts URL query parameters. See [URL query parameters](#url-query-parameters) for more information.
 :::
 
 ### General config
+
+Configure the core settings for your run, including the pipeline source, compute environment, and work directory:
+
+#### Run setup
 
 - **Pipeline to launch**: A Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited. Private repositories require [access credentials][credentials].
   :::note
   Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration][git] in the Seqera docs and [Pipeline sharing][pipeline-sharing] in the Nextflow docs for more details.
   :::
-- **Version name**: The pipeline version name that will be selected as default for this pipeline run. See [Pipeline versioning][pipeline-version] for details.
-- **Version ID**: The pipeline version id that will be selected as default for this pipeline run. See [Pipeline versioning][pipeline-versioning] for details.
+- **Version name**: The pipeline version name selected as the default for this run. See [Pipeline versioning][pipeline-version] for details.
+- **Version ID**: The pipeline version ID selected as the default for this run. See [Pipeline versioning][pipeline-versioning] for details.
 - **Revision**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch.
-- **Commit ID**: Pin pipeline revision to the most recent HEAD commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
-- **Pull latest**: Fetch the most recent HEAD commit ID of the pipeline revision at launch time. Unpins the **Commit ID**, if set.
+- **Commit ID**: The pipeline revision commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
+- **Pull latest**: Pull the most recent HEAD commit ID of the pipeline revision at launch time. Unpins the **Commit ID**, if set.
   :::info
   See [Git revision management][pipeline-revision] for more information on **Revision**, **Commit ID**, and **Pull latest**, behavior.
   :::
-- **Work directory**: The cloud storage or file system path where pipeline scratch data is stored. Seqera will create a scratch sub-folder if only a cloud bucket location is specified. Use file system paths for local or HPC compute environments.
+- **Main script**: The script file to execute (default: `main.nf`). Config profile suggestions may update when this field changes. See [Main script](./advanced#main-script) for custom script paths.
+- **Config profiles**: One or more [configuration profile][nextflow-config-profile] names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository.
+
+    <details>
+    <summary>How config profiles are detected</summary>
+
+    Seqera Platform populates the **Config profiles** dropdown by statically analyzing the pipeline's Nextflow configuration. The analysis detects profiles in the main configuration and in `includeConfig` statements that match any of these patterns:
+
+    - A static string:
+      ```groovy
+      includeConfig 'conf/profiles.config'
+      includeConfig 'http://...'
+      ```
+
+    - A dynamic string that depends on parameters defined in the config:
+      ```groovy
+      includeConfig params.custom_config
+      includeConfig "${params.custom_config_base}/nfcore_custom.config"
+      ```
+
+    - A ternary expression (only the `true` branch is inspected):
+      ```groovy
+      includeConfig params.custom_config_base ? "${params.custom_config_base}/nfcore_custom.config" : "/dev/null"
+      ```
+
+    - An include within a try-catch statement:
+      ```groovy
+      try {
+          includeConfig "${params.custom_config_base}/nfcore_custom.config"
+      } catch (Exception e) {
+          // ...
+      }
+      ```
+
+    </details>
+
+- **Workflow run name**: A unique identifier for the run, pre-filled with a random name that you can customize.
+- **Labels**: Assign new or existing [labels][labels] to the run.
+- **Compute environment**: The [compute environment][compute-envs] where the run launches.
+- **Work directory**: The cloud storage or file system path where pipeline scratch data is stored. Seqera Platform creates a scratch sub-folder if you specify only a cloud bucket location. Use file system paths for local or high-performance computing (HPC) compute environments.
   :::note
   The credentials associated with the compute environment must have access to the work directory.
   :::
-- **Main script**: The script file to execute (default: `main.nf`). Config profiles suggestions may update when this field changes.
-- **Config profiles**: One or more [configuration profile][nextflow-config-profile] names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository. See below for additional details.
-- **Workflow run name**: A unique identifier for the run, pre-filled with a random name. This can be customized.
-- **Labels**: Assign new or existing [labels][labels] to the run.
-- **Compute environment**: The [compute environment][compute-envs] where the run will be launched.
-- **Work directory**: The bucket path where the pipeline scratch data is stored.
-- **Schema**: Select the [pipeline schema][pipeline-schema] to validate pipeline parameters and prevent runtime failures.
-- **Enable lineage**: Track the [provenance][data-lineage] of files produced by pipeline runs. Defaults to the [workspace setting][workspace-settings-lineage].
-
-#### Config profiles
-
-The dropdown of available config profiles is populated by inspecting the Nextflow configuration in the pipeline repository. A limited form of static analysis is used to detect profiles in the main configuration and included configurations that match any of the following patterns:
-
-- Includes with a static string:
-  ```groovy
-  includeConfig 'conf/profiles.config'
-  includeConfig 'http://...'
-  ```
-
-- Includes with dynamic string that depends on parameters defined in the config:
-  ```groovy
-  includeConfig params.custom_config
-  includeConfig "${params.custom_config_base}/nfcore_custom.config"
-  ```
-
-- Includes with a ternary expression:
-  ```groovy
-  includeConfig params.custom_config_base ? "${params.custom_config_base}/nfcore_custom.config" : "/dev/null"
-  ```
-
-  :::note
-  Only the "true" branch is inspected.
-  :::
-
-- Includes within a try-catch statement:
-  ```groovy
-  try {
-      includeConfig "${params.custom_config_base}/nfcore_custom.config"
-  } catch (Exception e) {
-      // ...
-  }
-  ```
+- **Schema**: The [pipeline schema][pipeline-schema] to validate pipeline parameters and prevent runtime failures. Options include **Repository default**, **Repository path**, and **Seqera Platform schema**.
 
 ### Run parameters
 
-There are four ways to enter **Run parameters** prior to launch:
+Enter **Run parameters** in one of four ways before launch:
 
 - The **Input form view** displays form fields to enter text, select attributes from dropdowns, and browse input and output locations with [Data Explorer][data-explorer].
 - The **Params file view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** dropdown.
-- **Upload params file** allows you to upload a JSON or YAML file with run parameters.
-- Specify run parameters with query parameters in the launch URL. See [Populate launch form with URL query parameters](#populate-launch-form-with-url-query-parameters) for more information.
+- Use **Upload params file** to upload a JSON or YAML file with run parameters.
+- Specify run parameters with query parameters in the launch URL. See [URL query parameters](#url-query-parameters) for more information.
 
-Seqera uses a `nextflow_schema.json` file in the root of the pipeline repository to dynamically create a form with the necessary pipeline parameters. Most pipelines contain at least input and output parameters:
+If the pipeline includes a `nextflow_schema.json` file in its repository root, Seqera Platform uses it to dynamically generate a form with that pipeline's parameters. The fields shown vary by pipeline, depending on the parameters defined in the schema.
 
-- **input**
-Specify compatible input [datasets][datasets]  manually or from the dropdown menu. Select **Browse** to view the available datasets or browse for files in [Data Explorer][data-explorer]. The Data Explorer tab allows you to select input datasets that match your [pipeline schema][pipeline-schema] `mimetype` criteria (`text/csv` for CSV files, or `text/tsv` for TSV files).
+Common parameters include:
 
-- **outdir**
-Specify the output directory where run results will be saved manually, or select **Browse** to choose a cloud storage directory using [Data Explorer][data-explorer].
-
-The remaining fields will vary for each pipeline, dependent on the parameters specified in the pipeline schema.
+- **Input data**: If the pipeline defines an input parameter, specify compatible [datasets][datasets] manually or from the dropdown menu. Select **Browse** to view the available datasets or browse for files in [Data Explorer][data-explorer]. Use the Data Explorer tab to select input datasets that match your [pipeline schema][pipeline-schema] `mimetype` criteria (`text/csv` for CSV files, or `text/tsv` for TSV files).
+- **Output directory**: If the pipeline defines an output directory parameter, specify it manually or select **Browse** to choose a cloud storage directory using [Data Explorer][data-explorer].
 
 ### Advanced settings
 
-Enter [resource labels][resource-labels], [pipeline secrets][pipeline-secrets], and [advanced options][advanced-options] before launch.
+Configure platform resources, pipeline secrets, and advanced Nextflow options before launch.
 
-#### Resource labels
+#### Platform config
 
-Use resource labels to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, admins can override them from the launch form. Applied resource label names must be unique.
+- **Resource labels**: [Resource labels][resource-labels] to tag the computing resources created during a run. The run inherits resource labels from the compute environment and pipeline, but admins can override them from the launch form. Applied resource label names must be unique.
 
 #### Pipeline secrets
 
-Secrets are used to store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
+- **Workspace's pipeline secrets**: [Secrets][pipeline-secrets] defined in the current workspace, available to all members.
+- **User's pipeline secrets**: [Secrets][pipeline-secrets] defined in your personal account.
 
 :::note
-In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition][custom-job-definition].
+In AWS Batch compute environments, Seqera Platform passes stored secrets to jobs as part of the job definition it creates. You cannot use Seqera secrets in Nextflow processes that use a [custom job definition][custom-job-definition].
 :::
 
 #### Advanced options
 
-See [Advanced options](../launch/advanced).
+- **Nextflow config file**: Additional Nextflow configuration settings.
+- **Seqera Cloud config file**: Additional Seqera Cloud configuration settings to override the `tower.yml` file.
+- **Pre-run scripts**: Custom shell commands to run before the execution.
+- **Post-run scripts**: Custom shell commands to run after the execution.
+- **Stub run**: Replace process commands with [stubs](https://docs.seqera.io/nextflow/process#stub), where defined, before execution.
+- **Enable Nextflow syntax parser v2**: Run the pipeline with the v2 Nextflow language parser.
+- **Workflow entry name**: A named DSL2 workflow other than the default.
+- **Schema name**: The name of a pipeline schema file in the workflow repository root folder to override the default `nextflow_schema.json`.
+- **Head job CPUs**: The number of CPUs for the Nextflow head job. Fields are only displayed for runs executing on [AWS Batch](../compute-envs/aws-batch) and [Azure Batch](../compute-envs/azure-batch) compute environments.
+- **Head job memory**: The memory for the Nextflow head job, in MiB. Fields are only displayed for runs executing on [AWS Batch](../compute-envs/aws-batch) and [Azure Batch](../compute-envs/azure-batch) compute environments.
 
-After you have filled the necessary launch details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to navigate to the [**View Workflow Run**][monitoring-overview] page and view the configuration, parameters, status of individual tasks, and run report.
+See [Advanced options][advanced-options] for detailed guidance.
 
-:::note
-For more information on relaunch and resume, see [Nextflow cache and resume][cache-resume].
+### Summary
+
+Review your [General config](#general-config) and [Run parameters](#run-parameters) settings, then select **Launch**.
+
+The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to open the [View Workflow Run][monitoring-overview] page and view the configuration, parameters, status of individual tasks, and run report.
+
+:::tip
+You can receive email notifications when a run completes or fails. Select **Manage your account** from the user menu, then toggle **Send notification email on workflow completion** at the bottom of the page.
 :::
 
-## Add new pipeline
+## Add new pipelines
 
 From the **Launchpad**, select **Add pipeline** to add a new pipeline with pre-saved parameters to your workspace. The fields on the new pipeline form are similar to the pipeline launch form.
 
@@ -145,68 +160,55 @@ See [Add pipelines][add-pipelines] for instructions to add pipelines to your wor
 :::note
 Pipeline names must be unique per workspace.
 :::
-:::tip
-To create your own customized Nextflow schema for your pipeline, see [Pipeline schema][pipeline-schema] and the `nf-core` workflows that have adopted this; [nf-core/eager](https://github.com/nf-core/eager/blob/master/nextflow_schema.json) and [nf-core/rnaseq](https://github.com/nf-core/rnaseq/blob/master/nextflow_schema.json) are good examples.
-:::
 
-## Email notifications
+## Edit pipelines
 
-You can receive email notifications upon completion or failure of a workflow execution.
+Workspace maintainers can edit existing pipeline details. Select the options menu next to the pipeline in the **Launchpad** list, then select **Edit** to open the pipeline parameters form, pre-filled with the pipeline's existing details. See [Add from the Launchpad][add-from-launchpad] for more information on the pipeline parameters form fields.
 
-Select **Your profile** from the user menu, then toggle **Send notification email on workflow completion** at the bottom of the page.
+Select **Update** to save the updated pipeline.
 
-## Edit pipeline
+## URL query parameters
 
-Workspace maintainers can edit existing pipeline details. Select the options menu next to the pipeline in the **Launchpad** list, then select **Edit** to load the pipeline parameters form with pre-filled existing pipeline details to be edited. See [Add from the Launchpad][add-from-launchpad] for more information on the pipeline parameters form fields.
+The launch form can populate fields with values passed as URL query parameters. For example, append `?revision=master` to your launch URL to prefill the **Revision** field with `master`. Platform administrators can use custom launch URLs to hard-code required run and pipeline parameters for every run.
 
-Select **Update** when you are ready to save the updated pipeline.
+Seqera Platform validates run parameters passed in the launch URL as follows:
+- Parameter names are **not** validated. You must provide valid and supported parameters to populate launch form fields without error. See supported parameter names in the following section.
+- Seqera Platform validates parameter values and shows warnings for any invalid values.
+- Disabled launch form fields, such as the `pipeline` field when launching a pre-saved pipeline, cannot be populated by URL.
 
-:::note
-Pipeline names must be unique per workspace.
-:::
-
-## Populate launch form with URL query parameters
-
-The launch form can populate fields with values passed as URL query parameters. For example, append `?revision=master` to your launch URL to prefill the **Revision** field with `master`. This feature is useful for Platform administrators to provide custom pipeline launch URLs to users in order to hard-code required run and pipeline parameters for every run.
-
-Platform validates run parameters passed via the launch URL in the following way:
-- Parameter names are **not** validated. You must provide valid and supported parameters for launch form fields to be populated without error. See supported parameter names in the following section.
-- Parameter values are validated and warnings are shown for any invalid supplied values.
-- Disabled launch form fields, such as the `pipeline` field when launching a presaved pipeline, cannot be populated by URL.
-
-Parameters that accept arrays (multiple values) as input must be specified with the parameter name for each individual value. For example:
+For parameters that accept arrays (multiple values), specify the parameter name for each value. For example:
 
 ```
 ?labelIds=<label_1_id>&labelIds=<label_2_id>
 ```
 
-Pipeline-specific run parameters can be passed with the `paramsText` query parameter. Pass both the name and value for any parameter defined in your [pipeline schema][pipeline-schema] in JSON format:
+Pass pipeline-specific run parameters with the `paramsText` query parameter. Include the name and value for any parameter defined in your [pipeline schema][pipeline-schema], in JSON format:
 
 ```
 ?paramsText={"key1": "value1", "key2": "value2"}
 ```
 
 :::note
-When submitted, JSON-formatted paramsText input will be formatted with percent-encoding for spaces, brackets and other non-standard URL characters. For example:
+When you submit JSON-formatted `paramsText` input, Seqera Platform percent-encodes spaces, brackets, and other non-standard URL characters. For example:
 
 ```
 ?paramsText={"key1": "value1", "key2": "value2"}
 ```
 
-will be formatted and added to relevant launch form fields with this syntax:
+is formatted and added to the relevant launch form fields with this syntax:
 
 ```
 %7B"key1":%20"value1",%20"key2":%20"value2"%7D
 ```
 
-Platform will ignore added percent-encoding characters in form fields, so you do not need to remove them manually before submitting your pipeline launch.
+Seqera Platform ignores the added percent-encoding characters in form fields. You do not need to remove them manually before submitting your pipeline launch.
 :::
 
-### Supported URL query parameters and corresponding launch form fields
+The following table lists the supported URL query parameters and their corresponding launch form fields:
 
 | **Launch form field**                          | **Query parameter name**    |
 |------------------------------------------------|-----------------------------|
-| **General config**                             |                             |
+| **Run setup**                                  |                             |
 | Pipeline to launch                             | `pipeline`                  |
 | Revision number                                | `revision`                  |
 | Config profiles                                | `configProfiles`            |

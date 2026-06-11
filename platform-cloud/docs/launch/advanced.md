@@ -6,7 +6,9 @@ last updated: "2026-06-11"
 tags: [advanced, launch]
 ---
 
-You can modify the configuration and execution of a pipeline with advanced launch options.
+Advanced options modify pipeline configuration and execution beyond the standard run setup. They appear in the **Advanced options** section of the launch form. See [Advanced settings](./launchpad#advanced-settings) for their location in the launch form.
+
+Each section below documents one advanced option. Most runs do not need them. Use an option when you have a specific configuration or execution requirement.
 
 ## Nextflow config file
 
