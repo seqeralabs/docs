@@ -116,8 +116,8 @@ Platform integration credentials require the following additional permissions:
             "Effect": "Allow",
             "Action": [
                 "s3:CreateBucket",
-                "s3:GetBucketNotificationConfiguration",
-                "s3:PutBucketNotificationConfiguration",
+                "s3:GetBucketNotification",
+                "s3:PutBucketNotification",
                 "s3:GetBucketLocation"
             ],
             "Resource": "arn:aws:s3:::seqera-lineage-*"
