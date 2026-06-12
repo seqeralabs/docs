@@ -4,7 +4,7 @@ This repository contains the documentation published to [docs.seqera.io](https:/
 
 Changes merged to [master](https://github.com/seqeralabs/docs) are deployed to production automatically via Netlify. Pull requests have their own deployment preview.
 
-The source of truth for all products' documentation lives in their respective product repositories, such as [wave](https://github.com/seqeralabs/wave). These repositories contain a `docs` folder which house the _latest_ version of that product's documentation.
+The source of truth for all products' documentation lives in their respective product repositories, such as [Wave](https://github.com/seqeralabs/wave). These repositories contain a `docs` folder which house the _latest_ version of that product's documentation.
 
 For more information, see:
 
@@ -83,7 +83,7 @@ You shouldn't experience any issues but if you do, share them in the #team-docum
    - Language review from a `docs-codeowners` member.
    - Technical review from the backend engineer or other SME closest to the feature.
 6. Check and review the changes using the Netlify preview.
-7. If you created the PR, the onus is on you to merge the PR once approved. This is the Edu team's policy, to ensure that PRs are never merged inadvertently. If you'd like one of us to merge it for you, please let us know.
+7. If you created the PR, the onus is on you to merge the PR once approved. This is the Edu team's policy, to ensure that PRs are never merged inadvertently. If you'd like one of us to merge it for you, let us know.
 
 Once merged to the master branch, the changes will be live immediately.
 
