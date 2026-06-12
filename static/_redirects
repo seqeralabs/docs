@@ -1,21 +1,144 @@
-# Add redirects for version non-existent 25.2 to current docs
-/platform-enterprise/25.2/*    /platform-enterprise/:splat    301
+# Redirect rules, grouped by product.
+# Netlify evaluates rules top to bottom, first match wins, and non-forced
+# redirects never fire for paths that exist as real pages. Netlify doesn't
+# chain redirects within a request, so within each product the specific page
+# rules MUST come before any wildcard or version-strip rules that would
+# otherwise shadow them.
+
+# ════════════════════════════════════════════════════════════════
+# Changelog
+# ════════════════════════════════════════════════════════════════
+
+# Tag shortcuts
+/changelog/seqera-cloud        /changelog/tags/seqera-cloud        301
+/changelog/seqera-enterprise   /changelog/tags/seqera-enterprise   301
+
+# ════════════════════════════════════════════════════════════════
+# Platform API
+# ════════════════════════════════════════════════════════════════
+
+# Old URL scheme
+/platform-api/info-pages/*     /platform-api/info/:splat    301
+/platform-api/info/seqera-api  /platform-api/seqera-api     301
+
+# Old API overview pages in the Cloud and Enterprise docsets
+# (Must come before the Enterprise version strips and the Cloud
+# version-removal rule below.)
+/platform-enterprise/:version/api/overview  /platform-api   301
+/platform-cloud/api/overview                /platform-api   301
+
+# ════════════════════════════════════════════════════════════════
+# Platform CLI
+# ════════════════════════════════════════════════════════════════
+
+# Redirect old CLI docs to new platform-cli docset
+# (Must come before the Cloud version-removal rule below to prevent /cli/
+# being treated as a version.)
+/platform-cloud/cli/*                        /platform-cli               301
+/platform-enterprise/cli/*                   /platform-cli               301
+/platform-enterprise/*/cli/*                 /platform-cli               301
+
+# ════════════════════════════════════════════════════════════════
+# Platform Enterprise
+# ════════════════════════════════════════════════════════════════
+
+# Versioned URLs for renamed pages (PostHog 404 data, 90d to 2026-06-11).
+# These explicit :version rules must come BEFORE the version strips below,
+# otherwise the strip fires first and lands on the pre-rename 404.
+/platform-enterprise/:version/enterprise/configuration/authentication  /platform-enterprise/enterprise/configuration/authentication/overview  301
+/platform-enterprise/:version/enterprise/kubernetes       /platform-enterprise/enterprise/platform-kubernetes      301
+/platform-enterprise/:version/enterprise/docker-compose   /platform-enterprise/enterprise/platform-docker-compose  301
+
+# Retired version strips (~120 hits/90d from bookmarks and Google's index).
+# 24.1/24.2 are still live versions, so for those these rules only catch 404s
+# within the version (Netlify redirects don't shadow existing pages).
+/platform-enterprise/22.4/*    /platform-enterprise/:splat    301
+/platform-enterprise/23.1/*    /platform-enterprise/:splat    301
+/platform-enterprise/23.2/*    /platform-enterprise/:splat    301
+/platform-enterprise/23.3/*    /platform-enterprise/:splat    301
+/platform-enterprise/23.4/*    /platform-enterprise/:splat    301
+/platform-enterprise/24.1/*    /platform-enterprise/:splat    301
+/platform-enterprise/24.2/*    /platform-enterprise/:splat    301
+/platform-enterprise/24.3/*    /platform-enterprise/:splat    301
+
+# Two URLs concatenated in the email HTML
+/platform-enterprise/data/data-lineageplatform-enterprise/launch/advanced   /platform-enterprise/data/data-lineage   301
+
+# Renamed and moved pages
+/platform-enterprise/enterprise/configuration/authentication   /platform-enterprise/enterprise/configuration/authentication/overview   301
+/platform-enterprise/enterprise/install-co-scientist   /platform-enterprise/co-scientist/installation   301
+/platform-enterprise/enterprise/install-seqera-ai      /platform-enterprise/enterprise/install-seqera-coscientist   301
 
 # These redirects reverse the existing 301's
 # See https://moz.com/blog/can-you-reverse-a-301-redirect
-/platform-cloud/platform-cloud /platform-cloud 301
 /platform-enterprise/:version/platform-enterprise /platform-enterprise/:version 301
 /platform-enterprise/platform-enterprise /platform-enterprise 301
+
+# Drop the latest functionality: redirect users to the "current version",
+# which is the base URL
+/platform-enterprise/latest/platform-enterprise /platform-enterprise 301
 /platform-enterprise/latest/* /platform-enterprise/:splat 301
 /platform-enterprise/latest /platform-enterprise 301
 
-# Drop the latest functionality redirect users to the "current version" which is the base URL
-/platform-cloud/latest/platform-cloud /platform-cloud 301
-/platform-enterprise/latest/platform-enterprise /platform-enterprise 301
+# Co-Scientist docs: seqera-ai path renamed to co-scientist
+/platform-enterprise/seqera-ai/get-started       /platform-enterprise/co-scientist/quickstart        301
+/platform-enterprise/26.1/seqera-ai/get-started  /platform-enterprise/26.1/co-scientist/quickstart   301
 
-# Add redirects to account for Wave docs refresh
-/wave/cli/install   /wave/cli               301
-/wave/guide         /wave/nextflow          301
+# Catch-all: rename seqera-ai path to co-scientist (Enterprise, all versions)
+/platform-enterprise/seqera-ai/*                /platform-enterprise/co-scientist/:splat            301
+/platform-enterprise/:version/seqera-ai/*       /platform-enterprise/:version/co-scientist/:splat   301
+
+# ════════════════════════════════════════════════════════════════
+# Platform Cloud
+# ════════════════════════════════════════════════════════════════
+
+# Supported software index pages (PostHog, 50 hits/90d)
+/platform-cloud/supported_software/agent    /platform-cloud/supported_software/agent/overview    301
+/platform-cloud/supported_software/fusion   /platform-cloud/supported_software/fusion/overview   301
+
+# HPC schedulers consolidated into the hpc page
+/platform-cloud/compute-envs/altair-pbs-pro   /platform-cloud/compute-envs/hpc   301
+/platform-cloud/compute-envs/moab             /platform-cloud/compute-envs/hpc   301
+/platform-cloud/compute-envs/lsf              /platform-cloud/compute-envs/hpc   301
+
+# Redirect Google Life Sciences page
+/platform-cloud/compute-envs/google-cloud-lifesciences   /platform-cloud/compute-envs/overview   301
+
+# Orgs & teams / admin
+/platform-cloud/orgs-and-teams/overview      /platform-cloud/orgs-and-teams/organizations   301
+/platform-cloud/administration/overview      /platform-cloud/orgs-and-teams/organizations   301
+
+# Renamed and moved pages
+/platform-cloud/monitoring/tasks   /platform-cloud/monitoring/run-details   301
+/platform-cloud/launch/relaunch    /platform-cloud/launch/cache-resume      301
+
+# These redirects reverse the existing 301's
+/platform-cloud/platform-cloud /platform-cloud 301
+
+# Drop the latest functionality: redirect users to the "current version",
+# which is the base URL
+/platform-cloud/latest/platform-cloud /platform-cloud 301
+
+# Data Studios renamed to Studios
+/platform-cloud/data_studios/*   /platform-cloud/studios/:splat 301
+
+# Redirect mcp to overview page not platform-cloud
+/platform-cloud/seqera-mcp                   /platform-cloud/seqera-mcp/overview               301
+
+# Co-Scientist docs: seqera-ai path renamed to co-scientist
+# (Must precede the version-removal rule below, otherwise :version greedily
+# matches "seqera-ai" and the rename never fires.)
+/platform-cloud/seqera-ai/get-started   /platform-cloud/co-scientist/quickstart   301
+/platform-cloud/seqera-ai/*             /platform-cloud/co-scientist/:splat        301
+
+# Remove version from /platform-cloud paths (keep LAST in this section)
+/platform-cloud/:version/*    /platform-cloud/:splat
+
+# ════════════════════════════════════════════════════════════════
+# Legacy /platform URLs (pre Cloud/Enterprise split)
+# ════════════════════════════════════════════════════════════════
+# Specific rules first; the generic catch-alls must stay at the end of this
+# section.
 
 # Add redirects to account for version renaming
 /platform/24.1.1/enterprise/*  /platform-enterprise/24.1/enterprise/:splat   301
@@ -31,54 +154,33 @@
 
 # Data Studios redirect
 /platform/:version/data_studios/*    /platform-cloud/studios/:splat  301
-/platform-cloud/data_studios/*   /platform-cloud/studios/:splat 301
 
 # Redirect to fix temporarily broken URL in UI
 /platform/:version/data/data_studios   /platform-cloud/studios/  301
 
-# Redirect old CLI docs to new platform-cli docset
-# (Must come before general version-removal rule to prevent /cli/ being treated as a version)
-/platform-cloud/cli/*                        /platform-cli               301
-/platform-enterprise/cli/*                   /platform-cli               301
-/platform-enterprise/*/cli/*                 /platform-cli               301
-
-# Redirect mcp to overview page not platform-cloud
-/platform-cloud/seqera-mcp                   /platform-cloud/seqera-mcp/overview               301
-
-# Co-Scientist (Cloud): must precede the /platform-cloud/:version/* rule below,
-# otherwise :version greedily matches "seqera-ai" and the rename never fires.
-/platform-cloud/seqera-ai/get-started   /platform-cloud/co-scientist/quickstart   301
-/platform-cloud/seqera-ai/*             /platform-cloud/co-scientist/:splat        301
-
-# Remove version from /platform-cloud paths
-/platform-cloud/:version/*    /platform-cloud/:splat
-
 # Redirect old docs URLs to new (Enterprise or Cloud) docs URLs
 /platform/:version/enterprise/*   /platform-enterprise/:version/enterprise/:splat   301
-/platform/:version/*    /platform-cloud/:splat
-/platform/*   /platform-cloud/:splat
+/platform/:version/*              /platform-cloud/:splat
+/platform/*                       /platform-cloud/:splat
 
-# Redirect from orphan Fusion page
-/fusion/guide  /fusion 301
+# ════════════════════════════════════════════════════════════════
+# Wave
+# ════════════════════════════════════════════════════════════════
 
-# Redirect Google Life Sciences page
-/platform-cloud/compute-envs/google-cloud-lifesciences   /platform-cloud/compute-envs/overview   301
-
-# Redirect platform-api to intro page
-/platform-enterprise/:version/api/overview  /platform-api   301
-/platform-cloud/api/overview                /platform-api   301
-
-# Wave redirects
-/wave/get-started/*                         /wave/tutorials/:splat          301
-
-#Wave page renaming and moving
+# Wave docs refresh
+/wave/cli/install   /wave/cli               301
+/wave/guide         /wave/nextflow          301
+/wave/get-started/*                        /wave/tutorials/:splat           301
 /wave/install/configure-wave               /wave/configure-wave             301
 
-# Co-Scientist docs: seqera-ai path renamed to co-scientist
-# (Cloud rules live above the /platform-cloud/:version/* stripper.)
-/platform-enterprise/seqera-ai/get-started       /platform-enterprise/co-scientist/quickstart        301
-/platform-enterprise/26.1/seqera-ai/get-started  /platform-enterprise/26.1/co-scientist/quickstart   301
+# Wave docs restructure (seqeralabs/wave#1040): guides moved out of nextflow/,
+# wave-lite.md removed (Lite is now covered by the install pages)
+/wave/nextflow/bundle-scripts              /wave/guides/bundle-scripts      301
+/wave/nextflow/reduce-api-calls            /wave/guides/reduce-api-calls    301
+/wave/wave-lite                            /wave/install/docker-compose     301
 
-# Catch-all: rename seqera-ai path to co-scientist (Enterprise, all versions)
-/platform-enterprise/seqera-ai/*                /platform-enterprise/co-scientist/:splat            301
-/platform-enterprise/:version/seqera-ai/*       /platform-enterprise/:version/co-scientist/:splat   301
+# ════════════════════════════════════════════════════════════════
+# MultiQC
+# ════════════════════════════════════════════════════════════════
+
+/multiqc/development/modules/custom-content   /multiqc/custom_content   301
