@@ -25,7 +25,7 @@ Intelligent Compute is supported on **AWS Cloud compute environments only**.
 
 Intelligent Compute is a scheduling service that runs Nextflow pipelines on a Seqera-managed Amazon ECS cluster. It allocates compute resources based on what each task actually needs rather than what the pipeline requests, reducing cost and improving utilization across a run.
 
-Unlike the standard AWS Cloud compute environment, which runs a pipeline on a single EC2 instance with a local executor, Intelligent Compute provisions and manages a multi-node ECS cluster. This allows pipelines to scale beyond a single instance while preserving fast startup times.
+Unlike the standard AWS Cloud compute environment, which runs a pipeline on a single EC2 instance with a local executor, Intelligent Compute provisions and manages multi-node clusters. This allows pipelines to scale beyond a single instance while preserving fast startup times.
 
 When Intelligent Compute is enabled on an AWS Cloud compute environment, Seqera provisions and manages the following resources in your AWS account on first use:
 
