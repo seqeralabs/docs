@@ -61,6 +61,14 @@
 /platform-enterprise/24.2/*    /platform-enterprise/:splat    301
 /platform-enterprise/24.3/*    /platform-enterprise/:splat    301
 
+# Two URLs concatenated in the email HTML
+/platform-enterprise/data/data-lineageplatform-enterprise/launch/advanced   /platform-enterprise/data/data-lineage   301
+
+# Renamed and moved pages
+/platform-enterprise/enterprise/configuration/authentication   /platform-enterprise/enterprise/configuration/authentication/overview   301
+/platform-enterprise/enterprise/install-co-scientist   /platform-enterprise/co-scientist/installation   301
+/platform-enterprise/enterprise/install-seqera-ai      /platform-enterprise/enterprise/install-seqera-coscientist   301
+
 # These redirects reverse the existing 301's
 # See https://moz.com/blog/can-you-reverse-a-301-redirect
 /platform-enterprise/:version/platform-enterprise /platform-enterprise/:version 301
@@ -71,14 +79,6 @@
 /platform-enterprise/latest/platform-enterprise /platform-enterprise 301
 /platform-enterprise/latest/* /platform-enterprise/:splat 301
 /platform-enterprise/latest /platform-enterprise 301
-
-# Renamed and moved pages
-/platform-enterprise/enterprise/configuration/authentication   /platform-enterprise/enterprise/configuration/authentication/overview   301
-/platform-enterprise/enterprise/install-co-scientist   /platform-enterprise/co-scientist/installation   301
-/platform-enterprise/enterprise/install-seqera-ai      /platform-enterprise/enterprise/install-seqera-coscientist   301
-
-# Two URLs concatenated in the email HTML
-/platform-enterprise/data/data-lineageplatform-enterprise/launch/advanced   /platform-enterprise/data/data-lineage   301
 
 # Co-Scientist docs: seqera-ai path renamed to co-scientist
 /platform-enterprise/seqera-ai/get-started       /platform-enterprise/co-scientist/quickstart        301
@@ -91,13 +91,6 @@
 # ════════════════════════════════════════════════════════════════
 # Platform Cloud
 # ════════════════════════════════════════════════════════════════
-# Every specific rule in this section must come before the version-removal
-# rule at the end — /platform-cloud/:version/* treats any second segment as a
-# version, so a later specific rule would never fire.
-
-# These redirects reverse the existing 301's
-/platform-cloud/platform-cloud /platform-cloud 301
-/platform-cloud/latest/platform-cloud /platform-cloud 301
 
 # Supported software index pages (PostHog, 50 hits/90d)
 /platform-cloud/supported_software/agent    /platform-cloud/supported_software/agent/overview    301
@@ -119,6 +112,13 @@
 /platform-cloud/monitoring/tasks   /platform-cloud/monitoring/run-details   301
 /platform-cloud/launch/relaunch    /platform-cloud/launch/cache-resume      301
 
+# These redirects reverse the existing 301's
+/platform-cloud/platform-cloud /platform-cloud 301
+
+# Drop the latest functionality: redirect users to the "current version",
+# which is the base URL
+/platform-cloud/latest/platform-cloud /platform-cloud 301
+
 # Data Studios renamed to Studios
 /platform-cloud/data_studios/*   /platform-cloud/studios/:splat 301
 
@@ -126,6 +126,8 @@
 /platform-cloud/seqera-mcp                   /platform-cloud/seqera-mcp/overview               301
 
 # Co-Scientist docs: seqera-ai path renamed to co-scientist
+# (Must precede the version-removal rule below, otherwise :version greedily
+# matches "seqera-ai" and the rename never fires.)
 /platform-cloud/seqera-ai/get-started   /platform-cloud/co-scientist/quickstart   301
 /platform-cloud/seqera-ai/*             /platform-cloud/co-scientist/:splat        301
 
