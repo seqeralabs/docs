@@ -2,7 +2,7 @@
 title: "Reports"
 description: "Overview of pipeline reports in Seqera Platform."
 date created: "2023-04-24"
-last updated: "2026-06-11"
+last updated: "2026-06-12"
 tags: [pipelines, schema, reports, metrics, logs]
 ---
 

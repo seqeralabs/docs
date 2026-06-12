@@ -2,7 +2,7 @@
 title: "Monitoring cloud costs"
 description: Guidelines for monitoring Seqera Platform cloud expenditure
 date created: "2023-04-12"
-last updated: "2026-06-11"
+last updated: "2026-06-12"
 tags: [aws, gcp, azure, cloud costs, cost, billing, alerts]
 ---
 

@@ -2,7 +2,7 @@
 title: "Use cases"
 description: "Common tasks you can do with Co-Scientist, with example prompts"
 date created: "2026-03-11"
-last updated: "2026-06-11"
+last updated: "2026-06-12"
 tags: [co-scientist, cli, ai, use cases]
 ---
 

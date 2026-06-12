@@ -2,7 +2,7 @@
 title: "Coding agents"
 description: "Install Co-Scientist as a skill so your coding agent can drive Seqera Platform"
 date created: "2026-05-27"
-last updated: "2026-06-11"
+last updated: "2026-06-12"
 tags: [co-scientist, cli, skills, coding agents]
 ---
 

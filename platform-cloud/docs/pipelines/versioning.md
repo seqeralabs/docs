@@ -2,7 +2,7 @@
 title: "Pipeline versioning"
 description: "Introduction to pipeline versioning in Seqera Platform."
 date created: "2025-11-14"
-last updated: "2026-06-11"
+last updated: "2026-06-12"
 tags: [pipelines, versioning, nextflow, parameters]
 ---
 

@@ -2,7 +2,7 @@
 title: "Monitor runs"
 description: "Monitor pipeline runs from the Runs page, All runs page, and Dashboard in Seqera Platform"
 date created: "2024-07-08"
-last updated: "2026-06-11"
+last updated: "2026-06-12"
 tags: [platform, runs, monitoring]
 ---
 

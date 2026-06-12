@@ -2,7 +2,7 @@
 title: "Overview"
 description: "Introduction to pipelines in Seqera Platform."
 date created: "2025-10-16"
-last updated: "2026-06-11"
+last updated: "2026-06-12"
 tags: [pipelines, versioning, nextflow, parameters]
 ---
 

@@ -2,7 +2,7 @@
 title: "Teams"
 description: "Create and manage teams in a Seqera Platform Enterprise organization, including IdP-delegated teams."
 date created: "2026-05-12"
-last updated: "2026-06-11"
+last updated: "2026-06-12"
 tags: [teams, organizations, administration, sso, idp delegation, enterprise]
 ---
 

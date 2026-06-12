@@ -2,7 +2,7 @@
 title: "Studios: Helm"
 description: Deploy Studios Enterprise on Kubernetes with Helm
 date created: "2026-01-30"
-last updated: "2026-06-11"
+last updated: "2026-06-12"
 tags: [helm, deployment, installation, kubernetes, studios]
 ---
 

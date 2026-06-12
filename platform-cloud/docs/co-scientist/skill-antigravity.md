@@ -2,7 +2,7 @@
 title: "Antigravity/Gemini"
 description: "Install and maintain the Co-Scientist skill for Google's Antigravity/Gemini IDE"
 date created: "2026-04-29"
-last updated: "2026-06-11"
+last updated: "2026-06-12"
 tags: [co-scientist, cli, skills, antigravity, gemini]
 ---
 

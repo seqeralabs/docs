@@ -2,7 +2,7 @@
 title: Azure Batch walkthrough
 headline: "Azure Batch walkthrough"
 date created: "2024-04-21"
-last updated: "2026-06-11"
+last updated: "2026-06-12"
 description: "A tutorial for using advanced features of Azure Batch with Seqera Platform"
 ---
 
