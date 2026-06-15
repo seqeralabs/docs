@@ -4,35 +4,37 @@ This guide indexes the Claude-powered skills, agents, and workflows for the Seqe
 
 ## Skills
 
-The repository ships eight skills under [.claude/skills/](.claude/skills/). Invoke any of them from Claude Code (`/<skill-name>`) or via `Skill` tool calls.
+The repository ships ten skills under [.claude/skills/](.claude/skills/). Invoke any of them from Claude Code (`/<skill-name>`) or via `Skill` tool calls.
 
 ### Editorial and review
 
 | Skill | When to use |
 |---|---|
 | [`/editorial-review`](.claude/skills/editorial-review/SKILL.md) | Style-check documentation files using specialized agents (voice-tone, terminology, punctuation, clarity). Run locally in Claude Code or on a PR by commenting `/editorial-review` |
+| [`/docs-deslop`](.claude/skills/docs-deslop/SKILL.md) | Rewrite technical docs to strip AI slop and conform to the CTRT topic-type model (Concept, Task, Reference, Troubleshooting) plus Tutorial |
+| [`/docs-structure`](.claude/skills/docs-structure/SKILL.md) | Apply Seqera docs house structural conventions — page introductions, prerequisites, troubleshooting placement, admonitions |
 
 ### Content authoring
 
 | Skill | When to use |
 |---|---|
-| [`/feature-docs`](.claude/skills/feature-docs/SKILL.md) | Turn Jira epics, PRDs, design docs, or PRs into documentation updates with a draft PR |
+| [`/docs-feature`](.claude/skills/docs-feature/SKILL.md) | Turn Jira epics, PRDs, design docs, or PRs into documentation updates with a draft PR |
 | [`/docs-state-assessment`](.claude/skills/docs-state-assessment/SKILL.md) | Cross-reference shipped code, Jira backlog, and published docs to produce a gap-analysis report |
-| [`/release-impact`](.claude/skills/release-impact/SKILL.md) | Triage the doc impact of a single release — env vars, screenshots, broken cross-links |
+| [`/docs-release-impact`](.claude/skills/docs-release-impact/SKILL.md) | Triage the doc impact of a single release — env vars, screenshots, broken cross-links |
 
 ### Changelogs and version pins
 
 | Skill | When to use |
 |---|---|
-| [`/platform-changelog-formatter`](.claude/skills/platform-changelog-formatter/SKILL.md) | Style-check Cloud and Enterprise Platform changelogs in `changelog/seqera-cloud/` and `changelog/seqera-enterprise/` |
-| [`/os-changelog-formatter`](.claude/skills/os-changelog-formatter/SKILL.md) | Style-check Nextflow and Wave open-source changelogs |
-| [`/version-bumps`](.claude/skills/version-bumps/SKILL.md) | Bump enterprise point releases (Docker image tags, K8s manifests, compatibility table) and the Connect-client version across all docs surfaces |
+| [`/changelog-platform-formatter`](.claude/skills/changelog-platform-formatter/SKILL.md) | Style-check Cloud and Enterprise Platform changelogs in `changelog/seqera-cloud/` and `changelog/seqera-enterprise/` |
+| [`/changelog-os-formatter`](.claude/skills/changelog-os-formatter/SKILL.md) | Style-check Nextflow and Wave open-source changelogs |
+| [`/platform-version-bumps`](.claude/skills/platform-version-bumps/SKILL.md) | Bump enterprise point releases (Docker image tags, K8s manifests, compatibility table) and the Connect-client version across all docs surfaces |
 
 ### API documentation
 
 | Skill | When to use |
 |---|---|
-| [`/openapi-overlay-generator`](.claude/skills/openapi-overlay-generator/SKILL.md) | Generate OpenAPI overlay files for Platform API documentation updates |
+| [`/api-overlay-generator`](.claude/skills/api-overlay-generator/SKILL.md) | Generate OpenAPI overlay files for Platform API documentation updates |
 
 ## Editorial agents
 
@@ -90,7 +92,7 @@ grep -rl "{old-version}" platform-enterprise_versioned_docs/version-<MAJOR.MINOR
 
 > **Note:** When the minor version rolls (e.g., a 25.4 release), the target directory changes to `platform-enterprise_versioned_docs/version-25.4/`. Verify the correct versioned directory before applying changes.
 
-For the full playbook — including the Connect-client surface and verification commands — see [`.claude/skills/version-bumps/SKILL.md`](.claude/skills/version-bumps/SKILL.md).
+For the full playbook — including the Connect-client surface and verification commands — see [`.claude/skills/platform-version-bumps/SKILL.md`](.claude/skills/platform-version-bumps/SKILL.md).
 
 ## Related
 
