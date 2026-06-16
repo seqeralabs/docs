@@ -235,6 +235,7 @@ export default async function createConfigAsync() {
     // },
 
     markdown: {
+      mermaid: true,
       // The vendored MultiQC `config_schema.md` is auto-generated from a Python
       // schema and contains literal `{...}` examples and `<details>` blocks
       // around fenced code that the MDX parser rejects. Force CommonMark for
@@ -247,6 +248,8 @@ export default async function createConfigAsync() {
         return result;
       },
     },
+
+    themes: ['@docusaurus/theme-mermaid'],
 
     customFields: {
       // Put your custom environment here
