@@ -1,0 +1,22 @@
+# Context-dependent product names — flagged as warnings, not errors.
+# These corrections are usually right but have legitimate exceptions
+# (legacy "Tower" references, lowercase words that aren't product names),
+# so they should not block or dominate a review.
+extends: substitution
+message: "Consider '%s' instead of '%s' (verify the context)"
+level: warning
+ignorecase: false
+swap:
+  # Legacy product name — still valid in historical/versioned contexts
+  Tower: Seqera Platform
+  "Nextflow Tower": Seqera Platform
+
+  # "the platform" is often correct generic prose, not the product name
+  "the platform": Seqera Platform
+  "the Platform": Seqera Platform
+
+  # Lowercase product names — usually a capitalization slip, but not always
+  wave: Wave
+  fusion: Fusion
+  studio: Studio
+  studios: Studios

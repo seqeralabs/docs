@@ -204,13 +204,34 @@ jobs:
         with:
           ref: ${{ github.event_name == 'issue_comment' && steps.pr-ref.outputs.head_ref || '' }}
 
+      - name: Collect changed docs files
+        id: vale-files
+        run: |
+          # Only lint the docs files changed in this PR (from the paths-filter
+          # in the `changes` job, emitted as a JSON array). This keeps Vale
+          # scoped to changed files; filter_mode below scopes comments to
+          # changed lines.
+          FILES=$(echo '${{ needs.changes.outputs.docs_files }}' | jq -r '.[]')
+          if [ -z "$FILES" ]; then
+            echo "has_files=false" >> "$GITHUB_OUTPUT"
+            echo "No changed docs files — skipping Vale."
+            exit 0
+          fi
+          echo "has_files=true" >> "$GITHUB_OUTPUT"
+          {
+            echo "files<<VALE_EOF"
+            echo "$FILES"
+            echo "VALE_EOF"
+          } >> "$GITHUB_OUTPUT"
+          echo "Vale will check these files:"
+          echo "$FILES" | sed 's/^/  /'
+
       - name: Vale Terminology Check
+        if: steps.vale-files.outputs.has_files == 'true'
         uses: errata-ai/vale-action@85f9f7f2c5f449ac0ae5b66662961bae3f77ca6a # v2.1.2
         with:
-          files: |
-            platform-enterprise_docs
-            platform-cloud/docs
-            platform-enterprise_versioned_docs
+          files: ${{ steps.vale-files.outputs.files }}
+          filter_mode: added # Only comment on lines changed in this PR
           reporter: github-pr-review
           fail_on_error: false # Post suggestions without blocking
         env:
