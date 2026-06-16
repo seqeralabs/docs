@@ -12,20 +12,16 @@ import CodeBlock from '@theme/CodeBlock';
 import AwsCloudIntelligentComputePolicy from './_policies/aws-cloud-intelligent-compute-policy.json?raw';
 
 :::info[Preview]
-Seqera Intelligent Compute is in preview and must be enabled for your organization by Seqera before you can use it. Contact your account manager to request access.
+Seqera Intelligent Compute is in preview. Seqera must enable it for your organization before you can use it. Contact your account manager to request access.
 :::
 
 :::caution
 Intelligent Compute may assign different CPU and memory values to tasks than those specified in your pipeline's `process` directives. The scheduler selects the most cost-effective instance that meets each task's resource request rather than provisioning exactly what the directive specifies.
 :::
 
-Intelligent Compute is supported on **AWS Cloud compute environments only**.
+Intelligent Compute is a scheduling service that runs Nextflow pipelines on a Seqera-managed Amazon ECS cluster. It allocates compute resources based on what each task needs rather than what the pipeline requests, which reduces cost and improves utilization across a run. Intelligent Compute is supported on AWS Cloud compute environments only.
 
-## What is Intelligent Compute
-
-Intelligent Compute is a scheduling service that runs Nextflow pipelines on a Seqera-managed Amazon ECS cluster. It allocates compute resources based on what each task actually needs rather than what the pipeline requests, reducing cost and improving utilization across a run.
-
-Unlike the standard AWS Cloud compute environment, which runs a pipeline on a single EC2 instance with a local executor, Intelligent Compute provisions and manages multi-node clusters. This allows pipelines to scale beyond a single instance while preserving fast startup times.
+Unlike the standard AWS Cloud compute environment, which runs a pipeline on a single EC2 instance with a local executor, Intelligent Compute provisions and manages multi-node clusters. Pipelines can scale beyond a single instance while keeping startup times short.
 
 When Intelligent Compute is enabled on an AWS Cloud compute environment, Seqera provisions and manages the following resources in your AWS account on first use:
 
@@ -41,11 +37,14 @@ All managed resources use the `seqera-sched-` prefix. Seqera creates them on fir
 
 In addition to the [standard AWS Cloud IAM permissions](./aws-cloud#required-platform-iam-permissions), Intelligent Compute requires an additional policy attached to the same IAM user or role that Seqera uses to access your AWS account.
 
-<CodeBlock language="json">{AwsCloudIntelligentComputePolicy}</CodeBlock>
+<details>
+  <summary>IAM policy JSON</summary>
+  <CodeBlock language="json">{AwsCloudIntelligentComputePolicy}</CodeBlock>
+</details>
 
 [Download aws-cloud-intelligent-compute-policy.json](./_policies/aws-cloud-intelligent-compute-policy.json)
 
-### What each permission group does
+### Permission groups
 
 | Group | Purpose |
 |-------|---------|
@@ -62,7 +61,7 @@ In addition to the [standard AWS Cloud IAM permissions](./aws-cloud#required-pla
 | `ASGManagement` | Create, update, and delete Auto Scaling Groups scoped to `seqera-sched-*`. Required only for Auto Scaling Group-backed clusters. |
 | `ASGDescribe` | Describe Auto Scaling Groups. Required only for Auto Scaling Group-backed clusters. |
 | `SSMECSOptimizedAmi` | Read the ECS-optimized AMI ID from SSM Parameter Store. Used to look up the latest Amazon Linux 2023 ECS-optimized AMI. |
-| `CostExplorer` | Query `ce:GetCostAndUsage`. Used to display cost predictions at pipeline launch. If this permission is absent, cost predictions do not appear. No error is surfaced to users. |
+| `CostExplorer` | Query `ce:GetCostAndUsage`. Used to display cost predictions at pipeline launch. If this permission is absent, cost predictions do not appear and Seqera shows no error. |
 
 **Conditional statements:**
 - `ASGEC2Operations`, `ASGManagement`, and `ASGDescribe` are required only if Auto Scaling Group-backed clusters are enabled. You can omit them for Managed Instances deployments.
@@ -79,33 +78,40 @@ In addition to the [standard AWS Cloud IAM permissions](./aws-cloud#required-pla
 
 ## Set up an AWS Cloud compute environment with Intelligent Compute
 
-Confirm with your account manager that Intelligent Compute is enabled for your organization before proceeding.
+:::info[**Prerequisites**]
+
+You need the following:
+
+- Intelligent Compute enabled for your organization by Seqera. Contact your account manager to request access.
+- AWS credentials with both the standard AWS Cloud permissions and the Intelligent Compute permissions attached.
+
+:::
 
 1. In your Seqera workspace, select **Compute Environments**, then **Add compute environment**.
 1. Enter a name and select **AWS Cloud** as the platform.
-1. Select your AWS credentials. The credential must have both the standard AWS Cloud permissions and the Intelligent Compute permissions attached.
-1. Select the **Region** where the ECS cluster will be provisioned.
+1. Select your AWS credentials.
+1. Select the **Region** where Seqera provisions the ECS cluster.
 1. Enter a **Work directory** (S3 URI, for example `s3://my-bucket/work`).
 1. Under **Intelligent Compute**, enable the **Seqera Intelligent Compute** toggle.
-1. Configure the [Intelligent Compute options](#configuration-options) below as needed.
+1. Configure the [Intelligent Compute options](#configuration-options) as needed.
 1. Select **Add**.
 
-Seqera validates credentials and configuration on save. On first use, it provisions the required IAM roles and ECS cluster in your account. Provisioning is automatic and does not require additional steps.
+Seqera validates credentials and configuration on save. On first use, it provisions the required IAM roles and ECS cluster in your account. This provisioning is automatic and requires no further steps.
 
 ## Resource metrics
 
-The **Metrics** tab for a workflow run on Intelligent Compute shows three resource values for CPU and memory: **Requested**, **Allocated**, and **Used**.
+The **Metrics** tab for a run on Intelligent Compute shows three resource values for CPU and memory: **Requested**, **Allocated**, and **Used**.
 
 | Metric | Source | What it represents |
 |--------|--------|-------------------|
 | **Requested** | Pipeline `process` directives | The CPU and memory your pipeline asked for, as written in your `process` directives (for example, `cpus = 4`, `memory = 8 GB`). |
-| **Allocated** | Scheduler decision | The CPU and memory the scheduler actually assigned to the task container. Intelligent Compute may assign values different from what was requested — it selects the most cost-effective instance shape that satisfies the task's requirements. |
+| **Allocated** | Scheduler decision | The CPU and memory the scheduler assigned to the task container. Intelligent Compute may assign values different from what was requested. It selects the most cost-effective instance shape that satisfies the task's requirements. |
 | **Used** | Nextflow trace data | The CPU and memory the task actually consumed, measured from Nextflow's trace metrics (`pcpu` × `realtime` for CPU, `peakRss` for memory). Requires Fusion to be enabled. Absent for tasks that did not produce trace data. |
 
 **How to read the numbers:**
 
 - If **Requested** is much higher than **Allocated**, the scheduler found a more efficient instance shape than your directives implied.
-- If **Allocated** is much higher than **Used**, the task ran with significant idle headroom. You may be able to reduce your process resource directives on future runs to lower cost.
+- If **Allocated** is much higher than **Used**, the task ran with idle headroom.
 - If **Used** is close to **Allocated**, resource utilization is near-optimal for that task.
 
 ## Configuration options
@@ -118,25 +124,27 @@ The **Metrics** tab for a workflow run on Intelligent Compute shows three resour
 
 ## Task and run statuses
 
+Intelligent Compute reports a status for each task and for the run as a whole. Use these statuses to track progress and diagnose failures.
+
 ### Task statuses
 
 | Status | Description |
 |--------|-------------|
-| `SUBMITTED` | Task is queued or submitted to the compute backend. |
-| `RUNNING` | Task is actively executing on a compute instance. |
-| `SUCCEEDED` | Task completed with exit code 0. |
-| `FAILED` | Task failed. This covers non-retriable execution failures (non-zero exit code, container startup errors) and spot quota exhaustion after retries are exhausted. |
-| `CANCELLED` | Task was cancelled by the user. |
-| `PREEMPTED` | The Spot instance running this task was reclaimed by AWS. The scheduler retries the task automatically. If the retry limit is reached, the task transitions to `FAILED`. |
-| `UNSCHEDULABLE` | No instance type could satisfy the task's placement constraints. This occurs when the requested resources exceed what any available instance type can provide, or when specified instance types are unavailable in the region. Check your **Instance types** configuration and the `cpus` and `memory` directives in the failing process. |
-| `UNKNOWN` | Task status could not be determined, typically due to a transient backend failure. |
+| <code style={{whiteSpace: 'nowrap'}}>SUBMITTED</code> | Task is queued or submitted to the compute backend. |
+| <code style={{whiteSpace: 'nowrap'}}>RUNNING</code> | Task is actively executing on a compute instance. |
+| <code style={{whiteSpace: 'nowrap'}}>SUCCEEDED</code> | Task completed with exit code 0. |
+| <code style={{whiteSpace: 'nowrap'}}>FAILED</code> | Task failed. This covers non-retriable execution failures (non-zero exit code, container startup errors) and spot quota exhaustion after retries are exhausted. |
+| <code style={{whiteSpace: 'nowrap'}}>CANCELLED</code> | Task was cancelled by the user. |
+| <code style={{whiteSpace: 'nowrap'}}>PREEMPTED</code> | The Spot instance running this task was reclaimed by AWS. The scheduler retries the task automatically. If the retry limit is reached, the task transitions to `FAILED`. |
+| <code style={{whiteSpace: 'nowrap'}}>UNSCHEDULABLE</code> | No instance type could satisfy the task's placement constraints. This occurs when the requested resources exceed what any available instance type can provide, or when specified instance types are unavailable in the region. Check your **Instance types** configuration and the `cpus` and `memory` directives in the failing process. |
+| <code style={{whiteSpace: 'nowrap'}}>UNKNOWN</code> | Task status could not be determined, typically due to a transient backend failure. |
 
 ### Run statuses
 
 | Status | Description |
 |--------|-------------|
-| `ACTIVE` | The run is in progress. |
-| `TERMINATING` | The run is shutting down — final tasks are completing or being cancelled. |
-| `TERMINATED` | The run ended normally. |
-| `FAILED` | The run failed. |
-| `DANGLING` | The Nextflow process stopped sending heartbeats. This typically means the launcher process crashed or lost connectivity. Tasks already dispatched to ECS may still be running. Check CloudWatch logs under `/seqera/sched` for details. |
+| <code style={{whiteSpace: 'nowrap'}}>ACTIVE</code> | The run is in progress. |
+| <code style={{whiteSpace: 'nowrap'}}>TERMINATING</code> | The run is shutting down. Final tasks are completing or being cancelled. |
+| <code style={{whiteSpace: 'nowrap'}}>TERMINATED</code> | The run ended normally. |
+| <code style={{whiteSpace: 'nowrap'}}>FAILED</code> | The run failed. |
+| <code style={{whiteSpace: 'nowrap'}}>DANGLING</code> | The Nextflow process stopped sending heartbeats. This typically means the launcher process crashed or lost connectivity. Tasks already dispatched to ECS may still be running. Check CloudWatch logs under `/seqera/sched` for details. |
