@@ -7,22 +7,54 @@ Complete setup guide for Vale linting integration with editorial workflows.
 - **Vale** - Fast, free terminology checker (catches 80% of issues in 2 seconds)
 - **Claude AI** - Context-aware review (catches nuanced issues Vale can't)
 - **VSCode integration** - Inline feedback as you type
-- **CI integration** - Automated PR reviews
+- **CI integration** - On-demand PR reviews (comment-triggered), scoped to changed lines
+
+## Scope: changed documentation only
+
+Vale only reports issues on the documentation you actually changed:
+
+- **CI** (`docs-review.yml`, `vale-lint` job): Vale runs only on the `.md`/`.mdx`
+  files changed in the PR, and `filter_mode: added` restricts review comments to
+  the lines you added or modified. Editing one section of a long page never
+  surfaces pre-existing issues elsewhere in that file.
+- **Local**: lint the files you changed by passing them to `npm run vale` (see
+  [Command line](#option-2-command-line-manual)). Locally Vale lints whole files
+  rather than only changed lines — line-level filtering needs the PR diff, which
+  only CI provides.
+
+## Rule levels: error vs. warning
+
+Terminology rules are split by confidence (see `.github/styles/Seqera/`):
+
+- **`Products.yml`, `Features.yml`** — `error`. Unambiguous fixes (`NextFlow` →
+  `Nextflow`, `compute env` → `compute environment`).
+- **`ProductsContext.yml`, `FeaturesContext.yml`** — `warning`. Context-dependent
+  terms with legitimate exceptions (`Tower`, `the platform`, `repo`, `config`,
+  `CE`, `Workspace`). These never block and don't dominate a review.
+
+A substitution rule's level applies to the whole file — to change one term's
+level, move it between the error and `*Context` files.
+
+> **MDX note:** `.vale.ini` maps `mdx = md` under `[formats]`. Without this, Vale
+> 3.x tries to use the external `mdx2vast` binary and errors out on every `.mdx`
+> file. Don't remove that mapping.
 
 ## Files created
 
 ```
 docs/
-├── .vale.ini                              # Vale configuration
-├── .pre-commit-config.yaml                # Pre-commit hooks (updated)
-├── .gitignore                             # Updated to ignore .vscode/
+├── .vale.ini                              # Vale configuration (incl. mdx = md)
+├── .pre-commit-config.yaml                # Pre-commit hooks
+├── .gitignore                             # Ignores .vscode/
 ├── .github/
 │   ├── styles/
 │   │   └── Seqera/
-│   │       ├── Products.yml               # Product name rules
-│   │       └── Features.yml               # Feature terminology rules
+│   │       ├── Products.yml               # Product names (error)
+│   │       ├── Features.yml               # Feature terms (error)
+│   │       ├── ProductsContext.yml        # Context-dependent products (warning)
+│   │       └── FeaturesContext.yml        # Context-dependent features (warning)
 │   └── workflows/
-│       └── docs-review.yml                # Updated workflow (Vale + AI)
+│       └── docs-review.yml                # Workflow (Vale changed-lines + AI)
 ```
 
 **Note:** VSCode settings are configured in User Settings (not workspace), so `.vscode/settings.json` is gitignored.
@@ -145,17 +177,15 @@ Vale runs automatically when you:
 ### Option 2: Command line (manual)
 
 ```bash
-# Check single file
-vale platform-enterprise_docs/getting-started.md
+# Download/refresh Vale packages (write-good) — run once after cloning
+npm run vale:sync
 
-# Check directory
-vale platform-enterprise_docs/
+# Check a single file or directory
+npm run vale -- platform-enterprise_docs/getting-started.md
+npm run vale -- platform-enterprise_docs/
 
-# Check all changed files
-git diff --name-only | grep -E '\.(md|mdx)$' | xargs vale
-
-# Check with config explicitly
-vale --config=.vale.ini path/to/file.md
+# Check only the files you changed on this branch
+git diff --name-only --diff-filter=ACM origin/master...HEAD -- '*.md' '*.mdx' | xargs vale --config=.vale.ini
 ```
 
 ### Option 3: Pre-commit (Manual)
@@ -170,12 +200,16 @@ pre-commit run vale
 
 **Note:** Pre-commit Vale hook is set to `manual` stage, so it does NOT run automatically on `git commit`.
 
-### Option 4: CI/CD (Automatic)
+### Option 4: CI/CD (on-demand)
 
-Vale runs automatically on GitHub when:
-- PR is opened
-- PR is updated (new commits)
-- Files in `platform-*` directories are changed
+The `docs-review.yml` workflow is **on-demand**, not automatic on every PR.
+Trigger it by:
+- Commenting `/editorial-review` on a PR, or
+- Manually dispatching the **Documentation Review** workflow from the Actions tab
+
+When it runs, the `vale-lint` job checks only the changed `.md`/`.mdx` files and
+posts review comments only on changed lines (`filter_mode: added`,
+`fail_on_error: false` — suggestions don't block).
 
 ## Validation and testing
 
@@ -262,43 +296,47 @@ git reset HEAD test-vale.md
 
 ### Test 6: CI integration (after merging)
 
-1. Create a test PR with a small change
-2. Push to GitHub
-3. Check PR → Actions tab
-4. Verify Vale job runs and completes
-5. Check PR → Files changed
-6. Look for Vale inline review comments
+1. Create a test PR that changes a docs file with a known issue
+2. Comment `run vale` on the PR (CI does not run Vale automatically)
+3. Check PR → Actions tab and verify the Vale job runs and completes
+4. Check PR → Files changed
+5. Look for Vale inline review comments on the changed lines
 
 ## Vale rules summary
 
-### Product names (Products.yml)
+### Errors (always wrong)
+
+Product names (`Products.yml`):
 
 | Wrong | Correct |
 |-------|---------|
-| Tower | Seqera Platform |
-| NextFlow | Nextflow |
-| wave | Wave |
-| fusion | Fusion |
-| studio/studios | Studio/Studios |
-| multi-qc | MultiQC |
+| NextFlow / nextFlow / next-flow / NEXTFLOW | Nextflow |
+| multi-qc / multiQC / Multi-QC / Multiqc | MultiQC |
+| WAVE | Wave |
+| FUSION | Fusion |
+| Seqera Studios | Studios |
 
-### Feature terms (Features.yml)
+Feature terms (`Features.yml`):
 
 | Wrong | Correct |
 |-------|---------|
-| compute env | compute environment |
+| compute env / compute-env | compute environment |
 | creds | credentials |
-| repo | repository |
-| config | configuration |
-| dropdown | drop-down |
+| dropdown / drop down / drop-down menu | drop-down |
 | work space | workspace |
 
-### write-good package
+### Warnings (context-dependent — verify before applying)
 
-Checks for:
-- Passive voice (suggestions only)
-- Weasel words (disabled - "very", "really" OK)
-- "There is" constructions (disabled - fine for technical docs)
+Products (`ProductsContext.yml`): `Tower`, `Nextflow Tower`, `the platform` →
+Seqera Platform; lowercase `wave`/`fusion`/`studio`/`studios` → capitalized.
+
+Features (`FeaturesContext.yml`): `CE`, `repo`, `config`, `Workspace`,
+`API token`, `PAT`.
+
+### write-good package (suggestions)
+
+- Passive voice, wordiness, clichés — suggestions only (don't block)
+- Disabled as too noisy: Weasel, ThereIs, So, **E-Prime** (flags every "to be")
 
 ## Daily workflow
 
@@ -311,26 +349,25 @@ Open file → See errors inline → Fix → Save → Commit
 ### Option 2: Manual check before commit
 
 ```bash
-# Check specific files
-vale platform-enterprise_docs/getting-started.md
-
-# Or check all changed files
-git diff --name-only | xargs vale
+# Check the files you changed on this branch
+git diff --name-only --diff-filter=ACM origin/master...HEAD -- '*.md' '*.mdx' | xargs vale --config=.vale.ini
 
 # Fix issues, then commit
 git commit -m "Update docs"
 ```
 
-### Option 3: Let CI catch it
+### Option 3: Request a check on the PR
 
-```bash
-# Just commit and push
-git commit -m "Update docs"
-git push
+CI does **not** run Vale automatically on push. After opening a PR, comment one
+of the following to run it on demand:
 
-# Vale runs in CI, posts inline comments
-# Fix using GitHub "Commit suggestion" button
+```text
+run vale            # Vale only (fast, no LLM) — see vale-comment.yml
+/editorial-review   # Vale + the Claude editorial agents — see docs-review.yml
 ```
+
+Either posts inline review comments on the changed lines, which you can apply
+with the GitHub "Commit suggestion" button.
 
 ## When Vale runs
 
@@ -351,12 +388,16 @@ Vale runs in three different contexts:
 - **Purpose:** Check before pushing (optional)
 - **Note:** Does NOT run automatically on `git commit` (set to manual stage)
 
-### 3. GitHub Actions (Automated)
-- **Trigger:** PR opened/updated to `platform-*` directories
-- **How:** CI workflow runs Vale, then Claude agents
+### 3. GitHub Actions (on-demand)
+- **Trigger:** A PR comment — `run vale` (Vale only) or `/editorial-review`
+  (Vale + Claude agents) — or a manual workflow dispatch. **Not** automatic on
+  PR open/push.
+- **How:** `vale-comment.yml` runs Vale alone; `docs-review.yml` runs Vale then
+  the Claude agents behind a smart-gate
+- **Scope:** Only changed `.md`/`.mdx` files; comments only on changed lines
 - **Feedback:** Inline PR review comments
-- **Speed:** 2 seconds (Vale), then 30 seconds (Claude)
-- **Purpose:** Automated review on PRs
+- **Speed:** ~2 seconds (Vale), then ~30 seconds (Claude, if invoked)
+- **Purpose:** On-demand review without blocking the PR
 
 ## Workflow summary
 
@@ -376,26 +417,21 @@ Local Development
     Standard pre-commit hooks run (trailing whitespace, etc.)
     Vale does NOT run automatically
     ↓
-6. Push to GitHub
+6. Push to GitHub and open a PR
     ↓
-PR Workflow (Automated)
+PR Workflow (on-demand — nothing runs until you ask)
     ↓
-7. PR opened → CI runs
+7. Comment on the PR to trigger a review:
     ↓
-    a. Vale (2 sec, free)
-       - Checks product names, feature terms
+    a. "run vale"  →  Vale only (~2 sec, free)
+       - Checks changed lines in changed docs files
        - Posts inline PR comments
        - Does NOT block (fail_on_error: false)
     ↓
-    b. Claude AI (30 sec, costs tokens)
-       - SKIPS what Vale already checked
-       - Checks formatting, context-dependent issues
-       - Posts inline PR comments
-    ↓
-8. Review Summary Posted
-    - Vale results (Terminology)
-    - AI results (Voice/Tone, Terminology)
-    - Up to 60 inline suggestions
+    b. "/editorial-review"  →  Vale + Claude (~30 sec, costs tokens)
+       - Vale first, then the Claude editorial agents
+       - Smart-gate skips tiny/duplicate runs
+       - Posts inline PR comments + a summary
 ```
 
 ## Token savings
@@ -521,6 +557,6 @@ Cmd+Shift+P → "Vale: Toggle Linting"
 
 ---
 
-**Setup Date**: 2026-02-03
-**Vale Version**: 3.0.7
+**Last updated**: 2026-06-16
+**Vale Version**: 3.13.0
 **write-good Version**: Latest from package hub
