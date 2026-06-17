@@ -374,7 +374,7 @@ You can also use User Subscription mode instead of Batch Managed here, but this 
 **Behavior**:
 
 - Each node is attached to the VNet and uses the security and networking rules of that virtual network subnetwork.
-- All other behaviour is as normal.
+- All other behavior is as normal.
 
 **Advantages**:
 

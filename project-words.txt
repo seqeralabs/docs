@@ -66,8 +66,7 @@ EREMOTEIO
 FASTA
 FASTQ
 FASTQC
-favourite
-favourited
+favorited
 fetchngs
 FLAGSTAT
 formcontrol

@@ -25,7 +25,7 @@ From [Nextflow v22.09.1-edge](https://github.com/nextflow-io/nextflow/releases/t
 export NXF_CLI_OPTS='-dump-hashes'
 ```
 
-**Cloud compute environment execution: `--outdir` artefacts not available**
+**Cloud compute environment execution: `--outdir` artifacts not available**
 
 Nextflow resolves relative paths against the current working directory. In a classic grid HPC, this normally corresponds to a subdirectory of the `$HOME` directory. In a cloud execution environment, however, the path will be resolved relative to the _container file system_, meaning files will be lost when the container is terminated. See [here](https://github.com/nextflow-io/nextflow/issues/2661#issuecomment-1047259845) for more details.
 
@@ -132,7 +132,7 @@ This change occurs because Seqera superimposes its 10 MB default value rather th
 
 To force the Seqera-invoked job to use your `nextflow.config` value, add the configuration setting in the workspace Launch screen's [**Nextflow config file** field](../launch/launchpad). For the example above, you would add `aws.client.uploadChunkSize = 209715200 // 200 MB`.
 
-Nextflow configuration values affected by this behaviour include:
+Nextflow configuration values affected by this behavior include:
 
 - `aws.client.uploadChunkSize`
 - `aws.client.storageEncryption`
