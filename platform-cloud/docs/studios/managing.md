@@ -263,7 +263,7 @@ When starting a Studio session, a *checkpoint* is automatically created. A check
 Checkpoints vary in size depending on libraries installed in your session environment. This can potentially result in many large files stored in the compute environment's pipeline work directory and saved to cloud storage. This storage will incur costs based on the cloud provider. Due to the architecture of Studios, you cannot delete any checkpoint files to save on storage costs. Deleting a Studio session's checkpoints will result in a corrupted Studio session that cannot be started nor recovered.
 :::
 
-### S3 versioning and checkpoint storage costs
+### Object storage versioning and checkpoint storage costs
 
 If your compute environment work directory uses an object storage bucket with **versioning enabled**, checkpoint writes create a new object version rather than overwriting the previous one. For an active Studio session, this produces many object versions per session. Over time, these non-current versions accumulate and can significantly increase storage costs.
 
