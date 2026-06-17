@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@docusaurus/faster": "^3.9.2",
-    "@docusaurus/theme-mermaid": "3.9.2",
+    "@docusaurus/theme-mermaid": "3.10.1",
     "@rspack/core": "^2.0.0",
     "@seqera/docusaurus-preset-seqera": "^1.0.39",
     "buffer": "^6.0.3",
