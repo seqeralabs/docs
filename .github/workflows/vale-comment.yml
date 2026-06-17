@@ -48,6 +48,10 @@ jobs:
           BASE_REF=$(gh pr view ${{ github.event.issue.number }} --json baseRefName --jq '.baseRefName')
           git fetch origin "$BASE_REF"
 
+          # reviewdog can't auto-detect the PR on an issue_comment event, so
+          # expose the head SHA (HEAD is the PR head after checkout) for it below.
+          echo "head_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
           # Changed .md/.mdx files in the reviewed docs directories. Vale lints
           # only these; filter_mode below scopes comments to changed lines.
           FILES=$(git diff --name-only --diff-filter=ACM "origin/${BASE_REF}...HEAD" -- '*.md' '*.mdx' \
@@ -77,6 +81,14 @@ jobs:
           fail_on_error: false # Post suggestions without blocking
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # issue_comment isn't a PR build, so reviewdog can't infer the PR
+          # context on its own. Supply it explicitly so filter_mode=added can
+          # scope comments to changed lines instead of dumping the whole file.
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CI_PULL_REQUEST: ${{ github.event.issue.number }}
+          CI_COMMIT: ${{ steps.vale-files.outputs.head_sha }}
+          CI_REPO_OWNER: ${{ github.repository_owner }}
+          CI_REPO_NAME: ${{ github.event.repository.name }}
 
       - name: Report when nothing changed
         if: steps.vale-files.outputs.has_files == 'false'
