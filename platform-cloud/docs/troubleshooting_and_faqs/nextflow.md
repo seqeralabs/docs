@@ -29,7 +29,7 @@ export NXF_CLI_OPTS='-dump-hashes'
 
 Nextflow resolves relative paths against the current working directory. In a classic grid HPC, this normally corresponds to a subdirectory of the `$HOME` directory. In a cloud execution environment, however, the path will be resolved relative to the _container file system_, meaning files will be lost when the container is terminated. See [here](https://github.com/nextflow-io/nextflow/issues/2661#issuecomment-1047259845) for more details.
 
-Specify the absolute path to your persistent storage using the `NXF_FILE_ROOT` environment variable in your [`nextflow.config`](../launch/advanced#nextflow-config-file) file. This resolves the relative paths defined in your Netflow script so that output files are written to your stateful storage, rather than ephemeral container storage.
+Specify the absolute path to your persistent storage using the `NXF_FILE_ROOT` environment variable in your [`nextflow.config`](../launch/advanced#nextflow-config-file) file. This resolves the relative paths defined in your Nextflow script so that output files are written to your stateful storage, rather than ephemeral container storage.
 
 **Nextflow: Ignore Singularity cache**
 
@@ -187,7 +187,7 @@ See [here](https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html) 
  [scheduled-executor-thread-2] - ERROR i.s.t.service.job.JobSchedulerImpl - Unable to save status of job id=18165; name=nf-workflow-26uD5XXXXXXXX; opId=nf-workflow-26uD5XXXXXXXX; status=UNKNOWN
 ```
 
-Runs will fail if your Nextflow script or Nextflow config contain illegal characters (such as emojis or other non-UTF8 characters). Validate your script and config files for any illegal characters before atttempting to run again.
+Runs will fail if your Nextflow script or Nextflow config contain illegal characters (such as emojis or other non-UTF8 characters). Validate your script and config files for any illegal characters before attempting to run again.
 
 **Run failures: Nextflow script exceeds 64KiB**
 

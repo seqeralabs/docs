@@ -589,7 +589,7 @@ tags: [changelog]
 - Display dates with YYYY-MM-DD format on runs page [5d2f3215a]
 - Change email template office address [5edfa3a26]
 - Increase agent websockets payload size to 5Mb [4ce9af8f2]
-- Bump: nf-launcher 21.10.4 based on correto:17.0.1 based image
+- Bump: nf-launcher 21.10.4 based on corretto:17.0.1 based image
 
 #### 21.10.3 - 3 Feb
 
@@ -753,7 +753,7 @@ The `21.10.x` release series starts with `v21.10.1`
 
 #### 21.02.4 - 29 Apr
 
-- Bump Nexflow 21.04.0-edge required to fix BitBucket server
+- Bump Nextflow 21.04.0-edge required to fix BitBucket server
 
 #### 21.02.3 - 21 Apr
 

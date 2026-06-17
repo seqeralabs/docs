@@ -67,6 +67,58 @@ You shouldn't experience any issues but if you do, share them in the #team-docum
   You only have to install pre-commit once.
 :::
 
+### Check prose with Vale
+
+We use [Vale](https://vale.sh) to enforce terminology and product-name conventions (for example, `NextFlow` → `Nextflow`, `compute env` → `compute environment`). The rules live in [.github/styles/Seqera/](.github/styles/Seqera/) and the configuration is in [.vale.ini](./.vale.ini).
+
+Rules are split by confidence:
+
+- **Errors** — unambiguous fixes where the correction is always right (`Products.yml`, `Features.yml`).
+- **Warnings** — context-dependent terms with legitimate exceptions, such as legacy `Tower` references (`ProductsContext.yml`, `FeaturesContext.yml`).
+
+Vale runs in two places, with a deliberate split between them:
+
+- **CI** ([.github/workflows/vale.yml](.github/workflows/vale.yml)) — runs on every pull request. It reports **errors only** (`--minAlertLevel=error`) and comments only on the lines you changed (`filter_mode: added`). Findings are non-blocking (`fail_on_error: false`).
+- **Local** — lints **whole files** and surfaces warnings and suggestions as well as errors, so you can catch context-dependent issues before they reach a reviewer.
+
+#### Run Vale locally
+
+1. Install the Vale CLI ([installation guide](https://vale.sh/docs/install)):
+
+   ```console
+   $ brew install vale      # macOS
+   $ snap install vale      # Linux
+   ```
+
+2. Download the `write-good` package (run once after cloning, and again whenever `.vale.ini` packages change):
+
+   ```console
+   $ npm run vale:sync
+   ```
+
+3. Lint a file or directory:
+
+   ```console
+   $ npm run vale -- platform-enterprise_docs/getting-started.md
+   $ npm run vale -- platform-cloud/docs/
+   ```
+
+   To check only the files you changed on this branch:
+
+   ```console
+   $ git diff --name-only --diff-filter=ACM origin/master...HEAD -- '*.md' '*.mdx' | xargs npm run vale --
+   ```
+
+You can also run Vale through pre-commit (it's configured as a manual hook, so it does not run on `git commit`):
+
+```console
+$ pre-commit run vale --all-files
+```
+
+For editor integration, install the [Vale VSCode extension](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode) and point it at the repo's `.vale.ini` to see findings inline as you edit.
+
+To add or change a rule, edit the relevant file under [.github/styles/Seqera/](.github/styles/Seqera/). To change a term's level, move it between the error files (`Products.yml`, `Features.yml`) and the warning files (`ProductsContext.yml`, `FeaturesContext.yml`) — a substitution rule's level applies to the whole file.
+
 ### Make changes and create a PR
 
 1. In GitHub, or VS Code, create a new branch (e.g., `gh-issue-number`).
@@ -354,7 +406,7 @@ site builds into multiple separate Netlify deployments, stitched back together w
 This works using the following principles:
 
 - Sections of the docs are defined in variables in `docusaurus.config.mjs`
-- Based on the presence or absence of named environment variables, they are included in the Docuaurus config or not
+- Based on the presence or absence of named environment variables, they are included in the Docusaurus config or not
 - By defining these ENV vars in your build environment, you can selectively skip chunks in the build
 
 Deployment works because we have two Netlify sites: `seqera-docs` and `seqera-docs-api`.

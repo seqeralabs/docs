@@ -13,7 +13,7 @@ Select the **Studios** tab in Platform to:
 - Open a detailed view that displays configuration information.
 
 :::note
-- If you're not able to see the Studios tab, contact your Platform adminstrator.
+- If you're not able to see the Studios tab, contact your Platform administrator.
 - Review the user roles documentation for details about role permissions.
 :::
 

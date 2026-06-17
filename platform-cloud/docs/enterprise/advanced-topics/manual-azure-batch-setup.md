@@ -83,7 +83,7 @@ Next, create a compute environment with Batch Forge:
 1. Go to the **Compute Environments** tab and select **Add Compute Environment**.
 1. Enter a name such as `1-azure-batch-forge`.
 1. Select Azure Batch from the **Provider** dropdown.
-1. Sellect your `azure-keys` credentials.
+1. Select your `azure-keys` credentials.
 1. Select the **Region** of your Batch account.
 1. Select the `az://work` container in your Storage account.
 1. For **VMs type**, select `standard_e2ds_v5`.
@@ -257,7 +257,7 @@ Select **Launch** next to the `hello-world-autopool` pipeline in your workspace 
 **Advantages**:
 
 - No keys or short access tokens are exchanged, increasing security.
-- A service prinicipal can have very granular permissions, so you can grant it only the permissions it needs.
+- A service principal can have very granular permissions, so you can grant it only the permissions it needs.
 - Managed identities can be scoped to a specific resource, so the Nextflow head job has very restricted permissions.
 - Different managed IDs can have different permissions, so different compute environments can have different scoped permissions.
 
@@ -344,7 +344,7 @@ See [Create a Nextflow-compatible Azure Batch pool](../../compute-envs/azure-bat
 - Use the autoscale formula described in the documentation, with a minimum size of 0 and a maximum size of 4.
 - For Virtual network, create a new virtual network with the default subnet. You can add this to a new resource group here.
 
-In practice, you are more likely to connect an Azure Batch Node pool to an existing virtual network that is connected to other resources, such as Seqera Platform or the Azure Storage Acccount. In this instance, connecting it to a VNet with public internet access will route the network traffic via the virtual network while still allowing you to perform every action.
+In practice, you are more likely to connect an Azure Batch Node pool to an existing virtual network that is connected to other resources, such as Seqera Platform or the Azure Storage Account. In this instance, connecting it to a VNet with public internet access will route the network traffic via the virtual network while still allowing you to perform every action.
 
 Back in Seqera Platform, add a new Azure Batch compute environment:
 
@@ -392,7 +392,7 @@ To achieve this, the following requirements must be met:
 
 Do the following:
 
-1. Duplicate the `hello-world-entra-mi` pipeline, but modfiy the compute environment to `3-azure-batch-vnet` and change the pipeline name to `hello-world-vnet`.
+1. Duplicate the `hello-world-entra-mi` pipeline, but modify the compute environment to `3-azure-batch-vnet` and change the pipeline name to `hello-world-vnet`.
 1. Check the virtual network string under the pool details in the Azure Portal, under the **Network Configuration** section. The value should be a Subnet ID, such as `/subscriptions/${subscriptionId}/resourceGroups/${resourceGroup}/providers/Microsoft.Network/virtualNetworks/${vnetName}/subnets/${subnetName}`. Save this value.
 1. Change the Nextflow configuration under the **Advanced** tab to include a virtual network with the autopools:
 
