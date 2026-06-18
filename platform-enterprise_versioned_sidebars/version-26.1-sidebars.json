@@ -87,21 +87,11 @@
                 "id": "enterprise/configuration/authentication/idp-delegation/overview"
               },
               "items": [
-                {
-                  "type": "category",
-                  "label": "Group catalog",
-                  "collapsed": true,
-                  "link": {
-                    "type": "doc",
-                    "id": "enterprise/configuration/authentication/idp-delegation/group-catalog/overview"
-                  },
-                  "items": [
-                    "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-okta",
-                    "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-entra-id"
-                  ]
-                },
                 "enterprise/configuration/authentication/idp-delegation/claim-mapping",
-                "enterprise/configuration/authentication/idp-delegation/multi-org-routing"
+                "enterprise/configuration/authentication/idp-delegation/multi-org-routing",
+                "enterprise/configuration/authentication/idp-delegation/group-catalog/overview",
+                "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-okta",
+                "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-entra-id"
               ]
             },
             "enterprise/configuration/networking",
@@ -238,7 +228,10 @@
         {
           "type": "category",
           "label": "Monitor runs",
-          "items": ["monitoring/overview", "monitoring/run-details"]
+          "items": [
+            "monitoring/overview",
+            "monitoring/run-details"
+          ]
         },
         "reports/overview",
         "launch/cache-resume",
@@ -250,7 +243,10 @@
     {
       "type": "category",
       "label": "Co-Scientist",
-      "link": {"type": "doc", "id": "co-scientist/index"},
+      "link": {
+        "type": "doc",
+        "id": "co-scientist/index"
+      },
       "collapsed": true,
       "items": [
         "co-scientist/prerequisites",
@@ -260,7 +256,10 @@
         {
           "type": "category",
           "label": "Using Co-Scientist",
-          "link": {"type": "doc", "id": "co-scientist/configuration"},
+          "link": {
+            "type": "doc",
+            "id": "co-scientist/configuration"
+          },
           "collapsed": true,
           "items": [
             "co-scientist/use-cases",
@@ -276,7 +275,10 @@
         {
           "type": "category",
           "label": "Coding Agents",
-          "link": {"type": "doc", "id": "co-scientist/coding-agents"},
+          "link": {
+            "type": "doc",
+            "id": "co-scientist/coding-agents"
+          },
           "collapsed": true,
           "items": [
             "co-scientist/skill-claude-code",
@@ -288,7 +290,10 @@
         {
           "type": "category",
           "label": "Reference",
-          "link": {"type": "doc", "id": "co-scientist/reference/index"},
+          "link": {
+            "type": "doc",
+            "id": "co-scientist/reference/index"
+          },
           "collapsed": true,
           "items": [
             "co-scientist/reference/cli",
@@ -308,7 +313,10 @@
         {
           "type": "category",
           "label": "Add Studios",
-          "link": {"type": "doc", "id": "studios/add-studio"},
+          "link": {
+            "type": "doc",
+            "id": "studios/add-studio"
+          },
           "collapsed": true,
           "items": [
             "studios/add-studio-provided-template",
