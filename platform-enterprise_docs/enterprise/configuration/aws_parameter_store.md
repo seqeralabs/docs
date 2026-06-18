@@ -2,7 +2,7 @@
 title: "AWS Parameter Store"
 description: Configure values for Seqera configuration with AWS Parameter Store
 date created: "2023-04-21"
-last updated: "2026-06-12"
+last updated: "2026-06-18"
 tags: [configuration, aws, parameters, securestring]
 ---
 

@@ -2,7 +2,7 @@
 title: "General troubleshooting"
 description: "Troubleshooting Seqera Platform"
 date created: "2023-04-24"
-last updated: "2026-06-12"
+last updated: "2026-06-18"
 tags: [troubleshooting, help]
 ---
 

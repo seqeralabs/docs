@@ -2,7 +2,7 @@
 title: "Commands"
 description: "Seqerakit command options"
 date created: "2024-10-21"
-last updated: "2026-06-12"
+last updated: "2026-06-18"
 tags: [seqerakit, cli, automation, commands]
 ---
 

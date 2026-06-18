@@ -2,7 +2,7 @@
 title: "Modes"
 description: "Work in Co-Scientist's build, plan, and goal modes"
 date created: "2026-03-11"
-last updated: "2026-06-12"
+last updated: "2026-06-18"
 tags: [co-scientist, cli, modes]
 ---
 

@@ -2,7 +2,7 @@
 title: "Manage your IdP group catalog"
 description: "Populate Seqera with your IdP's groups using SCIM push or manual entry."
 date created: "2026-05-12"
-last updated: "2026-06-12"
+last updated: "2026-06-18"
 tags: [sso, scim, idp delegation, administration, enterprise]
 ---
 

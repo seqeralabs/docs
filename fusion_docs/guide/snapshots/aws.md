@@ -2,7 +2,7 @@
 title: AWS Batch
 description: "Fusion Snapshots configuration and best practices for AWS Batch"
 date created: "2024-11-21"
-last updated: "2026-06-12"
+last updated: "2026-06-18"
 tags: [fusion, fusion snapshots, storage, compute, snapshot, aws, batch]
 ---
 

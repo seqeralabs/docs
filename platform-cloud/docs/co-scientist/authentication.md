@@ -2,7 +2,7 @@
 title: "Authentication"
 description: "Log in, log out, and manage organizations and tokens in the Seqera CLI"
 date created: "2025-12-15"
-last updated: "2026-06-12"
+last updated: "2026-06-18"
 tags: [co-scientist, cli, authentication, login]
 ---
 

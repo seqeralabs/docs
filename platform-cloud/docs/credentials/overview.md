@@ -2,7 +2,7 @@
 title: "Credentials overview"
 description: "Learn about credentials in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2026-06-12"
+last updated: "2026-06-18"
 tags: [credentials, git, containers, registry]
 ---
 

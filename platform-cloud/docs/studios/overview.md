@@ -2,7 +2,7 @@
 title: "Overview"
 description: "Interactive analysis environments in Seqera Platform"
 date created: "2025-02-06"
-last updated: "2026-06-12"
+last updated: "2026-06-18"
 tags: [studios, connect, xpra, ride, vscode, containers, docker]
 ---
 

@@ -2,7 +2,7 @@
 title: "Platform: Kubernetes"
 description: Deploy Seqera Platform Enterprise with Kubernetes
 date created: "2023-04-21"
-last updated: "2026-06-12"
+last updated: "2026-06-18"
 tags: [kubernetes, deployment]
 ---
 

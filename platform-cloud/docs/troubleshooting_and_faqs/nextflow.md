@@ -2,7 +2,7 @@
 title: "Nextflow"
 description: "Nextflow troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-06-12"
+last updated: "2026-06-18"
 tags: [faq, help, nextflow, troubleshooting]
 ---
 

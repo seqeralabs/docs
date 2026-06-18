@@ -2,7 +2,7 @@
 title: "Custom environments"
 description: "Custom environments for Studios"
 date created: "2024-10-01"
-last updated: "2026-06-12"
+last updated: "2026-06-18"
 tags: [environments, custom, studios]
 ---
 
