@@ -2,7 +2,7 @@
 title: "Automation"
 description: "An introduction to automation with APIs and CLI tools in Seqera Platform"
 date created: "2024-07-21"
-last updated: "2026-06-12"
+last updated: "2026-06-16"
 tags: [platform, automation, api, cli, seqerakit]
 ---
 
@@ -41,6 +41,14 @@ The token is displayed only once. Store it securely and use it to authenticate A
 
 </details>
 
+### Find your organization and workspace IDs
+
+Many API endpoints take an organization ID (for example, `org/{orgId}/workspaces`) or a workspace ID (for example, the `workspaceId` query parameter). The two are different numeric values: a workspace ID used where an endpoint expects an organization ID returns a permission error.
+
+- **Organization ID**: Select your organization, then **Settings**. The organization ID is the numeric value in the page URL.
+- **Workspace ID**: Select your organization, then the **Workspaces** tab. Each workspace lists its ID.
+
+To retrieve these IDs from the command line, use `tw organizations list` and `tw workspaces list`.
 
 ## Platform CLI
 

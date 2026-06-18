@@ -2,7 +2,7 @@
 title: "Deploy Platform"
 description: "An overview of deployment versions and ways to run Seqera Platform."
 date created: "2023-04-21"
-last updated: "2026-06-12"
+last updated: "2026-06-16"
 tags: [deployment]
 ---
 
@@ -37,6 +37,10 @@ You can access your Seqera instance through the UI, the [API](https://docs.seqer
 ### Seqera API
 
 See [API](https://docs.seqera.io/platform-api).
+
+:::tip
+To find the organization and workspace IDs that API endpoints use, see [Automation](./quickstart-demo/automation#find-your-organization-and-workspace-ids).
+:::
 
 ### Seqera CLI
 
