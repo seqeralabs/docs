@@ -7,18 +7,6 @@ tags: [actions, webhooks, automation]
 
 Actions enable event-based pipeline execution, such as triggering a pipeline launch with a GitHub webhook whenever the pipeline repository is updated. Seqera Platform currently offers support for native **GitHub webhooks** and a general **Tower webhook** that can be invoked programmatically.
 
-# Vale test fixture
-
-Open the dropdown and enter your creds for the compute env.
-
-Install NextFlow and multiQC before you continue.
-
-Clone the repo and update the config file.
-
-Tower runs on the platform, so generate a PAT to authenticate.
-
-The pipeline was launched by the user in order to test things at the end of the day.
-
 ### GitHub webhooks
 
 A **GitHub webhook** listens for any changes made in the pipeline repository. When a change occurs it triggers the launch of the pipeline automatically.
