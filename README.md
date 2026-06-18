@@ -12,7 +12,10 @@ For more information, see:
   - [Architecture](#architecture)
     - [Seqera Platform](#seqera-platform)
     - [Wave](#wave)
-  - [Writing new content](#writing-new-content)
+  - [Write and edit content](#write-and-edit-content)
+    - [pre-commit](#pre-commit)
+    - [Vale](#vale)
+    - [cspell](#cspell)
   - [Fixing legacy content](#fixing-legacy-content)
   - [Creating internal links](#creating-internal-links)
   - [Changelog automation](#changelog-automation)
@@ -48,26 +51,46 @@ We have a script which can select a commit (or ideally release tag) to be used f
 
 ## Write and edit content
 
-### Install pre-commit
+Before you start editing, set up the three tools we use to keep documentation consistent:
 
-We use [pre-commit](https://pre-commit.com/) in our repo, which is invoked when a commit is made. When you (or Claude) are working locally and commit your changes in VS Code (or run `git commit`) the pre-commit hooks defined in the [precommit config file](./.pre-commit-config.yaml) are executed and may tweak the files you're staging.
-We currently use basic standard hooks to remove trailing whitespaces, make sure the file ends with a newline, we check yaml documents and we prevent very large files from getting committed. More hooks may get installed in the future.
+- **[pre-commit](#pre-commit)** — Git hooks that fix formatting when you commit.
+- **[Vale](#vale)** — terminology and product-name linting.
+- **[cspell](#cspell)** — spell checking.
 
-1. Open up a Terminal window and navigate to the `docs` repository.
-2. Run the following commands to set up [pre-commit](https://github.com/pre-commit/pre-commit) hooks:
+pre-commit and Vale also run in CI on every pull request. cspell runs locally only. You install each tool once.
+
+### pre-commit
+
+We use [pre-commit](https://pre-commit.com/) to run Git hooks on commit. When you (or Claude) commit changes in VS Code or run `git commit`, the hooks defined in [.pre-commit-config.yaml](./.pre-commit-config.yaml) run and may tweak the files you're staging. The current hooks remove trailing whitespace, ensure files end with a newline, check YAML documents, and block very large files. More hooks may be added later.
+
+#### Install pre-commit
+
+1. Open a terminal and navigate to the `docs` repository.
+2. Install [pre-commit](https://github.com/pre-commit/pre-commit) and set up the hooks:
 
    ```console
    $ pip install pre-commit
    $ pre-commit install
    $ pre-commit install-hooks
    ```
-You shouldn't experience any issues but if you do, share them in the #team-documentation channel so we can try help.
 
-:::note
-  You only have to install pre-commit once.
-:::
+If you hit problems, share them in the #team-documentation channel.
 
-### Check prose with Vale
+#### Run pre-commit locally
+
+The hooks run automatically on `git commit`. To run them against all files:
+
+```console
+$ pre-commit run --all-files
+```
+
+Vale is a manual pre-commit hook, so it does **not** run on `git commit`. Run it explicitly:
+
+```console
+$ pre-commit run vale --all-files
+```
+
+### Vale
 
 We use [Vale](https://vale.sh) to enforce terminology and product-name conventions (for example, `NextFlow` → `Nextflow`, `compute env` → `compute environment`). The rules live in [.github/styles/Seqera/](.github/styles/Seqera/) and the configuration is in [.vale.ini](./.vale.ini).
 
@@ -76,12 +99,14 @@ Rules are split by confidence:
 - **Errors** — unambiguous fixes where the correction is always right (`Products.yml`, `Features.yml`).
 - **Warnings** — context-dependent terms with legitimate exceptions, such as legacy `Tower` references (`ProductsContext.yml`, `FeaturesContext.yml`).
 
-Vale runs in two places, with a deliberate split between them:
+Vale runs in two places, split by design:
 
 - **CI** ([.github/workflows/vale.yml](.github/workflows/vale.yml)) — runs on every pull request. It reports **errors only** (`--minAlertLevel=error`) and comments only on the lines you changed (`filter_mode: added`). Findings are non-blocking (`fail_on_error: false`).
 - **Local** — lints **whole files** and surfaces warnings and suggestions as well as errors, so you can catch context-dependent issues before they reach a reviewer.
 
-#### Run Vale locally
+To add or change a rule, edit the relevant file under [.github/styles/Seqera/](.github/styles/Seqera/). To change a term's level, move it between the error files (`Products.yml`, `Features.yml`) and the warning files (`ProductsContext.yml`, `FeaturesContext.yml`) — a substitution rule's level applies to the whole file.
+
+#### Install Vale
 
 1. Install the Vale CLI ([installation guide](https://vale.sh/docs/install)):
 
@@ -96,30 +121,63 @@ Vale runs in two places, with a deliberate split between them:
    $ npm run vale:sync
    ```
 
-3. Lint a file or directory:
+#### Run Vale locally
+
+Lint a file or directory:
+
+```console
+$ npm run vale -- platform-enterprise_docs/getting-started.md
+$ npm run vale -- platform-cloud/docs/
+```
+
+To check only the files you changed on this branch:
+
+```console
+$ git diff --name-only --diff-filter=ACM origin/master...HEAD -- '*.md' '*.mdx' | xargs npm run vale --
+```
+
+You can also run Vale through pre-commit. See [Run pre-commit locally](#run-pre-commit-locally).
+
+#### Vale VS Code extension
+
+For inline feedback as you edit, install the [Vale extension](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode) (`ChrisChinchilla.vale-vscode`). It requires the Vale CLI (above) and reads the repo's [.vale.ini](./.vale.ini) automatically when you open the `docs` repository. No extra configuration is needed.
+
+### cspell
+
+We use [cspell](https://cspell.org) to catch spelling mistakes in documentation. The configuration is in [cspell.json](./cspell.json), which loads standard dictionaries (software terms, bash, npm, Docker, and others) plus a project dictionary in [project-words.txt](./project-words.txt) for Seqera-specific terms cspell wouldn't otherwise recognize.
+
+Some paths are excluded from spell checking (see `ignorePaths` in [cspell.json](./cspell.json)): `.claude/`, Vale styles, versioned Platform docs, changelogs, and the API and CLI docs.
+
+#### Install cspell
+
+cspell runs through `npx` without a separate install. If you check spelling often, install the CLI globally instead and drop the `npx` prefix from the commands below:
+
+```console
+$ npm install -g cspell
+```
+
+#### Run cspell locally
+
+1. Check a file or directory:
 
    ```console
-   $ npm run vale -- platform-enterprise_docs/getting-started.md
-   $ npm run vale -- platform-cloud/docs/
+   $ npx cspell "platform-cloud/docs/**/*.{md,mdx}"
+   $ npx cspell "platform-enterprise_docs/getting-started.md"
    ```
 
    To check only the files you changed on this branch:
 
    ```console
-   $ git diff --name-only --diff-filter=ACM origin/master...HEAD -- '*.md' '*.mdx' | xargs npm run vale --
+   $ git diff --name-only --diff-filter=ACM origin/master...HEAD -- '*.md' '*.mdx' | xargs npx cspell
    ```
 
-You can also run Vale through pre-commit (it's configured as a manual hook, so it does not run on `git commit`):
+2. If cspell flags a legitimate Seqera term, product name, or other valid word, add it to [project-words.txt](./project-words.txt) (one word per line, alphabetical) and re-run. Don't add genuine misspellings. Fix those in the source instead.
 
-```console
-$ pre-commit run vale --all-files
-```
+#### cspell VS Code extension
 
-For editor integration, install the [Vale VSCode extension](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode) and point it at the repo's `.vale.ini` to see findings inline as you edit.
+For inline feedback as you edit, install the [Code Spell Checker extension](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) (`streetsidesoftware.code-spell-checker`). It runs the cspell engine, reads the repo's [cspell.json](./cspell.json) automatically, underlines unknown words, and offers an "Add to project dictionary" quick fix that writes to [project-words.txt](./project-words.txt).
 
-To add or change a rule, edit the relevant file under [.github/styles/Seqera/](.github/styles/Seqera/). To change a term's level, move it between the error files (`Products.yml`, `Features.yml`) and the warning files (`ProductsContext.yml`, `FeaturesContext.yml`) — a substitution rule's level applies to the whole file.
-
-### Make changes and create a PR
+## Make changes and create a PR
 
 1. In GitHub, or VS Code, create a new branch (e.g., `gh-issue-number`).
 3. Complete the necessary work, save your changes, and commit.
