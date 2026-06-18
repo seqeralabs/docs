@@ -3,7 +3,6 @@ Amplicon
 ampliseq
 Apptainer
 Arabidopsis
-artefacts
 ASICs
 ATAC
 atacseq
@@ -21,7 +20,6 @@ Azcopy
 Bcel
 BDGP
 BEDTOOLS
-behaviour
 bioconda
 biocontainers
 bioinformaticians
@@ -43,7 +41,6 @@ Contentful
 CRIU
 CTRT
 ctxt
-customisation
 Datalink
 datalinks
 datasheet
@@ -119,7 +116,6 @@ Nextflow’s
 nfcore
 norvegicus
 omics
-optimise
 passwordless
 PBMCs
 pcpu
@@ -197,7 +193,6 @@ Unstar
 UNTAR
 upregulated
 Valkey
-visualise
 vmem
 wallclock
 walltime
