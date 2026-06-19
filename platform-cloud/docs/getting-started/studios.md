@@ -2,7 +2,7 @@
 title: "Studios for interactive analysis"
 description: "Creating interactive analysis Studios for Jupyter, R-IDE, VS Code, and more"
 date created: "2025-02-24"
-last updated: "2026-06-18"
+last updated: "2026-06-19"
 tags: [platform, studios, jupyter, r-ide, xpra, vscode, conda]
 toc_max_heading_level: 3
 ---

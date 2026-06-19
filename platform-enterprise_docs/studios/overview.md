@@ -2,7 +2,7 @@
 title: "Overview"
 description: "Interactive analysis environments in Seqera Platform"
 date created: "2025-02-06"
-last updated: "2026-06-18"
+last updated: "2026-06-19"
 tags: [studios, containers, image, sessions, interactive, analysis]
 ---
 

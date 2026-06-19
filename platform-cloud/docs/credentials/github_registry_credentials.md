@@ -2,7 +2,7 @@
 title: "GitHub container registry credentials"
 description: "Create GitHub container registry credentials in Seqera Platform."
 date created: "2023-12-15"
-last updated: "2026-06-18"
+last updated: "2026-06-19"
 tags: [github, registry, credentials]
 ---
 

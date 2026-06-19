@@ -2,7 +2,7 @@
 title: "Seqera Platform Cloud"
 description: "Introduction to Seqera Platform Cloud."
 date created: "2026-05-21"
-last updated: "2026-06-18"
+last updated: "2026-06-19"
 slug: /
 ---
 

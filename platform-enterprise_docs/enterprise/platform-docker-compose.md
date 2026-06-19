@@ -2,7 +2,7 @@
 title: "Platform: Docker Compose"
 description: Deploy Seqera Platform Enterprise with Docker Compose
 date created: "2024-02-12"
-last updated: "2026-06-18"
+last updated: "2026-06-19"
 tags: [docker, compose, deployment]
 ---
 

@@ -2,7 +2,7 @@
 title: "Sessions"
 description: "Start, continue, resume, and exit Co-Scientist sessions, and run non-interactively"
 date created: "2026-05-27"
-last updated: "2026-06-18"
+last updated: "2026-06-19"
 tags: [co-scientist, cli, sessions]
 ---
 

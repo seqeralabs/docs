@@ -2,7 +2,7 @@
 title: "Studios: Docker Compose"
 description: Deploy Studios with Docker Compose
 date created: "2023-04-12"
-last updated: "2026-06-18"
+last updated: "2026-06-19"
 tags: [docker, compose, studios, deployment]
 ---
 

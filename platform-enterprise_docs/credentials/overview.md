@@ -2,7 +2,7 @@
 title: "Credentials Overview"
 description: "Overview of credentials in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2026-06-18"
+last updated: "2026-06-19"
 tags: [credentials]
 ---
 

@@ -2,7 +2,7 @@
 title: "Pipeline optimization"
 description: "An introduction to pipeline optimization in Seqera Platform"
 date created: "2024-07-08"
-last updated: "2026-06-18"
+last updated: "2026-06-19"
 tags: [platform, runs, pipeline optimization]
 ---
 

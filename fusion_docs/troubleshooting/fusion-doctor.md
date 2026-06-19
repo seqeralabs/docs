@@ -2,7 +2,7 @@
 title: Fusion Doctor
 description: "Run Fusion Doctor diagnostics with nf-canary to validate Fusion compute environments"
 date created: "2026-04-23"
-last updated: "2026-06-18"
+last updated: "2026-06-19"
 tags: [troubleshooting, fusion, fusion doctor, nf-canary, diagnostics]
 ---
 

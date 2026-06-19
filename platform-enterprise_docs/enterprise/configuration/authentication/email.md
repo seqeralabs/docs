@@ -2,7 +2,7 @@
 title: "Email"
 description: Configure email-based authentication for Seqera Platform
 date created: "2026-01-27"
-last updated: "2026-06-18"
+last updated: "2026-06-19"
 tags: [authentication, email, passwordless]
 ---
 

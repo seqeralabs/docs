@@ -2,7 +2,7 @@
 title: "Wave containers"
 description: "Configuring the Wave container service"
 date created: "2023-04-12"
-last updated: "2026-06-18"
+last updated: "2026-06-19"
 tags: [wave, containers, configuration]
 ---
 

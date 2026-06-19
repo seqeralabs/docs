@@ -2,7 +2,7 @@
 title: "Reference"
 description: "Reference material for the Seqera CLI and Co-Scientist"
 date created: "2026-05-28"
-last updated: "2026-06-18"
+last updated: "2026-06-19"
 tags: [co-scientist, cli, reference]
 ---
 
