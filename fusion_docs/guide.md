@@ -8,7 +8,7 @@ tags: [fusion, storage, compute, file system, posix, client]
 
 # User guide
 
-Fusion is a virtual, lightweight, distributed file system designed to optimise the data access of Nextflow data pipelines.
+Fusion is a virtual, lightweight, distributed file system designed to optimize the data access of Nextflow data pipelines.
 
 Fusion enables seamless filesystem I/O to cloud object stores via a standard POSIX interface resulting in simpler pipeline logic and faster, more efficient pipeline execution.
 

@@ -10,7 +10,7 @@ tags: [troubleshooting, help]
 
 **_timeout is not an integer or out of range_** or **_ERR timeout is not an integer or out of range_**
 
-This error can occur if you're using Seqera Platfrom v24.2 upwards and have an outdated version of Redis. From v24.2 Redis version 6.2 or greater is required. Follow your cloud provider specifications to upgrade your instance.
+This error can occur if you're using Seqera Platform v24.2 upwards and have an outdated version of Redis. From v24.2 Redis version 6.2 or greater is required. Follow your cloud provider specifications to upgrade your instance.
 
 **_Unknown pipeline repository or missing credentials_ error from public GitHub repositories**
 

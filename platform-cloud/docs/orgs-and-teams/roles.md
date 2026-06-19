@@ -50,6 +50,8 @@ Workspace participants with any role can leave the workspace, i.e., remove thems
 
 The following table shows which operations are available to the default workspace participant roles:
 
+<div className="pinned-header-row">
+
 | Permission                     | Owner | Admin | Maintain | Launch | Connect | Viewer |
 |--------------------------------|-------|-------|----------|--------|---------|--------|
 | **action:read**                | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
@@ -113,3 +115,5 @@ The following table shows which operations are available to the default workspac
 | **workspace_self:delete**      | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
 | **workspace_studio:read**      | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
 | **workspace_studio:write**     | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+
+</div>

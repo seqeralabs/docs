@@ -69,7 +69,7 @@ After creating a resource group, set up an [Azure Storage account][az-learn-stor
 1. Select **Review and Create**.
 1. Select **Create** to create the Azure Storage account.
     - You will need at least one Blob Storage container to act as a working directory for Nextflow.
-1. Go to your new storage account and select **+ Container** to create a new Blob Storage container. A new container dialogue will open. Enter a suitable name, such as _seqeracomputestorage-container_.
+1. Go to your new storage account and select **+ Container** to create a new Blob Storage container. A new container dialog will open. Enter a suitable name, such as _seqeracomputestorage-container_.
 1. Go to the **Access Keys** section of your new storage account (_seqeracomputestorage_ in this example).
 1. Store the access keys for your Azure Storage account, to be used when you create a Seqera compute environment.
 
@@ -266,7 +266,7 @@ Create a Batch Forge Azure Batch compute environment:
 1. Select a **Region**, such as _eastus_.
 1. In the **Work directory** field, enter the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
     :::note
-    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-pipelines) form.
     :::
 1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
 1. Select **Enable Fusion v2** to allow access to your Azure Blob Storage data via the [Fusion v2][fusion-docs] virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/overview) for configuration details.
@@ -450,7 +450,7 @@ The following settings can be modified after creating a pool:
 1. Select a **Region**, such as _eastus (East US)_.
 1. In the **Work directory** field, add the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
     :::note
-    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-pipelines) form.
     :::
 1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
 1. Select **Enable Fusion v2** to allow access to your Azure Blob Storage data via the [Fusion v2][fusion-docs] virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/overview) for configuration details.
@@ -500,7 +500,7 @@ The following settings can be modified after creating a pool:
     For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation. To rotate a value, recreate the compute environment.
     :::
 1. Configure any necessary advanced options:
-    - Use **Jobs cleanup policy** to control how Nextflow process jobs are deleted on completion. Active jobs consume the quota of the Azure Batch account. By default, jobs are terminated by Nextflow and removed from the quota when all tasks succesfully complete. If set to _Always_, all jobs are deleted by Nextflow after pipeline completion. If set to _Never_, jobs are never deleted. If set to _On success_, successful tasks are removed but failed tasks will be left for debugging purposes.
+    - Use **Jobs cleanup policy** to control how Nextflow process jobs are deleted on completion. Active jobs consume the quota of the Azure Batch account. By default, jobs are terminated by Nextflow and removed from the quota when all tasks successfully complete. If set to _Always_, all jobs are deleted by Nextflow after pipeline completion. If set to _Never_, jobs are never deleted. If set to _On success_, successful tasks are removed but failed tasks will be left for debugging purposes.
     - Use **Token duration** to control the duration of the SAS token generated by Nextflow. This must be as long as the longest period of time the pipeline will run.
 1. Select **Add** to complete the compute environment setup. The creation of resources will take a few seconds, after which you can launch pipelines.
 

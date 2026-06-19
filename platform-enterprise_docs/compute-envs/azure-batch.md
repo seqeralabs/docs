@@ -72,7 +72,7 @@ After creating a resource group, set up an [Azure Storage account][azure-storage
 11. Select **Review and Create**.
 12. Select **Create** to create the Azure Storage account.
     - You will need at least one Blob Storage container to act as a working directory for Nextflow.
-13. Go to your new storage account and select **+ Container** to create a new Blob Storage container. A new container dialogue will open. Enter a suitable name, such as *seqeracomputestorage-container*.
+13. Go to your new storage account and select **+ Container** to create a new Blob Storage container. A new container dialog will open. Enter a suitable name, such as *seqeracomputestorage-container*.
 14. Go to the **Access Keys** section of your new storage account (*seqeracomputestorage* in this example).
 15. Store the access keys for your Azure Storage account, to be used when you create a compute environment.
 

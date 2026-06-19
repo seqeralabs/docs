@@ -22,7 +22,7 @@ VS Code, R-IDE, and Jupyter environments natively integrate with [GitHub Copilot
 
 ## Session size limited by compute environment advanced options: Head job CPUs and Head job memory
 
-When adding a compute environment, setting the Advanced options **Head job CPUs** and **Head job memory** for Nextflow **also applies** to any Studio session created in the compute environment. This is because Studio sessions are managed by the Nextflow runner job. To avoid artifically constraining the resources of your Studio sessions, **do not define these optional compute environment settings**.
+When adding a compute environment, setting the Advanced options **Head job CPUs** and **Head job memory** for Nextflow **also applies** to any Studio session created in the compute environment. This is because Studio sessions are managed by the Nextflow runner job. To avoid artificially constraining the resources of your Studio sessions, **do not define these optional compute environment settings**.
 
 ## Rebuild of a failed custom Studios environment: rebuilding from cache
 
@@ -86,7 +86,7 @@ If you have a running session with data mounted and the underlying storage is up
 You can change this behavior when you are [adding a Studio session](../studios/add-studio) by defining the `FUSION_REFRESH_TIMEOUT` environment variable to a specified number of seconds (e.g., `30`). This will force Fusion to refresh the view of the mounted data-link(s) at the specified interval.
 
 :::note
-Setting the environment variable _inside_ an already running Studio session by executing the command `export FUSION_REFRESH_TIMEOUT=30` won't change the behavior of the outer Fusion session. The environment variable should be set in the "General config" section durion Studio creation.
+Setting the environment variable _inside_ an already running Studio session by executing the command `export FUSION_REFRESH_TIMEOUT=30` won't change the behavior of the outer Fusion session. The environment variable should be set in the "General config" section during Studio creation.
 :::
 
 :::warning
