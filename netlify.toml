@@ -56,5 +56,5 @@
 
 [[redirects]]
   from = "/nextflow/*"
-  to = "https://docs-migration.netlify.app/nextflow/:splat"
+  to = "https://nextflow-docs.netlify.app/nextflow/:splat"
   status = 200
