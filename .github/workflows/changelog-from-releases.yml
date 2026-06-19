@@ -57,7 +57,7 @@ jobs:
 
       - name: Checkout docs repo
         if: steps.should-process.outputs.process == 'true'
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # ratchet:actions/checkout@v7.0.0
 
       - name: Install uv
         if: steps.should-process.outputs.process == 'true'
