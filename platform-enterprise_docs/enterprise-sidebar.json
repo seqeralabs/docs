@@ -75,33 +75,33 @@
                 "enterprise/configuration/authentication/google",
                 "enterprise/configuration/authentication/keycloak",
                 "enterprise/configuration/authentication/entra",
-                "enterprise/configuration/authentication/okta"
-              ]
-            },
-            {
-              "type": "category",
-              "label": "IdP delegation",
-              "collapsed": true,
-              "link": {
-                "type": "doc",
-                "id": "enterprise/configuration/authentication/idp-delegation/overview"
-              },
-              "items": [
+                "enterprise/configuration/authentication/okta",
                 {
                   "type": "category",
-                  "label": "Group catalog",
+                  "label": "IdP delegation",
                   "collapsed": true,
                   "link": {
                     "type": "doc",
-                    "id": "enterprise/configuration/authentication/idp-delegation/group-catalog/overview"
+                    "id": "enterprise/configuration/authentication/idp-delegation/overview"
                   },
                   "items": [
-                    "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-okta",
-                    "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-entra-id"
+                    {
+                      "type": "category",
+                      "label": "Group catalog",
+                      "collapsed": true,
+                      "link": {
+                        "type": "doc",
+                        "id": "enterprise/configuration/authentication/idp-delegation/group-catalog/overview"
+                      },
+                      "items": [
+                        "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-okta",
+                        "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-entra-id"
+                      ]
+                    },
+                    "enterprise/configuration/authentication/idp-delegation/claim-mapping",
+                    "enterprise/configuration/authentication/idp-delegation/multi-org-routing"
                   ]
-                },
-                "enterprise/configuration/authentication/idp-delegation/claim-mapping",
-                "enterprise/configuration/authentication/idp-delegation/multi-org-routing"
+                }
               ]
             },
             "enterprise/configuration/networking",
