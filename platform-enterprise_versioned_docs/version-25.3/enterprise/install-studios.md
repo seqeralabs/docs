@@ -47,7 +47,43 @@ Studios uses the following set of domains and subdomains:
 
 ## Studios workspace availability
 
-You can configure which organizational workspaces have access to Studios by setting the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES` environment variable on the backend containers. By default, all workspaces have access to Studios. To restrict access to specific workspaces, set `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES` to a comma-separated list of workspace names. For example, `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES="12345,67890"` allows only the workspaces named `12345` and `67890` to access Studios. To disable access to Studios for all workspaces, set `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES=""` (an empty string).
+Configure which organizational workspaces have access to Studios in the `tower.yml` configuration file. The `tower.data-studio.allowed-workspaces` field supports the following options:
+
+- `allowed-workspaces: []`: Disables Studios. This is the default if the `allowed-workspaces` field is not specified.
+- `allowed-workspaces: [ <WORKSPACE_ID>,<WORKSPACE_ID> ]`: Enables Studios for the comma-separated list of organizational workspace IDs.
+- `allowed-workspaces: null`: Enables Studios for all organizational workspaces.
+
+For example, to enable Studios for all workspaces in your Platform instance:
+
+```yaml
+tower:
+  data-studio:
+    allowed-workspaces: null
+```
+
+To enable Studios for specific workspaces only:
+
+```yaml
+tower:
+  data-studio:
+    allowed-workspaces: [12345,67890]
+```
+
+In the Platform Helm chart, set the desired configuration in the `platform.YAMLConfigFileContent` field. For example, to enable Studios for workspaces 12345 and 67890:
+
+```yaml
+platform:
+  YAMLConfigFileContent: |-
+    tower:
+      data-studio:
+        allowed-workspaces: [12345,67890]
+```
+
+Alternatively, configure workspace availability with the `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES` environment variable on the backend containers. Set it to a comma-separated list of workspace IDs (for example, `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES="12345,67890"`), or to an empty string (`TOWER_DATA_STUDIO_ALLOWED_WORKSPACES=""`) to disable Studios.
+
+:::note
+From Seqera Platform 26.1, Studios is enabled for all workspaces by default. On earlier versions, you must opt in explicitly using either the `tower.yml` configuration or the environment variable.
+:::
 
 ## Available Studios environment images
 
