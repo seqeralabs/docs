@@ -62,7 +62,7 @@ jobs:
 
       - name: Run Editorial Review
         if: steps.changed-files.outputs.has_changes == 'true'
-        uses: anthropics/claude-code-action@d5726de019ec4498aa667642bc3a80fca83aa102 # v1.0.148
+        uses: anthropics/claude-code-action@51705da45eecce209d4700538bf8377d5b5fc695 # v1.0.152
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |
@@ -132,7 +132,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Apply Editorial Fixes
-        uses: anthropics/claude-code-action@d5726de019ec4498aa667642bc3a80fca83aa102 # v1.0.148
+        uses: anthropics/claude-code-action@51705da45eecce209d4700538bf8377d5b5fc695 # v1.0.152
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |
