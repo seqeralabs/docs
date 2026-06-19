@@ -2,7 +2,7 @@
 title: "Deployment options"
 description: "Seqera Platform deployment options and ways to access your Seqera instance."
 date created: "2023-04-21"
-last updated: "2026-07-05"
+last updated: "2026-06-16"
 tags: [deployment]
 ---
 
@@ -49,6 +49,10 @@ Access your Seqera instance through the UI, the API, the CLI, or in Nextflow dir
 The Seqera API provides programmatic access to Platform. Use the API to automate operations such as launching pipelines, creating compute environments, and managing workspaces, or to integrate Platform with your existing infrastructure and tooling. Authenticate API requests with a Platform access token.
 
 See [API](https://docs.seqera.io/platform-api) for the full endpoint reference and usage details.
+
+:::tip
+To find the organization and workspace IDs that API endpoints use, see [Automation](./quickstart-demo/automation#find-your-organization-and-workspace-ids).
+:::
 
 ### Seqera CLI
 

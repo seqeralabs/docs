@@ -4,7 +4,7 @@ repos:
 # Vale documentation linter (informational only - won't block commits)
 # Run manually: pre-commit run vale --all-files
 - repo: https://github.com/errata-ai/vale
-  rev: v3.0.7
+  rev: v3.13.0
   hooks:
   - id: vale
     name: Vale Documentation Linter (manual)
