@@ -142,7 +142,7 @@ The [`TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`](./configuration/overview#data-featu
 | `""` (empty string) | Studios disabled on all workspaces |
 | Comma-separated workspace IDs | Studios enabled only on the listed workspaces |
 
-To preserve previous opt-in behaviour after upgrading, set `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES=""` before the upgrade, or set it to a comma-separated list of workspace IDs to allow.
+To preserve previous opt-in behavior after upgrading, set `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES=""` before the upgrade, or set it to a comma-separated list of workspace IDs to allow.
 
 ### Studios container template version
 

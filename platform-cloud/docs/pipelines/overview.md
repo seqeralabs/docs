@@ -18,7 +18,7 @@ When you add a pipeline to Seqera, you define:
 ### Manage pipelines
 
 - [Add pipelines](../getting-started/quickstart-demo/add-pipelines.md)
-- [Edit pipelines](../launch/launchpad.md#edit-pipeline)
+- [Edit pipelines](../launch/launchpad.md#edit-pipelines)
 - [Launch pipelines](../launch/launchpad.md)
 
 ### Key features

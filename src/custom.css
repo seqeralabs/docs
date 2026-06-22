@@ -105,3 +105,47 @@ table th {
   max-width: 100%;
   overflow-x: auto;
 }
+
+/* Frozen header row for tall tables.
+   Opt in by wrapping the markdown table in a div:
+   <div className="pinned-header-row"> ... table ... </div>
+   The table becomes a scroll pane (capped height) and the header row stays
+   visible while the rows scroll beneath it. */
+.pinned-header-row table {
+  max-height: 70vh;
+  overflow: auto;
+  /* Infima tables use border-collapse: collapse, but collapsed borders do not
+     travel with a sticky cell — the header border flickers and rows bleed
+     through the seam. Separated borders fix both; we redraw the grid below. */
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* Redraw the 1px grid without doubling: each cell owns its right + bottom edge,
+   the first cell in each row owns the left edge, and the header owns the top
+   edge (drawn via box-shadow further down). */
+.pinned-header-row table th,
+.pinned-header-row table td {
+  border: 0;
+  border-right: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
+  border-bottom: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
+}
+.pinned-header-row table tr > :first-child {
+  border-left: var(--ifm-table-border-width) solid var(--ifm-table-border-color);
+}
+
+.pinned-header-row table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  /* Opaque header (page background) with Infima's faint stripe tint layered on
+     top, so scrolling rows never show through the 3%-transparent stripe. */
+  background-color: var(--ifm-background-color);
+  background-image: linear-gradient(
+    var(--ifm-table-stripe-background),
+    var(--ifm-table-stripe-background)
+  );
+  /* Top border via box-shadow so it paints above the scrolling rows and is
+     never clipped — keeps the header box border consistent during scroll. */
+  box-shadow: inset 0 var(--ifm-table-border-width) 0 var(--ifm-table-border-color);
+}
