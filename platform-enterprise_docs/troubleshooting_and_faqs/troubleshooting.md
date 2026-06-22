@@ -341,28 +341,29 @@ We have improved Tower Agent reconnection logic with the release of version 0.5.
 
 ## Google
 
-**VM preemption causes task interruptions**
+**Spot VM preemption causes task interruptions**
 
-Running your pipelines on preemptible VMs provides significant cost savings, but increases the likelihood that a task will be interrupted before completion. It is a recommended best practice to implement a retry strategy when you encounter [exit codes](https://cloud.google.com/life-sciences/docs/troubleshooting#retrying_after_encountering_errors) that are commonly related to preemption. For example:
+Running your pipelines on Spot VMs provides significant cost savings, but increases the likelihood that a task is interrupted before completion. When Google Cloud reclaims a Spot VM, Google Cloud Batch terminates the task with exit code `50001`. Add a retry strategy to your Nextflow configuration so interrupted tasks are automatically re-executed. See [Spot Instances](https://docs.seqera.io/nextflow/google#spot-instances) in the Nextflow documentation for more information. For example:
 
 ```config
 process {
-  errorStrategy = { task.exitStatus in [8,10,14] ? 'retry' : 'finish' }
-  maxRetries    = 3
-  maxErrors     = '-1'
+  errorStrategy = { task.exitStatus == 50001 ? 'retry' : 'finish' }
+  maxRetries    = 5
 }
 ```
 
-**Seqera Service account permissions for Google Life Sciences and GKE**
+**Seqera service account permissions for Google Cloud Batch**
 
-The following roles must be granted to the `nextflow-service-account`:
+Grant the following roles to the custom service account that submits Batch jobs:
 
-1. Cloud Life Sciences Workflows Runner
-2. Service Account User
-3. Service Usage Consumer
-4. Storage Object Admin
+- Batch Agent Reporter (`roles/batch.agentReporter`)
+- Batch Job Editor (`roles/batch.jobsEditor`)
+- Logs Writer (`roles/logging.logWriter`)
+- Logs Viewer (`roles/logging.logViewer`)
+- Service Account User (`roles/iam.serviceAccountUser`)
+- Storage Admin (`roles/storage.admin`), or bucket-level Storage access
 
-For detailed information, see [this guide](https://cloud.google.com/life-sciences/docs/tutorials/nextflow#create_a_service_account_and_add_roles).
+For detailed setup instructions, see [Service account permissions](../compute-envs/google-cloud-batch#service-account-permissions).
 
 ## Kubernetes
 
