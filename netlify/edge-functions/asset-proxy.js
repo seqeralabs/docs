@@ -7,7 +7,7 @@
 
 const REMOTE_ORIGINS = [
   'https://seqera-docs-api.netlify.app',
-  'https://docs-migration.netlify.app',
+  'https://nextflow-docs.netlify.app',
 ];
 
 export default async function handler(request, context) {
