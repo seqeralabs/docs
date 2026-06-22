@@ -47,7 +47,7 @@ This error can occur if you execute a DSL1-based Nextflow workflow using [Nextfl
 The `sleep` commands in your Nextflow workflows may differ in behavior depending on where they are:
 
 - If used within an `errorStrategy` block, the Groovy sleep function will be used (which takes its value in milliseconds).
-- If used within a process script block, that language's sleep binary/method will be used. For example, [this bash script](https://docs.seqera.io/nextflow/metrics.html?highlight=sleep) uses the bash sleep binary, which takes its value in seconds.
+- If used within a process script block, that language's sleep binary/method will be used. For example, [this bash script](https://docs.seqera.io/nextflow/metrics) uses the bash sleep binary, which takes its value in seconds.
 
 
 **Large number of batch job definitions**
@@ -289,7 +289,7 @@ See [here](https://github.com/nextflow-io/nf-sqldb/discussions/5) for more infor
 
 Seqera-invoked jobs can pull container images from private Docker registries, such as JFrog Artifactory. The method to enable this depends on your computing platform.
 
-For **AWS Batch**, modify your EC2 Launch Template using [these AWS instructions](https://aws.amazon.com/blogs/compute/how-to-authenticate-private-container-registries-using-aws-batch/).
+For **AWS Batch**, modify your EC2 Launch Template using [these AWS instructions](https://docs.aws.amazon.com/batch/latest/userguide/private-registry-auth.html).
 
 :::note
 This solution requires Docker Engine [17.07 or greater](https://docs.docker.com/engine/release-notes/17.07/), to use `--password-stdin`.<br/>
