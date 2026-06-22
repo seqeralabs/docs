@@ -2,7 +2,7 @@
 title: "Protein structure prediction"
 description: "An introduction to running nf-core/proteinfold in Seqera Platform"
 date created: "2024-07-21"
-last updated: "2026-06-19"
+last updated: "2026-06-22"
 tags: [platform, seqera pipelines, studios, proteinfold, alphafold, colabfold, compute environments, aws]
 toc_max_heading_level: 2
 ---

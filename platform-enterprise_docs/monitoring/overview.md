@@ -2,7 +2,7 @@
 title: "Overview"
 description: "Monitoring pipeline runs in Seqera Platform."
 date created: "2024-04-11"
-last updated: "2026-06-19"
+last updated: "2026-06-22"
 tags: [runs, monitoring]
 ---
 

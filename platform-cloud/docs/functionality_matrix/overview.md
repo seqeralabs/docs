@@ -2,7 +2,7 @@
 title: "Default version compatibility"
 description: "Platform / nf-launcher / Nextflow / Fusion version compatibility"
 date created: "2024-06-20"
-last updated: "2026-06-19"
+last updated: "2026-06-22"
 tags: [compatibility, nextflow, nf-launcher]
 ---
 

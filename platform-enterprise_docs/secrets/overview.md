@@ -2,7 +2,7 @@
 title: "Secrets"
 description: "Instructions to use secrets in Seqera Platform."
 date created: "2023-04-24"
-last updated: "2026-06-19"
+last updated: "2026-06-22"
 tags: [pipelines, secrets]
 ---
 

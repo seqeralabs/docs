@@ -2,7 +2,7 @@
 title: "Manage Studios"
 description: "Manage Studio sessions."
 date created: "2025-02-06"
-last updated: "2026-06-19"
+last updated: "2026-06-22"
 tags: [data, sessions, studios]
 ---
 

@@ -2,7 +2,7 @@
 title: "Projects"
 description: "Organize workspace resources into projects using Seqera Platform labels"
 date created: "2026-04-22"
-last updated: "2026-06-19"
+last updated: "2026-06-22"
 tags: [co-scientist, cli, projects, labels]
 ---
 

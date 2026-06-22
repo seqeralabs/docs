@@ -2,7 +2,7 @@
 title: Amazon EKS
 description: "Use Fusion with AWS Elastic Kubernetes Service and S3 storage"
 date created: "2024-08-24"
-last updated: "2026-06-19"
+last updated: "2026-06-22"
 tags: [fusion, storage, compute, aws eks, s3]
 ---
 
