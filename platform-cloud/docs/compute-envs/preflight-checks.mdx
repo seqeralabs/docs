@@ -53,11 +53,11 @@ Run immediately when a user submits a pipeline launch. If any check fails, the l
 
 | Check | What it does |
 |---|---|
-| CE status | Blocks launch if the CE is marked **INVALID** |
-| Credential status | Blocks launch if the credential associated with the CE is marked **INVALID** |
+| Compute environment status | Blocks launch if the CE is marked **INVALID** |
+| Credential status | Blocks launch if the credential associated with the compute environment is marked **INVALID** |
 | Work directory override | If the user provided a different work directory at launch, validates that path with the cloud provider |
-| Wave connectivity | For Compute Environments with Wave enabled, verifies the Wave service connection is active |
-| Tower Agent | For HPC Compute enrionemnts, verifies a Tower Agent is online for the environment |
+| Wave connectivity | For compute environment with Wave enabled, verifies the Wave service connection is active |
+| Tower Agent | For HPC compute environments, verifies a Tower Agent is online for the environment |
 
 ## Manually re-validating credentials
 
@@ -75,10 +75,10 @@ Any compute environments that were marked **INVALID** due to this credential wil
 When a compute environment is marked **INVALID** and you have fixed the underlying issue, you can trigger an immediate re-validation without waiting for the next background sweep:
 
 1. Navigate to **Compute environments** in your workspace.
-2. Find the CE and open its **⋮** (three-dot) dropdown menu.
+2. Find the compute environment and open its **⋮** (three-dot) dropdown menu.
 3. Select **Validate**.
 
-Seqera Platform will carry out pre-flight checks and update the CE status immediately. If all checks pass, the CE returns to **AVAILABLE**.
+Seqera Platform will carry out pre-flight checks and update the compute environment status immediately. If all checks pass, the compute environment returns to **AVAILABLE**.
 
 ## Error reference
 
