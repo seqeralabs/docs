@@ -28,11 +28,11 @@ const localFullFiles = [
 ];
 
 const remoteFiles = [
-  { filename: "llms-nextflow.txt", url: "https://docs-migration.netlify.app/llms-nextflow.txt" },
+  { filename: "llms-nextflow.txt", url: "https://nextflow-docs.netlify.app/llms-nextflow.txt" },
 ];
 
 const remoteFullFiles = [
-  { filename: "llms-nextflow-full.txt", url: "https://docs-migration.netlify.app/llms-nextflow-full.txt" },
+  { filename: "llms-nextflow-full.txt", url: "https://nextflow-docs.netlify.app/llms-nextflow-full.txt" },
 ];
 
 const header = `# Seqera Docs
