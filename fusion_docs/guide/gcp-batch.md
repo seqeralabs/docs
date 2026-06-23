@@ -2,7 +2,7 @@
 title: Google Cloud Batch
 description: "Use Fusion with Google Cloud Batch and Google Cloud Storage"
 date created: "2024-08-23"
-last updated: "2026-06-22"
+last updated: "2026-06-23"
 tags: [fusion, storage, compute, gcp batch, gcs, google cloud]
 ---
 

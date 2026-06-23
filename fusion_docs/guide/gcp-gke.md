@@ -2,7 +2,7 @@
 title: Google Kubernetes Engine
 description: "Use Fusion with Google Kubernetes Engine and Google Cloud Storage"
 date created: "2024-08-23"
-last updated: "2026-06-22"
+last updated: "2026-06-23"
 tags: [fusion, storage, compute, gke, gcs, google cloud, kubernetes]
 ---
 

@@ -2,7 +2,7 @@
 title: "Pipeline actions"
 description: "Automate executions with pipeline actions and webhooks in Seqera Platform."
 date created: "2023-04-24"
-last updated: "2026-06-22"
+last updated: "2026-06-23"
 tags: [actions, webhooks, automation]
 ---
 

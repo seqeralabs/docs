@@ -2,7 +2,7 @@
 title: Fusion file system
 description: "Overview of the Fusion v2 file system"
 date created: "2024-08-23"
-last updated: "2026-06-22"
+last updated: "2026-06-23"
 tags: [fusion, storage, compute, file system, posix, client]
 ---
 

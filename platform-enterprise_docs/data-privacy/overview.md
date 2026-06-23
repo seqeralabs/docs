@@ -2,7 +2,7 @@
 title: "Data privacy"
 description: "Overview of the data collected by Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-06-22"
+last updated: "2026-06-23"
 tags: [data, privacy]
 ---
 

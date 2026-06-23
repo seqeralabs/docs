@@ -2,7 +2,7 @@
 title: "Audit logs"
 description: An overview of application event audit logs in the Admin panel
 date created: "2024-04-08"
-last updated: "2026-06-22"
+last updated: "2026-06-23"
 tags: [logging, audit logs, admin panel]
 ---
 

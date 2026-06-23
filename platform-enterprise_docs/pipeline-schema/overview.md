@@ -2,7 +2,7 @@
 title: "Pipeline schema"
 description: "Introduction to pipeline schema in Seqera Platform."
 date created: "2023-04-24"
-last updated: "2026-06-22"
+last updated: "2026-06-23"
 tags: [pipelines, schema]
 ---
 

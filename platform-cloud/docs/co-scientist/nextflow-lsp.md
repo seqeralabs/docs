@@ -2,7 +2,7 @@
 title: "Code intelligence"
 description: "Use language-server code intelligence in Co-Scientist"
 date created: "2026-02-26"
-last updated: "2026-06-22"
+last updated: "2026-06-23"
 tags: [co-scientist, cli, lsp, code intelligence]
 ---
 

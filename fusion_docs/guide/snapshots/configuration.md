@@ -2,7 +2,7 @@
 title: Advanced configuration
 description: "Advanced configuration options for Fusion Snapshots"
 date created: "2024-11-29"
-last updated: "2026-06-22"
+last updated: "2026-06-23"
 tags: [fusion, fusion snapshots, snapshot, configuration, nextflow]
 ---
 

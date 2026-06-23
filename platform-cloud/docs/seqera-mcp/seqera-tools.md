@@ -2,7 +2,7 @@
 title: Seqera Platform Tools
 description: "Manage workflows, compute environments, and containers through Seqera Platform"
 date created: "2026-01-12"
-last updated: "2026-06-22"
+last updated: "2026-06-23"
 tags: [seqera, platform, nextflow, workflows, containers]
 ---
 

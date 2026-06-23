@@ -2,7 +2,7 @@
 title: "Azure Batch"
 description: "Instructions to set up Azure Batch in Seqera Platform"
 date created: "2024-01-04"
-last updated: "2026-06-22"
+last updated: "2026-06-23"
 tags: [azure, batch, compute environments]
 ---
 

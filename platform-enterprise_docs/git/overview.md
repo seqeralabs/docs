@@ -2,7 +2,7 @@
 title: "Git integration"
 description: "Connecting to Git repositories in Seqera Platform."
 date created: "2024-06-24"
-last updated: "2026-06-22"
+last updated: "2026-06-23"
 tags: [git]
 ---
 

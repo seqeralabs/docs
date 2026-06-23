@@ -2,7 +2,7 @@
 title: "Environment variables"
 description: "Environment variables for authenticating and configuring the Seqera CLI"
 date created: "2026-05-28"
-last updated: "2026-06-22"
+last updated: "2026-06-23"
 tags: [co-scientist, cli, reference]
 ---
 

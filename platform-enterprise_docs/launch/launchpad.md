@@ -2,7 +2,7 @@
 title: "Launch pipelines"
 description: "Curate and launch workflows in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-06-22"
+last updated: "2026-06-23"
 tags: [launchpad, launch, configure, pipelines, schema, configuration, nextflow, parameters, input, output]
 ---
 

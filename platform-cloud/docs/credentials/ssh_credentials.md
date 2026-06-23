@@ -2,7 +2,7 @@
 title: "SSH credentials"
 description: "Create SSH credentials in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2026-06-22"
+last updated: "2026-06-23"
 tags: [ssh, credentials]
 ---
 
