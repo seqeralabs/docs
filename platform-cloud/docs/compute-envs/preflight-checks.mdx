@@ -25,7 +25,7 @@ Resolving problems before they are caught by the background sweep or a blocked l
 - The Wave service is running and reachable from the Platform instance.
 
 **Tower Agent** (HPC/grid CEs only)
-- The Tower Agent process is running on the cluster before any pipeline is launched against that CE.
+- Tower Agent must be running on the cluster and connected to Platform before any pipeline can launch. This is a persistent process managed by whoever administers the cluster — confirm it is active with your cluster administrator if you are unsure.
 - See [Tower Agent](../getting-started/tower-agent) for installation and startup instructions.
 
 ## What is checked and when
