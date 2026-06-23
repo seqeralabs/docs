@@ -5,20 +5,20 @@ date: "23 Jun 2026"
 tags: [compute environments, credentials, troubleshooting]
 ---
 
-Pre-flight checks continuously validate that a compute environment (CE) is usable before and at the point of pipeline launch. They run in the background on a schedule and synchronously at launch time, so problems are surfaced to users before pipelines are submitted rather than failing mid-run.
+Pre-flight checks validate that a compute environment (CE) is usable before and at the point of pipeline launch. They run in the background on a recurring schedule and synchronously at launch time, so problems are surfaced before pipelines are submitted rather than failing mid-run. Pre-flight checks only flag conditions that would cause a pipeline launch to fail.
 
 Pre-flight checks are enabled by default and cannot be disabled.
 
 ## What to verify before creating a compute environment
 
-Resolving problems before they are caught by the background sweep or a blocked launch is faster than diagnosing them after the fact. Before creating or deploying a compute environment, confirm the following:
+Before creating or deploying a compute environment, confirm the following:
 
 **Credentials**
 - The access keys, service account key, or managed identity are valid and have not been rotated or revoked.
 - The IAM role or service account has the permissions required by the target platform. See the relevant CE page for the minimum required policy.
 
 **Work directory**
-- The bucket or storage container exists in the same region as the compute environment (required for AWS).
+- The bucket or storage container exists in the same region as the compute environment (required for AWS Batch and AWS Cloud compute environments only).
 - The credential attached to the CE has read and write access to the work directory path.
 
 **Wave** (if enabled on the CE)
@@ -33,7 +33,9 @@ Platform runs three tiers of validation:
 
 ### 1. Background credential sweep
 
-Runs on a recurring schedule. For each cloud credential (AWS, GCP, Azure) in scope, Platform calls the provider API to verify the keys are still accepted — confirming the credential can authenticate, not whether it has the permissions needed to run a specific pipeline. When a credential fails this check, it is marked **INVALID** with the provider error recorded on the credential record. This state is then visible to the CE sweep and to any launch that references that credential.
+Runs on a recurring schedule. For each cloud credential (AWS, GCP, Azure) in scope, Platform calls the provider API to verify the credential is still accepted and can authenticate. The credential sweep makes a live API call to verify the credential is still accepted by the cloud provider. For AWS role-based credentials and GCP Workload Identity Federation, this check confirms the credential is well-formed but cannot fully verify the underlying role or identity provider trust configuration.
+
+When a credential fails this check, it is marked **INVALID** with the provider error recorded on the credential record. This error appears in the launch-time error when a pipeline is blocked, but not in the CE banner — to see the specific provider error, check the credential record directly.
 
 ### 2. Background CE sweep
 
@@ -48,7 +50,7 @@ A CE marked **INVALID** by the background sweep displays a banner explaining the
 The background CE sweep covers AWS Batch, AWS Cloud, Azure Batch, Azure Cloud, Google Cloud Batch, and Google Cloud compute environments.
 :::
 
-### 3. Synchronous launch-time checks
+### 3. Pipeline launch-time checks
 
 Run immediately when a user submits a pipeline launch. If any check fails, the launch is blocked and a specific error is returned. Multiple failures are reported together.
 
@@ -59,6 +61,17 @@ Run immediately when a user submits a pipeline launch. If any check fails, the l
 | Work directory override | If the user provided a different work directory at launch, validates that path with the cloud provider |
 | Wave connectivity | For CEs with Wave enabled, verifies the Wave service connection is active |
 | Tower Agent | For HPC/grid CEs, verifies a Tower Agent is online for the environment |
+
+## Manually re-validating credentials
+
+When a credential is marked **INVALID** and you have rotated the keys or fixed the underlying issue, you can trigger an immediate re-validation:
+
+1. Navigate to **Credentials** in your workspace.
+2. Find the credential and select **Validate**.
+
+Platform makes a live call to the cloud provider and updates the credential status immediately. If the check passes, the credential returns to **AVAILABLE**.
+
+Any compute environments that were marked **INVALID** due to this credential will not recover automatically — use **Validate** on each affected CE after the credential is restored.
 
 ## Manually re-validating a compute environment
 
@@ -72,13 +85,13 @@ Platform runs the full check sequence (live credential probe + work directory ch
 
 ## Error reference
 
-### CE banner messages
+### Compute environment error messages
 
 These appear on the compute environment detail page when the CE is **INVALID**.
 
 | Banner | Meaning | Action |
 |---|---|---|
-| `Associated credentials are invalid or expired. Update the credentials and validate this compute environment, or contact your workspace maintainer to resolve this.` | The background sweep found the attached credential marked INVALID | Go to **Credentials**, update or rotate the credential, then use **Validate** on the CE |
+| `Associated credentials are invalid or expired. Update the credentials and validate this compute environment, or contact your workspace maintainer to resolve this.` | The background sweep found the attached credential is no longer valid | Go to **Credentials**, update or rotate the credential, then use **Validate** on the CE |
 | `Work directory is invalid. {reason}. Fix it and validate this compute environment, or contact your workspace maintainer to resolve this.` | The background sweep could not access the configured work directory | Fix the bucket/path permissions or location, then use **Validate** on the CE |
 
 ### Launch-time errors
@@ -87,15 +100,14 @@ These are returned immediately to the user when a launch is blocked.
 
 | Error | Cause | Resolution |
 |---|---|---|
-| `The selected compute environment '...' is in an invalid state` | CE is marked INVALID (see banner on the CE for the specific reason) | Fix the root cause shown in the CE banner, then re-validate the CE |
+| `The selected compute environment '...' is in an invalid state` | CE is marked INVALID (see banner on the CE for the specific reason) | Fix the root cause shown in the CE banner, then use **Validate** on the CE |
 | `The credentials '...' used by this compute environment are invalid` | Credential is marked INVALID | Go to **Credentials**, update or rotate the credential, then use **Validate** on the CE |
-| `Wave is required by the selected compute environment but the Wave service connection is not active. Verify that Wave is running and check for connectivity issues` | Platform cannot reach the Wave service | Check that Wave is running. Contact your platform administrator if the issue persists |
-| `Wave is required by the selected compute environment but is not configured on this platform` | Wave is enabled on the CE but not configured at the platform level | Contact your platform administrator to configure Wave |
-| `No Tower Agent is online for the selected compute environment. Check that Tower Agent is running at your cluster.` | No Tower Agent process is connected for this CE (HPC/grid only) | Start or restart Tower Agent on the cluster. See [Tower Agent](../getting-started/tower-agent) |
+| `Wave is required by the selected compute environment but the Wave service connection is not active. Verify that Wave is running and check for connectivity issues` | Platform cannot reach the Wave service | Contact your platform administrator. Once Wave is restored, retry the launch |
+| `No Tower Agent is online for the selected compute environment. Check that Tower Agent is running at your cluster.` | No Tower Agent is connected for this CE (HPC/grid only) | Start or restart Tower Agent on the cluster. See [Tower Agent](../getting-started/tower-agent) |
 
 ### Credential error messages
 
-When the credential sweep marks a credential INVALID, the provider-specific reason is stored on the credential record and surfaced in the CE banner and launch error.
+When the credential sweep marks a credential INVALID, the provider-specific reason is stored on the credential record. It appears in the launch-time error when a pipeline is blocked, but not in the CE banner — to see the specific provider error, check the credential record directly.
 
 | Provider | Example message |
 |---|---|
