@@ -33,13 +33,7 @@ Platform runs three tiers of validation:
 
 ### 1. Background credential sweep
 
-Runs on a recurring schedule. For each cloud credential (AWS, GCP, Azure) in scope, Platform calls the provider API to verify the credential keys are still accepted — for example, that AWS access keys haven't been rotated or that a GCP service account key hasn't been revoked.
-
-When a credential fails this check, it is marked **INVALID** with the specific provider error recorded in the credential record. This state is then visible to the CE sweep and to any launch that references that credential.
-
-:::note
-Platform also checks whether the credential permissions are sufficient to run the pipeline, not just that the keys are valid.
-:::
+Runs on a recurring schedule. For each cloud credential (AWS, GCP, Azure) in scope, Platform calls the provider API to verify the keys are still accepted — confirming the credential can authenticate, not whether it has the permissions needed to run a specific pipeline. When a credential fails this check, it is marked **INVALID** with the provider error recorded on the credential record. This state is then visible to the CE sweep and to any launch that references that credential.
 
 ### 2. Background CE sweep
 
