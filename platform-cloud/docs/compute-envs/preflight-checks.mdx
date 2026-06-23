@@ -88,7 +88,7 @@ These are returned immediately to the user when a launch is blocked.
 | Error | Cause | Resolution |
 |---|---|---|
 | `The selected compute environment '...' is in an invalid state` | CE is marked INVALID (see banner on the CE for the specific reason) | Fix the root cause shown in the CE banner, then re-validate the CE |
-| `The credentials '...' used by this compute environment are invalid` | Credential is marked INVALID | Go to **Credentials**, update or rotate the credential. The CE will be re-validated automatically or use **Validate** on the CE |
+| `The credentials '...' used by this compute environment are invalid` | Credential is marked INVALID | Go to **Credentials**, update or rotate the credential, then use **Validate** on the CE |
 | `Wave is required by the selected compute environment but the Wave service connection is not active. Verify that Wave is running and check for connectivity issues` | Platform cannot reach the Wave service | Check that Wave is running. Contact your platform administrator if the issue persists |
 | `Wave is required by the selected compute environment but is not configured on this platform` | Wave is enabled on the CE but not configured at the platform level | Contact your platform administrator to configure Wave |
 | `No Tower Agent is online for the selected compute environment. Check that Tower Agent is running at your cluster.` | No Tower Agent process is connected for this CE (HPC/grid only) | Start or restart Tower Agent on the cluster. See [Tower Agent](../getting-started/tower-agent) |
