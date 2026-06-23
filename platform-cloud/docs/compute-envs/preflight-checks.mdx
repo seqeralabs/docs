@@ -41,10 +41,10 @@ When a credential fails this check, it is marked **INVALID** with the provider e
 
 Runs approximately every hour across all compute environments where the status is **AVAILABLE**. The checks validate:
 
-1. **Credential status** — If the credential is **INVALID**, the CE is immediately marked **INVALID**. 
-2. **Work directory** — Validates whether the Compute environment's configured work directory is accessible. If this fails, the CE is marked **INVALID** with the provider error appended in the card view and at the top of the form page. 
+1. **Credential status**. If the credential is **INVALID**, the compute environment is immediately marked **INVALID**. 
+2. **Work directory**. Validates whether the compute environment's configured work directory is accessible. If this fails, the compute environment is marked **INVALID** with the provider error appended in the card view and at the top of the form page. 
 
-A CE marked **INVALID** displays a banner with the corresponding error message. A Compute environment that is marked as **AVAILABLE** has its `lastValidated` timestamp refreshed.
+A compute environment marked **INVALID** displays a banner with the corresponding error message. A compute environment that is marked as **AVAILABLE** has its `lastValidated` timestamp refreshed.
 
 
 ### 3. Pipeline launch-time checks
