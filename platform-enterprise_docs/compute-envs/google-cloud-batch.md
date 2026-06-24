@@ -115,7 +115,7 @@ Workload Identity Federation (WIF) is the recommended authentication method for 
      --role="roles/iam.serviceAccountTokenCreator"
    ```
 
-   Replace `SA_EMAIL` with the service account email. Without this role, viewing or downloading file contents in Data Explorer fails with a signing error. Running pipelines is not affected.
+   Replace `SA_EMAIL` with the service account email. Without this role, viewing or downloading file contents in Data Explorer fails with a signing error. Pipeline runs are not affected.
 
 WIF requires an OIDC signing key and for Seqera Platform's OIDC provider to be configured. See [Cryptographic options](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#cryptographic-options).
 

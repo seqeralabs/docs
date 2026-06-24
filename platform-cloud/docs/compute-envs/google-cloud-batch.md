@@ -120,7 +120,7 @@ Setting up WIF requires the following steps in the GCP Console:
      --role="roles/iam.serviceAccountTokenCreator"
    ```
 
-   Replace `SA_EMAIL` with the service account email. Without this role, viewing or downloading file contents in Data Explorer fails with a signing error. Running pipelines is not affected.
+   Replace `SA_EMAIL` with the service account email. Without this role, viewing or downloading file contents in Data Explorer fails with a signing error. Pipeline runs are not affected.
 
 After setting up WIF in the GCP Console, you need the following information to create a credential in Seqera Platform:
 
