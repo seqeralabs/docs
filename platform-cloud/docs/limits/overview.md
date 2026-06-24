@@ -1,8 +1,9 @@
 ---
 title: "Usage limits"
 description: "An overview of Seqera Cloud usage limits"
-date: "19 Feb 2025"
-tags: [limits]
+date created: "2025-02-19"
+last updated: "2026-06-24"
+tags: [limits, usage]
 ---
 
 Seqera Platform elements and features have default limits per organization and workspace.
