@@ -161,7 +161,8 @@ If you receive a permission denied error, there are several possible causes:
 
 1. Verify the user has the correct role and permissions in the workspace.
 2. Check that the user's SSH public key is configured in their Seqera user profile.
-3. Ensure SSH was enabled when adding the Studio using the **SSH Connection** toggle. The SSH setting persists across stop/start but defaults to disabled for new Studios.
+3. Ensure SSH was enabled when starting the Studio using the **SSH Connection** toggle. The SSH setting defaults to disabled for new Studios.
+4. Ensure the Studio is built with Connect Client version 0.10.0 or later
 
 ### VS Code Remote SSH not working
 
