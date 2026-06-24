@@ -37,7 +37,7 @@ See [here](https://console.cloud.google.com/flows/enableapi?apiid=batch.googleap
 - Compute Engine API
 - Cloud Storage API
 
-Select your project from the dropdown menu and select **Enable**.
+Select your project from the drop-down and select **Enable**.
 
 Alternatively, you can enable each API manually by selecting your project in the navigation bar and visiting each API page:
 
@@ -185,7 +185,7 @@ After your Google Cloud resources have been created, create a new Platform compu
 
 #### Credentials
 
-1. From the **Credentials** drop-down menu, select existing Google credentials or select **+** to add new credentials. If you choose to use existing credentials, skip to the next section.
+1. From the **Credentials** drop-down, select existing Google credentials or select **+** to add new credentials. If you choose to use existing credentials, skip to the next section.
 2. Enter a name for the credentials, e.g., _Google Cloud Credentials_.
 3. Paste the contents of the JSON file created previously in the **Service account key** field.
 
@@ -279,8 +279,8 @@ If you use VM instance templates for the head or compute jobs (see below), resou
 
 1. Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
 1. Use **Boot disk size** to control the persistent disk size that each task and the head job are provided.
-1. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The drop-down menu is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional. If not set, Google Batch uses the default image.
-1. Use **Instance Type** to select a specific machine type for the compute instances. The drop-down menu is populated with available instance types for the selected region and supports autocomplete filtering. This field is optional. If not set, Google Batch selects an appropriate machine type automatically.
+1. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The drop-down is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional. If not set, Google Batch uses the default image.
+1. Use **Instance Type** to select a specific machine type for the compute instances. The drop-down is populated with available instance types for the selected region and supports autocomplete filtering. This field is optional. If not set, Google Batch selects an appropriate machine type automatically.
     :::note
     The **Instance Type** field sets a default machine type at the compute environment level. You can override this for individual processes using the `machineType` [process directive](https://docs.seqera.io/nextflow/google#process-definition) in your Nextflow configuration.
     :::
