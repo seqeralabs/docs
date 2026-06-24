@@ -25,26 +25,26 @@ Before creating or deploying a compute environment, confirm the following:
 - The Wave service is running and reachable from the Platform instance.
 
 **Tower Agent** (HPC/grid compute environments only)
-- Tower Agent is reachable from Seqera Platform. See [Tower Agent](../getting-started/tower-agent) for installation and startup instructions.
+- Tower Agent is reachable from Platform. See [Tower Agent](../getting-started/tower-agent) for installation and startup instructions.
 
 ## Validation process
 
-Seqera Platform runs three tiers of validation:
+Platform runs three tiers of validation:
 
 ### 1. Credential validation
 
-Runs on a recurring schedule. For each cloud credential (AWS, GCP, Azure) in scope, Seqera Platform calls the provider API to verify that the credential is still accepted. For AWS role-based credentials and GCP Workload Identity Federation, this check confirms the credential is well-formed but cannot fully verify the underlying role or identity provider trust configuration.
+Runs on a recurring schedule. For each cloud credential (AWS, GCP, Azure) in scope, Platform calls the provider API to verify that the credential is still accepted. For AWS role-based credentials and GCP Workload Identity Federation, this check confirms the credential is well-formed but cannot fully verify the underlying role or identity provider trust configuration.
 
-When a credential fails this check, Seqera Platform marks it **INVALID** and records the provider error on the credential record. This error appears in the launch-time error when a pipeline is blocked, but not in the compute environment banner. To see the specific provider error, check the credential record directly.
+When a credential fails this check, Platform marks it **INVALID** and records the provider error on the credential record. This error appears in the launch-time error when a pipeline is blocked, but not in the compute environment banner. To see the specific provider error, check the credential record directly.
 
 ### 2. Compute environment validation
 
-Runs approximately every hour across all **AVAILABLE** compute environments. Seqera Platform validates:
+Runs approximately every hour across all `AVAILABLE` compute environments. Platform validates:
 
-1. **Credential status**: If the credential is **INVALID**, the compute environment is marked **INVALID** immediately.
-2. **Work directory**: Seqera Platform calls the cloud provider to verify that the configured work directory is accessible. If this check fails, the compute environment is marked **INVALID** and the provider error appears in the card view and at the top of the form page.
+1. **Credential status**: If the credential is `INVALID`, the compute environment is marked `INVALID` immediately.
+2. **Work directory**: Platform calls the cloud provider to verify that the configured work directory is accessible. If this check fails, the compute environment is marked **INVALID** and the provider error appears in the card view and at the top of the form page.
 
-A compute environment marked **INVALID** displays a banner with the error message. An **AVAILABLE** compute environment has its `lastValidated` timestamp refreshed.
+A compute environment marked `INVALID` displays a banner with the error message. An `AVAILABLE` compute environment has its `lastValidated` timestamp refreshed.
 
 :::note
 These checks cover AWS Batch, AWS Cloud, Azure Batch, Azure Cloud, Google Cloud Batch, and Google Cloud compute environments.
@@ -56,38 +56,38 @@ Runs immediately when a user submits a pipeline launch. If any check fails, the 
 
 | Check | What it does |
 |---|---|
-| Compute environment status | Blocks launch if the compute environment is marked **INVALID** |
-| Credential status | Blocks launch if the credential associated with the compute environment is marked **INVALID** |
+| Compute environment status | Blocks launch if the compute environment is marked `INVALID` |
+| Credential status | Blocks launch if the credential associated with the compute environment is marked `INVALID` |
 | Work directory override | If the user provided a different work directory at launch, validates that path with the cloud provider |
 | Wave connectivity | For compute environments with Wave enabled, verifies the Wave service connection is active |
 | Tower Agent | For HPC compute environments, verifies a Tower Agent is online for the environment |
 
 ## Manual credential validation
 
-When a credential is marked **INVALID** and you have rotated the keys or fixed the underlying issue, you can trigger an immediate re-validation:
+When a credential is marked `INVALID` and you have rotated the keys or fixed the underlying issue, you can trigger an immediate re-validation:
 
 1. Navigate to **Credentials** in your workspace.
 2. Find the credential and select **Validate**.
 
-Seqera Platform makes a live call to the cloud provider and updates the credential status immediately. If the check passes, the credential returns to **AVAILABLE**.
+Platform makes a live call to the cloud provider and updates the credential status immediately. If the check passes, the credential returns to `AVAILABLE`.
 
-Compute environments marked **INVALID** because of this credential do not recover automatically. Use **Validate** on each affected compute environment after restoring the credential.
+Compute environments marked `INVALID` because of this credential do not recover automatically. Use **Validate** on each affected compute environment after restoring the credential.
 
 ## Manual compute environment validation
 
-When a compute environment is marked **INVALID** and you have fixed the underlying issue, you can trigger an immediate re-validation without waiting for the next background sweep:
+When a compute environment is marked `INVALID` and you have fixed the underlying issue, you can trigger an immediate re-validation without waiting for the next background sweep:
 
 1. Navigate to **Compute environments** in your workspace.
 2. Find the compute environment and open its **⋮** (three-dot) drop-down.
 3. Select **Validate**.
 
-Seqera Platform runs pre-flight checks and updates the compute environment status immediately. If all checks pass, the compute environment returns to **AVAILABLE**.
+Platform runs pre-flight checks and updates the compute environment status immediately. If all checks pass, the compute environment returns to `AVAILABLE`.
 
 ## Error reference
 
 ### Compute environment error messages
 
-These banners appear on the compute environment detail page when the compute environment is **INVALID**.
+These banners appear on the compute environment detail page when the compute environment is `INVALID`.
 
 | Banner | Meaning | Action |
 |---|---|---|
@@ -100,14 +100,14 @@ These are returned immediately to the user when a launch is blocked.
 
 | Error | Cause | Resolution |
 |---|---|---|
-| `The selected compute environment '...' is in an invalid state` | Compute environment is marked INVALID (see banner for the specific reason) | Fix the root cause, then use **Validate** on the compute environment |
-| `The credentials '...' used by this compute environment are invalid` | Credential is marked INVALID | Go to **Credentials**, update or rotate the credential, then use **Validate** on the compute environment |
+| `The selected compute environment '...' is in an invalid state` | Compute environment is marked `INVALID` (see banner for the specific reason) | Fix the root cause, then use **Validate** on the compute environment |
+| `The credentials '...' used by this compute environment are invalid` | Credential is marked `INVALID` | Go to **Credentials**, update or rotate the credential, then use **Validate** on the compute environment |
 | `Wave is required by the selected compute environment but the Wave service connection is not active. Verify that Wave is running and check for connectivity issues` | Platform cannot reach the Wave service | Contact your platform administrator. Once Wave is restored, retry the launch |
 | `No Tower Agent is online for the selected compute environment. Check that Tower Agent is running at your cluster.` | No Tower Agent is connected for this compute environment (HPC/grid only) | Start or restart Tower Agent on the cluster. See [Tower Agent](../getting-started/tower-agent) |
 
 ### Credential error messages
 
-When the credential sweep marks a credential **INVALID**, the provider-specific reason is stored on the credential record. It appears in the launch-time error when a pipeline is blocked, but not in the compute environment banner. To see the specific provider error, check the credential record directly.
+When the credential sweep marks a credential `INVALID`, the provider-specific reason is stored on the credential record. It appears in the launch-time error when a pipeline is blocked, but not in the compute environment banner. To see the specific provider error, check the credential record directly.
 
 | Provider | Example message |
 |---|---|
