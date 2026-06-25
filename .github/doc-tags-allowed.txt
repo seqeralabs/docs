@@ -141,6 +141,7 @@ image
 input
 installation
 integration
+intelligent compute
 interactive
 jupyter
 k8s

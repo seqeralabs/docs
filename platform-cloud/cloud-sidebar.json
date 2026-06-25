@@ -69,6 +69,7 @@
               "compute-envs/seqera-compute",
               "compute-envs/aws-batch",
               "compute-envs/aws-cloud",
+              "compute-envs/intelligent-compute",
               "compute-envs/azure-batch",
               "compute-envs/azure-cloud",
               "compute-envs/google-cloud-batch",
