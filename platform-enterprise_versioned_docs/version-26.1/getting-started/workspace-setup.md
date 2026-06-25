@@ -14,7 +14,7 @@ To create an organization workspace and begin adding participants, first create 
 
 Organizations are the top-level structure and contain workspaces, members, and teams. You can also add external collaborators to an organization. See [Organization management](../orgs-and-teams/organizations) for more information.
 
-1. Expand the **Organization | Workspace** dropdown and select **Add organization**.
+1. Expand the **Organization | Workspace** drop-down and select **Add organization**.
 1. Complete the organization details fields:
     - The **Name** to be associated with the organization in Platform.
     - The **Full name** of the organization.
@@ -37,7 +37,7 @@ You are the first **Owner** of the organizations that you create. Add other orga
 1. Select **Add**. You are redirected to your organization's **Workspaces** tab with your new workspace listed.
 1. Select your new workspace, then select the **Participants** tab to **Add Participants**.
 1. Enter the names of existing organization members or teams and select **Add**.
-1. Update a participant's access **Role** from the dropdown, if needed.
+1. Update a participant's access **Role** from the drop-down, if needed.
 
 ### Simplify workspace access with teams
 
@@ -50,4 +50,4 @@ Create a new team, add team members, and add the team to workspaces from the **T
     :::note
     Team members must be existing organization members.
     :::
-1. From the team edit screen's **Workspaces** tab, add workspaces by name and select an access **Role** from the dropdown next to each workspace in the list. All team members inherit the workspace access role for the team.
+1. From the team edit screen's **Workspaces** tab, add workspaces by name and select an access **Role** from the drop-down next to each workspace in the list. All team members inherit the workspace access role for the team.

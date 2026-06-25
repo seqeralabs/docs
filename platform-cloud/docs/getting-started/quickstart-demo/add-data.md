@@ -27,7 +27,7 @@ To add individual buckets (or directory paths within buckets):
     - The cloud **Provider**.
     - An existing cloud **Bucket path**.
     - A unique **Name** for the bucket.
-    - The **Credentials** used to access the bucket. For public cloud buckets, select **Public** from the dropdown menu.
+    - The **Credentials** used to access the bucket. For public cloud buckets, select **Public** from the drop-down.
     - An optional bucket **Description**.
 1. Select **Add**.
 
@@ -35,7 +35,7 @@ You can now use this data in your analysis without interacting with cloud consol
 
 #### Public data sources
 
-Select **Public** from the credentials dropdown menu to add public cloud storage buckets from resources such as:
+Select **Public** from the credentials drop-down to add public cloud storage buckets from resources such as:
 
 - [The Cancer Genome Atlas (TCGA)](https://registry.opendata.aws/tcga/)
 - [1000 Genomes Project](https://registry.opendata.aws/1000-genomes/)
