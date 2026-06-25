@@ -12,7 +12,7 @@ import CodeBlock from '@theme/CodeBlock';
 import AwsCloudIntelligentComputePolicy from './_policies/aws-cloud-intelligent-compute-policy.json?raw';
 
 :::info[Preview]
-Seqera Intelligent Compute is in preview. Seqera must enable it for your workspace before you can use it. Contact your account manager to request access.
+Seqera Intelligent Compute is in preview. Seqera must enable it on a per-workspace basis before you can use it. Contact your account manager to request access for one or more workspaces.
 :::
 
 :::caution
@@ -123,7 +123,7 @@ The **Metrics** tab for a run on Intelligent Compute shows three resource values
 | **Provisioning model** | `spotFirst`, `spot`, `ondemand` | `spotFirst` | Instance procurement strategy. `spotFirst` uses Spot instances and falls back to On-Demand if Spot capacity is unavailable. `spot` uses Spot instances only. `ondemand` uses On-Demand instances only. |
 | **Instance types** | Comma-separated EC2 instance type identifiers (for example, `m5.xlarge, c5.2xlarge`) | Empty | Restricts which instance types the scheduler can select. When empty, the scheduler selects the most cost-effective type for each task automatically. Specifying types here overrides automatic selection. |
 | **Prediction model** | `none`, `qr/v1`, `qr/v2` | `none` | Resource-prediction model used by Intelligent Compute to size tasks. When set to `none`, the scheduler does not apply resource optimization and allocated resources match what the pipeline requests. Contact your account manager to enable a prediction model. |
-| **Backend strategy** | `ECS`, `EC2` | `ECS` | Task execution backend. `ECS` delegates execution to AWS ECS (default). `EC2` runs tasks directly on EC2 instances and enables warm pool support. |
+| **Backend strategy** | `ECS`, `EC2` | `ECS` | Task execution backend. Use `ECS` (default). `EC2` is reserved for future use. |
 | **Fusion snapshots** | Enabled / Disabled | Disabled | Allow interrupted tasks (for example, after a Spot reclaim) to resume from a Fusion snapshot instead of restarting from scratch. |
 | **Use NVMe instance storage** | Enabled / Disabled | Disabled | Restrict Intelligent Compute to instance types that provide local SSD (NVMe) storage for faster I/O. |
 | **Enable warm pool** | Enabled / Disabled | Disabled | Keep a pool of idle VMs ready to absorb incoming tasks with minimal start latency. Only available when **Backend strategy** is set to `EC2`. |
