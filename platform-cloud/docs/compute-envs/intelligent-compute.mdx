@@ -106,7 +106,7 @@ The **Metrics** tab for a run on Intelligent Compute shows three resource values
 |--------|--------|-------------------|
 | **Requested** | Pipeline `process` directives | The CPU and memory your pipeline asked for, as written in your `process` directives (for example, `cpus = 4`, `memory = 8 GB`). |
 | **Allocated** | Scheduler decision | The CPU and memory the scheduler assigned to the task container. Intelligent Compute may assign values different from what was requested. It selects the most cost-effective instance shape that satisfies the task's requirements. |
-| **Used** | Nextflow trace data | The CPU and memory the task consumed, measured from the Nextflow trace metrics (`pcpu` × `realtime` for CPU, `peakRss` for memory). Requires Fusion to be enabled. Absent for tasks that did not produce trace data. |
+| **Used** | Nextflow trace data | The CPU and memory the task consumed, measured from the Nextflow trace metrics (`pcpu` × `realtime` for CPU, `peakRss` for memory). Absent for tasks that did not produce trace data. |
 
 **How to read the numbers:**
 
@@ -121,30 +121,3 @@ The **Metrics** tab for a run on Intelligent Compute shows three resource values
 | **Seqera Intelligent Compute** | Enabled / Disabled | Disabled | Enables the Intelligent Compute scheduler for this compute environment. This option only appears if Intelligent Compute is enabled for your organization. |
 | **Provisioning model** | `spotFirst`, `spot`, `ondemand` | `spotFirst` | Instance procurement strategy. `spotFirst` uses Spot instances and falls back to On-Demand if Spot capacity is unavailable. `spot` uses Spot instances only. `ondemand` uses On-Demand instances only. |
 | **Instance types** | Comma-separated EC2 instance type identifiers (for example, `m5.xlarge, c5.2xlarge`) | Empty | Restricts which instance types the scheduler can select. When empty, the scheduler selects the most cost-effective type for each task automatically. Specifying types here overrides automatic selection. |
-
-## Task and run statuses
-
-Intelligent Compute reports a status for each task and for the run as a whole.
-
-### Task statuses
-
-| Status | Description |
-|--------|-------------|
-| <code style={{whiteSpace: 'nowrap'}}>SUBMITTED</code> | Task is queued or submitted to the compute backend. |
-| <code style={{whiteSpace: 'nowrap'}}>RUNNING</code> | Task is running on a compute instance. |
-| <code style={{whiteSpace: 'nowrap'}}>SUCCEEDED</code> | Task completed with exit code 0. |
-| <code style={{whiteSpace: 'nowrap'}}>FAILED</code> | Task failed. Covers non-retriable execution failures (non-zero exit code, container startup errors) and Spot capacity exhaustion after retries. |
-| <code style={{whiteSpace: 'nowrap'}}>CANCELLED</code> | Task was cancelled by the user. |
-| <code style={{whiteSpace: 'nowrap'}}>PREEMPTED</code> | The Spot instance running this task was reclaimed by AWS. The scheduler retries the task on Spot, then falls back to On-Demand for `spotFirst`. If all retries are exhausted, the task ends as `PREEMPTED`. |
-| <code style={{whiteSpace: 'nowrap'}}>UNSCHEDULABLE</code> | No instance type satisfies the task's placement constraints. This occurs when the requested resources exceed what any available instance type can provide, or when specified instance types are unavailable in the region. Check your **Instance types** configuration and the `cpus` and `memory` directives in the failing process. |
-| <code style={{whiteSpace: 'nowrap'}}>UNKNOWN</code> | Task status cannot be determined, typically because of a transient backend failure. |
-
-### Run statuses
-
-| Status | Description |
-|--------|-------------|
-| <code style={{whiteSpace: 'nowrap'}}>ACTIVE</code> | The run is in progress. |
-| <code style={{whiteSpace: 'nowrap'}}>TERMINATING</code> | The run is shutting down. Final tasks are completing or being cancelled. |
-| <code style={{whiteSpace: 'nowrap'}}>TERMINATED</code> | The run ended normally. |
-| <code style={{whiteSpace: 'nowrap'}}>FAILED</code> | The run failed. |
-| <code style={{whiteSpace: 'nowrap'}}>DANGLING</code> | The Nextflow process stopped sending heartbeats. This typically means the launcher process crashed or lost connectivity. Tasks already dispatched to ECS may still be running. Check CloudWatch logs under `/seqera/sched` for details. |
