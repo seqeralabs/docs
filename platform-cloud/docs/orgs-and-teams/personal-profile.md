@@ -8,7 +8,7 @@ tags: [user, personal, profile, settings, user-name, avatar, notifications, defa
 
 Define how your information is displayed and your default settings.
 
-## Key profile elements
+### Key profile elements
 
 - **Email**: The email address used to sign in. Required. Once your account is created this cannot be changed.
 - **User name**: Auto-generated from your email address. Required. Can only include lowercase alphanumeric and dash characters. Can be updated. 
