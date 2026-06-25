@@ -61,7 +61,7 @@ Pick one approach for your tenant and use it consistently. The GUID and the disp
 
 1. In Platform, open **Organization settings > Group mapping**.
 2. Select **Refresh**. The assigned Entra ID groups should appear in the catalog list after the first provisioning cycle.
-3. The **Linked team** drop-down menu is now populated with the synced groups.
+3. The **Linked team** drop-down is now populated with the synced groups.
 
 If groups don't appear, open the **Provisioning logs** for the application in Entra ID and review any failed actions.
 
