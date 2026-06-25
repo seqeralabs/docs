@@ -12,16 +12,16 @@ import CodeBlock from '@theme/CodeBlock';
 import AwsCloudIntelligentComputePolicy from './_policies/aws-cloud-intelligent-compute-policy.json?raw';
 
 :::info[Preview]
-Seqera Intelligent Compute is in preview. Seqera must enable it on a per-workspace basis before you can use it. Contact your account manager to request access for one or more workspaces.
+Seqera Intelligent Compute is in preview. Seqera must enable it on a per-workspace basis before you can use it. Contact your account manager to request access.
 :::
 
-:::caution
+:::info
 Intelligent Compute may assign different CPU and memory values to tasks than your pipeline's `process` directives specify. The scheduler picks the most cost-effective instance shape that meets each task's resource request.
 :::
 
-Intelligent Compute is a scheduling service that runs Nextflow pipelines on a Seqera-managed Amazon ECS cluster. It allocates compute resources based on what each task needs rather than what the pipeline requests. This reduces cost and improves utilization across a run. Intelligent Compute is available only on AWS Cloud compute environments.
+Intelligent Compute is a scheduling service that runs Nextflow pipelines on a Seqera-managed clusters. It allocates compute resources based on what each task needs rather than what the pipeline requests. This reduces cost and improves utilization across a run. Intelligent Compute is initially available only on AWS Cloud compute environments.
 
-Unlike the standard AWS Cloud compute environment, which runs a pipeline on a single EC2 instance with a local executor, Intelligent Compute provisions and manages multi-node clusters. Pipelines can scale beyond a single instance while keeping startup times short.
+Unlike the standard AWS Cloud compute environment, which runs a pipeline on a single EC2 instance, Intelligent Compute provisions and manages multi-node clusters. Pipelines can scale beyond a single instance while keeping startup times short.
 
 When you enable Intelligent Compute on an AWS Cloud compute environment, Seqera provisions and manages the following resources in your AWS account on first use:
 
@@ -122,7 +122,7 @@ The **Metrics** tab for a run on Intelligent Compute shows three resource values
 | **Seqera Intelligent Compute** | Enabled / Disabled | Disabled | Enables the Intelligent Compute scheduler for this compute environment. This option only appears if Intelligent Compute is enabled for your workspace. |
 | **Provisioning model** | `spotFirst`, `spot`, `ondemand` | `spotFirst` | Instance procurement strategy. `spotFirst` uses Spot instances and falls back to On-Demand if Spot capacity is unavailable. `spot` uses Spot instances only. `ondemand` uses On-Demand instances only. |
 | **Instance types** | Comma-separated EC2 instance type identifiers (for example, `m5.xlarge, c5.2xlarge`) | Empty | Restricts which instance types the scheduler can select. When empty, the scheduler selects the most cost-effective type for each task automatically. Specifying types here overrides automatic selection. |
-| **Prediction model** | `none`, `qr/v1`, `qr/v2` | `none` | Resource-prediction model used by Intelligent Compute to size tasks. When set to `none`, the scheduler does not apply resource optimization and allocated resources match what the pipeline requests. Contact your account manager to enable a prediction model. |
+| **Prediction model** | `none`, `qr/v1`, `qr/v2` | `none` | For private preview use `qr/v2` |
 | **Backend strategy** | `ECS`, `EC2` | `ECS` | Task execution backend. Use `ECS` (default). `EC2` is reserved for future use. |
 | **Fusion snapshots** | Enabled / Disabled | Disabled | Allow interrupted tasks (for example, after a Spot reclaim) to resume from a Fusion snapshot instead of restarting from scratch. |
 | **Use NVMe instance storage** | Enabled / Disabled | Disabled | Restrict Intelligent Compute to instance types that provide local SSD (NVMe) storage for faster I/O. |
