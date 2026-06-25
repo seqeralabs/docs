@@ -16,7 +16,7 @@ Seqera Platform is available in two deployment options: Seqera Cloud, hosted by 
 
 ### Seqera Enterprise
 
-[Seqera Enterprise](https://docs.seqera.io/platform-enterprise/enterprise) runs in your organization's own cloud or on-premises infrastructure. It includes:
+[Seqera Enterprise](https://docs.seqera.io/platform-enterprise/latest/enterprise/overview) runs in your organization's own cloud or on-premises infrastructure. It includes:
 
 - Monitoring, logging, and observability
 - Pipeline execution Launchpad

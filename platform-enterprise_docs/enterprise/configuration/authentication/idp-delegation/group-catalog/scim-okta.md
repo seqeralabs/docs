@@ -47,7 +47,7 @@ The bearer token grants write access to your group catalog. Store it in a secret
 
 1. In Platform, open **Organization settings > Group mapping**.
 2. Select **Refresh**. The pushed Okta groups should appear in the catalog list within a few seconds.
-3. The **Linked team** drop-down menu is now populated with the synced groups.
+3. The **Linked team** drop-down is now populated with the synced groups.
 
 If groups don't appear, check the **Push Groups** status column in Okta for error details, and confirm that the **Provisioning** tab shows **Push Groups: ON**.
 
