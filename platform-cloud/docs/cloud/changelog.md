@@ -49,7 +49,7 @@ tags: [changelog]
 ### 24.2.0_cycle20 — 25 July 2024
 
 - Feature: Add code blocks syntax highlighting and background color
-- Improvement: Role selector dropdown detail
+- Improvement: Role selector drop-down detail
 - Improvement: Update navbar help & support links
 - Fix: Disable launch form submit button during form validation
 - Fix: Update team guest welcome email visuals and copy
@@ -142,7 +142,7 @@ tags: [changelog]
 - Fixed: Unable to view workflow details on runs page on the newest version of Chrome #5105
 - Fixed: AWS SSE setting configuration (#5067)
 - Fixed: Failing tests
-- Fixed: Mat dropdown options height (#5134)
+- Fixed: Mat drop-down options height (#5134)
 - Bump: nf-launcher version j17-23.04.2
 
 ### 23.1.0 - 28 Apr 2023
@@ -352,7 +352,7 @@ tags: [changelog]
 - Tweak: Remove redundant logs.length from log view (#3446) [794cbe3b]
 - Tweak: Set max length of revision field to 100 characters (#3882) [4040166c]
 - Tweak: Enable angular strict template checking (#3596) [a569e5fe]
-- Tweak: Display provider icon in credentials/CE selection dropdowns, encapsulate in icon component (#3690) [8a4c7ffd]
+- Tweak: Display provider icon in credentials/CE selection drop-downs, encapsulate in icon component (#3690) [8a4c7ffd]
 - Tweak: Do not allow email using a top-level domain hostname (#3526) [0bae08ca]
 - Tweak: Email validators are out of sync (FE side) (#3778) [0d564656]
 - Tweak: Establish use of english locale globally in tower-web (#3679) [a40d0483]
@@ -435,7 +435,7 @@ tags: [changelog]
 - Fixed: Fix perms for encrypted bucket
 - Fixed: Missing dataset in workflow run page
 - Fixed: 3309 compute environment not visible when viewing actions
-- Fixed: Multiple dropdown menus remain when selecting
+- Fixed: Multiple drop-downs remain when selecting
 - Fixed: `IllegalArgumentException` on empty config file
 - Fixed: Can't relaunch failed workflow without commit
 - Fixed: Cancel button malfunctions in most menus where elements get added
@@ -701,7 +701,7 @@ The `21.10.x` release series starts with `v21.10.1`
 #### 21.04.6 - 21 Jun
 
 - Fixed: GitHub action creation
-- Fixed: The case when the dropdown was over-shadowing other fields
+- Fixed: The case when the drop-down was over-shadowing other fields
 - Change schema and default params usage
 - K8s use deployment for service pod
 
@@ -709,7 +709,7 @@ The `21.10.x` release series starts with `v21.10.1`
 
 - Fixed: Action update settings (#1679) [a485c5d75]
 - K8s head pod custom specs (#1668) [d82a864c8]
-- Allow selecting empty values for schema dropdown fields (#1674) [d27e5b905]
+- Allow selecting empty values for schema drop-down fields (#1674) [d27e5b905]
 
 #### 21.04.4 - 3 Jun
 
@@ -718,7 +718,7 @@ The `21.10.x` release series starts with `v21.10.1`
 #### 21.04.3 - 2 Jun
 
 - Fixed: Pattern test validator when the value is empty
-- Fixed: Navigation dropdown display when user has no `CreateOrganization` permission
+- Fixed: Navigation drop-down display when user has no `CreateOrganization` permission
 
 #### 21.04.2 - 1 Jun
 

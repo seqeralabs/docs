@@ -20,7 +20,7 @@ You must use Docker Hub credentials with **Read-only** access to authenticate Se
 1. Log in to [Docker Hub](https://hub.docker.com/).
 2. Select your username in the top right corner and select **Account Settings**.
 3. Select **Security > New Access Token**.
-4. Enter a token description and select **Read-only** from the Access permissions drop-down menu, then select **Generate**.
+4. Enter a token description and select **Read-only** from the Access permissions drop-down, then select **Generate**.
 5. Copy and save the generated access token (this is only displayed once).
 
 ## Add credentials to Seqera
