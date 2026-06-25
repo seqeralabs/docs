@@ -3,31 +3,34 @@ title: "Personal profile and default settings"
 description: "Manage your personal profile and default settings."
 date created: "2026-06-25"
 last updated: "2026-06-25"
-tags: [user, personal, profile, settings, user-name, avatar, notifications, default workspace]
+tags: [users, settings, notifications, user workspace]
 ---
 
-Define how your information is displayed and your default settings.
+These settings control how you're identified in Seqera Platform, which workspace you land in after sign-in, and your notification preferences.
 
-### Key profile elements
+## Profile fields
 
-- **Email**: The email address used to sign in. Required. Once your account is created this cannot be changed.
-- **User name**: Auto-generated from your email address. Required. Can only include lowercase alphanumeric and dash characters. Can be updated. 
-- **First name**: Your first name. Optional. Can be updated.
-- **Last name**: Your surname or family name. Optional. Can be updated.
-- **Avatar**: Custom picture associated with your account. Optional. Auto-generated if one is not provided.
-- **Organization**: The name of your company or organization.
-- **Description**: Share information about yourself with other platform users. Optional.
+| Field | Required | Description |
+| --- | --- | --- |
+| **Email** | Yes | Email address used to sign in. Locked after account creation. |
+| **User name** | Yes | Auto-generated from your email address. Editable. Lowercase alphanumeric and dash characters only. |
+| **First name** | No | Your first name. Editable. |
+| **Last name** | No | Your surname or family name. Editable. |
+| **Avatar** | No | Profile picture. Auto-generated if not provided. |
+| **Organization** | — | Name of your company or organization. |
+| **Description** | No | Free-text information about yourself, shown to other Seqera Platform users. |
 
-### Default settings
+## Default settings
 
-- **Send notification email on workflow completion**: When a pipeline finishes, send an email notification. Off by default.
-- **Default workspace**: Set an organization and workspace preference. After logging in, you'll be directed to this workspace. Optional. If not defined, after logging in you are directed to your most recently accessed organization and workspace.
+| Setting | Default | Description |
+| --- | --- | --- |
+| **Send notification email on workflow completion** | Off | Receive an email when a pipeline run completes. |
+| **Default workspace** | None | Organization and workspace you land in after sign-in. If unset, you land in your most recently accessed workspace. |
 
-
-### Delete user account
+## Delete your account
 
 :::warning
-This action is unrecoverable.
+This action cannot be undone.
 :::
 
-Delete your user account from Seqera Platform
+Delete your account from Seqera Platform.
