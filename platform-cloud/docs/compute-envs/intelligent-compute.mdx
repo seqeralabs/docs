@@ -79,16 +79,15 @@ Intelligent Compute requires **two IAM policies** attached to the same IAM user 
 - `ServiceLinkedRoles` is required only if the listed service-linked roles do not already exist in your AWS account.
 - `CostExplorer` is required only if you want cost predictions shown at pipeline launch.
 
-### Create the IAM policies
+### Attach the Intelligent Compute policy
 
-If you are setting up Intelligent Compute on an existing AWS Cloud compute environment, the AWS Cloud policy is already in place — attach only the Intelligent Compute policy. If you are creating a fresh IAM role for Intelligent Compute, create both policies:
+Intelligent Compute requires an AWS Cloud compute environment, so the AWS Cloud policy is already attached to your IAM user or role. You only need to add the Intelligent Compute policy:
 
 1. Open the [AWS IAM console](https://console.aws.amazon.com/iam).
 1. Select **Policies** under **Access management**, then select **Create policy**.
-1. Select the **JSON** tab, paste the policy JSON, then select **Next**.
-1. Enter a name (for example, `SeqeraAwsCloudPolicy` or `SeqeraIntelligentComputePolicy`), then select **Create policy**.
-1. Repeat for the second policy.
-1. Attach both policies to the same IAM user or role that Seqera uses to access your AWS account.
+1. Select the **JSON** tab, paste the Intelligent Compute policy JSON, then select **Next**.
+1. Enter a name (for example, `SeqeraIntelligentComputePolicy`), then select **Create policy**.
+1. Attach the policy to the same IAM user or role that Seqera uses for your AWS Cloud compute environment.
 
 ## Set up an AWS Cloud compute environment with Intelligent Compute
 
