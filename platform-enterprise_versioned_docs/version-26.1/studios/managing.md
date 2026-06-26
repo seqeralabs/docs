@@ -2,8 +2,8 @@
 title: "Manage Studios"
 description: "Manage Studio sessions."
 date created: "2025-02-06"
-last updated: "2025-09-04"
-tags: [data, session, studios]
+last updated: "2026-06-09"
+tags: [data, sessions, studios]
 ---
 
 Select the **Studios** tab in Platform to:
@@ -130,7 +130,7 @@ To migrate a Studio to a more recent container version and Seqera Connect:
 
 1. Select the Studio to migrate.
 1. Select **Add as new**. By default this selects the latest session checkpoint.
-1. In the **General config** section, change the image template selection in the dropdown list to use the `latest` tagged version of the same interactive environment.
+1. In the **General config** section, change the image template selection in the drop-down list to use the `latest` tagged version of the same interactive environment.
 1. For the **Summary** section, ensure that the specified configuration is correct.
 1. Immediately start the new, duplicated Studio session by selecting **Add and start**.
 1. **Connect** to the new running Studio session.
@@ -142,10 +142,87 @@ To migrate a Studio to a more recent container version and Seqera Connect:
    1. Uninstall any packages related to the errors:
       1. JupyterLab: Execute `!pip uninstall <packagename>` or `apt remove <packagename>` to uninstall system-level packages.
       1. R-IDE: Execute `uninstall.packages("<packagename>")` to uninstall R packages or `apt remove <packagename>` to uninstall system-level packages.
-      1. Visual Studio Code: Select the **Manage** gear button at the right of an extension entry and then choose **Uninstall** from the dropdown menu.
+      1. Visual Studio Code: Select the **Manage** gear button at the right of an extension entry and then choose **Uninstall** from the drop-down.
       1. Xpra: Use `apt remove <packagename>` to uninstall system-level packages.
    1. **Stop** the running Studio session. A new checkpoint is created.
 1. Repeat Step 1 **Add as new** using the new, most recent created checkpoint from the steps above.
+
+## Migrate a Studio between compute environments
+
+You can switch an existing Studio to a different compute environment from the Studio's **Edit** screen, provided the new compute environment has the same working directory as the current one. This works for any switch, for example scaling resources up or down, moving between regions, or changing compute environment types in the same cloud provider.
+
+You can migrate in place to preserve the Studio's checkpoints and state, or migrate from scratch to copy specific files into a fresh Studio.
+
+### Migrate in place (recommended)
+
+Use this path to preserve the Studio's [checkpoint][checkpoints] history, installed packages, and session state.
+
+When the new compute environment points at the same `workDir` as the current one, the Studio's existing checkpoints in the `.studios/checkpoints` folder remain reachable. Switching the compute environment binds the Studio to the new one while preserving its checkpoints and state.
+
+:::note
+Object storage bucket names are globally unique within a single cloud provider but not across providers. In-place migration is therefore limited to compute environments in the same cloud provider, for example AWS Batch to AWS Cloud, both backed by S3.
+:::
+
+:::info[**Prerequisites**]
+
+You need the following:
+
+- A stopped Studio.
+- A new compute environment in the `AVAILABLE` status, configured with the same `workDir` as the current one.
+- [Credentials][credentials] on the new compute environment with read and write access to the `workDir` bucket.
+
+:::
+
+#### Steps
+
+1. From the **Studios** tab, open the details for the Studio you want to migrate.
+1. Select **Edit**.
+1. In the **Compute environment** drop-down, select the new compute environment.
+1. Review the resource labels on the form (see [Resource label changes](#resource-labels-on-migration)).
+1. Save your changes.
+1. Start the Studio. The new session restores from the latest checkpoint stored in the shared `workDir`.
+
+The **Compute environment** field is editable only on the **Edit** screen. The **Add** and **Start** screens keep the Studio bound to its original compute environment.
+
+#### Compatible compute environments
+
+The drop-down lists only compute environments compatible with the Studio's current one. A compute environment is compatible when it:
+
+- Uses the same `workDir` as the Studio's current compute environment.
+- Is in the `AVAILABLE` status.
+
+The Studio's current compute environment is always listed first, even when it would not be selectable on its own.
+
+#### Resource label changes {#resource-labels-on-migration}
+
+When you select a different compute environment, the form syncs the Studio's [resource labels][resource-labels]:
+
+- Labels inherited from the **previous** compute environment are removed.
+- Labels that belong to the **Studio itself** (not inherited from a compute environment) are preserved.
+- The **new** compute environment's resource labels are added.
+
+For example, you switch a Studio with labels `[ce-a-1, ce-a-2, studio-1]` from compute environment `CE-A` to compute environment `CE-B`, whose resource labels are `[ce-b-1]`. The Studio's labels become `[studio-1, ce-b-1]`.
+
+### Migrate from scratch
+
+Use this path when you don't need the Studio's checkpoint history and only want to copy specific files, such as datasets, notebooks, or scripts, into a fresh Studio backed by the new compute environment.
+
+:::note
+This path does not carry over checkpoints, installed packages, or environment customizations from the original Studio. Copy anything you want to keep through a shared bucket.
+:::
+
+Move files between the source and target Studios through a shared bucket that both compute environments can read and write. The following example uses AWS S3:
+
+1. Start the existing Studio. Confirm that its compute environment lists a shared S3 bucket in **Allowed S3 buckets**, and that the bucket is mounted on the Studio as a [data link](#studio-session-data-links).
+1. Inside the running Studio, copy any files you want to save into the mount at `/workspace/data/<bucket-name>`.
+1. Create the new compute environment configured with the same shared S3 bucket in **Allowed S3 buckets**, then [add a new Studio][add-s] that uses it.
+1. Start the new Studio with the shared bucket mounted, then copy files from `/workspace/data/<bucket-name>` into the local Studio workspace.
+
+For common migration issues, see [Studios troubleshooting][studios-troubleshooting].
+
+:::tip
+[AWS Cloud][aws-cloud] is the recommended runtime for new Studios. It starts sessions faster and manages resources more simply than [AWS Batch][aws-batch] for single-VM Studio workloads. To switch an existing Studio from AWS Batch to AWS Cloud, use the in-place migration steps.
+:::
 
 ## Studio session statuses
 
@@ -305,6 +382,10 @@ Stop the active session to trigger a snapshot from the active volume. The snapsh
 [custom-envs]: ./custom-envs
 [build-status]: ./custom-envs#build-status
 [cloud-bucket-subdirectory]: ./managing#cloud-bucket-subdirectory
+[checkpoints]: ./managing#studio-session-checkpoints
+[resource-labels]: ../troubleshooting_and_faqs/resource-labels
+[studios-troubleshooting]: ../troubleshooting_and_faqs/studios_troubleshooting
+[credentials]: ../credentials/overview
 [ds-jupyter]: https://public.cr.seqera.io/repo/platform/data-studio-jupyter
 [ds-ride]: https://public.cr.seqera.io/repo/platform/data-studio-ride
 [def-vsc]: https://code.visualstudio.com/

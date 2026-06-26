@@ -2,7 +2,7 @@
 title: "Nextflow"
 description: "Nextflow troubleshooting with Seqera Platform."
 date: "26 August 2024"
-tags: [faq, help, nextflow help, nextflow troubleshooting]
+tags: [faq, help, nextflow, troubleshooting]
 ---
 
 ### Nextflow configuration
@@ -25,11 +25,11 @@ From [Nextflow v22.09.1-edge](https://github.com/nextflow-io/nextflow/releases/t
 export NXF_CLI_OPTS='-dump-hashes'
 ```
 
-**Cloud compute environment execution: `--outdir` artefacts not available**
+**Cloud compute environment execution: `--outdir` artifacts not available**
 
 Nextflow resolves relative paths against the current working directory. In a classic grid HPC, this normally corresponds to a subdirectory of the `$HOME` directory. In a cloud execution environment, however, the path will be resolved relative to the _container file system_, meaning files will be lost when the container is terminated. See [here](https://github.com/nextflow-io/nextflow/issues/2661#issuecomment-1047259845) for more details.
 
-Specify the absolute path to your persistent storage using the `NXF_FILE_ROOT` environment variable in your [`nextflow.config`](../launch/advanced#nextflow-config-file) file. This resolves the relative paths defined in your Netflow script so that output files are written to your stateful storage, rather than ephemeral container storage.
+Specify the absolute path to your persistent storage using the `NXF_FILE_ROOT` environment variable in your [`nextflow.config`](../launch/advanced#nextflow-config-file) file. This resolves the relative paths defined in your Nextflow script so that output files are written to your stateful storage, rather than ephemeral container storage.
 
 **Nextflow: Ignore Singularity cache**
 
@@ -132,7 +132,7 @@ This change occurs because Seqera superimposes its 10 MB default value rather th
 
 To force the Seqera-invoked job to use your `nextflow.config` value, add the configuration setting in the workspace Launch screen's [**Nextflow config file** field](../launch/launchpad). For the example above, you would add `aws.client.uploadChunkSize = 209715200 // 200 MB`.
 
-Nextflow configuration values affected by this behaviour include:
+Nextflow configuration values affected by this behavior include:
 
 - `aws.client.uploadChunkSize`
 - `aws.client.storageEncryption`
@@ -187,7 +187,7 @@ See [here](https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html) 
  [scheduled-executor-thread-2] - ERROR i.s.t.service.job.JobSchedulerImpl - Unable to save status of job id=18165; name=nf-workflow-26uD5XXXXXXXX; opId=nf-workflow-26uD5XXXXXXXX; status=UNKNOWN
 ```
 
-Runs will fail if your Nextflow script or Nextflow config contain illegal characters (such as emojis or other non-UTF8 characters). Validate your script and config files for any illegal characters before atttempting to run again.
+Runs will fail if your Nextflow script or Nextflow config contain illegal characters (such as emojis or other non-UTF8 characters). Validate your script and config files for any illegal characters before attempting to run again.
 
 **Run failures: Nextflow script exceeds 64KiB**
 
@@ -195,7 +195,7 @@ The Groovy shell used by Nextflow to execute your workflow has a hard limit on s
 
 1. Remove any unnecessary code or comments from the script.
 2. Move long script bodies into a separate script file in the pipeline `/bin` directory.
-3. Consider using DSL2 so you can move each function, process, and workflow definition into its own script and include these scripts as [modules](https://docs.seqera.io/nextflow/dsl2#modules).
+3. Consider using DSL2 so you can move each function, process, and workflow definition into its own script and include these scripts as [modules](https://docs.seqera.io/nextflow/module).
 
 ### Nextflow Launcher
 

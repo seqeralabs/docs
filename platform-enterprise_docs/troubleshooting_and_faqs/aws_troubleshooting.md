@@ -2,7 +2,7 @@
 title: "AWS"
 description: "AWS troubleshooting with Seqera Platform."
 date: "26 August 2024"
-tags: [faq, help, aws help, aws troubleshooting]
+tags: [faq, help, aws, troubleshooting]
 ---
 
 ### Elastic Block Store (EBS)
@@ -27,7 +27,7 @@ As part of the AWS Batch creation process, Batch Forge will set ECS Agent parame
 See the [AWS ECS documentation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) for an in-depth explanation of this difference.
 
 :::note
-This behaviour can't be changed within Seqera Platform.
+This behavior can't be changed within Seqera Platform.
 :::
 
 ### Container errors

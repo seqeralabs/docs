@@ -3,7 +3,7 @@ title: General
 description: "Troubleshooting for general Fusion issues"
 date created: "2025-11-29"
 last updated: "2025-01-12"
-tags: [troubleshooting, fusion, fusion-snapshots, configuration]
+tags: [troubleshooting, fusion, fusion snapshots, configuration]
 ---
 
 When working with Fusion, you might encounter the following issues.

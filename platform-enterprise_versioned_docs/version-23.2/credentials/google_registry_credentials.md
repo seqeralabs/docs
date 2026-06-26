@@ -2,7 +2,7 @@
 title: "Google registry credentials"
 description: "Instructions to create Google Cloud registry credentials in Nextflow Tower."
 date: "21 Apr 2023"
-tags: [google, container, registry, artifact, credentials]
+tags: [google, containers, registry, artifact, credentials]
 ---
 
 ## Container registry credentials

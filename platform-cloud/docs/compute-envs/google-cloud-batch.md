@@ -3,7 +3,7 @@ title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
 date created: "2023-04-21"
 last updated: "2026-05-28"
-tags: [google, batch, gcp, compute environment]
+tags: [google, batch, gcp, compute environments]
 ---
 
 :::note
@@ -37,7 +37,7 @@ See [here](https://console.cloud.google.com/flows/enableapi?apiid=batch.googleap
 - Compute Engine API
 - Cloud Storage API
 
-Select your project from the dropdown menu and select **Enable**.
+Select your project from the drop-down and select **Enable**.
 
 Alternatively, you can enable each API manually by selecting your project in the navigation bar and visiting each API page:
 
@@ -112,6 +112,15 @@ Setting up WIF requires the following steps in the GCP Console:
   tityPools/{POOL}/providers/{PROVIDER}`. If you specify a custom value, it must match exactly what you enter in the Token audience field when creating the Google WIF credential in Seqera.
 4. Define an attribute mapping and condition. At a minimum set `google.subject=assertion.sub`. This maps the subject claim from Seqera's JWT to GCP's identity space. For more information see [here](https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-providers#mappings-and-conditions). You may see a pop-up asking to configure your application and provide an OIDC ID token path. This pop-up can be dismissed.
 5. Grant `roles/iam.workloadIdentityUser` on the service account that WIF will impersonate to the Workload Identity Pool principal. This can be set for all pool identities or for a specific workspace. If you have not yet created a service account do so following the guidelines above.
+6. If you use the same WIF credential for Data Explorer, grant `roles/iam.serviceAccountTokenCreator` on the service account to itself:
+
+   ```bash
+   gcloud iam service-accounts add-iam-policy-binding SA_EMAIL \
+     --member="serviceAccount:SA_EMAIL" \
+     --role="roles/iam.serviceAccountTokenCreator"
+   ```
+
+   Replace `SA_EMAIL` with the service account email. Without this role, viewing or downloading file contents in Data Explorer fails with a signing error. Pipeline runs are not affected.
 
 After setting up WIF in the GCP Console, you need the following information to create a credential in Seqera Platform:
 
@@ -174,7 +183,7 @@ After your Google Cloud resources have been created, create a new Platform compu
 
 #### Credentials
 
-1. From the **Credentials** drop-down menu, select existing Google credentials or select **+** to add new credentials. If you choose to use existing credentials, skip to the next section.
+1. From the **Credentials** drop-down, select existing Google credentials or select **+** to add new credentials. If you choose to use existing credentials, skip to the next section.
 2. Enter a name for the credentials, e.g., _Google Cloud Credentials_.
 3. Paste the contents of the JSON file created previously in the **Service account key** field.
 
@@ -185,7 +194,7 @@ Select the **Location** where you will execute your pipelines. See [Location][lo
 In the **Work directory** field, enter your storage bucket URL, e.g., `gs://my-bucket`. This bucket must be accessible in the location selected in the previous step.
 
 :::note
-When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-pipelines) form.
 :::
 
 #### Seqera features
@@ -268,8 +277,8 @@ If you use VM instance templates for the head or compute jobs (see below), resou
 
 1. Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
 1. Use **Boot disk size** to control the persistent disk size that each task and the head job are provided.
-1. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The drop-down menu is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional. If not set, Google Batch uses the default image.
-1. Use **Instance Type** to select a specific machine type for the compute instances. The drop-down menu is populated with available instance types for the selected region and supports autocomplete filtering. This field is optional. If not set, Google Batch selects an appropriate machine type automatically.
+1. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The drop-down is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional. If not set, Google Batch uses the default image.
+1. Use **Instance Type** to select a specific machine type for the compute instances. The drop-down is populated with available instance types for the selected region and supports autocomplete filtering. This field is optional. If not set, Google Batch selects an appropriate machine type automatically.
     :::note
     The **Instance Type** field sets a default machine type at the compute environment level. You can override this for individual processes using the `machineType` [process directive](https://docs.seqera.io/nextflow/google#process-definition) in your Nextflow configuration.
     :::

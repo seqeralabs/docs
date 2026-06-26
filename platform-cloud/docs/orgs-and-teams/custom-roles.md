@@ -3,7 +3,7 @@ title: "Custom roles"
 description: "Introduction to custom roles in Seqera Platform."
 date created: "2025-11-17"
 last updated: "2026-04-17"
-tags: [roles, user-roles, custom roles, rbac, permissions]
+tags: [roles, rbac, permissions]
 ---
 
 :::info
@@ -196,9 +196,9 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 | **workflow_quick:execute** | Launch quick pipeline | Sub-operation on `POST /workflow/launch` |
 |  | Launch quick pipeline | _(Used by Platform)_ |
 |  | GA4GH: create a run | `POST /ga4gh/wes/v1/runs` |
-| **workflow_star:read** | Check if run is starred (favourited) | `GET /workflow/{workflowId}/star` |
-| **workflow_star:write** | Star (favourite) a run | `POST /workflow/{workflowId}/star` |
-| **workflow_star:delete** | Unstar (unfavourite) a run | `DELETE /workflow/{workflowId}/star` |
+| **workflow_star:read** | Check if run is starred (favorited) | `GET /workflow/{workflowId}/star` |
+| **workflow_star:write** | Star (favorite) a run | `POST /workflow/{workflowId}/star` |
+| **workflow_star:delete** | Unstar (unfavorite) a run | `DELETE /workflow/{workflowId}/star` |
 
 #### Settings
 

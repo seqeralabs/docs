@@ -40,8 +40,7 @@
     "https://docs.seqera.io/sitemap.xml"
   ],
   "stop_urls": [
-    ".*/changelog.*",
-    ".*seqera-ai.*"
+    ".*/changelog.*"
   ],
   "selectors": {
     "default": {

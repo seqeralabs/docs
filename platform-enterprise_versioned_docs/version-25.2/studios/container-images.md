@@ -3,7 +3,7 @@ title: "Container image templates"
 description: "Use container images with Studios."
 date created: "2025-10-16"
 last updated: "2025-10-16"
-tags: [container, container-images, session, studios]
+tags: [containers, container images, sessions, studios]
 ---
 
 There are four container image templates provided: JupyterLab, R-IDE, Visual Studio Code, and Xpra. The image templates install a very limited number of packages when the Studio session container is built. You can install additional packages as needed during a Studio session.
@@ -33,7 +33,7 @@ When pushed to the container registry, an image template is tagged with the foll
 - `<tool_version>-<major>.<minor>`, such as `4.2.3-0.8`. When adding a new container template image this is the tag displayed in Seqera Platform.
 - `<tool_version>-<major>.<minor>.<patch>`, such as `4.2.3-0.8.4`.
 
-To view the latest versions of the images, see [public.cr.seqera.io](https://public.cr.seqera.io/). You can also augment the Seqera-provided image templates or use your own custom container image templates. This approach is recommended for managing reproducible analysis environments. For more information, see [Custom environments][custom-envs].
+To view the latest versions of the images, see [public.cr.seqera.io](https://public.cr.seqera.io/). You can also augment the Seqera-provided image templates or use your own custom container image templates. This is the recommended approach for managing reproducible analysis environments. For more information, see [Custom environments][custom-envs].
 
 ### JupyterLab 4.2.5
 

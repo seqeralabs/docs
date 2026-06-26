@@ -2,7 +2,7 @@
 title: "AWS Batch"
 description: "Instructions to set up AWS Batch in Nextflow Tower"
 date: "21 Apr 2023"
-tags: [aws, batch, compute environment]
+tags: [aws, batch, compute environments]
 ---
 
 :::tip

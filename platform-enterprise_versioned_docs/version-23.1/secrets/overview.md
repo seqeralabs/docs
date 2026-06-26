@@ -2,7 +2,7 @@
 title: "Secrets"
 description: "Instructions to use secrets in Tower."
 date: "24 Apr 2023"
-tags: [pipeline, secrets]
+tags: [pipelines, secrets]
 ---
 
 ## Overview
