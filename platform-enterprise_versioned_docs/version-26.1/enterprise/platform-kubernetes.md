@@ -69,8 +69,12 @@ The Redisson client embedded in Platform 26.1+ supports Valkey 7 dial schema —
 Use a managed cache service for production:
 
 - [Amazon ElastiCache](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html) (`cache.m4.large` or larger)
-- [Azure Cache for Redis](https://learn.microsoft.com/en-gb/azure/azure-cache-for-redis/cache-overview) (C3 tier or larger)
+- [Azure Managed Redis](https://learn.microsoft.com/azure/redis/overview) (production-capable tier appropriate for your workload)
 - [Google Memorystore](https://cloud.google.com/memorystore/docs/redis) (M2 tier or larger)
+
+:::caution
+Microsoft is retiring Azure Cache for Redis. As of April 1, 2026, new customers cannot create instances, and from October 1, 2026, no new instances can be created. For new Azure deployments, use [Azure Managed Redis](https://learn.microsoft.com/azure/redis/overview).
+:::
 
 For migration guidance from Redis to Valkey on an existing installation, see [Cache layer changes](./upgrade#cache-layer-changes-redis-eol-and-valkey-support).
 
@@ -141,7 +145,7 @@ spec:
   ...
       containers:
         - name: frontend
-          image: cr.seqera.io/enterprise/platform/frontend:v26.1.2-unprivileged
+          image: cr.seqera.io/enterprise/platform/frontend:v26.1.3-unprivileged
           env:
             - name: NGINX_LISTEN_PORT  # If not defined, defaults to 8000.
               value: 8000

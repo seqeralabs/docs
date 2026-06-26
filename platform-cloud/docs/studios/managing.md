@@ -13,7 +13,7 @@ Select the **Studios** tab in Platform to:
 - Open a detailed view that displays configuration information.
 
 :::note
-- If you're not able to see the Studios tab, contact your Platform adminstrator.
+- If you're not able to see the Studios tab, contact your Platform administrator.
 - Review the user roles documentation for details about role permissions.
 :::
 
@@ -85,7 +85,7 @@ To share a link to a running session with collaborators inside your workspace, s
 
 Seqera-managed container templates offer varying levels of multi-user collaboration:
 
-- **JupyterLab:** Supports multi-user collaboration via the `jupyter-collaboration` package. Each connected user has a randomly assigned colour-coded avatar and the user cursor inherits the same color for easily differentiating multiple connected users.
+- **JupyterLab:** Supports multi-user collaboration via the `jupyter-collaboration` package. Each connected user has a randomly assigned color-coded avatar and the user cursor inherits the same color for easily differentiating multiple connected users.
 - **VS Code:** Supports multi-user collaboration by default, but each connected user is not readily distinguishable. For a more fully-featured collaborative experience, install the [Microsoft Live Share extension][liveshare] or [P2P Live Share][p2p-liveshare].
 - **R-IDE:** By default, multi-user collaboration is not supported. When an additional user connects to the running session, the previously connected user is notified and forcibly disconnected.
 - **Xpra:** Supports multi-user collaboration by default and is similar to a remote desktop experience. Connected users are not readily distinguishable.
@@ -130,7 +130,7 @@ To migrate a Studio to a more recent container version and Seqera Connect:
 
 1. Select the Studio to migrate.
 1. Select **Add as new**. By default this selects the latest session checkpoint.
-1. In the **General config** section, change the image template selection in the dropdown list to use the `latest` tagged version of the same interactive environment.
+1. In the **General config** section, change the image template selection in the drop-down list to use the `latest` tagged version of the same interactive environment.
 1. For the **Summary** section, ensure that the specified configuration is correct.
 1. Immediately start the new, duplicated Studio session by selecting **Add and start**.
 1. **Connect** to the new running Studio session.
@@ -142,7 +142,7 @@ To migrate a Studio to a more recent container version and Seqera Connect:
    1. Uninstall any packages related to the errors:
       1. JupyterLab: Execute `!pip uninstall <packagename>` or `apt remove <packagename>` to uninstall system-level packages.
       1. R-IDE: Execute `uninstall.packages("<packagename>")` to uninstall R packages or `apt remove <packagename>` to uninstall system-level packages.
-      1. Visual Studio Code: Select the **Manage** gear button at the right of an extension entry and then choose **Uninstall** from the dropdown menu.
+      1. Visual Studio Code: Select the **Manage** gear button at the right of an extension entry and then choose **Uninstall** from the drop-down.
       1. Xpra: Use `apt remove <packagename>` to uninstall system-level packages.
    1. **Stop** the running Studio session. A new checkpoint is created.
 1. Repeat Step 1 **Add as new** using the new, most recent created checkpoint from the steps above.
@@ -177,7 +177,7 @@ You need the following:
 
 1. From the **Studios** tab, open the details for the Studio you want to migrate.
 1. Select **Edit**.
-1. In the **Compute environment** dropdown, select the new compute environment.
+1. In the **Compute environment** drop-down, select the new compute environment.
 1. Review the resource labels on the form (see [Resource label changes](#resource-labels-on-migration)).
 1. Save your changes.
 1. Start the Studio. The new session restores from the latest checkpoint stored in the shared `workDir`.
@@ -186,7 +186,7 @@ The **Compute environment** field is editable only on the **Edit** screen. The *
 
 #### Compatible compute environments
 
-The dropdown lists only compute environments compatible with the Studio's current one. A compute environment is compatible when it:
+The drop-down lists only compute environments compatible with the Studio's current one. A compute environment is compatible when it:
 
 - Uses the same `workDir` as the Studio's current compute environment.
 - Is in the `AVAILABLE` status.

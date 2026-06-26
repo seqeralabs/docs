@@ -39,7 +39,7 @@ See [Enable API wizard](https://console.cloud.google.com/flows/enableapi?apiid=b
 * Compute Engine API
 * Cloud Storage API
 
-Select your project from the drop-down menu and select **Enable**.
+Select your project from the drop-down and select **Enable**.
 
 Alternatively, enable each API manually by selecting your project in the navigation bar and visiting each API page:
 
@@ -107,6 +107,15 @@ Workload Identity Federation (WIF) is the recommended authentication method for 
 3. Set the Allowed audiences. If left empty, GCP derives a default audience from the provider resource path in the format `//iam.googleapis.com/projects/{PROJECT}/locations/global/workloadIdentityPools/{POOL}/providers/{PROVIDER}`. If you specify a custom value, it must match exactly what you enter in the Token audience field when creating the Google WIF credential in Seqera.
 4. Define an attribute mapping and condition. At a minimum set `google.subject=assertion.sub`. This maps the subject claim from Seqera's JWT to GCP's identity space. For more information see [here](https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-providers#mappings-and-conditions)
 5. Grant `roles/iam.workloadIdentityUser` on the service account created above to the Workload Identity Pool principal. This can be set for all pool identities or for a specific workspace.
+6. If you use the same WIF credential for Data Explorer, grant `roles/iam.serviceAccountTokenCreator` on the service account to itself:
+
+   ```bash
+   gcloud iam service-accounts add-iam-policy-binding SA_EMAIL \
+     --member="serviceAccount:SA_EMAIL" \
+     --role="roles/iam.serviceAccountTokenCreator"
+   ```
+
+   Replace `SA_EMAIL` with the service account email. Without this role, viewing or downloading file contents in Data Explorer fails with a signing error. Pipeline runs are not affected.
 
 WIF requires an OIDC signing key and for Seqera Platform's OIDC provider to be configured. See [Cryptographic options](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#cryptographic-options).
 
@@ -287,8 +296,8 @@ If you use VM instance templates for the head or compute jobs (see step 8 below)
 
 1. Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
 2. Use **Boot disk size** to control the persistent disk size that each task and the head job are provided.
-3. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The dropdown is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional. If not set, Google Batch uses the default image.
-4. Use **Instance Type** to select one or more machine types for the compute instances. The dropdown is populated with available instance types for the selected region and supports autocomplete filtering. You can select multiple specific instance types or use family wildcards (for example, `c2-*` or `n*`) to allow Google Batch to choose from a family. This field is optional. If not set, Google Batch automatically selects an appropriate machine type.
+3. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The drop-down is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional. If not set, Google Batch uses the default image.
+4. Use **Instance Type** to select one or more machine types for the compute instances. The drop-down is populated with available instance types for the selected region and supports autocomplete filtering. You can select multiple specific instance types or use family wildcards (for example, `c2-*` or `n*`) to allow Google Batch to choose from a family. This field is optional. If not set, Google Batch automatically selects an appropriate machine type.
 
    :::note
    The **Instance Type** field sets the default machine type selection at the compute environment level. You can override this for individual processes using the `machineType` [process directive](https://docs.seqera.io/nextflow/google#process-definition) in your Nextflow configuration, which accepts a comma-separated list of patterns (for example, `c2-*`, `n1-standard-1`, `custom-2-4`).

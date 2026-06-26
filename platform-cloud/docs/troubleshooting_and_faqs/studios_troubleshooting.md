@@ -22,7 +22,7 @@ VS Code, RStudio, and Jupyter environments natively integrate with [GitHub Copil
 
 ## Session size limited by compute environment advanced options: Head job CPUs and Head job memory
 
-When adding a compute environment, setting the Advanced options **Head job CPUs** and **Head job memory** for Nextflow **also applies** to any Studio session created in the compute environment. This is because Studio sessions are managed by the Nextflow runner job. To avoid artifically constraining the resources of your Studio sessions, **do not define these optional compute environment settings**.
+When adding a compute environment, setting the Advanced options **Head job CPUs** and **Head job memory** for Nextflow **also applies** to any Studio session created in the compute environment. This is because Studio sessions are managed by the Nextflow runner job. To avoid artificially constraining the resources of your Studio sessions, **do not define these optional compute environment settings**.
 
 ## Rebuild of a failed custom Studios environment: rebuilding from cache
 
@@ -86,7 +86,7 @@ If you have a running session with data mounted and the underlying storage is up
 You can change this behavior when you [add a Studio session](../studios/add-studio) by defining the `FUSION_REFRESH_TIMEOUT` environment variable to a specified number of seconds (e.g., `30`). This will force Fusion to refresh the view of the mounted data-link(s) at the specified interval.
 
 :::note
-Setting the environment variable _inside_ an already running Studio session by executing the command `export FUSION_REFRESH_TIMEOUT=30` won't change the behavior of the outer Fusion session. The environment variable should be set in the "General config" section durion Studio creation.
+Setting the environment variable _inside_ an already running Studio session by executing the command `export FUSION_REFRESH_TIMEOUT=30` won't change the behavior of the outer Fusion session. The environment variable should be set in the "General config" section during Studio creation.
 :::
 
 :::warning
@@ -97,9 +97,9 @@ This is an experimental feature and may cause consistency issues in the Fusion n
 
 Any process that is manually started in a running Studio session (e.g. `eval $(ssh-agent)`) will not be automatically restarted on a Studio restart. This is because any user initiated daemon process is not managed by the Connect client and therefore the Studio session does not manage it. To add extra processes that are automatically started at each Studio restart would require a user-defined startup script or an integrated supervisor (e.g. `s6`, `s6-overlay`, `supervisord`), both of which are currently unsupported.
 
-## New compute environment doesn't appear in the dropdown when migrating a Studio
+## New compute environment doesn't appear in the drop-down when migrating a Studio
 
-When [migrating a Studio to a different compute environment](../studios/managing#migrate-a-studio-between-compute-environments), the **Compute environment** dropdown filters out any compute environment that isn't compatible with the Studio's current one. Confirm the new compute environment is in the `AVAILABLE` status and uses the same `workDir` as the Studio's current compute environment.
+When [migrating a Studio to a different compute environment](../studios/managing#migrate-a-studio-between-compute-environments), the **Compute environment** drop-down filters out any compute environment that isn't compatible with the Studio's current one. Confirm the new compute environment is in the `AVAILABLE` status and uses the same `workDir` as the Studio's current compute environment.
 
 ## Studio fails to start after switching compute environments
 

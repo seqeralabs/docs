@@ -50,7 +50,7 @@ Co-Scientist usage is tracked per workspace. Your organization administrator can
 
 The [nf-core/rnaseq](https://nf-co.re/rnaseq/3.21.0) pipeline is run on a Seqera Compute environment with a test dataset as input. The following run metrics are recorded at workflow completion:
 
-![](https://docs.seqera.io/assets/images/run-details-5d547fa90abc80c0e201cb77592a4e24.jpg)
+![Run details](_images/run-details.jpg)
 
 To calculate the credit spend for this run, the vCPUs and memory **requested** for each task are multiplied by task runtime:
 

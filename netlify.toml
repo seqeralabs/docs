@@ -22,15 +22,14 @@
 [context.deploy-preview.build.environment]
   # Lean preview scope. platform-api is excluded because building it OOMs (137)
   # during Rspack bundling on the build VM; it's offloaded to the seqera-docs-api
-  # site and served via the non-forced /platform-api/* proxy below. CLI and Wave
-  # are excluded to keep previews fast.
+  # site and served via the non-forced /platform-api/* proxy below. CLI is
+  # excluded to keep previews fast.
   INCLUDE_NEXT=""
   EXCLUDE_CHANGELOG=""
   EXCLUDE_PLATFORM_CLI="true"
   EXCLUDE_PLATFORM_ENTERPRISE=""
   EXCLUDE_PLATFORM_API="true"
   EXCLUDE_MULTIQC=""
-  EXCLUDE_WAVE="true"
 
 # Asset and image routing handled by Edge Function
 # See netlify/edge-functions/asset-proxy.js
@@ -57,5 +56,5 @@
 
 [[redirects]]
   from = "/nextflow/*"
-  to = "https://docs-migration.netlify.app/nextflow/:splat"
+  to = "https://nextflow-docs.netlify.app/nextflow/:splat"
   status = 200

@@ -2,11 +2,13 @@
 title: "Advanced options"
 description: "Advanced guide to launching Nextflow pipelines in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2026-04-02"
+last updated: "2026-06-11"
 tags: [advanced, launch]
 ---
 
-You can modify the configuration and execution of a pipeline with advanced launch options.
+Advanced options modify pipeline configuration and execution beyond the standard run setup. They appear in the **Advanced options** section of the launch form. See [Advanced settings](./launchpad#advanced-settings) for their location in the launch form.
+
+Each section below documents one advanced option. Most runs do not need them. Use an option when you have a specific configuration or execution requirement.
 
 ## Nextflow config file
 
@@ -133,6 +135,28 @@ Post-run script failures do not affect the workflow exit status. Post-run script
 ## Stub run
 
 Replace Nextflow process commands with command [stubs](https://docs.seqera.io/nextflow/process#stub), where defined, before execution.
+
+## Enable Nextflow syntax parser v2
+
+Use the v2 Nextflow language parser. Requires Nextflow 25.02.0-edge or later. Older runtimes ignore this setting.
+
+The v2 parser implements Nextflow's [strict syntax](https://nextflow.io/docs/latest/strict-syntax.html). Platform selects it by exporting `NXF_SYNTAX_PARSER` to the launch environment:
+
+- **Off (default)**: Workflows run with the v1 parser. Platform exports `NXF_SYNTAX_PARSER=v1`.
+- **On**: Workflows run with the v2 parser. Platform exports `NXF_SYNTAX_PARSER=v2`.
+
+The toggle only selects the parser. It does not change the Nextflow runtime version, the pipeline source, or any pipeline parameters.
+
+The v2 parser becomes the default in Nextflow 26.04:
+
+- **Before Nextflow 26.04**: v1 is the runtime default. Turn the toggle on to opt in to v2.
+- **From Nextflow 26.04**: v2 is the runtime default. Turn the toggle off to pin a pipeline to v1.
+
+A [pre-run script](#pre-and-post-run-scripts) that exports `NXF_SYNTAX_PARSER` overrides this toggle.
+
+:::note
+The launch form inherits this setting from the pipeline. You can override it per launch without changing the stored value. Changing the toggle on the pipeline edit form creates a new pipeline version.
+:::
 
 ## Main script
 

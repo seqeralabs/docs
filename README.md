@@ -4,7 +4,7 @@ This repository contains the documentation published to [docs.seqera.io](https:/
 
 Changes merged to [master](https://github.com/seqeralabs/docs) are deployed to production automatically via Netlify. Pull requests have their own deployment preview.
 
-The source of truth for all products' documentation lives in their respective product repositories, such as [wave](https://github.com/seqeralabs/wave). These repositories contain a `docs` folder which house the _latest_ version of that product's documentation.
+The source of truth for all products' documentation lives in their respective product repositories, such as [Wave](https://github.com/seqeralabs/wave). These repositories contain a `docs` folder which house the _latest_ version of that product's documentation.
 
 For more information, see:
 
@@ -12,7 +12,10 @@ For more information, see:
   - [Architecture](#architecture)
     - [Seqera Platform](#seqera-platform)
     - [Wave](#wave)
-  - [Writing new content](#writing-new-content)
+  - [Write and edit content](#write-and-edit-content)
+    - [pre-commit](#pre-commit)
+    - [Vale](#vale)
+    - [cspell](#cspell)
   - [Fixing legacy content](#fixing-legacy-content)
   - [Creating internal links](#creating-internal-links)
   - [Changelog automation](#changelog-automation)
@@ -48,26 +51,133 @@ We have a script which can select a commit (or ideally release tag) to be used f
 
 ## Write and edit content
 
-### Install pre-commit
+Before you start editing, set up the three tools we use to keep documentation consistent:
 
-We use [pre-commit](https://pre-commit.com/) in our repo, which is invoked when a commit is made. When you (or Claude) are working locally and commit your changes in VS Code (or run `git commit`) the pre-commit hooks defined in the [precommit config file](./.pre-commit-config.yaml) are executed and may tweak the files you're staging.
-We currently use basic standard hooks to remove trailing whitespaces, make sure the file ends with a newline, we check yaml documents and we prevent very large files from getting committed. More hooks may get installed in the future.
+- **[pre-commit](#pre-commit)** — Git hooks that fix formatting when you commit.
+- **[Vale](#vale)** — terminology and product-name linting.
+- **[cspell](#cspell)** — spell checking.
 
-1. Open up a Terminal window and navigate to the `docs` repository.
-2. Run the following commands to set up [pre-commit](https://github.com/pre-commit/pre-commit) hooks:
+pre-commit and Vale also run in CI on every pull request. cspell runs locally only. You install each tool once.
+
+### pre-commit
+
+We use [pre-commit](https://pre-commit.com/) to run Git hooks on commit. When you (or Claude) commit changes in VS Code or run `git commit`, the hooks defined in [.pre-commit-config.yaml](./.pre-commit-config.yaml) run and may tweak the files you're staging. The current hooks remove trailing whitespace, ensure files end with a newline, check YAML documents, and block very large files. More hooks may be added later.
+
+#### Install pre-commit
+
+1. Open a terminal and navigate to the `docs` repository.
+2. Install [pre-commit](https://github.com/pre-commit/pre-commit) and set up the hooks:
 
    ```console
    $ pip install pre-commit
    $ pre-commit install
    $ pre-commit install-hooks
    ```
-You shouldn't experience any issues but if you do, share them in the #team-documentation channel so we can try help.
 
-:::note
-  You only have to install pre-commit once.
-:::
+If you hit problems, share them in the #team-documentation channel.
 
-### Make changes and create a PR
+#### Run pre-commit locally
+
+The hooks run automatically on `git commit`. To run them against all files:
+
+```console
+$ pre-commit run --all-files
+```
+
+Vale is a manual pre-commit hook, so it does **not** run on `git commit`. Run it explicitly:
+
+```console
+$ pre-commit run vale --all-files
+```
+
+### Vale
+
+We use [Vale](https://vale.sh) to enforce terminology and product-name conventions (for example, `NextFlow` → `Nextflow`, `compute env` → `compute environment`). The rules live in [.github/styles/Seqera/](.github/styles/Seqera/) and the configuration is in [.vale.ini](./.vale.ini).
+
+Rules are split by confidence:
+
+- **Errors** — unambiguous fixes where the correction is always right (`Products.yml`, `Features.yml`).
+- **Warnings** — context-dependent terms with legitimate exceptions, such as legacy `Tower` references (`ProductsContext.yml`, `FeaturesContext.yml`).
+
+Vale runs in two places, split by design:
+
+- **CI** ([.github/workflows/vale.yml](.github/workflows/vale.yml)) — runs on every pull request. It reports **errors only** (`--minAlertLevel=error`) and comments only on the lines you changed (`filter_mode: added`). Findings are non-blocking (`fail_on_error: false`).
+- **Local** — lints **whole files** and surfaces warnings and suggestions as well as errors, so you can catch context-dependent issues before they reach a reviewer.
+
+To add or change a rule, edit the relevant file under [.github/styles/Seqera/](.github/styles/Seqera/). To change a term's level, move it between the error files (`Products.yml`, `Features.yml`) and the warning files (`ProductsContext.yml`, `FeaturesContext.yml`) — a substitution rule's level applies to the whole file.
+
+#### Install Vale
+
+1. Install the Vale CLI ([installation guide](https://vale.sh/docs/install)):
+
+   ```console
+   $ brew install vale      # macOS
+   $ snap install vale      # Linux
+   ```
+
+2. Download the `write-good` package (run once after cloning, and again whenever `.vale.ini` packages change):
+
+   ```console
+   $ npm run vale:sync
+   ```
+
+#### Run Vale locally
+
+Lint a file or directory:
+
+```console
+$ npm run vale -- platform-enterprise_docs/getting-started.md
+$ npm run vale -- platform-cloud/docs/
+```
+
+To check only the files you changed on this branch:
+
+```console
+$ git diff --name-only --diff-filter=ACM origin/master...HEAD -- '*.md' '*.mdx' | xargs npm run vale --
+```
+
+You can also run Vale through pre-commit. See [Run pre-commit locally](#run-pre-commit-locally).
+
+#### Vale VS Code extension
+
+For inline feedback as you edit, install the [Vale extension](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode) (`ChrisChinchilla.vale-vscode`). It requires the Vale CLI (above) and reads the repo's [.vale.ini](./.vale.ini) automatically when you open the `docs` repository. No extra configuration is needed.
+
+### cspell
+
+We use [cspell](https://cspell.org) to catch spelling mistakes in documentation. The configuration is in [cspell.json](./cspell.json), which loads standard dictionaries (software terms, bash, npm, Docker, and others) plus a project dictionary in [project-words.txt](./project-words.txt) for Seqera-specific terms cspell wouldn't otherwise recognize.
+
+Some paths are excluded from spell checking (see `ignorePaths` in [cspell.json](./cspell.json)): `.claude/`, Vale styles, versioned Platform docs, changelogs, and the API and CLI docs.
+
+#### Install cspell
+
+cspell runs through `npx` without a separate install. If you check spelling often, install the CLI globally instead and drop the `npx` prefix from the commands below:
+
+```console
+$ npm install -g cspell
+```
+
+#### Run cspell locally
+
+1. Check a file or directory:
+
+   ```console
+   $ npx cspell "platform-cloud/docs/**/*.{md,mdx}"
+   $ npx cspell "platform-enterprise_docs/getting-started.md"
+   ```
+
+   To check only the files you changed on this branch:
+
+   ```console
+   $ git diff --name-only --diff-filter=ACM origin/master...HEAD -- '*.md' '*.mdx' | xargs npx cspell
+   ```
+
+2. If cspell flags a legitimate Seqera term, product name, or other valid word, add it to [project-words.txt](./project-words.txt) (one word per line, alphabetical) and re-run. Don't add genuine misspellings. Fix those in the source instead.
+
+#### cspell VS Code extension
+
+For inline feedback as you edit, install the [Code Spell Checker extension](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) (`streetsidesoftware.code-spell-checker`). It runs the cspell engine, reads the repo's [cspell.json](./cspell.json) automatically, underlines unknown words, and offers an "Add to project dictionary" quick fix that writes to [project-words.txt](./project-words.txt).
+
+## Make changes and create a PR
 
 1. In GitHub, or VS Code, create a new branch (e.g., `gh-issue-number`).
 3. Complete the necessary work, save your changes, and commit.
@@ -76,7 +186,7 @@ You shouldn't experience any issues but if you do, share them in the #team-docum
    - Language review from a `docs-codeowners` member.
    - Technical review from the backend engineer or other SME closest to the feature.
 6. Check and review the changes using the Netlify preview.
-7. If you created the PR, the onus is on you to merge the PR once approved. This is the Edu team's policy, to ensure that PRs are never merged inadvertently. If you'd like one of us to merge it for you, please let us know.
+7. If you created the PR, the onus is on you to merge the PR once approved. This is the Edu team's policy, to ensure that PRs are never merged inadvertently. If you'd like one of us to merge it for you, let us know.
 
 Once merged to the master branch, the changes will be live immediately.
 
@@ -259,7 +369,7 @@ These checks gate merges; `pre-commit-fix.yaml` is an on-demand helper for fixin
 
 - **[build-nightly.yml](.github/workflows/build-nightly.yml)** — daily POST to `NETLIFY_BUILD_HOOK_URL` so docs.seqera.io rebuilds even on days with no merges (useful for picking up upstream submodule changes).
 - **[typesense-scraper.yml](.github/workflows/typesense-scraper.yml)** — re-indexes the live site into Typesense once a day so search results stay current.
-- **[links.yml](.github/workflows/links.yml)** — weekly lychee crawl of external `https`/`http` links across all `.mdx` files. On failure, opens a labelled GitHub issue with the report instead of breaking a PR.
+- **[links.yml](.github/workflows/links.yml)** — weekly lychee crawl of external `https`/`http` links across all `.mdx` files. On failure, opens a labeled GitHub issue with the report instead of breaking a PR.
 - **[changelog-from-releases.yml](.github/workflows/changelog-from-releases.yml)** — polls `seqeralabs/wave`, `nextflow-io/nextflow`, and `MultiQC/MultiQC` releases via [.github/scripts/generate-changelog.py](.github/scripts/generate-changelog.py) and opens PRs with new entries. `seqeralabs/fusion` is intentionally excluded from CI (run locally with a PAT). See [Changelog automation](#changelog-automation) above for manual invocation.
 
 ### Cross-repo content pipelines (Platform → docs)
@@ -338,7 +448,7 @@ The disabled `apply-fixes` job in `claude-pr-review.yml` and the disabled `auto-
 - **[check-cli-updates.yml](.github/workflows/check-cli-updates.yml) — broken path check.** The existence check on line 26 looks for `platform-cloud/docs/cli/metadata/cli-metadata-v<version>.json`, but CLI metadata actually lives at `platform-cli-docs/metadata/`. The wrong path never matches, so the workflow always evaluates `exists=false` and dispatches `cli-release` every day. Downstream [update-cli-docs.yml](.github/workflows/update-cli-docs.yml) re-runs against the same `cli-docs-v<version>` branch each time, which `peter-evans/create-pull-request` deduplicates into a single PR — but the workflow burns CI minutes every day until the path is corrected (or the daily cron is removed).
 - **[claude-pr-review.yml](.github/workflows/claude-pr-review.yml) — superseded.** Header comment explicitly states it is replaced by `docs-review.yml`. Only `workflow_dispatch` is wired up; both jobs in the file (`editorial-review`, `apply-fixes`) are unreachable in practice (one has commented-out triggers, the other has `if: false`). Safe to delete in a follow-up.
 - **[markdown-lint.yml](.github/workflows/markdown-lint.yml) — manual-only by design.** Header says "Disable automatic runs" and only `workflow_dispatch` is wired up. Markdownlint is still consulted by the `docs-review.yml` smart-gate via `npx markdownlint-cli2`, so this workflow exists for opt-in manual sweeps rather than as a required check.
-- **`auto-fix` job in [docs-review.yml](.github/workflows/docs-review.yml) — disabled with `if: false`.** Commented out in favour of inline suggestions. Kept in-file as a re-enable path; references the `docs-fix` agent.
+- **`auto-fix` job in [docs-review.yml](.github/workflows/docs-review.yml) — disabled with `if: false`.** Commented out in favor of inline suggestions. Kept in-file as a re-enable path; references the `docs-fix` agent.
 - **`apply-fixes` job in [claude-pr-review.yml](.github/workflows/claude-pr-review.yml) — disabled with `if: false`.** Same reasoning as above.
 
 The scripts [.github/scripts/verify-agent-findings.py](.github/scripts/verify-agent-findings.py), [verify-agent-findings.sh](.github/scripts/verify-agent-findings.sh), [example-review.txt](.github/scripts/example-review.txt), and [check-netlify-excludes.sh](.github/scripts/check-netlify-excludes.sh) are not referenced by any current workflow; they appear to be local utilities or relics of older review pipelines.
@@ -354,7 +464,7 @@ site builds into multiple separate Netlify deployments, stitched back together w
 This works using the following principles:
 
 - Sections of the docs are defined in variables in `docusaurus.config.mjs`
-- Based on the presence or absence of named environment variables, they are included in the Docuaurus config or not
+- Based on the presence or absence of named environment variables, they are included in the Docusaurus config or not
 - By defining these ENV vars in your build environment, you can selectively skip chunks in the build
 
 Deployment works because we have two Netlify sites: `seqera-docs` and `seqera-docs-api`.
