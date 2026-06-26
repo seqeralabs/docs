@@ -114,7 +114,7 @@ These are the highest-frequency rules that come up when editing technical prose:
 | that is            | i.e.                             | no Latin abbreviations                               |
 | and                | & (ampersand)                    | except in UI element names that literally use `&`    |
 | sign in            | log in, login (verb)             | "login" is a noun                                    |
-| dropdown list      | dropdown, drop-down              |                                                      |
+| drop-down          | dropdown, drop down, drop-down menu | always hyphenated; "menu" is redundant            |
 | text box           | field, box, input                |                                                      |
 | checkbox           | check box                        |                                                      |
 | do not             | don't (in error messages, warnings, reference docs) | contractions OK in tutorials/conversational |

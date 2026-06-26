@@ -27,7 +27,7 @@ Platform provisions four types of resources to get you started:
 
 Your organization workspace includes a pre-configured [Seqera Compute](https://docs.seqera.io/platform-cloud/compute-envs/seqera-compute) environment that requires no cloud account setup or configuration.
 
-Your $100 in free credits are consumed based on the computational resources your pipeline runs and Studio session use, calculated from CPU-hours, GB-hours, and network and storage costs. You can monitor your credit balance in the **Usage overview** dropdown in the top navigation bar, or view detailed usage in your organization or workspace **Settings** tab.
+Your $100 in free credits are consumed based on the computational resources your pipeline runs and Studio session use, calculated from CPU-hours, GB-hours, and network and storage costs. You can monitor your credit balance in the **Usage overview** drop-down in the top navigation bar, or view detailed usage in your organization or workspace **Settings** tab.
 
 See [Credit management](./administration/credit-management) for more information on monitoring usage and requesting additional credits.
 
