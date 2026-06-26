@@ -112,15 +112,17 @@ Setting up WIF requires the following steps in the GCP Console:
   tityPools/{POOL}/providers/{PROVIDER}`. If you specify a custom value, it must match exactly what you enter in the Token audience field when creating the Google WIF credential in Seqera.
 4. Define an attribute mapping and condition. At a minimum set `google.subject=assertion.sub`. This maps the subject claim from Seqera's JWT to GCP's identity space. For more information see [here](https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-providers#mappings-and-conditions). You may see a pop-up asking to configure your application and provide an OIDC ID token path. This pop-up can be dismissed.
 5. Grant `roles/iam.workloadIdentityUser` on the service account that WIF will impersonate to the Workload Identity Pool principal. This can be set for all pool identities or for a specific workspace. If you have not yet created a service account do so following the guidelines above.
-6. If you use the same WIF credential for Data Explorer, grant `roles/iam.serviceAccountTokenCreator` on the service account to itself:
+6. If you use the same WIF credential for Data Explorer, grant `roles/iam.serviceAccountTokenCreator` on the service account to the Workload Identity Pool principal:
 
    ```bash
    gcloud iam service-accounts add-iam-policy-binding SA_EMAIL \
-     --member="serviceAccount:SA_EMAIL" \
+     --member="principalSet://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/*" \
      --role="roles/iam.serviceAccountTokenCreator"
    ```
 
-   Replace `SA_EMAIL` with the service account email. Without this role, viewing or downloading file contents in Data Explorer fails with a signing error. Pipeline runs are not affected.
+   Replace `SA_EMAIL`, `PROJECT_NUMBER`, and `POOL_ID` with your values. Without this role, viewing or downloading file contents in Data Explorer fails. Seqera Platform logs the underlying error as `SigningException: Failed to sign the provided bytes` caused by `Permission 'iam.serviceAccounts.signBlob' denied`. Running pipelines is not affected.
+
+   As with step 5, you can scope this binding to a specific workspace by replacing `principalSet://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/*` with `principal://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/subject/org:{ORG_ID}:wsp:{WORKSPACE_ID}:workflow`.
 
 After setting up WIF in the GCP Console, you need the following information to create a credential in Seqera Platform:
 
