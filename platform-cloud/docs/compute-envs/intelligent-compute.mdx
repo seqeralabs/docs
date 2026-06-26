@@ -1,0 +1,131 @@
+---
+title: "Intelligent Compute"
+description: "Set up Seqera Intelligent Compute on an AWS Cloud compute environment"
+date created: "2026-06-12"
+last updated: "2026-06-12"
+tags: [intelligent compute, aws, ecs, compute environments]
+toc_min_heading_level: 2
+toc_max_heading_level: 4
+---
+
+import CodeBlock from '@theme/CodeBlock';
+import AwsCloudIntelligentComputePolicy from './_policies/aws-cloud-intelligent-compute-policy.json?raw';
+
+:::info[Preview]
+Seqera Intelligent Compute is in preview. Seqera must enable it on a per-workspace basis before you can use it. Contact your account manager to request access.
+:::
+
+:::info
+Intelligent Compute may assign different CPU and memory values to tasks than your pipeline's `process` directives specify. The scheduler picks the most cost-effective instance shape that meets each task's resource request.
+:::
+
+Intelligent Compute is a scheduling service that runs Nextflow pipelines on a Seqera-managed clusters. It allocates compute resources based on what each task needs rather than what the pipeline requests. This reduces cost and improves utilization across a run. Intelligent Compute is initially available only on AWS Cloud compute environments.
+
+Unlike the standard AWS Cloud compute environment, which runs a pipeline on a single EC2 instance, Intelligent Compute provisions and manages multi-node clusters. Pipelines can scale beyond a single instance while keeping startup times short.
+
+When you enable Intelligent Compute on an AWS Cloud compute environment, Seqera provisions and manages the following resources in your AWS account on first use:
+
+- An Amazon ECS cluster per compute environment configuration
+- ECS capacity providers (Managed Instances or Auto Scaling Groups)
+- ECS task definitions per container image and resource shape
+- IAM roles for ECS task execution, EC2 instance profiles, and infrastructure management
+- CloudWatch log groups under `/seqera/sched`
+
+All managed resources use the `seqera-sched-` prefix. Seqera creates them on first use and removes them automatically when no longer needed.
+
+## IAM permissions
+
+Intelligent Compute requires an additional policy beyond the [standard AWS Cloud IAM permissions](./aws-cloud#required-platform-iam-permissions). Attach this policy to the same IAM user or role that Seqera uses to access your AWS account.
+
+<details>
+  <summary>IAM policy JSON</summary>
+  <CodeBlock language="json">{AwsCloudIntelligentComputePolicy}</CodeBlock>
+</details>
+
+[Download aws-cloud-intelligent-compute-policy.json](./_policies/aws-cloud-intelligent-compute-policy.json)
+
+### Permission groups
+
+| Group | Purpose |
+|-------|---------|
+| `ECSScopedOperations` | Create, delete, describe, and tag ECS clusters, capacity providers, and tasks. Scoped to `seqera-sched-*` resources. |
+| `ECSUnscopedOperations` | Register, deregister, list, and describe ECS task definitions. ECS task definition APIs do not support resource-level permissions. |
+| `IAMRoleManagement` | Create, update, and delete IAM roles and instance profiles scoped to `seqera-sched-*`. Seqera creates four role types on first use: execution role, infrastructure role, per-cluster instance role, and per-cluster task role. |
+| `PassRoleToECS` | Pass `seqera-sched-*` and `TowerForge-*` roles to ECS, ECS tasks, and EC2. Required to attach roles to ECS infrastructure and task definitions. |
+| `ServiceLinkedRoles` | Create service-linked roles for ECS, autoscaling, and Spot. Required only if these roles do not already exist in your account. |
+| `CloudWatchLogs` | Create and manage log groups under `/seqera/sched`, and read log events. Task stdout and stderr are written to CloudWatch. |
+| `EC2NetworkDiscovery` | Describe VPCs, subnets, security groups, and route tables. Create security groups and VPC endpoints. Used for VPC auto-discovery and network setup. |
+| `ECRAccess` | Authorize ECR and pull container images. ECS tasks pull images from ECR. |
+| `S3Access` | Read objects and list buckets. Used to read Fusion trace files and pipeline work directory content. |
+| `ASGEC2Operations` | Describe instance types and create or delete EC2 launch templates. Required only for Auto Scaling Group-backed clusters. |
+| `ASGManagement` | Create, update, and delete Auto Scaling Groups scoped to `seqera-sched-*`. Required only for Auto Scaling Group-backed clusters. |
+| `ASGDescribe` | Describe Auto Scaling Groups. Required only for Auto Scaling Group-backed clusters. |
+| `SSMECSOptimizedAmi` | Read the ECS-optimized AMI ID from SSM Parameter Store. Used to look up the latest Amazon Linux 2023 ECS-optimized AMI. |
+| `CostExplorer` | Query `ce:GetCostAndUsage`. Used to display cost predictions at pipeline launch. If this permission is absent, cost predictions do not appear and Seqera shows no error. |
+
+**Conditional statements:**
+- `ASGEC2Operations`, `ASGManagement`, and `ASGDescribe` are required only if Auto Scaling Group-backed clusters are enabled. You can omit them for Managed Instances deployments.
+- `ServiceLinkedRoles` is required only if the listed service-linked roles do not already exist in your AWS account.
+- `CostExplorer` is required only if you want cost predictions shown at pipeline launch.
+
+### Create the additional IAM policy
+
+1. Open the [AWS IAM console](https://console.aws.amazon.com/iam).
+1. Select **Policies** under **Access management**, then select **Create policy**.
+1. Select the **JSON** tab and paste the Intelligent Compute policy.
+1. Select **Next**, enter a name (for example, `SeqeraIntelligentComputePolicy`), then select **Create policy**.
+1. Attach the policy to the same IAM user or role that Seqera uses for your AWS Cloud compute environment.
+
+## Set up an AWS Cloud compute environment with Intelligent Compute
+
+:::info[**Prerequisites**]
+
+You need the following:
+
+- Intelligent Compute enabled for your workspace by Seqera. Contact your account manager to request access.
+- AWS credentials with both the standard AWS Cloud permissions and the Intelligent Compute permissions attached.
+
+:::
+
+1. In your Seqera workspace, select **Compute Environments**, then **Add compute environment**.
+1. Enter a name and select **AWS Cloud** as the platform.
+1. Select your AWS credentials.
+1. Select the **Region** where Seqera provisions the ECS cluster.
+1. Enter a **Work directory** (S3 URI, for example `s3://my-bucket/work`).
+1. Under **Intelligent Compute**, enable the **Seqera Intelligent Compute** toggle.
+1. Configure the [Intelligent Compute options](#configuration-options) as needed.
+1. Select **Add**.
+
+Seqera validates credentials and configuration on save. On first use, it provisions the required IAM roles and ECS cluster in your account. Clusters and associated resources are removed automatically when no longer needed.
+
+## Resource metrics
+
+The **Metrics** tab for a run on Intelligent Compute shows three resource values for CPU and memory: **Requested**, **Allocated**, and **Used**.
+
+| Metric | Source | What it represents |
+|--------|--------|-------------------|
+| **Requested** | Pipeline `process` directives | The CPU and memory your pipeline asked for, as written in your `process` directives (for example, `cpus = 4`, `memory = 8 GB`). |
+| **Allocated** | Scheduler decision | The CPU and memory the scheduler assigned to the task container. Intelligent Compute may assign values different from what was requested. It selects the most cost-effective instance shape that satisfies the task's requirements. |
+| **Used** | Nextflow trace data | The CPU and memory the task consumed, measured from the Nextflow trace metrics (`pcpu` × `realtime` for CPU, `peakRss` for memory). Absent for tasks that did not produce trace data. |
+
+**How to read the numbers:**
+
+- If **Requested** is much higher than **Allocated**, the scheduler found a more efficient instance shape than your directives implied.
+- If **Allocated** is much higher than **Used**, the task ran with idle headroom.
+- If **Used** is close to **Allocated**, resource utilization is near-optimal for that task.
+- If **Allocated** matches **Requested**, confirm whether Seqera Intelligent Compute has been set up with an optimization model.
+
+## Configuration options
+
+| Option | Values | Default | Description |
+|--------|--------|---------|-------------|
+| **Seqera Intelligent Compute** | Enabled / Disabled | Disabled | Enables the Intelligent Compute scheduler for this compute environment. This option only appears if Intelligent Compute is enabled for your workspace. |
+| **Provisioning model** | `spotFirst`, `spot`, `ondemand` | `spotFirst` | Instance procurement strategy. `spotFirst` uses Spot instances and falls back to On-Demand if Spot capacity is unavailable. `spot` uses Spot instances only. `ondemand` uses On-Demand instances only. |
+| **Instance types** | Comma-separated EC2 instance type identifiers (for example, `m5.xlarge, c5.2xlarge`) | Empty | Restricts which instance types the scheduler can select. When empty, the scheduler selects the most cost-effective type for each task automatically. Specifying types here overrides automatic selection. |
+| **Prediction model** | `none`, `qr/v1`, `qr/v2` | `none` | For private preview use `qr/v2` |
+| **Backend strategy** | `ECS`, `EC2` | `ECS` | Task execution backend. Use `ECS` (default). `EC2` is reserved for future use. |
+| **Fusion snapshots** | Enabled / Disabled | Disabled | Allow interrupted tasks (for example, after a Spot reclaim) to resume from a Fusion snapshot instead of restarting from scratch. |
+| **Use NVMe instance storage** | Enabled / Disabled | Disabled | Restrict Intelligent Compute to instance types that provide local SSD (NVMe) storage for faster I/O. |
+| **Enable warm pool** | Enabled / Disabled | Disabled | Keep a pool of idle VMs ready to absorb incoming tasks with minimal start latency. Only available when **Backend strategy** is set to `EC2`. |
+| **Desired warm VMs** | Integer | — | Target number of idle VMs to keep warm. Must be greater than zero. Only visible when **Enable warm pool** is enabled. |
+| **Scale-to-zero timeout** | Seconds | — | Seconds of inactivity after which the warm pool scales to zero. Set to `0` to never scale to zero. Only visible when **Enable warm pool** is enabled. |

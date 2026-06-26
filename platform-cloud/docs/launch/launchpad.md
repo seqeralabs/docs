@@ -10,7 +10,7 @@ Use the Seqera Platform **Launchpad** to launch pre-configured pipelines, add ne
 
 ## Sort and filter pipelines
 
-Select the **Sort by:** dropdown to sort pipelines by name or by most-recently updated. Select the filter icon to filter by workspace and labels.
+Select the **Sort by:** drop-down to sort pipelines by name or by most-recently updated. Select the filter icon to filter by workspace and labels.
 
 The list layout is the default **Launchpad** view. Select the tiles icon to switch between the list and tile layout. Both views display the compute environment of each pipeline.
 
@@ -54,7 +54,7 @@ Configure the core settings for your run, including the pipeline source, compute
     <details>
     <summary>How config profiles are detected</summary>
 
-    Seqera Platform populates the **Config profiles** dropdown by statically analyzing the pipeline's Nextflow configuration. The analysis detects profiles in the main configuration and in `includeConfig` statements that match any of these patterns:
+    Seqera Platform populates the **Config profiles** drop-down by statically analyzing the pipeline's Nextflow configuration. The analysis detects profiles in the main configuration and in `includeConfig` statements that match any of these patterns:
 
     - A static string:
       ```groovy
@@ -97,8 +97,8 @@ Configure the core settings for your run, including the pipeline source, compute
 
 Enter **Run parameters** in one of four ways before launch:
 
-- The **Input form view** displays form fields to enter text, select attributes from dropdowns, and browse input and output locations with [Data Explorer][data-explorer].
-- The **Params file view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** dropdown.
+- The **Input form view** displays form fields to enter text, select attributes from drop-downs, and browse input and output locations with [Data Explorer][data-explorer].
+- The **Params file view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** drop-down.
 - Use **Upload params file** to upload a JSON or YAML file with run parameters.
 - Specify run parameters with query parameters in the launch URL. See [URL query parameters](#url-query-parameters) for more information.
 
@@ -106,7 +106,7 @@ If the pipeline includes a `nextflow_schema.json` file in its repository root, S
 
 Common parameters include:
 
-- **Input data**: If the pipeline defines an input parameter, specify compatible [datasets][datasets] manually or from the dropdown menu. Select **Browse** to view the available datasets or browse for files in [Data Explorer][data-explorer]. Use the Data Explorer tab to select input datasets that match your [pipeline schema][pipeline-schema] `mimetype` criteria (`text/csv` for CSV files, or `text/tsv` for TSV files).
+- **Input data**: If the pipeline defines an input parameter, specify compatible [datasets][datasets] manually or from the drop-down. Select **Browse** to view the available datasets or browse for files in [Data Explorer][data-explorer]. Use the Data Explorer tab to select input datasets that match your [pipeline schema][pipeline-schema] `mimetype` criteria (`text/csv` for CSV files, or `text/tsv` for TSV files).
 - **Output directory**: If the pipeline defines an output directory parameter, specify it manually or select **Browse** to choose a cloud storage directory using [Data Explorer][data-explorer].
 
 ### Advanced settings
