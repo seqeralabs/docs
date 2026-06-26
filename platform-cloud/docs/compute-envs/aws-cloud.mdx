@@ -295,36 +295,7 @@ If you manage your own EC2 instance role (rather than letting Seqera create it a
 Seqera Intelligent Compute is in private preview. [Contact us](https://seqera.io/intelligent-compute/) to request access.
 :::
 
-Seqera Intelligent Compute requires **two IAM policies** attached to the same IAM user or role:
-
-1. **AWS Cloud policy** — required for all AWS Cloud compute environments. If you have already set up an AWS Cloud CE, this policy is already in place.
-2. **Intelligent Compute policy** — additional permissions required specifically for Intelligent Compute.
-
-Both policies must be attached to the same IAM user or role that Seqera uses to access your AWS account.
-
-<details>
-<summary>AWS Cloud policy</summary>
-
-<CodeBlock language="json">{AwsCloudFullPolicy}</CodeBlock>
-
-</details>
-
-[Download aws-cloud-full-policy.json](./_policies/aws-cloud-full-policy.json)
-
-<details>
-<summary>Seqera Intelligent Compute policy</summary>
-
-<CodeBlock language="json">{AwsCloudIntelligentComputePolicy}</CodeBlock>
-
-Some statements in the Intelligent Compute policy are conditional and can be omitted depending on your deployment:
-
-- The `ASGEC2Operations` and `ASGManagement` statements are required only if you enable Auto Scaling Group-backed clusters (managed instances). Omit them for Fargate-only deployments.
-- The `CreateECSServiceLinkedRole` is required only if the Service Role is not already created.
-- The `CostExplorer` statement is required only if you enable Cost Analysis.
-
-</details>
-
-[Download aws-cloud-intelligent-compute-policy.json](./_policies/aws-cloud-intelligent-compute-policy.json)
+If you've enabled [Seqera Intelligent Compute](#seqera-intelligent-compute), see [Intelligent Compute IAM permissions](./intelligent-compute#iam-permissions) for the full list of required policies.
 
 ### Create the IAM policy
 
@@ -337,7 +308,7 @@ The policy above must be created in the AWS account where the AWS Cloud resource
 1. Following the instructions detailed in the [IAM permissions breakdown section](#required-platform-iam-permissions) replace the default text in the policy editor area under the **JSON** tab with a policy adapted to your use case, then select **Next**.
 1. Enter a name and description for the policy on the **Review and create** page, then select **Create policy**.
 
-If you are also enabling Seqera Intelligent Compute, repeat these steps twice — once for each policy in the [Seqera Intelligent Compute permissions](#seqera-intelligent-compute-permissions) section.
+If you are also enabling Seqera Intelligent Compute, see [Intelligent Compute IAM permissions](./intelligent-compute#iam-permissions) for the additional policies required.
 
 ### AWS credential options
 

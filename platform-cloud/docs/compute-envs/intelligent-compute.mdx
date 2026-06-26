@@ -9,6 +9,7 @@ toc_max_heading_level: 4
 ---
 
 import CodeBlock from '@theme/CodeBlock';
+import AwsCloudFullPolicy from './_policies/aws-cloud-full-policy.json?raw';
 import AwsCloudIntelligentComputePolicy from './_policies/aws-cloud-intelligent-compute-policy.json?raw';
 
 :::info[Preview]
@@ -35,10 +36,20 @@ All managed resources use the `seqera-sched-` prefix. Seqera creates them on fir
 
 ## IAM permissions
 
-Intelligent Compute requires an additional policy beyond the [standard AWS Cloud IAM permissions](./aws-cloud#required-platform-iam-permissions). Attach this policy to the same IAM user or role that Seqera uses to access your AWS account.
+Intelligent Compute requires **two IAM policies** attached to the same IAM user or role that Seqera uses to access your AWS account:
+
+1. **AWS Cloud policy** — required for all AWS Cloud compute environments. If you have already set up an AWS Cloud CE, this policy is already in place.
+2. **Intelligent Compute policy** — additional permissions required specifically for Intelligent Compute.
 
 <details>
-  <summary>IAM policy JSON</summary>
+  <summary>AWS Cloud policy</summary>
+  <CodeBlock language="json">{AwsCloudFullPolicy}</CodeBlock>
+</details>
+
+[Download aws-cloud-full-policy.json](./_policies/aws-cloud-full-policy.json)
+
+<details>
+  <summary>Intelligent Compute policy</summary>
   <CodeBlock language="json">{AwsCloudIntelligentComputePolicy}</CodeBlock>
 </details>
 
@@ -68,13 +79,16 @@ Intelligent Compute requires an additional policy beyond the [standard AWS Cloud
 - `ServiceLinkedRoles` is required only if the listed service-linked roles do not already exist in your AWS account.
 - `CostExplorer` is required only if you want cost predictions shown at pipeline launch.
 
-### Create the additional IAM policy
+### Create the IAM policies
+
+If you are setting up Intelligent Compute on an existing AWS Cloud compute environment, the AWS Cloud policy is already in place — attach only the Intelligent Compute policy. If you are creating a fresh IAM role for Intelligent Compute, create both policies:
 
 1. Open the [AWS IAM console](https://console.aws.amazon.com/iam).
 1. Select **Policies** under **Access management**, then select **Create policy**.
-1. Select the **JSON** tab and paste the Intelligent Compute policy.
-1. Select **Next**, enter a name (for example, `SeqeraIntelligentComputePolicy`), then select **Create policy**.
-1. Attach the policy to the same IAM user or role that Seqera uses for your AWS Cloud compute environment.
+1. Select the **JSON** tab, paste the policy JSON, then select **Next**.
+1. Enter a name (for example, `SeqeraAwsCloudPolicy` or `SeqeraIntelligentComputePolicy`), then select **Create policy**.
+1. Repeat for the second policy.
+1. Attach both policies to the same IAM user or role that Seqera uses to access your AWS account.
 
 ## Set up an AWS Cloud compute environment with Intelligent Compute
 
