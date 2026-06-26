@@ -21,7 +21,9 @@
     {
       "Sid": "AwsCloudCreatePassRole",
       "Effect": "Allow",
-      "Action": "iam:PassRole",
+      "Action": [
+        "iam:PassRole"
+      ],
       "Resource": "arn:aws:iam::*:role/TowerForge-*"
     },
     {
@@ -39,13 +41,17 @@
     {
       "Sid": "AwsCloudLaunchLogs",
       "Effect": "Allow",
-      "Action": "logs:GetLogEvents",
+      "Action": [
+        "logs:GetLogEvents"
+      ],
       "Resource": "arn:aws:logs:*:*:log-group:*:log-stream:*"
     },
     {
       "Sid": "AwsCloudLaunchS3",
       "Effect": "Allow",
-      "Action": "s3:GetObject",
+      "Action": [
+        "s3:GetObject"
+      ],
       "Resource": "*"
     },
     {
@@ -83,7 +89,9 @@
     {
       "Sid": "AwsCloudUserdataCheck",
       "Effect": "Allow",
-      "Action": "ec2:GetConsoleOutput",
+      "Action": [
+        "ec2:GetConsoleOutput"
+      ],
       "Resource": "*"
     },
     {
@@ -97,8 +105,8 @@
         "sqs:ReceiveMessage",
         "sqs:DeleteMessage",
         "s3:CreateBucket",
-        "s3:GetBucketNotificationConfiguration",
-        "s3:PutBucketNotificationConfiguration",
+        "s3:GetBucketNotification",
+        "s3:PutBucketNotification",
         "s3:GetBucketLocation"
       ],
       "Resource": [

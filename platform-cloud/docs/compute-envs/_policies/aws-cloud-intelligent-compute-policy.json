@@ -176,7 +176,7 @@
       "Sid": "SSMECSOptimizedAmi",
       "Effect": "Allow",
       "Action": "ssm:GetParameter",
-      "Resource": "arn:aws:ssm:*::parameter/aws/service/ecs/optimized-ami/*"
+      "Resource": "arn:aws:ssm:*:*:parameter/aws/service/ecs/optimized-ami/*"
     },
     {
       "Sid": "CostExplorer",
