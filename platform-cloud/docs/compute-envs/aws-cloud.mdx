@@ -75,6 +75,8 @@ When you enable Seqera Intelligent Compute, Seqera provisions and manages all EC
 
 If you enable Seqera Intelligent Compute, you must attach the additional permissions described in [Seqera Intelligent Compute permissions](#seqera-intelligent-compute-permissions).
 
+For full setup instructions, see [Intelligent Compute](./intelligent-compute.mdx).
+
 ## Managed Amazon Machine Image (AMI)
 
 The AWS Cloud compute environment uses a public AMI maintained by Seqera, and the pipeline launch procedure assumes that some basic tooling is already present in the image itself. If you want to provide your own AMI, it must include at least the following:
@@ -293,16 +295,28 @@ If you manage your own EC2 instance role (rather than letting Seqera create it a
 Seqera Intelligent Compute is in private preview. [Contact us](https://seqera.io/intelligent-compute/) to request access.
 :::
 
-If you've enabled [Seqera Intelligent Compute](#seqera-intelligent-compute), attach the following additional policy to the same IAM user or role that Seqera uses to access your AWS account.
+Seqera Intelligent Compute requires **two IAM policies** attached to the same IAM user or role:
 
-The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The remaining `Resource: "*"` entries correspond to AWS APIs that do not support resource-level permissions, such as EC2 `Describe*`, ECR authorization tokens, and Cost Explorer.
+1. **AWS Cloud policy** — required for all AWS Cloud compute environments. If you have already set up an AWS Cloud CE, this policy is already in place.
+2. **Intelligent Compute policy** — additional permissions required specifically for Intelligent Compute.
+
+Both policies must be attached to the same IAM user or role that Seqera uses to access your AWS account.
+
+<details>
+<summary>AWS Cloud policy</summary>
+
+<CodeBlock language="json">{AwsCloudFullPolicy}</CodeBlock>
+
+</details>
+
+[Download aws-cloud-full-policy.json](./_policies/aws-cloud-full-policy.json)
 
 <details>
 <summary>Seqera Intelligent Compute policy</summary>
 
 <CodeBlock language="json">{AwsCloudIntelligentComputePolicy}</CodeBlock>
 
-Some statements in the policy above are conditional and can be omitted depending on your deployment:
+Some statements in the Intelligent Compute policy are conditional and can be omitted depending on your deployment:
 
 - The `ASGEC2Operations` and `ASGManagement` statements are required only if you enable Auto Scaling Group-backed clusters (managed instances). Omit them for Fargate-only deployments.
 - The `CreateECSServiceLinkedRole` is required only if the Service Role is not already created.
@@ -323,7 +337,7 @@ The policy above must be created in the AWS account where the AWS Cloud resource
 1. Following the instructions detailed in the [IAM permissions breakdown section](#required-platform-iam-permissions) replace the default text in the policy editor area under the **JSON** tab with a policy adapted to your use case, then select **Next**.
 1. Enter a name and description for the policy on the **Review and create** page, then select **Create policy**.
 
-If you are also enabling Seqera Intelligent Compute, repeat these steps to create a second policy using the [Seqera Intelligent Compute permissions](#seqera-intelligent-compute-permissions) JSON.
+If you are also enabling Seqera Intelligent Compute, repeat these steps twice — once for each policy in the [Seqera Intelligent Compute permissions](#seqera-intelligent-compute-permissions) section.
 
 ### AWS credential options
 
@@ -452,6 +466,7 @@ For role-based AWS credentials in Seqera Cloud, allow the Seqera Cloud access ro
 
 ## Advanced options
 
+- **Pipeline work directory**: The S3 path where Nextflow stores intermediate pipeline files. The S3 bucket must be in the same region as the compute environment. Platform rejects the compute environment at creation time if the bucket region does not match.
 - **Instance Type**: The EC2 instance type used by the compute environment. Choosing the instance type will directly allocate the CPU and memory available for computation. See [EC2 instance types](https://aws.amazon.com/ec2/instance-types/) for a comprehensive list of instance types and their resource limitations.
 - **Graviton architecture**: Enable the use of Graviton instances. AWS Graviton processors, based on the ARM64 architecture, tend to offer a better performance-to-price ratio, however, the tooling used by your pipelines must be compatible with ARM architecture.
 - **AMI ID**: The ID of the AMI that will be used to launch the EC2 instance. Use Seqera-maintained AMIs for best performance.
