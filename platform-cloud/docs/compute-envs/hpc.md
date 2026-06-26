@@ -47,7 +47,7 @@ To create a new **HPC** compute environment:
 
 1.  In a Seqera workspace, select **Compute environments > New environment**.
 1.  Enter a descriptive name for this environment. Use only alphanumeric characters, dashes, and underscores.
-1.  Select your HPC environment from the **Platform** dropdown menu.
+1.  Select your HPC environment from the **Platform** drop-down.
 1.  Select your existing managed identity, SSH, or Tower Agent credentials, or select **+** and **SSH** or **Tower Agent** to add new credentials.
 1.  Enter the absolute path of the **Work directory** to be used on the cluster. You can use the `TW_AGENT_WORKDIR` and `TW_AGENT_USER` variables in the file system path.
 

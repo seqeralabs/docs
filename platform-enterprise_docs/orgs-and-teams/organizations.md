@@ -24,13 +24,13 @@ You can also add external collaborators to an organization.
 From version 23.2, **organization owners** can edit their organization name, either from the organizations page or the [Admin panel](../administration/overview).
 :::
 
-As an **organization owner**, access the organization page from the organizations and workspaces dropdown, or open the user menu and select **Your organizations** to view and edit your organizations. As a root user, you can also edit organizations from the [Admin panel](../administration/overview).
+As an **organization owner**, access the organization page from the organizations and workspaces drop-down, or open the user menu and select **Your organizations** to view and edit your organizations. As a root user, you can also edit organizations from the [Admin panel](../administration/overview).
 
 Open the **Settings** tab on the organization page, and select **Edit** in the **Edit Organization** row. Update the settings and select **Update** to save.
 
 ### Organization resource usage tracking
 
-Select **Usage overview** next to the organization and workspace selector dropdown to view a window with the following usage details:
+Select **Usage overview** next to the organization and workspace selector drop-down to view a window with the following usage details:
 
 - **Run history**: The total number of pipeline runs.
 - **Concurrent runs**: Total simultaneous pipeline runs.
@@ -59,7 +59,7 @@ To add a new member to an organization:
 2. Select **Add member**.
 3. Enter the name or email address of the user you'd like to add to the organization.
 
-An email invitation will be sent to the user. Once they accept the invitation, they can switch to the organization (or organization workspace) from the workspace dropdown.
+An email invitation will be sent to the user. Once they accept the invitation, they can switch to the organization (or organization workspace) from the workspace drop-down.
 
 :::note
 For information about what happens when a user deletes their account, see [user deletion](../data-privacy/overview#user-deletion).

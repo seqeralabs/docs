@@ -27,7 +27,7 @@ The Community Showcase [Launchpad](../launch/launchpad) is an example workspace 
 3. Select **Launch** from the pipeline detail page.
 4. On the **Launch pipeline** page, enter a unique **Workflow run name** or use the pre-filled random name.
 5. Optional: Enter labels to be assigned to the run in the **Labels** field.
-6. Under **Input/output options**, select the dataset named after your chosen pipeline from the drop-down menu under **input**.
+6. Under **Input/output options**, select the dataset named after your chosen pipeline from the drop-down under **input**.
 7. Under **outdir**, specify an output directory where run results will be saved. This must be an absolute path to storage on cloud infrastructure and defaults to `./results`.
 8. Under **email**, enter an email address where you wish to receive the run completion summary.
 9. Under **multiqc_title**, enter a title for the MultiQC report. This is used as both the report page header and filename.
