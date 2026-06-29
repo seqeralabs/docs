@@ -253,7 +253,7 @@ There might be errors reported by the session itself but these will be overwritt
 Direct SSH connections to running Studio containers support standard SSH clients, terminal access, and [VS Code Remote SSH](https://code.visualstudio.com/docs/remote/ssh). JupyterLab, R-IDE, VS Code, and Xpra container templates are supported.
 
 :::note
-If you didn't enable SSH when you initially added your Studio, stop the Studio, select **Start as New**, and enable **SSH Connection**.
+If you didn't enable SSH when you initially added your Studio, stop and enable **SSH Connection** before restarting the Studio.
 :::
 
 ### Terminal access
