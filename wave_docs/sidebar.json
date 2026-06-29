@@ -74,7 +74,18 @@
         "install/aws-build",
         "install/post-install",
         "install/configure-wave",
-        "install/reference"
+        "install/reference",
+        {
+          "type": "category",
+          "label": "Migration notes",
+          "link": {"type": "doc", "id": "migrations/index"},
+          "collapsed": true,
+          "items": [
+            "migrations/1-25-0",
+            "migrations/1-24-0",
+            "migrations/1-21-0"
+          ]
+        }
       ]
     },
     {
