@@ -18,7 +18,7 @@ Select **Runs** in the left-hand navigation to view the full run history of a wo
 
 ## All runs
 
-Access the **All runs** page from the user menu. This page lists runs across the entire Platform instance. The default view includes all organizations and workspaces you can access. To limit the view to specific workspaces, select the dropdown next to **View**.
+Access the **All runs** page from the user menu. This page lists runs across the entire Platform instance. The default view includes all organizations and workspaces you can access. To limit the view to specific workspaces, select the drop-down next to **View**.
 
 Filter the list with free text and one or more `keyword:value` terms in the search field:
 
@@ -45,7 +45,7 @@ See [All runs view](../../monitoring/overview#all-runs-view) for the full search
 
 Access the **Dashboard** from the user menu. This page displays run totals across the Platform instance, grouped by run status. The default view includes all organizations and workspaces you can access:
 
-- To limit the view to specific workspaces, select the dropdown next to **View**.
+- To limit the view to specific workspaces, select the drop-down next to **View**.
 - To filter by time, select a preset period or a custom date range of up to 12 months. Times are displayed in the local timezone defined in your device's system settings.
 - To download the displayed data as a CSV file, select **Export data**.
 

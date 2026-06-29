@@ -20,7 +20,7 @@ On the **Launchpad**, each pipeline that can be optimized shows a lightbulb icon
 
 1. Select the lightbulb icon to open the **Customize optimization profile** menu.
 
-2. Under the **Optimization profile** tab, select a previous run from the dropdown. The list contains all successful runs.
+2. Under the **Optimization profile** tab, select a previous run from the drop-down. The list contains all successful runs.
 
 3. Select which **Targets** to optimize.
 

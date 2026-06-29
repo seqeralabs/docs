@@ -22,7 +22,7 @@ After your [Docker Compose](./platform-docker-compose) or [Kubernetes](./platfor
 
 7. Enter the repository URL for the `nf-core/rnaseq` pipeline (`https://github.com/nf-core/rnaseq`).
 
-8. In the **Config profiles** drop-down menu, select the `test` profile.
+8. In the **Config profiles** drop-down, select the `test` profile.
 
 9. In **Pipeline parameters**, change the output directory to a location based on your compute environment:
 

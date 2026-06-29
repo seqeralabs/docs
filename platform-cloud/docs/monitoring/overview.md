@@ -33,7 +33,7 @@ Only runs launched via Platform UI, API, CLI, or Seqerakit can be saved as pipel
 
 The **All runs** page, accessed from the user menu, provides a comprehensive overview of the runs accessible to a user across the entire Seqera instance. This facilitates overall status monitoring and early detection of execution issues from a single view, split across organizations and workspaces.
 
-The **All runs** view defaults to all organizations and workspaces you can access. Select the dropdown next to **View** to filter by specific organizations and workspaces, or to view runs from your personal workspace only.
+The **All runs** view defaults to all organizations and workspaces you can access. Select the drop-down next to **View** to filter by specific organizations and workspaces, or to view runs from your personal workspace only.
 
 ### Search
 

@@ -41,5 +41,5 @@ TOWER_LAUNCH_CONTAINER=job-definition://<YOUR_JOB_DEFINITION_NAME>
 ```
 
 :::note
-The repository where your launch container resides must be accessible to the Batch cluster's [ECS Agent](https://aws.amazon.com/blogs/compute/how-to-authenticate-private-container-registries-using-aws-batch/).
+The repository where your launch container resides must be accessible to the Batch cluster's [ECS Agent](https://docs.aws.amazon.com/batch/latest/userguide/private-registry-auth.html).
 :::

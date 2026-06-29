@@ -74,7 +74,7 @@ A public [GitHub repository][github-examples] provides branches for common use c
 Add a Studio by referencing a Git repository that contains Studio configuration files. You can also configure the following fields:
 
 - **Git repository**: Enter the full URL to your Git repository (e.g., `https://github.com/your-org/your-repo`).
-- **Revision**: Select a branch, tag, or commit from the dropdown. The dropdown is dynamically populated based on the repository URL. If no revision is selected, the default branch is used.
+- **Revision**: Select a branch, tag, or commit from the drop-down. The drop-down is dynamically populated based on the repository URL. If no revision is selected, the default branch is used.
 - **Install Conda packages**: A list of conda packages to include with the Studio. For more information on package syntax, see [conda package syntax][conda-syntax].
 - **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default, but you can remove it. Add or remove custom resource labels as needed.
 - **Environment variables**: Environment variables for the session. The session inherits and displays all variables from the selected compute environment. Add session-specific variables as needed. Session-level variables take precedence. To override an inherited variable, define the same key with a different value.

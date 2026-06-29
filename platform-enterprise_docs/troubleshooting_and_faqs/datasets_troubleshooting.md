@@ -49,4 +49,4 @@ Seqera displays this error for this issue:
 
 ### TSV-formatted datasets not shown
 
-An issue was identified in Seqera version 22.2 which caused TSV datasets to be unavailable in the input data drop-down menu on the launch screen. This has been fixed in version 22.4.1.
+An issue was identified in Seqera version 22.2 which caused TSV datasets to be unavailable in the input data drop-down on the launch screen. This has been fixed in version 22.4.1.

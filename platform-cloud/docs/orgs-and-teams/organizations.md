@@ -31,7 +31,7 @@ You can invite or add additional members to the workspace from the workspace **S
 
 ### Organization settings
 
-Organization owners can view, edit, and delete organizations in the **Organization settings** screen. Select your organization from the drop-down menu, then select **Settings** in the sidebar.
+Organization owners can view, edit, and delete organizations in the **Organization settings** screen. Select your organization from the drop-down, then select **Settings** in the sidebar.
 
 Cloud Pro organizations can also configure and manage [single sign-on (SSO)](../getting-started/single-sign-on) from the organization settings page.
 
@@ -55,7 +55,7 @@ To add a new member to an organization:
 2. Select **Add member**.
 3. Enter the name or email address of the user you'd like to add to the organization.
 
-An email invitation will be sent to the user. Once they accept the invitation, they can switch to the organization (or organization workspace) from the workspace dropdown.
+An email invitation will be sent to the user. Once they accept the invitation, they can switch to the organization (or organization workspace) from the workspace drop-down.
 
 :::note
 For information about what happens when a user deletes their account, see [user deletion](../data-privacy/overview#user-deletion).
@@ -89,7 +89,7 @@ New collaborators to an organization's workspace can be added as **Participants*
 
 ## Organization resource usage tracking
 
-Select **Usage overview** next to the organization and workspace selector dropdown to view a window with the following usage details:
+Select **Usage overview** next to the organization and workspace selector drop-down to view a window with the following usage details:
 
 - **Run history**: The total number of pipeline runs.
 - **Concurrent runs**: Total simultaneous pipeline runs.

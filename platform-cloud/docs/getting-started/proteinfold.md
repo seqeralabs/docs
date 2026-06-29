@@ -446,7 +446,7 @@ The Jupyter environment can be configured with the packages and scripts you need
 
     ```python
     if valid_pdb_files:
-        method_dropdown = widgets.Dropdown(
+        method_drop-down = widgets.Drop-down(
             options=[method for method, file in valid_pdb_files.items()],
             description='Select method:',
             disabled=False,
@@ -463,10 +463,10 @@ The Jupyter environment can be configured with the packages and scripts you need
                 print(f"File path: {selected_file}")
                 print(f"File size: {os.path.getsize(selected_file) / 1024:.2f} KB")
 
-        method_dropdown.observe(on_change, names='value')
+        method_drop-down.observe(on_change, names='value')
 
         display(HTML("<h3>Structure Information:</h3>"))
-        display(widgets.VBox([method_dropdown, info_output]))
+        display(widgets.VBox([method_drop-down, info_output]))
     ```
 
 1. Display usage instructions:
@@ -482,7 +482,7 @@ The Jupyter environment can be configured with the packages and scripts you need
             <li>Scroll to zoom in and out.</li>
             <li>Right-click and drag to translate the structure.</li>
         </ul>
-        <li>Use the dropdown menu to select a specific method and view its file information.</li>
+        <li>Use the drop-down to select a specific method and view its file information.</li>
     </ul>
     """))
     ```

@@ -60,7 +60,7 @@ See [User roles](../orgs-and-teams/roles) for more information on organization a
 
 The **Teams** tab lists all the teams in your account.
 
-- Use the organizations dropdown next to the search bar to filter teams by organization.
+- Use the organizations drop-down next to the search bar to filter teams by organization.
 - Use the search function to find a team by name and perform various operations.
 - Select **Add team** to create a new team.
 - Select **Edit** next to a team to edit the team's details, or select **Delete** to delete it.
