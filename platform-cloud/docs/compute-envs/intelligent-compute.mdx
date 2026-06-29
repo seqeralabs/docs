@@ -12,9 +12,6 @@ import CodeBlock from '@theme/CodeBlock';
 import AwsCloudFullPolicy from './_policies/aws-cloud-full-policy.json?raw';
 import AwsCloudIntelligentComputePolicy from './_policies/aws-cloud-intelligent-compute-policy.json?raw';
 
-:::warning[Pre-release documentation]
-Pre-flight checks for Intelligent Compute have not yet been released. This page is preparatory documentation ahead of the release. Existing customers will be notified by Seqera Support when a confirmed release date is available.
-:::
 
 :::info[Preview]
 Seqera Intelligent Compute is in preview. Seqera must enable it on a per-workspace basis before you can use it. Contact your account manager to request access for one or more workspaces.
@@ -105,12 +102,12 @@ You need the following:
 
 :::
 
-1. In your Seqera workspace, select **Compute Environments**, then **Add compute environment**.
+1. In your Seqera workspace, select **Compute Environments**, then select **Add compute environment**.
 1. Enter a name and select **AWS Cloud** as the platform.
 1. Select your AWS credentials.
 1. Select the **Region** where Seqera provisions the ECS cluster.
 1. Enter a **Work directory** (S3 URI, for example `s3://my-bucket/work`).
-1. Under **Intelligent Compute**, enable the **Seqera Intelligent Compute** toggle.
+1. Under **Compute Mode**, enable the **Seqera Intelligent Compute** toggle.
 1. Configure the [Intelligent Compute options](#configuration-options) as needed.
 1. Select **Add**.
 
