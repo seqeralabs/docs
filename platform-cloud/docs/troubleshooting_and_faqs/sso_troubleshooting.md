@@ -6,13 +6,13 @@ last updated: "2026-06-05"
 tags: [faq, help, sso, troubleshooting]
 ---
 
-These issues can occur when you configure or use [single sign-on (SSO)](../getting-started/single-sign-on) with your organization's corporate identity provider (IdP).
+These issues can occur when you configure or use [single sign-on (SSO)](../sso/single-sign-on) with your organization's corporate identity provider (IdP).
 
 ## Domain claiming is blocked
 
 Seqera blocks domain claiming when the organization has members with email addresses outside the claimed domain or existing workspace collaborators. The setup flow lists the affected users.
 
-To resolve, see [Prepare users before setup](../getting-started/single-sign-on#prepare-users-before-setup).
+To resolve, see [Prepare users before setup](../sso/single-sign-on#prepare-users-before-setup).
 
 ## The claimed domain is rejected or becomes unclaimable
 

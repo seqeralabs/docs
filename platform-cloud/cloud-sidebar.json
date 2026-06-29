@@ -21,7 +21,6 @@
         "items": [
           "getting-started/deployment-options",
           "getting-started/workspace-setup",
-          "getting-started/single-sign-on",
           "getting-started/quickstart-demo/add-pipelines",
           "getting-started/quickstart-demo/add-data",
           "getting-started/quickstart-demo/launch-pipelines",
@@ -201,6 +200,32 @@
           },
           "studios/managing",
           "studios/connect"
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Single sign-on",
+        "items": [
+          "sso/single-sign-on",
+          {
+            "type": "category",
+            "label": "IdP delegation",
+            "link": {"type": "doc", "id": "sso/idp-delegation/overview"},
+            "collapsed": true,
+            "items": [
+              "sso/idp-delegation/claim-mapping",
+              {
+                "type": "category",
+                "label": "IdP group catalog",
+                "link": {"type": "doc", "id": "sso/idp-delegation/group-catalog/overview"},
+                "collapsed": true,
+                "items": [
+                  "sso/idp-delegation/group-catalog/scim-okta",
+                  "sso/idp-delegation/group-catalog/scim-entra-id"
+                ]
+              }
+            ]
+          }
         ]
       },
       {

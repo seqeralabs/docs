@@ -101,3 +101,7 @@ The audit log records SSO activity for compliance and troubleshooting, including
 - Identity-linking updates for existing users
 
 For setup, sign-in, and account-linking problems, see [SSO troubleshooting](../troubleshooting_and_faqs/sso_troubleshooting).
+
+## Next steps
+
+After SSO is active, you can map Seqera teams to groups in your IdP so team membership is controlled at the IdP and evaluated on every login. See [IdP delegation](./idp-delegation/overview).
