@@ -70,14 +70,9 @@ If the user's token has no `groups` claim or the claim is malformed, no changes 
 
 ## Delegate a team to an IdP group
 
-Before you start, [populate the IdP group catalog](./group-catalog/overview) and [configure the `groups` claim](./claim-mapping) so the catalog is ready and claims reach Seqera at login.
+You delegate a team from the team's settings by setting its **IdP Group** field to a group from the catalog. The team is then labeled **Managed in IdP**, and its member list is controlled by the IdP from the next SSO login onward.
 
-1. Open your organization, then select **Settings**.
-2. Open the **Teams** tab and select the team you want to delegate (or create a new team).
-3. In the team's settings, set the **IdP Group** field to a group from the catalog.
-4. Save. The team is now labeled **Managed in IdP**, and its member list is controlled by the IdP from the next SSO login onward.
-
-To convert a delegated team back to manual management, clear the **IdP Group** field. Existing delegation-driven members are retained, and you regain the **Add member** and **Remove member** controls.
+For the full procedure — prerequisites, what changes when a team is delegated, and how to stop delegating — see [Delegate a team to an IdP group](../../orgs-and-teams/teams#delegate-a-team-to-an-idp-group).
 
 ## Audit trail
 
@@ -96,4 +91,4 @@ Complete these steps in order. Each step links to a dedicated guide.
 1. [Configure single sign-on](../single-sign-on) for your organization if you haven't already.
 2. [Populate the IdP group catalog](./group-catalog/overview). Choose SCIM push or manual entry depending on your IdP.
 3. [Configure the `groups` claim](./claim-mapping) so it reaches Seqera at login.
-4. [Delegate a team to an IdP group](#delegate-a-team-to-an-idp-group).
+4. [Delegate a team to an IdP group](../../orgs-and-teams/teams#delegate-a-team-to-an-idp-group).

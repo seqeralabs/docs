@@ -235,6 +235,7 @@
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/personal-profile",
+          "orgs-and-teams/teams",
           "orgs-and-teams/roles",
           "orgs-and-teams/custom-roles",
           "monitoring/dashboard",
