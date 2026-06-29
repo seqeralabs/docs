@@ -39,7 +39,7 @@ Organizations with an active SSO connection can delegate team membership to an i
 For the model behind delegation, see [IdP delegation overview](../sso/idp-delegation/overview).
 
 :::info[**Prerequisites**]{#prerequisites}
-You will need the following to get started:
+You need the following:
 
 - An active SSO connection on your organization. See [Single sign-on (SSO)](../sso/single-sign-on).
 - A populated IdP group catalog. See [Manage your IdP group catalog](../sso/idp-delegation/group-catalog/overview).
@@ -92,4 +92,4 @@ Delegation controls who belongs to the team. It doesn't assign the team to works
 - Assign the team to a workspace using the workspace **Participants** page.
 - Set the team's workspace role separately. See [User roles](./roles).
 
-This separation is intentional: the IdP owns membership, but the organization owns access policy.
+This separation is intentional. The IdP owns membership, but the organization owns access policy.

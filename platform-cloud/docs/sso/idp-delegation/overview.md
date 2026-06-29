@@ -20,7 +20,7 @@ REVIEW BEFORE MERGE — DO NOT PUBLISH YET (EDU-1266)
   so evaluation is scoped to a single organization.
 -->
 
-IdP delegation lets you map a Seqera team to a group in your identity provider (IdP). After you delegate a team, the IdP becomes the sole authority for that team's membership. Every time a user signs in through SSO, Seqera reads the `groups` claim from their token and updates the user's delegated-team memberships to match.
+With IdP delegation, you map a Seqera team to a group in your identity provider (IdP). After you delegate a team, the IdP becomes the sole authority for that team's membership. Every time a user signs in through SSO, Seqera reads the `groups` claim from their token and updates the user's delegated-team memberships to match.
 
 IdP delegation requires an active SSO connection for your organization. To set up SSO first, see [Single sign-on (SSO)](../single-sign-on).
 
@@ -64,7 +64,7 @@ Cloud Pro tokens carry an `org_id` claim that scopes evaluation to a single orga
 - **No match and the user was previously a delegation-driven member**: The user is removed from the team.
 - **No match and the user was never a delegation-driven member**: No change.
 
-Manual assignments to non-delegated teams are never touched by this evaluation. Users added manually to a team with no **IdP Group** value keep their membership regardless of their IdP claims.
+This evaluation never changes manual assignments to non-delegated teams. Users added manually to a team with no **IdP Group** value keep their membership regardless of their IdP claims.
 
 If the user's token has no `groups` claim or the claim is malformed, no changes take place.
 
@@ -82,7 +82,7 @@ Delegation activity is recorded in your organization's audit trail:
 - Each delegation-driven membership change at login produces a `team_member_added` or `team_member_removed` event.
 - Group catalog operations produce `idp_group_created`, `idp_group_updated`, and `idp_group_deleted` events so you can correlate catalog changes with downstream membership changes.
 
-SCIM-originated entries (operations performed by your IdP's provisioning agent against your organization's SCIM endpoint) are attributed to a **System** operator rather than to a named administrator, because they authenticate with a SCIM bearer token. To correlate a SCIM event with a specific administrator action, match by `displayName` and timestamp against your IdP's provisioning logs.
+SCIM-originated entries (operations performed by your IdP's provisioning agent against your organization's SCIM endpoint) are attributed to a **System** operator rather than to a named administrator. The provisioning agent authenticates with a SCIM bearer token, not as a named user. To correlate a SCIM event with a specific administrator action, match by `displayName` and timestamp against your IdP's provisioning logs.
 
 ## Set up delegation
 

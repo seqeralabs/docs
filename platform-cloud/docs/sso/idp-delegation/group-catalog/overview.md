@@ -7,7 +7,7 @@ tags: [sso, scim, idp delegation, organization settings, cloud pro]
 
 Platform maintains a per-organization catalog of identity provider (IdP) groups. Groups appear in the catalog as soon as they're synced from the IdP or added manually. They don't depend on any user having signed in.
 
-Use the table below to choose the path that fits your IdP.
+Use the following table to choose the path that fits your IdP.
 
 | IdP | Recommended path | Setup guide |
 |-----|------------------|-------------|
@@ -15,7 +15,7 @@ Use the table below to choose the path that fits your IdP.
 | Entra ID | SCIM push | [SCIM provisioning with Entra ID](./scim-entra-id) |
 
 :::info[Other identity providers]
-SCIM-based provisioning is supported for Okta and Microsoft Entra ID. With these providers, group membership syncs automatically, including lifecycle events (joiners, movers, leavers).
+Seqera supports SCIM provisioning for Okta and Microsoft Entra ID. With these providers, group membership syncs automatically, including lifecycle events (joiners, movers, leavers).
 
 Other OIDC or SAML identity providers can authenticate users through Auth0, but group membership doesn't sync automatically. An organization owner must update memberships in Seqera as users join, move, or leave.
 

@@ -10,7 +10,7 @@ For IdP-delegated teams to evaluate correctly at login, the tokens that reach Pl
 - Your **identity provider** must emit the group membership for each user.
 - The **Auth0 connection** that fronts your SSO must pass that group data through to Seqera as a `groups` claim.
 
-Cloud Pro authenticates through Auth0, so the claim is delivered through the connection rather than read from the IdP token directly. Where the IdP emits the data is configured at the IdP; passing it through is handled by the Auth0 self-service SSO connection.
+Cloud Pro authenticates through Auth0. Auth0 delivers the `groups` claim through the connection rather than reading it from the IdP token directly. You configure where groups are emitted at the IdP, and the Auth0 self-service SSO connection passes them through to Seqera.
 
 ## Identity provider configuration
 
@@ -42,7 +42,7 @@ With **Group ID** selected, Entra ID emits group object GUIDs. You have two opti
 - Use the GUID values directly as the catalog identifier and the **IdP Group** field on each team. This works but makes the catalog harder to read.
 - Configure Entra ID to emit display names instead. Set **sAMAccountName** as the source where supported, or post-process via a custom claims policy.
 
-The GUID and the display name don't both flow at the same time, so pick one approach for your tenant and use it consistently.
+The GUID and the display name don't both flow at the same time. Pick one approach for your tenant and use it consistently.
 :::
 
 ## Verify the mapping

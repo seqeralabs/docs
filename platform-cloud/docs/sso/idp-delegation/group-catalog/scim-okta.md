@@ -8,7 +8,7 @@ tags: [sso, scim, okta, idp delegation, organization settings, cloud pro]
 Configure Okta to push your organization's groups to Platform over SCIM 2.0. Once provisioning is enabled, your Okta group directory appears in Seqera's IdP group catalog and stays in sync with renames, additions, and deletions automatically.
 
 :::info[**Prerequisites**]{#prerequisites}
-You will need the following to get started:
+You need the following:
 
 - An active [SSO connection](../../single-sign-on) for your organization with Okta as the IdP.
 - Organization owner access to your Platform organization.

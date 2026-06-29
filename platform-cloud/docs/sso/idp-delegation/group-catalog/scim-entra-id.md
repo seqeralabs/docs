@@ -8,7 +8,7 @@ tags: [sso, scim, entra id, idp delegation, organization settings, cloud pro]
 Configure Microsoft Entra ID (formerly Azure AD) to push your tenant's groups to Platform over SCIM 2.0. Once provisioning is enabled, the groups you assign to your Seqera application appear in Platform's IdP group catalog and stay in sync with renames, additions, and deletions automatically.
 
 :::info[**Prerequisites**]{#prerequisites}
-You will need the following to get started:
+You need the following:
 
 - An active [SSO connection](../../single-sign-on) for your organization with Entra ID as the IdP.
 - Organization owner access to your Platform organization.
