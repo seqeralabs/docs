@@ -8,7 +8,7 @@ tags: [agent]
 
 Tower Agent connects Seqera Platform to high-performance computing (HPC) clusters that do not accept inbound SSH connections.
 
-## When to use Tower Agent
+## When to use the agent
 
 Use Tower Agent if your HPC cluster has any of these constraints:
 
@@ -20,31 +20,11 @@ Use Tower Agent if your HPC cluster has any of these constraints:
 
 If your cluster accepts inbound SSH from Seqera Platform, the standard SSH-based or managed-identity compute environment is simpler to operate (no persistent process to manage). Use Tower Agent when SSH is not an option.
 
-## How Tower Agent works
+## Connection model
 
-Seqera Platform's default HPC model opens an SSH connection to the cluster login node, submits the Nextflow head job, and monitors execution from there. That model requires the cluster to be reachable from the internet.
+The default Seqera Platform HPC model opens an SSH connection to the cluster login node, submits the Nextflow head job, and monitors execution from there. That model requires the cluster to be reachable from the internet.
 
-Tower Agent reverses the connection direction. The agent runs on a node that can submit jobs to the scheduler (typically the login node) and opens a persistent outbound authenticated WebSocket connection to Seqera. Seqera sends pipeline commands — submit jobs, check status, stream logs — through that channel. The agent executes them locally as the user who started it.
-
-```
-┌──────────────────┐                     ┌──────────────────────┐
-│                  │                     │                      │
-│ Seqera Platform  │ ◄──── outbound ──── │  Login node          │
-│ (cloud or        │      secure         │  ┌────────────────┐  │
-│  enterprise)     │     channel         │  │   tw-agent     │  │
-│                  │                     │  └────────────────┘  │
-└──────────────────┘                     │           │          │
-                                         │           │ submits  │
-                                         │           ▼          │
-                                         │  ┌────────────────┐  │
-                                         │  │ Slurm / LSF /  │  │
-                                         │  │ PBS / SGE      │  │
-                                         │  └────────────────┘  │
-                                         │           │          │
-                                         │           ▼          │
-                                         │     Worker nodes     │
-                                         └──────────────────────┘
-```
+Tower Agent reverses the connection direction. The agent runs on a node that can submit jobs to the scheduler (typically the login node) and opens a persistent outbound authenticated WebSocket connection to Seqera. Seqera sends pipeline commands (submit jobs, check status, stream logs) through that channel. The agent executes them locally as the user who started it.
 
 This approach has three properties:
 
@@ -54,7 +34,9 @@ This approach has three properties:
 
 Seqera Platform handles pipeline launch, monitoring, logs, resource metrics, and run reports. The agent forwards commands and returns results.
 
-## Setup
+## Connect an HPC cluster
+
+Connecting your cluster to Seqera Platform takes six steps: generate an access token, create credentials, install the agent on a login node, start it under tmux, create an HPC compute environment, and launch a pipeline. Complete them in order.
 
 :::info[**Prerequisites**]
 
@@ -66,7 +48,7 @@ You need the following:
 
 :::
 
-### Step 1: Generate a personal access token
+### Generate a personal access token
 
 The agent authenticates to Seqera Platform with a personal access token (PAT) tied to your user account.
 
@@ -75,7 +57,9 @@ The agent authenticates to Seqera Platform with a personal access token (PAT) ti
 3. Select **Add token**, give it a descriptive name (for example, `hpc-agent-token`), and create it.
 4. Copy the token immediately. You cannot view it again after leaving the page.
 
-### Step 2: Create Tower Agent credentials in your workspace
+### Create Tower Agent credentials
+
+Create a Tower Agent credential in the workspace where you run pipelines. The agent uses the credential's connection ID to identify itself to Seqera Platform.
 
 1. In your workspace, go to **Credentials** and select **Add credentials**.
 2. Select **Tower Agent** as the provider.
@@ -84,37 +68,39 @@ The agent authenticates to Seqera Platform with a personal access token (PAT) ti
 5. To let a single agent serve all workspace members, enable **Shared agent**. For per-user identity on submitted jobs, leave this disabled and ask each user to run their own agent.
 6. Select **Add**.
 
-### Step 3: Install the agent on the login node
+### Install the agent on the login node
 
-SSH into the login node and download the latest agent binary:
+The agent is a single self-contained binary with no other dependencies to install.
 
-```bash
-curl -fSL https://github.com/seqeralabs/tower-agent/releases/latest/download/tw-agent-linux-x86_64 > tw-agent
-chmod +x ./tw-agent
-```
+1. SSH into the login node and download the latest agent binary:
 
-Optionally move it to a directory in your `$PATH`:
+    ```bash
+    curl -fSL https://github.com/seqeralabs/tower-agent/releases/latest/download/tw-agent-linux-x86_64 > tw-agent
+    chmod +x ./tw-agent
+    ```
 
-```bash
-mkdir -p ~/bin
-mv tw-agent ~/bin/
-```
+2. Optionally, move it to a directory in your `$PATH`:
 
-Create the default work directory if it does not already exist:
+    ```bash
+    mkdir -p ~/bin
+    mv tw-agent ~/bin/
+    ```
 
-```bash
-mkdir -p ~/work
-```
+3. Create the default work directory if it does not already exist:
+
+    ```bash
+    mkdir -p ~/work
+    ```
 
 :::note
 On most HPC clusters, home directories have small quotas. Use `--work-dir` to point the agent at a scratch filesystem (for example, `/scratch/$USER/nextflow-work`).
 :::
 
-### Step 4: Start the agent inside tmux
+### Start the agent inside tmux
 
 The agent must run continuously to accept incoming requests from Seqera. If you run it directly in an SSH session and disconnect, the process exits when the session closes.
 
-The standard solution on HPC is a terminal multiplexer. Both [tmux](https://github.com/tmux/tmux) and [GNU Screen](https://www.gnu.org/software/screen/) decouple processes from the terminal that started them. Your session runs inside a background server on the login node, and your terminal attaches to that server. If you detach or get disconnected, the session keeps running. SSH back in later and reattach to pick up where you left off.
+The standard solution on HPC is a terminal multiplexer. Both [tmux](https://github.com/tmux/tmux) and [GNU Screen](https://www.gnu.org/software/screen/) decouple processes from the terminal that started them. Your session runs inside a background server on the login node, and your terminal attaches to that server. If you detach or get disconnected, the session keeps running. SSH back in later and reattach to resume.
 
 Start a new tmux session:
 
@@ -148,7 +134,7 @@ tmux ls
 
 You can now log out. The agent keeps running.
 
-**tmux quick reference:**
+:::tip[tmux quick reference]
 
 | Action | Command |
 |---|---|
@@ -158,24 +144,28 @@ You can now log out. The agent keeps running.
 | Reattach to a session | `tmux attach -t agent` |
 | Kill a session | `tmux kill-session -t agent` |
 
+:::
+
 :::note
 If your site reboots login nodes on a schedule, restart the agent afterwards. Some clusters support systemd user services for persistent processes. Check with your HPC administrators if tmux is not sufficient for your site.
 :::
 
-### Step 5: Create an HPC compute environment in Seqera
+### Create an HPC compute environment
+
+Create an HPC compute environment that uses your Tower Agent credential. Seqera routes every pipeline launch in this environment through the agent.
 
 In Seqera Platform:
 
 1. Go to **Compute environments** and select **Add compute environment**.
 2. Select your HPC scheduler (Slurm, LSF, PBS Pro, or Grid Engine).
-3. Under **Credentials**, select the Tower Agent credential you created in step 2.
+3. Under **Credentials**, select the Tower Agent credential you created earlier.
 4. Set the work directory to a path the agent can access on the login node.
 5. Complete the remaining fields: head queue, compute queue, and any environment variables or run scripts your site requires.
 6. Select **Create**. Seqera validates the environment by running a test command through the agent.
 
 See [HPC compute environments](../../compute-envs/hpc) for full field descriptions.
 
-### Step 6: Launch a pipeline
+### Launch a pipeline
 
 Select a pipeline from your workspace **Launchpad**, select your new HPC compute environment, and launch. Seqera sends the launch request to the agent. The agent submits the Nextflow head job to your scheduler, and the head job dispatches tasks to compute nodes. You get the same monitoring, logs, and metrics as any other compute environment.
 
@@ -183,23 +173,31 @@ Select a pipeline from your workspace **Launchpad**, select your new HPC compute
 
 ### CLI options
 
+Run the agent with a connection ID and any options:
+
+```bash
+tw-agent [OPTIONS] AGENT_CONNECTION_ID
 ```
-Usage: tw-agent [OPTIONS] AGENT_CONNECTION_ID
 
-Nextflow Tower Agent
+**Parameters**
 
-Parameters:
-*     AGENT_CONNECTION_ID    Agent connection ID to identify this agent.
+| Parameter | Description |
+|---|---|
+| `AGENT_CONNECTION_ID` | Agent connection ID that identifies this agent. Must match the **Agent Connection ID** in the credential. |
 
-Options:
-* -t, --access-token=<token> Tower personal access token. If not provided, the TOWER_ACCESS_TOKEN variable will be used.
-  -u, --url=<url>            Tower server API endpoint URL. If not provided TOWER_API_ENDPOINT variable will be used.
-  -w, --work-dir=<workDir>   Default path where the pipeline scratch data is stored. It can be changed when launching a pipeline from Tower [default: ~/work].
-  -h, --help                 Show this help message and exit.
-  -V, --version              Print version information and exit.
-```
+**Options**
+
+| Option | Default | Description |
+|---|---|---|
+| `-t`, `--access-token=<token>` | — | Seqera personal access token. Required unless `TOWER_ACCESS_TOKEN` is set. |
+| `-u`, `--url=<url>` | — | Seqera API endpoint URL. If not set, `TOWER_API_ENDPOINT` is used. |
+| `-w`, `--work-dir=<workDir>` | `~/work` | Path where pipeline scratch data is stored. You can change it when launching a pipeline. |
+| `-h`, `--help` | — | Show the help message and exit. |
+| `-V`, `--version` | — | Print version information and exit. |
 
 ### Environment variables
+
+The agent reads the following environment variables:
 
 | Variable | Description |
 |---|---|

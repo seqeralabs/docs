@@ -351,7 +351,7 @@ You can see the current log output. Detach again with **Ctrl-b**, then **d**, to
 
 **Agent process stopped**
 
-If `tmux ls` shows no sessions, or attaching reveals the agent has exited, restart it as in [Tower Agent setup](../supported_software/agent/overview#step-4-start-the-agent-inside-tmux). Common causes: login node reboot, the process killed for exceeding login-node resource limits, or a revoked access token.
+If `tmux ls` shows no sessions, or attaching reveals the agent has exited, restart it as in [Tower Agent setup](../supported_software/agent/overview#start-the-agent-inside-tmux). Common causes: login node reboot, the process killed for exceeding login-node resource limits, or a revoked access token.
 
 **Agent shows as disconnected in Seqera Platform**
 
