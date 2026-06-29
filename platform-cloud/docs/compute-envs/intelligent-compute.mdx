@@ -72,7 +72,7 @@ Intelligent Compute requires **two IAM policies** attached to the same IAM user 
 | `ASGManagement` | Create, update, and delete Auto Scaling Groups scoped to `seqera-sched-*`. Required only for Auto Scaling Group-backed clusters. |
 | `ASGDescribe` | Describe Auto Scaling Groups. Required only for Auto Scaling Group-backed clusters. |
 | `SSMECSOptimizedAmi` | Read the ECS-optimized AMI ID from SSM Parameter Store. Used to look up the latest Amazon Linux 2023 ECS-optimized AMI. |
-| `CostExplorer` | Query `ce:GetCostAndUsage`. Used to display cost predictions at pipeline launch. If this permission is absent, cost predictions do not appear and Seqera shows no error. |
+| `CostExplorer` | Query `ce:GetCostAndUsage`. Used to display cost post pipeline launch, after receiving data from AWS Cost Explorer with a 24-48 delay. If this permission is absent, cost predictions do not appear. |
 
 **Conditional statements:**
 - `ASGEC2Operations`, `ASGManagement`, and `ASGDescribe` are required only if Auto Scaling Group-backed clusters are enabled. You can omit them for Managed Instances deployments.
