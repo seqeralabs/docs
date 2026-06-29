@@ -73,16 +73,8 @@
         },
         "install/aws-build",
         "install/post-install",
-        "install/production",
-        {
-          "type": "category",
-          "label": "Configuration",
-          "collapsed": true,
-          "items": [
-            "configure-wave",
-            "configuration"
-          ]
-      }
+        "install/configure-wave",
+        "install/configuration"
       ]
     },
     {
