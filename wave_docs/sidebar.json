@@ -64,7 +64,7 @@
       "items": [
         {
           "type": "category",
-          "label": "Install Wave Lite",
+          "label": "Wave Lite",
           "collapsed": true,
           "items": [
             "install/docker-compose",
