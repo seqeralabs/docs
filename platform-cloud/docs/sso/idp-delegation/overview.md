@@ -81,7 +81,7 @@ To convert a delegated team back to manual management, clear the **IdP Group** f
 
 ## Audit trail
 
-Delegation activity is recorded in the audit log:
+Delegation activity is recorded in your organization's audit trail:
 
 - Setting, changing, or clearing the **IdP Group** field on a team produces a `team_updated` event with the previous and new value of `idpGroup`.
 - Each delegation-driven membership change at login produces a `team_member_added` or `team_member_removed` event.

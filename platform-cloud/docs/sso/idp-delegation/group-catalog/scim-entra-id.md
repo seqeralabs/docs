@@ -51,7 +51,7 @@ Entra ID runs an initial cycle within minutes and then syncs incrementally every
 :::caution
 By default, Entra ID emits group **object GUIDs** in the `groups` claim, not display names. There are two options:
 
-- **Recommended**: Configure Entra ID to emit display names. In the application's **Token configuration**, add a **groups claim** and select **sAMAccountName** as the source where supported, or use a custom claims policy. This makes catalog entries and audit logs human-readable.
+- **Recommended**: Configure Entra ID to emit display names. In the application's **Token configuration**, add a **groups claim** and select **sAMAccountName** as the source where supported, or use a custom claims policy. This makes catalog entries and audit trail entries human-readable.
 - **Alternative**: Accept the default GUID emission. Use the GUID as the **IdP Group** value on each team. This works but makes the catalog harder to read.
 
 Pick one approach for your tenant and use it consistently. The GUID and the display name don't both flow at the same time.
