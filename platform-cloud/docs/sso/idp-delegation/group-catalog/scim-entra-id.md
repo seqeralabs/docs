@@ -1,7 +1,7 @@
 ---
 title: "SCIM provisioning with Entra ID"
 description: "Configure Microsoft Entra ID to push group memberships to your Seqera Platform Cloud organization over SCIM 2.0."
-date: "2026-06-29"
+date created: "2026-06-29"
 tags: [sso, scim, entra id, idp delegation, organization settings, cloud pro]
 ---
 

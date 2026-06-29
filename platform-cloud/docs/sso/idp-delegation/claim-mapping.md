@@ -1,7 +1,7 @@
 ---
 title: "IdP claim mapping"
 description: "Configure your identity provider and Auth0 connection to deliver the groups claim to Seqera Platform Cloud at login."
-date: "2026-06-29"
+date created: "2026-06-29"
 tags: [sso, idp delegation, oidc, organization settings, cloud pro]
 ---
 

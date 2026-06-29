@@ -1,7 +1,7 @@
 ---
 title: "Manage your IdP group catalog"
 description: "Populate your Seqera Cloud organization with your IdP's groups using SCIM push or manual entry."
-date: "2026-06-29"
+date created: "2026-06-29"
 tags: [sso, scim, idp delegation, organization settings, cloud pro]
 ---
 
