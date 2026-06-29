@@ -1,11 +1,16 @@
 ---
 title: "Usage limits"
 description: "An overview of Seqera Cloud usage limits"
-date: "19 Feb 2025"
-tags: [limits]
+date created: "2025-02-19"
+last updated: "2026-06-24"
+tags: [limits, usage]
 ---
 
 Seqera Platform elements and features have default limits per organization and workspace.
+
+:::info
+Academic institutions and commercial organizations evaluating Seqera Platform are subject to custom usage limits. [Contact us](https://seqera.io/contact-us/) for more information.
+:::
 
 ### Organizations
 
@@ -17,11 +22,11 @@ Seqera Platform elements and features have default limits per organization and w
 | Run history               | 250   | 250, or per license    |
 | Active runs               | 3     | 100, or per license    |
 | Running Studio sessions   | 1     | 1000, or per license   |
-| Seqera Compute: Storage   | 25 GB per month | Unlimited              |
+| Seqera Compute: Storage   | 25 GB per month | Unlimited    |
 | Seqera Compute: CPU cores | 100   | 1000                   |
 
-:::info
-Academic institutions and commercial organizations evaluating Seqera Platform are subject to custom usage limits. [Contact us](https://seqera.io/contact-us/) for more information.
+:::note
+Studios data egress is currently throttled at 100GB per 24h per IP address and 1TB per `user_id` per month to prevent unbounded usage.
 :::
 
 ### Workspaces
