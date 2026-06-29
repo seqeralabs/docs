@@ -30,9 +30,9 @@ Create a YAML file (`seqera-images.yaml`) to specify which images to sync:
 ```yaml
 cr.seqera.io:
     images-by-semver:
-        enterprise/platform/backend: ">= v26.1.2"
-        enterprise/platform/frontend: ">= v26.1.2"
-        enterprise/platform/migrate-db: ">= v26.1.2"
+        enterprise/platform/backend: ">= v26.1.3"
+        enterprise/platform/frontend: ">= v26.1.3"
+        enterprise/platform/migrate-db: ">= v26.1.3"
 ```
 
 Run the sync:

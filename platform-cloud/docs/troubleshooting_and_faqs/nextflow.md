@@ -195,7 +195,7 @@ The Groovy shell used by Nextflow to execute your workflow has a hard limit on s
 
 1. Remove any unnecessary code or comments from the script.
 2. Move long script bodies into a separate script file in the pipeline `/bin` directory.
-3. Consider using DSL2 so you can move each function, process, and workflow definition into its own script and include these scripts as [modules](https://docs.seqera.io/nextflow/dsl2#modules).
+3. Consider using DSL2 so you can move each function, process, and workflow definition into its own script and include these scripts as [modules](https://docs.seqera.io/nextflow/module).
 
 ### Nextflow Launcher
 
