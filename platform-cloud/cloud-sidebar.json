@@ -66,6 +66,7 @@
             "type": "category",
             "label": "Cloud",
             "items": [
+              "compute-envs/preflight-checks",
               "compute-envs/seqera-compute",
               "compute-envs/aws-batch",
               "compute-envs/aws-cloud",
