@@ -1,7 +1,8 @@
 ---
 title: "Entra ID"
 description: Configure Microsoft Entra ID as an identity provider for Seqera Platform
-date: "2026-01-27"
+date created: "2026-01-27"
+last updated: "2026-06-29"
 tags: [authentication, entra, azure, oidc]
 ---
 

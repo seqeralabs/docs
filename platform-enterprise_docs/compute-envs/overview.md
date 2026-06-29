@@ -2,7 +2,7 @@
 title: "Compute environment overview"
 description: "Overview of compute environments in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-05-21"
+last updated: "2026-06-29"
 tags: [compute environments, workspaces, environment]
 ---
 
@@ -78,20 +78,6 @@ Any user with the Maintain, Launch, or View role on the workspace can export. Th
 **What's not included**:
 
 - Credentials and secrets
-
-## Disable compute environment
-
-Users with **Admin** or **Owner** [workspace permissions](../orgs-and-teams/roles#workspace-participant-roles) can disable and enable compute environments.
-
-When you disable a compute environment:
-- Actions that use this compute environment will fail to run. **Update actions to use a new compute environment**.
-- New pipelines and Studio sessions will not run on the disabled compute environment. **Update pipelines and Studios to use a new compute environment**.
-- **Running pipelines and Studio sessions are not terminated**. Ongoing runs and Studio sessions will finish gracefully.
-- If the compute environment was set as primary, it will be unset. Until you select a new primary compute environment, new runs will default to the next available compute environment.
-
-To disable a compute environment, select **Disable** from the options menu next to the compute environment in your workspace **Compute Environments** page.
-
-To re-enable a disabled compute environment, select **Enable** from the options menu. Enabled compute environments can run new pipelines and Studio sessions.
 
 ## Delete compute environment
 

@@ -1,7 +1,8 @@
 ---
 title: "Cloud changelog"
 description: "Seqera Platform Cloud changelog"
-date: "4 July 2024"
+date created: "2024-07-04"
+last updated: "2026-06-29"
 tags: [changelog]
 ---
 

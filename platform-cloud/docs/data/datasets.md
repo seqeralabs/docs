@@ -2,7 +2,7 @@
 title: "Datasets"
 description: "Using datasets in Seqera Platform."
 date created: "2023-04-23"
-last updated: "2026-03-27"
+last updated: "2026-06-29"
 tags: [datasets]
 ---
 
@@ -17,7 +17,7 @@ On the datasets screen, you can:
 - Hide datasets that are not used in the workspace.
 - View dataset metadata (created by, last updated, last used).
 - Edit dataset details (name, description, and labels).
-- Create new versions of a uploaded dataset.
+- Create new versions of an uploaded dataset.
 
 ## Benefits
 

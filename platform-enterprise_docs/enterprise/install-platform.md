@@ -2,7 +2,7 @@
 title: "Platform"
 description: Install Seqera Platform Enterprise
 date created: "2023-04-12"
-last updated: "2026-01-30"
+last updated: "2026-06-29"
 tags: [installation, deployment]
 ---
 

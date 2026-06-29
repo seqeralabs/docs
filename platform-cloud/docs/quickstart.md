@@ -2,7 +2,7 @@
 title: "Explore Seqera Cloud"
 description: "Explore your free workspace resources and launch your first pipelines with Seqera Compute."
 date created: "2025-10-16"
-last updated: "2026-06-04"
+last updated: "2026-06-29"
 toc_max_heading_level: 4
 tags: [pipelines, versioning, nextflow, parameters]
 ---

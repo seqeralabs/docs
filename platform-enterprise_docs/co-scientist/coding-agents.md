@@ -2,6 +2,7 @@
 title: "Coding agents"
 description: "Install Co-Scientist as a skill so your coding agent can drive Seqera Platform"
 date created: "2026-05-27"
+last updated: "2026-06-29"
 tags: [co-scientist, cli, skills, coding agents]
 ---
 
@@ -14,4 +15,5 @@ Co-Scientist installs as a skill into any of the following agents. Each guide co
 - [Claude Code](./skill-claude-code.md): Install the skill for [Claude Code](https://claude.ai/code)
 - [Codex](./skill-codex.md): Install the skill for [Codex](https://openai.com/codex)
 - [GitHub Copilot](./skill-github-copilot.md): Install the skill for [GitHub Copilot](https://github.com/features/copilot)
+- [Antigravity/Gemini](./skill-antigravity.md): Install the skill for [Antigravity/Gemini](https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/)
 - [Other coding agents](./skill-other-agents.md): Install the skill for Cursor, OpenCode, Pi, Windsurf, and others

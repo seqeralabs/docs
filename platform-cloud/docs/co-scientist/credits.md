@@ -2,6 +2,7 @@
 title: "Credits"
 description: "Co-Scientist credits and how to request more"
 date created: "2026-04-30"
+last updated: "2026-06-29"
 tags: [co-scientist, cli, credits]
 ---
 

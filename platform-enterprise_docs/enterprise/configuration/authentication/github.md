@@ -1,7 +1,8 @@
 ---
 title: "GitHub"
 description: Configure GitHub as an identity provider for Seqera Platform
-date: "2026-01-27"
+date created: "2026-01-27"
+last updated: "2026-06-29"
 tags: [authentication, github, oauth]
 ---
 

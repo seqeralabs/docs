@@ -1,7 +1,8 @@
 ---
 title: "SCIM provisioning with Okta"
 description: "Configure Okta to push group memberships to Seqera Platform Enterprise over SCIM 2.0."
-date: "2026-05-12"
+date created: "2026-05-12"
+last updated: "2026-06-29"
 tags: [sso, scim, okta, idp delegation, administration, enterprise]
 ---
 

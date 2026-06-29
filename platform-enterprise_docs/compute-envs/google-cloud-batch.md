@@ -2,7 +2,7 @@
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-05-28"
+last updated: "2026-06-29"
 tags: [google, batch, gcp, compute environments]
 ---
 
@@ -201,7 +201,7 @@ After you create your Google Cloud resources, create a Seqera Platform compute e
 
 Select the **Location** where you execute your pipelines. See [Location](https://cloud.google.com/compute/docs/regions-zones#available) to learn more.
 
-In the **Pipeline work directory** field, enter your storage bucket URL. For example, `gs://my-bucket`. This bucket must be accessible in the location selected in the previous step.
+In the **Work directory** field, enter your storage bucket URL. For example, `gs://my-bucket`. This bucket must be accessible in the location selected in the previous step.
 
 :::note
 When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
@@ -217,7 +217,7 @@ The compute recommendations below are based on internal benchmarking performed b
 :::
 
 1. Use Seqera Platform version 23.1 or later.
-2. Use a Google Cloud Storage bucket as the pipeline work directory.
+2. Use a Google Cloud Storage bucket as the work directory.
 3. Enable **Wave containers** and **Fusion v2**.
 4. Specify suitable virtual machine types and local storage settings, or accept the default machine settings listed below. Use an `n2-highmem-16-lssd` VM or larger for production.
 

@@ -2,7 +2,7 @@
 title: "Tower Agent"
 description: "Instructions to use Tower Agent."
 date created: "2023-04-24"
-last updated: "2025-08-08"
+last updated: "2026-06-29"
 tags: [agent]
 ---
 
@@ -21,11 +21,11 @@ Tower Agent is distributed as a single executable file to simply download and ex
    chmod +x ./tw-agent
    ```
 
-2. (Optional) Move it to a folder that's in your $PATH.
+2. (Optional) Move it to a folder that's in your `$PATH`.
 
 ### Quickstart
 
-Before running the Agent:
+Before running the agent:
 
 1. Create a [**personal access token**](https://docs.seqera.io/platform-api/create-token).
 
@@ -40,14 +40,14 @@ When you create the credentials, you receive an _Agent Connection ID_. You can u
 The agent should always be running in order to accept incoming requests from Seqera. We recommend that you use a terminal multiplexer like [tmux](https://github.com/tmux/tmux) or [GNU Screen](https://www.gnu.org/software/screen/), so that it keeps running even if you close your SSH session.
 
 ```bash
-export TOWER_ACCESS_TOKEN=<YOUR TOKEN>
+export TOWER_ACCESS_TOKEN=<ACCESS_TOKEN>
 ./tw-agent <YOUR CONNECTION ID>
 ```
 
 ### Tips
 
 - If you're using the agent with Seqera Platform Enterprise (on-prem), you can set the API URL using the `TOWER_API_ENDPOINT` environment variable or the `--url` option.
-- By default, the Agent uses the folder `${HOME}/work` as the Nextflow work directory. You can change this directory using the `--work-dir` option.
+- By default, the agent uses the folder `${HOME}/work` as the Nextflow work directory. You can change this directory using the `--work-dir` option.
 - The work directory _must_ exist before running the agent.
 - You can also change the work directory in Seqera when you create a compute environment or launch a pipeline.
 

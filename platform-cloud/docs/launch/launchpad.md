@@ -2,7 +2,7 @@
 title: "Launch pipelines"
 description: "Curate and launch pipelines in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-05-18"
+last updated: "2026-06-29"
 tags: [launchpad, launch, configure, pipelines, schema, configuration, nextflow, parameters, input, output]
 ---
 
@@ -46,7 +46,7 @@ Configure the core settings for your run, including the pipeline source, compute
 - **Commit ID**: The pipeline revision commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
 - **Pull latest**: Pull the most recent HEAD commit ID of the pipeline revision at launch time. Unpins the **Commit ID**, if set.
   :::info
-  See [Git revision management][pipeline-revision] for more information on **Revision**, **Commit ID**, and **Pull latest**, behavior.
+  See [Git revision management][pipeline-revision] for more information on **Revision**, **Commit ID**, and **Pull latest** behavior.
   :::
 - **Main script**: The script file to execute (default: `main.nf`). Config profile suggestions may update when this field changes. See [Main script](./advanced#main-script) for custom script paths.
 - **Config profiles**: One or more [configuration profile][nextflow-config-profile] names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository.
@@ -210,7 +210,7 @@ The following table lists the supported URL query parameters and their correspon
 |------------------------------------------------|-----------------------------|
 | **Run setup**                                  |                             |
 | Pipeline to launch                             | `pipeline`                  |
-| Revision number                                | `revision`                  |
+| Revision                                       | `revision`                  |
 | Config profiles                                | `configProfiles`            |
 | Workflow run name                              | `runName`                   |
 | Labels                                         | `labelIds`                  |

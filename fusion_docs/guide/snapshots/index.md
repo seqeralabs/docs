@@ -2,7 +2,7 @@
 title: Fusion Snapshots
 description: "Introduction to Fusion Snapshots checkpoint/restore functionality"
 date created: "2024-11-29"
-last updated: "2025-12-19"
+last updated: "2026-06-29"
 tags: [fusion, fusion snapshots, storage, snapshot, checkpoint, restore]
 ---
 

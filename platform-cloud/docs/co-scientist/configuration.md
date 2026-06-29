@@ -2,6 +2,7 @@
 title: "Using Co-Scientist"
 description: "Use Co-Scientist day to day in the Seqera CLI"
 date created: "2026-05-27"
+last updated: "2026-06-29"
 tags: [co-scientist, cli, configuration]
 ---
 

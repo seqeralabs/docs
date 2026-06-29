@@ -1,7 +1,8 @@
 ---
 title: SRA Tools
 description: "Search and retrieve sequencing data from NCBI SRA, EBI ENA, and GEO databases"
-date created: "12 Jan 2026"
+date created: "2026-01-12"
+last updated: "2026-06-29"
 tags: [sra, ena, geo, sequencing, bioinformatics]
 ---
 

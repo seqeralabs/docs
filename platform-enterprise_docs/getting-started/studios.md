@@ -1,7 +1,8 @@
 ---
 title: "Studios for interactive analysis"
-description: "Creating interactive analysis Studios for Jupyter, RStudio, VS Code, and more"
-date: "24 Feb 2025"
+description: "Creating interactive analysis Studios for Jupyter, R-IDE, VS Code, and more"
+date created: "2025-02-24"
+last updated: "2026-06-29"
 tags: [platform, studios, jupyter, rstudio, xpra, vscode, conda]
 toc_max_heading_level: 3
 ---
@@ -66,7 +67,7 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
         Studio sessions compete for computing resources when sharing compute environments. Ensure your shared compute environment has sufficient resources to run both your pipelines and Studio sessions.
         :::
     - Optional: Enter CPU and memory allocations. The default values are 2 CPUs and 8192 MB memory (RAM).
-    - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the nf-core AWS megatests proteinfold data, or the pipeline work directory of your *nf-core/proteinfold* run.
+    - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the nf-core AWS megatests proteinfold data, or the work directory of your *nf-core/proteinfold* run.
 - In the **General config** tab:
     - Select the latest **Jupyter** container image template from the list.
     - Optional: Enter a unique name and description for the Studio.
