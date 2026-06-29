@@ -184,3 +184,23 @@
 # ════════════════════════════════════════════════════════════════
 
 /multiqc/development/modules/custom-content   /multiqc/custom_content   301
+
+# ════════════════════════════════════════════════════════════════
+# Nextflow (legacy doc paths)
+# ════════════════════════════════════════════════════════════════
+# Old Sphinx-era Nextflow doc slugs, still linked from Google, GitHub, and
+# bookmarks (PostHog 404 digest). These MUST stay in _redirects (processed
+# before netlify.toml) so they fire ahead of the /nextflow/* proxy in
+# netlify.toml, which would otherwise rewrite them to a 404 on the docs site.
+/nextflow/getstarted   /nextflow/install      301
+/nextflow/basic        /nextflow/overview     301
+/nextflow/dsl2         /nextflow/workflow     301
+/nextflow/tracing      /nextflow/reports      301
+/nextflow/singularity  /nextflow/container    301
+
+# Legacy paths served from the docs root before Nextflow docs moved under
+# /nextflow (no /nextflow prefix in the inbound link).
+/install                  /nextflow/install            301
+/overview                 /nextflow/overview           301
+/release_notes/23.1       /nextflow/updating-nextflow  301
+/configuration/mail_server   /nextflow/notifications   301
