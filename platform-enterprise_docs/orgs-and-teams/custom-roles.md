@@ -2,7 +2,7 @@
 title: "Custom roles"
 description: "Introduction to custom roles in Seqera Platform."
 date created: "2025-11-17"
-last updated: "2026-06-23"
+last updated: "2026-06-29"
 tags: [roles, rbac, permissions]
 ---
 

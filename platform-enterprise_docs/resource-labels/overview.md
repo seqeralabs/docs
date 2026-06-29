@@ -2,7 +2,7 @@
 title: "Resource labels"
 description: "Instructions to use resource labels in Seqera Platform."
 date created: "2023-04-24"
-last updated: "2026-06-23"
+last updated: "2026-06-29"
 tags: [resource labels, labels]
 ---
 

@@ -2,7 +2,7 @@
 title: "Add a Studio"
 description: "Add a Studio in Platform."
 date created: "2025-09-04"
-last updated: "2026-06-23"
+last updated: "2026-06-29"
 tags: [data, sessions, studios]
 ---
 

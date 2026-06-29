@@ -2,7 +2,7 @@
 title: "Google registry credentials"
 description: "Instructions to create Google Cloud registry credentials in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2026-06-23"
+last updated: "2026-06-29"
 tags: [google, containers, registry, artifact, credentials]
 ---
 

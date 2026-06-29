@@ -2,7 +2,7 @@
 title: "Tower Agent"
 description: "Instructions to use Tower Agent."
 date created: "2023-04-24"
-last updated: "2026-06-23"
+last updated: "2026-06-29"
 tags: [agent]
 ---
 

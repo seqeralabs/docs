@@ -2,7 +2,7 @@
 title: "Studios: Kubernetes"
 description: Deploy Studios on Kubernetes
 date created: "2023-04-12"
-last updated: "2026-06-23"
+last updated: "2026-06-29"
 tags: [kubernetes, studios, deployment]
 ---
 

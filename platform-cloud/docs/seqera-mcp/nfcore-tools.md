@@ -2,7 +2,7 @@
 title: nf-core Tools
 description: "Search and explore nf-core bioinformatics modules and get analysis recommendations"
 date created: "2026-01-12"
-last updated: "2026-06-23"
+last updated: "2026-06-29"
 tags: [nf-core, nextflow, bioinformatics, pipelines, modules]
 ---
 

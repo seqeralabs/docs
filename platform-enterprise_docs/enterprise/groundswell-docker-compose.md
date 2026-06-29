@@ -2,7 +2,7 @@
 title: "Pipeline optimization: Docker Compose"
 description: Deploy pipeline optimization with Docker Compose
 date created: "2026-02-09"
-last updated: "2026-06-23"
+last updated: "2026-06-29"
 tags: [docker, compose, groundswell, pipeline optimization, deployment]
 ---
 

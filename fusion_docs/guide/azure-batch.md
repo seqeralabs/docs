@@ -2,7 +2,7 @@
 title: Azure Batch
 description: "Use Fusion with Azure Batch and Azure Blob storage"
 date created: "2024-08-23"
-last updated: "2026-06-23"
+last updated: "2026-06-29"
 tags: [fusion, storage, compute, azure batch, blob storage]
 ---
 

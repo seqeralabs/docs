@@ -2,7 +2,7 @@
 title: "Legacy Seqera container image registries"
 description: Legacy Seqera container deployments
 date created: "2023-04-12"
-last updated: "2026-06-23"
+last updated: "2026-06-29"
 tags: [on-prem, prerequisites, configuration]
 ---
 
