@@ -8,7 +8,7 @@ tags: [faq, help, seqera ai, troubleshooting]
 
 ## Installation
 
-##### Command not found
+### Error: `seqera: command not found`
 
 If you see `seqera: command not found` after installation:
 
@@ -18,10 +18,10 @@ If you see `seqera: command not found` after installation:
    which seqera
    ```
 
-1. Ensure the npm global bin directory is in your PATH:
+1. Ensure the npm global `bin` directory is on your PATH. Find it with `npm config get prefix` or `npm bin -g`:
 
    ```bash
-   # Check npm global bin directory
+   # Check the npm global bin directory
    npm bin -g
 
    # Restart your terminal or run
@@ -34,7 +34,7 @@ If you see `seqera: command not found` after installation:
    echo $PATH
    ```
 
-##### npm permission errors
+### npm permission errors
 
 If you encounter permission errors during installation:
 
@@ -50,37 +50,33 @@ If you encounter permission errors during installation:
    export PATH="$HOME/.npm-global/bin:$PATH"
    ```
 
-##### `EACCES` permission errors on global install
+### Error: `EACCES` permission errors on global install
 
 Avoid running `sudo npm install`. Either [fix npm permissions](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally) or install Node through a version manager such as [nvm](https://github.com/nvm-sh/nvm).
 
-##### `seqera: command not found` after install
-
-Confirm npm's global `bin` directory is on your PATH. Run `npm config get prefix` to find it.
-
 ## Authentication
 
-##### Browser doesn't open
+### Browser doesn't open
 
 If the browser doesn't open automatically:
 
-1. Check the terminal output for a URL
-1. Copy and paste the URL into your browser manually
-1. Complete authentication in the browser
+1. Check the terminal output for a URL.
+1. Copy and paste the URL into your browser.
+1. Complete authentication in the browser.
 
-##### Login timeout
+### Login timeout
 
 If authentication times out:
 
-1. Ensure you have internet connectivity
-1. Check that `https://seqera.io` is accessible
-1. Log out and log in again
+1. Ensure you have internet connectivity.
+1. Check that `https://seqera.io` is accessible.
+1. Log out and log in again.
 
-##### Token storage errors
+### Token storage errors
 
 If you see errors related to credential storage:
 
-1. Check that you have write permissions to `~/.config/seqera-ai/`
+1. Check that you have write permissions to `~/.config/seqera-ai/`:
 
    ```bash
    ls -la ~/.config/seqera-ai/
@@ -92,13 +88,11 @@ If you see errors related to credential storage:
    mkdir -p ~/.config/seqera-ai
    ```
 
-##### Session expired
+### Session expired
 
-If your session has expired:
+If your session has expired, log out and log in again:
 
-1. Log out and log in again:
-
-   ```bash
-   seqera logout
-   seqera login
-   ```
+```bash
+seqera logout
+seqera login
+```

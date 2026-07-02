@@ -9,11 +9,11 @@ tags: [faq, help, aws, troubleshooting]
 
 ### Maximum results returned
 
-Use pagination to fetch the results in smaller chunks through multiple API calls with `max` and `offset` parameters. The error below indicates that you have run into the maximum result limit:
-
 `{object} length parameter cannot be greater than 100 (current value={value_sent})`
 
-To remedy this, see the example requests below:
+This error occurs when a request returns more results than the maximum page size of 100.
+
+To resolve, paginate the results across multiple API calls with the `max` and `offset` parameters:
 
 ```
 curl -X GET "https://$TOWER_SERVER_URL/workflow/$WORKFLOW_ID/tasks? workspaceId=$WORKSPACE_ID&max=100" \
@@ -26,19 +26,27 @@ curl -X GET "https://$TOWER_SERVER_URL/workflow/$WORKFLOW_ID/tasks? workspaceId=
 
 ## tw CLI
 
-**Connection errors when creating or viewing AWS Batch compute environments with `tw compute-envs` commands**
+### Connection errors with AWS Batch compute environments
 
-Versions of tw CLI earlier than v0.8 do not support the `SPOT_PRICE_CAPACITY_OPTIMIZED` [allocation strategy](../compute-envs/aws-batch#advanced-options) in AWS Batch. Creating or viewing AWS Batch compute environments with this allocation strategy will lead to errors. This issue was [addressed in CLI v0.9](https://github.com/seqeralabs/tower-cli/issues/332).
+Creating or viewing an AWS Batch compute environment that uses the `SPOT_PRICE_CAPACITY_OPTIMIZED` [allocation strategy](../compute-envs/aws-batch#advanced-options) fails on tw CLI versions earlier than v0.8, which don't support it.
 
-**Segfault errors**
+To resolve, upgrade to CLI v0.9 or later, where this was [addressed](https://github.com/seqeralabs/tower-cli/issues/332).
 
-Users of legacy tw CLI versions may experience segmentation faults in older operating systems.
+### Segmentation faults
 
-To resolve segfault errors, first upgrade your tw CLI to the latest available version. If errors persist, use our alternative Java [JAR-based solution](https://github.com/seqeralabs/tower-cli/releases/download/v0.8.0/tw.jar).
+Legacy tw CLI versions can produce segmentation faults on older operating systems.
 
-**Insecure HTTP errors**
+To resolve, upgrade the tw CLI to the latest version. If the fault persists, use the Java [JAR-based build](https://github.com/seqeralabs/tower-cli/releases/download/v0.8.0/tw.jar).
 
-The error _ERROR: You are trying to connect to an insecure server: `http://hostname:port/api` if you want to force the connection use '--insecure'. NOT RECOMMENDED!_ indicates that your Seqera host accepts connections using insecure HTTP instead of HTTPS. If your host cannot be configured to accept HTTPS connections, add the `--insecure` flag **before** your CLI command:
+### Error: `You are trying to connect to an insecure server…`
+
+```
+ERROR: You are trying to connect to an insecure server: http://hostname:port/api if you want to force the connection use '--insecure'. NOT RECOMMENDED!
+```
+
+This error occurs when your Seqera host accepts connections over insecure HTTP instead of HTTPS.
+
+To resolve, configure the host to accept HTTPS connections. If it can't, add the `--insecure` flag **before** the CLI command:
 
 ```
 tw --insecure info
@@ -48,9 +56,9 @@ tw --insecure info
 HTTP must not be used in production environments.
 :::
 
-**Resume/relaunch runs with tw CLI**
+### Relaunch a run
 
-Runs can be [relaunched](../launch/cache-resume#relaunch-a-workflow-run) with `tw runs relaunch` command.
+Relaunch a run with the [`tw runs relaunch`](../launch/cache-resume#relaunch-a-workflow-run) command:
 
 ```
 tw runs relaunch -i 3adMwRdD75ah6P -w 161372824019700

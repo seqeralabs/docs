@@ -131,8 +131,8 @@ Checkpoint file integrity verification failed before restore.
 
 **Solution**
 
-- 	Check for network/storage issues and retry.
--  Check that all files have been uploaded.
+- Check for network or storage issues and retry.
+- Check that all files have been uploaded.
 
 ### Long checkpoint times
 
@@ -214,7 +214,7 @@ Configure TCP close mode to drop connections during checkpoint:
 process.containerOptions = '-e FUSION_SNAPSHOTS_TCP_MODE=close'
 ```
 
-Applications will need to re-establish connections after restore. See [TCP connection handling](./guide/snapshots/configuration.md#tcp-connection-handling) for more information.
+Applications must re-establish connections after restore. See [TCP connection handling](./guide/snapshots/configuration.md#tcp-connection-handling) for more information.
 
 ### Debugging workflow
 
@@ -306,7 +306,7 @@ Confirm your environment is properly configured:
 
 1.  Test with different instance types. If uncertain:
 
-    - Run the same task with different instance types that have better disk iops and bandwidth guarantees and verify if Fusions Snapshots work there.
+    - Run the same task with different instance types that have better disk IOPS and bandwidth guarantees, and verify whether Fusion Snapshots work there.
     - Decrease memory usage to a manageable amount.
 
 ### Getting help

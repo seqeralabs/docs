@@ -174,7 +174,7 @@ To resolve this issue, configure TCP close mode to drop connections during check
 process.containerOptions = '-e FUSION_SNAPSHOTS_TCP_MODE=close'
 ```
 
-Applications will need to re-establish connections after restore. See [TCP connection handling](../guide/snapshots/configuration#tcp-connection-handling) for more information.
+Applications must re-establish connections after restore. See [TCP connection handling](../guide/snapshots/configuration#tcp-connection-handling) for more information.
 
 ## Debugging workflow
 
@@ -267,7 +267,7 @@ To diagnose checkpoint problems:
 
 1. Test with different instance types. If uncertain:
 
-   - Run the same task with different instance types that have better disk iops and bandwidth guarantees and verify if Fusions Snapshots work there.
+   - Run the same task with different instance types that have better disk IOPS and bandwidth guarantees, and verify whether Fusion Snapshots work there.
    - Decrease memory usage to a manageable amount.
 
 :::tip

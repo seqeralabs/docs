@@ -5,13 +5,15 @@ date: "26 August 2024"
 tags: [faq, help, workspaces, troubleshooting]
 ---
 
-**Seqera-invoked pipeline contacting a workspace other than the launch workspace**
+## Seqera-invoked pipeline contacts a workspace other than the launch workspace
 
-You may encounter this entry in your Nextflow log:
+You might see this entry in your Nextflow log:
 
-*Unexpected response for request `http://TOWER_SERVER_URL/api/trace/TRACE_ID/begin?workspaceId=WORKSPACE_ID`*
+`Unexpected response for request http://TOWER_SERVER_URL/api/trace/TRACE_ID/begin?workspaceId=WORKSPACE_ID`
 
-If the workspace ID in this message differs from your launch workspace, Seqera retrieved an incorrect Seqera access token from a Nextflow configuration file:
+If the workspace ID in this message differs from your launch workspace, Seqera retrieved an incorrect access token from a Nextflow configuration file. Check these locations for a hardcoded token:
 
-- A Seqera access token may be hardcoded in the `tower.accessToken` block of your `nextflow.config` (either from the Git repository or an override value in the Seqera launch form).
-- In an HPC cluster compute environment, the credential user's home directory may contain a stateful `nextflow.config` with a hardcoded access token (e.g., `~/.nextflow/config`).
+- The `tower.accessToken` block of your `nextflow.config`, either from the Git repository or an override in the launch form.
+- In an HPC cluster compute environment, a stateful `nextflow.config` in the credential user's home directory, for example `~/.nextflow/config`.
+
+To resolve, remove the hardcoded access token so that Seqera uses the launch workspace's token.
