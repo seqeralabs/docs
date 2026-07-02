@@ -6,7 +6,7 @@ last updated: "2026-05-05"
 tags: [sso, authentication, organization settings, cloud pro]
 ---
 
-Single sign-on (SSO) lets a Seqera Platform Cloud organization use its corporate identity provider (IdP) for authentication. After SSO is enabled, users with a matching email domain are routed to the organization's IdP when they sign in.
+With single sign-on (SSO), a Seqera Platform Cloud organization authenticates through its corporate identity provider (IdP). After SSO is enabled, users with a matching email domain are routed to the organization's IdP when they sign in.
 
 SSO is available for Cloud Pro organizations and uses Auth0 self-service SSO to connect supported SAML and OpenID Connect (OIDC) identity providers.
 
@@ -93,11 +93,15 @@ Organization owners can manage the SSO connection from **Organization settings**
 You can't change the claimed domain through the edit flow. To move SSO to a different domain, delete the existing connection and create a new one.
 :::
 
-## Audit log coverage
+## Audit trail coverage
 
-The audit log records SSO activity for compliance and troubleshooting, including:
+The audit trail records SSO activity for compliance and troubleshooting, including:
 
 - SSO configuration changes such as create, enable, disable, and delete
 - Identity-linking updates for existing users
 
 For setup, sign-in, and account-linking problems, see [SSO troubleshooting](../troubleshooting_and_faqs/sso_troubleshooting).
+
+## Next steps
+
+After SSO is active, you can map Seqera teams to groups in your IdP so team membership is controlled at the IdP and evaluated on every login. See [IdP delegation](./idp-delegation/overview).

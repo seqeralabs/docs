@@ -111,6 +111,7 @@
 # Renamed and moved pages
 /platform-cloud/monitoring/tasks   /platform-cloud/monitoring/run-details   301
 /platform-cloud/launch/relaunch    /platform-cloud/launch/cache-resume      301
+/platform-cloud/getting-started/single-sign-on   /platform-cloud/sso/single-sign-on   301
 
 # These redirects reverse the existing 301's
 /platform-cloud/platform-cloud /platform-cloud 301
