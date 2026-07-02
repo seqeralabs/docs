@@ -2,13 +2,13 @@
 title: "Data Explorer"
 description: "Using Seqera Data Explorer."
 date created: "2023-04-21"
-last updated: "2026-03-31"
+last updated: "2026-07-02"
 tags: [data, explorer, igv, molstar, object, storage, lineage]
 ---
 
-With Data Explorer, you can browse and interact with remote data repositories from organization workspaces in Seqera Platform. It supports AWS S3, Azure Blob Storage, Google Cloud Storage, and Amazon S3-compatible API storage (for example, but not limited to, Cloudflare R2, MinIO, Nebius, and Oracle Cloud).
+With Data Explorer, you can browse and interact with remote data repositories from organization workspaces in Seqera Platform. It supports AWS S3, Azure Blob Storage, Google Cloud Storage, and Amazon S3-compatible API storage (for example, Cloudflare R2, MinIO, Nebius, and Oracle Cloud).
 
-Access the **Data Explorer** tab from any workspace to view and manage all available data repositories. It is also integrated with the pipeline launch form and run detail pages and Studios, which allow you to select input data files and output directories or quickly view the output files of a run and directly use files in object storage for interactive analysis.
+Access the **Data Explorer** tab from any workspace to view and manage all available data repositories. Data Explorer is also integrated with the pipeline launch form, run detail pages, and Studios. Use these integrations to select input data files and output directories, view the output files of a run, or use files in object storage directly for interactive analysis.
 
 If you use Seqera Cloud and want to disable Data Explorer, [contact](https://seqera.io/contact-us/) your Seqera account executive.
 
@@ -18,7 +18,7 @@ The role assigned to a workspace user affects what functionality is available in
 
 ## Add data repository links
 
-Data Explorer lists public and private data repositories. Repositories accessible to your workspace credentials are retrieved automatically; workspace maintainers can also configure repositories manually.
+Data Explorer lists public and private data repositories. Repositories accessible to your workspace credentials are retrieved automatically. Workspace maintainers can also configure repositories manually.
 
 - **Retrieve data repositories with workspace credentials**
 
@@ -46,7 +46,7 @@ If you remove a data-link associated with a repository, the repository is automa
 
 - **Search and filter data repositories**
 
-  Search for repositories by name and region (e.g., `region:eu-west-2`) in the search field, and filter by provider.
+  Search for repositories by name and region (for example, `region:eu-west-2`) in the search field, and filter by provider.
 
 - **Hide data repositories from list view**
 
@@ -56,7 +56,7 @@ If you remove a data-link associated with a repository, the repository is automa
 
 - **View data repository contents**
 
-  Select a data-link from the Data Explorer list to view the contents of that data repository. From the **View data repository** page, you can browse directories and search for objects by name in a particular directory. The size and path of an object is displayed in columns to the right of the object name. To view data repository details such as the provider, address, and credentials, select the information icon.
+  Select a data-link from the Data Explorer list to view the contents of that data repository. From the **View data repository** page, you can browse directories and search for objects by name in a particular directory. The size and path of an object appear in columns to the right of the object name. To view data repository details such as the provider, address, and credentials, select the information icon.
 
 - **Preview and download files**
 
@@ -64,19 +64,19 @@ If you remove a data-link associated with a repository, the repository is automa
 
   File preview is supported for these object types:
 
-  - Nextflow output files ( `.command.*`, `.fusion.*` and `.exitcode` )
+  - Nextflow output files (`.command.*`, `.fusion.*`, and `.exitcode`)
   - Molecular data using the [Mol* library][molstar]
-  - Genome tracks using the [igv.js library][igv] (annotations, wigs, alignments, variants, etc)
+  - Genome tracks using the [igv.js library][igv] (annotations, wigs, alignments, and variants)
   - Text
   - CSV and TSV
   - PDF
   - HTML
-  - Images (JPG, PNG, SVG, etc.)
+  - Images (JPG, PNG, and SVG)
 
   :::note
-  With the specific exception of genome tracks, the file size limit for preview is 10 MB. 10-25 MB files can still be downloaded directly.
+  With the exception of genome tracks, the preview file size limit is 10 MB. Files of 10-25 MB can still be downloaded directly.
 
-  Seqera Enterprise users can increase the default 25 MB file size download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#data-features) file. Note that increasing this value may degrade Platform performance.
+  Seqera Enterprise users can increase the default 25 MB file size download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#data-features) file. Increasing this value can degrade Platform performance.
   :::
 
 - **Copy object paths**
@@ -86,7 +86,7 @@ If you remove a data-link associated with a repository, the repository is automa
 ### View lineage data for objects
 
 :::note
-Data lineage is made available on request. Please contact your Seqera account manager.
+Data lineage is available on request. Contact your Seqera account manager.
 :::
 
 When an object in Data Explorer was produced by a Nextflow run with [data lineage tracking enabled][workspace-lineage-settings], the object preview displays the object's lineage data alongside its file metadata.
@@ -96,8 +96,8 @@ Select an object to preview. When lineage data is available, this displays:
 | Field | Source | Description |
 |-------|--------|-------------|
 | **Lineage Labels** | `labels` | Lineage labels assigned to the output. Each label is a clickable link to the lineage record for that label. See the Nextflow [`label` directive][nextflow-label-directive] for assignment details. |
-| **Produced by** | `pipeline-run` | Workflow run ID that created this object. Click the run ID to navigate to the workflow run.  |
-| **Source for** | `pipeline-run` | Workflow run ID that used this file as an input. Click the run ID to navigate to the workflow run. |
+| **Produced by** | `pipeline-run` | Workflow run ID that created this object. Select the run ID to navigate to the workflow run. |
+| **Source for** | `pipeline-run` | Workflow run ID that used this file as an input. Select the run ID to navigate to the workflow run. |
 
 If the object was not produced by a lineage-enabled run, no lineage fields appear in the preview.
 
@@ -109,21 +109,21 @@ To capture lineage data, lineage must be enabled for the run that produced the o
 
 ## Isolate view, read, and write permissions to specific data repository paths
 
-To isolate pipeline or Studios view, read, and write permissions to a specific **data repository path**, workspace maintainers can optionally create **custom data-links** by manually configuring an individual data repository plus path to a specific folder/directory. This is supported to any level of the data repository path hierarchy, provided it is a folder (also known as a **prefix**). You can optionally choose to **Hide** or **Show** either the base data repository and/or any related custom data-links on demand in Data Explorer using the **Show/Hide** toggle and the **Show data repositories** filter options:
+To isolate pipeline or Studios view, read, and write permissions to a specific **data repository path**, workspace maintainers can create **custom data-links** by manually configuring an individual data repository plus path to a specific folder/directory. This is supported to any level of the data repository path hierarchy, provided it is a folder (also known as a **prefix**). You can **Hide** or **Show** either the base data repository or any related custom data-links on demand in Data Explorer using the **Show/Hide** toggle and the **Show data repositories** filter options:
 
 - Only visible (default)
 - Only hidden
 - All
 
 :::note
-This customized Data Explorer view will be displayed by default to all workspace users, until the filter is updated or removed by a workspace maintainer.
+This customized Data Explorer view displays by default for all workspace users until a workspace maintainer updates or removes the filter.
 :::
 
 ## Upload files to private data repositories
 
 Data Explorer supports single or bulk file uploads to your private data repositories. From the **View data repositories** page, select **Upload** and choose either the **Upload files** or **Upload folder** option. You can also drag and drop files and folders directly into Data Explorer. You can upload up to 300 files at a time via the Platform interface. The file size upload limits reflect the size limitations of the relevant cloud storage provider or data repository integration.
 
-Currently, these limits are (for cloud providers):
+These limits apply to cloud providers:
 
 - [AWS](https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html)
   - Single `PUT` upload: 5 GiB
@@ -149,7 +149,7 @@ Currently, these limits are (for cloud providers):
   - Single `PUT` upload: 64 MiB
   - Multi-part upload: 50 GiB
 
-To cancel an upload, select **X** in the upload window. Any files not uploaded will display as **Failed**. Files that were successfully uploaded will not be removed.
+To cancel an upload, select **X** in the upload window. Any files not uploaded display as **Failed**. Files that uploaded successfully are not removed.
 
 :::note
 You must configure cross-origin resource sharing (CORS) for your data repository provider to allow file uploads from Platform. CORS configuration differs for each provider.
@@ -157,15 +157,15 @@ You must configure cross-origin resource sharing (CORS) for your data repository
 
 ## Download multiple files
 
-You can download up to a maximum of 1,000 files using the browser interface, or an unlimited number of files with the auto-generated download script that uses your data repository provider's CLI and credentials.
+You can download up to 1,000 files using the browser interface, or an unlimited number of files with the auto-generated download script that uses your data repository provider's CLI and credentials.
 
 :::note
 If you use a non-Chromium based browser, such as Safari or Firefox, file paths are concatenated with an underscore (`_`) character and the data repository directory structure is not reproduced locally. For example, the file `s3://example-us-east-1/path/to/files/my-file-1.txt` is saved as `path_to_files_my-file-1.txt`.
 :::
 
-Open the data repository and navigate to the folder that you'd like to download files and folders from. By default, you can download the contents of the current directory by choosing **Download current directory**. Alternatively, use checkboxes to select specific files and folders, and select the **Download** button. You can **Download files** via the browser or **Download using code**.
+Open the data repository and navigate to the folder that you want to download files and folders from. By default, you can download the contents of the current directory by choosing **Download current directory**. Alternatively, use checkboxes to select specific files and folders, and select the **Download** button. You can **Download files** via the browser or **Download using code**.
 
-The code snippet provided is specific to the data repository provider you've configured and currently only the three major cloud providers are supported. You may be prompted to authenticate during the download process. Refer to your data repository provider's documentation for troubleshooting credential-related issues:
+The code snippet is specific to the data repository provider you configured. Only the three major cloud providers are supported. You may be prompted to authenticate during the download process. Refer to your data repository provider's documentation for troubleshooting credential-related issues:
 
 - [AWS](https://docs.aws.amazon.com/cli/latest/reference/s3/)
 - [Azure](https://learn.microsoft.com/en-us/cli/azure/storage?view=azure-cli-latest)
@@ -177,7 +177,7 @@ Each cloud provider has a specific way to allow Cross-Origin Resource Sharing (C
 
 ### Amazon S3 CORS configuration
 
-Apply a [CORS configuration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html) to enable file uploads and folder downloads from the Seqera Platform to and from specific S3 buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these AWS instructions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enabling-cors-examples.html) to apply the CORS configuration below to each bucket you wish to enable file uploads and folder downloads for:
+Apply a [CORS configuration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html) to enable file uploads and folder downloads from the Seqera Platform to and from specific S3 buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these AWS instructions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enabling-cors-examples.html) to apply the following CORS configuration to each bucket you want to enable file uploads and folder downloads for:
 
 **Seqera Cloud S3 CORS configuration**
 
@@ -217,7 +217,7 @@ Apply a [CORS configuration](https://learn.microsoft.com/en-us/rest/api/storages
 
 **Seqera Cloud Azure CORS configuration**
 
-1. From the [Azure portal](https://portal.azure.com), go to the **Storage account** you wish to configure.
+1. From the [Azure portal](https://portal.azure.com), go to the **Storage account** you want to configure.
 2. Under **Settings** in the left navigation menu, select **Resource sharing (CORS)**.
 3. Add a new entry under **Blob service**:
 
@@ -230,7 +230,7 @@ Apply a [CORS configuration](https://learn.microsoft.com/en-us/rest/api/storages
 
 **Seqera Enterprise Azure CORS configuration**
 
-1. From the [Azure portal](https://portal.azure.com), go to the Storage account you wish to configure.
+1. From the [Azure portal](https://portal.azure.com), go to the Storage account you want to configure.
 2. Under **Settings** in the left navigation menu, select **Resource sharing (CORS)**.
 3. Add a new entry under **Blob service**:
 
@@ -243,7 +243,7 @@ Apply a [CORS configuration](https://learn.microsoft.com/en-us/rest/api/storages
 
 ### Google Cloud Storage CORS configuration
 
-Apply a [CORS configuration](https://cloud.google.com/storage/docs/cross-origin#cors-components) to enable file uploads from Seqera to specific GCS buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these Google instructions](https://cloud.google.com/storage/docs/using-cors#command-line) to apply the CORS configuration below to each bucket you wish to enable file uploads for.
+Apply a [CORS configuration](https://cloud.google.com/storage/docs/cross-origin#cors-components) to enable file uploads from Seqera to specific GCS buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these Google instructions](https://cloud.google.com/storage/docs/using-cors#command-line) to apply the following CORS configuration to each bucket you want to enable file uploads for.
 
 :::note
 Google Cloud Storage only supports CORS configuration via gcloud CLI.
@@ -273,10 +273,10 @@ Google Cloud Storage only supports CORS configuration via gcloud CLI.
 
 ## Limitations
 
-Using remote data repositories as inputs for pipelines or Studios currently requires the same credentials as the underlying Seqera Platform compute environment. This means that you currently **cannot** use data from S3-compatible object storage providers as inputs for pipelines or Studios because they don't offer configurable compute environments (eg. MinIO, Nebius).
+Using remote data repositories as inputs for pipelines or Studios requires the same credentials as the underlying Seqera Platform compute environment. You **cannot** use data from S3-compatible object storage providers (for example, MinIO and Nebius) as inputs for pipelines or Studios, because they do not offer configurable compute environments.
 
 :::note
-Compute environment and Fusion multi-credential support will resolve this existing limitation, and is under active development.
+Multi-credential support for compute environments and Fusion is under active development and will resolve this limitation.
 :::
 
 {/* links */}
