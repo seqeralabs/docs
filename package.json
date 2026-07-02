@@ -5,7 +5,7 @@
   "overrides": {
     "@docusaurus/plugin-content-docs": "3.9.2",
     "picomatch": "^4.0.3",
-    "glob": "^11.1.0",
+    "glob": "^13.0.0",
     "immutable": "^5.1.5",
     "serialize-javascript": "^7.0.3",
     "katex": "^0.17.0",
