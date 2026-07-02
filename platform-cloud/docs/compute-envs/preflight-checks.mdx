@@ -29,7 +29,7 @@ Before creating or deploying a compute environment, confirm the following:
 - The Wave service is running and reachable from the Platform instance.
 
 **Tower Agent** (HPC/grid compute environments only)
-- Tower Agent is reachable from Platform. See [Tower Agent](../getting-started/tower-agent) for installation and startup instructions.
+- Tower Agent is reachable from Platform. See [Tower Agent](../supported_software/agent/overview) for installation and startup instructions.
 
 ## Validation process
 
@@ -107,7 +107,7 @@ These are returned immediately to the user when a launch is blocked.
 | `The selected compute environment '...' is in an invalid state` | Compute environment is marked `INVALID` (see banner for the specific reason) | Fix the root cause, then use **Validate** on the compute environment |
 | `The credentials '...' used by this compute environment are invalid` | Credential is marked `INVALID` | Go to **Credentials**, update or rotate the credential, then use **Validate** on the compute environment |
 | `Wave is required by the selected compute environment but the Wave service connection is not active. Verify that Wave is running and check for connectivity issues` | Platform cannot reach the Wave service | Contact your platform administrator. Once Wave is restored, retry the launch |
-| `No Tower Agent is online for the selected compute environment. Check that Tower Agent is running at your cluster.` | No Tower Agent is connected for this compute environment (HPC/grid only) | Start or restart Tower Agent on the cluster. See [Tower Agent](../getting-started/tower-agent) |
+| `No Tower Agent is online for the selected compute environment. Check that Tower Agent is running at your cluster.` | No Tower Agent is connected for this compute environment (HPC/grid only) | Start or restart Tower Agent on the cluster. See [Tower Agent](../supported_software/agent/overview) |
 
 ### Credential error messages
 
