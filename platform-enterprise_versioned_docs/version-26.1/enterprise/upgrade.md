@@ -162,16 +162,16 @@ The database volume is persistent on the local machine by default if you use the
 1. Download the latest versions of your deployment templates and update your Seqera container versions:
     - [docker-compose.yml](./_templates/docker/docker-compose.yml) for Docker Compose deployments
     - [tower-cron.yml](./_templates/k8s/tower-cron.yml) and [tower-svc.yml](./_templates/k8s/tower-svc.yml) for Kubernetes deployments
-1. **JVM memory configuration defaults (recommended)**: The following `JAVA_OPTS` environment variable is included in the deployment templates downloaded in the preceding step, to optimize JVM memory settings:
+1. **JVM memory defaults (recommended)**: The deployment templates you downloaded in the previous step include the following `JAVA_OPTS` environment variable to tune JVM memory settings:
 
     ```bash
     JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
     ```
 
-    These baseline values are suitable for most deployments running moderate concurrent workflow loads.
+    These baseline values suit most deployments with moderate concurrent workflow loads.
 
     :::tip
-    These are starting recommendations that may require tuning based on your deployment's workload. See [Backend memory requirements](./configuration/overview.mdx#backend-memory-requirements) for detailed guidance on when and how to adjust these values for your environment.
+    These are starting values that may need tuning for your workload. See [Backend memory requirements](./configuration/overview.mdx#backend-memory-requirements) for when and how to adjust them.
     :::
 1. If you're using Studios, download and apply the latest versions of the Kubernetes manifests:
     - [proxy.yml](./_templates/k8s/data_studios/proxy.yml)

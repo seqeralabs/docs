@@ -390,16 +390,10 @@ The [Admin panel](../../administration/overview.md#encryption) **Encryption** ta
 
 ## Backend memory requirements
 
-The Platform backend and cron services run on the JVM and require appropriate memory allocation for stable operation under load.
+The Platform backend and cron services run on the Java Virtual Machine (JVM). Allocate at least 4 GB of memory to each service for stable operation under load.
 
-**Minimum memory allocation:**
-- Backend service: 4 GB minimum
-- Cron service: 4 GB minimum
+For Kubernetes, set resource limits in your pod specifications:
 
-**How to set memory limits:**
-
-**Kubernetes:**
-Set resource limits in your pod specifications:
 ```yaml
 resources:
   limits:
@@ -408,8 +402,8 @@ resources:
     memory: "4Gi"
 ```
 
-**Docker Compose:**
-Set memory limits in your service definitions:
+For Docker Compose, set memory limits in your service definitions:
+
 ```yaml
 services:
   backend:
@@ -423,13 +417,13 @@ These default memory allocation limits are included in the Kubernetes manifest t
 
 ### JVM memory tuning
 
-For production deployments, configure JVM memory parameters via the `JAVA_OPTS` environment variable. The following baseline configuration is suitable for most deployments:
+For production deployments, configure JVM memory parameters with the `JAVA_OPTS` environment variable. This baseline configuration suits most deployments:
 
 ```bash
 JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
 ```
 
-The `JAVA_TOOL_OPTIONS` environment variable is a supported alternative to `JAVA_OPTS`: the JVM reads it directly at startup and confirms pickup with a `Picked up JAVA_TOOL_OPTIONS` line in the service logs. Set one variable or the other, not both — options passed on the command line (which is how `JAVA_OPTS` is applied) take precedence over `JAVA_TOOL_OPTIONS` when the same flag appears in both.
+The `JAVA_TOOL_OPTIONS` environment variable is a supported alternative to `JAVA_OPTS`. The JVM reads it directly at startup and confirms pickup with a `Picked up JAVA_TOOL_OPTIONS` line in the service logs. Set one variable or the other, not both. Options passed on the command line (which is how `JAVA_OPTS` is applied) take precedence over `JAVA_TOOL_OPTIONS` when the same flag appears in both.
 
 :::note
 These default JVM memory settings are included in the configuration templates provided in these docs:
@@ -437,34 +431,35 @@ These default JVM memory settings are included in the configuration templates pr
 - Docker Compose: [tower.env](../_templates/docker/tower.env)
 :::
 
-**Parameter descriptions:**
-- **Heap memory** (`-Xms`/`-Xmx`): Memory pool for Java objects. Set initial (`Xms`) and maximum (`Xmx`) heap size.
-- **Direct memory** (`MaxDirectMemorySize`): Off-heap memory used for NIO operations, network buffers, and file I/O. Critical for handling concurrent workflow API operations.
-- **Netty memory accounting** (`io.netty.maxDirectMemory=0`): Disables Netty's internal tracking; relies on JVM direct memory limits instead.
-- **Buffer caching** (`jdk.nio.maxCachedBufferSize`): Limits size of cached NIO buffers to prevent excessive memory retention.
+| Parameter | Description |
+| --- | --- |
+| `-Xms` / `-Xmx` | Initial and maximum heap size — the memory pool for Java objects. |
+| `-XX:MaxDirectMemorySize` | Off-heap memory for NIO operations, network buffers, and file I/O. Handles concurrent workflow API operations. |
+| `-Dio.netty.maxDirectMemory=0` | Disables Netty's internal memory tracking and relies on the JVM direct memory limit instead. |
+| `-Djdk.nio.maxCachedBufferSize` | Limits the size of cached NIO buffers to prevent excessive memory retention. |
 
-**When to adjust these values:**
+Adjust these baseline values based on the symptoms you observe.
 
-Increase `MaxDirectMemorySize` if you observe:
-- `OutOfMemoryError: Direct buffer memory` in logs
-- High concurrent workflow launch rates (>100 simultaneous workflows)
-- Large configuration payloads or extensive API usage
+Increase `-XX:MaxDirectMemorySize` if you observe:
+- `OutOfMemoryError: Direct buffer memory` in the logs
+- High concurrent workflow launch rates (more than 100 simultaneous workflows)
+- Large configuration payloads or heavy API usage
 
 Increase heap memory (`-Xmx`) if you observe:
-- `OutOfMemoryError: Java heap space` in logs
-- Garbage collection pauses affecting performance
+- `OutOfMemoryError: Java heap space` in the logs
+- Garbage collection pauses that affect performance
 - Growing memory usage under sustained load
 
-**Example: High-concurrency deployment**
-For deployments running 200+ concurrent workflows:
+For deployments running 200 or more concurrent workflows, increase the heap and direct memory limits:
+
 ```bash
 JAVA_OPTS: -Xms1000M -Xmx3000M -XX:MaxDirectMemorySize=1600m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
 ```
 
-Ensure container/pod memory limits are set higher than JVM limits to accommodate non-heap memory usage.
+Set the container or pod memory limit higher than the JVM limits to accommodate non-heap memory usage.
 
 :::warning
-These are starting recommendations. Monitor your deployment's actual memory usage and adjust based on your specific workload patterns. Undersized memory allocation can cause OOM failures and service instability.
+These are starting values. Monitor your deployment's memory usage and adjust for your workload. Undersized memory allocation can cause out-of-memory (OOM) failures and service instability.
 :::
 
 ## Compute environments
