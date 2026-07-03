@@ -163,7 +163,9 @@ The [ECS agent must have access](https://docs.aws.amazon.com/batch/latest/usergu
 
 You might encounter errors when executing pipelines that use secrets on AWS Batch:
 
-- If you use `nf-sqldb` version 0.4.1 or earlier and have secrets in your `nextflow.config`, you might see `nextflow.secret.MissingSecretException: Unknown config secret` errors in your Nextflow log. To resolve, explicitly define the `xpack-amzn` plugin in your configuration:
+- If you use `nf-sqldb` version 0.4.1 or earlier and have secrets in your `nextflow.config`, you might see `nextflow.secret.MissingSecretException: Unknown config secret` errors in your Nextflow log.
+
+  To resolve, explicitly define the `xpack-amzn` plugin in your configuration:
 
   ```groovy
   plugins {
