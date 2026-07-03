@@ -165,7 +165,7 @@ The database volume is persistent on the local machine by default if you use the
 1. **JVM memory defaults (recommended)**: The deployment templates you downloaded in the previous step include the following `JAVA_OPTS` environment variable to tune JVM memory settings:
 
     ```bash
-    JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
+    JAVA_OPTS="-Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144"
     ```
 
     These baseline values suit most deployments with moderate concurrent workflow loads.
