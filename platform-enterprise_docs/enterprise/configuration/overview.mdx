@@ -420,7 +420,7 @@ These default memory allocation limits are included in the Kubernetes manifest t
 For production deployments, configure JVM memory parameters with the `JAVA_OPTS` environment variable. This baseline configuration suits most deployments:
 
 ```bash
-JAVA_OPTS: -Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
+JAVA_OPTS="-Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144"
 ```
 
 The `JAVA_TOOL_OPTIONS` environment variable is a supported alternative to `JAVA_OPTS`. The JVM reads it directly at startup and confirms pickup with a `Picked up JAVA_TOOL_OPTIONS` line in the service logs. Set one variable or the other, not both. Options passed on the command line (which is how `JAVA_OPTS` is applied) take precedence over `JAVA_TOOL_OPTIONS` when the same flag appears in both.
