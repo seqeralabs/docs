@@ -453,7 +453,7 @@ Increase heap memory (`-Xmx`) if you observe:
 For deployments running 200 or more concurrent workflows, increase the heap and direct memory limits:
 
 ```bash
-JAVA_OPTS: -Xms1000M -Xmx3000M -XX:MaxDirectMemorySize=1600m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144
+JAVA_OPTS="-Xms1000M -Xmx3000M -XX:MaxDirectMemorySize=1600m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144"
 ```
 
 Set the container or pod memory limit higher than the JVM limits to accommodate non-heap memory usage.
