@@ -164,6 +164,13 @@
 /platform/*                       /platform-cloud/:splat
 
 # ════════════════════════════════════════════════════════════════
+# Fusion
+# ════════════════════════════════════════════════════════════════
+
+# Legacy standalone troubleshooting page replaced by the troubleshooting/ section
+/fusion/troubleshooting   /fusion/troubleshooting/general   301
+
+# ════════════════════════════════════════════════════════════════
 # Wave
 # ════════════════════════════════════════════════════════════════
 

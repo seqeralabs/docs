@@ -5,21 +5,29 @@ date: "24 Apr 2023"
 tags: [troubleshooting, help]
 ---
 
-Common issues with resource labels on AWS, Azure, and Google Cloud:
+When working with resource labels on AWS, Azure, and Google Cloud, you might encounter the following issues.
 
-## Tags not appearing in cost reports
+## Common issues
+
+#### Tags not appearing in cost reports
+
+Resource labels are applied to your cloud resources but don't appear in your provider's cost reporting tools. This is usually a propagation delay or a cost-reporting configuration gap. To resolve:
 
 - Allow up to 24 hours for tags to appear in the AWS cost allocation console.
 - For Azure, enable tag inheritance and allow 24 hours for processing.
 - Verify that resources are actively running and generating usage data.
 
-## Permission errors
+#### Permission errors
+
+Tagging fails, or cost data is inaccessible, when the credentials associated with the compute environment lack tagging or billing permissions. To resolve:
 
 - Ensure the compute environment credentials have the permissions required to tag resources.
 - For Google Cloud, verify billing account administrator access.
 - For Azure, confirm billing profile contributor permissions and permissions to view Cost Management reports.
 
-## Missing tag values in cloud provider resources
+#### Missing tag values in cloud provider resources
+
+Resources launch without the expected tags, or dynamic label values are empty. This usually means the labels aren't attached to the compute environment the workflow ran on. To resolve:
 
 - Verify that resource labels are applied to the correct compute environment.
 - Check that workflows use the tagged compute environment.

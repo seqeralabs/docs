@@ -5,15 +5,17 @@ date: "26 August 2024"
 tags: [faq, help, azure, troubleshooting]
 ---
 
+When running pipelines on Azure, you might encounter the following issues.
+
 ## Batch compute environments
 
-### Use separate Batch pools for head and compute nodes
+#### Use separate Batch pools for head and compute nodes
 
 :::warning
 After September 30, 2025 low-priority VMs are only available in user subscription pool allocation mode Batch accounts. See the [Microsoft migration guide](https://learn.microsoft.com/en-us/azure/batch/low-priority-vms-retirement-migration-guide).
 :::
 
-The default Azure Batch implementation in Seqera Platform uses a single pool for head and compute nodes. By default, all jobs spawn dedicated (on-demand) VMs. To save costs by running compute jobs on low-priority VMs, use separate pools for head and compute jobs:
+The default Azure Batch implementation in Seqera Platform uses a single pool for head and compute nodes, and all jobs spawn dedicated (on-demand) VMs. To save costs by running compute jobs on low-priority VMs, use separate pools for head and compute jobs:
 
 1. Create two Batch pools in Azure:
     - One dedicated pool
@@ -29,7 +31,7 @@ Both pools must meet the requirements of a pre-existing pool, as detailed in the
 
 ## Azure Kubernetes Service (AKS)
 
-### Error: `.../.git/HEAD.lock: Operation not supported`
+#### `.../.git/HEAD.lock: Operation not supported`
 
 This error occurs when your Nextflow pod uses an Azure Files (SMB) persistent volume for storage. The `jgit` library that Nextflow uses attempts a filesystem link operation that Azure Files (SMB) [doesn't support](https://docs.microsoft.com/en-us/azure/storage/files/files-smb-protocol?tabs=azure-portal#limitations).
 
@@ -44,14 +46,16 @@ EOT
 
 ## SSL
 
-### SSL CA certificate errors
+#### SSL CA certificate errors
 
 This can occur when a tool or library in your task container requires SSL certificates to validate an external data source. To resolve, mount the SSL certificates into the container.
 
-### Error: `Connections using insecure transport are prohibited while --require_secure_transport=ON`
+#### `Connections using insecure transport are prohibited while --require_secure_transport=ON`
 
 This Azure SQL database error occurs because Azure's default MySQL configuration enforces SSL connections between the server and client, as described in [SSL/TLS connectivity in Azure Database for MySQL](https://learn.microsoft.com/en-us/azure/mysql/single-server/concepts-ssl-connection-security).
 
 To resolve, append `useSSL=true&enabledSslProtocolSuites=TLSv1.2&trustServerCertificate=true` to your `TOWER_DB_URL` connection string:
 
-`TOWER_DB_URL: jdbc:mysql://mysql:3306/tower?permitMysqlScheme=true/azuredatabase.com/tower?serverTimezone=UTC&useSSL=true&enabledSslProtocolSuites=TLSv1.2&trustServerCertificate=true`
+```
+TOWER_DB_URL: jdbc:mysql://mysql:3306/tower?permitMysqlScheme=true/azuredatabase.com/tower?serverTimezone=UTC&useSSL=true&enabledSslProtocolSuites=TLSv1.2&trustServerCertificate=true
+```

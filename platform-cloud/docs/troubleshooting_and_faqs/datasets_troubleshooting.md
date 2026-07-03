@@ -5,7 +5,11 @@ date: "26 August 2024"
 tags: [faq, help, database, datasets]
 ---
 
-### API: Dataset upload failure
+When working with datasets, you might encounter the following issues.
+
+## Common issues
+
+#### Dataset upload fails with the API
 
 When you upload a dataset through the Seqera UI or CLI, Seqera performs some steps automatically. Uploading through the API requires two additional steps:
 
@@ -32,7 +36,7 @@ You can also upload a dataset to a workspace with the [`tw` CLI](https://github.
     ```
 :::
 
-### Datasets converted to `application/vnd.ms-excel` data type
+#### Datasets converted to `application/vnd.ms-excel` data type
 
 ```
 "Given file is not a dataset file. Detected media type: 'application/vnd.ms-excel'. Allowed types: 'text/csv, text/tab-separated-values'"
@@ -42,6 +46,6 @@ This issue occurs in Firefox on Seqera versions earlier than 22.2.0.
 
 To resolve, upgrade to 22.2.0 or later, or use Chrome.
 
-### TSV-formatted datasets not shown
+#### TSV-formatted datasets not shown
 
 In Seqera version 22.2, TSV datasets were unavailable in the input data drop-down on the launch form. This was fixed in version 22.4.1.

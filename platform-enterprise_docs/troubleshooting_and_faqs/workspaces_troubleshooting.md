@@ -5,11 +5,17 @@ date: "26 August 2024"
 tags: [faq, help, workspaces, troubleshooting]
 ---
 
-## Seqera-invoked pipeline contacts a workspace other than the launch workspace
+When working with workspaces, you might encounter the following issues.
+
+## Common issues
+
+#### Seqera-invoked pipeline contacts a workspace other than the launch workspace
 
 You might see this entry in your Nextflow log:
 
-`Unexpected response for request http://TOWER_SERVER_URL/api/trace/TRACE_ID/begin?workspaceId=WORKSPACE_ID`
+```
+Unexpected response for request http://TOWER_SERVER_URL/api/trace/TRACE_ID/begin?workspaceId=WORKSPACE_ID
+```
 
 If the workspace ID in this message differs from your launch workspace, Seqera retrieved an incorrect access token from a Nextflow configuration file. Check these locations for a hardcoded token:
 

@@ -5,17 +5,21 @@ date: "26 August 2024"
 tags: [faq, help, aws, troubleshooting]
 ---
 
+When working with the Seqera Platform API and tw CLI, you might encounter the following issues.
+
 ## API
 
-### Maximum results returned
+#### Maximum results returned
 
-`{object} length parameter cannot be greater than 100 (current value={value_sent})`
+```
+{object} length parameter cannot be greater than 100 (current value={value_sent})
+```
 
 This error occurs when a request returns more results than the maximum page size of 100.
 
 To resolve, paginate the results across multiple API calls with the `max` and `offset` parameters:
 
-```
+```bash
 curl -X GET "https://$TOWER_SERVER_URL/workflow/$WORKFLOW_ID/tasks? workspaceId=$WORKSPACE_ID&max=100" \
   -H "Accept: application/json" \
   -H "Authorization: Bearer $TOWER_ACCESS_TOKEN"
@@ -26,19 +30,19 @@ curl -X GET "https://$TOWER_SERVER_URL/workflow/$WORKFLOW_ID/tasks? workspaceId=
 
 ## tw CLI
 
-### Connection errors with AWS Batch compute environments
+#### Connection errors with AWS Batch compute environments
 
 Creating or viewing an AWS Batch compute environment that uses the `SPOT_PRICE_CAPACITY_OPTIMIZED` [allocation strategy](../compute-envs/aws-batch#advanced-options) fails on tw CLI versions earlier than v0.8, which don't support it.
 
 To resolve, upgrade to CLI v0.9 or later, where this was [addressed](https://github.com/seqeralabs/tower-cli/issues/332).
 
-### Segmentation faults
+#### Segmentation faults
 
 Legacy tw CLI versions can produce segmentation faults on older operating systems.
 
 To resolve, upgrade the tw CLI to the latest version. If the fault persists, use the Java [JAR-based build](https://github.com/seqeralabs/tower-cli/releases/download/v0.8.0/tw.jar).
 
-### Error: `You are trying to connect to an insecure server…`
+#### `You are trying to connect to an insecure server…`
 
 ```
 ERROR: You are trying to connect to an insecure server: http://hostname:port/api if you want to force the connection use '--insecure'. NOT RECOMMENDED!
@@ -48,7 +52,7 @@ This error occurs when your Seqera host accepts connections over insecure HTTP i
 
 To resolve, configure the host to accept HTTPS connections. If it can't, add the `--insecure` flag **before** the CLI command:
 
-```
+```bash
 tw --insecure info
 ```
 
@@ -56,7 +60,7 @@ tw --insecure info
 HTTP must not be used in production environments.
 :::
 
-### Relaunch a run
+#### Relaunch a run
 
 Relaunch a run with the [`tw runs relaunch`](../launch/cache-resume#relaunch-a-workflow-run) command:
 

@@ -22,7 +22,7 @@ Run Fusion Doctor when you:
 
 ## Run Fusion Doctor with nf-canary
 
-[nf-canary](https://github.com/seqeralabs/nf-canary) is a Nextflow pipeline that runs Fusion Doctor on your compute environment and generates an HTML report. This is the supported path for most users. It does not require direct access to the task container. Fusion Doctor is only possible with nf-canary.
+[nf-canary](https://github.com/seqeralabs/nf-canary) is a Nextflow pipeline that runs Fusion Doctor on your compute environment and generates an HTML report. Fusion Doctor runs only through nf-canary and doesn't require direct access to the task container.
 
 ### Select a validation profile
 

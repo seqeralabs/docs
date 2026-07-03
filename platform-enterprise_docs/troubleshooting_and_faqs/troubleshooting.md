@@ -5,13 +5,15 @@ date: "24 Apr 2023"
 tags: [troubleshooting, help]
 ---
 
+When working with Seqera Platform, you might encounter the following issues.
+
 ## Common errors
 
-### Error: `timeout is not an integer or out of range`
+#### `timeout is not an integer or out of range`
 
 This error occurs on Seqera Platform v24.2 and later when Redis is outdated. Version 24.2 requires Redis 6.2 or later. To resolve, upgrade your Redis instance according to your cloud provider's instructions.
 
-### Error: `Unknown pipeline repository or missing credentials` from public GitHub repositories
+#### `Unknown pipeline repository or missing credentials` from public GitHub repositories
 
 GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls, including public repositories: unauthenticated requests are capped at 60 per hour and authenticated requests at 5000 per hour. This error is usually caused by the 60-per-hour cap.
 
@@ -23,7 +25,7 @@ To resolve:
 
    `curl -H "Authorization: token ghp_LONG_ALPHANUMERIC_PAT" -H "Accept: application/vnd.github.v3+json" https://api.github.com/rate_limit`
 
-### Error: `Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect)`
+#### `Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect)`
 
 This error occurs when incorrect configuration values are assigned to the `backend` and `cron` containers' [`MICRONAUT_ENVIRONMENTS`](../enterprise/configuration/overview#compute-environments) environment variable. You might see other unexpected behavior, such as two exact copies of the same Nextflow job submitted to the executor for scheduling.
 
@@ -38,18 +40,18 @@ Verify the following:
 3. You don't have another copy of the `MICRONAUT_ENVIRONMENTS` environment variable defined elsewhere in your application (such as a `tower.env` file or Kubernetes `ConfigMap`).
 4. If you're using a separate container/pod to execute `migrate-db.sh`, ensure there's no `MICRONAUT_ENVIRONMENTS` environment variable assigned to it.
 
-### Error: `No such variable`
+#### `No such variable`
 
 This error occurs when you execute a DSL1-based Nextflow workflow with [Nextflow 22.03.0-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.03.0-edge) or later.
 
-### Sleep commands in Nextflow workflows
+#### Sleep commands in Nextflow workflows
 
 The behavior of `sleep` commands in your Nextflow workflows depends on where they are used:
 
 - In an `errorStrategy` block, Nextflow uses the Groovy sleep function, which takes its value in milliseconds.
 - In a process script block, that language's sleep binary or method is used. For example, [this bash script](https://docs.seqera.io/nextflow/metrics) uses the bash sleep binary, which takes its value in seconds.
 
-### Large number of batch job definitions
+#### Large number of batch job definitions
 
 Platform normally looks for an existing job definition that matches your workflow requirement. If nothing matches, it recreates the job definition. Use a bash script to clear job definitions. Tailor it to your needs, for example to deregister only job definitions older than a set number of days:
 
@@ -65,7 +67,7 @@ done
 
 ## Containers
 
-### Use rootless containers in Nextflow pipelines
+#### Use rootless containers in Nextflow pipelines
 
 Most containers use the root user by default. Some users prefer a non-root user in the container to minimize the risk of privilege escalation. Because Nextflow and its tasks use a shared work directory to manage input and output data, rootless containers can cause file permission errors in some environments:
 
@@ -75,7 +77,7 @@ touch: cannot touch '/fsx/work/ab/27d78d2b9b17ee895b88fcee794226/.command.begin'
 
 This should not occur with AWS Batch from Seqera version 22.1.0. In other cases, force all task containers to run as root. Add one of the following to your [Nextflow configuration](../launch/advanced#nextflow-config-file):
 
-```
+```groovy
 // cloud executors
 process.containerOptions = "--user 0:0"
 
@@ -88,39 +90,39 @@ k8s.securityContext = [
 
 ## Databases
 
-### Database connection failure (Seqera Enterprise 22.2.0)
+#### Database connection failure in Seqera Enterprise 22.2.0
 
 Seqera Enterprise 22.2.0 introduced a breaking change: `TOWER_DB_DRIVER` must now be `org.mariadb.jdbc.Driver`.
 
-If you use Amazon Aurora as your database, you might encounter a _java.sql.SQLNonTransientConnectionException: ... could not load system variables_ error, likely because of a [known error](https://jira.mariadb.org/browse/CONJ-824) tracked in the MariaDB project.
+If you use Amazon Aurora as your database, you might encounter a `java.sql.SQLNonTransientConnectionException: ... could not load system variables` error, likely because of a [known error](https://jira.mariadb.org/browse/CONJ-824) tracked in the MariaDB project.
 
 To resolve, modify the Seqera Enterprise configuration:
 
 1. Ensure your `TOWER_DB_DRIVER` uses the specified MariaDB URI.
-2. Modify your `TOWER_DB_URL` to: `TOWER_DB_URL=jdbc:mysql://YOUR_DOMAIN:YOUR_PORT/YOUR_TOWER_DB?usePipelineAuth=false&useBatchMultiSend=false`
+2. Modify your `TOWER_DB_URL` to: `TOWER_DB_URL=jdbc:mysql://<domain>:<port>/<database-name>?usePipelineAuth=false&useBatchMultiSend=false`
 
 ## Email and TLS
 
-### TLS errors
+#### TLS errors
 
 Nextflow and Seqera Platform can both interact with email providers on your behalf. These providers often require TLS connections, many now requiring at least TLSv1.2.
 
 TLS connection errors can occur because of variability in the [default TLS version specified by your JDK distribution](https://aws.amazon.com/blogs/opensource/tls-1-0-1-1-changes-in-openjdk-and-amazon-corretto/). If you encounter any of the following errors, there is likely a mismatch between your default TLS version and what the email provider supports:
 
-- _Unexpected error sending mail ... TLS 1.0 and 1.1 are not supported. Please upgrade/update your client to support TLS 1.2_
-- _ERROR nextflow.script.WorkflowMetadata - Failed to invoke 'workflow.onComplete' event handler ... javax.net.ssl.SSLHandshakeException: No appropriate protocol (protocol is disabled or cipher suites are inappropriate)_
+- `Unexpected error sending mail ... TLS 1.0 and 1.1 are not supported. Please upgrade/update your client to support TLS 1.2`
+- `ERROR nextflow.script.WorkflowMetadata - Failed to invoke 'workflow.onComplete' event handler ... javax.net.ssl.SSLHandshakeException: No appropriate protocol (protocol is disabled or cipher suites are inappropriate)`
 
 To resolve:
 
 1. Set a JDK environment variable to force Nextflow and Seqera containers to use TLSv1.2 by default:
 
-    ```
+    ```bash
     export JAVA_OPTS="-Dmail.smtp.ssl.protocols=TLSv1.2"
     ```
 
 2. Add this parameter to your [nextflow.config file](../launch/advanced#nextflow-config-file):
 
-    ```
+    ```groovy
     mail {
         smtp.ssl.protocols = 'TLSv1.2'
     }
@@ -133,30 +135,30 @@ To resolve:
 
 ## Git integration
 
-### Error: `Get branches operation not supported by BitbucketServerRepositoryProvider provider` (Bitbucket)
+#### `Get branches operation not supported by BitbucketServerRepositoryProvider provider`
 
 If you supplied the correct Bitbucket credentials and URL details in your `tower.yml` and still see this error, upgrade to at least v22.3.0. This version addresses SCM provider authentication issues and likely resolves the retrieval failure.
 
 ## Healthcheck
 
-### Seqera Platform API healthcheck endpoint
+#### Seqera Platform API healthcheck endpoint
 
 To implement automated healthcheck functionality, use Seqera's `service-info` endpoint. For example:
 
-```
+```bash
 curl -o /dev/null -s -w "%{http_code}\n" --connect-timeout 2  "https://api.cloud.seqera.io/service-info"  -H "Accept: application/json"
 200
 ```
 
 ## Login
 
-### Login fails: screen frozen at `/auth?success=true`
+#### Login fails: screen frozen at `/auth?success=true`
 
 From version 22.1, Seqera Enterprise implements stricter cookie security by default and only sends an auth cookie if the client is connected over HTTPS. Login attempts over HTTP fail by default.
 
 To resolve, set the environment variable `TOWER_ENABLE_UNSAFE_MODE=true` to allow HTTP connectivity to Seqera (**not recommended for production environments**).
 
-### Restrict Seqera access to a set of email addresses
+#### Restrict Seqera access to a set of email addresses
 
 Removing the email section from the login page is not currently supported. You can, however, restrict which email identities can log in to your Seqera Enterprise instance with the `trustedEmails` configuration parameter in your `tower.yml` file:
 
@@ -182,11 +184,11 @@ Users with email addresses outside the `trustedEmails` list undergo an approval 
 
 :::
 
-### Login fails: admin approval required with Entra ID OIDC
+#### Login fails: admin approval required with Entra ID OIDC
 
 The Entra ID app integrated with Seqera must have user consent settings configured to "Allow user consent for apps" so that admin approval is not required for each application login. See [User consent settings](https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/configure-user-consent?pivots=portal#configure-user-consent-settings).
 
-### Error: `Username and Password not accepted` (Google SMTP)
+#### `Username and Password not accepted` with Google SMTP
 
 Seqera Enterprise email integration with Google SMTP can fail as of May 30, 2022, because of a [security posture change](https://support.google.com/accounts/answer/6010255#more-secure-apps-how&zippy=%2Cuse-more-secure-apps) by Google.
 
@@ -194,29 +196,29 @@ To re-establish email connectivity, follow [these instructions](https://support.
 
 ## Logging
 
-### Broken Nextflow log file (v22.3.1)
+#### Broken Nextflow log file in v22.3.1
 
 A Seqera Launcher issue affects the Nextflow log file download in version 22.3.1. Version 22.3.2 fixes it. Update to version 22.3.2 or later.
 
 ## Miscellaneous
 
-### Maximum parallel Seqera browser tabs
+#### Maximum parallel Seqera browser tabs
 
 Because of a limitation in [server-side event technology in HTTP/1.1](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events), up to five tabs can be open simultaneously per browser product. Additional tabs remain stuck in a loading state.
 
 ## Monitoring
 
-### Integrate third-party Java Application Performance Monitoring (APM) solutions
+#### Integrate third-party Java Application Performance Monitoring (APM) solutions
 
 Mount the APM solution's JAR file in Seqera's `backend` container and set the agent JVM option through the `JAVA_OPTS` environment variable.
 
-### Retrieve the trace logs for a workflow run
+#### Retrieve the trace logs for a workflow run
 
 You can't download the trace logs directly through Seqera, but you can configure your workflow to export the file to persistent storage:
 
 1. Set this block in your [`nextflow.config`](../launch/advanced#nextflow-config-file):
 
-   ```nextflow
+   ```groovy
    trace {
        enabled = true
    }
@@ -224,11 +226,11 @@ You can't download the trace logs directly through Seqera, but you can configure
 
 2. Add a copy command to your pipeline's **Advanced options > Post-run script** field:
 
-   ```
-   aws s3 cp ./trace.txt s3://MY_BUCKET/trace/trace.txt
+   ```bash
+   aws s3 cp ./trace.txt s3://<bucket>/trace/trace.txt
    ```
 
-### Seqera Platform intermittently reports `Live events sync offline`
+#### Seqera Platform intermittently reports `Live events sync offline`
 
 Seqera Platform uses [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) to push real-time updates to your browser. The client must connect to the server's `/api/live` endpoint to start the data stream, and this connection can occasionally fail because of factors like network latency.
 
@@ -236,11 +238,11 @@ To resolve, reload the Platform browser tab to reinitiate the client's connectio
 
 ## Optimization
 
-### Error: `OutOfMemoryError: Container killed due to memory usage` (optimized tasks)
+#### `OutOfMemoryError: Container killed due to memory usage`
 
 Nextflow can underestimate the memory allocation for containerized tasks. As a workaround, add a `retry` error strategy to the failing process that increases the allocated memory on each retry:
 
-```bash
+```groovy
 process {
     errorStrategy = 'retry'
     maxRetries    = 3
@@ -250,11 +252,11 @@ process {
 
 ## Plugins
 
-### Use the Nextflow SQL DB plugin to query AWS Athena
+#### Use the Nextflow SQL DB plugin to query AWS Athena
 
 From [Nextflow 22.05.0-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.05.0-edge), your Nextflow pipelines can query data from AWS Athena. Add these items to your `nextflow.config`. Secrets are optional:
 
-```
+```groovy
 plugins {
   id 'nf-sqldb@0.4.0'
 }
@@ -262,7 +264,7 @@ plugins {
 sql {
     db {
         'athena' {
-              url = 'jdbc:awsathena://AwsRegion=YOUR_REGION;S3OutputLocation=s3://YOUR_S3_BUCKET'
+              url = 'jdbc:awsathena://AwsRegion=<region>;S3OutputLocation=s3://<s3-bucket>'
               user = secrets.ATHENA_USER
               password = secrets.ATHENA_PASSWORD
             }
@@ -272,16 +274,19 @@ sql {
 
 Then call the functionality in your workflow:
 
-```
+```groovy
 channel.sql.fromQuery("select * from test", db: "athena", emitColumns:true).view()
-}
 ```
+
+:::note
+This example uses the legacy `nf-sqldb@0.4.0` syntax. Newer plugin versions use an explicit `include { fromQuery } from 'plugin/nf-sqldb'` statement instead. See the [nf-sqldb documentation](https://github.com/nextflow-io/nf-sqldb).
+:::
 
 See the [nf-sqldb discussion](https://github.com/nextflow-io/nf-sqldb/discussions/5) for more information.
 
 ## Repositories
 
-### Private Docker registry integration
+#### Private Docker registry integration
 
 Seqera-invoked jobs can pull container images from private Docker registries, such as JFrog Artifactory. The method depends on your computing platform.
 
@@ -292,30 +297,32 @@ This solution requires Docker Engine [17.07 or later](https://docs.docker.com/en
 
 You might need to add commands to your launch template, depending on your security posture:
 
-`cp /root/.docker/config.json /home/ec2-user/.docker/config.json && chmod 777 /home/ec2-user/.docker/config.json`
+```bash
+cp /root/.docker/config.json /home/ec2-user/.docker/config.json && chmod 777 /home/ec2-user/.docker/config.json
+```
 :::
 
 For **Azure Batch**, create a **Container registry**-type credential in your Seqera workspace and associate it with the Azure Batch compute environment in the same workspace.
 
 For **Kubernetes**, use an `imagePullSecret`, per [#2827](https://github.com/nextflow-io/nextflow/issues/2827).
 
-### Error: `Remote resource not found`
+#### `Remote resource not found`
 
 This error occurs when the Nextflow head job fails to retrieve the repository credentials from Seqera. If your Nextflow log contains an entry like `DEBUG nextflow.scm.RepositoryProvider - Request [credentials -:-]`, check the protocol of your instance's `TOWER_SERVER_URL` value. It must be set to `https` rather than `http`, unless you use `TOWER_ENABLE_UNSAFE_MODE` to allow HTTP connections to Seqera in a test environment.
 
 ## Secrets
 
-### Error: `Missing AWS execution role arn` during launch
+#### `Missing AWS execution role arn` during launch
 
 The [ECS agent must have access](https://docs.aws.amazon.com/batch/latest/userguide/execution-IAM-role.html) to retrieve secrets from AWS Secrets Manager. Secrets-using pipelines launched in an AWS Batch compute environment encounter this error when an IAM execution role is not provided. See [Secrets](../secrets/overview).
 
-### AWS Batch task failures with secrets
+#### AWS Batch task failures with secrets
 
 You might encounter errors when executing pipelines that use secrets on AWS Batch:
 
-- If you use `nf-sqldb` version 0.4.1 or earlier and have secrets in your `nextflow.config`, you might see _nextflow.secret.MissingSecretException: Unknown config secret_ errors in your Nextflow log. To resolve, explicitly define the `xpack-amzn` plugin in your configuration:
+- If you use `nf-sqldb` version 0.4.1 or earlier and have secrets in your `nextflow.config`, you might see `nextflow.secret.MissingSecretException: Unknown config secret` errors in your Nextflow log. To resolve, explicitly define the `xpack-amzn` plugin in your configuration:
 
-  ```
+  ```groovy
   plugins {
     id 'xpack-amzn'
     id 'nf-sqldb'
@@ -331,24 +338,24 @@ You might encounter errors when executing pipelines that use secrets on AWS Batc
 
 ## Tower Agent
 
-### Error: `Unexpected Exception in WebSocket … Operation timed out`
+#### `Unexpected Exception in WebSocket … Operation timed out`
 
 Tower Agent reconnection logic was improved in version 0.5.0. [Update your Tower Agent](https://github.com/seqeralabs/tower-agent) before relaunching your pipeline.
 
 ## Google
 
-### Spot VM preemption causes task interruptions
+#### Spot VM preemption causes task interruptions
 
 Spot VMs reduce cost but increase the likelihood that a task is interrupted before completion. When Google Cloud reclaims a Spot VM, Google Cloud Batch terminates the task with exit code `50001`. Add a retry strategy to your Nextflow configuration so interrupted tasks are automatically re-executed. See [Spot Instances](https://docs.seqera.io/nextflow/google#spot-instances) in the Nextflow documentation. For example:
 
-```config
+```groovy
 process {
   errorStrategy = { task.exitStatus == 50001 ? 'retry' : 'finish' }
   maxRetries    = 5
 }
 ```
 
-### Seqera service account permissions for Google Cloud Batch
+#### Seqera service account permissions for Google Cloud Batch
 
 Grant the following roles to the custom service account that submits Batch jobs:
 
@@ -363,11 +370,11 @@ For detailed setup instructions, see [Service account permissions](../compute-en
 
 ## Kubernetes
 
-### Error: `Invalid value: "xxx": must be less or equal to memory limit`
+#### `Invalid value: "xxx": must be less or equal to memory limit`
 
-This error can occur when you specify a value in the **Head Job memory** field when creating a Kubernetes-type compute environment.
+This error can occur when you specify a value in the **Head Job memory** field while creating a Kubernetes-type compute environment.
 
-If you receive an error that includes _field: spec.containers[x].resources.requests_ and _message: Invalid value: "xxx": must be less than or equal to memory limit_, your Kubernetes cluster might be configured with [system resource limits](https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/) that deny the Nextflow head job's resource request. To isolate the component causing the problem, launch a pod directly on your cluster through your Kubernetes administration solution. For example:
+If you receive an error that includes `field: spec.containers[x].resources.requests` and `message: Invalid value: "xxx": must be less than or equal to memory limit`, your Kubernetes cluster might be configured with [system resource limits](https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/) that deny the Nextflow head job's resource request. To isolate the component causing the problem, launch a pod directly on your cluster through your Kubernetes administration solution. For example:
 
 ```yaml
 ---
@@ -390,7 +397,7 @@ spec:
 
 ## On-premises HPC
 
-### Error: `java: command not found`
+#### `java: command not found`
 
 When submitting jobs to your on-premises HPC (using either SSH or Tower Agent authentication), the following error might appear in your Nextflow logs, even with Java on your `PATH` environment variable:
 
@@ -410,24 +417,24 @@ To troubleshoot:
 
 1. Open an interactive session with the head job queue.
 2. Launch the Nextflow job from the interactive session.
-3. If your cluster uses modules, add `module load <your_java_module>` in the **Advanced options > Pre-run script** field when creating your HPC compute environment in Seqera.
+3. If your cluster uses modules, add `module load <java-module>` in the **Advanced options > Pre-run script** field when creating your HPC compute environment in Seqera.
 4. If your cluster doesn't use modules, source an environment with Java and Nextflow in the **Advanced options > Pre-run script** field when creating your HPC compute environment in Seqera.
 
-### Pipeline submissions to HPC clusters fail for some users
+#### Pipeline submissions to HPC clusters fail for some users
 
-Nextflow launcher scripts fail if processed by a non-Bash shell, such as zsh or tcsh. You can identify this problem from certain error entries:
+Nextflow launcher scripts fail if processed by a non-Bash shell, such as zsh or tcsh. You can identify this problem from these error entries:
 
-1. Your _.nextflow.log_ contains an error like _Invalid workflow status - expected: SUBMITTED; current: FAILED_.
+1. Your `.nextflow.log` contains an error like `Invalid workflow status - expected: SUBMITTED; current: FAILED`.
 2. Your Seqera **Error report** tab contains an error like:
 
-```yaml
+```
 Slurm job submission failed
-- command: mkdir -p /home//\<USERNAME\>//scratch; cd /home//\<USERNAME\>//scratch; echo <LONG_BASE64_STRING> | base64 -d > nf-<RUN-ID>.launcher.sh; sbatch ./nf-<RUN-ID>.launcher.sh
+- command: mkdir -p /home//\<username\>//scratch; cd /home//\<username\>//scratch; echo <long-base64-string> | base64 -d > nf-<run-id>.launcher.sh; sbatch ./nf-<run-id>.launcher.sh
 - exit   : 1
 - message: Submitted batch job <#>
 ```
 
-Connect to the head node via SSH and run `ps -p $$` to verify your default shell. If you see an entry other than Bash, fix it as follows:
+Connect to the head node over SSH and run `ps -p $$` to verify your default shell. If you see an entry other than Bash, fix it as follows:
 
 1. Check which shells are available: `cat /etc/shells`
 2. Change your shell: `chsh -s /usr/bin/bash` (the path to the binary might differ, depending on your HPC configuration).

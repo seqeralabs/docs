@@ -6,9 +6,11 @@ last updated: "2025-12-15"
 tags: [faq, help, seqera ai, troubleshooting]
 ---
 
+When installing or authenticating the Seqera CLI, you might encounter the following issues.
+
 ## Installation
 
-### Error: `seqera: command not found`
+#### `seqera: command not found`
 
 If you see `seqera: command not found` after installation:
 
@@ -34,7 +36,7 @@ If you see `seqera: command not found` after installation:
    echo $PATH
    ```
 
-### npm permission errors
+#### npm permission errors
 
 If you encounter permission errors during installation:
 
@@ -50,13 +52,13 @@ If you encounter permission errors during installation:
    export PATH="$HOME/.npm-global/bin:$PATH"
    ```
 
-### Error: `EACCES` permission errors on global install
+#### `EACCES` permission errors on global install
 
 Avoid running `sudo npm install`. Either [fix npm permissions](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally) or install Node through a version manager such as [nvm](https://github.com/nvm-sh/nvm).
 
 ## Authentication
 
-### Browser doesn't open
+#### Browser doesn't open
 
 If the browser doesn't open automatically:
 
@@ -64,7 +66,7 @@ If the browser doesn't open automatically:
 1. Copy and paste the URL into your browser.
 1. Complete authentication in the browser.
 
-### Login timeout
+#### Login timeout
 
 If authentication times out:
 
@@ -72,7 +74,7 @@ If authentication times out:
 1. Check that `https://seqera.io` is accessible.
 1. Log out and log in again.
 
-### Token storage errors
+#### Token storage errors
 
 If you see errors related to credential storage:
 
@@ -88,7 +90,7 @@ If you see errors related to credential storage:
    mkdir -p ~/.config/seqera-ai
    ```
 
-### Session expired
+#### Session expired
 
 If your session has expired, log out and log in again:
 

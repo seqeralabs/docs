@@ -5,9 +5,11 @@ date: "26 August 2024"
 tags: [faq, help, aws, troubleshooting]
 ---
 
+When running pipelines on AWS, you might encounter the following issues.
+
 ## Elastic Block Store (EBS)
 
-### Volumes remain active after job completion
+#### Volumes remain active after job completion
 
 On large AWS Batch clusters (hundreds of compute nodes or more), EC2 API rate limits can cause the automatic deletion of unattached EBS volumes to fail. Orphaned volumes that remain after jobs complete incur additional costs.
 
@@ -15,7 +17,7 @@ EBS autoscaling relies on an AWS-provided script on each container host that cal
 
 ## Elastic Container Service (ECS)
 
-### ECS agent Docker image pull frequency
+#### ECS agent Docker image pull frequency
 
 When Batch Forge creates an AWS Batch environment, it sets the ECS agent's `ECS_IMAGE_PULL_BEHAVIOUR` in the EC2 launch template:
 
@@ -30,7 +32,7 @@ This behavior can't be changed within Seqera Platform.
 
 ## Container errors
 
-### Error: `CannotPullContainerError … "Too Many Requests (HAP429)"`
+#### `CannotPullContainerError … "Too Many Requests (HAP429)"`
 
 ```
 CannotPullContainerError: Error response from daemon: error parsing HTTP 429 response body: invalid character 'T' looking for beginning of value: "Too Many Requests (HAP429)"
@@ -40,9 +42,11 @@ This error occurs when you exceed Docker Hub's rate limit of 100 anonymous pulls
 
 To resolve, add the following to your launch template:
 
-`echo ECS_IMAGE_PULL_BEHAVIOR=once >> /etc/ecs/ecs.config`
+```bash
+echo ECS_IMAGE_PULL_BEHAVIOR=once >> /etc/ecs/ecs.config
+```
 
-### Error: `CannotInspectContainerError`
+#### `CannotInspectContainerError`
 
 ```
 Essential container in task exited - CannotInspectContainerError: Could not transition to inspecting; timed out after waiting 30s
@@ -56,11 +60,11 @@ To resolve:
 
 ## Queues
 
-### Distribute tasks across multiple AWS Batch queues
+#### Distribute tasks across multiple AWS Batch queues
 
 You can identify only a single work queue when you define an AWS Batch compute environment, but you can distribute tasks across multiple queues in your pipeline configuration. Add a snippet like the following to your `nextflow.config`, or the **Advanced options > Nextflow config file** field of the launch form, to distribute processes across two queues by name:
 
-```bash
+```groovy
 # nextflow.config
 
 process {
@@ -78,7 +82,7 @@ process {
 
 ## Storage
 
-### Write to S3 buckets that enforce AES256 server-side encryption
+#### Write to S3 buckets that enforce AES256 server-side encryption
 
 :::note
 Requires Seqera v21.10.4 and Nextflow [22.04.0](https://github.com/nextflow-io/nextflow/releases/tag/v22.04.0) or later.
@@ -88,7 +92,7 @@ To save files to an S3 bucket with a policy that [enforces AES256 server-side en
 
 1. Add the following to the **Advanced options > Nextflow config file** field of the **Launch Pipeline** screen:
 
-   ```
+   ```groovy
    aws {
      client {
        storageEncryption = 'AES256'
