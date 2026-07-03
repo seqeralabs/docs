@@ -16,8 +16,8 @@ In your interactive analysis environment, open a new terminal and type `ls -la /
 
 RStudio and Jupyter environments integrate with [GitHub Copilot][gh-copilot]. Enabling it requires a GitHub account and an active Copilot subscription.
 
-- **RStudio:** To enable GitHub Copilot in your RStudio session requires RStudio configuration changes. By default, the Studio session user has root permissions, so configuration changes are possible. You will need to restart the RStudio once the required changes have been made. [Learn more][posit-ghcopilot-guide].
-- **Jupyter:** [Notebook Intelligence (NBI)][nbi] is an AI coding assistant and extensible AI framework for Jupyter. It can use GitHub Copilot or AI models from any other LLM Provider. [Learn more][nbi-blog].
+- **RStudio:** Enabling GitHub Copilot in an RStudio session requires configuration changes. The session user has root permissions by default and can make these changes. Restart RStudio to apply them. [Learn more][posit-ghcopilot-guide].
+- **Jupyter:** [Notebook Intelligence (NBI)][nbi] is an AI coding assistant and extensible framework for Jupyter. It can use GitHub Copilot or models from other LLM providers. [Learn more][nbi-blog].
 - **VS Code:** GitHub Copilot **cannot** be installed directly in the browser-based Studios VS Code session. Studios VS Code is built on [OpenVSCode Server][open-vscode-server], which uses the [Open VSX registry][open-vsx] instead of the Microsoft VS Code Marketplace. GitHub does not publish the Copilot extension to Open VSX, and manual VSIX installation is not supported.
 
     To use Copilot with a Studios VS Code session, connect to the session from your local VS Code (with Copilot already installed and licensed) using the Remote SSH extension. See [Studios SSH configuration](../enterprise/studios-ssh) for setup.
