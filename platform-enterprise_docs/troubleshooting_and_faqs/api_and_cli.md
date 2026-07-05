@@ -15,7 +15,7 @@ When working with the Seqera Platform API and tw CLI, you might encounter the fo
 {object} length parameter cannot be greater than 100 (current value={value_sent})
 ```
 
-This error occurs when a request returns more results than the maximum page size of 100.
+This error occurs when you request more results than the maximum page size of 100.
 
 To resolve, paginate the results across multiple API calls with the `max` and `offset` parameters:
 

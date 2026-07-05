@@ -245,7 +245,7 @@ This error indicates a problem with the SSH credentials that authenticate Seqera
   TOWER_SSH_LOGLEVEL=TRACE
   ```
 
-- Check the permissions of the `/home` directory of the user tied to the cluster's SSH credentials. `/home/<user>` should be `chmod 755`, whereas `/home/<user>/ssh` requires `chmod 700`:
+- Check the permissions of the `/home` directory of the user tied to the cluster's SSH credentials. `/home/<user>` should be `chmod 755`, whereas `/home/<user>/.ssh` requires `chmod 700`:
 
   ```
   $ pwd ; ls -ld .

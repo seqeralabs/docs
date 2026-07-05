@@ -20,7 +20,7 @@ GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-
 To resolve:
 
 1. Ensure there's at least one GitHub credential in your workspace's **Credentials** tab.
-2. Ensure the **Access token** field of every GitHub credential is populated with a [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) and **not** a user password. GitHub personal access tokens (PATs) are typically longer than passwords and include a `ghp_` prefix. For example: `ghp*IqIMNOZH6zOwIEB4T9A2g4EHMy8Ji42q4HA`
+2. Ensure the **Access token** field of every GitHub credential is populated with a [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) and **not** a user password. GitHub personal access tokens (PATs) are typically longer than passwords and include a `ghp_` prefix. For example: `ghp_IqIMNOZH6zOwIEB4T9A2g4EHMy8Ji42q4HA`
 3. Confirm that your PAT provides the elevated threshold and that transactions are charged against it:
 
    `curl -H "Authorization: token ghp_LONG_ALPHANUMERIC_PAT" -H "Accept: application/vnd.github.v3+json" https://api.github.com/rate_limit`
