@@ -24,6 +24,14 @@ Data Explorer lists public and private data repositories. Repositories accessibl
 
   Private data repositories accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The permissions required for your [AWS](../compute-envs/aws-batch#required-platform-iam-permissions), [Google Cloud](../compute-envs/google-cloud-batch#iam), [Azure Batch](../compute-envs/azure-batch#storage-account), or Amazon S3-compatible API storage credentials allow full Data Explorer functionality.
 
+  For AWS S3, Data Explorer requires the following minimum IAM permissions:
+
+  - `s3:ListAllMyBuckets` (on `*`) to auto-discover the buckets accessible to your workspace credentials.
+  - `s3:ListBucket`, `s3:GetBucketLocation`, `s3:GetBucketPolicy`, and `s3:GetBucketAcl` on each bucket you want to browse, to resolve its region and access configuration.
+  - `s3:GetObject` and `s3:PutObject` on the objects in each bucket, to download and upload files.
+
+  These are a subset of the S3 permissions documented for the [AWS Batch](../compute-envs/aws-batch#required-platform-iam-permissions), [AWS Cloud](../compute-envs/aws-cloud#required-platform-iam-permissions), and [Amazon EKS](../compute-envs/eks#required-platform-iam-permissions) compute environments. For Azure Blob Storage, see the [Azure Cloud data-links permissions](../compute-envs/azure-cloud#data-links).
+
 - **Configure individual data repositories manually**
 
   Select **Add data repository** from the Data Explorer tab to add a link to an individual repository (or prefix within a cloud bucket). Specify the **Provider**, **Path**, **Name**, **Credentials**, and **Description**, then select **Add**. For public cloud buckets, select **Public** from the **Credentials** drop-down.
@@ -173,11 +181,11 @@ The code snippet is specific to the data repository provider you configured. Onl
 
 ## CORS configurations for cloud providers
 
-Each cloud provider has a specific way to allow Cross-Origin Resource Sharing (CORS) for both uploads and multi-file downloads.
+Each cloud provider has a specific way to allow Cross-Origin Resource Sharing (CORS) for uploads, multi-file downloads, and genome file previews (IGV).
 
 ### Amazon S3 CORS configuration
 
-Apply a [CORS configuration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html) to enable file uploads and folder downloads from the Seqera Platform to and from specific S3 buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these AWS instructions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enabling-cors-examples.html) to apply the following CORS configuration to each bucket you want to enable file uploads and folder downloads for:
+Apply a [CORS configuration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html) to enable file uploads, folder downloads, and genome file previews (IGV) from the Seqera Platform to and from specific S3 buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these AWS instructions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enabling-cors-examples.html) to apply the CORS configuration below to each bucket you wish to enable file uploads, folder downloads, and genome file previews for:
 
 **Seqera Cloud S3 CORS configuration**
 
@@ -213,7 +221,7 @@ Replace `<your-seqera-instance.url>` with your Seqera Enterprise server URL:
 CORS configuration in Azure Blob Storage is set at the account level. This means that CORS rules for your account apply to every blob in the account.
 :::
 
-Apply a [CORS configuration](https://learn.microsoft.com/en-us/rest/api/storageservices/cross-origin-resource-sharing--cors--support-for-the-azure-storage-services#enabling-cors-for-azure-storage) to enable file uploads and folder downloads from the Seqera Platform to and from your Azure Blob Storage account.
+Apply a [CORS configuration](https://learn.microsoft.com/en-us/rest/api/storageservices/cross-origin-resource-sharing--cors--support-for-the-azure-storage-services#enabling-cors-for-azure-storage) to enable file uploads, folder downloads, and genome file previews (IGV) from the Seqera Platform to and from your Azure Blob Storage account.
 
 **Seqera Cloud Azure CORS configuration**
 
@@ -243,7 +251,7 @@ Apply a [CORS configuration](https://learn.microsoft.com/en-us/rest/api/storages
 
 ### Google Cloud Storage CORS configuration
 
-Apply a [CORS configuration](https://cloud.google.com/storage/docs/cross-origin#cors-components) to enable file uploads from Seqera to specific GCS buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these Google instructions](https://cloud.google.com/storage/docs/using-cors#command-line) to apply the following CORS configuration to each bucket you want to enable file uploads for.
+Apply a [CORS configuration](https://cloud.google.com/storage/docs/cross-origin#cors-components) to enable file uploads, folder downloads, and genome file previews (IGV) from Seqera to specific GCS buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these Google instructions](https://cloud.google.com/storage/docs/using-cors#command-line) to apply the CORS configuration below to each bucket you wish to enable file uploads, folder downloads, and genome file previews for.
 
 :::note
 Google Cloud Storage only supports CORS configuration via gcloud CLI.
