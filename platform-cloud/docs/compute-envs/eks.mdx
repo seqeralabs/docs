@@ -123,7 +123,7 @@ If you opted to create a separate S3 bucket only for Nextflow work directories, 
 ```
 
 :::note
-`s3:GetBucketPolicy` and `s3:GetBucketAcl` allow Data Explorer to resolve each bucket's region and access configuration when it lists and connects to data repositories. If you prefer not to enumerate individual actions, the `s3:Get*` and `s3:List*` wildcards shown in the full permissive policy also cover these actions.
+`s3:GetBucketLocation` allows Data Explorer to resolve each bucket's region. `s3:GetBucketPolicy` and `s3:GetBucketAcl` allow it to inspect each bucket's access configuration when it lists and connects to data repositories. If you prefer not to enumerate individual actions, the `s3:Get*` and `s3:List*` wildcards shown in the full permissive policy also cover these actions.
 :::
 
 ## Create the IAM policy
