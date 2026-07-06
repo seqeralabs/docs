@@ -1,6 +1,6 @@
 ---
 title: "Datasets"
-description: "Using datasets in Seqera Platform."
+description: "Use datasets as pipeline inputs in Seqera Platform."
 date created: "2023-04-23"
 last updated: "2026-05-18"
 tags: [datasets, manage datasets, create datasets, add dataset version]
@@ -10,7 +10,7 @@ tags: [datasets, manage datasets, create datasets, add dataset version]
 This feature is only available in organization workspaces.
 :::
 
-Datasets are CSV (comma-separated values) and TSV (tab-separated values) files stored in, or linked to, a workspace. They are used as inputs to pipelines to simplify data management, minimize user data-input errors, and facilitate reproducible workflows.
+Datasets are CSV (comma-separated values) and TSV (tab-separated values) files stored in, or linked to, a workspace. Use them as pipeline inputs to simplify data management, reduce data-entry errors, and support reproducible analyses.
 
 On the datasets screen, you can:
 
@@ -25,13 +25,13 @@ On the datasets screen, you can:
 
 ## Benefits
 
-- Datasets reduce errors that occur due to manual data entry when you launch pipelines.
-- Datasets can be generated automatically in response to events (such as S3 storage new file notifications).
-- Datasets can streamline differential data analysis when using the same pipeline to launch a run for each dataset as it becomes available.
+- Datasets reduce errors from manual data entry when you launch pipelines.
+- Datasets can be generated automatically in response to events (such as new-file notifications from S3 storage).
+- Datasets can simplify differential data analysis when you use the same pipeline to launch a run for each dataset as it becomes available.
 
 ## Format
 
-The most commonly used datasets for Nextflow pipelines are sample sheets, where each row consists of a sample identifier, the location of the sample's files (e.g., FASTQ files), and other sample details. For example, [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq) works with input datasets (sample sheets) that include sample names, FASTQ file locations, and strandedness annotations. The Seqera Community Showcase sample dataset for *nf-core/rnaseq* looks like this:
+The most commonly used datasets for Nextflow pipelines are sample sheets, where each row contains a sample identifier, the location of that sample's files (such as FASTQ files), and other sample details. For example, [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq) works with input datasets (sample sheets) that include sample names, FASTQ file locations, and strandedness annotations. The Seqera Community Showcase sample dataset for *nf-core/rnaseq* looks like this:
 
 **Example rnaseq dataset**
 
@@ -51,13 +51,13 @@ Use [Data Explorer](../data/data-explorer) to browse for cloud storage objects d
 
 ### Automation and pipeline schemas
 
-The combination of datasets, [secrets](../secrets/overview), and [actions](../pipeline-actions/overview) allows you to automate workflows to curate your data and maintain and launch pipelines based on specific events. See [workflow-automation](https://seqera.io/blog/workflow-automation/) for an example of pipeline workflow automation.
+Combine datasets, [secrets](../secrets/overview), and [actions](../pipeline-actions/overview) to automate workflows that curate your data and maintain and launch pipelines in response to specific events. See [workflow-automation](https://seqera.io/blog/workflow-automation/) for an example of pipeline workflow automation.
 
 For your pipeline to use your dataset as input during runtime, information about the dataset and file format must be included in the relevant parameters of your [pipeline schema](../pipeline-schema/overview). The pipeline schema specifies the accepted dataset file type in the `mimetype` attribute (either `text/csv` or `text/tsv`).
 
 ## Dataset file content requirements and validation
 
-Datasets can point to files stored in various locations, such as Amazon S3, GitHub, or Hugging Face. To stage the file paths defined in the dataset, Nextflow requires access to the infrastructure where the files reside, whether on cloud or HPC systems. Add the access keys for data sources that require authentication to your [secrets](../secrets/overview).
+Datasets can point to files stored in Amazon S3, GitHub, Hugging Face, and other locations. To stage the file paths defined in the dataset, Nextflow requires access to the infrastructure where the files reside, whether on cloud or HPC systems. Add the access keys for data sources that require authentication to your [secrets](../secrets/overview).
 
 :::note
 Seqera doesn't validate your dataset file contents. While datasets can contain static file links, you're responsible for maintaining the access to that data.
@@ -67,8 +67,8 @@ Seqera doesn't validate your dataset file contents. While datasets can contain s
 
 All Seqera user roles have access to the datasets feature in organization workspaces. There are two ways to add a dataset:
 
-1. Direct upload: This is the best option if immutability is a requirement but size cannot exceed 10 MB.
-2. Link to an externally hosted file: This is the best option for very large size files but relies on the external hosting service for availability and immutability.
+1. **Direct upload**: Best when you need immutability and the file is under 10 MB.
+2. **Link to an externally hosted file**: Best for large files, but availability and immutability depend on the external hosting service.
 
 ### Direct upload
 
@@ -93,7 +93,7 @@ The size of the uploaded dataset file cannot exceed 10 MB.
 5. Copy and paste the dataset URL into the **Dataset URL** field.
 6. For datasets that use their first row for column names, customize the dataset view using the **Set first row as header** option.
 7. Select **Add**.
-8. The dataset will be displayed with a `Linked` badge for easy identification.
+8. The dataset appears with a `Linked` badge.
 
 ## Manage dataset versions
 
@@ -117,9 +117,9 @@ All subsequent versions of a dataset must be the same format (CSV or TSV) as the
 
 ### View dataset versions
 
-To see all versions of a dataset, use the **Show** drop-down in the **Preview** tab. A preview of the most recent version of the dataset is automatically displayed and the version flagged as **(latest)**, provided it is not disabled.
+To see all versions of a dataset, use the **Show** drop-down in the **Preview** tab. Seqera automatically displays a preview of the most recent version and flags it as **(latest)**, unless it is disabled.
 
-To preview previous dataset versions, change the version from the **Show** drop-down. The **Created by** and **Created on** values will also change.
+To preview previous dataset versions, change the version from the **Show** drop-down. The **Created by** and **Created on** values also change.
 
 To download a dataset version, select the **Download** icon.
 
@@ -127,7 +127,7 @@ To copy a permalink to the dataset, select the **Copy** icon.
 
 ### Disable a dataset version
 
-One or more dataset versions can be **disabled** by selecting the **Disable version** option. Disabling a dataset version means that it cannot be selected as an input to a pipeline run. If the most recent version of a dataset is disabled, the most recent previous non-disabled version is flagged as **(latest)**.
+To disable one or more dataset versions, select **Disable version**. A disabled version cannot be selected as a pipeline input. If you disable the most recent version, the most recent non-disabled version is flagged as **(latest)**.
 
 :::note
 For compliance reasons, datasets or dataset versions cannot be deleted, they can only be **hidden** or **disabled**, respectively.
@@ -144,7 +144,7 @@ To use a dataset with pipelines added to your workspace:
 3. Pick the dataset to use as input to your pipeline.
 
 :::note
-The input field drop-down will only display datasets that match the file type specified in the `nextflow_schema.json` of the chosen pipeline. If the schema specifies `"mimetype": "text/csv"`, no TSV datasets will be available for use with that pipeline, and vice-versa. If multiple dataset versions exist, the pipeline input will always default to the **latest** version.
+The input field drop-down displays only datasets that match the file type specified in the `nextflow_schema.json` of the chosen pipeline. If the schema specifies `"mimetype": "text/csv"`, no TSV datasets are available for use with that pipeline, and vice-versa. If multiple dataset versions exist, the pipeline input always defaults to the **latest** version.
 :::
 
 ## Manage datasets
@@ -154,11 +154,11 @@ The input field drop-down will only display datasets that match the file type sp
 To view a list of all pipeline runs in a workspace that have used a specific dataset input either:
 
 - Select the three dots next to a dataset and select **View runs**.
-- Click the number displayed in the **Runs** column.
+- Select the number in the **Runs** column.
 
 **Toggle dataset visibility**
 
-Select the three dots next to a dataset and select **Mark dataset as hidden** to hide a dataset no longer used in your workspace. To show a hidden dataset, select "Mark dataset as visible" to make it visible. This filter applies to all workspace users.
+Select the three dots next to a dataset and select **Mark dataset as hidden** to hide a dataset no longer used in your workspace. To show a hidden dataset, select **Mark dataset as visible**. This filter applies to all workspace users.
 
 You can toggle between **Visible**, **Hidden**, and **All** datasets in the **Show** drop-down on the main datasets page.
 
