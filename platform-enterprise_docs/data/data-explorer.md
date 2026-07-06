@@ -32,6 +32,14 @@ Data Explorer lists public and private data repositories. Repositories accessibl
 
   Private data repositories accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The permissions required for your [AWS](../compute-envs/aws-batch#iam-user-creation), [Google Cloud](../compute-envs/google-cloud-batch#iam), [Azure Batch](../compute-envs/azure-batch#storage-account), or HPC compute environment credentials allow full Data Explorer functionality.
 
+  For AWS S3, Data Explorer requires the following minimum IAM permissions:
+
+  - `s3:ListAllMyBuckets` (on `*`) to auto-discover the buckets accessible to your workspace credentials.
+  - `s3:ListBucket`, `s3:GetBucketLocation`, `s3:GetBucketPolicy`, and `s3:GetBucketAcl` on each bucket you want to browse, to resolve its region and access configuration.
+  - `s3:GetObject` and `s3:PutObject` on the objects in each bucket, to download and upload files.
+
+  These are a subset of the S3 permissions documented for the [AWS Batch](../compute-envs/aws-batch#required-platform-iam-permissions), [AWS Cloud](../compute-envs/aws-cloud#required-permissions), and [Amazon EKS](../compute-envs/eks#required-platform-iam-permissions) compute environments. For Azure Blob Storage, see the [Azure Cloud data-links permissions](../compute-envs/azure-cloud#data-links).
+
 - **Configure individual data repositories manually**
 
   Select **Add data repository** from the Data Explorer tab to add a link to an individual repository (or prefix within a cloud bucket). Specify the **Provider**, **Path**, **Name**, **Credentials**, and **Description**, then select **Add**. For public cloud buckets, select **Public** from the **Credentials** drop-down.
