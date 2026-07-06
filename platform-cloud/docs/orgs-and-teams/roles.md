@@ -71,6 +71,9 @@ The following table shows which operations are available to the default workspac
 | **data_link:write**            | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **data_link:delete**           | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **data_link:admin**            | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **data_link_object:read**      | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **data_link_object:write**     | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **data_link_object:delete**    | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **dataset:read**               | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
 | **dataset:write**              | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
 | **dataset:delete**             | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
