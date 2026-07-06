@@ -68,6 +68,7 @@
 /platform-enterprise/enterprise/configuration/authentication   /platform-enterprise/enterprise/configuration/authentication/overview   301
 /platform-enterprise/enterprise/install-co-scientist   /platform-enterprise/co-scientist/installation   301
 /platform-enterprise/enterprise/install-seqera-ai      /platform-enterprise/enterprise/install-seqera-coscientist   301
+/platform-enterprise/tutorials/retry-strategy          /platform-enterprise/compute-envs/aws-spot-interruptions     301
 
 # These redirects reverse the existing 301's
 # See https://moz.com/blog/can-you-reverse-a-301-redirect
@@ -109,8 +110,9 @@
 /platform-cloud/administration/overview      /platform-cloud/orgs-and-teams/organizations   301
 
 # Renamed and moved pages
-/platform-cloud/monitoring/tasks   /platform-cloud/monitoring/run-details   301
-/platform-cloud/launch/relaunch    /platform-cloud/launch/cache-resume      301
+/platform-cloud/monitoring/tasks           /platform-cloud/monitoring/run-details                 301
+/platform-cloud/launch/relaunch            /platform-cloud/launch/cache-resume                    301
+/platform-cloud/tutorials/retry-strategy   /platform-cloud/compute-envs/aws-spot-interruptions    301
 
 # These redirects reverse the existing 301's
 /platform-cloud/platform-cloud /platform-cloud 301

@@ -216,7 +216,8 @@ VS Code, RStudio, and Jupyter environments natively integrate with [GitHub Copil
 {/* links */}
 
 [gh-copilot]: https://github.com/features/copilot
-[vscode-blog]: https://code.visualstudio.com/docs/copilot/setup-simplified
+[open-vscode-server]: https://github.com/gitpod-io/openvscode-server
+[open-vsx]: https://open-vsx.org/
 [posit-ghcopilot-guide]: https://docs.posit.co/ide/user/ide/guide/tools/copilot.html
 [nbi]: https://github.com/notebook-intelligence/notebook-intelligence
 [nbi-blog]: https://blog.jupyter.org/introducing-notebook-intelligence-3648c306b91a

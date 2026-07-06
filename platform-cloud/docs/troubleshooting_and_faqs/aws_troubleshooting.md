@@ -80,6 +80,12 @@ process {
 }
 ```
 
+## Spot instances
+
+**Tasks fail with exit code `143`, or no exit code, and the log contains `Host EC2 (instance i-xxxxxxxxx) terminated`**
+
+AWS reclaimed the Spot instance running the task. See [Manage AWS Spot interruptions](../compute-envs/aws-spot-interruptions) for retry and fallback strategies.
+
 ## Storage
 
 #### Write to S3 buckets that enforce AES256 server-side encryption
