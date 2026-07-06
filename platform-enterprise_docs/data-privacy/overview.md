@@ -1,60 +1,60 @@
 ---
 title: "Data privacy"
-description: "Overview of the data collected by Seqera Platform"
+description: "The data Seqera Platform collects and stores"
 date created: "2023-04-21"
 last updated: "2026-07-06"
 tags: [data, privacy]
 ---
 
-### Your data
+Seqera Platform orchestrates pipeline execution in your own infrastructure and stores only a limited set of metadata about your runs and tasks.
 
-Your data stays strictly within **your** infrastructure.
+## Your data
 
-When you launch a workflow through Seqera Platform, you need to connect your infrastructure (HPC/VMs/K8s) by creating the appropriate credentials and compute environment in a workspace. The application then uses this configuration to trigger a Nextflow workflow within your infrastructure similar to what is done via the Nextflow CLI. The application doesn't manipulate any data itself and no data is transferred to the infrastructure where it's running.
+Your data stays within your infrastructure.
 
-It may be possible to access some data within your storage from the application interface - for example, viewing logs and reports generated in a pipeline run. However, this data is never stored within the platform's infrastructure.
+To launch a pipeline with Seqera Platform, you create credentials and a compute environment in a workspace to connect your own infrastructure, such as high-performance computing (HPC) clusters, virtual machines (VMs), or Kubernetes. Seqera Platform uses this configuration to run the pipeline in your infrastructure, the same way the Nextflow CLI does. Seqera Platform does not manipulate your data, and your data is not transferred to the infrastructure where Seqera Platform runs.
 
-### User deletion
+You can view some data in your storage from the Seqera Platform interface, such as logs and reports generated in a pipeline run. This data is never stored in Seqera Platform infrastructure.
 
-When a Platform user account is deleted, the following happens:
+## User deletion
 
-- The user account email is changed to `none@your-domain`. Any runs and run metadata associated with the user account will then display that email address.
+When a Seqera Platform user account is deleted:
+
+- The user account email is changed to `none@your-domain`. Runs and run metadata associated with the user account display that email address.
 - The username is changed to `username-<timestamp of deletion>`.
 - All of the user's organization, workspace, and team memberships are deleted.
 - All of the user's access tokens are deleted from their personal workspace.
 
-For Enterprise installations, in addition to the above:
+Enterprise installations also delete the following from the user's personal workspace:
 
-- All the user's credentials are deleted from their personal workspace.
-- All the user's compute environments are deleted from their personal workspace.
-- All actions created by the user are deleted from their personal workspace.
+- All credentials
+- All compute environments
+- All actions created by the user
 
-### Metadata stored by Seqera Platform
+## Metadata stored by Seqera Platform
 
-Workflow execution metadata is sent by the Nextflow runtime to the application when:
+The Nextflow runtime sends workflow execution metadata to Seqera Platform when:
 
-- When you launch a workflow with the application.
-  - When you use the `-with-tower` option at the command line.
-- When `tower.enabled` is specified in the Nextflow config.
+- You launch a pipeline from Seqera Platform.
+- You run a pipeline with the `-with-tower` command-line option.
+- You set `tower.enabled` in your Nextflow configuration.
 
-The following sections describe the data structure and metadata fields collected by Seqera Platform.
+### Workflow metadata
 
-#### Workflow metadata
-
-The following metadata fields are collected and stored by the application backend during a workflow execution:
+Seqera Platform collects and stores the following metadata fields during a workflow execution:
 
 | Name                        | Description                                                                                                                                 |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | `command_line`              | The command line used to launch the workflow execution                                                                                      |
 | `commit_id`                 | The workflow project commit ID at the time of the execution                                                                                 |
 | `complete`                  | The workflow execution completion timestamp                                                                                                 |
-| `config_files`              | The Nextflow config file paths(s) involved in the workflow execution                                                                        |
-| `config_text`               | The Nextflow config content used for the workflow execution. Note: secrets, such as, AWS keys are stripped and _not_ included in this field |
+| `config_files`              | The Nextflow config file path(s) involved in the workflow execution                                                                         |
+| `config_text`               | The Nextflow config content used for the workflow execution. Note: secrets, such as AWS keys, are stripped and _not_ included in this field |
 | `container`                 | The container image name(s) used for the pipeline execution                                                                                 |
 | `container_engine`          | The container engine name used for the pipeline execution                                                                                   |
 | `duration`                  | The workflow execution overall duration (wall time)                                                                                         |
-| `error_message`             | The error message reported in the case of Nextflow execution failure                                                                        |
-| `error_report`              | The extended error message reported in case of workflow execution error                                                                     |
+| `error_message`             | The error message reported when the Nextflow execution fails                                                                              |
+| `error_report`              | The extended error message reported when the workflow execution fails                                                                       |
 | `exit_status`               | The workflow execution (POSIX) exit code                                                                                                    |
 | `home_dir`                  | The launching user home directory path                                                                                                      |
 | `launch_dir`                | The workflow launching directory path                                                                                                       |
@@ -104,7 +104,9 @@ The following metadata fields are collected and stored by the application backen
 | `user_name`                 | The POSIX user name that launched the workflow execution                                                                                    |
 | `work_dir`                  | The workflow execution scratch directory path                                                                                               |
 
-#### Task metadata
+### Task metadata
+
+Seqera Platform collects and stores the following metadata fields for each task:
 
 | Name           | Description                                                                                    |
 | -------------- | ---------------------------------------------------------------------------------------------- |
@@ -115,7 +117,7 @@ The following metadata fields are collected and stored by the application backen
 | `cost`         | Estimated task compute cost                                                                    |
 | `cpus`         | Number of CPUs requested                                                                       |
 | `disk`         | Amount of disk storage requested                                                               |
-| `duration`     | Amount of time for the task completion                                                         |
+| `duration`     | Amount of time for the task to complete                                                        |
 | `env`          | Task execution environment variables                                                           |
 | `error_action` | Action applied on task failure                                                                 |
 | `executor`     | Executor requested for the task execution                                                      |
@@ -131,25 +133,25 @@ The following metadata fields are collected and stored by the application backen
 | `peak_rss`     | Peak of real memory during the task execution                                                  |
 | `peak_vmem`    | Peak of virtual memory during the task execution                                               |
 | `pmem`         | Percentage of memory used to compute the task                                                  |
-| `price_model`  | The cloud price model applied for the task                                                     |
-| `process`      | The Nextflow process name                                                                      |
-| `queue`        | The compute queue name requested                                                               |
-| `rchar`        | Number of bytes the process read, using any read-like system call from files, pipes, tty, etc. |
+| `price_model`  | Cloud price model applied for the task                                                         |
+| `process`      | Nextflow process name                                                                          |
+| `queue`        | Compute queue name requested                                                                   |
+| `rchar`        | Number of bytes the process read, using any read-like system call from files, pipes, and terminals |
 | `read_bytes`   | Number of bytes the process directly read from disk                                            |
-| `realtime`     | The time required to compute the task                                                          |
+| `realtime`     | Time required to compute the task                                                              |
 | `rss`          | Real memory (resident set) size of the process                                                 |
 | `scratch`      | Flag reporting the task was executed in a local scratch path                                   |
-| `script`       | The task command script                                                                        |
+| `script`       | Task command script                                                                            |
 | `start`        | Task execution start timestamp                                                                 |
-| `status`       | The task execution status                                                                      |
+| `status`       | Task execution status                                                                          |
 | `submit`       | Task submission timestamp                                                                      |
 | `syscr`        | Number of read-like system call invocations that the process performed                         |
 | `syscw`        | Number of write-like system call invocations that the process performed                        |
-| `tag`          | Nextflow tag associated to the task execution                                                  |
+| `tag`          | Nextflow tag associated with the task execution                                                 |
 | `task_id`      | Nextflow task ID                                                                               |
 | `time`         | Task execution timeout requested                                                               |
 | `vmem`         | Virtual memory size used by the task execution                                                 |
 | `vol_ctxt`     | Number of voluntary context switches                                                           |
 | `wchar`        | Number of bytes the process wrote, using any write-like system call                            |
 | `workdir`      | Task execution work directory                                                                  |
-| `write_bytes`  | Number of bytes the process written to disk                                                    |
+| `write_bytes`  | Number of bytes the process wrote to disk                                                      |
