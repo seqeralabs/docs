@@ -208,7 +208,7 @@ The following permissions are required to remove resources created by Seqera whe
 
 #### Optional permissions
 
-The following permissions enable Seqera to populate values for drop-down fields. If missing, the input fields will not be auto-populated but can still be manually entered. Though optional, these permissions are recommended for a smoother and less error-prone user experience:
+The following permissions enable Seqera to populate values for drop-down fields. If missing, the input fields will not be auto-populated but can still be manually entered. Though optional, these permissions are recommended for a smoother and less error-prone user experience. The `s3:ListAllMyBuckets` action also allows Data Explorer to auto-discover the data repositories accessible to your workspace credentials:
 
 ```json
 {
