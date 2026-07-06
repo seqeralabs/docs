@@ -130,7 +130,7 @@ To migrate a Studio to a more recent container version and Seqera Connect:
 
 1. Select the Studio to migrate.
 1. Select **Add as new**. By default this selects the latest session checkpoint.
-1. In the **General config** section, change the image template selection in the dropdown list to use the `latest` tagged version of the same interactive environment.
+1. In the **General config** section, change the image template selection in the drop-down list to use the `latest` tagged version of the same interactive environment.
 1. For the **Summary** section, ensure that the specified configuration is correct.
 1. Immediately start the new, duplicated Studio session by selecting **Add and start**.
 1. **Connect** to the new running Studio session.
@@ -142,7 +142,7 @@ To migrate a Studio to a more recent container version and Seqera Connect:
    1. Uninstall any packages related to the errors:
       1. JupyterLab: Execute `!pip uninstall <packagename>` or `apt remove <packagename>` to uninstall system-level packages.
       1. R-IDE: Execute `uninstall.packages("<packagename>")` to uninstall R packages or `apt remove <packagename>` to uninstall system-level packages.
-      1. Visual Studio Code: Select the **Manage** gear button at the right of an extension entry and then choose **Uninstall** from the dropdown menu.
+      1. Visual Studio Code: Select the **Manage** gear button at the right of an extension entry and then choose **Uninstall** from the drop-down.
       1. Xpra: Use `apt remove <packagename>` to uninstall system-level packages.
    1. **Stop** the running Studio session. A new checkpoint is created.
 1. Repeat Step 1 **Add as new** using the new, most recent created checkpoint from the steps above.
@@ -177,7 +177,7 @@ You need the following:
 
 1. From the **Studios** tab, open the details for the Studio you want to migrate.
 1. Select **Edit**.
-1. In the **Compute environment** dropdown, select the new compute environment.
+1. In the **Compute environment** drop-down, select the new compute environment.
 1. Review the resource labels on the form (see [Resource label changes](#resource-labels-on-migration)).
 1. Save your changes.
 1. Start the Studio. The new session restores from the latest checkpoint stored in the shared `workDir`.
@@ -186,7 +186,7 @@ The **Compute environment** field is editable only on the **Edit** screen. The *
 
 #### Compatible compute environments
 
-The dropdown lists only compute environments compatible with the Studio's current one. A compute environment is compatible when it:
+The drop-down lists only compute environments compatible with the Studio's current one. A compute environment is compatible when it:
 
 - Uses the same `workDir` as the Studio's current compute environment.
 - Is in the `AVAILABLE` status.
@@ -239,6 +239,97 @@ Sessions have the following possible statuses:
 :::note
 There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
 :::
+
+## Connect to a Studio via SSH (public preview)
+
+:::info[**Prerequisites**]
+- SSH access enabled for your workspace
+- Your SSH public key added to your Seqera Platform user profile
+- **SSH Connection** toggle enabled when adding the Studio
+- The Studio is in a **running** state.
+- **Connect client**: Version 0.10.0 or later
+:::
+
+Direct SSH connections to running Studio containers support standard SSH clients, terminal access, and [VS Code Remote SSH](https://code.visualstudio.com/docs/remote/ssh). JupyterLab, R-IDE, VS Code, and Xpra container templates are supported.
+
+:::note
+If you didn't enable SSH when you initially added your Studio, stop and enable **SSH Connection** before restarting the Studio.
+:::
+
+### Terminal access
+
+Connect to a Studio using standard SSH:
+
+```bash
+ssh <username>@<studio-session-id>@<connect-domain> -p 2222
+```
+
+**Example:**
+
+```bash
+ssh alice@a01ac8894@connect.example.com -p 2222
+```
+
+Where:
+- `<username>`: Your Seqera Platform username
+- `<studio-session-id>`: The Studio session ID (visible in the Studios list)
+- `<connect-domain>`: Your connect proxy domain
+- Port: `2222` (default SSH proxy port)
+
+The session ID is displayed in the Studio details page and the Studios list.
+
+### VS Code Remote SSH
+
+Connect to a Studio using VS Code Remote SSH:
+
+1. Install the [Remote - SSH extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) in VS Code.
+
+2. **Required:** Disable local server mode in your VS Code settings:
+
+   - Open VS Code Settings (Code > Preferences > Settings or Cmd+,)
+   - Search for `remote.SSH.useLocalServer`
+   - Set to `false`
+
+   Alternatively, add this to your `settings.json`:
+
+   ```json
+   {
+     "remote.SSH.useLocalServer": false,
+     "remote.SSH.enableRemoteCommand": true,
+     "remote.SSH.useLocalServer": false,
+     "remote.SSH.preconnect": ""
+   }
+   ```
+
+   :::warning
+   VS Code's local server mode (SSH multiplexing over SOCKS) is not supported. Connections will fail if this setting is enabled.
+   :::
+
+3. Connect to the Studio:
+
+   - Open the Command Palette (Cmd+Shift+P or Ctrl+Shift+P)
+   - Run **Remote-SSH: Connect to Host**
+   - Select your configured host or enter the SSH connection string directly
+   - VS Code opens a new window connected to your Studio
+
+Once connected, you can:
+
+- Access the Studio filesystem
+- Open folders and files
+- Use the integrated terminal
+- Install VS Code extensions in the remote environment
+- Debug code running in the Studio
+- Install packages
+
+### SSH authentication
+
+SSH connections use public key authentication:
+
+1. Platform validates your credentials and workspace permissions.
+2. Your SSH client uses your private key for authentication.
+3. The connection is encrypted end-to-end.
+
+For troubleshooting SSH connection issues, see [Studios troubleshooting](../troubleshooting_and_faqs/studios_troubleshooting#ssh-connections-public-preview).
 
 ## Studio session data-links
 

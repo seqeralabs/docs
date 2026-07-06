@@ -14,11 +14,17 @@ In your interactive analysis environment, open a new terminal and type `ls -la /
 
 ## Enabling AI coding assistants in Studios
 
-VS Code, RStudio, and Jupyter environments natively integrate with [GitHub Copilot][gh-copilot]. Enabling it requires a GitHub Account and an active Copilot subscription.
+RStudio and Jupyter environments integrate with [GitHub Copilot][gh-copilot]. Enabling it requires a GitHub account and an active Copilot subscription.
 
-- **VS Code:** To enable GitHub Copilot in your VS Code session, install the extension and then sign in with your GitHub account. [Learn more][vscode-blog].
-- **RStudio:** To enable GitHub Copilot in your RStudio session requires RStudio configuration changes. By default, the Studio session user has root permissions, so configuration changes are possible. You will need to restart the RStudio once the required changes have been made. [Learn more][posit-ghcopilot-guide].
-- **Jupyter:** [Notebook Intelligence (NBI)][nbi] is an AI coding assistant and extensible AI framework for Jupyter. It can use GitHub Copilot or AI models from any other LLM Provider. [Learn more][nbi-blog].
+- **RStudio:** Enabling GitHub Copilot in an RStudio session requires configuration changes. The session user has root permissions by default and can make these changes. Restart RStudio to apply them. [Learn more][posit-ghcopilot-guide].
+- **Jupyter:** [Notebook Intelligence (NBI)][nbi] is an AI coding assistant and extensible framework for Jupyter. It can use GitHub Copilot or models from other LLM providers. [Learn more][nbi-blog].
+- **VS Code:** GitHub Copilot **cannot** be installed directly in the browser-based Studios VS Code session. Studios VS Code is built on [OpenVSCode Server][open-vscode-server], which uses the [Open VSX registry][open-vsx] instead of the Microsoft VS Code Marketplace. GitHub does not publish the Copilot extension to Open VSX, and manual VSIX installation is not supported.
+
+    To use Copilot with a Studios VS Code session, connect to the session from your local VS Code (with Copilot already installed and licensed) using the Remote SSH extension. See [Studios SSH configuration](../enterprise/studios-ssh) for setup.
+
+    :::note
+    SSH access requires admin enablement and Platform 25.3.3 or later with Connect server and proxy 0.10.0 or later.
+    :::
 
 ## Session size limited by compute environment advanced options: Head job CPUs and Head job memory
 
@@ -97,9 +103,9 @@ This is an experimental feature and may cause consistency issues in the Fusion n
 
 Any process that is manually started in a running Studio session (e.g. `eval $(ssh-agent)`) will not be automatically restarted on a Studio restart. This is because any user initiated daemon process is not managed by the Connect client and therefore the Studio session does not manage it. To add extra processes that are automatically started at each Studio restart would require a user-defined startup script or an integrated supervisor (e.g. `s6`, `s6-overlay`, `supervisord`), both of which are currently unsupported.
 
-## New compute environment doesn't appear in the dropdown when migrating a Studio
+## New compute environment doesn't appear in the drop-down when migrating a Studio
 
-When [migrating a Studio to a different compute environment](../studios/managing#migrate-a-studio-between-compute-environments), the **Compute environment** dropdown filters out any compute environment that isn't compatible with the Studio's current one. Confirm the new compute environment is in the `AVAILABLE` status and uses the same `workDir` as the Studio's current compute environment.
+When [migrating a Studio to a different compute environment](../studios/managing#migrate-a-studio-between-compute-environments), the **Compute environment** drop-down filters out any compute environment that isn't compatible with the Studio's current one. Confirm the new compute environment is in the `AVAILABLE` status and uses the same `workDir` as the Studio's current compute environment.
 
 ## Studio fails to start after switching compute environments
 
@@ -276,7 +282,8 @@ Debug logs include SSH handshake details, authentication attempts, channel lifec
 {/* links */}
 
 [gh-copilot]: https://github.com/features/copilot
-[vscode-blog]: https://code.visualstudio.com/docs/copilot/setup-simplified
+[open-vscode-server]: https://github.com/gitpod-io/openvscode-server
+[open-vsx]: https://open-vsx.org/
 [posit-ghcopilot-guide]: https://docs.posit.co/ide/user/ide/guide/tools/copilot.html
 [nbi]: https://github.com/notebook-intelligence/notebook-intelligence
 [nbi-blog]: https://blog.jupyter.org/introducing-notebook-intelligence-3648c306b91a

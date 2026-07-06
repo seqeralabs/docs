@@ -62,8 +62,8 @@ Most Showcase pipeline parameters are prefilled. Specify the following fields to
 
 There are three ways to enter **Run parameters** prior to launch:
 
-- The **Input form view** displays form fields to enter text, select attributes from dropdowns, and browse input and output locations with [Data Explorer](../../data/data-explorer).
-- The **Config view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** dropdown.
+- The **Input form view** displays form fields to enter text, select attributes from drop-downs, and browse input and output locations with [Data Explorer](../../data/data-explorer).
+- The **Config view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** drop-down.
 - **Upload params file** accepts a JSON or YAML file with run parameters.
 
 #### input
@@ -91,7 +91,7 @@ For the `outdir` parameter in pipeline runs in your own workspace, select **Brow
 
 #### Pipeline-specific parameters
 
-Modify other parameters to customize the pipeline execution through the parameters form. For example, under **Read trimming options**, change the `trimmer` to select `fastp` in the dropdown menu instead of `trimgalore`.
+Modify other parameters to customize the pipeline execution through the parameters form. For example, under **Read trimming options**, change the `trimmer` to select `fastp` in the drop-down instead of `trimgalore`.
 
 ![Read trimming options](./assets/trimmer-settings.png)
 

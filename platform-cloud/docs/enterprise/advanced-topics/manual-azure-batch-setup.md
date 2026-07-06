@@ -72,7 +72,7 @@ First, add the Azure Batch account credentials to Seqera Platform:
 1. In the Azure portal, go to the Batch account you created and note the Batch account name and region.
 1. Go to the **Keys** tab to find the primary access keys for the Batch account and Storage account.
 1. In your Seqera Platform workspace, go to the **Credentials** tab and select **Add credentials**.
-1. Enter a credential name such as `azure-keys` and select Azure from the **Provider** dropdown.
+1. Enter a credential name such as `azure-keys` and select Azure from the **Provider** drop-down.
 1. Enter the Batch account name and key, and Storage account name and key.
 1. Select **Create** to save the credentials.
 
@@ -82,7 +82,7 @@ Next, create a compute environment with Batch Forge:
 
 1. Go to the **Compute Environments** tab and select **Add Compute Environment**.
 1. Enter a name such as `1-azure-batch-forge`.
-1. Select Azure Batch from the **Provider** dropdown.
+1. Select Azure Batch from the **Provider** drop-down.
 1. Select your `azure-keys` credentials.
 1. Select the **Region** of your Batch account.
 1. Select the `az://work` container in your Storage account.
@@ -95,7 +95,7 @@ Add the `nextflow-hello` pipeline to your workspace:
 
 [Add a pipeline][add-pipeline] from your workspace Launchpad with the following settings:
 
-- Select your Azure Batch compute environment from the dropdown.
+- Select your Azure Batch compute environment from the drop-down.
 - For **Pipeline to launch**, enter `https://github.com/nextflow-io/hello`.
 - For **Work directory**, enter a subdirectory in the `az://work` container in your Storage account.
 
