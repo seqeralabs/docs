@@ -2,7 +2,7 @@
 title: "Datasets"
 description: "Using datasets in Seqera Platform."
 date created: "2023-04-23"
-last updated: "2026-06-29"
+last updated: "2026-07-06"
 tags: [datasets]
 ---
 

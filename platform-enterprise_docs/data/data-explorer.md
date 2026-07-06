@@ -2,7 +2,7 @@
 title: "Data Explorer"
 description: "Using Seqera Data Explorer."
 date created: "2025-05-08"
-last updated: "2026-06-29"
+last updated: "2026-07-06"
 tags: [data, explorer]
 ---
 

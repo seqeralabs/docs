@@ -2,7 +2,7 @@
 title: "Multi-organization routing"
 description: "How IdP delegation resolves users to organizations in single-organization and multi-organization Enterprise installations."
 date created: "2026-05-12"
-last updated: "2026-06-29"
+last updated: "2026-07-06"
 tags: [sso, idp delegation, enterprise, administration]
 ---
 

@@ -2,7 +2,7 @@
 title: "Test deployment"
 description: Test your Seqera Platform Enterprise deployment after installation
 date created: "2024-02-12"
-last updated: "2026-06-29"
+last updated: "2026-07-06"
 tags: [testing, deployment]
 ---
 

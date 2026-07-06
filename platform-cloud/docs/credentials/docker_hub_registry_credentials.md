@@ -2,7 +2,7 @@
 title: "Docker Hub credentials"
 description: "Create Docker Hub credentials in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2026-06-29"
+last updated: "2026-07-06"
 tags: [docker, registry, credentials]
 ---
 

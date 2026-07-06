@@ -2,7 +2,7 @@
 title: "Studios"
 description: Install Studios for Seqera Platform Enterprise
 date created: "2023-04-12"
-last updated: "2026-06-29"
+last updated: "2026-07-06"
 tags: [studios, installation, deployment]
 ---
 

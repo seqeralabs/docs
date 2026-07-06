@@ -2,7 +2,7 @@
 title: "Single sign-on (SSO)"
 description: "Configure single sign-on for a Seqera Platform Cloud organization."
 date created: "2026-03-10"
-last updated: "2026-06-29"
+last updated: "2026-07-06"
 tags: [sso, authentication, organization settings, cloud pro]
 ---
 

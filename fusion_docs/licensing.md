@@ -2,7 +2,7 @@
 title: Fusion licensing
 description: "Understand how Fusion licensing works"
 date created: "2025-02-20"
-last updated: "2026-06-29"
+last updated: "2026-07-06"
 tags: [fusion, storage, compute, file system, license, quotas]
 ---
 

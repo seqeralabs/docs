@@ -2,7 +2,7 @@
 title: "Git revision management"
 description: "Introduction to pipeline repository revision management in Seqera Platform."
 date created: "2025-11-14"
-last updated: "2026-06-29"
+last updated: "2026-07-06"
 tags: [pipelines, versioning, nextflow, parameters]
 ---
 

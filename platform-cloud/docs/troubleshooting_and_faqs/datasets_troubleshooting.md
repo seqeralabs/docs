@@ -2,7 +2,7 @@
 title: "Datasets"
 description: "Dataset troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-06-29"
+last updated: "2026-07-06"
 tags: [faq, help, database, datasets]
 ---
 

@@ -2,7 +2,7 @@
 title: "Container image templates"
 description: "Use container images with Studios."
 date created: "2025-10-16"
-last updated: "2026-06-29"
+last updated: "2026-07-06"
 tags: [containers, container images, sessions, studios]
 ---
 

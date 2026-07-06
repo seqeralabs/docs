@@ -2,7 +2,7 @@
 title: "Seqera-provided container template"
 description: "Add a Studio with a Seqera-provided container template in Seqera Platform."
 date created: "2025-09-04"
-last updated: "2026-06-29"
+last updated: "2026-07-06"
 tags: [template, seqera template, seqera template studio, sessions, studios]
 ---
 
