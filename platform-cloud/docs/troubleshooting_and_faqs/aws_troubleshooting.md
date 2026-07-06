@@ -5,54 +5,66 @@ date: "26 August 2024"
 tags: [faq, help, aws, troubleshooting]
 ---
 
-### Elastic Block Store (EBS)
+When running pipelines on AWS, you might encounter the following issues.
 
-**EBS Autoscaling: EBS volumes remain active after job completion**
+## Elastic Block Store (EBS)
 
-The EBS autoscaling solution relies on an AWS-provided script which runs on each container host. This script performs AWS EC2 API requests to delete EBS volumes when the jobs using those volumes have been completed.
+#### Volumes remain active after job completion
 
-When running large Batch clusters (hundreds of compute nodes or more), EC2 API rate limits may cause the deletion of unattached EBS volumes to fail. Volumes that remain active after Nextflow jobs have been completed will incur additional costs and should therefore be manually deleted. You can monitor your AWS account for any orphaned EBS volumes via the EC2 console or with a Lambda function. See [Controlling your AWS costs by deleting unused Amazon EBS volumes](https://aws.amazon.com/blogs/mt/controlling-your-aws-costs-by-deleting-unused-amazon-ebs-volumes/) for more information.
+On large AWS Batch clusters (hundreds of compute nodes or more), EC2 API rate limits can cause the automatic deletion of unattached EBS volumes to fail. Orphaned volumes that remain after jobs complete incur additional costs.
 
-### Elastic Container Service (ECS)
+EBS autoscaling relies on an AWS-provided script on each container host that calls the EC2 API to delete each volume when its job finishes. When deletion fails, find orphaned volumes in the EC2 console or with a Lambda function and delete them manually. See [Controlling your AWS costs by deleting unused Amazon EBS volumes](https://aws.amazon.com/blogs/mt/controlling-your-aws-costs-by-deleting-unused-amazon-ebs-volumes/).
 
-**ECS Agent Docker image pull frequency**
+## Elastic Container Service (ECS)
 
-As part of the AWS Batch creation process, Batch Forge will set ECS Agent parameters in the EC2 launch template that is created for your cluster's EC2 instances:
+#### ECS agent Docker image pull frequency
 
-- For clients using Seqera Enterprise v22.01 or later:
-  - Any AWS Batch environment created by Batch Forge will set the ECS Agent's `ECS_IMAGE_PULL_BEHAVIOUR` to `once`.
-- For clients using Seqera Enterprise v21.12 or earlier:
-  - Any AWS Batch environment created by Batch Forge will set the ECS Agent's `ECS_IMAGE_PULL_BEHAVIOUR` to `default`.
+When Batch Forge creates an AWS Batch environment, it sets the ECS agent's `ECS_IMAGE_PULL_BEHAVIOUR` in the EC2 launch template:
 
-See the [AWS ECS documentation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) for an in-depth explanation of this difference.
+- Seqera Enterprise v22.01 or later: `once`
+- Seqera Enterprise v21.12 or earlier: `default`
+
+See the [AWS ECS documentation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) for the difference between these values.
 
 :::note
 This behavior can't be changed within Seqera Platform.
 :::
 
-### Container errors
+## Container errors
 
-**CannotPullContainerError: Error response from daemon: error parsing HTTP 429 response body: invalid character 'T' looking for beginning of value: "Too Many Requests (HAP429)"**
+#### `CannotPullContainerError … "Too Many Requests (HAP429)"`
 
-Docker Hub imposes a rate limit of 100 anonymous pulls per 6 hours. Add the following to your launch template to avoid this issue:
+```
+CannotPullContainerError: Error response from daemon: error parsing HTTP 429 response body: invalid character 'T' looking for beginning of value: "Too Many Requests (HAP429)"
+```
 
-`echo ECS_IMAGE_PULL_BEHAVIOR=once >> /etc/ecs/ecs.config`
+This error occurs when you exceed Docker Hub's rate limit of 100 anonymous pulls per 6 hours.
 
-**CannotInspectContainerError**
+To resolve, add the following to your launch template:
 
-If your run fails with an _Essential container in task exited - CannotInspectContainerError: Could not transition to inspecting; timed out after waiting 30s_ error, try the following:
+```bash
+echo ECS_IMAGE_PULL_BEHAVIOR=once >> /etc/ecs/ecs.config
+```
 
-1. Upgrade your [ECS Agent](https://github.com/aws/amazon-ecs-agent/releases) to [1.54.1](https://github.com/aws/amazon-ecs-agent/pull/2940) or newer. See [Check for ECS Container Instance Agent Version](https://www.trendmicro.com/cloudoneconformity/knowledge-base/aws/ECS/latest-agent-version.html) for instructions to check your ECS Agent version.
-2. Provision more storage for your EC2 instance (preferably via EBS-autoscaling to ensure scalability).
-3. If the error is accompanied by _command exit status: 123_ and a _permissions denied_ error tied to a system command, ensure that the ECS Agent binary is set to be executable (`chmod u+x`).
+#### `CannotInspectContainerError`
+
+```
+Essential container in task exited - CannotInspectContainerError: Could not transition to inspecting; timed out after waiting 30s
+```
+
+To resolve:
+
+1. Upgrade your [ECS agent](https://github.com/aws/amazon-ecs-agent/releases) to [1.54.1](https://github.com/aws/amazon-ecs-agent/pull/2940) or later. See [Check for ECS Container Instance Agent Version](https://www.trendmicro.com/cloudoneconformity/knowledge-base/aws/ECS/latest-agent-version.html) to check your version.
+2. Provision more storage for your EC2 instance, preferably with EBS autoscaling for scalability.
+3. If the error includes `command exit status: 123` and a permissions-denied error on a system command, make the ECS agent binary executable (`chmod u+x`).
 
 ## Queues
 
-**Multiple AWS Batch queues for a single job execution**
+#### Distribute tasks across multiple AWS Batch queues
 
-Although you can only create/identify a single work queue during the definition of your AWS Batch compute environment in Seqera, you can spread tasks across multiple queues when your job is sent to Batch for execution via your pipeline configuration. Add the following snippet to your `nextflow.config`, or the **Advanced Features > Nextflow config file** field of the Seqera Launch UI, for processes to be distributed across two AWS Batch queues, depending on the assigned name.
+You can identify only a single work queue when you define an AWS Batch compute environment, but you can distribute tasks across multiple queues in your pipeline configuration. Add a snippet like the following to your `nextflow.config`, or the **Advanced options > Nextflow config file** field of the launch form, to distribute processes across two queues by name:
 
-```bash
+```groovy
 # nextflow.config
 
 process {
@@ -76,17 +88,17 @@ AWS reclaimed the Spot instance running the task. See [Manage AWS Spot interrupt
 
 ## Storage
 
-**Enable pipelines to write to S3 buckets that enforces AES256 server-side encryption**
+#### Write to S3 buckets that enforce AES256 server-side encryption
 
 :::note
-This solution requires Seqera v21.10.4 and Nextflow [22.04.0](https://github.com/nextflow-io/nextflow/releases/tag/v22.04.0) or later.
+Requires Seqera v21.10.4 and Nextflow [22.04.0](https://github.com/nextflow-io/nextflow/releases/tag/v22.04.0) or later.
 :::
 
-If you need to save files to an S3 bucket with a policy that [enforces AES256 server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html), the [nf-launcher](https://quay.io/repository/seqeralabs/nf-launcher?tab=tags) script which invokes the Nextflow head job requires additional configuration:
+To save files to an S3 bucket with a policy that [enforces AES256 server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html), configure the [nf-launcher](https://quay.io/repository/seqeralabs/nf-launcher?tab=tags) script that invokes the Nextflow head job:
 
-1. Add the following configuration to the **Advanced options > Nextflow config file** textbox of the **Launch Pipeline** screen:
+1. Add the following to the **Advanced options > Nextflow config file** field of the **Launch Pipeline** screen:
 
-   ```
+   ```groovy
    aws {
      client {
        storageEncryption = 'AES256'
@@ -94,7 +106,7 @@ If you need to save files to an S3 bucket with a policy that [enforces AES256 se
    }
    ```
 
-2. Add the following configuration to the **Advanced options > Pre-run script** textbox of the **Launch Pipeline** screen:
+2. Add the following to the **Advanced options > Pre-run script** field:
 
    ```bash
    export TOWER_AWS_SSE=AES256
