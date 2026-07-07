@@ -65,6 +65,8 @@
 /platform-enterprise/data/data-lineageplatform-enterprise/launch/advanced   /platform-enterprise/data/data-lineage   301
 
 # Renamed and moved pages
+/platform-enterprise/enterprise                                /platform-enterprise/enterprise/overview   301
+/platform-enterprise/enterprise/release_notes/*                /changelog/tags/seqera-enterprise          301
 /platform-enterprise/enterprise/configuration/authentication   /platform-enterprise/enterprise/configuration/authentication/overview   301
 /platform-enterprise/enterprise/install-co-scientist   /platform-enterprise/co-scientist/installation   301
 /platform-enterprise/enterprise/install-seqera-ai      /platform-enterprise/enterprise/install-seqera-coscientist   301
@@ -110,6 +112,8 @@
 /platform-cloud/administration/overview      /platform-cloud/orgs-and-teams/organizations   301
 
 # Renamed and moved pages
+/platform-cloud/monitoring/aggregate_stats    /platform-cloud/monitoring/dashboard                301
+/platform-cloud/credentials/git_credentials   /platform-cloud/git/overview                        301
 /platform-cloud/monitoring/tasks           /platform-cloud/monitoring/run-details                 301
 /platform-cloud/launch/relaunch            /platform-cloud/launch/cache-resume                    301
 /platform-cloud/tutorials/retry-strategy   /platform-cloud/compute-envs/aws-spot-interruptions    301
@@ -166,6 +170,13 @@
 /platform/*                       /platform-cloud/:splat
 
 # ════════════════════════════════════════════════════════════════
+# Fusion
+# ════════════════════════════════════════════════════════════════
+
+# Legacy standalone troubleshooting page replaced by the troubleshooting/ section
+/fusion/troubleshooting   /fusion/troubleshooting/general   301
+
+# ════════════════════════════════════════════════════════════════
 # Wave
 # ════════════════════════════════════════════════════════════════
 
@@ -196,13 +207,21 @@
 # netlify.toml, which would otherwise rewrite them to a 404 on the docs site.
 /nextflow/getstarted   /nextflow/install      301
 /nextflow/basic        /nextflow/overview     301
+/nextflow/dsl1         /nextflow/workflow     301
 /nextflow/dsl2         /nextflow/workflow     301
 /nextflow/tracing      /nextflow/reports      301
+/nextflow/awscloud     /nextflow/aws          301
+/nextflow/search       /nextflow/             301
 /nextflow/singularity  /nextflow/container    301
+
+# Malformed link circulating externally (trailing bracket from a bad
+# markdown paste); the real page is /nextflow/process-typed.
+/nextflow/process-typed]   /nextflow/process-typed   301
 
 # Legacy paths served from the docs root before Nextflow docs moved under
 # /nextflow (no /nextflow prefix in the inbound link).
 /install                  /nextflow/install            301
 /overview                 /nextflow/overview           301
+/your-first-script        /nextflow/your-first-script  301
 /release_notes/23.1       /nextflow/updating-nextflow  301
 /configuration/mail_server   /nextflow/notifications   301

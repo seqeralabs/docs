@@ -5,47 +5,47 @@ date: "26 August 2024"
 tags: [faq, help, database, datasets]
 ---
 
-### API: Dataset upload failure
+When working with datasets, you might encounter the following issues.
 
-When uploading datasets via the Seqera UI or CLI, some steps are automatically done on your behalf. To upload datasets via the Seqera API, additional steps are required:
+## Common issues
 
-1. Explicitly define the MIME type of the file being uploaded.
-2. Make two calls to the API:
-   1. Create a dataset object.
-   2. Upload the samplesheet to the dataset object.
+#### Dataset upload fails with the API
 
-Example:
+When you upload a dataset through the Seqera UI or CLI, Seqera performs some steps automatically. Uploading through the API requires two additional steps:
 
-**Step 1: Create the dataset object.**
+1. Explicitly define the MIME type of the file you upload.
+2. Make two API calls: first create a dataset object, then upload the samplesheet to it.
+
+Create the dataset object:
 
 ```bash
 curl -X POST "https://api.cloud.seqera.io/workspaces/$WORKSPACE_ID/datasets/" -H "Content-Type: application/json" -H "Authorization: Bearer $TOWER_ACCESS_TOKEN" --data '{"name":"placeholder", "description":"A placeholder for the data we will submit in the next call"}'
 ```
 
-**Step 2: Upload the datasheet into the dataset object.**
+Upload the samplesheet to the dataset object:
 
 ```bash
 curl -X POST "https://api.cloud.seqera.io/workspaces/$WORKSPACE_ID/datasets/$DATASET_ID/upload"  -H "Accept: application/json"  -H "Authorization: Bearer $TOWER_ACCESS_TOKEN"  -H "Content-Type: multipart/form-data" -F "file=@samplesheet_full.csv; type=text/csv"
 ```
 
 :::tip
-You can also use the [tower-cli](https://github.com/seqeralabs/tower-cli) to upload the dataset to a particular workspace:
+You can also upload a dataset to a workspace with the [`tw` CLI](https://github.com/seqeralabs/tower-cli):
 
     ```bash
     tw datasets add --name "cli_uploaded_samplesheet" ./samplesheet_full.csv
     ```
 :::
 
-### Datasets converted to 'application/vnd.ms-excel' data type
-
-This is a known issue when using Firefox browser with Seqera versions older than 22.2.0. You can either upgrade to 22.2.0 or higher, or use Chrome.
-
-Seqera displays this error for this issue:
+#### Datasets converted to `application/vnd.ms-excel` data type
 
 ```
 "Given file is not a dataset file. Detected media type: 'application/vnd.ms-excel'. Allowed types: 'text/csv, text/tab-separated-values'"
 ```
 
-### TSV-formatted datasets not shown
+This issue occurs in Firefox on Seqera versions earlier than 22.2.0.
 
-An issue was identified in Seqera version 22.2 which caused TSV datasets to be unavailable in the input data drop-down on the launch screen. This has been fixed in version 22.4.1.
+To resolve, upgrade to 22.2.0 or later, or use Chrome.
+
+#### TSV-formatted datasets not shown
+
+In Seqera version 22.2, TSV datasets were unavailable in the input data drop-down on the launch form. This was fixed in version 22.4.1.
