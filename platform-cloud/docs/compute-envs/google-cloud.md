@@ -91,7 +91,7 @@ To create and launch pipelines or Studio sessions with this compute environment 
 If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal [on each bucket individually](https://docs.seqera.io/platform-cloud/compute-envs/google-cloud-batch#cloud-storage-bucket). For each Google Cloud compute environment created in the Seqera platform, a separate service account is created with the necessary permissions to launch pipelines/studios.
 
 :::caution
-`roles/resourcemanager.projectIamAdmin` allows the service account to grant any role to any principal on the project. On shared GCP projects, a compromised credential can escalate to any project-level role. `roles/iam.serviceAccountAdmin` grants create and delete access to any service account in the project. As an advanced hardening option, add an [IAM condition](https://cloud.google.com/iam/docs/conditions-overview) to the `roles/iam.serviceAccountAdmin` binding to restrict it to service accounts whose names start with `towerforge-`.
+On shared GCP projects, `roles/resourcemanager.projectIamAdmin` allows the service account to grant any role to any principal on the project — a compromised credential can escalate to any project-level role. Similarly, `roles/iam.serviceAccountAdmin` grants create and delete access to any service account in the project. As an advanced hardening option, add an [IAM condition](https://cloud.google.com/iam/docs/conditions-overview) to the `roles/iam.serviceAccountAdmin` binding to restrict it to service accounts whose names start with `towerforge-`.
 :::
 
 #### Userdata script error detection (optional)
@@ -148,7 +148,7 @@ Setting up WIF requires the following steps in the GCP Console:
 
    If you have not yet created a service account, do so following the guidelines under [Service account permissions](#service-account-permissions).
 
-6. (Optional) If you use the same WIF credential for Data Explorer, grant `roles/iam.serviceAccountTokenCreator` on the service account to the Workload Identity Pool principal:
+6. (Optional) If you use the same WIF credential for [Data Explorer][data-explorer], grant `roles/iam.serviceAccountTokenCreator` on the service account to the Workload Identity Pool principal:
 
    ```bash
    gcloud iam service-accounts add-iam-policy-binding SA_EMAIL \
@@ -188,3 +188,5 @@ If WIF authentication fails at runtime, verify that:
 - **Image**: The image defining the operating system and pre-installed software for the VM. Currently only [Ubuntu LTS](https://cloud.google.com/compute/docs/images/os-details#ubuntu_lts) Google public image project images are available and supported. For GPU-enabled instances, a Deep Learning VM base image with CUDA pre-installed is automatically selected (See [Google Deep Learning VM Images](https://cloud.google.com/deep-learning-vm/docs/images#base_versions) for more details). Optimized, Seqera-owned custom images will be available in a future release.
 - **Boot disk size**: The size of the boot disk for the Compute Engine instance. A standard persistent disk (`pd-standard`) is used. If undefined, a default 50 GB volume will be used.
 - **Zone**: The [zone](https://cloud.google.com/compute/docs/regions-zones) within the selected region where the VM will be provisioned (defaults to the first zone in the alphabetical list).
+
+[data-explorer]: ../data/data-explorer
