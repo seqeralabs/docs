@@ -171,6 +171,10 @@ The **Inputs** and **Outputs** tabs show every input or output consumed by the t
 
 The **Execution log** tab provides a real-time log of the selected task's execution. Task execution and other logs (such as `stdout` and `stderr`) are available for download if they are still available in your compute environment.
 
+:::note
+Real-time log streaming is available only for compute environments that stream logs from a cloud logging service: AWS Batch, Azure Batch, Google Cloud Batch, Kubernetes, and the AWS Cloud and Azure Cloud environments. For HPC compute environments (such as Slurm, Grid Engine, LSF, and PBS Pro), the log is retrieved from the task work directory rather than streamed, so the **Execution log** tab does not refresh automatically while a task runs. Change tabs or refresh the page to load the latest log content. See [Execution logs don't update in real time for HPC compute environments](../troubleshooting_and_faqs/troubleshooting#execution-logs-dont-update-in-real-time-for-hpc-compute-environments).
+:::
+
 #### Data Explorer
 
 If the pipeline work directory is in cloud storage, this tab shows a [Data Explorer](../data/data-explorer) view of the task's work directory location with the files associated with the task.

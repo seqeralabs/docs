@@ -441,3 +441,11 @@ Connect to the head node over SSH and run `ps -p $$` to verify your default shel
 1. Check which shells are available: `cat /etc/shells`
 2. Change your shell: `chsh -s /usr/bin/bash` (the path to the binary might differ, depending on your HPC configuration).
 3. If submissions continue to fail after the shell change, ask your Seqera Platform admin to restart the **backend** and **cron** containers, then submit again.
+
+#### Execution logs don't update in real time for HPC compute environments
+
+While a task runs on an HPC compute environment (such as Slurm, Grid Engine, LSF, or PBS Pro), the **Execution log** tab on the run details page does not refresh automatically. New log content appears only after you change tabs or refresh the page.
+
+This is expected behavior. Real-time log streaming is supported only for compute environments that stream logs from a cloud logging service: AWS Batch, Azure Batch, Google Cloud Batch, Kubernetes, and the AWS Cloud and Azure Cloud environments. For HPC compute environments, Seqera retrieves the task log from the task work directory (the task's `.command.log` file) instead of streaming it, so the tab is not updated continuously during execution.
+
+Other run details — such as run status, task counters, and metrics — continue to update in real time regardless of the compute environment type.
