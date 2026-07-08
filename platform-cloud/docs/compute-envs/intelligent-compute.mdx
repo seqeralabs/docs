@@ -31,7 +31,7 @@ When you enable Intelligent Compute on an AWS Cloud compute environment, Seqera 
 - ECS capacity providers (Managed Instances or Auto Scaling Groups)
 - ECS task definitions per container image and resource shape
 - IAM roles for ECS task execution, EC2 instance profiles, and infrastructure management
-- CloudWatch log groups under `/seqera/sched`
+- CloudWatch log groups under `/seqera` (for example, `/seqera/platform`)
 
 All managed resources use the `seqera-sched-` prefix. Seqera creates them on first use and removes them automatically when no longer needed.
 
@@ -65,7 +65,7 @@ Intelligent Compute requires **two IAM policies** attached to the same IAM user 
 | `IAMRoleManagement` | Create, update, and delete IAM roles and instance profiles scoped to `seqera-sched-*`. Seqera creates four role types on first use: execution role, infrastructure role, per-cluster instance role, and per-cluster task role. |
 | `PassRoleToECS` | Pass `seqera-sched-*` and `TowerForge-*` roles to ECS, ECS tasks, and EC2. Required to attach roles to ECS infrastructure and task definitions. |
 | `ServiceLinkedRoles` | Create service-linked roles for ECS, autoscaling, and Spot. Required only if these roles do not already exist in your account. |
-| `CloudWatchLogs` | Create and manage log groups under `/seqera/sched`, and read log events. Task stdout and stderr are written to CloudWatch. |
+| `CloudWatchLogs` | Create and manage log groups under `/seqera` (for example, `/seqera/platform`), and read log events. Task stdout and stderr are written to CloudWatch. |
 | `EC2NetworkDiscovery` | Describe VPCs, subnets, security groups, and route tables. Create security groups and VPC endpoints. Used for VPC auto-discovery and network setup. |
 | `ECRAccess` | Authorize ECR and pull container images. ECS tasks pull images from ECR. |
 | `S3Access` | Read objects and list buckets. Used to read Fusion trace files and pipeline work directory content. |
