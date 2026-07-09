@@ -2,6 +2,7 @@
 title: "Teams"
 description: "Create and manage teams in a Seqera Platform Cloud organization, including IdP-delegated teams."
 date: "2026-06-29"
+last updated: "2026-07-09"
 tags: [teams, organizations, administration, sso, idp delegation, cloud pro]
 ---
 
@@ -56,11 +57,16 @@ You need the following:
 
 The same IdP group can only be assigned to a single team, and each team can reference exactly one IdP group.
 
+:::caution
+After you delegate the team, your IdP is the sole authority for its membership. Members removed from the IdP group — or whose token stops carrying the `groups` claim — lose their delegated team memberships at their next login. See [What happens at login](#what-happens-at-login).
+:::
+
 ### What changes when a team is delegated
 
 After you delegate a team:
 
 - Membership becomes immutable in the Platform UI. The **Add member** and **Remove member** controls are hidden.
+- The member list displays a banner indicating that your identity provider manages the team's membership.
 - The team can't be deleted. To delete a delegated team, clear the **IdP Group** field first.
 - The team's name, description, avatar, and **IdP Group** value remain editable.
 - Existing manual workspace and role assignments on the team are preserved.
@@ -73,8 +79,10 @@ Cloud Pro tokens carry an `org_id` claim that scopes evaluation to a single orga
 - **Match found**: The user is added to the team if they aren't already a member.
 - **No match and the user was previously a delegation-driven member**: The user is removed from the team.
 - **No match and the user was never a delegation-driven member**: No change.
+- **Claim absent or empty**: All of the user's delegated team memberships in the organization are revoked. Major IdPs, including Okta and Entra ID, omit the `groups` claim entirely when a user belongs to no groups, so an absent claim is treated the same as an empty one.
+- **Claim malformed** (not a list, or containing non-string values): No changes take place. This is a safety net against IdP or claim-mapping errors, so existing memberships are preserved.
 
-Users added manually to a team with no **IdP Group** value keep their membership regardless of their IdP claims. If the user's token has no `groups` claim or the claim is malformed, no changes take place.
+Users added manually to a team with no **IdP Group** value keep their membership regardless of their IdP claims.
 
 ### Stop delegating a team
 

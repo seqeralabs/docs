@@ -2,6 +2,7 @@
 title: "IdP claim mapping"
 description: "Configure your identity provider and Auth0 connection to deliver the groups claim to Seqera Platform Cloud at login."
 date created: "2026-06-29"
+last updated: "2026-07-09"
 tags: [sso, idp delegation, oidc, organization settings, cloud pro]
 ---
 
@@ -11,6 +12,10 @@ For IdP-delegated teams to evaluate correctly at login, the tokens that reach Pl
 - The **Auth0 connection** that fronts your SSO must pass that group data through to Seqera as a `groups` claim.
 
 Cloud Pro authenticates through Auth0. Auth0 delivers the `groups` claim through the connection rather than reading it from the IdP token directly. You configure where groups are emitted at the IdP, and the Auth0 self-service SSO connection passes them through to Seqera.
+
+:::caution
+Keep the claim configuration stable after teams are delegated. If the `groups` claim stops reaching Seqera — for example, because a claim rule is deleted at the IdP or the connection mapping is changed — users lose all their delegated team memberships at their next login. A malformed claim (not a list of strings) is ignored and existing memberships are preserved.
+:::
 
 ## Identity provider configuration
 
@@ -53,7 +58,7 @@ After saving the IdP changes, confirm the claim reaches Platform:
 2. Confirm the user is added to the expected delegated teams. If they aren't, the `groups` claim either isn't reaching Seqera or doesn't match the catalog identifiers.
 
 :::caution
-If the user's token has no `groups` claim or the claim is malformed, no changes take place.
+If a test user's token carries no `groups` claim, or the claim is empty, all of their delegated team memberships are revoked at that login. Verify the mapping with a test user before you delegate production teams.
 :::
 
 For sign-in and claim problems, see [SSO troubleshooting](../../troubleshooting_and_faqs/sso_troubleshooting).

@@ -2,6 +2,7 @@
 title: "Manage your IdP group catalog"
 description: "Populate your Seqera Cloud organization with your IdP's groups using SCIM push or manual entry."
 date created: "2026-06-29"
+last updated: "2026-07-09"
 tags: [sso, scim, idp delegation, organization settings, cloud pro]
 ---
 
@@ -36,7 +37,7 @@ To set up SCIM:
 After the sync completes, the catalog displays every group your IdP shared, and the **Linked team** drop-down on **Group mapping** is populated.
 
 :::caution
-Treat the SCIM bearer token like a password. It grants write access to your organization's group catalog. If the token is compromised, rotate it immediately using **Rotate** in the **Group mapping** panel. The previous token is revoked atomically.
+Treat the SCIM bearer token like a password. It grants write access to your organization's group catalog. If the token is compromised, rotate it immediately by generating a new token in the **Group mapping** panel. The previous token is revoked when the new token is issued.
 :::
 
 ## Manual entry
@@ -56,8 +57,8 @@ A manually-entered group is automatically promoted to SCIM-managed if your IdP l
 
 ## Remove catalog entry
 
-When a group is removed from the catalog, by SCIM `DELETE`, manual deletion, or IdP-side rename detection, the following happens asynchronously:
+When a group is removed from the catalog, by SCIM `DELETE`, manual deletion, or IdP-side rename detection, the following happens:
 
 - The catalog row is removed.
-- Every delegated team that referenced the group has its delegation-driven members purged. The team's other settings (name, workspace assignments, role) are preserved.
+- Every delegated team that referenced the group has its delegation-driven members purged. The affected teams remain in place with empty membership and an orphaned-team warning. The team's other settings (name, workspace assignments, role) are preserved.
 - If a group is deleted on the IdP side, the team's membership can be reset by setting its **IdP Group** field to a different group, or clearing the field to convert the team back to manual management.

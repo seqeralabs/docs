@@ -2,6 +2,7 @@
 title: "IdP delegation overview"
 description: "Map Seqera teams to identity provider (IdP) groups so team membership is controlled at the IdP and evaluated on every SSO login."
 date created: "2026-06-29"
+last updated: "2026-07-09"
 tags: [sso, idp delegation, teams, organization settings, cloud pro]
 ---
 
@@ -18,11 +19,22 @@ REVIEW BEFORE MERGE — DO NOT PUBLISH YET (EDU-1266)
 - Draft adapted from the Enterprise IdP delegation pages. Multi-organization
   routing was intentionally dropped — Cloud Pro tokens carry an org_id claim,
   so evaluation is scoped to a single organization.
+- Verify the delegated-team list label ("Managed in IdP" here vs "IdP
+  Delegated" in Enterprise teams.md) — the two surfaces should agree.
+- Verify whether linking a team to an IdP group shows a confirmation dialog
+  (PLAT-5702 acceptance criterion, not delivered in PR #11672).
+- Login semantics updated 2026-07-09 to match PLAT-5702 / platform PR #11603:
+  an absent groups claim now revokes delegated memberships. Do not revert to
+  "absent claim is a no-op".
 -->
 
 With IdP delegation, you map a Seqera team to a group in your identity provider (IdP). After you delegate a team, the IdP becomes the sole authority for that team's membership. Every time a user signs in through SSO, Seqera reads the `groups` claim from their token and updates the user's delegated-team memberships to match.
 
 IdP delegation requires an active SSO connection for your organization. To set up SSO first, see [Single sign-on (SSO)](../single-sign-on).
+
+:::caution
+Once a team is delegated, the IdP is the sole authority for its membership. If the `groups` claim stops reaching Seqera — for example, because the IdP claim configuration is removed or the Auth0 connection mapping is misconfigured — users lose all their delegated team memberships at their next login. Confirm your claim mapping is stable before delegating teams. See [What happens at login](#what-happens-at-login).
+:::
 
 ## How it works
 
@@ -50,6 +62,7 @@ Cloud Pro authenticates through Auth0, which sits between your IdP and Seqera. T
 When an organization owner sets the **IdP Group** field on a team, the team becomes delegated. Delegation has the following effects:
 
 - The team is labeled **Managed in IdP** in the teams list.
+- The team's member list displays a banner indicating that your identity provider manages the team's membership, and that members removed from the IdP group lose access at their next login.
 - The **Add member** and **Remove member** controls are hidden.
 - The team can't be deleted until the **IdP Group** field is cleared.
 - The team's name, description, avatar, and workspace assignments remain editable.
@@ -63,10 +76,10 @@ Cloud Pro tokens carry an `org_id` claim that scopes evaluation to a single orga
 - **Match found**: The user is added to the team if they aren't already a member.
 - **No match and the user was previously a delegation-driven member**: The user is removed from the team.
 - **No match and the user was never a delegation-driven member**: No change.
+- **Claim absent or empty**: All of the user's delegated team memberships in the organization are revoked. Major IdPs, including Okta and Entra ID, omit the `groups` claim entirely when a user belongs to no groups, so an absent claim is treated the same as an empty one.
+- **Claim malformed** (not a list, or containing non-string values): No changes take place. This is a safety net against IdP or claim-mapping errors, so existing memberships are preserved.
 
 This evaluation never changes manual assignments to non-delegated teams. Users added manually to a team with no **IdP Group** value keep their membership regardless of their IdP claims.
-
-If the user's token has no `groups` claim or the claim is malformed, no changes take place.
 
 ## Delegate a team to an IdP group
 
