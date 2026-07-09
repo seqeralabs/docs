@@ -93,8 +93,7 @@
       "items": [
         "getting-started/rnaseq",
         "getting-started/proteinfold",
-        "getting-started/studios",
-        "tutorials/retry-strategy"
+        "getting-started/studios"
       ]
     },
     {
@@ -168,6 +167,7 @@
             "label": "Advanced options",
             "items":[
               "enterprise/advanced-topics/manual-aws-batch-setup",
+              "compute-envs/aws-spot-interruptions",
               "enterprise/advanced-topics/manual-azure-batch-setup"
             ]
           }
