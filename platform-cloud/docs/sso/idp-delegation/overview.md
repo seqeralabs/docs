@@ -33,7 +33,7 @@ With IdP delegation, you map a Seqera team to a group in your identity provider 
 IdP delegation requires an active SSO connection for your organization. To set up SSO first, see [Single sign-on (SSO)](../single-sign-on).
 
 :::caution
-Once a team is delegated, the IdP is the sole authority for its membership. If the `groups` claim stops reaching Seqera — for example, because the IdP claim configuration is removed or the Auth0 connection mapping is misconfigured — users lose all their delegated team memberships at their next login. Confirm your claim mapping is stable before delegating teams. See [What happens at login](#what-happens-at-login).
+Once a team is delegated, the IdP is the sole authority for that team's membership. If the `groups` claim stops reaching Seqera — for example, the Auth0 Post-Login Action is removed, or the IdP claim mapping is deleted — all delegated team memberships are revoked on next login. Verify the claim mapping is working before delegating teams. See [What happens at login](#what-happens-at-login).
 :::
 
 ## How it works

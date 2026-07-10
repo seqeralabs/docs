@@ -14,7 +14,7 @@ For IdP-delegated teams to evaluate correctly at login, the tokens that reach Pl
 Cloud Pro authenticates through Auth0. Auth0 delivers the `groups` claim through the connection rather than reading it from the IdP token directly. You configure where groups are emitted at the IdP, and the Auth0 self-service SSO connection passes them through to Seqera.
 
 :::caution
-Keep the claim configuration stable after teams are delegated. If the `groups` claim stops reaching Seqera — for example, because a claim rule is deleted at the IdP or the connection mapping is changed — users lose all their delegated team memberships at their next login. A malformed claim (not a list of strings) is ignored and existing memberships are preserved.
+Keep the claim configuration stable after teams are delegated. If the `groups` claim stops reaching Seqera — for example, the Auth0 Post-Login Action is removed, or the IdP claim mapping is deleted — all delegated team memberships are revoked on next login. A malformed claim (not a list of strings) is ignored and existing memberships are preserved.
 :::
 
 ## Identity provider configuration
