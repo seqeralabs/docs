@@ -8,7 +8,7 @@ tags: [sso, scim, idp delegation, organization settings, cloud pro]
 
 Platform maintains a per-organization catalog of identity provider (IdP) groups. Groups appear in the catalog as soon as they're synced from the IdP or added manually. They don't depend on any user having signed in.
 
-Use the following table to choose the path that fits your IdP.
+Choose the path that fits your IdP:
 
 | IdP | Recommended path | Setup guide |
 |-----|------------------|-------------|
@@ -25,7 +25,7 @@ If you use Google Workspace, Keycloak, Ping, OneLogin, or another OIDC/SAML prov
 
 ## SCIM push
 
-If your IdP supports SCIM 2.0 group provisioning, Platform exposes a per-organization SCIM endpoint that the IdP can push to. Group create, rename, and delete events flow through automatically, and the catalog stays in sync without administrator intervention.
+If your IdP supports SCIM 2.0 group provisioning, Platform exposes a per-organization SCIM endpoint that the IdP can push to. Create, rename, and delete events sync automatically without administrator intervention.
 
 To set up SCIM:
 
@@ -55,10 +55,10 @@ To delete a manually-entered group, select **Delete** on its row. If any delegat
 A manually-entered group is automatically promoted to SCIM-managed if your IdP later pushes the same group via SCIM. The promotion happens in place. The catalog row is reused, and any delegated teams that reference it continue to work without interruption. After promotion, the row's lifecycle is fully driven by SCIM, and the manual **Delete** action is no longer available. The row is removed when your IdP issues a SCIM `DELETE`.
 :::
 
-## Remove catalog entry
+## Remove a catalog entry
 
-When a group is removed from the catalog, by SCIM `DELETE`, manual deletion, or IdP-side rename detection, the following happens:
+When a group is removed from the catalog — by SCIM `DELETE`, manual deletion, or IdP-side rename detection:
 
 - The catalog row is removed.
-- Every delegated team that referenced the group has its delegation-driven members purged. The affected teams remain in place with empty membership and an orphaned-team warning. The team's other settings (name, workspace assignments, role) are preserved.
-- If a group is deleted on the IdP side, the team's membership can be reset by setting its **IdP Group** field to a different group, or clearing the field to convert the team back to manual management.
+- Every delegated team that referenced the group has its delegation-driven members purged. The affected teams remain in place with empty membership and an orphaned-team warning. Other team settings (name, workspace assignments, role) are preserved.
+- To reset an affected team's membership, set its **IdP Group** field to a different group, or clear the field to convert the team back to manual management.

@@ -30,10 +30,10 @@ REVIEW BEFORE MERGE — DO NOT PUBLISH YET (EDU-1266)
 
 With IdP delegation, you map a Seqera team to a group in your identity provider (IdP). After you delegate a team, the IdP becomes the sole authority for that team's membership. Every time a user signs in through SSO, Seqera reads the `groups` claim from their token and updates the user's delegated-team memberships to match.
 
-IdP delegation requires an active SSO connection for your organization. To set up SSO first, see [Single sign-on (SSO)](../single-sign-on).
+IdP delegation requires an active SSO connection for your organization. See [Single sign-on (SSO)](../single-sign-on).
 
 :::caution
-Once a team is delegated, the IdP is the sole authority for that team's membership. If the `groups` claim stops reaching Seqera — for example, the Auth0 Post-Login Action is removed, or the IdP claim mapping is deleted — all delegated team memberships are revoked on next login. Verify the claim mapping is working before delegating teams. See [What happens at login](#what-happens-at-login).
+After you delegate a team, the IdP is the sole authority for its membership. If the `groups` claim stops reaching Seqera — for example, the Auth0 Post-Login Action is removed, or the IdP claim mapping is deleted — all delegated team memberships are revoked at next login. Verify the claim mapping works before you delegate teams. See [What happens at login](#what-happens-at-login).
 :::
 
 ## How it works
@@ -55,7 +55,7 @@ A manually-entered group is automatically promoted to SCIM-managed if your IdP l
 
 At login, Seqera reads the user's IdP claims to decide which delegated teams they belong to. The `groups` claim must reach Seqera and must contain the same group identifiers as your catalog.
 
-Cloud Pro authenticates through Auth0, which sits between your IdP and Seqera. The `groups` claim is mapped at the Auth0 connection, not read from the IdP token directly. See [IdP claim mapping](./claim-mapping).
+Cloud Pro authenticates through Auth0. Auth0 sits between your IdP and Seqera, and maps the `groups` claim at the connection rather than reading it from the IdP token directly. See [IdP claim mapping](./claim-mapping).
 
 ### The team's `IdP Group` field
 
@@ -76,10 +76,10 @@ Cloud Pro tokens carry an `org_id` claim that scopes evaluation to a single orga
 - **Match found**: The user is added to the team if they aren't already a member.
 - **No match and the user was previously a delegation-driven member**: The user is removed from the team.
 - **No match and the user was never a delegation-driven member**: No change.
-- **Claim absent or empty**: All of the user's delegated team memberships in the organization are revoked. Major IdPs, including Okta and Entra ID, omit the `groups` claim entirely when a user belongs to no groups, so an absent claim is treated the same as an empty one.
-- **Claim malformed** (not a list, or containing non-string values): No changes take place. This is a safety net against IdP or claim-mapping errors, so existing memberships are preserved.
+- **Claim absent or empty**: All of the user's delegated team memberships in the organization are revoked. Major IdPs, including Okta and Entra ID, omit the `groups` claim entirely when a user belongs to no groups. An absent claim is treated the same as an empty one.
+- **Claim malformed** (not a list, or containing non-string values): No membership changes are applied. Existing memberships are preserved as a safeguard against IdP or claim-mapping errors.
 
-This evaluation never changes manual assignments to non-delegated teams. Users added manually to a team with no **IdP Group** value keep their membership regardless of their IdP claims.
+Login evaluation never changes manual assignments to non-delegated teams. Users added manually to a team with no **IdP Group** value keep their membership regardless of their IdP claims.
 
 ## Delegate a team to an IdP group
 
@@ -99,7 +99,7 @@ SCIM-originated entries (operations performed by your IdP's provisioning agent a
 
 ## Set up delegation
 
-Complete these steps in order. Each step links to a dedicated guide.
+Complete these steps in order:
 
 1. [Configure single sign-on](../single-sign-on) for your organization if you haven't already.
 2. [Populate the IdP group catalog](./group-catalog/overview). Choose SCIM push or manual entry depending on your IdP.

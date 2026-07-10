@@ -5,7 +5,7 @@ date created: "2026-06-29"
 tags: [sso, scim, okta, idp delegation, organization settings, cloud pro]
 ---
 
-Configure Okta to push your organization's groups to Platform over SCIM 2.0. Once provisioning is enabled, your Okta group directory appears in Seqera's IdP group catalog and stays in sync with renames, additions, and deletions automatically.
+Configure Okta to push your organization's groups to Platform over SCIM 2.0. After provisioning is enabled, your Okta group directory appears in Seqera's IdP group catalog and stays in sync with renames, additions, and deletions.
 
 :::info[**Prerequisites**]{#prerequisites}
 You need the following:
@@ -51,19 +51,11 @@ The bearer token grants write access to your group catalog. Store it in a secret
 
 If groups don't appear, check the **Push Groups** status column in Okta for error details, and confirm that the **Provisioning** tab shows **Push Groups: ON**.
 
-## Group rename and delete behavior
+## Rename and delete behavior
 
 Renames and deletes propagate automatically:
 
 - **Rename**: The next SCIM push updates the catalog row's display name. Delegated teams that reference the group continue to work without interruption.
-- **Delete**: Okta issues a SCIM `DELETE` for the group. Seqera removes the catalog row and synchronously purges members from any delegated team that referenced it. The affected teams remain in place with empty membership and an orphaned-team warning.
+- **Delete**: Okta issues a SCIM `DELETE` for the group. Seqera removes the catalog row and synchronously purges members from any delegated team that referenced it. Affected teams remain in place with empty membership and an orphaned-team warning.
 
-## Troubleshooting
-
-### Groups appear in Okta but not in Seqera
-
-Confirm the bearer token in Okta matches the latest token Seqera issued. If you generated a new token after configuring Okta, the previous token is revoked.
-
-### `401 Unauthorized` from Okta logs
-
-The bearer token is invalid or expired. Generate a new token in Platform and replace it in Okta.
+For provisioning problems, see [SSO troubleshooting](../../../troubleshooting_and_faqs/sso_troubleshooting).

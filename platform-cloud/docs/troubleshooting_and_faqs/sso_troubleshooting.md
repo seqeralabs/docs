@@ -31,3 +31,21 @@ Confirm that the user has access to the application or connection configured in 
 #### An existing user sees a linking problem during sign-in
 
 If Seqera can't link an existing account to the SSO identity, the user should contact an organization owner or Seqera support before trying again.
+
+## IdP group provisioning (SCIM)
+
+#### Groups appear in the IdP but not in Seqera
+
+Confirm the bearer token configured in your IdP matches the latest token that Seqera issued. If you generated a new token after configuring the IdP, the previous token is revoked.
+
+#### `401 Unauthorized` in IdP provisioning logs
+
+The bearer token is invalid or expired. Generate a new token from **Organization settings > Group mapping** in Platform and replace it in the IdP.
+
+#### The catalog shows GUID-style identifiers instead of group names (Entra ID)
+
+Entra ID is emitting object IDs rather than display names. See [Group display names vs. object IDs](../sso/idp-delegation/group-catalog/scim-entra-id#group-display-names-vs-object-ids) for the two options.
+
+#### A group is assigned to the application but doesn't sync (Entra ID)
+
+Confirm the provisioning scope is set to **Sync only assigned users and groups**, and that the group is listed directly under **Users and groups** rather than nested inside another assigned group.

@@ -6,7 +6,7 @@ last updated: "2026-07-09"
 tags: [teams, organizations, administration, sso, idp delegation, cloud pro]
 ---
 
-**Teams** allow organization owners to group members and collaborators together into a single unit and to manage them as a whole. Apply a workspace role to a team and every member inherits that access. See [User roles](./roles) for the available roles.
+Use **teams** to group organization members and collaborators and manage them together. Apply a workspace role to a team, and every member inherits that access. See [User roles](./roles) for the available roles.
 
 :::note
 If your organization has [single sign-on (SSO)](../sso/single-sign-on) with IdP delegation enabled, you can delegate a team to an **IdP group** so your identity provider controls its membership. See [Delegate a team to an IdP group](#delegate-a-team-to-an-idp-group).
@@ -35,9 +35,9 @@ The same surface is used to delete a team. The **Delete** action is disabled for
 
 ## Delegate a team to an IdP group
 
-Organizations with an active SSO connection can delegate team membership to an identity provider (IdP) group. Once a team is delegated, the IdP becomes the sole authority for who belongs. Seqera evaluates each user's IdP claims at every login and adjusts membership automatically.
+Organizations with an active SSO connection can delegate team membership to an identity provider (IdP) group. After you delegate a team, the IdP becomes the sole authority for who belongs. Seqera evaluates each user's IdP claims at every login and adjusts membership to match.
 
-For the model behind delegation, see [IdP delegation overview](../sso/idp-delegation/overview).
+For how delegation works, see [IdP delegation overview](../sso/idp-delegation/overview).
 
 :::info[**Prerequisites**]{#prerequisites}
 You need the following:
@@ -79,8 +79,8 @@ Cloud Pro tokens carry an `org_id` claim that scopes evaluation to a single orga
 - **Match found**: The user is added to the team if they aren't already a member.
 - **No match and the user was previously a delegation-driven member**: The user is removed from the team.
 - **No match and the user was never a delegation-driven member**: No change.
-- **Claim absent or empty**: All of the user's delegated team memberships in the organization are revoked. Major IdPs, including Okta and Entra ID, omit the `groups` claim entirely when a user belongs to no groups, so an absent claim is treated the same as an empty one.
-- **Claim malformed** (not a list, or containing non-string values): No changes take place. This is a safety net against IdP or claim-mapping errors, so existing memberships are preserved.
+- **Claim absent or empty**: All of the user's delegated team memberships in the organization are revoked. Major IdPs, including Okta and Entra ID, omit the `groups` claim entirely when a user belongs to no groups. An absent claim is treated the same as an empty one.
+- **Claim malformed** (not a list, or containing non-string values): No membership changes are applied. Existing memberships are preserved as a safeguard against IdP or claim-mapping errors.
 
 Users added manually to a team with no **IdP Group** value keep their membership regardless of their IdP claims.
 
@@ -95,9 +95,7 @@ Existing members are kept. The **Add member** and **Remove member** controls bec
 
 ## Workspace and role assignment
 
-Delegation controls who belongs to the team. It doesn't assign the team to workspaces or grant roles. After delegation:
+Delegation controls who belongs to the team. It doesn't assign the team to workspaces or grant roles. Your IdP owns team membership, and your organization owns workspace and role assignment. After delegation:
 
 - Assign the team to a workspace using the workspace **Participants** page.
 - Set the team's workspace role separately. See [User roles](./roles).
-
-This separation is intentional. The IdP owns membership, but the organization owns access policy.

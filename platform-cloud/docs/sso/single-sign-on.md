@@ -76,7 +76,7 @@ When a user signs in through an active SSO connection for the first time:
 - Existing organization memberships, workspace roles, ownership, and run history are preserved for linked accounts.
 - Name and profile fields are populated from the IdP when those attributes are available.
 
-Newly provisioned users receive the lowest organization-level role by default. Organization owners can then promote those users or grant workspace-level access as needed.
+Newly provisioned users receive the lowest organization-level role by default. Organization owners can then promote them or grant workspace-level access.
 
 SSO applies only to users with the claimed email domain. External users who need workspace access must be added to the organization's IdP as guest or external accounts, provisioned as organization members through SSO, and granted the appropriate workspace access. Active SSO blocks new workspace collaborator assignments.
 

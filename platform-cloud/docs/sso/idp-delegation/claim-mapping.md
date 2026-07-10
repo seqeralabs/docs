@@ -6,15 +6,15 @@ last updated: "2026-07-09"
 tags: [sso, idp delegation, oidc, organization settings, cloud pro]
 ---
 
-For IdP-delegated teams to evaluate correctly at login, the tokens that reach Platform must include a `groups` claim. On Cloud Pro, this involves two layers:
+For IdP-delegated teams to evaluate correctly at login, tokens that reach Seqera must include a `groups` claim. Cloud Pro authenticates through Auth0, so two layers are involved:
 
-- Your **identity provider** must emit the group membership for each user.
-- The **Auth0 connection** that fronts your SSO must pass that group data through to Seqera as a `groups` claim.
+- Your **identity provider** emits the group membership for each user.
+- The **Auth0 connection** that fronts your SSO passes that group data through to Seqera as a `groups` claim.
 
-Cloud Pro authenticates through Auth0. Auth0 delivers the `groups` claim through the connection rather than reading it from the IdP token directly. You configure where groups are emitted at the IdP, and the Auth0 self-service SSO connection passes them through to Seqera.
+Configure the group emission at the IdP. The Auth0 self-service SSO connection passes the claim through to Seqera.
 
 :::caution
-Keep the claim configuration stable after teams are delegated. If the `groups` claim stops reaching Seqera — for example, the Auth0 Post-Login Action is removed, or the IdP claim mapping is deleted — all delegated team memberships are revoked on next login. A malformed claim (not a list of strings) is ignored and existing memberships are preserved.
+Keep the claim configuration stable after you delegate teams. If the `groups` claim stops reaching Seqera — for example, the Auth0 Post-Login Action is removed, or the IdP claim mapping is deleted — all delegated team memberships are revoked at next login. A malformed claim (not a list of strings) is ignored, and existing memberships are preserved.
 :::
 
 ## Identity provider configuration
@@ -33,18 +33,18 @@ Keep the claim configuration stable after teams are delegated. If the `groups` c
 
 ### Entra ID
 
-Entra ID requires an app-registration change and attention to the format Entra emits.
+Entra ID requires an app-registration change. Pay attention to the format Entra emits.
 
 1. In the Azure portal, open the app registration that backs your connection.
 2. Open **Token configuration**, then **Add groups claim**.
-3. Select the group types you want emitted (typically **Security groups**).
+3. Select the group types to emit (typically **Security groups**).
 4. Under **Customize token properties by type**, choose whether to emit **Group ID** (object GUIDs) or **sAMAccountName** (display names where supported).
-5. Confirm via Entra ID's **Token Preview** that a sample sign-in includes the `groups` claim.
+5. In Entra ID's **Token Preview**, confirm that a sample sign-in includes the `groups` claim.
 
 :::caution
 With **Group ID** selected, Entra ID emits group object GUIDs. You have two options:
 
-- Use the GUID values directly as the catalog identifier and the **IdP Group** field on each team. This works but makes the catalog harder to read.
+- Use the GUID values as the catalog identifier and the **IdP Group** field on each team. This works but makes the catalog harder to read.
 - Configure Entra ID to emit display names instead. Set **sAMAccountName** as the source where supported, or post-process via a custom claims policy.
 
 The GUID and the display name don't both flow at the same time. Pick one approach for your tenant and use it consistently.
