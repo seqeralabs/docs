@@ -160,9 +160,9 @@ Setting up WIF requires the following steps in the GCP Console:
 
    To scope this binding to a specific workspace, replace the `principalSet` wildcard with `principal://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/subject/org:{ORG_ID}:wsp:{WORKSPACE_ID}:workflow`.
 
-##### Configure WIF credentials in Seqera
+##### Configure WIF credentials in Platform
 
-After setting up WIF in the GCP Console, you need the following information to create a WIF credential in Seqera Platform:
+After setting up WIF in the GCP Console, you need the following information to create a WIF credential in Platform:
 
 1. **Service Account Email**: The email address of the Google Cloud service account that WIF will impersonate.
 2. **Workload Identity Provider**: The full resource path of the Workload Identity Provider, e.g., `projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID`.
