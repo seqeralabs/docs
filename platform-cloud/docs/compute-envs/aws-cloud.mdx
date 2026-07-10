@@ -508,7 +508,7 @@ In addition to the managed policies, attach the following inline policies:
 }
 ```
 
-**Secrets Manager** — lets Seqera manage the pipeline secrets it stores in AWS Secrets Manager, which are prefixed with `tower-`. Seqera creates each referenced secret when a pipeline launches and removes it on completion; the compute environment reads it at task startup. Required for pipelines that use Seqera pipeline secrets:
+**Secrets Manager** — grants access to the pipeline secrets Seqera stores in AWS Secrets Manager under the `tower-` prefix. Seqera creates each referenced secret when a pipeline launches and deletes it on completion:
 
 ```json
 {
