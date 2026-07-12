@@ -17,6 +17,8 @@ You need the following:
 
 ## Get the Seqera SCIM connection details
 
+To get the Seqera SCIM connection details:
+
 1. In Platform, open **Organization settings > Group mapping**.
 2. Copy the **SCIM endpoint URL** shown in the panel.
 3. Select **Generate token** to issue a SCIM bearer token. Copy it immediately. You can't view it again after closing the dialog.
@@ -26,6 +28,8 @@ The bearer token grants write access to your group catalog. Store it in a secret
 :::
 
 ## Enable provisioning in Okta
+
+To enable provisioning in Okta:
 
 1. Sign in to your Okta administrator console.
 2. Open **Applications**, then select the application that fronts your Seqera SSO connection.
@@ -38,12 +42,16 @@ The bearer token grants write access to your group catalog. Store it in a secret
 
 ## Enable group push
 
+To enable group push:
+
 1. With the application still open, switch to the **Push Groups** tab.
 2. Select **Push Groups**, then **Find groups by name** (or **By rule** for dynamic group sets).
 3. Select the Okta groups you want available in Platform.
 4. Confirm the push. Okta sends an initial provisioning batch.
 
 ## Verify in Platform
+
+To verify in Platform:
 
 1. In Platform, open **Organization settings > Group mapping**.
 2. Select **Refresh**. The pushed Okta groups should appear in the catalog list within a few seconds.

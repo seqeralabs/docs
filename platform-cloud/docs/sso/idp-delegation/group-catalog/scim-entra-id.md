@@ -17,6 +17,8 @@ You need the following:
 
 ## Get the Platform SCIM connection details
 
+To get Platform SCIM connection details:
+
 1. In Platform, open **Organization settings > Group mapping**.
 2. Copy the **SCIM endpoint URL** shown in the panel.
 3. Select **Generate token** to issue a SCIM bearer token. Copy your bearer token immediately. You can't view it again after closing the dialog.
@@ -26,6 +28,8 @@ The bearer token grants write access to your group catalog. Store it in a secret
 :::
 
 ## Enable provisioning in Entra ID
+
+To enable provisioning in Entra ID:
 
 1. Sign in to the Azure portal and open **Entra ID**, then **Enterprise applications**.
 2. Select the application that fronts your Platform SSO connection.
@@ -38,6 +42,8 @@ The bearer token grants write access to your group catalog. Store it in a secret
 7. Select **Save**.
 
 ## Scope and start provisioning
+
+To scope and start provisioning:
 
 1. With **Provisioning** still open, expand **Settings**.
 2. Set **Scope** to **Sync only assigned users and groups**.
@@ -58,6 +64,8 @@ Pick one approach for your tenant and use it consistently. The GUID and the disp
 :::
 
 ## Verify in Platform
+
+To verify in Platform:
 
 1. In Platform, open **Organization settings > Group mapping**.
 2. Select **Refresh**. The assigned Entra ID groups should appear in the catalog list after the first provisioning cycle.

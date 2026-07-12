@@ -19,7 +19,11 @@ Keep the claim configuration stable after you delegate teams. If the `groups` cl
 
 ## Identity provider configuration
 
+Configure your identity provider to emit a `groups` claim so team membership flows into the catalog. The steps differ by provider.
+
 ### Okta
+
+In Okta, add a custom claim to the authorization server that backs your application:
 
 1. In the Okta administrator console, open **Security**, then **API**, then **Authorization Servers**.
 2. Select the authorization server backing your application (typically `default`).

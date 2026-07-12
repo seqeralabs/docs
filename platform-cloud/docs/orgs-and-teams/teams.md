@@ -26,6 +26,8 @@ To add members to the team, select **Edit**, then **Members of team**, then **Ad
 
 ## Edit a team
 
+To edit an existing team:
+
 1. Open the **Teams** tab and select the team you want to edit.
 2. Select **Edit**.
 3. Update the **Name**, **Description**, **Avatar**, or membership.
@@ -48,7 +50,9 @@ You need the following:
 - Organization owner access to your Seqera organization.
 :::
 
-### Delegate the team
+### Delegate a team
+
+To delegate a team:
 
 1. Open your organization, then select **Settings**.
 2. Open the **Teams** tab and select the team you want to delegate, or create a new team.
@@ -58,7 +62,7 @@ You need the following:
 The same IdP group can only be assigned to a single team, and each team can reference exactly one IdP group.
 
 :::caution
-After you delegate the team, your IdP is the sole authority for its membership. Members removed from the IdP group — or whose token stops carrying the `groups` claim — lose their delegated team memberships at their next login. See [What happens at login](#what-happens-at-login).
+After you delegate a team, your IdP is the sole authority for its membership. Members removed from the IdP group, or whose token stops carrying the `groups` claim, lose their delegated team memberships at their next login. See [What happens at login](#what-happens-at-login).
 :::
 
 ### What changes when a team is delegated
