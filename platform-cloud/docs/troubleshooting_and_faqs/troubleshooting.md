@@ -187,6 +187,48 @@ You might encounter errors when executing pipelines that use secrets on AWS Batc
 
 Tower Agent reconnection logic was improved in version 0.5.0. [Update your Tower Agent](https://github.com/seqeralabs/tower-agent) before relaunching your pipeline.
 
+#### Reattach to a running agent
+
+When you SSH back to the login node, attach to the agent session at any time:
+
+```bash
+tmux attach -t tower-agent
+```
+
+You can see the current log output. Detach again with **Ctrl-b**, then **d**, to leave the agent running.
+
+#### Agent process stopped
+
+If `tmux ls` shows no sessions, or attaching reveals the agent has exited, restart it as in [Tower Agent setup](../supported_software/agent/overview#start-the-agent-inside-tmux). Common causes: login node reboot, the process killed for exceeding login-node resource limits, or a revoked access token.
+
+#### Agent shows as disconnected in Seqera Platform
+
+If Seqera Platform shows the agent as disconnected while it's running on the cluster, verify that the **Agent Connection ID** in your workspace credential exactly matches the argument you passed to `tw-agent`.
+
+#### _Authentication errors_ on agent startup
+
+Personal access tokens can be revoked or expire. If the agent logs authentication errors, generate a new token in Seqera Platform and restart the agent with the updated `TOWER_ACCESS_TOKEN` value.
+
+#### _Permission denied_ on the work directory
+
+The agent needs read and write access to the work directory. If launches fail with permission errors, confirm that the directory exists and is owned by the user running the agent:
+
+```bash
+mkdir -p ~/work
+```
+
+#### Enable trace logging
+
+To diagnose connection or execution issues in detail, enable trace-level logging:
+
+```bash
+export TOWER_ACCESS_TOKEN=<YOUR TOKEN>
+export LOGGER_LEVELS_IO_SEQERA_TOWER_AGENT=TRACE
+./tw-agent <YOUR CONNECTION ID>
+```
+
+Trace logging shows WebSocket connection details, message exchanges, reconnection attempts, command execution details and exit codes, and full stack traces for errors.
+
 ## Google
 
 #### Spot VM preemption causes task interruptions
