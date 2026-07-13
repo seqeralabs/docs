@@ -25,6 +25,8 @@ Fusion Snapshots require the following Seqera Platform compute environment confi
 
 :::tip Configuration
 You must set the number of spot retries you want to attempt to a sensible number. The default is 0. For configuration options, see [Advanced configuration](./configuration.md).
+
+If your runs encounter Google Cloud Batch infrastructure failures beyond Spot reclamation, see [Retrying Google Cloud Batch infrastructure failures](./configuration.md#retrying-google-cloud-batch-infrastructure-failures).
 :::
 
 ## Incremental snapshots

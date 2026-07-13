@@ -250,7 +250,7 @@ Seqera Intelligent Compute is in private preview. [Contact us](https://seqera.io
 
 To enable Seqera Intelligent Compute, attach an additional IAM policy (beyond the [Required permissions](#required-permissions)) to the same IAM user or role that Seqera uses to access your AWS account.
 
-The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The remaining `Resource: "*"` entries correspond to AWS APIs that do not support resource-level permissions, such as EC2 `Describe*`, ECR authorization tokens, and Cost Explorer.
+The policy scopes ARN-eligible actions to the `seqera-sched-*` resource prefix, except for CloudWatch Logs actions, which are scoped to the `/seqera/*` log-group prefix (Seqera writes logs to groups such as `/seqera/platform`). The remaining `Resource: "*"` entries correspond to AWS APIs that do not support resource-level permissions, such as EC2 `Describe*`, ECR authorization tokens, and Cost Explorer.
 
 <details>
 <summary>Seqera Intelligent Compute policy</summary>
@@ -361,7 +361,7 @@ The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The 
         "logs:GetLogEvents",
         "logs:TagResource"
       ],
-      "Resource": "arn:aws:logs:*:*:log-group:/seqera/sched*"
+      "Resource": "arn:aws:logs:*:*:log-group:/seqera/*"
     },
     {
       "Sid": "EC2NetworkDiscovery",

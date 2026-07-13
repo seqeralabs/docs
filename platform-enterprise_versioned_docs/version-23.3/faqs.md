@@ -13,7 +13,7 @@ Use pagination to fetch the results in smaller chunks through multiple API calls
 
 `{object} length parameter cannot be greater than 100 (current value={value_sent})`
 
-To remedy this, see the example requests below:
+To resolve this, see the example requests below:
 
 ```
 

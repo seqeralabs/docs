@@ -22,7 +22,7 @@ Run Fusion Doctor when you:
 
 ## Run Fusion Doctor with nf-canary
 
-[nf-canary](https://github.com/seqeralabs/nf-canary) is a Nextflow pipeline that runs Fusion Doctor on your compute environment and generates an HTML report. This is the supported path for most users. It does not require direct access to the task container. Fusion Doctor is only possible with nf-canary.
+[nf-canary](https://github.com/seqeralabs/nf-canary) is a Nextflow pipeline that runs Fusion Doctor on your compute environment and generates an HTML report. Fusion Doctor runs only through nf-canary and doesn't require direct access to the task container.
 
 ### Select a validation profile
 
@@ -52,7 +52,7 @@ In the launch form, open the **Fusion Filesystem Options** section and set:
 - **Redact PII**: Toggle on to mask bucket names, instance IDs, and home paths in the report. Enable this when sharing reports externally.
 
    :::note
-   Redaction hides infrastructure details that may help diagnose issues.
+   Redaction hides infrastructure details that can help diagnose issues.
    :::
 
 - **Read-only buckets**: Comma-separated list of bucket URIs to validate with read-only checks (e.g., `s3://reference-data,gs://shared-files`).
@@ -70,7 +70,7 @@ The report assigns one of three overall statuses:
 | Status     | Meaning                                                                                                             |
 | ---------- | ------------------------------------------------------------------------------------------------------------------- |
 | `pass`     | All checks passed. The environment meets the thresholds in the selected profile.                                    |
-| `degraded` | Non-critical checks failed or returned warnings. The environment is usable but may not meet recommended thresholds. |
+| `degraded` | Non-critical checks failed or returned warnings. The environment is usable but might not meet recommended thresholds. |
 | `fail`     | One or more critical checks failed. The environment does not meet the requirements for the selected profile.        |
 
 :::tip

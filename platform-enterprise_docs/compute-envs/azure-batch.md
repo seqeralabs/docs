@@ -225,7 +225,7 @@ When you don't attach a head managed identity, Platform passes the service princ
 When you submit a pipeline to this compute environment, Nextflow authenticates using the managed identity associated with the Azure Batch node it runs on, rather than relying on access keys.
 
 :::caution
-If a managed identity is misconfigured (for example, invalid client ID or missing RBAC roles), the pipeline fails with an explicit error. Seqera does not silently fall back to the service principal at runtime.
+If a managed identity is misconfigured (e.g., invalid client ID or missing RBAC roles), the pipeline fails with an explicit error. Seqera does not silently fall back to the service principal at runtime.
 :::
 
 ## Add compute environment
@@ -611,7 +611,7 @@ A `process.containerOptions` value explicitly set in a compute environment's Nex
 
 ### Troubleshooting
 
-The following checks can be done by SSHing into a pool node:
+Run the following checks by SSHing into a pool node:
 
 ```
 # 1.Is the profile loaded into the kernel on this node?
