@@ -73,9 +73,7 @@
                   "enterprise/configuration/authentication/email",
                   "enterprise/configuration/authentication/github",
                   "enterprise/configuration/authentication/google",
-                  "enterprise/configuration/authentication/keycloak",
-                  "enterprise/configuration/authentication/entra",
-                  "enterprise/configuration/authentication/okta",
+                  "enterprise/configuration/authentication/oidc",
                   {
                     "type": "category",
                     "label": "IdP delegation",
