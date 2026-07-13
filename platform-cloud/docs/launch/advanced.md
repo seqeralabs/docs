@@ -82,6 +82,26 @@ To ensure compute-specific settings are applied consistently:
 - Use the launch form's **Nextflow config file** field for settings that must take precedence over everything else.
 :::
 
+## Nextflow version
+
+Select the Nextflow version used to execute the run. The selector lists the versions available in your installation and resolves the choice to the launch container image that runs the workflow.
+
+The default version is:
+
+- **Pipeline advanced options**: the system default version, or the compute environment type's minimum version when that minimum is higher.
+- **Launch advanced options**: the version saved on the pipeline, when it is compatible with the selected compute environment. If the pipeline's saved version is below the minimum required by the compute environment, no version is preselected and you must choose a compatible version before the launch can proceed.
+
+Version availability depends on the compute environment:
+
+- **Cloud and Kubernetes** compute environments (AWS Batch, Azure Batch, Google Batch, Kubernetes) support version selection. Versions below the minimum required by the compute environment are not selectable. A launch submitted with a lower or unknown version through any channel (UI, API, or CLI) is rejected before execution.
+- **Grid/HPC** compute environments (Slurm, LSF, Grid Engine, Altair PBS Pro, Moab) run a pre-installed Nextflow and have no launch container, so the version selector is not shown. A version carried over from a pipeline default has no effect when the pipeline is launched on a grid environment.
+
+Changing only the Nextflow version on a pipeline registers a new pipeline version, because the version determines the runtime that executes the workflow.
+
+:::note
+Use the **Nextflow version** selector instead of setting `NXF_VER` in a pre-run script or the pipeline configuration. If `NXF_VER` is set in the pipeline configuration, it overrides the version selected here.
+:::
+
 ## Seqera Cloud config file
 
 Configure per-pipeline Seqera reporting behavior. Settings specified here override the default configuration for this execution. Use the `reports` key to specify report paths, titles, and MIME types:
@@ -98,15 +118,6 @@ reports:
 Run custom code either before or after the execution of the Nextflow script. These fields allow you to enter shell commands.
 
 Pre-run scripts are executed in the nf-launch script prior to invoking Nextflow processes. Pre-run scripts are useful for:
-- Specifying an alternate Nextflow version to use for the run:
-
-    ```bash
-    nextflow self-update
-    export NXF_VER=24.10.0
-    ```
-    :::info
-    `nextflow self-update` is only required when updating a pre-24.10.0 version of Nextflow to version 24.10.0 or later.
-    :::
 - Executor setup, such as loading a private CA certificate.
 - Troubleshooting. For example, add `sleep 3600` to your pre-run script to instruct Nextflow to wait 3600 seconds (60 minutes) before process execution after the nf-launcher container is started, to create a window in which to test connectivity and other issues before your Nextflow processes execute.
 

@@ -11,6 +11,10 @@ You can customize your Seqera instance's Nextflow launch container, e.g., to inc
 Seqera recommends using the default Nextflow launch container wherever possible. Custom launch containers can complicate your Seqera configuration and upgrade process.
 :::
 
+:::note
+A custom launch container determines the Nextflow runtime for every run, so it takes precedence over per-run version selection. When `TOWER_LAUNCH_CONTAINER` is set, the [**Nextflow version**](../../launch/advanced#nextflow-version) selector is hidden on all compute environments and any selected version has no effect.
+:::
+
 Specify the path to your custom launch container image with an environment variable:
 
 ```env
