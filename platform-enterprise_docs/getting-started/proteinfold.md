@@ -2,7 +2,7 @@
 title: "Protein structure prediction"
 description: "An introduction to running nf-core/proteinfold in Seqera Platform"
 date created: "2024-07-21"
-last updated: "2025-08-01"
+last updated: "2026-07-06"
 tags: [platform, seqera pipelines, studios, proteinfold, alphafold, colabfold, compute environments, aws]
 toc_max_heading_level: 2
 ---
@@ -68,7 +68,7 @@ From the **Compute Environments** tab in your organization workspace, select **A
 | **Access Key**                        | AWS access key ID.                                         |
 | **Secret Key**                        | AWS secret access key.                                     |
 | **Region**                            | The target execution region.                               |
-| **Pipeline work directory**           | An S3 bucket path in the same execution region.            |
+| **Work directory**           | An S3 bucket path in the same execution region.            |
 | **Enable Wave Containers**            | Use the Wave containers service to provision containers.   |
 | **Enable Fusion v2**                  | Access your S3-hosted data via the Fusion v2 file system.  |
 | **Enable fast instance storage**      | Use NVMe instance storage to speed up I/O and disk access. Requires Fusion v2.|
@@ -184,7 +184,7 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 ### General config
 
 - **Pipeline to launch**: The pipeline Git repository name or URL: `https://github.com/nf-core/proteinfold`. For saved pipelines, this is prefilled and cannot be edited.
-- **Revision number**: A valid repository commit ID, tag, or branch name: `1.1.1`. For saved pipelines, this is prefilled and cannot be edited.
+- **Revision**: A valid repository commit ID, tag, or branch name: `1.1.1`. For saved pipelines, this is prefilled and cannot be edited.
 - **Config profiles**: One or more [configuration profile](https://docs.seqera.io/nextflow/config#config-profiles) names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository. Benchmarking runs for this guide used nf-core profiles with included test datasets — `test_full_alphafold2_multimer` for Alphafold2 and `test_full_alphafold2_multimer` for Colabfold.
 - **Workflow run name**: An identifier for the run, pre-filled with a random name. This can be customized.
 - **Labels**: Assign new or existing [labels](../labels/overview) to the run.
@@ -306,7 +306,7 @@ After you have filled the necessary launch details, select **Launch**. The **Run
 
 ## Interactive analysis with Studios
 
-[Studios](../studios/overview) streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, RStudio, and VS Code, creating a Studio is as simple as adding and sharing pipelines or datasets. The Studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles) for real-time access and collaboration.
+[Studios](../studios/overview) streamlines the process of creating interactive analysis environments for Platform users. With built-in templates for platforms like Jupyter Notebook, R-IDE, and VS Code, creating a Studio is as simple as adding and sharing pipelines or datasets. The Studio URL can also be shared with any user with the [Connect role](../orgs-and-teams/roles) for real-time access and collaboration.
 
 For the purposes of this guide, a Jupyter notebook environment will be used for interactive visualization of the predicted protein structures, optionally comparing AlphaFold2 and Colabfold structures for the same sequence data.
 
@@ -324,7 +324,7 @@ From the **Studios** tab, select **Add a Studio** and complete the following:
         :::note
         Studios compete for computing resources when sharing compute environments. Ensure your compute environment has sufficient resources to run both your pipelines and Studio sessions.
         :::
-    - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the pipeline work directory of your Proteinfold run.
+    - Mount data using Data Explorer: Mount the S3 bucket or directory path that contains the work directory of your Proteinfold run.
 - In the **General config** tab:
     - Select the latest **Jupyter** container image template from the list.
     - Optional: Enter a unique name and description for the Studio.

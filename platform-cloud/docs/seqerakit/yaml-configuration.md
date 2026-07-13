@@ -1,7 +1,8 @@
 ---
 title: "YAML configuration"
 description: "seqerakit YAML configuration file options"
-date: "21 Oct 2024"
+date created: "2024-10-21"
+last updated: "2026-07-06"
 tags: [seqerakit, cli, automation, yaml, configuration]
 ---
 

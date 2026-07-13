@@ -2,7 +2,7 @@
 title: "Datasets"
 description: "Use datasets as pipeline inputs in Seqera Platform."
 date created: "2023-04-23"
-last updated: "2026-05-18"
+last updated: "2026-07-06"
 tags: [datasets, manage datasets, create datasets, add dataset version]
 ---
 

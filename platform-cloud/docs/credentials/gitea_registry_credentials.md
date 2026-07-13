@@ -1,8 +1,8 @@
 ---
 title: "Gitea container registry credentials"
 description: "Create GitHub container registry credentials in Seqera Platform."
-date created: "2025-12-15"
-last updated: "2025-10-21"
+date created: "2023-12-15"
+last updated: "2026-07-06"
 tags: [gitea, registry, credentials]
 ---
 

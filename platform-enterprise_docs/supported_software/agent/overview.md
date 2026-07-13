@@ -2,7 +2,7 @@
 title: "Tower Agent"
 description: "Use Tower Agent to connect Seqera Platform to HPC clusters that do not allow inbound SSH connections."
 date created: "2023-04-24"
-last updated: "2026-06-26"
+last updated: "2026-07-13"
 tags: [agent]
 ---
 

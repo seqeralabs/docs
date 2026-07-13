@@ -1,8 +1,8 @@
 ---
 title: "Quay container registry credentials"
 description: "Create Quay container registry credentials in Seqera Platform."
-date created: "2025-04-21"
-last updated: "2025-10-21"
+date created: "2023-04-21"
+last updated: "2026-07-06"
 tags: [quay, credentials]
 ---
 

@@ -2,6 +2,7 @@
 title: "Pipeline Optimization: Helm"
 description: Deploy Pipeline Optimization Enterprise on Kubernetes with Helm
 date created: "2026-01-30"
+last updated: "2026-07-06"
 tags: [helm, deployment, installation, kubernetes, pipeline optimization]
 ---
 

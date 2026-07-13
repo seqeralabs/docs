@@ -2,7 +2,7 @@
 title: "Data lineage"
 description: "Using data lineage in Seqera Platform."
 date created: "2026-05-11"
-last updated: "2026-07-02"
+last updated: "2026-07-13"
 tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, labels]
 ---
 

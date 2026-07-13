@@ -1,7 +1,8 @@
 ---
 title: "Reports"
 description: "Overview of pipeline reports in Seqera Platform."
-date: "24 Apr 2023"
+date created: "2023-04-24"
+last updated: "2026-07-06"
 tags: [pipelines, schema]
 ---
 
@@ -15,7 +16,7 @@ Available reports are listed in a **Reports** tab on the **Runs** page. You can 
 
 To open a report preview, the file must be smaller than 10 MB.
 
-You can download a report directly or from the provided file path. Reports larger than 25MB cannot be downloaded directly — the option to download from file path is given instead.
+You can download a report directly or from the provided file path. Reports larger than 25 MB cannot be downloaded directly — the option to download from file path is given instead.
 
 ### Configure reports
 

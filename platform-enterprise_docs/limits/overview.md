@@ -1,7 +1,8 @@
 ---
 title: "Usage limits"
 description: "Seqera Platform usage limits per organization and workspace"
-date: "19 Feb 2025"
+date created: "2025-02-19"
+last updated: "2026-07-06"
 tags: [limits]
 ---
 

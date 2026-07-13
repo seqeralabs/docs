@@ -2,7 +2,7 @@
 title: "Container registry credentials"
 description: "Configure container registry credentials for the Wave container service in Seqera Platform."
 date created: "2025-10-21"
-last updated: "2025-10-21"
+last updated: "2026-07-06"
 tags: [credentials, container registry, wave, docker, authentication]
 ---
 

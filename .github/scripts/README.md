@@ -1,5 +1,53 @@
 # GitHub Actions scripts
 
+This directory contains scripts invoked by [.pre-commit-config.yaml](../../.pre-commit-config.yaml) or by the GitHub Actions workflows under [.github/workflows/](../workflows/). See the [README's "Workflows and actions audit"](../../README.md#workflows-and-actions-audit) section for how each workflow uses these.
+
+## bump-last-updated.py
+
+Two-mode utility for keeping frontmatter `last updated:` current on `.md` / `.mdx` files. Used as a **checker** by the [pre-commit hook](../../.pre-commit-config.yaml) (fails with an invocable command, doesn't modify files) and as a **fixer** by the [pre-commit-fix.yaml](../workflows/pre-commit-fix.yaml) CI workflow (rewrites files in place).
+
+### Modes
+
+**Check mode** (`--check`): used by the pre-commit hook on `git commit`. Reports any changed file whose `last updated:` is stale (or missing on a file that declares `date created:`), prints the exact fix command, exits 1. No files modified.
+
+**Fix mode** (default): rewrites files in place. Sets `last updated:` to today's date. If the file declares `date created:` but lacks `last updated:`, inserts the field immediately after `date created:`. Files without `date created:` (changelog entries, partials) are skipped.
+
+### Invocation
+
+**Check (what the pre-commit hook does):**
+
+```bash
+python3 .github/scripts/bump-last-updated.py --check path/to/file.md ...
+```
+
+**Fix (what you run when the check fails):**
+
+```bash
+python3 .github/scripts/bump-last-updated.py path/to/file.md ...
+```
+
+The check-mode failure message includes a paste-ready fix invocation listing exactly the stale files.
+
+### Exit codes
+
+| Mode | `0` | `1` |
+|---|---|---|
+| `--check` | No staleness detected | One or more files have stale `last updated:` (workflow / commit aborts; user runs the fixer) |
+| default (fix) | Nothing to change | At least one file was modified (signals pre-commit to re-stage if invoked via the hook) |
+
+### Why two modes
+
+Following the same pattern as [check-doc-tags.py](check-doc-tags.py): the local hook should fail explicitly and tell the contributor what to run, not silently rewrite their working tree. The CI workflow then invokes the fixer on changed files so fork contributors and skipped local hooks still merge with a current `last updated:`.
+
+### Scope
+
+Excluded by `.pre-commit-config.yaml`:
+- `platform-enterprise_versioned_docs/` — frozen release snapshots; their `last updated:` should reflect when the snapshot was cut.
+- `changelog/` — entries don't follow the `date created:` / `last updated:` convention.
+- Standard build/vendor dirs (`node_modules/`, `build/`, `dist/`, `.git/`).
+
+---
+
 ## verify-agent-findings.py
 
 Validates agent output by checking that quoted text actually exists at the claimed line numbers, preventing hallucinations from being reported.

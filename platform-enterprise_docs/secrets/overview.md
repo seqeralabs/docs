@@ -1,7 +1,8 @@
 ---
 title: "Secrets"
 description: "Instructions to use secrets in Seqera Platform."
-date: "24 Apr 2023"
+date created: "2023-04-24"
+last updated: "2026-07-06"
 tags: [pipelines, secrets]
 ---
 
@@ -42,6 +43,13 @@ In AWS Batch compute environments, Seqera passes stored secrets to jobs as part 
 ## AWS Secrets Manager integration
 
 Seqera and associated AWS Batch IAM Roles require additional permissions to interact with AWS Secrets Manager, as detailed in the [Pipeline secrets section](../compute-envs/aws-batch#pipeline-secrets-optional) of the AWS Batch documentation.
+
+:::note
+If you plan to limit the scope of this IAM policy, please ensure that the ListSecrets action remains granted on all resources (`"Resource": "*"`).
+Otherwise, the Seqera Platform will be unable to delete secrets, which can cause workflows to remain in a running (stuck) state.
+
+For more details, see [AWS Secrets Manager actions and permissions reference](https://docs.aws.amazon.com/service-authorization/latest/reference/list_awssecretsmanager.html#awssecretsmanager-actions-as-permissions).
+:::
 
 ### ECS Agent permissions
 

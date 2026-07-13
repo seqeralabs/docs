@@ -2,7 +2,7 @@
 title: "Git integration"
 description: "Connecting to Git repositories in Seqera Platform."
 date created: "2024-06-24"
-last updated: "2025-07-17"
+last updated: "2026-07-06"
 tags: [git]
 ---
 
@@ -14,7 +14,7 @@ Seqera Platform has built-in support for [Git](https://git-scm.com) and several 
 
 Launch a public Nextflow pipeline by entering its Git repository URL in the **Pipeline to launch** field.
 
-When you specify the **Revision number**, the list of available revisions are automatically pulled using the Git provider's API. By default, the default branch (usually `main` or `master`) will be used.
+When you specify the **Revision**, the list of available revisions are automatically pulled using the Git provider's API. By default, the default branch (usually `main` or `master`) will be used.
 
 :::tip
 [nf-core](https://nf-co.re/pipelines) is a great resource for public Nextflow pipelines.
@@ -244,7 +244,13 @@ To connect to a private [Gitea](https://gitea.io/) repository, use your Gitea us
 
 ### Bitbucket
 
-To connect to a private BitBucket repository, see the [BitBucket documentation](https://support.atlassian.com/bitbucket-cloud/docs/app-passwords/) to learn how to create a BitBucket App password. Then, create a new credential in Seqera with these steps:
+To connect to a private BitBucket repository, see [API tokens](https://support.atlassian.com/bitbucket-cloud/docs/api-tokens/) to learn how to create a BitBucket API token (the API token must have at least `read:repository:bitbucket` scope). Then, create a new credential in Seqera with these steps:
+
+:::warning
+API tokens are tied to users. This differs from access tokens, which are tied to a specific resource. While Seqera supports API tokens, access tokens are not supported for accessing BitBucket repositories.
+
+API tokens replace [app passwords](https://support.atlassian.com/bitbucket-cloud/docs/app-passwords/), which can no longer be created after September 9, 2025 and will be phased out June 9, 2026. While app passwords are still supported, they are not recommended. See [Bitbucket Cloud transitions to API tokens](https://www.atlassian.com/blog/bitbucket/bitbucket-cloud-transitions-to-api-tokens-enhancing-security-with-app-password-deprecation) for more information.
+:::
 
 **Create BitBucket credentials**
 
@@ -254,7 +260,7 @@ To connect to a private BitBucket repository, see the [BitBucket documentation](
 
 3. Select _BitBucket_ as the **Provider**.
 
-4. Enter your **Username** and **Password**.
+4. Enter your **Username** (account email) and **Token**.
 
 5. Enter the **Repository base URL** (recommended). This option can be used to apply the credentials to a specific repository, e.g., `https://bitbucket.org/seqeralabs`.
 

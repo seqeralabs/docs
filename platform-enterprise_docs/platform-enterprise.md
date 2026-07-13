@@ -2,7 +2,7 @@
 title: "Seqera Platform Enterprise"
 description: "Introduction to Seqera Platform Enterprise."
 date created: "2023-04-24"
-last updated: "2026-05-25"
+last updated: "2026-07-06"
 slug: /
 ---
 

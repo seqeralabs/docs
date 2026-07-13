@@ -2,7 +2,7 @@
 title: "Billing and credit management"
 description: "Manage Seqera credits across Seqera Compute and Co-Scientist."
 date created: "2025-10-20"
-last updated: "2026-04-27"
+last updated: "2026-07-06"
 tags: [seqera compute, compute environments, co-scientist, billing]
 ---
 

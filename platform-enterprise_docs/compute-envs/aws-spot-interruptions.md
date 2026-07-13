@@ -1,7 +1,8 @@
 ---
 title: "AWS Spot interruption management"
 description: "Managing AWS Spot Interruptions in Seqera Platform."
-date: "16 Jul 2024"
+date created: "2024-07-16"
+last updated: "2026-07-06"
 tags: [aws, spot, platform, fusion, retry]
 ---
 

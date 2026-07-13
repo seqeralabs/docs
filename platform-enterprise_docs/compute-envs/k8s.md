@@ -2,7 +2,7 @@
 title: "Kubernetes"
 description: "Instructions to set up Kubernetes in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-05-28"
+last updated: "2026-07-06"
 tags: [k8s, kubernetes, compute environments]
 ---
 

@@ -2,6 +2,7 @@
 title: "Skills configuration"
 description: "Discover, create, and install skills in the Seqera CLI"
 date created: "2026-03-11"
+last updated: "2026-07-06"
 tags: [co-scientist, cli, skills]
 ---
 

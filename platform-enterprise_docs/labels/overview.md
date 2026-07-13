@@ -2,7 +2,7 @@
 title: "Labels"
 description: "Instructions for using labels in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2025-08-01"
+last updated: "2026-07-06"
 tags: [labels]
 ---
 
