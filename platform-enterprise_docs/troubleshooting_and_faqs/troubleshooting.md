@@ -344,6 +344,48 @@ To resolve, explicitly define the `xpack-amzn` plugin in your configuration:
 
 Tower Agent reconnection logic was improved in version 0.5.0. [Update your Tower Agent](https://github.com/seqeralabs/tower-agent) before relaunching your pipeline.
 
+**Reattach to a running agent**
+
+When you SSH back to the login node, attach to the agent session at any time:
+
+```bash
+tmux attach -t tower-agent
+```
+
+You can see the current log output. Detach again with **Ctrl-b**, then **d**, to leave the agent running.
+
+**Agent process stopped**
+
+If `tmux ls` shows no sessions, or attaching reveals the agent has exited, restart it as in [Tower Agent setup](../supported_software/agent/overview#start-the-agent-inside-tmux). Common causes: login node reboot, the process killed for exceeding login-node resource limits, or a revoked access token.
+
+**Agent shows as disconnected in Seqera Platform**
+
+If Seqera Platform shows the agent as disconnected while it's running on the cluster, verify that the **Agent Connection ID** in your workspace credential exactly matches the argument you passed to `tw-agent`.
+
+**_Authentication errors_ on agent startup**
+
+Personal access tokens can be revoked or expire. If the agent logs authentication errors, generate a new token in Seqera Platform and restart the agent with the updated `TOWER_ACCESS_TOKEN` value.
+
+**_Permission denied_ on the work directory**
+
+The agent needs read and write access to the work directory. If launches fail with permission errors, confirm that the directory exists and is owned by the user running the agent:
+
+```bash
+mkdir -p ~/work
+```
+
+**Enable trace logging**
+
+To diagnose connection or execution issues in detail, enable trace-level logging:
+
+```bash
+export TOWER_ACCESS_TOKEN=<YOUR TOKEN>
+export LOGGER_LEVELS_IO_SEQERA_TOWER_AGENT=TRACE
+./tw-agent <YOUR CONNECTION ID>
+```
+
+Trace logging shows WebSocket connection details, message exchanges, reconnection attempts, command execution details and exit codes, and full stack traces for errors.
+
 ## Google
 
 #### Spot VM preemption causes task interruptions
@@ -441,3 +483,13 @@ Connect to the head node over SSH and run `ps -p $$` to verify your default shel
 1. Check which shells are available: `cat /etc/shells`
 2. Change your shell: `chsh -s /usr/bin/bash` (the path to the binary might differ, depending on your HPC configuration).
 3. If submissions continue to fail after the shell change, ask your Seqera Platform admin to restart the **backend** and **cron** containers, then submit again.
+
+#### Execution logs don't update in real time for HPC compute environments
+
+While a task runs on an HPC compute environment (such as Slurm, Grid Engine, LSF, or PBS Pro), the **Execution log** tab on the run details page does not refresh automatically.
+
+This is expected behavior. Real-time log streaming is supported only for compute environments that stream logs from a cloud logging service: AWS Batch, Azure Batch, Google Cloud Batch, Kubernetes, and the AWS Cloud and Azure Cloud environments. For HPC compute environments, Seqera Platform retrieves the task log from the task work directory (the task's `.command.log` file) instead of streaming it.
+
+To load the latest log content, change tabs or refresh the page.
+
+Other run details, such as run status, task counters, and metrics, update in real time regardless of the compute environment type.
