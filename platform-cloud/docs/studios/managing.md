@@ -65,6 +65,23 @@ This functionality is available to all user roles excluding the **View** role.
 
 You can only delete a Studio when it's **stopped**. Select the three dots next to the status message and then select **Delete**. The Studio is deleted immediately and can't be recovered.
 
+## Star/favourite a Studio
+
+You can star or favourite a Studio by selecting the star icon in both the list of Studios or on a specific Studio details page. A starred Studio has a filled, yellow star icon. You can unstar a starred Studio by clicking the star icon.
+
+## Search
+
+The **Search studios** bar allows you to filter by one or more `<keyword>:<value>` entries:
+
+- `status`: Search Studios with a specific status.
+- `username`: Search Studios created by a specific user.
+- `computeEnvName`: Search Studios in a specific compute environment.
+- `is:starred`: Search Studios that have been starred by the user.
+
+The search field populates with available suggestions when entering valid keywords.
+
+Search covers all Studios inside a workspace, enabling easy retrieval of complex queries. Enter a search query in the **Search studios** field to search and filter the Studios in a workspace. The search text is interpreted by identifying all valid substrings formatted by `keyword:value`, combining all the rest in a single freeform text string, and then using all these search criteria to filter the runs.
+
 ## Connect to a Studio
 
 To connect to a running session, select the three dots next to the status message and choose **Connect**.
