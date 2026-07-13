@@ -234,7 +234,7 @@ You can't download the trace logs directly through Seqera, but you can configure
 
 Seqera Platform uses [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) to push real-time updates to your browser. The client must connect to the server's `/api/live` endpoint to start the data stream, and this connection can occasionally fail because of factors like network latency.
 
-To resolve, reload the Platform browser tab to reinitiate the client's connection to the server. If reloading fails, contact [Seqera support](https://support.seqera.io) for help adjusting webserver timeout settings.
+To resolve, reload the Platform browser tab to re-establish the client's connection to the server. If reloading fails, contact [Seqera support](https://support.seqera.io) for help adjusting webserver timeout settings.
 
 ## Optimization
 

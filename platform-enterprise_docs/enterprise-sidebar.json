@@ -59,8 +59,11 @@
             "type": "category",
             "label": "Configuration",
             "collapsed": true,
+            "link": {
+              "type": "doc",
+              "id": "enterprise/configuration/overview"
+            },
             "items": [
-              "enterprise/configuration/overview",
               {
                 "type": "category",
                 "label": "Authentication",
@@ -383,6 +386,7 @@
         "collapsed": true,
         "items": [
           "troubleshooting_and_faqs/troubleshooting",
+          "troubleshooting_and_faqs/authentication",
           "troubleshooting_and_faqs/api_and_cli",
           "troubleshooting_and_faqs/studios_troubleshooting",
           "troubleshooting_and_faqs/nextflow",
