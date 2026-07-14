@@ -78,7 +78,7 @@ The **Search studios** bar filters by one or more `<keyword>:<value>` entries:
 - `computeEnvName`: Search Studios in a specific compute environment.
 - `is:starred`: Search Studios that have been starred by the user.
 
-The search field populates with available suggestions when entering valid keywords.
+The field suggests valid keywords as you type.
 
 Search covers all Studios in a workspace. Enter a query in the Search studios field. Platform identifies each valid `keyword:value` substring, combines the remaining text into a single freeform string, and filters Studios using all of these criteria.
 
