@@ -5,10 +5,6 @@ date created: "2026-06-23"
 tags: [compute environments, credentials, troubleshooting]
 ---
 
-:::warning[Pre-release documentation]
-Pre-flight checks have not yet been released. This page is preparatory documentation ahead of the release. Existing customers will be notified by Seqera Support when pre-flight checks are due to be released.
-:::
-
 Pre-flight checks validate that a compute environment is usable before and at the point of pipeline launch. They run in the background on a recurring schedule and synchronously at launch time. Problems appear before pipeline submission rather than mid-run. Pre-flight checks only flag conditions that would block a pipeline launch.
 
 Pre-flight checks are enabled by default for all Cloud customers and cannot be disabled.
@@ -86,6 +82,10 @@ When a compute environment is marked `INVALID` and you have fixed the underlying
 3. Select **Validate**.
 
 Platform runs pre-flight checks and updates the compute environment status immediately. If all checks pass, the compute environment returns to `AVAILABLE`.
+
+:::warning[Validate the credential before the compute environment]
+If both the credential and its associated compute environment are marked `INVALID`, you must validate the credential first. Validating a compute environment reads the credential's current status — if the credential is still `INVALID`, the compute environment will remain `INVALID` regardless. Restore the credential to `AVAILABLE` before validating the compute environment.
+:::
 
 ## Error reference
 
