@@ -71,7 +71,7 @@ To star a Studio, select the star icon in the list of Studios or on a Studio's d
 
 ## Search
 
-The **Search studios** bar allows you to filter by one or more `<keyword>:<value>` entries:
+The **Search studios** bar filters by one or more `<keyword>:<value>` entries:
 
 - `status`: Search Studios with a specific status.
 - `username`: Search Studios created by a specific user.
