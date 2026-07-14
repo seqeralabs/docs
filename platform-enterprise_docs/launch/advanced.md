@@ -91,7 +91,7 @@ The default version is:
 
 Version availability depends on the compute environment:
 
-- **Cloud and Kubernetes** compute environments (AWS Batch, Azure Batch, Google Batch, Kubernetes) support version selection. Versions below the minimum required by the compute environment are not selectable. A launch submitted with a lower or unknown version through any channel (UI, API, or CLI) is rejected before execution.
+- **Cloud and Kubernetes** compute environments (AWS Batch, Azure Batch, Google Batch, Kubernetes) support version selection. You cannot select versions below the compute environment's minimum. A launch submitted with a lower or unknown version through any channel (UI, API, or CLI) is rejected before execution.
 - **Grid/HPC** compute environments (Slurm, LSF, Grid Engine, Altair PBS Pro, Moab) run a pre-installed Nextflow and have no launch container, so the version selector is not shown. A version carried over from a pipeline default has no effect when the pipeline is launched on a grid environment.
 
 Changing only the Nextflow version on a pipeline registers a new pipeline version, because the version determines the runtime that executes the workflow.
