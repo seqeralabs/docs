@@ -80,7 +80,7 @@ The **Search studios** bar filters by one or more `<keyword>:<value>` entries:
 
 The search field populates with available suggestions when entering valid keywords.
 
-Search covers all Studios inside a workspace, enabling easy retrieval of complex queries. Enter a search query in the **Search studios** field to search and filter the Studios in a workspace. The search text is interpreted by identifying all valid substrings formatted by `keyword:value`, combining all the rest in a single freeform text string, and then using all these search criteria to filter the runs.
+Search covers all Studios in a workspace. Enter a query in the Search studios field. Platform identifies each valid `keyword:value` substring, combines the remaining text into a single freeform string, and filters Studios using all of these criteria.
 
 ## Connect to a Studio
 
