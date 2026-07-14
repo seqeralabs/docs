@@ -84,7 +84,7 @@ When a compute environment is marked `INVALID` and you have fixed the underlying
 Platform runs pre-flight checks and updates the compute environment status immediately. If all checks pass, the compute environment returns to `AVAILABLE`.
 
 :::warning[Validate the credential before the compute environment]
-If both the credential and its associated compute environment are marked `INVALID`, you must validate the credential first. Validating a compute environment reads the credential's current status — if the credential is still `INVALID`, the compute environment will remain `INVALID` regardless. Restore the credential to `AVAILABLE` before validating the compute environment.
+If both the credential and its associated compute environment are marked `INVALID`, you must restore the credential to `AVAILABLE` before validating the compute environment. If the credential is still `INVALID`, the compute environment will remain `INVALID` regardless.
 :::
 
 ## Error reference
