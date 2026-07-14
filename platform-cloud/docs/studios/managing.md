@@ -67,7 +67,7 @@ You can only delete a Studio when it's **stopped**. Select the three dots next t
 
 ## Star/favourite a Studio
 
-You can star or favourite a Studio by selecting the star icon in both the list of Studios or on a specific Studio details page. A starred Studio has a filled, yellow star icon. You can unstar a starred Studio by clicking the star icon.
+To star a Studio, select the star icon in the list of Studios or on a Studio's details page. A starred Studio shows a filled yellow star. To unstar it, select the star icon again.
 
 ## Search
 
