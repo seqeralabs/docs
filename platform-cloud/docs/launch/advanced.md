@@ -84,7 +84,7 @@ To ensure compute-specific settings are applied consistently:
 
 ## Nextflow version
 
-Select the Nextflow version used to execute the run. The selector lists the versions available in your installation and resolves the choice to the launch container image that runs the workflow.
+Select the Nextflow version for the run. The selector lists the versions available in your installation and maps your choice to the launch container image that runs the workflow.
 
 The default version is:
 
