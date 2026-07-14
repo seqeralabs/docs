@@ -2,7 +2,7 @@
 title: "SCIM provisioning with Okta"
 description: "Configure Okta to push group memberships to Seqera Platform Enterprise over SCIM 2.0."
 date: "2026-05-12"
-tags: [sso, scim, okta, idp-delegation, administration, enterprise]
+tags: [sso, scim, okta, idp delegation, administration, enterprise]
 ---
 
 Configure Okta to push your organization's groups to Platform over SCIM 2.0. Once provisioning is enabled, your Okta group directory appears in Seqera's IdP group catalog and stays in sync with renames, additions, and deletions automatically.
@@ -47,7 +47,7 @@ The bearer token grants write access to your group catalog. Store it in a secret
 
 1. In Platform, open **Organization settings > Group mapping**.
 2. Select **Refresh**. The pushed Okta groups should appear in the catalog list within a few seconds.
-3. The **Linked team** drop-down menu is now populated with the synced groups.
+3. The **Linked team** drop-down is now populated with the synced groups.
 
 If groups don't appear, check the **Push Groups** status column in Okta for error details, and confirm that the **Provisioning** tab shows **Push Groups: ON**.
 

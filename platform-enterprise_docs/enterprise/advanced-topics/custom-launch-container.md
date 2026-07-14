@@ -2,7 +2,7 @@
 title: "Custom AWS Batch launch container"
 description: Use a custom AWS Batch launch container
 date: "12 Apr 2023"
-tags: [aws, batch, launch, container]
+tags: [aws, batch, launch, containers]
 ---
 
 You can customize your Seqera instance's Nextflow launch container, e.g., to include private CA certificates or compliance software in your Nextflow environment.
@@ -40,5 +40,5 @@ TOWER_LAUNCH_CONTAINER=job-definition://<YOUR_JOB_DEFINITION_NAME>
 ```
 
 :::note
-The repository where your launch container resides must be accessible to the Batch cluster's [ECS Agent](https://aws.amazon.com/blogs/compute/how-to-authenticate-private-container-registries-using-aws-batch/).
+The repository where your launch container resides must be accessible to the Batch cluster's [ECS Agent](https://docs.aws.amazon.com/batch/latest/userguide/private-registry-auth.html).
 :::

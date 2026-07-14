@@ -1,0 +1,24 @@
+# Context-dependent feature terms — flagged as warnings, not errors.
+# These abbreviations are often informal shorthand worth expanding, but
+# each has legitimate uses (CLI flags, file names, generic prose), so they
+# warn rather than block.
+extends: substitution
+message: "Consider '%s' instead of '%s' (verify the context)"
+level: warning
+ignorecase: true
+swap:
+  # CE can match unrelated initialisms
+  CE: compute environment
+
+  # repo/config appear in legitimate technical prose and file names
+  repo: repository
+  repos: repositories
+  config: configuration
+  configs: configurations
+
+  # Workspace capitalization is context-dependent
+  Workspace: workspace
+
+  # Token terminology depends on first-use expansion
+  "API token": access token
+  PAT: personal access token

@@ -2,7 +2,7 @@
 title: "User roles"
 description: "Understand the various roles in Seqera Platform."
 date: "10 Jun 2024"
-tags: [roles, user-roles]
+tags: [roles]
 ---
 
 Organization owners can assign role-based access levels to individual **participants** and **teams** in an organization workspace.

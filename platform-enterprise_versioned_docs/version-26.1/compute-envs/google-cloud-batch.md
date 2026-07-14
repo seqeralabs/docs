@@ -2,8 +2,8 @@
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-04-16"
-tags: [google, batch, gcp, compute environment]
+last updated: "2026-05-28"
+tags: [google, batch, gcp, compute environments]
 ---
 
 # Google Cloud Batch
@@ -39,7 +39,7 @@ See [Enable API wizard](https://console.cloud.google.com/flows/enableapi?apiid=b
 * Compute Engine API
 * Cloud Storage API
 
-Select your project from the drop-down menu and select **Enable**.
+Select your project from the drop-down and select **Enable**.
 
 Alternatively, enable each API manually by selecting your project in the navigation bar and visiting each API page:
 
@@ -269,7 +269,15 @@ Apply [**Resource labels**](../resource-labels/overview) to the cloud resources 
   Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
   :::
 
-* Specify custom **Environment variables** for the head and compute jobs.
+* Under **Environment variables**, add each variable with a **Name**, **Value**, and **Target Environment**:
+
+    - **Head job**: Adds the variable to the Nextflow head job container, which evaluates `nextflow.config` and submits tasks to the compute backend. Use this target for variables that Nextflow or its plugins read, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings the head node uses to reach external services.
+    - **Compute job**: Adds the variable to the worker containers that run individual pipeline tasks. Use this target for variables your pipeline tools read, such as `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials needed inside the task container, or tool-specific settings like `JAVA_HOME`.
+    - **Head and Compute jobs**: Adds the variable to both the head job and the compute jobs. Use this target for values needed in both places, such as an HTTP proxy used by both Nextflow and task tools, or a credential needed in both the head job and individual compute tasks.
+
+    :::note
+    For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation. To rotate a value, recreate the compute environment.
+    :::
 
 #### Advanced options
 
@@ -279,14 +287,14 @@ If you use VM instance templates for the head or compute jobs (see step 8 below)
 
 1. Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
 2. Use **Boot disk size** to control the persistent disk size that each task and the head job are provided.
-3. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The dropdown is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional. If not set, Google Batch uses the default image.
-4. Use **Instance Type** to select one or more machine types for the compute instances. The dropdown is populated with available instance types for the selected region and supports autocomplete filtering. You can select multiple specific instance types or use family wildcards (for example, `c2-*` or `n*`) to allow Google Batch to choose from a family. This field is optional. If not set, Google Batch automatically selects an appropriate machine type.
+3. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The drop-down is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional. If not set, Google Batch uses the default image.
+4. Use **Instance Type** to select one or more machine types for the compute instances. The drop-down is populated with available instance types for the selected region and supports autocomplete filtering. You can select multiple specific instance types or use family wildcards (for example, `c2-*` or `n*`) to allow Google Batch to choose from a family. This field is optional. If not set, Google Batch automatically selects an appropriate machine type.
 
    :::note
    The **Instance Type** field sets the default machine type selection at the compute environment level. You can override this for individual processes using the `machineType` [process directive](https://docs.seqera.io/nextflow/google#process-definition) in your Nextflow configuration, which accepts a comma-separated list of patterns (for example, `c2-*`, `n1-standard-1`, `custom-2-4`).
    :::
 
-5. Use **Head Job CPUs** and **Head Job Memory** to specify the CPUs and memory allocated for the head job.
+5. Use **Head job CPUs** and **Head job memory** to specify the CPUs and memory allocated for the head job.
 6. Use **Service Account email** to specify a service account email address other than the Compute Engine default to execute workflows with this compute environment (recommended for production environments).
 7. Use **VPC** and **Subnet** to specify the name of a VPC network and subnet to be used by this compute environment. You can apply network tags directly in the **Network Tags** field (see below) or through VM instance templates used for the Nextflow head and compute jobs.
 

@@ -2,7 +2,7 @@
 layout: ../../layouts/HelpLayout.astro
 title: "Pipeline resource optimization"
 description: "Optimize the resource usage of your pipelines to save time and money."
-tags: [compute, resource, optimization]
+tags: [compute, resources, optimization]
 ---
 
 Pipeline resource optimization takes the resource usage information from previous workflow runs to optimize subsequent runs.

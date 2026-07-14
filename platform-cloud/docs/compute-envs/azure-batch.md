@@ -2,8 +2,8 @@
 title: "Azure Batch"
 description: "Instructions to set up Azure Batch in Seqera Platform"
 date created: "2024-01-04"
-last updated: "2026-04-17"
-tags: [azure, batch, compute environment]
+last updated: "2026-05-28"
+tags: [azure, batch, compute environments]
 ---
 
 :::note
@@ -69,7 +69,7 @@ After creating a resource group, set up an [Azure Storage account][az-learn-stor
 1. Select **Review and Create**.
 1. Select **Create** to create the Azure Storage account.
     - You will need at least one Blob Storage container to act as a working directory for Nextflow.
-1. Go to your new storage account and select **+ Container** to create a new Blob Storage container. A new container dialogue will open. Enter a suitable name, such as _seqeracomputestorage-container_.
+1. Go to your new storage account and select **+ Container** to create a new Blob Storage container. A new container dialog will open. Enter a suitable name, such as _seqeracomputestorage-container_.
 1. Go to the **Access Keys** section of your new storage account (_seqeracomputestorage_ in this example).
 1. Store the access keys for your Azure Storage account, to be used when you create a Seqera compute environment.
 
@@ -156,7 +156,7 @@ Therefore, you must create both an Entra service principal and a managed identit
 3. When using Batch Forge, provide the managed identity resource ID for each managed identity. Seqera Platform assigns the identity to each pool during creation.
 
 :::note
-Entra service principal credentials support both Batch Forge and Manual compute environments. Some features, such as VNet/subnet configuration, require Entra credentials. When using Entra credentials, a managed identity is recommended for best security practices, but is not mandatory.
+Entra service principal credentials support both Batch Forge and Manual compute environments. Some features, such as VNet/subnet configuration and managed identities, require Entra credentials. When using Entra credentials, a managed identity is recommended for best security practices, but is not mandatory.
 :::
 
 ##### Service principal
@@ -169,9 +169,10 @@ To create an Entra service principal:
 1. Provide a name for the application. The application will automatically have a service principal associated with it.
 1. Assign roles to the service principal:
     1. Go to the Azure Storage account. Under **Access Control (IAM)**, select **Add role assignment**.
-    1. Select the **Storage Blob Data Reader** and **Storage Blob Data Contributor** roles.
+    1. Select the **Storage Blob Data Contributor** role.
     1. Select **Members**, then **Select Members**. Search for your newly created service principal and assign the role.
-    1. Repeat the same process for the Azure Batch account, using the **Azure Batch Data Contributor** role.
+    1. Repeat the same process for the Azure Batch account, using the **Azure Batch Data Contributor** role. This role is sufficient for pool creation and is narrower than the general **Azure Batch Account Contributor** role (which additionally grants Batch-account create/delete and shared-key regeneration — neither needed by Forge).
+    1. If you create a managed identity (recommended), also assign the **Managed Identity Operator** role to the service principal on each managed identity. Without this role, Seqera cannot attach the managed identity to a Batch pool.
 1. Platform will need credentials to authenticate as the service principal:
     1. Navigate back to the app registration. On the **Overview** page, save the **Application (client) ID** value for use in Platform.
     1. Select **Certificates & secrets**, then **New client secret**. A new secret is created containing a value and secret ID. Save both values securely for use in Platform.
@@ -179,7 +180,7 @@ To create an Entra service principal:
     - Enter a **Name** for the credentials
     - **Provider**: Azure
     - Select the **Entra** tab
-    - Complete the remaining fields: **Batch account name**, **Blob Storage account name**, **Tenant ID** (Application (client) ID in Azure), **Client ID** (Client secret ID in Azure), **Client secret** (Client secret value in Azure).
+    - Complete the remaining fields: **Batch account name**, **Blob Storage account name**, **Tenant ID** (Directory (tenant) ID in Azure), **Client ID** (Application (client) ID in Azure), **Client secret** (Client secret value in Azure).
 1. Delete the ID and secret values from their temporary location after they have been added to a credential in Platform.
 
 ##### Managed identity
@@ -188,24 +189,38 @@ To create an Entra service principal:
 To use managed identities, Seqera requires Nextflow version 24.06.0-edge or later.
 :::
 
-Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure.
+Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but it must run on Azure infrastructure and requires Entra service principal credentials. Pool creation with a managed identity attached uses the Azure Batch management plane, which only accepts Entra (AAD) tokens, so shared-key credentials cannot create pools with managed identities.
 
-When you use a compute environment with a managed identity attached to the Azure Batch Pool, Nextflow can use this managed identity for authentication. However, Seqera still needs to use access keys or an Entra service principal to submit the initial task to Azure Batch to run Nextflow, which will then proceed with the managed identity for subsequent authentication.
+When you use a compute environment with a managed identity attached to the Azure Batch pool, Nextflow uses this managed identity for authentication. Seqera still uses the Entra service principal to submit the initial Nextflow task; that task then proceeds with the managed identity for subsequent authentication.
 
 1. In Azure, create a user-assigned managed identity. See [Manage user-assigned managed identities](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities) for detailed steps. Take note of both the **client ID** and the **resource ID** of the managed identity when you create it.
-1. The user-assigned managed identity must have the necessary access roles for Nextflow. See [Required role assignments](https://docs.seqera.io/nextflow/azure#required-role-assignments) for more information.
-1. Associate the user-assigned managed identity with the Azure Batch Pool. See [Set up managed identity in your Batch pool](https://learn.microsoft.com/en-us/troubleshoot/azure/hpc/batch/use-managed-identities-azure-batch-account-pool#set-up-managed-identity-in-your-batch-pool) for more information.
+1. Assign the following roles to the managed identity:
+    - **Storage Blob Data Contributor** on the Azure Storage account, so the pool VMs can read inputs and write outputs.
+    - **AcrPull** on any Azure Container Registry the pipeline pulls images from. Without this role, container pulls fail when the pool VM authenticates via the managed identity.
+
+    See [Required role assignments](https://docs.seqera.io/nextflow/azure#required-role-assignments) for more information.
+1. Associate the user-assigned managed identity with the Azure Batch pool. See [Set up managed identity in your Batch pool](https://learn.microsoft.com/en-us/troubleshoot/azure/hpc/batch/use-managed-identities-azure-batch-account-pool#set-up-managed-identity-in-your-batch-pool) for more information.
 
    :::note
-   When you use separate head and worker pools, you can assign separate managed identities to the head and compute pools. Each pool receives only the managed identity relevant to its role.
+   When you use separate head and worker pools, you can assign a different managed identity to each pool. Typically, the head managed identity needs broader Batch and storage permissions, while the worker managed identity only needs storage and `AcrPull` access.
    :::
 
-1. When you set up the Seqera compute environment, select the Azure Batch pool by name and enter the managed identity **client ID** and (optionally) the **resource ID** in the specified fields. The resource ID is the full ARM path of the managed identity (e.g., `/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}`).
+1. When you set up the Seqera compute environment, provide the managed identity details in the specified fields. The form has four managed identity fields — a **client ID** and a **resource ID** for both the head pool and the worker pool:
 
-When you submit a pipeline to this compute environment, Nextflow will authenticate using the managed identity associated with the Azure Batch node it runs on, rather than relying on access keys.
+    - **Resource IDs** are the full ARM paths of the managed identities (e.g., `/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}`). Seqera passes these to Azure Batch at pool-create time to attach the managed identity to the head pool and worker pool VMs respectively. Resource IDs are required when using Batch Forge.
+    - **Client IDs** are passed to Nextflow, Fusion, and AzCopy on the pool VMs. The Azure Instance Metadata Service uses the client ID to mint a token for the correct managed identity. A VM can have multiple managed identities attached, so the consumer must specify which one to use.
+
+    You can use the same managed identity for both head and worker pools by entering the same values in both pairs of fields, but separate identities are recommended so that worker RBAC can stay narrower than head RBAC.
+
+    The four fields work for both single-pool and dual-pool topologies:
+
+    - **Single-pool** (head pool only): both managed identities are attached to the same VMs. The client IDs disambiguate which managed identity each consumer authenticates as.
+    - **Dual-pool** (separate head and worker pools): each pool has only its own managed identity attached, so disambiguation is implicit at the VM level. The client IDs are still required so that consumers know which managed identity is theirs.
+
+When you submit a pipeline to this compute environment, Nextflow authenticates using the managed identity associated with the Azure Batch node it runs on, rather than relying on access keys.
 
 :::caution
-If a managed identity is misconfigured (e.g., invalid client ID or missing RBAC roles), the pipeline will fail with an explicit error. Seqera will not silently fall back to access key authentication.
+If a managed identity is misconfigured (for example, invalid client ID or missing RBAC roles), the pipeline fails with an explicit error. Seqera will not silently fall back to access key authentication.
 :::
 
 ## Add Seqera compute environment
@@ -266,7 +281,7 @@ Create a Batch Forge Azure Batch compute environment:
 1. Select a **Region**, such as _eastus_.
 1. In the **Work directory** field, enter the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
     :::note
-    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-pipelines) form.
     :::
 1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
 1. Select **Enable Fusion v2** to allow access to your Azure Blob Storage data via the [Fusion v2][fusion-docs] virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/overview) for configuration details.
@@ -326,7 +341,15 @@ Batch Forge creates separate Azure Batch pools for the Nextflow head job and com
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
-1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
+1. Under **Environment variables**, add each variable with a **Name**, **Value**, and **Target Environment**:
+
+    - **Head job**: Adds the variable to the Nextflow head job container, which evaluates `nextflow.config` and submits tasks to the compute backend. Use this target for variables that Nextflow or its plugins read, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings the head node uses to reach external services.
+    - **Compute job**: Adds the variable to the worker containers that run individual pipeline tasks. Use this target for variables your pipeline tools read, such as `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials needed inside the task container, or tool-specific settings like `JAVA_HOME`.
+    - **Head and Compute jobs**: Adds the variable to both the head job and the compute jobs. Use this target for values needed in both places, such as an HTTP proxy used by both Nextflow and task tools, or a credential needed in both the head job and individual compute tasks.
+
+    :::note
+    For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation. To rotate a value, recreate the compute environment.
+    :::
 1. Configure any advanced options you need:
 
     - Use **Max wallclock time** to set the maximum duration a job can run. The default is 7 days. Accepts human-readable duration syntax (e.g., `7d`, `12h`, `1d6h30m`). The maximum allowed by Azure Batch is 180 days. Existing compute environments without this setting use Nextflow's default of 30 days.
@@ -442,7 +465,7 @@ The following settings can be modified after creating a pool:
 1. Select a **Region**, such as _eastus (East US)_.
 1. In the **Work directory** field, add the Azure blob container created previously. For example, `az://seqeracomputestorage-container/work`.
     :::note
-    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+    When you specify a Blob Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-pipelines) form.
     :::
 1. Select **Enable Wave containers** to facilitate access to private container repositories and provision containers in your pipelines using the Wave containers service. See [Wave containers][wave-docs] for more information.
 1. Select **Enable Fusion v2** to allow access to your Azure Blob Storage data via the [Fusion v2][fusion-docs] virtual distributed file system. This speeds up most data operations. The Fusion v2 file system requires Wave containers to be enabled. See [Fusion file system](../supported_software/fusion/overview) for configuration details.
@@ -482,9 +505,17 @@ The following settings can be modified after creating a pool:
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
-1. Define custom **Environment Variables** for the **Head Job** and/or **Compute Jobs**.
+1. Under **Environment variables**, add each variable with a **Name**, **Value**, and **Target Environment**:
+
+    - **Head job**: Adds the variable to the Nextflow head job container, which evaluates `nextflow.config` and submits tasks to the compute backend. Use this target for variables that Nextflow or its plugins read, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings the head node uses to reach external services.
+    - **Compute job**: Adds the variable to the worker containers that run individual pipeline tasks. Use this target for variables your pipeline tools read, such as `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials needed inside the task container, or tool-specific settings like `JAVA_HOME`.
+    - **Head and Compute jobs**: Adds the variable to both the head job and the compute jobs. Use this target for values needed in both places, such as an HTTP proxy used by both Nextflow and task tools, or a credential needed in both the head job and individual compute tasks.
+
+    :::note
+    For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation. To rotate a value, recreate the compute environment.
+    :::
 1. Configure any necessary advanced options:
-    - Use **Jobs cleanup policy** to control how Nextflow process jobs are deleted on completion. Active jobs consume the quota of the Azure Batch account. By default, jobs are terminated by Nextflow and removed from the quota when all tasks succesfully complete. If set to _Always_, all jobs are deleted by Nextflow after pipeline completion. If set to _Never_, jobs are never deleted. If set to _On success_, successful tasks are removed but failed tasks will be left for debugging purposes.
+    - Use **Jobs cleanup policy** to control how Nextflow process jobs are deleted on completion. Active jobs consume the quota of the Azure Batch account. By default, jobs are terminated by Nextflow and removed from the quota when all tasks successfully complete. If set to _Always_, all jobs are deleted by Nextflow after pipeline completion. If set to _Never_, jobs are never deleted. If set to _On success_, successful tasks are removed but failed tasks will be left for debugging purposes.
     - Use **Token duration** to control the duration of the SAS token generated by Nextflow. This must be as long as the longest period of time the pipeline will run.
 1. Select **Add** to complete the compute environment setup. The creation of resources will take a few seconds, after which you can launch pipelines.
 

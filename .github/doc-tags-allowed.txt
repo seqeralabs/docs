@@ -1,0 +1,302 @@
+# Allowed documentation frontmatter tags (canonical spellings).
+# One tag per line. Lines starting with # are comments.
+# Enforced by the check-doc-tags pre-commit/prek hook.
+# Canonical form = the spelling most used in the repo today.
+
+actions
+add dataset version
+admin panel
+administration
+advanced
+agent
+ai
+alerts
+allowlist
+alphafold
+altair
+amazon
+analysis
+antigravity
+api
+approval
+artifact
+audit logs
+authentication
+automation
+aws
+aws batch
+aws eks
+azure
+azure batch
+azure blob
+batch
+billing
+bioinformatics
+blob storage
+cache
+ce
+certificate
+changelog
+checklist
+checkpoint
+claude code
+cli
+client
+cloud
+cloud costs
+cloud enterprise
+cloud pro
+cloudformation
+clusters
+co-scientist
+code intelligence
+codex
+coding agents
+colabfold
+commands
+compatibility
+compose
+compute
+compute environments
+conda
+configuration
+configure
+connect
+connect changelog
+container images
+container registry
+containers
+content
+cost
+create datasets
+create organization
+create workspace
+credentials
+credits
+custom
+dashboard
+data
+data explorer
+data lineage
+data studios
+database
+datasets
+deployment
+details
+diagnostics
+dns
+docker
+dragen
+ec2
+ecr
+ecs
+eks
+email
+ena
+enterprise
+entra
+entra id
+environment
+environments
+error codes
+errors
+examples
+execution
+exit codes
+explorer
+faq
+file system
+firewall
+fuse
+fusion
+fusion doctor
+fusion snapshots
+gcp
+gcp batch
+gcs
+gemini
+geo
+getting started
+git
+git repository
+gitea
+github
+github copilot
+gitlab
+gke
+google
+google cloud
+governance
+grid engine
+groundswell
+guides
+helm
+help
+https
+iam
+ibm
+idp delegation
+igv
+image
+input
+installation
+integration
+intelligent compute
+interactive
+jupyter
+k8s
+keycloak
+keys
+kubernetes
+labels
+launch
+launchpad
+license
+lid
+limitations
+limits
+lineage
+lineage id
+local
+logging
+login
+logs
+lsf
+lsp
+mail
+manage datasets
+managed identities
+mcp
+mcp server
+meta-seqera.io
+metrics
+migration notes
+minio
+moab
+modes
+modules
+molstar
+monitoring
+multiqc
+networking
+nextflow
+nf-canary
+nf-core
+nf-launcher
+notifications
+oauth
+object
+oidc
+okta
+on-prem
+optimization
+oracle object storage
+organization settings
+organizations
+output
+overview
+parameters
+passwordless
+pbs
+pbs pro
+permissions
+pipeline optimization
+pipeline runs
+pipelines
+platform
+policy
+posix
+prerequisites
+privacy
+processes
+production
+projects
+proteinfold
+provenance
+quay
+quotas
+r-ide
+rate limits
+rbac
+rds
+redis
+reference
+registry
+relaunch
+reports
+reproducibility
+resource labels
+resources
+restore
+resume
+retry
+reverse proxy
+ride
+rnaseq
+roles
+rstudio
+runs
+s3
+s3-compatible
+schema
+scim
+scripts
+secrets
+securestring
+security
+seqera
+seqera ai
+seqera cloud
+seqera compute
+seqera containers
+seqera enterprise
+seqera pipelines
+seqera template
+seqera template studio
+seqerakit
+sequencing
+ses
+sessions
+settings
+singularity
+skills
+slurm
+snapshot
+spec
+spot
+sra
+ssh
+ssl
+sso
+stats
+status
+storage
+studio custom
+studio git
+studios
+tasks
+teams
+template
+testing
+tls
+troubleshooting
+tutorial
+unpublished
+update
+usage
+usage limits
+use cases
+use configuration
+user workspace
+users
+version control
+versioning
+vm
+vscode
+wave
+wave cli
+webhooks
+workflows
+workspaces
+xpra
+yaml

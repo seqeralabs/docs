@@ -2,7 +2,7 @@
 title: "User and organization administration"
 description: "Overview of Seqera user and organization administration"
 date: "21 Apr 2023"
-tags: [administration, user, workspace, organization]
+tags: [administration, users, workspaces, organizations]
 ---
 
 As a root user, you can access a comprehensive overview of the organizations, workspaces, users, and teams in your Seqera account from the **Admin panel**. It also includes tabs for application event [audit logs](../monitoring/audit-logs), administrative statistics, and system configuration options.

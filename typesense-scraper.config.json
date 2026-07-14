@@ -40,8 +40,7 @@
     "https://docs.seqera.io/sitemap.xml"
   ],
   "stop_urls": [
-    ".*/changelog.*",
-    ".*seqera-ai.*"
+    ".*/changelog.*"
   ],
   "selectors": {
     "default": {
@@ -55,7 +54,7 @@
       "lvl4": "article h4",
       "lvl5": "article h5, article td:first-child",
       "lvl6": "article h6",
-      "text": "article p, article li, article td:last-child"
+      "text": "article p, article li, article td:last-child, article pre"
     },
     "platform-enterprise": {
       "lvl0": {
@@ -68,7 +67,7 @@
       "lvl4": "article h4",
       "lvl5": "article h5, article td:first-child",
       "lvl6": "article h6",
-      "text": "article p, article li, article td:last-child"
+      "text": "article p, article li, article td:last-child, article pre"
     },
     "platform-cloud": {
       "lvl0": {
@@ -81,7 +80,7 @@
       "lvl4": "article h4",
       "lvl5": "article h5, article td:first-child",
       "lvl6": "article h6",
-      "text": "article p, article li, article td:last-child"
+      "text": "article p, article li, article td:last-child, article pre"
     },
     "platform-cli": {
       "lvl0": {
@@ -94,7 +93,7 @@
       "lvl4": "article h4",
       "lvl5": "article h5, article td:first-child",
       "lvl6": "article h6",
-      "text": "article p, article li, article td:last-child"
+      "text": "article p, article li, article td:last-child, article pre"
     },
     "platform-api": {
       "lvl0": {
@@ -107,7 +106,7 @@
       "lvl4": "article h4",
       "lvl5": "article h5, article td:first-child",
       "lvl6": "article h6",
-      "text": "article p, article li, article td:last-child"
+      "text": "article p, article li, article td:last-child, article pre"
     },
     "nextflow": {
       "lvl0": {
@@ -120,7 +119,7 @@
       "lvl4": "article h4",
       "lvl5": "article h5, article td:first-child",
       "lvl6": "article h6",
-      "text": "article p, article li, article td:last-child"
+      "text": "article p, article li, article td:last-child, article pre"
     },
     "multiqc": {
       "lvl0": {
@@ -133,7 +132,7 @@
       "lvl4": "article h4",
       "lvl5": "article h5, article td:first-child",
       "lvl6": "article h6",
-      "text": "article p, article li, article td:last-child"
+      "text": "article p, article li, article td:last-child, article pre"
     },
     "wave": {
       "lvl0": {
@@ -146,7 +145,7 @@
       "lvl4": "article h4",
       "lvl5": "article h5, article td:first-child",
       "lvl6": "article h6",
-      "text": "article p, article li, article td:last-child"
+      "text": "article p, article li, article td:last-child, article pre"
     },
     "fusion": {
       "lvl0": {
@@ -159,7 +158,7 @@
       "lvl4": "article h4",
       "lvl5": "article h5, article td:first-child",
       "lvl6": "article h6",
-      "text": "article p, article li, article td:last-child"
+      "text": "article p, article li, article td:last-child, article pre"
     }
   },
   "strip_chars": " .,;:#",

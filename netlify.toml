@@ -7,27 +7,29 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  # Per-process V8 heap ceiling. Build VM has ~10 GiB RAM / 6 vCPUs.
   NODE_OPTIONS = "--max-old-space-size=4096"
-  # Limit SSG worker threads to prevent OOM errors in Netlify builds
-  # Docusaurus defaults to 32 threads with 1GB memory each, but Netlify's
-  # memory limits aren't properly enforced, causing out-of-memory 137 errors.
-  # Limiting thread processing avoids this issue with some build time impact however,
-  # build are still significantly faster than without SSG in-use.
-  # Reference: https://github.com/facebook/docusaurus/discussions/11199
-  DOCUSAURUS_SSG_WORKER_THREAD_COUNT = "1"
+  # SSG worker-thread pool (enabled by ssgWorkerThreads in docusaurus.config.js).
+  # Cap workers and recycle each past ~1.5 GB to bound peak memory under the VM's
+  # ~10 GiB. Recycler: https://github.com/facebook/docusaurus/pull/11166
+  DOCUSAURUS_SSG_WORKER_THREAD_COUNT = "4"
+  DOCUSAURUS_SSG_WORKER_THREAD_RECYCLER_MAX_MEMORY = "1500000000"
+  DOCUSAURUS_SSG_WORKER_THREAD_TASK_SIZE = "8"
+  # Drop Rspack incremental-compilation state to trim peak bundler memory; no
+  # downside on cold CI builds. Read by @docusaurus/core webpack/base.js.
+  DISABLE_RSPACK_INCREMENTAL = "true"
 
 [context.deploy-preview.build.environment]
+  # Lean preview scope. platform-api is excluded because building it OOMs (137)
+  # during Rspack bundling on the build VM; it's offloaded to the seqera-docs-api
+  # site and served via the non-forced /platform-api/* proxy below. CLI is
+  # excluded to keep previews fast.
   INCLUDE_NEXT=""
   EXCLUDE_CHANGELOG=""
   EXCLUDE_PLATFORM_CLI="true"
   EXCLUDE_PLATFORM_ENTERPRISE=""
-  EXCLUDE_PLATFORM_API="false"
-  EXCLUDE_PLATFORM_OPENAPI="false"
+  EXCLUDE_PLATFORM_API="true"
   EXCLUDE_MULTIQC=""
-  EXCLUDE_WAVE="true"
-
-# Seqera API docs are too large to host / build on netlify on their own.
-# The appropriate ENVVAR is set to disable the API Builds on Netlify for the main docs site.
 
 # Asset and image routing handled by Edge Function
 # See netlify/edge-functions/asset-proxy.js
@@ -54,5 +56,5 @@
 
 [[redirects]]
   from = "/nextflow/*"
-  to = "https://docs-migration.netlify.app/nextflow/:splat"
+  to = "https://nextflow-docs.netlify.app/nextflow/:splat"
   status = 200

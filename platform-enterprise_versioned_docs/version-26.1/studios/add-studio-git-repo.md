@@ -3,7 +3,7 @@ title: "Import from Git repository"
 description: "Add a Studio in Platform."
 date created: "2025-09-04"
 last updated: "2025-12-12"
-tags: [studio-git, git-repository, session, studios, git, version-control]
+tags: [studio git, git repository, sessions, studios, git, version control]
 ---
 
 :::info[**Prerequisites**]
@@ -80,7 +80,7 @@ To help you get started, a [GitHub repository][github-examples] with multiple br
 You can add a Studio by referencing a Git repository containing Studio configuration files. You can also configure the following fields:
 
 - **Git repository**: Enter the full URL to your Git repository (e.g., `https://github.com/your-org/your-repo`).
-- **Revision**: Select a branch, tag, or commit from the dropdown. The dropdown is dynamically populated based on the repository URL. If no revision is selected, the default branch is used.
+- **Revision**: Select a branch, tag, or commit from the drop-down. The drop-down is dynamically populated based on the repository URL. If no revision is selected, the default branch is used.
 - **Install Conda packages**: A list of conda packages to include with the Studio. For more information on package syntax, see [conda package syntax][conda-syntax].
 - **Resource labels**: Any [resource label](../labels/overview) already defined for the compute environment is added by default, but can be removed. Additional custom resource labels can be added or removed as needed.
 - **Environment variables**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence. To override an inherited variable, define the same key with a different value.

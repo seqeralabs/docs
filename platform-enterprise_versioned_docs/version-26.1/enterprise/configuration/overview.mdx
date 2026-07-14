@@ -2,7 +2,7 @@
 title: "Configuration overview"
 description: Overview of Seqera configuration options
 date created: "2023-04-21"
-last updated: "2026-01-30"
+last updated: "2026-05-26"
 tags: [configuration]
 ---
 
@@ -174,7 +174,11 @@ GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CR
 
 ### Managed Redis services
 
-Seqera supports managed Redis services such as [Amazon ElastiCache](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html), [Azure Cache for Redis](https://learn.microsoft.com/en-gb/azure/azure-cache-for-redis/cache-overview), or [Google Memorystore](https://cloud.google.com/memorystore/docs/redis).
+Seqera supports managed Redis services such as [Amazon ElastiCache](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html), [Azure Managed Redis](https://learn.microsoft.com/azure/redis/overview), or [Google Memorystore](https://cloud.google.com/memorystore/docs/redis).
+
+:::caution
+Microsoft is retiring Azure Cache for Redis. As of April 1, 2026, new customers cannot create instances, and from October 1, 2026, no new instances can be created. For new Azure deployments, use [Azure Managed Redis](https://learn.microsoft.com/azure/redis/overview).
+:::
 
 When using a managed Redis service, you must specify the service IP address or DNS name for the `TOWER_REDIS_URL` as described in the following sections.
 
@@ -190,11 +194,11 @@ TOWER_REDIS_URL=redis://<redis private IP>:6379
 ```
 
 </TabItem>
-<TabItem value="Azure Cache for Redis" label="Azure Cache for Redis" default>
+<TabItem value="Azure Managed Redis" label="Azure Managed Redis" default>
 
 - Use a single-node cluster, as multi-node clusters are not supported
-- Use an instance with at least 6 GB capacity ([C3](https://azure.microsoft.com/en-gb/pricing/details/cache/) or greater)
-- Specify your private Azure Cache for Redis instance in the Seqera environment variables:
+- Choose a production-capable [Azure Managed Redis tier](https://learn.microsoft.com/azure/redis/overview) appropriate for your workload
+- Specify your private Azure Managed Redis instance in the Seqera environment variables:
 
 ```bash
 TOWER_REDIS_URL=redis://<redis private IP>:6379
@@ -383,6 +387,80 @@ With rotation enabled and the previous and new key values set, secret key rotati
   :::
 
 The [Admin panel](../../administration/overview.md#encryption) **Encryption** tab displays the status of completed or errored encryption tasks.
+
+## Backend memory requirements
+
+The Platform backend and cron services run on the Java Virtual Machine (JVM). Allocate at least 4 GB of memory to each service for stable operation under load.
+
+For Kubernetes, set resource limits in your pod specifications:
+
+```yaml
+resources:
+  limits:
+    memory: "4Gi"
+  requests:
+    memory: "4Gi"
+```
+
+For Docker Compose, set memory limits in your service definitions:
+
+```yaml
+services:
+  backend:
+    mem_limit: 4g
+    memswap_limit: 4g
+```
+
+:::note
+These default memory allocation limits are included in the Kubernetes manifest templates ([tower-svc.yml](../_templates/k8s/tower-svc.yml) and [tower-cron.yml](../_templates/k8s/tower-cron.yml)). For Docker Compose, add the `mem_limit` settings to your service definitions as shown above.
+:::
+
+### JVM memory tuning
+
+For production deployments, configure JVM memory parameters with the `JAVA_OPTS` environment variable. This baseline configuration suits most deployments:
+
+```bash
+JAVA_OPTS="-Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144"
+```
+
+The `JAVA_TOOL_OPTIONS` environment variable is a supported alternative to `JAVA_OPTS`. The JVM reads it directly at startup and confirms pickup with a `Picked up JAVA_TOOL_OPTIONS` line in the service logs. Set one variable or the other, not both. Options passed on the command line (which is how `JAVA_OPTS` is applied) take precedence over `JAVA_TOOL_OPTIONS` when the same flag appears in both.
+
+:::note
+These default JVM memory settings are included in the configuration templates provided in these docs:
+- Kubernetes: [tower-svc.yml](../_templates/k8s/tower-svc.yml) and [tower-cron.yml](../_templates/k8s/tower-cron.yml)
+- Docker Compose: [tower.env](../_templates/docker/tower.env)
+:::
+
+| Parameter | Description |
+| --- | --- |
+| `-Xms` / `-Xmx` | Initial and maximum heap size — the memory pool for Java objects. |
+| `-XX:MaxDirectMemorySize` | Off-heap memory for NIO operations, network buffers, and file I/O. Handles concurrent workflow API operations. |
+| `-Dio.netty.maxDirectMemory=0` | Disables Netty's internal memory tracking and relies on the JVM direct memory limit instead. |
+| `-Djdk.nio.maxCachedBufferSize` | Limits the size of cached NIO buffers to prevent excessive memory retention. |
+
+Adjust these baseline values based on the symptoms you observe.
+
+Increase `-XX:MaxDirectMemorySize` if you observe:
+- `OutOfMemoryError: Direct buffer memory` in the logs
+- High concurrent workflow launch rates (more than 100 simultaneous workflows)
+- Large configuration payloads or heavy API usage
+
+Increase heap memory (`-Xmx`) if you observe:
+- `OutOfMemoryError: Java heap space` in the logs
+- Garbage collection pauses that affect performance
+- Growing memory usage under sustained load
+
+For deployments running 200 or more concurrent workflows, increase the heap and direct memory limits:
+
+```bash
+JAVA_OPTS="-Xms1000M -Xmx3000M -XX:MaxDirectMemorySize=1600m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144"
+```
+
+Set the container or pod memory limit higher than the JVM limits to accommodate non-heap memory usage.
+
+:::warning
+These are starting values. Monitor your deployment's memory usage and adjust for your workload. Undersized memory allocation can cause out-of-memory (OOM) failures and service instability.
+:::
 
 ## Compute environments
 
@@ -587,11 +665,11 @@ Modify your Seqera instance's navigation menu options.
 
 ```yaml
 tower:
-    navbar:
+  navbar:
     menus:
-        - label: "My Community"
+      - label: "My Community"
         url: "https://host.com/foo"
-        - label: "My Pipelines"
+      - label: "My Pipelines"
         url: "https://other.com/bar"
 ```
 

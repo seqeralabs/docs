@@ -1,8 +1,8 @@
 ---
 title: Connect changelog
 date created: "2025-07-30"
-last updated: "2026-02-12"
-tags: [connect, changelog, connect-changelog]
+last updated: "2026-05-29"
+tags: [connect, changelog, connect changelog]
 ---
 
 :::note
@@ -11,7 +11,11 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ## Connect server
 
-### server/v0.10.0 `latest` - 2026-02-11
+### server/v0.11.0 `latest` - 2026-03-02
+
+* Fix(proxy): bidirectional proxy fixes
+
+### server/v0.10.0 - 2026-02-11
 
 * Add: SSH Connectivity:
   * Server implementation (initialize SSH server when enabled)
@@ -111,7 +115,32 @@ Connect version 0.8.3 introduced a change which required the creation of a `/dat
 
 ## Connect client
 
-### client/v0.10.0 `latest` - 2026-02-11
+### client/v0.12.1 `latest` - 2026-05-19
+
+* Fix(client): skip auto-discovered mounts under /proc in overlay setup
+* Chore: bump go_modules group dependencies across components
+
+### client/v0.12.0 - 2026-04-16
+
+* Feat(client): support agent forwarding in SSH server
+* Chore(deps): update to go 1.26.2 and google.golang.org/grpc to 1.79.3 (vulnerability fix)
+* Chore(deps): pin dependencies
+* Update CI actions
+
+### client/v0.11.1 - 2026-03-24
+
+* Fix(client): git cloning failing with conflicts on mounted datalink and preexisting files
+
+### client/v0.11.0 - 2026-03-02
+
+* Fix: x/net vulnerability
+* Fix(client): add new version to matrix
+* Fix: slow/flaky tests
+* Fix: update dependencies to fix security vulnerabilities
+* Refactor(client): refactor executor package
+* Fix(client): apply suggested security fixes
+
+### client/v0.10.0 - 2026-02-11
 
 * Moved Docker service management to the Connect-client.
 * Add: SSH Connectivity:

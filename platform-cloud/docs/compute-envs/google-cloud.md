@@ -2,8 +2,8 @@
 title: "Google Cloud"
 description: "Instructions to set up an Google Cloud CE in Seqera Platform"
 date created: "2025-07-15"
-last updated: "2026-05-05"
-tags: [cloud, vm, google, compute-environment]
+last updated: "2026-07-07"
+tags: [cloud, vm, google, compute environments]
 ---
 
 :::note
@@ -90,9 +90,94 @@ To create and launch pipelines or Studio sessions with this compute environment 
 
 If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal [on each bucket individually](https://docs.seqera.io/platform-cloud/compute-envs/google-cloud-batch#cloud-storage-bucket). For each Google Cloud compute environment created in the Seqera platform, a separate service account is created with the necessary permissions to launch pipelines/studios.
 
+:::caution
+On shared GCP projects, `roles/resourcemanager.projectIamAdmin` lets the service account grant any role to any principal on the project. A compromised credential can then escalate to any project-level role. `roles/iam.serviceAccountAdmin` grants create and delete access to any service account in the project.
+
+To harden this, add an [IAM condition](https://cloud.google.com/iam/docs/conditions-overview) to the `roles/iam.serviceAccountAdmin` binding that restricts it to service accounts whose names start with `towerforge-`.
+:::
+
 #### Userdata script error detection (optional)
 
 Platform can retrieve the serial port output of the Compute Engine instance to detect errors in the userdata script that bootstraps the VM during instance startup. This capability is included in the `roles/compute.instanceAdmin.v1` role listed above. If you use a custom role instead, include the `compute.instances.getSerialPortOutput` permission. Without this permission, userdata script failures are not detected, and no warning is shown.
+
+### Authentication methods
+
+Seqera supports two methods for authenticating with Google Cloud:
+
+#### Service account keys
+
+To authenticate using a service account key, create a [service account JSON key file](https://cloud.google.com/iam/docs/keys-list-get#get-key):
+
+1. In the Google Cloud navigation menu, select **IAM & Admin > Service Accounts**.
+2. Select the email address of the service account.
+3. Select **Keys > Add key > Create new key**.
+4. Select **JSON** as the key type.
+5. Select **Create**.
+
+Google Cloud downloads a JSON file to your computer. It contains the credential you need to configure the compute environment in Seqera.
+
+#### Workload Identity Federation
+
+Workload Identity Federation (WIF) is the recommended authentication method for production and regulated environments because it avoids long-lived service account keys. Instead, Seqera Platform generates short-lived OIDC tokens for authentication.
+
+Platform advertises its OIDC issuer at https://cloud.seqera.io/api/.well-known/openid-configuration.
+
+##### Enable APIs
+
+Before setting up WIF, enable the following APIs for your Google Cloud project:
+
+- [Cloud Resource Manager API](https://console.cloud.google.com/marketplace/product/google/cloudresourcemanager.googleapis.com) (`cloudresourcemanager.googleapis.com`)
+- [IAM API](https://console.cloud.google.com/marketplace/product/google/iam.googleapis.com) (`iam.googleapis.com`)
+- [IAM Service Account Credentials API](https://console.cloud.google.com/marketplace/product/google/iamcredentials.googleapis.com) (`iamcredentials.googleapis.com`)
+- [Cloud Logging API](https://console.cloud.google.com/marketplace/product/google/logging.googleapis.com) (`logging.googleapis.com`)
+- [Security Token Service API](https://console.cloud.google.com/marketplace/product/google/sts.googleapis.com) (`sts.googleapis.com`)
+
+:::note
+The Compute Engine, Cloud Storage, and Secret Manager APIs (`compute.googleapis.com`, `storage.googleapis.com`, `secretmanager.googleapis.com`) are also required. Enable them if not already active in your project.
+:::
+
+##### Set up WIF in the GCP Console
+
+In the GCP Console:
+
+1. Create a [Workload Identity Pool and Provider](https://cloud.google.com/iam/docs/workload-identity-federation-with-other-providers) in your Google Cloud project.
+2. Set Seqera as an OIDC provider within the pool. Set the **Issuer URL** to `https://cloud.seqera.io/api`.
+3. Set the **Allowed audiences**. If left empty, GCP derives a default audience from the provider resource path in the format `//iam.googleapis.com/projects/{PROJECT}/locations/global/workloadIdentityPools/{POOL}/providers/{PROVIDER}`. If you specify a custom value, it must match exactly what you enter in the **Token audience** field when creating the WIF credential in Seqera.
+4. Define an attribute mapping and condition. At a minimum, set google.subject=assertion.sub. This maps the subject claim from Seqera's JWT to GCP's identity space. For more information, see [Attribute mappings and conditions](https://cloud.google.com/iam/docs/workload-identity-federation-with-other-providers#mappings-and-conditions). If a pop-up asks you to configure your application and provide an OIDC ID token path, dismiss it.
+5. Grant `roles/iam.workloadIdentityUser` on the service account that WIF will impersonate to the Workload Identity Pool principal. This can be scoped to all pool identities or to a specific workspace:
+   - **All identities in the pool**: `principalSet://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/*`
+   - **Specific workspace only**: `principal://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/subject/org:{ORG_ID}:wsp:{WORKSPACE_ID}:workflow`
+
+   If you have not yet created a service account, do so following the guidelines under [Service account permissions](#service-account-permissions).
+
+6. (Optional) If you use the same WIF credential for [Data Explorer][data-explorer], grant `roles/iam.serviceAccountTokenCreator` on the service account to the Workload Identity Pool principal:
+
+   ```bash
+   gcloud iam service-accounts add-iam-policy-binding SA_EMAIL \
+     --member="principalSet://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/*" \
+     --role="roles/iam.serviceAccountTokenCreator"
+   ```
+
+   Replace `SA_EMAIL`, `PROJECT_NUMBER`, and `POOL_ID` with your values. Without this role, viewing or downloading file contents in Data Explorer fails. Seqera Platform logs the underlying error as `SigningException: Failed to sign the provided bytes` caused by `Permission 'iam.serviceAccounts.signBlob' denied`. Running pipelines is not affected.
+
+   To scope this binding to a specific workspace, replace the `principalSet` wildcard with `principal://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/subject/org:{ORG_ID}:wsp:{WORKSPACE_ID}:workflow`.
+
+##### Configure WIF credentials in Platform
+
+After setting up WIF in the GCP Console, you need the following information to create a WIF credential in Platform:
+
+1. **Service Account Email**: The email address of the Google Cloud service account that WIF will impersonate.
+2. **Workload Identity Provider**: The full resource path of the Workload Identity Provider, e.g., `projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID`.
+3. **Token Audience** (optional): The intended audience for the OIDC token. Configure this only if your Workload Identity Provider requires a specific audience value. Ensure this matches the **Allowed audiences** value configured in the GCP console.
+
+:::caution
+If WIF authentication fails at runtime, verify that:
+
+- The service account has the required roles (see [Service account permissions](#service-account-permissions)).
+- The Workload Identity Pool principal has `roles/iam.workloadIdentityUser` on the service account.
+- The Issuer URL configured in the WIF provider matches Platform's OIDC issuer URL (`https://cloud.seqera.io/api`).
+- The Token Audience in the credential (if set) matches the Allowed audiences in the WIF provider.
+:::
 
 ## Advanced options
 
@@ -105,3 +190,5 @@ Platform can retrieve the serial port output of the Compute Engine instance to d
 - **Image**: The image defining the operating system and pre-installed software for the VM. Currently only [Ubuntu LTS](https://cloud.google.com/compute/docs/images/os-details#ubuntu_lts) Google public image project images are available and supported. For GPU-enabled instances, a Deep Learning VM base image with CUDA pre-installed is automatically selected (See [Google Deep Learning VM Images](https://cloud.google.com/deep-learning-vm/docs/images#base_versions) for more details). Optimized, Seqera-owned custom images will be available in a future release.
 - **Boot disk size**: The size of the boot disk for the Compute Engine instance. A standard persistent disk (`pd-standard`) is used. If undefined, a default 50 GB volume will be used.
 - **Zone**: The [zone](https://cloud.google.com/compute/docs/regions-zones) within the selected region where the VM will be provisioned (defaults to the first zone in the alphabetical list).
+
+[data-explorer]: ../data/data-explorer

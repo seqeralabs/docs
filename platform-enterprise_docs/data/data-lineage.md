@@ -1,27 +1,27 @@
 ---
-title: "Data Lineage"
+title: "Data lineage"
 description: "Using data lineage in Seqera Platform."
 date created: "2026-05-11"
-last updated: "2026-05-22"
-tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, label]
+last updated: "2026-07-02"
+tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, labels]
 ---
 
 :::info
-Data lineage in Platform is in public preview. It is currently supported in AWS compute environments. It requires Nextflow v25.04 or later, AWS S3 object storage, and Amazon Simple Queue Service (SQS).
+Data lineage in Platform is in public preview. It is supported in AWS compute environments. It requires Nextflow v25.04 or later, AWS S3 object storage, and Amazon Simple Queue Service (SQS).
 :::
 
 :::warning
-The feature is experimental and subject to change. See this guide for the latest configuration recommendations and limitations.
+The feature is experimental and subject to change. This page provides the latest configuration recommendations and limitations.
 :::
 
 Data lineage tracks the full provenance of every pipeline run at both the task and workflow level, including what executed, what data it consumed, and what outputs it produced. Use it to audit results, verify reproducibility, and trace file provenance.
 
-## Overview
+## Why use data lineage
 
 Production pipelines generate results that teams need to trust, audit, and reproduce. Data lineage provides a precise, immutable record of how each result was produced.
 
 - **Reproducibility**: Every run, task, and output file receives a unique lineage ID (LID), a traversable URI that points to a structured record of what ran. Verify that two runs produced identical results, or identify where they diverged.
-- **Auditing and compliance**: For teams in regulated industries such as pharma, clinical genomics, and CROs, lineage provides the audit trail needed for regulatory compliance. Each record captures inputs, outputs, parameters, compute environment, and the user who launched the run.
+- **Auditing and compliance**: For teams in regulated industries such as pharma, clinical genomics, and contract research organizations (CROs), lineage provides the audit trail needed for regulatory compliance. Each record captures inputs, outputs, parameters, compute environment, and the user who launched the run.
 - **Debugging**: When a cached task unexpectedly re-executes, or a pipeline produces an unexpected result, lineage traces backward from any output to all contributing tasks and parameters. Compare two task runs to isolate what changed.
 - **Broader team access**: Exploring Nextflow lineage previously required CLI access and comfort reading raw JSON. Platform now surfaces lineage data in pipeline run detail pages and Data Explorer. Users can inspect provenance directly.
 - **Cross-workflow discoverability**: [Workflow output labels][workflow-labels] make output files discoverable across runs. Navigate lineage records by label to find all matching outputs workspace-wide, without knowing which specific run produced a file.
@@ -53,15 +53,15 @@ To start collecting data lineage for all pipeline runs in your workspace:
 Updating the lineage settings after pipelines have generated lineage data will result in historic data loss. The lineage index is tied to the lineage storage bucket and path. Changing it makes existing records inaccessible. To avoid data loss when updating the storage location, first copy all existing lineage data to the new bucket and path (for example, `aws s3 cp --recursive s3://old-bucket/path s3://new-bucket/path`), then update the workspace setting.
 :::
 
-When launching a pipeline in a data-lineage enabled workspace, the **Enable lineage** toggle in the pipeline **Run setup** reflects the **Enable lineage by default** workspace setting. This can be turned off to _explicitly exclude_ data lineage creation for the pipeline run.
+When launching a pipeline in a data-lineage enabled workspace, the **Enable lineage** toggle in the pipeline **Run setup** reflects the **Enable lineage by default** workspace setting. Turn it off to _explicitly exclude_ data lineage for the pipeline run.
 
 :::tip
-Maintain role users and above can optionally toggle lineage on or off when launching a specific pipeline run.
+Maintain role users and above can toggle lineage on or off when launching a specific pipeline run.
 :::
 
 ### Additional IAM permissions required
 
-If using existing AWS Batch or AWS Cloud compute environments with custom IAM roles, the following service role policies are required:
+If you use existing AWS Batch or AWS Cloud compute environments with custom IAM roles, the following service role policies are required:
 
 ```json
 {
@@ -116,8 +116,8 @@ Platform integration credentials require the following additional permissions:
             "Effect": "Allow",
             "Action": [
                 "s3:CreateBucket",
-                "s3:GetBucketNotificationConfiguration",
-                "s3:PutBucketNotificationConfiguration",
+                "s3:GetBucketNotification",
+                "s3:PutBucketNotification",
                 "s3:GetBucketLocation"
             ],
             "Resource": "arn:aws:s3:::seqera-lineage-*"
@@ -148,7 +148,7 @@ If data lineage is defined for a workspace, only that data is displayed in Platf
 When a run was executed with lineage enabled, the [run details page][run-details] displays lineage data across the following tabs:
 
 - **Run Info**: Shows the lineage ID, lineage labels, and the full Platform context captured at execution time: user, workspace, compute environment, pipeline name, revision, and commit ID.
-- **Tasks**: Displays the lineage ID and lineage labels for each `TaskRun` alongside existing task data, so you can trace any task back to its lineage record. All task file inputs and outputs, and upstream and downstream tasks linked by lineage records, are displayed.
+- **Tasks**: Displays the lineage ID and lineage labels for each `TaskRun` alongside existing task data. You can trace any task back to its lineage record. All task file inputs and outputs, and upstream and downstream tasks linked by lineage records, are displayed.
 - **Inputs**: Lists all input datasets and parameters with file paths, types, and lineage IDs and lineage labels where available.
 - **Outputs**: Lists all `FileOutput` records linked to the workflow run: output name, file path, type, lineage ID, and lineage labels. Files link directly to [Data Explorer][data-explorer].
 
