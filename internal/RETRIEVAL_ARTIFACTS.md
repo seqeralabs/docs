@@ -7,7 +7,8 @@ ingest these artifacts instead of re-cloning and re-chunking the docs repo.
 ## Artifacts
 
 - `manifest.json`: schema version, source commit, corpus counts, chunking
-  settings, embedding profiles, artifact paths, record counts, and checksums.
+  settings, supported embedding profiles, artifact paths, record counts, and
+  checksums.
 - `chunks.jsonl.gz`: one JSON object per canonical docs chunk.
 - `embeddings/<profile>.jsonl.gz`: optional embedding vectors keyed by
   `chunk_id`.
@@ -44,15 +45,30 @@ npm run build:retrieval:embeddings
 fresh with the published docs site. Embeddings are explicit because they require
 AWS credentials and incur Bedrock usage.
 
-## Bedrock Profile
+## Embedding Profiles
 
-The current embedding profile is:
+The docs repo is the source of truth for embedding profile definitions. Every
+manifest publishes `supported_embedding_profiles`, including chunk-only builds,
+so consumers can discover the supported model contract without inspecting this
+generator's source code.
+
+The current supported profile is:
 
 - profile: `bedrock-titan-v2-1024`
 - provider: Bedrock
 - model: `amazon.titan-embed-text-v2:0`
 - dimensions: `1024`
 - normalized: `true`
+
+`supported_embedding_profiles` describes what the producer can generate.
+`artifacts.embeddings` describes which profiles were generated in this build.
+Consumers must select a profile ID present in both locations and must use the
+declared model, dimensions, and normalization settings when embedding queries.
+The profile ID is part of the artifact path:
+
+```text
+embeddings/bedrock-titan-v2-1024.jsonl.gz
+```
 
 The embedding command expects standard AWS environment credentials:
 
@@ -64,7 +80,7 @@ The embedding command expects standard AWS environment credentials:
 ## Consumer Contract
 
 The docs repo owns corpus production: canonical chunk text, product metadata,
-URLs, checksums, and optional embedding profiles.
+URLs, checksums, and embedding profile definitions.
 
 Consumers own serving indexes:
 

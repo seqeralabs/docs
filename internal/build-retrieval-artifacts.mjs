@@ -13,7 +13,7 @@ const buildDir = path.join(repoRoot, "build");
 const outputDir = path.join(buildDir, "retrieval");
 const embeddingsDir = path.join(outputDir, "embeddings");
 
-const SCHEMA_VERSION = "2026-07-13";
+const SCHEMA_VERSION = "2026-07-15";
 const CHUNK_SIZE = 1000;
 const CHUNK_OVERLAP = 200;
 const TOKEN_RE = /\w+|[^\w\s]/gu;
@@ -78,6 +78,7 @@ const BEDROCK_PROFILE = {
   dimensions: 1024,
   normalize: true,
 };
+const SUPPORTED_EMBEDDING_PROFILES = [BEDROCK_PROFILE];
 
 function parseArgs() {
   const args = new Set(process.argv.slice(2));
@@ -360,6 +361,13 @@ async function validateArtifacts() {
   }
 
   const manifest = await fs.readJson(manifestPath);
+  const supportedProfileIds = new Set(
+    (manifest.supported_embedding_profiles ?? []).map((profile) => profile.id),
+  );
+  if (supportedProfileIds.size === 0) {
+    throw new Error("Retrieval manifest does not declare supported_embedding_profiles");
+  }
+
   for (const [name, artifact] of Object.entries(manifest.artifacts ?? {})) {
     if (name === "embeddings") continue;
     const artifactPath = path.join(outputDir, artifact.path);
@@ -377,6 +385,9 @@ async function validateArtifacts() {
   }
 
   for (const [profile, artifact] of Object.entries(manifest.artifacts?.embeddings ?? {})) {
+    if (!supportedProfileIds.has(profile)) {
+      throw new Error(`Embedding artifact uses unsupported profile: ${profile}`);
+    }
     const artifactPath = path.join(outputDir, artifact.path);
     if (!(await fs.pathExists(artifactPath))) {
       throw new Error(`Missing embedding artifact for ${profile}: ${artifact.path}`);
@@ -520,7 +531,7 @@ async function embedWithBedrock(chunks) {
   return records;
 }
 
-async function buildManifest({ chunks, productCounts, sourceCommit, artifacts, embeddingProfiles }) {
+async function buildManifest({ chunks, productCounts, sourceCommit, artifacts }) {
   return {
     schema_version: SCHEMA_VERSION,
     generated_at: new Date().toISOString(),
@@ -539,7 +550,7 @@ async function buildManifest({ chunks, productCounts, sourceCommit, artifacts, e
       chunk_overlap_tokens: CHUNK_OVERLAP,
       token_counter: "javascript-regex-approximation",
     },
-    embedding_profiles: embeddingProfiles,
+    supported_embedding_profiles: SUPPORTED_EMBEDDING_PROFILES,
     artifacts,
   };
 }
@@ -571,8 +582,6 @@ async function main() {
       sha256: await fileSha256(chunksPath),
     },
   };
-  const embeddingProfiles = [];
-
   if (options.includeEmbeddings) {
     const embeddings = await embedWithBedrock(chunks);
     const embeddingPath = path.join(embeddingsDir, `${BEDROCK_PROFILE.id}.jsonl.gz`);
@@ -585,7 +594,6 @@ async function main() {
         sha256: await fileSha256(embeddingPath),
       },
     };
-    embeddingProfiles.push(BEDROCK_PROFILE);
   }
 
   const manifest = await buildManifest({
@@ -593,7 +601,6 @@ async function main() {
     productCounts,
     sourceCommit,
     artifacts,
-    embeddingProfiles,
   });
   const manifestPath = path.join(outputDir, "manifest.json");
   await fs.writeJson(manifestPath, manifest, { spaces: 2 });
