@@ -13,7 +13,7 @@ Seqera helps organizations:
 - **Analyze interactively**: Spin up [Studios](/platform-cloud/studios/overview) with JupyterLab, R-IDE, VS Code, or Xpra remote desktops on a connected compute environment.
 - **Manage data**: Browse data across AWS, Azure, and Google Cloud buckets with [Data Explorer](/platform-cloud/data/data-explorer), and trace pipeline provenance with [Data Lineage](/platform-cloud/data/data-lineage) (public preview).
 - **Optimize cost and performance**: Get automated resource recommendations from [pipeline optimization](/platform-cloud/pipeline-optimization/overview).
-- **Work with AI**: Use [Co-Scientist](/platform-cloud/seqera-ai/) and MCP-compatible agents to write, debug, and run pipelines.
+- **Work with AI**: Use [Co-Scientist](/platform-cloud/co-scientist/) and MCP-compatible agents to write, debug, and run pipelines.
 - **Collaborate securely**: Share pipelines, data, and compute across [organizations and teams](/platform-cloud/orgs-and-teams/workspace-management).
 - **Access curated pipelines**: Run production-tested [community pipelines](https://seqera.io/pipelines/) from [nf-core](https://nf-co.re/) and others.
 - **Automate workflows**: [Automate](/platform-cloud/getting-started/quickstart-demo/automation) launches as part of larger enterprise processes.

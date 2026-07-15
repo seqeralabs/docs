@@ -4,7 +4,7 @@ This repository contains the documentation published to [docs.seqera.io](https:/
 
 Changes merged to [master](https://github.com/seqeralabs/docs) are deployed to production automatically via Netlify. Pull requests have their own deployment preview.
 
-The source of truth for all products' documentation lives in their respective product repositories, such as [wave](https://github.com/seqeralabs/wave). These repositories contain a `docs` folder which house the _latest_ version of that product's documentation.
+The source of truth for all products' documentation lives in their respective product repositories, such as [Wave](https://github.com/seqeralabs/wave). These repositories contain a `docs` folder which house the _latest_ version of that product's documentation.
 
 For more information, see:
 
@@ -12,11 +12,15 @@ For more information, see:
   - [Architecture](#architecture)
     - [Seqera Platform](#seqera-platform)
     - [Wave](#wave)
-  - [Writing new content](#writing-new-content)
+  - [Write and edit content](#write-and-edit-content)
+    - [pre-commit](#pre-commit)
+    - [Vale](#vale)
+    - [cspell](#cspell)
   - [Fixing legacy content](#fixing-legacy-content)
   - [Creating internal links](#creating-internal-links)
   - [Changelog automation](#changelog-automation)
   - [Platform table update workflows](#platform-table-update-workflows)
+  - [Workflows and actions audit](#workflows-and-actions-audit)
 
 ## Architecture
 
@@ -47,26 +51,133 @@ We have a script which can select a commit (or ideally release tag) to be used f
 
 ## Write and edit content
 
-### Install pre-commit
+Before you start editing, set up the three tools we use to keep documentation consistent:
 
-We use [pre-commit](https://pre-commit.com/) in our repo, which is invoked when a commit is made. When you (or Claude) are working locally and commit your changes in VS Code (or run `git commit`) the pre-commit hooks defined in the [precommit config file](./.pre-commit-config.yaml) are executed and may tweak the files you're staging.
-We currently use basic standard hooks to remove trailing whitespaces, make sure the file ends with a newline, we check yaml documents and we prevent very large files from getting committed. More hooks may get installed in the future.
+- **[pre-commit](#pre-commit)** — Git hooks that fix formatting when you commit.
+- **[Vale](#vale)** — terminology and product-name linting.
+- **[cspell](#cspell)** — spell checking.
 
-1. Open up a Terminal window and navigate to the `docs` repository.
-2. Run the following commands to set up [pre-commit](https://github.com/pre-commit/pre-commit) hooks:
+pre-commit and Vale also run in CI on every pull request. cspell runs locally only. You install each tool once.
+
+### pre-commit
+
+We use [pre-commit](https://pre-commit.com/) to run Git hooks on commit. When you (or Claude) commit changes in VS Code or run `git commit`, the hooks defined in [.pre-commit-config.yaml](./.pre-commit-config.yaml) run and may tweak the files you're staging. The current hooks remove trailing whitespace, ensure files end with a newline, check YAML documents, and block very large files. More hooks may be added later.
+
+#### Install pre-commit
+
+1. Open a terminal and navigate to the `docs` repository.
+2. Install [pre-commit](https://github.com/pre-commit/pre-commit) and set up the hooks:
 
    ```console
    $ pip install pre-commit
    $ pre-commit install
    $ pre-commit install-hooks
    ```
-You shouldn't experience any issues but if you do, share them in the #team-documentation channel so we can try help.
 
-:::note
-  You only have to install pre-commit once.
-:::
+If you hit problems, share them in the #team-documentation channel.
 
-### Make changes and create a PR
+#### Run pre-commit locally
+
+The hooks run automatically on `git commit`. To run them against all files:
+
+```console
+$ pre-commit run --all-files
+```
+
+Vale is a manual pre-commit hook, so it does **not** run on `git commit`. Run it explicitly:
+
+```console
+$ pre-commit run vale --all-files
+```
+
+### Vale
+
+We use [Vale](https://vale.sh) to enforce terminology and product-name conventions (for example, `NextFlow` → `Nextflow`, `compute env` → `compute environment`). The rules live in [.github/styles/Seqera/](.github/styles/Seqera/) and the configuration is in [.vale.ini](./.vale.ini).
+
+Rules are split by confidence:
+
+- **Errors** — unambiguous fixes where the correction is always right (`Products.yml`, `Features.yml`).
+- **Warnings** — context-dependent terms with legitimate exceptions, such as legacy `Tower` references (`ProductsContext.yml`, `FeaturesContext.yml`).
+
+Vale runs in two places, split by design:
+
+- **CI** ([.github/workflows/vale.yml](.github/workflows/vale.yml)) — runs on every pull request. It reports **errors only** (`--minAlertLevel=error`) and comments only on the lines you changed (`filter_mode: added`). Findings are non-blocking (`fail_on_error: false`).
+- **Local** — lints **whole files** and surfaces warnings and suggestions as well as errors, so you can catch context-dependent issues before they reach a reviewer.
+
+To add or change a rule, edit the relevant file under [.github/styles/Seqera/](.github/styles/Seqera/). To change a term's level, move it between the error files (`Products.yml`, `Features.yml`) and the warning files (`ProductsContext.yml`, `FeaturesContext.yml`) — a substitution rule's level applies to the whole file.
+
+#### Install Vale
+
+1. Install the Vale CLI ([installation guide](https://vale.sh/docs/install)):
+
+   ```console
+   $ brew install vale      # macOS
+   $ snap install vale      # Linux
+   ```
+
+2. Download the `write-good` package (run once after cloning, and again whenever `.vale.ini` packages change):
+
+   ```console
+   $ npm run vale:sync
+   ```
+
+#### Run Vale locally
+
+Lint a file or directory:
+
+```console
+$ npm run vale -- platform-enterprise_docs/getting-started.md
+$ npm run vale -- platform-cloud/docs/
+```
+
+To check only the files you changed on this branch:
+
+```console
+$ git diff --name-only --diff-filter=ACM origin/master...HEAD -- '*.md' '*.mdx' | xargs npm run vale --
+```
+
+You can also run Vale through pre-commit. See [Run pre-commit locally](#run-pre-commit-locally).
+
+#### Vale VS Code extension
+
+For inline feedback as you edit, install the [Vale extension](https://marketplace.visualstudio.com/items?itemName=ChrisChinchilla.vale-vscode) (`ChrisChinchilla.vale-vscode`). It requires the Vale CLI (above) and reads the repo's [.vale.ini](./.vale.ini) automatically when you open the `docs` repository. No extra configuration is needed.
+
+### cspell
+
+We use [cspell](https://cspell.org) to catch spelling mistakes in documentation. The configuration is in [cspell.json](./cspell.json), which loads standard dictionaries (software terms, bash, npm, Docker, and others) plus a project dictionary in [project-words.txt](./project-words.txt) for Seqera-specific terms cspell wouldn't otherwise recognize.
+
+Some paths are excluded from spell checking (see `ignorePaths` in [cspell.json](./cspell.json)): `.claude/`, Vale styles, versioned Platform docs, changelogs, and the API and CLI docs.
+
+#### Install cspell
+
+cspell runs through `npx` without a separate install. If you check spelling often, install the CLI globally instead and drop the `npx` prefix from the commands below:
+
+```console
+$ npm install -g cspell
+```
+
+#### Run cspell locally
+
+1. Check a file or directory:
+
+   ```console
+   $ npx cspell "platform-cloud/docs/**/*.{md,mdx}"
+   $ npx cspell "platform-enterprise_docs/getting-started.md"
+   ```
+
+   To check only the files you changed on this branch:
+
+   ```console
+   $ git diff --name-only --diff-filter=ACM origin/master...HEAD -- '*.md' '*.mdx' | xargs npx cspell
+   ```
+
+2. If cspell flags a legitimate Seqera term, product name, or other valid word, add it to [project-words.txt](./project-words.txt) (one word per line, alphabetical) and re-run. Don't add genuine misspellings. Fix those in the source instead.
+
+#### cspell VS Code extension
+
+For inline feedback as you edit, install the [Code Spell Checker extension](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) (`streetsidesoftware.code-spell-checker`). It runs the cspell engine, reads the repo's [cspell.json](./cspell.json) automatically, underlines unknown words, and offers an "Add to project dictionary" quick fix that writes to [project-words.txt](./project-words.txt).
+
+## Make changes and create a PR
 
 1. In GitHub, or VS Code, create a new branch (e.g., `gh-issue-number`).
 3. Complete the necessary work, save your changes, and commit.
@@ -75,7 +186,7 @@ You shouldn't experience any issues but if you do, share them in the #team-docum
    - Language review from a `docs-codeowners` member.
    - Technical review from the backend engineer or other SME closest to the feature.
 6. Check and review the changes using the Netlify preview.
-7. If you created the PR, the onus is on you to merge the PR once approved. This is the Edu team's policy, to ensure that PRs are never merged inadvertently. If you'd like one of us to merge it for you, please let us know.
+7. If you created the PR, the onus is on you to merge the PR once approved. This is the Edu team's policy, to ensure that PRs are never merged inadvertently. If you'd like one of us to merge it for you, let us know.
 
 Once merged to the master branch, the changes will be live immediately.
 
@@ -168,7 +279,7 @@ The workflow listens for the `permissions-docs-updated` dispatch event from Plat
 - `docs/grants_roles.md`
 - `docs/grants_operations.md`
 
-When changes are detected, the workflow checks out Platform, regenerates the permissions tables, and opens a draft PR against this repository. The generated PR branch is named `permissions-docs-update-{platform_commit}`.
+When changes are detected, the workflow checks out Platform with a Platform-scoped docs bot app token, regenerates the permissions tables, and opens a draft PR against this repository with a Docs-scoped docs bot app token. The generated PR branch is named `permissions-docs-update-{platform_ref}`.
 
 The Platform trigger runs for Cloud release tags such as `v26.1.0-cycle41` and Enterprise release candidate tags such as `v26.2.0-RC1-enterprise`. Cloud tags compare against the previous Cloud release tag. Enterprise RC tags compare against the previous stable Enterprise release tag, such as `v26.1.0-enterprise`.
 
@@ -208,13 +319,139 @@ If the docs workflow does not start:
 - Confirm the Platform-side workflow detected one of the expected source files. If the tag diff does not include the source file, no dispatch event is sent.
 - Check that the Platform workflow dispatched the expected event type: `permissions-docs-updated` or `audit-events-docs-updated`.
 - Confirm the Platform repository has the docs bot secrets required to dispatch to this repository.
+- Confirm this repository has the docs bot secrets required to read Platform and create draft PRs: `DOCS_BOT_APP_ID` and `DOCS_BOT_APP_PRIVATE_KEY`.
 
 If the docs workflow starts but fails:
 
 - Check the **Validate payload** step. The workflows reject unexpected file paths.
-- Check the Platform checkout step. Private Platform checkout requires `PLATFORM_REPO_PAT`.
+- Check the Platform app token and checkout steps. The docs bot GitHub App must be installed on Platform with contents read access.
+- Check the docs app token step. Draft PR creation requires the docs bot GitHub App to be installed on this repository with contents and pull request write access.
 - Check the update script output. Parse failures usually mean the source table headings or columns changed.
 - Check the **Check for changes** step. If the generated tables already match, the workflow exits without opening a PR.
+
+## Workflows and actions audit
+
+This repository ships 18 GitHub Actions workflows under [.github/workflows/](.github/workflows/). It does not define any custom composite actions (no `.github/actions/` directory) — all workflows compose third-party actions or invoke scripts under [.github/scripts/](.github/scripts/). [Dependabot](.github/dependabot.yml) opens PRs daily to keep third-party action versions current.
+
+### Summary
+
+| Workflow | File | Trigger | Type | Status |
+|---|---|---|---|---|
+| No unresolved conflicts | [no-conflict-markers.yml](.github/workflows/no-conflict-markers.yml) | `pull_request` to `master` | Automatic | Active |
+| Pre-commit check | [pre-commit-check.yaml](.github/workflows/pre-commit-check.yaml) | `pull_request` | Automatic | Active |
+| Pre-commit fix | [pre-commit-fix.yaml](.github/workflows/pre-commit-fix.yaml) | PR comment `fix formatting` | Manual (comment) | Active |
+| Internal link checking | [check-internal-links.yml](.github/workflows/check-internal-links.yml) | `pull_request` | Automatic | Active |
+|| External link check (Links) | [links.yml](.github/workflows/links.yml) | Weekly cron (Sat 18:00 UTC), `repository_dispatch`, manual | Automatic + manual | Active |
+| markdownlint-cli2 | [markdown-lint.yml](.github/workflows/markdown-lint.yml) | `workflow_dispatch` only | Manual | Disabled (manual-only) |
+| Trigger Netlify Build | [build-nightly.yml](.github/workflows/build-nightly.yml) | Daily cron (02:00 UTC), manual | Automatic + manual | Active |
+| Index docs in Typesense | [typesense-scraper.yml](.github/workflows/typesense-scraper.yml) | Daily cron (01:00 UTC), manual | Automatic + manual | Active |
+| Changelogs | [changelog-from-releases.yml](.github/workflows/changelog-from-releases.yml) | Twice-daily cron (03:17, 15:17 UTC), manual | Automatic + manual | Active |
+| Check for CLI updates | [check-cli-updates.yml](.github/workflows/check-cli-updates.yml) | Daily cron (10:00 UTC), manual | Automatic + manual | **Broken** — see below |
+| Update CLI Documentation | [update-cli-docs.yml](.github/workflows/update-cli-docs.yml) | `repository_dispatch: cli-release`, manual | Automatic + manual | Active (downstream of broken trigger) |
+| Update Permissions Documentation | [update-permissions-docs.yml](.github/workflows/update-permissions-docs.yml) | `repository_dispatch: permissions-docs-updated`, manual | Automatic + manual | Active |
+| Update Audit Events Documentation | [update-audit-events-docs.yml](.github/workflows/update-audit-events-docs.yml) | `repository_dispatch: audit-events-docs-updated`, manual | Automatic + manual | Active |
+| Generate API Documentation Overlays | [generate-openapi-overlays.yml](.github/workflows/generate-openapi-overlays.yml) | `repository_dispatch: api-version-updated`, manual | Automatic + manual | Active |
+| Apply Overlays and Regenerate Docs | [apply-overlays-and-regenerate.yml](.github/workflows/apply-overlays-and-regenerate.yml) | PR label `overlays-approved`, manual | Manual (label or dispatch) | Active |
+| Documentation Review | [docs-review.yml](.github/workflows/docs-review.yml) | PR comment `/editorial-review`, manual | Manual (comment or dispatch) | Active |
+| Claude PR Assistant | [claude.yml](.github/workflows/claude.yml) | `@claude` mention in PR/issue comments, reviews | Manual (comment) | Active |
+| Claude Editorial Review | [claude-pr-review.yml](.github/workflows/claude-pr-review.yml) | `workflow_dispatch` only | Manual | **Superseded** by `docs-review.yml` |
+
+### Quality gates that block PR merges
+
+These checks gate merges; `pre-commit-fix.yaml` is an on-demand helper for fixing formatting failures.
+
+- **[no-conflict-markers.yml](.github/workflows/no-conflict-markers.yml)** — fails if any tracked file outside `.github/` contains a line that starts with a merge-conflict marker (for example, `<<<<<<< HEAD`).
+- **[pre-commit-check.yaml](.github/workflows/pre-commit-check.yaml)** — runs the hooks defined in [.pre-commit-config.yaml](./.pre-commit-config.yaml) (whitespace, EOF newline, YAML validity, large-file guard, and the `check-doc-tags` hook backed by [.github/scripts/check-doc-tags.py](.github/scripts/check-doc-tags.py)). Paired with `pre-commit-fix.yaml` for one-click fixes.
+- **[pre-commit-fix.yaml](.github/workflows/pre-commit-fix.yaml)** — on-demand helper triggered by a PR comment starting with `fix formatting`; re-runs pre-commit, commits any changes, and pushes to the PR branch (not a required merge gate).
+- **[check-internal-links.yml](.github/workflows/check-internal-links.yml)** — runs `npm run build` with `FAIL_ON_BROKEN_LINKS=true`. The slowest required check; caches `.docusaurus` and `**/.cache` between runs.
+
+### Scheduled/background jobs
+
+- **[build-nightly.yml](.github/workflows/build-nightly.yml)** — daily POST to `NETLIFY_BUILD_HOOK_URL` so docs.seqera.io rebuilds even on days with no merges (useful for picking up upstream submodule changes).
+- **[typesense-scraper.yml](.github/workflows/typesense-scraper.yml)** — re-indexes the live site into Typesense once a day so search results stay current.
+- **[links.yml](.github/workflows/links.yml)** — weekly lychee crawl of external `https`/`http` links across all `.mdx` files. On failure, opens a labeled GitHub issue with the report instead of breaking a PR.
+- **[changelog-from-releases.yml](.github/workflows/changelog-from-releases.yml)** — polls `seqeralabs/wave`, `nextflow-io/nextflow`, and `MultiQC/MultiQC` releases via [.github/scripts/generate-changelog.py](.github/scripts/generate-changelog.py) and opens PRs with new entries. `seqeralabs/fusion` is intentionally excluded from CI (run locally with a PAT). See [Changelog automation](#changelog-automation) above for manual invocation.
+
+### Cross-repo content pipelines (Platform → docs)
+
+Three workflows are driven by `repository_dispatch` events emitted from the [seqeralabs/platform](https://github.com/seqeralabs/platform) repository when a release tag is cut. Each one checks out Platform at the dispatched ref using a docs-bot GitHub App token, regenerates the relevant tables/specs, and opens a draft PR using a separate docs-scoped token.
+
+| Workflow | Dispatch event | Platform source | Generated by | Output |
+|---|---|---|---|---|
+| [update-permissions-docs.yml](.github/workflows/update-permissions-docs.yml) | `permissions-docs-updated` | `docs/grants_roles.md`, `docs/grants_operations.md` | [.github/scripts/update-permissions-tables.py](.github/scripts/update-permissions-tables.py) | Draft PR updating Cloud + Enterprise roles and custom-roles pages |
+| [update-audit-events-docs.yml](.github/workflows/update-audit-events-docs.yml) | `audit-events-docs-updated` | `docs/audit_events.md` | [.github/scripts/update-audit-events-tables.py](.github/scripts/update-audit-events-tables.py) | Draft PR updating `platform-enterprise_docs/monitoring/configtables/audit_events_*.yml` |
+| [generate-openapi-overlays.yml](.github/workflows/generate-openapi-overlays.yml) | `api-version-updated` | `tower-backend/.../seqera-api-latest-flattened.yml` | Speakeasy CLI + Claude API call against the `openapi-overlay-generator` skill | Draft PR with comparison overlay, analysis JSON, and Claude-drafted overlays |
+
+For full payload contracts and troubleshooting, see [Platform table update workflows](#platform-table-update-workflows) above.
+
+### API documentation pipeline (multi-phase)
+
+The OpenAPI documentation flow is a three-phase pipeline. The first phase runs in the Platform repo; the second and third run here.
+
+1. **Phase 1 (Platform repo)** — Platform release dispatches `api-version-updated` to this repo with the new API version and ref.
+2. **Phase 2: [generate-openapi-overlays.yml](.github/workflows/generate-openapi-overlays.yml)** — copies the flattened base spec, generates a Speakeasy comparison overlay, runs the `analyze_comparison.py` script from the `openapi-overlay-generator` skill, calls the Claude API to draft overlay YAML, and opens a draft PR.
+3. **Phase 3: [apply-overlays-and-regenerate.yml](.github/workflows/apply-overlays-and-regenerate.yml)** — fires when a maintainer adds the `overlays-approved` label to the Phase 2 PR (or on manual dispatch with a PR number). Extracts overlays from the Claude-generated markdown, consolidates them, applies them with Speakeasy, regenerates parameter tables, runs `docusaurus gen-api-docs`, updates the sidebar, archives the used overlays, and marks the PR ready for review.
+
+The `overlays-approved` label is the only handoff between the two automated phases — without it, Phase 3 never runs.
+
+### CLI documentation pipeline
+
+Two workflows form a producer/consumer pair for tower-cli releases.
+
+1. **[check-cli-updates.yml](.github/workflows/check-cli-updates.yml)** — polls `seqeralabs/tower-cli` for the latest release tag and, when a new version is detected, fires a `cli-release` dispatch.
+2. **[update-cli-docs.yml](.github/workflows/update-cli-docs.yml)** — consumes the `cli-release` dispatch (or a manual `workflow_dispatch`), checks out tower-cli at the release tag, runs `./gradlew extractCliMetadata`, then invokes `platform-cli-docs/scripts/generate-cli-docs.py` to produce reference pages and opens a PR.
+
+> **Note:** `check-cli-updates.yml` is currently **broken** — see [Stale or broken workflows](#stale-or-broken-workflows). `update-cli-docs.yml` itself still works when triggered manually with a valid `cli_version`.
+
+### Editorial review workflows
+
+- **[docs-review.yml](.github/workflows/docs-review.yml)** — the current editorial-review entry point. Fires on a `/editorial-review` PR comment (or manual dispatch with a PR number). Runs a bash-syntax check, classifies the PR as `content` or `rename`, runs Vale on changed markdown for fast terminology checks, then a smart-gate blocks LLM runs when (a) the last review was <60 minutes ago, (b) <10 lines changed, or (c) markdownlint found >5 issues. If the gate passes it invokes the `/editorial-review` skill, posts up to 60 inline suggestions via [.github/scripts/post-inline-suggestions.sh](.github/scripts/post-inline-suggestions.sh), and uploads the full report as an artifact. An `auto-fix` job exists but is hard-disabled (`if: false`).
+- **[claude.yml](.github/workflows/claude.yml)** — the generic `@claude` assistant. Triggers on `@claude` mentions in PR comments, PR review comments, PR reviews, and new issues. Uses `anthropics/claude-code-action` with a 60-minute timeout.
+- **[claude-pr-review.yml](.github/workflows/claude-pr-review.yml)** — early prototype of the editorial review. Its `pull_request` and `issue_comment` triggers are commented out and only `workflow_dispatch` remains, with an inline note that `docs-review.yml` replaces it. The `apply-fixes` job is also hard-disabled.
+
+### Cross-workflow dependencies
+
+```
+Platform repo (release tag cut)
+   │
+   ├── dispatch: permissions-docs-updated  ──►  update-permissions-docs.yml      ──► draft PR
+   ├── dispatch: audit-events-docs-updated ──►  update-audit-events-docs.yml     ──► draft PR
+   └── dispatch: api-version-updated       ──►  generate-openapi-overlays.yml    ──► draft PR
+                                                          │
+                                                          │  (maintainer adds `overlays-approved` label)
+                                                          ▼
+                                                apply-overlays-and-regenerate.yml ──► PR ready
+
+tower-cli release
+   └── check-cli-updates.yml ──► dispatch: cli-release ──► update-cli-docs.yml ──► PR
+
+PR comment `/editorial-review`  ──► docs-review.yml (gates + Vale + /editorial-review skill)
+PR comment `fix formatting`     ──► pre-commit-fix.yaml
+PR label `overlays-approved`    ──► apply-overlays-and-regenerate.yml
+@claude in comment/issue/review ──► claude.yml
+```
+
+The two `repository_dispatch` content pipelines (permissions, audit events) and the API overlay pipeline are independent of each other — they share the `DOCS_BOT_APP_ID` / `DOCS_BOT_APP_PRIVATE_KEY` GitHub App credentials but otherwise don't interact.
+
+### Dependencies on `.claude/` skills and agents
+
+Three workflows reach into [.claude/](.claude/) and depend on its scripts or skills staying in place:
+
+- **[generate-openapi-overlays.yml](.github/workflows/generate-openapi-overlays.yml)** runs `.claude/skills/openapi-overlay-generator/scripts/analyze_comparison.py` and inlines `references/standards.md` + `references/overlay-patterns.md` into the prompt sent to the Claude API. Moving or renaming any of these will break Phase 2.
+- **[apply-overlays-and-regenerate.yml](.github/workflows/apply-overlays-and-regenerate.yml)** runs `.claude/skills/openapi-overlay-generator/scripts/update_sidebar_v2.py` to update the API sidebar from the analysis JSON.
+- **[docs-review.yml](.github/workflows/docs-review.yml)** invokes the `/editorial-review` skill via `anthropics/claude-code-action` with `--allowedTools "Skill(editorial-review),Task"`. The skill in turn orchestrates the `voice-tone` and `terminology` agents in [.claude/agents/](.claude/agents/) according to [.claude/agents/review-config.yaml](.claude/agents/review-config.yaml). The `clarity`, `punctuation`, and `docs-fix` agents exist on disk but are not currently wired into CI.
+
+The disabled `apply-fixes` job in `claude-pr-review.yml` and the disabled `auto-fix` job in `docs-review.yml` both reference the `docs-fix` agent; if either is ever re-enabled, that agent becomes a hard dependency.
+
+### Stale or broken workflows
+
+- **[check-cli-updates.yml](.github/workflows/check-cli-updates.yml) — broken path check.** The existence check on line 26 looks for `platform-cloud/docs/cli/metadata/cli-metadata-v<version>.json`, but CLI metadata actually lives at `platform-cli-docs/metadata/`. The wrong path never matches, so the workflow always evaluates `exists=false` and dispatches `cli-release` every day. Downstream [update-cli-docs.yml](.github/workflows/update-cli-docs.yml) re-runs against the same `cli-docs-v<version>` branch each time, which `peter-evans/create-pull-request` deduplicates into a single PR — but the workflow burns CI minutes every day until the path is corrected (or the daily cron is removed).
+- **[claude-pr-review.yml](.github/workflows/claude-pr-review.yml) — superseded.** Header comment explicitly states it is replaced by `docs-review.yml`. Only `workflow_dispatch` is wired up; both jobs in the file (`editorial-review`, `apply-fixes`) are unreachable in practice (one has commented-out triggers, the other has `if: false`). Safe to delete in a follow-up.
+- **[markdown-lint.yml](.github/workflows/markdown-lint.yml) — manual-only by design.** Header says "Disable automatic runs" and only `workflow_dispatch` is wired up. Markdownlint is still consulted by the `docs-review.yml` smart-gate via `npx markdownlint-cli2`, so this workflow exists for opt-in manual sweeps rather than as a required check.
+- **`auto-fix` job in [docs-review.yml](.github/workflows/docs-review.yml) — disabled with `if: false`.** Commented out in favor of inline suggestions. Kept in-file as a re-enable path; references the `docs-fix` agent.
+- **`apply-fixes` job in [claude-pr-review.yml](.github/workflows/claude-pr-review.yml) — disabled with `if: false`.** Same reasoning as above.
+
+The scripts [.github/scripts/verify-agent-findings.py](.github/scripts/verify-agent-findings.py), [verify-agent-findings.sh](.github/scripts/verify-agent-findings.sh), [example-review.txt](.github/scripts/example-review.txt), and [check-netlify-excludes.sh](.github/scripts/check-netlify-excludes.sh) are not referenced by any current workflow; they appear to be local utilities or relics of older review pipelines.
 
 ## Workaround for Netlify memory problems (May 2025)
 
@@ -227,7 +464,7 @@ site builds into multiple separate Netlify deployments, stitched back together w
 This works using the following principles:
 
 - Sections of the docs are defined in variables in `docusaurus.config.mjs`
-- Based on the presence or absence of named environment variables, they are included in the Docuaurus config or not
+- Based on the presence or absence of named environment variables, they are included in the Docusaurus config or not
 - By defining these ENV vars in your build environment, you can selectively skip chunks in the build
 
 Deployment works because we have two Netlify sites: `seqera-docs` and `seqera-docs-api`.

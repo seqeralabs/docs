@@ -2,7 +2,7 @@
 title: "Custom AWS Batch launch container"
 description: Use a custom AWS Batch launch container
 date: "12 Apr 2023"
-tags: [aws, batch, launch, container]
+tags: [aws, batch, launch, containers]
 ---
 
 You can customize your Seqera instance's Nextflow launch container, e.g., to include private CA certificates or compliance software in your Nextflow environment.

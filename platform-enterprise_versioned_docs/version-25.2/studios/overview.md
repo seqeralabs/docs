@@ -3,7 +3,7 @@ title: "Overview"
 description: "Overview of Studios"
 date created: "2025-02-06"
 last updated: "2025-07-17"
-tags: [studios, container, image, session, interactive, analysis]
+tags: [studios, containers, image, sessions, interactive, analysis]
 ---
 
 Studios is a unified platform where you can host a combination of container images and compute environments for interactive analysis using your preferred tools, like JupyterLab, an R-IDE, Visual Studio Code IDEs, or Xpra remote desktops. Each Studio session is an individual interactive environment that encapsulates the live environment for dynamic data analysis.
@@ -19,12 +19,12 @@ Studios in Enterprise is not enabled by default. You can enable Studios in the [
 - [Manage Studios](./managing): Manage your Studios and how collaborators use them.
 
 :::note
-Currently, Studios supports [AWS Cloud][aws-cloud], [Google Cloud][google-cloud], [Azure Cloud][azure-cloud] and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
+Studios supports [AWS Cloud][aws-cloud], [Azure Cloud][azure-cloud], [Google Cloud][google-cloud], and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
 :::
 
 {/* links */}
 [aws-cloud]: ../compute-envs/aws-cloud
+[azure-cloud]: ../compute-envs/azure-cloud
 [aws-batch]: ../compute-envs/aws-batch
-[azure-cloud]: ../compute-envs/azure-cloud.md
 [google-cloud]: ../compute-envs/google-cloud
 [contact]: https://support.seqera.io/

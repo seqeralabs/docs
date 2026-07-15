@@ -1,13 +1,18 @@
 ---
 title: "Usage limits"
-description: "An overview of Seqera Cloud usage limits"
-date: "19 Feb 2025"
-tags: [limits]
+description: "Seqera Platform usage limits per organization and workspace"
+date created: "2025-02-19"
+last updated: "2026-07-06"
+tags: [limits, usage]
 ---
 
-Seqera Platform elements and features have default limits per organization and workspace.
+Seqera Platform features have default limits per organization and workspace.
 
-### Organizations
+:::info
+Seqera applies custom usage limits to academic institutions and commercial organizations evaluating Seqera Platform. [Contact us](https://seqera.io/contact-us/) for more information.
+:::
+
+## Organizations
 
 | Description               | Basic | Cloud Pro + Enterprise |
 | ------------------------- | ----- | ---------------------- |
@@ -17,14 +22,14 @@ Seqera Platform elements and features have default limits per organization and w
 | Run history               | 250   | 250, or per license    |
 | Active runs               | 3     | 100, or per license    |
 | Running Studio sessions   | 1     | 1000, or per license   |
-| Seqera Compute: Storage   | 25 GB per month | Unlimited              |
+| Seqera Compute: Storage   | 25 GB per month | Unlimited    |
 | Seqera Compute: CPU cores | 100   | 1000                   |
 
-:::info
-Academic institutions and commercial organizations evaluating Seqera Platform are subject to custom usage limits. [Contact us](https://seqera.io/contact-us/) for more information.
+:::note
+Studios data egress is throttled at 100 GB per 24 hours per IP address, and 1 TB per `user_id` per month.
 :::
 
-### Workspaces
+## Workspaces
 
 | Description                 | Basic | Cloud Pro + Enterprise |
 | --------------------------- | ----- | ---------------------- |
@@ -38,11 +43,11 @@ Academic institutions and commercial organizations evaluating Seqera Platform ar
 Some Enterprise instances on older licenses are limited to 100 labels per workspace. [Contact support](mailto:support@seqera.io) to upgrade your license.
 :::
 
-### Datasets
+## Datasets
 
 | Description          | Default limit |
 | -------------------- | ------------- |
 | File size            | 10 MB         |
 | Versions per dataset | 100           |
 
-If you need higher limits and capabilities, [contact us](https://seqera.io/contact-us/) to discuss your application requirements.
+If you need higher limits, [contact us](https://seqera.io/contact-us/) to discuss your requirements.

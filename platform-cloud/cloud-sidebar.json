@@ -10,8 +10,7 @@
           "getting-started/rnaseq",
           "getting-started/proteinfold",
           "getting-started/studios",
-          "getting-started/quickstart-demo/comm-showcase",
-          "tutorials/retry-strategy"
+          "getting-started/quickstart-demo/comm-showcase"
           ]
       },
       {
@@ -66,9 +65,11 @@
             "type": "category",
             "label": "Cloud",
             "items": [
+              "compute-envs/preflight-checks",
               "compute-envs/seqera-compute",
               "compute-envs/aws-batch",
               "compute-envs/aws-cloud",
+              "compute-envs/intelligent-compute",
               "compute-envs/azure-batch",
               "compute-envs/azure-cloud",
               "compute-envs/google-cloud-batch",
@@ -89,6 +90,7 @@
             "label": "Advanced options",
             "items":[
               "enterprise/advanced-topics/manual-aws-batch-setup",
+              "compute-envs/aws-spot-interruptions",
               "enterprise/advanced-topics/manual-azure-batch-setup"
             ]
           }
@@ -131,23 +133,52 @@
      {
       "type": "category",
       "label": "Co-Scientist",
-      "link": {"type": "doc", "id": "seqera-ai/index"},
+      "link": {"type": "doc", "id": "co-scientist/index"},
       "collapsed": true,
       "items": [
-        "seqera-ai/get-started",
-        "seqera-ai/installation",
-        "seqera-ai/authentication",
-        "seqera-ai/credits",
-        "seqera-ai/skills",
-        "seqera-ai/modes",
-        "seqera-ai/use-cases",
-        "seqera-ai/command-approval",
-        "seqera-ai/skill-claude-code",
-        "seqera-ai/skill-codex",
-        "seqera-ai/skill-github-copilot",
-        "seqera-ai/skill-other-agents",
-        "seqera-ai/nextflow-lsp",
-        "seqera-ai/projects"
+        "co-scientist/installation",
+        "co-scientist/quickstart",
+        "co-scientist/authentication",
+        {
+          "type": "category",
+          "label": "Using Co-Scientist",
+          "link": {"type": "doc", "id": "co-scientist/configuration"},
+          "collapsed": true,
+          "items": [
+            "co-scientist/use-cases",
+            "co-scientist/modes",
+            "co-scientist/sessions",
+            "co-scientist/skills",
+            "co-scientist/command-approval",
+            "co-scientist/nextflow-lsp",
+            "co-scientist/projects",
+            "co-scientist/credits"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Coding Agents",
+          "link": {"type": "doc", "id": "co-scientist/coding-agents"},
+          "collapsed": true,
+          "items": [
+            "co-scientist/skill-claude-code",
+            "co-scientist/skill-codex",
+            "co-scientist/skill-github-copilot",
+            "co-scientist/skill-antigravity",
+            "co-scientist/skill-other-agents"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Reference",
+          "link": {"type": "doc", "id": "co-scientist/reference/index"},
+          "collapsed": true,
+          "items": [
+            "co-scientist/reference/cli",
+            "co-scientist/reference/environment-variables",
+            "co-scientist/reference/skills-reference"
+          ]
+        }
       ]
     },
      {
@@ -179,6 +210,7 @@
         "items": [
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
+          "orgs-and-teams/personal-profile",
           "orgs-and-teams/roles",
           "orgs-and-teams/custom-roles",
           "monitoring/dashboard",
@@ -254,6 +286,7 @@
           "troubleshooting_and_faqs/workspaces_troubleshooting",
           "troubleshooting_and_faqs/resource-labels",
           "troubleshooting_and_faqs/datasets_troubleshooting",
+          "troubleshooting_and_faqs/sso_troubleshooting",
           "troubleshooting_and_faqs/seqera-ai"
         ]
       }

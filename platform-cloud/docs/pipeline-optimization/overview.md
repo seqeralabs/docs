@@ -2,7 +2,7 @@
 title: "Pipeline optimization"
 description: "Optimize the resource usage of your pipelines to save time and money."
 date: "12 Feb 2024"
-tags: [compute, resource, optimization]
+tags: [compute, resources, optimization]
 ---
 
 Pipeline optimization takes the resource usage information from previous workflow runs to optimize subsequent runs.
@@ -19,7 +19,7 @@ On the **Launchpad**, each pipeline that can be optimized shows a lightbulb icon
 
 1. Select the lightbulb icon to open the **Customize optimization profile** menu.
 
-2. Under the **Optimization profile** tab, select a previous run from the dropdown. The list contains all successful runs.
+2. Under the **Optimization profile** tab, select a previous run from the drop-down. The list contains all successful runs.
 
 3. Select which **Targets** to optimize.
 

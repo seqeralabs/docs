@@ -232,7 +232,7 @@ Google Cloud includes resource labels in billing data for cost analysis and repo
 2. **Configure Reports**: Use the **Labels** filter to select specific label keys and set **Group by** to organize costs by your label values.
 3. **Export for Analysis**:
    - [Enable Cloud Billing export to BigQuery](https://cloud.google.com/billing/docs/how-to/export-data-bigquery) for detailed analysis and custom reporting.
-   - Use tools like [Looker Studio](https://cloud.google.com/looker-studio/docs/overview) to visualize your labeled cost data.
+   - Use tools like [Looker Studio](https://cloud.google.com/looker-studio) to visualize your labeled cost data.
 
 #### Google Cloud limitations
 

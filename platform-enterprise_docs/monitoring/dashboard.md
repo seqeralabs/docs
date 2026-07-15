@@ -3,7 +3,7 @@ title: "Dashboard"
 description: "View pipeline run status overview in Seqera Platform."
 date created: "2023-04-21"
 last updated: "2026-04-01"
-tags: [dashboard, pipeline-runs, fusion, monitoring]
+tags: [dashboard, pipeline runs, fusion, monitoring]
 ---
 
 The Seqera Platform **Dashboard** is accessed from the user menu and provides an overview of:
@@ -19,7 +19,7 @@ You can explore the status of pipelines in your personal and in organizational w
 
 ### Filters and summary
 
-The **Dashboard** view defaults to all organizations and workspaces you can access. Select the **View** dropdown menu to filter by specific organizations and workspaces, or to view statistics for your personal workspace only. You can filter by time, including a custom date range of up to 12 months. To filter the set of pipelines, select **Filter**. When a filter is applied, the button icon and color changes.
+The **Dashboard** view defaults to all organizations and workspaces you can access. Select the **View** drop-down to filter by specific organizations and workspaces, or to view statistics for your personal workspace only. You can filter by time, including a custom date range of up to 12 months. To filter the set of pipelines, select **Filter**. When a filter is applied, the button icon and color changes.
 
 ### Export data
 
@@ -48,7 +48,7 @@ You can explore the status of Studio sessions in your organizational workspaces.
 
 ### Filters and summary
 
-The **Dashboard** view defaults to all organizations and workspaces you can access. Select the **View** dropdown menu to filter by organizations and workspaces. Select a status in the table to navigate to a list filtered by the status selected.
+The **Dashboard** view defaults to all organizations and workspaces you can access. Select the **View** drop-down to filter by organizations and workspaces. Select a status in the table to navigate to a list filtered by the status selected.
 
 ### Export data
 
@@ -56,7 +56,7 @@ Select **Export data** in the view panel near the top of the page to export a CS
 
 ## Fusion
 
-Select a workspace from the drop-down menu to view Fusion usage for the current and previous month. The usage is displayed in GB and shows a percentage change from the previous month.
+Select a workspace from the drop-down to view Fusion usage for the current and previous month. The usage is displayed in GB and shows a percentage change from the previous month.
 
 
 ## Resource usage
@@ -69,7 +69,7 @@ The **Resource usage** view is visible to all members of an organization.
 
 ### Filters and summary
 
-Select the **View** dropdown menu to select an organization. Select the **Date** dropdown to filter by year.
+Select the **View** drop-down to select an organization. Select the **Date** drop-down to filter by year.
 
 ### Export data
 

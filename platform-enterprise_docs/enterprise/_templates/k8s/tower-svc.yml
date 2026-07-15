@@ -29,13 +29,16 @@ spec:
         #    secretName: platform-oidc-certs
       containers:
         - name: backend
-          image: cr.seqera.io/enterprise/platform/backend:v26.1
+          image: cr.seqera.io/enterprise/platform/backend:v26.1.0
           envFrom:
             - configMapRef:
                 name: tower-backend-cfg
           env:
             - name: MICRONAUT_ENVIRONMENTS
               value: "prod,redis,ha"
+            # Configuration to optimize JVM memory settings. See https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#backend-memory-requirements
+            - name: JAVA_OPTS
+              value: "-Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144"
             # TLS certificate for Studios
             #- name: TOWER_OIDC_PEM_PATH
             #  value: '/data/certs/oidc.pem'
@@ -88,7 +91,7 @@ spec:
         - name: "cr.seqera.io"
       containers:
         - name: frontend
-          image: cr.seqera.io/enterprise/platform/frontend:v26.1
+          image: cr.seqera.io/enterprise/platform/frontend:v26.1.0
           ports:
             - containerPort: 80
       restartPolicy: Always

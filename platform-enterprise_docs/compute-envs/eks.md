@@ -1,8 +1,9 @@
 ---
 title: "Amazon EKS"
 description: "Instructions to set up Amazon EKS in Seqera Platform"
-date: "2026-02-04"
-tags: [eks, amazon, compute environment, ce]
+date created: "2026-02-04"
+last updated: "2026-05-28"
+tags: [eks, amazon, compute environments, ce]
 ---
 
 [Amazon EKS](https://aws.amazon.com/eks/) provides managed Kubernetes clusters that enable the execution of containerized workloads at scale. Seqera Platform offers native support for Amazon EKS clusters as Compute Environments for Nextflow pipelines.
@@ -22,7 +23,7 @@ Once you meet all the prerequisites, configure an [Amazon EKS Compute Environmen
 
 ## Required Platform IAM permissions
 
-Seqera Platform requires an IAM user with specific permissions to launch pipelines, explore buckets with Data Explorer, and run Studio sessions on the AWS EKS compute environment. Some permissions are mandatory for the compute environment to function correctly, while others are optional and enable features like populating dropdown lists in the Platform UI.
+Seqera Platform requires an IAM user with specific permissions to launch pipelines, explore buckets with Data Explorer, and run Studio sessions on the AWS EKS compute environment. Some permissions are mandatory for the compute environment to function correctly, while others are optional and enable features like populating drop-down lists in the Platform UI.
 
 Attach permissions directly to an [IAM user](#iam-user-creation), or to an [IAM role](#iam-role-creation-optional) that the IAM user can assume.
 
@@ -89,11 +90,11 @@ No other permissions are required for the IAM user to launch pipelines on the EK
 
 ### S3 access (optional)
 
-Seqera automatically attempts to fetch a list of S3 buckets available in the AWS account connected to Platform, to provide them in a drop-down menu to be used as Nextflow working directory, and make the compute environment creation smoother. This feature is optional, and users can type the bucket name manually when setting up a compute environment. To allow Seqera to fetch the list of buckets in the account, the `s3:ListAllMyBuckets` action can be added, and it must have the `Resource` field set to `*`.
+Seqera automatically attempts to fetch a list of S3 buckets available in the AWS account connected to Platform, to provide them in a drop-down to be used as Nextflow working directory, and make the compute environment creation smoother. This feature is optional, and users can type the bucket name manually when setting up a compute environment. To allow Seqera to fetch the list of buckets in the account, the `s3:ListAllMyBuckets` action can be added, and it must have the `Resource` field set to `*`. The `s3:ListAllMyBuckets` action also allows Data Explorer to auto-discover the data repositories accessible to your workspace credentials.
 
 Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](../studios/overview) and [Data Explorer](../data/data-explorer); if these features are not needed the related permissions can be omitted.
 
-The IAM policy can be scoped down to only allow limited read/write permissions in certain S3 buckets used by Studios/Data Explorer. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory. We also recommend granting the `s3:GetObject` permission on the work directory path to fetch Nextflow log files.
+The IAM policy can be scoped down to only allow limited read/write permissions in certain S3 buckets used by Studios/Data Explorer. For each bucket you want to browse, upload to, or download from with Data Explorer, grant `s3:GetObject` and `s3:PutObject` on the bucket objects, and `s3:ListBucket`, `s3:GetBucketLocation`, `s3:GetBucketPolicy`, and `s3:GetBucketAcl` on the bucket itself. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory. We also recommend granting the `s3:GetObject` permission on the work directory path to fetch Nextflow log files.
 
 :::note
 If you opted to create a separate S3 bucket only for Nextflow work directories, the IAM user or the Role it assumes only need read access to it. The IAM role used by the EKS Service Account (detailed in the [separate section](#configure-eks-service-account-iam-role-for-fusion-v2)) must have full read/write access to the work directory bucket to allow Fusion to operate correctly.
@@ -124,9 +125,15 @@ If you opted to create a separate S3 bucket only for Nextflow work directories, 
   "Sid": "S3ReadWriteBucketsForStudiosDataExplorer",
   "Effect": "Allow",
   "Action": [
-    "s3:Get*",
-    "s3:List*",
-    "s3:PutObject"
+    "s3:GetObject",
+    "s3:GetObjectTagging",
+    "s3:GetBucketLocation",
+    "s3:GetBucketPolicy",
+    "s3:GetBucketAcl",
+    "s3:ListBucket",
+    "s3:PutObject",
+    "s3:PutObjectTagging",
+    "s3:DeleteObject"
   ],
   "Resource": [
     "arn:aws:s3:::example-bucket-read-write-studios",
@@ -136,6 +143,10 @@ If you opted to create a separate S3 bucket only for Nextflow work directories, 
   ]
 }
 ```
+
+:::note
+`s3:GetBucketLocation` allows Data Explorer to resolve each bucket's region. `s3:GetBucketPolicy` and `s3:GetBucketAcl` allow it to inspect each bucket's access configuration when it lists and connects to data repositories. If you prefer not to enumerate individual actions, the `s3:Get*` and `s3:List*` wildcards shown in the full permissive policy also cover these actions.
+:::
 
 ## Create the IAM policy
 
@@ -472,7 +483,15 @@ Once all prerequisites are met, create a Seqera EKS compute environment:
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
 
-1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
+1. Under **Environment variables**, add each variable with a **Name**, **Value**, and **Target Environment**:
+
+    - **Head job**: Adds the variable to the Nextflow head job container, which evaluates `nextflow.config` and submits tasks to the compute backend. Use this target for variables that Nextflow or its plugins read, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings the head node uses to reach external services.
+    - **Compute job**: Adds the variable to the worker containers that run individual pipeline tasks. Use this target for variables your pipeline tools read, such as `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials needed inside the task container, or tool-specific settings like `JAVA_HOME`.
+    - **Head and Compute jobs**: Adds the variable to both the head job and the compute jobs. Use this target for values needed in both places, such as an HTTP proxy used by both Nextflow and task tools, or a credential needed in both the head job and individual compute tasks.
+
+    :::note
+    For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation. To rotate a value, recreate the compute environment.
+    :::
 1. Configure any advanced options described in the next section, as needed.
 
 ### Amazon EKS advanced options
@@ -498,7 +517,7 @@ spec:
     disktype: ssd
 ```
 
-- Use **Head Job CPUs** and **Head Job memory** to specify resource requirements of the Nextflow workflow pods.
+- Use **Head job CPUs** and **Head job memory** to specify resource requirements of the Nextflow workflow pods.
 
 :::info
 See [Launch pipelines](../launch/launchpad) to start executing workflows in your Amazon EKS compute environment.

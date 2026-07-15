@@ -2,7 +2,7 @@
 title: "AWS Cloud"
 description: "Instructions to set up an AWS Cloud CE in Seqera Platform"
 date created: "2025-07-09"
-tags: [cloud, vm, amazon, aws, compute-environment]
+tags: [cloud, vm, amazon, aws, compute environments]
 ---
 
 # AWS Cloud
@@ -207,7 +207,7 @@ The following permissions are required to remove resources created by Seqera whe
 
 #### Optional permissions
 
-The following permissions enable Seqera to populate values for dropdown fields. If missing, the input fields will not be auto-populated but can still be manually entered. Though optional, these permissions are recommended for a smoother and less error-prone user experience:
+The following permissions enable Seqera to populate values for drop-down fields. If missing, the input fields will not be auto-populated but can still be manually entered. Though optional, these permissions are recommended for a smoother and less error-prone user experience. The `s3:ListAllMyBuckets` action also allows Data Explorer to auto-discover the data repositories accessible to your workspace credentials:
 
 ```json
 {
@@ -249,7 +249,7 @@ Seqera Intelligent Compute is in private preview. [Contact us](https://seqera.io
 
 To enable Seqera Intelligent Compute, attach an additional IAM policy (beyond the [Required permissions](#required-permissions)) to the same IAM user or role that Seqera uses to access your AWS account.
 
-The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The remaining `Resource: "*"` entries correspond to AWS APIs that do not support resource-level permissions, such as EC2 `Describe*`, ECR authorization tokens, and Cost Explorer.
+The policy scopes ARN-eligible actions to the `seqera-sched-*` resource prefix, except for CloudWatch Logs actions, which are scoped to the `/seqera/*` log-group prefix (Seqera writes logs to groups such as `/seqera/platform`). The remaining `Resource: "*"` entries correspond to AWS APIs that do not support resource-level permissions, such as EC2 `Describe*`, ECR authorization tokens, and Cost Explorer.
 
 <details>
 <summary>Seqera Intelligent Compute policy</summary>
@@ -360,7 +360,7 @@ The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The 
         "logs:GetLogEvents",
         "logs:TagResource"
       ],
-      "Resource": "arn:aws:logs:*:*:log-group:/seqera/sched*"
+      "Resource": "arn:aws:logs:*:*:log-group:/seqera/*"
     },
     {
       "Sid": "EC2NetworkDiscovery",
@@ -536,16 +536,27 @@ In addition to the managed policies, attach the following inline policies:
 }
 ```
 
-**Secrets Manager** — grants access to credentials stored in Seqera, which are prefixed with `tower-`:
+**Secrets Manager** — grants access to the pipeline secrets Seqera stores in AWS Secrets Manager under the `tower-` prefix. Seqera creates each referenced secret when a pipeline launches and deletes it on completion:
 
 ```json
 {
   "Version": "2012-10-17",
-  "Statement": {
-    "Effect": "Allow",
-    "Action": ["secretsmanager:GetSecretValue", "secretsmanager:ListSecrets"],
-    "Resource": ["arn:aws:secretsmanager:<REGION>:*:secret:tower-*"]
-  }
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:CreateSecret",
+        "secretsmanager:DeleteSecret"
+      ],
+      "Resource": ["arn:aws:secretsmanager:<REGION>:*:secret:tower-*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["secretsmanager:ListSecrets"],
+      "Resource": ["*"]
+    }
+  ]
 }
 ```
 

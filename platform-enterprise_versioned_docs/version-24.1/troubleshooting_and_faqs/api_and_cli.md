@@ -2,7 +2,7 @@
 title: "Developer tools"
 description: "API and CLI troubleshooting with Seqera Platform."
 date: "26 August 2024"
-tags: [faq, help, aws help, aws troubleshooting]
+tags: [faq, help, aws, troubleshooting]
 ---
 
 ## API
@@ -13,7 +13,7 @@ Use pagination to fetch the results in smaller chunks through multiple API calls
 
 `{object} length parameter cannot be greater than 100 (current value={value_sent})`
 
-To remedy this, see the example requests below:
+To resolve this, see the example requests below:
 
 ```
 curl -X GET "https://$TOWER_SERVER_URL/workflow/$WORKFLOW_ID/tasks? workspaceId=$WORKSPACE_ID&max=100" \
