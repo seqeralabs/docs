@@ -9,6 +9,7 @@
         "batch:CreateJobQueue",
         "batch:DeleteComputeEnvironment",
         "batch:DeleteJobQueue",
+        "batch:TagResource",
         "batch:UpdateComputeEnvironment",
         "batch:UpdateJobQueue"
       ],

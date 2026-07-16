@@ -1,18 +1,18 @@
 ---
 title: "Usage limits"
-description: "An overview of Seqera Cloud usage limits"
+description: "Seqera Platform usage limits per organization and workspace"
 date created: "2025-02-19"
-last updated: "2026-06-24"
+last updated: "2026-07-06"
 tags: [limits, usage]
 ---
 
-Seqera Platform elements and features have default limits per organization and workspace.
+Seqera Platform features have default limits per organization and workspace.
 
 :::info
-Academic institutions and commercial organizations evaluating Seqera Platform are subject to custom usage limits. [Contact us](https://seqera.io/contact-us/) for more information.
+Seqera applies custom usage limits to academic institutions and commercial organizations evaluating Seqera Platform. [Contact us](https://seqera.io/contact-us/) for more information.
 :::
 
-### Organizations
+## Organizations
 
 | Description               | Basic | Cloud Pro + Enterprise |
 | ------------------------- | ----- | ---------------------- |
@@ -26,10 +26,10 @@ Academic institutions and commercial organizations evaluating Seqera Platform ar
 | Seqera Compute: CPU cores | 100   | 1000                   |
 
 :::note
-Studios data egress is currently throttled at 100GB per 24h per IP address and 1TB per `user_id` per month to prevent unbounded usage.
+Studios data egress is throttled at 100 GB per 24 hours per IP address, and 1 TB per `user_id` per month.
 :::
 
-### Workspaces
+## Workspaces
 
 | Description                 | Basic | Cloud Pro + Enterprise |
 | --------------------------- | ----- | ---------------------- |
@@ -43,11 +43,11 @@ Studios data egress is currently throttled at 100GB per 24h per IP address and 1
 Some Enterprise instances on older licenses are limited to 100 labels per workspace. [Contact support](mailto:support@seqera.io) to upgrade your license.
 :::
 
-### Datasets
+## Datasets
 
 | Description          | Default limit |
 | -------------------- | ------------- |
 | File size            | 10 MB         |
 | Versions per dataset | 100           |
 
-If you need higher limits and capabilities, [contact us](https://seqera.io/contact-us/) to discuss your application requirements.
+If you need higher limits, [contact us](https://seqera.io/contact-us/) to discuss your requirements.
