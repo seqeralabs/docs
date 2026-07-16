@@ -536,16 +536,27 @@ In addition to the managed policies, attach the following inline policies:
 }
 ```
 
-**Secrets Manager** — grants access to credentials stored in Seqera, which are prefixed with `tower-`:
+**Secrets Manager** — grants access to the pipeline secrets Seqera stores in AWS Secrets Manager under the `tower-` prefix. Seqera creates each referenced secret when a pipeline launches and deletes it on completion:
 
 ```json
 {
   "Version": "2012-10-17",
-  "Statement": {
-    "Effect": "Allow",
-    "Action": ["secretsmanager:GetSecretValue", "secretsmanager:ListSecrets"],
-    "Resource": ["arn:aws:secretsmanager:<REGION>:*:secret:tower-*"]
-  }
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:CreateSecret",
+        "secretsmanager:DeleteSecret"
+      ],
+      "Resource": ["arn:aws:secretsmanager:<REGION>:*:secret:tower-*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["secretsmanager:ListSecrets"],
+      "Resource": ["*"]
+    }
+  ]
 }
 ```
 

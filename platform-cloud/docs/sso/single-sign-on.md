@@ -91,6 +91,7 @@ Organization owners can manage the SSO connection from **Organization settings**
 
 :::note
 You can't change the claimed domain through the edit flow. To move SSO to a different domain, delete the existing connection and create a new one.
+<<<<<<< HEAD:platform-cloud/docs/sso/single-sign-on.md
 :::
 
 ## Audit trail coverage
@@ -105,3 +106,8 @@ For setup, sign-in, and account-linking problems, see [SSO troubleshooting](../t
 ## Next steps
 
 After SSO is active, you can map Seqera teams to groups in your IdP so team membership is controlled at the IdP and evaluated on every login. See [IdP delegation](./idp-delegation/overview).
+=======
+
+For setup, sign-in, and account-linking problems, see [SSO troubleshooting](../troubleshooting_and_faqs/sso_troubleshooting).
+:::
+>>>>>>> 54dcb7871adb48a7d3b20a766727be81c6375e0b:platform-cloud/docs/getting-started/single-sign-on.md
