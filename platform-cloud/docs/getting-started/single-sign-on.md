@@ -91,13 +91,6 @@ Organization owners can manage the SSO connection from **Organization settings**
 
 :::note
 You can't change the claimed domain through the edit flow. To move SSO to a different domain, delete the existing connection and create a new one.
-:::
-
-## Audit log coverage
-
-The audit log records SSO activity for compliance and troubleshooting, including:
-
-- SSO configuration changes such as create, enable, disable, and delete
-- Identity-linking updates for existing users
 
 For setup, sign-in, and account-linking problems, see [SSO troubleshooting](../troubleshooting_and_faqs/sso_troubleshooting).
+:::
