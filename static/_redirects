@@ -119,6 +119,9 @@
 /platform-cloud/administration/overview      /platform-cloud/orgs-and-teams/organizations   301
 
 # Renamed and moved pages
+/platform-cloud/monitoring/tasks   /platform-cloud/monitoring/run-details   301
+/platform-cloud/launch/relaunch    /platform-cloud/launch/cache-resume      301
+/platform-cloud/getting-started/single-sign-on   /platform-cloud/sso/single-sign-on   301
 /platform-cloud/monitoring/aggregate_stats    /platform-cloud/monitoring/dashboard                301
 /platform-cloud/credentials/git_credentials   /platform-cloud/git/overview                        301
 /platform-cloud/monitoring/tasks           /platform-cloud/monitoring/run-details                 301

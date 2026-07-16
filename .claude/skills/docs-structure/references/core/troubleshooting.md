@@ -1,10 +1,15 @@
-# Troubleshooting placement
+# Troubleshooting placement (core)
 
-Troubleshooting content does not belong inline on concept, task, tutorial, or
-reference pages. It belongs on the dedicated troubleshooting pages under each
-product's `troubleshooting_and_faqs/` directory or on the `troubleshooting.md` page. This reference covers **where**
-troubleshooting content goes and **how to decide** the destination — not how to
-write the entries themselves.
+When a product has dedicated troubleshooting pages, troubleshooting content does
+not belong inline on concept, task, tutorial, or reference pages — it moves to
+those pages. This file covers what counts as troubleshooting content, how to
+format an entry, and the general move process.
+
+**Where** it goes — and **whether the product has a troubleshooting destination
+at all** — is product-specific. Look it up in the detected product's file under
+`../products/`. Not every product has one: when the product file says the product
+has no troubleshooting destination (for example, MultiQC or Nextflow), **leave the
+content in place** — do not move it, and note that you left it inline.
 
 ## What counts as troubleshooting content
 
@@ -24,32 +29,12 @@ procedure for when something breaks moves.
 
 ## Where it goes
 
-Each product has a troubleshooting directory of feature-scoped pages:
-
-| Product             | Directory                                                             |
-| ------------------- | --------------------------------------------------------------------- |
-| Platform Cloud      | `platform-cloud/docs/troubleshooting_and_faqs/`                       |
-| Platform Enterprise | `platform-enterprise_docs/troubleshooting_and_faqs/`                  |
-| Fusion              | `fusion_docs/troubleshooting/` (and `fusion_docs/troubleshooting.md`) |
-| Wave                | `wave_docs/wave_repo/docs/troubleshoot.md`                            |
-
-Within a directory, pages are scoped by product area or feature — for example, in
-Platform Cloud: `studios_troubleshooting.md`, `aws_troubleshooting.md`,
-`azure_troubleshooting.md`, `datasets_troubleshooting.md`,
-`workspaces_troubleshooting.md`, `nextflow.md`, `api_and_cli.md`.
-
-## Decide: existing page or new page
-
-Pick the destination by the content's product/feature:
-
-- **Add to an existing page** when a troubleshooting page already covers that
-  feature or area. A Studios failure mode goes in `studios_troubleshooting.md`; an
-  AWS Batch issue goes in `aws_troubleshooting.md`. This is the common case.
-- **Create a new page** when the content covers a feature with no troubleshooting
-  page yet, or when an existing page has accumulated enough unrelated entries that
-  the feature deserves its own. Name it `<feature>_troubleshooting.md` to match the
-  existing convention, place it in the product's `troubleshooting_and_faqs/`
-  directory, and add it to the sidebar.
+The destination directory, the page-naming convention, and whether the product
+supports feature-scoped pages at all are **product-specific** — look them up in
+the detected product's file under `../products/` (`platform.md`, `fusion.md`,
+`wave.md`, `multiqc.md`, `nextflow.md`). That file also says whether to **add to
+an existing page** or **create a new one**, and it may say the product has no
+troubleshooting destination — in which case leave the content inline.
 
 When unsure which existing page fits, or whether to split a new one out, ask the
 user rather than guessing — placement affects navigation and inbound links.
@@ -71,8 +56,10 @@ Each troubleshooting topic is a `##` section. Follow the page's existing pattern
 ## Process
 
 1. **Identify** troubleshooting sections in the in-scope page using the tells above.
-2. **Choose the destination** product directory and decide existing page vs new
-   page (see above). Ask the user if the choice isn't clear.
+2. **Look up the destination** in the detected product's file under `../products/`.
+   If the product has **no** troubleshooting destination, stop — leave the section
+   in place and note that you left it inline. Otherwise choose existing page vs new
+   page per that product file's convention. Ask the user if the choice isn't clear.
 3. **Move** each section to the destination as a `##` topic, reformatting the
    heading and body per the destination page's pattern. Preserve all links,
    anchors, code blocks, and images (update relative image/link paths for the new
@@ -133,9 +120,10 @@ removed anchor `studios.md#session-is-stuck-in-starting` for inbound-link repoin
 
 ## Important notes
 
-- **Troubleshooting lives on troubleshooting pages**, not inline on feature pages.
-- **Existing page first**: add to the feature's existing troubleshooting page when
-  one exists; create `<feature>_troubleshooting.md` only when none fits.
+- **Troubleshooting lives on troubleshooting pages**, not inline on feature pages —
+  when the product has them. If the product file says it has none, leave it inline.
+- **Existing page first**: add to an existing troubleshooting page when one fits;
+  create a new page only when the product's convention supports it (see the product file).
 - **Ask when placement is ambiguous** — it affects navigation and links.
 - **Preserve content and links**; update relative paths when moving.
 - **Flag moved anchors** so inbound links can be repointed.
