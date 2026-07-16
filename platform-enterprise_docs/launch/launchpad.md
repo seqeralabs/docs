@@ -90,6 +90,18 @@ The drop-down of available config profiles is populated by inspecting the Nextfl
   }
   ```
 
+#### Output directory
+
+Set an optional **Output directory** to override the default location for your pipeline's [workflow outputs][nextflow-workflow-outputs]. This is distinct from your pipeline's own output parameter (such as `outdir`) under [Run parameters](#run-parameters).
+
+- Enter an absolute cloud storage path, such as `s3://my-bucket/results`, or select **Browse** to choose a location with [Data Explorer][data-explorer]. Select a **Compute environment** before you browse.
+- Platform passes this value to Nextflow as `-output-dir`.
+- **Output directory** is optional and is not carried over on relaunch. Set it for each launch.
+
+:::note
+The **Output directory** field requires Nextflow 24.10.0 or later and a pipeline that uses the [workflow outputs syntax][nextflow-workflow-outputs]. For older pipelines, use your pipeline output parameter (for example, `params.outdir`) instead.
+:::
+
 ### Run parameters
 
 There are four ways to enter **Run parameters** prior to launch:
@@ -105,7 +117,7 @@ Seqera uses a `nextflow_schema.json` file in the root of the pipeline repository
 Specify compatible input [datasets][datasets]  manually or from the drop-down. Select **Browse** to view the available datasets or browse for files in [Data Explorer][data-explorer]. The Data Explorer tab allows you to select input datasets that match your [pipeline schema][pipeline-schema] `mimetype` criteria (`text/csv` for CSV files, or `text/tsv` for TSV files).
 
 - **outdir**
-Specify the output directory where run results will be saved manually, or select **Browse** to choose a cloud storage directory using [Data Explorer][data-explorer].
+Your pipeline's own output directory parameter, if defined in the pipeline schema. Specify the output directory where run results will be saved manually, or select **Browse** to choose a cloud storage directory using [Data Explorer][data-explorer]. This is separate from the [**Output directory**](#output-directory) field in **General config**, which sets the Nextflow `-output-dir` value for workflow outputs.
 
 The remaining fields will vary for each pipeline, dependent on the parameters specified in the pipeline schema.
 
@@ -238,6 +250,7 @@ Platform will ignore added percent-encoding characters in form fields, so you do
 [pipeline-versioning]: ../pipelines/versioning
 [pipeline-revision]: ../pipelines/revision
 [nextflow-config-profile]: https://docs.seqera.io/nextflow/config#config-profiles
+[nextflow-workflow-outputs]: https://docs.seqera.io/nextflow/workflow#outputs
 [labels]: ../labels/overview
 [compute-envs]: ../compute-envs/overview
 [pipeline-schema]: ../pipeline-schema/overview
