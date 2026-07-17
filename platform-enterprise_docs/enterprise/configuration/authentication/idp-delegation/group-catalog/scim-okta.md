@@ -10,7 +10,7 @@ Configure Okta to push your organization's groups to Platform over SCIM 2.0. Onc
 :::info[**Prerequisites**]{#prerequisites}
 You will need the following to get started:
 
-- An Okta application configured as your Platform SSO connection. See [Okta authentication](../../okta).
+- An Okta application configured as your Platform SSO connection. See [Okta authentication](../../oidc).
 - Organization owner access to your Platform organization.
 - Administrator access to your Okta tenant.
 :::
@@ -60,14 +60,4 @@ Renames and deletes propagate automatically:
 
 ## Troubleshooting
 
-### Groups appear in Okta but not in Seqera
-
-Confirm the bearer token in Okta matches the latest token Seqera issued. If you generated a new token after configuring Okta, the previous token is revoked.
-
-### `401 Unauthorized` from Okta logs
-
-The bearer token is invalid or expired. Generate a new token in Platform and replace it in Okta.
-
-### `409 Conflict` on a specific group
-
-A group with the same display name already exists in another organization on the same Enterprise instance. See [Multi-organization routing](../multi-org-routing) for the cross-organization uniqueness rule and conflict resolution.
+For SCIM provisioning issues, see [SCIM provisioning](../../../../../troubleshooting_and_faqs/authentication#scim-provisioning).
