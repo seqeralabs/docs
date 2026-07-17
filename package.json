@@ -6,7 +6,7 @@
     "@docusaurus/plugin-content-docs": "3.9.2",
     "picomatch": "^4.0.3",
     "glob": "^11.1.0",
-    "immutable": "^5.1.5",
+    "immutable": "^5.1.6",
     "serialize-javascript": "^7.0.3",
     "katex": "^0.17.0",
     "postman-code-generators": "2.1.1",
