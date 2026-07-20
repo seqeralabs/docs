@@ -2,7 +2,7 @@
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-05-28"
+last updated: "2026-07-20"
 tags: [google, batch, gcp, compute environments]
 ---
 
@@ -283,6 +283,31 @@ If you use VM instance templates for the head or compute jobs (see below), resou
     The **Instance Type** field sets a default machine type at the compute environment level. You can override this for individual processes using the `machineType` [process directive](https://docs.seqera.io/nextflow/google#process-definition) in your Nextflow configuration.
     :::
 1. Use **Head job CPUs** and **Head job memory** to specify the CPUs and memory allocated for the head job.
+
+   :::caution
+   The default head job resource values are insufficient for production pipelines.
+   The Nextflow head job is a JVM process that tracks every submitted task, manages pipeline state, and continuously polls the GCP Batch API.
+   If the head job runs out of memory mid-run, the pipeline fails immediately — tasks already running on worker VMs continue to completion, but no new tasks are scheduled and the pipeline reports a failure.
+   Already-written output files are not cleaned up automatically, so results may be incomplete.
+
+   Size the head job based on the number of tasks in your pipeline:
+
+   | Pipeline scale | Tasks | Recommended CPUs | Recommended memory |
+   |---|---|---|---|
+   | Small | Up to 100 | 2 | 4 GB |
+   | Medium | 100–500 | 4 | 8 GB |
+   | Large | 500+ | 8 | 16 GB |
+
+   Head job memory scales primarily with the number of concurrent tasks and total pipeline duration.
+   Long-running pipelines that keep thousands of task records in memory (for resumability) require more memory than short pipelines with the same peak parallelism.
+   CPU requirements are moderate — size up if you observe slow task scheduling or high GC pressure in the head job logs.
+
+   For large pipelines, you can also increase the JVM heap directly by setting `NXF_JVM_ARGS="-Xms4g -Xmx12g"` as a **Head job** environment variable (see [Scripting and environment variables](#scripting-and-environment-variables)).
+   :::
+
+   :::note
+   If you specify a **Head job instance template** (see step 8), the template's machine type overrides the **Head job CPUs** and **Head job memory** values set here.
+   :::
 1. Use **Service Account email** to specify a service account email address other than the Compute Engine default to execute workflows with this compute environment (recommended for productions environments).
 1. Use **VPC** and **Subnet** to specify the name of a VPC network and subnet to be used by this compute environment. You can apply network tags directly in the **Network Tags** field (see below) or through VM instance templates used for the Nextflow head and compute jobs.
     :::note
