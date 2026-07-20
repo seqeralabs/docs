@@ -286,6 +286,8 @@ jobs:
           - Descriptions are full sentences with periods
           - Follow verb-entity pattern for operations
           - Group by controller/feature
+          - Put the overlay filename as a plain Markdown line immediately before each YAML code block
+          - Do not put the filename only as a comment inside the YAML block
 
           Generate the overlay files as separate YAML code blocks, clearly labeled with the filename."""
 
@@ -326,6 +328,8 @@ jobs:
           branch: ${{ steps.version.outputs.branch_name }}
           delete-branch: true
           draft: true
+          add-paths: |
+            platform-api-docs/scripts/specs
           title: '[Draft] API Documentation Updates for v${{ steps.version.outputs.api_version }}'
           body: |
             ## API Version: ${{ steps.version.outputs.api_version }}
