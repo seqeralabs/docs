@@ -13,7 +13,7 @@ You can group **members** and **collaborators** into **teams** and apply a role 
 :::
 
 :::note
-Cloud Pro organizations with active [single sign-on (SSO)](../getting-started/single-sign-on) can't add external workspace collaborators. External users who need workspace access must be invited as organization members and authenticate through the configured IdP.
+Cloud Pro organizations with active [single sign-on (SSO)](../sso/single-sign-on) can't add external workspace collaborators. External users who need workspace access must be invited as organization members and authenticate through the configured IdP.
 :::
 
 ### Organization user roles
@@ -71,6 +71,9 @@ The following table shows which operations are available to the default workspac
 | **data_link:write**            | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **data_link:delete**           | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **data_link:admin**            | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **data_link_object:read**      | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **data_link_object:write**     | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **data_link_object:delete**    | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **dataset:read**               | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
 | **dataset:write**              | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
 | **dataset:delete**             | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |

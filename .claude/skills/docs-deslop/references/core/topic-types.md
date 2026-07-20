@@ -57,7 +57,7 @@ Rules:
 
 - **Title is `active verb + noun`**: `Launch a pipeline`, `Configure the compute environment`, `Delete a workspace`. Not `Pipeline launch` (that would be a concept).
 - **Lead with context**: "Do this task when you want to..." — one sentence on why the reader would do this.
-- **Prerequisites** (if any) as a bulleted list. Don't write `Ensure that...` or `You must have...` — the list is the assertion. **For Seqera Platform docs, follow the `docs-structure` skill's prerequisites convention** (`references/prerequisites.md`): wrap them in a `:::info[**Prerequisites**]` admonition with a `You need the following:` lead-in and noun-phrase bullets, not a plain `Prerequisites:` heading. For non-Seqera docs, use the heading `Prerequisites:` (always plural).
+- **Prerequisites** (if any) as a bulleted list. Don't write `Ensure that...` or `You must have...` — the list is the assertion. **For Seqera Platform docs, follow the `docs-structure` skill's prerequisites convention** (`references/core/prerequisites.md`): wrap them in a `:::info[**Prerequisites**]` admonition with a `You need the following:` lead-in and noun-phrase bullets, not a plain `Prerequisites:` heading. For non-Seqera docs, use the heading `Prerequisites:` (always plural).
 - **Steps** as a numbered list. Each step is one action. Use the pattern **location, then action**: "In the top bar, select **Search or go to** and find your project."
 - **One step → unordered list item**, not a numbered list of one.
 - **Imperative verbs**: "Select", "Create", "Run". Not "You should select", "You can run".
@@ -100,7 +100,7 @@ Troubleshooting documents named failure modes and their fixes.
 
 Rules:
 
-- **Move troubleshooting topics to the troubleshooting pages.** Troubleshooting content does not stay inline on concept, task, or reference pages — move it to the product's dedicated troubleshooting pages (for example, `platform-cloud/docs/troubleshooting_and_faqs/`), no matter how few entries, and leave a one-line pointer on the source page. Add to the feature's existing `<feature>_troubleshooting.md` page when one exists; create it (and a sidebar entry) when none fits. The `docs-structure` skill's `references/troubleshooting.md` owns the destination map — hand off per step 5 of SKILL.md.
+- **Move troubleshooting topics to the troubleshooting pages** when the product has them. Troubleshooting content does not stay inline on concept, task, or reference pages — move it to the product's dedicated troubleshooting destination (for example, `platform-cloud/docs/troubleshooting_and_faqs/`), no matter how few entries, and leave a one-line pointer on the source page. The `docs-structure` skill owns placement: its `references/core/troubleshooting.md` covers identifying and formatting an entry, and the detected product's `references/products/<product>.md` gives the destination and the existing-vs-new-page rule. Some products (MultiQC, Nextflow) have no destination — leave troubleshooting inline for those. Hand off per step 6 of SKILL.md.
 - **Three valid sub-types:**
   - **Introductory** topic (a sentence introducing the section: "When working with X, you might encounter the following issues.")
   - **Troubleshooting task** — title is active verb + noun ("Verify the compute environment", "Check the run logs")
@@ -129,7 +129,7 @@ Rules:
 - **Title starts with `Tutorial:`** followed by an active verb: `Tutorial: Launch your first pipeline`, `Tutorial: Run nf-core/rnaseq on AWS Batch`.
 - **Open with the goal**: one paragraph explaining what the reader will build and the expected outcome.
 - **Optionally list the steps** at the top so the reader sees the shape. For short tutorials, omit.
-- **"Before you begin" section** for prerequisites — friendlier framing than the `Prerequisites:` of a task. **On Seqera Platform docs, use the `docs-structure` skill's prerequisites convention instead** (`references/prerequisites.md`: `:::info[**Prerequisites**]` admonition with a `You need the following:` lead-in and noun-phrase bullets), for consistency with the rest of the docs.
+- **"Before you begin" section** for prerequisites — friendlier framing than the `Prerequisites:` of a task. **On Seqera Platform docs, use the `docs-structure` skill's prerequisites convention instead** (`references/core/prerequisites.md`: `:::info[**Prerequisites**]` admonition with a `You need the following:` lead-in and noun-phrase bullets), for consistency with the rest of the docs.
 - **Sections are tasks**, each starting with `## Do the first task` style headings using active verbs.
 - **Voice is friendlier than other types.** Light future tense is OK ("Next, you'll add the pipeline to the Launchpad"). Encouraging phrases between sections are OK. Be more conversational — but no marketing puffery.
 - **Tutorials do not introduce new features.** They combine existing ones into a working example.

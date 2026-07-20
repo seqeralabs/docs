@@ -1,5 +1,5 @@
 ---
-title: "Configuration overview"
+title: "Configuration"
 description: Overview of Seqera configuration options
 date created: "2023-04-21"
 last updated: "2026-05-26"
@@ -387,6 +387,80 @@ With rotation enabled and the previous and new key values set, secret key rotati
   :::
 
 The [Admin panel](../../administration/overview.md#encryption) **Encryption** tab displays the status of completed or errored encryption tasks.
+
+## Backend memory requirements
+
+The Platform backend and cron services run on the Java Virtual Machine (JVM). Allocate at least 4 GB of memory to each service for stable operation under load.
+
+For Kubernetes, set resource limits in your pod specifications:
+
+```yaml
+resources:
+  limits:
+    memory: "4Gi"
+  requests:
+    memory: "4Gi"
+```
+
+For Docker Compose, set memory limits in your service definitions:
+
+```yaml
+services:
+  backend:
+    mem_limit: 4g
+    memswap_limit: 4g
+```
+
+:::note
+These default memory allocation limits are included in the Kubernetes manifest templates ([tower-svc.yml](../_templates/k8s/tower-svc.yml) and [tower-cron.yml](../_templates/k8s/tower-cron.yml)). For Docker Compose, add the `mem_limit` settings to your service definitions as shown above.
+:::
+
+### JVM memory tuning
+
+For production deployments, configure JVM memory parameters with the `JAVA_OPTS` environment variable. This baseline configuration suits most deployments:
+
+```bash
+JAVA_OPTS="-Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144"
+```
+
+The `JAVA_TOOL_OPTIONS` environment variable is a supported alternative to `JAVA_OPTS`. The JVM reads it directly at startup and confirms pickup with a `Picked up JAVA_TOOL_OPTIONS` line in the service logs. Set one variable or the other, not both. Options passed on the command line (which is how `JAVA_OPTS` is applied) take precedence over `JAVA_TOOL_OPTIONS` when the same flag appears in both.
+
+:::note
+These default JVM memory settings are included in the configuration templates provided in these docs:
+- Kubernetes: [tower-svc.yml](../_templates/k8s/tower-svc.yml) and [tower-cron.yml](../_templates/k8s/tower-cron.yml)
+- Docker Compose: [tower.env](../_templates/docker/tower.env)
+:::
+
+| Parameter | Description |
+| --- | --- |
+| `-Xms` / `-Xmx` | Initial and maximum heap size — the memory pool for Java objects. |
+| `-XX:MaxDirectMemorySize` | Off-heap memory for NIO operations, network buffers, and file I/O. Handles concurrent workflow API operations. |
+| `-Dio.netty.maxDirectMemory=0` | Disables Netty's internal memory tracking and relies on the JVM direct memory limit instead. |
+| `-Djdk.nio.maxCachedBufferSize` | Limits the size of cached NIO buffers to prevent excessive memory retention. |
+
+Adjust these baseline values based on the symptoms you observe.
+
+Increase `-XX:MaxDirectMemorySize` if you observe:
+- `OutOfMemoryError: Direct buffer memory` in the logs
+- High concurrent workflow launch rates (more than 100 simultaneous workflows)
+- Large configuration payloads or heavy API usage
+
+Increase heap memory (`-Xmx`) if you observe:
+- `OutOfMemoryError: Java heap space` in the logs
+- Garbage collection pauses that affect performance
+- Growing memory usage under sustained load
+
+For deployments running 200 or more concurrent workflows, increase the heap and direct memory limits:
+
+```bash
+JAVA_OPTS="-Xms1000M -Xmx3000M -XX:MaxDirectMemorySize=1600m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144"
+```
+
+Set the container or pod memory limit higher than the JVM limits to accommodate non-heap memory usage.
+
+:::warning
+These are starting values. Monitor your deployment's memory usage and adjust for your workload. Undersized memory allocation can cause out-of-memory (OOM) failures and service instability.
+:::
 
 ## Compute environments
 

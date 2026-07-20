@@ -10,8 +10,7 @@
           "getting-started/rnaseq",
           "getting-started/proteinfold",
           "getting-started/studios",
-          "getting-started/quickstart-demo/comm-showcase",
-          "tutorials/retry-strategy"
+          "getting-started/quickstart-demo/comm-showcase"
           ]
       },
       {
@@ -21,7 +20,6 @@
         "items": [
           "getting-started/deployment-options",
           "getting-started/workspace-setup",
-          "getting-started/single-sign-on",
           "getting-started/quickstart-demo/add-pipelines",
           "getting-started/quickstart-demo/add-data",
           "getting-started/quickstart-demo/launch-pipelines",
@@ -66,6 +64,7 @@
             "type": "category",
             "label": "Cloud",
             "items": [
+              "compute-envs/preflight-checks",
               "compute-envs/seqera-compute",
               "compute-envs/aws-batch",
               "compute-envs/aws-cloud",
@@ -90,6 +89,7 @@
             "label": "Advanced options",
             "items":[
               "enterprise/advanced-topics/manual-aws-batch-setup",
+              "compute-envs/aws-spot-interruptions",
               "enterprise/advanced-topics/manual-azure-batch-setup"
             ]
           }
@@ -205,11 +205,38 @@
       },
       {
         "type": "category",
+        "label": "Single sign-on",
+        "items": [
+          "sso/single-sign-on",
+          {
+            "type": "category",
+            "label": "IdP delegation",
+            "link": {"type": "doc", "id": "sso/idp-delegation/overview"},
+            "collapsed": true,
+            "items": [
+              "sso/idp-delegation/claim-mapping",
+              {
+                "type": "category",
+                "label": "IdP group catalog",
+                "link": {"type": "doc", "id": "sso/idp-delegation/group-catalog/overview"},
+                "collapsed": true,
+                "items": [
+                  "sso/idp-delegation/group-catalog/scim-okta",
+                  "sso/idp-delegation/group-catalog/scim-entra-id"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "category",
         "label": "Administration",
         "items": [
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
           "orgs-and-teams/personal-profile",
+          "orgs-and-teams/teams",
           "orgs-and-teams/roles",
           "orgs-and-teams/custom-roles",
           "monitoring/dashboard",

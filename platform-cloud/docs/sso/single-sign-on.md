@@ -6,7 +6,7 @@ last updated: "2026-05-05"
 tags: [sso, authentication, organization settings, cloud pro]
 ---
 
-Single sign-on (SSO) lets a Seqera Platform Cloud organization use its corporate identity provider (IdP) for authentication. After SSO is enabled, users with a matching email domain are routed to the organization's IdP when they sign in.
+With single sign-on (SSO), a Seqera Platform Cloud organization authenticates through its corporate identity provider (IdP). After SSO is enabled, users with a matching email domain are routed to the organization's IdP when they sign in.
 
 SSO is available for Cloud Pro organizations and uses Auth0 self-service SSO to connect supported SAML and OpenID Connect (OIDC) identity providers.
 
@@ -76,7 +76,7 @@ When a user signs in through an active SSO connection for the first time:
 - Existing organization memberships, workspace roles, ownership, and run history are preserved for linked accounts.
 - Name and profile fields are populated from the IdP when those attributes are available.
 
-Newly provisioned users receive the lowest organization-level role by default. Organization owners can then promote those users or grant workspace-level access as needed.
+Newly provisioned users receive the lowest organization-level role by default. Organization owners can then promote them or grant workspace-level access.
 
 SSO applies only to users with the claimed email domain. External users who need workspace access must be added to the organization's IdP as guest or external accounts, provisioned as organization members through SSO, and granted the appropriate workspace access. Active SSO blocks new workspace collaborator assignments.
 
@@ -91,13 +91,10 @@ Organization owners can manage the SSO connection from **Organization settings**
 
 :::note
 You can't change the claimed domain through the edit flow. To move SSO to a different domain, delete the existing connection and create a new one.
-:::
-
-## Audit log coverage
-
-The audit log records SSO activity for compliance and troubleshooting, including:
-
-- SSO configuration changes such as create, enable, disable, and delete
-- Identity-linking updates for existing users
 
 For setup, sign-in, and account-linking problems, see [SSO troubleshooting](../troubleshooting_and_faqs/sso_troubleshooting).
+:::
+
+## Next steps
+
+After SSO is active, you can map Seqera teams to groups in your IdP so team membership is controlled at the IdP and evaluated on every login. See [IdP delegation](./idp-delegation/overview).

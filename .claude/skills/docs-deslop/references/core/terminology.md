@@ -2,7 +2,7 @@
 
 The house terminology and formatting rules for Seqera Platform documentation — the product-specific calls that the general rules in `style-guide.md` and automated linters (such as Vale) don't make for you.
 
-This file is specific to Seqera Platform. Apply it whenever the docs are about Seqera Platform, the `tw` CLI, or the surrounding tools (Nextflow, Wave, Fusion, Studios, MultiQC). Don't invent UI text or product behavior — if you can't confirm a term, flag it rather than guess (see SKILL.md rule 8).
+This file is the core terminology for Seqera docs. Apply it whenever the docs are about Seqera Platform, the `tw` CLI, or the surrounding tools (Nextflow, Wave, Fusion, Studios, MultiQC). Each product also has an **exclusive** reference file under `../products/` with rules specific to that product — apply the detected product's file (step 2 of SKILL.md) *in addition to* this one. Don't invent UI text or product behavior — if you can't confirm a term, flag it rather than guess (see SKILL.md rule 8).
 
 ## Product and tool names
 
