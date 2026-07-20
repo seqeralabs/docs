@@ -1,24 +1,26 @@
 ---
 title: "SCIM provisioning with Okta"
-description: "Configure Okta to push group memberships to Seqera Platform Enterprise over SCIM 2.0."
-date: "2026-05-12"
-tags: [sso, scim, okta, idp delegation, administration, enterprise]
+description: "Configure Okta to push group memberships to your Seqera Platform Cloud organization over SCIM 2.0."
+date created: "2026-06-29"
+tags: [sso, scim, okta, idp delegation, organization settings, cloud pro]
 ---
 
-Configure Okta to push your organization's groups to Platform over SCIM 2.0. Once provisioning is enabled, your Okta group directory appears in Seqera's IdP group catalog and stays in sync with renames, additions, and deletions automatically.
+Configure Okta to push your organization's groups to Platform over SCIM 2.0. After provisioning is enabled, your Okta group directory appears in Seqera's IdP group catalog and stays in sync with renames, additions, and deletions.
 
 :::info[**Prerequisites**]{#prerequisites}
-You will need the following to get started:
+You need the following:
 
-- An Okta application configured as your Platform SSO connection. See [Okta authentication](../../oidc).
+- An active [SSO connection](../../single-sign-on) for your organization with Okta as the IdP.
 - Organization owner access to your Platform organization.
 - Administrator access to your Okta tenant.
 :::
 
 ## Get the Seqera SCIM connection details
 
+To get the Seqera SCIM connection details:
+
 1. In Platform, open **Organization settings > Group mapping**.
-2. Copy the **SCIM endpoint URL**. It has the form `https://<seqera-host>/api/orgs/<orgId>/scim/v2`.
+2. Copy the **SCIM endpoint URL** shown in the panel.
 3. Select **Generate token** to issue a SCIM bearer token. Copy it immediately. You can't view it again after closing the dialog.
 
 :::caution
@@ -26,6 +28,8 @@ The bearer token grants write access to your group catalog. Store it in a secret
 :::
 
 ## Enable provisioning in Okta
+
+To enable provisioning in Okta:
 
 1. Sign in to your Okta administrator console.
 2. Open **Applications**, then select the application that fronts your Seqera SSO connection.
@@ -38,6 +42,8 @@ The bearer token grants write access to your group catalog. Store it in a secret
 
 ## Enable group push
 
+To enable group push:
+
 1. With the application still open, switch to the **Push Groups** tab.
 2. Select **Push Groups**, then **Find groups by name** (or **By rule** for dynamic group sets).
 3. Select the Okta groups you want available in Platform.
@@ -45,19 +51,19 @@ The bearer token grants write access to your group catalog. Store it in a secret
 
 ## Verify in Platform
 
+To verify in Platform:
+
 1. In Platform, open **Organization settings > Group mapping**.
 2. Select **Refresh**. The pushed Okta groups should appear in the catalog list within a few seconds.
 3. The **Linked team** drop-down is now populated with the synced groups.
 
 If groups don't appear, check the **Push Groups** status column in Okta for error details, and confirm that the **Provisioning** tab shows **Push Groups: ON**.
 
-## Group rename and delete behavior
+## Rename and delete behavior
 
 Renames and deletes propagate automatically:
 
 - **Rename**: The next SCIM push updates the catalog row's display name. Delegated teams that reference the group continue to work without interruption.
-- **Delete**: Okta issues a SCIM `DELETE` for the group. Seqera removes the catalog row and synchronously purges members from any delegated team that referenced it. The affected teams remain in place with empty membership and an orphaned-team warning.
+- **Delete**: Okta issues a SCIM `DELETE` for the group. Seqera removes the catalog row and synchronously purges members from any delegated team that referenced it. Affected teams remain in place with empty membership and an orphaned-team warning.
 
-## Troubleshooting
-
-For SCIM provisioning issues, see [SCIM provisioning](../../../../../troubleshooting_and_faqs/authentication#scim-provisioning).
+For provisioning problems, see [SSO troubleshooting](../../../troubleshooting_and_faqs/sso_troubleshooting).
