@@ -32,7 +32,7 @@ The following list is non-exhaustive and covers core networking connectivity req
 
 Your Seqera Platform instance requires network connectivity to only two core services: `licenses.seqera.io` for license validation and `cloudinfo.seqera.io` for cloud resource price prediction. All other services listed below are optional and depend on your specific configuration and feature usage.
 
-To simplify firewall configuration, add `*.seqera.io` and `*.seqera.io.cdn.cloudflare.net` to your allowlist. If DNS wildcards aren't supported, allowlist the specific domains listed in each section below; if DNS hostnames aren't allowed in your allowlist, allow the `ingress` and `egress` sections at https://meta.seqera.io/v3 (ingress IPs are the ones that Seqera services listen on, egress IPs are the ones used by Seqera services to contact your infrastructure).
+To simplify firewall configuration, add `*.seqera.io` and `*.seqera.io.cdn.cloudflare.net` to your allowlist. If DNS wildcards aren't supported, allow the specific domains listed in each section below; if DNS hostnames aren't allowed in your allowlist, allow the `ingress` and `egress` IPs listed at https://meta.seqera.io/v3 (ingress IPs are the ones that Seqera services listen on, egress IPs are the ones used by Seqera services to contact your infrastructure).
 
 #### License server (required)
 
@@ -55,10 +55,6 @@ Platform must access container registries to pull container metadata and images 
 Required only if using Seqera Cloud-hosted [Wave](https://docs.seqera.io/wave). Specific networking requirements will vary depending on pipeline configuration and use of Wave feature set.
 
 - `wave.seqera.io`
-- `public.cr.seqera.io`
-- `auth.cr.seqera.io`
-- `community.cr.seqera.io`
-- `cerbero.seqera.io`
 - `private.cr.seqera.io`
 
 #### Cloud provider APIs and services
@@ -67,7 +63,7 @@ Seqera Platform integrations may require access to data stored within your cloud
 
 #### Reports and analytics (optional)
 
-Required if using MultiQC report integration.
+Seqera hosts an anonymous MultiQC report integration telemetry service, not required for MultiQC to work properly.
 
 - `api.multiqc.info`
 
@@ -107,8 +103,7 @@ Required if using [Fusion file system](../../supported_software/fusion/overview.
 Required if using [Wave](https://docs.seqera.io/wave). Compute environments must access `wave.seqera.io` on port 443. If using Wave with the Mirror or Freeze functionality, your container registry must allow the Seqera-hosted Wave service to push images. For the IP addresses from which Wave will push images, see the `egress` section at [https://meta.seqera.io/v3](https://meta.seqera.io/v3).
 
 - `wave.seqera.io`
-- `community.wave.seqera.io`
-- `cerbero.seqera.io`
+- `private.cr.seqera.io`
 - `wave-cache-prod-cloudflare.seqera.io`
 - `wave-cache-prod-cloudflare.seqera.io.cdn.cloudflare.net`
 
@@ -150,15 +145,13 @@ For IP-based allowlists, see [https://www.cloudflare.com/ips-v4/](https://www.cl
 | `licenses.seqera.io`        | 443  | Yes      | License validation             |
 | `cloudinfo.seqera.io`       | 443  | Yes      | Cloud resource price prediction |
 | `wave.seqera.io`            | 443  | Optional | Wave container services        |
-| `community.wave.seqera.io`  | 443  | Optional | Wave community services |
-| `cerbero.seqera.io`         | 443  | Optional | Wave community authentication |
 | `public.cr.seqera.io`       | 443  | Optional | Container registry      |
 | `auth.cr.seqera.io`         | 443  | Optional | Container registry auth |
 | `private.cr.seqera.io`      | 443  | Optional | Container registry      |
 | `ai.seqera.io`              | 443  | Optional | Co-Scientist            |
-| `ai-api.seqera.io`          | 443  | Optional | Con-Scientist           |
+| `ai-api.seqera.io`          | 443  | Optional | Co-Scientist           |
 | `mcp.seqera.io`             | 443  | Optional | Seqera MCP              |
-| `api.multiqc.info`          | 443  | Optional | MultiQC reports         |
+| `api.multiqc.info`          | 443  | Optional | MultiQC reports optional telemetry service |
 
 ### Compute environment domains
 
