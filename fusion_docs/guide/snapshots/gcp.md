@@ -3,7 +3,7 @@ title: Google Cloud Batch
 description: "Fusion Snapshots configuration and best practices for Google Cloud Batch"
 date created: "2024-11-29"
 last updated: "2025-12-19"
-tags: [fusion, fusion-snapshots, storage, compute, snapshot, gcp, google, batch]
+tags: [fusion, fusion snapshots, storage, compute, snapshot, gcp, google, batch]
 ---
 
 Fusion Snapshots enable checkpoint/restore functionality for Nextflow processes running on Google Cloud Batch preemptible instances. When a preemption occurs, Google Batch provides up to 30 seconds before instance termination.
@@ -25,6 +25,8 @@ Fusion Snapshots require the following Seqera Platform compute environment confi
 
 :::tip Configuration
 You must set the number of spot retries you want to attempt to a sensible number. The default is 0. For configuration options, see [Advanced configuration](./configuration.md).
+
+If your runs encounter Google Cloud Batch infrastructure failures beyond Spot reclamation, see [Retrying Google Cloud Batch infrastructure failures](./configuration.md#retrying-google-cloud-batch-infrastructure-failures).
 :::
 
 ## Incremental snapshots

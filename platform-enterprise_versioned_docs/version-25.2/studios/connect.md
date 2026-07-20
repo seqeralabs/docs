@@ -2,7 +2,7 @@
 title: Connect changelog
 date created: "2025-07-30"
 last updated: "2025-11-24"
-tags: [connect, changelog, connect-changelog]
+tags: [connect, changelog, connect changelog]
 ---
 
 :::note

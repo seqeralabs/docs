@@ -3,7 +3,7 @@ title: "AWS Cloud"
 description: "Instructions to set up an AWS Cloud CE in Seqera Platform"
 date created: "2025-05-15"
 last updated: "2026-05-05"
-tags: [cloud, vm, amazon, compute-environment]
+tags: [cloud, vm, amazon, compute environments]
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
@@ -13,9 +13,6 @@ import Button from '@site/src/components/Button';
 import AwsCloudFullPolicy from './_policies/aws-cloud-full-policy.json?raw';
 import AwsCloudIntelligentComputePolicy from './_policies/aws-cloud-intelligent-compute-policy.json?raw';
 
-:::note
-This compute environment type is currently in public preview. Please consult this guide for the latest information on recommended configuration and limitations. This guide assumes you already have an AWS account with a valid AWS subscription.
-:::
 
 Many of the current implementations of compute environments for cloud providers rely on the use of batch services such as AWS Batch, Azure Batch, and Google Batch for the execution and management of submitted jobs, including pipelines and Studio session environments. Batch services are suitable for large-scale workloads, but they add management complexity. In practical terms, the currently used batch services result in some limitations:
 
@@ -75,6 +72,8 @@ When you enable Seqera Intelligent Compute, Seqera provisions and manages all EC
 
 If you enable Seqera Intelligent Compute, you must attach the additional permissions described in [Seqera Intelligent Compute permissions](#seqera-intelligent-compute-permissions).
 
+For full setup instructions, see [Intelligent Compute](./intelligent-compute).
+
 ## Managed Amazon Machine Image (AMI)
 
 The AWS Cloud compute environment uses a public AMI maintained by Seqera, and the pipeline launch procedure assumes that some basic tooling is already present in the image itself. If you want to provide your own AMI, it must include at least the following:
@@ -106,7 +105,7 @@ A permissive and broad policy with all the required permissions is provided here
 
 </details>
 
-<Button to="./_policies/aws-cloud-full-policy.json" medium>Download aws-cloud-full-policy.json</Button>
+[Download aws-cloud-full-policy.json](./_policies/aws-cloud-full-policy.json)
 
 #### Compute environment creation
 
@@ -220,7 +219,7 @@ The following permissions are required to remove resources created by Seqera whe
 
 #### Optional permissions
 
-The following permissions enable Seqera to populate values for dropdown fields. If missing, the input fields will not be auto-populated but can still be manually entered. Though optional, these permissions are recommended for a smoother and less error-prone user experience:
+The following permissions enable Seqera to populate values for drop-down fields. If missing, the input fields will not be auto-populated but can still be manually entered. Though optional, these permissions are recommended for a smoother and less error-prone user experience. The `s3:ListAllMyBuckets` action also allows Data Explorer to auto-discover the data repositories accessible to your workspace credentials:
 
 ```json
 {
@@ -277,8 +276,8 @@ If you enable [data lineage](../data/data-lineage) in your workspace, add the fo
   "Effect": "Allow",
   "Action": [
     "s3:CreateBucket",
-    "s3:GetBucketNotificationConfiguration",
-    "s3:PutBucketNotificationConfiguration",
+    "s3:GetBucketNotification",
+    "s3:PutBucketNotification",
     "s3:GetBucketLocation"
   ],
   "Resource": "arn:aws:s3:::seqera-lineage-*"
@@ -293,24 +292,7 @@ If you manage your own EC2 instance role (rather than letting Seqera create it a
 Seqera Intelligent Compute is in private preview. [Contact us](https://seqera.io/intelligent-compute/) to request access.
 :::
 
-If you've enabled [Seqera Intelligent Compute](#seqera-intelligent-compute), attach the following additional policy to the same IAM user or role that Seqera uses to access your AWS account.
-
-The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The remaining `Resource: "*"` entries correspond to AWS APIs that do not support resource-level permissions, such as EC2 `Describe*`, ECR authorization tokens, and Cost Explorer.
-
-<details>
-<summary>Seqera Intelligent Compute policy</summary>
-
-<CodeBlock language="json">{AwsCloudIntelligentComputePolicy}</CodeBlock>
-
-Some statements in the policy above are conditional and can be omitted depending on your deployment:
-
-- The `ASGEC2Operations` and `ASGManagement` statements are required only if you enable Auto Scaling Group-backed clusters (managed instances). Omit them for Fargate-only deployments.
-- The `CreateECSServiceLinkedRole` is required only if the Service Role is not already created.
-- The `CostExplorer` statement is required only if you enable Cost Analysis.
-
-</details>
-
-<Button to="./_policies/aws-cloud-intelligent-compute-policy.json" medium>Download aws-cloud-intelligent-compute-policy.json</Button>
+If you've enabled [Seqera Intelligent Compute](#seqera-intelligent-compute), see [Intelligent Compute IAM permissions](./intelligent-compute#iam-permissions) for the full list of required policies.
 
 ### Create the IAM policy
 
@@ -323,7 +305,7 @@ The policy above must be created in the AWS account where the AWS Cloud resource
 1. Following the instructions detailed in the [IAM permissions breakdown section](#required-platform-iam-permissions) replace the default text in the policy editor area under the **JSON** tab with a policy adapted to your use case, then select **Next**.
 1. Enter a name and description for the policy on the **Review and create** page, then select **Create policy**.
 
-If you are also enabling Seqera Intelligent Compute, repeat these steps to create a second policy using the [Seqera Intelligent Compute permissions](#seqera-intelligent-compute-permissions) JSON.
+If you are also enabling Seqera Intelligent Compute, see [Intelligent Compute IAM permissions](./intelligent-compute#iam-permissions) for the additional policies required.
 
 ### AWS credential options
 
@@ -452,6 +434,7 @@ For role-based AWS credentials in Seqera Cloud, allow the Seqera Cloud access ro
 
 ## Advanced options
 
+- **Pipeline work directory**: The S3 path where Nextflow stores intermediate pipeline files. The S3 bucket must be in the same region as the compute environment. Platform rejects the compute environment at creation time if the bucket region does not match.
 - **Instance Type**: The EC2 instance type used by the compute environment. Choosing the instance type will directly allocate the CPU and memory available for computation. See [EC2 instance types](https://aws.amazon.com/ec2/instance-types/) for a comprehensive list of instance types and their resource limitations.
 - **Graviton architecture**: Enable the use of Graviton instances. AWS Graviton processors, based on the ARM64 architecture, tend to offer a better performance-to-price ratio, however, the tooling used by your pipelines must be compatible with ARM architecture.
 - **AMI ID**: The ID of the AMI that will be used to launch the EC2 instance. Use Seqera-maintained AMIs for best performance.
@@ -525,16 +508,27 @@ In addition to the managed policies, attach the following inline policies:
 }
 ```
 
-**Secrets Manager** — grants access to credentials stored in Seqera, which are prefixed with `tower-`:
+**Secrets Manager** — grants access to the pipeline secrets Seqera stores in AWS Secrets Manager under the `tower-` prefix. Seqera creates each referenced secret when a pipeline launches and deletes it on completion:
 
 ```json
 {
   "Version": "2012-10-17",
-  "Statement": {
-    "Effect": "Allow",
-    "Action": ["secretsmanager:GetSecretValue", "secretsmanager:ListSecrets"],
-    "Resource": ["arn:aws:secretsmanager:<REGION>:*:secret:tower-*"]
-  }
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:CreateSecret",
+        "secretsmanager:DeleteSecret"
+      ],
+      "Resource": ["arn:aws:secretsmanager:<REGION>:*:secret:tower-*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["secretsmanager:ListSecrets"],
+      "Resource": ["*"]
+    }
+  ]
 }
 ```
 

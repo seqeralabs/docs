@@ -54,13 +54,16 @@
               "enterprise/configuration/pipeline_optimization"
             ]
           },
-          "enterprise/install-seqera-ai",
+          "enterprise/install-seqera-coscientist",
           {
             "type": "category",
             "label": "Configuration",
             "collapsed": true,
+            "link": {
+              "type": "doc",
+              "id": "enterprise/configuration/overview"
+            },
             "items": [
-              "enterprise/configuration/overview",
               {
                 "type": "category",
                 "label": "Authentication",
@@ -73,9 +76,33 @@
                   "enterprise/configuration/authentication/email",
                   "enterprise/configuration/authentication/github",
                   "enterprise/configuration/authentication/google",
-                  "enterprise/configuration/authentication/keycloak",
-                  "enterprise/configuration/authentication/entra",
-                  "enterprise/configuration/authentication/okta"
+                  "enterprise/configuration/authentication/oidc",
+                  {
+                    "type": "category",
+                    "label": "IdP delegation",
+                    "collapsed": true,
+                    "link": {
+                      "type": "doc",
+                      "id": "enterprise/configuration/authentication/idp-delegation/overview"
+                    },
+                    "items": [
+                      {
+                        "type": "category",
+                        "label": "Group catalog",
+                        "collapsed": true,
+                        "link": {
+                          "type": "doc",
+                          "id": "enterprise/configuration/authentication/idp-delegation/group-catalog/overview"
+                        },
+                        "items": [
+                          "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-okta",
+                          "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-entra-id"
+                        ]
+                      },
+                      "enterprise/configuration/authentication/idp-delegation/claim-mapping",
+                      "enterprise/configuration/authentication/idp-delegation/multi-org-routing"
+                    ]
+                  }
                 ]
               },
               "enterprise/configuration/networking",
@@ -99,8 +126,7 @@
               "enterprise/advanced-topics/content-security-policy",
               "enterprise/advanced-topics/monitoring"
             ]
-          },
-          "enterprise/general_troubleshooting"
+          }
         ]
       },
       {
@@ -110,8 +136,7 @@
       "items": [
         "getting-started/rnaseq",
         "getting-started/proteinfold",
-        "getting-started/studios",
-        "tutorials/retry-strategy"
+        "getting-started/studios"
       ]
     },
     {
@@ -185,6 +210,7 @@
             "label": "Advanced options",
             "items":[
               "enterprise/advanced-topics/manual-aws-batch-setup",
+              "compute-envs/aws-spot-interruptions",
               "enterprise/advanced-topics/manual-azure-batch-setup"
             ]
           }
@@ -195,7 +221,8 @@
         "label": "Data",
         "items": [
           "data/data-explorer",
-          "data/datasets"
+          "data/datasets",
+          "data/data-lineage"
         ]
       },
       {
@@ -222,15 +249,53 @@
     },
      {
       "type": "category",
-      "label": "Seqera AI CLI",
-      "link": {"type": "doc", "id": "seqera-ai/index"},
+      "label": "Co-Scientist",
+      "link": {"type": "doc", "id": "co-scientist/index"},
       "collapsed": true,
       "items": [
-        "seqera-ai/get-started",
-        "seqera-ai/installation",
-        "seqera-ai/authentication",
-        "seqera-ai/command-approval",
-        "seqera-ai/use-cases"
+        "co-scientist/prerequisites",
+        "co-scientist/installation",
+        "co-scientist/quickstart",
+        "co-scientist/authentication",
+        {
+          "type": "category",
+          "label": "Using Co-Scientist",
+          "link": {"type": "doc", "id": "co-scientist/configuration"},
+          "collapsed": true,
+          "items": [
+            "co-scientist/use-cases",
+            "co-scientist/modes",
+            "co-scientist/sessions",
+            "co-scientist/skills",
+            "co-scientist/command-approval",
+            "co-scientist/nextflow-lsp",
+            "co-scientist/projects",
+            "co-scientist/usage-and-cost"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Coding Agents",
+          "link": {"type": "doc", "id": "co-scientist/coding-agents"},
+          "collapsed": true,
+          "items": [
+            "co-scientist/skill-claude-code",
+            "co-scientist/skill-codex",
+            "co-scientist/skill-github-copilot",
+            "co-scientist/skill-other-agents"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Reference",
+          "link": {"type": "doc", "id": "co-scientist/reference/index"},
+          "collapsed": true,
+          "items": [
+            "co-scientist/reference/cli",
+            "co-scientist/reference/environment-variables",
+            "co-scientist/reference/skills-reference"
+          ]
+        }
       ]
     },
        {
@@ -257,11 +322,56 @@
       },
       {
         "type": "category",
+        "label": "Authentication",
+        "collapsed": true,
+        "link": {
+          "type": "doc",
+          "id": "enterprise/configuration/authentication/overview"
+        },
+        "items": [
+          "enterprise/configuration/authentication/email",
+          "enterprise/configuration/authentication/github",
+          "enterprise/configuration/authentication/google",
+          "enterprise/configuration/authentication/keycloak",
+          "enterprise/configuration/authentication/entra",
+          "enterprise/configuration/authentication/okta",
+          {
+            "type": "category",
+            "label": "IdP delegation",
+            "collapsed": true,
+            "link": {
+              "type": "doc",
+              "id": "enterprise/configuration/authentication/idp-delegation/overview"
+            },
+            "items": [
+              {
+                "type": "category",
+                "label": "Group catalog",
+                "collapsed": true,
+                "link": {
+                  "type": "doc",
+                  "id": "enterprise/configuration/authentication/idp-delegation/group-catalog/overview"
+                },
+                "items": [
+                  "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-okta",
+                  "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-entra-id"
+                ]
+              },
+              "enterprise/configuration/authentication/idp-delegation/claim-mapping",
+              "enterprise/configuration/authentication/idp-delegation/multi-org-routing"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "category",
         "label": "Administration",
         "items": [
           "administration/overview",
           "orgs-and-teams/organizations",
           "orgs-and-teams/workspace-management",
+          "orgs-and-teams/personal-profile",
+          "orgs-and-teams/teams",
           "orgs-and-teams/roles",
           "orgs-and-teams/custom-roles",
           "monitoring/dashboard",
@@ -318,6 +428,7 @@
         "collapsed": true,
         "items": [
           "troubleshooting_and_faqs/troubleshooting",
+          "troubleshooting_and_faqs/authentication",
           "troubleshooting_and_faqs/api_and_cli",
           "troubleshooting_and_faqs/studios_troubleshooting",
           "troubleshooting_and_faqs/nextflow",

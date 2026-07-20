@@ -1,19 +1,20 @@
 ---
 title: "Add data"
 description: "An introduction to adding pipeline input data in Seqera Platform"
-date: "21 Jul 2024"
+date created: "2024-07-21"
+last updated: "2026-06-10"
 tags: [platform, data, data explorer, datasets]
 ---
 
-Most bioinformatics pipelines require an input of some sort. This is typically a samplesheet where each row consists of a sample, the location of files for that sample (such as FASTQ files), and other sample details. Reliable shared access to pipeline input data is crucial to simplify data management, minimize user data-input errors, and facilitate reproducible workflows.
+Most bioinformatics pipelines require input data, typically a samplesheet where each row consists of a sample, the location of files for that sample (such as FASTQ files), and other sample details. Reliable shared access to pipeline input data simplifies data management, reduces data-input errors, and supports reproducible workflows.
 
-In Platform, samplesheets and other data can be made easily accessible in one of two ways:
+In Platform, you can make samplesheets and other data accessible in two ways:
 - Use **Data Explorer** to browse and interact with remote data from AWS S3, Azure Blob Storage, and Google Cloud Storage repositories, directly in your organization workspace.
 - Use **Datasets** to upload structured data to your workspace in CSV (Comma-Separated Values) or TSV (Tab-Separated Values) format.
 
 ## Data Explorer
 
-For pipeline runs in the cloud, users typically need access to buckets or blob storage to upload files (such as samplesheets and reference data) for analysis and to view pipeline results. Managing credentials and permissions for multiple users and training users to navigate cloud consoles and CLIs can be complicated. Data Explorer provides the simplified alternative of viewing your data directly in Platform.
+For pipeline runs in the cloud, users typically need access to buckets or blob storage to upload files (such as samplesheets and reference data) and to view pipeline results. Managing credentials and permissions for multiple users, and training them to navigate cloud consoles and CLIs, adds overhead. Data Explorer lets you view your data directly in Platform instead.
 
 ### Add a cloud bucket
 
@@ -26,24 +27,22 @@ To add individual buckets (or directory paths within buckets):
     - The cloud **Provider**.
     - An existing cloud **Bucket path**.
     - A unique **Name** for the bucket.
-    - The **Credentials** used to access the bucket. For public cloud buckets, select **Public** from the dropdown menu.
+    - The **Credentials** used to access the bucket. For public cloud buckets, select **Public** from the drop-down.
     - An optional bucket **Description**.
 1. Select **Add**.
 
-  ![Add public bucket](assets/data-explorer-add-bucket.gif)
-
-You can now use this data in your analysis without the need to interact with cloud consoles or CLI tools.
+You can now use this data in your analysis without interacting with cloud consoles or CLI tools.
 
 #### Public data sources
 
-Select **Public** from the credentials dropdown menu to add public cloud storage buckets from resources such as:
+Select **Public** from the credentials drop-down to add public cloud storage buckets from resources such as:
 
 - [The Cancer Genome Atlas (TCGA)](https://registry.opendata.aws/tcga/)
 - [1000 Genomes Project](https://registry.opendata.aws/1000-genomes/)
 - [NCBI SRA](https://registry.opendata.aws/ncbi-sra/)
-- [Genome in a Bottle Consortium](https://docs.opendata.aws/giab/readme.html)
-- [MSSNG Database](https://cloud.google.com/life-sciences/docs/resources/public-datasets/mssng)
-- [Genome Aggregation Database (gnomAD)](https://cloud.google.com/life-sciences/docs/resources/public-datasets/gnomad)
+- [Genome in a Bottle Consortium](https://registry.opendata.aws/giab/)
+- [MSSNG Database](https://research.mss.ng/)
+- [Genome Aggregation Database (gnomAD)](https://gnomad.broadinstitute.org/)
 
 ### View pipeline outputs
 
@@ -52,17 +51,11 @@ In Data Explorer, you can:
   - **View bucket details**:
     Select the information icon next to a bucket in the list to view the cloud provider, bucket address, and credentials.
 
-    ![Bucket details](assets/data-explorer-view-details.gif)
-
   - **View bucket contents**:
-    Select a bucket name from the list to view the bucket contents. The file type, size, and path of objects are displayed in columns next to the object name. For example, view the outputs of your [nf-core/rnaseq](../../quickstart.md#nf-corernaseq) run:
-
-    ![Data Explorer bucket](assets/sp-cloud-data-explorer.gif)
+    Select a bucket name from the list to view the bucket contents. The file type, size, and path of objects are displayed in columns next to the object name. For example, view the outputs of your [nf-core/rnaseq](../../quickstart.md#nf-corernaseq) run.
 
    - **Preview files**:
-    Select a file to open a preview window that includes a **Download** button. For example, view the resultant gene counts of the salmon quantification step of your [nf-core/rnaseq](../../quickstart.md#nf-corernaseq) run:
-
-    ![Preview pipeline results](assets/data-explorer-preview-files.gif)
+    Select a file to open a preview window that includes a **Download** button. For example, view the gene counts from the salmon quantification step of your [nf-core/rnaseq](../../quickstart.md#nf-corernaseq) run.
 
 ## Datasets
 
@@ -71,7 +64,7 @@ Datasets in Platform are CSV (comma-separated values) and TSV (tab-separated val
 <details>
   <summary>**Example: nf-core/rnaseq test samplesheet**</summary>
 
-  The [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq) pipeline works with input datasets (samplesheets) containing sample names, FASTQ file locations, and indications of strandedness. The Seqera Community Showcase sample dataset for *nf-core/rnaseq* specifies the paths to 7 small sub-sampled FASTQ files from a yeast RNAseq dataset:
+  The [*nf-core/rnaseq*](https://github.com/nf-core/rnaseq) pipeline works with input datasets (samplesheets) containing sample names, FASTQ file locations, and indications of strandedness. The Seqera Community Showcase sample dataset for *nf-core/rnaseq* specifies the paths to seven small sub-sampled FASTQ files from a yeast RNAseq dataset:
 
   **Example nf-core/rnaseq dataset**
 
@@ -93,16 +86,14 @@ Download the nf-core/rnaseq [samplesheet_test.csv](samplesheet_test.csv).
 
 From the **Datasets** tab, select **Add Dataset**.
 
-![Add a dataset](assets/sp-cloud-add-a-dataset.gif)
-
 Specify the following dataset details:
 
 - A **Name** for the dataset, such as `nf-core-rnaseq-test-dataset`.
 - A **Description** for the dataset.
 - Select the **First row as header** option to prevent Platform from parsing the header row of the samplesheet as sample data.
-- Select **Upload file** and browse to your CSV or TSV file in local storage, or simply drag and drop it into the box.
+- Select **Upload file** and browse to your CSV or TSV file in local storage, or drag and drop it into the box.
 
-Notice the location of the files in the *nf-core/rnaseq* example dataset point to a path on S3. This could also be a path to a shared filesystem, if using an HPC compute environment. Nextflow will use these paths to stage the files into the task working directory.
+The file locations in the *nf-core/rnaseq* example dataset point to a path on S3. This could also be a path to a shared filesystem if you use an HPC compute environment. Nextflow uses these paths to stage the files into the task working directory.
 
 :::info
 Platform does not store the data used for analysis in pipelines. The datasets must provide the locations of data that is stored on your own infrastructure.

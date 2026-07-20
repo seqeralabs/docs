@@ -108,7 +108,7 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
 
       - name: Check bash script syntax
         run: |
@@ -140,7 +140,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
         with:
           ref: ${{ github.event_name == 'issue_comment' && steps.pr-details.outputs.head_ref || '' }}
           fetch-depth: 0
@@ -200,17 +200,38 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
         with:
           ref: ${{ github.event_name == 'issue_comment' && steps.pr-ref.outputs.head_ref || '' }}
 
+      - name: Collect changed docs files
+        id: vale-files
+        run: |
+          # Only lint the docs files changed in this PR (from the paths-filter
+          # in the `changes` job, emitted as a JSON array). This keeps Vale
+          # scoped to changed files; filter_mode below scopes comments to
+          # changed lines.
+          FILES=$(echo '${{ needs.changes.outputs.docs_files }}' | jq -r '.[]')
+          if [ -z "$FILES" ]; then
+            echo "has_files=false" >> "$GITHUB_OUTPUT"
+            echo "No changed docs files — skipping Vale."
+            exit 0
+          fi
+          echo "has_files=true" >> "$GITHUB_OUTPUT"
+          {
+            echo "files<<VALE_EOF"
+            echo "$FILES"
+            echo "VALE_EOF"
+          } >> "$GITHUB_OUTPUT"
+          echo "Vale will check these files:"
+          echo "$FILES" | sed 's/^/  /'
+
       - name: Vale Terminology Check
+        if: steps.vale-files.outputs.has_files == 'true'
         uses: errata-ai/vale-action@85f9f7f2c5f449ac0ae5b66662961bae3f77ca6a # v2.1.2
         with:
-          files: |
-            platform-enterprise_docs
-            platform-cloud/docs
-            platform-enterprise_versioned_docs
+          files: ${{ steps.vale-files.outputs.files }}
+          filter_mode: added # Only comment on lines changed in this PR
           reporter: github-pr-review
           fail_on_error: false # Post suggestions without blocking
         env:
@@ -226,7 +247,7 @@ jobs:
       should_run: ${{ steps.decide.outputs.should_run }}
       skip_reason: ${{ steps.decide.outputs.skip_reason }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
         with:
           fetch-depth: 0
 
@@ -341,36 +362,28 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
         with:
           ref: ${{ github.event_name == 'issue_comment' && steps.pr-ref.outputs.head_ref || '' }}
           fetch-depth: 0
 
       - name: Run Editorial Review Skill
-        uses: anthropics/claude-code-action@20c8abf165d5f85ab3fc970db9498436377dc9d1 # v1.0.128
+        uses: anthropics/claude-code-action@30544b674398ee15c84819bd87caf8a87e8c7b55 # v1.0.154
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |
-            Run /editorial-review on the changed documentation files in this PR.
+            Run the /editorial-review skill on the changed documentation files
+            in this PR.
 
             Changed files:
             ${{ needs.changes.outputs.docs_files }}
 
             Review type: ${{ needs.setup.outputs.review_type }}
 
-            Output all findings to /tmp/editorial-review-suggestions.txt in this format:
-
-            FILE: path/to/file.md
-            LINE: 42
-            ISSUE: Brief description
-            ORIGINAL: |
-            exact original text
-            SUGGESTION: |
-            corrected text
-            ---
-
-            The /editorial-review skill will orchestrate the appropriate agents
-            (voice-tone, terminology) based on the review type.
+            Write all findings to /tmp/editorial-review-suggestions.txt using
+            the output contract defined in
+            .claude/skills/editorial-review/SKILL.md. The skill owns the
+            format; do not redefine it here.
           use_sticky_comment: true
           claude_args: |
             --allowedTools "Read,Grep,Glob,Write,Skill(editorial-review),Task"
@@ -389,7 +402,7 @@ jobs:
     if: always() && needs.changes.outputs.docs == 'true' && needs.editorial-review-skill.result != 'skipped'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
 
       - name: Download Editorial Review Results
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # ratchet:actions/download-artifact@v8.0.1
@@ -540,13 +553,13 @@ jobs:
     # if: github.event_name == 'issue_comment' && contains(github.event.comment.body, '/fix-docs')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Apply Fixes
-        uses: anthropics/claude-code-action@20c8abf165d5f85ab3fc970db9498436377dc9d1 # v1.0.128
+        uses: anthropics/claude-code-action@30544b674398ee15c84819bd87caf8a87e8c7b55 # v1.0.154
         with:
           anthropic_api_key: ${{ secrets.ENG_ANTHROPIC_API_KEY }}
           prompt: |

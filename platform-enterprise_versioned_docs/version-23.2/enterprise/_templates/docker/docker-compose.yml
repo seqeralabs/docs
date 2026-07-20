@@ -1,7 +1,7 @@
 version: "3"
 services:
   db:
-    image: mysql:5.6
+    image: docker.io/library/mysql:5.6
     networks:
       - backend
     expose:
@@ -17,7 +17,7 @@ services:
   #      - $HOME/.tower/db/mysql:/var/lib/mysql
 
   redis:
-    image: cr.seqera.io/public/redis:5.0.8
+    image: docker.io/library/redis:7.4.7
     networks:
       - backend
     expose:
