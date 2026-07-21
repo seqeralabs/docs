@@ -11,11 +11,17 @@ Monitor cloud costs to manage resources effectively and prevent unexpected expen
 
 Use [Resource labels](../resource-labels/overview) in your compute environments to annotate and track the actual cloud resources consumed by a pipeline run. Resource labels are applied to the resources spawned during a run and sent to your cloud provider in `key=value` format.
 
+For full cost accounting — including storage and networking — combine resource labels with your cloud provider's native cost tools rather than custom wrapper scripts that dedicate whole instances to single jobs. See [Include Seqera resource labels in AWS billing reports](../resource-labels/overview#include-seqera-resource-labels-in-aws-billing-reports).
+
 ## Seqera cost estimate
 
-Run details include an **Estimated cost** display. This is the total estimated compute cost of all tasks in the pipeline run.
+The [run details](../monitoring/run-details) page includes an **Estimated cost** display on the **Metrics** tab. This is the total estimated compute cost of all tasks in the pipeline run. Per-task cost — along with the machine type, price model, and requested CPU and memory used to derive it — is shown in each task's **Metrics** details.
 
 The Seqera cost estimator should only be used for at-a-glance heuristic purposes. For accounting and legal cost reporting, use resource labels and leverage your compute platform's native cost reporting tools.
+
+:::tip
+Per-task metrics, including estimated cost, are also available programmatically through the Platform API for building custom cost dashboards across runs. See the [describe workflow task](https://docs.seqera.io/platform-api/describe-workflow-task) and [list workflow tasks](https://docs.seqera.io/platform-api/list-workflow-tasks) API endpoints.
+:::
 
 The compute cost of a task is computed as follows:
 
