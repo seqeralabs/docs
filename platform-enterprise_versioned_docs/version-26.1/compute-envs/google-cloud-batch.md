@@ -298,22 +298,23 @@ If you use VM instance templates for the head or compute jobs (see step 8 below)
 
    :::caution
    The default head job resource values are insufficient for production pipelines.
-   The Nextflow head job is a JVM process that tracks every submitted task, manages pipeline state, and continuously polls the GCP Batch API.
-   If the head job runs out of memory mid-run, the pipeline fails immediately — tasks already running on worker VMs continue to completion, but no new tasks are scheduled and the pipeline reports a failure.
-   Already-written output files are not cleaned up automatically, so results may be incomplete.
-
+   The Nextflow head job is a JVM process that tracks every submitted task, manages pipeline state, and polls the GCP Batch API.
+   If the head job runs out of memory mid-run, the pipeline fails.
+   Tasks already running on worker VMs run to completion, but no new tasks are scheduled.
+   Output files that were already written are not cleaned up automatically. Results may be incomplete.
+   
    Size the head job based on the number of tasks in your pipeline:
-
+   
    | Pipeline scale | Tasks | Recommended CPUs | Recommended memory |
    |---|---|---|---|
    | Small | Up to 100 | 2 | 4 GB |
    | Medium | 100–500 | 4 | 8 GB |
    | Large | 500+ | 8 | 16 GB |
-
-   Head job memory scales primarily with the number of concurrent tasks and total pipeline duration.
-   Long-running pipelines that keep thousands of task records in memory (for resumability) require more memory than short pipelines with the same peak parallelism.
-   CPU requirements are moderate — size up if you observe slow task scheduling or high GC pressure in the head job logs.
-
+   
+   Head job memory scales with the number of concurrent tasks and total pipeline duration.
+   Long-running pipelines keep thousands of task records in memory for resumability, and need more memory than short pipelines with the same peak parallelism.
+   Increase CPUs if task scheduling is slow or the head job logs show high garbage collection (GC) pressure.
+   
    For large pipelines, you can also increase the JVM heap directly by setting `NXF_JVM_ARGS="-Xms4g -Xmx12g"` as a **Head job** environment variable (see [Scripting and environment variables](#scripting-and-environment-variables)).
    :::
 
