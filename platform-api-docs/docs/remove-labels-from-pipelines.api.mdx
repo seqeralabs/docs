@@ -5,7 +5,7 @@ description: "Removes the given list of labels from the given pipelines."
 sidebar_label: "Remove labels from pipelines"
 hide_title: true
 hide_table_of_contents: true
-api: eJylVcFOGzEQ/RXL55CENuohpwZUJNSqREDVA+Iw2Z0kBu/a2N6kq1X+vTP2LtkQCpW4INZ+M/P85s2kkQFWXk7vpIYFai/vBzJHnzllgzKlnMprLMwGvQhrFCu1wVJo5YMwS5EixNKZondrlUWtSvRDOZDGogNOdJk/p/oRwy4oat5BCWnBQYEBHZNpZEkfFLE17tFbyJDiB1Ixn6cKXS1fsvzdAUVZFehUJlSOZVBLhY7APltjAXLayFBbTqzKgKt4tTSugJCOvkzkbkcKOKQqPpyZvOaYw1KJv3DxMaKFUqLMUM4ycABYq1UWHz568BzVHFMwiwfMONA6liko0oFuO/0uc39ce+Yc1Kx9h3rludQqIyqbQ0BuQVsNOJI1DFj4/xNikDzxNpEI+RcLyPOBYDHqgTCulexjpIhVUEEzaua9yRQ9s/NR6sx125GI5fYoh+S+4CqMB96a0ietP40nx0+7+i5OxE8jun5S0GT8+RVc521RmiBAa7OlOlzUY1Y5Fero5DMEh25WhTV93rO7yOZrw/NgTTSOBb6To+fJGaXJGiW92L7oNt1kVE4TeB2C9dPRCKwaZtpU+dDjE/EZKnM0GzfxRsw1BJZTnDNezOaXktl0ZG/Yn0mWPuXnnnDFbpL4exFBdJL+uega9bANUQT2/fV+jr79gcJy2144/G583/cZfe540Jcmlm473b6AKb/3OJZKZbSvEpibCFkcykPh+nLRXCodPbY0X/cXRIRVT3VOh6eT8XDMh9y2AuJQt2sqLbaDhWh7u+2AcbNfFB/brW1fAv4JI6uBliNxi49sWkvdyT6LdsHzCERbke5rNiDBmmYBHn85vdvxcVqxbLZceVhoHp8laI9vPOWdBfwq2Uesj3b8BnTFyOjNDTjF9ePkEF2EnLIxsRR6nsqf3HL2fezR+j2YuvnVzS3btl3uhck5xsGWpaG/VJt/uDg6TkM8a0i+clXBirEpJ5scDmfkxUxEpt2qK+seQxI8Im7NI5YkeqdF4G+iS8n/Ap45oZY=
+api: eJylVcFu2zAM/RWBZzVJt2AHn9YWKxBsWIO2ww5BDozNJGplS5XkpIHhfx8o2U3SdO2A3WKJFB8f32MaCLjykM1A44K0h7mEgnzulA3KVJDBLZVmQ16ENYmV2lAltPJBmKVIGWLpTHlwa5UlrSryA5BgLDnkhybFy1M/Ytq1M+W0DwUJFh2WFMgxmAYqLAky2Br36C3mNClAgmI8TzW5HbxG+bsPFFVdklO5UAVVQS0VOZDg8zWVCFkDYWf5YVUFWsWrpXElhnT0ZQxtO5fg6KkmHy5NseOc41IJv3CxGdGFgoTcVIGqwAlorVZ5bHz44DmrOYVgFg+Uc6J1TFNQ5Pm2529S+NPaF87hjrnvo95o14tgRG0LDMQj6KohZzKHgUr/b0TIpIn3gcSQv6HAopCCydhJYVxH2f+BaiUEFTRHXXhvcoWBeh2lydx2E4mxPB7lqIAsuJrigbem8onrT6PxaWs338WZ+GlEP89Wwnj0+Y24XtuiMkGg1mZLRaTNU147FXZRyZeEjtxFHdaQzeasrpLC2rAfrInCsch3MHxxzjA5a5j4YvmS2/TOqJ2GDNYhWJ8Nh2jVINemLgaensjhQJkTb9zFGzHVGJhOccXx4mI6AUbTg71jfSZaDiG/zIQr9k7i70UMAtn9uO4H9bANkQTW/e3eR9+esbQ8tlcKn43mhzqbjeYtG31pYulu0l0HDPmj5pgqlZPvgnmImEdTHhN3SBeVqHTU2NJ83V+0Epj1VOd8cD4eDUZ8yGMrMZq6W1NpsR0tRHuw244QN/tF8X+7tZtLoOcwtBpVxdhik00nqRkcougWPFsgymouYc0CzGbQNAv09MvptuXjtGJZbIXyuNBsnyVqT++08sECfhPsI+1OdvwGdc2RUZsbdIrrR+dIWBMW5CKwlHqVyp/d8+v73JP1e+S66c3dPcu2W+6lKTjH4ZapwS3X5j8uzo5uiGcNaKxWNa44Nr3JIsdjj7zyRETar7pqd4CwaVLEvXmkqm2h5yLwN7Tztm3/AJ45oZY=
 sidebar_class_name: "post api-method"
 info_path: platform-api//seqera-api
 custom_edit_url: null
@@ -32,7 +32,7 @@ import Translate from "@docusaurus/Translate";
   path={"/pipelines/labels/remove"}
   context={"endpoint"}
 >
-
+  
 </MethodEndpoint>
 
 
@@ -50,17 +50,20 @@ Removes the given list of labels from the given pipelines.
 <ParamsDetails
   {...require("./remove-labels-from-pipelines.ParamsDetails.json")}
 >
-
+  
 </ParamsDetails>
 
 <RequestSchema
   {...require("./remove-labels-from-pipelines.RequestSchema.json")}
 >
-
+  
 </RequestSchema>
 
 <StatusCodes
   {...require("./remove-labels-from-pipelines.StatusCodes.json")}
 >
-
+  
 </StatusCodes>
+
+
+      

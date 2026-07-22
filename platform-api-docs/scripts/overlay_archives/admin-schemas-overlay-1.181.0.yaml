@@ -1,0 +1,193 @@
+overlay: 1.0.0
+info:
+  title: Admin schemas overlay
+  version: 0.0.0
+actions:
+  # ===== ADMIN SCHEMAS - REQUEST/RESPONSE OBJECTS =====
+
+  # ---- AUDIT EVENT TYPE ----
+
+  - target: "$.components.schemas.AuditEventType.description"
+    update: "Audit event type enumeration. See Platform documentation for complete event descriptions."
+
+  # ---- AUDIT LOG V2 QUERY ATTRIBUTE ----
+
+  - target: "$.components.schemas.AuditLogV2QueryAttribute.description"
+    update: "Query attribute for audit log requests. Accepts `state` to include pre/post state images."
+
+  # ---- LIST AUDIT LOG V2 RESPONSE ----
+
+  - target: "$.components.schemas.ListAuditLogV2Response.properties.auditLogs"
+    update:
+      type: array
+      description: "Array of audit log entries for the current page."
+
+  - target: "$.components.schemas.ListAuditLogV2Response.properties.nextPageToken"
+    update:
+      type: string
+      description: "Token for retrieving the next page of results. Can be `null` if no more pages."
+
+  # ---- AUDIT LOG V2 RESPONSE DTO ----
+
+  - target: "$.components.schemas.AuditLogV2ResponseDto.properties.actor"
+    update:
+      description: "Actor information for the audit event."
+
+  - target: "$.components.schemas.AuditLogV2ResponseDto.properties.client"
+    update:
+      description: "Client information for the audit event."
+
+  - target: "$.components.schemas.AuditLogV2ResponseDto.properties.correlationId"
+    update:
+      type: string
+      description: "Correlation identifier linking related audit events."
+
+  - target: "$.components.schemas.AuditLogV2ResponseDto.properties.event"
+    update:
+      description: "Audit event type."
+
+  - target: "$.components.schemas.AuditLogV2ResponseDto.properties.id"
+    update:
+      type: string
+      description: "Audit log string identifier."
+
+  - target: "$.components.schemas.AuditLogV2ResponseDto.properties.target"
+    update:
+      description: "Target resource information for the audit event."
+
+  - target: "$.components.schemas.AuditLogV2ResponseDto.properties.timestamp"
+    update:
+      type: string
+      format: date-time
+      description: "Audit event timestamp in ISO 8601 format."
+
+  # ---- AUDIT LOG V2 ACTOR ----
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Actor'].properties.email"
+    update:
+      type: string
+      description: "Actor email address."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Actor'].properties.firstName"
+    update:
+      type: string
+      description: "Actor first name."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Actor'].properties.isRoot"
+    update:
+      type: boolean
+      description: "If true, the actor has root privileges."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Actor'].properties.lastName"
+    update:
+      type: string
+      description: "Actor last name."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Actor'].properties.type"
+    update:
+      description: "Actor type. Accepts `user` or `system`."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Actor'].properties.userId"
+    update:
+      type: integer
+      format: int64
+      description: "Actor user numeric identifier."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Actor'].properties.userName"
+    update:
+      type: string
+      description: "Actor username."
+
+  # ---- AUDIT LOG V2 CLIENT ----
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Client'].properties.accessTokenId"
+    update:
+      type: integer
+      format: int64
+      description: "Access token numeric identifier used for the request."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Client'].properties.ip"
+    update:
+      type: string
+      description: "Client IP address."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Client'].properties.userAgent"
+    update:
+      type: string
+      description: "Client user agent string."
+
+  # ---- AUDIT LOG V2 TARGET ----
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Target'].properties.context"
+    update:
+      description: "Entity context. Accepts `User`, `Organization`, `Workspace`, or `System`."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Target'].properties.id"
+    update:
+      type: string
+      description: "Target resource identifier."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Target'].properties.name"
+    update:
+      type: string
+      description: "Target resource name."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Target'].properties.organization"
+    update:
+      description: "Organization information if applicable."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Target'].properties.state"
+    update:
+      description: "Target state change information including pre/post state images."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Target'].properties.type"
+    update:
+      type: string
+      description: "Target resource type."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Target'].properties.user"
+    update:
+      description: "User information if applicable."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Target'].properties.workspace"
+    update:
+      description: "Workspace information if applicable."
+
+  # ---- AUDIT LOG TARGET STATE ----
+
+  - target: "$.components.schemas.AuditLogTargetState.properties.metadata"
+    update:
+      description: "Metadata about state capture including status information."
+
+  - target: "$.components.schemas.AuditLogTargetState.properties.newState"
+    update:
+      description: "Target resource state after the audit event. Polymorphic type determined by auditImageType."
+
+  - target: "$.components.schemas.AuditLogTargetState.properties.previousState"
+    update:
+      description: "Target resource state before the audit event. Polymorphic type determined by auditImageType."
+
+  # ---- AUDIT LOG TARGET STATE METADATA ----
+
+  - target: "$.components.schemas.AuditLogTargetStateMetadata.properties.contentRequested"
+    update:
+      type: boolean
+      description: "If true, state content was requested via the attributes query parameter."
+
+  - target: "$.components.schemas.AuditLogTargetStateMetadata.properties.postStateStatus"
+    update:
+      description: "Status of post-state capture. Accepts `RECORDED`, `UNRECORDED`, or `UNAPPLICABLE`."
+
+  - target: "$.components.schemas.AuditLogTargetStateMetadata.properties.preStateStatus"
+    update:
+      description: "Status of pre-state capture. Accepts `RECORDED`, `UNRECORDED`, or `UNAPPLICABLE`."
+
+  # ---- ENTITY CONTEXT ----
+
+  - target: "$.components.schemas.EntityContext.description"
+    update: "Entity context enumeration. Accepts `User`, `Organization`, `Workspace`, or `System`."
+
+  # ---- AUDIT ACTOR TYPE ----
+
+  - target: "$.components.schemas['AuditActor.ActorType'].description"
+    update: "Audit actor type. Accepts `user` or `system`."

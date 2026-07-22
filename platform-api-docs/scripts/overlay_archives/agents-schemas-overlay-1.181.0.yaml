@@ -1,0 +1,153 @@
+overlay: 1.0.0
+info:
+  title: Agents schemas overlay
+  version: 0.0.0
+actions:
+  # ===== AGENTS SCHEMAS - REQUEST/RESPONSE OBJECTS =====
+
+  # ---- AGENT STATUS ----
+
+  - target: "$.components.schemas['Agent.Status'].description"
+    update: "Agent status enumeration. Accepts `active`, `inactive`, or `deleted`."
+
+  # ---- AGENT DB DTO ----
+
+  - target: "$.components.schemas.AgentDbDto.properties.createdBy"
+    update:
+      type: integer
+      format: int64
+      description: "User numeric identifier who created the agent."
+
+  - target: "$.components.schemas.AgentDbDto.properties.dateCreated"
+    update:
+      type: string
+      format: date-time
+      description: "Agent creation timestamp in ISO 8601 format."
+
+  - target: "$.components.schemas.AgentDbDto.properties.description"
+    update:
+      type: string
+      nullable: true
+      description: "Agent description. Can be `null`."
+
+  - target: "$.components.schemas.AgentDbDto.properties.id"
+    update:
+      type: string
+      description: "Agent string identifier."
+
+  - target: "$.components.schemas.AgentDbDto.properties.lastUpdated"
+    update:
+      type: string
+      format: date-time
+      description: "Agent last modified timestamp in ISO 8601 format."
+
+  - target: "$.components.schemas.AgentDbDto.properties.name"
+    update:
+      type: string
+      description: "Agent name. Maximum 255 characters."
+
+  - target: "$.components.schemas.AgentDbDto.properties.status"
+    update:
+      description: "Agent status. Accepts `active`, `inactive`, or `deleted`."
+
+  - target: "$.components.schemas.AgentDbDto.properties.systemPrompt"
+    update:
+      type: string
+      description: "System prompt defining agent behavior and instructions."
+
+  - target: "$.components.schemas.AgentDbDto.properties.templateId"
+    update:
+      type: string
+      nullable: true
+      description: "Template identifier if agent is based on a template. Can be `null`."
+
+  - target: "$.components.schemas.AgentDbDto.properties.updatedBy"
+    update:
+      type: integer
+      format: int64
+      description: "User numeric identifier who last modified the agent."
+
+  - target: "$.components.schemas.AgentDbDto.properties.workspaceId"
+    update:
+      type: integer
+      format: int64
+      description: "Workspace numeric identifier where the agent is defined."
+
+  # ---- CREATE AGENT REQUEST ----
+
+  - target: "$.components.schemas.CreateAgentRequest.properties.description"
+    update:
+      type: string
+      nullable: true
+      description: "Agent description. Can be `null`."
+
+  - target: "$.components.schemas.CreateAgentRequest.properties.name"
+    update:
+      type: string
+      description: "Agent name. Maximum 255 characters."
+
+  - target: "$.components.schemas.CreateAgentRequest.properties.systemPrompt"
+    update:
+      type: string
+      description: "System prompt defining agent behavior and instructions."
+
+  - target: "$.components.schemas.CreateAgentRequest.properties.templateId"
+    update:
+      type: string
+      nullable: true
+      description: "Template identifier if agent is based on a template. Can be `null`."
+
+  # ---- CREATE AGENT RESPONSE ----
+
+  - target: "$.components.schemas.CreateAgentResponse.properties.agent"
+    update:
+      description: "Created agent object."
+
+  # ---- UPDATE AGENT REQUEST ----
+
+  - target: "$.components.schemas.UpdateAgentRequest.properties.description"
+    update:
+      type: string
+      nullable: true
+      description: "Agent description. Can be `null`."
+
+  - target: "$.components.schemas.UpdateAgentRequest.properties.name"
+    update:
+      type: string
+      description: "Agent name. Maximum 255 characters."
+
+  - target: "$.components.schemas.UpdateAgentRequest.properties.systemPrompt"
+    update:
+      type: string
+      description: "System prompt defining agent behavior and instructions."
+
+  - target: "$.components.schemas.UpdateAgentRequest.properties.templateId"
+    update:
+      type: string
+      nullable: true
+      description: "Template identifier if agent is based on a template. Can be `null`."
+
+  # ---- UPDATE AGENT RESPONSE ----
+
+  - target: "$.components.schemas.UpdateAgentResponse.properties.agent"
+    update:
+      description: "Updated agent object."
+
+  # ---- DESCRIBE AGENT RESPONSE ----
+
+  - target: "$.components.schemas.DescribeAgentResponse.properties.agent"
+    update:
+      description: "Agent object with detailed information."
+
+  # ---- LIST AGENTS RESPONSE ----
+
+  - target: "$.components.schemas.ListAgentsResponse.properties.agents"
+    update:
+      type: array
+      description: "Array of agent objects matching the query criteria."
+
+  - target: "$.components.schemas.ListAgentsResponse.properties.totalSize"
+    update:
+      type: integer
+      format: int64
+      description: "Total number of agents matching the query criteria."
