@@ -1,70 +1,1078 @@
-# Generated Overlays for v1.102.0
 
-This file contains all the overlay files generated from the base-1.95-to-1.102.0-changes.yaml comparison overlay, plus manual enrichments for field descriptions.
+# Actions Overlays
 
-**CRITICAL FIXES**:
-- `data-links-operations-overlay-1.102.0.yaml` now correctly REMOVES the deprecated `/data-links/{dataLinkId}/download` endpoint
-- `data-links-parameters-overlay-1.102.0.yaml` includes parameter array removal actions to prevent duplicate parameters
-
----
-
-# Missing Schemas (Must Apply First)
-
-## add-missing-schema-overlay-1.102.0.yaml
-
-**CRITICAL**: This schema exists in v1.95 base spec but was accidentally excluded from v1.95 decorated spec. Must be added BEFORE other overlays can reference it in ComputeConfig.oneOf array.
+## actions-operations-overlay-1.181.0.yaml
 
 ```yaml
 overlay: 1.0.0
 info:
-  title: Add missing LocalComputeConfig schema
-  version: 1.102.0
+  title: Actions operations overlay
+  version: 0.0.0
 actions:
-  # ===== ADD MISSING LocalComputeConfig SCHEMA =====
+  # ===== ACTIONS - OPERATIONS =====
 
-  # This schema exists in v1.95 base spec but was accidentally excluded from v1.95 decorated spec
-  # We need to add it before other overlays can reference it
+  # ---- RESOLVE CRON EXPRESSION ----
 
-  - target: "$.components.schemas"
-    update:
-      LocalComputeConfig:
-        type: object
-        title: Local execution configuration
-        properties:
-          workDir:
-            type: string
-            description: "Compute environment working directory."
-          preRunScript:
-            type: string
-            description: "Script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
-          postRunScript:
-            type: string
-            description: "Script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
-          environment:
-            type: array
-            description: "Array of environment variables for the compute environment."
-            items:
-              $ref: "#/components/schemas/ConfigEnvVariable"
-          nextflowConfig:
-            type: string
-            description: "Additional Nextflow configuration content."
-          discriminator:
-            type: string
-            description: "Property to select the compute config platform."
-            readOnly: true
-          waveEnabled:
-            type: boolean
-            description: "Enable Wave containers support. See [Wave containers](https://docs.seqera.io/platform-cloud/supported_software/wave)."
-          fusion2Enabled:
-            type: boolean
-            description: "Enable Fusion v2 virtual distributed file system. See [Fusion file system](https://docs.seqera.io/platform-cloud/supported_software/fusion)."
+  - target: "$.paths['/actions/cron/resolve'].post.summary"
+    update: "Resolve cron expression"
+
+  - target: "$.paths['/actions/cron/resolve'].post.description"
+    update: "Resolves a human-readable schedule description to a cron expression format. Append `?workspaceId` to resolve in a workspace context."
 ```
 
----
+## actions-parameters-overlay-1.181.0.yaml
+
+```yaml
+overlay: 1.0.0
+info:
+  title: Actions parameters overlay
+  version: 0.0.0
+actions:
+  # ===== ACTIONS PARAMETERS - PATH, QUERY, AND REQUEST BODY =====
+
+  # ---- QUERY PARAMETERS ----
+
+  - target: "$.paths['/actions/cron/resolve'].post.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+
+  # ---- REQUEST BODY DESCRIPTIONS ----
+
+  - target: "$.paths['/actions/cron/resolve'].post.requestBody.description"
+    update: "Cron expression resolution request"
+```
+
+## actions-schemas-overlay-1.181.0.yaml
+
+```yaml
+overlay: 1.0.0
+info:
+  title: Actions schemas overlay
+  version: 0.0.0
+actions:
+  # ===== ACTIONS SCHEMAS - REQUEST/RESPONSE OBJECTS =====
+
+  # ---- CRON ACTION CONFIG ----
+
+  - target: "$.components.schemas.CronActionConfig.properties.discriminator"
+    update:
+      type: string
+      description: "Type discriminator for action configuration polymorphism."
+
+  - target: "$.components.schemas.CronActionConfig.properties.expression"
+    update:
+      type: string
+      description: "Cron expression defining the schedule pattern."
+
+  - target: "$.components.schemas.CronActionConfig.properties.preset"
+    update:
+      type: string
+      description: "Preset schedule identifier. Can be `null`."
+
+  - target: "$.components.schemas.CronActionConfig.properties.timezone"
+    update:
+      type: string
+      description: "Timezone for schedule evaluation in IANA format."
+
+  # ---- CRON ACTION EVENT ----
+
+  - target: "$.components.schemas.CronActionEvent.properties.discriminator"
+    update:
+      type: string
+      description: "Type discriminator for action event polymorphism."
+
+  - target: "$.components.schemas.CronActionEvent.properties.scheduledTime"
+    update:
+      type: string
+      format: date-time
+      description: "Scheduled execution time in ISO 8601 format."
+
+  - target: "$.components.schemas.CronActionEvent.properties.timestamp"
+    update:
+      type: string
+      format: date-time
+      description: "Actual event timestamp in ISO 8601 format."
+
+  - target: "$.components.schemas.CronActionEvent.properties.workflowId"
+    update:
+      type: string
+      description: "Workflow string identifier associated with the event."
+
+  # ---- CRON ACTION REQUEST ----
+
+  - target: "$.components.schemas.CronActionRequest.properties.expression"
+    update:
+      type: string
+      description: "Cron expression defining the schedule pattern."
+
+  - target: "$.components.schemas.CronActionRequest.properties.preset"
+    update:
+      type: string
+      description: "Preset schedule identifier. Can be `null`."
+
+  - target: "$.components.schemas.CronActionRequest.properties.timezone"
+    update:
+      type: string
+      description: "Timezone for schedule evaluation in IANA format."
+
+  # ---- ACTION IMAGE ----
+
+  - target: "$.components.schemas.ActionImage.properties.auditImageType"
+    update:
+      description: "Audit image type discriminator."
+
+  - target: "$.components.schemas.ActionImage.properties.config"
+    update:
+      description: "Action configuration polymorphic object."
+
+  - target: "$.components.schemas.ActionImage.properties.error"
+    update:
+      type: string
+      description: "Error message if action execution failed. Can be `null`."
+
+  - target: "$.components.schemas.ActionImage.properties.event"
+    update:
+      description: "Action event polymorphic object."
+
+  - target: "$.components.schemas.ActionImage.properties.hookId"
+    update:
+      type: string
+      description: "Webhook identifier if action uses webhook trigger."
+
+  - target: "$.components.schemas.ActionImage.properties.hookUrl"
+    update:
+      type: string
+      description: "Webhook URL if action uses webhook trigger."
+
+  - target: "$.components.schemas.ActionImage.properties.lastSeen"
+    update:
+      type: string
+      format: date-time
+      description: "Timestamp of last action activity in ISO 8601 format."
+
+  - target: "$.components.schemas.ActionImage.properties.launch"
+    update:
+      description: "Launch configuration associated with the action."
+
+  - target: "$.components.schemas.ActionImage.properties.name"
+    update:
+      type: string
+      description: "Action name."
+
+  - target: "$.components.schemas.ActionImage.properties.source"
+    update:
+      type: string
+      description: "Action source type. Accepts `github`, `tower`, or `cron`."
+
+  - target: "$.components.schemas.ActionImage.properties.status"
+    update:
+      type: string
+      description: "Action execution status."
+```
+
+# Admin Overlays
+
+## admin-operations-overlay-1.181.0.yaml
+
+```yaml
+overlay: 1.0.0
+info:
+  title: Admin operations overlay
+  version: 0.0.0
+actions:
+  # ===== ADMIN - OPERATIONS =====
+
+  # ---- LIST AUDIT LOGS V2 ----
+
+  - target: "$.paths['/admin/audit-logs-v2'].get.summary"
+    update: "List audit logs"
+
+  - target: "$.paths['/admin/audit-logs-v2'].get.description"
+    update: "Lists audit logs with token-based pagination, ordered by timestamp descending. Supports filtering by timestamp range and optional inclusion of pre/post state images."
+
+  # ---- EXPORT AUDIT LOGS V2 CSV ----
+
+  - target: "$.paths['/admin/audit-logs-v2/export-csv'].get.summary"
+    update: "Export audit logs as CSV"
+
+  - target: "$.paths['/admin/audit-logs-v2/export-csv'].get.description"
+    update: "Exports audit log entries as a CSV file. Supports filtering by timestamp range. Fails if the number of matching logs exceeds the configured maximum."
+
+  # ---- DESCRIBE AUDIT LOG V2 ----
+
+  - target: "$.paths['/admin/audit-logs-v2/{auditLogId}'].get.summary"
+    update: "Get audit log details"
+
+  - target: "$.paths['/admin/audit-logs-v2/{auditLogId}'].get.description"
+    update: "Retrieves detailed information for the specified audit log including optional pre/post state change images."
+```
+
+## admin-parameters-overlay-1.181.0.yaml
+
+```yaml
+overlay: 1.0.0
+info:
+  title: Admin parameters overlay
+  version: 0.0.0
+actions:
+  # ===== ADMIN PARAMETERS - PATH, QUERY, AND REQUEST BODY =====
+
+  # ---- PATH PARAMETERS ----
+
+  - target: "$.paths['/admin/audit-logs-v2/{auditLogId}'].get.parameters[?(@.name=='auditLogId')].description"
+    update: "Audit log numeric identifier."
+
+  # ---- QUERY PARAMETERS ----
+
+  - target: "$.paths['/admin/audit-logs-v2'].get.parameters[?(@.name=='attributes')].description"
+    update: "Additional attribute values to include in the response. Accepts `state` for pre/post image payloads."
+
+  - target: "$.paths['/admin/audit-logs-v2'].get.parameters[?(@.name=='nextPageToken')].description"
+    update: "Token for retrieving the next page of results."
+
+  - target: "$.paths['/admin/audit-logs-v2'].get.parameters[?(@.name=='max')].description"
+    update: "Maximum number of results to return."
+
+  - target: "$.paths['/admin/audit-logs-v2'].get.parameters[?(@.name=='timestampAfterOrEqual')].description"
+    update: "Filter logs with timestamp on or after this date in ISO 8601 format."
+
+  - target: "$.paths['/admin/audit-logs-v2'].get.parameters[?(@.name=='timestampBeforeOrEqual')].description"
+    update: "Filter logs with timestamp on or before this date in ISO 8601 format."
+
+  - target: "$.paths['/admin/audit-logs-v2/export-csv'].get.parameters[?(@.name=='attributes')].description"
+    update: "Additional attribute values to include in the response. Accepts `state` for pre/post image payloads."
+
+  - target: "$.paths['/admin/audit-logs-v2/export-csv'].get.parameters[?(@.name=='timestampAfterOrEqual')].description"
+    update: "Filter logs with timestamp on or after this date in ISO 8601 format."
+
+  - target: "$.paths['/admin/audit-logs-v2/export-csv'].get.parameters[?(@.name=='timestampBeforeOrEqual')].description"
+    update: "Filter logs with timestamp on or before this date in ISO 8601 format."
+
+  - target: "$.paths['/admin/audit-logs-v2/{auditLogId}'].get.parameters[?(@.name=='attributes')].description"
+    update: "Additional attribute values to include in the response. Accepts `state` for pre/post change images."
+```
+
+## admin-schemas-overlay-1.181.0.yaml
+
+```yaml
+overlay: 1.0.0
+info:
+  title: Admin schemas overlay
+  version: 0.0.0
+actions:
+  # ===== ADMIN SCHEMAS - REQUEST/RESPONSE OBJECTS =====
+
+  # ---- AUDIT EVENT TYPE ----
+
+  - target: "$.components.schemas.AuditEventType.description"
+    update: "Audit event type enumeration. See Platform documentation for complete event descriptions."
+
+  # ---- AUDIT LOG V2 QUERY ATTRIBUTE ----
+
+  - target: "$.components.schemas.AuditLogV2QueryAttribute.description"
+    update: "Query attribute for audit log requests. Accepts `state` to include pre/post state images."
+
+  # ---- LIST AUDIT LOG V2 RESPONSE ----
+
+  - target: "$.components.schemas.ListAuditLogV2Response.properties.auditLogs"
+    update:
+      type: array
+      description: "Array of audit log entries for the current page."
+
+  - target: "$.components.schemas.ListAuditLogV2Response.properties.nextPageToken"
+    update:
+      type: string
+      description: "Token for retrieving the next page of results. Can be `null` if no more pages."
+
+  # ---- AUDIT LOG V2 RESPONSE DTO ----
+
+  - target: "$.components.schemas.AuditLogV2ResponseDto.properties.actor"
+    update:
+      description: "Actor information for the audit event."
+
+  - target: "$.components.schemas.AuditLogV2ResponseDto.properties.client"
+    update:
+      description: "Client information for the audit event."
+
+  - target: "$.components.schemas.AuditLogV2ResponseDto.properties.correlationId"
+    update:
+      type: string
+      description: "Correlation identifier linking related audit events."
+
+  - target: "$.components.schemas.AuditLogV2ResponseDto.properties.event"
+    update:
+      description: "Audit event type."
+
+  - target: "$.components.schemas.AuditLogV2ResponseDto.properties.id"
+    update:
+      type: string
+      description: "Audit log string identifier."
+
+  - target: "$.components.schemas.AuditLogV2ResponseDto.properties.target"
+    update:
+      description: "Target resource information for the audit event."
+
+  - target: "$.components.schemas.AuditLogV2ResponseDto.properties.timestamp"
+    update:
+      type: string
+      format: date-time
+      description: "Audit event timestamp in ISO 8601 format."
+
+  # ---- AUDIT LOG V2 ACTOR ----
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Actor'].properties.email"
+    update:
+      type: string
+      description: "Actor email address."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Actor'].properties.firstName"
+    update:
+      type: string
+      description: "Actor first name."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Actor'].properties.isRoot"
+    update:
+      type: boolean
+      description: "If true, the actor has root privileges."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Actor'].properties.lastName"
+    update:
+      type: string
+      description: "Actor last name."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Actor'].properties.type"
+    update:
+      description: "Actor type. Accepts `user` or `system`."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Actor'].properties.userId"
+    update:
+      type: integer
+      format: int64
+      description: "Actor user numeric identifier."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Actor'].properties.userName"
+    update:
+      type: string
+      description: "Actor username."
+
+  # ---- AUDIT LOG V2 CLIENT ----
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Client'].properties.accessTokenId"
+    update:
+      type: integer
+      format: int64
+      description: "Access token numeric identifier used for the request."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Client'].properties.ip"
+    update:
+      type: string
+      description: "Client IP address."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Client'].properties.userAgent"
+    update:
+      type: string
+      description: "Client user agent string."
+
+  # ---- AUDIT LOG V2 TARGET ----
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Target'].properties.context"
+    update:
+      description: "Entity context. Accepts `User`, `Organization`, `Workspace`, or `System`."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Target'].properties.id"
+    update:
+      type: string
+      description: "Target resource identifier."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Target'].properties.name"
+    update:
+      type: string
+      description: "Target resource name."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Target'].properties.organization"
+    update:
+      description: "Organization information if applicable."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Target'].properties.state"
+    update:
+      description: "Target state change information including pre/post state images."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Target'].properties.type"
+    update:
+      type: string
+      description: "Target resource type."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Target'].properties.user"
+    update:
+      description: "User information if applicable."
+
+  - target: "$.components.schemas['AuditLogV2ResponseDto.Target'].properties.workspace"
+    update:
+      description: "Workspace information if applicable."
+
+  # ---- AUDIT LOG TARGET STATE ----
+
+  - target: "$.components.schemas.AuditLogTargetState.properties.metadata"
+    update:
+      description: "Metadata about state capture including status information."
+
+  - target: "$.components.schemas.AuditLogTargetState.properties.newState"
+    update:
+      description: "Target resource state after the audit event. Polymorphic type determined by auditImageType."
+
+  - target: "$.components.schemas.AuditLogTargetState.properties.previousState"
+    update:
+      description: "Target resource state before the audit event. Polymorphic type determined by auditImageType."
+
+  # ---- AUDIT LOG TARGET STATE METADATA ----
+
+  - target: "$.components.schemas.AuditLogTargetStateMetadata.properties.contentRequested"
+    update:
+      type: boolean
+      description: "If true, state content was requested via the attributes query parameter."
+
+  - target: "$.components.schemas.AuditLogTargetStateMetadata.properties.postStateStatus"
+    update:
+      description: "Status of post-state capture. Accepts `RECORDED`, `UNRECORDED`, or `UNAPPLICABLE`."
+
+  - target: "$.components.schemas.AuditLogTargetStateMetadata.properties.preStateStatus"
+    update:
+      description: "Status of pre-state capture. Accepts `RECORDED`, `UNRECORDED`, or `UNAPPLICABLE`."
+
+  # ---- ENTITY CONTEXT ----
+
+  - target: "$.components.schemas.EntityContext.description"
+    update: "Entity context enumeration. Accepts `User`, `Organization`, `Workspace`, or `System`."
+
+  # ---- AUDIT ACTOR TYPE ----
+
+  - target: "$.components.schemas['AuditActor.ActorType'].description"
+    update: "Audit actor type. Accepts `user` or `system`."
+```
+
+# Agents Overlays
+
+## agents-operations-overlay-1.181.0.yaml
+
+```yaml
+overlay: 1.0.0
+info:
+  title: Agents operations overlay
+  version: 0.0.0
+actions:
+  # ===== AGENTS - OPERATIONS =====
+
+  # ---- LIST AGENTS ----
+
+  - target: "$.paths['/agents'].get.summary"
+    update: "List agents"
+
+  - target: "$.paths['/agents'].get.description"
+    update: "Lists all non-deleted agents in a user context. Append `?workspaceId` to list agents in a workspace context."
+
+  # ---- CREATE AGENT ----
+
+  - target: "$.paths['/agents'].post.summary"
+    update: "Create agent"
+
+  - target: "$.paths['/agents'].post.description"
+    update: "Creates a new agent. Append `?workspaceId` to associate the agent with the given workspace."
+
+  # ---- DESCRIBE AGENT ----
+
+  - target: "$.paths['/agents/{agentId}'].get.summary"
+    update: "Get agent details"
+
+  - target: "$.paths['/agents/{agentId}'].get.description"
+    update: "Retrieves detailed information for the specified agent."
+
+  # ---- UPDATE AGENT ----
+
+  - target: "$.paths['/agents/{agentId}'].put.summary"
+    update: "Update agent"
+
+  - target: "$.paths['/agents/{agentId}'].put.description"
+    update: "Updates the specified agent with the provided values. Only supplied fields are modified."
+
+  # ---- DELETE AGENT ----
+
+  - target: "$.paths['/agents/{agentId}'].delete.summary"
+    update: "Delete agent"
+
+  - target: "$.paths['/agents/{agentId}'].delete.description"
+    update: "Marks the specified agent as deleted (tombstoning). This action cannot be undone."
+
+  # ---- ENABLE AGENT ----
+
+  - target: "$.paths['/agents/{agentId}/enable'].post.summary"
+    update: "Enable agent"
+
+  - target: "$.paths['/agents/{agentId}/enable'].post.description"
+    update: "Marks an inactive agent as active, allowing it to process requests."
+
+  # ---- DISABLE AGENT ----
+
+  - target: "$.paths['/agents/{agentId}/disable'].post.summary"
+    update: "Disable agent"
+
+  - target: "$.paths['/agents/{agentId}/disable'].post.description"
+    update: "Marks an active agent as inactive, preventing it from processing new requests."
+```
+
+## agents-parameters-overlay-1.181.0.yaml
+
+```yaml
+overlay: 1.0.0
+info:
+  title: Agents parameters overlay
+  version: 0.0.0
+actions:
+  # ===== AGENTS PARAMETERS - PATH, QUERY, AND REQUEST BODY =====
+
+  # ---- PATH PARAMETERS ----
+
+  - target: "$.paths['/agents/{agentId}'].get.parameters[?(@.name=='agentId')].description"
+    update: "Agent string identifier."
+
+  - target: "$.paths['/agents/{agentId}'].put.parameters[?(@.name=='agentId')].description"
+    update: "Agent string identifier."
+
+  - target: "$.paths['/agents/{agentId}'].delete.parameters[?(@.name=='agentId')].description"
+    update: "Agent string identifier."
+
+  - target: "$.paths['/agents/{agentId}/enable'].post.parameters[?(@.name=='agentId')].description"
+    update: "Agent string identifier."
+
+  - target: "$.paths['/agents/{agentId}/disable'].post.parameters[?(@.name=='agentId')].description"
+    update: "Agent string identifier."
+
+  # ---- QUERY PARAMETERS ----
+
+  - target: "$.paths['/agents'].get.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+
+  - target: "$.paths['/agents'].get.parameters[?(@.name=='search')].description"
+    update: "Free-text search filter to match against agent name."
+
+  - target: "$.paths['/agents'].get.parameters[?(@.name=='max')].description"
+    update: "Maximum number of results to return. Default: `20`."
+
+  - target: "$.paths['/agents'].get.parameters[?(@.name=='offset')].description"
+    update: "Number of results to skip for pagination. Default: `0`."
+
+  - target: "$.paths['/agents'].post.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+
+  - target: "$.paths['/agents/{agentId}'].get.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+
+  - target: "$.paths['/agents/{agentId}'].put.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+
+  - target: "$.paths['/agents/{agentId}'].delete.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+
+  - target: "$.paths['/agents/{agentId}/enable'].post.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+
+  - target: "$.paths['/agents/{agentId}/disable'].post.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+
+  # ---- REQUEST BODY DESCRIPTIONS ----
+
+  - target: "$.paths['/agents'].post.requestBody.description"
+    update: "Agent create request"
+
+  - target: "$.paths['/agents/{agentId}'].put.requestBody.description"
+    update: "Agent update request"
+```
+
+## agents-schemas-overlay-1.181.0.yaml
+
+```yaml
+overlay: 1.0.0
+info:
+  title: Agents schemas overlay
+  version: 0.0.0
+actions:
+  # ===== AGENTS SCHEMAS - REQUEST/RESPONSE OBJECTS =====
+
+  # ---- AGENT STATUS ----
+
+  - target: "$.components.schemas['Agent.Status'].description"
+    update: "Agent status enumeration. Accepts `active`, `inactive`, or `deleted`."
+
+  # ---- AGENT DB DTO ----
+
+  - target: "$.components.schemas.AgentDbDto.properties.createdBy"
+    update:
+      type: integer
+      format: int64
+      description: "User numeric identifier who created the agent."
+
+  - target: "$.components.schemas.AgentDbDto.properties.dateCreated"
+    update:
+      type: string
+      format: date-time
+      description: "Agent creation timestamp in ISO 8601 format."
+
+  - target: "$.components.schemas.AgentDbDto.properties.description"
+    update:
+      type: string
+      nullable: true
+      description: "Agent description. Can be `null`."
+
+  - target: "$.components.schemas.AgentDbDto.properties.id"
+    update:
+      type: string
+      description: "Agent string identifier."
+
+  - target: "$.components.schemas.AgentDbDto.properties.lastUpdated"
+    update:
+      type: string
+      format: date-time
+      description: "Agent last modified timestamp in ISO 8601 format."
+
+  - target: "$.components.schemas.AgentDbDto.properties.name"
+    update:
+      type: string
+      description: "Agent name. Maximum 255 characters."
+
+  - target: "$.components.schemas.AgentDbDto.properties.status"
+    update:
+      description: "Agent status. Accepts `active`, `inactive`, or `deleted`."
+
+  - target: "$.components.schemas.AgentDbDto.properties.systemPrompt"
+    update:
+      type: string
+      description: "System prompt defining agent behavior and instructions."
+
+  - target: "$.components.schemas.AgentDbDto.properties.templateId"
+    update:
+      type: string
+      nullable: true
+      description: "Template identifier if agent is based on a template. Can be `null`."
+
+  - target: "$.components.schemas.AgentDbDto.properties.updatedBy"
+    update:
+      type: integer
+      format: int64
+      description: "User numeric identifier who last modified the agent."
+
+  - target: "$.components.schemas.AgentDbDto.properties.workspaceId"
+    update:
+      type: integer
+      format: int64
+      description: "Workspace numeric identifier where the agent is defined."
+
+  # ---- CREATE AGENT REQUEST ----
+
+  - target: "$.components.schemas.CreateAgentRequest.properties.description"
+    update:
+      type: string
+      nullable: true
+      description: "Agent description. Can be `null`."
+
+  - target: "$.components.schemas.CreateAgentRequest.properties.name"
+    update:
+      type: string
+      description: "Agent name. Maximum 255 characters."
+
+  - target: "$.components.schemas.CreateAgentRequest.properties.systemPrompt"
+    update:
+      type: string
+      description: "System prompt defining agent behavior and instructions."
+
+  - target: "$.components.schemas.CreateAgentRequest.properties.templateId"
+    update:
+      type: string
+      nullable: true
+      description: "Template identifier if agent is based on a template. Can be `null`."
+
+  # ---- CREATE AGENT RESPONSE ----
+
+  - target: "$.components.schemas.CreateAgentResponse.properties.agent"
+    update:
+      description: "Created agent object."
+
+  # ---- UPDATE AGENT REQUEST ----
+
+  - target: "$.components.schemas.UpdateAgentRequest.properties.description"
+    update:
+      type: string
+      nullable: true
+      description: "Agent description. Can be `null`."
+
+  - target: "$.components.schemas.UpdateAgentRequest.properties.name"
+    update:
+      type: string
+      description: "Agent name. Maximum 255 characters."
+
+  - target: "$.components.schemas.UpdateAgentRequest.properties.systemPrompt"
+    update:
+      type: string
+      description: "System prompt defining agent behavior and instructions."
+
+  - target: "$.components.schemas.UpdateAgentRequest.properties.templateId"
+    update:
+      type: string
+      nullable: true
+      description: "Template identifier if agent is based on a template. Can be `null`."
+
+  # ---- UPDATE AGENT RESPONSE ----
+
+  - target: "$.components.schemas.UpdateAgentResponse.properties.agent"
+    update:
+      description: "Updated agent object."
+
+  # ---- DESCRIBE AGENT RESPONSE ----
+
+  - target: "$.components.schemas.DescribeAgentResponse.properties.agent"
+    update:
+      description: "Agent object with detailed information."
+
+  # ---- LIST AGENTS RESPONSE ----
+
+  - target: "$.components.schemas.ListAgentsResponse.properties.agents"
+    update:
+      type: array
+      description: "Array of agent objects matching the query criteria."
+
+  - target: "$.components.schemas.ListAgentsResponse.properties.totalSize"
+    update:
+      type: integer
+      format: int64
+      description: "Total number of agents matching the query criteria."
+```
+
+# Organizations Overlays
+
+## organizations-operations-overlay-1.181.0.yaml
+
+```yaml
+overlay: 1.0.0
+info:
+  title: Organizations operations overlay
+  version: 0.0.0
+actions:
+  # ===== ORGANIZATIONS - OPERATIONS =====
+
+  # ---- LIST ORGANIZATION IDP GROUPS ----
+
+  - target: "$.paths['/orgs/{orgId}/idp-groups'].get.summary"
+    update: "List IdP groups"
+
+  - target: "$.paths['/orgs/{orgId}/idp-groups'].get.description"
+    update: "Lists all identity provider groups in the organization catalog, including both SCIM-pushed and manually entered groups."
+
+  # ---- CREATE ORGANIZATION IDP GROUP ----
+
+  - target: "$.paths['/orgs/{orgId}/idp-groups'].post.summary"
+    update: "Create IdP group"
+
+  - target: "$.paths['/orgs/{orgId}/idp-groups'].post.description"
+    update: "Manually adds an identity provider group to the organization catalog. The admin must enter the exact claim value their IdP sends in the groups claim."
+
+  # ---- DELETE ORGANIZATION IDP GROUP ----
+
+  - target: "$.paths['/orgs/{orgId}/idp-groups/{groupId}'].delete.summary"
+    update: "Delete IdP group"
+
+  - target: "$.paths['/orgs/{orgId}/idp-groups/{groupId}'].delete.description"
+    update: "Removes a manually-entered identity provider group from the organization catalog. SCIM-managed groups cannot be deleted via this endpoint."
+
+  # ---- DESCRIBE ORGANIZATION SCIM CONFIG ----
+
+  - target: "$.paths['/orgs/{orgId}/scim/config'].get.summary"
+    update: "Get SCIM configuration"
+
+  - target: "$.paths['/orgs/{orgId}/scim/config'].get.description"
+    update: "Retrieves the SCIM configuration for the organization, including token metadata, group count, and SSO state. Accessible to all organization members."
+
+  # ---- CREATE ORGANIZATION SCIM TOKEN ----
+
+  - target: "$.paths['/orgs/{orgId}/scim/token'].post.summary"
+    update: "Create SCIM token"
+
+  - target: "$.paths['/orgs/{orgId}/scim/token'].post.description"
+    update: "Generates a new SCIM bearer token for the organization. If an active token already exists it is revoked first. The plaintext token is returned only once."
+
+  # ---- REVOKE ORGANIZATION SCIM TOKEN ----
+
+  - target: "$.paths['/orgs/{orgId}/scim/token'].delete.summary"
+    update: "Revoke SCIM token"
+
+  - target: "$.paths['/orgs/{orgId}/scim/token'].delete.description"
+    update: "Revokes the active SCIM bearer token for the organization. Returns 404 if no active token exists."
+
+  # ---- ROTATE ORGANIZATION SCIM TOKEN ----
+
+  - target: "$.paths['/orgs/{orgId}/scim/token/rotate'].post.summary"
+    update: "Rotate SCIM token"
+
+  - target: "$.paths['/orgs/{orgId}/scim/token/rotate'].post.description"
+    update: "Revokes the current active SCIM token and generates a new one. The new plaintext token is returned only once."
+```
+
+## organizations-parameters-overlay-1.181.0.yaml
+
+```yaml
+overlay: 1.0.0
+info:
+  title: Organizations parameters overlay
+  version: 0.0.0
+actions:
+  # ===== ORGANIZATIONS PARAMETERS - PATH, QUERY, AND REQUEST BODY =====
+
+  # ---- PATH PARAMETERS ----
+
+  - target: "$.paths['/orgs/{orgId}/idp-groups'].get.parameters[?(@.name=='orgId')].description"
+    update: "Organization numeric identifier."
+
+  - target: "$.paths['/orgs/{orgId}/idp-groups'].post.parameters[?(@.name=='orgId')].description"
+    update: "Organization numeric identifier."
+
+  - target: "$.paths['/orgs/{orgId}/idp-groups/{groupId}'].delete.parameters[?(@.name=='orgId')].description"
+    update: "Organization numeric identifier."
+
+  - target: "$.paths['/orgs/{orgId}/idp-groups/{groupId}'].delete.parameters[?(@.name=='groupId')].description"
+    update: "IdP group numeric identifier."
+
+  - target: "$.paths['/orgs/{orgId}/scim/config'].get.parameters[?(@.name=='orgId')].description"
+    update: "Organization numeric identifier."
+
+  - target: "$.paths['/orgs/{orgId}/scim/token'].post.parameters[?(@.name=='orgId')].description"
+    update: "Organization numeric identifier."
+
+  - target: "$.paths['/orgs/{orgId}/scim/token'].delete.parameters[?(@.name=='orgId')].description"
+    update: "Organization numeric identifier."
+
+  - target: "$.paths['/orgs/{orgId}/scim/token/rotate'].post.parameters[?(@.name=='orgId')].description"
+    update: "Organization numeric identifier."
+
+  # ---- REQUEST BODY DESCRIPTIONS ----
+
+  - target: "$.paths['/orgs/{orgId}/idp-groups'].post.requestBody.description"
+    update: "IdP group create request"
+```
+
+## organizations-schemas-overlay-1.181.0.yaml
+
+```yaml
+overlay: 1.0.0
+info:
+  title: Organizations schemas overlay
+  version: 0.0.0
+actions:
+  # ===== ORGANIZATIONS SCHEMAS - REQUEST/RESPONSE OBJECTS =====
+
+  # ---- ORG IDP GROUP SOURCE ----
+
+  - target: "$.components.schemas.OrgIdpGroupSource.description"
+    update: "Identity provider group source. Accepts `SCIM` for SCIM-provisioned groups or `MANUAL` for manually entered groups."
+
+  # ---- IDP GROUP ENTRY ----
+
+  - target: "$.components.schemas.IdpGroupEntry.properties.displayName"
+    update:
+      type: string
+      description: "Identity provider group display name."
+
+  - target: "$.components.schemas.IdpGroupEntry.properties.id"
+    update:
+      type: integer
+      format: int64
+      description: "IdP group numeric identifier."
+
+  - target: "$.components.schemas.IdpGroupEntry.properties.source"
+    update:
+      description: "Group source. Accepts `SCIM` or `MANUAL`."
+
+  # ---- CREATE IDP GROUP REQUEST ----
+
+  - target: "$.components.schemas.CreateIdpGroupRequest.properties.displayName"
+    update:
+      type: string
+      description: "Identity provider group display name. Must match the exact claim value from the IdP."
+
+  # ---- LIST IDP GROUPS RESPONSE ----
+
+  - target: "$.components.schemas.ListIdpGroupsResponse.properties.groups"
+    update:
+      type: array
+      description: "Array of identity provider group entries."
+
+  # ---- DESCRIBE SCIM CONFIG RESPONSE ----
+
+  - target: "$.components.schemas.DescribeScimConfigResponse.properties.endpointUrl"
+    update:
+      type: string
+      description: "SCIM endpoint URL for the organization."
+
+  - target: "$.components.schemas.DescribeScimConfigResponse.properties.groupCount"
+    update:
+      type: integer
+      format: int32
+      description: "Number of IdP groups in the organization catalog."
+
+  - target: "$.components.schemas.DescribeScimConfigResponse.properties.hasActiveToken"
+    update:
+      type: boolean
+      description: "If true, an active SCIM bearer token exists for the organization."
+
+  - target: "$.components.schemas.DescribeScimConfigResponse.properties.maskedToken"
+    update:
+      type: string
+      nullable: true
+      description: "Masked SCIM bearer token showing only the last few characters. Can be `null` if no token exists."
+
+  - target: "$.components.schemas.DescribeScimConfigResponse.properties.ssoActive"
+    update:
+      type: boolean
+      description: "If true, SSO is active for the organization."
+
+  - target: "$.components.schemas.DescribeScimConfigResponse.properties.tokenCreatedAt"
+    update:
+      type: string
+      format: date-time
+      nullable: true
+      description: "SCIM token creation timestamp in ISO 8601 format. Can be `null` if no token exists."
+
+  - target: "$.components.schemas.DescribeScimConfigResponse.properties.tokenLastUsed"
+    update:
+      type: string
+      format: date-time
+      nullable: true
+      description: "SCIM token last used timestamp in ISO 8601 format. Can be `null` if token has never been used."
+
+  # ---- CREATE SCIM TOKEN RESPONSE ----
+
+  - target: "$.components.schemas.CreateScimTokenResponse.properties.endpointUrl"
+    update:
+      type: string
+      description: "SCIM endpoint URL for the organization."
+
+  - target: "$.components.schemas.CreateScimTokenResponse.properties.maskedToken"
+    update:
+      type: string
+      description: "Masked SCIM bearer token showing only the last few characters."
+
+  - target: "$.components.schemas.CreateScimTokenResponse.properties.token"
+    update:
+      type: string
+      description: "Plaintext SCIM bearer token. Only returned once upon creation."
+
+  # ---- IDP GROUP IMAGE ----
+
+  - target: "$.components.schemas.IdpGroupImage.properties.auditImageType"
+    update:
+      description: "Audit image type discriminator."
+
+  - target: "$.components.schemas.IdpGroupImage.properties.displayName"
+    update:
+      type: string
+      description: "Identity provider group display name."
+
+  - target: "$.components.schemas.IdpGroupImage.properties.scimExternalId"
+    update:
+      type: string
+      description: "SCIM external identifier for the group."
+
+  - target: "$.components.schemas.IdpGroupImage.properties.source"
+    update:
+      description: "Group source. Accepts `SCIM` or `MANUAL`."
+
+  # ---- ORGANIZATION IMAGE ----
+
+  - target: "$.components.schemas.OrganizationImage.properties.auditImageType"
+    update:
+      description: "Audit image type discriminator."
+
+  - target: "$.components.schemas.OrganizationImage.properties.description"
+    update:
+      type: string
+      description: "Organization description."
+
+  - target: "$.components.schemas.OrganizationImage.properties.fullName"
+    update:
+      type: string
+      description: "Organization full name."
+
+  - target: "$.components.schemas.OrganizationImage.properties.location"
+    update:
+      type: string
+      description: "Organization location."
+
+  - target: "$.components.schemas.OrganizationImage.properties.logoId"
+    update:
+      type: string
+      description: "Logo identifier for the organization."
+
+  - target: "$.components.schemas.OrganizationImage.properties.name"
+    update:
+      type: string
+      description: "Organization name."
+
+  - target: "$.components.schemas.OrganizationImage.properties.type"
+    update:
+      description: "Organization type."
+
+  - target: "$.components.schemas.OrganizationImage.properties.website"
+    update:
+      type: string
+      description: "Organization website URL."
+
+  # ---- ORG SSO CONNECTION IMAGE ----
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.auditImageType"
+    update:
+      description: "Audit image type discriminator."
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.auth0OrgId"
+    update:
+      type: string
+      description: "Auth0 organization identifier."
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.connectionId"
+    update:
+      type: string
+      description: "SSO connection identifier."
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.connectionName"
+    update:
+      type: string
+      description: "SSO connection name."
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.createdAt"
+    update:
+      type: string
+      format: date-time
+      description: "SSO connection creation timestamp in ISO 8601 format."
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.createdById"
+    update:
+      type: integer
+      format: int64
+      description: "User numeric identifier who created the SSO connection."
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.domain"
+    update:
+      type: string
+      description: "Domain associated with the SSO connection."
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.status"
+    update:
+      type: string
+      description: "SSO connection status."
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.ticketUrl"
+    update:
+      type: string
+      description: "SSO ticket URL for configuration."
+```
 
 # Compute Environments Overlays
 
-## compute-envs-operations-overlay-1.102.0.yaml
+## compute-envs-operations-overlay-1.181.0.yaml
 
 ```yaml
 overlay: 1.0.0
@@ -74,24 +1082,21 @@ info:
 actions:
   # ===== COMPUTE ENVIRONMENTS - OPERATIONS =====
 
-  # ---- DISABLE COMPUTE ENVIRONMENT ----
+  # ---- VALIDATE COMPUTE ENVIRONMENT ----
 
-  - target: "$.paths./compute-envs/{computeEnvId}/disable.post.summary"
-    update: "Disable compute environment"
+  - target: "$.paths['/compute-envs/{computeEnvId}/validate'].post.summary"
+    update: "Validate compute environment"
 
-  - target: "$.paths./compute-envs/{computeEnvId}/disable.post.description"
-    update: "Disables the compute environment identified by the given `computeEnvId`. A disabled compute environment cannot be used to launch new workflows or Studio sessions. If the compute environment is primary, it will be automatically unset as primary. See [Disable compute environment](https://docs.seqera.io/platform-cloud/compute-envs/overview#disable-compute-environment)"
+  - target: "$.paths['/compute-envs/{computeEnvId}/validate'].post.description"
+    update: "Re-runs pre-flight checks for the specified compute environment including credential validation and work directory accessibility. Persists the outcome to the compute environment and its credential. Use to recover an INVALID compute environment after the underlying problem has been fixed."
 
-  # ---- ENABLE COMPUTE ENVIRONMENT ----
+  # ---- DELETE COMPUTE ENVIRONMENT (UPDATED) ----
 
-  - target: "$.paths./compute-envs/{computeEnvId}/enable.post.summary"
-    update: "Enable compute environment"
-
-  - target: "$.paths./compute-envs/{computeEnvId}/enable.post.description"
-    update: "Enables the compute environment identified by the given `computeEnvId`. An enabled compute environment can be used to launch new workflows and Studio sessions."
+  - target: "$.paths['/compute-envs/{computeEnvId}'].delete.description"
+    update: "Deletes the specified compute environment. Append `?force=true` to bypass active-job checks and SCMS/forge cleanup. Force deletion is only allowed for environments in ERRORED, INVALID, or DELETING status."
 ```
 
-## compute-envs-parameters-overlay-1.102.0.yaml
+## compute-envs-parameters-overlay-1.181.0.yaml
 
 ```yaml
 overlay: 1.0.0
@@ -101,30 +1106,24 @@ info:
 actions:
   # ===== COMPUTE ENVIRONMENTS PARAMETERS - PATH, QUERY, AND REQUEST BODY =====
 
-  # ---- DISABLE COMPUTE ENVIRONMENT PARAMETERS ----
+  # ---- PATH PARAMETERS ----
 
-  - target: "$.paths./compute-envs/{computeEnvId}/disable.post.parameters[?(@.name=='computeEnvId')].description"
+  - target: "$.paths['/compute-envs/{computeEnvId}/validate'].post.parameters[?(@.name=='computeEnvId')].description"
     update: "Compute environment string identifier."
 
-  - target: "$.paths./compute-envs/{computeEnvId}/disable.post.parameters[?(@.name=='workspaceId')].description"
+  # ---- QUERY PARAMETERS ----
+
+  - target: "$.paths['/compute-envs/{computeEnvId}/validate'].post.parameters[?(@.name=='workspaceId')].description"
     update: "Workspace numeric identifier."
 
-  - target: "$.paths./compute-envs/{computeEnvId}/disable.post.requestBody.description"
-    update: "Compute environment disable request"
+  - target: "$.paths['/compute-envs/{computeEnvId}/validate'].post.parameters[?(@.name=='force')].description"
+    update: "If true, skip credential and work directory checks and force the compute environment (INVALID only with an AVAILABLE credential) to AVAILABLE. Rejected with 409 otherwise."
 
-  # ---- ENABLE COMPUTE ENVIRONMENT PARAMETERS ----
-
-  - target: "$.paths./compute-envs/{computeEnvId}/enable.post.parameters[?(@.name=='computeEnvId')].description"
-    update: "Compute environment string identifier."
-
-  - target: "$.paths./compute-envs/{computeEnvId}/enable.post.parameters[?(@.name=='workspaceId')].description"
-    update: "Workspace numeric identifier."
-
-  - target: "$.paths./compute-envs/{computeEnvId}/enable.post.requestBody.description"
-    update: "Compute environment enable request"
+  - target: "$.paths['/compute-envs/{computeEnvId}'].delete.parameters[?(@.name=='force')].description"
+    update: "If true, force-delete a stuck compute environment bypassing active-job checks. Only valid for environments in ERRORED, INVALID, or DELETING status."
 ```
 
-## compute-envs-schemas-overlay-1.102.0.yaml
+## compute-envs-schemas-overlay-1.181.0.yaml
 
 ```yaml
 overlay: 1.0.0
@@ -134,1094 +1133,481 @@ info:
 actions:
   # ===== COMPUTE ENVIRONMENTS SCHEMAS - REQUEST/RESPONSE OBJECTS =====
 
-  # ---- COMPUTE ENVIRONMENT STATUS ENUM ----
+  # ---- COMPUTE ENV STATUS (UPDATED) ----
 
-  - target: "$.components.schemas.ComputeEnv.Status"
+  - target: "$.components.schemas['ComputeEnv.Status'].description"
+    update: "Compute environment status enumeration. Accepts `CREATING`, `AVAILABLE`, `DISABLED`, `DELETING`, `ERRORED`, `INVALID`, or `DELETED`."
+
+  # ---- VALIDATE COMPUTE ENV RESPONSE ----
+
+  - target: "$.components.schemas.ValidateComputeEnvResponse.properties.message"
     update:
       type: string
-      enum: ["CREATING", "AVAILABLE", "ERRORED", "INVALID", "DISABLED"]
-      description: "Compute environment status. Accepts `CREATING`, `AVAILABLE`, `ERRORED`, `INVALID`, or `DISABLED`."
-```
+      nullable: true
+      description: "Human-readable explanation of the outcome. Contains the failure reason when the compute environment is INVALID, the provider-unreachable reason on a transient outcome, or `null` when the compute environment is AVAILABLE."
 
----
-
-# Data Links Overlays
-
-## data-links-operations-overlay-1.102.0.yaml
-
-```yaml
-actions:
-  # ===== DATA-LINKS - OPERATIONS =====
-
-  # Update existing operations
-
-  - target: "$.paths./data-links/{dataLinkId}/browse.get.summary"
-    update: "Explore data-link"
-
-  - target: "$.paths./data-links/{dataLinkId}/browse.get.description"
-    update: "Retrieves the content of the data-link associated with the given `dataLinkId`."
-
-  - target: "$.paths./data-links/{dataLinkId}/browse/{path}.get.operationId"
-    update: "ExploreDataLinkWithPath"
-
-  - target: "$.paths./data-links/{dataLinkId}/upload.post.summary"
-    update: "Generate data-link file upload URL"
-
-  - target: "$.paths./data-links/{dataLinkId}/upload.post.description"
-    update: "Creates a URL to upload files to the data-link associated with the given `dataLinkId`. For AWS S3 data-links, an additional follow-up request must be sent after your file upload has completed (or encountered an error) to finalize the upload - see the `/upload/finish` endpoint."
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/{dirPath}.post.operationId"
-    update: "GenerateDataLinkUploadUrlWithPath"
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.summary"
-    update: "Finish data-link file upload"
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.description"
-    update: "Finish upload of a data-link file. This is necessary for AWS S3 data-links (`DataLinkProvider=aws`) to finalize a successful file upload, or abort an upload if an error was encountered while uploading a file using an upload URL from the `/upload` endpoint."
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.responses['404'].description"
-    update: "NotFound — workspace or credentials not found, API disabled for the workspace, or data-link not found."
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish/{dirPath}.post.operationId"
-    update: "FinishDataLinkUploadWithPath"
-
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish/{dirPath}.post.responses['200'].description"
-    update: "FinishDataLinkUploadWithPath 200 response."
-
-  # New endpoint in v1.102.0
-
-  - target: "$.paths"
+  - target: "$.components.schemas.ValidateComputeEnvResponse.properties.status"
     update:
-      /data-links/{dataLinkId}/download/{filePath}:
-        get:
-          tags:
-            - data-links
-          summary: "Download data-link file at path"
-          description: "Downloads the content at the given `filePath` in the data-link associated with the given `dataLinkId`."
-          operationId: DownloadDataLink
-          parameters:
-            - name: dataLinkId
-              in: path
-              description: "Data-link string identifier."
-              required: true
-              schema:
-                type: string
-            - name: filePath
-              in: path
-              description: "Resource path of the file to download."
-              required: true
-              schema:
-                type: string
-            - name: credentialsId
-              in: query
-              description: "Credentials string identifier."
-              schema:
-                type: string
-            - name: workspaceId
-              in: query
-              description: "Workspace numeric identifier."
-              schema:
-                type: integer
-                format: int64
-          responses:
-            "200":
-              description: "OK."
-              content:
-                application/json:
-                  schema:
-                    type: string
-                    format: binary
-            "400":
-              description: "Bad request."
-              content:
-                application/json:
-                  schema:
-                    $ref: "#/components/schemas/ErrorResponse"
-            "404":
-              description: "NotFound — workspace or credentials not found, API disabled for the workspace, or data-link or path not found."
-              content:
-                application/json:
-                  schema:
-                    $ref: "#/components/schemas/ErrorResponse"
-            "403":
-              description: "Operation not allowed."
-          security:
-            - BearerAuth: []
+      description: "Compute environment status after validation. Accepts `AVAILABLE` when every check passed or `INVALID` when a check failed. On a transient outcome this reflects the unchanged prior status."
 
-  # Remove deprecated endpoint
+  - target: "$.components.schemas.ValidateComputeEnvResponse.properties.transientError"
+    update:
+      type: boolean
+      description: "If true, a provider could not be reached due to timeout, throttle, or 5xx error. The persisted status is left unchanged. Retry later."
 
-  - target: "$.paths./data-links/{dataLinkId}/download"
-    remove: true
+  # ---- COMPUTE ENV IMAGE ----
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.auditImageType"
+    update:
+      description: "Audit image type discriminator."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.config"
+    update:
+      description: "Compute environment configuration object."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.credentialsId"
+    update:
+      type: string
+      description: "Credentials string identifier associated with the compute environment."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.description"
+    update:
+      type: string
+      description: "Compute environment description."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.fusionMetricsCollectionEnabled"
+    update:
+      type: boolean
+      description: "If true, Fusion metrics collection is enabled for the compute environment."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.lastUsed"
+    update:
+      type: string
+      format: date-time
+      description: "Timestamp when the compute environment was last used in ISO 8601 format."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.managedIdentityId"
+    update:
+      type: integer
+      format: int64
+      description: "Managed identity numeric identifier if using managed credentials."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.message"
+    update:
+      type: string
+      description: "Status message providing additional context about compute environment state."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.name"
+    update:
+      type: string
+      description: "Compute environment name."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.platform"
+    update:
+      type: string
+      description: "Cloud platform identifier. Accepts `aws-batch`, `azure-batch`, `gcp-batch`, etc."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.primary"
+    update:
+      type: boolean
+      description: "If true, this is the primary compute environment for the workspace."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.status"
+    update:
+      type: string
+      description: "Compute environment status. Accepts `CREATING`, `AVAILABLE`, `DISABLED`, `DELETING`, `ERRORED`, `INVALID`, or `DELETED`."
 ```
 
-## data-links-parameters-overlay-1.102.0.yaml
+# Credentials Overlays
 
-**CRITICAL**: This overlay includes parameter array removal actions to prevent duplicate parameters.
+## credentials-operations-overlay-1.181.0.yaml
 
 ```yaml
 overlay: 1.0.0
 info:
-  title: Data-links parameters overlay
-  version: 1.102.0
-actions:
-  # ===== DATA-LINKS PARAMETERS =====
-
-  # ---- /data-links/{dataLinkId}/browse GET ----
-
-  # CRITICAL: Remove entire parameters array to prevent duplicates
-  - target: "$.paths./data-links/{dataLinkId}/browse.get.parameters[*]"
-    remove: true
-
-  # Replace with complete array with enriched descriptions
-  - target: "$.paths./data-links/{dataLinkId}/browse.get.parameters"
-    update:
-      - name: dataLinkId
-        in: path
-        description: "Data-link string identifier."
-        required: true
-        schema:
-          type: string
-      - name: workspaceId
-        in: query
-        description: "Workspace numeric identifier."
-        schema:
-          type: integer
-          format: int64
-      - name: credentialsId
-        in: query
-        description: "Credentials string identifier."
-        schema:
-          type: string
-      - name: search
-        in: query
-        description: "Prefix search of data-link content."
-        schema:
-          type: string
-      - name: nextPageToken
-        in: query
-        description: "Token used to fetch the next page of items."
-        schema:
-          type: string
-      - name: pageSize
-        in: query
-        description: "Number of items to return per page. If omitted, a default maximum value is returned."
-        schema:
-          type: integer
-          format: int32
-
-  # ---- /data-links/{dataLinkId}/upload POST ----
-
-  # CRITICAL: Remove entire parameters array to prevent duplicates
-  - target: "$.paths./data-links/{dataLinkId}/upload.post.parameters[*]"
-    remove: true
-
-  # Replace with complete array with enriched descriptions
-  - target: "$.paths./data-links/{dataLinkId}/upload.post.parameters"
-    update:
-      - name: dataLinkId
-        in: path
-        description: "Data-link string identifier."
-        required: true
-        schema:
-          type: string
-      - name: credentialsId
-        in: query
-        description: "Credentials string identifier."
-        schema:
-          type: string
-      - name: workspaceId
-        in: query
-        description: "Workspace numeric identifier."
-        schema:
-          type: integer
-          format: int64
-      - name: Origin
-        in: header
-        schema:
-          type: string
-          nullable: true
-
-  # ---- /data-links/{dataLinkId}/upload/finish POST ----
-
-  # CRITICAL: Remove entire parameters array to prevent duplicates
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.parameters[*]"
-    remove: true
-
-  # Replace with complete array with enriched descriptions
-  - target: "$.paths./data-links/{dataLinkId}/upload/finish.post.parameters"
-    update:
-      - name: dataLinkId
-        in: path
-        description: "Data-link string identifier."
-        required: true
-        schema:
-          type: string
-      - name: credentialsId
-        in: query
-        description: "Credentials string identifier."
-        schema:
-          type: string
-      - name: workspaceId
-        in: query
-        description: "Workspace numeric identifier."
-        schema:
-          type: integer
-          format: int64
-```
-
----
-
-# Workflows Overlays
-
-## workflows-parameters-overlay-1.102.0.yaml
-
-```yaml
-overlay: 1.0.0
-info:
-  title: Workflows parameters overlay
+  title: Credentials operations overlay
   version: 0.0.0
 actions:
-  # ===== WORKFLOWS PARAMETERS - QUERY PARAMETERS =====
+  # ===== CREDENTIALS - OPERATIONS =====
 
-  # ---- LIST WORKFLOWS PARAMETERS ----
+  # ---- VALIDATE CREDENTIALS ----
 
-  - target: "$.paths./workflow.get.parameters[?(@.name=='includeTotalSize')].description"
-    update: "If true, includes total result count in the response. Default: `false`."
+  - target: "$.paths['/credentials/{credentialsId}/validate'].post.summary"
+    update: "Validate credentials"
+
+  - target: "$.paths['/credentials/{credentialsId}/validate'].post.description"
+    update: "Validates credentials against their cloud provider and reports the outcome. Use to recover INVALID credentials after the underlying problem has been fixed. Append `?force=true` to skip the probe and force INVALID credentials to AVAILABLE."
 ```
 
-## workflows-operations-overlay-1.102.0.yaml
+## credentials-parameters-overlay-1.181.0.yaml
 
 ```yaml
 overlay: 1.0.0
 info:
-  title: Workflows operations overlay
+  title: Credentials parameters overlay
   version: 0.0.0
 actions:
-  # ===== WORKFLOWS - OPERATIONS =====
+  # ===== CREDENTIALS PARAMETERS - PATH, QUERY, AND REQUEST BODY =====
 
-  # ---- LAUNCH WORKFLOW ----
+  # ---- PATH PARAMETERS ----
 
-  - target: "$.paths./workflow/launch.post.description"
-    update: |
-      Submits a workflow execution.
+  - target: "$.paths['/credentials/{credentialsId}/validate'].post.parameters[?(@.name=='credentialsId')].description"
+    update: "Credentials string identifier."
 
-      **To [resume](https://docs.seqera.io/platform-cloud/launch/cache-resume#resume-a-workflow-run) a workflow**: First, retrieve the launch configuration using [`GET /workflow/{workflowId}/launch`](https://docs.seqera.io/platform-api/describe-workflow-launch). Then modify the response by setting `workDir` to the value from `resumeDir`, `revision` to the value from `resumeCommitId`, and `resume` to `true`. Submit the modified payload to this endpoint to resume the workflow.
+  # ---- QUERY PARAMETERS ----
+
+  - target: "$.paths['/credentials/{credentialsId}/validate'].post.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+
+  - target: "$.paths['/credentials/{credentialsId}/validate'].post.parameters[?(@.name=='force')].description"
+    update: "If true, skip the probe and force the credential (INVALID only) to AVAILABLE. Rejected with 409 for any other status."
 ```
 
----
-
-# Global Schemas Overlay
-
-## global-schemas-overlay-1.102.0.yaml
+## credentials-schemas-overlay-1.181.0.yaml
 
 ```yaml
 overlay: 1.0.0
 info:
-  title: Global schemas overlay
+  title: Credentials schemas overlay
   version: 0.0.0
 actions:
-  # ===== GLOBAL SCHEMAS - CREDENTIALS AND COMPUTE CONFIGURATIONS =====
-
-  # ---- GIT CREDENTIALS ----
-
-  - target: "$.components.schemas.GitKeys.description"
-    update: "Git repository credentials."
-
-  - target: "$.components.schemas.GitKeys.properties.discriminator.description"
-    update: "Property to select the credentials type."
-
-  - target: "$.components.schemas.GitKeys.properties.username.description"
-    update: "Git username for authentication."
-
-  - target: "$.components.schemas.GitKeys.properties.password.description"
-    update: "Git password for authentication."
-
-  - target: "$.components.schemas.GitKeys.properties.token.description"
-    update: "Git personal access token for authentication."
-
-  # ---- SEQERA COMPUTE CLOUD INSTANCE TYPE SIZE ----
-
-  - target: "$.components.schemas.SeqeraComputeCloudInstanceTypeSize.description"
-    update: "Data Studios instance size. Accepts `SMALL`, `MEDIUM`, or `LARGE`."
-
-  # ---- SEQERA COMPUTE CONFIG ----
-
-  - target: "$.components.schemas.SeqeraComputeConfig.properties.instanceTypeSize.description"
-    update: "Size of the Data Studios instance. Accepts `SMALL`, `MEDIUM`, or `LARGE`."
-
-  # ---- ABSTRACT GRID CONFIG ----
-
-  - target: "$.components.schemas.AbstractGridConfig.properties.workDir.description"
-    update: "Compute environment working directory."
-
-  - target: "$.components.schemas.AbstractGridConfig.properties.preRunScript.description"
-    update: "Script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
-
-  - target: "$.components.schemas.AbstractGridConfig.properties.postRunScript.description"
-    update: "Script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
-
-  - target: "$.components.schemas.AbstractGridConfig.properties.environment.description"
-    update: "Array of environment variables for the compute environment."
-
-  - target: "$.components.schemas.AbstractGridConfig.properties.nextflowConfig.description"
-    update: "Additional Nextflow configuration content."
-
-  - target: "$.components.schemas.AbstractGridConfig.properties.discriminator.description"
-    update: "Property to select the compute config platform."
-
-  - target: "$.components.schemas.AbstractGridConfig.properties.launchDir.description"
-    update: "Launch directory for Nextflow execution."
-
-  - target: "$.components.schemas.AbstractGridConfig.properties.userName.description"
-    update: "Username for SSH authentication to the HPC cluster."
-
-  - target: "$.components.schemas.AbstractGridConfig.properties.hostName.description"
-    update: "Hostname or IP address of the HPC cluster head node."
-
-  - target: "$.components.schemas.AbstractGridConfig.properties.port.description"
-    update: "SSH port for connecting to the HPC cluster. Default: `22`."
-
-  - target: "$.components.schemas.AbstractGridConfig.properties.headQueue.description"
-    update: "Queue name for submitting the Nextflow head job."
-
-  - target: "$.components.schemas.AbstractGridConfig.properties.computeQueue.description"
-    update: "Queue name for submitting Nextflow compute jobs."
-
-  - target: "$.components.schemas.AbstractGridConfig.properties.maxQueueSize.description"
-    update: "Maximum number of jobs that can be queued at one time."
-
-  - target: "$.components.schemas.AbstractGridConfig.properties.headJobOptions.description"
-    update: "Additional options for the head job submission."
-
-  - target: "$.components.schemas.AbstractGridConfig.properties.propagateHeadJobOptions.description"
-    update: "If true, head job options are propagated to compute jobs. Default: `false`."
-
-  # ---- LSF COMPUTE CONFIG ----
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.workDir.description"
-    update: "Compute environment working directory."
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.preRunScript.description"
-    update: "Script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.postRunScript.description"
-    update: "Script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.environment.description"
-    update: "Array of environment variables for the compute environment."
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.nextflowConfig.description"
-    update: "Additional Nextflow configuration content."
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.discriminator.description"
-    update: "Property to select the compute config platform."
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.launchDir.description"
-    update: "Launch directory for Nextflow execution."
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.userName.description"
-    update: "Username for SSH authentication to the HPC cluster."
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.hostName.description"
-    update: "Hostname or IP address of the HPC cluster head node."
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.port.description"
-    update: "SSH port for connecting to the HPC cluster. Default: `22`."
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.headQueue.description"
-    update: "Queue name for submitting the Nextflow head job."
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.computeQueue.description"
-    update: "Queue name for submitting Nextflow compute jobs."
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.maxQueueSize.description"
-    update: "Maximum number of jobs that can be queued at one time."
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.headJobOptions.description"
-    update: "Additional options for the head job submission."
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.propagateHeadJobOptions.description"
-    update: "If true, head job options are propagated to compute jobs. Default: `false`."
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.unitForLimits.description"
-    update: "Unit for memory and time limits in LSF."
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.perJobMemLimit.description"
-    update: "If true, applies memory limit per job. Default: `false`."
-
-  - target: "$.components.schemas.LsfComputeConfig.properties.perTaskReserve.description"
-    update: "If true, reserves resources per task. Default: `false`."
-
-  # ---- SLURM COMPUTE CONFIG ----
-
-  - target: "$.components.schemas.SlurmComputeConfig.properties.workDir.description"
-    update: "Compute environment working directory."
-
-  - target: "$.components.schemas.SlurmComputeConfig.properties.preRunScript.description"
-    update: "Script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
-
-  - target: "$.components.schemas.SlurmComputeConfig.properties.postRunScript.description"
-    update: "Script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
-
-  - target: "$.components.schemas.SlurmComputeConfig.properties.environment.description"
-    update: "Array of environment variables for the compute environment."
-
-  - target: "$.components.schemas.SlurmComputeConfig.properties.nextflowConfig.description"
-    update: "Additional Nextflow configuration content."
-
-  - target: "$.components.schemas.SlurmComputeConfig.properties.discriminator.description"
-    update: "Property to select the compute config platform."
-
-  - target: "$.components.schemas.SlurmComputeConfig.properties.launchDir.description"
-    update: "Launch directory for Nextflow execution."
-
-  - target: "$.components.schemas.SlurmComputeConfig.properties.userName.description"
-    update: "Username for SSH authentication to the HPC cluster."
-
-  - target: "$.components.schemas.SlurmComputeConfig.properties.hostName.description"
-    update: "Hostname or IP address of the HPC cluster head node."
-
-  - target: "$.components.schemas.SlurmComputeConfig.properties.port.description"
-    update: "SSH port for connecting to the HPC cluster. Default: `22`."
-
-  - target: "$.components.schemas.SlurmComputeConfig.properties.headQueue.description"
-    update: "Queue name for submitting the Nextflow head job."
-
-  - target: "$.components.schemas.SlurmComputeConfig.properties.computeQueue.description"
-    update: "Queue name for submitting Nextflow compute jobs."
-
-  - target: "$.components.schemas.SlurmComputeConfig.properties.maxQueueSize.description"
-    update: "Maximum number of jobs that can be queued at one time."
-
-  - target: "$.components.schemas.SlurmComputeConfig.properties.headJobOptions.description"
-    update: "Additional options for the head job submission."
-
-  - target: "$.components.schemas.SlurmComputeConfig.properties.propagateHeadJobOptions.description"
-    update: "If true, head job options are propagated to compute jobs. Default: `false`."
-
-  # ---- ALTAIR PBS COMPUTE CONFIG ----
-
-  - target: "$.components.schemas.AltairPbsComputeConfig.properties.workDir.description"
-    update: "Compute environment working directory."
-
-  - target: "$.components.schemas.AltairPbsComputeConfig.properties.preRunScript.description"
-    update: "Script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
-
-  - target: "$.components.schemas.AltairPbsComputeConfig.properties.postRunScript.description"
-    update: "Script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
-
-  - target: "$.components.schemas.AltairPbsComputeConfig.properties.environment.description"
-    update: "Array of environment variables for the compute environment."
-
-  - target: "$.components.schemas.AltairPbsComputeConfig.properties.nextflowConfig.description"
-    update: "Additional Nextflow configuration content."
-
-  - target: "$.components.schemas.AltairPbsComputeConfig.properties.discriminator.description"
-    update: "Property to select the compute config platform."
-
-  - target: "$.components.schemas.AltairPbsComputeConfig.properties.launchDir.description"
-    update: "Launch directory for Nextflow execution."
-
-  - target: "$.components.schemas.AltairPbsComputeConfig.properties.userName.description"
-    update: "Username for SSH authentication to the HPC cluster."
-
-  - target: "$.components.schemas.AltairPbsComputeConfig.properties.hostName.description"
-    update: "Hostname or IP address of the HPC cluster head node."
-
-  - target: "$.components.schemas.AltairPbsComputeConfig.properties.port.description"
-    update: "SSH port for connecting to the HPC cluster. Default: `22`."
-
-  - target: "$.components.schemas.AltairPbsComputeConfig.properties.headQueue.description"
-    update: "Queue name for submitting the Nextflow head job."
-
-  - target: "$.components.schemas.AltairPbsComputeConfig.properties.computeQueue.description"
-    update: "Queue name for submitting Nextflow compute jobs."
-
-  - target: "$.components.schemas.AltairPbsComputeConfig.properties.maxQueueSize.description"
-    update: "Maximum number of jobs that can be queued at one time."
-
-  - target: "$.components.schemas.AltairPbsComputeConfig.properties.headJobOptions.description"
-    update: "Additional options for the head job submission."
-
-  - target: "$.components.schemas.AltairPbsComputeConfig.properties.propagateHeadJobOptions.description"
-    update: "If true, head job options are propagated to compute jobs. Default: `false`."
-
-  # ---- MOAB COMPUTE CONFIG ----
-
-  - target: "$.components.schemas.MoabComputeConfig.properties.workDir.description"
-    update: "Compute environment working directory."
-
-  - target: "$.components.schemas.MoabComputeConfig.properties.preRunScript.description"
-    update: "Script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
-
-  - target: "$.components.schemas.MoabComputeConfig.properties.postRunScript.description"
-    update: "Script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
-
-  - target: "$.components.schemas.MoabComputeConfig.properties.environment.description"
-    update: "Array of environment variables for the compute environment."
-
-  - target: "$.components.schemas.MoabComputeConfig.properties.nextflowConfig.description"
-    update: "Additional Nextflow configuration content."
-
-  - target: "$.components.schemas.MoabComputeConfig.properties.discriminator.description"
-    update: "Property to select the compute config platform."
-
-  - target: "$.components.schemas.MoabComputeConfig.properties.launchDir.description"
-    update: "Launch directory for Nextflow execution."
-
-  - target: "$.components.schemas.MoabComputeConfig.properties.userName.description"
-    update: "Username for SSH authentication to the HPC cluster."
-
-  - target: "$.components.schemas.MoabComputeConfig.properties.hostName.description"
-    update: "Hostname or IP address of the HPC cluster head node."
-
-  - target: "$.components.schemas.MoabComputeConfig.properties.port.description"
-    update: "SSH port for connecting to the HPC cluster. Default: `22`."
-
-  - target: "$.components.schemas.MoabComputeConfig.properties.headQueue.description"
-    update: "Queue name for submitting the Nextflow head job."
-
-  - target: "$.components.schemas.MoabComputeConfig.properties.computeQueue.description"
-    update: "Queue name for submitting Nextflow compute jobs."
-
-  - target: "$.components.schemas.MoabComputeConfig.properties.maxQueueSize.description"
-    update: "Maximum number of jobs that can be queued at one time."
-
-  - target: "$.components.schemas.MoabComputeConfig.properties.headJobOptions.description"
-    update: "Additional options for the head job submission."
-
-  - target: "$.components.schemas.MoabComputeConfig.properties.propagateHeadJobOptions.description"
-    update: "If true, head job options are propagated to compute jobs. Default: `false`."
-
-  # ---- UNIVA COMPUTE CONFIG ----
-
-  - target: "$.components.schemas.UnivaComputeConfig.properties.workDir.description"
-    update: "Compute environment working directory."
-
-  - target: "$.components.schemas.UnivaComputeConfig.properties.preRunScript.description"
-    update: "Script that executes in the nf-launch script prior to invoking Nextflow processes. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
-
-  - target: "$.components.schemas.UnivaComputeConfig.properties.postRunScript.description"
-    update: "Script that executes after all Nextflow processes have completed. See [Pre and post-run scripts](https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts)."
-
-  - target: "$.components.schemas.UnivaComputeConfig.properties.environment.description"
-    update: "Array of environment variables for the compute environment."
-
-  - target: "$.components.schemas.UnivaComputeConfig.properties.nextflowConfig.description"
-    update: "Additional Nextflow configuration content."
-
-  - target: "$.components.schemas.UnivaComputeConfig.properties.discriminator.description"
-    update: "Property to select the compute config platform."
-
-  - target: "$.components.schemas.UnivaComputeConfig.properties.launchDir.description"
-    update: "Launch directory for Nextflow execution."
-
-  - target: "$.components.schemas.UnivaComputeConfig.properties.userName.description"
-    update: "Username for SSH authentication to the HPC cluster."
-
-  - target: "$.components.schemas.UnivaComputeConfig.properties.hostName.description"
-    update: "Hostname or IP address of the HPC cluster head node."
-
-  - target: "$.components.schemas.UnivaComputeConfig.properties.port.description"
-    update: "SSH port for connecting to the HPC cluster. Default: `22`."
-
-  - target: "$.components.schemas.UnivaComputeConfig.properties.headQueue.description"
-    update: "Queue name for submitting the Nextflow head job."
-
-  - target: "$.components.schemas.UnivaComputeConfig.properties.computeQueue.description"
-    update: "Queue name for submitting Nextflow compute jobs."
-
-  - target: "$.components.schemas.UnivaComputeConfig.properties.maxQueueSize.description"
-    update: "Maximum number of jobs that can be queued at one time."
-
-  - target: "$.components.schemas.UnivaComputeConfig.properties.headJobOptions.description"
-    update: "Additional options for the head job submission."
-
-  - target: "$.components.schemas.UnivaComputeConfig.properties.propagateHeadJobOptions.description"
-    update: "If true, head job options are propagated to compute jobs. Default: `false`."
-
-  # ---- EKS COMPUTE CONFIG ----
-
-  - target: "$.components.schemas.EksComputeConfig.properties.region.description"
-    update: "AWS region where the EKS cluster is located."
-
-  - target: "$.components.schemas.EksComputeConfig.properties.clusterName.description"
-    update: "Name of the AWS EKS cluster."
-
-  # ---- GKE COMPUTE CONFIG ----
-
-  - target: "$.components.schemas.GkeComputeConfig.properties.region.description"
-    update: "Google Cloud region or zone where the GKE cluster is located."
-
-  - target: "$.components.schemas.GkeComputeConfig.properties.clusterName.description"
-    update: "Name of the Google GKE cluster."
-
-  # ---- WORKFLOW AND TASK SCHEMAS ----
-
-  - target: "$.components.schemas.Task.properties.numSpotInterruptions.description"
-    update: "Number of spot instance interruptions encountered by this task."
-
-  - target: "$.components.schemas.TraceProgressData.properties.numSpotInterruptions.description"
-    update: "Total number of spot instance interruptions across all tasks."
-
-  - target: "$.components.schemas.WorkflowLoad.properties.numSpotInterruptions.description"
-    update: "Number of spot instance interruptions for the workflow."
-
-  # ---- LIST WORKFLOWS RESPONSE ----
-
-  - target: "$.components.schemas.ListWorkflowsResponse.properties.hasMore.description"
-    update: "If true, indicates there are more results available beyond this page."
-
-  # ---- ORGANIZATION QUOTAS ----
-
-  - target: "$.components.schemas.OrganizationQuotas.properties.maxCustomRolesPerOrg.description"
-    update: "Maximum number of custom roles allowed per organization."
-
-  # ---- DATA STUDIO STOP REASON ----
-
-  - target: "$.components.schemas.DataStudioStopReason.description"
-    update: "Reason for Data Studio session termination. Accepts `UNKNOWN`, `USER_REQUEST`, `TIMEOUT`, `ERROR`, `RESOURCE_LIMIT`, or `NO_STATS_AVAIL`."
+  # ===== CREDENTIALS SCHEMAS - REQUEST/RESPONSE OBJECTS =====
+
+  # ---- CREDENTIALS STATUS ----
+
+  - target: "$.components.schemas['Credentials.Status'].description"
+    update: "Credentials validation status. Accepts `AVAILABLE` for valid credentials or `INVALID` for credentials rejected by the provider."
+
+  # ---- VALIDATE CREDENTIALS RESPONSE ----
+
+  - target: "$.components.schemas.ValidateCredentialsResponse.properties.message"
+    update:
+      type: string
+      nullable: true
+      description: "Provider-supplied error detail. Can be `null` when the credentials are valid."
+
+  - target: "$.components.schemas.ValidateCredentialsResponse.properties.status"
+    update:
+      description: "Validation health resulting from the probe. Accepts `AVAILABLE` when the probe succeeded or `INVALID` when the provider authoritatively rejected the credentials. On a transient failure this carries the unchanged persisted status."
+
+  - target: "$.components.schemas.ValidateCredentialsResponse.properties.transientError"
+    update:
+      type: boolean
+      description: "If true, validation could not reach the provider due to network error or 5xx response. The persisted status is left untouched and must not be interpreted as an authoritative rejection."
+
+  # ---- CREDENTIALS IMAGE ----
+
+  - target: "$.components.schemas.CredentialsImage.properties.auditImageType"
+    update:
+      description: "Audit image type discriminator."
+
+  - target: "$.components.schemas.CredentialsImage.properties.baseUrl"
+    update:
+      type: string
+      description: "Base URL for the credentials provider."
+
+  - target: "$.components.schemas.CredentialsImage.properties.category"
+    update:
+      type: string
+      description: "Credentials category."
+
+  - target: "$.components.schemas.CredentialsImage.properties.description"
+    update:
+      type: string
+      description: "Credentials description."
+
+  - target: "$.components.schemas.CredentialsImage.properties.keys"
+    update:
+      description: "Security keys associated with the credentials."
+
+  - target: "$.components.schemas.CredentialsImage.properties.lastUsed"
+    update:
+      type: string
+      format: date-time
+      description: "Timestamp when the credentials were last used in ISO 8601 format."
+
+  - target: "$.components.schemas.CredentialsImage.properties.message"
+    update:
+      type: string
+      description: "Provider-supplied error detail captured when status transitions to INVALID. Cleared when status returns to AVAILABLE. Truncated to 4096 characters with trailing '(truncated)' suffix when provider message exceeds that limit."
+
+  - target: "$.components.schemas.CredentialsImage.properties.name"
+    update:
+      type: string
+      description: "Credentials name."
+
+  - target: "$.components.schemas.CredentialsImage.properties.provider"
+    update:
+      type: string
+      description: "Cloud provider identifier. Accepts `aws`, `azure`, `google`, etc."
+
+  - target: "$.components.schemas.CredentialsImage.properties.status"
+    update:
+      type: string
+      description: "Credentials validation status. Accepts `AVAILABLE` or `INVALID`."
+
+  # ---- MANAGED CREDENTIALS IMAGE ----
+
+  - target: "$.components.schemas.ManagedCredentialsImage.properties.auditImageType"
+    update:
+      description: "Audit image type discriminator."
+
+  - target: "$.components.schemas.ManagedCredentialsImage.properties.credentialsId"
+    update:
+      type: string
+      description: "Credentials string identifier."
+
+  - target: "$.components.schemas.ManagedCredentialsImage.properties.managedIdentityId"
+    update:
+      type: integer
+      format: int64
+      description: "Managed identity numeric identifier."
+
+  - target: "$.components.schemas.ManagedCredentialsImage.properties.memberId"
+    update:
+      type: integer
+      format: int64
+      description: "Member numeric identifier."
+
+  - target: "$.components.schemas.ManagedCredentialsImage.properties.metadata"
+    update:
+      description: "Managed credentials metadata."
 ```
 
----
+# Studios Overlays
 
-# Manual Field Descriptions Overlay
-
-## manual-field-descriptions-overlay-1.102.0.yaml
+## studios-operations-overlay-1.181.0.yaml
 
 ```yaml
 overlay: 1.0.0
 info:
-  title: Manual field descriptions overlay
+  title: Studios operations overlay
   version: 0.0.0
 actions:
-  # ===== PIPELINE SECRETS SCHEMAS =====
+  # ===== STUDIOS - OPERATIONS =====
 
-  # ---- CREATE PIPELINE SECRET REQUEST ----
+  # ---- LIST DATA STUDIO COMPATIBLE COMPUTE ENVS ----
 
-  - target: "$.components.schemas.CreatePipelineSecretRequest.properties.name.description"
-    update: "Unique name for the pipeline secret within the workspace. Used to reference the secret in workflow configurations."
+  - target: "$.paths['/studios/{sessionId}/compatible-ce'].get.summary"
+    update: "List compatible compute environments"
 
-  - target: "$.components.schemas.CreatePipelineSecretRequest.properties.value.description"
-    update: "The secret value to be securely stored. This value will be made available to pipeline executions as an environment variable or configuration value."
+  - target: "$.paths['/studios/{sessionId}/compatible-ce'].get.description"
+    update: "Lists compute environments in the same workspace as the specified Data Studio that are compatible with its compute environment. Use to determine which compute environments can be substituted when updating the Studio."
 
-  # ---- UPDATE PIPELINE SECRET REQUEST ----
+  # ---- UPDATE STUDIO (UPDATED DESCRIPTION) ----
 
-  - target: "$.components.schemas.UpdatePipelineSecretRequest.properties.value.description"
-    update: "New secret value to replace the existing value. The secret value is securely stored and made available to pipeline executions."
-
-  # ===== DATASETS SCHEMAS =====
-
-  # ---- CREATE DATASET REQUEST ----
-
-  - target: "$.components.schemas.CreateDatasetRequest.properties.name.description"
-    update: "Unique dataset name within the workspace. Must be a valid identifier that can be referenced in workflow configurations."
-
-  - target: "$.components.schemas.CreateDatasetRequest.properties.description.description"
-    update: "Optional description of the dataset. Provides context about the dataset contents, source, or intended use."
-
-  # ---- UPDATE DATASET REQUEST ----
-
-  - target: "$.components.schemas.UpdateDatasetRequest.properties.name.description"
-    update: "New name for the dataset. Must be unique within the workspace and can be used to reference the dataset in workflow configurations."
-
-  - target: "$.components.schemas.UpdateDatasetRequest.properties.description.description"
-    update: "Updated description for the dataset. Provides context about the dataset contents, source, or intended use."
-
-  # ===== WORKSPACES SCHEMAS =====
-
-  # ---- UPDATE WORKSPACE REQUEST ----
-
-  - target: "$.components.schemas.UpdateWorkspaceRequest.properties.name.description"
-    update: "New short name for the workspace. Must be 2-40 characters, start and end with alphanumeric characters, and can contain hyphens or underscores between characters. Must be unique within the organization."
-
-  - target: "$.components.schemas.UpdateWorkspaceRequest.properties.fullName.description"
-    update: "Updated full display name for the workspace. Maximum 100 characters."
-
-  - target: "$.components.schemas.UpdateWorkspaceRequest.properties.description.description"
-    update: "Updated description of the workspace. Maximum 1000 characters."
-
-  # ===== ACTIONS SCHEMAS =====
-
-  # ---- UPDATE ACTION REQUEST ----
-
-  - target: "$.components.schemas.UpdateActionRequest.properties.name.description"
-    update: "New name for the pipeline action. Must be unique within the workspace."
+  - target: "$.paths['/studios/{sessionId}'].put.description"
+    update: "Updates the specified Data Studio session. Can only update non-running Studios. The compute environment can be changed by setting `computeEnvId` to a compute environment compatible with the Studio's current one. See `GET /studios/{sessionId}/compatible-ce` for compatible options."
 ```
 
----
-
-# Fix Duplicate Required Fields Overlay
-
-## fix-duplicate-required-fields-overlay-1.102.0.yaml
-
-**CRITICAL**: This overlay fixes duplicate required fields in compute config schemas using the "remove first, then update" pattern.
+## studios-parameters-overlay-1.181.0.yaml
 
 ```yaml
 overlay: 1.0.0
 info:
-  title: Fix duplicate required fields overlay
-  version: 1.102.0
+  title: Studios parameters overlay
+  version: 0.0.0
 actions:
-  # ===== FIX DUPLICATE REQUIRED FIELDS =====
+  # ===== STUDIOS PARAMETERS - PATH, QUERY, AND REQUEST BODY =====
 
-  # These duplicate required fields exist in the base spec
-  # We use the "remove first, then update" pattern to fix them
+  # ---- PATH PARAMETERS ----
 
-  # ---- AwsBatchConfig ----
+  - target: "$.paths['/studios/{sessionId}/compatible-ce'].get.parameters[?(@.name=='sessionId')].description"
+    update: "Data Studio session string identifier."
 
-  - target: "$.components.schemas.AwsBatchConfig.required"
-    remove: true
+  # ---- QUERY PARAMETERS ----
 
-  - target: "$.components.schemas.AwsBatchConfig"
-    update:
-      required: ["region", "workDir"]
+  - target: "$.paths['/studios/{sessionId}/compatible-ce'].get.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
 
-  # ---- AwsCloudConfig ----
-
-  - target: "$.components.schemas.AwsCloudConfig.required"
-    remove: true
-
-  - target: "$.components.schemas.AwsCloudConfig"
-    update:
-      required: ["region", "workDir"]
-
-  # ---- AzBatchConfig ----
-
-  - target: "$.components.schemas.AzBatchConfig.required"
-    remove: true
-
-  - target: "$.components.schemas.AzBatchConfig"
-    update:
-      required: ["region", "workDir"]
-
-  # ---- AzCloudConfig ----
-
-  - target: "$.components.schemas.AzCloudConfig.required"
-    remove: true
-
-  - target: "$.components.schemas.AzCloudConfig"
-    update:
-      required: ["location", "workDir"]
-
-  # ---- ConfigEnvVariable ----
-
-  - target: "$.components.schemas.ConfigEnvVariable.required"
-    remove: true
-
-  - target: "$.components.schemas.ConfigEnvVariable"
-    update:
-      required: ["name", "value"]
-
-  # ---- CreateComputeEnvRequest ----
-
-  - target: "$.components.schemas.CreateComputeEnvRequest.required"
-    remove: true
-
-  - target: "$.components.schemas.CreateComputeEnvRequest"
-    update:
-      required: ["computeEnv"]
-
-  # ---- GkeComputeConfig ----
-
-  - target: "$.components.schemas.GkeComputeConfig.required"
-    remove: true
-
-  - target: "$.components.schemas.GkeComputeConfig"
-    update:
-      required: ["region", "clusterName", "workDir"]
-
-  # ---- GoogleBatchConfig ----
-
-  - target: "$.components.schemas.GoogleBatchConfig.required"
-    remove: true
-
-  - target: "$.components.schemas.GoogleBatchConfig"
-    update:
-      required: ["location", "workDir"]
-
-  # ---- GoogleCloudConfig ----
-
-  - target: "$.components.schemas.GoogleCloudConfig.required"
-    remove: true
-
-  - target: "$.components.schemas.GoogleCloudConfig"
-    update:
-      required: ["region", "workDir"]
-
-  # ---- K8sComputeConfig ----
-
-  - target: "$.components.schemas.K8sComputeConfig.required"
-    remove: true
-
-  - target: "$.components.schemas.K8sComputeConfig"
-    update:
-      required: ["server", "sslCert", "workDir"]
-
-  # ---- SeqeraComputeConfig ----
-
-  - target: "$.components.schemas.SeqeraComputeConfig.required"
-    remove: true
-
-  - target: "$.components.schemas.SeqeraComputeConfig"
-    update:
-      required: ["region", "workDir"]
-
-  # ---- ComputeEnv_ComputeConfig_ ----
-
-  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.required"
-    remove: true
-
-  - target: "$.components.schemas.ComputeEnv_ComputeConfig_"
-    update:
-      required: ["config", "name", "platform"]
-
-  # ---- EksComputeConfig ----
-
-  - target: "$.components.schemas.EksComputeConfig.required"
-    remove: true
-
-  - target: "$.components.schemas.EksComputeConfig"
-    update:
-      required: ["region", "clusterName", "workDir"]
+  - target: "$.paths['/studios/{sessionId}/compatible-ce'].get.parameters[?(@.name=='attributes')].description"
+    update: "Additional attribute values to include in the response. Accepts `labels` or `resources`. Returns an empty value if omitted."
 ```
 
----
-
-# Fix Duplicate Enum Values Overlay
-
-## fix-duplicate-enums-overlay-1.102.0.yaml
-
-**CRITICAL**: This overlay fixes duplicate enum values in query parameters and schemas using the "remove first, then update" pattern.
+## studios-schemas-overlay-1.181.0.yaml
 
 ```yaml
 overlay: 1.0.0
 info:
-  title: Fix duplicate enum values overlay
-  version: 1.102.0
+  title: Studios schemas overlay
+  version: 0.0.0
 actions:
-  # ===== FIX DUPLICATE ENUM VALUES =====
+  # ===== STUDIOS SCHEMAS - REQUEST/RESPONSE OBJECTS =====
 
-  # These duplicate enum values exist in the base decorated spec
-  # We use the "remove first, then update" pattern to fix them
+  # ---- DATA STUDIO IMAGE ----
 
-  # ---- Query Parameter: Status (line 563) ----
-
-  - target: "$.paths./compute-envs.get.parameters[?(@.name=='status')].schema.enum"
-    remove: true
-
-  - target: "$.paths./compute-envs.get.parameters[?(@.name=='status')].schema"
+  - target: "$.components.schemas.DataStudioImage.properties.appliedLifespanHours"
     update:
-      enum: ["CREATING", "AVAILABLE", "ERRORED", "INVALID"]
+      type: integer
+      format: int32
+      description: "Applied lifespan in hours for the Data Studio session."
 
-  # ---- Query Parameter: Attributes (line 809) ----
-
-  - target: "$.paths./compute-envs/{computeEnvId}.get.parameters[?(@.name=='attributes')].schema.items.enum"
-    remove: true
-
-  - target: "$.paths./compute-envs/{computeEnvId}.get.parameters[?(@.name=='attributes')].schema.items"
+  - target: "$.components.schemas.DataStudioImage.properties.auditImageType"
     update:
-      enum: ["labels"]
+      description: "Audit image type discriminator."
 
-  # ---- AzBatchConfig.deleteJobsOnCompletion (line 8891) ----
-
-  - target: "$.components.schemas.AzBatchConfig.properties.deleteJobsOnCompletion.enum"
-    remove: true
-
-  - target: "$.components.schemas.AzBatchConfig.properties.deleteJobsOnCompletion"
+  - target: "$.components.schemas.DataStudioImage.properties.baseImage"
     update:
-      enum: ["on_success", "always", "never"]
+      type: string
+      description: "Base container image for the Data Studio."
 
-  # ---- ComputeEnv_ComputeConfig_.platform (lines 9283-9331) ----
-  # This has extensive triplication of values
-
-  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.properties.platform.enum"
-    remove: true
-
-  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.properties.platform"
+  - target: "$.components.schemas.DataStudioImage.properties.computeEnvId"
     update:
-      enum:
-        - "aws-batch"
-        - "aws-cloud"
-        - "google-batch"
-        - "google-cloud"
-        - "azure-batch"
-        - "azure-cloud"
-        - "k8s-platform"
-        - "eks-platform"
-        - "gke-platform"
-        - "uge-platform"
-        - "slurm-platform"
-        - "lsf-platform"
-        - "altair-platform"
-        - "moab-platform"
-        - "local-platform"
-        - "seqeracompute-platform"
+      type: string
+      description: "Compute environment string identifier associated with the Data Studio."
 
-  # ---- ComputeEnv_ComputeConfig_.status (line 9361) ----
-
-  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.properties.status.enum"
-    remove: true
-
-  - target: "$.components.schemas.ComputeEnv_ComputeConfig_.properties.status"
+  - target: "$.components.schemas.DataStudioImage.properties.condaEnvironment"
     update:
-      enum: ["CREATING", "AVAILABLE", "ERRORED", "INVALID"]
+      type: string
+      description: "Conda environment configuration for the Data Studio."
 
-  # ---- K8sComputeConfig.podCleanup (line 11444) ----
-
-  - target: "$.components.schemas.K8sComputeConfig.properties.podCleanup.enum"
-    remove: true
-
-  - target: "$.components.schemas.K8sComputeConfig.properties.podCleanup"
+  - target: "$.components.schemas.DataStudioImage.properties.connectVersion"
     update:
-      enum: ["on_success", "always", "never"]
-```
+      type: string
+      description: "Connect version for the Data Studio."
 
----
-
-# Remove Google Life Sciences Platform
-
-## remove-google-lifesciences-overlay-1.102.0.yaml
-
-**CRITICAL**: This overlay removes the deprecated google-lifesciences platform option from the API spec entirely.
-
-```yaml
-overlay: 1.0.0
-info:
-  title: Remove Google Life Sciences platform overlay
-  version: 1.102.0
-actions:
-  # ===== REMOVE GOOGLE LIFE SCIENCES PLATFORM =====
-
-  # This platform option is deprecated and should be removed from the API spec
-
-  # ---- Remove from ComputeEnvResponseDto.platform enum (line 9198) ----
-
-  - target: "$.components.schemas.ComputeEnvResponseDto.properties.platform.enum"
-    remove: true
-
-  - target: "$.components.schemas.ComputeEnvResponseDto.properties.platform"
+  - target: "$.components.schemas.DataStudioImage.properties.description"
     update:
-      enum:
-        - "aws-batch"
-        - "aws-cloud"
-        - "seqeracompute-platform"
-        - "google-batch"
-        - "azure-batch"
-        - "k8s-platform"
-        - "eks-platform"
-        - "gke-platform"
-        - "uge-platform"
-        - "slurm-platform"
-        - "lsf-platform"
-        - "altair-platform"
+      type: string
+      description: "Data Studio description."
 
-  # ---- Remove from ComputeConfig discriminator mapping (line 9140) ----
-
-  - target: "$.components.schemas.ComputeConfig.discriminator.mapping.google-lifesciences"
-    remove: true
-
-  # ---- Replace ComputeConfig oneOf array without GoogleLifeSciencesConfig ----
-
-  # CRITICAL: Remove entire oneOf array first to prevent duplicates
-  - target: "$.components.schemas.ComputeConfig.oneOf"
-    remove: true
-
-  # Replace with correct array (no GoogleLifeSciencesConfig, no duplicates)
-  - target: "$.components.schemas.ComputeConfig"
+  - target: "$.components.schemas.DataStudioImage.properties.effectiveLifespanHours"
     update:
-      oneOf:
-        - $ref: "#/components/schemas/AwsBatchConfig"
-        - $ref: "#/components/schemas/AwsCloudConfig"
-        - $ref: "#/components/schemas/SeqeraComputeConfig"
-        - $ref: "#/components/schemas/GoogleBatchConfig"
-        - $ref: "#/components/schemas/GoogleCloudConfig"
-        - $ref: "#/components/schemas/AzBatchConfig"
-        - $ref: "#/components/schemas/AzCloudConfig"
-        - $ref: "#/components/schemas/LsfComputeConfig"
-        - $ref: "#/components/schemas/SlurmComputeConfig"
-        - $ref: "#/components/schemas/K8sComputeConfig"
-        - $ref: "#/components/schemas/EksComputeConfig"
-        - $ref: "#/components/schemas/GkeComputeConfig"
-        - $ref: "#/components/schemas/UnivaComputeConfig"
-        - $ref: "#/components/schemas/AltairPbsComputeConfig"
-        - $ref: "#/components/schemas/MoabComputeConfig"
-        - $ref: "#/components/schemas/LocalComputeConfig"
+      type: integer
+      format: int32
+      description: "Effective lifespan in hours for the Data Studio session."
 
-  # ---- Remove GoogleLifeSciencesConfig schema definition (line 11229+) ----
-
-  - target: "$.components.schemas.GoogleLifeSciencesConfig"
-    remove: true
-```
-
----
-
-# Add Identities Tag Overlay
-
-## add-identities-tag-overlay-1.102.0.yaml
-
-```yaml
-overlay: 1.0.0
-info:
-  title: Add identities tag to global tags
-  version: 1.102.0
-actions:
-  # ===== ADD MISSING IDENTITIES TAG =====
-
-  # CRITICAL: Remove entire tags array first to prevent duplicates
-  - target: "$.tags"
-    remove: true
-
-  # Replace with complete array including identities tag
-  - target: "$"
+  - target: "$.components.schemas.DataStudioImage.properties.environment"
     update:
-      tags:
-        - name: actions
-          description: Pipeline actions
-        - name: avatars
-          description: Avatars
-        - name: compute-envs
-          description: Compute environments
-        - name: credentials
-          description: Credentials
-        - name: data-links
-          description: Cloud storage directory paths in Data Explorer
-        - name: datasets
-          description: Pipeline input datasets (samplesheets) in CSV or TSV format
-        - name: ga4gh
-          description: GA4GH workflow execution service runs
-        - name: identities
-          description: Managed identities for centralized credential management
-        - name: labels
-          description: Labels and resource labels
-        - name: launch
-          description: Workflow launch events
-        - name: orgs
-          description: Organizations
-        - name: pipelines
-          description: Pipelines
-        - name: pipeline-secrets
-          description: Pipeline secrets in a user or workspace context
-        - name: platforms
-          description: Computing platforms
-        - name: service-info
-          description: Seqera Platform API service information
-        - name: studios
-          description: Studios and Studio sessions
-        - name: teams
-          description: Teams in an organization context
-        - name: tokens
-          description: API access tokens
-        - name: trace
-          description: Workflow execution traces
-        - name: users
-          description: Users
-        - name: workflows
-          description: Workflow executions
-        - name: workspaces
-          description: Workspaces in an organization context
-```
+      type: string
+      description: "Environment variables for the Data Studio."
 
----
+  - target: "$.components.schemas.DataStudioImage.properties.initialCheckpointId"
+    update:
+      type: integer
+      format: int64
+      description: "Initial checkpoint numeric identifier if restoring from a checkpoint."
 
-This completes all the overlay files for version 1.102.0. The overlays are organized by controller/feature and follow all the standards exactly as specified in your style guide.
+  - target: "$.components.schemas.DataStudioImage.properties.initialSessionId"
+    update:
+      type: string
+      description: "Initial session identifier if cloning from another session."
+
+  - target: "$.components.schemas.DataStudioImage.properties.isPrivate"
+    update:
+      type: boolean
+      description: "If true, the Data Studio is private and not visible to other workspace members."
+
+  - target: "$.components.schemas.DataStudioImage.properties.lastHeartbeat"
+    update:
+      type: string
+      format: date-time
+      description: "Last heartbeat timestamp in ISO 8601 format."
+
+  - target: "$.components.schemas.DataStudioImage.properties.lastStarted"
+    update:
+      type: string
+      format: date-time
+      description: "Last started timestamp in ISO 8601 format."
+
+  - target: "$.components.schemas.DataStudioImage.properties.name"
+    update:
+      type: string
+      description: "Data Studio name."
+
+  - target: "$.components.schemas.DataStudioImage.properties.remoteConfigCloneEnabled"
+    update:
+      type: boolean
+      description: "If true, remote configuration cloning is enabled."
+
+  - target: "$.components.schemas.DataStudioImage.properties.remoteConfigClonePath"
+    update:
+      type: string
+      description: "Remote configuration clone path."
+
+  - target: "$.components.schemas.DataStudioImage.properties.remoteConfigCommitHash"
+    update:
+      type: string
+      description: "Remote configuration commit hash."
+
+  - target: "$.components.schemas.DataStudioImage.properties.remoteConfigRepository"
+    update:
+      type: string
+      description: "Remote configuration repository URL."
+
+  - target: "$.components.schemas.DataStudioImage.properties.remoteConfigRevision"
+    update:
+      type: string
+      description: "Remote configuration revision."
+
+  - target: "$.components.schemas.DataStudioImage.properties.requiredCpus"
+    update:
+      type: integer
+      format: int64
+      description: "Required CPU cores for the Data Studio."
+
+  - target: "$.components.schemas.DataStudioImage.properties.requiredGpus"
+    update:
+      type: integer
+      format: int64
+      description: "Required GPU count for the Data Studio."
+
+  - target: "$.components.schemas.DataStudioImage.properties.requiredMemory"
+    update:
+      type: integer
+      format: int64
+      description: "Required memory in bytes for the Data Studio."
+
+  - target: "$.components.schemas.DataStudioImage.properties.runningOperationId"
+    update:
+      type: string
+      description: "Running operation identifier if an operation is in progress."
+
+  - target: "$.components.schemas.DataStudioImage.properties.sshEnabled"
+    update:
+      type: boolean
+      description: "If true, SSH access is enabled for the Data Studio."
+
+  - target: "$.components.schemas.DataStudioImage.properties.status"
+    update:
+      type: string
+      description: "Data Studio status."
+
+  - target: "$.components.schemas.DataStudioImage.properties.statusMessage"
+    update:
+      type: string
+      description: "Status message providing additional context about Data Studio state."
+
+  - target: "$.components.schemas.DataStudioImage.properties.stopReason"
+    update:
+      type: string
+      description: "Reason why the Data Studio was stopped."
+
+  - target: "$.components.schemas.DataStudioImage.properties.templateIcon"
+    update:
+      type: string
+      description: "Template icon identifier."
+
+  - target: "$.components.schemas.DataStudioImage.properties.templatePort"
+    update:
+      type: integer
+      format: int32
+      description: "Template port number."
+
+  - target: "$.components.schemas.DataStudioImage.properties.templateUrl"
+    update:
+      type: string
+      description: "Template URL."
+
+  - target: "$.components.schemas.DataStudioImage.properties.tool"
+    update:
+      type: string
+      description: "Data Studio tool type. Accepts `rstudio`, `jupyter`, `vscode`, etc."
+
+  - target: "$.components.schemas.DataStudioImage.properties.userId"
+    update:
+      type: integer
+      format: int64
+      description: "User numeric identifier who owns the Data Studio."
+
+  - target: "$.components.schemas.DataStudioImage.properties.waveBuildId"

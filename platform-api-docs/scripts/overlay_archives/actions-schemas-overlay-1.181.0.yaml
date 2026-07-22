@@ -1,0 +1,123 @@
+overlay: 1.0.0
+info:
+  title: Actions schemas overlay
+  version: 0.0.0
+actions:
+  # ===== ACTIONS SCHEMAS - REQUEST/RESPONSE OBJECTS =====
+
+  # ---- CRON ACTION CONFIG ----
+
+  - target: "$.components.schemas.CronActionConfig.properties.discriminator"
+    update:
+      type: string
+      description: "Type discriminator for action configuration polymorphism."
+
+  - target: "$.components.schemas.CronActionConfig.properties.expression"
+    update:
+      type: string
+      description: "Cron expression defining the schedule pattern."
+
+  - target: "$.components.schemas.CronActionConfig.properties.preset"
+    update:
+      type: string
+      description: "Preset schedule identifier. Can be `null`."
+
+  - target: "$.components.schemas.CronActionConfig.properties.timezone"
+    update:
+      type: string
+      description: "Timezone for schedule evaluation in IANA format."
+
+  # ---- CRON ACTION EVENT ----
+
+  - target: "$.components.schemas.CronActionEvent.properties.discriminator"
+    update:
+      type: string
+      description: "Type discriminator for action event polymorphism."
+
+  - target: "$.components.schemas.CronActionEvent.properties.scheduledTime"
+    update:
+      type: string
+      format: date-time
+      description: "Scheduled execution time in ISO 8601 format."
+
+  - target: "$.components.schemas.CronActionEvent.properties.timestamp"
+    update:
+      type: string
+      format: date-time
+      description: "Actual event timestamp in ISO 8601 format."
+
+  - target: "$.components.schemas.CronActionEvent.properties.workflowId"
+    update:
+      type: string
+      description: "Workflow string identifier associated with the event."
+
+  # ---- CRON ACTION REQUEST ----
+
+  - target: "$.components.schemas.CronActionRequest.properties.expression"
+    update:
+      type: string
+      description: "Cron expression defining the schedule pattern."
+
+  - target: "$.components.schemas.CronActionRequest.properties.preset"
+    update:
+      type: string
+      description: "Preset schedule identifier. Can be `null`."
+
+  - target: "$.components.schemas.CronActionRequest.properties.timezone"
+    update:
+      type: string
+      description: "Timezone for schedule evaluation in IANA format."
+
+  # ---- ACTION IMAGE ----
+
+  - target: "$.components.schemas.ActionImage.properties.auditImageType"
+    update:
+      description: "Audit image type discriminator."
+
+  - target: "$.components.schemas.ActionImage.properties.config"
+    update:
+      description: "Action configuration polymorphic object."
+
+  - target: "$.components.schemas.ActionImage.properties.error"
+    update:
+      type: string
+      description: "Error message if action execution failed. Can be `null`."
+
+  - target: "$.components.schemas.ActionImage.properties.event"
+    update:
+      description: "Action event polymorphic object."
+
+  - target: "$.components.schemas.ActionImage.properties.hookId"
+    update:
+      type: string
+      description: "Webhook identifier if action uses webhook trigger."
+
+  - target: "$.components.schemas.ActionImage.properties.hookUrl"
+    update:
+      type: string
+      description: "Webhook URL if action uses webhook trigger."
+
+  - target: "$.components.schemas.ActionImage.properties.lastSeen"
+    update:
+      type: string
+      format: date-time
+      description: "Timestamp of last action activity in ISO 8601 format."
+
+  - target: "$.components.schemas.ActionImage.properties.launch"
+    update:
+      description: "Launch configuration associated with the action."
+
+  - target: "$.components.schemas.ActionImage.properties.name"
+    update:
+      type: string
+      description: "Action name."
+
+  - target: "$.components.schemas.ActionImage.properties.source"
+    update:
+      type: string
+      description: "Action source type. Accepts `github`, `tower`, or `cron`."
+
+  - target: "$.components.schemas.ActionImage.properties.status"
+    update:
+      type: string
+      description: "Action execution status."

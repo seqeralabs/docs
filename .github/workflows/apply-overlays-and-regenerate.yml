@@ -68,8 +68,8 @@ jobs:
 
       - name: Install Speakeasy CLI
         run: |
-          VERSION=1.759.2 curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | sh
-          echo "$HOME/.speakeasy/bin" >> $GITHUB_PATH
+          curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | VERSION=1.759.2 sh
+          echo "$HOME/.speakeasy/bin" >> "$GITHUB_PATH"
 
       - name: Detect version from specs directory
         id: version
@@ -128,6 +128,7 @@ jobs:
           # Also try to find filenames mentioned before code blocks
           # Pattern: "filename.yaml" or **filename.yaml** or <!-- filename.yaml -->
           filename_pattern = r'(?:^|\n)(?:#+\s*)?(?:\*\*)?([a-zA-Z0-9_-]+-overlay-[0-9.]+\.ya?ml)(?:\*\*)?'
+          filename_comment_pattern = r'^\s*#\s*([a-zA-Z0-9_-]+-overlay-[0-9.]+\.ya?ml)\s*$'
 
           blocks = re.finditer(pattern, content, re.MULTILINE | re.DOTALL)
 
@@ -137,13 +138,23 @@ jobs:
           for block in blocks:
               yaml_content = block.group(1).strip()
 
-              # Look backwards from this block to find a filename (use the LAST/closest match)
+              filename = None
+
+              # Prefer filenames in the Markdown immediately before the code block.
               text_before = content[current_pos:block.start()]
               filename_matches = re.findall(filename_pattern, text_before, re.MULTILINE | re.IGNORECASE)
-
               if filename_matches:
-                  # Take the last (closest) filename match
                   filename = filename_matches[-1]
+
+              # Fall back to a filename comment as the first line inside the YAML block.
+              if not filename:
+                  first_line = yaml_content.splitlines()[0] if yaml_content else ""
+                  comment_match = re.match(filename_comment_pattern, first_line, re.IGNORECASE)
+                  if comment_match:
+                      filename = comment_match.group(1)
+                      yaml_content = "\n".join(yaml_content.splitlines()[1:]).strip()
+
+              if filename:
                   # Normalize to .yaml extension
                   filename = re.sub(r'\.yml$', '.yaml', filename)
 
