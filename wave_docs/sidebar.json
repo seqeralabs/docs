@@ -56,27 +56,25 @@
     {
       "type": "category",
       "label": "Self-hosted Wave",
+      "link": {
+        "type": "doc",
+        "id": "install/index"
+      },
       "collapsed": true,
       "items": [
         {
           "type": "category",
-          "label": "Installation",
+          "label": "Wave Lite",
           "collapsed": true,
           "items": [
             "install/docker-compose",
-            "install/kubernetes",
-            "install/configure-wave-build"
+            "install/kubernetes-lite"
           ]
         },
-        {
-          "type": "category",
-          "label": "Configuration",
-          "collapsed": true,
-          "items": [
-            "configure-wave",
-            "configuration"
-          ]
-        },
+        "install/aws-build",
+        "install/post-install",
+        "install/configure-wave",
+        "install/reference",
         {
           "type": "category",
           "label": "Migration notes",
