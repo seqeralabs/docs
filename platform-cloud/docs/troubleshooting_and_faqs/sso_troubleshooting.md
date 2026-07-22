@@ -34,6 +34,10 @@ If Seqera can't link an existing account to the SSO identity, the user should co
 
 ## IdP group provisioning (SCIM)
 
+#### The Get started button under Provisioning is disabled (Entra ID)
+
+The application was created through **App Registrations**, which doesn't support automatic provisioning. Create a separate non-gallery enterprise application for SCIM. See [Create a provisioning application](../sso/idp-delegation/group-catalog/scim-entra-id#create-a-provisioning-application).
+
 #### Groups appear in the IdP but not in Seqera
 
 Confirm the bearer token configured in your IdP matches the latest token that Seqera issued. If you generated a new token after configuring the IdP, the previous token is revoked.
