@@ -74,7 +74,7 @@ Ask your Google Cloud administrator to grant you the following IAM user permissi
 - Batch Job Editor (`roles/batch.jobsEditor`) on the project
 - Service Account User (`roles/iam.serviceAccountUser`) on the job's service account (default: Compute Engine service account)
 - View Service Accounts (`roles/iam.serviceAccountViewer`) on the project
-- `storage.buckets.list` on the project, if using per-bucket Storage grants instead of project-wide Storage Admin. Seqera uses this permission to validate credentials on a recurring basis — without it, credential validation fails and the compute environment is marked invalid. Grant it via a custom role or `roles/storage.legacyBucketReader` on the project.
+- `storage.buckets.list` on the project, if using per-bucket Storage grants instead of project-wide Storage Admin. Seqera uses this permission to validate credentials on a recurring basis — without it, credential validation fails and the compute environment is marked invalid. No predefined Storage role grants this permission in isolation; add it to a custom role on the project.
 
 #### Authentication methods
 
