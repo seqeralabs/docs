@@ -1,0 +1,19 @@
+overlay: 1.0.0
+info:
+  title: Studios operations overlay
+  version: 0.0.0
+actions:
+  # ===== STUDIOS - OPERATIONS =====
+
+  # ---- LIST DATA STUDIO COMPATIBLE COMPUTE ENVS ----
+
+  - target: "$.paths['/studios/{sessionId}/compatible-ce'].get.summary"
+    update: "List compatible compute environments"
+
+  - target: "$.paths['/studios/{sessionId}/compatible-ce'].get.description"
+    update: "Lists compute environments in the same workspace as the specified Data Studio that are compatible with its compute environment. Use to determine which compute environments can be substituted when updating the Studio."
+
+  # ---- UPDATE STUDIO (UPDATED DESCRIPTION) ----
+
+  - target: "$.paths['/studios/{sessionId}'].put.description"
+    update: "Updates the specified Data Studio session. Can only update non-running Studios. The compute environment can be changed by setting `computeEnvId` to a compute environment compatible with the Studio's current one. See `GET /studios/{sessionId}/compatible-ce` for compatible options."

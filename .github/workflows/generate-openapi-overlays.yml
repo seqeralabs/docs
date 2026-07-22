@@ -113,6 +113,7 @@ jobs:
         if: steps.check-pr.outputs.pr_exists != 'true'
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
         with:
+          path: docs-version-check
           sparse-checkout: |
             platform-api-docs/scripts/specs
           sparse-checkout-cone-mode: false
@@ -122,14 +123,15 @@ jobs:
         id: version-check
         run: |
           VERSION="${{ steps.version.outputs.api_version }}"
+          SPEC_DIR="docs-version-check/platform-api-docs/scripts/specs"
 
           # Check if a spec file already exists for this version
-          if [ -f "platform-api-docs/scripts/specs/seqera-api-${VERSION}.yaml" ] || [ -f "platform-api-docs/scripts/specs/seqera-api-${VERSION}.yml" ]; then
+          if [ -f "${SPEC_DIR}/seqera-api-${VERSION}.yaml" ] || [ -f "${SPEC_DIR}/seqera-api-${VERSION}.yml" ]; then
             echo "ℹ️  Version $VERSION already exists in docs repo - skipping workflow"
-            echo "should_skip=true" >> $GITHUB_OUTPUT
+            echo "should_skip=true" >> "$GITHUB_OUTPUT"
           else
             echo "✅ Version $VERSION is new - proceeding with overlay generation"
-            echo "should_skip=false" >> $GITHUB_OUTPUT
+            echo "should_skip=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Checkout docs repo (full)
@@ -170,8 +172,8 @@ jobs:
       - name: Install Speakeasy CLI
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
         run: |
-          VERSION=1.759.2 curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | sh
-          echo "$HOME/.speakeasy/bin" >> $GITHUB_PATH
+          curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | VERSION=1.759.2 sh
+          echo "$HOME/.speakeasy/bin" >> "$GITHUB_PATH"
 
       - name: Copy new base spec from Platform repo
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
@@ -284,6 +286,8 @@ jobs:
           - Descriptions are full sentences with periods
           - Follow verb-entity pattern for operations
           - Group by controller/feature
+          - Put the overlay filename as a plain Markdown line immediately before each YAML code block
+          - Do not put the filename only as a comment inside the YAML block
 
           Generate the overlay files as separate YAML code blocks, clearly labeled with the filename."""
 
@@ -324,6 +328,8 @@ jobs:
           branch: ${{ steps.version.outputs.branch_name }}
           delete-branch: true
           draft: true
+          add-paths: |
+            platform-api-docs/scripts/specs
           title: '[Draft] API Documentation Updates for v${{ steps.version.outputs.api_version }}'
           body: |
             ## API Version: ${{ steps.version.outputs.api_version }}
