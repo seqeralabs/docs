@@ -2,7 +2,7 @@
 title: "Azure Cloud"
 description: "Instructions to set up an Azure Cloud compute environment in Seqera Platform"
 date created: "2025-09-29"
-last updated: "2026-05-05"
+last updated: "2026-07-22"
 tags: [cloud, vm, azure, compute environments]
 ---
 
@@ -38,7 +38,7 @@ Seqera will create the following resources in Azure when creating the compute en
 - One log analytics workspace: Used to collect and query execution logs.
 - One data collection rule: To route execution logs to the appropriate Log Analytics table.
 - One data collection endpoint: The endpoint that receives logs, tied to the data collection rule.
-- One virtual network: The network in which virtual machines are launched.
+- One virtual network: The network in which virtual machines are launched. This resource is only created when no existing virtual network is specified in **Advanced options**. When you provide your own VNet, Seqera uses it directly and no network resources are provisioned.
 
 When virtual machines are launched, other resources are provisioned for each machine and tied to the machine lifecycle:
 
@@ -460,3 +460,10 @@ Create a compute environment in Seqera using the credentials:
 
 - (Optional) **Subscription ID**: The ID of the subscription where resources must be deployed. If not specified, the subscription ID of the credentials is used.
 - **Instance Type**: The virtual machine type used by the compute environment. Choosing the instance type will directly allocate the CPU and memory available for computation. See [virtual machine sizes](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview) for a comprehensive list of instance types and their resource limitations.
+- **Virtual network**: An existing Azure virtual network (VNet) in the configured location. The drop-down is populated with VNets discovered in your Azure account for the selected location. When specified, Seqera uses this network for all VMs launched in this compute environment and skips network provisioning. Leave blank to let Seqera provision a dedicated VNet automatically.
+
+  :::note
+  The VNet must exist in the same location as the compute environment. Specifying a VNet that does not exist in the location, or a subnet that does not belong to the selected VNet, causes compute environment creation to fail.
+  :::
+
+- **Subnets**: One or more subnet names within the selected VNet. VMs are placed in the first listed subnet at launch time. Leave blank to use the first available subnet on the VNet. This field has no effect when no VNet is specified.
