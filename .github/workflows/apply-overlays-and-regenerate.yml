@@ -15,6 +15,11 @@ on:
         required: true
         type: number
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 jobs:
   apply-and-regenerate:
     runs-on: ubuntu-latest
@@ -450,6 +455,35 @@ jobs:
               throw new Error('Unable to determine PR number');
             }
 
+            const {data: pr} = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber
+            });
+
+            if (pr.draft) {
+              await github.graphql(`
+                mutation($pullRequestId: ID!) {
+                  markPullRequestReadyForReview(input: {pullRequestId: $pullRequestId}) {
+                    pullRequest {
+                      isDraft
+                    }
+                  }
+                }
+              `, {
+                pullRequestId: pr.node_id
+              });
+            }
+
+            if (pr.title.startsWith('[Draft] ')) {
+              await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber,
+                title: pr.title.replace(/^\[Draft\]\s*/, '')
+              });
+            }
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -473,20 +507,11 @@ jobs:
 
             1. **Review the generated documentation** - Check MDX files look correct
             2. **Test locally** - Run \`npm run start\` to preview
-            3. **Request final review** - Mark PR ready for review
-            4. **Merge when approved** - Documentation will be published
+            3. **Merge when approved** - Documentation will be published
 
             ---
 
             *This PR is now ready for final review and approval.*`
-            });
-
-            // Remove draft status
-            await github.rest.pulls.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: prNumber,
-              draft: false
             });
 
       - name: Create summary
