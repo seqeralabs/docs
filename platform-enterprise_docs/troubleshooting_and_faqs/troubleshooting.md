@@ -1,7 +1,8 @@
 ---
-title: "General troubleshooting"
+title: "General"
 description: "Troubleshooting Seqera Platform"
-date: "24 Apr 2023"
+date created: "2023-04-23"
+last updated: "2026-07-16"
 tags: [troubleshooting, help]
 ---
 
@@ -100,6 +101,47 @@ To resolve, modify the Seqera Enterprise configuration:
 
 1. Ensure your `TOWER_DB_DRIVER` uses the specified MariaDB URI.
 2. Modify your `TOWER_DB_URL` to: `TOWER_DB_URL=jdbc:mysql://<domain>:<port>/<database-name>?usePipelineAuth=false&useBatchMultiSend=false`
+
+#### `java.sql.SQLException` time zone errors on login
+
+After login authentication, Seqera presents an `Unexpected error while processing` error, with `java.sql.SQLException` errors related to the server time zone in the backend log:
+
+<details>
+  <summary>Error log</summary>
+
+  ```
+  io.micronaut.transaction.exceptions.CannotCreateTransactionException: Could not open Hibernate Session for transaction
+  …
+  Caused by: org.hibernate.exception.GenericJDBCException: Unable to acquire JDBC Connection
+  …
+  java.sql.SQLException: The server time zone value 'CEST' is unrecognized or represents more than one time zone. You must configure either the server or JDBC driver (via the 'serverTimezone' configuration property) to use a more specific time zone value if you want to utilize time zone support.
+  …
+  ```
+
+</details>
+
+Seqera can't connect to the database because the JDBC client doesn't specify a time zone. Set it with the `serverTimezone` property.
+
+To resolve, append `serverTimezone` to [`TOWER_DB_URL`](../enterprise/configuration/overview#seqera-and-redis-databases). For the `Europe/Amsterdam` time zone:
+
+```bash
+export TOWER_DB_URL="jdbc:mysql://<database-ip>:3306/tower?permitMysqlScheme=true&serverTimezone=Europe/Amsterdam"
+```
+
+#### `java.io.IOException: Unsupported protocol version 252`
+
+When a service is restarted or otherwise interrupted, it can create invalid entries that corrupt your installation's Redis cache. Completed or terminated runs then display as in progress. To resolve, delete the key with the invalid entry (replace `<container-name>` with your container name):
+
+```bash
+## Check if the key exists
+docker exec -ti <container-name> redis-cli keys \* | grep workflow
+
+## Show the hash contents of the key
+docker exec -ti <container-name> redis-cli hgetall "workflow/modified"
+
+## Delete the key
+docker exec -ti <container-name> redis-cli del "workflow/modified"
+```
 
 ## Email and TLS
 
@@ -234,7 +276,126 @@ You can't download the trace logs directly through Seqera, but you can configure
 
 Seqera Platform uses [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) to push real-time updates to your browser. The client must connect to the server's `/api/live` endpoint to start the data stream, and this connection can occasionally fail because of factors like network latency.
 
-To resolve, reload the Platform browser tab to reinitiate the client's connection to the server. If reloading fails, contact [Seqera support](https://support.seqera.io) for help adjusting webserver timeout settings.
+To resolve, reload the Platform browser tab to re-establish the client's connection to the server. If reloading fails, contact [Seqera support](https://support.seqera.io) for help adjusting webserver timeout settings.
+
+## Networking
+
+#### 503 errors during pipeline execution
+
+A 503 error indicates that one or more services that Seqera Enterprise contacts during workflow execution are unavailable. [Database](../enterprise/configuration/overview#seqera-and-redis-databases) connectivity is a common cause.
+
+To resolve, ensure all required services are running and available.
+
+#### `SocketTimeoutException: connect timed out` with self-hosted Git servers
+
+You might see connection timeout errors when launching workflows from a self-hosted Git server, such as Bitbucket or GitLab. If you configured the correct Git credentials in Seqera Enterprise, this error means the `backend/cron` container can't connect to the Git remote host, often because of a missing or incorrect proxy configuration.
+
+<details>
+  <summary>Error log</summary>
+
+  ```
+
+  ERROR i.s.t.c.GlobalErrorController - Unexpected error while processing - Error ID: 6h3HBUkaPe03vgzoDPc5HO
+  java.net.SocketTimeoutException: connect timed out
+          at java.base/java.net.PlainSocketImpl.socketConnect(Native Method)
+          at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:399)
+          at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:242)
+          at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:224)
+          at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+          at java.base/java.net.Socket.connect(Socket.java:609)
+          at java.base/sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:289)
+          at java.base/sun.net.NetworkClient.doConnect(NetworkClient.java:177)
+          at java.base/sun.net.www.http.HttpClient.openServer(HttpClient.java:474)
+          at java.base/sun.net.www.http.HttpClient.openServer(HttpClient.java:569)
+          at java.base/sun.net.www.protocol.https.HttpsClient.<init>(HttpsClient.java:265)
+          at java.base/sun.net.www.protocol.https.HttpsClient.New(HttpsClient.java:372)
+          at java.base/sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.getNewHttpClient(AbstractDelegateHttpsURLConnection.java:203)
+          at java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1187)
+          at java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1081)
+          at java.base/sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:189)
+          at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1592)
+          at java.base/sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1520)
+          at java.base/java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:527)
+          at java.base/sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:334)
+          at nextflow.scm.RepositoryProvider.checkResponse(RepositoryProvider.groovy:167)
+          at nextflow.scm.RepositoryProvider.invoke(RepositoryProvider.groovy:136)
+          at nextflow.scm.RepositoryProvider.memoizedMethodPriv$invokeAndParseResponseString(RepositoryProvider.groovy:218)
+          at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+          at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+          at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+          at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+          at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+          at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+          at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1259)
+          at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1026)
+          at org.codehaus.groovy.runtime.InvokerHelper.invokePogoMethod(InvokerHelper.java:1029)
+          at org.codehaus.groovy.runtime.InvokerHelper.invokeMethod(InvokerHelper.java:1012)
+          at org.codehaus.groovy.runtime.InvokerHelper.invokeMethodSafe(InvokerHelper.java:101)
+          at nextflow.scm.RepositoryProvider$_closure2.doCall(RepositoryProvider.groovy)
+          at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+          at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+          at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+          at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+          at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+          at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+          at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:263)
+          at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1026)
+          at groovy.lang.Closure.call(Closure.java:412)
+          at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction.lambda$call$0(Memoize.java:137)
+          at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:137)
+          at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:113)
+          at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction.call(Memoize.java:136)
+          at groovy.lang.Closure.call(Closure.java:428)
+          at nextflow.scm.RepositoryProvider.invokeAndParseResponse(RepositoryProvider.groovy)
+          at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+          at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+          at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+          at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+          at org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:43)
+          at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:193)
+          at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:61)
+          at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:185)
+          at nextflow.scm.BitbucketRepositoryProvider.getCloneUrl(BitbucketRepositoryProvider.groovy:114)
+          at nextflow.scm.AssetManager.memoizedMethodPriv$getGitRepositoryUrl(AssetManager.groovy:394)
+          at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+          at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+          at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+          at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+          at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+          at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+          at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1259)
+          at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1026)
+          at org.codehaus.groovy.runtime.InvokerHelper.invokePogoMethod(InvokerHelper.java:1029)
+          at org.codehaus.groovy.runtime.InvokerHelper.invokeMethod(InvokerHelper.java:1012)
+          at org.codehaus.groovy.runtime.InvokerHelper.invokeMethodSafe(InvokerHelper.java:101)
+          at nextflow.scm.AssetManager$_closure1.doCall(AssetManager.groovy)
+          at nextflow.scm.AssetManager$_closure1.doCall(AssetManager.groovy)
+          at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+          at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+          at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+          at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+          at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+          at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+          at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:263)
+          at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1026)
+          at groovy.lang.Closure.call(Closure.java:412)
+          at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction.lambda$call$0(Memoize.java:137)
+          at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:137)
+          at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:113)
+          at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction.call(Memoize.java:136)
+          at groovy.lang.Closure.call(Closure.java:406)
+          at nextflow.scm.AssetManager.getGitRepositoryUrl(AssetManager.groovy)
+
+  ```
+
+</details>
+
+To resolve, update the HTTP proxy configuration in the `backend` and `cron` environment with your proxy details:
+
+```bash
+export http_proxy="http://<proxy-server>:<port>"
+export https_proxy="https://<proxy-server>:<port>"
+```
 
 ## Optimization
 
@@ -344,7 +505,7 @@ To resolve, explicitly define the `xpack-amzn` plugin in your configuration:
 
 Tower Agent reconnection logic was improved in version 0.5.0. [Update your Tower Agent](https://github.com/seqeralabs/tower-agent) before relaunching your pipeline.
 
-**Reattach to a running agent**
+#### Reattach to a running agent
 
 When you SSH back to the login node, attach to the agent session at any time:
 
@@ -354,19 +515,19 @@ tmux attach -t tower-agent
 
 You can see the current log output. Detach again with **Ctrl-b**, then **d**, to leave the agent running.
 
-**Agent process stopped**
+#### Agent process stopped
 
 If `tmux ls` shows no sessions, or attaching reveals the agent has exited, restart it as in [Tower Agent setup](../supported_software/agent/overview#start-the-agent-inside-tmux). Common causes: login node reboot, the process killed for exceeding login-node resource limits, or a revoked access token.
 
-**Agent shows as disconnected in Seqera Platform**
+#### Agent shows as disconnected in Seqera Platform
 
 If Seqera Platform shows the agent as disconnected while it's running on the cluster, verify that the **Agent Connection ID** in your workspace credential exactly matches the argument you passed to `tw-agent`.
 
-**_Authentication errors_ on agent startup**
+#### _Authentication errors_ on agent startup
 
 Personal access tokens can be revoked or expire. If the agent logs authentication errors, generate a new token in Seqera Platform and restart the agent with the updated `TOWER_ACCESS_TOKEN` value.
 
-**_Permission denied_ on the work directory**
+#### _Permission denied_ on the work directory
 
 The agent needs read and write access to the work directory. If launches fail with permission errors, confirm that the directory exists and is owned by the user running the agent:
 
@@ -374,7 +535,7 @@ The agent needs read and write access to the work directory. If launches fail wi
 mkdir -p ~/work
 ```
 
-**Enable trace logging**
+#### Enable trace logging
 
 To diagnose connection or execution issues in detail, enable trace-level logging:
 
