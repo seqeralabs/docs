@@ -2,7 +2,7 @@
 title: "Production checklist"
 description: "A pre-production checklist for Seqera Platform."
 date created: "2025-07-03"
-last updated: "2026-03-25"
+last updated: "2026-04-07"
 tags: [production, checklist, deployment, limitations, retry]
 ---
 
@@ -82,6 +82,17 @@ Do not rotate credentials during active pipeline runs. Schedule rotations during
 :::
 
 Use [Pipeline Secrets](../secrets/overview) to manage sensitive values such as API keys for third-party services. Secrets are injected at runtime and are not exposed in pipeline logs or configuration files.
+
+## Disaster recovery planning
+
+Teams often discover gaps in disaster recovery planning only when they are asked to prepare for an audit or simulation exercise. Before go-live:
+
+- Define your recovery time objective (RTO) and recovery point objective (RPO).
+- Decide whether your DR scenario assumes in-place recovery or full account recreation.
+- Verify that you back up the Seqera database, deployment configuration, secrets, TLS assets, and external dependency configuration on a schedule that matches your RPO.
+- Run at least one recovery drill in a non-production environment and record the real recovery time and manual steps required.
+
+See [Disaster recovery](../enterprise/disaster-recovery) for a deployment-focused recovery planning guide.
 
 ## Compute environment permissions
 

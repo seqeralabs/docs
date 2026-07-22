@@ -204,6 +204,8 @@ To configure Seqera Enterprise for high availability, note that:
 - The `cron` service may only have a single instance
 - The `groundswell` service may only have a single instance
 
+For backup, restore, and validation planning, see [Platform disaster recovery](./disaster-recovery).
+
 [aws-configure-ingress]: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/guide/ingress/annotations/
 [azure-configure-ingress]: https://docs.microsoft.com/en-us/azure/application-gateway/ingress-controller-annotations
 [google-configure-ingress]: https://cloud.google.com/kubernetes-engine/docs/concepts/ingress
