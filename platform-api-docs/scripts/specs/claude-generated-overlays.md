@@ -248,7 +248,7 @@ actions:
     update: "Filter logs with timestamp on or before this date in ISO 8601 format."
 
   - target: "$.paths['/admin/audit-logs-v2/{auditLogId}'].get.parameters[?(@.name=='attributes')].description"
-    update: "Additional attribute values to include in the response. Accepts `state` for pre/post change images. Returns an empty value if omitted."
+    update: "Additional attribute values to include in the response. Accepts `state` for pre/post change images."
 ```
 
 ## admin-schemas-overlay-1.181.0.yaml
