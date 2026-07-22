@@ -76,7 +76,7 @@ Ask your Google Cloud administrator to grant you the following IAM user permissi
 - View Service Accounts (`roles/iam.serviceAccountViewer`) on the project
 
 :::note
-If you use per-bucket grants instead of project-wide Storage Admin, your service account also needs `storage.buckets.list` at the project level. Seqera uses this permission to populate the bucket selector in the compute environment form and to verify that your work directory bucket exists at creation time. Without it, the bucket selector shows no results and bucket-name validation is skipped — a mistyped bucket name will not be caught until a pipeline fails at runtime. Grant this permission via a custom role or by adding the Storage Legacy Bucket Reader role (`roles/storage.legacyBucketReader`) to the service account at the project level.
+If you use per-bucket grants instead of project-wide Storage Admin, you must also grant `storage.buckets.list` at the project level. Seqera uses this permission to periodically validate your credentials — without it, credential validation fails and your compute environment is marked invalid. Grant it via a custom role or by adding `roles/storage.legacyBucketReader` on the project.
 :::
 
 #### Authentication methods
