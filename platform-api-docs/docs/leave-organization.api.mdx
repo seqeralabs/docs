@@ -5,7 +5,7 @@ description: "Removes the requesting user from the organization identified by th
 sidebar_label: "Leave organization"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVE1v1DAQ/SuWTyAtyRZWHPZEC4tUUUFVyqlaqU4y2bh1bNd2tixR/jszTtL9FHDk5I959ryZ9+yWB7HyfH7HjcNxOeEF+NxJG6TRfM5voDZr8CxUwBw8NeCD1CvWeHCsdKaOATwqtPwl6AyTBeggSwkFyzYxvJJr0OweUZfFfcJuT1xVNz4wbQLLoL9Rqw0zzxpDpjzKkfAJNxZcXFwWSPMKxBq+7UAQYYUTNQRwVF7LNS4QGVlgVFJ1VoSKH5a8ew3TTQ1O5tuqHCUn+tIBZg6ugQn3eQW14POWh42lLFIHWIFDaGlcLUK/9X7Gu25Jx7012oOnE2+nMxoOOHxhb9hXw3KDF+nAuwmfTafHuAtRjL3EXCMaYcJaJfNYQ/rgCdvusNzyv+M1eC9WQNIP5E32ADndZx11Ocie6AjcVumDQwWxJjwqg6KthXPG3Qz1YaSLzN+dqHDUL8oulDLPyIfgHvLGybCJql2AcODOG9Rpfrek5qGklSHNC1CobhSaojwlB6dtFLhLa6gzlD5V5AxOt7r1aIXGKcRXIVg/T1NhZZIr0xSJhycklUhz5InvMcKulQgkKPtIeHZ+fcmJ0sj4OzW4b9Yu75d+UUY+uIXWWQThTj/5PFrl4TnETkhdmnh8aO7AgtL+jSCVK3N8uD2YnCHy6Iz94ndLRnNIFZ1amg/bABKhzvV5zpKz2TSZ0qY1PtQiOmt4W/EV7r3UQ57t1qP/79cyqBXgZ0itEvhTYLWxbe3gteG3nPD5+J0MdsNZbzh0RYX9IWjbZsLDD6e6jraRnSNv43QtnBQZSYumLKSnOTq7FMrDHxr36mZ4vq/ZP/xVJ6sZNoXecKKhGlrh9BE2L39kt0RgBaJAixLBPnae52DDzqmjn2bvkX5aXC1uFwgX+0/hwPoxwUlS2L2IuDWPoLGDI8dAa+LYdb8BGxNX1w==
+api: eJzNVE1v2zAM/SsCTxugJelW7ODT2i0DihVb0XWnIEAVm3HU2pJL0ekyQ/99oOI0n9h23MmWSJHvkY/sgE0ZIJuApzLAVEOBISfbsPUOMrjF2i8xKF6gInxqMbB1pWoDkpqTr5PBU2mc/WXkjbIFOrZzi4WarZK5tEt06t5TeVXcD9TdiVB1G1g5z2qG64iuWin/7JCUnx/lGIAG3yClw1UBGVyjWeK3HRfQ0BgyNTKS0OvAmRohg4QCNFhh1xhewCHl3TDKtTWSzbesSJILfEtYQMbUooaQL7A2kHXAq0ayWMdYIoGGuafa8Prq/TnEOJXnofEuYJAXb0fn8jnA8EW9UV+9yr1jdAxRw/lodOx3aYpNLUHDxjvrwDRNZfPEYfgQxLfbQbnFP4EaQzAlSut78H72gLnEa0iqzHYNdOO4ZRmYrCshRg1suZKrMZGn254fxBgT8ncnGG76l9puqso/Y5FCBcxbsrxKXbtEQ0gXLS8gm0yleDXywkvPC6yQMTVarDAUBQ+71OA4rLGeIYVhJcoAiUrLjRRaqiCDBXMTsuHQNHaQV74tBgGfkMzA+iNNfE8WdVMZloaqj+KvLm6uQCBtEH+XAq+LtYv7pV6SEXq1yHmWnED3P583Unl45lQJ6+Y+Pe+L26OQtH8DKHRtjqF3FmWYPCljn/wuZayNrZJS5/7D1hA1SOXWec4GZ+ejwUguGx+4NklZ/WylKdyb1EOc3Vaj/+9q6bvF+JOHTWWsE7apbF2vtX5basg266SXG2hYC26qYeEDi2vXzUzAH1TFKNdPLZJoe6phaciambR20kFhg/wXkM1NFfAPhXt124/va/UPu+okm/7SuBUIjKqVE2h4xNXLjozTqGGBpkBKANe2izzHhndeHW2avSH9NL4e341Bg9kfhQPppwQnQXXd2uPOP6KL8QUjy1kwxvgbGxNX1w==
 sidebar_class_name: "delete api-method"
 info_path: platform-api//seqera-api
 custom_edit_url: null
@@ -32,7 +32,7 @@ import Translate from "@docusaurus/Translate";
   path={"/orgs/{orgId}/members/leave"}
   context={"endpoint"}
 >
-
+  
 </MethodEndpoint>
 
 
@@ -50,17 +50,20 @@ Removes the requesting user from the organization identified by the given `orgId
 <ParamsDetails
   {...require("./leave-organization.ParamsDetails.json")}
 >
-
+  
 </ParamsDetails>
 
 <RequestSchema
   {...require("./leave-organization.RequestSchema.json")}
 >
-
+  
 </RequestSchema>
 
 <StatusCodes
   {...require("./leave-organization.StatusCodes.json")}
 >
-
+  
 </StatusCodes>
+
+
+      

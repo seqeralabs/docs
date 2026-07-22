@@ -5,7 +5,7 @@ description: "Removes the member identified by the given `memberId` from the org
 sidebar_label: "Delete organization member"
 hide_title: true
 hide_table_of_contents: true
-api: eJzdVU1vEzEQ/SuWTyCFJIWIQ060tEgVX1UppypSnd1J1u2u7Y69CWG1/50Z70eSphRUiQunrD3P4zfPbyaVDGrp5fRaWqTf2UCm4BPULmhr5FReQmFX4EXIQBRQzAGFTsEEvdCQivkmBpZ6BUbcNPHz9EYs0BYxQkmV0T8VZ/v9QULRqaG4yrQX1gE2eJV7K/CQQMyu8lysLd55pxIKr3XItDm4cygHsk94nlJBp5BDgK87mM8xKwGdQlVQEFmPShpa0IFIjqKa5XAqZPKhRrvJhCkLQJ1si0XmgHBfagQiELCEgfRJBoWS00qGjeNbtAmwjCwWFgsVmq23E1nXg55KJ/CTbJpy/gGPGR/3zhoPnk+8Hk/454EWH8Ur8cWKxFIiE2Q9kJPx+BB3olLBZMAHuqtDE0w5l+skajm69Yytdlhu+V+TGt6rJbBnW/J2fgsJ53PIjx50Q7QDbqv0AbVZsrYy6JDz1hmixcu2PorUkfmbRyrs/WlsYBvaNfFhuIekRB020T0noBDwuKQXml7PWDyyVmbZgmm0YDQcR+WIW29URaPVo+aRad29di05Na46X5aY06EsBOeno5FyepjktkyHHu6J2VDbA0t8ixFxkavAryreM14cX5xL5tXR/sYqN4rtku9F4xtlaxlezyOIdpqPD51fbtchyqHNwsbjrcItC772TwS5XM1t3YDZHiqJ9tgvfrdkcojOo10X9t02QERYueaeo+HRZDwc86azPhQq2qvtrmYy7I+sopsNe3yrrWH/hwHZvm+AH2HkckWjhfSJQletRdt/h4GcdtOwdSlv9VOJvJSRqgyvqrny8B3zuuZt6nPktqDPlUKt5mwIsnKqPX9TUyyoFnhC5heXbee/FH8xbh+tqN1UZiOZRl7yij7vYNOPeR62zyL15NR9Bp1e1HpG2AxUSjZkyZrwcZKACzsHD8bm3sQ5Pft0dnVGcLXf0g9aOF7wKC96z4i4sndg6rqnGXjNHOv6FyUX394=
+api: eJzdVU1v2zAM/SsCTxvgxekW7ODT2jUDgn0VXXcKAlSxmVitLbkSnS4z9N8Hyh9Jmq4bCuyyUyySIh+fHpkGSK4dJHMwdu1gEUGGLrWqImU0JHCJpdmgE5SjKLFcohUqQ01qpTATy21wrNUGtbhu/bPsWqysKYPH2LXU6qfkbL+/aOx6ll2PxFWunDAV2jZeFs4IewwgZJdFIe6NvXWVTNGJe0W50kc1RxDBkHCWQQLnWCDh172YzyErRFBJK0sktMxHA1qWCAkEcBCBYjoqSTk85Gg/mdB1iValu2YtY7B4VyuLGSRka4zApTmWEpIGaFtxFaUJ1wHFythSUmt6OwHvowFKT/CTaNp2/gGOBV93ldEOHd94PZ7wzwMuPopX4osRqdGEmsBHMBmPj+POZCYYDDqCCPropAFZVYVKA5fxjePYZg/lDv8cSnROrpE124E3yxtMOV9l+dFJtUD7wF2XjqzSa+YWSFHBpqm1xl52/YH3PiB/80iHgz61IZahuccspHKY1lbRNqjnDKVFe1pTDsl8weSVSLlhCWZBgkFw7IWYRy9ugtB83D6yi5v+tT1warvpdVnbAhLIiSqXxLGs1CgtTJ2NHN6hlSNljiTxLXjERSGJX1W853hxejEDxtXD/sYst4ztgx9I44rQSYbPyxAEUffxodfLzT0FOpRemXC9Y7hDwWX/BJDbVTzWbTDLQ6ZBHofN77eMpVRFkOvKvNs5fATMXFvnZHQyGY/GbKyMo1IGeXXT1W6Gw5VV9rvhAG+zE+z/sCC79yX8QXFVSKWZn0B000m0+3eIIOm3YadSNg1baRFBbhxxeNMspcPvtvCezXc1Wh6LRQQbaZVcsiDmDWTK8XcGyUoWDp+g+cVlN/kvxV+s20c76oxSb4FhFDWfIIJb3A5rnpfts0A9uXWfAWcg1S98BDnKDG2grHWfpilWtHfxaG0ebJzz6afp1RQikIcj/WCEQ4FHcTVNG3FlblF7P8AkPjNG738BJRff3g==
 sidebar_class_name: "delete api-method"
 info_path: platform-api//seqera-api
 custom_edit_url: null
@@ -32,7 +32,7 @@ import Translate from "@docusaurus/Translate";
   path={"/orgs/{orgId}/members/{memberId}"}
   context={"endpoint"}
 >
-
+  
 </MethodEndpoint>
 
 
@@ -50,17 +50,20 @@ Removes the member identified by the given `memberId` from the organization iden
 <ParamsDetails
   {...require("./delete-organization-member.ParamsDetails.json")}
 >
-
+  
 </ParamsDetails>
 
 <RequestSchema
   {...require("./delete-organization-member.RequestSchema.json")}
 >
-
+  
 </RequestSchema>
 
 <StatusCodes
   {...require("./delete-organization-member.StatusCodes.json")}
 >
-
+  
 </StatusCodes>
+
+
+      
