@@ -67,10 +67,6 @@ By default, Google Cloud Batch uses the default Compute Engine service account t
 
 If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below.
 
-:::note
-If you use per-bucket grants instead of project-wide Storage Admin, your service account will not have `storage.buckets.list` at the project level. Seqera uses this permission when you create a compute environment to populate the bucket selector in the form and to verify that your configured work directory bucket exists. Without it, the bucket selector shows no results and Seqera cannot validate the bucket name at creation time — a mistyped bucket name will not be caught until a pipeline fails at runtime. To avoid this, also grant the `storage.buckets.list` permission at the project level, either through a custom role or by adding the Storage Legacy Bucket Reader role (`roles/storage.legacyBucketReader`) on the project.
-:::
-
 #### User permissions
 
 Ask your Google Cloud administrator to grant you the following IAM user permissions to interact with your custom service account:
@@ -78,6 +74,10 @@ Ask your Google Cloud administrator to grant you the following IAM user permissi
 - Batch Job Editor (`roles/batch.jobsEditor`) on the project
 - Service Account User (`roles/iam.serviceAccountUser`) on the job's service account (default: Compute Engine service account)
 - View Service Accounts (`roles/iam.serviceAccountViewer`) on the project
+
+:::note
+If you use per-bucket grants instead of project-wide Storage Admin, your service account also needs `storage.buckets.list` at the project level. Seqera uses this permission to populate the bucket selector in the compute environment form and to verify that your work directory bucket exists at creation time. Without it, the bucket selector shows no results and bucket-name validation is skipped — a mistyped bucket name will not be caught until a pipeline fails at runtime. Grant this permission via a custom role or by adding the Storage Legacy Bucket Reader role (`roles/storage.legacyBucketReader`) to the service account at the project level.
+:::
 
 #### Authentication methods
 
