@@ -9,6 +9,9 @@
 .cache-loader
 .cache
 
+# Output from .github/scripts/docs-diff-since-release.sh
+since-*.md
+
 # Misc
 .env
 .DS_Store
