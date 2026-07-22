@@ -53,6 +53,13 @@ Nextflow_log_CL | where workflowId == "<WORKFLOW_ID>"
 
 The table retains logs for 7 days. Nextflow uploads log files to Azure Storage for long-term storage.
 
+## Networking
+
+Azure Cloud compute environments use a private-only networking model:
+
+- **No public IP**: VMs are launched without a public IP address. All connectivity between Seqera Platform and the VM is routed via private networking. If you specify a BYO VNet, ensure it has outbound connectivity to Azure services (Storage, Entra ID, Log Analytics) and to Seqera Platform.
+- **Entra ID only**: Azure Cloud credentials require Microsoft Entra ID (client ID and client secret). Storage account key–based credentials are not supported. This applies to both the Forge-provisioned VNet and any BYO VNet.
+
 ## Requirements
 
 ### Platform credentials
