@@ -1,4 +1,3 @@
-I'll generate the OpenAPI overlay files for version 1.181.0, organized by controller/tag. I'll create operations, parameters, and schemas overlays for each affected area.
 
 # Actions Overlays
 
