@@ -80,30 +80,6 @@ To ensure compute-specific settings are applied consistently:
 - Use the launch form's **Nextflow config file** field for settings that must take precedence over everything else.
 :::
 
-## Nextflow version
-
-Select the Nextflow version for the run. The selector lists the versions available in your installation and maps your choice to the launch container image that runs the workflow.
-
-The default version is:
-
-- **Pipeline advanced options**: the system default version, or the compute environment type's minimum version when that minimum is higher.
-- **Launch advanced options**: the version saved on the pipeline, when it is compatible with the selected compute environment. If the pipeline's saved version is below the minimum required by the compute environment, no version is preselected and you must choose a compatible version before the launch can proceed.
-
-Version availability depends on the compute environment:
-
-- **Cloud and Kubernetes** compute environments (AWS Batch, Azure Batch, Google Batch, Kubernetes) support version selection. You cannot select versions below the compute environment's minimum. A launch submitted with a lower or unknown version through any channel (UI, API, or CLI) is rejected before execution.
-- **Grid/HPC** compute environments (Slurm, LSF, Grid Engine, Altair PBS Pro, Moab) run a pre-installed Nextflow and have no launch container. The version selector does not appear for them, and a version carried over from a pipeline default has no effect when you launch on a grid environment.
-
-Changing only the Nextflow version on a pipeline registers a new pipeline version, because the version determines the runtime that executes the workflow.
-
-:::note
-Use the **Nextflow version** selector instead of setting `NXF_VER` in a pre-run script or the pipeline configuration. If `NXF_VER` is set in the pipeline configuration, it overrides the version selected here.
-:::
-
-:::caution
-When your installation pins a custom launch container with [`TOWER_LAUNCH_CONTAINER`](../enterprise/advanced-topics/custom-launch-container), that image determines the Nextflow runtime for every run. The version selector is hidden on all compute environments and any selected version has no effect.
-:::
-
 ## Seqera Cloud config file
 
 Configure per-pipeline Seqera reporting behavior. Settings specified here override the same settings in the `tower.yml` [configuration file](../enterprise/configuration/overview) for this execution. Use the `reports` key to specify report paths, titles, and MIME types:
@@ -152,6 +128,30 @@ Instruct Nextflow to pull the latest pipeline version from the pipeline reposito
 ## Stub run
 
 Replace Nextflow process commands with command [stubs](https://docs.seqera.io/nextflow/process#stub), where defined, before execution.
+
+## Nextflow version
+
+Select the Nextflow version for the run. The selector lists the versions available in your installation and maps your choice to the launch container image that runs the workflow.
+
+The default version is:
+
+- **Pipeline advanced options**: the system default version, or the compute environment type's minimum version when that minimum is higher.
+- **Launch advanced options**: the version saved on the pipeline, when it is compatible with the selected compute environment. If the pipeline's saved version is below the minimum required by the compute environment, no version is preselected and you must choose a compatible version before launching.
+
+Version availability depends on the compute environment:
+
+- **Cloud and Kubernetes** compute environments (AWS Batch, Azure Batch, Google Batch, Kubernetes) support version selection. You cannot select versions below the compute environment's minimum. Platform rejects any launch submitted with a lower or unknown version through any channel (UI, API, or CLI) before execution.
+- **Grid/HPC** compute environments (Slurm, LSF, Grid Engine, Altair PBS Pro, Moab) run a pre-installed Nextflow and have no launch container. The version selector does not appear for them, and a version carried over from a pipeline default has no effect when you launch on a grid environment.
+
+Changing only the Nextflow version registers a new pipeline version, because the version determines the runtime that runs the workflow.
+
+:::note
+Use the **Nextflow version** selector instead of setting `NXF_VER` in a pre-run script or the pipeline configuration. If `NXF_VER` is set in the pipeline configuration, it overrides the version selected here.
+:::
+
+:::caution
+When your installation pins a custom launch container with [`TOWER_LAUNCH_CONTAINER`](../enterprise/advanced-topics/custom-launch-container), that image determines the Nextflow runtime for every run. The version selector is hidden on all compute environments and any selected version has no effect.
+:::
 
 ## Enable Nextflow syntax parser v2
 
