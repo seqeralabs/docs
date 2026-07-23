@@ -322,7 +322,7 @@ Create a Batch Forge Azure Batch compute environment:
     ```
 
     :::note
-    VNet/subnet configuration requires Entra credentials. This field is only available when Entra credentials are selected. If no subnet ID is provided, default networking is used.
+    VNet/subnet configuration requires Entra credentials. This field is only available when Entra credentials are selected. If no subnet ID is provided, default networking is used. The service principal must have the **Network Contributor** role (or `Microsoft.Network/virtualNetworks/subnets/join/action`) on the VNet, otherwise pool creation fails.
     :::
 
 11. Set the **Config mode** to **Batch Forge**.
@@ -510,7 +510,7 @@ The following settings can be modified after creating a pool:
    ```
 
    :::note
-   VNet/subnet configuration requires Entra credentials. This field is only available when Entra credentials are selected. If no subnet ID is provided, default networking is used.
+   VNet/subnet configuration requires Entra credentials. This field is only available when Entra credentials are selected. If no subnet ID is provided, default networking is used. The service principal must have the **Network Contributor** role (or `Microsoft.Network/virtualNetworks/subnets/join/action`) on the VNet, otherwise pool creation fails.
    :::
 
 10. Set the **Config mode** to **Manual**.
