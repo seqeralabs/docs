@@ -121,6 +121,23 @@ process {
 }
 ```
 
+- GPU-accelerated containers (such as NVIDIA Parabricks) bundle a specific CUDA runtime. The compute environment's AMI must ship an NVIDIA driver whose version is compatible with the container's CUDA runtime. When **Enable GPUs** is set, Batch Forge selects the current AWS-recommended GPU-optimized ECS AMI. If you override **AMI ID** under **Advanced options**, confirm that the custom AMI's NVIDIA driver satisfies your container's CUDA version. See the [NVIDIA CUDA compatibility matrix](https://docs.nvidia.com/deploy/cuda-compatibility/) for supported driver versions.
+
+#### Troubleshoot GPU driver and CUDA compatibility errors
+
+If a GPU-enabled task fails immediately with an error similar to:
+
+```
+CUDA safe call. System has unsupported display driver / CUDA driver combination exiting
+```
+
+the container's CUDA runtime is newer than the NVIDIA driver installed on the compute environment's AMI. To resolve:
+
+- **Update the AMI to one with a newer NVIDIA driver.** Use the latest AWS-recommended GPU-optimized ECS AMI (the default when **Enable GPUs** is set), or build a custom AMI with a driver version that meets your container's CUDA requirement. Consult the [NVIDIA CUDA compatibility matrix](https://docs.nvidia.com/deploy/cuda-compatibility/) to identify the minimum driver version.
+- **Pin the container to a supported CUDA version.** If you cannot upgrade the AMI, use a container image built against a CUDA runtime that your installed driver supports. For example, NVIDIA Parabricks publishes multiple image tags — select one whose CUDA version matches your AMI's driver.
+
+To confirm the active driver on a GPU task, check the [GPU metrics](#gpu-metrics) reported for that task — the **Driver version** field surfaces the driver in use.
+
 ### GPU metrics
 
 :::note
