@@ -1,7 +1,8 @@
 ---
 title: "Seqera AI CLI"
 description: "AI-powered assistant for bioinformatics workflows and Seqera Platform"
-date: "2025-12-15"
+date created: "2025-12-15"
+last updated: "2026-07-23"
 tags: [seqera ai, cli, ai]
 ---
 
@@ -13,7 +14,7 @@ Seqera AI CLI is currently in beta. Features and commands may change as we conti
 Qualifying Seqera Cloud users receive $100 in free credits to get started with Co-Scientist. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) to purchase additional credits.
 :::
 
-Seqera CLI is an intelligent command-line assistant that helps you build, run, and manage bioinformatics workflows. Powered by advanced AI, it provides an interactive terminal experience for working with Nextflow pipelines and Seqera Platform.
+Seqera AI CLI is an intelligent command-line assistant that helps you build, run, and manage bioinformatics workflows. Powered by advanced AI, it provides an interactive terminal experience for working with Nextflow pipelines and Seqera Platform.
 
 Seqera AI has access to:
 
