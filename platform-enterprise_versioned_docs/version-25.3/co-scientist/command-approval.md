@@ -1,7 +1,8 @@
 ---
 title: "Command approval"
 description: "Control which local commands require user approval in Seqera AI"
-date: "15 Dec 2025"
+date created: "2025-12-15"
+last updated: "2026-07-23"
 tags: [seqera ai, cli, approval, security]
 ---
 
@@ -13,7 +14,7 @@ Seqera AI CLI is currently in beta. Features and commands may change as we conti
 Qualifying Seqera Cloud users receive $100 in free credits to get started with Co-Scientist. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) to purchase additional credits.
 :::
 
-Co-Scientist can execute local commands and edit files in your environment. This page explains approval modes that control which operations run automatically versus which require your permission, including dangerous commands, workspace boundaries, and best practices.
+Seqera AI can execute local commands and edit files in your environment. This page explains approval modes that control which operations run automatically versus which require your permission, including dangerous commands, workspace boundaries, and best practices.
 
 ## Approval prompts
 
