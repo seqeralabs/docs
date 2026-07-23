@@ -1,7 +1,8 @@
 ---
 title: "Authentication"
 description: "Login, logout, and session management for Seqera AI CLI"
-date: "15 Dec 2025"
+date created: "2025-12-15"
+last updated: "2026-07-23"
 tags: [seqera ai, cli, authentication, login]
 ---
 
@@ -13,7 +14,7 @@ Seqera AI CLI is currently in beta. Features and commands may change as we conti
 Qualifying Seqera Cloud users receive $100 in free credits to get started with Co-Scientist. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) to purchase additional credits.
 :::
 
-Co-Scientist uses your Seqera Platform account for authentication. This page describes authentication concepts and step-by-step instructions for managing your sessions.
+Seqera AI uses your Seqera Platform account for authentication. This page describes authentication concepts and step-by-step instructions for managing your sessions.
 
 ## Authenticating Seqera AI
 
