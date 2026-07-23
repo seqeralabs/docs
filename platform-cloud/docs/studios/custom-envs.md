@@ -44,14 +44,14 @@ To create a Studio with custom Conda packages, see [Add a Studio][add-s].
 
 For advanced use cases, you can build your own container image.
 
-Public container registries are supported by default. Amazon Elastic Container Registry (ECR) is the only supported private container registry.
+Public container registries are supported by default. [Amazon Elastic Container Registry (ECR)][ecr] and [Azure Container Registry (ACR)][acr] are the currently supported private container registries.
 
 :::info[**Prerequisites**]
 
 You need the following:
 
 - A container image.
-- Access to a container image repository, either a public container registry or a private Amazon ECR repository.
+- Access to a container image repository, either a public container registry or a private Amazon ECR or Azure ACR repository.
 
 :::
 
@@ -155,3 +155,5 @@ To inspect the status of a build, complete the following:
 [wave-home]: https://seqera.io/wave/
 [env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually
 [example-studios]: ./example-studios
+[ecr]: https://aws.amazon.com/ecr/
+[acr]: https://azure.microsoft.com/en-us/products/container-registry
