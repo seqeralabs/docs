@@ -168,7 +168,7 @@ This role definition can be applied as-is for convenience, or it can be broken d
 
 #### Compute environment creation
 
-The following permissions are required to provision resources in the Azure account when first creating the compute environment. If you specify an existing virtual network, the `virtualNetworks/write`, `subnets/write` permissions are not required, as Seqera skips network provisioning entirely.
+The following permissions are required to provision resources in the Azure account when first creating the compute environment. If you specify an existing virtual network, `Microsoft.Network/virtualNetworks/write` and `Microsoft.Network/virtualNetworks/subnets/write` can be omitted from this role, as Seqera skips network provisioning and never writes to your VNet or its subnets.
 
 ```json
 {
