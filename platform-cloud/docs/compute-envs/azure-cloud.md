@@ -168,7 +168,7 @@ This role definition can be applied as-is for convenience, or it can be broken d
 
 #### Compute environment creation
 
-The following permissions are required to provision resources in the Azure account when first creating the compute environment:
+The following permissions are required to provision resources in the Azure account when first creating the compute environment. If you specify an existing virtual network, the `virtualNetworks/write`, `subnets/write` permissions are not required, as Seqera skips network provisioning entirely.
 
 ```json
 {
@@ -473,4 +473,4 @@ Create a compute environment in Seqera using the credentials:
   The VNet must exist in the same location as the compute environment. Specifying a VNet that does not exist in the location, or a subnet that does not belong to the selected VNet, causes compute environment creation to fail.
   :::
 
-- **Subnets**: One or more subnet names within the selected VNet. VMs are placed in the first listed subnet at launch time. Leave blank to use the first available subnet on the VNet. This field has no effect when no VNet is specified.
+- **Subnets**: One or more subnet names within the selected VNet. VMs are placed in the first listed subnet at launch time. Leave blank to use the first available subnet on the VNet. This field has no effect when no VNet is specified. Any [network security groups (NSGs)](https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview) attached to the selected subnet are applied to VMs launched in this compute environment.
