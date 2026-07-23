@@ -39,7 +39,7 @@ When a credential fails this check, Platform marks it **INVALID** and records th
 
 ### 2. Compute environment validation
 
-Runs approximately every 12 hours across all `AVAILABLE` compute environments. Platform checks the linked credential status. If the credential is `INVALID`, the compute environment is marked `INVALID` immediately.
+Seqera checks the associated credential status. If the credential is `INVALID`, the compute environment is marked `INVALID` immediately.
 
 A compute environment marked `INVALID` displays a banner with the error message. An `AVAILABLE` compute environment has its `lastValidated` timestamp refreshed.
 
