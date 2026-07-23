@@ -10,7 +10,7 @@ Seqera AI CLI is currently in beta. Features and commands may change as we conti
 :::
 
 :::note
-Seqera Cloud users receive $20 in free credits to get started with Co-Scientist. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) to purchase additional credits.
+Qualifying Seqera Cloud users receive $100 in free credits to get started with Co-Scientist. [Contact us](https://seqera.io/platform/seqera-ai/request-credits/) to purchase additional credits.
 :::
 
 ## Get started
