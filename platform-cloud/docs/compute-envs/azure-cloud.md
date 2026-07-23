@@ -168,7 +168,12 @@ This role definition can be applied as-is for convenience, or it can be broken d
 
 #### Compute environment creation
 
-The following permissions are required to provision resources in the Azure account when first creating the compute environment. If you specify an existing virtual network, `Microsoft.Network/virtualNetworks/write` and `Microsoft.Network/virtualNetworks/subnets/write` can be omitted from this role, as Platform skips network provisioning and never writes to your VNet or its subnets.
+The following permissions are required to provision resources in the Azure account when first creating the compute environment. 
+
+
+- If you specify an existing virtual network:
+    -  `Microsoft.Network/virtualNetworks/write` and `Microsoft.Network/virtualNetworks/subnets/write` can be omitted from this role, as Platform skips network provisioning and never writes to your VNet or its subnets.
+    - `Microsoft.Network/virtualNetworks/delete` and `Microsoft.Network/virtualNetworks/subnets/delete` become optional.
 
 ```json
 {
