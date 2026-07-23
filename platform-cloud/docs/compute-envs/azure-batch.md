@@ -230,6 +230,10 @@ There are two ways to create an Azure Batch compute environment in Seqera Platfo
 - [**Batch Forge**](#batch-forge): Automatically creates Azure Batch resources.
 - [**Manual**](#manual): For using existing Azure Batch resources.
 
+:::tip
+For a worked, end-to-end walkthrough of Azure Batch topologies (separate pools, Entra authentication, and private networking), see the [Azure Batch setup tutorial](../enterprise/advanced-topics/manual-azure-batch-setup).
+:::
+
 ### VM size considerations
 
 Azure Batch requires you to select an appropriate VM size for your compute environment. There are a number of considerations when selecting VM sizes — See [Sizes for virtual machines in Azure][az-vm-sizes] for more information.
