@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-06-09"
+last updated: "2026-07-24"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -10,7 +10,7 @@ When working with Studios, you might encounter the following issues.
 
 ## Sessions
 
-#### Session is stuck in **starting**
+### Session is stuck in **starting**
 
 If your Studio session doesn't advance from **starting** status to **running** status within 30 minutes, and you are a **Maintain** role or higher, select the three dots next to the status message for the Studio you want to stop, then select **Stop**.
 
@@ -18,31 +18,35 @@ If you are not a **Maintain** or higher user but you have access to the AWS Cons
 
 If sufficient compute resources aren't available, select **Stop** for the session and any others that are running before trying again. If you have access to the AWS Console for your organization, you can terminate a specific session from the AWS Batch Jobs page (filtering by compute environment queue).
 
-#### Session status is **errored**
+### Session is stuck in **stopping**
 
-The **errored** status is generally related to problems creating the Studio session resources in the compute environment, such as invalid credentials, insufficient permissions, or network issues. It can also be related to insufficient compute resources set in your compute environment configuration. Contact your organization's AWS administrator if you don't have access to the AWS Console, and contact your Seqera account executive to investigate.
+If your Studio session doesn't advance from **stopping** status to **stopped** status within 10 minutes, select **Force stop**. This action will skip the intermediate **canceling** status. Data recovery on the next Studio session start is handled by the existing checkpoint revalidation. **Force stop** is disabled when below the default 10 minute threshold. This can be customized for Enterprise deployments of Seqera Platform using the `TOWER_DATA_STUDIO_FORCE_STOP_THRESHOLD` environment variable.
 
-#### Session can't be **stopped**
+### Session status is **errored**
+
+The `errored` status is generally related to problems creating the Studio session resources in the compute environment, such as invalid credentials, insufficient permissions, or network issues. It can also be related to insufficient compute resources set in your compute environment configuration. Contact your organization's AWS administrator if you don't have access to the AWS Console, and contact your Seqera account executive to investigate.
+
+### Session can't be **stopped**
 
 If you can't stop a session, the Batch job running the session usually failed. If you have access to the AWS Console for your organization, stop the session from the compute environment screen. Contact your organization's AWS administrator if you don't have access to the AWS Console, and contact your Seqera account executive to investigate.
 
-#### Session performance is poor
+### Session performance is poor
 
 A slow or unresponsive session might be caused by its AWS Batch compute environment being used for other jobs, such as running Nextflow pipelines. The compute environment schedules jobs to the available compute resources. Sessions compete for resources with the Nextflow pipeline head job. Seqera does not currently give either precedence.
 
 If you have access to the AWS Console for your organization, check the jobs associated with the AWS Batch compute environment and compare the resources allocated with its **Compute resources** settings.
 
-#### Memory allocation of the session is exceeded
+### Memory allocation of the session is exceeded
 
 The running container in the AWS Batch compute environment inherits the memory limits specified by the session configuration when adding or starting the session. The kernel then handles the memory as if running natively on Linux. Linux can overcommit memory, leading to possible out-of-memory errors in a container environment. The kernel has protections to prevent this, but when it happens, the kernel kills the process. This can manifest as a performance lag, killed subprocesses, or at worst, a killed session.
 
 Seqera creates automated snapshots of running sessions every five minutes. If the running container is killed, you lose only the changes made after the prior snapshot.
 
-#### Session with GPUs doesn't start
+### Session with GPUs doesn't start
 
 Check whether the instance type you selected [supports GPU](https://aws.amazon.com/ec2/instance-types/). If you specify multiple GPUs, make sure that your compute environment can launch multi-GPU instances and that your maximum CPU configuration doesn't limit them.
 
-#### RStudio session initializes with error
+### RStudio session initializes with error
 
 Connecting to a running RStudio session with R version 4.4.1 (2024-06-14) -- "Race for Your Life" returns a `[rsession-root]` error similar to the following:
 
@@ -53,35 +57,35 @@ ERROR system error 2 (No such file or directory) [path:/sys/fs/cgroup/memory/mem
 
 You can safely ignore this error. It appears because logging is set to `stderr` by default so that all logs are shown during the session.
 
-#### When starting an existing Studio session, extra processes are not automatically restarted
+**When starting an existing Studio session, extra processes are not automatically restarted**
 
 A process you start manually in a running Studio session (e.g., `eval $(ssh-agent)`) is not automatically restarted when the Studio restarts, because the Connect client does not manage user-initiated daemon processes. Automatically starting extra processes on each Studio restart would require a user-defined startup script or an integrated supervisor such as `s6`, `s6-overlay`, or `supervisord`, none of which are currently supported.
 
 ## Compute environments
 
-#### Session size limited by head job CPUs and memory
+### Session size limited by head job CPUs and memory
 
 When you add a compute environment, the Advanced options **Head job CPUs** and **Head job memory** for Nextflow also apply to any Studio session created in the compute environment, because the Nextflow runner job manages Studio sessions. To avoid constraining the resources of your Studio sessions, don't define these optional settings.
 
-#### New compute environment doesn't appear in the drop-down when migrating a Studio
+### New compute environment doesn't appear in the drop-down when migrating a Studio
 
 When [migrating a Studio to a different compute environment](../studios/managing#migrate-a-studio-between-compute-environments), the **Compute environment** drop-down filters out any compute environment that isn't compatible with the Studio's current one. Confirm the new compute environment is in the `AVAILABLE` status and uses the same `workDir` as the Studio's current compute environment.
 
-#### Studio fails to start after switching compute environments
+### Studio fails to start after switching compute environments
 
 The new compute environment's [credentials](../credentials/overview) must have read and write access to the `workDir` bucket. Confirm they have the required S3 permissions on the checkpoint location.
 
-#### Resource labels change after switching compute environments
+### Resource labels change after switching compute environments
 
 When you switch a Studio to a different compute environment, labels inherited from the previous compute environment are removed and the new compute environment's labels are added automatically. If you need a label that was tied to the old compute environment, attach it to the Studio directly so that it survives future compute environment switches. See [Resource label changes](../studios/managing#resource-labels-on-migration).
 
 ## Data and storage
 
-#### All datasets are read-only
+### All datasets are read-only
 
 By default, AWS Batch compute environments created with Batch Forge restrict S3 access to the working directory only, unless you specify additional **Allowed S3 Buckets**. If the compute environment does not have write access to the mounted dataset, the dataset is mounted as read-only.
 
-#### Running session does not show new data in object storage
+### Running session does not show new data in object storage
 
 By default, Fusion does not resync objects from remotely mounted data-link(s) after initial mounting.
 
@@ -99,13 +103,13 @@ This is an experimental feature and can cause consistency issues in the Fusion n
 
 ## Custom environments and container images
 
-#### Failed custom environment rebuilds use the cached image
+### Failed custom environment rebuilds use the cached image
 
 Building a custom Studios image with the Wave service occasionally fails, typically because of conflicting libraries. If you rebuild the image with the same name and tag, Studios and Wave use the cached version if available. Change the version number or tag to pull a fresh image.
 
 The Elastic Container Service (ECS) agent's `ECS_IMAGE_PULL_BEHAVIOR` environment variable determines this behavior. In Seqera Platform Cloud, it is set to `once` when the compute environment is created. Enterprise installations might be configured differently. Contact your organization's administrator to learn more.
 
-#### Container template image security scan false positives
+### Container template image security scan false positives
 
 When you run a software composition analysis (SCA) security scan (e.g., with Trivy) on the latest Seqera-provided VS Code image [container template](../studios/container-images), you might encounter multiple false-positive findings. VS Code defines extensions in a way that can cause some security scanners to incorrectly identify them as `npm` packages.
 
@@ -144,7 +148,7 @@ These are the false positive confirmed findings:
 
 ## SSH connections (public preview)
 
-#### Permission denied (publickey)
+### Permission denied (publickey)
 
 ```bash
 ssh user@studio-session-id@connect.example.com
@@ -158,7 +162,7 @@ If you receive a permission denied error, there are several possible causes:
 3. Ensure SSH was enabled when starting the Studio using the **SSH Connection** toggle. The SSH setting defaults to disabled for new Studios.
 4. Ensure the Studio is built with Connect client version 0.10.0 or later.
 
-#### VS Code Remote SSH not working
+### VS Code Remote SSH not working
 
 If VS Code fails to connect or shows errors when using the Remote SSH extension, disable local server mode in VS Code settings:
 
@@ -179,7 +183,7 @@ Host <connect-domain>
   Port <port>
 ```
 
-#### SSH connection string format
+### SSH connection string format
 
 **Correct format:**
 
@@ -201,11 +205,11 @@ Where:
 
 ## Working in a Studio session
 
-#### View all mounted datasets
+### View all mounted datasets
 
 In your interactive analysis environment, open a new terminal and type `ls -la /workspace/data`. This displays all the mounted datasets available in the current session.
 
-#### Enable AI coding assistants in Studios
+### Enable AI coding assistants in Studios
 
 VS Code, RStudio, and Jupyter environments natively integrate with [GitHub Copilot][gh-copilot]. Enabling it requires a GitHub account and an active Copilot subscription.
 
