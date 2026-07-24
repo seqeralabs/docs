@@ -45,7 +45,7 @@
     "vale:sync": "vale sync"
   },
   "dependencies": {
-    "@docusaurus/faster": "^3.9.2",
+    "@docusaurus/faster": "^3.10.1",
     "@docusaurus/theme-mermaid": "3.9.2",
     "@rspack/core": "^2.0.0",
     "@seqera/docusaurus-preset-seqera": "^1.0.39",
