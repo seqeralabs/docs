@@ -370,6 +370,54 @@ jobs:
             echo "⚠️  No analysis file found - sidebar not updated"
           fi
 
+      - name: Validate Platform API sidebar entries
+        run: |
+          python3 - <<'PYTHON_SCRIPT'
+          import re
+          from pathlib import Path
+
+          docs_dir = Path("platform-api-docs/docs")
+          sidebar_file = docs_dir / "sidebar" / "sidebar.js"
+
+          sidebar = sidebar_file.read_text()
+          sidebar_ids = set(re.findall(r'id:\s*["\']([^"\']+)["\']', sidebar))
+
+          operation_doc_ids = set()
+          for path in docs_dir.glob("*.api.mdx"):
+              text = path.read_text(errors="ignore")
+              match = re.search(r"^id:\s*([^\n]+)", text, re.MULTILINE)
+              if match:
+                  doc_id = match.group(1).strip().strip("\"'")
+                  if doc_id != "info":
+                      operation_doc_ids.add(doc_id)
+
+          # Info pages are linked by path (for example info/labels-info) and
+          # are not operation pages. This gate validates generated operation
+          # pages only, where Docusaurus sidebar drift breaks builds.
+          sidebar_operation_ids = {
+              doc_id for doc_id in sidebar_ids
+              if "/" not in doc_id and doc_id != "info"
+          }
+
+          missing_docs = sorted(sidebar_operation_ids - operation_doc_ids)
+          missing_sidebar_entries = sorted(operation_doc_ids - sidebar_operation_ids)
+
+          if missing_docs or missing_sidebar_entries:
+              print("❌ Platform API sidebar does not match generated operation docs.")
+              if missing_docs:
+                  print("\nSidebar operation IDs with no generated doc:")
+                  for doc_id in missing_docs:
+                      print(f"  - {doc_id}")
+              if missing_sidebar_entries:
+                  print("\nGenerated operation docs missing from the sidebar:")
+                  for doc_id in missing_sidebar_entries:
+                      print(f"  - {doc_id}")
+              print("\nUpdate platform-api-docs/docs/sidebar/sidebar.js before merging this docs PR.")
+              raise SystemExit(1)
+
+          print(f"✅ Platform API sidebar matches {len(operation_doc_ids)} generated operation docs")
+          PYTHON_SCRIPT
+
       - name: Archive used overlays
         run: |
           cd platform-api-docs/scripts/specs
