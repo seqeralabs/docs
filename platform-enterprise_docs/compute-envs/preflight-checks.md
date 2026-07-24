@@ -29,7 +29,7 @@ Before creating or deploying a compute environment, confirm the following:
 
 ## Enabling pre-flight checks
 
-Pre-flight checks require **two flags**, both set to `true`. Setting only one is not sufficient for full functionality. Both flags are shared by your `tower.env` and `tower.yml` files, which are mounted to both the `backend` and `cron` containers — a single change to either file applies to both.
+Pre-flight checks require **two flags**, both of which must be set to `true` to have full effect. Make the changes to your `tower.yml` file.
 
 | Environment variable | `tower.yml` key | What it does | Default |
 |---|---|---|---|
