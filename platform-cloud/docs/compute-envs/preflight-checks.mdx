@@ -39,10 +39,7 @@ When a credential fails this check, Platform marks it **INVALID** and records th
 
 ### 2. Compute environment validation
 
-Runs approximately every hour across all `AVAILABLE` compute environments. Platform validates:
-
-1. **Credential status**: If the credential is `INVALID`, the compute environment is marked `INVALID` immediately.
-2. **Work directory**: Platform calls the cloud provider to verify that the configured work directory is accessible. If this check fails, the compute environment is marked **INVALID** and the provider error appears in the card view and at the top of the form page.
+Seqera checks the associated credential status. If the credential is `INVALID`, the compute environment is marked `INVALID` immediately.
 
 A compute environment marked `INVALID` displays a banner with the error message. An `AVAILABLE` compute environment has its `lastValidated` timestamp refreshed.
 
@@ -58,7 +55,6 @@ Runs immediately when a user submits a pipeline launch. If any check fails, the 
 |---|---|
 | Compute environment status | Blocks launch if the compute environment is marked `INVALID` |
 | Credential status | Blocks launch if the credential associated with the compute environment is marked `INVALID` |
-| Work directory override | If the user provided a different work directory at launch, validates that path with the cloud provider |
 | Wave connectivity | For compute environments with Wave enabled, verifies the Wave service connection is active |
 | Tower Agent | For HPC compute environments, verifies a Tower Agent is online for the environment |
 
@@ -96,7 +92,6 @@ These banners appear on the compute environment detail page when the compute env
 | Banner | Meaning | Action |
 |---|---|---|
 | `Associated credentials are invalid or expired. Update the credentials and validate this compute environment, or contact your workspace maintainer to resolve this.` | The background sweep found the attached credential is no longer valid | Go to **Credentials**, update or rotate the credential, then use **Validate** on the compute environment |
-| `Work directory is invalid. {reason}. Fix it and validate this compute environment, or contact your workspace maintainer to resolve this.` | The background sweep could not access the configured work directory | Fix the bucket/path permissions or location, then use **Validate** on the compute environment |
 
 ### Launch-time errors
 
