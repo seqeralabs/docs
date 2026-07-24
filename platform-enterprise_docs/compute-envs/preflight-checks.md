@@ -1,0 +1,163 @@
+---
+title: "Compute environment pre-flight checks"
+description: "How Seqera Platform validates compute environments and credentials, and what to do when a check fails"
+date created: "2026-07-24"
+tags: [compute environments, credentials, troubleshooting, configuration]
+---
+
+Pre-flight checks validate that a compute environment is usable before and at the point of pipeline launch. They run in the background on a recurring schedule and synchronously at launch time. Problems appear before pipeline submission rather than mid-run. Pre-flight checks only flag conditions that would block a pipeline launch.
+
+Pre-flight checks are **disabled by default** in Seqera Platform Enterprise and must be enabled by an administrator.
+
+## What to verify before creating a compute environment
+
+Before creating or deploying a compute environment, confirm the following:
+
+**Credentials**
+- The access keys, service account key, or managed identity are valid and have not been rotated or revoked.
+- The IAM role or service account has the permissions required by the target platform. See the relevant compute environment page for the minimum required policy.
+
+**Work directory**
+- The bucket or storage container exists in the same region as the compute environment (required for AWS Batch and AWS Cloud compute environments only).
+- The credential attached to the compute environment has read and write access to the work directory path.
+
+**Wave** (if enabled)
+- The Wave service is running and reachable from the Platform instance.
+
+**Tower Agent** (HPC/grid compute environments only)
+- Tower Agent is reachable from Platform. See [Tower Agent](../supported_software/agent/overview) for installation and startup instructions.
+
+## Enabling pre-flight checks
+
+Pre-flight checks require **two flags**, both of which must be set to `true` to have full effect. Make the changes to your `tower.yml` file.
+
+| Environment variable | `tower.yml` key | What it does | Default |
+|---|---|---|---|
+| `TOWER_CREDENTIALS_VALIDATION_ENABLED` | `tower.credentials.validation.enabled` | Enables credential status tracking. When `true`, credentials are automatically validated against the cloud provider on create and update. The validation result (status and error message) is persisted on the credential record and displayed in the UI. When `false`, validation is skipped on create/update, the credential status block is hidden in the UI, and `/credentials/{id}/validate` returns a non-persisting result. | `false` |
+| `TOWER_PREFLIGHT_CHECK_ENABLED` | `tower.preflight.check.enabled` | Master switch for pre-flight checks. When `true`, the background credentials-validation cron probes in-scope credentials on a schedule, the compute environment validation cron validates environments on a schedule, pipeline launches against `INVALID` credentials or compute environments are rejected with a `400 Bad Request`, and the compute environment creation picker hides `INVALID` credentials. When `false`, both crons are dormant, the launch API treats `INVALID` status as advisory only, and the picker shows every credential regardless of status. | `false` |
+
+:::note
+Both flags are read once at process start. Restart the `backend` and `cron` containers after changing either value.
+:::
+
+## Validation process
+
+Platform runs three tiers of validation:
+
+### 1. Credential validation
+
+Runs on a recurring schedule. For each cloud credential (AWS, GCP, Azure) in scope, Platform calls the provider API to verify that the credential is still accepted. For AWS role-based credentials and GCP Workload Identity Federation, this check confirms the credential is well-formed but cannot fully verify the underlying role or identity provider trust configuration.
+
+When a credential fails this check, Platform marks it **INVALID** and records the provider error on the credential record. This error appears in the launch-time error when a pipeline is blocked, but not in the compute environment banner. To see the specific provider error, check the credential record directly.
+
+### 2. Compute environment validation
+
+Seqera checks the associated credential status. If the credential is `INVALID`, the compute environment is marked `INVALID` immediately.
+
+A compute environment marked `INVALID` displays a banner with the error message. An `AVAILABLE` compute environment has its `lastValidated` timestamp refreshed.
+
+:::note
+These checks cover AWS Batch, AWS Cloud, Azure Batch, Azure Cloud, Google Cloud Batch, and Google Cloud compute environments.
+:::
+
+### 3. Pipeline launch-time checks
+
+Runs immediately when a user submits a pipeline launch. If any check fails, the launch is blocked and a specific error is returned. Multiple failures are reported together.
+
+| Check | What it does |
+|---|---|
+| Compute environment status | Blocks launch if the compute environment is marked `INVALID` |
+| Credential status | Blocks launch if the credential associated with the compute environment is marked `INVALID` |
+| Wave connectivity | For compute environments with Wave enabled, verifies the Wave service connection is active |
+| Tower Agent | For HPC compute environments, verifies a Tower Agent is online for the environment |
+
+## Manual credential validation
+
+When a credential is marked `INVALID` and you have rotated the keys or fixed the underlying issue, you can trigger an immediate re-validation:
+
+1. Navigate to **Credentials** in your workspace.
+2. Find the credential and select **Validate**.
+
+Platform makes a live call to the cloud provider and updates the credential status immediately. If the check passes, the credential returns to `AVAILABLE`.
+
+Compute environments marked `INVALID` because of this credential do not recover automatically. Use **Validate** on each affected compute environment after restoring the credential.
+
+## Manual compute environment validation
+
+When a compute environment is marked `INVALID` and you have fixed the underlying issue, you can trigger an immediate re-validation without waiting for the next background sweep:
+
+1. Navigate to **Compute environments** in your workspace.
+2. Find the compute environment and open its **⋮** (three-dot) drop-down.
+3. Select **Validate**.
+
+Platform runs pre-flight checks and updates the compute environment status immediately. If all checks pass, the compute environment returns to `AVAILABLE`.
+
+:::warning[Validate the credential before the compute environment]
+If both the credential and its associated compute environment are marked `INVALID`, you must restore the credential to `AVAILABLE` before validating the compute environment. If the credential is still `INVALID`, the compute environment will remain `INVALID` regardless.
+:::
+
+## Advanced configuration (optional)
+
+The defaults are suitable for most deployments. Only adjust these if you have specific rate-limit or scheduling requirements. All parameters below are only effective when `TOWER_PREFLIGHT_CHECK_ENABLED=true`.
+
+### Credential validation cron
+
+| Environment variable | `tower.yml` key | Description | Default |
+|---|---|---|---|
+| `TOWER_CRON_CREDENTIALS_VALIDATION_INTERVAL` | `tower.cron.credentials-validation.interval` | Per-credential re-validation cadence. After each successful probe the credential is rescheduled at `now + interval ± 10%` jitter. The cron is a background freshness job; real-time launch-blocking on revoked credentials is handled by the launch-path check, so this cadence can be relaxed without losing the safety net. | `12h` |
+| `TOWER_CRON_CREDENTIALS_VALIDATION_TICK_RATE` | `tower.cron.credentials-validation.tick-rate` | How often the evaluator polls the Redis schedule store for due credentials. Distinct from the per-credential interval. | `60s` |
+| `TOWER_CRON_CREDENTIALS_VALIDATION_DELAY` | `tower.cron.credentials-validation.delay` | Initial delay before the first evaluator tick after process start. Randomised ±50% to spread cold-start load across replicas. | `20s` |
+| `TOWER_CRON_CREDENTIALS_VALIDATION_BATCH_SIZE` | `tower.cron.credentials-validation.batch-size` | Maximum credential IDs drained from the Redis schedule store per evaluator tick. | `100` |
+| `TOWER_CRON_CREDENTIALS_VALIDATION_CONCURRENCY` | `tower.cron.credentials-validation.concurrency` | Global in-flight cap on concurrent cloud probes across all evaluator pumps. Tune conservatively when many credentials in one workspace share a single cloud account to avoid provider rate limits (e.g. AWS STS `TooManyRequests`). | `10` |
+| `TOWER_CRON_CREDENTIALS_VALIDATION_PROBE_DELAY` | `tower.cron.credentials-validation.probe-delay` | Optional sleep between probes within a single pump. Set to a non-zero value (e.g. `200ms`) when many credentials share a cloud account and a cold-start burst would exceed provider rate limits. | `0ms` (no pacing) |
+| `TOWER_CRON_CREDENTIALS_VALIDATION_TRANSIENT_RETRY_INTERVAL` | `tower.cron.credentials-validation.transient-retry-interval` | Shorter cadence used to re-enqueue a credential after a transient probe failure (network blip, provider 5xx, unexpected SDK exception). Prevents a credential from being silently skipped until the next process restart. | `5m` |
+
+### Compute environment validation cron
+
+| Environment variable | `tower.yml` key | Description | Default |
+|---|---|---|---|
+| `TOWER_CRON_COMPUTE_ENV_VALIDATION_INTERVAL` | `tower.cron.compute-env-validation.interval` | Compute environment re-validation cadence. A compute environment is due when its `lastValidated` timestamp is null or older than `now - interval`. | `12h` |
+| `TOWER_CRON_COMPUTE_ENV_VALIDATION_TICK_RATE` | `tower.cron.compute-env-validation.tick-rate` | How often the evaluator sweeps the database for due compute environments. Distinct from the per-compute-environment interval. | `60s` |
+| `TOWER_CRON_COMPUTE_ENV_VALIDATION_DELAY` | `tower.cron.compute-env-validation.delay` | Initial delay before the first evaluator tick after process start. Randomised ±50% to spread cold-start load across replicas. | `20s` |
+| `TOWER_CRON_COMPUTE_ENV_VALIDATION_BATCH_SIZE` | `tower.cron.compute-env-validation.batch-size` | Maximum compute environment IDs swept from the database per evaluator tick. | `100` |
+
+### Credential auto-validation timeout
+
+Only effective when `TOWER_CREDENTIALS_VALIDATION_ENABLED=true`.
+
+| Environment variable | `tower.yml` key | Description | Default |
+|---|---|---|---|
+| `TOWER_CREDENTIALS_AUTO_VALIDATION_TIMEOUT_SEC` | `tower.credentials.autoValidationTimeoutSec` | Timeout in seconds for the cloud provider probe triggered when a credential is created or updated. Timeout expiry is treated as a transient failure — the persisted status is left untouched. | `10` |
+
+## Error reference
+
+### Compute environment error messages
+
+These banners appear on the compute environment detail page when the compute environment is `INVALID`.
+
+| Banner | Meaning | Action |
+|---|---|---|
+| `Associated credentials are invalid or expired. Update the credentials and validate this compute environment, or contact your workspace maintainer to resolve this.` | The background sweep found the attached credential is no longer valid | Go to **Credentials**, update or rotate the credential, then use **Validate** on the compute environment |
+
+### Launch-time errors
+
+These are returned immediately to the user when a launch is blocked.
+
+| Error | Cause | Resolution |
+|---|---|---|
+| `The selected compute environment '...' is in an invalid state` | Compute environment is marked `INVALID` (see banner for the specific reason) | Fix the root cause, then use **Validate** on the compute environment |
+| `The credentials '...' used by this compute environment are invalid` | Credential is marked `INVALID` | Go to **Credentials**, update or rotate the credential, then use **Validate** on the compute environment |
+| `Wave is required by the selected compute environment but the Wave service connection is not active. Verify that Wave is running and check for connectivity issues` | Platform cannot reach the Wave service | Contact your platform administrator. Once Wave is restored, retry the launch |
+| `No Tower Agent is online for the selected compute environment. Check that Tower Agent is running at your cluster.` | No Tower Agent is connected for this compute environment (HPC/grid only) | Start or restart Tower Agent on the cluster. See [Tower Agent](../supported_software/agent/overview) |
+
+### Credential error messages
+
+When the credential sweep marks a credential `INVALID`, the provider-specific reason is stored on the credential record. It appears in the launch-time error when a pipeline is blocked, but not in the compute environment banner. To see the specific provider error, check the credential record directly.
+
+| Provider | Example message |
+|---|---|
+| AWS | `AWS credentials are invalid or expired. Update or rotate the access keys.` |
+| GCP | `Google credentials are invalid or expired. Update the service account key.` |
+| GCP Workload Identity Federation | `Google WIF credential validation failed. Verify the provider and service account configuration.` |
+| Azure Batch | `Azure Batch credentials are invalid. Verify the Batch account name and key.` |
+| Azure Storage | `Azure Storage credentials are invalid. Verify the storage account name and key.` |
