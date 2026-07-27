@@ -206,7 +206,7 @@ pipelines
 platform
 policy
 posix
-preflight
+pre-flight
 prerequisites
 privacy
 processes
