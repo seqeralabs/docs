@@ -451,6 +451,7 @@
         "troubleshooting_and_faqs/api_and_cli",
         "troubleshooting_and_faqs/studios_troubleshooting",
         "troubleshooting_and_faqs/nextflow",
+        "troubleshooting_and_faqs/preflight_checks_troubleshooting",
         "troubleshooting_and_faqs/aws_troubleshooting",
         "troubleshooting_and_faqs/azure_troubleshooting",
         "troubleshooting_and_faqs/workspaces_troubleshooting",
