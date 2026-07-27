@@ -5,7 +5,7 @@ description: "Deletes the team identified by the given `teamId`. This operation 
 sidebar_label: "Delete organization team"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNVE1v2zAM/SuCThuQxekW7JDT2jUDig1b0WanIEAVm4nV2pIq0ckyw/+9pOx8tUU3FBiwk2XykXqkHllLVMsgR1OJoMogZz2ZQUi9dqitkSN5DgUgBIE5CIYInYFBvdCQifkmmpd6BUbcsPciu+mLSa6DsA684hzCQ2lXhxkW3pZCFYVYW38XnErJuc7Bg9AoKFQJpzzqVDtlsC97cpfrItsx+uGXyujf0TyhrASjKFWSy3M9tTT0Q3DrlxTWk5qrcQpz+bjEw1TCVCV4ne7L9MzAw32lPdD16CvoyZDmUCo5qiVuHN+iDcISPEEX1pcKW9PHoWya3o5K26EXuXAp/4DDjMODsyZA4Ij3gyF/HvXhq3gnvluRWkpkUDY9ORwMnuLOVCaYDASku7ZoginnCp3GPia3gbH1Acs9/6ksIQS1BJZbR97ObyHlfM7zc6NuiW6B+yoDem2W3FeJGgs2jb23/qqrjzxNZP7hmQp3ojQWWYJ2TXwYHiCtvMZNVM4ZKA/+tKL3GU1n3DySVW5ZfFkUXxQbe2VC8gpJHUXWJHGGkrp950ZyWr/a6rHyBQXkiC6MkkQ53U8LW2X9APfEqq/tEzFcR4+4LBTyi4rPjBenlxeSOW0pX3OH224dEt81jG+UnVz4fx5BZGkPX7ZauV1jbIU2CxvDu+52LPjaPxHkcjWPcwtmaag0SuO4+MOSSR26iFJd2E97BxHhzrX3nPRPhoP+gI3OBixVlFY3Ve0+EPZwirHdCEds671U/4ut1j0Pwi9MXKFoJ1B5sU91p64pL69A0NF2ibVLmgzdKiEZ5NQQhtb1XAX46YumYTONp2c103GlvFZzfktSYaYDn0nLC1UEeKFHb666gX0r/mJDPltNZ1RmI5lGUfEfHe9gs9vMvB9fReqFVfkKMl1Dmxkhc1AZTQi3q3Wepik4PAh7sumOlsT5+Nt4Mia4Op7ER5MXL3iWFb1lREzsHZim2ZPkf+bYNA83EKed
+api: eJzNVE1v3DYQ/SvEnBqA3d2kRg861UkcwEjQBol7WiyQWWl2RVsi5eHI7lbgfw+G0n74A24RoEBPEofD4XuPb2YAwW2EYglC2EZYWagoluw6ccFDAe+pIaFopCajKcZV5MVtHFVmvcvhrbsjb77p7mX1bWauahdN6IhRaximNtydVthwaA02jbkPfBM7LCma+5qYjBPjokHTIYsrXYdeZmDhUOuyOiD6g7fo3d85fEXYgoUOGVsSYuUzgMeWoIDA28sKLDhl06HU8JjiaSnj+5bYlUearAiYbnvHVEEh3JOFWNbUIhQDyK7TW5wX2hKDhU3gFmUM/XoGKdkDlFGhF7Eolf8Aw0qPxy74SFFPvFmc6eeRDh/Nz+b3YMrghbxAsnC2WDzNe4uVUTAUBSzss4sBsOsaV2Yd59dRc4cTlEf8S2gpRtyS2m0CH9bXVGq9jvW5xY1A94lHllHY+a3qCuKk0dAFc+AvEz9IKWXkvzzD8GBKH0QtGO6pyqUilT072WXnvCVk4vNeaiiWKxWvJamDmq/K5stm012YB97G+ZBNlua5h+bD+M4JtCzf7f3YcwMF1CJdLOZz7NysbEJfzSLdEuPMhSdm+Jp3zOcGRV/UvNN8c/75EhTTHvJXVXhU6xT4QTC9ESa76Hqdk8BOPx/2Xrm+lyyF85uQj0/qTij02n8CqHSdtvOYrNbAMlvjIflTytSia7JVN+G340ayoMqN97yevT5bzBYa7EKUFrO1pq4a54EJp10s40R4gHY4WvV/MdWm5xH6S+Zdg84rvazTMLlrqcMrgoViP8TGIW2hmEbJykIdomjqMKwx0p/cpKTh255Y3byycIfscK1vuRygclH/Kyg22ER6QaOfvkwN+8r8iwn5LJspiH4HCqPpdQUWbmh3mMw6H38I1Auj8gfATIKmVbJQE1bEWa5x87wsqZOTY08m3YMh8f7i08XVBVjAh534qPPyBc+iGoYx4yrckE/pCFLXijGl7zcQp50=
 sidebar_class_name: "delete api-method"
 info_path: platform-api//seqera-api
 custom_edit_url: null
@@ -32,7 +32,7 @@ import Translate from "@docusaurus/Translate";
   path={"/orgs/{orgId}/teams/{teamId}"}
   context={"endpoint"}
 >
-
+  
 </MethodEndpoint>
 
 
@@ -50,17 +50,20 @@ Deletes the team identified by the given `teamId`. This operation removes the te
 <ParamsDetails
   {...require("./delete-organization-team.ParamsDetails.json")}
 >
-
+  
 </ParamsDetails>
 
 <RequestSchema
   {...require("./delete-organization-team.RequestSchema.json")}
 >
-
+  
 </RequestSchema>
 
 <StatusCodes
   {...require("./delete-organization-team.StatusCodes.json")}
 >
-
+  
 </StatusCodes>
+
+
+      

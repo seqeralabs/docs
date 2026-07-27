@@ -1,11 +1,11 @@
 ---
 id: delete-compute-env
 title: "Delete compute environment"
-description: "Deletes the compute environment identified by the given `computeEnvId`."
+description: "Deletes the specified compute environment. Append `?force=true` to bypass active-job checks and SCMS/forge cleanup. Force deletion is only allowed for environments in ERRORED, INVALID, or DELETING status."
 sidebar_label: "Delete compute environment"
 hide_title: true
 hide_table_of_contents: true
-api: eJzNld9v2jAQx/8Vy0+bRIFuaNJ4WkuZVG3aqrbTHiqkmuQgbhPbtR06FOV/752TQCDRqkp72AuQ8ze+z/2k4F6sHZ/e8UhnJvdwAmrj+GLAY3CRlcZLrfiUX0AKHhzzCbBayVAprVYZKM9kjJ9yJSFmy21QreUGFLuvxXO1uYzvh3zAtQEr6NbLeHfvbCdCgRFWZGi0hFVwhQ8obN+DIklQRviEH5POeuhEahKh8gysjPaolnAsPOXSArJ4m8OAuyiBTPBpwf3WkGPnrVRrXpaDHcuzto/OiAj2KE852G2H5XcjZP3OO86k8rAGi0crbTPhK9OnCbpfEKszWjlw9MaH8YS+Dh3+/MZO2A+NJcKLlOflgE/G467uXMSMIgfn0VejRpkwJpVRqM/owZG2aFHuk3XHM3BOrIFapYbXyweI6D5jqcheVqCNsC+l3EufkmlurbbXdXx4Ugbyjz0RNu3DlKbCpvoZeYL6c1c902qF8Xh0x2JqNTL/pwHjoYMot9JvQ+Ofg7Bgz3Ls8endguqPU5FompoQCoRZoVM+ag/vqGjPSkltBnbTjFNuU3wh8d646WgkjBxGqc7joYMnTOxQ6k4T34QTdpUKT03JZqRnZ1eXnJga5BvKWRV/G3yXAvLYdDw9L4MILdWPr027Pzz7kCepVjq8XuerpiC3rwFSuDLCZVWJqdgiCsU+DL4dMtZbpmHaVvrL/gBBKHOVn9Ph6WQ8HJPRaOczEZql3gnVIuvbjce8xb79/uFardPs4Y8fmVTgUkLMEG9Rd8nRih/w6cFOxVomGBXpimIpHPyyaVmSudpt1DyxdGKZ0jisROrgL4G9tvl6cR9h29muG5HmpAzNthFWEsAbYd5d12P8nr3x36EXszYKtW3zNfgHSS0XqE9AxNjqxFxJzqIIjG+93FlCB9N+Mf8+v52jXByO1NEIBQe9bFjPoLjVj6DKcofq6ZkYy/IFb8jKuQ==
+api: eJzdVU1v4zYQ/SvEnFqAsb1tUKACitbreAuj2+zC2baHwMDS1NhiIpEMOXJqCPzvxejDsWOji70VPdkaPmrevHkzaoDUNkJ2D9pVvia8QruLsJKQY9TBeDLOQgY3WCJhFFSgiB612RjMRX9HoN2Z4GyFlkZi6j3aXHz+eeOCxp8o1PhZkBPrvVcxCqXJ7PDqwa2FLlA/RqFsLu5mv9+NNy5sUegSla39SLzj+yLnzMZZYaJwttwLVZbuGXOxceE4cRTGivly+WE5v5Ficfvn9P3iRgoXxM38/fzT4vZXEUlRHUcgwXkMit+6yA/Fzbpi5nYHErwKqkLCwNo0YFWFkA0aze1ukYMEw8p4RQW8lmt2LoxQpS+UrSsMRguToyUWMTCdgE+1CZhDxmpJiLrASkHWAO09J44UjN1CSvLA5dmFx+iVxhcqTzWG/RmXvwaguJz8LJmxhFsMIGHjQqWoC/1wDSmtmGv0zkaMfOO7yTX/nCb88Ju4ErdOaGcJLUGScD2ZnOPeqlxw5RgJJAzorAHlfWl025/xQ2Rsc8TyRax7qDBGtUX2a0/erR9Q8/t84CaT6YgOwEuSAhkqOTQPwYVlXx+klFrm31+ocLCPsI4GQ3Z1/niOnjm7KY0mY7cHN/9XC04SIuo6GNq3xn+LKmCY1lRAdr/i/ldIheOpaUvBdlb4FMbHG2TcHM9KYpth2A3jVIcSMiiIfMzGY+XNSJeuzkcRnzCokXFnJr5rT8THUhGbUswYL6YfF8CcBsp3rFlX/zHxgwSccXA8P69bEMj+z7vB7g/P1Opk7Ma113u9ehac9ksEuVyjMfZgbrbSbbNPiz8uGStlynbaNu6Xl4MkgZXr8rwZvbmejCYc9C5SpVqz9DuhW2SX1vJrvs2L/f5vu73vNeHfNPalMpa1akVvequ++thJyE4W+0pC4SIxrmnWKuIfoUyJw92CZQfnJqp1yTO5UWXEf1H3S+v3It1H3J+t+J0qa0a2jt+pYJjAV5L5Ztnvkm/FV36iLtLsg8ruj/kN9E9ETaskoUCVY2g5d5Cp1ujp6PLZJjxZOW235yBBnc71qzluE1zk1jQd4pN7RJvSgSrxM3NM6R8m7SXC
 sidebar_class_name: "delete api-method"
 info_path: platform-api//seqera-api
 custom_edit_url: null
@@ -32,12 +32,12 @@ import Translate from "@docusaurus/Translate";
   path={"/compute-envs/{computeEnvId}"}
   context={"endpoint"}
 >
-
+  
 </MethodEndpoint>
 
 
 
-Deletes the compute environment identified by the given `computeEnvId`.
+Deletes the specified compute environment. Append `?force=true` to bypass active-job checks and SCMS/forge cleanup. Force deletion is only allowed for environments in ERRORED, INVALID, or DELETING status.
 
 <Heading
   id={"request"}
@@ -50,17 +50,20 @@ Deletes the compute environment identified by the given `computeEnvId`.
 <ParamsDetails
   {...require("./delete-compute-env.ParamsDetails.json")}
 >
-
+  
 </ParamsDetails>
 
 <RequestSchema
   {...require("./delete-compute-env.RequestSchema.json")}
 >
-
+  
 </RequestSchema>
 
 <StatusCodes
   {...require("./delete-compute-env.StatusCodes.json")}
 >
-
+  
 </StatusCodes>
+
+
+      
