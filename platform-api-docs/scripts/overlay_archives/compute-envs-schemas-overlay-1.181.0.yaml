@@ -1,0 +1,90 @@
+overlay: 1.0.0
+info:
+  title: Compute environments schemas overlay
+  version: 0.0.0
+actions:
+  # ===== COMPUTE ENVIRONMENTS SCHEMAS - REQUEST/RESPONSE OBJECTS =====
+
+  # ---- COMPUTE ENV STATUS (UPDATED) ----
+
+  - target: "$.components.schemas['ComputeEnv.Status'].description"
+    update: "Compute environment status enumeration. Accepts `CREATING`, `AVAILABLE`, `DISABLED`, `DELETING`, `ERRORED`, `INVALID`, or `DELETED`."
+
+  # ---- VALIDATE COMPUTE ENV RESPONSE ----
+
+  - target: "$.components.schemas.ValidateComputeEnvResponse.properties.message"
+    update:
+      type: string
+      nullable: true
+      description: "Human-readable explanation of the outcome. Contains the failure reason when the compute environment is INVALID, the provider-unreachable reason on a transient outcome, or `null` when the compute environment is AVAILABLE."
+
+  - target: "$.components.schemas.ValidateComputeEnvResponse.properties.status"
+    update:
+      description: "Compute environment status after validation. Accepts `AVAILABLE` when every check passed or `INVALID` when a check failed. On a transient outcome this reflects the unchanged prior status."
+
+  - target: "$.components.schemas.ValidateComputeEnvResponse.properties.transientError"
+    update:
+      type: boolean
+      description: "If true, a provider could not be reached due to timeout, throttle, or 5xx error. The persisted status is left unchanged. Retry later."
+
+  # ---- COMPUTE ENV IMAGE ----
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.auditImageType"
+    update:
+      description: "Audit image type discriminator."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.config"
+    update:
+      description: "Compute environment configuration object."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.credentialsId"
+    update:
+      type: string
+      description: "Credentials string identifier associated with the compute environment."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.description"
+    update:
+      type: string
+      description: "Compute environment description."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.fusionMetricsCollectionEnabled"
+    update:
+      type: boolean
+      description: "If true, Fusion metrics collection is enabled for the compute environment."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.lastUsed"
+    update:
+      type: string
+      format: date-time
+      description: "Timestamp when the compute environment was last used in ISO 8601 format."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.managedIdentityId"
+    update:
+      type: integer
+      format: int64
+      description: "Managed identity numeric identifier if using managed credentials."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.message"
+    update:
+      type: string
+      description: "Status message providing additional context about compute environment state."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.name"
+    update:
+      type: string
+      description: "Compute environment name."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.platform"
+    update:
+      type: string
+      description: "Cloud platform identifier. Accepts `aws-batch`, `azure-batch`, `gcp-batch`, etc."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.primary"
+    update:
+      type: boolean
+      description: "If true, this is the primary compute environment for the workspace."
+
+  - target: "$.components.schemas.ComputeEnvImage.properties.status"
+    update:
+      type: string
+      description: "Compute environment status. Accepts `CREATING`, `AVAILABLE`, `DISABLED`, `DELETING`, `ERRORED`, `INVALID`, or `DELETED`."

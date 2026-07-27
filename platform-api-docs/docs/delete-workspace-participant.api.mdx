@@ -5,7 +5,7 @@ description: "Removes the participant identified by the given `participantId` fr
 sidebar_label: "Delete workspace participant"
 hide_title: true
 hide_table_of_contents: true
-api: eJy1VU1v2zAM/SuCThuQxekW7JDT2jUDig1b0XbYIQhQxWZstbalSnK6zPB/L6n4My2aIUBPkaUn8ZF8fCm5E7HlswV/VObeahGC5csRj8CGRmonVc5n/AoytQHLXAJMC+NkKLXIHZMR5E6uJURstfWnsdxAzm57oIvolq2NynrHbagxH3GlwQiKcxFhpHNIwcGfBnDZvYNQfFVkeGyIcMlz/MArysR4dcQlMdXCJXyf/i8Ti1z+81FYXmRgZNhxN8TCwEMhDSAFZwoYcRsmkAk+K7nbaooicwcxGISulcmE2219nvKqGrVU2sQOEGrze1M2gya8yqdX5jdgtKTrVqvcorbwxsfJlH72evSdfWA/FQsVPoTdrkZ8Opk8x52JiBEZsKSIBo0woXUqQ9/j4M4Stuyx7PgveAbWihhI5jV5tbqD0CvMkByd3BFtgF2W1hmZx1Rl7qRLaWtujDJXdX54Unnmn17IsBE6y5VjIk3VI/IhuIWwMNJtvarPQBgwpwW2abZYUvFQ8omi4Yj8cPhBoFMeoPRtUPoBqIJugIOyJ8Qq6OkAjwaqqDhFN5tmpAqT4ruJc9rOgkBoOQ5TVURjCw9IfizVM+lc+xN2mQpHjWdfCc9OLy84UW8yu6ZG7Iraz6+tK0Xktaroe+VBuLNbfGskdffofMVkvlb+et2EmgWFPUSQ0pVYpBpMChKhV9Aw+X7KKCKZekWv1ZfuAIlQ5XZxTsYn08l4QptaWZcJr8B6FHe21hlf30X3GZedqt/UeOvSO/jrAp0KdAek7mtQ1gJbkLdahM4aj+39SeDu0O76MqPTof2gGBIsCz1alith4bdJq4q2cZYNSR+XG2GkWFFHUYuRtLRG4a9FauGVKr27qqf7PfsPq38x73pT5FtONNKCvnB5D9v2L4as9ShSh+z+CEb90h/N67DtH8Fs2PZqiRcSEBFOMzV1hzkNQ9Cud/uZeQ9873z+Y34zR7gYusaeS/gAL5JDxXnEjbqHvKparo6+iWNVPQHERyJf
+api: eJy1lVFv2jAQx7+KdU+b5BG6oT3kae3KJLRpq9pNe0BINckBbhM7tS90LPJ3n84ECLQqE1KfIPY597u7v/9pgNTcQzqGR+vufaUy9DCRkKPPnK5IWwMpXGNpl+gFLVBUypHOdKUMCZ2jIT3TmIvpKu7O9RKNuO0EjfJbMXO27GxvU/VAgq3QKc4zyiGFSyyQ8Pcm4Gr3HpBQKadKJHQM3IBRJUIK1s1HOUjQTFopWsAh/g83V0b/jVmEqUt0OtuxO6Zw+FBrhzmk5GqU4LMFlgrSBmhVcRZtCOfoQMLMulLReunjAEKQW5RtYUeAtvW9Ks3eEF7k6bT5FYgmfNxX1nj0fOJ9f8A/BzP6Kt6J71Zk1hAagiBh0O8/jbtQuWAY9KyITXTagKqqQmdxxsmd59imQ7njH0OJ3qs5ssxbeDu9wywqzLEcSa9BN4G7Kj05bebcZSBNBS8NnbPuuq0PQgiR/MMzFW6ELowloYrCPmIeX+Uxq52mVVT1BSqH7rymBaTjCTevRFpYvhx5vBzxIvAuJNbNfdLECxCS3QVOmo4QQ9LRgU+aPVUE4OxuublStSsghQVR5dMkUZXuZYWt857HB3Sqp+0T6dzEHXFVKOLBi88cL86vRsDom8pueBDrpnbr2/aVM0KrKn6exiCQ7Z8vG0ndPVLsmDYzG4+3Q2gpOO0xQC5XZ+jbYFaQyqKC9ovvloyl0kVU9Mx+2m0ECdy5dZ6z3tmg3+vzYmU9lSoqsL2Ka1vbGV/XRQ+Jm52qX9V429YT/qGkKpQ2jB570LQCG7O3epCQbjy285GQkO7bXVdmvLtvPxMJC+uJX9o0U+XxlytC4OWHGh1LfyJhqZxWU57ouIFce/6fQzpThccXuvTmur3db8V/WP2zdbeLyqyAMYqan0DCPa62nxi21pOgjtn9CUTd1p/Mddz2TyDbH3uYBAkLVDm6ONR1zHmWYUWd00/Me8/3Loffhj+HIEHtu8aBS8QEz8I1zTrip71HE8KWlfiZGUP4B8RHIl8=
 sidebar_class_name: "delete api-method"
 info_path: platform-api//seqera-api
 custom_edit_url: null
@@ -32,7 +32,7 @@ import Translate from "@docusaurus/Translate";
   path={"/orgs/{orgId}/workspaces/{workspaceId}/participants/{participantId}"}
   context={"endpoint"}
 >
-
+  
 </MethodEndpoint>
 
 
@@ -50,17 +50,20 @@ Removes the participant identified by the given `participantId` from the given w
 <ParamsDetails
   {...require("./delete-workspace-participant.ParamsDetails.json")}
 >
-
+  
 </ParamsDetails>
 
 <RequestSchema
   {...require("./delete-workspace-participant.RequestSchema.json")}
 >
-
+  
 </RequestSchema>
 
 <StatusCodes
   {...require("./delete-workspace-participant.StatusCodes.json")}
 >
-
+  
 </StatusCodes>
+
+
+      
