@@ -18,6 +18,8 @@ Seqera Platform Enterprise can be deployed using Docker Compose, Kubernetes, or 
 
 See each deployment guide for detailed requirements.
 
+For backup, restore, and recovery planning, see [Platform disaster recovery](./disaster-recovery).
+
 ## Prerequisites
 
 :::info
