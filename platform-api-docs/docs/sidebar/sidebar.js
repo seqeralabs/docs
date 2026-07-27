@@ -11,6 +11,16 @@ module.exports = {
     { type: "doc", id: "info", label: "API service info", className: "api-method get" },
     {
       type: "category",
+      label: "Permissions",
+      link: {type: 'doc', id: 'info/permissions-info'},
+      items: [
+        { type: "doc", id: "retrieve-permissions", label: "Retrieve permissions", className: "api-method get" },
+        { type: "doc", id: "check-permission", label: "Check permission", className: "api-method get" },
+        { type: "doc", id: "list-available-features", label: "List available features", className: "api-method get" },
+      ],
+    },
+    {
+      type: "category",
       label: "Credentials",
       link: {type: 'doc', id: 'info/credentials-info'},
       items: [
@@ -31,9 +41,11 @@ module.exports = {
             { type: "doc", id: "create-managed-identity", label: "Create managed identity", className: "api-method post" },
             { type: "doc", id: "create-managed-credentials", label: "Create managed credentials", className: "api-method post" },
             { type: "doc", id: "describe-managed-identity", label: "Describe managed identity", className: "api-method get" },
+            { type: "doc", id: "update-managed-identity", label: "Update managed identity", className: "api-method put" },
+            { type: "doc", id: "update-managed-credentials", label: "Update managed credentials", className: "api-method put" },
             { type: "doc", id: "delete-managed-identity", label: "Delete managed identity", className: "api-method delete" },
             { type: "doc", id: "delete-managed-credentials", label: "Delete managed credentials", className: "api-method delete" },
-        { type: "doc", id: "validate-credentials", label: "Validate credentials against their cloud provider and report the outcome", className: "api-method post" },],
+          ],
         },
         {
           type: "category",
@@ -72,7 +84,7 @@ module.exports = {
             { type: "doc", id: "list-platforms", label: "List platforms", className: "api-method get" },
             { type: "doc", id: "describe-platform", label: "Describe platform", className: "api-method get" },
             { type: "doc", id: "list-platform-regions", label: "List platform regions", className: "api-method get" },
-        { type: "doc", id: "validate-compute-env", label: "Validate a compute environment", className: "api-method post" },],
+          ],
         },
       ],
     },
@@ -190,7 +202,7 @@ module.exports = {
         { type: "doc", id: "delete-action", label: "Delete action", className: "api-method delete" },
         { type: "doc", id: "launch-action", label: "Trigger Tower Launch action", className: "api-method post" },
         { type: "doc", id: "pause-action", label: "Pause or resume action", className: "api-method post" },
-        { type: "doc", id: "resolve-cron-expression", label: "Resolve a schedule description to a cron expression", className: "api-method post" },],
+      ],
     },
     {
       type: "category",
@@ -204,6 +216,7 @@ module.exports = {
         { type: "doc", id: "create-label", label: "Create label", className: "api-method post" },
         { type: "doc", id: "update-label", label: "Update label", className: "api-method put" },
         { type: "doc", id: "delete-label", label: "Delete label", className: "api-method delete" },
+        { type: "doc", id: "get-allowed-dynamic-labels", label: "Get allowed dynamic labels", className: "api-method get" },
         { type: "doc", id: "add-labels-to-pipelines", label: "Add labels to pipelines", className: "api-method post" },
         { type: "doc", id: "apply-labels-to-pipelines", label: "Replace pipeline labels", className: "api-method post" },
         { type: "doc", id: "remove-labels-from-pipelines", label: "Remove labels from pipelines", className: "api-method post" },
@@ -253,7 +266,7 @@ module.exports = {
         { type: "doc", id: "delete-workflow-star", label: "Unstar workflow", className: "api-method delete" },
         { type: "doc", id: "describe-workflow-task", label: "Describe a task entity with the given ID", className: "api-method get" },
         { type: "doc", id: "list-workflow-tasks", label: "List the tasks for the given Workflow ID and filter parameters", className: "api-method get" },
-        { type: "doc", id: "update-workflow", label: "Apply a partial update to the workflow-extension metadata for the given Workflow ID", className: "api-method patch" },],
+      ],
     },
     {
       type: "category",
@@ -300,7 +313,7 @@ module.exports = {
         { type: "doc", id: "start-data-studio", label: "Start Studio", className: "api-method put" },
         { type: "doc", id: "stop-data-studio", label: "Stop Studio", className: "api-method put" },
         { type: "doc", id: "update-data-studio", label: "Update a Studio", className: "api-method put" },
-        { type: "doc", id: "list-data-studio-compatible-compute-envs", label: "List compute environments compatible with a Studio", className: "api-method get" },],
+      ],
     },
     {
       type: "category",
@@ -321,13 +334,7 @@ module.exports = {
         { type: "doc", id: "update-organization-member-role", label: "Update member role", className: "api-method put" },
         { type: "doc", id: "describe-organization-quotas", label: "Describe organization quotas", className: "api-method get" },
         { type: "doc", id: "list-user-roles-in-organization", label: "List all user roles and permissions in an organization", className: "api-method get" },
-        { type: "doc", id: "list-organization-idp-groups", label: "List IdP groups for an organization", className: "api-method get" },
-        { type: "doc", id: "create-organization-idp-group", label: "Manually add an IdP group to the catalog", className: "api-method post" },
-        { type: "doc", id: "delete-organization-idp-group", label: "Remove an IdP group from the catalog", className: "api-method delete" },
-        { type: "doc", id: "describe-organization-scim-config", label: "View SCIM configuration", className: "api-method get" },
-        { type: "doc", id: "revoke-organization-scim-token", label: "Revoke the active SCIM bearer token", className: "api-method delete" },
-        { type: "doc", id: "create-organization-scim-token", label: "Generate a SCIM bearer token", className: "api-method post" },
-        { type: "doc", id: "rotate-organization-scim-token", label: "Rotate the SCIM bearer token", className: "api-method post" },],
+      ],
     },
     {
       type: "category",
@@ -362,7 +369,8 @@ module.exports = {
         { type: "doc", id: "find-data-studios-workspace-settings", label: "List workspace Studios settings", className: "api-method get" },
         { type: "doc", id: "update-data-studios-workspace-settings", label: "Update workspace Studios settings", className: "api-method put" },
         { type: "doc", id: "list-workspaces-user", label: "List user workspaces and organizations", className: "api-method get" },
-        { type: "doc", id: "delete-workspace-user", label: "Delete workspace user", className: "api-method delete" },],
+        { type: "doc", id: "delete-workspace-user", label: "Delete workspace user", className: "api-method delete" },
+      ],
     },
     {
       type: "category",
