@@ -86,11 +86,6 @@ For granular control over the permissions granted to Seqera, use [Azure custom r
                     "Microsoft.Resources/subscriptions/resourceGroups/read",
                     "Microsoft.Resources/subscriptions/resourceGroups/delete",
 
-                    "Microsoft.Network/publicIPAddresses/read",
-                    "Microsoft.Network/publicIPAddresses/write",
-                    "Microsoft.Network/publicIPAddresses/delete",
-                    "Microsoft.Network/publicIPAddresses/join/action",
-
                     "Microsoft.Network/virtualNetworks/read",
                     "Microsoft.Network/virtualNetworks/write",
                     "Microsoft.Network/virtualNetworks/delete",
@@ -230,11 +225,6 @@ The following permissions are required to launch pipelines and Studios:
                     "Microsoft.Compute/virtualMachines/deallocate/action",
                     "Microsoft.Compute/virtualMachines/attachDetachDataDisks/action",
 
-                    "Microsoft.Network/publicIPAddresses/read",
-                    "Microsoft.Network/publicIPAddresses/write",
-                    "Microsoft.Network/publicIPAddresses/delete",
-                    "Microsoft.Network/publicIPAddresses/join/action",
-
                     "Microsoft.Network/networkInterfaces/read",
                     "Microsoft.Network/networkInterfaces/write",
                     "Microsoft.Network/networkInterfaces/join/action",
@@ -333,7 +323,6 @@ The following permissions are required to delete the resources created for the c
             {
                 "actions": [
                     "Microsoft.Resources/subscriptions/resourceGroups/delete",
-                    "Microsoft.Network/publicIPAddresses/delete",
                     "Microsoft.Network/virtualNetworks/delete",
                     "Microsoft.Network/virtualNetworks/subnets/delete",
                     "Microsoft.Network/networkInterfaces/delete",
