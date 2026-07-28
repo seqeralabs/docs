@@ -182,6 +182,6 @@ If you wish to keep the Azure resources, you can remove each pool within a Batch
 [nextflow-working-directory]: https://docs.seqera.io/nextflow/cache-and-resume#work-directory
 [create-org-workspace]: ../../getting-started/workspace-setup
 [add-pipeline]: ../../getting-started/quickstart-demo/add-pipelines#add-from-the-launchpad
-[azure-batch-reference]: ../../compute-envs/azure-batch.md
+[azure-batch-reference]: ../../compute-envs/azure-batch
 [azure-batch-entra]: ../../compute-envs/azure-batch.md#entra-service-principal-and-managed-identity
 [azure-batch-manual-pool]: ../../compute-envs/azure-batch.md#create-a-nextflow-compatible-azure-batch-pool
