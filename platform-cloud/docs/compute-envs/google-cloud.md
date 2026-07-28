@@ -190,5 +190,14 @@ If WIF authentication fails at runtime, verify that:
 - **Image**: The image defining the operating system and pre-installed software for the VM. Currently only [Ubuntu LTS](https://cloud.google.com/compute/docs/images/os-details#ubuntu_lts) Google public image project images are available and supported. For GPU-enabled instances, a Deep Learning VM base image with CUDA pre-installed is automatically selected (See [Google Deep Learning VM Images](https://cloud.google.com/deep-learning-vm/docs/images#base_versions) for more details). Optimized, Seqera-owned custom images will be available in a future release.
 - **Boot disk size**: The size of the boot disk for the Compute Engine instance. A standard persistent disk (`pd-standard`) is used. If undefined, a default 50 GB volume will be used.
 - **Zone**: The [zone](https://cloud.google.com/compute/docs/regions-zones) within the selected region where the VM will be provisioned (defaults to the first zone in the alphabetical list).
+- **VPC**: An existing VPC network in your Google Cloud project. The drop-down is populated with networks discovered in your project. When specified, Platform uses this network for all VMs launched in this compute environment. Leave blank to use the project's default network. Free-form values are also accepted for Shared VPC or fully qualified network references.
+
+  :::note
+  Specifying a subnet that does not exist in the compute environment region, or that does not belong to the selected VPC, causes compute environment creation to fail.
+  :::
+
+- **Subnets**: One or more subnet names within the selected VPC and the compute environment region. Single-instance execution places VMs in the first listed subnet; Intelligent Compute may distribute worker VMs across all listed subnets, in order. Leave blank to let Platform select the first available subnet on the network. This field has no effect when no VPC is specified.
+- **Network tags**: Network tags applied to launched VMs for firewall rule targeting. Tags must be lowercase and contain only letters, numbers, and hyphens (1–63 characters). This field has no effect when no VPC is specified.
+- **Use private address**: Select this option to launch VMs without a public IP address. The selected VPC must provide outbound internet access through Cloud NAT and Private Google Access.
 
 [data-explorer]: ../data/data-explorer
