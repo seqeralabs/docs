@@ -2,7 +2,7 @@
 title: "Single sign-on"
 description: "Single sign-on (SSO) troubleshooting with Seqera Platform."
 date created: "2026-06-05"
-last updated: "2026-06-05"
+last updated: "2026-07-28"
 tags: [faq, help, sso, troubleshooting]
 ---
 
@@ -19,6 +19,14 @@ To resolve, see [Prepare users before setup](../sso/single-sign-on#prepare-users
 #### The claimed domain is rejected or becomes unclaimable
 
 Another organization might already have claimed the domain, or enabled a connection with the same domain claim after you claimed it. Contact Seqera support.
+
+#### Domain verification is failing or stuck
+
+If Auth0 can't verify the claimed domain during the [Domain Configuration](../sso/single-sign-on#verify-your-domain) step:
+
+- Confirm that the TXT record is created at the correct host or name, and that the Record Value has no typos.
+- Allow up to 48 hours for DNS propagation.
+- Verify that the record is live using a DNS lookup — for example, `dig TXT <domain>`.
 
 #### Users are not redirected to the corporate IdP
 
