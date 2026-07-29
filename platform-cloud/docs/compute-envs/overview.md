@@ -108,6 +108,10 @@ process {
 }
 ```
 
+- GPU-accelerated containers (such as NVIDIA Parabricks) bundle a specific CUDA runtime. The compute environment's AMI must include an NVIDIA driver compatible with the container's CUDA runtime. When **Enable GPUs** is set, Batch Forge selects the current AWS-recommended GPU-optimized ECS AMI. If you override **AMI ID** under **Advanced options**, confirm that the custom AMI's driver satisfies the container's CUDA version. See the [NVIDIA CUDA compatibility matrix](https://docs.nvidia.com/deploy/cuda-compatibility/) for supported driver versions.
+
+For GPU driver and CUDA compatibility errors, see [AWS troubleshooting](../troubleshooting_and_faqs/aws_troubleshooting#gpus).
+
 ### GPU metrics
 
 :::note

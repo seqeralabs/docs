@@ -93,6 +93,18 @@ Configure the core settings for your run, including the pipeline source, compute
   :::
 - **Schema**: The [pipeline schema][pipeline-schema] to validate pipeline parameters and prevent runtime failures. Options include **Repository default**, **Repository path**, and **Seqera Platform schema**.
 
+#### Output directory
+
+Set an optional **Output directory** to override the default location for your pipeline's [workflow outputs][nextflow-workflow-outputs]. This is distinct from your pipeline's own output parameter (such as `outdir`) under [Run parameters](#run-parameters).
+
+- Enter an absolute cloud storage path, such as `s3://my-bucket/results`, or select **Browse** to choose a location with [Data Explorer][data-explorer]. Select a **Compute environment** before you browse.
+- Platform passes this value to Nextflow as `-output-dir`.
+- **Output directory** is optional and is not carried over on relaunch. Set it for each launch.
+
+:::note
+The **Output directory** field requires Nextflow 24.10.0 or later and a pipeline that uses the [workflow outputs syntax][nextflow-workflow-outputs]. For older pipelines, use your pipeline output parameter (for example, `params.outdir`) instead.
+:::
+
 ### Run parameters
 
 Enter **Run parameters** in one of four ways before launch:
@@ -107,7 +119,7 @@ If the pipeline includes a `nextflow_schema.json` file in its repository root, S
 Common parameters include:
 
 - **Input data**: If the pipeline defines an input parameter, specify compatible [datasets][datasets] manually or from the drop-down. Select **Browse** to view the available datasets or browse for files in [Data Explorer][data-explorer]. Use the Data Explorer tab to select input datasets that match your [pipeline schema][pipeline-schema] `mimetype` criteria (`text/csv` for CSV files, or `text/tsv` for TSV files).
-- **Output directory**: If the pipeline defines an output directory parameter, specify it manually or select **Browse** to choose a cloud storage directory using [Data Explorer][data-explorer].
+- **Output directory**: Your pipeline's own output directory parameter (for example, `outdir`), if defined in the pipeline schema. Specify it manually or select **Browse** to choose a cloud storage directory using [Data Explorer][data-explorer]. This is separate from the [**Output directory**](#output-directory) field in **General config**, which sets the Nextflow `-output-dir` value for workflow outputs.
 
 ### Advanced settings
 
@@ -241,6 +253,7 @@ The following table lists the supported URL query parameters and their correspon
 [pipeline-versioning]: ../pipelines/versioning
 [pipeline-revision]: ../pipelines/revision
 [nextflow-config-profile]: https://docs.seqera.io/nextflow/config#config-profiles
+[nextflow-workflow-outputs]: https://docs.seqera.io/nextflow/workflow#outputs
 [labels]: ../labels/overview
 [compute-envs]: ../compute-envs/overview
 [pipeline-schema]: ../pipeline-schema/overview

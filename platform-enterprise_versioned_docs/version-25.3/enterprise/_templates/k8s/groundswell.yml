@@ -56,7 +56,7 @@ spec:
 
       initContainers:
         - name: wait-for-tower-db
-          image: "mysql:8.0"
+          image: "docker.io/library/mysql:8.0"
           command:
             - 'bash'
             - '-c'
@@ -76,7 +76,7 @@ spec:
                 name: tower-backend-cfg
 
         - name: wait-for-swell-db
-          image: "mysql:8.0"
+          image: "docker.io/library/mysql:8.0"
           command:
             - 'bash'
             - '-c'
@@ -96,7 +96,7 @@ spec:
                 name: tower-groundswell-cfg
 
         - name: migrate-db
-          image: "cr.seqera.io/enterprise/platform/pipeline-optimization:0.4.7"
+          image: "cr.seqera.io/enterprise/platform/pipeline-optimization:0.4.15"
           command: ['/opt/groundswell/bin/migrate-db.sh']
           envFrom:
             - configMapRef:
@@ -106,7 +106,7 @@ spec:
 
       containers:
         - name: groundswell
-          image: "cr.seqera.io/enterprise/platform/pipeline-optimization:0.4.7"
+          image: "cr.seqera.io/enterprise/platform/pipeline-optimization:0.4.15"
           env:
             - name: MPLCONFIGDIR
               value: "/tmp"
