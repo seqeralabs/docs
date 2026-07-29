@@ -64,6 +64,7 @@ By default, Google Cloud Batch uses the default Compute Engine service account t
 * Logs Writer (`roles/logging.logWriter`) on the project (to let jobs generate logs in Cloud Logging)
 * Service Account User (`roles/iam.serviceAccountUser`)
 * Service Usage Consumer (`roles/serviceusage.serviceUsageConsumer`)
+* Secret Manager Secret Accessor (`roles/secretmanager.secretAccessor`) on the project (required if your pipelines use Seqera secrets; the head job and tasks read secrets from GCP Secret Manager)
 
 If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below.
 
