@@ -2,7 +2,7 @@
 title: "Data privacy"
 description: "The data Seqera Platform collects and stores"
 date created: "2023-04-21"
-last updated: "2026-07-06"
+last updated: "2026-07-29"
 tags: [data, privacy]
 ---
 

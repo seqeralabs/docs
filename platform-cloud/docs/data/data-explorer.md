@@ -2,7 +2,7 @@
 title: "Data Explorer"
 description: "Using Seqera Data Explorer."
 date created: "2023-04-21"
-last updated: "2026-07-13"
+last updated: "2026-07-29"
 tags: [data, explorer, igv, molstar, object, storage, lineage]
 ---
 

@@ -2,7 +2,7 @@
 title: "Pipeline optimization"
 description: Install pipeline optimization for Seqera Platform Enterprise
 date created: "2026-02-09"
-last updated: "2026-07-06"
+last updated: "2026-07-29"
 tags: [groundswell, pipelines, optimization, installation, deployment]
 ---
 

@@ -2,7 +2,7 @@
 title: "GitLab container registry credentials"
 description: "Create GitLab container registry credentials in Seqera Platform."
 date created: "2023-12-15"
-last updated: "2026-07-06"
+last updated: "2026-07-29"
 tags: [gitlab, registry, credentials]
 ---
 
