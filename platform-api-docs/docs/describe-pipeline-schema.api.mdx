@@ -32,7 +32,7 @@ import Translate from "@docusaurus/Translate";
   path={"/pipelines/{pipelineId}/schema"}
   context={"endpoint"}
 >
-  
+
 </MethodEndpoint>
 
 
@@ -40,7 +40,7 @@ import Translate from "@docusaurus/Translate";
 Retrieves the pipeline schema of the pipeline identified by the given `pipelineId`, enriched by `attributes`.
             `200 - OK` responses include the pipeline schema.
             `204 - OK` responses indicate a successful request, with no saved schema found for the given pipeline ID.
-            
+
 
 <Heading
   id={"request"}
@@ -53,20 +53,17 @@ Retrieves the pipeline schema of the pipeline identified by the given `pipelineI
 <ParamsDetails
   {...require("./describe-pipeline-schema.ParamsDetails.json")}
 >
-  
+
 </ParamsDetails>
 
 <RequestSchema
   {...require("./describe-pipeline-schema.RequestSchema.json")}
 >
-  
+
 </RequestSchema>
 
 <StatusCodes
   {...require("./describe-pipeline-schema.StatusCodes.json")}
 >
-  
+
 </StatusCodes>
-
-
-      
