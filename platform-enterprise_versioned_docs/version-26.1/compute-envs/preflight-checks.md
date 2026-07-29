@@ -18,10 +18,6 @@ Before creating or deploying a compute environment, confirm the following:
 - The access keys, service account key, or managed identity are valid and have not been rotated or revoked.
 - The IAM role or service account has the permissions required by the cloud provider. See the relevant compute environment page for the minimum required policy.
 
-**Work directory**
-- The bucket or storage container exists in the same region as the compute environment (required for AWS Batch and AWS Cloud compute environments only).
-- The credential attached to the compute environment has read and write access to the work directory path.
-
 **Wave** (if enabled)
 - The Wave service is running and reachable from Seqera Platform.
 
@@ -67,8 +63,8 @@ Runs immediately when a user submits a pipeline launch. If any check fails, the 
 
 | Check | What it does |
 |---|---|
-| Compute environment status | Blocks launch if the compute environment is marked `INVALID` |
-| Credential status | Blocks launch if the credential associated with the compute environment is marked `INVALID` |
+| Compute environment status | Reads the last recorded status from the database. Blocks launch if the compute environment is marked `INVALID`. |
+| Credential status | Reads the last recorded status from the database. Blocks launch if the credential associated with the compute environment is marked `INVALID`. |
 | Wave connectivity | For compute environments with Wave enabled, verifies the Wave service connection is active |
 | Tower Agent | For HPC compute environments, verifies a Tower Agent is online for the environment |
 
