@@ -1,0 +1,19 @@
+overlay: 1.0.0
+info:
+  title: Compute environments operations overlay
+  version: 0.0.0
+actions:
+  # ===== COMPUTE ENVIRONMENTS - OPERATIONS =====
+
+  # ---- VALIDATE COMPUTE ENVIRONMENT ----
+
+  - target: "$.paths['/compute-envs/{computeEnvId}/validate'].post.summary"
+    update: "Validate compute environment"
+
+  - target: "$.paths['/compute-envs/{computeEnvId}/validate'].post.description"
+    update: "Re-runs pre-flight checks for the specified compute environment including credential validation and work directory accessibility. Persists the outcome to the compute environment and its credential. Use to recover an INVALID compute environment after the underlying problem has been fixed."
+
+  # ---- DELETE COMPUTE ENVIRONMENT (UPDATED) ----
+
+  - target: "$.paths['/compute-envs/{computeEnvId}'].delete.description"
+    update: "Deletes the specified compute environment. Append `?force=true` to bypass active-job checks and SCMS/forge cleanup. Force deletion is only allowed for environments in ERRORED, INVALID, or DELETING status."

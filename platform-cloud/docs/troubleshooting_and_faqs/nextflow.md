@@ -211,9 +211,7 @@ If you're restricted from using public container registries, see Seqera Enterpri
 
 #### Specify the Nextflow version
 
-Each Seqera Platform release uses a specific nf-launcher image by default. This image is loaded with a specific Nextflow version that any workflow in the container uses by default. Force your jobs to use a newer or older Nextflow version with one of the following:
-
-- Use a [pre-run script](../launch/advanced#pre-and-post-run-scripts) to set the Nextflow version. For example: `export NXF_VER=22.08.0-edge`
+Each Seqera Platform release uses a specific nf-launcher image by default. This image is loaded with a specific Nextflow version that any workflow in the container uses by default. To run a job with a different Nextflow version, use the [**Nextflow version**](../launch/advanced#nextflow-version) selector in the pipeline or launch advanced options. Setting `NXF_VER` in a pre-run script or the pipeline configuration is no longer recommended; a value set there overrides the selector.
 
 ## Spot instance failures and retries
 

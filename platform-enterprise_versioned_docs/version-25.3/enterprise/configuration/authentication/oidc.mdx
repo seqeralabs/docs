@@ -1,0 +1,149 @@
+---
+title: "OpenID Connect"
+description: Configure an OpenID Connect (OIDC) identity provider such as Keycloak, Entra ID, or Okta for Seqera Platform
+date created: "2026-07-13"
+last updated: "2026-07-13"
+tags: [authentication, oidc, sso, keycloak, entra, okta]
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+Configure any OpenID Connect (OIDC) provider for single sign-on (SSO) to Seqera Platform. Keycloak, Microsoft Entra ID, and Okta are covered below, but the same steps apply to any OIDC-compliant provider.
+
+All OIDC providers use the same Seqera environment variables (`TOWER_OIDC_CLIENT`, `TOWER_OIDC_SECRET`, `TOWER_OIDC_ISSUER`) and the same callback URL. Only the application setup within the provider differs.
+
+:::note
+You can combine different OAuth and OIDC provider types. However, only one OIDC provider can be configured at a time.
+:::
+
+## Create an application with your identity provider
+
+Create an application (or client) in your identity provider, then note its client ID, client secret, and issuer URL for the next section.
+
+In your provider settings, set the callback address (also called the authorized redirect or sign-in redirect URI) to the following, replacing `<HOST>` with your enterprise installation hostname (must be HTTPS):
+
+```
+https://<HOST>/oauth/callback/oidc
+```
+
+<Tabs>
+<TabItem value="Keycloak" label="Keycloak" default>
+
+:::info[Prerequisites]{#keycloak-prerequisites}
+
+You need the following:
+
+- A [Keycloak](https://www.keycloak.org/) instance
+- Admin access to create clients in Keycloak
+
+:::
+
+See the [Keycloak documentation](https://www.keycloak.org/docs/latest/server_admin/#assembly-managing-clients_server_administration_guide) to configure Keycloak clients.
+
+**Create a Keycloak client**
+
+1. In **Realm settings**, verify the **Endpoints** field includes _OpenID Endpoint Configuration_.
+2. Go to **Clients** and select **Create**.
+3. Configure the client with protocol `openid-connect`, access type `confidential`, and redirect URI `https://<HOST>/oauth/callback/oidc`.
+4. In the **Credentials** tab, note the **Secret**.
+5. In the **Keys** tab, set **Use JWKS URL** to `OFF`.
+6. Note the issuer URL from **Realm Settings > Endpoints > OpenID Configuration** (the `issuer` value in the JSON), e.g., `https://keycloak.example.com/auth/realms/master`.
+
+</TabItem>
+<TabItem value="Entra ID" label="Entra ID">
+
+:::info[Prerequisites]{#entra-id-prerequisites}
+
+You need the following:
+
+- An Azure account with [Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/identity-platform/v2-protocols-oidc) access
+- Permission to create app registrations
+
+:::
+
+See Microsoft's documentation on [registering an application](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app) for the registration steps.
+
+**Register an Entra ID application**
+
+1. In the [Azure portal](https://portal.azure.com/), go to **Entra ID > App Registrations**.
+2. Select **New Registration** and specify a name and supported account types.
+3. Set the redirect URI to `https://<HOST>/oauth/callback/oidc`.
+4. Note the **Application (client) ID** from the app overview.
+5. Go to **Certificates & secrets** and create a new client secret. Note the secret value.
+6. Go to **Endpoints** and note the OpenID Connect metadata document URI (up to `v2.0`), e.g., `https://login.microsoftonline.com/<tenant-id>/v2.0`.
+
+**User consent settings**
+
+Configure user consent settings to **Allow user consent for apps** to ensure admin approval is not required for each login. See [User consent settings](https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/configure-user-consent?pivots=portal#configure-user-consent-settings).
+
+:::note
+Add `auth-oidc` to the `MICRONAUT_ENVIRONMENTS` environment variable for both the `cron` and `backend` services.
+:::
+
+:::note Compatibility note
+Users on Seqera Platform version 25.2.3 and below may need to set the following environment variable to resolve an authentication method incompatibility:
+
+```env
+MICRONAUT_SECURITY_OAUTH2_CLIENTS_OIDC_OPENID_TOKEN_AUTH_METHOD=client_secret_post
+```
+:::
+
+</TabItem>
+<TabItem value="Okta" label="Okta">
+
+:::info[Prerequisites]{#okta-prerequisites}
+
+You need the following:
+
+- An [Okta](https://www.okta.com/) organization
+- Administrator access to create applications
+
+:::
+
+See Okta's documentation on [creating OIDC app integrations](https://help.okta.com/en-us/content/topics/apps/apps_app_integration_wizard_oidc.htm) to set up the app.
+
+**Create an Okta app integration**
+
+1. In the **Admin Console**, go to **Applications > Applications**.
+2. Select **Create App Integration**.
+3. Select **OIDC - OpenID Connect** as the sign-in method and **Web Application** as the application type.
+4. Enter a name for the app, e.g., `Seqera`.
+5. Set the sign-in redirect URI to `https://<HOST>/oauth/callback/oidc`.
+6. Set the sign-out redirect URI to `https://<HOST>/logout`.
+7. Note the **Client ID** and **Client secret** from the application settings.
+8. Note the **Issuer** URL from **Sign On > OpenID Connect ID Token**.
+
+:::note
+Connection strings can differ based on the issuer type. Verify the issuer URL via the Okta console.
+:::
+
+</TabItem>
+</Tabs>
+
+## Configure Seqera
+
+Add the following environment variables to your Seqera backend service configuration:
+
+| Variable | Description |
+| :------- | :---------- |
+| `TOWER_OIDC_CLIENT` | The client ID provided by your identity provider |
+| `TOWER_OIDC_SECRET` | The client secret provided by your identity provider |
+| `TOWER_OIDC_ISSUER` | The issuer URL provided by your identity provider |
+
+Some providers require the full authentication service URL while others require only the SSO root domain (without the trailing sub-directories).
+
+## Restrict access
+
+To restrict access to specific email addresses or domains, configure an allow list in `tower.yml`:
+
+```yaml
+tower:
+  auth:
+    oidc:
+      allow-list:
+        - "*@your-company.example.com"
+        - "specific-user@another-company.example.net"
+```
+
+See [User access allow list](./overview#user-access-allow-list) for more information.
