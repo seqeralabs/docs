@@ -64,6 +64,7 @@ By default, Google Cloud Batch uses the default Compute Engine service account t
 - Logs Writer (`roles/logging.logWriter`) on the project (to let jobs generate logs in Cloud Logging)
 - Logs Viewer (`roles/logging.logViewer`) on the project (to view and retrieve logs from Cloud Logging)
 - Service Account User (`roles/iam.serviceAccountUser`)
+- Secret Manager Secret Accessor (`roles/secretmanager.secretAccessor`) on the project (required if your pipelines use Seqera secrets; the head job and tasks read secrets from GCP Secret Manager)
 
 If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below.
 
@@ -74,6 +75,7 @@ Ask your Google Cloud administrator to grant you the following IAM user permissi
 - Batch Job Editor (`roles/batch.jobsEditor`) on the project
 - Service Account User (`roles/iam.serviceAccountUser`) on the job's service account (default: Compute Engine service account)
 - View Service Accounts (`roles/iam.serviceAccountViewer`) on the project
+- `storage.buckets.list` on the project via a custom role, if you use per-bucket Storage grants instead of project-wide Storage Admin. Seqera requires this permission to validate credentials — without it, credential validation fails and the compute environment is marked invalid.
 
 #### Authentication methods
 
