@@ -49,20 +49,16 @@ Seqera validates the configured Auth0 connection when you enable SSO. If the dom
 
 The setup link expires after five days. After an IdP administrator opens the Auth0 access ticket, the ticket expires after five hours. If the ticket expires before setup or verification is complete, refresh the URL from the SSO settings page.
 
-After the connection test succeeds, [verify your domain](#verify-your-domain) before you enable SSO.
+After the connection test succeeds, verify your domain before you enable SSO.
 
 ## Verify your domain
 
-To activate SSO, prove that you own and control the email domain used for authentication. The Auth0 wizard provides provider-specific instructions (Okta, Azure AD, and so on), but the domain verification step is the same regardless of identity provider.
+Before you enable SSO, prove that you control the domain you claimed. The Auth0 wizard shows provider-specific instructions, but domain verification works the same way for every identity provider.
 
-1. In the Auth0 self-service wizard's **Domain Configuration** step, copy the **TXT Record Name** and **Record Value**.
-2. In your DNS provider (for example, AWS Route 53, Google Cloud DNS, GoDaddy, or Cloudflare), create a new TXT record using those exact values.
-3. Wait for DNS propagation, then allow Auth0 to verify the domain. Verification can take up to 48 hours.
-4. After the domain is verified, return to Seqera and select **Enable SSO** to activate the connection.
-
-:::caution
-The domain configured in Auth0 must match the domain claimed in Seqera, or activation fails. See [Configure SSO](#configure-sso).
-:::
+1. In the **Domain Configuration** step of the Auth0 self-service wizard, copy the **TXT Record Name** and **Record Value**.
+2. In your DNS provider, create a TXT record with those exact values.
+3. Wait for the DNS record to propagate, then for Auth0 to verify the domain. Verification can take up to 48 hours.
+4. After Auth0 verifies the domain, return to Seqera and select **Enable SSO**.
 
 ## Identity provider setup
 

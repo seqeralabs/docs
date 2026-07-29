@@ -20,13 +20,15 @@ To resolve, see [Prepare users before setup](../sso/single-sign-on#prepare-users
 
 Another organization might already have claimed the domain, or enabled a connection with the same domain claim after you claimed it. Contact Seqera support.
 
-#### Domain verification is failing or stuck
+#### Domain verification fails or doesn't complete
 
-If Auth0 can't verify the claimed domain during the [Domain Configuration](../sso/single-sign-on#verify-your-domain) step:
+During [domain verification](../sso/single-sign-on#verify-your-domain), Auth0 can't verify the claimed domain, or the check stays pending. This issue occurs when the TXT record is missing or incorrect, or when DNS changes haven't propagated.
 
-- Confirm that the TXT record is created at the correct host or name, and that the Record Value has no typos.
+To resolve:
+
+- Confirm that the TXT record uses the correct host or name, and that the **Record Value** matches the value from the Auth0 wizard.
 - Allow up to 48 hours for DNS propagation.
-- Verify that the record is live using a DNS lookup — for example, `dig TXT <domain>`.
+- Confirm that the record is live with a DNS lookup, for example `dig TXT <domain>`.
 
 #### Users are not redirected to the corporate IdP
 
