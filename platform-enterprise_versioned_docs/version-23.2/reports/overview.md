@@ -2,7 +2,7 @@
 title: "Reports"
 description: "Overview of pipeline reports in Tower."
 date: "24 Apr 2023"
-tags: [pipeline, schema]
+tags: [pipelines, schema]
 ---
 
 ## Overview

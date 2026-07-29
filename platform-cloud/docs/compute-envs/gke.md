@@ -3,7 +3,7 @@ title: "Google Kubernetes Engine"
 description: "Instructions to set up Google Kubernetes Engine in Seqera Platform"
 date created: "2023-04-21"
 last updated: "2026-05-28"
-tags: [gke, google, compute environment]
+tags: [gke, google, compute environments]
 ---
 
 [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine) is a managed Kubernetes cluster that allows the execution of containerized workloads in Google Cloud at scale.
@@ -55,7 +55,7 @@ After you've prepared your Kubernetes cluster and granted cluster access to your
 1. Enter a descriptive name for this environment, e.g., _Google Kubernetes Engine (europe-west1)_.
 1. From the **Provider** drop-down, select **Google Kubernetes Engine**.
 1. Under **Storage**, select either **Fusion storage** (recommended) or **Legacy storage**. The [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system allows access to your Google Cloud-hosted data (`gs://` URLs). This eliminates the need to configure a shared file system in your Kubernetes cluster. See [Fusion v2](#fusion-v2) below.
-1. From the **Credentials** drop-down menu, select existing GKE credentials, or select **+** to add new credentials. If you choose to use existing credentials, skip to step 8.
+1. From the **Credentials** drop-down, select existing GKE credentials, or select **+** to add new credentials. If you choose to use existing credentials, skip to step 8.
 1. Enter a name for the credentials, e.g., _GKE Credentials_.
 1. Enter the **Service account key** for your Google service account.
     :::tip

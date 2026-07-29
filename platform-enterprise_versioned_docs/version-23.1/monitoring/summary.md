@@ -2,7 +2,7 @@
 title: "General summary and run status"
 description: "Monitoring run and job status of pipelines in Tower."
 date: "21 Apr 2023"
-tags: [run, status, monitoring]
+tags: [runs, status, monitoring]
 ---
 
 ## General

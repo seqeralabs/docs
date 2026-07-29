@@ -2,8 +2,8 @@
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-05-28"
-tags: [google, batch, gcp, compute environment]
+last updated: "2026-07-20"
+tags: [google, batch, gcp, compute environments]
 ---
 
 :::note
@@ -37,7 +37,7 @@ See [here](https://console.cloud.google.com/flows/enableapi?apiid=batch.googleap
 - Compute Engine API
 - Cloud Storage API
 
-Select your project from the dropdown menu and select **Enable**.
+Select your project from the drop-down and select **Enable**.
 
 Alternatively, you can enable each API manually by selecting your project in the navigation bar and visiting each API page:
 
@@ -64,6 +64,7 @@ By default, Google Cloud Batch uses the default Compute Engine service account t
 - Logs Writer (`roles/logging.logWriter`) on the project (to let jobs generate logs in Cloud Logging)
 - Logs Viewer (`roles/logging.logViewer`) on the project (to view and retrieve logs from Cloud Logging)
 - Service Account User (`roles/iam.serviceAccountUser`)
+- Secret Manager Secret Accessor (`roles/secretmanager.secretAccessor`) on the project (required if your pipelines use Seqera secrets; the head job and tasks read secrets from GCP Secret Manager)
 
 If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below.
 
@@ -74,6 +75,7 @@ Ask your Google Cloud administrator to grant you the following IAM user permissi
 - Batch Job Editor (`roles/batch.jobsEditor`) on the project
 - Service Account User (`roles/iam.serviceAccountUser`) on the job's service account (default: Compute Engine service account)
 - View Service Accounts (`roles/iam.serviceAccountViewer`) on the project
+- `storage.buckets.list` on the project via a custom role, if you use per-bucket Storage grants instead of project-wide Storage Admin. Seqera requires this permission to validate credentials — without it, credential validation fails and the compute environment is marked invalid.
 
 #### Authentication methods
 
@@ -112,6 +114,15 @@ Setting up WIF requires the following steps in the GCP Console:
   tityPools/{POOL}/providers/{PROVIDER}`. If you specify a custom value, it must match exactly what you enter in the Token audience field when creating the Google WIF credential in Seqera.
 4. Define an attribute mapping and condition. At a minimum set `google.subject=assertion.sub`. This maps the subject claim from Seqera's JWT to GCP's identity space. For more information see [here](https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-providers#mappings-and-conditions). You may see a pop-up asking to configure your application and provide an OIDC ID token path. This pop-up can be dismissed.
 5. Grant `roles/iam.workloadIdentityUser` on the service account that WIF will impersonate to the Workload Identity Pool principal. This can be set for all pool identities or for a specific workspace. If you have not yet created a service account do so following the guidelines above.
+6. If you use the same WIF credential for Data Explorer, grant `roles/iam.serviceAccountTokenCreator` on the service account to itself:
+
+   ```bash
+   gcloud iam service-accounts add-iam-policy-binding SA_EMAIL \
+     --member="serviceAccount:SA_EMAIL" \
+     --role="roles/iam.serviceAccountTokenCreator"
+   ```
+
+   Replace `SA_EMAIL` with the service account email. Without this role, viewing or downloading file contents in Data Explorer fails with a signing error. Pipeline runs are not affected.
 
 After setting up WIF in the GCP Console, you need the following information to create a credential in Seqera Platform:
 
@@ -174,7 +185,7 @@ After your Google Cloud resources have been created, create a new Platform compu
 
 #### Credentials
 
-1. From the **Credentials** drop-down menu, select existing Google credentials or select **+** to add new credentials. If you choose to use existing credentials, skip to the next section.
+1. From the **Credentials** drop-down, select existing Google credentials or select **+** to add new credentials. If you choose to use existing credentials, skip to the next section.
 2. Enter a name for the credentials, e.g., _Google Cloud Credentials_.
 3. Paste the contents of the JSON file created previously in the **Service account key** field.
 
@@ -185,7 +196,7 @@ Select the **Location** where you will execute your pipelines. See [Location][lo
 In the **Work directory** field, enter your storage bucket URL, e.g., `gs://my-bucket`. This bucket must be accessible in the location selected in the previous step.
 
 :::note
-When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
+When you specify a Cloud Storage bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-pipelines) form.
 :::
 
 #### Seqera features
@@ -224,7 +235,7 @@ Wave containers and Fusion v2 are recommended features for added capability and 
 
 Enable **Spot** to use Spot instances, which have significantly reduced cost compared to On-Demand instances.
 
-From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow.md#spot-instance-failures-and-retries-in-nextflow).
+From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow.md#spot-instance-failures-and-retries).
 
 :::info
 When a Spot instance is reclaimed by Google Cloud, Seqera Platform displays a human-readable description in the task details. Google Batch reserves exit codes in the 50001–59999 range for infrastructure events:
@@ -268,12 +279,38 @@ If you use VM instance templates for the head or compute jobs (see below), resou
 
 1. Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
 1. Use **Boot disk size** to control the persistent disk size that each task and the head job are provided.
-1. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The drop-down menu is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional. If not set, Google Batch uses the default image.
-1. Use **Instance Type** to select a specific machine type for the compute instances. The drop-down menu is populated with available instance types for the selected region and supports autocomplete filtering. This field is optional. If not set, Google Batch selects an appropriate machine type automatically.
+1. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The drop-down is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional. If not set, Google Batch uses the default image.
+1. Use **Instance Type** to select a specific machine type for the compute instances. The drop-down is populated with available instance types for the selected region and supports autocomplete filtering. This field is optional. If not set, Google Batch selects an appropriate machine type automatically.
     :::note
     The **Instance Type** field sets a default machine type at the compute environment level. You can override this for individual processes using the `machineType` [process directive](https://docs.seqera.io/nextflow/google#process-definition) in your Nextflow configuration.
     :::
 1. Use **Head job CPUs** and **Head job memory** to specify the CPUs and memory allocated for the head job.
+
+   :::caution
+   The default head job resource values are insufficient for production pipelines.
+   The Nextflow head job is a JVM process that tracks every submitted task, manages pipeline state, and polls the GCP Batch API.
+   If the head job runs out of memory mid-run, the pipeline fails.
+   Tasks already running on worker VMs run to completion, but no new tasks are scheduled.
+   Output files that were already written are not cleaned up automatically. Results may be incomplete.
+
+   Size the head job based on the number of tasks in your pipeline:
+
+   | Pipeline scale | Tasks | Recommended CPUs | Recommended memory |
+   |---|---|---|---|
+   | Small | Up to 100 | 2 | 4 GB |
+   | Medium | 100–500 | 4 | 8 GB |
+   | Large | 500+ | 8 | 16 GB |
+
+   Head job memory scales with the number of concurrent tasks and total pipeline duration.
+   Long-running pipelines keep thousands of task records in memory for resumability, and need more memory than short pipelines with the same peak parallelism.
+   Increase CPUs if task scheduling is slow or the head job logs show high garbage collection (GC) pressure.
+
+   For large pipelines, you can also increase the JVM heap directly by setting `NXF_JVM_ARGS="-Xms4g -Xmx12g"` as a **Head job** environment variable (see [Scripting and environment variables](#scripting-and-environment-variables)).
+   :::
+
+   :::note
+   If you specify a **Head job instance template** (see step 9), the template's machine type overrides the **Head job CPUs** and **Head job memory** values set here.
+   :::
 1. Use **Service Account email** to specify a service account email address other than the Compute Engine default to execute workflows with this compute environment (recommended for productions environments).
 1. Use **VPC** and **Subnet** to specify the name of a VPC network and subnet to be used by this compute environment. You can apply network tags directly in the **Network Tags** field (see below) or through VM instance templates used for the Nextflow head and compute jobs.
     :::note

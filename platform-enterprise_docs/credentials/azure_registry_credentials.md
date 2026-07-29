@@ -24,8 +24,8 @@ You must use Azure credentials with long-term registry read (**content/read**) a
 3. Enter a token name.
 4. Under **Scope map**, select **Create new**.
 5. In the **Create scope map** section, enter a name and description for the new scope map.
-6. Select your **Repository** from the drop-down menu.
-7. Select **content/read** from the **Permissions** drop-down menu, then select **Add** to create the scope map.
+6. Select your **Repository** from the drop-down.
+7. Select **content/read** from the **Permissions** drop-down, then select **Add** to create the scope map.
 8. In the **Create token** section, ensure the **Status** is **Enabled** (default), then select **Create**.
 9. Return to **Repository permissions > Tokens** for your registry, then select the token you just created.
 10. On the token details page, select **password1** or **password2**.

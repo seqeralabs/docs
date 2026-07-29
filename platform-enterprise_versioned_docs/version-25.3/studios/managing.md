@@ -3,7 +3,7 @@ title: "Manage Studios"
 description: "Manage Studio sessions."
 date created: "2025-02-06"
 last updated: "2025-09-04"
-tags: [data, session, studios]
+tags: [data, sessions, studios]
 ---
 
 Select the **Studios** tab in Platform to:

@@ -2,8 +2,8 @@
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-05-28"
-tags: [google, batch, gcp, compute environment]
+last updated: "2026-07-20"
+tags: [google, batch, gcp, compute environments]
 ---
 
 # Google Cloud Batch
@@ -39,7 +39,7 @@ See [Enable API wizard](https://console.cloud.google.com/flows/enableapi?apiid=b
 * Compute Engine API
 * Cloud Storage API
 
-Select your project from the drop-down menu and select **Enable**.
+Select your project from the drop-down and select **Enable**.
 
 Alternatively, enable each API manually by selecting your project in the navigation bar and visiting each API page:
 
@@ -74,6 +74,7 @@ Ask your Google Cloud administrator to grant you the following IAM user permissi
 * Batch Job Editor (`roles/batch.jobsEditor`) on the project
 * Service Account User (`roles/iam.serviceAccountUser`) on the job's service account (default: Compute Engine service account)
 * View Service Accounts (`roles/iam.serviceAccountViewer`) on the project
+* `storage.buckets.list` on the project via a custom role, if you use per-bucket Storage grants instead of project-wide Storage Admin. Seqera requires this permission to validate credentials — without it, credential validation fails and the compute environment is marked invalid.
 
 #### Authentication methods
 
@@ -287,14 +288,40 @@ If you use VM instance templates for the head or compute jobs (see step 8 below)
 
 1. Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
 2. Use **Boot disk size** to control the persistent disk size that each task and the head job are provided.
-3. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The dropdown is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional. If not set, Google Batch uses the default image.
-4. Use **Instance Type** to select one or more machine types for the compute instances. The dropdown is populated with available instance types for the selected region and supports autocomplete filtering. You can select multiple specific instance types or use family wildcards (for example, `c2-*` or `n*`) to allow Google Batch to choose from a family. This field is optional. If not set, Google Batch automatically selects an appropriate machine type.
+3. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The drop-down is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional. If not set, Google Batch uses the default image.
+4. Use **Instance Type** to select one or more machine types for the compute instances. The drop-down is populated with available instance types for the selected region and supports autocomplete filtering. You can select multiple specific instance types or use family wildcards (for example, `c2-*` or `n*`) to allow Google Batch to choose from a family. This field is optional. If not set, Google Batch automatically selects an appropriate machine type.
 
    :::note
    The **Instance Type** field sets the default machine type selection at the compute environment level. You can override this for individual processes using the `machineType` [process directive](https://docs.seqera.io/nextflow/google#process-definition) in your Nextflow configuration, which accepts a comma-separated list of patterns (for example, `c2-*`, `n1-standard-1`, `custom-2-4`).
    :::
 
 5. Use **Head job CPUs** and **Head job memory** to specify the CPUs and memory allocated for the head job.
+
+   :::caution
+   The default head job resource values are insufficient for production pipelines.
+   The Nextflow head job is a JVM process that tracks every submitted task, manages pipeline state, and polls the GCP Batch API.
+   If the head job runs out of memory mid-run, the pipeline fails.
+   Tasks already running on worker VMs run to completion, but no new tasks are scheduled.
+   Output files that were already written are not cleaned up automatically. Results may be incomplete.
+
+   Size the head job based on the number of tasks in your pipeline:
+
+   | Pipeline scale | Tasks | Recommended CPUs | Recommended memory |
+   |---|---|---|---|
+   | Small | Up to 100 | 2 | 4 GB |
+   | Medium | 100–500 | 4 | 8 GB |
+   | Large | 500+ | 8 | 16 GB |
+
+   Head job memory scales with the number of concurrent tasks and total pipeline duration.
+   Long-running pipelines keep thousands of task records in memory for resumability, and need more memory than short pipelines with the same peak parallelism.
+   Increase CPUs if task scheduling is slow or the head job logs show high garbage collection (GC) pressure.
+
+   For large pipelines, you can also increase the JVM heap directly by setting `NXF_JVM_ARGS="-Xms4g -Xmx12g"` as a **Head job** environment variable (see [Scripting and environment variables](#scripting-and-environment-variables)).
+   :::
+
+   :::note
+   If you specify a **Head job instance template** (see step 9), the template's machine type overrides the **Head job CPUs** and **Head job memory** values set here.
+   :::
 6. Use **Service Account email** to specify a service account email address other than the Compute Engine default to execute workflows with this compute environment (recommended for production environments).
 7. Use **VPC** and **Subnet** to specify the name of a VPC network and subnet to be used by this compute environment. You can apply network tags directly in the **Network Tags** field (see below) or through VM instance templates used for the Nextflow head and compute jobs.
 

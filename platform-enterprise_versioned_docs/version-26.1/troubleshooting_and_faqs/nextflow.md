@@ -3,7 +3,7 @@ title: "Nextflow"
 description: "Nextflow troubleshooting with Seqera Platform."
 date created: "2024-08-26"
 last updated: "2025-07-17"
-tags: [faq, help, nextflow help, nextflow troubleshooting]
+tags: [faq, help, nextflow, troubleshooting]
 ---
 
 ### Nextflow configuration

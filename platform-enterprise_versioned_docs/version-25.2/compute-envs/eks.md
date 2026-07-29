@@ -3,7 +3,7 @@ title: "Amazon EKS"
 description: "Instructions to set up Amazon EKS in Seqera Platform"
 date created: "2026-02-04"
 last updated: "2026-05-28"
-tags: [eks, amazon, compute environment, ce]
+tags: [eks, amazon, compute environments, ce]
 ---
 
 [Amazon EKS](https://aws.amazon.com/eks/) provides managed Kubernetes clusters that enable the execution of containerized workloads at scale. Seqera Platform offers native support for Amazon EKS clusters as Compute Environments for Nextflow pipelines.

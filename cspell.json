@@ -1,0 +1,35 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "useGitignore": true,
+  "dictionaries": [
+    "software-terms",
+    "bash",
+    "npm",
+    "node",
+    "python",
+    "aws",
+    "docker",
+    "typescript",
+    "html",
+    "css",
+    "fonts",
+    "filetypes",
+    "data-science",
+    "project-words"
+  ],
+  "dictionaryDefinitions": [
+    { "name": "project-words", "path": "./project-words.txt", "addWords": true }
+  ],
+  "ignoreRegExpList": [
+    "/`{1,3}[\\s\\S]*?`{1,3}/"
+  ],
+  "ignorePaths": [
+    ".claude/**",
+    ".github/styles/**",
+    "platform-enterprise_versioned_docs/**",
+    "changelog/**",
+    "platform-api-docs/**",
+    "platform-cli-docs/**"
+  ]
+}

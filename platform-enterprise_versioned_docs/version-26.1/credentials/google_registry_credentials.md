@@ -2,7 +2,7 @@
 title: "Google registry credentials"
 description: "Instructions to create Google Cloud registry credentials in Seqera Platform."
 date: "2023-04-21"
-tags: [google, container, registry, artifact, credentials]
+tags: [google, containers, registry, artifact, credentials]
 ---
 
 From version 22.3, Seqera Platform supports the configuration of credentials for the Nextflow Wave container service to authenticate to private and public container registries. For more information on Wave containers, see the [Nextflow documentation](https://docs.seqera.io/nextflow/wave).
@@ -31,7 +31,7 @@ Administrators can create a service account from the Google Cloud console:
 2. Select a Cloud project.
 3. Enter a service account name and (optional) description.
 4. Select **Create and continue**.
-5. From the **Role** drop-down menu under step 2, select **Artifact Registry > Artifact Registry Reader**, then select **Continue**.
+5. From the **Role** drop-down under step 2, select **Artifact Registry > Artifact Registry Reader**, then select **Continue**.
 6. (Optional) Grant other users and admins access to this service account.
 7. Select **Done**.
 8. From the project service accounts page, select the three dots menu icon under **Actions** for the service account you just created, then select **Manage keys**.
@@ -58,7 +58,7 @@ Administrators can create a service account from the Google Cloud console:
 2. Select a Cloud project.
 3. Enter a service account name and an optional description.
 4. Select **Create and continue**.
-5. From the **Role** drop-down menu under step 2, search for and select **Storage Object Viewer**, then select **Continue**.
+5. From the **Role** drop-down under step 2, search for and select **Storage Object Viewer**, then select **Continue**.
 6. (Optional) Grant other users and admins access to this service account under step 3.
 7. Select **Done**.
 8. From the project service accounts page, select the three dots menu icon under **Actions** for the service account you just created, then select **Manage keys**.

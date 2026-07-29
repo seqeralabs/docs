@@ -1,17 +1,10 @@
-# Seqera Product Terminology
-# Catches incorrect product names and suggests corrections
-
+# Seqera product names — unambiguous spelling and capitalization.
+# These are safe to enforce as errors: the corrected form is always right.
 extends: substitution
 message: "Use '%s' instead of '%s'"
 level: error
 ignorecase: false
 swap:
-  # Product names - Seqera Platform
-  Tower: Seqera Platform
-  "Nextflow Tower": Seqera Platform
-  "the platform": Seqera Platform
-  "the Platform": Seqera Platform
-
   # Nextflow variants
   NextFlow: Nextflow
   nextFlow: Nextflow
@@ -25,14 +18,10 @@ swap:
   Multiqc: MultiQC
 
   # Wave variants
-  wave: Wave
   WAVE: Wave
 
   # Fusion variants
-  fusion: Fusion
   FUSION: Fusion
 
   # Studios variants
   "Seqera Studios": Studios
-  studio: Studio
-  studios: Studios

@@ -3,7 +3,7 @@ title: "Workspaces"
 description: "Manage users and teams for an organization in Seqera Platform."
 date created: "2023-04-23"
 last updated: "2026-04-29"
-tags: [workspaces, teams, users, administration, user-workspace, create-workspace, credits, settings]
+tags: [workspaces, teams, users, administration, user workspace, create workspace, credits, settings]
 ---
 
 Each user has a unique **user workspace** to manage resources such as pipelines, compute environments, and credentials. You can also create multiple workspaces within an organization context and associate each of these workspaces with dedicated teams of users, while providing fine-grained access control for each of the teams.

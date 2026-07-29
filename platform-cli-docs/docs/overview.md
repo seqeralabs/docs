@@ -2,7 +2,7 @@
 title: "Overview"
 description: "Seqera Platform CLI overview."
 date: "24 Apr 2023"
-tags: [cli, tower]
+tags: [cli, platform]
 slug: /
 ---
 

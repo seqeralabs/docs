@@ -2,7 +2,7 @@
 title: "IdP delegation overview"
 description: "Map Seqera teams to identity provider (IdP) groups so membership is controlled at the IdP and evaluated on every SSO login."
 date: "2026-05-12"
-tags: [sso, idp-delegation, teams, administration, enterprise]
+tags: [sso, idp delegation, teams, administration, enterprise]
 ---
 
 IdP delegation lets you map a Seqera team to a group in your identity provider (IdP). After you delegate a team, the IdP becomes the sole authority for membership. Every time a user signs in through SSO, Seqera reads the `groups` claim from their token and updates the user's delegated-team memberships to match.
@@ -15,7 +15,7 @@ Delegation has three components that you configure once per organization.
 
 ### The IdP group catalog
 
-Seqera maintains a per-organization catalog of IdP groups. The catalog populates the **IdP Group** drop-down menu on the group mapping page. Oorganization owners can select an IdP group when delegating a team. Groups appear in the catalog as soon as they're synced or entered, before any user has signed in.
+Seqera maintains a per-organization catalog of IdP groups. The catalog populates the **IdP Group** drop-down on the group mapping page. Oorganization owners can select an IdP group when delegating a team. Groups appear in the catalog as soon as they're synced or entered, before any user has signed in.
 
 The catalog is populated in one of two ways:
 

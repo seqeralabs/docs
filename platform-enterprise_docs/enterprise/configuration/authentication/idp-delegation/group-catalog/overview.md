@@ -2,7 +2,7 @@
 title: "Manage your IdP group catalog"
 description: "Populate Seqera with your IdP's groups using SCIM push or manual entry."
 date: "2026-05-12"
-tags: [sso, scim, idp-delegation, administration, enterprise]
+tags: [sso, scim, idp delegation, administration, enterprise]
 ---
 
 Platform maintains a per-organization catalog of identity provider (IdP) groups. Groups appear in the catalog as soon as they're synced from the IdP or added manually. They don't depend on any user having signed in.
@@ -33,7 +33,7 @@ To set up SCIM:
 3. Configure these values in your IdP's SCIM provisioning settings.
 4. Trigger an initial sync from the IdP or wait until the IdP performs an scheduled sync.
 
-After the sync completes, the catalog displays every group your IdP shared, and the **Linked team** drop-down menu on **Group mapping > IdP groups** is populated.
+After the sync completes, the catalog displays every group your IdP shared, and the **Linked team** drop-down on **Group mapping > IdP groups** is populated.
 
 :::caution
 Treat the SCIM bearer token like a password. It grants write access to your organization's group catalog. If the token is compromised, rotate it immediately using **Rotate** in the **Group mapping** panel. The previous token is revoked atomically.

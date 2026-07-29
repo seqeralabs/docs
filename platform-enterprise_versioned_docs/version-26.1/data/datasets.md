@@ -3,7 +3,7 @@ title: "Datasets"
 description: "Using datasets in Seqera Platform."
 date created: "2023-04-23"
 last updated: "2026-05-18"
-tags: [datasets, manage-datasets, create-datasets, add-dataset-version]
+tags: [datasets, manage datasets, create datasets, add dataset version]
 ---
 
 :::note
@@ -117,9 +117,9 @@ All subsequent versions of a dataset must be the same format (CSV or TSV) as the
 
 ### View dataset versions
 
-To see all versions of a dataset, use the **Show** drop-down menu in the **Preview** tab. A preview of the most recent version of the dataset is automatically displayed and the version flagged as **(latest)**, provided it is not disabled.
+To see all versions of a dataset, use the **Show** drop-down in the **Preview** tab. A preview of the most recent version of the dataset is automatically displayed and the version flagged as **(latest)**, provided it is not disabled.
 
-To preview previous dataset versions, change the version from the **Show** drop-down menu. The **Created by** and **Created on** values will also change.
+To preview previous dataset versions, change the version from the **Show** drop-down. The **Created by** and **Created on** values will also change.
 
 To download a dataset version, select the **Download** icon.
 
@@ -144,7 +144,7 @@ To use a dataset with pipelines added to your workspace:
 3. Pick the dataset to use as input to your pipeline.
 
 :::note
-The input field drop-down menu will only display datasets that match the file type specified in the `nextflow_schema.json` of the chosen pipeline. If the schema specifies `"mimetype": "text/csv"`, no TSV datasets will be available for use with that pipeline, and vice-versa. If multiple dataset versions exist, the pipeline input will always default to the **latest** version.
+The input field drop-down will only display datasets that match the file type specified in the `nextflow_schema.json` of the chosen pipeline. If the schema specifies `"mimetype": "text/csv"`, no TSV datasets will be available for use with that pipeline, and vice-versa. If multiple dataset versions exist, the pipeline input will always default to the **latest** version.
 :::
 
 ## Manage datasets

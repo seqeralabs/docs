@@ -1,0 +1,29 @@
+name: Vale
+
+# Lint changed documentation prose on every PR. Error-level terminology findings
+# are posted as inline review comments on the affected lines — non-blocking. This
+# is the Vale-only subset of the full /editorial-review workflow — fast, free, and
+# no LLM involved.
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  vale:
+    name: Lint prose
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
+
+      - uses: errata-ai/vale-action@85f9f7f2c5f449ac0ae5b66662961bae3f77ca6a # v2.1.2
+        with:
+          reporter: github-pr-review           # Inline review comments on the affected lines
+          filter_mode: added                   # Only comment on lines changed in the PR
+          fail_on_error: false                 # Surface findings without blocking the PR
+          vale_flags: "--minAlertLevel=error"  # Comment only on errors, not warnings/suggestions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

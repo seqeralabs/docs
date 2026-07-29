@@ -3,7 +3,7 @@ title: "HPC compute environments"
 description: "Instructions to set up HPC compute environments in Seqera Platform"
 date created: "2023-05-11"
 last updated: "2026-05-28"
-tags: [slurm, lsf, pbs, grid, altair, ibm, moab, slurm, compute environment]
+tags: [slurm, lsf, pbs, grid engine, altair, ibm, moab, compute environments]
 ---
 
 Seqera Platform streamlines the deployment of Nextflow pipelines into both cloud-based and on-prem HPC clusters and supports compute environment creation for the following management and scheduling solutions:
@@ -47,7 +47,7 @@ To create a new **HPC** compute environment:
 
 1.  In a Seqera workspace, select **Compute environments > New environment**.
 1.  Enter a descriptive name for this environment. Use only alphanumeric characters, dashes, and underscores.
-1.  Select your HPC environment from the **Platform** dropdown menu.
+1.  Select your HPC environment from the **Platform** drop-down.
 1.  Select your existing managed identity, SSH, or Tower Agent credentials, or select **+** and **SSH** or **Tower Agent** to add new credentials.
 1.  Enter the absolute path of the **Work directory** to be used on the cluster. You can use the `TW_AGENT_WORKDIR` and `TW_AGENT_USER` variables in the file system path.
 

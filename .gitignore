@@ -9,6 +9,9 @@
 .cache-loader
 .cache
 
+# Output from .github/scripts/docs-diff-since-release.sh
+since-*.md
+
 # Misc
 .env
 .DS_Store
@@ -27,8 +30,6 @@ internal/tmp
 # Ignore all pre-packaged styles
 .github/styles/*
 # Include our own configuration
-!.github/styles/config
-!.github/styles/Google
 !.github/styles/Seqera
 
 # VSCode workspace settings (user-specific paths)

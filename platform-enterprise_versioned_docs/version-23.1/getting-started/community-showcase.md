@@ -2,7 +2,7 @@
 title: "Tower community showcase"
 description: "Instructions to run your first pipeline in the Tower community showcase."
 date: "21 Apr 2023"
-tags: [pipeline, tutorial]
+tags: [pipelines, tutorial]
 ---
 
 The Tower community showcase is an example workspace provided by Seqera. The showcase is pre-configured with credentials, compute environments, and pipelines to get you running Nextflow pipelines immediately. The pre-built community AWS Batch environments include 100 free hours of compute. Upon your first login to Tower Cloud, you are directed to the community showcase Launchpad. To run pipelines on your own infrastructure, create your own [organization](../orgs-and-teams/organizations) and [workspaces](../orgs-and-teams/workspace-management).

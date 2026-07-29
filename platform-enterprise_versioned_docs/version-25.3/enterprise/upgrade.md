@@ -2,7 +2,7 @@
 title: "Upgrade deployment"
 description: "Guidance for upgrading to Platform Enterprise version 25.3"
 date created: "2025-11-11"
-tags: [enterprise, update, install]
+tags: [enterprise, update, installation]
 ---
 
 This page outlines the steps to upgrade your database instance and Platform Enterprise installation to version 25.3, including special considerations for upgrading from versions prior to 25.1.

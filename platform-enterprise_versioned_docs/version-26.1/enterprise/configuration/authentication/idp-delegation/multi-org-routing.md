@@ -2,7 +2,7 @@
 title: "Multi-organization routing"
 description: "How IdP delegation resolves users to organizations in single-organization and multi-organization Enterprise installations."
 date: "2026-05-12"
-tags: [sso, idp-delegation, enterprise, administration]
+tags: [sso, idp delegation, enterprise, administration]
 ---
 
 Cloud Pro tokens carry an `org_id` claim that scopes every IdP delegation evaluation to a single organization. Enterprise SSO tokens don't carry such a claim. Platform routes by deployment topology and relies on a cross-organization uniqueness invariant on group display names.

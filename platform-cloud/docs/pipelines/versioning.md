@@ -62,7 +62,7 @@ For more information, see [Define pipeline schema](../pipeline-schema/overview.m
 Select a pipeline from the workspace Launchpad to open the pipeline's details page. From here, users with Maintain or higher permissions can:
 
 - **View version history**: See a chronological list of all draft and published versions with creator, date, and hash.
-  - Use the dropdown next to **Show:** to show all versions, or filter by draft or published versions.
+  - Use the drop-down next to **Show:** to show all versions, or filter by draft or published versions.
   - **Search** for specific version names (freetext search), or use keywords to search by `versionId:`, `versionName:`, or `versionHash:` ([version hash](#version-hash)).
 - **Manage draft versions**:
   - Select **Publish** from the options menu of a draft version to name this version and optionally make it the default version to launch from the Launchpad.

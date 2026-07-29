@@ -2,7 +2,7 @@
 title: "Use AWS IAM roles"
 description: Use AWS IAM Roles instead of user credentials
 date: "12 Apr 2023"
-tags: [aws, iam, role]
+tags: [aws, iam, roles]
 ---
 
 AWS-based customers can configure Seqera Platform to authenticate to AWS services like Batch with an IAM Role instead of IAM user credentials.

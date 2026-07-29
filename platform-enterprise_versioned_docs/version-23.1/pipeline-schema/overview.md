@@ -2,7 +2,7 @@
 title: "Pipeline schema"
 description: "Introduciton to pipeline schema in Tower."
 date: "24 Apr 2023"
-tags: [pipeline, schema]
+tags: [pipelines, schema]
 ---
 
 Pipeline schema files describe the structure and validation constraints of your workflow parameters. They are used to validate parameters before launch to prevent software or pipelines from failing in unexpected ways at runtime.

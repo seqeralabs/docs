@@ -3,14 +3,14 @@ title: "Launch pipelines"
 description: "Curate and launch workflows in Seqera Platform"
 date created: "2023-04-21"
 last updated: "2026-05-18"
-tags: [launchpad, launch, configure, pipeline, schema, configuration, nextflow, parameters, input, output]
+tags: [launchpad, launch, configure, pipelines, schema, configuration, nextflow, parameters, input, output]
 ---
 
 View, configure, and launch pipelines from your workspace **Launchpad**.
 
 ## Launchpad
 
-The **Launchpad** enables workspace users to launch pre-configured pipelines, add new pipelines, or perform a quick launch of unsaved pipelines. Use the **Sort by:** dropdown to sort pipelines, either by name or most-recently updated.
+The **Launchpad** enables workspace users to launch pre-configured pipelines, add new pipelines, or perform a quick launch of unsaved pipelines. Use the **Sort by:** drop-down to sort pipelines, either by name or most-recently updated.
 
 :::note
 A pipeline is a repository containing a Nextflow workflow, a compute environment, and pipeline parameters.
@@ -58,7 +58,7 @@ The launch form accepts URL query parameters. See [Populate launch form with URL
 
 #### Config profiles
 
-The dropdown of available config profiles is populated by inspecting the Nextflow configuration in the pipeline repository. A limited form of static analysis is used to detect profiles in the main configuration and included configurations that match any of the following patterns:
+The drop-down of available config profiles is populated by inspecting the Nextflow configuration in the pipeline repository. A limited form of static analysis is used to detect profiles in the main configuration and included configurations that match any of the following patterns:
 
 - Includes with a static string:
   ```groovy
@@ -94,15 +94,15 @@ The dropdown of available config profiles is populated by inspecting the Nextflo
 
 There are four ways to enter **Run parameters** prior to launch:
 
-- The **Input form view** displays form fields to enter text, select attributes from dropdowns, and browse input and output locations with [Data Explorer][data-explorer].
-- The **Params file view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** dropdown.
+- The **Input form view** displays form fields to enter text, select attributes from drop-downs, and browse input and output locations with [Data Explorer][data-explorer].
+- The **Params file view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** drop-down.
 - **Upload params file** allows you to upload a JSON or YAML file with run parameters.
 - Specify run parameters with query parameters in the launch URL. See [Populate launch form with URL query parameters](#populate-launch-form-with-url-query-parameters) for more information.
 
 Seqera uses a `nextflow_schema.json` file in the root of the pipeline repository to dynamically create a form with the necessary pipeline parameters. Most pipelines contain at least input and output parameters:
 
 - **input**
-Specify compatible input [datasets][datasets]  manually or from the dropdown menu. Select **Browse** to view the available datasets or browse for files in [Data Explorer][data-explorer]. The Data Explorer tab allows you to select input datasets that match your [pipeline schema][pipeline-schema] `mimetype` criteria (`text/csv` for CSV files, or `text/tsv` for TSV files).
+Specify compatible input [datasets][datasets]  manually or from the drop-down. Select **Browse** to view the available datasets or browse for files in [Data Explorer][data-explorer]. The Data Explorer tab allows you to select input datasets that match your [pipeline schema][pipeline-schema] `mimetype` criteria (`text/csv` for CSV files, or `text/tsv` for TSV files).
 
 - **outdir**
 Specify the output directory where run results will be saved manually, or select **Browse** to choose a cloud storage directory using [Data Explorer][data-explorer].

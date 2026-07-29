@@ -2,7 +2,7 @@
 title: "Teams"
 description: "Create and manage teams in a Seqera Platform Enterprise organization, including IdP-delegated teams."
 date: "2026-05-12"
-tags: [teams, organizations, administration, sso, idp-delegation, enterprise]
+tags: [teams, organizations, administration, sso, idp delegation, enterprise]
 ---
 
 **Teams** allow organization owners to group members and collaborators together into a single unit and to manage them as a whole. Apply a workspace role to a team and every member inherits that access. See [User roles](./roles) for the available roles.
@@ -50,7 +50,7 @@ You will need the following to get started:
 ### Delegate the team
 
 1. In Platform, open **Organization settings > Group mapping**.
-2. In the **IdP groups** field, select a group from the drop-down menu, which is populated from your organization's IdP group catalog.
+2. In the **IdP groups** field, select a group from the drop-down, which is populated from your organization's IdP group catalog.
 3. Select **Update** to save.
 
 The same IdP group can be assigned to more than one team. Each team can reference exactly one IdP group.

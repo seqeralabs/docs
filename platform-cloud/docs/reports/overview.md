@@ -3,7 +3,7 @@ title: "Reports"
 description: "Overview of pipeline reports in Seqera Platform."
 date created: "2023-04-24"
 last updated: "2025-10-08"
-tags: [pipeline, schema, reports, metrics, logs]
+tags: [pipelines, schema, reports, metrics, logs]
 ---
 
 Most Nextflow pipelines will generate reports or output files which are useful to inspect at the end of the pipeline execution. Reports may be in various formats (e.g. HTML, PDF, TXT) and would typically contain quality control (QC) metrics that would be important to assess the integrity of the results.
@@ -83,10 +83,10 @@ By default, the MIME type is deduced from the file extension, so you don't need 
 
 Nextflow can generate a number of built-in reports:
 
-- [Execution report](https://docs.seqera.io/nextflow/tracing#execution-report)
-- [Execution timeline](https://docs.seqera.io/nextflow/tracing#timeline-report)
-- [Trace file](https://docs.seqera.io/nextflow/tracing#trace-report)
-- [Workflow diagram](https://docs.seqera.io/nextflow/tracing#dag-visualisation) (i.e. DAG)
+- [Execution report](https://docs.seqera.io/nextflow/reports#execution-report)
+- [Execution timeline](https://docs.seqera.io/nextflow/reports#timeline-report)
+- [Trace file](https://docs.seqera.io/nextflow/reports#trace-report)
+- [Workflow diagram](https://docs.seqera.io/nextflow/reports#dag-visualisation) (i.e. DAG)
 
 In Nextflow version 24.03.0-edge and later, these reports can be included as pipeline reports in Platform. Specify them in `tower.yml` like any other file:
 

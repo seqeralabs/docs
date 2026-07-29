@@ -103,7 +103,7 @@
         "logs:GetLogEvents",
         "logs:TagResource"
       ],
-      "Resource": "arn:aws:logs:*:*:log-group:/seqera/sched*"
+      "Resource": "arn:aws:logs:*:*:log-group:/seqera/*"
     },
     {
       "Sid": "EC2NetworkDiscovery",

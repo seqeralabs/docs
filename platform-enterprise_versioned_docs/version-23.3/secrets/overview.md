@@ -2,7 +2,7 @@
 title: "Secrets"
 description: "Instructions to use secrets in Seqera Platform."
 date: "24 Apr 2023"
-tags: [pipeline, secrets]
+tags: [pipelines, secrets]
 ---
 
 Seqera Platform uses **secrets** to store the keys and tokens used by workflow tasks to interact with external systems, e.g., a password to connect to an external database or an API token. Seqera Platform relies on third-party secret manager services to maintain security between the workflow execution context and the secret container. This means that no secure data is transmitted from your Seqera instance to the compute environment.

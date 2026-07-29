@@ -3,7 +3,7 @@ title: "HPC compute environments"
 description: "Instructions to set up HPC compute environments in Seqera Platform"
 date created: "2023-05-11"
 last updated: "2026-05-28"
-tags: [slurm, lsf, pbs, grid, altair, ibm, moab, slurm, compute environment]
+tags: [slurm, lsf, pbs, grid engine, altair, ibm, moab, compute environments]
 ---
 
 Seqera Platform streamlines the deployment of Nextflow pipelines into both cloud-based and on-prem HPC clusters and supports compute environment creation for the following management and scheduling solutions:

@@ -2,7 +2,7 @@
 title: "User and organization administration"
 description: "Overview of Tower user and organization administration"
 date: "21 Apr 2023"
-tags: [administration, user, workspace, organization]
+tags: [administration, users, workspaces, organizations]
 ---
 
 As a **Root user**, you can access a comprehensive overview of the users, workspaces, and organizations in the system from the **Admin panel**. See [Admin panel](../enterprise/configuration/overview#admin-panel) to learn how to add root users to your account.

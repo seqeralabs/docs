@@ -2,7 +2,7 @@
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Nextflow Tower"
 date: "21 Apr 2023"
-tags: [google, batch, gcp, compute environment]
+tags: [google, batch, gcp, compute environments]
 ---
 
 This guide assumes you have an existing Google Cloud account. Sign-up for a free account [here](https://cloud.google.com/).

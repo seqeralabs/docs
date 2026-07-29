@@ -2,7 +2,7 @@
 title: "Azure Batch"
 description: "Instructions to set up Azure Batch in Nextflow Tower"
 date: "21 Apr 2023"
-tags: [batch, azure, compute environment]
+tags: [batch, azure, compute environments]
 ---
 
 :::caution

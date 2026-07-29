@@ -2,7 +2,7 @@
 title: "Google Cloud"
 description: "Instructions to set up an Google Cloud CE in Seqera Platform"
 date created: "2025-07-15"
-tags: [cloud, vm, google, compute-environment]
+tags: [cloud, vm, google, compute environments]
 ---
 
 # Google Cloud

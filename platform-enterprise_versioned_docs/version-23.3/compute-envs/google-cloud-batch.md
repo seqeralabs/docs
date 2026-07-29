@@ -2,7 +2,7 @@
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
 date: "21 Apr 2023"
-tags: [google, batch, gcp, compute environment]
+tags: [google, batch, gcp, compute environments]
 ---
 
 :::note

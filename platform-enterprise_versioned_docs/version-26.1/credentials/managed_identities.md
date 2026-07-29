@@ -21,7 +21,7 @@ Organization owners can create managed identities at the organization level. A m
 1. From your organization page, select the **Managed identities** tab, then **Add managed identity**.
 1. Enter the details of your cluster:
     - A unique **Cluster name** of your choice using alphanumeric, dash, and underscore characters.
-    - Select a cluster **Provider** from the dropdown.
+    - Select a cluster **Provider** from the drop-down.
     - The fully qualified cluster **Hostname** to be used to connect to the cluster via SSH. This is usually the cluster login node.
     - The SSH **Port** number for the login connection. The default is port 22.
 1. Select **Add cluster**. The new cluster is now listed under your organization's managed identities.

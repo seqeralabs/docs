@@ -2,7 +2,7 @@
 title: "SCIM provisioning with Entra ID"
 description: "Configure Microsoft Entra ID to push group memberships to Seqera Platform Enterprise over SCIM 2.0."
 date: "2026-05-12"
-tags: [sso, scim, entra-id, idp-delegation, administration, enterprise]
+tags: [sso, scim, entra id, idp delegation, administration, enterprise]
 ---
 
 Configure Microsoft Entra ID (formerly Azure AD) to push your tenant's groups to Platform over SCIM 2.0. Once provisioning is enabled, the groups you assign to your Seqera Enterprise application appear in Platform's IdP group catalog and stay in sync with renames, additions, and deletions automatically.
@@ -10,7 +10,7 @@ Configure Microsoft Entra ID (formerly Azure AD) to push your tenant's groups to
 :::info[**Prerequisites**]{#prerequisites}
 You will need the following to get started:
 
-- An Entra ID enterprise application configured as your Platform SSO connection. See [Entra ID authentication](../../entra).
+- An Entra ID enterprise application configured as your Platform SSO connection. See [Entra ID authentication](../../oidc).
 - Organization owner access to your Platform organization.
 - Administrator access to your Entra ID tenant with permission to manage application provisioning.
 :::
@@ -61,7 +61,7 @@ Pick one approach for your tenant and use it consistently. The GUID and the disp
 
 1. In Platform, open **Organization settings > Group mapping**.
 2. Select **Refresh**. The assigned Entra ID groups should appear in the catalog list after the first provisioning cycle.
-3. The **Linked team** drop-down menu is now populated with the synced groups.
+3. The **Linked team** drop-down is now populated with the synced groups.
 
 If groups don't appear, open the **Provisioning logs** for the application in Entra ID and review any failed actions.
 
@@ -74,22 +74,4 @@ Renames and deletes propagate automatically through SCIM:
 
 ## Troubleshooting
 
-### Groups appear in Entra ID but not in Platform
-
-Confirm the bearer token configured in Entra ID matches the latest token that was issued. If you generated a new token after configuring Entra ID, the previous token is revoked.
-
-### Provisioning logs show `401 Unauthorized`
-
-The bearer token is invalid or expired. Generate a new token in Platform and replace it in Entra ID.
-
-### The catalog shows GUID-style identifiers instead of group names
-
-Entra ID is emitting object IDs rather than display names. See the **Group display names vs object IDs** caution above for the two options.
-
-### `409 Conflict` on a specific group
-
-A group with the same display name already exists in another organization on the same Enterprise instance. See [Multi-organization routing](../multi-org-routing) for the cross-organization uniqueness rule and conflict resolution.
-
-### A group is assigned to the application but doesn't sync
-
-Confirm the provisioning scope is set to **Sync only assigned users and groups** and that the group is actually listed under **Users and groups**, not just nested in another assigned group.
+For SCIM provisioning issues, see [SCIM provisioning](../../../../../troubleshooting_and_faqs/authentication#scim-provisioning).

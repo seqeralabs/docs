@@ -3,7 +3,7 @@ title: "Compute environment overview"
 description: "Overview of compute environments in Seqera Platform"
 date created: "2023-04-21"
 last updated: "2026-05-21"
-tags: [compute-environment, compute-environments, workspace, environment]
+tags: [compute environments, workspaces, environment]
 ---
 
 Seqera Platform **compute environments** define the execution platform where a pipeline will run. Compute environments enable users to launch pipelines on a growing number of **cloud** and **on-premises** platforms.
@@ -120,6 +120,10 @@ process {
   }
 }
 ```
+
+- GPU-accelerated containers (such as NVIDIA Parabricks) bundle a specific CUDA runtime. The compute environment's AMI must include an NVIDIA driver compatible with the container's CUDA runtime. When **Enable GPUs** is set, Batch Forge selects the current AWS-recommended GPU-optimized ECS AMI. If you override **AMI ID** under **Advanced options**, confirm that the custom AMI's driver satisfies the container's CUDA version. See the [NVIDIA CUDA compatibility matrix](https://docs.nvidia.com/deploy/cuda-compatibility/) for supported driver versions.
+
+For GPU driver and CUDA compatibility errors, see [AWS troubleshooting](../troubleshooting_and_faqs/aws_troubleshooting#gpus).
 
 ### GPU metrics
 

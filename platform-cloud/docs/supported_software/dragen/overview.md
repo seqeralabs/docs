@@ -36,7 +36,7 @@ Batch Forge automates most of the tasks required to set up an AWS Batch compute 
 
 In order to enable support for DRAGEN acceleration, simply toggle the **Enable DRAGEN** option when setting up the compute environment via Batch Forge.
 
-In the **DRAGEN AMI ID** field, enter the AWS AMI ID provided by Illumina. Then select the instance type from the drop-down menu.
+In the **DRAGEN AMI ID** field, enter the AWS AMI ID provided by Illumina. Then select the instance type from the drop-down.
 
 :::note
 The Region you select must contain DRAGEN F1 instances.

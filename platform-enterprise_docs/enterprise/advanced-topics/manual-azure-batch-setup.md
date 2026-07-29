@@ -74,7 +74,7 @@ First, add the Azure Batch account credentials to Seqera Platform:
 1. In the Azure portal, go to the Batch account you created and note the Batch account name and region.
 1. Go to the **Keys** tab to find the primary access keys for the Batch account and Storage account.
 1. In your Seqera Platform workspace, go to the **Credentials** tab and select **Add credentials**.
-1. Enter a credential name such as `azure-keys` and select Azure from the **Provider** dropdown.
+1. Enter a credential name such as `azure-keys` and select Azure from the **Provider** drop-down.
 1. Enter the Batch account name and key, and Storage account name and key.
 1. Select **Create** to save the credentials.
 
@@ -84,8 +84,8 @@ Next, create a compute environment with Batch Forge:
 
 1. Go to the **Compute Environments** tab and select **Add Compute Environment**.
 1. Enter a name such as `1-azure-batch-forge`.
-1. Select Azure Batch from the **Provider** dropdown.
-1. Sellect your `azure-keys` credentials.
+1. Select Azure Batch from the **Provider** drop-down.
+1. Select your `azure-keys` credentials.
 1. Select the **Region** of your Batch account.
 1. Select the `az://work` container in your Storage account.
 1. For **VMs type**, select `standard_e2ds_v5`.
@@ -97,7 +97,7 @@ Add the `nextflow-hello` pipeline to your workspace:
 
 [Add a pipeline][add-pipeline] from your workspace Launchpad with the following settings:
 
-- Select your Azure Batch compute environment from the dropdown.
+- Select your Azure Batch compute environment from the drop-down.
 - For **Pipeline to launch**, enter `https://github.com/nextflow-io/hello`.
 - For **Work directory**, enter a subdirectory in the `az://work` container in your Storage account.
 
@@ -309,7 +309,7 @@ Select **Launch** next to the `hello-world-autopool-low-priority` pipeline in yo
 **Advantages**:
 
 - No keys or short access tokens are exchanged, increasing security.
-- A service prinicipal can have very granular permissions, so you can grant it only the permissions it needs.
+- A service principal can have very granular permissions, so you can grant it only the permissions it needs.
 - Managed identities can be scoped to a specific resource, so the Nextflow head job has very restricted permissions.
 - Different managed IDs can have different permissions, so different compute environments can have different scoped permissions.
 
@@ -374,7 +374,7 @@ You can also use User Subscription mode instead of Batch Managed here, but this 
 **Behavior**:
 
 - Each node is attached to the VNet and uses the security and networking rules of that virtual network subnetwork.
-- All other behaviour is as normal.
+- All other behavior is as normal.
 
 **Advantages**:
 
@@ -396,7 +396,7 @@ See [Create a Nextflow-compatible Azure Batch pool](../../compute-envs/azure-bat
 - Use the autoscale formula described in the documentation, with a minimum size of 0 and a maximum size of 4.
 - For Virtual network, create a new virtual network with the default subnet. You can add this to a new resource group here.
 
-In practice, you are more likely to connect an Azure Batch Node pool to an existing virtual network that is connected to other resources, such as Seqera Platform or the Azure Storage Acccount. In this instance, connecting it to a VNet with public internet access will route the network traffic via the virtual network while still allowing you to perform every action.
+In practice, you are more likely to connect an Azure Batch Node pool to an existing virtual network that is connected to other resources, such as Seqera Platform or the Azure Storage Account. In this instance, connecting it to a VNet with public internet access will route the network traffic via the virtual network while still allowing you to perform every action.
 
 Back in Seqera Platform, add a new Azure Batch compute environment:
 
@@ -444,7 +444,7 @@ To achieve this, the following requirements must be met:
 
 Do the following:
 
-1. Duplicate the `hello-world-entra-mi` pipeline, but modfiy the compute environment to `3-azure-batch-vnet` and change the pipeline name to `hello-world-vnet`.
+1. Duplicate the `hello-world-entra-mi` pipeline, but modify the compute environment to `3-azure-batch-vnet` and change the pipeline name to `hello-world-vnet`.
 1. Check the virtual network string under the pool details in the Azure Portal, under the **Network Configuration** section. The value should be a Subnet ID, such as `/subscriptions/${subscriptionId}/resourceGroups/${resourceGroup}/providers/Microsoft.Network/virtualNetworks/${vnetName}/subnets/${subnetName}`. Save this value.
 1. Change the Nextflow configuration under the **Advanced** tab to include a virtual network with the autopools:
 

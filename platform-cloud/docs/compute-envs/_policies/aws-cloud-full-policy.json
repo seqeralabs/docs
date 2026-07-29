@@ -105,8 +105,8 @@
         "sqs:ReceiveMessage",
         "sqs:DeleteMessage",
         "s3:CreateBucket",
-        "s3:GetBucketNotificationConfiguration",
-        "s3:PutBucketNotificationConfiguration",
+        "s3:GetBucketNotification",
+        "s3:PutBucketNotification",
         "s3:GetBucketLocation"
       ],
       "Resource": [
