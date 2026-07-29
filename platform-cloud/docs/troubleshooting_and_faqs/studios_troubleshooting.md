@@ -22,7 +22,6 @@ If sufficient compute resources aren't available, select **Stop** for the sessio
 
 If your Studio session doesn't advance from **stopping** status to **stopped** status within 10 minutes, select **Force stop** to skip the intermediate **canceling** status. Checkpoint revalidation restores your data when the session next starts.
 
-**Force stop** is disabled below the 10-minute threshold. On Seqera Platform Enterprise, adjust the threshold with the `TOWER_DATA_STUDIO_FORCE_STOP_THRESHOLD` environment variable.
 
 ### Session status is **errored**
 
