@@ -64,6 +64,7 @@ By default, Google Cloud Batch uses the default Compute Engine service account t
 * Logs Writer (`roles/logging.logWriter`) on the project (to let jobs generate logs in Cloud Logging)
 * Service Account User (`roles/iam.serviceAccountUser`)
 * Service Usage Consumer (`roles/serviceusage.serviceUsageConsumer`)
+* Secret Manager Secret Accessor (`roles/secretmanager.secretAccessor`) on the project (required if your pipelines use Seqera secrets; the head job and tasks read secrets from GCP Secret Manager)
 
 If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below.
 
@@ -311,19 +312,19 @@ If you use VM instance templates for the head or compute jobs (see step 8 below)
    If the head job runs out of memory mid-run, the pipeline fails.
    Tasks already running on worker VMs run to completion, but no new tasks are scheduled.
    Output files that were already written are not cleaned up automatically. Results may be incomplete.
-   
+
    Size the head job based on the number of tasks in your pipeline:
-   
+
    | Pipeline scale | Tasks | Recommended CPUs | Recommended memory |
    |---|---|---|---|
    | Small | Up to 100 | 2 | 4 GB |
    | Medium | 100–500 | 4 | 8 GB |
    | Large | 500+ | 8 | 16 GB |
-   
+
    Head job memory scales with the number of concurrent tasks and total pipeline duration.
    Long-running pipelines keep thousands of task records in memory for resumability, and need more memory than short pipelines with the same peak parallelism.
    Increase CPUs if task scheduling is slow or the head job logs show high garbage collection (GC) pressure.
-   
+
    For large pipelines, you can also increase the JVM heap directly by setting `NXF_JVM_ARGS="-Xms4g -Xmx12g"` as a **Head job** environment variable (see [Scripting and environment variables](#scripting-and-environment-variables)).
    :::
 

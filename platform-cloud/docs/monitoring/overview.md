@@ -36,7 +36,7 @@ The **All runs** view defaults to all organizations and workspaces you can acces
 
 ### Search
 
-The **Search workflow** bar allows you to filter by one or more `<keyword>:<value>` entries:
+The **Search workflow** bar filters by one or more `<keyword>:<value>` entries:
 
 - `status`
 - `label`
@@ -49,9 +49,9 @@ The **Search workflow** bar allows you to filter by one or more `<keyword>:<valu
 - `sessionId`
 - `is:starred`
 
-The search field populates with available suggestions when entering valid keywords. Suggested results for `label:` include available labels from all workspaces. Labels present in multiple workspaces are only suggested once.
+The field suggests valid keywords as you type. Suggested results for `label:` include available labels from all workspaces. Labels present in multiple workspaces are only suggested once.
 
-Search covers all workflow runs inside a workspace, enabling easy retrieval of complex queries. Enter a search query in the **Search workflow** field to search and filter the runs in a workspace. The search text is interpreted by identifying all valid substrings formatted by `keyword:value`, combining all the rest in a single freeform text string, and then using all these search criteria to filter the runs.
+Search covers all workflow runs in a workspace. Enter a query in the Search workflow field. Platform identifies each valid `keyword:value` substring, combines the remaining text into a single freeform string, and filters runs using all of these criteria.
 
 For example:
 
