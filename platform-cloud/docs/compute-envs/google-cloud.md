@@ -196,7 +196,7 @@ If WIF authentication fails at runtime, verify that:
   Specifying a subnet that does not exist in the compute environment region, or that does not belong to the selected VPC, causes compute environment creation to fail.
   :::
 
-- **Subnets**: One or more subnet addresses within the selected VPC and the compute environment region. VMs are placed in the first listed subnet at launch time; Intelligent Compute may distribute worker VMs across all listed subnets, in order. Leave blank to let Platform select the first available subnet on the network. This field has no effect when no VPC is specified.
+- **Subnets**: One or more subnet names within the selected VPC and the compute environment region. VMs are placed in the first listed subnet at launch time; Intelligent Compute may distribute worker VMs across all listed subnets, in order. Leave blank to let Platform select the first available subnet on the network. This field has no effect when no VPC is specified.
 - **Network tags**: Network tags applied to launched VMs for firewall rule targeting. Tags must be lowercase and contain only letters, numbers, and hyphens (1–63 characters). This field has no effect when no VPC is specified.
 - **Use private address**: Select this option to launch VMs without a public IP address. The selected VPC must provide outbound internet access through Cloud NAT and Private Google Access.
 
