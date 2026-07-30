@@ -130,11 +130,12 @@ Add the following environment variables to your Seqera backend service configura
 | `TOWER_OIDC_CLIENT` | The client ID provided by your identity provider |
 | `TOWER_OIDC_SECRET` | The client secret provided by your identity provider |
 | `TOWER_OIDC_ISSUER` | The issuer URL provided by your identity provider |
+| `TOWER_OIDC_SCOPES` | Optional. Comma-separated OAuth 2.0 scopes the OIDC client requests at login. Defaults to `openid,email,profile`. `openid` is always included. Add `groups` when your IdP only emits the group claim for a requested scope (see the note below). |
 
 Some providers require the full authentication service URL while others require only the SSO root domain (without the trailing sub-directories).
 
 :::note
-If you plan to use IdP-delegated teams, your OIDC token must include a `groups` claim. See [IdP claim mapping](./idp-delegation/claim-mapping) for the per-IdP configuration steps.
+If you plan to use IdP-delegated teams, your OIDC token must include a `groups` claim. Some providers (for example, Okta) only emit this claim when a matching scope is requested. In that case, add `groups` to the requested scopes with `TOWER_OIDC_SCOPES=openid,email,profile,groups`. See [IdP claim mapping](./idp-delegation/claim-mapping) for the per-IdP configuration steps.
 :::
 
 ## Restrict access
