@@ -163,7 +163,7 @@ This role definition can be applied as-is for convenience, or it can be broken d
 
 #### Compute environment creation
 
-The following permissions are required to provision resources in the Azure account when first creating the compute environment. 
+The following permissions are required to provision resources in the Azure account when first creating the compute environment.
 
 
 - If you specify an existing virtual network:
