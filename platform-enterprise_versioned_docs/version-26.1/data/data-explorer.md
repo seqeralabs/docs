@@ -93,11 +93,11 @@ If you remove a data-link associated with a repository, the repository is automa
 
 ### Preview genome files with IGV
 
-Data Explorer renders genome tracks in the browser using the [igv.js library][igv], so you can inspect files such as BAM and BED without downloading them or starting a Studio. Select a supported file from the **View data repository** page to open the viewer.
+Data Explorer renders genome tracks in the browser using the [igv.js library][igv]. Select a supported file, such as a BAM or BED file, from the **View data repository** page to open the viewer. You do not need to download the file or start a Studio.
 
-Genome file previews read data directly from the underlying bucket, so you must apply a [CORS configuration](#cors-configurations-for-cloud-providers) to each bucket or storage account that you want to preview genome files from.
+The viewer requests file data directly from your bucket. Apply a [CORS configuration](#cors-configurations-for-cloud-providers) to each bucket or storage account that holds genome files you want to preview.
 
-For a full IGV desktop session with multiple tracks, local file loading, and other desktop tools, create an [Xpra Studio with IGV](../getting-started/studios#xpra-visualize-genetic-variants-with-igv) instead.
+For the full IGV desktop application, create an [Xpra Studio with IGV](../getting-started/studios#xpra-visualize-genetic-variants-with-igv) instead.
 
 ### View lineage data for objects
 
