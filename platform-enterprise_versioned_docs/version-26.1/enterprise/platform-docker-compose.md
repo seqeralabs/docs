@@ -1,7 +1,8 @@
 ---
 title: "Platform: Docker Compose"
 description: Deploy Seqera Platform Enterprise with Docker Compose
-date: "12 Feb 2024"
+date created: "2024-02-14"
+last updated: "2026-07-30"
 tags: [docker, compose, deployment]
 ---
 
@@ -43,8 +44,7 @@ The bundled `redis` container in `docker-compose.yml` is intended for evaluation
 | Cache / version | Status                       |
 | --------------- | ---------------------------- |
 | Redis 6.x       | Not supported (EoL upstream) |
-| Redis 7.2       | Supported                    |
-| Redis 7.4       | Supported                    |
+| Redis 7.x       | Supported                    |
 | Valkey 7.x      | Supported (from 26.1)        |
 
 ### Connection URL
