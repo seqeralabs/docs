@@ -460,6 +460,10 @@ To share a link to the running session with collaborators inside your workspace,
 
 Xpra provides remote desktop functionality that enables many interactive analysis and troubleshooting workflows. One such workflow is to perform genetic variant visualization using IGV desktop, a powerful open-source tool for the visual exploration of genomic data. This section demonstrates how to add public data from the [1000 Genomes project](https://www.coriell.org/1/NHGRI/Collections/1000-Genomes-Project-Collection/1000-Genomes-Project) to your workspace, set up an Xpra environment with IGV desktop pre-installed, and explore a variant of interest.
 
+:::tip
+To inspect individual genome files without setting up a Studio, use the built-in [IGV genome viewer in Data Explorer](../data/data-explorer#preview-genome-files-with-igv). Use an Xpra Studio when you need the full IGV desktop application.
+:::
+
 #### Create an AWS Batch compute environment
 
 Studios require an AWS Batch compute environment. If you do not have an existing compute environment available, [create one](../compute-envs/aws-batch#automatic-configuration-of-batch-resources) with the following attributes:

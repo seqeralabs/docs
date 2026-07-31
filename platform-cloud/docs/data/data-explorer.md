@@ -2,7 +2,7 @@
 title: "Data Explorer"
 description: "Using Seqera Data Explorer."
 date created: "2023-04-21"
-last updated: "2026-07-02"
+last updated: "2026-07-31"
 tags: [data, explorer, igv, molstar, object, storage, lineage]
 ---
 
@@ -90,6 +90,14 @@ If you remove a data-link associated with a repository, the repository is automa
 - **Copy object paths**
 
   Select the **Path** of an object on the **View data repository** page to copy its absolute path to the clipboard. Use these object paths to specify input data locations during [pipeline launch](../launch/launchpad), add them to a [dataset](../data/datasets) for pipeline input, or when mounting data during Studio creation.
+
+### Preview genome files with IGV
+
+Data Explorer renders genome tracks in the browser using the [igv.js library][igv], so you can inspect files such as BAM and BED without downloading them or starting a Studio. Select a supported file from the **View data repository** page to open the viewer.
+
+Genome file previews read data directly from the underlying bucket, so you must apply a [CORS configuration](#cors-configurations-for-cloud-providers) to each bucket or storage account that you want to preview genome files from.
+
+For a full IGV desktop session with multiple tracks, local file loading, and other desktop tools, create an [Xpra Studio with IGV](../getting-started/studios#xpra-visualize-genetic-variants-with-igv) instead.
 
 ### View lineage data for objects
 
