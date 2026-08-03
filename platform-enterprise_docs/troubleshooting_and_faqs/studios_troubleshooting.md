@@ -94,7 +94,7 @@ Setting the environment variable _inside_ an already running Studio session by e
 :::
 
 :::warning
-Fusion has a two minute buffer prior to attempting to upload the working chunk, so the minimum safe setting for `FUSION_REFRESH_TIMEOUT` is `120`. Setting a lower value risks creation of orphaned chunks in the Studio environment which are not recoverable nor ever uploaded back to object storage. 
+Fusion waits two minutes before it uploads the working chunk. Always set `FUSION_REFRESH_TIMEOUT` to `120` or higher. Lower values can create orphaned chunks in the Studio environment that are never uploaded to object storage and cannot be recovered.
 :::
 
 ## Custom environments and container images
