@@ -7,8 +7,6 @@ tags: [authentication, email, passwordless]
 
 Configure email-based passwordless authentication for Seqera Platform. This is the default authentication method that allows users to sign in using their email address.
 
-## Overview
-
 Email authentication provides a passwordless login experience where users:
 
 1. Enter their email address on the login page

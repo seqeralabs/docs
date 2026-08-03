@@ -58,7 +58,7 @@ spec:
             - name: host-sys
               mountPath: /sys
       containers:
-        - image: cr.seqera.io/public/redis:5.0.8
+        - image: docker.io/library/redis:5.0.8
           name: redis
           args:
             - --appendonly yes

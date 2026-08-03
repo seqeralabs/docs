@@ -480,6 +480,9 @@ export default async function createConfigAsync() {
     ].filter(Boolean),
 
     themeConfig: getSeqeraThemeConfig({
+      colorMode: {
+        respectPrefersColorScheme: true,
+      },
       seqera: {
         docs: {
           versionDropdown: {

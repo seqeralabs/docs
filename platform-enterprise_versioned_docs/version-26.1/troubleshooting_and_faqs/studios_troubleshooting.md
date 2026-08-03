@@ -87,14 +87,14 @@ By default, Fusion does not resync objects from remotely mounted data-link(s) af
 
 If you have a running session with data mounted and the underlying storage is updated, the data is not resynced to the Studio session.
 
-You can change this behavior when you [add a Studio session](../studios/add-studio) by setting the `FUSION_REFRESH_TIMEOUT` environment variable to a number of seconds (e.g., `120`). Fusion then refreshes the view of the mounted data links at that interval.
+You can change this behavior when you [add a Studio session](../studios/add-studio) by setting the `FUSION_REFRESH_TIMEOUT` environment variable to a number of seconds (e.g., `120`). Fusion refreshes the view of the mounted data-links at that interval.
 
 :::note
-Setting the environment variable _inside_ an already running Studio session by executing the command `export FUSION_REFRESH_TIMEOUT=120` won't change the behavior of the outer Fusion session. Set the environment variable in the **General config** section during Studio creation.
+Setting the environment variable _inside_ an already running Studio session by executing the command `export FUSION_REFRESH_TIMEOUT=120` won't change the behavior of the outer Fusion session. Set the environment variable in the **General config** section durion Studio creation.
 :::
 
 :::warning
-Fusion has a two minute buffer prior to attempting to upload the working chunk, so the minimum safe setting for `FUSION_REFRESH_TIMEOUT` is `120`. Setting a lower value risks creation of orphaned chunks in the Studio environment which are not recoverable nor ever uploaded back to object storage.
+Fusion waits two minutes before it uploads the working chunk. Always set `FUSION_REFRESH_TIMEOUT` to `120` or higher. Lower values can create orphaned chunks in the Studio environment that are never uploaded to object storage and cannot be recovered.
 :::
 
 ## Custom environments and container images

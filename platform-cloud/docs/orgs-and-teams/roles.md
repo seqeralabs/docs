@@ -13,7 +13,7 @@ You can group **members** and **collaborators** into **teams** and apply a role 
 :::
 
 :::note
-Cloud Pro organizations with active [single sign-on (SSO)](../getting-started/single-sign-on) can't add external workspace collaborators. External users who need workspace access must be invited as organization members and authenticate through the configured IdP.
+Cloud Pro organizations with active [single sign-on (SSO)](../sso/single-sign-on) can't add external workspace collaborators. External users who need workspace access must be invited as organization members and authenticate through the configured IdP.
 :::
 
 ### Organization user roles
