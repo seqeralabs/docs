@@ -271,43 +271,43 @@ Debug logs include SSH handshake details, authentication attempts, channel lifec
 
 #### A Studio stalls after a large upload or download
 
-The user receives an `HTTP 429` (Too Many Requests) response, or an active WebSocket or SSH connection drops. This issue occurs when the bucket reaches its quota and the proxy denies further traffic, which is the designed behavior.
+The user receives an `HTTP 429` (Too Many Requests) response, or an active WebSocket or SSH connection drops. This issue occurs when the bucket reaches its quota and the proxy denies further traffic.
 
-Confirm the cause with the `connect_proxy_quota_exceeded_total` metric and the `quota exceeded, denying traffic for bucket` log line. If the denial is a false positive, resolve it by raising the cap in the policy, or wait for the window to reset.
+Confirm the cause with the `connect_proxy_quota_exceeded_total` metric and the `quota exceeded, denying traffic for bucket` log line. As a workaround, wait for the window to reset. If the denial is a false positive, resolve it by raising the cap in the [policy](../enterprise/studios-transfer-quotas#define-a-policy).
 
 #### A per-IP quota blocks unrelated users
 
-Redis shows keys such as `ip:172.x`, `ip:10.x`, or `ip:192.168.x`. This issue occurs when the proxy cannot resolve the real client IP and buckets traffic on Kubernetes node IPs instead. It is the most common `ip`-bucket problem.
+Redis shows keys such as `ip:172.x`, `ip:10.x`, or `ip:192.168.x`. This issue occurs when the proxy cannot resolve the real client IP and buckets traffic on Kubernetes node IPs instead.
 
-To resolve, configure client-IP resolution: set `CONNECT_TRUSTED_PROXY_CIDRS` for HTTP traffic and `externalTrafficPolicy: Local` for SSH traffic. See [Resolve the client IP for the `ip` bucket](../enterprise/studios-transfer-quotas#resolve-the-client-ip-for-the-ip-bucket).
+To resolve, configure client-IP resolution. Set `CONNECT_TRUSTED_PROXY_CIDRS` for HTTP traffic and `externalTrafficPolicy: Local` for SSH traffic. See [Resolve the client IP for the `ip` bucket](../enterprise/studios-transfer-quotas#resolve-the-client-ip-for-the-ip-bucket).
 
 #### Quotas are not enforced
 
-This issue occurs when no policy is loaded, or when the wrong environment variable is set or the variable is empty.
+This issue occurs when no policy is loaded, because the wrong environment variable is set or the variable is empty.
 
 To resolve, confirm that either `CONNECT_POLICY_FILE` or `CONNECT_POLICY_B64` is set and non-empty, then check the startup logs for `traffic policy loaded`.
 
 #### The proxy does not start or crash-loops
 
-This issue occurs when the Redis command preflight check fails, or when the policy JSON is invalid. The proxy fails to boot by design rather than enforce quotas incorrectly.
+This issue occurs when the Redis command preflight check fails or the policy JSON is invalid. The proxy fails to start rather than enforce quotas incorrectly.
 
-Check the startup logs. A missing or renamed Redis command, or a policy validation error such as an unknown source type, a duplicate bucket name, or `any` mixed with a specific protocol, prevents startup. To resolve, fix the `ConfigMap` or the Redis configuration and redeploy.
+Check the startup logs for the missing Redis command or the [policy validation error](../enterprise/studios-transfer-quotas#extractor-source-types). To resolve, fix the `ConfigMap` or the Redis configuration, then redeploy.
 
 #### A VS Code or IDE client does not reconnect after a quota breach
 
-The proxy tears down the stream mid-session, and some interactive clients do not recover cleanly. This is a known limitation rather than a counter fault.
+The proxy tears down the stream mid-session, and some interactive clients do not recover cleanly. This is a known limitation.
 
-To resolve, reconnect the session.
+As a workaround, reconnect the session.
 
 #### A policy or limit change has no effect
 
-The proxy reads the policy once at startup and never reloads it at runtime.
+This issue occurs because the proxy reads the policy once at startup and never reloads it at runtime.
 
-To resolve, restart the proxy with a rolling restart of its Deployment.
+To resolve, perform a rolling restart of the proxy Deployment.
 
 #### SSH connections time out with no `HTTP 429` and no handshake
 
-This is not a quota issue. Check the load-balancer target-group health and the SSH service, and confirm that the port is reachable from the client network.
+This is not a quota issue. Check the load balancer target group health and the SSH service, then confirm the port is reachable from the client network.
 
 ## Working in a Studio session
 

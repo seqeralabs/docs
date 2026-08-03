@@ -6,13 +6,13 @@ last updated: "2026-07-27"
 tags: [studios, connect, quotas, enterprise, administration]
 ---
 
-:::warning[Advanced configuration]
-You configure data transfer quotas through deployment settings, and the settings depend on your Redis backend and load-balancer networking. The `ip` bucket requires network-level changes that you might need to coordinate with your infrastructure or networking team.
-:::
-
 Studio sessions stream data between users and their interactive environments through the Connect proxy. Apply _data transfer quotas_ to cap how many bytes a user or client IP transfers over a set time window. Data transfer quotas are available in Seqera Platform Enterprise only.
 
-The Connect proxy (`connect-proxy`) enforces quotas, and you configure them entirely through deployment settings. Quotas are opt-in. If you do not define a policy, the proxy does no counting or enforcement and adds no overhead.
+The Connect proxy (`connect-proxy`) enforces quotas. Quotas are opt-in. If you do not define a policy, the proxy does no counting or enforcement and adds no overhead.
+
+:::warning[Advanced configuration]
+You configure data transfer quotas through deployment settings that depend on your Redis backend and load-balancer networking. The `ip` bucket requires network-level changes that you might need to coordinate with your infrastructure or networking team.
+:::
 
 <span id="prerequisites" />
 
@@ -22,9 +22,9 @@ You need the following:
 
 - Connect server and proxy version `0.12.0` or later. Earlier versions cannot resolve the real client IP behind a load balancer.
 - Studios enabled. See [Studios installation](./install-studios).
-- Access to the Connect proxy deployment configuration
-- A Redis backend with server-side scripting enabled, Redis 7.0 or later. See [Redis requirements](#redis-requirements).
-- For the `ip` bucket, the ability to configure client-IP resolution on your load balancer
+- Access to the Connect proxy deployment configuration.
+- A Redis 7.0 or later backend with server-side scripting enabled. See [Redis requirements](#redis-requirements).
+- For the `ip` bucket, the ability to configure client-IP resolution on your load balancer.
 
 :::
 
@@ -41,7 +41,7 @@ Proxy pods reconcile their counts in a shared Redis instance. Quotas apply consi
 Each quota window is _fixed_. It starts on the first byte counted and expires a set duration later, regardless of activity in between. When a window expires, the counter resets, and the next transfer opens a fresh window.
 
 :::caution
-Because windows are independent, a user can transfer close to a full quota just before a window resets and another full quota just after, for up to roughly twice the cap across a single boundary. Averaged over time, usage still converges to the configured rate. Use shorter windows to tighten this bound.
+Because windows are independent, a user can transfer close to a full quota immediately before a window resets and another full quota immediately after. A single boundary therefore allows up to roughly twice the cap. Averaged over time, usage converges to the configured rate. Use shorter windows to tighten this bound.
 :::
 
 ### Behavior when a bucket exceeds a quota
@@ -49,12 +49,12 @@ Because windows are independent, a user can transfer close to a full quota just 
 When a bucket is over quota, the proxy stops the transfer. On a standard HTTP request, the user receives an `HTTP 429` (Too Many Requests) response. On an active streaming connection (WebSocket or SSH), the proxy tears down the connection.
 
 :::note
-Some interactive clients, such as VS Code and similar IDE-style tools, might not recover cleanly after a denied transfer and can require the user to reconnect.
+Some interactive clients, including VS Code, might not recover cleanly after a denied transfer and require the user to reconnect.
 :::
 
 ## Redis requirements
 
-Data transfer quotas require a Redis backend that exposes the following commands: `incrby`, `expire`, `ttl`, `mget`, `hincrby`, `hset`, `hsetnx`, `eval`, and `evalsha`. If you configure a policy and any of these commands is missing, renamed, or blocked by access control lists (ACLs), the proxy fails to start rather than enforce quotas incorrectly.
+Data transfer quotas require a Redis backend that exposes the `incrby`, `expire`, `ttl`, `mget`, `hincrby`, `hset`, `hsetnx`, `eval`, and `evalsha` commands. If you configure a policy and any of these commands is missing, renamed, or blocked by access control lists (ACLs), the proxy fails to start rather than enforce quotas incorrectly.
 
 :::caution
 Enforcement relies on server-side Lua scripting (`eval`/`evalsha`). A managed Redis service with scripting disabled cannot enforce quotas. Redis 7.0 or later is recommended for correct time-to-live (TTL) handling on quota counters.
@@ -97,13 +97,13 @@ Each entry in a bucket's `quotas` array defines one limit:
 
 - `bytes` — The transfer limit. Use binary multipliers, where `KB` is 2^10 bytes, `MB` is 2^20, `GB` is 2^30, and `TB` is 2^40. The proxy reads a bare integer as bytes.
 - `window` — The time window, in Go duration syntax (for example, `1h`, `24h`, `720h`).
-- `on_exceed` — The action to take on breach. Only `deny` is supported.
+- `on_exceed` — The action to take on breach. The proxy supports only `deny`.
 
 Quotas in the same bucket share the same byte counters. For example, you can combine a long-window fair-use ceiling with a short-window burst cap.
 
 ### Extractor source types
 
-Each extractor's `source.type` determines how the proxy identifies the bucket. These are the only supported values:
+Each extractor's `source.type` determines how the proxy identifies the bucket. The proxy supports only the following values:
 
 | `type` | Fields | Protocol | Identifies by |
 |--------|--------|----------|---------------|
@@ -113,7 +113,7 @@ Each extractor's `source.type` determines how the proxy identifies the bucket. T
 | `client_ip` | _(none)_ | `any` | The proxy-resolved client IP |
 
 :::caution
-Only use a `header` source with a header that the proxy sets itself. The identity header `X-Connect-Sub` is safe because the proxy overwrites or strips any client-supplied value during authentication. Pointing a `header` source at a header the proxy does not control lets a user forge it and charge their traffic to another user's quota.
+Use a `header` source only with a header that the proxy sets itself. The identity header `X-Connect-Sub` is safe because the proxy overwrites or strips any client-supplied value during authentication. Pointing a `header` source at a header the proxy does not control lets a user forge it and charge their traffic to another user's quota.
 :::
 
 The proxy validates the policy at startup. Unknown source types, duplicate bucket names, two bindings for the same protocol in one bucket, or mixing `any` with a specific protocol all prevent startup.
@@ -124,27 +124,27 @@ Configure quotas with the following environment variables. Set either `CONNECT_P
 
 | Environment variable | Default | Description |
 |----------------------|---------|-------------|
-| `CONNECT_POLICY_B64` | _(empty)_ | Base64-encoded policy JSON. Empty or unset disables quotas. Mutually exclusive with `CONNECT_POLICY_FILE`. |
-| `CONNECT_POLICY_FILE` | _(empty)_ | Path to a JSON policy file. Mutually exclusive with `CONNECT_POLICY_B64`. |
+| `CONNECT_POLICY_B64` | _(empty)_ | Base64-encoded JSON traffic policy. Empty or unset disables telemetry and quota enforcement. Mutually exclusive with `CONNECT_POLICY_FILE`. |
+| `CONNECT_POLICY_FILE` | _(empty)_ | Path to a JSON traffic policy file. Mutually exclusive with `CONNECT_POLICY_B64`. |
 | `CONNECT_TELEMETRY_FLUSH_INTERVAL` | `30s` | How often the proxy writes in-memory byte counters to Redis. |
-| `CONNECT_TELEMETRY_TTL` | `168h` | TTL for the cumulative per-bucket telemetry data in Redis (7 days). |
+| `CONNECT_TELEMETRY_TTL` | `168h` | TTL for cumulative per-bucket telemetry keys in Redis (7 days). |
 | `CONNECT_TELEMETRY_STREAM_EMIT_INTERVAL` | `1s` | How often long-lived streams (WebSocket and SSH) report transferred bytes. |
 
 In a Kubernetes deployment, store the policy in a `ConfigMap` and inject it into the proxy configuration as base64.
 
 :::info
-The proxy reads the policy once at startup and does not reload it at runtime. To change a quota, update the policy `ConfigMap` and restart the proxy with a rolling restart of its Deployment. Editing the `ConfigMap` alone has no effect on running pods.
+The proxy reads the policy once at startup and does not reload it at runtime. To change a quota, update the policy `ConfigMap`, then perform a rolling restart of the proxy Deployment. Editing the `ConfigMap` alone has no effect on running pods.
 :::
 
 ## Resolve the client IP for the `ip` bucket
 
-The `ip` bucket keys on the client IP as the proxy resolves it. Behind a load balancer, that resolution needs explicit configuration. If you skip this step, the proxy counts traffic against Kubernetes node IPs instead of client IPs. Because many users share a handful of nodes, one busy node can trip the limit and deny unrelated users, and a single user's traffic fragments across nodes.
+The `ip` bucket keys on the client IP as the proxy resolves it. Behind a load balancer, that resolution needs explicit configuration. If you skip this step, the proxy counts traffic against Kubernetes node IPs instead of client IPs. Because many users share the same nodes, one busy node can exceed the limit and deny traffic to unrelated users. A single user's traffic also fragments across nodes.
 
 :::note
-This step applies only to policies that use the `ip` bucket. A policy that uses only `user_id` quotas needs no load-balancer configuration. Skip this section.
+This section applies only to policies that use the `ip` bucket. A policy that uses only `user_id` quotas needs no load-balancer configuration.
 :::
 
-HTTP and SSH resolve the client IP by different mechanisms. Configure each separately.
+The proxy resolves the client IP differently for HTTP and SSH traffic. Configure each separately.
 
 ### Trust `X-Forwarded-For` for HTTP traffic
 
@@ -156,47 +156,47 @@ CONNECT_TRUSTED_PROXY_CIDRS="10.0.0.0/8 172.16.0.0/12 192.168.0.0/16"
 
 The proxy walks `X-Forwarded-For` from the right, skips trusted hops, and takes the first untrusted address as the client.
 
-- Set the CIDRs to the node or virtual private cloud (VPC) ranges that sit between your load balancer and the proxy, whichever address the proxy sees as its immediate peer.
+- Set the CIDRs to the node or virtual private cloud (VPC) ranges between your load balancer and the proxy. Use whichever address the proxy sees as its immediate peer.
 - The default `127.0.0.1/32` is a deliberate no-op. If you leave it unset, the proxy trusts nothing and falls back to the socket peer.
 - Trust only as narrow a range as necessary. Any client whose address falls inside a trusted CIDR can forge `X-Forwarded-For` and charge its traffic to another IP's bucket.
 
 ### Preserve the source IP for SSH traffic
 
-SSH runs at Layer 4, through a network load balancer. Layer 4 carries no `X-Forwarded-For` header, and `CONNECT_TRUSTED_PROXY_CIDRS` has no effect. The real client IP must survive the network path instead. On a `NodePort` service, set the following on the SSH service:
+SSH runs at Layer 4, through a network load balancer. Layer 4 carries no `X-Forwarded-For` header, and `CONNECT_TRUSTED_PROXY_CIDRS` has no effect. The real client IP must survive the network path instead. For a `NodePort` SSH service, set the following:
 
 ```yaml
 externalTrafficPolicy: Local
 ```
 
-`Local` skips the kube-proxy source network address translation (NAT) and gives the pod the real client IP. As a trade-off, only nodes running a proxy pod stay healthy in the load balancer's target group. Configure the load balancer health check to probe the NodePort so that pod-less nodes drop out of rotation. Alternatively, enable the PROXY protocol on the load balancer. Without one of these two options, SSH sessions bucket on node IPs.
+`Local` skips the kube-proxy source network address translation (NAT) and gives the pod the real client IP. As a trade-off, only nodes running a proxy pod stay healthy in the load balancer's target group. Configure the load balancer health check to probe the `NodePort` so that nodes without a proxy pod drop out of rotation. Alternatively, enable the PROXY protocol on the load balancer. Without one of these two options, SSH sessions bucket on node IPs.
 
 ### Confirm client-IP resolution
 
 Generate traffic and confirm the resolved address is a real client IP, not a node IP:
 
 - **HTTP** — At `debug` log level, the `telemetry http` log line shows `keys: ["ip:<addr>", ...]`, and the reverse-proxy log shows `client_ip`. Both should be the public client address.
-- **SSH** — The proxy logs each connection's `remote address`. It should be the client IP, not a `172.x` address.
+- **SSH** — The proxy logs each connection's `remote address`. The value should be the client IP, not a `172.x` address.
 
-If the `ip:` key (or `client_ip` / `remote address`) shows a private or node range (`10.x`, `172.16`–`172.31.x`, or `192.168.x`), resolution is not configured correctly. Revisit the two preceding sections.
+If the `ip:` key (or `client_ip` / `remote address`) shows a private or node range (`10.x`, `172.16`–`172.31.x`, or `192.168.x`), resolution is not configured correctly. Revisit [Trust `X-Forwarded-For` for HTTP traffic](#trust-x-forwarded-for-for-http-traffic) and [Preserve the source IP for SSH traffic](#preserve-the-source-ip-for-ssh-traffic).
 
 :::note
-The proxy emits the per-request `telemetry http` lines at `debug` level only. They do not appear at the default `INFO` level. Set `CONNECT_LOG_LEVEL=debug` temporarily when you verify, then revert it.
+The proxy emits the per-request `telemetry http` lines at `debug` level only. They do not appear at the default `INFO` level. Set `CONNECT_LOG_LEVEL=debug` temporarily while you verify, then revert it.
 :::
 
 ## Monitor data transfer
 
 ### Prometheus metrics
 
-When you load a policy, the proxy registers three metrics. The proxy labels each metric by bucket _name_ only (for example, `user_id` or `ip`), never by the extracted value. Metric cardinality therefore stays bounded by your policy rather than by the number of users or IP addresses. The proxy also creates a zero-valued series for each configured bucket so that dashboards show a baseline before the first breach.
+When you load a policy, the proxy registers three metrics, labeled by bucket _name_ only (for example, `user_id` or `ip`) and never by the extracted value. Metric cardinality therefore stays bounded by your policy rather than by the number of users or IP addresses. Each configured bucket also gets a zero-valued series so that dashboards show a baseline before the first breach.
 
 | Metric | Type | Meaning |
 |--------|------|---------|
-| `connect_proxy_quota_exceeded_total{bucket}` | Counter | Number of times a bucket crossed a quota and traffic was denied |
-| `connect_proxy_quota_cleared_total{bucket}` | Counter | Number of times a bucket returned under quota and traffic resumed |
+| `connect_proxy_quota_exceeded_total{bucket}` | Counter | Number of times a bucket crossed a quota and the proxy denied traffic |
+| `connect_proxy_quota_cleared_total{bucket}` | Counter | Number of times a bucket returned under quota and the proxy resumed traffic |
 | `connect_proxy_quota_breached_keys{bucket}` | Gauge | Number of bucket keys currently over quota |
 
 :::note
-Metric scraping and dashboarding are available in Seqera Platform Cloud only. For self-managed Enterprise deployments, use the Redis and log-based checks described later on this page to observe quotas.
+Metric scraping and dashboards are available in Seqera Platform Cloud only. For self-managed Enterprise deployments, use the Redis and log-based checks described later on this page to observe quotas.
 :::
 
 ### Inspect counters in Redis
