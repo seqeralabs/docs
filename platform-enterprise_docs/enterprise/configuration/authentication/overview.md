@@ -163,17 +163,27 @@ tower:
 
 Seqera Platform Enterprise supports IdP-delegated teams: organization owners can map a Seqera team to an IdP group, after which the IdP becomes the sole authority for who belongs to that team. Memberships are evaluated on every SSO login.
 
-**Environment variable**
+:::note
+IdP claims mapping is **enabled by default** on Enterprise from version 26.1.4. To turn it off, set `TOWER_IDP_CLAIMS_MAPPING_ENABLED=false`. On earlier versions the feature is disabled by default and must be enabled explicitly.
+:::
 
-```env
-TOWER_IDP_CLAIMS_MAPPING_ENABLED=true
-```
+The feature is gated per organization: it applies only to organizations with an active SSO connection, and — when the allowlist below is configured — only to the organizations on that list.
+
+**Environment variables**
+
+| Variable | Description |
+| :-- | :-- |
+| `TOWER_IDP_CLAIMS_MAPPING_ENABLED` | Master switch for IdP claims mapping. Defaults to `true` on Enterprise (26.1.4 and later). Set to `false` to disable the feature for the whole instance. |
+| `TOWER_IDP_CLAIMS_MAPPING_ALLOWED_ORGANIZATIONS` | Optional comma-separated list of organization IDs allowed to use the feature. When unset, all organizations that pass the other checks are allowed; when set but empty, no organization is allowed; when non-empty, only the listed organizations are allowed. |
+
 **tower.yml**
 
-```
+```yaml
 tower:
-    idp-claims-mapping:
-      enabled: true
+  idp-claims-mapping:
+    enabled: true
+    # Optional allowlist; omit to allow all SSO-enabled organizations
+    allowed-organizations: "100,200"
 ```
 
 For delegation to work, your IdP must:
