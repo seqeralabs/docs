@@ -12,14 +12,12 @@ Seqera Platform supports email and various OAuth providers for login authenticat
 
 Configure login authentication with any of the following identity providers:
 
-| Provider               | Protocol   | Configuration    |
-| :--------------------- | :--------- | :--------------- |
-| [Email](./email)       | Magic link | `TOWER_SMTP_*`   |
-| [GitHub](./github)     | OAuth      | `TOWER_GITHUB_*` |
-| [Google](./google)     | OAuth      | `TOWER_GOOGLE_*` |
-| [Keycloak](./keycloak) | OIDC       | `TOWER_OIDC_*`   |
-| [Entra ID](./entra)    | OIDC       | `TOWER_OIDC_*`   |
-| [Okta](./okta)         | OIDC       | `TOWER_OIDC_*`   |
+| Provider                                                | Protocol   | Configuration    |
+| :------------------------------------------------------ | :--------- | :--------------- |
+| [Email](./email)                                        | Magic link | `TOWER_SMTP_*`   |
+| [GitHub](./github)                                      | OAuth      | `TOWER_GITHUB_*` |
+| [Google](./google)                                      | OAuth      | `TOWER_GOOGLE_*` |
+| [OpenID Connect](./oidc) (Keycloak, Entra ID, Okta, …)  | OIDC       | `TOWER_OIDC_*`   |
 
 ## OpenID Connect configuration
 
