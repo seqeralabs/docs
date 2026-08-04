@@ -20,7 +20,7 @@ You configure data transfer quotas through deployment settings that depend on yo
 
 You need the following:
 
-- Connect server and proxy version `0.12.0` or later. Earlier versions cannot resolve the real client IP behind a load balancer.
+- Connect server and proxy version `0.12.0` or later.
 - Studios enabled. See [Studios installation](./install-studios).
 - Access to the Connect proxy deployment configuration.
 - A Redis 7.0 or later backend with server-side scripting enabled. See [Redis requirements](#redis-requirements).

@@ -20,7 +20,7 @@ You configure data transfer quotas through deployment settings that depend on yo
 
 You need the following:
 
-- Connect server and proxy version `0.12.0` or later. Earlier versions cannot resolve the real client IP behind a load balancer.
+- Connect server and proxy version `0.12.0` or later.
 - Studios enabled. See [Studios installation](./install-studios).
 - Access to the Connect proxy deployment configuration.
 - A Redis 7.0 or later backend with server-side scripting enabled. See [Redis requirements](#redis-requirements).
@@ -175,7 +175,7 @@ externalTrafficPolicy: Local
 Generate traffic and confirm the resolved address is a real client IP, not a node IP:
 
 - **HTTP** — At `debug` log level, the `telemetry http` log line shows `keys: ["ip:<addr>", ...]`, and the reverse-proxy log shows `client_ip`. Both should be the public client address.
-- **SSH** — The proxy logs each connection's `remote address`. The value should be the client IP, not a `172.x` address.
+- **SSH** — The proxy logs each connection's `remote address`. The value should be the client IP, not a `172.x`-`172.31.x` address.
 
 If the `ip:` key (or `client_ip` / `remote address`) shows a private or node range (`10.x`, `172.16`–`172.31.x`, or `192.168.x`), resolution is not configured correctly. Revisit [Trust `X-Forwarded-For` for HTTP traffic](#trust-x-forwarded-for-for-http-traffic) and [Preserve the source IP for SSH traffic](#preserve-the-source-ip-for-ssh-traffic).
 
