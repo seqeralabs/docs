@@ -32,21 +32,21 @@
             "type": "doc",
             "id": "enterprise/install-studios"
           },
-          {
-            "type": "category",
-            "label": "Studios",
-            "collapsed": true,
-            "link": {
-              "type": "doc",
-              "id": "enterprise/install-studios"
-            },
-            "items": [
-              "enterprise/studios-helm",
-              "enterprise/studios-kubernetes",
-              "enterprise/studios-docker-compose",
-              "enterprise/studios-ssh",
-              "enterprise/studios-transfer-quotas"
-            ]
+          "items": [
+            "enterprise/studios-helm",
+            "enterprise/studios-kubernetes",
+            "enterprise/studios-docker-compose",
+            "enterprise/studios-ssh",
+            "enterprise/studios-transfer-quotas"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Pipeline optimization",
+          "collapsed": true,
+          "link": {
+            "type": "doc",
+            "id": "enterprise/install-groundswell"
           },
           "items": [
             "enterprise/groundswell-helm",
