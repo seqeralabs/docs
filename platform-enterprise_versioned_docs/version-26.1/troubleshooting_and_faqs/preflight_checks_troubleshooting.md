@@ -3,7 +3,7 @@ title: "Pre-flight checks"
 description: "Pre-flight check error messages, causes, and resolutions for compute environments and credentials in Seqera Platform Enterprise."
 date created: "2026-07-24"
 last updated: "2026-07-24"
-tags: [faq, help, preflight, troubleshooting, credentials, compute environments]
+tags: [faq, help, pre-flight, troubleshooting, credentials, compute environments]
 ---
 
 When pre-flight checks flag a compute environment or credential as `INVALID`, you might encounter the following errors. See [Compute environment pre-flight checks](../compute-envs/preflight-checks) for feature background and manual re-validation steps.
