@@ -138,6 +138,7 @@ micronaut:
           cookie-max-age: 10h
 ```
 
+
 ## User access allow list
 
 Restrict access to specific user email addresses or domains. Allow list entries are case-insensitive.
