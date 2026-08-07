@@ -111,7 +111,7 @@ jobs:
 
       - name: Checkout docs repo (for version check)
         if: steps.check-pr.outputs.pr_exists != 'true'
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # ratchet:actions/checkout@v7.0.0
         with:
           path: docs-version-check
           sparse-checkout: |
@@ -136,7 +136,7 @@ jobs:
 
       - name: Checkout docs repo (full)
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # ratchet:actions/checkout@v7.0.0
         # Don't specify ref - use the branch that triggered the workflow
 
       - name: Generate Platform app token
@@ -151,7 +151,7 @@ jobs:
 
       - name: Checkout Platform repo
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # ratchet:actions/checkout@v7.0.0
         with:
           repository: seqeralabs/platform
           ref: ${{ steps.version.outputs.platform_ref }}
