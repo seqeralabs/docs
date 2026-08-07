@@ -69,18 +69,18 @@
     "yaml": "^2.9.0"
   },
   "devDependencies": {
-    "@docusaurus/eslint-plugin": "3.10.1",
+    "@docusaurus/eslint-plugin": "3.10.2",
     "@tsconfig/docusaurus": "2.0.9",
     "dotenv": "17.4.2",
     "eslint": "8.57.1",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-react": "7.37.5",
     "fast-glob": "3.3.3",
-    "fs-extra": "11.3.5",
+    "fs-extra": "11.4.0",
     "gray-matter": "4.0.3",
-    "markdownlint-cli2": "0.22.1",
+    "markdownlint-cli2": "0.23.2",
     "netlify-plugin-cache": "1.0.3",
-    "prettier": "3.8.4",
+    "prettier": "3.9.6",
     "simple-git": "3.36.0",
     "typescript": "5.9.3"
   },
