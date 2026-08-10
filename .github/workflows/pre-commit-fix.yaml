@@ -25,7 +25,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: gh pr checkout ${{ github.event.issue.number }}
 
-      - uses: j178/prek-action@bdca6f102f98e2b4c7029491a53dfd366469e33d # ratchet:j178/prek-action@v2.0.4
+      - uses: j178/prek-action@5337cb91e0fa35a7ff31b9ca345126d8bbbcdf16 # v2.0.6
         id: pre-commit
         continue-on-error: true
 
