@@ -29,6 +29,23 @@ To resolve:
 
 This error occurs when you execute a DSL1-based Nextflow workflow with [Nextflow 22.03.0-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.03.0-edge) or later.
 
+#### `"<parameter>" must be string` when launching a pipeline
+
+This error occurs when a parameter nested inside an object-typed schema group has a `null` value. Seqera Platform tolerates `null` and blank values for top-level parameters only, and the error message concatenates the group and parameter names. Omit optional nested parameters instead of setting them to `null`:
+
+```yaml
+# Fails validation
+alignment:
+  aligner: bwa
+  reference: null
+
+# Passes validation
+alignment:
+  aligner: bwa
+```
+
+Nextflow resolves a missing key to `null` at runtime, and your pipeline logic behaves the same. For more information, see [Pipeline schema](../pipeline-schema/overview).
+
 #### Sleep commands in Nextflow workflows
 
 The behavior of `sleep` commands in your Nextflow workflows depends on where they are used:
