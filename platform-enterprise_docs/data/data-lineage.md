@@ -2,8 +2,8 @@
 title: "Data lineage"
 description: "Using data lineage in Seqera Platform."
 date created: "2026-05-11"
-last updated: "2026-07-02"
-tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, labels]
+last updated: "2026-08-10"
+tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, labels, search]
 ---
 
 :::info
@@ -156,6 +156,62 @@ When a run was executed with lineage enabled, the [run details page][run-details
 
 Output objects from a lineage-enabled run display their LID and any lineage labels when you preview the object in Data Explorer. You can trace any file back to the pipeline run that produced it.
 
+## Search lineage records
+
+Use the search bar in the top navigation to find workflow runs, tasks, and output files across every workspace you can access. Search covers only workspaces that have lineage enabled, and only those in which you are a participant.
+
+An empty query returns the most recently indexed records. As you type, the field suggests keywords and, where supported, values.
+
+### Search syntax
+
+A query is a series of space-separated tokens. Each token is either a `qualifier:value` pair or free text. Three rules apply uniformly to every qualifier:
+
+- A space between tokens is **AND**: `type:file label:qc` returns output files that carry the `qc` label.
+- A comma inside a value is **OR**: `type:workflow,task` returns workflow runs and tasks.
+- Repeating a qualifier is **AND**: `label:qc label:validated` returns records carrying both labels.
+
+Qualifier names are case-insensitive. Free text is matched as a case-insensitive substring, so `salmon` matches any record whose value contains `salmon`.
+
+:::caution
+Because a record has exactly one type and lives in exactly one workspace, repeating `type:` or `workspace:` with a space returns an empty list: `type:workflow type:file` requires a record to be both a workflow run and a file. Use the comma form — `type:workflow,file` — to mean "either of these".
+:::
+
+### Qualifiers
+
+| Qualifier | Accepts | Description |
+| --- | --- | --- |
+| `type:` | `workflow`, `task`, `file` | Restrict results to a record type. Comma = OR. The internal names `WorkflowRun`, `TaskRun`, and `FileOutput` are also accepted. |
+| `label:` | Any label | Records tagged with the label. Comma = OR, repeating = AND. Covers both Platform labels and Nextflow lineage labels. |
+| `workspace:` | `organization/workspace` | Scope the search to one or more workspaces by fully qualified name. Comma = OR. |
+| `workspaceId:` | Numeric workspace ID | Numeric alias for `workspace:`. Comma = OR. |
+| `workflow:` | A `WorkflowRun` LID | Scope the search to a single run: the run itself, its tasks, and its published output files. |
+| `task:` | A `TaskRun` LID | Scope the search to a single task: the task itself and the output files in its work directory. |
+| Free text | Any string | Case-insensitive substring match on the record value. |
+
+The field suggests `workspace:`, `type:`, and `label:` as you type. The remaining qualifiers are valid but are not suggested — enter them manually.
+
+`workspace:` and `workspaceId:` set the scope of a search rather than filter its results, so a query containing only a workspace still returns that workspace's most recent records. Omit both to search every workspace available to you. Referencing a workspace you don't participate in returns an error rather than an empty list.
+
+### Examples
+
+| Query | Returns |
+| --- | --- |
+| `type:workflow,task` | Workflow run or task records |
+| `label:qc,validated` | Records labeled `qc` or `validated` |
+| `label:qc label:validated` | Records labeled both `qc` and `validated` |
+| `label:qc,draft label:validated` | Records labeled `validated` and either `qc` or `draft` |
+| `type:file salmon` | Output files whose value contains `salmon` |
+| `workspace:acme/dev label:qc` | Records labeled `qc` in the `acme/dev` workspace |
+| `workspace:acme/dev,acme/prod` | Records in the `acme/dev` or `acme/prod` workspace |
+| `workspace:acme/dev workspace:acme/prod` | Nothing — a record lives in one workspace. Use the comma form. |
+| `workflow:lid://abc123` | The run `lid://abc123`, its tasks, and its published output files |
+| `workflow:lid://abc123 type:task` | The tasks of run `lid://abc123` |
+| `task:lid://abc123 type:file` | The output files of task `lid://abc123` |
+
+:::tip
+Lineage search is also available through the Platform API: `GET /lineage/search` accepts the same query syntax in its `q` parameter and returns paginated results. See the [Platform API reference][platform-api] for the full set of lineage endpoints.
+:::
+
 ## Lineage labels
 
 Assign lineage labels to output files using the `label` directive in your Nextflow process definitions. Labels appear in lineage records. Both Seqera Platform labels and Nextflow lineage labels propagate to lineage records. Seqera Platform excludes resource labels as they relate to underlying compute resources, not the data itself.
@@ -169,3 +225,4 @@ Nextflow lineage labels are immutable. They are set at execution time and cannot
 [workspace-lineage]: ../orgs-and-teams/workspace-management#lineage
 [run-details]: ../monitoring/run-details
 [data-explorer]: data-explorer
+[platform-api]: https://docs.seqera.io/platform-api
