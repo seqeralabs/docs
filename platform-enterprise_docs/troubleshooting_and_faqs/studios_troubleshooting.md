@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-06-09"
+last updated: "2026-08-03"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -87,14 +87,14 @@ By default, Fusion does not resync objects from remotely mounted data-link(s) af
 
 If you have a running session with data mounted and the underlying storage is updated, the data is not resynced to the Studio session.
 
-You can change this behavior when you [add a Studio session](../studios/add-studio) by setting the `FUSION_REFRESH_TIMEOUT` environment variable to a number of seconds (e.g., `30`). Fusion then refreshes the view of the mounted data links at that interval.
+You can change this behavior when you [add a Studio session](../studios/add-studio) by setting the `FUSION_REFRESH_TIMEOUT` environment variable to a number of seconds (e.g., `120`). Fusion then refreshes the view of the mounted data links at that interval.
 
 :::note
-Setting the environment variable _inside_ an already running Studio session by executing the command `export FUSION_REFRESH_TIMEOUT=30` won't change the behavior of the outer Fusion session. Set the environment variable in the **General config** section during Studio creation.
+Setting the environment variable _inside_ an already running Studio session by executing the command `export FUSION_REFRESH_TIMEOUT=120` won't change the behavior of the outer Fusion session. Set the environment variable in the **General config** section during Studio creation.
 :::
 
 :::warning
-This is an experimental feature and can cause consistency issues in the Fusion namespace, resulting in data loss.
+Fusion waits two minutes before it uploads the working chunk. Always set `FUSION_REFRESH_TIMEOUT` to `120` or higher. Lower values can create orphaned chunks in the Studio environment that are never uploaded to object storage and cannot be recovered.
 :::
 
 ## Custom environments and container images
@@ -266,6 +266,48 @@ CONNECT_CLIENT_LOG_LEVEL=debug
 ```
 
 Debug logs include SSH handshake details, authentication attempts, channel lifecycle, and data transfer errors.
+
+## Data transfer quotas
+
+#### A Studio stalls after a large upload or download
+
+The user receives an `HTTP 429` (Too Many Requests) response, or an active WebSocket or SSH connection drops. This issue occurs when the bucket reaches its quota and the proxy denies further traffic.
+
+Confirm the cause with the `connect_proxy_quota_exceeded_total` metric and the `quota exceeded, denying traffic for bucket` log line. As a workaround, wait for the window to reset. If the denial is a false positive, resolve it by raising the cap in the [policy](../enterprise/studios-transfer-quotas#define-a-policy).
+
+#### A per-IP quota blocks unrelated users
+
+Redis shows keys such as `ip:172.x`, `ip:10.x`, or `ip:192.168.x`. This issue occurs when the proxy cannot resolve the real client IP and buckets traffic on Kubernetes node IPs instead.
+
+To resolve, configure client-IP resolution. Set `CONNECT_TRUSTED_PROXY_CIDRS` for HTTP traffic and `externalTrafficPolicy: Local` for SSH traffic. See [Resolve the client IP for the `ip` bucket](../enterprise/studios-transfer-quotas#resolve-the-client-ip-for-the-ip-bucket).
+
+#### Quotas are not enforced
+
+This issue occurs when no policy is loaded, because the wrong environment variable is set or the variable is empty.
+
+To resolve, confirm that either `CONNECT_POLICY_FILE` or `CONNECT_POLICY_B64` is set and non-empty, then check the startup logs for `traffic policy loaded`.
+
+#### The proxy does not start or crash-loops
+
+This issue occurs when the Redis command preflight check fails or the policy JSON is invalid. The proxy fails to start rather than enforce quotas incorrectly.
+
+Check the startup logs for the missing Redis command or the [policy validation error](../enterprise/studios-transfer-quotas#extractor-source-types). To resolve, fix the `ConfigMap` or the Redis configuration, then redeploy.
+
+#### A VS Code or IDE client does not reconnect after a quota breach
+
+The proxy tears down the stream mid-session, and some interactive clients do not recover cleanly. This is a known limitation.
+
+As a workaround, reconnect the session.
+
+#### A policy or limit change has no effect
+
+This issue occurs because the proxy reads the policy once at startup and never reloads it at runtime.
+
+To resolve, perform a rolling restart of the proxy Deployment.
+
+#### SSH connections time out with no `HTTP 429` and no handshake
+
+This is not a quota issue. Check the load balancer target group health and the SSH service, then confirm the port is reachable from the client network.
 
 ## Working in a Studio session
 
