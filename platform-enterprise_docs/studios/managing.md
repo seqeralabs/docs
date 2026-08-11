@@ -324,14 +324,20 @@ Once connected, you can:
 
 ### Claude Code desktop app
 
-Connecting from the Claude Code desktop app requires:
+The Claude Code desktop app requires later Connect versions than SSH access in general.
 
-- **connect-server/proxy v0.12.1 or later**
-- **connect-client v0.13.0 or later**
+:::info[**Prerequisites**]
 
-Earlier versions do not run remote commands through a shell, so the app's environment checks fail on connect.
+You need the following:
 
-The Claude Code desktop app reads `~/.ssh/config`, but its **SSH Host** field accepts a hostname only — it cannot parse the `<username>@<studio-session-id>` pair. Define a host alias, then reference the alias by name.
+- **Connect server and proxy**: Version 0.12.1 or later
+- **Connect client**: Version 0.13.0 or later
+
+:::
+
+Because earlier versions do not run remote commands through a shell, the app's environment checks fail on connect.
+
+The Claude Code desktop app reads `~/.ssh/config`, but its **SSH Host** field accepts a hostname only. It cannot parse the `<username>@<studio-session-id>` pair. Define a host alias, then reference the alias in the app.
 
 1. Add an entry to `~/.ssh/config`:
 
@@ -343,15 +349,15 @@ The Claude Code desktop app reads `~/.ssh/config`, but its **SSH Host** field ac
        IdentityFile ~/.ssh/id_ed25519
    ```
 
-   The `<username>@<studio-session-id>` pair belongs in `User`. Only the connect domain belongs in `HostName`.
+   Put the `<username>@<studio-session-id>` pair in `User`, and only the connect domain in `HostName`.
 
 2. Add an SSH connection in the app:
 
-   - **SSH Host**: `my-studio` — the alias, not the full connection string
+   - **SSH Host**: `my-studio`
    - **SSH Port**: `2222`
 
 :::warning
-Set **SSH Port** explicitly. The app does not apply the `Port` value from `~/.ssh/config` and defaults to port 22, which fails with a handshake timeout.
+Set **SSH Port** explicitly. The app ignores the `Port` value in `~/.ssh/config` and defaults to port 22. The connection then fails with a handshake timeout.
 :::
 
 ### SSH authentication
