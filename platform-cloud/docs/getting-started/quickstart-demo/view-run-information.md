@@ -2,7 +2,7 @@
 title: "View run information"
 description: "View pipeline run details in Seqera Platform"
 date: "8 Jul 2024"
-tags: [platform, runs, pipelines, monitoring, showcase tutorial]
+tags: [platform, runs, pipelines, monitoring, tutorial]
 ---
 
 When you launch a pipeline, you are directed to the **Runs** tab which contains all executed workflows, with your submitted run at the top of the list.
@@ -13,7 +13,7 @@ Each new or resumed run is given a random name, which can be customized prior to
 - **running**: Running
 - **succeeded**: Completed successfully
 - **failed**: Successfully executed, where at least one task failed with a terminate error strategy
-- **cancelled**: Stopped forceably during execution
+- **cancelled**: Stopped forcibly during execution
 - **unknown**: Indeterminate status
 
 ![View runs](assets/sp-cloud-view-all-runs.gif)

@@ -95,7 +95,7 @@ Create a role that controls which AWS resources the EC2 instances launched by AW
 	- `seqera-batchjob` (the instance role policy created above)
 1. Enter `seqera-instancerole` as the role name and add an optional description and tags if needed, then select **Create**.
 
-If you enable [data lineage](../data/data-lineage) in your workspace, attach the following additional policy to this role to allow access to the lineage S3 bucket:
+If you enable [data lineage](../../data/data-lineage) in your workspace, attach the following additional policy to this role to allow access to the lineage S3 bucket:
 
 ```json
 {
@@ -399,7 +399,7 @@ The head queue requires an on-demand compute environment. Do not select **Use Sp
     :::note
     To use the same queue for both head and compute tasks, you must assign sufficient resources to your compute environment.
     :::
-1. Expand **Additional configuration** and select the `seqera-launchtemplate` from the Launch template dropdown.
+1. Expand **Additional configuration** and select the `seqera-launchtemplate` from the Launch template drop-down.
 1. Configure VPCs, subnets, and security groups on the next page as needed.
 1. Review your configuration and select **Create compute environment**.
 
@@ -413,7 +413,7 @@ Create this compute environment to use Spot instances for your workflow compute 
 1. Enter a name of your choice, and apply the `seqera-servicerole` and `seqera-instancerole`.
 1. Select **Enable using Spot instances** to use Spot instances and save computing costs.
 1. Select the `seqera-fleetrole` and enter vCPU limits and instance types, if needed.
-1. Expand **Additional configuration** and select the `seqera-launchtemplate` from the Launch template dropdown.
+1. Expand **Additional configuration** and select the `seqera-launchtemplate` from the Launch template drop-down.
 1. Configure VPCs, subnets, and security groups on the next page as needed.
 1. Review your configuration and select **Create compute environment**.
 

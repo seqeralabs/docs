@@ -3,7 +3,7 @@ title: "Run details"
 description: "Monitoring a Nextflow pipeline executed through Seqera Platform."
 date created: "2023-04-21"
 last updated: "2026-04-29"
-tags: [logging, monitoring, runs, details, workflow, execution, lineage]
+tags: [logging, monitoring, runs, details, workflows, execution, lineage]
 ---
 
 import Tabs from '@theme/Tabs';
@@ -171,6 +171,10 @@ The **Inputs** and **Outputs** tabs show every input or output consumed by the t
 #### Execution log
 
 The **Execution log** tab provides a real-time log of the selected task's execution. Task execution and other logs (such as `stdout` and `stderr`) are available for download if they are still available in your compute environment.
+
+:::note
+Real-time log streaming is available only for compute environments that stream logs from a cloud logging service: AWS Batch, Azure Batch, Google Cloud Batch, Kubernetes, and the AWS Cloud and Azure Cloud environments. HPC compute environments (such as Slurm, Grid Engine, LSF, and PBS Pro) retrieve the log from the task work directory rather than streaming it. The **Execution log** tab does not refresh automatically while a task runs. Change tabs or refresh the page to load the latest log content. See [Execution logs don't update in real time for HPC compute environments](../troubleshooting_and_faqs/troubleshooting#execution-logs-dont-update-in-real-time-for-hpc-compute-environments).
+:::
 
 #### Data Explorer
 

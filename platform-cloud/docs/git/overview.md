@@ -1,14 +1,14 @@
 ---
 title: "Git integration"
-description: "Connecting to Git repositories in Seqera Platform and Seqera AI."
+description: "Connecting to Git repositories in Seqera Platform and Co-Scientist."
 date created: "2025-10-11"
-last updated: "2026-04-14"
+last updated: "2026-05-27"
 tags: [git]
 ---
 
 Data pipelines are composed of many assets, including pipeline scripts, configuration files, dependency descriptors (such as for Conda or Docker), documentation, etc. When you manage complex data pipelines as Git repositories, all assets can be versioned and deployed with a specific tag, release, or commit ID. Version control and containerization are crucial to enable reproducible pipeline executions, and provide the ability to continuously test and validate pipelines as the code evolves over time.
 
-Seqera products have built-in support for [Git](https://git-scm.com) and several Git-hosting platforms. This page covers Git integration for both **Seqera Platform** and [**Seqera AI**](#seqera-ai).
+Seqera products have built-in support for [Git](https://git-scm.com) and several Git-hosting platforms. This page covers Git integration for both **Seqera Platform** and [**Co-Scientist**](#co-scientist).
 
 ## Seqera Platform
 
@@ -16,9 +16,9 @@ Seqera Platform enables launching pipelines directly from Git repositories. Pipe
 
 ### Public repositories
 
-Launch a public Nextflow pipeline by entering its Git repository URL in the Pipeline to launch field.
+Launch a public Nextflow pipeline by entering its Git repository URL in the pipeline to launch field.
 
-When you specify the Revision number, the list of available revisions are automatically pulled using the Git provider's API. By default, the default branch (usually `main` or `master`) will be used.
+When you specify the revision number, the list of available revisions are automatically pulled using the Git provider's API. By default, the default branch (usually `main` or `master`) will be used.
 
 :::tip
 [nf-core](https://nf-co.re/pipelines) is a great resource for public Nextflow pipelines.
@@ -30,20 +30,20 @@ The GitHub API imposes [rate limits](https://docs.github.com/en/developers/apps/
 
 ### Private repositories
 
-To access private Nextflow pipelines, add the credentials for your private Git hosting provider to Seqera.
+To access private Nextflow pipelines, add the credentials for your private Git hosting provider to Platform.
 
 :::info
-Credentials are encrypted with the AES-256 cypher before secure storage and are never exposed in an unencrypted way by any Seqera API.
+Credentials are encrypted with the AES-256 cypher before secure storage and are never exposed in an unencrypted way by any Platform API.
 :::
 
 ### Multiple credential filtering
 
-When you have multiple stored credentials, Seqera selects the most relevant credential for your repository in the following order:
+When you have multiple stored credentials, Platform selects the most relevant credential for your repository in the following order:
 
-1. Seqera evaluates all the stored credentials available to the current workspace.
+1. Platform evaluates all the stored credentials available to the current workspace.
 2. Credentials are filtered by Git provider (GitHub, GitLab, Bitbucket, etc.)
-3. Seqera selects the credential with a Repository base URL most similar to the target repository.
-4. If no Repository base URL values are specified in the workspace credentials, the most long-lived credential is selected.
+3. Platform selects the credential with a repository base URL most similar to the target repository.
+4. If no repository base URL values are specified in the workspace credentials, the most long-lived credential is selected.
 
 #### Credential filtering example
 
@@ -65,20 +65,20 @@ Workspace A contains four credentials:
 - Type: GitLab
 - Repository base URL: `https://gitlab.com/repo-a`
 
-If you launch a pipeline with a Nextflow workflow in the `https://github.com/pipeline-repo`, Seqera will use Credential C.
+If you launch a pipeline with a Nextflow workflow in the `https://github.com/pipeline-repo`, Platform will use Credential C.
 
 For the application to select the most appropriate credential for your repository, we recommend that you:
-- Specify the Repository base URL values as completely as possible for each Git credential used in the workspace.
+- Specify the repository base URL values as completely as possible for each Git credential used in the workspace.
 - Favor the use of service account type credentials where possible (such as GitLab group access tokens).
 - Avoid storing multiple user-based tokens with similar permissions.
 
-## Seqera AI
+## Co-Scientist
 
-[Seqera AI](https://seqera.io/ask-ai/chat-v2) integrates with your pipeline GitHub repositories to provide intelligent assistance with pipeline development and modification. To fully utilize the power of Seqera AI, it needs access to your pipeline codebase to analyze, suggest changes, and even create pull requests on your behalf.
+[Co-Scientist](https://ai.seqera.io) integrates with your pipeline GitHub repositories to provide intelligent assistance with pipeline development and modification. To fully utilize the power of Co-Scientist, it needs access to your pipeline codebase to analyze, suggest changes, and even create pull requests on your behalf.
 
 ### Set up GitHub access
 
-To enable Seqera AI to interact with your pipeline GitHub repositories:
+To enable Co-Scientist to interact with your pipeline GitHub repositories:
 
 1. **Generate a personal access token**
    - Navigate to [GitHub Personal Access Tokens](https://github.com/settings/personal-access-tokens)
@@ -87,36 +87,36 @@ To enable Seqera AI to interact with your pipeline GitHub repositories:
      - **Contents**: Read & Write
    - Your token value will be displayed only once. Copy it before navigating away from the tokens page.
 
-2. **Add the token to Seqera AI**
-   - Open [Seqera AI](https://seqera.io/ask-ai/chat-v2).
+2. **Add the token to Co-Scientist**
+   - Open [Co-Scientist](https://ai.seqera.io).
    - In the bottom-left user menu, select **Add token**.
    - Enter your personal access token in the field provided, then select **Set token**.
 
 ### Capabilities
 
-With proper GitHub access configured, Seqera AI can:
+With proper GitHub access configured, Co-Scientist can:
 - Access and analyze your pipeline codebase
 - Create feature branches for proposed changes
 - Generate pull requests for your review
 - Suggest improvements based on your existing code patterns
 
 :::tip
-Seqera AI respects your repository's branch protection rules and will create pull requests for review rather than directly modifying protected branches.
+Co-Scientist respects your repository's branch protection rules and will create pull requests for review rather than directly modifying protected branches.
 :::
 
 ## Seqera Platform Git provider credentials
 
-The following sections detail how to configure credentials for specific Git providers in Seqera. These credentials enable access to private repositories for pipeline execution.
+The following sections detail how to configure credentials for specific Git providers in Platform. These credentials enable access to private repositories for pipeline execution.
 
 ### Azure DevOps repositories
 
 You can authenticate to Azure DevOps repositories using a [personal access token (PAT)](https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=Windows#about-pats).
 
-Once you have created and copied your access token, create a new credential in Seqera using these steps:
+Once you have created and copied your access token, create a new credential in Platform using these steps:
 
 #### Create Azure DevOps credentials
 
-1. From an organization workspace: Select **Credentials** > **Add Credentials**. From your personal workspace: Go to the user menu and select **Your credentials** > **Add credentials**.
+1. From an organization workspace: Select **Credentials > Add Credentials**. From your personal workspace: Go to the user menu and select **Your credentials > Add credentials**.
 2. Enter a **Name** for the new credentials.
 3. Select **Azure DevOps** as the **Provider**.
 4. Enter your **Username** and **Access token**.
@@ -124,7 +124,7 @@ Once you have created and copied your access token, create a new credential in S
 
 ### GitHub
 
-Use an access token to connect Seqera Platform to a private [GitHub](https://github.com/) repository. Personal (classic) or fine-grained access tokens can be used.
+Use an access token to connect Platform to a private [GitHub](https://github.com/) repository. Personal (classic) or fine-grained access tokens can be used.
 
 :::info
 A user's personal access token (classic) can access every repository that the user has access to. GitHub recommends using fine-grained personal access tokens (currently in beta) instead, which you can restrict to specific repositories. Fine-grained personal access tokens also enable you to specify granular permissions instead of broad scopes.
@@ -138,15 +138,15 @@ After you've created and copied your access token, create a new credential in Se
 
 #### Create GitHub credentials
 
-1. From an organization workspace: Select **Credentials** > **Add Credentials**. From your personal workspace: Go to the user menu and select **Your credentials** > **Add credentials**.
+1. From an organization workspace: Select **Credentials > Add Credentials**. From your personal workspace: Go to the user menu and select **Your credentials > Add credentials**.
 1. Enter a **Name** for the new credentials.
 1. Select **GitHub** as the **Provider**.
 1. Enter your **Username** and **Access token**.
 1. (Recommended) Enter the **Repository base URL** for which the credentials should be applied. This option is used to apply the provided credentials to a specific repository, e.g., `https://github.com/seqeralabs`.
 
-#### Create a new GitHub App from Seqera
+#### Create a new GitHub App from Platform
 
-To create and install a GitHub App from Seqera with the manifest flow:
+To create and install a GitHub App from Platform with the manifest flow:
 
 1. Go to the credentials page:
     - Organization workspace: Select **Credentials > Add Credentials**.
@@ -187,12 +187,12 @@ To create and install a GitHub App from Seqera with the manifest flow:
 The new credential appears in your **Credentials** list with the GitHub App icon. Credentials created from your workspace credentials page are scoped to that workspace; credentials created from your personal credentials page are scoped to your user and are not visible to any workspace.
 
 :::note
-If you cancel the manifest flow on GitHub or close the browser tab before approving the app, no credentials are created on Seqera. The temporary state that protects the redirect against CSRF expires after 10 minutes and cannot be reused. To try again, restart the flow from the credentials form.
+If you cancel the manifest flow on GitHub or close the browser tab before approving the app, no credentials are created in Platform. The temporary state that protects the redirect against CSRF expires after 10 minutes and cannot be reused. To try again, restart the flow from the credentials form.
 :::
 
 #### Add an existing GitHub App
 
-To register an existing GitHub App in Seqera:
+To register an existing GitHub App in Platform:
 1. Set the **GitHub credential type** to **GitHub App** and select **Add preexisting**
 1. Enter the **GitHub URL**, **App scope**, and, if required, the **GitHub repository URL** described above.
 1. Enter the app's security keys. To find these values, go to **Settings > Developer settings > GitHub Apps** > **[your app]** on GitHub:
@@ -210,9 +210,9 @@ Seqera enforces uniqueness of GitHub App credentials by **Repository URL** withi
 
 To resolve a duplicate:
 
-- **Reuse the existing credential**: In most cases the existing credential already grants Seqera the access it needs. Open it from the **Credentials** list to confirm the association between the installed app and the repository.
-- **Delete the obsolete credential first**: If the existing credential is stale (e.g., the app has been uninstalled or the private key was rotated outside of Seqera), delete it from the **Credentials** list and then re-run the creation flow.
-- **Use a different repository URL or leave the field empty**: If you need a second credential covering a broader scope, omit the **Repository URL** or use a different one. Seqera's [credential filtering](#multiple-credential-filtering) then selects the most specific match at launch time.
+- **Reuse the existing credential**: In most cases the existing credential already grants Platform the access it needs. Open it from the **Credentials** list to confirm the association between the installed app and the repository.
+- **Delete the obsolete credential first**: If the existing credential is stale (e.g., the app has been uninstalled or the private key was rotated outside of Platform), delete it from the **Credentials** list and then re-run the creation flow.
+- **Use a different repository URL or leave the field empty**: If you need a second credential covering a broader scope, omit the **Repository URL** or use a different one. Platform's [credential filtering](#multiple-credential-filtering) then selects the most specific match at launch time.
 
 ### GitLab
 
@@ -222,7 +222,7 @@ After you have created and copied your access token, create a new credential in 
 
 #### Create GitLab credentials
 
-1. From an organization workspace: Select **Credentials** > **Add Credentials**. From your personal workspace: Go to the user menu and select **Your credentials** > **Add credentials**.
+1. From an organization workspace: Select **Credentials > Add Credentials**. From your personal workspace: Go to the user menu and select **Your credentials > Add credentials**.
 1. Enter a **Name** for the new credentials.
 1. Select **GitLab** as the **Provider**.
 1. Enter your **Username**. For Group and Project access tokens, the username can be any non-empty value.
@@ -231,11 +231,11 @@ After you have created and copied your access token, create a new credential in 
 
 ### Gitea
 
-To connect to a private [Gitea](https://gitea.io/) repository, use your Gitea user credentials to create a new credential in Seqera with these steps:
+To connect to a private [Gitea](https://gitea.io/) repository, use your Gitea user credentials to create a new credential in Platform with these steps:
 
 #### Create Gitea credentials
 
-1. From an organization workspace, go to the **Credentials** tab and select **Add Credentials**. From your personal workspace, select **Your credentials** from the user menu, then select **Add credentials**.
+1. From an organization workspace: Select **Credentials > Add Credentials**. From your personal workspace: Go to the user menu and select **Your credentials > Add credentials**.
 1. Enter a **Name** for the new credentials.
 1. Select **Gitea** as the **Provider**.
 1. Enter your **Username**.
@@ -254,7 +254,7 @@ API tokens replace [app passwords](https://support.atlassian.com/bitbucket-cloud
 
 #### Create BitBucket credentials
 
-1. From an organization workspace: Select **Credentials** > **Add Credentials**. From your personal workspace: Go to the user menu and select **Your credentials** > **Add credentials**.
+1. From an organization workspace: Select **Credentials > Add Credentials**. From your personal workspace: Go to the user menu and select **Your credentials > Add credentials**.
 1. Enter a **Name** for the new credentials.
 1. Select **BitBucket** as the **Provider**.
 1. Enter your **Username** (account email) and **Token**.
@@ -266,7 +266,7 @@ To connect to a private AWS CodeCommit repository, see the [AWS documentation](h
 
 #### Create AWS CodeCommit credentials
 
-1. From an organization workspace: Select **Credentials** > **Add Credentials**. From your personal workspace: Go to the user menu and select **Your credentials** > **Add credentials**.
+1. From an organization workspace: Select **Credentials > Add Credentials**. From your personal workspace: Go to the user menu and select **Your credentials > Add credentials**.
 1. Enter a **Name** for the new credentials.
 1. Select **CodeCommit** as the **Provider**.
 1. Enter the **Access key** and **Secret key** of the AWS IAM account that will be used to access the target CodeCommit repository.

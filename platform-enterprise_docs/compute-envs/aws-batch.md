@@ -2,8 +2,8 @@
 title: "AWS Batch"
 description: "Instructions to set up AWS Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2025-12-18"
-tags: [aws, batch, compute environment]
+last updated: "2026-05-28"
+tags: [aws, batch, compute environments]
 ---
 
 :::tip
@@ -90,6 +90,7 @@ A permissive and broad policy with all the required permissions is provided here
         "batch:CreateJobQueue",
         "batch:DeleteComputeEnvironment",
         "batch:DeleteJobQueue",
+        "batch:TagResource",
         "batch:UpdateComputeEnvironment",
         "batch:UpdateJobQueue"
       ],
@@ -283,7 +284,7 @@ If you are required to use manually created CEs and JQs or prefer to manage thei
 - `batch:TagResource` to tag jobs
 - `batch:TerminateJob` to terminate jobs
 
-You can use `batch:DescribeJobQueues` to list the existing job queues in a drop-down menu but it's not required if you're specifying manually created job queues.
+You can use `batch:DescribeJobQueues` to list the existing job queues in a drop-down but it's not required if you're specifying manually created job queues.
 However, it is required when you let Seqera create and manage job queues automatically (using the Forge tool). In this case, the `batch:DescribeComputeEnvironments` permission must also be added.
 
 You can also restrict permissions based on resource tags. These are defined by users when they [set up a pipeline in Platform](https://docs.seqera.io/platform-enterprise/resource-labels/overview).
@@ -389,11 +390,11 @@ The policy can be scoped down to limit access to the [specific log group](#advan
 
 ### S3 access (optional)
 
-Seqera automatically attempts to fetch a list of S3 buckets available in the AWS account connected to Platform, to provide them in a drop-down menu to be used as Nextflow working directory, and make the compute environment creation smoother. This feature is optional, and users can type the bucket name manually when setting up a compute environment. To allow Seqera to fetch the list of buckets in the account, the `s3:ListAllMyBuckets` action can be added, and it must have the `Resource` field set to `*`, as shown in the generic policy at the beginning of this document.
+Seqera automatically attempts to fetch a list of S3 buckets available in the AWS account connected to Platform, to provide them in a drop-down to be used as Nextflow working directory, and make the compute environment creation smoother. This feature is optional, and users can type the bucket name manually when setting up a compute environment. To allow Seqera to fetch the list of buckets in the account, the `s3:ListAllMyBuckets` action can be added, and it must have the `Resource` field set to `*`, as shown in the generic policy at the beginning of this document. The `s3:ListAllMyBuckets` action also allows Data Explorer to auto-discover the data repositories accessible to your workspace credentials.
 
 Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](../studios/overview) and [Data Explorer](../data/data-explorer); if these features are not used the related permissions can be omitted.
 
-The IAM policy can be scoped down to only allow limited read/write permissions in certain S3 buckets used by Studios/Data Explorer. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory. We also recommend granting the `s3:GetObject` permission on the work directory path to fetch Nextflow log files.
+The IAM policy can be scoped down to only allow limited read/write permissions in certain S3 buckets used by Studios/Data Explorer. For each bucket you want to browse, upload to, or download from with Data Explorer, grant `s3:GetObject` and `s3:PutObject` on the bucket objects, and `s3:ListBucket`, `s3:GetBucketLocation`, `s3:GetBucketPolicy`, and `s3:GetBucketAcl` on the bucket itself. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory. We also recommend granting the `s3:GetObject` permission on the work directory path to fetch Nextflow log files.
 
 :::note
 If you opted to create a separate S3 bucket only for Nextflow work directories, there is no need for the IAM user to have read/write access to it. If Seqera is allowed to manage resources (using Batch Forge) the IAM roles automatically created will have the necessary permissions.
@@ -427,9 +428,15 @@ If you set up the compute environment manually, you can create the required IAM 
   "Sid": "S3ReadWriteBucketsForStudiosDataExplorer",
   "Effect": "Allow",
   "Action": [
-    "s3:Get*",
-    "s3:List*",
-    "s3:PutObject"
+    "s3:GetObject",
+    "s3:GetObjectTagging",
+    "s3:GetBucketLocation",
+    "s3:GetBucketPolicy",
+    "s3:GetBucketAcl",
+    "s3:ListBucket",
+    "s3:PutObject",
+    "s3:PutObjectTagging",
+    "s3:DeleteObject"
   ],
   "Resource": [
     "arn:aws:s3:::example-bucket-read-write-studios",
@@ -439,6 +446,10 @@ If you set up the compute environment manually, you can create the required IAM 
   ]
 }
 ```
+
+:::note
+`s3:GetBucketLocation` allows Data Explorer to resolve each bucket's region. `s3:GetBucketPolicy` and `s3:GetBucketAcl` allow it to inspect each bucket's access configuration when it lists and connects to data repositories. If you prefer not to enumerate individual actions, the `s3:Get*` and `s3:List*` wildcards shown in the full permissive policy above also cover these actions.
+:::
 
 ### IAM roles for AWS Batch (optional)
 
@@ -484,7 +495,7 @@ Seqera Platform can interact with AWS Systems Manager (SSM) to [identify ECS Opt
 
 ### EC2 describe permissions (optional)
 
-Seqera can interact with EC2 to retrieve information about existing AWS resources in your account, including VPCs, subnets, and security groups. This data is used to populate dropdown menus in the Platform UI when creating new compute environments. While these permissions are optional, they are recommended to enhance the user experience. Without these permissions, resource ARNs need to be manually entered in the interface by the user.
+Seqera can interact with EC2 to retrieve information about existing AWS resources in your account, including VPCs, subnets, and security groups. This data is used to populate drop-downs in the Platform UI when creating new compute environments. While these permissions are optional, they are recommended to enhance the user experience. Without these permissions, resource ARNs need to be manually entered in the interface by the user.
 
 :::note
 AWS does not support restricting IAM permissions on EC2 Describe actions based on specific resource names or tags. As a result, permission to operate on any resource `*` must be granted.
@@ -766,7 +777,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
     When using AWS keys without an assumed role, the associated AWS user must have been granted permissions to operate on the cloud resources directly. When an assumed role is provided, the IAM user keys are only used to retrieve temporary credentials impersonating the role specified: this could be useful when e.g. multiple IAM users are used to access the same AWS account, and the actual permissions to operate on the resources are only granted to the role.
     :::
 1. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_. This region must match the location of the S3 bucket or EFS/FSx file system you plan to use as work directory.
-1. In the **Pipeline work directory** field type or select from the dropdown menu the S3 bucket [previously created](#s3-bucket-creation), e.g., `s3://seqera-bucket`. The work directory can be customized to specify a folder inside the bucket where Nextflow intermediate files will be stored, e.g., `s3://seqera-bucket/nextflow-workdir`. The bucket must be located in the same region chosen in the previous step.
+1. In the **Pipeline work directory** field type or select from the drop-down the S3 bucket [previously created](#s3-bucket-creation), e.g., `s3://seqera-bucket`. The work directory can be customized to specify a folder inside the bucket where Nextflow intermediate files will be stored, e.g., `s3://seqera-bucket/nextflow-workdir`. The bucket must be located in the same region chosen in the previous step.
 
     :::note
     When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
@@ -822,7 +833,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
     :::note
     You can create a compute environment that launches either Spot or On-Demand instances. Spot instances can cost as little as 20% of On-Demand instances, and with Nextflow's ability to automatically relaunch failed tasks, Spot is almost always the recommended provisioning model. Note, however, that when choosing Spot instances, Seqera will also create a dedicated queue for running the main Nextflow job using a single On-Demand instance to prevent any execution interruptions.
 
-    From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow#spot-instance-failures-and-retries-in-nextflow).
+    From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow#spot-instance-failures-and-retries).
     :::
 1. Enter the **Max CPUs**, e.g., `64`. This is the maximum number of combined CPUs (the sum of all instances' CPUs) AWS Batch will provision at any time.
 1. Select **EBS Auto scale (deprecated)** to allow the EC2 virtual machines to dynamically expand the amount of available disk space during task execution. This feature is deprecated, and is not compatible with Fusion v2.
@@ -908,7 +919,15 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
-1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
+1. Under **Environment variables**, add each variable with a **Name**, **Value**, and **Target Environment**:
+
+    - **Head job**: Adds the variable to the Nextflow head job container, which evaluates `nextflow.config` and submits tasks to the compute backend. Use this target for variables that Nextflow or its plugins read, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings the head node uses to reach external services.
+    - **Compute job**: Adds the variable to the worker containers that run individual pipeline tasks. Use this target for variables your pipeline tools read, such as `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials needed inside the task container, or tool-specific settings like `JAVA_HOME`.
+    - **Head and Compute jobs**: Adds the variable to both the head job and the compute jobs. Use this target for values needed in both places, such as an HTTP proxy used by both Nextflow and task tools, or a credential needed in both the head job and individual compute tasks.
+
+    :::note
+    For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation. To rotate a value, recreate the compute environment.
+    :::
 1. Configure any advanced options described in the next section, as needed.
 1. Select **Create** to finalize the compute environment setup. It will take a few seconds for all the AWS resources to be created before you are ready to launch pipelines.
 
@@ -949,13 +968,13 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
     Setting Min CPUs to a value greater than 0 will keep the required compute instances active, even when your pipelines are not running. This will result in additional AWS charges.
     :::
 
-- Use **Head Job CPUs** and **Head Job Memory** to specify the hardware resources allocated for the Nextflow head job. The default head job memory allocation is 4096 MiB.
+- Use **Head job CPUs** and **Head job memory** to specify the hardware resources allocated for the Nextflow head job. The default head job memory allocation is 4096 MiB.
 
     :::warning
-    Setting Head Job values will also limit the size of any Studio session that can be created in the compute environment.
+    Setting head job values will also limit the size of any Studio session that can be created in the compute environment.
     :::
 
-- Use **Head Job role** and **Compute Job role** to grant fine-grained IAM permissions to the **Head Job** and **Compute Jobs**.
+- Use **Head job role** and **Compute job role** to grant fine-grained IAM permissions to the **Head job** and **Compute jobs**.
 - Add an execution role ARN to the **Batch execution role** field to grant permissions to make API calls on your behalf to the ECS container used by Batch. This is required if the pipeline launched with this compute environment needs access to the secrets stored in this workspace. This field can be ignored if you are not using secrets.
 - Specify an EBS block size (in GB) in the **EBS auto-expandable block size** field to control the initial size of the EBS auto-expandable volume. New blocks of this size are added when the volume begins to run out of free space. This feature is deprecated, and is not compatible with Fusion v2.
 - Enter the **Boot disk size** (in GB) to specify the size of the boot disk in the VMs created by this compute environment.
@@ -984,7 +1003,7 @@ With your AWS environment and resources set up and your user permissions configu
 AWS Batch creates resources that you may be charged for in your AWS account. See [Cloud costs](../monitoring/cloud-costs) for guidelines to manage cloud resources effectively and prevent unexpected costs.
 :::
 
-1. After logging in to your Seqera installation and selecting a workspace from the dropdown menu at the top of the page, select **Compute environments** from the navigation menu.
+1. After logging in to your Seqera installation and selecting a workspace from the drop-down at the top of the page, select **Compute environments** from the navigation menu.
 1. Select **Add compute environment**.
 1. Enter a descriptive name for this environment, e.g., _AWS Batch Spot (eu-west-1)_.
 1. Select **AWS Batch** as the target platform.
@@ -1006,7 +1025,7 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
     When using AWS keys without an assumed role, the associated AWS user must have been granted permissions to operate on the cloud resources directly. When an assumed role is provided, the IAM user keys are only used to retrieve temporary credentials impersonating the role specified: this could be useful when e.g. multiple IAM users are used to access the same AWS account, and the actual permissions to operate on the resources are only granted to the role.
     :::
 1. Select a **Region**, e.g., _eu-west-1 - Europe (Ireland)_. This region must match the region where your S3 bucket or EFS/FSx work directory is located to avoid high data transfer costs.
-1. Enter or select from the dropdown menu the S3 bucket [previously created](#s3-bucket-creation) in the **Pipeline work directory** field, e.g., `s3://seqera-bucket`. This bucket must be in the same region chosen in the previous step to avoid incurring high data transfer costs. The work directory can be customized to specify a folder inside the bucket, e.g., `s3://seqera-bucket/nextflow-workdir`.
+1. Enter or select from the drop-down the S3 bucket [previously created](#s3-bucket-creation) in the **Pipeline work directory** field, e.g., `s3://seqera-bucket`. This bucket must be in the same region chosen in the previous step to avoid incurring high data transfer costs. The work directory can be customized to specify a folder inside the bucket, e.g., `s3://seqera-bucket/nextflow-workdir`.
     :::note
     When you specify an S3 bucket as your work directory, this bucket is used for the Nextflow [cloud cache](https://docs.seqera.io/nextflow/cache-and-resume#cache-stores) by default. Seqera adds a `cloudcache` block to the Nextflow configuration file for all runs executed with this compute environment. This block includes the path to a `cloudcache` folder in your work directory, e.g., `s3://seqera-bucket/cloudcache/.cache`. You can specify an alternative cache location with the **Nextflow config file** field on the pipeline [launch](../launch/launchpad#launch-form) form.
     :::
@@ -1067,7 +1086,15 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
-1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
+1. Under **Environment variables**, add each variable with a **Name**, **Value**, and **Target Environment**:
+
+    - **Head job**: Adds the variable to the Nextflow head job container, which evaluates `nextflow.config` and submits tasks to the compute backend. Use this target for variables that Nextflow or its plugins read, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings the head node uses to reach external services.
+    - **Compute job**: Adds the variable to the worker containers that run individual pipeline tasks. Use this target for variables your pipeline tools read, such as `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials needed inside the task container, or tool-specific settings like `JAVA_HOME`.
+    - **Head and Compute jobs**: Adds the variable to both the head job and the compute jobs. Use this target for values needed in both places, such as an HTTP proxy used by both Nextflow and task tools, or a credential needed in both the head job and individual compute tasks.
+
+    :::note
+    For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation. To rotate a value, recreate the compute environment.
+    :::
 1. Configure any advanced options described in the next section, as needed.
 1. Select **Create** to finalize the compute environment setup.
 
@@ -1082,8 +1109,8 @@ Seqera compute environments for AWS Batch include advanced options to configure 
 - Configure a custom networking setup using the **VPC ID**, **Subnets**, and **Security groups** fields.
   * If not defined, the default VPC, subnets, and security groups for the selected region will be used.
   * When using EFS or FSx file systems, select the security group previously created to allow access to the file system. The VPC ID the security group belongs to needs to match the VPC ID defined for the Seqera Batch compute environment.
-- Use **Head Job CPUs** and **Head Job Memory** to specify the hardware resources allocated for the Nextflow head job. The default head job memory allocation is 4096 MiB.
-- Use **Head Job role** and **Compute Job role** to grant fine-grained IAM permissions to the Head Job and Compute Jobs,
+- Use **Head job CPUs** and **Head job memory** to specify the hardware resources allocated for the Nextflow head job. The default head job memory allocation is 4096 MiB.
+- Use **Head job role** and **Compute job role** to grant fine-grained IAM permissions to the head job and compute jobs,
 - Add an execution role ARN to the **Batch execution role** field to grant permissions to make API calls on your behalf to the ECS container used by Batch. This is required if the pipeline launched with this compute environment needs access to the secrets stored in this workspace. This field can be ignored if you are not using secrets.
 - Use **AWS CLI tool path** to specify the location of the `aws` CLI.
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.

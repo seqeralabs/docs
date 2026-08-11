@@ -2,8 +2,8 @@
 title: "User roles"
 description: "Understand the various roles in Seqera Platform."
 date created: "2024-06-10"
-last updated: "2026-04-17"
-tags: [roles, user-roles]
+last updated: "2026-05-22"
+tags: [roles]
 ---
 
 Organization owners can assign role-based access levels to individual **participants** and **teams** in an organization workspace.
@@ -49,6 +49,8 @@ Workspace participants with any role can leave the workspace, i.e., remove thems
 
 The following table shows which operations are available to the default workspace participant roles:
 
+<div className="pinned-header-row">
+
 | Permission                     | Owner | Admin | Maintain | Launch | Connect | Viewer |
 |--------------------------------|-------|-------|----------|--------|---------|--------|
 | **action:read**                | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
@@ -77,6 +79,7 @@ The following table shows which operations are available to the default workspac
 | **label:write**                | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **label:delete**               | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **launch:read**                | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **lineage:read**               | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
 | **pipeline:read**              | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
 | **pipeline:write**             | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **pipeline:delete**            | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
@@ -106,6 +109,10 @@ The following table shows which operations are available to the default workspac
 | **workspace:write**            | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
 | **workspace:delete**           | ✅     | ❌     | ❌        | ❌      | ❌       | ❌      |
 | **workspace:admin**            | ✅     | ❌     | ❌        | ❌      | ❌       | ❌      |
+| **workspace_lineage:read**     | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **workspace_lineage:write**    | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
 | **workspace_self:delete**      | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
 | **workspace_studio:read**      | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
 | **workspace_studio:write**     | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+
+</div>

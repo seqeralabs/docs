@@ -2,7 +2,7 @@
 title: "Pipeline schema"
 description: "Introduction to pipeline schema in Seqera Platform."
 date: "24 Apr 2023"
-tags: [pipeline, schema]
+tags: [pipelines, schema]
 ---
 
 Pipeline schema files describe the structure and validation constraints of your workflow parameters. They are used to validate parameters before launch to prevent software or pipelines from failing in unexpected ways at runtime.
@@ -13,7 +13,7 @@ See [nf-core/rnaseq](https://github.com/nf-core/rnaseq/blob/e049f51f0214b2aef762
 
 ### Building pipeline schema files
 
-The pipeline schema is based on [json-schema.org](https://json-schema.org/) syntax, with some additional conventions. While you can create your pipeline schema manually, we highly recommend using [nf-core tools](https://nf-co.re/docs/nf-core-tools/pipelines/schema), a toolset for developing Nextflow pipelines built by the nf-core community.
+The pipeline schema is based on [json-schema.org](https://json-schema.org/) syntax, with some additional conventions. While you can create your pipeline schema manually, we highly recommend using [nf-core tools](https://nf-co.re/tools#json-schema-graphical-interface), a toolset for developing Nextflow pipelines built by the nf-core community.
 
 When you run the `nf-core schema build` command in your pipeline root directory, the tool collects your pipeline parameters and gives you interactive prompts about missing or unexpected parameters. If no existing schema file is found, the tool creates one for you. The `schema build` commands include the option to validate and lint your schema file according to best practice guidelines from the nf-core community.
 

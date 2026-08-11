@@ -2,7 +2,7 @@
 title: "AWS Cloud"
 description: "Instructions to set up an AWS Cloud CE in Seqera Platform"
 date created: "2025-07-09"
-tags: [cloud, vm, amazon, aws, compute-environment]
+tags: [cloud, vm, amazon, aws, compute environments]
 ---
 
 # AWS Cloud
@@ -207,7 +207,7 @@ The following permissions are required to remove resources created by Seqera whe
 
 #### Optional permissions
 
-The following permissions enable Seqera to populate values for dropdown fields. If missing, the input fields will not be auto-populated but can still be manually entered. Though optional, these permissions are recommended for a smoother and less error-prone user experience:
+The following permissions enable Seqera to populate values for drop-down fields. If missing, the input fields will not be auto-populated but can still be manually entered. Though optional, these permissions are recommended for a smoother and less error-prone user experience. The `s3:ListAllMyBuckets` action also allows Data Explorer to auto-discover the data repositories accessible to your workspace credentials:
 
 ```json
 {
@@ -247,9 +247,9 @@ When you enable Seqera Intelligent Compute, Seqera provisions and manages all EC
 Seqera Intelligent Compute is in private preview. [Contact us](https://seqera.io/intelligent-compute/) to request access.
 :::
 
-To enable Seqera Intelligent Compute, attach an additional IAM policy (beyond the [Required Platform IAM permissions](#required-platform-iam-permissions)) to the same IAM user or role that Seqera uses to access your AWS account.
+To enable Seqera Intelligent Compute, attach an additional IAM policy (beyond the [Required permissions](#required-permissions)) to the same IAM user or role that Seqera uses to access your AWS account.
 
-The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The remaining `Resource: "*"` entries correspond to AWS APIs that do not support resource-level permissions, such as EC2 `Describe*`, ECR authorization tokens, and Cost Explorer.
+The policy scopes ARN-eligible actions to the `seqera-sched-*` resource prefix, except for CloudWatch Logs actions, which are scoped to the `/seqera/*` log-group prefix (Seqera writes logs to groups such as `/seqera/platform`). The remaining `Resource: "*"` entries correspond to AWS APIs that do not support resource-level permissions, such as EC2 `Describe*`, ECR authorization tokens, and Cost Explorer.
 
 <details>
 <summary>Seqera Intelligent Compute policy</summary>
@@ -360,7 +360,7 @@ The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The 
         "logs:GetLogEvents",
         "logs:TagResource"
       ],
-      "Resource": "arn:aws:logs:*:*:log-group:/seqera/sched*"
+      "Resource": "arn:aws:logs:*:*:log-group:/seqera/*"
     },
     {
       "Sid": "EC2NetworkDiscovery",
@@ -470,5 +470,126 @@ The AWS Cloud compute environment uses an AMI maintained by Seqera, and the pipe
 - **VPC ID**: The ID of the VPC where the EC2 instance will be launched. If unspecified, the default VPC will be used.
 - **Subnets**: The list of VPC subnets where the EC2 instance will run. If unspecified, all the subnets of the VPC will be used.
 - **Security groups**: The security groups the EC2 instance will be a part of. If unspecified, no security groups will be used.
-- **Instance Profile**: The ARN of the `InstanceProfile` used by the EC2 instance to assume a role while running. If unspecified, Seqera will provision one with enough permissions to run.
+- **Instance Profile**: The ARN of the `InstanceProfile` used by the EC2 instance to assume a role while running. If unspecified, Seqera will provision one with enough permissions to run. See [Custom instance profile](#custom-instance-profile) for the minimum permissions required if you provide your own.
 - **Boot disk size**: The size of the EBS boot disk for the EC2 instance. If undefined, a default 50 GB `gp3` volume will be used.
+
+### Custom instance profile
+
+When you specify a custom **Instance Profile** ARN in Advanced options, the IAM role attached to that instance profile must include the following minimum permissions. These mirror what Seqera provisions automatically when no instance profile is specified.
+
+#### Trust policy
+
+The role must be assumable by the EC2 service:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": {
+    "Effect": "Allow",
+    "Action": "sts:AssumeRole",
+    "Principal": {
+      "Service": "ec2.amazonaws.com"
+    }
+  }
+}
+```
+
+#### AWS managed policies
+
+Attach the following AWS managed policies to the role:
+
+| Policy | Purpose |
+|--------|---------|
+| `arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy` | Push metrics and logs to CloudWatch |
+| `arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess` | Read-only access to S3 (required by Fusion and Nextflow) |
+| `arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPullOnly` | Pull container images from private ECR repositories |
+
+#### Inline policies
+
+In addition to the managed policies, attach the following inline policies:
+
+**S3 read/write** — grants full object access on the compute environment work directory bucket. Add one statement per bucket if you configure additional buckets under **Allow buckets**:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ListObjectsInBucket",
+      "Effect": "Allow",
+      "Action": ["s3:ListBucket"],
+      "Resource": "arn:aws:s3:::<BUCKET_NAME>"
+    },
+    {
+      "Sid": "AllObjectActions",
+      "Effect": "Allow",
+      "Action": "s3:*Object",
+      "Resource": "arn:aws:s3:::<BUCKET_NAME>/*"
+    },
+    {
+      "Sid": "AllowObjectTagging",
+      "Effect": "Allow",
+      "Action": ["s3:PutObjectTagging", "s3:GetObjectTagging"],
+      "Resource": "arn:aws:s3:::<BUCKET_NAME>/*"
+    }
+  ]
+}
+```
+
+**Secrets Manager** — grants access to the pipeline secrets Seqera stores in AWS Secrets Manager under the `tower-` prefix. Seqera creates each referenced secret when a pipeline launches and deletes it on completion:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:CreateSecret",
+        "secretsmanager:DeleteSecret"
+      ],
+      "Resource": ["arn:aws:secretsmanager:<REGION>:*:secret:tower-*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["secretsmanager:ListSecrets"],
+      "Resource": ["*"]
+    }
+  ]
+}
+```
+
+**KMS for S3** — required if any of the S3 buckets used by the compute environment are encrypted with a customer-managed KMS key (SSE-KMS):
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "KmsS3Read",
+      "Effect": "Allow",
+      "Action": ["kms:Decrypt", "kms:DescribeKey"],
+      "Resource": "arn:aws:kms:*:*:key/*",
+      "Condition": {
+        "StringLike": { "kms:ViaService": "s3.*.amazonaws.com" }
+      }
+    },
+    {
+      "Sid": "KmsS3Write",
+      "Effect": "Allow",
+      "Action": ["kms:Encrypt", "kms:ReEncrypt*", "kms:GenerateDataKey*"],
+      "Resource": "arn:aws:kms:*:*:key/*",
+      "Condition": {
+        "StringLike": { "kms:ViaService": "s3.*.amazonaws.com" }
+      }
+    }
+  ]
+}
+```
+
+:::note
+If your AWS account enforces EBS volume encryption at the account level (either via account default encryption settings or an SCP that requires `encrypted=true` on `RunInstances`), the EC2 instance will use a KMS key to encrypt its boot volume. In this case, the instance role must also have `kms:Decrypt`, `kms:GenerateDataKey`, `kms:CreateGrant`, and `kms:DescribeKey` permissions on the relevant KMS key — these are not included in the KMS for S3 policy above, which is scoped to S3 only. Contact your AWS administrator to identify the correct KMS key ARN and add permissions accordingly.
+:::
+
+When you use a custom instance profile, note that Seqera will not create or manage the IAM role — you are responsible for keeping it up to date as requirements change.

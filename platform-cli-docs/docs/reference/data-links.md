@@ -155,6 +155,10 @@ Run `tw data-links delete -h` to view all the required and optional fields for d
 
 Users with the `MAINTAIN` role and above for a workspace can delete custom data-links.
 
+:::note
+`tw data-links delete` removes only the data-link record from Seqera Platform. It does not delete the files in cloud storage. To delete those files, use your cloud provider's tools.
+:::
+
 #### Example
 
 Command:

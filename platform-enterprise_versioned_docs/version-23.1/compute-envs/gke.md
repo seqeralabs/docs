@@ -2,7 +2,7 @@
 title: "Google Kubernetes Engine"
 description: "Instructions to set up Google Kubernetes Engine in Nextflow Tower"
 date: "21 Apr 2023"
-tags: [gke, google, compute environment]
+tags: [gke, google, compute environments]
 ---
 
 [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine) is a managed Kubernetes cluster that allows the execution of containerized workloads in Google Cloud at scale.

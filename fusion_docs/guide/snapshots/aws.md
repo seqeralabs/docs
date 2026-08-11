@@ -3,7 +3,7 @@ title: AWS Batch
 description: "Fusion Snapshots configuration and best practices for AWS Batch"
 date created: "2024-11-21"
 last updated: "2025-12-19"
-tags: [fusion, fusion-snapshots, storage, compute, snapshot, aws, batch]
+tags: [fusion, fusion snapshots, storage, compute, snapshot, aws, batch]
 ---
 
 Fusion Snapshots enable checkpoint/restore functionality for Nextflow processes running on AWS Batch Spot instances. When a Spot instance interruption occurs, AWS provides a guaranteed 120-second warning window to checkpoint and save the task state before the instance terminates.

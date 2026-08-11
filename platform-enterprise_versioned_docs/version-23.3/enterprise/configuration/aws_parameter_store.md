@@ -2,7 +2,7 @@
 title: "AWS Parameter Store"
 description: Configure values for Seqera configuration with AWS Parameter Store
 date: "21 Apr 2023"
-tags: [configuration, aws, parameter, securestring]
+tags: [configuration, aws, parameters, securestring]
 ---
 
 From version 23.1, Seqera Platform Enterprise can fetch configuration values from the AWS Parameter Store.

@@ -3,7 +3,7 @@ title: AWS Batch
 description: "Use Fusion with AWS Batch and S3 storage"
 date created: "2024-08-23"
 last updated: "2026-03-04"
-tags: [fusion, storage, compute, aws-batch, s3]
+tags: [fusion, storage, compute, aws batch, s3]
 ---
 
 Fusion simplifies and improves the efficiency of Nextflow pipelines in [AWS Batch](https://aws.amazon.com/batch/) in several ways:
