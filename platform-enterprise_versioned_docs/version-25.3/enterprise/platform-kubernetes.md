@@ -134,12 +134,12 @@ spec:
       targetPort: 8000
 ```
 
-The external `port` of the `frontend` service is independent of `NGINX_LISTEN_PORT`. Keep it at `80` and change only the `targetPort` to match the port NGINX listens on inside the container:
+The external `port` of the `frontend` service is independent of `NGINX_LISTEN_PORT`. Leave the `port` at `80` and change only the `targetPort` to match the port NGINX listens on inside the container:
 
 - If `NGINX_LISTEN_PORT` is unset, set `targetPort` to `8000`.
-- If you set `NGINX_LISTEN_PORT` to a custom value, set `targetPort` to the same value.
+- If you set `NGINX_LISTEN_PORT` to another value, set `targetPort` to that value.
 
-`NGINX_LISTEN_PORT` is unrelated to `NGINX_UPSTREAM_PORT` (default `8080`), which is the port of the backend service that NGINX routes requests to.
+`NGINX_UPSTREAM_PORT` (default `8080`) sets the backend port that NGINX routes requests to, not the frontend listening port.
 
 The unprivileged Seqera image will soon deprecate the current image that requires root. The unprivileged image can be easily customized using environment variables:
 
