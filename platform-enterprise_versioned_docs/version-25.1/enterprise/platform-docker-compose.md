@@ -101,8 +101,8 @@ The unprivileged Seqera image will soon deprecate the current image that require
 
 - `NGINX_LISTEN_PORT`: The port the NGINX process will listen on inside the container. Default: `8000`.
 - `NGINX_LISTEN_PORT_IPV6`: The NGINX listening port to open on the IPv6 address. Default: `8000`.
-- `NGINX_UPSTREAM_HOST`: The hostname of the backend service to which the NGINX process will route requests. Default: `8000`.
-- `NGINX_UPSTREAM_PORT`: The port where the backend service is exposed. Default: `8000`.
+- `NGINX_UPSTREAM_HOST`: The hostname of the backend service to which the NGINX process will route requests. Default: `backend`.
+- `NGINX_UPSTREAM_PORT`: The port where the backend service is exposed. Default: `8080`.
 
 If further customization of the config file is needed, mount a config map/secret over the templated NGINX configuration file at `/etc/nginx/templates/tower.conf.template`. See [SSL/TLS](./configuration/ssl_tls#configure-seqera-to-present-a-ssltls-certificate) for an example.
 
