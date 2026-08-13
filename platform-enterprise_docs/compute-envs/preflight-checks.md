@@ -48,7 +48,9 @@ Runs synchronously when you create a compute environment, and when you update a 
 This check does not apply to compute environments that use a managed identity, because no credential is attached.
 
 :::note
-This check is not gated by `TOWER_PREFLIGHT_CHECK_ENABLED`. It reads the persisted credential status regardless of the flag setting. The pre-flight flags control only the processes that write the `INVALID` status, such as the background credential validation and the manual **Validate** action.
+This is the only check that reads credential status regardless of `TOWER_PREFLIGHT_CHECK_ENABLED`. Every other consumer of the status is gated by that flag: the launch-time rejection, the compute environment creation picker, and both validation crons. When `TOWER_PREFLIGHT_CHECK_ENABLED` is `false`, Platform rejects a new compute environment that uses an `INVALID` credential, but does not block launches against a compute environment that already uses one.
+
+The check only takes effect where credential validation has run at some point, because nothing else writes the `INVALID` status. On an installation where both flags have always been `false`, every credential is `AVAILABLE` and this check never fires.
 :::
 
 ### 2. Credential validation
