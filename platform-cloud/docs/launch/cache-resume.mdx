@@ -158,4 +158,4 @@ Platform records the work directory when you submit a run, then compares that re
 
 Only the run's recorded value is frozen. Platform reads each compute environment's work directory from its current configuration. Changing the work directory in the pipeline's configuration after you submit a run does not affect which compute environments that run can resume on.
 
-Ineligible compute environments appear in the **Compute environment** drop-down but you cannot select them. The drop-down does not state why. If the original compute environment no longer exists, Platform also reports that compute environment as unavailable. That notice concerns only the missing compute environment ID. It does not indicate a work directory mismatch.
+If the original compute environment no longer exists, Platform displays it as unavailable. The unavailability only refers to the missing compute environment ID. It does not indicate a work directory mismatch.
