@@ -38,6 +38,8 @@ Runs synchronously when you create a compute environment, and when you update a 
 
 This check does not apply to compute environments that use a managed identity, because no credential is attached.
 
+On update, Seqera Platform checks only the newly selected credential. Seqera Platform does not block other edits, such as a name or description change. To restore a compute environment whose credential has failed, replace the `INVALID` or deleted credential with a working one.
+
 ### 2. Credential validation
 
 Runs on a recurring schedule. For each cloud credential (AWS, GCP, Azure) in scope, Platform calls the provider API to verify that the credential is still accepted. For AWS role-based credentials and GCP Workload Identity Federation, this check confirms the credential is well-formed but cannot fully verify the underlying role or identity provider trust configuration.
