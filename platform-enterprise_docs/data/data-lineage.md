@@ -160,7 +160,7 @@ Output objects from a lineage-enabled run display their LID and any lineage labe
 
 Use the search bar in the top navigation to find workflow runs, tasks, and output files across every workspace you can access. Search covers only workspaces that have lineage enabled and in which you are a participant.
 
-An empty query returns the most recently indexed records. As you type, the field suggests keywords and, where supported, values.
+Results are ordered by most recently indexed. An empty query returns the most recent records across all accessible workspaces. As you type, the field suggests keywords and, where supported, values.
 
 ### Search syntax
 
