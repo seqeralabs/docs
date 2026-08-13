@@ -94,7 +94,7 @@ If both the credential and its associated compute environment are marked `INVALI
 
 ### Compute environment creation and update errors
 
-These errors are returned immediately when you create a compute environment, or update one to use different credentials, and the selected credential cannot be used. No changes are saved. When the credential record has no stored provider error, the invalid-credentials message omits the `— <provider error>` clause.
+These errors are returned immediately when you create a compute environment, or update one to use different credentials, and the selected credential cannot be used. No changes are saved. On update, only the newly selected credential is checked. Other edits to the compute environment are unaffected. When the credential record has no stored provider error, the invalid-credentials message omits the `— <provider error>` clause.
 
 | Error | Cause | Resolution |
 |---|---|---|
