@@ -2,7 +2,7 @@
 title: "Intelligent Compute"
 description: "Set up Seqera Intelligent Compute on an AWS Cloud compute environment"
 date created: "2026-06-12"
-last updated: "2026-06-12"
+last updated: "2026-08-13"
 tags: [intelligent compute, aws, ecs, compute environments]
 toc_min_heading_level: 2
 toc_max_heading_level: 4
@@ -99,6 +99,7 @@ You need the following:
 
 - Intelligent Compute enabled for your workspace by Seqera. Contact your account manager to request access.
 - AWS credentials with both the standard AWS Cloud permissions and the Intelligent Compute permissions attached.
+- Pipeline container images that run as the root user (the default for most images). Fusion on Intelligent Compute mounts the pipeline work directory over NFS from inside each task container, and the mount requires root privileges. Tasks that use rootless container images fail to start. See [Use rootless containers in Nextflow pipelines](../troubleshooting_and_faqs/troubleshooting#use-rootless-containers-in-nextflow-pipelines).
 
 :::
 

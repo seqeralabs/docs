@@ -89,6 +89,8 @@ k8s.securityContext = [
 ]
 ```
 
+Rootless containers also fail on compute environments with [Seqera Intelligent Compute](../compute-envs/aws-cloud#seqera-intelligent-compute) enabled. On Intelligent Compute, Fusion mounts the pipeline work directory over NFS from inside each task container, and the mount requires root privileges. Use container images that run as the root user.
+
 ## Databases
 
 #### Database connection failure in Seqera Enterprise 22.2.0

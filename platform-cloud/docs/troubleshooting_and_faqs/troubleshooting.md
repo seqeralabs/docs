@@ -73,6 +73,8 @@ k8s.securityContext = [
 ]
 ```
 
+Rootless containers also fail on compute environments with [Intelligent Compute](../compute-envs/intelligent-compute) enabled, but for a different reason. On Intelligent Compute, Fusion mounts the pipeline work directory over NFS from inside each task container, and the mount requires root privileges. Use container images that run as the root user.
+
 ## Git integration
 
 #### `Get branches operation not supported by BitbucketServerRepositoryProvider provider`

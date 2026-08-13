@@ -2,13 +2,21 @@
 title: General
 description: "Troubleshooting for general Fusion issues"
 date created: "2025-11-29"
-last updated: "2025-01-12"
+last updated: "2026-08-13"
 tags: [troubleshooting, fusion, fusion snapshots, configuration]
 ---
 
 When working with Fusion, you might encounter the following issues.
 
 ## Common issues
+
+#### Rootless containers fail on Seqera Intelligent Compute
+
+Tasks that use rootless container images fail to start on compute environments with Seqera Intelligent Compute enabled.
+
+On Intelligent Compute, Fusion mounts the pipeline work directory over NFS from inside each task container, and the mount requires root privileges. The `fusion.privileged` configuration option does not apply.
+
+To resolve, use container images that run as the root user. See [Intelligent Compute](https://docs.seqera.io/platform-cloud/compute-envs/intelligent-compute).
 
 #### Too many open files
 

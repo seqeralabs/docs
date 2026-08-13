@@ -241,6 +241,8 @@ Seqera Intelligent Compute is an optional capability that executes Nextflow task
 
 When you enable Seqera Intelligent Compute, Seqera provisions and manages all ECS infrastructure on your behalf, including clusters, capacity providers, task definitions, IAM roles, and (optionally) Auto Scaling Groups for spot and on-demand capacity. All managed resources use the `seqera-sched-` prefix and are torn down automatically when no longer needed.
 
+Pipeline container images must run as the root user (the default for most images). Fusion on Seqera Intelligent Compute mounts the pipeline work directory over NFS from inside each task container, and the mount requires root privileges. Tasks that use rootless container images fail to start. See [Use rootless containers in Nextflow pipelines](../troubleshooting_and_faqs/troubleshooting#use-rootless-containers-in-nextflow-pipelines).
+
 ### Additional IAM permissions
 
 :::info[Private preview]
