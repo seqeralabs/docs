@@ -10,7 +10,7 @@ When pre-flight checks flag a compute environment or credential as `INVALID`, yo
 
 ## Compute environment creation and update errors
 
-These errors are returned immediately when you create a compute environment, or update one to use different credentials, and the selected credential cannot be used. No changes are saved.
+These errors are returned immediately when you create a compute environment, or update one to use different credentials, and the selected credential cannot be used. No changes are saved. On update, only the newly selected credential is checked. Other edits to the compute environment are unaffected.
 
 #### `The credentials '...' are invalid`
 
