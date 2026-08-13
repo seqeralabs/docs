@@ -2,11 +2,11 @@
 title: "Compute environment pre-flight checks"
 description: "How Seqera Platform validates compute environments and credentials, and what to do when a check fails"
 date created: "2026-07-24"
-last updated: "2026-07-24"
+last updated: "2026-08-13"
 tags: [compute environments, credentials, troubleshooting, configuration]
 ---
 
-Pre-flight checks validate that a compute environment is usable before you launch a pipeline. They run on a recurring background schedule and again at launch time, so problems surface before submission rather than mid-run. Pre-flight checks only flag conditions that would block a launch.
+Pre-flight checks validate that a compute environment is usable before you launch a pipeline. They run when you create or update a compute environment, on a recurring background schedule, and again at launch time. Problems surface before submission rather than mid-run. Pre-flight checks only flag conditions that would block a launch.
 
 Pre-flight checks are **disabled by default** in Seqera Platform Enterprise and must be enabled by an administrator.
 
@@ -39,15 +39,25 @@ Both flags are read once at process start. Restart the `backend` and `cron` cont
 
 ## Validation process
 
-Platform runs three tiers of validation:
+Platform runs four tiers of validation:
 
-### 1. Credential validation
+### 1. Compute environment creation and update checks
+
+Runs synchronously when you create a compute environment, and when you update a compute environment to use different credentials. Platform reads the persisted status of the selected credential. If the credential has been deleted or is marked `INVALID`, Platform rejects the request with a `400 Bad Request` that names the credential and the recovery step, instead of saving a compute environment that fails later. The check runs before any provider validation.
+
+This check does not apply to compute environments that use a managed identity, because no credential is attached.
+
+:::note
+This check is not gated by `TOWER_PREFLIGHT_CHECK_ENABLED`. It reads the persisted credential status regardless of the flag setting. The pre-flight flags control only the processes that write the `INVALID` status, such as the background credential validation and the manual **Validate** action.
+:::
+
+### 2. Credential validation
 
 Runs on a recurring schedule. For each cloud credential (AWS, Google Cloud, Azure) in scope, Platform calls the provider API to verify that the credential is still accepted. For AWS role-based credentials and Google Cloud Workload Identity Federation, this check confirms the credential is well-formed but cannot fully verify the underlying role or identity provider trust configuration.
 
 When a credential fails this check, Platform marks it **INVALID** and records the provider error on the credential record. This error appears in the launch-time error message when a pipeline is blocked, but not in the compute environment banner. To see the specific provider error, check the credential record directly.
 
-### 2. Compute environment validation
+### 3. Compute environment validation
 
 Platform checks the associated credential status. If the credential is `INVALID`, the compute environment is marked `INVALID` immediately.
 
@@ -57,7 +67,7 @@ A compute environment marked `INVALID` displays a banner with the error message.
 These checks cover AWS Batch, AWS Cloud, Azure Batch, Azure Cloud, Google Cloud Batch, and Google Cloud compute environments.
 :::
 
-### 3. Pipeline launch-time checks
+### 4. Pipeline launch-time checks
 
 Runs immediately when a user submits a pipeline launch. If any check fails, the launch is blocked and a specific error is returned. Multiple failures are reported together.
 

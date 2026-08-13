@@ -2,11 +2,39 @@
 title: "Pre-flight checks"
 description: "Pre-flight check error messages, causes, and resolutions for compute environments and credentials in Seqera Platform Enterprise."
 date created: "2026-07-24"
-last updated: "2026-07-24"
+last updated: "2026-08-13"
 tags: [faq, help, pre-flight, troubleshooting, credentials, compute environments]
 ---
 
 When pre-flight checks flag a compute environment or credential as `INVALID`, you might encounter the following errors. See [Compute environment pre-flight checks](../compute-envs/preflight-checks) for feature background and manual re-validation steps.
+
+## Compute environment creation and update errors
+
+These errors are returned immediately when you create a compute environment, or update one to use different credentials, and the selected credential cannot be used. No changes are saved.
+
+#### `The credentials '...' are invalid`
+
+Full message:
+
+```
+The credentials '<name>' are invalid — <provider error>. Update and validate the credentials, then try again
+```
+
+The selected credential is marked `INVALID`. When the credential record has no stored provider error, the message omits the `— <provider error>` clause.
+
+To resolve, go to **Credentials**, update or rotate the credential, select **Validate**, then create or update the compute environment again.
+
+#### `The credentials '...' have been deleted`
+
+Full message:
+
+```
+The credentials '<name>' have been deleted. Select different credentials and try again
+```
+
+The selected credential has been deleted.
+
+To resolve, select a different credential or create a new one.
 
 ## Compute environment banners
 
