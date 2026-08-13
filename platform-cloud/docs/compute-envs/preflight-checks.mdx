@@ -2,11 +2,17 @@
 title: "Compute environment pre-flight checks"
 description: "How Seqera Platform continuously validates compute environments and what to do when a check fails"
 date created: "2026-06-23"
-last updated: "2026-08-13"
+last updated: "2026-08-14"
 tags: [compute environments, credentials, troubleshooting]
 ---
 
-Pre-flight checks validate that a compute environment is usable before and at the point of pipeline launch. They run synchronously when you create or update a compute environment and at launch time, and in the background on a recurring schedule. Problems appear before pipeline submission rather than mid-run. Pre-flight checks only flag conditions that would block a pipeline launch.
+Pre-flight checks validate that a compute environment is usable before and at the point of pipeline launch. They run at three points, and the checks differ at each:
+
+- When you create or update a compute environment, Platform verifies the status recorded for the selected credential.
+- On a recurring background schedule, Platform re-validates credentials against the cloud provider and re-checks compute environments.
+- At launch time, Platform re-checks both.
+
+Problems appear before pipeline submission rather than mid-run. Pre-flight checks only flag conditions that would block a pipeline launch.
 
 Pre-flight checks are enabled by default for all Cloud customers and cannot be disabled.
 

@@ -2,7 +2,7 @@
 title: "Compute environment pre-flight checks"
 description: "How Seqera Platform validates compute environments and credentials, and what to do when a check fails"
 date created: "2026-07-24"
-last updated: "2026-08-13"
+last updated: "2026-08-14"
 tags: [compute environments, credentials, troubleshooting, configuration]
 ---
 
@@ -50,7 +50,7 @@ This check does not apply to compute environments that use a managed identity, b
 On update, Seqera Platform checks only the newly selected credential. Seqera Platform does not block other edits, such as a name or description change. To restore a compute environment whose credential has failed, replace the `INVALID` or deleted credential with a working one.
 
 :::note
-This is the only check that reads credential status regardless of `TOWER_PREFLIGHT_CHECK_ENABLED`. Every other consumer of the status is gated by that flag: the launch-time rejection, the compute environment creation picker, and both validation crons. When `TOWER_PREFLIGHT_CHECK_ENABLED` is `false`, Platform rejects a new compute environment that uses an `INVALID` credential, but does not block launches against a compute environment that already uses one.
+This is the only check that reads credential status regardless of `TOWER_PREFLIGHT_CHECK_ENABLED`. When `TOWER_PREFLIGHT_CHECK_ENABLED` is `false`, Platform rejects a new compute environment that uses an `INVALID` credential, but does not block launches against a compute environment that already uses one.
 
 The check only takes effect where credential validation has run at some point, because nothing else writes the `INVALID` status. On an installation where both flags have always been `false`, every credential is `AVAILABLE` and this check never fires.
 :::
