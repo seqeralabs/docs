@@ -74,7 +74,7 @@ Next, create a compute environment with Batch Forge:
 1. All other options can be left default. Select **Create** to save the compute environment.
 
 :::tip
-To reduce pipeline latency, disable **Autoscale** on the head pool so a head node stays running (fixed scale). Set **VMs count** to `1` for the head pool. This incurs additional cost for the always-on node but improves response time, which is more noticeable on larger production pipelines.
+To reduce pipeline latency, expand **Head job resources**, disable **Autoscale**, and set **VMs count** to `1`. This keeps one head node running while the worker pool continues to autoscale independently. The always-on head node incurs additional cost but improves response time, which is more noticeable on larger production pipelines.
 :::
 
 Add the `nextflow-hello` pipeline to your workspace:
@@ -119,14 +119,14 @@ In the Azure Portal:
 
 1. [Create a managed identity](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities?pivots=identity-mi-methods-azp)
 1. [Assign the relevant roles to the managed identity](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=current). See [Required role assignments](https://docs.seqera.io/nextflow/azure#required-role-assignments) for Nextflow requirements.
-1. Note the managed identity client ID for later.
+1. Note the managed identity client ID and resource ID for later.
 
 In Seqera:
 
 1. Add a new Batch Forge compute environment named `entra-mi` and select the Azure Batch **Provider** type.
 1. For **Credentials**, select the `entra-keys` service principal credentials.
 1. For **Location**, select the same region as your Batch account.
-1. Under the managed identity fields, enter the client ID of the managed identity created earlier.
+1. Under the managed identity fields, enter the client ID and resource ID of the managed identity created earlier for both the head and worker pools. You can use the same managed identity for both pools.
 1. Configure the remaining fields as in [Part 1](#part-1-azure-batch-with-batch-forge).
 
 Duplicate the `nextflow-hello` pipeline, save it as `hello-world-entra-mi`, and select the new compute environment.
@@ -146,6 +146,8 @@ To connect the Batch pool nodes to a private Azure VNet, enter a **Subnet ID** w
 VNet/subnet configuration requires Entra credentials. The **Subnet ID** field is only available when Entra credentials are selected. See [Entra service principal and managed identity][azure-batch-entra] in the Azure Batch reference.
 :::
 
+Before creating the compute environment, assign the **Network Contributor** role to the service principal on the VNet. Alternatively, use a custom role that grants `Microsoft.Network/virtualNetworks/subnets/join/action`.
+
 1. Add a new Batch Forge compute environment named `azure-batch-vnet` and select the Azure Batch **Provider** type.
 1. For **Credentials**, select the `entra-keys` service principal credentials.
 1. For **Location**, select the same region as your Batch account.
@@ -161,7 +163,7 @@ Duplicate the `nextflow-hello` pipeline, save it as `hello-world-vnet`, and sele
 
 ## Advanced. Use a pre-existing Azure Batch pool
 
-Some scenarios still require a manually created pool, such as custom VM images or Azure Batch features that Batch Forge does not expose. In these cases, create the pool yourself and select it in a **Manual** compute environment.
+Some scenarios still require a manually created pool, such as custom VM images, spot nodes, or Azure Batch features that Batch Forge does not expose. Batch Forge does not support spot nodes. In these cases, create the pool yourself and select it in a **Manual** compute environment. Spot pool configuration is outside the scope of this tutorial.
 
 See [Create a Nextflow-compatible Azure Batch pool][azure-batch-manual-pool] in the Azure Batch reference for the full pool configuration (identity, OS image, autoscale formula, start task, and networking), then create a Manual compute environment that points at the pool name.
 

@@ -6,7 +6,7 @@ description: "A tutorial for using advanced features of Azure Batch with Seqera 
 
 This guide details how to set up more complex Azure Batch compute environments with Seqera Platform. It begins with the simplest possible setup before adding complexity, therefore it is designed to be performed stepwise.
 
-Seqera Platform now provisions most advanced Azure Batch topologies natively through Batch Forge, including separate head and worker pools, dedicated head job resources, autoscaling, Entra authentication, and private networking. This walkthrough covers the native Batch Forge path, then the cases that still require manual Azure configuration, such as low-priority (spot) nodes and pre-existing pools.
+Seqera Platform now provisions most advanced Azure Batch topologies natively through Batch Forge, including separate head and worker pools, dedicated head job resources, autoscaling, Entra authentication, and private networking. This walkthrough covers the native Batch Forge path, then identifies the cases that still require manually created pools.
 
 For a field-by-field reference of every compute environment option, see [Azure Batch][azure-batch-reference].
 
@@ -28,7 +28,6 @@ In the Azure Portal:
 1. For **Quota Type**, select **Batch**, then select **Next**.
 1. Select **Enter Details**, then choose the **Location** as the region of your Batch account.
 1. Select **EDv5 Series**.
-1. Select **Spot/low-priority vCPUS (all Series)**.
 1. Select **Active jobs and job schedules per Batch account**.
 1. Select **Pools per Batch account**.
 
@@ -37,7 +36,6 @@ Increase each value to a minimum of the following:
 - **EDv5 Series**: 192
 - **Active jobs and job schedules per Batch account**: 100
 - **Pools per Batch account**: 50
-- **Spot/low-priority vCPUS (all Series)**: 192
 
 ### Set up Seqera Cloud
 
@@ -76,7 +74,7 @@ Next, create a compute environment with Batch Forge:
 1. All other options can be left default. Select **Create** to save the compute environment.
 
 :::tip
-To reduce pipeline latency, disable **Autoscale** on the head pool so a head node stays running (fixed scale). This incurs additional cost for the always-on node but improves response time, which is more noticeable on larger production pipelines.
+To reduce pipeline latency, expand **Head job resources**, disable **Autoscale**, and set **VMs count** to `1`. This keeps one head node running while the worker pool continues to autoscale independently. The always-on head node incurs additional cost but improves response time, which is more noticeable on larger production pipelines.
 :::
 
 Add the `nextflow-hello` pipeline to your workspace:
@@ -89,26 +87,11 @@ Add the `nextflow-hello` pipeline to your workspace:
 
 Select **Launch** next to the pipeline name in your workspace Launchpad to complete the launch form and launch the workflow.
 
-## Part 2. Use low-priority (spot) worker nodes
+## Part 2. Use spot nodes
 
-**Advantages**:
-
-- Low-priority (spot) VMs are cheaper than dedicated VMs.
-- You keep the head node on dedicated VMs while running the cheaper work on the worker pool.
-
-**Disadvantages**:
-
-- Spot and low-priority nodes can be preempted, which can cause the pipeline to fail.
-
-Batch Forge provisions dedicated nodes only. To use low-priority (spot) nodes for the compute tasks, edit the autoscale formula of the Forge-created worker pool to target low-priority nodes:
-
-1. In the Azure Portal, go to the Batch account you created earlier.
-1. Go to the **Pools** tab and find the worker pool called `tower-pool-{envId}-worker`, where `{envId}` is the compute environment ID (shown at the top of the compute environment page in Seqera).
-1. Select **Scale**.
-1. In the autoscale formula, find the line that starts with `$TargetDedicatedNodes` and change it to `$TargetLowPriorityNodes`.
-1. Select **Evaluate**, then **Save**.
-
-The worker pool now provisions low-priority VMs, while the head pool continues to use dedicated VMs. Launch the `nextflow-hello` pipeline again to run the compute tasks on low-priority nodes.
+:::note
+Batch Forge does not support spot nodes. To use spot nodes, create an Azure Batch pool manually and select it in a **Manual** compute environment. Spot pool configuration is outside the scope of this walkthrough.
+:::
 
 ## Part 3. Use Entra authentication
 
@@ -142,14 +125,14 @@ In the Azure Portal:
 
 1. [Create a managed identity](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities?pivots=identity-mi-methods-azp)
 1. [Assign the relevant roles to the managed identity](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=current). See [Required role assignments](https://docs.seqera.io/nextflow/azure#required-role-assignments) for Nextflow requirements.
-1. Note the managed identity client ID for later.
+1. Note the managed identity client ID and resource ID for later.
 
 In Seqera:
 
 1. Add a new Batch Forge compute environment named `entra-mi` and select the Azure Batch **Provider** type.
 1. For **Credentials**, select the `entra-keys` service principal credentials.
 1. For **Location**, select the same region as your Batch account.
-1. Under the managed identity fields, enter the client ID of the managed identity created earlier.
+1. Under the managed identity fields, enter the client ID and resource ID of the managed identity created earlier for both the head and worker pools. You can use the same managed identity for both pools.
 1. Configure the remaining fields as in [Part 1](#part-1-azure-batch-with-batch-forge).
 
 Duplicate the `nextflow-hello` pipeline, save it as `hello-world-entra-mi`, and select the new compute environment.
@@ -172,6 +155,8 @@ To connect the Batch pool nodes to a private Azure VNet, enter a **Subnet ID** w
 :::note
 VNet/subnet configuration requires Entra credentials. The **Subnet ID** field is only available when Entra credentials are selected. See [Entra service principal and managed identity][azure-batch-entra] in the Azure Batch reference.
 :::
+
+Before creating the compute environment, assign the **Network Contributor** role to the service principal on the VNet. Alternatively, use a custom role that grants `Microsoft.Network/virtualNetworks/subnets/join/action`.
 
 1. Add a new Batch Forge compute environment named `azure-batch-vnet` and select the Azure Batch **Provider** type.
 1. For **Credentials**, select the `entra-keys` service principal credentials.
