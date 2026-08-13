@@ -257,6 +257,33 @@ Host <connect-domain>
   Port <port>
 ```
 
+#### AI coding assistant fails with `Pseudo-terminal will not be allocated`
+
+```bash
+ssh alice@a01ac8894@connect.example.com -p 2222
+# Pseudo-terminal will not be allocated because stdin is not a terminal.
+```
+
+This issue occurs when an AI coding assistant runs `ssh` as a subprocess, such as Claude Code in a terminal. The assistant doesn't attach a terminal to stdin, and the SSH client refuses to allocate a pseudo-terminal. To resolve, force pseudo-terminal allocation with `-tt`:
+
+```bash
+ssh -tt alice@a01ac8894@connect.example.com -p 2222
+```
+
+#### Claude Code desktop app fails with `Couldn't inspect the remote machine`
+
+```
+Connecting to remote host...
+Detecting remote OS and shell...
+Couldn't inspect the remote machine.
+```
+
+This issue occurs when the connect-server/proxy is earlier than version 0.12.1, or the Connect client is earlier than version 0.13.0. Earlier versions don't run remote commands through a shell, and the app's environment checks fail. To resolve, upgrade the connect-server/proxy to 0.12.1 or later, and ensure your Studio runs Connect client 0.13.0 or later. See [Claude Code desktop app](../studios/managing#claude-code-desktop-app) for setup instructions.
+
+#### Claude Code desktop app fails with `Timed out while waiting for handshake`
+
+This issue occurs because the app ignores the `Port` value in `~/.ssh/config` and defaults to port 22. To resolve, set **SSH Port** to `2222` in the app's connection settings. See [Claude Code desktop app](../studios/managing#claude-code-desktop-app) for setup instructions.
+
 #### SSH connection string format
 
 **Correct format:**
