@@ -2,7 +2,7 @@
 title: "Studios SSH configuration (public preview)"
 description: Configure SSH access for Studios (public preview)
 date created: "2026-02-10"
-last updated: "2026-05-29"
+last updated: "2026-06-24"
 tags: [studios, ssh, kubernetes, advanced]
 ---
 
@@ -17,8 +17,8 @@ SSH access enables direct terminal connections to running Studio sessions using 
 To enable SSH access to running Studio sessions, you need:
 
 - **Seqera Platform**: Version 25.3.3 or later
-- **Connect server and proxy**: Version 0.12.0 or later
-- **Connect client**: Version 0.12.0 or later
+- **Connect server and proxy**: Version 0.10.0 or later
+- **Connect client**: Version 0.10.0 or later
 
 If you have pinned Studio container images to specific versions, you will need to [migrate](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template) them to the required Connect client version.
 

@@ -9,7 +9,7 @@ tags: [fusion, fusion snapshots, snapshot, configuration, nextflow]
 Fusion Snapshots work optimally with default configuration for most workloads. You typically do not need to modify these settings unless you have specific organizational policies, experience issues with default behavior, or have edge case requirements.
 
 :::tip
-For troubleshooting, focus on task memory usage and instance selection before adjusting these advanced configuration options. See [Troubleshooting](../../troubleshooting.md) for more information.
+For troubleshooting, focus on task memory usage and instance selection before adjusting these advanced configuration options. See [Fusion Snapshots troubleshooting](../../troubleshooting/fusion-snapshots.md) for more information.
 :::
 
 ## Retry handling
@@ -82,6 +82,35 @@ process {
 **Configuration options**:
 
 See [`errorStrategy`](https://docs.seqera.io/nextflow/reference/process#errorstrategy) for more configuration options.
+
+### Retrying Google Cloud Batch infrastructure failures
+
+On Google Cloud Batch, Spot reclamation is only one of several infrastructure events that can interrupt a task. Google Batch reserves exit codes in the `50001`–`59999` range for these events:
+
+| Exit code | Description |
+|-----------|-------------|
+| 50001 | Spot instance was reclaimed |
+| 50002 | VM became unresponsive (host event or crash) |
+| 50003 | VM unexpectedly rebooted during task execution |
+| 50004 | Task reached the unresponsive time limit and could not be cancelled |
+| 50005 | Task exceeded the maximum allowed runtime |
+
+Exit codes `50006`–`59999` indicate other infrastructure failures.
+
+By default, Google Batch retries only exit code `50001` (Spot reclamation), and only when `google.batch.maxSpotAttempts` is greater than `0`. When Fusion Snapshots are enabled, Nextflow sets `maxSpotAttempts` to a non-zero value automatically, and Google Batch retries `50001` without extra configuration. By default, Google Batch does not retry other infrastructure exit codes. On Spot-based runs, this can cause high failure rates.
+
+To retry additional infrastructure exit codes, extend `google.batch.autoRetryExitCodes` and keep `maxSpotAttempts` greater than `0`:
+
+```groovy
+google.batch.maxSpotAttempts = 5
+google.batch.autoRetryExitCodes = [50001, 50002, 50003]
+```
+
+Google Batch runs these retries on a new instance that is the same type as originally used. This allows a Fusion snapshot to be restored after the interruption. Add codes from the `50006`–`59999` range if you consistently observe transient infrastructure failures. Avoid retrying `50004` and `50005`. A task that reached a time or runtime limit fails again on retry.
+
+:::note
+You can also configure a Nextflow [`errorStrategy`](https://docs.seqera.io/nextflow/reference/process#errorstrategy) keyed on `task.exitStatus`. However, Google Cloud Batch does not always report infrastructure exit codes in the `50001`–`59999` range to Nextflow as the task exit status. As a result, `errorStrategy` conditions based on these codes may not trigger reliably. A future Nextflow release improves how these exit codes are reported. Until then, use `google.batch.autoRetryExitCodes` to retry infrastructure failures.
+:::
 
 ## TCP connection handling
 

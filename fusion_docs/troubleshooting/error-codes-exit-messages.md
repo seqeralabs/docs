@@ -10,25 +10,25 @@ This page describes Fusion's error reporting system, including exit codes, FUSE 
 
 ## Error paths
 
-Fusion is a FUSE filesystem that bridges applications and cloud object stores. As such, errors may originate from multiple layers, but will propagate through the filesystem components following three major paths:
+Fusion is a FUSE filesystem that bridges applications and cloud object stores. Errors can originate from multiple layers, but propagate through the filesystem components along three major paths:
 
 1. **Cloud > Storage backend > FUSE Layer > Kernel > Application**
 
-   - Errors from the cloud provider (e.g. network timeouts, auth failures, rate limits) are captured by the Storage backend, which normalizes them into provider-agnostic categories (see #cloud-provider-error-categories).
-   - The storage backend returns normalized cloud errors (with provider-agnostic categories). It may also return other internal errors when other logic errors are encountered.
-   - The FUSE layer maps both cloud errors and internal errors to `errno` status codes (e.g., `ENOENT`, `EACCES`, `EREMOTEIO`, `EIO` etc.).
+   - Errors from the cloud provider (e.g., network timeouts, auth failures, rate limits) are captured by the storage backend, which normalizes them into provider-agnostic categories (see [Cloud provider error categories](#cloud-provider-error-categories)).
+   - The storage backend returns normalized cloud errors with provider-agnostic categories. It can also return internal errors when other logic errors occur.
+   - The FUSE layer maps both cloud errors and internal errors to `errno` status codes (e.g., `ENOENT`, `EACCES`, `EREMOTEIO`, `EIO`).
    - The kernel communicates the errno values to the application.
-   - Fusion logs cloud errors with structured details (i.e., provider, error code, HTTP status, request ID).
+   - Fusion logs cloud errors with structured details: provider, error code, HTTP status, and request ID.
 
 1. **Failures during startup/shutdown → Exit code**
 
-   - Startup: Configuration errors, missing credentials, or mount failures will terminate Fusion immediately.
+   - Startup: Configuration errors, missing credentials, or mount failures terminate Fusion immediately.
    - Shutdown: Async uploads or consolidation of pending operations.
    - Failures surface as exit code `174` (Fusion I/O error) or `1` (fatal error).
 
 1. **Background operations → Logs**
 
-   - Async uploads during normal operation, cache eviction, and snapshot operations log errors but may not surface them to applications.
+   - Async uploads during normal operation, cache eviction, and snapshot operations log errors but might not surface them to applications.
    - Errors are reported in Fusion (see [Fusion logs](#fusion-logs)).
 
 ## Fusion logs
@@ -168,8 +168,8 @@ jq 'select(.provider_request_id != null) | {provider, provider_request_id, provi
 
 When troubleshooting Fusion errors:
 
-1. Check the[exit code](#exit-codes):
-    - Check the task exit status in Platform to understand if Fusion terminated normally (`0`), encountered an I/O error (`174`), or had a command issue (`127`).
+1. Check the [exit code](#exit-codes):
+    - Check the task exit status in Platform to understand whether Fusion terminated normally (`0`), encountered an I/O error (`174`), or had a command issue (`127`).
 1. Look for an `errno` code in the logs:
     - If a filesystem operation failed, use the logs to identify the `errno`  status code (e.g., `ENOENT`, `EREMOTEIO`, `EIO`) returned to the application.
 1. Check for cloud error fields:
@@ -180,7 +180,7 @@ When troubleshooting Fusion errors:
         - `provider_request_id`
 
     :::note
-    The field `error_code` indicates Fusion's internal categorization of the cloud error normalized across providers (e.g., `ResourceNotFound`, `Forbidden`, `RateLimited`). See [Cloud provider error categories](#cloud-provider-error-categories)
+    The field `error_code` indicates Fusion's internal categorization of the cloud error normalized across providers (e.g., `ResourceNotFound`, `Forbidden`, `RateLimited`). See [Cloud provider error categories](#cloud-provider-error-categories).
     :::
 
 1. Identify the mapped internal error (if any):
@@ -245,7 +245,7 @@ For a complete list of errno values and their meanings, see the [Linux errno man
 
 ### Returned status codes
 
-Fusion's filesystem operations actively returns these status codes:
+Fusion's filesystem operations actively return these status codes:
 
 | errno | Standard message | Description | Common causes in Fusion |
 |------------------|-------|---------------------------|-------------------------|
@@ -261,7 +261,7 @@ Fusion's filesystem operations actively returns these status codes:
 | `ERANGE`    | 34    | Result too large          | Buffer too small for xattr value |
 | `ENOSYS`    | 38    | Function not implemented  | Operation not wired in Fusion's FUSE layer |
 | `ENOATTR`   | 93    | No such attribute         | Extended attribute not found |
-| `ENOTSUP`   | 95    | Operation not supported   | Operation explicitly rejected (for example, hard links) |
+| `ENOTSUP`   | 95    | Operation not supported   | Operation explicitly rejected (e.g., hard links) |
 | `ETIMEDOUT` | 110   | Connection timed out      | Context deadline exceeded |
 | `EREMOTEIO` | 121   | Remote I/O error          | Cloud provider errors (QuotaExceeded, unknown cloud errors) |
 
@@ -337,7 +337,7 @@ Cloud provider errors are normalized and mapped to appropriate errno code:
 | `ContainerNotFound` | `ENOENT` | S3 "NoSuchBucket", Azure "ContainerNotFound", GCS 404 with bucket error |
 | `RateLimited` | `EBUSY` | Request rate limits exceeded |
 | `Busy` | `EBUSY` | Service temporarily unavailable or overloaded |
-| `ResourceArchived` | `EBUSY` | Resource in archived/transitional state (for example, Glacier) |
+| `ResourceArchived` | `EBUSY` | Resource in archived/transitional state (e.g., Glacier) |
 | `Conflict` | `EEXIST` | Resource already exists or precondition failed |
 | `InvalidArgument` | `EINVAL` | Malformed request or invalid parameters |
 | `QuotaExceeded` | `EREMOTEIO` | Storage quota or capacity limit reached |

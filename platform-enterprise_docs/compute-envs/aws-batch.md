@@ -90,6 +90,7 @@ A permissive and broad policy with all the required permissions is provided here
         "batch:CreateJobQueue",
         "batch:DeleteComputeEnvironment",
         "batch:DeleteJobQueue",
+        "batch:TagResource",
         "batch:UpdateComputeEnvironment",
         "batch:UpdateJobQueue"
       ],
@@ -389,11 +390,11 @@ The policy can be scoped down to limit access to the [specific log group](#advan
 
 ### S3 access (optional)
 
-Seqera automatically attempts to fetch a list of S3 buckets available in the AWS account connected to Platform, to provide them in a drop-down to be used as Nextflow working directory, and make the compute environment creation smoother. This feature is optional, and users can type the bucket name manually when setting up a compute environment. To allow Seqera to fetch the list of buckets in the account, the `s3:ListAllMyBuckets` action can be added, and it must have the `Resource` field set to `*`, as shown in the generic policy at the beginning of this document.
+Seqera automatically attempts to fetch a list of S3 buckets available in the AWS account connected to Platform, to provide them in a drop-down to be used as Nextflow working directory, and make the compute environment creation smoother. This feature is optional, and users can type the bucket name manually when setting up a compute environment. To allow Seqera to fetch the list of buckets in the account, the `s3:ListAllMyBuckets` action can be added, and it must have the `Resource` field set to `*`, as shown in the generic policy at the beginning of this document. The `s3:ListAllMyBuckets` action also allows Data Explorer to auto-discover the data repositories accessible to your workspace credentials.
 
 Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](../studios/overview) and [Data Explorer](../data/data-explorer); if these features are not used the related permissions can be omitted.
 
-The IAM policy can be scoped down to only allow limited read/write permissions in certain S3 buckets used by Studios/Data Explorer. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory. We also recommend granting the `s3:GetObject` permission on the work directory path to fetch Nextflow log files.
+The IAM policy can be scoped down to only allow limited read/write permissions in certain S3 buckets used by Studios/Data Explorer. For each bucket you want to browse, upload to, or download from with Data Explorer, grant `s3:GetObject` and `s3:PutObject` on the bucket objects, and `s3:ListBucket`, `s3:GetBucketLocation`, `s3:GetBucketPolicy`, and `s3:GetBucketAcl` on the bucket itself. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory. We also recommend granting the `s3:GetObject` permission on the work directory path to fetch Nextflow log files.
 
 :::note
 If you opted to create a separate S3 bucket only for Nextflow work directories, there is no need for the IAM user to have read/write access to it. If Seqera is allowed to manage resources (using Batch Forge) the IAM roles automatically created will have the necessary permissions.
@@ -427,9 +428,15 @@ If you set up the compute environment manually, you can create the required IAM 
   "Sid": "S3ReadWriteBucketsForStudiosDataExplorer",
   "Effect": "Allow",
   "Action": [
-    "s3:Get*",
-    "s3:List*",
-    "s3:PutObject"
+    "s3:GetObject",
+    "s3:GetObjectTagging",
+    "s3:GetBucketLocation",
+    "s3:GetBucketPolicy",
+    "s3:GetBucketAcl",
+    "s3:ListBucket",
+    "s3:PutObject",
+    "s3:PutObjectTagging",
+    "s3:DeleteObject"
   ],
   "Resource": [
     "arn:aws:s3:::example-bucket-read-write-studios",
@@ -439,6 +446,10 @@ If you set up the compute environment manually, you can create the required IAM 
   ]
 }
 ```
+
+:::note
+`s3:GetBucketLocation` allows Data Explorer to resolve each bucket's region. `s3:GetBucketPolicy` and `s3:GetBucketAcl` allow it to inspect each bucket's access configuration when it lists and connects to data repositories. If you prefer not to enumerate individual actions, the `s3:Get*` and `s3:List*` wildcards shown in the full permissive policy above also cover these actions.
+:::
 
 ### IAM roles for AWS Batch (optional)
 
@@ -822,7 +833,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
     :::note
     You can create a compute environment that launches either Spot or On-Demand instances. Spot instances can cost as little as 20% of On-Demand instances, and with Nextflow's ability to automatically relaunch failed tasks, Spot is almost always the recommended provisioning model. Note, however, that when choosing Spot instances, Seqera will also create a dedicated queue for running the main Nextflow job using a single On-Demand instance to prevent any execution interruptions.
 
-    From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow#spot-instance-failures-and-retries-in-nextflow).
+    From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow#spot-instance-failures-and-retries).
     :::
 1. Enter the **Max CPUs**, e.g., `64`. This is the maximum number of combined CPUs (the sum of all instances' CPUs) AWS Batch will provision at any time.
 1. Select **EBS Auto scale (deprecated)** to allow the EC2 virtual machines to dynamically expand the amount of available disk space during task execution. This feature is deprecated, and is not compatible with Fusion v2.

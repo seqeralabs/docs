@@ -244,16 +244,17 @@ There might be errors reported by the session itself but these will be overwritt
 
 :::info[**Prerequisites**]
 - Enterprise v25.3.3 or later
-- [Studios SSH configuration](../enterprise/studios-ssh) enabled for your workspace during deployment.
+- [Studios SSH configuration](../enterprise/studios-ssh) enabled for your workspace during deployment
 - Your SSH public key added to your Seqera Platform user profile
 - **SSH Connection** toggle enabled when adding the Studio
 - The Studio is in a **running** state.
+- **Connect client**: Version 0.10.0 or later
 :::
 
 Direct SSH connections to running Studio containers support standard SSH clients, terminal access, and [VS Code Remote SSH](https://code.visualstudio.com/docs/remote/ssh). JupyterLab, R-IDE, VS Code, and Xpra container templates are supported.
 
 :::note
-Enabling SSH can only be done on Studio creation. If you didn't enable SSH when you initially added your Studio, you will need to duplicate and modify it. Stop the Studio, select **Start as New**, and enable **SSH Connection** for the new Studio.
+If you didn't enable SSH when you initially added your Studio, stop the Studio, select **Start as New**, and enable **SSH Connection**.
 :::
 
 ### Terminal access
@@ -320,6 +321,44 @@ Once connected, you can:
 - Install VS Code extensions in the remote environment
 - Debug code running in the Studio
 - Install packages
+
+### Claude Code desktop app
+
+The Claude Code desktop app requires later Connect versions than other SSH connection methods.
+
+:::info[**Prerequisites**]
+
+You need the following:
+
+- Connect server and proxy version 0.12.1 or later
+- Connect client version 0.13.0 or later
+
+:::
+
+The app reads `~/.ssh/config`, but its **SSH Host** field accepts a hostname only. It cannot parse the `<username>@<studio-session-id>` pair. Define a host alias, then reference the alias in the app.
+
+1. Add an entry to `~/.ssh/config`:
+
+   ```
+   Host my-studio
+       HostName connect.example.com
+       User alice@a01ac8894
+       Port 2222
+       IdentityFile ~/.ssh/id_ed25519
+   ```
+
+   Put the `<username>@<studio-session-id>` pair in `User`, and only the connect domain in `HostName`.
+
+2. Add an SSH connection in the app:
+
+   - **SSH Host**: `my-studio`
+   - **SSH Port**: `2222`
+
+:::warning
+Set **SSH Port** explicitly. The app ignores the `Port` value in `~/.ssh/config` and defaults to port 22. The connection then fails with a handshake timeout.
+:::
+
+If the connection fails, see [SSH connections](../troubleshooting_and_faqs/studios_troubleshooting#ssh-connections-public-preview).
 
 ### SSH authentication
 

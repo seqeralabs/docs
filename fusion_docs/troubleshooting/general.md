@@ -8,19 +8,21 @@ tags: [troubleshooting, fusion, fusion snapshots, configuration]
 
 When working with Fusion, you might encounter the following issues.
 
-## Too many open files
+## Common issues
+
+#### Too many open files
 
 Tasks fail with an error about too many open files.
 
 This issue occurs when the default file descriptor limit is too low for the container workload.
 
-To resolve this issue, increase the `ulimit` for the container. Append the following to your Nextflow configuration:
+To resolve, increase the `ulimit` for the container. Append the following to your Nextflow configuration:
 
 ```groovy
 process.containerOptions = '--ulimit nofile=1048576:1048576'
 ```
 
-## Exit code `143` on Kubernetes
+#### Exit code `143` on Kubernetes
 
 When a task fails with exit code `143`, pipelines halt instead of retrying the affected task.
 

@@ -8,11 +8,13 @@ tags: [troubleshooting, fusion, fusion snapshots, configuration]
 
 When working with Fusion Snapshots, you might encounter the following issues.
 
-## Exit code `175`: Checkpoint dump failed
+## Common issues
 
-Task fails with exit code `175`, indicating the checkpoint dump operation did not complete successfully.
+#### Exit code `175`: Checkpoint dump failed
 
-This issue can occur due to:
+Task fails with exit code `175`, indicating the checkpoint dump did not complete.
+
+Possible causes:
 
 1. Checkpoint timeout - The process could not be saved within the reclamation window (typically due to high memory usage). The reclamation windows are:
    - AWS Batch: 120 seconds (guaranteed)
@@ -21,7 +23,7 @@ This issue can occur due to:
 1. Insufficient network bandwidth - Cannot upload checkpoint data fast enough.
 1. Disk space issues - Not enough local storage for checkpoint files.
 
-To resolve this issue:
+To resolve:
 
 1. Reduce memory usage:
 
@@ -68,18 +70,18 @@ See [AWS Batch instance selection](../guide/snapshots/aws#selecting-an-ec2-insta
 For a comprehensive explanation of exit code `175`, see [Exit Codes](./error-codes-exit-messages#exit-codes).
 :::
 
-## Exit code `176`: Checkpoint restore failed
+#### Exit code `176`: Checkpoint restore failed
 
 Task fails with exit code `176` when attempting to restore from a checkpoint.
 
-This issue can occur due to:
+Possible causes:
 
 1. Corrupted checkpoint - Previous checkpoint did not complete properly.
 1. Missing checkpoint files - Checkpoint data missing or inaccessible in object storage.
 1. State conflict - Attempting to restore while dump still in progress.
 1. Environment mismatch - Different environment between checkpoint and restore.
 
-To resolve this issue:
+To resolve:
 
 1. Check if previous checkpoint completed:
 
@@ -99,18 +101,18 @@ To resolve this issue:
 For a comprehensive explanation of exit code `176`, see [Exit Codes](./error-codes-exit-messages#exit-codes).
 :::
 
-## Long checkpoint times
+#### Long checkpoint times
 
 Checkpoints take longer than expected, approaching timeout limits.
 
-This issue can occur due to:
+Possible causes:
 
 1. High memory usage - Memory is typically the primary factor affecting checkpoint time.
 1. ARM64 architecture - Only full dumps available (no incremental snapshots).
 1. Insufficient network bandwidth - Instance bandwidth too low for memory size.
 1. Open file descriptors - Large number of open files or complex process trees.
 
-To resolve this issue:
+To resolve:
 
 1. For AWS Batch (120-second window):
 
@@ -130,17 +132,17 @@ To resolve this issue:
 
 See [Selecting an EC2 instance](../guide/snapshots/aws#selecting-an-ec2-instance) for detailed recommendations.
 
-## Frequent checkpoint failures
+#### Frequent checkpoint failures
 
 Checkpoints consistently fail across multiple tasks.
 
-This issue can occur due to:
+Possible causes:
 
 1. Task too large for reclamation window - Memory usage exceeds what can be checkpointed in time (more common on Google Batch with 30-second window).
 1. Network congestion or throttling - Bandwidth lower than instance specifications.
 1. ARM64 architecture limitations - Full dumps only, requiring much more time and bandwidth.
 
-To resolve this issue:
+To resolve:
 
 1. Split large tasks:
 
@@ -162,19 +164,19 @@ To resolve this issue:
       process.resourceLimits = [cpus: 16, memory: '20.GB']
    ```
 
-## SSL/TLS connection errors after restore
+#### SSL/TLS connection errors after restore
 
 Applications fail after restore with connection errors, especially HTTPS connections.
 
 This issue occurs when applications use HTTPS connections, as CRIU cannot preserve encrypted TCP connections (SSL/TLS).
 
-To resolve this issue, configure TCP close mode to drop connections during checkpoint:
+To resolve, configure TCP close mode to drop connections during checkpoint:
 
 ```groovy
 process.containerOptions = '-e FUSION_SNAPSHOTS_TCP_MODE=close'
 ```
 
-Applications will need to re-establish connections after restore. See [TCP connection handling](../guide/snapshots/configuration#tcp-connection-handling) for more information.
+Applications must re-establish connections after restore. See [TCP connection handling](../guide/snapshots/configuration#tcp-connection-handling) for more information.
 
 ## Debugging workflow
 
@@ -203,7 +205,7 @@ To diagnose checkpoint problems:
 
    1. Open the `.fusion/dump/` folder:
 
-      ```console
+      ```
       .fusion/dump/
       ├── 1/                   # First dump
       │   ├── pre_*.log        # Pre-dump log (if incremental)
@@ -220,7 +222,7 @@ To diagnose checkpoint problems:
 
    1. For incremental dumps (PRE type), check for success markers at the end of the `pre_*.log` file:
 
-      ```console
+      ```
       (66.525687) page-pipe: Killing page pipe
       (66.563939) irmap: Running irmap pre-dump
       (66.610871) Writing stats
@@ -229,7 +231,7 @@ To diagnose checkpoint problems:
 
    1. For full dumps (FULL type), check for success markers at the end of the `dump_*.log` file:
 
-      ```console
+      ```
       (25.867099) Unseizing 90 into 2
       (27.160829) Writing stats
       (27.197458) Dumping finished successfully
@@ -237,7 +239,7 @@ To diagnose checkpoint problems:
 
    1. If the log ends abruptly without success message, check the last timestamp:
 
-      ```console
+      ```
       (121.37535) Dumping path for 329 fd via self 353 [/path/to/file.tmp]
       (121.65146) 90 fdinfo 330: pos: 0x4380000 flags: 100000/0
       # Log truncated - instance was reclaimed before dump completed
@@ -250,7 +252,7 @@ To diagnose checkpoint problems:
 
    1. For restore operations, check for a success marker at the end of the `restore_*.log` file:
 
-      ```console
+      ```
       (145.81974) Running pre-resume scripts
       (145.81994) Restore finished successfully. Tasks resumed.
       (145.82001) Writing stats
@@ -267,7 +269,7 @@ To diagnose checkpoint problems:
 
 1. Test with different instance types. If uncertain:
 
-   - Run the same task with different instance types that have better disk iops and bandwidth guarantees and verify if Fusions Snapshots work there.
+   - Run the same task with different instance types that have better disk IOPS and bandwidth guarantees, and verify whether Fusion Snapshots work there.
    - Decrease memory usage to a manageable amount.
 
 :::tip

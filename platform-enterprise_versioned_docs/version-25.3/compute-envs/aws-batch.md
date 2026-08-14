@@ -90,6 +90,7 @@ A permissive and broad policy with all the required permissions is provided here
         "batch:CreateJobQueue",
         "batch:DeleteComputeEnvironment",
         "batch:DeleteJobQueue",
+        "batch:TagResource",
         "batch:UpdateComputeEnvironment",
         "batch:UpdateJobQueue"
       ],
