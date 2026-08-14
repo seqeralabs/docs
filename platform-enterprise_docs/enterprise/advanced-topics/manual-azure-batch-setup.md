@@ -113,6 +113,8 @@ See [Microsoft Entra](https://docs.seqera.io/nextflow/azure#microsoft-entra) in 
 1. [Get the Service Principal ID, Tenant ID, and Client Secret](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal#option-3-create-a-new-client-secret).
 1. [Add to Seqera credentials](../../compute-envs/azure-batch#entra-service-principal-and-managed-identity).
 
+The service principal requires **Azure Batch Data Contributor** on the Batch account, **Storage Blob Data Contributor** on the Storage account, **Managed Identity Operator** on each managed identity, and, when using a VNet, **Network Contributor** on the VNet. See [Entra service principal and managed identity][azure-batch-entra] in the Azure Batch reference for details.
+
 In Seqera:
 
 1. Add new credentials with the name `entra-keys` and select the Azure **Provider**.
@@ -138,10 +140,6 @@ In Seqera:
 Duplicate the `nextflow-hello` pipeline, save it as `hello-world-entra-mi`, and select the new compute environment.
 
 Select **Launch** next to the `hello-world-entra-mi` pipeline in your workspace Launchpad to complete the launch form and launch the workflow. The pipeline runs as before, but uses the managed identity to authenticate to Azure Batch and Storage. No keys are exchanged.
-
-:::note
-You can also use User Subscription mode instead of Batch Managed here, but this is beyond the scope of this tutorial.
-:::
 
 ## Part 4. Attach the pool to a virtual network (VNet)
 
@@ -175,7 +173,13 @@ Duplicate the `nextflow-hello` pipeline, save it as `hello-world-vnet`, and sele
 
 Some scenarios still require a manually created pool, such as custom VM images or Azure Batch features that Batch Forge does not expose. In these cases, create the pool yourself and select it in a **Manual** compute environment.
 
+Unlike Batch Forge, Manual mode does not attach a subnet to pre-existing pools. Configure the VNet/subnet on each pool when you create it.
+
 See [Create a Nextflow-compatible Azure Batch pool][azure-batch-manual-pool] in the Azure Batch reference for the full pool configuration (identity, OS image, autoscale formula, start task, and networking), then create a Manual compute environment that points at the pool name.
+
+:::note
+Manual pools can use Batch Managed or User Subscription allocation mode. Batch Forge supports Batch Managed only.
+:::
 
 :::note
 The Nextflow autopool feature (`azure.batch.autoPoolMode` and `azure.batch.allowPoolCreation`) is deprecated and not used by Seqera Platform. Use the Batch Forge separate-pool model described above instead.
