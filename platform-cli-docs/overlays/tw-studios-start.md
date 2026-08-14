@@ -1,0 +1,1 @@
+For a private Studio, its creator can use `--allow-user=<USER>` when starting it to replace the additional user allowed to connect and start the Studio. Identify the user by numeric ID, username, or email address. Omit the option to leave the allow list unchanged.

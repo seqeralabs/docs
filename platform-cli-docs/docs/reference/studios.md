@@ -1,37 +1,37 @@
 ---
-title: tw studios
-description: Manage studios
+title: "tw studios"
+description: "Manage studios"
 ---
 
-# tw studios
+# `tw studios`
+
+Manage studios
 
 Run `tw studios -h` to view the list of supported operations.
 
-Manage [Studio sessions](https://docs.seqera.io/platform-cloud/studios/overview) hosted in Seqera Platform. Studio sessions allow interactive analysis using Jupyter, RStudio, VS Code, and Xpra. Additional custom analysis environments can be defined as needed.
+Manage [Studio sessions][studios] hosted in Seqera Platform. Studio sessions allow interactive analysis using Jupyter, RStudio, VS Code, and Xpra. Additional custom analysis environments can be defined as needed.
 
 :::note
 Most Studio operations require workspace `MAINTAIN` permissions.
 :::
 
-## tw studios view
+## `tw studios view`
 
-View studio details.
+View studio details
 
 ```bash
 tw studios view [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
-| `-i`, `--id` | Studio session identifier | No | `null` |
-| `-n`, `--name` | Studio name | No | `null` |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Studio session identifier | Yes |  |
+| `-n`, `--name` | Studio name | Yes |  |
 
 Run `tw studios view -h` to view the required and optional fields for viewing session details.
-
-#### Example
 
 Command:
 
@@ -63,87 +63,26 @@ Memory allocated    | 8192
 Build reports       | NA
 ```
 
-## tw studios list
+## `tw studios list`
 
-List studios.
+List studios
 
 ```bash
 tw studios list [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-f`, `--filter` | Optional filter criteria, allowing free text search on name and templateUrl and keywords: `userName`, `computeEnvName` and `status`. Example keyword usage: -f status:RUNNING. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
-| `--page` | Page number for paginated results (default: 1) | No | `null` |
-| `--offset` | Row offset for paginated results (default: 0) | No | `null` |
-| `--max` | Maximum number of records to display (default: ) | No | `null` |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-f`, `--filter` | Optional filter criteria, allowing free text search on name and templateUrl and keywords: `userName`, `computeEnvName` and `status`. Example keyword usage: -f status:RUNNING. | No |  |
+| `-l`, `--labels` | Show labels. | No | `false` |
+| `--page` | Page number for paginated results (default: 1) | No |  |
+| `--offset` | Row offset for paginated results (default: 0) | No |  |
+| `--max` | Maximum number of records to display (default: 100) | No |  |
 
-Run `tw studios list -h` to view the required and optional fields for listing studios.
-
-List all studios in a workspace.
-
-#### Example
-
-Command:
-
-```bash
-tw studios list -w 123456789012345
-```
-
-Example output:
-
-```bash
-Checkpoints at Studio 9s0t1u2v at [organization2 / organization6] workspace:
-
-
-ID   | Name                 | Author     | Date Created                  | Date Saved
-    ------+----------------------+------------+-------------------------------+-------------------------------
-     7889 | snakemake_1768412934 | user3-name | Wed, 14 Jan 2026 17:48:54 GMT | Thu, 15 Jan 2026 14:28:01 GMT
-     7838 | snakemake_1768226043 | user3-name | Mon, 12 Jan 2026 13:54:03 GMT | Mon, 12 Jan 2026 14:22:31 GMT
-```
-
-## tw studios templates
-
-List available Studio templates.
-
-```bash
-tw studios templates [OPTIONS]
-```
-
-#### Options
-
-| Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `--max` | Maximum number of templates to return. | No | `20` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
-
-#### Example
-
-Command:
-
-```bash
-tw studios templates -w 123456789012345
-```
-
-Example output:
-
-```bash
-Available templates for Studios:
-
-
-Templates
-    --------------------------------------------------------------
-     public.cr.seqera.io/platform/data-studio-jupyter:4.2.5-0.8
-     public.cr.seqera.io/platform/data-studio-jupyter:4.2.5-0.9
-     public.cr.seqera.io/platform/data-studio-ride:2025.04.1-0.8
-     public.cr.seqera.io/platform/data-studio-ride:2025.04.1-0.9
-```
-
-## tw studios start
-
+## `tw studios start`
 
 Start a studio.
 
@@ -151,54 +90,70 @@ Start a studio.
 tw studios start [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `--wait` | Wait until given status or fail. Valid options: STARTING, RUNNING, STOPPED, STOPPING. | No | `null` |
-| `--labels` | Comma-separated list of labels | No | `null` |
-| `--description` | Optional configuration override for 'description'. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
-| `-i`, `--id` | Studio session identifier | No | `null` |
-| `-n`, `--name` | Studio name | No | `null` |
-| `--gpu` | Optional configuration override for 'gpu' setting (integer representing number of cores). | No | `null` |
-| `--cpu` | Optional configuration override for 'cpu' setting (integer representing number of cores). | No | `null` |
-| `--memory` | Optional configuration override for 'memory' setting (integer representing memory in MBs). | No | `null` |
-| `--lifespan` | Optional configuration override for 'lifespan' setting (integer representing hours). Defaults to workspace lifespan setting. | No | `null` |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Studio session identifier | Yes |  |
+| `-n`, `--name` | Studio name | Yes |  |
+| `--mount-data-uris` | Comma separate list of data-link URIs: s3://nextflow-bucket,s3://another-bucket | No |  |
+| `--mount-data` | Comma separate list of data-link names: nextflow-bucket,my-custom-data-link-name | No |  |
+| `--mount-data-ids` | Comma separate list of data-link ids: v1-cloud-YjI3MjMwOTMyNjUwNzk5tbG9yZQ=,v1-user-d2c505e70901d2bf6516d | No |  |
+| `--gpu` | Optional configuration override for 'gpu' setting (integer representing number of cores). | No |  |
+| `--cpu` | Optional configuration override for 'cpu' setting (integer representing number of cores). | No |  |
+| `--memory` | Optional configuration override for 'memory' setting (integer representing memory in MBs). | No |  |
+| `--lifespan` | Optional configuration override for 'lifespan' setting (integer representing hours). Defaults to workspace lifespan setting. | No |  |
+| `-e`, `--env` | Add environment variables to the studio as key=value pairs. Can be specified multiple times (e.g. -e KEY1=value1 -e KEY2=value2). | No |  |
+| `--wait` | Wait until given status or fail. Valid options: starting, running, stopping, stopped, errored, building, buildFailed. | No |  |
+| `--labels` | Comma-separated list of labels | No |  |
+| `--description` | Optional configuration override for 'description'. | No |  |
+| `--spot` | Optional override to launch the studio on spot instances. | No |  |
+| `--ssh` | Optional override to enable SSH connectivity to the studio. | No |  |
+| `--allow-user` | Override the user (numeric ID, username, or email), besides the creator, allowed to connect to and start this studio when it is private. Omit to leave the allow list unchanged. Only the studio creator may change it. | No |  |
 
-## tw studios add
+For a private Studio, its creator can use `--allow-user=<USER>` when starting it to replace the additional user allowed to connect and start the Studio. Identify the user by numeric ID, username, or email address. Omit the option to leave the allow list unchanged.
 
-Add a studio.
+## `tw studios add`
+
+Add a studio
 
 ```bash
 tw studios add [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-n`, `--name` | Studio name. | Yes | `null` |
-| `-d`, `--description` | Studio description | No | `null` |
-| `--conda-env-yml`, `--conda-env-yaml` | Path to a YAML env file with Conda packages to be installed in the studio environment | No | `null` |
-| `-c`, `--compute-env` | Compute environment name | Yes | `null` |
+|--------|-------------|----------|---------|
+| `-n`, `--name` | Studio name. | Yes |  |
+| `-d`, `--description` | Studio description | No |  |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-t`, `--template` | Container image template to be used for Studio. Available templates can be listed with 'studios templates' command. | Yes |  |
+| `-ct`, `--custom-template` | Custom container image template to be used for Studio. | Yes |  |
+| `--conda-env-yml`, `--conda-env-yaml` | Path to a YAML env file with Conda packages to be installed in the studio environment | No |  |
+| `-c`, `--compute-env` | Compute environment name | Yes |  |
+| `--mount-data-uris` | Comma separate list of data-link URIs: s3://nextflow-bucket,s3://another-bucket | No |  |
+| `--mount-data` | Comma separate list of data-link names: nextflow-bucket,my-custom-data-link-name | No |  |
+| `--mount-data-ids` | Comma separate list of data-link ids: v1-cloud-YjI3MjMwOTMyNjUwNzk5tbG9yZQ=,v1-user-d2c505e70901d2bf6516d | No |  |
+| `--gpu` | Optional configuration override for 'gpu' setting (integer representing number of cores). | No |  |
+| `--cpu` | Optional configuration override for 'cpu' setting (integer representing number of cores). | No |  |
+| `--memory` | Optional configuration override for 'memory' setting (integer representing memory in MBs). | No |  |
+| `--lifespan` | Optional configuration override for 'lifespan' setting (integer representing hours). Defaults to workspace lifespan setting. | No |  |
+| `-e`, `--env` | Add environment variables to the studio as key=value pairs. Can be specified multiple times (e.g. -e KEY1=value1 -e KEY2=value2). | No |  |
+| `--repository` | Git repository URL to import studio configuration from. | No |  |
+| `--revision` | Optional branch, tag or commit of the Git repository to check out. Requires --repository. | No |  |
 | `-a`, `--auto-start` | Create studio and start it immediately (default: false) | No | `false` |
 | `--private` | Create a private studio that only you can access or manage (default: false) | No | `false` |
-| `--labels` | Comma-separated list of labels | No | `null` |
-| `--wait` | Wait until Studio is in RUNNING status. Valid options: STARTING, RUNNING, STOPPED, STOPPING. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
-| `-t`, `--template` | Container image template to be used for Studio. Available templates can be listed with 'studios templates' command. | No | `null` |
-| `-ct`, `--custom-template` | Custom container image template to be used for Studio. | No | `null` |
-| `--gpu` | Optional configuration override for 'gpu' setting (integer representing number of cores). | No | `null` |
-| `--cpu` | Optional configuration override for 'cpu' setting (integer representing number of cores). | No | `null` |
-| `--memory` | Optional configuration override for 'memory' setting (integer representing memory in MBs). | No | `null` |
-| `--lifespan` | Optional configuration override for 'lifespan' setting (integer representing hours). Defaults to workspace lifespan setting. | No | `null` |
+| `--spot` | Launch the studio on spot instances (default: provider/compute environment default). | No |  |
+| `--ssh` | Enable SSH connectivity to the studio (default: false). | No |  |
+| `--allow-user` | User (numeric ID, username, or email), besides the creator, allowed to connect to and start this studio when it is private. | No |  |
+| `--labels` | Comma-separated list of labels | No |  |
+| `--wait` | Wait until Studio is in RUNNING status. Valid options: starting, running, stopping, stopped, errored, building, buildFailed. | No |  |
 
 Run `tw studios add -h` to view the required and optional fields for adding sessions.
 
 Add a new Studio session in a workspace.
-
-#### Example
 
 Command:
 
@@ -214,97 +169,110 @@ tw studios add -n new-analysis -w community/showcase \
 Example output:
 
 ```bash
-
 Studio 2aa60bb7 CREATED at [community / showcase] workspace.
 ```
 
-## tw studios checkpoints
+To create a private Studio and grant access to one additional user, add `--private --allow-user=<USER>`. Identify the user by numeric ID, username, or email address.
 
-List studio checkpoints.
+## `tw studios templates`
+
+List available studio templates
+
+```bash
+tw studios templates [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `--max` | Maximum number of templates to return, defaults to 20. | No | `20` |
+
+## `tw studios checkpoints`
+
+List studio checkpoints
 
 ```bash
 tw studios checkpoints [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-f`, `--filter` | Optional filter criteria, allowing free text search on name and keywords: `after: YYYY-MM-DD`, `before: YYYY-MM-DD` and `author`. Example keyword usage: -f author:my-name. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
-| `-i`, `--id` | Studio session identifier | No | `null` |
-| `-n`, `--name` | Studio name | No | `null` |
-| `--page` | Page number for paginated results (default: 1) | No | `null` |
-| `--offset` | Row offset for paginated results (default: 0) | No | `null` |
-| `--max` | Maximum number of records to display (default: ) | No | `null` |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Studio session identifier | Yes |  |
+| `-n`, `--name` | Studio name | Yes |  |
+| `-f`, `--filter` | Optional filter criteria, allowing free text search on name and keywords: `after: YYYY-MM-DD`, `before: YYYY-MM-DD` and `author`. Example keyword usage: -f author:my-name. | No |  |
+| `--page` | Page number for paginated results (default: 1) | No |  |
+| `--offset` | Row offset for paginated results (default: 0) | No |  |
+| `--max` | Maximum number of records to display (default: 100) | No |  |
 
-Run `tw studios checkpoints -h` to view the required and optional fields for viewing checkpoints for a session.
+Run `tw studios checkpoints -h` to view the required and optional fields for listing Studio checkpoints.
 
-List all checkpoints for an existing Studio session in a workspace. See [Session checkpoints](https://docs.seqera.io/platform-cloud/studios/managing#studio-session-checkpoints) for more information.
+List checkpoints for a Studio session:
 
-#### Example
-
-Command:
-
-```bash
-tw studios checkpoints -i 9s0t1u2v -w 123456789012345
+```console
+$ tw studios checkpoints -i 19a3abbd -w community/showcase
 ```
 
-Example output:
+## `tw studios add-as-new`
 
-```bash
-Checkpoints for studio '9s0t1u2v' at [my-organization / my-workspace] workspace:
-
-ID             | Name                | Created
----------------+---------------------+-------------------------------
-1a2b3c4d5e     | checkpoint-001      | Mon, 15 Jan 2024 10:30:00 GMT
-2b3c4d5e6f     | checkpoint-002      | Mon, 15 Jan 2024 14:45:00 GMT
-```
-
-## tw studios add-as-new
-
-Add a new Studio session from an existing parent session and checkpoint. Useful for experimentation without impacting the parent session state.
+Add a studio from an existing one
 
 ```bash
 tw studios add-as-new [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `--parent-checkpoint-id` | Parent Studio checkpoint id, to be used as the starting point for the new Studio session. If not provided, it defaults to the most recent existing checkpoint of the parent Studio session. | No | `null` |
-| `-n`, `--name` | Studio name. | Yes | `null` |
-| `-d`, `--description` | Studio description | No | `null` |
+|--------|-------------|----------|---------|
+| `-pid`, `--parent-id` | Parent studio session identifier | Yes |  |
+| `-pn`, `--parent-name` | Parent studio name | Yes |  |
+| `--parent-checkpoint-id` | Parent Studio checkpoint id, to be used as the starting point for the new Studio session. If not provided, it defaults to the most recent existing checkpoint of the parent Studio session. | No |  |
+| `-n`, `--name` | Studio name. | Yes |  |
+| `-d`, `--description` | Studio description | No |  |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `--mount-data-uris` | Comma separate list of data-link URIs: s3://nextflow-bucket,s3://another-bucket | No |  |
+| `--mount-data` | Comma separate list of data-link names: nextflow-bucket,my-custom-data-link-name | No |  |
+| `--mount-data-ids` | Comma separate list of data-link ids: v1-cloud-YjI3MjMwOTMyNjUwNzk5tbG9yZQ=,v1-user-d2c505e70901d2bf6516d | No |  |
+| `--gpu` | Optional configuration override for 'gpu' setting (integer representing number of cores). | No |  |
+| `--cpu` | Optional configuration override for 'cpu' setting (integer representing number of cores). | No |  |
+| `--memory` | Optional configuration override for 'memory' setting (integer representing memory in MBs). | No |  |
+| `--lifespan` | Optional configuration override for 'lifespan' setting (integer representing hours). Defaults to workspace lifespan setting. | No |  |
+| `-e`, `--env` | Add environment variables to the studio as key=value pairs. Can be specified multiple times (e.g. -e KEY1=value1 -e KEY2=value2). | No |  |
 | `-a`, `--auto-start` | Create studio and start it immediately (default: false) | No | `false` |
 | `--private` | Create a private studio that only you can access or manage (default: false) | No | `false` |
-| `--labels` | Comma-separated list of labels | No | `null` |
-| `--wait` | Wait until Studio is in RUNNING status. Valid options: STARTING, RUNNING, STOPPED, STOPPING. | No | `null` |
-| `-pid`, `--parent-id` | Parent studio session identifier | No | `null` |
-| `-pn`, `--parent-name` | Parent studio name | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
-| `--gpu` | Optional configuration override for 'gpu' setting (integer representing number of cores). | No | `null` |
-| `--cpu` | Optional configuration override for 'cpu' setting (integer representing number of cores). | No | `null` |
-| `--memory` | Optional configuration override for 'memory' setting (integer representing memory in MBs). | No | `null` |
-| `--lifespan` | Optional configuration override for 'lifespan' setting (integer representing hours). Defaults to workspace lifespan setting. | No | `null` |
+| `--allow-user` | User (numeric ID, username, or email), besides the creator, allowed to connect to and start this studio when it is private. | No |  |
+| `--labels` | Comma-separated list of labels | No |  |
+| `--wait` | Wait until Studio is in RUNNING status. Valid options: starting, running, stopping, stopped, errored, building, buildFailed. | No |  |
 
-Run `tw studios add-as-new -h` to view the required and optional fields for adding a new studio session from an existing one.
-
-#### Example
+Add a Studio from an existing Studio and checkpoint. Use this to experiment without changing the parent Studio state.
 
 Command:
 
 ```bash
-tw studios add-as-new -pid 0t1u2v3w -n cloned-studio-example -w 123456789012345
+tw studios add-as-new \
+  --parent-id=657ddbca \
+  --name=analysis-env-from-parent \
+  --workspace=community/showcase \
+  --description="New sandbox for temporary analysis" \
+  --cpu=2 \
+  --memory=8192 \
+  --auto-start
 ```
 
 Example output:
 
-```bash
-Studio 1u2v3w4x CREATED at [my-organization / my-workspace] workspace.
+```console
+Studio 19a3abbd CREATED at [community / showcase] workspace and auto-started.
 ```
 
-## tw studios stop
+For a private Studio, use `--private --allow-user=<USER>` to allow one additional user, identified by numeric ID, username, or email address, to connect to and start it.
+
+## `tw studios stop`
 
 Stop a studio.
 
@@ -312,20 +280,18 @@ Stop a studio.
 tw studios stop [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `--wait` | Wait until given status or fail. Valid options: STARTING, RUNNING, STOPPED, STOPPING. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
-| `-i`, `--id` | Studio session identifier | No | `null` |
-| `-n`, `--name` | Studio name | No | `null` |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Studio session identifier | Yes |  |
+| `-n`, `--name` | Studio name | Yes |  |
+| `--wait` | Wait until given status or fail. Valid options: starting, running, stopping, stopped, errored, building, buildFailed. | No |  |
 
 Run `tw studios stop -h` to view the required and optional fields for adding sessions.
 
 Stop an existing Studio session in a workspace.
-
-#### Example
 
 Command:
 
@@ -339,34 +305,77 @@ Example output:
 Studio 13083356 STOP successfully submitted at [community / showcase] workspace.
 ```
 
-## tw studios delete
+## `tw studios update`
 
-Delete an existing Studio session from a workspace.
+Update a studio.
+
+```bash
+tw studios update [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Studio session identifier | Yes |  |
+| `-n`, `--name` | Studio name | Yes |  |
+| `--mount-data-uris` | Comma separate list of data-link URIs: s3://nextflow-bucket,s3://another-bucket | No |  |
+| `--mount-data` | Comma separate list of data-link names: nextflow-bucket,my-custom-data-link-name | No |  |
+| `--mount-data-ids` | Comma separate list of data-link ids: v1-cloud-YjI3MjMwOTMyNjUwNzk5tbG9yZQ=,v1-user-d2c505e70901d2bf6516d | No |  |
+| `--gpu` | Optional configuration override for 'gpu' setting (integer representing number of cores). | No |  |
+| `--cpu` | Optional configuration override for 'cpu' setting (integer representing number of cores). | No |  |
+| `--memory` | Optional configuration override for 'memory' setting (integer representing memory in MBs). | No |  |
+| `--lifespan` | Optional configuration override for 'lifespan' setting (integer representing hours). Defaults to workspace lifespan setting. | No |  |
+| `-e`, `--env` | Add environment variables to the studio as key=value pairs. Can be specified multiple times (e.g. -e KEY1=value1 -e KEY2=value2). | No |  |
+| `--labels` | Comma-separated list of labels | No |  |
+| `--description` | Optional configuration override for 'description'. | No |  |
+| `--new-name` | Optional new name for the studio. | No |  |
+| `--ssh` | Optional override to enable or disable SSH connectivity to the studio. | No |  |
+| `-c`, `--compute-env` | Move the studio to a different (compatible) compute environment. Only allowed while the studio is stopped. | No |  |
+
+## `tw studios delete`
+
+Delete a studio.
 
 ```bash
 tw studios delete [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable). Studios are not available in personal workspaces. | No | `TOWER_WORKSPACE_ID` |
-| `-i`, `--id` | Studio session identifier | No | `null` |
-| `-n`, `--name` | Studio name | No | `null` |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Studio session identifier | Yes |  |
+| `-n`, `--name` | Studio name | Yes |  |
 
 Run `tw studios delete -h` to view the required and optional fields for listing sessions.
 
-#### Example
-
-Command:
+Delete an existing Studio session from a workspace.
 
 ```bash
 tw studios delete -i 2aa60bb7
-```
 
-Example output:
-
-```bash
 Studio 2aa60bb7 deleted at [community / showcase] workspace.
 ```
+
+[actions]: /platform-cloud/pipeline-actions/overview
+[compute-envs]: /platform-cloud/compute-envs/overview
+[credentials]: /platform-cloud/credentials/overview
+[data-explorer]: /platform-cloud/data/data-explorer
+[datasets]: /platform-cloud/data/datasets
+[git-integration]: /platform-cloud/git/overview
+[labels]: /platform-cloud/labels/overview
+[nextflow-config]: https://docs.seqera.io/nextflow/config#config-syntax
+[organizations]: /platform-cloud/orgs-and-teams/organizations
+[participant-roles]: /platform-cloud/orgs-and-teams/roles
+[resource-labels]: /platform-cloud/resource-labels/overview
+[run-details]: /platform-cloud/monitoring/run-details
+[secrets]: /platform-cloud/secrets/overview
+[shared-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
+[studio-checkpoints]: /platform-cloud/studios/managing#studio-session-checkpoints
+[studios]: /platform-cloud/studios/overview
+[tower-agent]: /platform-cloud/supported_software/agent/overview
+[user-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
+[wave-docs]: https://docs.seqera.io/wave
