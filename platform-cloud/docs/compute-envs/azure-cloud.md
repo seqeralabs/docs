@@ -454,8 +454,19 @@ Create a compute environment in Seqera using the credentials:
 1. Enter a name for the compute environment.
 1. Enter or select a **Location** for the compute environment.
 1. Select the **Work directory** as the Azure blob container you plan to use as the Nextflow working directory. The container must be in the same **Location** as selected in the previous step.
+1. (Optional) Expand **Staging options** to include optional pre- or post-run Bash scripts and global Nextflow configuration settings for all pipeline runs in this compute environment.
 1. (Optional) Under **Advanced options**, specify an **Instance Type**. If left blank, the default virtual machine used is a `Standard_D2ds_v4`.
 1. Select **Create** to save the compute environment.
+
+## Staging options
+
+- **Pre-run script**: An optional Bash script that runs before the pipeline launches, in the same environment where Nextflow runs. See [Pre and post-run scripts](../launch/advanced#pre-and-post-run-scripts) for more information.
+- **Post-run script**: An optional Bash script that runs after the pipeline completes, in the same environment where Nextflow runs. The script runs whether the pipeline succeeds or fails.
+- **Nextflow config**: Global Nextflow configuration settings for all pipeline runs in this compute environment. Platform pre-fills these settings in the **Nextflow config file** field in the pipeline launch form, where you can override them.
+
+:::info
+Settings in the **Nextflow config** field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
+:::
 
 ## Advanced options
 
