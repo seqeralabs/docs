@@ -3,14 +3,12 @@ title: "Data Explorer"
 description: "Using Seqera Data Explorer."
 date created: "2025-05-08"
 last updated: "2026-07-31"
-tags: [data, explorer, igv]
+tags: [data, explorer]
 ---
 
 With Data Explorer, you can browse and interact with remote data repositories from organization workspaces in Seqera Platform. It supports AWS S3, Azure Blob Storage, Google Cloud Storage, and Amazon S3-compatible API storage (for example, Cloudflare R2, MinIO, and Oracle Cloud).
 
 Access the **Data Explorer** tab from any workspace to view and manage all available data repositories. Data Explorer is also integrated with the pipeline launch form, run detail pages, and Studios. Use these integrations to select input data files and output directories, view the output files of a run, or use files in object storage directly for interactive analysis.
-
-If you use Seqera Cloud and want to disable Data Explorer, [contact](https://seqera.io/contact-us/) your Seqera account executive.
 
 ## Participant roles
 
@@ -22,6 +20,22 @@ The role assigned to a workspace user affects what functionality is available in
 - **Maintain**: Can view download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
 - **Admin**: Can view, download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
 - **Owner**: Can view, download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
+
+## Access control
+
+Two mechanisms control Data Explorer access:
+
+- **Participant roles** determine which Data Explorer actions a workspace user can perform, such as browsing, previewing, downloading, and uploading. See [Participant roles][roles].
+- **Credentials** determine which objects those actions can reach. Each data-link uses the credentials you select when you add the data repository to the workspace. The cloud provider permissions attached to those credentials define the scope of Data Explorer access to that repository. To narrow what Data Explorer can do in a bucket, assign that data-link a dedicated credential with a more restrictive cloud provider policy. Sharing one broad credential across compute environments and data repositories gives Data Explorer the full scope of that credential.
+
+Data Explorer has no per-bucket or per-workspace setting that disables downloads or uploads while leaving browsing available. Two instance-level [environment variables](../enterprise/configuration/overview#data-features) control Data Explorer availability:
+
+- `TOWER_DATA_EXPLORER_ENABLED` enables or disables Data Explorer for every workspace in your Enterprise instance. This is the only way to remove download and upload access completely.
+- `TOWER_DATA_EXPLORER_CLOUD_DISABLED_WORKSPACES` disables automatic cloud bucket retrieval in the listed workspaces. This is not a download or upload control. Manually added data-links remain usable in those workspaces.
+
+:::warning
+Cross-origin resource sharing (CORS) is not an access-control mechanism. Browsers enforce CORS, and it covers only the upload and multi-file download paths described in [CORS configurations for cloud providers](#cors-configurations-for-cloud-providers). Leaving a bucket's CORS configuration unset does not prevent Data Explorer users from reaching the objects in that bucket. CORS has no effect on access through the Seqera Platform API, the Seqera Platform CLI (`tw`), or your cloud provider's tools. Use credentials and cloud provider access policies to control access to your data.
+:::
 
 ## Add data repository links
 
