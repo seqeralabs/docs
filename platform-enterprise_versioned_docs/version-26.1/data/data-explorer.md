@@ -262,7 +262,8 @@ Apply a [CORS configuration](https://learn.microsoft.com/en-us/rest/api/storages
 Apply a [CORS configuration](https://cloud.google.com/storage/docs/cross-origin#cors-components) to enable file uploads and genome file previews (IGV) from Seqera to specific GCS buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these Google instructions](https://cloud.google.com/storage/docs/using-cors#command-line) to apply the CORS configuration below to each bucket you wish to enable file uploads and genome file previews for.
 
 :::note
-Google Cloud Storage only supports CORS configuration via gcloud CLI.
+- Google Cloud Storage only supports CORS configuration via gcloud CLI.
+- Genome file previews (IGV) for Google Cloud Storage require Seqera Enterprise 26.1.5 or later.
 :::
 
 **Seqera Cloud GCS CORS configuration**
