@@ -176,3 +176,11 @@ You must [enable Google Secret Manager](https://cloud.google.com/secret-manager/
 See the [Google documentation](https://cloud.google.com/secret-manager/docs/access-control) for permission configuration instructions to integrate with Google Secret Manager.
 
 Seqera Platform requires `roles/secretmanager.admin` permissions in the project where it will manage your secrets. Ensure that your compute environment contains credentials with this access role for the same `project_id` listed in the service account JSON file.
+
+### Secret replication
+
+Seqera Platform creates pipeline secrets in Google Secret Manager with user-managed replication, stored in the same region as the compute environment that runs the pipeline. For Google Batch compute environments, this is the compute environment's location (`us-central1` when no location is set). For Google Cloud compute environments, this is the compute environment's region. As secrets are not stored in the `global` location, secret creation succeeds in projects that enforce the [`constraints/gcp.resourceLocations`](https://cloud.google.com/resource-manager/docs/organization-policy/defining-locations) organization policy.
+
+:::note
+Each secret is stored in a single region. If Google Secret Manager is unavailable in that region, secret creation fails and the run does not launch.
+:::
