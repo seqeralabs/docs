@@ -242,6 +242,7 @@ s3-compatible
 schema
 scim
 scripts
+search
 secrets
 securestring
 security
