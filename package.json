@@ -82,7 +82,7 @@
     "netlify-plugin-cache": "1.0.3",
     "prettier": "3.8.4",
     "simple-git": "3.36.0",
-    "typescript": "5.9.3"
+    "typescript": "7.0.2"
   },
   "browserslist": {
     "production": [
