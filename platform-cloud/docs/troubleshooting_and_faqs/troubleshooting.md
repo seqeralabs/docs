@@ -15,7 +15,7 @@ This error occurs on Seqera Platform v24.2 and later when Redis is outdated. Ver
 
 #### `Unknown pipeline repository or missing credentials` from public GitHub repositories
 
-GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls, including public repositories: unauthenticated requests are capped at 60 per hour and authenticated requests at 5000 per hour. This error is usually caused by the 60-per-hour cap.
+GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls, including public repositories: unauthenticated requests are capped at 60 per hour and authenticated requests at 5000 per hour. This error is usually caused by the 60-per-hour cap. For the same error on a private organization-owned repository, see [the following entry](#github-org-repo-access).
 
 To resolve:
 
@@ -24,6 +24,31 @@ To resolve:
 3. Confirm that your PAT provides the elevated threshold and that transactions are charged against it:
 
    `curl -H "Authorization: token ghp_LONG_ALPHANUMERIC_PAT" -H "Accept: application/vnd.github.v3+json" https://api.github.com/rate_limit`
+
+#### `Unknown pipeline repository or expired Git credentials` from private organization-owned GitHub repositories {#github-org-repo-access}
+
+GitHub organizations can restrict token access independently of your own repository access, and GitHub returns `404` for private repositories that a token can't access. Platform reports `401`, `403`, and `404` responses as this same error, even when the workspace credential works for user-owned repositories.
+
+Check the following:
+
+1. The repository URL is exactly `https://github.com/<org>/<repo>`, with no `.git` suffix or `/tree/<branch>` segment.
+2. The token can access the organization's repositories:
+   - Fine-grained tokens must be created with the organization as the resource owner. The organization must allow fine-grained tokens and may need to approve yours.
+   - Classic tokens require the `repo` scope and, if the organization enforces SAML single sign-on (SSO), [SSO authorization for that organization](https://docs.github.com/en/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on).
+   - GitHub Apps must be installed on the organization with access to the repository.
+
+To test the token stored in the workspace credential:
+
+```bash
+curl -sS -D - -o /dev/null \
+  -H "Authorization: Bearer <your_access_token>" \
+  -H "Accept: application/vnd.github+json" \
+  https://api.github.com/repos/<org>/<repo>
+```
+
+A `404` response means the token can't see the repository. To resolve, re-authorize or re-scope the token in GitHub. A `403` response with an `X-GitHub-SSO` header means the token needs SSO authorization. A `200` response means the token is valid. Check which credential the workspace selects in [Multiple credential filtering](../git/overview#multiple-credential-filtering).
+
+For the same error on a public repository, see [the previous entry](#unknown-pipeline-repository-or-missing-credentials-from-public-github-repositories).
 
 #### `No such variable`
 
