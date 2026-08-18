@@ -2,7 +2,7 @@
 title: "General"
 description: "Troubleshooting Seqera Platform"
 date created: "2023-04-23"
-last updated: "2026-08-10"
+last updated: "2026-08-11"
 tags: [troubleshooting, help]
 ---
 
@@ -76,6 +76,17 @@ The behavior of `sleep` commands in your Nextflow workflows depends on where the
 
 - In an `errorStrategy` block, Nextflow uses the Groovy sleep function, which takes its value in milliseconds.
 - In a process script block, that language's sleep binary or method is used. For example, [this bash script](https://docs.seqera.io/nextflow/metrics) uses the bash sleep binary, which takes its value in seconds.
+
+#### `Limit of N running workflows reached`
+
+This error occurs at launch when your organization reaches its quota of concurrent active pipeline runs. All runs in `SUBMITTED` or `RUNNING` status across the organization's workspaces count toward the quota. Your Seqera license sets the limit. The related error `Organizational quota limit fully restricts usage of running workflows` means the quota blocks all launches in the organization.
+
+To resolve:
+
+1. Cancel any runs stuck in `SUBMITTED` status. Active runs occupy quota until they complete or you cancel them.
+2. [Contact Seqera support](https://support.seqera.io) to raise the quota.
+
+Seqera Platform retrieves license changes when it next polls the license server, every 24 hours by default.
 
 #### Large number of batch job definitions
 

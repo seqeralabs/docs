@@ -18,3 +18,5 @@ Example output:
 ```console
 Studio 19a3abbd CREATED at [community / showcase] workspace and auto-started.
 ```
+
+For a private Studio, use `--private --allow-user=<USER>` to allow one additional user, identified by numeric ID, username, or email address, to connect to and start it.

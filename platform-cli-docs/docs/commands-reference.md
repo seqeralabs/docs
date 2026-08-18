@@ -5,6 +5,12 @@ date: "15 Jan 2026"
 tags: [cli, commands, reference]
 ---
 
+<!-- cli-release-version:start -->
+:::info CLI version
+This reference documents Seqera Platform CLI **0.38.0**, the latest stable release processed by the docs automation.
+:::
+<!-- cli-release-version:end -->
+
 This reference documents all `tw` CLI commands for managing Seqera Platform resources. Each command page includes detailed descriptions, options, and examples.
 
 :::note
@@ -34,6 +40,7 @@ tw credentials add google -h  # Help for specific provider
 ### Info
 
 - [**info**](reference/info) - Show system info and health status
+- [**generate-completion**](reference/generate-completion) - Generate Bash or Zsh shell completion
 
 ### Resources
 

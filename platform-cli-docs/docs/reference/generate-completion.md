@@ -1,14 +1,20 @@
 ---
-title: "tw info"
-description: "Show system info and health status"
+title: "tw generate-completion"
+description: "Generate bash/zsh completion script for tw. Run the following command to give `tw` TAB completion in the current shell: source <(tw generate-completion)"
 ---
 
-# `tw info`
+# `tw generate-completion`
 
-Show system info and health status
+Generate bash/zsh completion script for tw. Run the following command to give `tw` TAB completion in the current shell: source &lt;(tw generate-completion)
+
+The command writes a Bash or Zsh completion script to standard output. Load it in the current shell:
 
 ```bash
-tw info
+source <(tw generate-completion)
+```
+
+```bash
+tw generate-completion
 ```
 
 [actions]: /platform-cloud/pipeline-actions/overview
