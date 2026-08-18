@@ -12,6 +12,10 @@ When configuring authentication for Seqera Platform, you might encounter the fol
 
 These issues apply to SCIM group provisioning with [Okta](../enterprise/configuration/authentication/idp-delegation/group-catalog/scim-okta) and [Entra ID](../enterprise/configuration/authentication/idp-delegation/group-catalog/scim-entra-id).
 
+#### The Get started button under Provisioning is disabled in Entra ID
+
+This issue occurs when the application was created through **App Registrations**, which doesn't support automatic provisioning. To resolve, create a separate non-gallery enterprise application for SCIM. See [Create a provisioning application](../enterprise/configuration/authentication/idp-delegation/group-catalog/scim-entra-id#create-a-provisioning-application).
+
 #### Groups appear in the identity provider but not in Platform
 
 This issue occurs when the bearer token configured in your identity provider doesn't match the current Platform token. Generating a new token in Platform revokes the previous one. To resolve, confirm the token in your identity provider matches the current Platform token, and replace it if necessary.
