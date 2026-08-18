@@ -2,7 +2,7 @@
 title: "Git integration"
 description: "Connecting to Git repositories in Seqera Platform."
 date created: "2024-06-24"
-last updated: "2025-07-17"
+last updated: "2026-08-10"
 tags: [git]
 ---
 
@@ -108,9 +108,9 @@ Use an access token to connect Seqera to a private [GitHub](https://github.com/)
 A user's personal access token (classic) can access every repository that the user has access to. GitHub recommends using fine-grained personal access tokens (currently in beta) instead, which you can restrict to specific repositories. Fine-grained personal access tokens also enable you to specify granular permissions instead of broad scopes.
 :::
 
-For **personal (classic)** tokens, you must grant access to the private repository by selecting the main `repo` scope when the token is created. See [Creating a personal access token (classic)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-personal-access-token-classic) for instructions to create your personal access token (classic).
+For personal (classic) tokens, you must grant access to the private repository by selecting the main `repo` scope when the token is created. If the repository's organization enforces SAML single sign-on, you must also [authorize the token for that organization](https://docs.github.com/en/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on). Organizations can also block classic tokens entirely.
 
-For **fine-grained** tokens, the repository's organization must [opt in](https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/setting-a-personal-access-token-policy-for-your-organization) to the use of fine-grained tokens. Tokens can be restricted by _resource owner (organization)_, _repository access_, and _permissions_. See [Creating a fine-grained personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) for instructions to create your fine-grained access token.
+For fine-grained tokens, the repository's organization must [opt in](https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/setting-a-personal-access-token-policy-for-your-organization) to the use of fine-grained tokens. Tokens can be restricted by resource owner (organization), repository access, and permissions. A token created with your personal account as the resource owner can't access organization-owned repositories, regardless of its permissions. To access an organization-owned repository, create the token with the organization as the resource owner. An organization owner may need to approve the token.
 
 After you've created and copied your access token, create a new credential in Seqera:
 
