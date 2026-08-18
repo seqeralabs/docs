@@ -16,6 +16,7 @@
         "ecs:StopTask",
         "ecs:DescribeTasks",
         "ecs:DescribeContainerInstances",
+        "ecs:UpdateContainerInstancesState",
         "ecs:TagResource"
       ],
       "Resource": "arn:aws:ecs:*:*:*/seqera-sched-*"
