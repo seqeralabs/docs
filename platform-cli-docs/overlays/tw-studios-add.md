@@ -18,3 +18,5 @@ Example output:
 ```bash
 Studio 2aa60bb7 CREATED at [community / showcase] workspace.
 ```
+
+To create a private Studio and grant access to one additional user, add `--private --allow-user=<USER>`. Identify the user by numeric ID, username, or email address.

@@ -1,43 +1,43 @@
 ---
-title: tw pipeline-schemas
-description: Manage pipeline schemas
+title: "tw pipeline-schemas"
+description: "Manage pipeline schemas"
 ---
 
-# tw pipeline-schemas
+# `tw pipeline-schemas`
 
-Run `tw pipeline-schemas -h` to view the list of supported operations.
+Manage pipeline schemas
 
-[Pipeline schemas](https://docs.seqera.io/platform-cloud/pipeline-schema/overview#seqera-platform-schema) let you persist a Nextflow parameter schema in Platform and reuse it when creating or updating saved pipelines.
+## `tw pipeline-schemas add`
 
-## tw pipeline-schemas add
-
-Add a pipeline schema.
+Add a pipeline schema
 
 ```bash
 tw pipeline-schemas add [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-c`, `--content` | Path to a file containing the pipeline schema content. | Yes | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
+|--------|-------------|----------|---------|
+| `-c`, `--content` | Path to a file containing the pipeline schema content. | Yes |  |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
 
-#### Example
-
-Command:
-
-```bash
-tw pipeline-schemas add \
-  -c ./nextflow_schema.json \
-  -w 123456789012345
-```
-
-Example output:
-
-```bash
-New pipeline schema '98765' added at [my-organization / my-workspace] workspace
-```
-
-After uploading a schema, use the returned schema ID with `tw pipelines add --pipeline-schema-id` or `tw pipelines update --pipeline-schema-id` to attach the persisted schema to a saved pipeline.
+[actions]: /platform-cloud/pipeline-actions/overview
+[compute-envs]: /platform-cloud/compute-envs/overview
+[credentials]: /platform-cloud/credentials/overview
+[data-explorer]: /platform-cloud/data/data-explorer
+[datasets]: /platform-cloud/data/datasets
+[git-integration]: /platform-cloud/git/overview
+[labels]: /platform-cloud/labels/overview
+[nextflow-config]: https://docs.seqera.io/nextflow/config#config-syntax
+[organizations]: /platform-cloud/orgs-and-teams/organizations
+[participant-roles]: /platform-cloud/orgs-and-teams/roles
+[resource-labels]: /platform-cloud/resource-labels/overview
+[run-details]: /platform-cloud/monitoring/run-details
+[secrets]: /platform-cloud/secrets/overview
+[shared-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
+[studio-checkpoints]: /platform-cloud/studios/managing#studio-session-checkpoints
+[studios]: /platform-cloud/studios/overview
+[tower-agent]: /platform-cloud/supported_software/agent/overview
+[user-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
+[wave-docs]: https://docs.seqera.io/wave
