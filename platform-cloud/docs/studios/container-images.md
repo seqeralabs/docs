@@ -63,7 +63,7 @@ The latest JupyterLab image template version is `4.6.0`. The default user is the
 - `polars=1.35.2`
 
 :::note
-Earlier JupyterLab image templates listed `pandas[all]` and `seaborn[stats]`. Because libmamba 2.x rejects this extras syntax, current templates specify `pandas` and `seaborn` without extras. If you copy a package list from an older template into a custom environment, remove the extras.
+Current templates specify `pandas` and `seaborn` without extras because libmamba 2.x rejects the extras syntax used in earlier templates (`pandas[all]`, `seaborn[stats]`). Remove the extras from any package list you copy from an older template into a custom environment.
 :::
 
 To install additional Python packages during a running Studio session, execute `!pip install <packagename>` commands in your notebook environment. Install additional system-level packages in a terminal window with `apt install <packagename>`.
