@@ -2,7 +2,7 @@
 title: "Billing and credit management"
 description: "Manage Seqera credits across Seqera Compute and Co-Scientist."
 date created: "2025-10-20"
-last updated: "2026-04-27"
+last updated: "2026-08-19"
 tags: [seqera compute, compute environments, co-scientist, billing]
 ---
 
@@ -90,7 +90,9 @@ This run consumed approximately 0.27 credits, for a total cost of $ 0.27 (USD).
 
 ### Usage report
 
-From your organization or workspace **Settings** tab, select **Download report** in the **Credits** section to download a usage report in CSV format. The report is structured as follows:
+From your organization or workspace **Settings** tab, select **Download report** in the **Credits** section to download a usage report. You receive a single CSV file named `usage_report_YYYY_MM_DD.csv`. Seqera Platform generates the report on demand. Reports for large organizations can take seconds or minutes to generate. While the report generates, the button shows **Generating report…**. Select **Cancel** to stop the download.
+
+The report is structured as follows:
 
 | Date       | WorkflowId    | WorkspaceId      | Region    | ProductName | UnitPrice(USD) | Quantity           | Total(USD)            |
 | ---------- | ------------- | ---------------- | --------- | ----------- | -------------- | ------------------ | --------------------- |
