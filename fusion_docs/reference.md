@@ -1,6 +1,8 @@
 ---
 title: Reference
 description: "Fusion configuration options"
+date created: "2025-05-11"
+last updated: "2026-08-19"
 tags: [fusion, storage, compute, file system, posix, configuration]
 ---
 

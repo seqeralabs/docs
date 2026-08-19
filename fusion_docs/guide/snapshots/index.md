@@ -1,6 +1,6 @@
 ---
 title: Fusion Snapshots
-description: "Introduction to Fusion Snapshots checkpoint/restore functionality"
+description: "Checkpoint and restore for Nextflow tasks on Spot and preemptible instances"
 date created: "2024-11-29"
 last updated: "2026-08-19"
 tags: [fusion, fusion snapshots, storage, snapshot, checkpoint, restore]

@@ -1,6 +1,6 @@
 ---
 title: Google Cloud Batch
-description: "Fusion Snapshots configuration and best practices for Google Cloud Batch"
+description: "Fusion Snapshots requirements, machine types, and storage on Google Cloud Batch"
 date created: "2024-11-29"
 last updated: "2026-08-19"
 tags: [fusion, fusion snapshots, storage, compute, snapshot, gcp, google, batch]
