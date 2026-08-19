@@ -1,137 +1,215 @@
-name: Update CLI Documentation
+name: Update CLI documentation
 
 on:
   repository_dispatch:
-    types: [cli-release]
+    types: [cli-release-published]
   workflow_dispatch:
     inputs:
-      cli_version:
-        description: 'CLI version to document (e.g., 0.9.3)'
-        required: true
+      tag_name:
+        description: 'tower-cli release tag; leave blank for the latest stable release'
+        required: false
         type: string
+      create_pull_request:
+        description: 'Create or update a draft PR when the resolved release is stable'
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cli-docs-${{ github.event.client_payload.tag_name || inputs.tag_name || 'latest' }}
+  cancel-in-progress: false
 
 jobs:
   update-cli-docs:
+    name: Extract and generate CLI docs
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+
     steps:
-      - name: Checkout docs repo
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
+      - name: Validate request
+        id: request
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          DISPATCH_REPOSITORY: ${{ github.event.client_payload.repository }}
+          DISPATCH_RELEASE_ID: ${{ github.event.client_payload.release_id }}
+          DISPATCH_TAG_NAME: ${{ github.event.client_payload.tag_name }}
+          INPUT_TAG_NAME: ${{ inputs.tag_name }}
+          INPUT_CREATE_PULL_REQUEST: ${{ inputs.create_pull_request }}
+        run: |
+          if [ "$EVENT_NAME" = "repository_dispatch" ]; then
+            if [ "$DISPATCH_REPOSITORY" != "seqeralabs/tower-cli" ]; then
+              echo "Unexpected source repository: $DISPATCH_REPOSITORY"
+              exit 1
+            fi
+            if [ -z "$DISPATCH_RELEASE_ID" ] || [ -z "$DISPATCH_TAG_NAME" ]; then
+              echo "The dispatch payload must include release_id and tag_name"
+              exit 1
+            fi
+            create_pull_request=true
+            require_stable=true
+            release_id="$DISPATCH_RELEASE_ID"
+            tag_name="$DISPATCH_TAG_NAME"
+          else
+            create_pull_request="$INPUT_CREATE_PULL_REQUEST"
+            require_stable=false
+            release_id=""
+            tag_name="$INPUT_TAG_NAME"
+          fi
+          {
+            echo "create_pull_request=$create_pull_request"
+            echo "require_stable=$require_stable"
+            echo "release_id=$release_id"
+            echo "tag_name=$tag_name"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Checkout docs repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Set up Java
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # ratchet:actions/setup-java@v5.2.0
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: temurin
+          java-version: '21'
 
       - name: Set up Python
         uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # ratchet:actions/setup-python@v6.3.0
         with:
           python-version: '3.14'
 
-      - name: Determine CLI version
-        id: version
+      - name: Read previously documented release
+        id: previous
         run: |
-          if [ "${{ github.event_name }}" == "repository_dispatch" ]; then
-            VERSION="${{ github.event.client_payload.version }}"
+          if [ -f platform-cli-docs/release.json ]; then
+            echo "tag_name=$(jq -r '.tag_name // empty' platform-cli-docs/release.json)" >> "$GITHUB_OUTPUT"
           else
-            VERSION="${{ github.event.inputs.cli_version }}"
+            echo "tag_name=" >> "$GITHUB_OUTPUT"
           fi
-          # Remove 'v' prefix if present
-          VERSION="${VERSION#v}"
-          echo "cli_version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Checkout tower-cli at release tag
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
-        with:
-          repository: seqeralabs/tower-cli
-          ref: v${{ steps.version.outputs.cli_version }}
-          path: tower-cli
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract CLI metadata
+      - name: Download and extract release metadata
+        id: prepare
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REQUEST_TAG_NAME: ${{ steps.request.outputs.tag_name }}
+          REQUEST_RELEASE_ID: ${{ steps.request.outputs.release_id }}
+          PREVIOUS_TAG_NAME: ${{ steps.previous.outputs.tag_name }}
+          REQUIRE_STABLE: ${{ steps.request.outputs.require_stable }}
         run: |
-          cd tower-cli
-          ./gradlew extractCliMetadata
-          cd ..
-          cp tower-cli/docs/cli-metadata.json \
-            platform-cli-docs/metadata/cli-metadata-v${{ steps.version.outputs.cli_version }}.json
-          echo "Extracted CLI metadata for v${{ steps.version.outputs.cli_version }}"
-
-      - name: Compare with previous version
-        id: compare
-        run: |
-          if [ -f "platform-cli-docs/metadata/cli-metadata-latest.json" ]; then
-            if [ -f "platform-cli-docs/scripts/compare-metadata.py" ]; then
-              python platform-cli-docs/scripts/compare-metadata.py \
-                platform-cli-docs/metadata/cli-metadata-latest.json \
-                platform-cli-docs/metadata/cli-metadata-v${{ steps.version.outputs.cli_version }}.json \
-                > comparison-report.md
-            else
-              echo "## CLI Documentation Changes" > comparison-report.md
-              echo "" >> comparison-report.md
-              echo "Updated CLI documentation for v${{ steps.version.outputs.cli_version }}" >> comparison-report.md
-            fi
-          else
-            echo "## CLI Documentation Changes" > comparison-report.md
-            echo "" >> comparison-report.md
-            echo "Initial CLI documentation generation for v${{ steps.version.outputs.cli_version }}" >> comparison-report.md
+          args=(--work-dir "$RUNNER_TEMP/cli-docs" --github-output "$GITHUB_OUTPUT")
+          if [ -n "$REQUEST_TAG_NAME" ]; then
+            args+=(--tag-name "$REQUEST_TAG_NAME")
           fi
+          if [ -n "$REQUEST_RELEASE_ID" ]; then
+            args+=(--release-id "$REQUEST_RELEASE_ID")
+          fi
+          if [ -n "$PREVIOUS_TAG_NAME" ]; then
+            args+=(--previous-tag "$PREVIOUS_TAG_NAME")
+          fi
+          if [ "$REQUIRE_STABLE" = "true" ]; then
+            args+=(--require-stable)
+          fi
+          python3 platform-cli-docs/scripts/prepare-cli-release.py "${args[@]}"
+
+      - name: Compare command models
+        env:
+          CURRENT_METADATA: ${{ steps.prepare.outputs.metadata_path }}
+          PREVIOUS_METADATA: ${{ steps.prepare.outputs.previous_metadata_path }}
+        run: |
+          args=("$CURRENT_METADATA")
+          if [ -n "$PREVIOUS_METADATA" ]; then
+            args+=("$PREVIOUS_METADATA")
+          fi
+          python3 platform-cli-docs/scripts/compare-metadata.py \
+            "${args[@]}" \
+            --output "$RUNNER_TEMP/cli-docs/comparison-report.md"
 
       - name: Generate reference documentation
+        env:
+          CURRENT_METADATA: ${{ steps.prepare.outputs.metadata_path }}
         run: |
-          python platform-cli-docs/scripts/generate-cli-docs.py \
-            --metadata platform-cli-docs/metadata/cli-metadata-v${{ steps.version.outputs.cli_version }}.json \
+          python3 platform-cli-docs/scripts/generate-cli-docs.py \
+            --metadata "$CURRENT_METADATA" \
             --overlays platform-cli-docs/overlays \
-            --output platform-cli-docs/docs/reference
+            --output platform-cli-docs/docs/reference \
+            --sidebar platform-cli-docs/docs/sidebar/sidebar.js
 
-      - name: Add version information to docs
+      - name: Record documented release
+        env:
+          RELEASE_RECORD: ${{ steps.prepare.outputs.release_record_path }}
         run: |
-          VERSION="${{ steps.version.outputs.cli_version }}"
+          python3 platform-cli-docs/scripts/apply-cli-release.py \
+            --release-record "$RELEASE_RECORD" \
+            --manifest platform-cli-docs/release.json \
+            --notice-file platform-cli-docs/docs/overview.md \
+            --notice-file platform-cli-docs/docs/commands-reference.md
 
-          # Version notice to add
-          VERSION_NOTICE=":::info CLI Version
-          This documentation is for Seqera Platform CLI version **${VERSION}**. If you're using an older version, some commands or options described here may not be available. Update your CLI to access all documented features.
-          :::"
+      - name: Upload extraction evidence
+        if: always() && steps.prepare.outcome == 'success'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # ratchet:actions/upload-artifact@v4.6.2
+        with:
+          name: cli-docs-metadata-${{ steps.prepare.outputs.branch_ref }}
+          path: |
+            ${{ runner.temp }}/cli-docs/cli-metadata-current.json
+            ${{ runner.temp }}/cli-docs/cli-metadata-previous.json
+            ${{ runner.temp }}/cli-docs/comparison-report.md
+            ${{ runner.temp }}/cli-docs/release.json
+          if-no-files-found: error
+          retention-days: 30
 
-          # Add to overview.md (after frontmatter)
-          if [ -f "platform-cli-docs/docs/overview.md" ]; then
-            # Insert after frontmatter (after first ---...--- block)
-            awk -v notice="$VERSION_NOTICE" '
-              /^---$/ { count++ }
-              { print }
-              count == 2 && !inserted { print "\n" notice; inserted=1 }
-            ' platform-cli-docs/docs/overview.md > temp_overview.md
-            mv temp_overview.md platform-cli-docs/docs/overview.md
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain -- platform-cli-docs)" ]; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            git diff --stat -- platform-cli-docs
+            git status --short -- platform-cli-docs
+          else
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "CLI documentation is already current"
           fi
 
-          # Add to commands-reference.md (after frontmatter)
-          if [ -f "platform-cli-docs/docs/commands-reference.md" ]; then
-            awk -v notice="$VERSION_NOTICE" '
-              /^---$/ { count++ }
-              { print }
-              count == 2 && !inserted { print "\n" notice; inserted=1 }
-            ' platform-cli-docs/docs/commands-reference.md > temp_commands.md
-            mv temp_commands.md platform-cli-docs/docs/commands-reference.md
-          fi
+      - name: Generate docs app token
+        if: >-
+          steps.changes.outputs.has_changes == 'true' &&
+          steps.prepare.outputs.prerelease == 'false' &&
+          steps.request.outputs.create_pull_request == 'true'
+        id: docs-app-token
+        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # ratchet:actions/create-github-app-token@v3.0.0
+        with:
+          app-id: ${{ secrets.DOCS_BOT_APP_ID }}
+          private-key: ${{ secrets.DOCS_BOT_APP_PRIVATE_KEY }}
+          owner: seqeralabs
+          repositories: docs
 
-      - name: Update latest symlink
-        run: |
-          cd platform-cli-docs/metadata
-          rm -f cli-metadata-latest.json
-          ln -s cli-metadata-v${{ steps.version.outputs.cli_version }}.json cli-metadata-latest.json
-
-      - name: Create Pull Request
+      - name: Create draft pull request
+        if: >-
+          steps.changes.outputs.has_changes == 'true' &&
+          steps.prepare.outputs.prerelease == 'false' &&
+          steps.request.outputs.create_pull_request == 'true'
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # ratchet:peter-evans/create-pull-request@v8.1.1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: |
-            Update CLI documentation for v${{ steps.version.outputs.cli_version }}
-
-            Auto-generated from tower-cli metadata extraction.
-          branch: cli-docs-v${{ steps.version.outputs.cli_version }}
-          title: "CLI Docs: Update for v${{ steps.version.outputs.cli_version }}"
-          body-path: comparison-report.md
+          token: ${{ steps.docs-app-token.outputs.token }}
+          add-paths: platform-cli-docs
+          branch: cli-docs-${{ steps.prepare.outputs.branch_ref }}
+          delete-branch: true
+          draft: true
           labels: |
             documentation
             cli
             auto-generated
+          commit-message: 'Update CLI documentation for ${{ steps.prepare.outputs.tag_name }}'
+          title: 'CLI docs: Update for ${{ steps.prepare.outputs.tag_name }}'
+          body-path: ${{ runner.temp }}/cli-docs/comparison-report.md
+
+      - name: Report dry run
+        if: >-
+          steps.request.outputs.create_pull_request != 'true' ||
+          steps.prepare.outputs.prerelease == 'true'
+        run: |
+          echo "Extraction and generation completed without creating a PR."
+          echo "Release: ${{ steps.prepare.outputs.tag_name }}"
+          echo "Prerelease: ${{ steps.prepare.outputs.prerelease }}"

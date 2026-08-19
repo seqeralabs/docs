@@ -1,7 +1,8 @@
 ---
 title: "Organizations"
 description: "Manage organizations in Seqera Platform."
-date: "21 Apr 2023"
+date created: "2023-04-21"
+last updated: "2026-08-11"
 tags: [organizations, administration]
 ---
 
@@ -27,6 +28,10 @@ From version 23.2, **organization owners** can edit their organization name, eit
 As an **organization owner**, access the organization page from the organizations and workspaces drop-down, or open the user menu and select **Your organizations** to view and edit your organizations. As a root user, you can also edit organizations from the [Admin panel](../administration/overview).
 
 Open the **Settings** tab on the organization page, and select **Edit** in the **Edit Organization** row. Update the settings and select **Update** to save.
+
+:::note
+Organization usage quotas, such as the maximum number of concurrent active pipeline runs, aren't part of the organization settings. In Seqera Platform Enterprise, your Seqera license defines these quotas. See [Quotas](../administration/overview#quotas) for more information.
+:::
 
 ### Organization resource usage tracking
 
