@@ -2,7 +2,7 @@
 title: "General"
 description: "Troubleshooting Seqera Platform"
 date created: "2023-04-23"
-last updated: "2026-08-10"
+last updated: "2026-08-11"
 tags: [troubleshooting, help]
 ---
 
@@ -70,12 +70,40 @@ Verify the following:
 
 This error occurs when you execute a DSL1-based Nextflow workflow with [Nextflow 22.03.0-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.03.0-edge) or later.
 
+#### `"<parameter>" must be string` when launching a pipeline
+
+This error occurs when a parameter nested inside an object-typed schema group has a `null` value. Seqera Platform tolerates `null` and blank values for top-level parameters only, and the error message concatenates the group and parameter names. Omit optional nested parameters instead of setting them to `null`:
+
+```yaml
+# Fails validation
+alignment:
+  aligner: bwa
+  reference: null
+
+# Passes validation
+alignment:
+  aligner: bwa
+```
+
+Nextflow resolves a missing key to `null` at runtime, and your pipeline logic behaves the same. For more information, see [Pipeline schema](../pipeline-schema/overview).
+
 #### Sleep commands in Nextflow workflows
 
 The behavior of `sleep` commands in your Nextflow workflows depends on where they are used:
 
 - In an `errorStrategy` block, Nextflow uses the Groovy sleep function, which takes its value in milliseconds.
 - In a process script block, that language's sleep binary or method is used. For example, [this bash script](https://docs.seqera.io/nextflow/metrics) uses the bash sleep binary, which takes its value in seconds.
+
+#### `Limit of N running workflows reached`
+
+This error occurs at launch when your organization reaches its quota of concurrent active pipeline runs. All runs in `SUBMITTED` or `RUNNING` status across the organization's workspaces count toward the quota. Your Seqera license sets the limit. The related error `Organizational quota limit fully restricts usage of running workflows` means the quota blocks all launches in the organization.
+
+To resolve:
+
+1. Cancel any runs stuck in `SUBMITTED` status. Active runs occupy quota until they complete or you cancel them.
+2. [Contact Seqera support](https://support.seqera.io) to raise the quota.
+
+Seqera Platform retrieves license changes when it next polls the license server, every 24 hours by default.
 
 #### Large number of batch job definitions
 

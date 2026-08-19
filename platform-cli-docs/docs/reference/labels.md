@@ -1,105 +1,77 @@
 ---
-title: tw labels
-description: Manage workspace labels
+title: "tw labels"
+description: "Manage workspace labels"
 ---
 
-# tw labels
+# `tw labels`
 
-Manage workspace [labels](https://docs.seqera.io/platform-cloud/labels/overview) and [resource labels](https://docs.seqera.io/platform-cloud/resource-labels/overview).
+Manage workspace labels
 
 Run `tw labels -h` to view supported label operations.
 
-## tw labels add
+Manage labels and resource labels.
 
-Add a label.
+## `tw labels add`
+
+Add a label
 
 ```bash
 tw labels add [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-n`, `--name` | Label name | Yes | `null` |
-| `-v`, `--value` | Label value | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
+|--------|-------------|----------|---------|
+| `-n`, `--name` | Label name | Yes |  |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-v`, `--value` | Label value | No |  |
 
 Run `tw labels add -h` to view the required and optional fields for adding a label.
 
 :::note
-[Resource labels](https://docs.seqera.io/platform-cloud/resource-labels/overview) consist of a `name=value` pair and can only be applied to compute environments, pipelines, runs, and actions.
-[Labels](https://docs.seqera.io/platform-cloud/labels/overview) require only a name and can be applied to pipelines, runs, and actions.
+[Resource labels][resource-labels] consist of a `name=value` pair and can only be applied to compute environments, pipelines, runs, and actions.
+[Labels][labels] require only a name and can be applied to pipelines, runs, and actions.
 :::
 
-#### Examples
-
-**Example 1: Add a resource label (with value)**
-
-Command:
-
 ```bash
-tw labels add -n environment -v production -w 123456789012345
+tw labels add -n Label1 -w DocTestOrg2/Testing -v Value1
+
+Label 'Label1=Value1' added at 'DocTestOrg2/Testing' workspace with id '268741348267491'
 ```
 
-Example output:
+## `tw labels list`
 
-```bash
-Label 'environment=production' added at [my-organization / my-workspace] workspace with id '268741348267491'
-```
-
-**Example 2: Add a regular label (name only)**
-
-Command:
-
-```bash
-tw labels add -n high-priority -w 123456789012345
-```
-
-Example output:
-
-```bash
-Label 'high-priority' added at [my-organization / my-workspace] workspace with id '268741348267492'
-```
-
-:::tip
-Resource labels (with values) are useful for cost tracking and filtering cloud resources. Regular labels are useful for categorizing and organizing pipelines, runs, and actions within Platform.
-:::
-
-## tw labels list
-
-List labels.
+List labels
 
 ```bash
 tw labels list [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
 | `-t`, `--type` | Label type: normal, resource, or all (default: all) | No | `all` |
-| `-f`, `--filter` | Filter labels by substring | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
-| `--page` | Page number for paginated results (default: 1) | No | `null` |
-| `--offset` | Row offset for paginated results (default: 0) | No | `null` |
-| `--max` | Maximum number of records to display (default: ) | No | `null` |
+| `-f`, `--filter` | Filter labels by substring | No |  |
+| `--page` | Page number for paginated results (default: 1) | No |  |
+| `--offset` | Row offset for paginated results (default: 0) | No |  |
+| `--max` | Maximum number of records to display (default: 100) | No |  |
 
 Run `tw labels list -h` to view the optional fields for filtering labels.
-
-#### Example
 
 Command:
 
 ```bash
 tw labels list
+
+Labels at 97652229034604 workspace:
 ```
 
 Example output:
 
 ```bash
-Labels at 97652229034604 workspace:
-
 ID            | Name                   | Value     | Type
   -----------------+------------------------+-----------+----------
     116734717739444 | manual-fusion-amd64    |           | Normal
@@ -110,66 +82,64 @@ ID            | Name                   | Value     | Type
     9184612610501   | Resource1              | Value1    | Resource
 ```
 
-## tw labels update
+## `tw labels update`
 
-Update a label.
+Update a label
 
 ```bash
 tw labels update [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-i`, `--id` | Label identifier | Yes | `null` |
-| `-n`, `--name` | Label name | No | `null` |
-| `-v`, `--value` | Label value | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
+|--------|-------------|----------|---------|
+| `-i`, `--id` | Label identifier | Yes |  |
+| `-n`, `--name` | Label name | No |  |
+| `-v`, `--value` | Label value | No |  |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
 
 Run `tw labels update -h` to view the required and optional fields for updating labels.
 
-#### Example
+## `tw labels delete`
 
-Command:
-
-```bash
-tw labels update -i 444555666777888 -n label3 -w 123456789012345
-```
-
-Example output:
-
-```bash
-Label with id '444555666777888' at '123456789012345' workspace updated to 'label3'
-```
-
-## tw labels delete
-
-Delete a label.
+Delete a label
 
 ```bash
 tw labels delete [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-i`, `--id` | Label ID | Yes | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
+|--------|-------------|----------|---------|
+| `-i`, `--id` | Label ID | Yes |  |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
 
 Run `tw labels delete -h` to view the required and optional fields for deleting labels.
 
-#### Example
-
-Command:
-
 ```bash
 tw labels delete -i 203879852150462
-```
 
-Example output:
-
-```bash
 Label '203879852150462' deleted at '97652229034604' workspace
 ```
+
+[actions]: /platform-cloud/pipeline-actions/overview
+[compute-envs]: /platform-cloud/compute-envs/overview
+[credentials]: /platform-cloud/credentials/overview
+[data-explorer]: /platform-cloud/data/data-explorer
+[datasets]: /platform-cloud/data/datasets
+[git-integration]: /platform-cloud/git/overview
+[labels]: /platform-cloud/labels/overview
+[nextflow-config]: https://docs.seqera.io/nextflow/config#config-syntax
+[organizations]: /platform-cloud/orgs-and-teams/organizations
+[participant-roles]: /platform-cloud/orgs-and-teams/roles
+[resource-labels]: /platform-cloud/resource-labels/overview
+[run-details]: /platform-cloud/monitoring/run-details
+[secrets]: /platform-cloud/secrets/overview
+[shared-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
+[studio-checkpoints]: /platform-cloud/studios/managing#studio-session-checkpoints
+[studios]: /platform-cloud/studios/overview
+[tower-agent]: /platform-cloud/supported_software/agent/overview
+[user-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
+[wave-docs]: https://docs.seqera.io/wave

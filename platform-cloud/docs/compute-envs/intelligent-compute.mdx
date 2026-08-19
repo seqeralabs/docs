@@ -60,7 +60,7 @@ Intelligent Compute requires **two IAM policies** attached to the same IAM user 
 
 | Group | Purpose |
 |-------|---------|
-| `ECSScopedOperations` | Create, delete, describe, and tag ECS clusters, capacity providers, and tasks. Scoped to `seqera-sched-*` resources. |
+| `ECSScopedOperations` | Create, delete, describe, and tag ECS clusters, capacity providers, and tasks, and drain a faulty container instance so it stops receiving tasks. Scoped to `seqera-sched-*` resources. |
 | `ECSUnscopedOperations` | Register, deregister, list, and describe ECS task definitions. ECS task definition APIs do not support resource-level permissions. |
 | `IAMRoleManagement` | Create, update, and delete IAM roles and instance profiles scoped to `seqera-sched-*`. Seqera creates four role types on first use: execution role, infrastructure role, per-cluster instance role, and per-cluster task role. |
 | `PassRoleToECS` | Pass `seqera-sched-*` and `TowerForge-*` roles to ECS, ECS tasks, and EC2. Required to attach roles to ECS infrastructure and task definitions. |
