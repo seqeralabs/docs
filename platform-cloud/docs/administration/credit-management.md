@@ -90,7 +90,7 @@ This run consumed approximately 0.27 credits, for a total cost of $ 0.27 (USD).
 
 ### Usage report
 
-From your organization or workspace **Settings** tab, select **Download report** in the **Credits** section to download an on-demand usage report. The output is a single CSV file named `usage_report_YYYY_MM_DD.csv`. Reports for large organizations can take seconds or minutes to generate. While the report generates, the button shows **Generating report…** and you can select **Cancel** to stop the download.
+From your organization or workspace **Settings** tab, select **Download report** in the **Credits** section to download an on-demand usage report. The output is a single CSV file named `usage_report_YYYY_MM_DD.csv`. While the report generates, the button shows **Generating report…** and you can select **Cancel** to stop the download.
 
 The report is structured as follows:
 
