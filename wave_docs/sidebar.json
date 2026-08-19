@@ -101,6 +101,7 @@
     },
     "seqera-containers",
     "faq",
+    "troubleshooting",
     {
       "type": "link",
       "label": "Changelog",
