@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-08-12"
+last updated: "2026-08-20"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -17,6 +17,12 @@ If your Studio session doesn't advance from **starting** status to **running** s
 If you are not a **Maintain** or higher user but you have access to the AWS Console for your organization, check that the AWS Batch compute environment associated with the session is in the **ENABLED** state with a **VALID** status. You can also check the **Compute resources** settings. Contact your organization's AWS administrator if you don't have access to the AWS Console.
 
 If sufficient compute resources aren't available, select **Stop** for the session and any others that are running before trying again. If you have access to the AWS Console for your organization, you can terminate a specific session from the AWS Batch Jobs page (filtering by compute environment queue).
+
+#### Session is stuck in **stopping**
+
+If your Studio session doesn't advance from **stopping** status to **stopped** status within 10 minutes, the **Force stop** action becomes available. Select the three dots next to the status message, then select **Force stop**. Force stopping marks the session as **stopped** immediately so that you can start it again. Any work since the last saved checkpoint may be lost. Checkpoint revalidation restores your data when the session next starts.
+
+To change how long a session must be in **stopping** before you can force stop it, set the `TOWER_DATA_STUDIO_FORCE_STOP_THRESHOLD` environment variable. The default is 10 minutes.
 
 #### Session status is **errored**
 

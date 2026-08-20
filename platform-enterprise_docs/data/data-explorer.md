@@ -2,7 +2,7 @@
 title: "Data Explorer"
 description: "Using Seqera Data Explorer."
 date created: "2025-05-08"
-last updated: "2026-07-31"
+last updated: "2026-08-20"
 tags: [data, explorer]
 ---
 
@@ -77,7 +77,7 @@ Data Explorer lists public and private data repositories. Repositories accessibl
 
 - **View data repository contents**
 
-  Select a data-link from the Data Explorer list to view the contents of that data repository. From the **View data repository** page, you can browse directories and search for objects by name in a particular directory. The size and path of an object appear in columns to the right of the object name. To view data repository details such as the provider, address, and credentials, select the information icon.
+  Select a data-link from the Data Explorer list to view the contents of that data repository. From the **View data repository** page, you can browse directories and search for objects by name in a particular directory. The size, last-modified timestamp, and path of an object appear in columns to the right of the object name. To view data repository details such as the provider, address, and credentials, select the information icon.
 
 - **Preview and download files**
 
