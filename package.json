@@ -55,7 +55,7 @@
     "docusaurus-theme-search-typesense": "^0.26.0",
     "image-size": "^2.0.2",
     "path-browserify": "^1.0.1",
-    "postcss-import": "^16.1.1",
+    "postcss-import": "^17.0.0",
     "postcss-loader": "^8.1.1",
     "postcss-nesting": "^14.0.0",
     "react": "^18.2.0",
