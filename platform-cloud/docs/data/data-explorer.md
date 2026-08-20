@@ -77,7 +77,7 @@ If you remove a data-link associated with a repository, the repository is automa
 
 - **View data repository contents**
 
-  Select a data-link from the Data Explorer list to view the contents of that data repository. From the **View data repository** page, you can browse directories and search for objects by name in a particular directory. The size, last-modified timestamp, and path of an object appear in columns to the right of the object name. To view data repository details such as the provider, address, and credentials, select the information icon.
+  Select a data-link from the Data Explorer list to view the contents of that data repository. From the **View data repository** page, you can browse directories and search for objects by name in a particular directory. The size and last-modified timestamp appear in columns to the right of the object name. Additional actions include copying the path to the object to the clipboard or creating a custom data-link (if the target is a directory) and downloading or deleting the object (if the user has Maintain role or above). On the Data Explorer landing page you can view data repository details such as the provider, address, and credentials by selecting the information icon. You may also choose to show or hide the data repository or delete a custom created data link.
 
 - **Preview and download files**
 
