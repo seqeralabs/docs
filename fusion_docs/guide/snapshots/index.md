@@ -89,7 +89,7 @@ The small files left behind are the CRIU metadata and log files described in [Fu
 Snapshot data has no expiry. Nothing deletes it on a schedule or after a retention period. Anything the cleanup step does not remove stays in the bucket until you delete it, including memory images from a run that was killed before its tasks could exit.
 
 :::caution
-Do not add a bucket lifecycle rule that deletes objects under `.fusion/dump/` by age. Deleting checkpoint data while a task is still running prevents Fusion from restoring the task after an interruption. To clear snapshot data from completed runs, delete the work directory, or use the Nextflow [`cleanup`](https://docs.seqera.io/nextflow/reference/config/unscoped#cleanup) option to remove it after a successful run.
+Avoid bucket lifecycle rules that delete objects under `.fusion/dump/` by age, unless the rule is scoped so that it can only fire after a pipeline has completed. Deleting checkpoint data while a task is still running prevents Fusion from restoring the task after an interruption. To clear snapshot data from completed runs, delete the work directory, or use the Nextflow [`cleanup`](https://docs.seqera.io/nextflow/reference/config/unscoped#cleanup) option to remove it after a successful run.
 :::
 
 ## Get started
