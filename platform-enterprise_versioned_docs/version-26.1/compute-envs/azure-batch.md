@@ -236,7 +236,7 @@ There are two ways to create an Azure Batch compute environment in Platform:
 - [**Manual**](#manual): For using existing Azure Batch resources.
 
 :::tip
-For a worked, end-to-end walkthrough of Azure Batch topologies (separate pools, low-priority nodes, Entra authentication, and private networking), see the [Azure Batch walkthrough](../enterprise/advanced-topics/manual-azure-batch-setup).
+For an end-to-end walkthrough of Azure Batch topologies (separate head and worker pools, Entra authentication, and private networking), see [Set up advanced Azure Batch compute environments](../enterprise/advanced-topics/manual-azure-batch-setup).
 :::
 
 ### VM size considerations
