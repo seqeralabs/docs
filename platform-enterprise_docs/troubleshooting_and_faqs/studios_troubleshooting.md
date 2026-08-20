@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-07-29"
+last updated: "2026-08-12"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -87,14 +87,14 @@ By default, Fusion does not resync objects from remotely mounted data-link(s) af
 
 If you have a running session with data mounted and the underlying storage is updated, the data is not resynced to the Studio session.
 
-You can change this behavior when you [add a Studio session](../studios/add-studio) by setting the `FUSION_REFRESH_TIMEOUT` environment variable to a number of seconds (e.g., `30`). Fusion then refreshes the view of the mounted data links at that interval.
+You can change this behavior when you [add a Studio session](../studios/add-studio) by setting the `FUSION_REFRESH_TIMEOUT` environment variable to a number of seconds (e.g., `120`). Fusion then refreshes the view of the mounted data links at that interval.
 
 :::note
-Setting the environment variable _inside_ an already running Studio session by executing the command `export FUSION_REFRESH_TIMEOUT=30` won't change the behavior of the outer Fusion session. Set the environment variable in the **General config** section during Studio creation.
+Setting the environment variable _inside_ an already running Studio session by executing the command `export FUSION_REFRESH_TIMEOUT=120` won't change the behavior of the outer Fusion session. Set the environment variable in the **General config** section during Studio creation.
 :::
 
 :::warning
-This is an experimental feature and can cause consistency issues in the Fusion namespace, resulting in data loss.
+Fusion waits two minutes before it uploads the working chunk. Always set `FUSION_REFRESH_TIMEOUT` to `120` or higher. Lower values can create orphaned chunks in the Studio environment that are never uploaded to object storage and cannot be recovered.
 :::
 
 ## Custom environments and container images
@@ -141,6 +141,34 @@ These are the false positive confirmed findings:
 | json:1.0.0       | CVE-2020-7712⁠       |
 | ini:1.0.0        | CVE-2020-7788⁠       |
 | diff:1.0.0       | GHSA-h6ch-v84p-w6p9⁠ |
+
+## Connect proxy
+
+#### Permission denied errors on OpenShift
+
+The `connect-proxy` pod starts, but the logs show that Caddy, the reverse proxy that `connect-proxy` is built on, can't create its configuration and data directories:
+
+```
+ERROR unable to create folder for config autosave {"dir": "/.config/caddy", "error": "mkdir /.config: permission denied"}
+WARN unable to get instance ID; storage clean stamps will be incomplete {"error": "mkdir /.local: permission denied"}
+```
+
+This issue occurs when OpenShift's `restricted-v2` security context constraint runs the container as an arbitrary user ID (UID) from the namespace's assigned range, ignoring the user the container image defines. Because that UID has no entry in the container image's `/etc/passwd` file, `HOME` resolves to `/`, a directory the UID can't write to. The `runAsUser`, `runAsGroup`, and `fsGroup` values of `65532` in the proxy deployment template are also incompatible with this constraint.
+
+To work around this issue on Kubernetes:
+
+1. Remove the `runAsUser`, `runAsGroup`, and `fsGroup` values from your [Studios Kubernetes deployment](../enterprise/studios-kubernetes).
+2. Caddy uses `XDG_CONFIG_HOME` and `XDG_DATA_HOME` to locate its configuration and data directories. Set them on the proxy container to directories under the `/data` volume that the template already mounts:
+
+   ```yaml
+   env:
+     - name: XDG_CONFIG_HOME
+       value: /data/config
+     - name: XDG_DATA_HOME
+       value: /data/lib
+   ```
+
+If writes to `/data/config` and `/data/lib` still fail with permission denied errors, mount a writable volume, such as an `emptyDir`, at each path.
 
 ## SSH connections (public preview)
 
@@ -229,6 +257,33 @@ Host <connect-domain>
   Port <port>
 ```
 
+#### AI coding assistant fails with `Pseudo-terminal will not be allocated`
+
+```bash
+ssh alice@a01ac8894@connect.example.com -p 2222
+# Pseudo-terminal will not be allocated because stdin is not a terminal.
+```
+
+This issue occurs when an AI coding assistant runs `ssh` as a subprocess, such as Claude Code in a terminal. The assistant doesn't attach a terminal to stdin, and the SSH client refuses to allocate a pseudo-terminal. To resolve, force pseudo-terminal allocation with `-tt`:
+
+```bash
+ssh -tt alice@a01ac8894@connect.example.com -p 2222
+```
+
+#### Claude Code desktop app fails with `Couldn't inspect the remote machine`
+
+```
+Connecting to remote host...
+Detecting remote OS and shell...
+Couldn't inspect the remote machine.
+```
+
+This issue occurs when the connect-server/proxy is earlier than version 0.12.1, or the Connect client is earlier than version 0.13.0. Earlier versions don't run remote commands through a shell, and the app's environment checks fail. To resolve, upgrade the connect-server/proxy to 0.12.1 or later, and ensure your Studio runs Connect client 0.13.0 or later. See [Claude Code desktop app](../studios/managing#claude-code-desktop-app) for setup instructions.
+
+#### Claude Code desktop app fails with `Timed out while waiting for handshake`
+
+This issue occurs because the app ignores the `Port` value in `~/.ssh/config` and defaults to port 22. To resolve, set **SSH Port** to `2222` in the app's connection settings. See [Claude Code desktop app](../studios/managing#claude-code-desktop-app) for setup instructions.
+
 #### SSH connection string format
 
 **Correct format:**
@@ -266,6 +321,48 @@ CONNECT_CLIENT_LOG_LEVEL=debug
 ```
 
 Debug logs include SSH handshake details, authentication attempts, channel lifecycle, and data transfer errors.
+
+## Data transfer quotas
+
+#### A Studio stalls after a large upload or download
+
+The user receives an `HTTP 429` (Too Many Requests) response, or an active WebSocket or SSH connection drops. This issue occurs when the bucket reaches its quota and the proxy denies further traffic.
+
+Confirm the cause with the `connect_proxy_quota_exceeded_total` metric and the `quota exceeded, denying traffic for bucket` log line. As a workaround, wait for the window to reset. If the denial is a false positive, resolve it by raising the cap in the [policy](../enterprise/studios-transfer-quotas#define-a-policy).
+
+#### A per-IP quota blocks unrelated users
+
+Redis shows keys such as `ip:172.x`, `ip:10.x`, or `ip:192.168.x`. This issue occurs when the proxy cannot resolve the real client IP and buckets traffic on Kubernetes node IPs instead.
+
+To resolve, configure client-IP resolution. Set `CONNECT_TRUSTED_PROXY_CIDRS` for HTTP traffic and `externalTrafficPolicy: Local` for SSH traffic. See [Resolve the client IP for the `ip` bucket](../enterprise/studios-transfer-quotas#resolve-the-client-ip-for-the-ip-bucket).
+
+#### Quotas are not enforced
+
+This issue occurs when no policy is loaded, because the wrong environment variable is set or the variable is empty.
+
+To resolve, confirm that either `CONNECT_POLICY_FILE` or `CONNECT_POLICY_B64` is set and non-empty, then check the startup logs for `traffic policy loaded`.
+
+#### The proxy does not start or crash-loops
+
+This issue occurs when the Redis command preflight check fails or the policy JSON is invalid. The proxy fails to start rather than enforce quotas incorrectly.
+
+Check the startup logs for the missing Redis command or the [policy validation error](../enterprise/studios-transfer-quotas#extractor-source-types). To resolve, fix the `ConfigMap` or the Redis configuration, then redeploy.
+
+#### A VS Code or IDE client does not reconnect after a quota breach
+
+The proxy tears down the stream mid-session, and some interactive clients do not recover cleanly. This is a known limitation.
+
+As a workaround, reconnect the session.
+
+#### A policy or limit change has no effect
+
+This issue occurs because the proxy reads the policy once at startup and never reloads it at runtime.
+
+To resolve, perform a rolling restart of the proxy Deployment.
+
+#### SSH connections time out with no `HTTP 429` and no handshake
+
+This is not a quota issue. Check the load balancer target group health and the SSH service, then confirm the port is reachable from the client network.
 
 ## Working in a Studio session
 

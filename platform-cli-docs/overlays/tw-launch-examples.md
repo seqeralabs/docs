@@ -1,102 +1,29 @@
-### Examples
+### Example
 
-#### Launch a pipeline with default parameters
-
-```bash
-tw launch --id 1234567890abcdef
-```
-
-This launches the pipeline using its default configuration and the primary compute environment configured in your workspace.
-
-#### Launch with custom parameters
+Launch a pipeline directly from its repository URL:
 
 ```bash
-tw launch \
-  --id 1234567890abcdef \
-  --params-file params.json \
-  --compute-env my-aws-batch
+tw launch https://github.com/nf-core/rnaseq \
+  --params-file=./custom_rnaseq_params.yaml \
+  --config=<path/to/nextflow/conf/file> \
+  --compute-env=my_aws_ce \
+  --revision 3.8.1 \
+  --profile=test,docker
 ```
 
-The `params.json` file should contain your pipeline parameters:
+Example output:
 
-```json
-{
-  "genome": "GRCh38",
-  "reads": "s3://my-bucket/data/*.fastq.gz",
-  "outdir": "s3://my-bucket/results"
-}
+```console
+Workflow 2XDXxX0vCX8xhx submitted at user workspace.
+
+    https://cloud.seqera.io/user/user1/watch/2XDXxX0vCX8xhx
 ```
 
-#### Launch with inline parameters
+- Pipeline parameters are defined in `custom_rnaseq_params.yaml`.
+- The optional `--config` file overrides values from the pipeline repository's `nextflow.conf` and ignores values in Platform pipeline or compute environment **Nextflow config** fields.
+- Use `--profile` and `--revision` to select Nextflow profiles and a Git revision.
+- Omit `--compute-env` to use the workspace primary compute environment.
 
-```bash
-tw launch \
-  --id 1234567890abcdef \
-  --params genome=GRCh38 \
-  --params reads="s3://my-bucket/data/*.fastq.gz"
-```
-
-#### Launch and wait for completion
-
-```bash
-tw launch \
-  --id 1234567890abcdef \
-  --wait \
-  --workspace my-org/my-workspace
-```
-
-The `--wait` flag is useful in CI/CD environments where you need to monitor pipeline completion.
-
-#### Launch with a specific revision
-
-```bash
-tw launch \
-  --id 1234567890abcdef \
-  --revision dev \
-  --profile test
-```
-
-### Common Workflows
-
-#### Automated CI/CD pipeline execution
-
-```bash
-#!/bin/bash
-# Launch pipeline and capture run ID
-RUN_ID=$(tw launch \
-  --id 1234567890abcdef \
-  --params-file params.json \
-  --output json | jq -r '.runId')
-
-echo "Launched pipeline run: $RUN_ID"
-
-# Monitor status
-tw runs view --id $RUN_ID --wait
-```
-
-#### Launch multiple pipelines in parallel
-
-```bash
-for sample in sample1 sample2 sample3; do
-  tw launch \
-    --id 1234567890abcdef \
-    --params sample_id=$sample \
-    --name "Analysis-$sample" &
-done
-wait
-```
-
-### Tips
-
-- Use `--workspace` to explicitly specify the workspace when working with multiple organizations
-- The `--name` option helps identify runs when launching multiple instances
-- Parameter files support both JSON and YAML formats
-- Use `--config` to specify a custom Nextflow configuration file
-- The `--profile` option activates Nextflow profiles defined in your pipeline
-
-### Related Commands
-
-- [`tw pipelines list`](pipelines.md#tw-pipelines-list) - List available pipelines
-- [`tw pipelines add`](pipelines.md#tw-pipelines-add) - Add a pipeline to your workspace
-- [`tw runs view`](runs.md#tw-runs-view) - Monitor pipeline execution
-- [`tw runs cancel`](runs.md#tw-runs-cancel) - Cancel a running pipeline
+:::note
+CLI users have the same permissions as in the Platform UI. Launch users can run preconfigured pipelines in accessible workspaces, but they cannot add or run a new pipeline directly from its repository URL.
+:::

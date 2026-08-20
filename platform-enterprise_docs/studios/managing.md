@@ -322,6 +322,44 @@ Once connected, you can:
 - Debug code running in the Studio
 - Install packages
 
+### Claude Code desktop app
+
+The Claude Code desktop app requires later Connect versions than other SSH connection methods.
+
+:::info[**Prerequisites**]
+
+You need the following:
+
+- Connect server and proxy version 0.12.1 or later
+- Connect client version 0.13.0 or later
+
+:::
+
+The app reads `~/.ssh/config`, but its **SSH Host** field accepts a hostname only. It cannot parse the `<username>@<studio-session-id>` pair. Define a host alias, then reference the alias in the app.
+
+1. Add an entry to `~/.ssh/config`:
+
+   ```
+   Host my-studio
+       HostName connect.example.com
+       User alice@a01ac8894
+       Port 2222
+       IdentityFile ~/.ssh/id_ed25519
+   ```
+
+   Put the `<username>@<studio-session-id>` pair in `User`, and only the connect domain in `HostName`.
+
+2. Add an SSH connection in the app:
+
+   - **SSH Host**: `my-studio`
+   - **SSH Port**: `2222`
+
+:::warning
+Set **SSH Port** explicitly. The app ignores the `Port` value in `~/.ssh/config` and defaults to port 22. The connection then fails with a handshake timeout.
+:::
+
+If the connection fails, see [SSH connections](../troubleshooting_and_faqs/studios_troubleshooting#ssh-connections-public-preview).
+
 ### SSH authentication
 
 SSH connections use public key authentication:

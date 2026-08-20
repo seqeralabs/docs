@@ -274,6 +274,7 @@ The policy scopes ARN-eligible actions to the `seqera-sched-*` resource prefix, 
         "ecs:StopTask",
         "ecs:DescribeTasks",
         "ecs:DescribeContainerInstances",
+        "ecs:UpdateContainerInstancesState",
         "ecs:TagResource"
       ],
       "Resource": "arn:aws:ecs:*:*:*/seqera-sched-*"

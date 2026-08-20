@@ -2,7 +2,7 @@
 title: Fusion Snapshots
 description: "Troubleshooting for Fusion Snapshots"
 date created: "2025-11-29"
-last updated: "2026-07-29"
+last updated: "2026-08-19"
 tags: [troubleshooting, fusion, fusion snapshots, configuration]
 ---
 
@@ -309,3 +309,5 @@ When contacting Seqera support about Fusion Snapshots issues, provide the follow
    - Minimum: The `dump_metadata` file and all `*.log` files from numbered dump folders.
 
    If the directory is too large to share, prioritize the metadata and log files over the full checkpoint data.
+
+   After a task process exits, Fusion removes the memory image files from the numbered dump folders. A `.fusion/dump/` directory collected after the run is usually small. The remaining `dump_metadata` file and `*.log` files are the diagnostic data that matters. See [Snapshot storage and lifecycle](../guide/snapshots/index.md#snapshot-storage-and-lifecycle) for more information.

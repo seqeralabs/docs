@@ -2,7 +2,7 @@
 title: "Admin panel"
 description: "Overview of Seqera user and organization administration"
 date created: "2023-04-21"
-last updated: "2026-07-29"
+last updated: "2026-08-11"
 tags: [administration, users, workspaces, organizations]
 ---
 
@@ -33,6 +33,12 @@ From an organization's page, select the **Members of organization** tab to view 
 You can only add existing users to an organization. You can't remove the last owner of an organization until you promote another member to **Owner** first.
 
 See [Members](../orgs-and-teams/organizations#members) for more information.
+
+### Quotas
+
+Each organization has usage quotas, such as the maximum number of pipeline runs that can be active (submitted or running) at the same time. In Seqera Platform Enterprise, your Seqera license defines these quotas. You can't view or edit them in the **Admin panel**. [Contact Seqera support](https://support.seqera.io) to review or change the quotas for your organizations.
+
+If a pipeline launch fails with `Limit of N running workflows reached`, see [Troubleshooting](../troubleshooting_and_faqs/troubleshooting#limit-of-n-running-workflows-reached).
 
 ## Workspaces
 

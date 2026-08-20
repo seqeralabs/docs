@@ -1,8 +1,8 @@
 ---
 title: AWS Batch
-description: "Fusion Snapshots configuration and best practices for AWS Batch"
+description: "Fusion Snapshots requirements, instance selection, and storage on AWS Batch"
 date created: "2024-11-21"
-last updated: "2026-07-29"
+last updated: "2026-08-19"
 tags: [fusion, fusion snapshots, storage, compute, snapshot, aws, batch]
 ---
 
@@ -95,6 +95,10 @@ For example, a `c6id.8xlarge` instance provides 64 GiB memory and 12.5 Gbps guar
 
 A single job can request more resources than are available on a single instance. To prevent this, set resource limits using the `process.resourceLimits` directive in your Nextflow configuration. See [Resource limits](./configuration.md#resource-limits) for more information.
 
-## Manual cleanup
+## Storage and cleanup
 
-The `/fusion` folder in object storage may need manual cleanup. Administrators should verify Fusion has properly cleaned up and remove the folder if necessary.
+Fusion writes snapshot data to a `.fusion/dump/` directory inside each task work directory in your S3 work bucket. AWS bills it as standard S3 storage. Fusion Snapshots do not use S3 object versioning.
+
+When a task process exits, Fusion removes the memory image files from that task's checkpoints, including checkpoints written by earlier attempts of the same task. Small metadata and log files remain. Snapshot data has no expiry. Anything left behind by a run that was killed before its tasks could exit stays in the bucket until you delete it.
+
+Check the work directories of runs that ended abnormally for leftover `.fusion/dump/` directories, and remove them if you no longer need the diagnostic data. See [Snapshot storage and lifecycle](./index.md#snapshot-storage-and-lifecycle) for details.

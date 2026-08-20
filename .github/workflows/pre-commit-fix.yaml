@@ -27,7 +27,7 @@ jobs:
       pull-requests: read
 
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       # issue_comment events don't give us the PR ref, so use gh CLI to switch.
       - name: Checkout PR branch (comment trigger)
@@ -36,16 +36,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: gh pr checkout ${{ github.event.issue.number }}
 
-      # pull_request events already supply head ref — use it directly so the
-      # subsequent push lands on the contributor's branch.
-      - name: Checkout PR branch (pull_request trigger)
-        if: github.event_name == 'pull_request'
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6.0.2
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
-
-      - uses: j178/prek-action@bdca6f102f98e2b4c7029491a53dfd366469e33d # ratchet:j178/prek-action@v2.0.4
+      - uses: j178/prek-action@5337cb91e0fa35a7ff31b9ca345126d8bbbcdf16 # ratchet:j178/prek-action@v2.0.6
         id: pre-commit
         continue-on-error: true
 

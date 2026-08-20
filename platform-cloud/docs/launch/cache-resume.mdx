@@ -151,6 +151,12 @@ The **Resume** option is only available for runs launched from the Seqera Platfo
 For a detailed explanation of the Nextflow resume feature, see _Demystifying Nextflow resume_ ([Part 1](https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html) and [Part 2](https://www.nextflow.io/blog/2019/troubleshooting-nextflow-resume.html)) in the Nextflow blog.
 :::
 
-#### Change compute environment during run resume
+### Change compute environment during run resume
 
-Users with appropriate permissions can change the compute environment when resuming a run. The new compute environment must have access to the original run work directory. This means that the new compute environment must have a work directory that matches the root path of the original work directory. For example, if the original work directory is `s3://foo/work/12345`, the new compute environment must have access to `s3://foo/work`.
+If you have the required permissions, you can change the compute environment when you resume a run. The new compute environment must have access to the work directory that the original run used.
+
+Platform records the work directory when you submit a run, then compares that recorded value against the work directory configured on each compute environment. A compute environment is eligible only if its work directory is the same as the recorded value or a parent of that value.
+
+Only the run's recorded value is frozen. Platform reads each compute environment's work directory from its current configuration. Changing the work directory in the pipeline's configuration after you submit a run does not affect which compute environments that run can resume on.
+
+If the original compute environment no longer exists, Platform displays it as unavailable. The unavailability only refers to the missing compute environment ID. It does not indicate a work directory mismatch.

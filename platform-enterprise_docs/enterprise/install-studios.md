@@ -2,7 +2,7 @@
 title: "Studios"
 description: Install Studios for Seqera Platform Enterprise
 date created: "2023-04-12"
-last updated: "2026-07-29"
+last updated: "2026-05-27"
 tags: [studios, installation, deployment]
 ---
 
@@ -71,6 +71,12 @@ These are the environment variables used to configure the components of Connect.
 | `CONNECT_SSH_MAX_CONNECTIONS`            | `2000`                        | no       | proxy        | Max number of concurrent ssh connections that the server will handle before start rejecting them. |
 | `CONNECT_SSH_MAX_CONN_CHANNELS`          | `30`                          | no       | proxy        | Max number of concurrent channels that a client can open per connection.                          |
 | `CONNECT_SSH_HANDSHAKE_TIMEOUT`          | `1m`                          | no       | proxy        | SSH handshake timeout.                                                                            |
+| `CONNECT_TRUSTED_PROXY_CIDRS`            | `127.0.0.1/32`                | no       | proxy        | Space-separated CIDRs of trusted upstream proxies, used to resolve the real client IP from `X-Forwarded-For` for per-IP telemetry. Default is a no-op loopback range. See [Studios data transfer quotas](./studios-transfer-quotas). |
+| `CONNECT_POLICY_B64`                     |                               | no       | proxy        | Base64-encoded JSON traffic policy. Empty or unset disables telemetry and quota enforcement. Mutually exclusive with `CONNECT_POLICY_FILE`. See [Studios data transfer quotas](./studios-transfer-quotas). |
+| `CONNECT_POLICY_FILE`                    |                               | no       | proxy        | Path to a JSON traffic policy file. Mutually exclusive with `CONNECT_POLICY_B64`.                 |
+| `CONNECT_TELEMETRY_FLUSH_INTERVAL`       | `30s`                         | no       | proxy        | How often the proxy writes in-memory byte counters to Redis.                                      |
+| `CONNECT_TELEMETRY_TTL`                  | `168h`                        | no       | proxy        | TTL for cumulative per-bucket telemetry keys in Redis (7 days).                                   |
+| `CONNECT_TELEMETRY_STREAM_EMIT_INTERVAL` | `1s`                          | no       | proxy        | How often long-lived streams (WebSocket and SSH) report transferred bytes.                        |
 
 ## DNS configuration
 

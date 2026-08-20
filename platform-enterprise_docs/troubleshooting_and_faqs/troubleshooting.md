@@ -1,8 +1,8 @@
 ---
 title: "General troubleshooting"
 description: "Troubleshooting Seqera Platform"
-date created: "2023-04-24"
-last updated: "2026-07-29"
+date created: "2023-04-23"
+last updated: "2026-08-11"
 tags: [troubleshooting, help]
 ---
 
@@ -16,7 +16,7 @@ This error occurs on Seqera Platform v24.2 and later when Redis is outdated. Ver
 
 #### `Unknown pipeline repository or missing credentials` from public GitHub repositories
 
-GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls, including public repositories: unauthenticated requests are capped at 60 per hour and authenticated requests at 5000 per hour. This error is usually caused by the 60-per-hour cap.
+GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls, including public repositories: unauthenticated requests are capped at 60 per hour and authenticated requests at 5000 per hour. This error is usually caused by the 60-per-hour cap. For the same error on a private organization-owned repository, see [the following entry](#github-org-repo-access).
 
 To resolve:
 
@@ -25,6 +25,31 @@ To resolve:
 3. Confirm that your PAT provides the elevated threshold and that transactions are charged against it:
 
    `curl -H "Authorization: token ghp_LONG_ALPHANUMERIC_PAT" -H "Accept: application/vnd.github.v3+json" https://api.github.com/rate_limit`
+
+#### `Unknown pipeline repository or expired Git credentials` from private organization-owned GitHub repositories {#github-org-repo-access}
+
+GitHub organizations can restrict token access independently of your own repository access, and GitHub returns `404` for private repositories that a token can't access. Seqera reports `401`, `403`, and `404` responses as this same error, even when the workspace credential works for user-owned repositories.
+
+Check the following:
+
+1. The repository URL is exactly `https://github.com/<org>/<repo>`, with no `.git` suffix or `/tree/<branch>` segment.
+2. The token can access the organization's repositories:
+   - Fine-grained tokens must be created with the organization as the resource owner. The organization must allow fine-grained tokens and may need to approve yours.
+   - Classic tokens require the `repo` scope and, if the organization enforces SAML single sign-on (SSO), [SSO authorization for that organization](https://docs.github.com/en/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on).
+   - GitHub Apps must be installed on the organization with access to the repository.
+
+To test the token stored in the workspace credential:
+
+```bash
+curl -sS -D - -o /dev/null \
+  -H "Authorization: Bearer <your_access_token>" \
+  -H "Accept: application/vnd.github+json" \
+  https://api.github.com/repos/<org>/<repo>
+```
+
+A `404` response means the token can't see the repository. To resolve, re-authorize or re-scope the token in GitHub. A `403` response with an `X-GitHub-SSO` header means the token needs SSO authorization. A `200` response means the token is valid. Check which credential the workspace selects in [Multiple credential filtering](../git/overview#multiple-credential-filtering).
+
+For the same error on a public repository, see [the previous entry](#unknown-pipeline-repository-or-missing-credentials-from-public-github-repositories).
 
 #### `Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect)`
 
@@ -45,12 +70,40 @@ Verify the following:
 
 This error occurs when you execute a DSL1-based Nextflow workflow with [Nextflow 22.03.0-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.03.0-edge) or later.
 
+#### `"<parameter>" must be string` when launching a pipeline
+
+This error occurs when a parameter nested inside an object-typed schema group has a `null` value. Seqera Platform tolerates `null` and blank values for top-level parameters only, and the error message concatenates the group and parameter names. Omit optional nested parameters instead of setting them to `null`:
+
+```yaml
+# Fails validation
+alignment:
+  aligner: bwa
+  reference: null
+
+# Passes validation
+alignment:
+  aligner: bwa
+```
+
+Nextflow resolves a missing key to `null` at runtime, and your pipeline logic behaves the same. For more information, see [Pipeline schema](../pipeline-schema/overview).
+
 #### Sleep commands in Nextflow workflows
 
 The behavior of `sleep` commands in your Nextflow workflows depends on where they are used:
 
 - In an `errorStrategy` block, Nextflow uses the Groovy sleep function, which takes its value in milliseconds.
 - In a process script block, that language's sleep binary or method is used. For example, [this bash script](https://docs.seqera.io/nextflow/metrics) uses the bash sleep binary, which takes its value in seconds.
+
+#### `Limit of N running workflows reached`
+
+This error occurs at launch when your organization reaches its quota of concurrent active pipeline runs. All runs in `SUBMITTED` or `RUNNING` status across the organization's workspaces count toward the quota. Your Seqera license sets the limit. The related error `Organizational quota limit fully restricts usage of running workflows` means the quota blocks all launches in the organization.
+
+To resolve:
+
+1. Cancel any runs stuck in `SUBMITTED` status. Active runs occupy quota until they complete or you cancel them.
+2. [Contact Seqera support](https://support.seqera.io) to raise the quota.
+
+Seqera Platform retrieves license changes when it next polls the license server, every 24 hours by default.
 
 #### Large number of batch job definitions
 

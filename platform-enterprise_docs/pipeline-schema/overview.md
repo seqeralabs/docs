@@ -22,6 +22,12 @@ When you run the `nf-core schema build` command in your pipeline root directory,
 The nf-core community creates the schema builder but it can be used with any Nextflow pipeline.
 :::
 
+:::note Null and blank parameter values
+When you launch a pipeline, the launch form validates your parameters against the pipeline schema and blocks the launch if validation fails. Seqera Platform removes top-level parameters with `null` or blank values before validation. This handling doesn't apply to parameters nested inside object-typed groups, such as `params.alignment.reference`. The launch form validates nested parameters strictly against their declared type per the [JSON Schema](https://json-schema.org/) specification. For example, a nested parameter typed `"string"` with a `null` value fails validation and blocks the launch.
+
+To leave an optional nested parameter unset, omit the key from your parameters instead of setting it to `null`. Nextflow resolves a missing nested key to `null` at runtime, and your pipeline's conditional logic behaves the same. You can't use nullable types such as `["string", "null"]` in nf-core-style schema files because the nf-schema specification restricts `type` to a single value.
+:::
+
 ### Customize pipeline schema
 
 When the skeleton pipeline schema file has been built with `nf-core schema build`, the command line tool will prompt you to open a [graphical schema editor](https://nf-co.re/pipeline_schema_builder) on the nf-core website.
