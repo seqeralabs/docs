@@ -2,7 +2,7 @@
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-07-20"
+last updated: "2026-08-21"
 tags: [google, batch, gcp, compute environments]
 ---
 
@@ -68,6 +68,8 @@ By default, Google Cloud Batch uses the default Compute Engine service account t
 
 If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below.
 
+Seqera uses the `storage.buckets.list` permission on the project to validate the credential, to list buckets when you create a compute environment, and to discover buckets in Data Explorer. Project-wide Storage Admin includes this permission. If you grant access per bucket instead, also grant `storage.buckets.list` on the project with a custom role, because bucket-level roles cannot include this project-level permission. Seqera validates the credential when you create it and [re-validates it roughly every 12 hours](./preflight-checks) for as long as it exists. Keep the permission in place for the life of the credential. If you revoke the permission, Seqera marks the credential and the compute environments that use it as invalid and rejects pipeline launches against them. To recover, restore the permission, then validate the credential and each affected compute environment.
+
 #### User permissions
 
 Ask your Google Cloud administrator to grant you the following IAM user permissions to interact with your custom service account:
@@ -75,7 +77,6 @@ Ask your Google Cloud administrator to grant you the following IAM user permissi
 - Batch Job Editor (`roles/batch.jobsEditor`) on the project
 - Service Account User (`roles/iam.serviceAccountUser`) on the job's service account (default: Compute Engine service account)
 - View Service Accounts (`roles/iam.serviceAccountViewer`) on the project
-- `storage.buckets.list` on the project via a custom role, if you use per-bucket Storage grants instead of project-wide Storage Admin. Seqera requires this permission to validate credentials — without it, credential validation fails and the compute environment is marked invalid.
 
 #### Authentication methods
 
