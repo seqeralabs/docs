@@ -11,5 +11,5 @@ jobs:
     name: "pre-commit"
     runs-on: ubuntu-latest
     steps:
+      - uses: j178/prek-action@4e14d07f9231acabce116ccfca13b13dd9755ece # ratchet:j178/prek-action@v3.0.0
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: j178/prek-action@5337cb91e0fa35a7ff31b9ca345126d8bbbcdf16 # ratchet:j178/prek-action@v2.0.6
