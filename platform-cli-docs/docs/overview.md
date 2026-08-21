@@ -6,6 +6,12 @@ tags: [cli, platform]
 slug: /
 ---
 
+<!-- cli-release-version:start -->
+:::info CLI version
+This reference documents Seqera Platform CLI **0.38.0**, the latest stable release processed by the docs automation.
+:::
+<!-- cli-release-version:end -->
+
 Seqera Platform CLI brings concepts like pipelines and compute environments to the terminal.
 
 The CLI interacts with Platform to provide an interface to launch pipelines, manage cloud resources, and administer your analysis.

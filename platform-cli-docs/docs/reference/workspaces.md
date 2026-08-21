@@ -1,31 +1,33 @@
 ---
-title: tw workspaces
-description: Manage workspaces
+title: "tw workspaces"
+description: "Manage workspaces"
 ---
 
-# tw workspaces
+# `tw workspaces`
+
+Manage workspaces
 
 Run `tw workspaces -h` to view supported workspace operations.
 
-[Workspaces](https://docs.seqera.io/platform-cloud/orgs-and-teams/workspace-management) provide the context in which a user launches workflow executions, defines the available resources, and manages who can access those resources. Workspaces contain pipelines, runs, actions, datasets, compute environments, credentials, and secrets. Access permissions are controlled with participants, collaborators, and teams.
+Workspaces provide the context in which a user launches workflow executions, defines the available resources, and manages who can access those resources. Workspaces contain pipelines, runs, actions, datasets, compute environments, credentials, and secrets. Access permissions are controlled with participants, collaborators, and teams.
 
-## tw workspaces list
+See [User workspaces][user-workspaces] for more information.
 
-List workspaces.
+## `tw workspaces list`
+
+List workspaces
 
 ```bash
 tw workspaces list [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-o`, `--org`, `--organization` | Workspace organization name | No | `null` |
+|--------|-------------|----------|---------|
+| `-o`, `--org`, `--organization` | Workspace organization name | No |  |
 
-List all the workspaces in which you are a participant.
-
-#### Example
+List all the workspaces in which you are a participant:
 
 Command:
 
@@ -43,23 +45,38 @@ Workspaces for default user:
     26002603030407  | shared-workspace | my-tower-org      | 04303000612070
 ```
 
-## tw workspaces add
+## `tw workspaces delete`
 
-Add a workspace.
+Delete a workspace
+
+```bash
+tw workspaces delete [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-i`, `--id` | Workspace identifier | Yes |  |
+| `-n`, `--name` | Workspace namespace in OrganizationName/WorkspaceName format | Yes |  |
+
+## `tw workspaces add`
+
+Add a workspace
 
 ```bash
 tw workspaces add [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-o`, `--org`, `--organization` | Workspace organization name | Yes | `null` |
-| `-n`, `--name` | Unique workspace name within the organization. Must be 2-40 characters, start and end with alphanumeric characters, and can contain hyphens or underscores between characters. | Yes | `null` |
-| `-f`, `--full-name` | Full display name for the workspace. Maximum 100 characters. | Yes | `null` |
-| `-d`, `--description` | Optional description of the workspace. Maximum 1000 characters. | No | `null` |
-| `-v`, `--visibility` | Workspace visibility setting. Accepts `PRIVATE` (only participants can access) or `SHARED` (all organization members can view). | No | `null` |
+|--------|-------------|----------|---------|
+| `-o`, `--org`, `--organization` | Workspace organization name | Yes |  |
+| `-n`, `--name` | Unique workspace name within the organization. Must be 2-40 characters, start and end with alphanumeric characters, and can contain hyphens or underscores between characters. | Yes |  |
+| `-f`, `--full-name` | Full display name for the workspace. Maximum 100 characters. | Yes |  |
+| `-d`, `--description` | Optional description of the workspace. Maximum 1000 characters. | No |  |
+| `-v`, `--visibility` | Workspace visibility setting. Accepts `PRIVATE` (only participants can access) or `SHARED` (all organization members can view). | No |  |
 | `--overwrite` | Overwrite the workspace if it already exists | No | `false` |
 
 :::note
@@ -68,9 +85,7 @@ Workspace management operations require organization `OWNER` permissions.
 
 Run `tw workspaces add -h` to view the required and optional fields for adding your workspace.
 
-In the example below, we create a shared workspace to be used for sharing pipelines with other private workspaces. See [Shared workspaces](https://docs.seqera.io/platform-cloud/orgs-and-teams/workspace-management) for more information.
-
-#### Example
+In the example below, we create a shared workspace to be used for sharing pipelines with other private workspaces. See [Shared workspaces][shared-workspaces] for more information.
 
 Command:
 
@@ -88,130 +103,121 @@ A 'SHARED' workspace 'shared-workspace' added for 'my-tower-org' organization
 By default, a workspace is set to private when created.
 :::
 
-## tw workspaces view
+## `tw workspaces update`
 
-View workspace details.
-
-```bash
-tw workspaces view [OPTIONS]
-```
-
-#### Options
-
-| Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-i`, `--id` | Workspace identifier | No | `null` |
-| `-n`, `--name` | Workspace namespace in OrganizationName/WorkspaceName format | No | `null` |
-
-#### Example
-
-Command:
-
-```bash
-tw workspaces view -i 123456789012345
-```
-
-Example output:
-
-```bash
-Details for workspace 'Workspace one'
-
-
---------------+------------------------------------------------
-  ID           | 123456789012345
-  Name         | my-workspace
-  Full Name    | Workspace one
-  Description  | Workspace created with seqerakit CLI scripting
-  Visibility   | SHARED
-```
-
-## tw workspaces update
-
-Update a workspace.
+Update a workspace
 
 ```bash
 tw workspaces update [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `-i`, `--id` | Workspace identifier | Yes | `null` |
-| `--new-name` | Updated workspace name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. Must be 2-40 characters. | No | `null` |
-| `-f`, `--fullName` | Updated full display name for the workspace. Maximum 100 characters. | No | `null` |
-| `-d`, `--description` | Updated workspace description. Maximum 1000 characters. | No | `null` |
+| `-i`, `--id` | Workspace identifier | Yes |  |
+| `--new-name` | Updated workspace name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. Must be 2-40 characters. | No |  |
+| `-f`, `--fullName` | Updated full display name for the workspace. Maximum 100 characters. | No |  |
+| `-d`, `--description` | Updated workspace description. Maximum 1000 characters. | No |  |
 
-#### Example
+## `tw workspaces view`
 
-Command:
-
-```bash
-tw workspaces update -i 123456789012345 --new-name my-workspace-updated
-```
-
-Example output:
+View workspace details
 
 ```bash
-A 'SHARED' workspace 'my-workspace' updated for 'my-organization-updated' organization
+tw workspaces view [OPTIONS]
 ```
 
-## tw workspaces delete
-
-Delete a workspace.
-
-```bash
-tw workspaces delete [OPTIONS]
-```
-
-#### Options
+### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `-i`, `--id` | Workspace identifier | No | `null` |
-| `-n`, `--name` | Workspace namespace in OrganizationName/WorkspaceName format | No | `null` |
+| `-i`, `--id` | Workspace identifier | Yes |  |
+| `-n`, `--name` | Workspace namespace in OrganizationName/WorkspaceName format | Yes |  |
 
-#### Example
+## `tw workspaces leave`
 
-Command:
-
-```bash
-tw workspaces delete -i 222333444555667
-```
-
-Example output:
-
-```bash
-Workspace 'test-workspace' deleted for organization5 organization
-```
-
-## tw workspaces leave
-
-Leave a workspace.
+Leave a workspace
 
 ```bash
 tw workspaces leave [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-i`, `--id` | Workspace identifier | No | `null` |
-| `-n`, `--name` | Workspace namespace in OrganizationName/WorkspaceName format | No | `null` |
+|--------|-------------|----------|---------|
+| `-i`, `--id` | Workspace identifier | Yes |  |
+| `-n`, `--name` | Workspace namespace in OrganizationName/WorkspaceName format | Yes |  |
 
-#### Example
+## `tw workspaces settings`
 
-Command:
-
-```bash
-tw workspaces leave -i 222333444555668
-```
-
-Example output:
+Manage workspace settings.
 
 ```bash
-
-
-  You have been removed as a participant from 'new-workspace' workspace
+tw workspaces settings
 ```
+
+### `tw workspaces settings studios`
+
+Manage Studios settings for a workspace.
+
+```bash
+tw workspaces settings studios
+```
+
+#### `tw workspaces settings studios view`
+
+View the Studios settings of a workspace.
+
+```bash
+tw workspaces settings studios view [OPTIONS]
+```
+
+##### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-i`, `--id` | Workspace identifier | Yes |  |
+| `-n`, `--name` | Workspace namespace in OrganizationName/WorkspaceName format | Yes |  |
+
+#### `tw workspaces settings studios update`
+
+Update the Studios settings of a workspace. Only the provided options are changed; the rest are left untouched.
+
+```bash
+tw workspaces settings studios update [OPTIONS]
+```
+
+##### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-i`, `--id` | Workspace identifier | Yes |  |
+| `-n`, `--name` | Workspace namespace in OrganizationName/WorkspaceName format | Yes |  |
+| `--container-repository` | Default container repository used to store Studios container images built or augmented with Wave. | No |  |
+| `--reset-container-repository` | Clear the default container repository. | No |  |
+| `--name-strategy` | Wave strategy used to name Studios container images. Valid values: none, tagPrefix, imageSuffix. | No |  |
+| `--reset-name-strategy` | Clear the container image naming strategy. | No |  |
+| `--lifespan-hours` | Maximum lifespan, in hours, of a Studio session before it is automatically stopped. Set to 0 for unlimited lifespan. | No |  |
+| `--private-by-default` | Whether new Studios are private by default (use --no-private-by-default to disable). | No |  |
+
+[actions]: /platform-cloud/pipeline-actions/overview
+[compute-envs]: /platform-cloud/compute-envs/overview
+[credentials]: /platform-cloud/credentials/overview
+[data-explorer]: /platform-cloud/data/data-explorer
+[datasets]: /platform-cloud/data/datasets
+[git-integration]: /platform-cloud/git/overview
+[labels]: /platform-cloud/labels/overview
+[nextflow-config]: https://docs.seqera.io/nextflow/config#config-syntax
+[organizations]: /platform-cloud/orgs-and-teams/organizations
+[participant-roles]: /platform-cloud/orgs-and-teams/roles
+[resource-labels]: /platform-cloud/resource-labels/overview
+[run-details]: /platform-cloud/monitoring/run-details
+[secrets]: /platform-cloud/secrets/overview
+[shared-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
+[studio-checkpoints]: /platform-cloud/studios/managing#studio-session-checkpoints
+[studios]: /platform-cloud/studios/overview
+[tower-agent]: /platform-cloud/supported_software/agent/overview
+[user-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
+[wave-docs]: https://docs.seqera.io/wave
