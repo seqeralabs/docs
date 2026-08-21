@@ -3,7 +3,7 @@ title: "Firewall configuration"
 description: Configure your firewall to allow Seqera Cloud access
 date created: "2023-04-12"
 last updated: "2026-08-21"
-tags: [firewall, configuration, dns, allowlist, meta-seqera.io]
+tags: [firewall, configuration, networking, ip, dns, allowlist, cloud, security, egress, ingress, outbound, inbound, meta.seqera.io]
 ---
 
 Seqera Platform Cloud ([cloud.seqera.io](https://cloud.seqera.io)) may need to connect to resources within your network, e.g., your storage server. To do so, your firewall must be configured to allow certain IPs to reach your resources.
