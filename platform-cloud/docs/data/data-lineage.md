@@ -2,7 +2,7 @@
 title: "Data lineage"
 description: "Track and search the provenance of pipeline runs, tasks, and output files in Seqera Platform."
 date created: "2026-05-04"
-last updated: "2026-08-11"
+last updated: "2026-08-21"
 tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, labels, search]
 ---
 
@@ -125,9 +125,9 @@ Output objects from a lineage-enabled run display their LID and any lineage labe
 
 ## Search lineage records
 
-Use the search bar in the top navigation to find workflow runs, tasks, and output files across every workspace you can access. Search covers only workspaces that have lineage enabled and in which you are a participant.
+Use the search bar in the top navigation to find workflow runs, tasks, and output files across every workspace you can access. To open it, select **Search** or press `Cmd+K` (macOS) or `Ctrl+K` (Windows and Linux). Search covers only workspaces that have lineage enabled and in which you are a participant. Results include only records you have permission to view.
 
-Results are ordered by most recently indexed. An empty query returns the most recent records across all accessible workspaces. As you type, the field suggests keywords and, where supported, values.
+Results are ordered by most recently indexed and load as you scroll. An empty query returns the most recent records across all accessible workspaces. As you type, the field suggests keywords and, where supported, values.
 
 ### Search syntax
 
@@ -155,7 +155,7 @@ A record has exactly one type and lives in exactly one workspace. Repeating `typ
 | `task:` | A `TaskRun` LID | Scope the search to a single task. Results include the task itself and the output files in its work directory. |
 | Free text | Any string | Case-insensitive substring match on the record value. |
 
-The field suggests `workspace:`, `type:`, and `label:` as you type. Enter the remaining qualifiers manually.
+The field suggests `workspace:`, `type:`, and `label:` as you type. Enter the remaining qualifiers manually. Selecting a suggested `type:` or `workspace:` value replaces the current value for that qualifier. Selecting a suggested `label:` value adds another `label:` term to the query.
 
 `workspace:` and `workspaceId:` set the scope of a search rather than filter its results. A query that contains only a workspace still returns that workspace's most recent records. Omit both to search every workspace available to you. Referencing a workspace you do not participate in returns an error rather than an empty list.
 
