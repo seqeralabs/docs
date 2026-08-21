@@ -2,7 +2,7 @@
 title: "Intelligent Compute"
 description: "Set up Seqera Intelligent Compute on an AWS Cloud compute environment"
 date created: "2026-06-12"
-last updated: "2026-06-12"
+last updated: "2026-08-21"
 tags: [intelligent compute, aws, ecs, compute environments]
 toc_min_heading_level: 2
 toc_max_heading_level: 4
@@ -112,6 +112,100 @@ You need the following:
 1. Select **Add**.
 
 Seqera validates credentials and configuration on save. On first use, it provisions the required IAM roles and ECS cluster in your account. Clusters and associated resources are removed automatically when no longer needed.
+
+## S3 bucket access
+
+Intelligent Compute mints a dedicated IAM role per cluster in your AWS account and attaches it to the ECS tasks and EC2 instances that run your pipeline. The role's S3 permissions are derived from the compute environment's **Allow buckets** list:
+
+- **Empty list** (default): the role grants S3 access account-wide (`"Resource": "*"`). Every bucket in the account is reachable.
+- **Populated list**: the role grants access to the listed buckets only, plus the compute environment work directory and the work directory of the run being launched, which are added automatically.
+
+Declaring buckets is opt-in least privilege: a compute environment that lists no buckets keeps account-wide access.
+
+On each in-scope bucket the role grants:
+
+| Actions | Resource |
+|---------|----------|
+| `s3:GetObject`, `s3:PutObject`, `s3:DeleteObject`, `s3:GetObjectTagging`, `s3:PutObjectTagging` | `arn:aws:s3:::<BUCKET_NAME>/*` |
+| `s3:ListBucket`, `s3:GetBucketLocation` | `arn:aws:s3:::<BUCKET_NAME>` |
+
+:::caution
+A populated **Allow buckets** list is the complete allow-list. A pipeline that reads or writes a bucket missing from the list fails with `AccessDenied` at task runtime — not at compute environment validation or pipeline launch. List every bucket your pipelines touch: reference or public data (for example, `s3://ngi-igenomes`), inputs staged from elsewhere, and the `outdir`. The compute environment and run work directories are added for you.
+:::
+
+How entries are interpreted:
+
+- An entry can be an `s3://` URI or a bare bucket name. Entries for other storage providers (`gs://`, `az://`) and local paths are ignored.
+- A key prefix is discarded. `s3://shared-bucket/team-a` grants access to all of `shared-bucket`, not just the `team-a` prefix.
+- An entry that is not a valid S3 bucket name is dropped.
+- The list is part of the cluster fingerprint, so changing it provisions a new cluster with a freshly scoped role. The new scope applies to the next run; runs in progress keep the permissions they started with.
+
+### Access buckets in another AWS account
+
+Cross-account S3 access requires a grant on both sides: an identity policy in the compute account and a bucket policy in the account that owns the bucket. Adding the bucket to **Allow buckets** covers the first half only — the bucket owner must grant access to your compute account for the second.
+
+For example, to read a reference dataset in `s3://reference-data-shared`, owned by account `444455556666`, from a compute environment running in account `111122223333`:
+
+1. Add `s3://reference-data-shared` to **Allow buckets** on the compute environment.
+1. Ask the owner of account `444455556666` to attach this bucket policy to `reference-data-shared`:
+
+   ```json
+   {
+     "Version": "2012-10-17",
+     "Statement": [
+       {
+         "Sid": "SeqeraComputeAccount",
+         "Effect": "Allow",
+         "Principal": { "AWS": "arn:aws:iam::111122223333:root" },
+         "Action": [
+           "s3:GetObject",
+           "s3:PutObject",
+           "s3:DeleteObject",
+           "s3:GetObjectTagging",
+           "s3:PutObjectTagging",
+           "s3:ListBucket",
+           "s3:GetBucketLocation"
+         ],
+         "Resource": [
+           "arn:aws:s3:::reference-data-shared",
+           "arn:aws:s3:::reference-data-shared/*"
+         ]
+       }
+     ]
+   }
+   ```
+
+   For read-only data, drop `s3:PutObject`, `s3:DeleteObject`, and `s3:PutObjectTagging`.
+
+The policy above delegates the decision to your account's IAM. If the bucket owner would rather name the specific principals, use `"Principal": "*"` with a condition on the role names Intelligent Compute creates:
+
+```json
+"Condition": {
+  "ArnLike": {
+    "aws:PrincipalArn": [
+      "arn:aws:iam::111122223333:role/seqera-sched-task-role-clu-*",
+      "arn:aws:iam::111122223333:role/seqera-sched-instance-v2-clu-*",
+      "arn:aws:iam::111122223333:role/seqera-sched-vm-instance-clu-*"
+    ]
+  }
+}
+```
+
+Each cluster gets its own role and the cluster identifier varies per cluster, but the prefixes are stable:
+
+| Role | Name pattern | Used by |
+|------|--------------|---------|
+| ECS task role | `seqera-sched-task-role-clu-*` | Task containers and Fusion |
+| ECS instance role | `seqera-sched-instance-v2-clu-*` | EC2 hosts of an ECS-backed cluster |
+| EC2 instance role | `seqera-sched-vm-instance-clu-*` | EC2 hosts when **Backend strategy** is `EC2` |
+
+### Limitations
+
+- **Buckets encrypted with a customer-managed KMS key (SSE-KMS) are not supported.** The minted role carries no `kms` permissions for S3, and no bucket policy can supply them — KMS access must be granted on the identity side. Unencrypted buckets and buckets using SSE-S3 (AES256) work. The **KMS for S3** policy documented for a [custom instance profile](./aws-cloud#custom-instance-profile) does not apply here: Intelligent Compute always uses the role it mints and ignores a custom **Instance Profile** ARN.
+- **Interrupted multipart uploads are not cleaned up.** Uploads succeed, but the role cannot call `s3:AbortMultipartUpload`, so a failed or retried upload can leave incomplete parts that still incur storage cost. Add an S3 lifecycle rule to the bucket to expire incomplete multipart uploads.
+- **Specific object versions are not readable.** The role does not grant `s3:GetObjectVersion`, so on a versioned bucket only the current version of an object is accessible.
+- **Buckets with ACLs enabled may reject cross-account writes.** The role does not grant `s3:PutObjectAcl`, so a bucket that requires `bucket-owner-full-control` on writes from another account cannot be written to. Set the bucket's object ownership to bucket-owner-enforced, which disables ACLs and is the default for buckets created after April 2023.
+- **Access is granted per bucket, not per prefix.** Key prefixes in **Allow buckets** entries are ignored, so a compute environment cannot be restricted to part of a bucket.
 
 ## Resource metrics
 
