@@ -31,27 +31,27 @@ The second kind, AI commands, are backed by skills and sent to the AI backend. T
 
 ## Built-in skills
 
-Co-Scientist ships with a set of built-in skills. You can invoke one directly with its slash command, or simply describe your task — Co-Scientist loads the matching skill on its own.
+Co-Scientist includes a set of built-in skills. Invoke a skill directly with its slash command, or describe your task and Co-Scientist loads the matching skill.
 
 :::note
-Built-in skills change from release to release, so treat this page as a guide rather than an inventory. Type `/` or run `/help` in your session for the authoritative list of what your deployment exposes today.
+Built-in skills change from release to release. Treat this page as a guide rather than an inventory. Type `/` or run `/help` in your session to see the current list for your deployment.
 :::
 
 ### Build a pipeline
 
 | Command | Description |
 |---------|-------------|
-| `/build-nextflow-pipeline` | Plan and scaffold a new DSL2 pipeline from scripts, notebooks, papers, or informal instructions, before any `.nf` code is written |
-| `/create-workflow` | Compose and assemble a pipeline from existing modules |
-| `/nf-pipeline-design` | Design or refactor pipeline structure — the shape of `main.nf`, subworkflow boundaries, channel and metadata flow |
+| `/build-nextflow-pipeline` | Plan and scaffold a new DSL2 pipeline from scripts, notebooks, papers, or informal instructions, before you write any `.nf` code |
+| `/create-workflow` | Assemble a pipeline from existing modules |
+| `/nf-pipeline-design` | Design or refactor pipeline structure, including the shape of `main.nf`, subworkflow boundaries, and channel and metadata flow |
 | `/nextflow-config` | Generate and explain `nextflow.config` files, including scopes, selectors, profiles, and container runtimes |
 | `/nextflow-schema` | Generate `nextflow_schema.json` and sample sheet schema files |
-| `/triage-pipeline-parameters` | Extract every meaningful knob from source material and triage it into a parameter, a pinned constant, or a profile override |
-| `/nextflow-output-patterns` | Get the operator idioms right when aggregating per-sample outputs — `collectFile`, `join`, `groupTuple`, and channel-level null handling |
-| `/create-container` | Build, claim, or recommend a verified container for a tool, and prove it runs before you author a module |
-| `/nf-docker-scripts` | Decide where custom scripts belong — `bin/`, the `template` directive, or inline |
+| `/triage-pipeline-parameters` | Extract each meaningful setting from source material and triage it into a parameter, a pinned constant, or a profile override |
+| `/nextflow-output-patterns` | Apply the correct operator idioms when aggregating per-sample outputs, including `collectFile`, `join`, `groupTuple`, and channel-level null handling |
+| `/create-container` | Build, claim, or recommend a verified container for a tool, and verify it runs before you write a module |
+| `/nf-docker-scripts` | Decide whether custom scripts belong in `bin/`, in the `template` directive, or inline |
 | `/search-existing-modules` | Search nf-core and the wider community for an existing module before writing your own |
-| `/run-module` | Discover, inspect, and run a single module on its own with `nextflow module search`, `view`, and `run` |
+| `/run-module` | Discover, inspect, and run a single module with `nextflow module search`, `view`, and `run` |
 
 ### Migrate and modernize
 
@@ -64,7 +64,7 @@ Built-in skills change from release to release, so treat this page as a guide ra
 | `/nextflow-26-syntax` | Write, migrate, or debug workflows under the v2 strict-syntax parser used by Nextflow 26+ |
 | `/nf-v2-boolean-params` | Fix boolean parameter handling under v2 strict syntax |
 | `/nf-schema-migration` | Migrate from `nf-validation` to `nf-schema` v2 |
-| `/maintain-nf-core-pipeline` | Bring an nf-core pipeline up to date — template syncs, module updates, then remaining code |
+| `/maintain-nf-core-pipeline` | Bring an nf-core pipeline up to date, applying template syncs and module updates before remaining code changes |
 | `/nf-plugin-legacy-migration` | Move a legacy plugin to the current plugin registry format |
 
 ### Test
@@ -87,11 +87,11 @@ Built-in skills change from release to release, so treat this page as a guide ra
 
 | Command | Description |
 |---------|-------------|
-| `/nf-pipeline-structure` | Analyze how a local pipeline is organized — processes, workflows, modules, and data flow |
-| `/nf-run-history` | Summarize your recent local runs: patterns, progress, and recurring issues |
+| `/nf-pipeline-structure` | Analyze how a local pipeline is organized, including processes, workflows, modules, and data flow |
+| `/nf-run-history` | Summarize your recent local runs, including patterns, progress, and recurring issues |
 | `/nextflow-history` | Inspect the local Nextflow history and cache, and correlate runs with work directories |
 | `/nf-data-lineage` | Trace which inputs and processes produced a result, using the lineage store |
-| `/nf-aggregate` | Aggregate metrics across Platform runs with the `nf-aggregate` pipeline |
+| `/nf-aggregate` | Aggregate metrics across Seqera Platform runs with the `nf-aggregate` pipeline |
 | `/generate-pipeline-docs` | Generate publishable pipeline documentation from the code and its observed run patterns |
 | `/generate-pipeline-memory` | Build private notes on a pipeline's run history and failure patterns at your organization |
 
@@ -99,18 +99,18 @@ Built-in skills change from release to release, so treat this page as a guide ra
 
 | Command | Description |
 |---------|-------------|
-| `/launch-workflow` | Launch a pipeline on cloud or HPC compute, and choose or confirm a compute environment |
+| `/launch-workflow` | Launch a pipeline on cloud or high-performance computing (HPC) infrastructure, and choose or confirm a compute environment |
 | `/ce-credentials-setup` | Set up compute environments and the cloud or cluster credentials they need |
-| `/seqera-data-links` | Add, list, update, and delete data links, including S3, GCS, and Azure storage |
-| `/seqera-mcp` | Access Platform through MCP tools for structured, validated operations |
-| `/seqerakit` | Write `seqerakit` YAML to automate Platform setup |
+| `/seqera-data-links` | Add, list, update, and delete data links, including Amazon S3, Google Cloud Storage, and Azure storage |
+| `/seqera-mcp` | Access Seqera Platform through Model Context Protocol (MCP) tools for structured, validated operations |
+| `/seqerakit` | Write `seqerakit` YAML to automate Seqera Platform setup |
 
 ### Choose tools and accelerate
 
 | Command | Description |
 |---------|-------------|
 | `/find-alternative-tools` | For a given analysis step, find the credible tool options with pros, cons, licensing, and a ranked recommendation |
-| `/enumerate-alternative-tools` | The same tool enumeration as `/find-alternative-tools`, invoked by the `/create-workflow` and `/nf-pipeline-design` planning flows |
+| `/enumerate-alternative-tools` | Run the same tool enumeration as `/find-alternative-tools`. The `/create-workflow` and `/nf-pipeline-design` planning flows invoke this skill |
 | `/parabricks` | Get version-aware guidance on NVIDIA Parabricks `pbrun` tools and assess GPU readiness |
 | `/genomics-workflow-acceleration` | Add optional GPU steps to an existing genomics workflow, with runtime toggles that default to off |
 
@@ -125,7 +125,7 @@ Built-in skills change from release to release, so treat this page as a guide ra
 
 | Command | Description |
 |---------|-------------|
-| `/simplify` | Review changed code for reuse, quality, and efficiency, then clean up what it finds |
+| `/simplify` | Review changed code for reuse, quality, and efficiency, then clean up the issues found |
 
 ## Payload limits
 
