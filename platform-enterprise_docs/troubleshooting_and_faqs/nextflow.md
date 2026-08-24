@@ -234,7 +234,7 @@ Because the default for Spot retries is now zero, you must enable a retry strate
 
 ## Pipeline secret creation fails under a Google Cloud resource location policy
 
-In Google Cloud projects that enforce a resource location policy, launching a pipeline with a pipeline secret attached fails before any task starts. This affects Google Batch and Google Cloud compute environments. The error is similar to:
+In Platform v26.1 and earlier, launching a pipeline with a pipeline secret attached fails before any task starts in Google Cloud projects that enforce a resource location policy. This affects Google Batch and Google Cloud compute environments. The error is similar to:
 
 ```
 Unable to store pipeline secret 'my_secret' - Reason: io.grpc.StatusRuntimeException:
@@ -242,7 +242,9 @@ FAILED_PRECONDITION: Constraint constraints/gcp.resourceLocations violated for
 [orgpolicy:projects/123456789012] attempting to create a secret in [global].
 ```
 
-This issue occurs because Seqera Platform creates pipeline secrets in Google Secret Manager with automatic replication, which stores the secret in the `global` location. If the [`constraints/gcp.resourceLocations`](https://cloud.google.com/resource-manager/docs/organization-policy/defining-locations) organization policy does not permit the `global` location, Google rejects the secret and the run cannot launch. The compute environment's location setting has no effect on where the secret is stored.
+This issue occurs because Platform v26.1 and earlier create pipeline secrets in Google Secret Manager with automatic replication, which stores the secret in the `global` location. If the [`constraints/gcp.resourceLocations`](https://cloud.google.com/resource-manager/docs/organization-policy/defining-locations) organization policy does not permit the `global` location, Google rejects the secret and the run cannot launch. The compute environment's location setting has no effect on where the secret is stored.
+
+This issue is resolved in Platform v26.2, which creates pipeline secrets with user-managed regional replication instead of automatic replication.
 
 ## Nextflow syntax parser
 
