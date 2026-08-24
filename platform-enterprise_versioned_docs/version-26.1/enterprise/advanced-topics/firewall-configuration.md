@@ -43,7 +43,7 @@ The response contains two lists. `egress` contains the addresses Seqera Platform
 - `13.41.84.86/32`
 - `18.130.12.159/32`
 
-Allow these three addresses if your outbound rules are IP-based rather than DNS-based. Earlier, `wave.seqera.io` resolved to a pool of addresses that Seqera did not control and could not publish, so only DNS-based rules worked.
+Allow these three addresses if your outbound rules are IP-based rather than DNS-based.
 
 :::warning
 These addresses can change. [`meta.seqera.io`](https://meta.seqera.io) is the authoritative source — check it before you apply firewall rules.
