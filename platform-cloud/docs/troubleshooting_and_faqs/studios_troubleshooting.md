@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-07-24"
+last updated: "2026-08-20"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -20,8 +20,7 @@ If sufficient compute resources aren't available, select **Stop** for the sessio
 
 ### Session is stuck in **stopping**
 
-If your Studio session doesn't advance from **stopping** status to **stopped** status within 10 minutes, select **Force stop** to skip the intermediate **canceling** status. Checkpoint revalidation restores your data when the session next starts.
-
+If your Studio session doesn't advance from **stopping** status to **stopped** status within 10 minutes, the **Force stop** action becomes available. Select the three dots next to the status message, then select **Force stop**. Force stopping marks the session as **stopped** immediately so that you can start it again. Any work since the last saved checkpoint may be lost. Checkpoint revalidation restores your data when the session next starts.
 
 ### Session status is **errored**
 

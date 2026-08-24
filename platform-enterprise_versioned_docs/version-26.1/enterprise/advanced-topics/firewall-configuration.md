@@ -1,13 +1,14 @@
 ---
 title: "Firewall configuration"
 description: Configure your firewall to allow Seqera Cloud access
-date: "12 Apr 2023"
-tags: [firewall, configuration]
+date created: "2023-04-12"
+last updated: "2026-08-21"
+tags: [firewall, configuration, networking, ip, dns, allowlist, cloud, security, egress, ingress, outbound, inbound, meta.seqera.io]
 ---
 
 Seqera Platform Cloud ([cloud.seqera.io](https://cloud.seqera.io)) may need to connect to resources within your network, e.g., your storage server. To do so, your firewall must be configured to allow certain IPs to reach your resources.
 
-A dynamic list of IPs is kept up-to-date at https://meta.seqera.io.
+A dynamic list of IPs is kept up-to-date at [`meta.seqera.io`](https://meta.seqera.io).
 
 This endpoint returns a JSON object that can be parsed to dynamically adapt your firewall, e.g., in Python with the `requests` package:
 
@@ -16,14 +17,18 @@ $ python3
 >>> import requests
 >>> requests.get("https://meta.seqera.io").json()
 {
-  "cloud.seqera.io": [
-    "18.135.7.45/32",
+  "egress": [
     "18.169.21.18/32",
+    "18.135.7.45/32",
     "18.171.4.252/32"
   ],
-  "licenses.seqera.io": [
-    "35.176.121.51/32",
-    "35.178.254.247/32"
+  "ingress": [
+    "35.179.197.5/32",
+    "3.11.38.17/32",
+    "18.175.79.222/32",
+    "18.130.12.159/32",
+    "13.41.84.86/32",
+    "18.134.220.33/32"
   ]
 }
 ```
@@ -36,9 +41,12 @@ In order for you to access resources such as Fusion tarballs, `nf-xpack` files, 
 - `api.cloud.seqera.io`
 - `user-data.cloud.seqera.io`
 - `tower.nf`
+- `api.tower.nf`
 - `connect.cloud.seqera.io` and its subdomains `*.connect.cloud.seqera.io`
 - `hub.seqera.io`
 - `intern.seqera.io`
+- `ai.seqera.io`
+- `ai-api.seqera.io`
 - `wave.seqera.io`
 - `community.wave.seqera.io`
 - `cerbero.seqera.io`
