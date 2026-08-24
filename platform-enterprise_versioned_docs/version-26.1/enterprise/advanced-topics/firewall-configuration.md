@@ -33,6 +33,17 @@ $ python3
 }
 ```
 
+The response contains two lists:
+
+- **`egress`** — the addresses Seqera Platform Cloud connects *from*. Allow these at your firewall so Platform can reach your resources.
+- **`ingress`** — the addresses Seqera services are reachable *at*, including `wave.seqera.io`. Use these if your outbound rules are IP-based rather than DNS-based.
+
+Both lists change as services are added. Query the endpoint rather than copying the values above.
+
+:::note
+`wave.seqera.io` is served from static IP addresses in the `ingress` list. Earlier, it resolved to a pool of addresses that Seqera did not control and could not publish.
+:::
+
 ### DNS allowlist
 
 In order for you to access resources such as Fusion tarballs, `nf-xpack` files, Wave cloud containers and other services provided by Seqera, you'll need to add `*.seqera.io.cdn.cloudflare.net` to the allowlist in your network firewall. If DNS wildcards aren't supported by your firewall, you can use the following:
@@ -78,5 +89,8 @@ Nextflow makes network calls to the `registry.nextflow.io` domain to resolve and
 If you chose to filter by specific DNS records, please note that new services may be added in the future.
 
 :::note
-If your allowlist is based on IP addresses, allow all of the following IP addresses: https://www.cloudflare.com/ips/.
+If your allowlist is based on IP addresses:
+
+- For `wave.seqera.io`, allow the `ingress` addresses from [`meta.seqera.io`](https://meta.seqera.io).
+- For CDN-backed hosts (`*.seqera.io.cdn.cloudflare.net`), allow the Cloudflare ranges at https://www.cloudflare.com/ips/.
 :::
