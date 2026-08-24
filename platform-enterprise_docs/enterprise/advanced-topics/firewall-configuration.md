@@ -33,31 +33,20 @@ $ python3
 }
 ```
 
-The response contains two lists. As of 21 August 2026:
+The response contains two lists. `egress` contains the addresses Seqera Platform Cloud connects *from*. `ingress` contains the addresses Seqera services are reachable *at*.
 
-**`egress`** — the addresses Seqera Platform Cloud connects *from*. Allow these at your firewall so Platform can reach your resources.
+### Wave
 
-- `18.169.21.18/32`
-- `18.135.7.45/32`
-- `18.171.4.252/32`
+`wave.seqera.io` is served from three static addresses in the `ingress` list. As of 21 August 2026:
 
-**`ingress`** — the addresses Seqera services are reachable *at*. Use these if your outbound rules are IP-based rather than DNS-based.
+- `18.134.220.33/32`
+- `13.41.84.86/32`
+- `18.130.12.159/32`
 
-| Address | Service |
-| --- | --- |
-| `18.134.220.33/32` | `wave.seqera.io` |
-| `13.41.84.86/32` | `wave.seqera.io` |
-| `18.130.12.159/32` | `wave.seqera.io` |
-| `35.179.197.5/32` | Other Seqera services |
-| `3.11.38.17/32` | Other Seqera services |
-| `18.175.79.222/32` | Other Seqera services |
+Allow these three addresses if your outbound rules are IP-based rather than DNS-based. Earlier, `wave.seqera.io` resolved to a pool of addresses that Seqera did not control and could not publish, so only DNS-based rules worked.
 
 :::warning
-These addresses change as services are added. [`meta.seqera.io`](https://meta.seqera.io) is the authoritative source — check it before you apply firewall rules, and prefer the API over a static copy.
-:::
-
-:::note
-`wave.seqera.io` is served from the three static addresses above. Earlier, it resolved to a pool of addresses that Seqera did not control and could not publish.
+These addresses can change. [`meta.seqera.io`](https://meta.seqera.io) is the authoritative source — check it before you apply firewall rules.
 :::
 
 ### DNS allowlist
@@ -105,8 +94,5 @@ Nextflow makes network calls to the `registry.nextflow.io` domain to resolve and
 If you chose to filter by specific DNS records, please note that new services may be added in the future.
 
 :::note
-If your allowlist is based on IP addresses:
-
-- For `wave.seqera.io`, allow `18.134.220.33/32`, `13.41.84.86/32`, and `18.130.12.159/32`.
-- For CDN-backed hosts (`*.seqera.io.cdn.cloudflare.net`), allow the Cloudflare ranges at https://www.cloudflare.com/ips/.
+If your allowlist is based on IP addresses, allow all of the following IP addresses: https://www.cloudflare.com/ips/.
 :::
