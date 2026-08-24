@@ -123,9 +123,9 @@ If more than one Nextflow run publishes a file to the same destination, there ar
 
 Output objects from a lineage-enabled run display their LID and any lineage labels when you preview the object in Data Explorer. You can trace any file back to the pipeline run that produced it.
 
-## Search lineage records
+## Search data lineage records
 
-Use the search bar in the top navigation to find workflow runs, tasks, and output files across every workspace you can access. To open it, select **Search** or press `Cmd+K` (macOS) or `Ctrl+K` (Windows and Linux). Search covers only workspaces that have lineage enabled and in which you are a participant. Results include only records you have permission to view.
+Use the search bar in the top navigation to find workflow runs, tasks, pipelines, and output files across every workspace you can access. To open it, select **Search** or press `Cmd+K` (macOS) or `Ctrl+K` (Windows and Linux). Search covers only workspaces that have data lineage enabled and in which you are a participant. Results include only records you have permission to view.
 
 Results are ordered by most recently indexed and load as you scroll. An empty query returns the most recent records across all accessible workspaces. As you type, the field suggests keywords and, where supported, values.
 
@@ -152,12 +152,17 @@ A record has exactly one type and lives in exactly one workspace. Repeating `typ
 | `workspace:` | `organization/workspace` | Scope the search to one or more workspaces by fully qualified name. |
 | `workspaceId:` | Numeric workspace ID | Numeric alias for `workspace:`. |
 | `workflow:` | A `WorkflowRun` LID | Scope the search to a single run. Results include the run itself, its tasks, and its published output files. |
+| `pipeline:` | A pipeline name | Scope the search to a pipeline name. Results include the pipeline itself and the output files in its work directory. |
 | `task:` | A `TaskRun` LID | Scope the search to a single task. Results include the task itself and the output files in its work directory. |
 | Free text | Any string | Case-insensitive substring match on the record value. |
 
 The field suggests `workspace:`, `type:`, and `label:` as you type. Enter the remaining qualifiers manually. Selecting a suggested `type:` or `workspace:` value replaces the current value for that qualifier. Selecting a suggested `label:` value adds another `label:` term to the query.
 
 `workspace:` and `workspaceId:` set the scope of a search rather than filter its results. A query that contains only a workspace still returns that workspace's most recent records. Omit both to search every workspace available to you. Referencing a workspace you do not participate in returns an error rather than an empty list.
+
+:::caution
+Renaming pipelines after execution can cause data lineage consistency issues. Pipeline names are **mutable** by design (can be edited). Data lineage records are **immutable**. If you run a pipeline, generate data lineage records, and then rename the pipeline, the indexed data lineage records will not be associated with the new pipeline name.
+:::
 
 ### Examples
 
@@ -168,6 +173,7 @@ The field suggests `workspace:`, `type:`, and `label:` as you type. Enter the re
 | `label:qc label:validated` | Records labeled both `qc` and `validated` |
 | `label:qc,draft label:validated` | Records labeled `validated` and either `qc` or `draft` |
 | `type:file salmon` | Output files whose value contains `salmon` |
+| `type:file multiqc pipeline:rnaseq` | Output files whose value contains `multiqc` and associated with the `rnaseq` pipeline |
 | `workspace:acme/dev label:qc` | Records labeled `qc` in the `acme/dev` workspace |
 | `workspace:acme/dev,acme/prod` | Records in the `acme/dev` or `acme/prod` workspace |
 | `workspace:acme/dev workspace:acme/prod` | Nothing, because a record lives in one workspace. Use the comma form instead. |
