@@ -472,6 +472,7 @@ The AWS Cloud compute environment uses an AMI maintained by Seqera, and the pipe
 - **Subnets**: The list of VPC subnets where the EC2 instance will run. If unspecified, all the subnets of the VPC will be used.
 - **Security groups**: The security groups the EC2 instance will be a part of. If unspecified, no security groups will be used.
 - **Instance Profile**: The ARN of the `InstanceProfile` used by the EC2 instance to assume a role while running. If unspecified, Seqera will provision one with enough permissions to run. See [Custom instance profile](#custom-instance-profile) for the minimum permissions required if you provide your own.
+- **Pipeline secrets KMS key**: A customer-managed KMS key (CMK) that encrypts the temporary AWS Secrets Manager secrets Seqera creates for runs that use pipeline secrets. This field accepts a key ARN or a key ID. A key ARN must be in the same region as the compute environment. If unspecified, Seqera uses the installation default set with [`TOWER_AWS_SECRETS_KMS_KEY_ID`](../enterprise/configuration/overview#compute-environments), or the default AWS-managed key if neither is set. See [Custom instance profile](#custom-instance-profile) for the KMS permissions the instance profile role requires.
 - **Boot disk size**: The size of the EBS boot disk for the EC2 instance. If undefined, a default 50 GB `gp3` volume will be used.
 
 ### Custom instance profile
@@ -556,6 +557,22 @@ In addition to the managed policies, attach the following inline policies:
       "Effect": "Allow",
       "Action": ["secretsmanager:ListSecrets"],
       "Resource": ["*"]
+    }
+  ]
+}
+```
+
+If the compute environment specifies a **Pipeline secrets KMS key**, the role also requires `kms:Decrypt` on that key to read secrets encrypted with the key at task start. Grant the action either by naming the role in the key policy, or in the role's own IAM policy if the key policy delegates to IAM. The default key policy created by `aws kms create-key` delegates to IAM:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PipelineSecretsKmsKey",
+      "Effect": "Allow",
+      "Action": ["kms:Decrypt"],
+      "Resource": "arn:aws:kms:<REGION>:<ACCOUNT_ID>:key/<KEY_ID>"
     }
   ]
 }

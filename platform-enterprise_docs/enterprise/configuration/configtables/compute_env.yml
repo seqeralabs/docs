@@ -19,3 +19,8 @@
   Description: >
     Enable legacy role-based AWS credentials. When true, users provide an IAM role ARN only when creating AWS credentials. Access keys, secret keys, and External ID are not used.
   Value:               'Default: `false`'
+-
+  Environment variable:            '`TOWER_AWS_SECRETS_KMS_KEY_ID`'
+  Description: >
+    Installation-wide customer-managed KMS key that encrypts the temporary AWS Secrets Manager secrets created for runs that use pipeline secrets. Accepts a key ARN or a key ID. Applies to AWS Batch and AWS Cloud compute environments, and only when the compute environment does not define its own **Pipeline secrets KMS key**. A key is account- and region-specific. Set this default only when every AWS Batch and AWS Cloud compute environment in the installation targets the same AWS account and region. The compute environment credentials require `kms:GenerateDataKey` and `kms:Decrypt` on the key, granted either in the key policy or in the credentials' own IAM policy. A malformed value prevents backend startup.
+  Value:               'Default: none (AWS-managed key)'
