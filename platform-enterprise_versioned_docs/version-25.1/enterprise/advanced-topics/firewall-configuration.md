@@ -28,7 +28,7 @@ The response contains two lists:
 - `ingress` — the addresses Seqera services are reachable *at*, including `wave.seqera.io`. Allow these if your outbound rules are IP-based rather than DNS-based.
 
 :::note
-Always query `meta.seqera.io` when you build or review your firewall rules. The addresses change as services are added, so a copied list becomes stale.
+Always query [`meta.seqera.io`](https://meta.seqera.io) when you build or review your firewall rules. The addresses change as services are added, so a copied list becomes stale.
 :::
 
 ### DNS allowlist
