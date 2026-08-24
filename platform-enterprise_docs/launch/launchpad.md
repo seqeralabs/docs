@@ -2,7 +2,7 @@
 title: "Launch pipelines"
 description: "Curate and launch workflows in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-05-18"
+last updated: "2026-08-24"
 tags: [launchpad, launch, configure, pipelines, schema, configuration, nextflow, parameters, input, output]
 ---
 
@@ -52,7 +52,7 @@ The launch form accepts URL query parameters. See [Populate launch form with URL
 - **Config profiles**: One or more [configuration profile][nextflow-config-profile] names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository. See below for additional details.
 - **Workflow run name**: A unique identifier for the run, pre-filled with a random name. This can be customized.
 - **Labels**: Assign new or existing [labels][labels] to the run.
-- **Compute environment**: The [compute environment][compute-envs] where the run will be launched.
+- **Compute environment**: The [compute environment][compute-envs] where the run will be launched. The drop-down groups compute environments by platform and marks the workspace [primary compute environment][primary-compute-env] with a **Primary** badge. Use the search field to filter by name, region, or platform.
 - **Schema**: Select the [pipeline schema][pipeline-schema] to validate pipeline parameters and prevent runtime failures.
 - **Enable lineage**: Track the [provenance][data-lineage] of files produced by pipeline runs. Defaults to the [workspace setting][workspace-settings-lineage].
 
@@ -253,6 +253,7 @@ Platform will ignore added percent-encoding characters in form fields, so you do
 [nextflow-workflow-outputs]: https://docs.seqera.io/nextflow/workflow#outputs
 [labels]: ../labels/overview
 [compute-envs]: ../compute-envs/overview
+[primary-compute-env]: ../compute-envs/overview#select-default-compute-environment
 [pipeline-schema]: ../pipeline-schema/overview
 [data-lineage]: ../data/data-lineage
 [workspace-settings-lineage]: ../orgs-and-teams/workspace-management#lineage
