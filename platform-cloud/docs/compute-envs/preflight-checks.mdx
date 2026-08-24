@@ -2,7 +2,7 @@
 title: "Compute environment pre-flight checks"
 description: "How Seqera Platform continuously validates compute environments and what to do when a check fails"
 date created: "2026-06-23"
-last updated: "2026-08-14"
+last updated: "2026-08-24"
 tags: [compute environments, credentials, troubleshooting]
 ---
 
@@ -51,6 +51,8 @@ On update, Seqera Platform checks only the newly selected credential. Seqera Pla
 Runs on a recurring schedule. For each cloud credential (AWS, GCP, Azure) in scope, Platform calls the provider API to verify that the credential is still accepted. For AWS role-based credentials and GCP Workload Identity Federation, this check confirms the credential is well-formed but cannot fully verify the underlying role or identity provider trust configuration.
 
 When a credential fails this check, Platform marks it **INVALID** and records the provider error on the credential record. This error appears in the launch-time error when a pipeline is blocked, but not in the compute environment banner. To see the specific provider error, check the credential record directly.
+
+A transient probe failure, such as a network interruption or provider throttling, does not mark the credential `INVALID`. Platform retries the credential with exponential backoff. Some failures indicate the credential can never validate, such as an Azure storage or Batch account hostname that no longer resolves. After 10 consecutive failures of this kind, Platform marks the credential `INVALID`.
 
 ### 3. Compute environment validation
 
