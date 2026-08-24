@@ -73,6 +73,17 @@ The ECS Agent uses the [Batch Execution role](https://docs.aws.amazon.com/batch/
 Including `tower-*` in the Resource ARN above limits access to Platform secrets only (as opposed to all secrets in the given region).
 :::
 
+If the compute environment specifies a **Pipeline secrets KMS key**, the execution role also requires `kms:Decrypt` on that key to inject secrets encrypted with the key. Grant the action either by naming the role in the key policy, or in the role's own IAM policy if the key policy delegates to IAM. The default key policy created by `aws kms create-key` delegates to IAM:
+
+```json
+    {
+        "Sid": "AllowECSAgentToDecryptSecrets",
+        "Effect": "Allow",
+        "Action": "kms:Decrypt",
+        "Resource": "arn:aws:kms:<YOUR_COMPUTE_REGION>:<ACCOUNT_ID>:key/<KEY_ID>"
+    }
+```
+
 **IAM trust relationship**
 
 ```json

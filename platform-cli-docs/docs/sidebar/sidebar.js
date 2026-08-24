@@ -9,6 +9,7 @@ module.exports = {
       collapsed: false,
       items: [
         { type: "doc", id: "reference/info" },
+        { type: "doc", id: "reference/generate-completion" },
         { type: "doc", id: "reference/credentials" },
         { type: "doc", id: "reference/compute-envs" },
         { type: "doc", id: "reference/datasets" },
