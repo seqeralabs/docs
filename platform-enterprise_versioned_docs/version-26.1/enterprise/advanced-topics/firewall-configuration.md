@@ -17,36 +17,18 @@ $ python3
 >>> import requests
 >>> requests.get("https://meta.seqera.io").json()
 {
-  "egress": [
-    "18.169.21.18/32",
-    "18.135.7.45/32",
-    "18.171.4.252/32"
-  ],
-  "ingress": [
-    "35.179.197.5/32",
-    "3.11.38.17/32",
-    "18.175.79.222/32",
-    "18.130.12.159/32",
-    "13.41.84.86/32",
-    "18.134.220.33/32"
-  ]
+  "egress": ["a.b.c.d/32", "..."],
+  "ingress": ["e.f.g.h/32", "..."]
 }
 ```
 
-The response contains two lists. `egress` contains the addresses Seqera Platform Cloud connects *from*. `ingress` contains the addresses Seqera services are reachable *at*.
+The response contains two lists:
 
-### Wave
+- `egress` — the addresses Seqera connects *from*. Allow these at your firewall so Seqera Platform Cloud can reach your resources.
+- `ingress` — the addresses Seqera services are reachable *at*, including `wave.seqera.io`. Allow these if your outbound rules are IP-based rather than DNS-based.
 
-`wave.seqera.io` is served from three static addresses in the `ingress` list. As of 21 August 2026:
-
-- `18.134.220.33/32`
-- `13.41.84.86/32`
-- `18.130.12.159/32`
-
-Allow these three addresses if your outbound rules are IP-based rather than DNS-based.
-
-:::warning
-These addresses can change. [`meta.seqera.io`](https://meta.seqera.io) is the authoritative source — check it before you apply firewall rules.
+:::note
+Always query `meta.seqera.io` when you build or review your firewall rules. The addresses change as services are added, so a copied list becomes stale.
 :::
 
 ### DNS allowlist
