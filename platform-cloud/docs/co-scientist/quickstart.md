@@ -81,7 +81,7 @@ Compare whether I should add FastQC or fastp as the first QC step in this RNA-se
 Run the built-in debugging skill against your most recent workspace run:
 
 ```
-/debug-last-run-on-seqera
+/debug-seqera-failed-run
 ```
 
 Co-Scientist fetches your most recent workspace run, inspects logs and exit codes, and walks through likely causes and fixes. You need at least one workflow run in the workspace for this skill to find something to debug.
