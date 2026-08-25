@@ -15,40 +15,40 @@ See the **Container registry credentials** section for registry-specific instruc
 All credentials are (AES-256) encrypted before secure storage and not exposed in an unencrypted way by any Seqera API.
 :::
 
-## Delete credentials
+## Credential deletion
 
 :::note
-The following section is for cloud provider credentials only
+This section applies only to cloud provider credentials.
 :::
 
 :::caution
-Deleting a credential is permanent. Platform erases its stored copy of the secret, and every past run on the compute environments that used the credential loses its logs and its work directory view. Read this section before you delete a credential.
+Credential deletion is permanent. Past runs on the compute environments that used the credential lose their logs and their work directory view.
 :::
 
-### What deletion changes
+Deleting a credential has the following effects:
 
-- **Platform erases the stored secret.** Deletion removes the encrypted secret from Platform storage. To restore access, create a new credential and enter the access keys again.
-- **Platform does not revoke the credential at your cloud provider.** The access key, service account key, or storage key remains valid in your cloud provider. If your goal is to revoke access, also delete or disable it in the provider console.
+- **Platform erases the stored secret.** To restore access, create a new credential and enter the access keys again.
+- **Platform does not revoke the credential at your cloud provider.** The access key, service account key, or storage key remains valid. To revoke access, also delete or disable the key in your provider console.
 - **Compute environments that use the credential become invalid.** Platform sets their status message to `Associated credentials have been deleted`. You cannot launch runs on them.
-- **Data links that use the credential are marked `INVALID`.**
-- **Active runs and Studios that use the credential are cancelled.** To detect them before you delete, call the API with `checked=true`. Platform then returns `409` with the list of conflicts instead of deleting the credential:
+- **Platform marks data links that use the credential as `INVALID`.**
+- **Platform cancels active runs and Studios that use the credential.** To detect them before you delete, call the API with `checked=true`. Platform returns `409` with the list of conflicts instead of deleting the credential:
 
   ```bash
   curl -X DELETE "$TOWER_API_ENDPOINT/credentials/<credentialsId>?workspaceId=<workspaceId>&checked=true" \
     -H "Authorization: Bearer $TOWER_ACCESS_TOKEN"
   ```
 
-- **Past runs lose their logs and their work directory view.** Once the credential is gone, the Nextflow log, the task logs, and the Data Explorer view of the work directory all fail for every completed run on that compute environment.
+- **Past runs lose their logs and their work directory view.** After deletion, the Nextflow log, the task logs, and the Data Explorer view of the work directory fail for every completed run on that compute environment.
 
-Your run data is not deleted. It remains in your cloud storage, and only access through Platform is lost.
+Platform does not delete your run data. The data remains in your cloud storage. Only access through Platform is lost.
 
 ### Role-based and federated credentials
 
-AWS credentials that use an assume-role ARN or OIDC workload identity, and Google credentials that use workload identity federation, hold no long-lived secret. They store only the role ARN or the provider and service account references. To revoke access, change the role's trust policy or delete the role.
+AWS credentials that use an assume-role Amazon Resource Name (ARN) or OpenID Connect (OIDC) workload identity, and Google credentials that use workload identity federation, hold no long-lived secret. They store only the role ARN or the provider and service account references. To revoke access, change the role's trust policy or delete the role.
 
-### Restore a compute environment after credential deletion
+### Restore a compute environment
 
-A compute environment left in the `Associated credentials have been deleted` state can be repaired by pointing it at a replacement credential. The Platform UI cannot make this change — use the API:
+To repair a compute environment in the `Associated credentials have been deleted` state, point it at a replacement credential. You cannot make this change in the Platform UI. Use the API:
 
 ```bash
 curl -X PUT "$TOWER_API_ENDPOINT/compute-envs/<computeEnvId>?workspaceId=<workspaceId>" \
@@ -57,13 +57,13 @@ curl -X PUT "$TOWER_API_ENDPOINT/compute-envs/<computeEnvId>?workspaceId=<worksp
   -d '{"credentialsId":"<newCredentialsId>"}'
 ```
 
-Platform revalidates the compute environment against the replacement credential and returns it to the `AVAILABLE` state. Log and work directory access for past runs is restored.
+Platform revalidates the compute environment against the replacement credential and returns it to the `AVAILABLE` state. This restores log and work directory access for past runs.
 
 Note the following constraints:
 
-- Use a credential for the same cloud provider, with access to the same buckets and compute resources. Platform revalidates the compute environment and rejects the change if validation fails.
-- The repair only applies while the compute environment still references the deleted credential. Once you attach a working credential, further credential changes are rejected.
-- Compute environments that authenticate with a [managed identity][managed] cannot be updated this way.
+- Use a credential for the same cloud provider, with access to the same buckets and compute resources. Platform rejects the change if validation fails.
+- You can only repair a compute environment while it still references the deleted credential. After you attach a working credential, Platform rejects further credential changes.
+- You cannot update compute environments that authenticate with a [managed identity][managed] this way.
 
 {/* links */}
 
