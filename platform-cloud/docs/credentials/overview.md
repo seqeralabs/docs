@@ -2,7 +2,7 @@
 title: "Credentials overview"
 description: "Learn about credentials in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2025-10-21"
+last updated: "2026-08-25"
 tags: [credentials, git, containers, registry]
 ---
 
@@ -18,6 +18,48 @@ Seqera Platform supports secure credential management for all your infrastructur
 :::note
 Seqera Platform encrypts all credentials with AES-256 encryption before storing them. No Seqera API exposes credentials in an unencrypted way.
 :::
+
+## Delete credentials
+
+:::caution
+Deleting a credential is permanent. Platform erases its stored copy of the secret, and every past run on the compute environments that used the credential loses its logs and its work directory view. Read this section before you delete a credential.
+:::
+
+### What deletion changes
+
+- **Platform erases the stored secret.** Deletion removes the encrypted secret from Platform storage. There is no undo and no recovery. To restore access, create a new credential and enter the access keys again.
+- **Platform does not revoke the key at your cloud provider.** Deletion makes no call to AWS, Azure, or Google. The access key, service account key, or SAS token remains valid. If your goal is to revoke access, also delete or disable the key in the provider console.
+- **Compute environments that use the credential become invalid.** Platform sets their status message to `Associated credentials have been deleted`. You cannot launch runs on them.
+- **Data links that use the credential are marked `INVALID`.**
+- **Active runs and Studios that use the credential are cancelled.** To detect them before you delete, call the API with `checked=true`. Platform then returns `409` with the list of conflicts instead of deleting the credential:
+
+  ```bash
+  curl -X DELETE "https://api.cloud.seqera.io/credentials/<credentialsId>?workspaceId=<workspaceId>&checked=true" \
+    -H "Authorization: Bearer $TOWER_ACCESS_TOKEN"
+  ```
+
+- **Past runs lose their logs and their work directory view.** Platform resolves the credential from the compute environment each time you open a run — a run keeps no copy of its own. Once the credential is gone, the Nextflow log, the task logs, and the Data Explorer view of the work directory all fail for every completed run on that compute environment.
+
+Your run data is not deleted. It remains in your cloud storage, and only access through Platform is lost. You can still read the files with a different credential — through Data Explorer with a data link backed by another credential, or with your cloud provider's CLI.
+
+### Restore a compute environment after credential deletion
+
+A compute environment left in the `Associated credentials have been deleted` state can be repaired by pointing it at a replacement credential. This is only possible through the API:
+
+```bash
+curl -X PUT "https://api.cloud.seqera.io/compute-envs/<computeEnvId>?workspaceId=<workspaceId>" \
+  -H "Authorization: Bearer $TOWER_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"credentialsId":"<newCredentialsId>"}'
+```
+
+Platform revalidates the compute environment against the replacement credential and returns it to the `AVAILABLE` state. Log and work directory access for past runs is restored, because Platform resolves the new credential when you open a run.
+
+Note the following constraints:
+
+- Use a credential for the same cloud provider, with access to the same buckets and compute resources. Platform revalidates the compute environment and rejects the change if validation fails.
+- The repair only applies while the compute environment still references the deleted credential. Once you attach a working credential, further credential changes are rejected.
+- Compute environments that authenticate with a [managed identity][managed] cannot be updated this way.
 
 [git]: ../git/overview
 [registry]: ./container_registry_credentials
