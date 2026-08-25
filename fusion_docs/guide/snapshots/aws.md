@@ -18,7 +18,7 @@ Fusion Snapshots require the following Seqera Platform compute environment confi
 - **Config mode:** Batch Forge
 - **Provisioning model:** Spot. Do not enable Fusion Snapshots on an on-demand compute environment.
 - **AMI:** See [Selecting an AMI](#selecting-an-ami) for details
-- **Instance types:** Restrict **Instance types** under **Advanced options** to the recommended list. Enabling Fusion Snapshots does not populate this field. See [Selecting an EC2 instance](#selecting-an-ec2-instance).
+- **Instance types:** Restrict **Instance types** under **Advanced options** to the recommended families (`c6id`, `m6id`, `r6id`). Enabling Fusion Snapshots does not populate this field. See [Selecting an EC2 instance](#selecting-an-ec2-instance).
 
 :::tip
 Fusion Snapshots work with sensible defaults (e.g., 5 automatic retry attempts). For configuration options, see [Advanced configuration](./configuration.md).
@@ -68,9 +68,18 @@ To find the recommended AMI:
 
 AWS provides a guaranteed 120-second reclamation window. Checkpoint time is primarily determined by memory usage. Other factors like the number of open file descriptors also affect performance.
 
-Restrict the Seqera Platform AWS Batch compute environment to instance types that can transfer checkpoint data within this window. In **Advanced options**, set **Instance types** to the recommended types in the table below. See [AWS Batch (Cloud)](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch#advanced-options) or [AWS Batch (Enterprise)](https://docs.seqera.io/platform-enterprise/compute-envs/aws-batch#advanced-options).
+Restrict the Seqera Platform AWS Batch compute environment to the recommended instance families before you enable Fusion Snapshots. Enabling **Fusion Snapshots (beta)** does not populate **Instance types**.
 
-Enabling **Fusion Snapshots (beta)** does not populate **Instance types**.
+The **Instance types** field accepts families or specific sizes. Paste the NVMe (`d` suffix) families below. Do not use `default_x86_64`. That category is not limited to snapshot-recommended types.
+
+1. Copy this comma-separated list:
+
+    ```text
+    c6id,m6id,r6id
+    ```
+
+1. In **Advanced options**, paste it into **Instance types**. See [AWS Batch (Cloud)](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch#advanced-options) or [AWS Batch (Enterprise)](https://docs.seqera.io/platform-enterprise/compute-envs/aws-batch#advanced-options).
+1. Enable **Fusion Snapshots (beta)** and set **Provisioning model** to **Spot**.
 
 :::caution
 If you enable Fusion Snapshots without restricting instance types, AWS Batch can schedule tasks onto non-recommended types. Those instances can have burst-only ("up to") network, no NVMe `d` suffix, ARM64 architecture, or a memory:bandwidth ratio worse than 5:1. The 120-second Spot window is then missed.
@@ -78,7 +87,9 @@ If you enable Fusion Snapshots without restricting instance types, AWS Batch can
 Fusion Snapshots require Spot instances. Do not enable Fusion Snapshots on an on-demand compute environment. Fusion takes snapshots only on Spot instances, even when the option is enabled.
 :::
 
-When you set **Instance types**:
+The table lists sizes in those families that meet the bandwidth and 5:1 guidance.
+
+When you select instance types:
 
 - Select instances with guaranteed network bandwidth, not "up to" values.
 - Maintain a 5:1 or better ratio between memory (GiB) and network bandwidth (Gbps). Lower ratios complete faster.
