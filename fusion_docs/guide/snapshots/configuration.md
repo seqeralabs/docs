@@ -2,14 +2,14 @@
 title: Advanced configuration
 description: "Advanced configuration options for Fusion Snapshots"
 date created: "2024-11-29"
-last updated: "2025-12-19"
+last updated: "2026-08-25"
 tags: [fusion, fusion snapshots, snapshot, configuration, nextflow]
 ---
 
 Fusion Snapshots work optimally with default configuration for most workloads. You typically do not need to modify these settings unless you have specific organizational policies, experience issues with default behavior, or have edge case requirements.
 
 :::tip
-For troubleshooting, focus on task memory usage and instance selection before adjusting these advanced configuration options. See [Fusion Snapshots troubleshooting](../../troubleshooting/fusion-snapshots.md) for more information.
+For troubleshooting, restrict the AWS Batch compute environment to recommended instance types and review task memory usage before adjusting these advanced configuration options. Enabling Fusion Snapshots does not populate **Instance types**. See [Selecting an EC2 instance](./aws.md#selecting-an-ec2-instance) and [Fusion Snapshots troubleshooting](../../troubleshooting/fusion-snapshots.md).
 :::
 
 ## Retry handling
