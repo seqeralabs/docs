@@ -65,7 +65,7 @@
         {
           "type": "category",
           "label": "Wave Lite",
-          "collapsed": true,
+"collapsed": false,
           "items": [
             "install/docker-compose",
             "install/kubernetes-lite"
