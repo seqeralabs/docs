@@ -16,7 +16,7 @@ Fusion Snapshots require the following Seqera Platform compute environment confi
 - **Work directory:** S3 bucket in the same region as compute resources
 - **Fusion Snapshots (beta):** Enabled
 - **Config mode:** Batch Forge
-- **Provisioning model:** Spot. Do not enable Fusion Snapshots on an on-demand compute environment.
+- **Provisioning model:** Spot. Do not enable Fusion Snapshots on an On-Demand compute environment.
 - **AMI:** See [Selecting an AMI](#selecting-an-ami) for details
 - **Instance types:** Restrict to the recommended sizes under **Advanced options**. Enabling Fusion Snapshots does not populate this field. See [Selecting an EC2 instance](#selecting-an-ec2-instance).
 
@@ -86,7 +86,7 @@ To restrict instance types:
 :::caution
 If you leave **Instance types** empty, AWS Batch can schedule tasks on instance types with burst-only ("up to") network bandwidth, no NVMe storage (no `d` suffix), ARM64 architecture, or a memory:bandwidth ratio worse than 5:1. These types cannot transfer checkpoint data within the 120-second window.
 
-Fusion takes snapshots only on Spot instances, even when the option is enabled. Do not enable Fusion Snapshots on an on-demand compute environment.
+Fusion takes snapshots only on Spot instances, even when the option is enabled. Do not enable Fusion Snapshots on an On-Demand compute environment.
 :::
 
 When you select instance types:

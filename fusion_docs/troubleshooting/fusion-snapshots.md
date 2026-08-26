@@ -14,7 +14,7 @@ When working with Fusion Snapshots, you might encounter the following issues.
 
 Checkpoint dumps fail with exit code `175`, or checkpoints take most of the 120-second AWS reclamation window.
 
-This issue occurs when **Fusion Snapshots (beta)** is enabled but the AWS Batch compute environment **Instance types** list is empty. AWS Batch then schedules tasks on instance types that cannot complete a checkpoint within the window. The same failure occurs when Fusion Snapshots is enabled on an on-demand compute environment. Fusion does not take snapshots on on-demand instances.
+This issue occurs when **Fusion Snapshots (beta)** is enabled but the AWS Batch compute environment **Instance types** list is empty. AWS Batch then schedules tasks on instance types that cannot complete a checkpoint within the window. The same failure occurs when Fusion Snapshots is enabled on an On-Demand compute environment. Fusion does not take snapshots on On-Demand instances.
 
 To resolve:
 
@@ -277,7 +277,7 @@ To diagnose checkpoint problems:
    Confirm your environment is properly configured:
 
    - **Instance types** is restricted to the recommended list. Enabling Fusion Snapshots does not populate this field.
-   - **Provisioning model** is **Spot**, not on-demand.
+   - **Provisioning model** is **Spot**, not On-Demand.
    - Instance type has sufficient network bandwidth.
    - Memory usage is within safe limits for your cloud provider.
    - Architecture is `x86_64` (not ARM64) if experiencing issues.
