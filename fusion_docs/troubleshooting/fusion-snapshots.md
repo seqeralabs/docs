@@ -12,15 +12,14 @@ When working with Fusion Snapshots, you might encounter the following issues.
 
 #### Checkpoint dumps fail after enabling Fusion Snapshots
 
-Checkpoint dumps fail with exit code `175`, or checkpoints take most of the 120-second AWS reclamation window, after you enable Fusion Snapshots.
+Checkpoint dumps fail with exit code `175`, or checkpoints take most of the 120-second AWS reclamation window.
 
-This issue occurs when **Fusion Snapshots (beta)** is enabled but the AWS Batch compute environment **Instance types** list is empty. AWS Batch then schedules tasks on instance types that Fusion Snapshots does not recommend. The same failure occurs if Fusion Snapshots is enabled on an on-demand compute environment. Fusion does not take snapshots on on-demand instances.
+This issue occurs when **Fusion Snapshots (beta)** is enabled but the AWS Batch compute environment **Instance types** list is empty. AWS Batch then schedules tasks on instance types that cannot complete a checkpoint within the window. The same failure occurs when Fusion Snapshots is enabled on an on-demand compute environment. Fusion does not take snapshots on on-demand instances.
 
 To resolve:
 
-1. Confirm **Provisioning model** is **Spot**. Do not enable Fusion Snapshots on an on-demand compute environment.
-1. Under **Advanced options**, set **Instance types** to the recommended types. Enabling Fusion Snapshots does not populate this field.
-1. See [Selecting an EC2 instance](../guide/snapshots/aws#selecting-an-ec2-instance).
+1. Confirm **Provisioning model** is **Spot**.
+1. Under **Advanced options**, set **Instance types** to the [recommended types](../guide/snapshots/aws#selecting-an-ec2-instance). Enabling Fusion Snapshots does not populate this field.
 
 #### Exit code `175`: Checkpoint dump failed
 
@@ -34,7 +33,7 @@ Possible causes:
    - Other factors: Large number of open file descriptors, complex process trees
 1. Insufficient network bandwidth - Cannot upload checkpoint data fast enough.
 1. Disk space issues - Not enough local storage for checkpoint files.
-1. Unrestricted instance types - The compute environment **Instance types** list is empty, so AWS Batch schedules a type that cannot finish the dump in 120 seconds.
+1. Unrestricted instance types - The compute environment **Instance types** list is empty and AWS Batch schedules a type that cannot finish the dump in 120 seconds.
 
 To resolve:
 
@@ -278,7 +277,7 @@ To diagnose checkpoint problems:
    Confirm your environment is properly configured:
 
    - **Instance types** is restricted to the recommended list. Enabling Fusion Snapshots does not populate this field.
-   - Provisioning model is Spot, not on-demand.
+   - **Provisioning model** is **Spot**, not on-demand.
    - Instance type has sufficient network bandwidth.
    - Memory usage is within safe limits for your cloud provider.
    - Architecture is `x86_64` (not ARM64) if experiencing issues.

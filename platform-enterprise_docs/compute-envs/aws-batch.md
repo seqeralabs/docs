@@ -843,7 +843,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
 
 1. Select **Enable Fusion Snapshots (beta)** to enable Fusion to automatically restore jobs that are interrupted when an AWS Spot instance reclamation occurs. Requires Fusion v2 and a **Spot** provisioning model. See [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots) for more information.
     :::caution
-    Enabling Fusion Snapshots does not populate **Instance types**. Restrict **Instance types** under **Advanced options** to the recommended list. Do not enable Fusion Snapshots on an on-demand compute environment. See [Selecting an EC2 instance](https://docs.seqera.io/fusion/guide/snapshots/aws#selecting-an-ec2-instance).
+    Restrict **Instance types** under **Advanced options** to the [recommended instance types](https://docs.seqera.io/fusion/guide/snapshots/aws#selecting-an-ec2-instance). Enabling Fusion Snapshots does not populate this field. Do not enable Fusion Snapshots on an on-demand compute environment.
     :::
 1. Set the **Config mode** to **Batch Forge** to allow Seqera Platform to manage AWS Batch compute environments using the Forge tool.
 1. Select a **Provisioning model**. To minimize compute costs select **Spot**. You can specify an allocation strategy and instance types under [**Advanced options**](#advanced-options). If advanced options are omitted, Seqera Platform 23.2 and later versions default to `BEST_FIT_PROGRESSIVE` for On-Demand and `SPOT_PRICE_CAPACITY_OPTIMIZED` for Spot compute environments.
@@ -1094,7 +1094,7 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
 
 1. Select **Enable Fusion Snapshots (beta)** to enable Fusion to automatically restore jobs that are interrupted when an AWS Spot instance reclamation occurs. Requires Fusion v2 and a **Spot** provisioning model. See [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots) for more information.
     :::caution
-    Enabling Fusion Snapshots does not populate **Instance types**. Restrict **Instance types** under **Advanced options** to the recommended list. Do not enable Fusion Snapshots on an on-demand compute environment. See [Selecting an EC2 instance](https://docs.seqera.io/fusion/guide/snapshots/aws#selecting-an-ec2-instance).
+    Restrict **Instance types** under **Advanced options** to the [recommended instance types](https://docs.seqera.io/fusion/guide/snapshots/aws#selecting-an-ec2-instance). Enabling Fusion Snapshots does not populate this field. Do not enable Fusion Snapshots on an on-demand compute environment.
     :::
 
 1. Set the **Config mode** to **Manual**.

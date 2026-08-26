@@ -18,7 +18,7 @@ Fusion Snapshots require the following Seqera Platform compute environment confi
 - **Config mode:** Batch Forge
 - **Provisioning model:** Spot. Do not enable Fusion Snapshots on an on-demand compute environment.
 - **AMI:** See [Selecting an AMI](#selecting-an-ami) for details
-- **Instance types:** Restrict **Instance types** under **Advanced options** to the recommended sizes. Enabling Fusion Snapshots does not populate this field. See [Selecting an EC2 instance](#selecting-an-ec2-instance).
+- **Instance types:** Restrict to the recommended sizes under **Advanced options**. Enabling Fusion Snapshots does not populate this field. See [Selecting an EC2 instance](#selecting-an-ec2-instance).
 
 :::tip
 Fusion Snapshots work with sensible defaults (e.g., 5 automatic retry attempts). For configuration options, see [Advanced configuration](./configuration.md).
@@ -68,9 +68,11 @@ To find the recommended AMI:
 
 AWS provides a guaranteed 120-second reclamation window. Checkpoint time is primarily determined by memory usage. Other factors like the number of open file descriptors also affect performance.
 
-Restrict the Seqera Platform AWS Batch compute environment to the recommended instance sizes before you enable Fusion Snapshots. Enabling **Fusion Snapshots (beta)** does not populate **Instance types**.
+Restrict the compute environment to the recommended instance sizes before you enable Fusion Snapshots. Enabling **Fusion Snapshots (beta)** does not populate **Instance types**.
 
-The **Instance types** field accepts families or specific sizes. Paste the sizes below, not family names such as `c6id`, `m6id`, or `r6id`. A family allows every size in that family, including types that miss the 120-second window. Do not use `default_x86_64`.
+The **Instance types** field accepts families or specific sizes. Paste the sizes below, not family names such as `c6id`, `m6id`, or `r6id`. A family permits every size in that family, including sizes that miss the 120-second window. Do not use `default_x86_64`.
+
+To restrict instance types:
 
 1. Copy this comma-separated list:
 
@@ -78,21 +80,19 @@ The **Instance types** field accepts families or specific sizes. Paste the sizes
     c6id.4xlarge,c6id.8xlarge,c6id.12xlarge,m6id.4xlarge,m6id.8xlarge,r6id.2xlarge
     ```
 
-1. In **Advanced options**, paste it into **Instance types**. See [AWS Batch (Cloud)](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch#advanced-options) or [AWS Batch (Enterprise)](https://docs.seqera.io/platform-enterprise/compute-envs/aws-batch#advanced-options).
+1. In **Advanced options**, paste the list into **Instance types**. See [AWS Batch (Cloud)](https://docs.seqera.io/platform-cloud/compute-envs/aws-batch#advanced-options) or [AWS Batch (Enterprise)](https://docs.seqera.io/platform-enterprise/compute-envs/aws-batch#advanced-options).
 1. Enable **Fusion Snapshots (beta)** and set **Provisioning model** to **Spot**.
 
 :::caution
-If you enable Fusion Snapshots without restricting instance types, AWS Batch can schedule tasks onto non-recommended types. Those instances can have burst-only ("up to") network, no NVMe `d` suffix, ARM64 architecture, or a memory:bandwidth ratio worse than 5:1. The 120-second Spot window is then missed.
+If you leave **Instance types** empty, AWS Batch can schedule tasks on instance types with burst-only ("up to") network bandwidth, no NVMe storage (no `d` suffix), ARM64 architecture, or a memory:bandwidth ratio worse than 5:1. These types cannot transfer checkpoint data within the 120-second window.
 
-Fusion Snapshots require Spot instances. Do not enable Fusion Snapshots on an on-demand compute environment. Fusion takes snapshots only on Spot instances, even when the option is enabled.
+Fusion takes snapshots only on Spot instances, even when the option is enabled. Do not enable Fusion Snapshots on an on-demand compute environment.
 :::
-
-The table lists the same recommended sizes and the bandwidth and 5:1 guidance for each.
 
 When you select instance types:
 
 - Select instances with guaranteed network bandwidth, not "up to" values.
-- Maintain a 5:1 or better ratio between memory (GiB) and network bandwidth (Gbps). Lower ratios complete faster.
+- Maintain a 5:1 or better ratio between memory (GiB) and network bandwidth (Gbps). Instances with lower ratios complete snapshots faster.
 - Prefer NVMe storage instances (those with a `d` suffix: `c6id`, `r6id`, `m6id`).
 - Use `x86_64` instances for [incremental snapshots](./index.md#incremental-snapshots). Do not enable **Use Graviton CPU architecture**.
 
@@ -107,7 +107,7 @@ For example, a `c6id.8xlarge` instance provides 64 GiB memory and 12.5 Gbps guar
 | `c6id.12xlarge` | 48    | 96           | 18.75                    | 5.12:1                 | ~70 seconds             |
 | `m6id.8xlarge`  | 32    | 128          | 12.5                     | 10.24:1                | ~105 seconds            |
 
-`m6id.8xlarge` exceeds the 5:1 ratio if a task uses most of the 128 GiB. Prefer a type at or below 5:1, or set [`process.resourceLimits`](./configuration.md#resource-limits) so requested memory fits the 120-second window.
+At 10.24:1, `m6id.8xlarge` can miss the 120-second window when a task uses most of its 128 GiB. Prefer a type at or below 5:1, or set [`process.resourceLimits`](./configuration.md#resource-limits) to cap task memory so snapshots complete within the window.
 
 :::info
 [Incremental snapshots](./index.md#incremental-snapshots) are enabled by default on `x86_64` instances.
