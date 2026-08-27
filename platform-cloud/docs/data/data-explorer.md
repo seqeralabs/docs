@@ -95,9 +95,13 @@ If you remove a data-link associated with a repository, the repository is automa
   - Images (JPG, PNG, and SVG)
 
   :::note
-  With the exception of genome tracks, the preview file size limit is 10 MB. Files of 10-25 MB can still be downloaded directly.
+  Except for genome tracks, the preview file size limit is 10 MB. You can still download files of 10-25 MB directly.
 
-  Seqera Enterprise users can increase the default 25 MB file size download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#data-features) file. Increasing this value can degrade Platform performance.
+  Seqera Enterprise users can increase the default 25 MB download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#data-features) file. Increasing this value can degrade Platform performance.
+  :::
+
+  :::note
+  Data Explorer previews an HTML file in isolation, using a pre-signed URL scoped to that file only. Relative references to other files, such as hyperlinks to sibling report pages, images, stylesheets, and scripts, fail with an access denied error. To preview a multi-page report, generate it as a single self-contained HTML file that inlines its assets and uses JavaScript to show and hide sections.
   :::
 
 - **Copy object paths**
