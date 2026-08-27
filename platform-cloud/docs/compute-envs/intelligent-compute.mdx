@@ -2,7 +2,7 @@
 title: "Intelligent Compute"
 description: "Set up Seqera Intelligent Compute on an AWS Cloud compute environment"
 date created: "2026-06-12"
-last updated: "2026-06-12"
+last updated: "2026-08-27"
 tags: [intelligent compute, aws, ecs, compute environments]
 toc_min_heading_level: 2
 toc_max_heading_level: 4
@@ -129,6 +129,18 @@ The **Metrics** tab for a run on Intelligent Compute shows three resource values
 - If **Allocated** is much higher than **Used**, the task ran with idle headroom.
 - If **Used** is close to **Allocated**, resource utilization is near-optimal for that task.
 - If **Allocated** matches **Requested**, confirm whether Seqera Intelligent Compute has been set up with a prediction model.
+
+## Prediction scope and data retention
+
+Intelligent Compute builds prediction history from the resource metrics of successful tasks, grouped by Nextflow process name rather than by compute environment, workspace, or organization. Nextflow appends a tag or index in parentheses to each task name, and Intelligent Compute strips that suffix before it matches a task to its history.
+
+For example, `FASTQC (sample1)` and `FASTQC (sample2)` both contribute to the history for `FASTQC`. Two processes with different names never share history, even when they run the same tool.
+
+Creating a new compute environment, workspace, or organization does not reset prediction history. A run in a new compute environment uses the history from earlier Intelligent Compute runs of the same processes.
+
+A task contributes to history only if it completes successfully, records resource metrics, and reports a non-zero total size for its input files.
+
+Seqera retains this history for 90 days and then deletes it. If no task for a process has completed successfully in the last 90 days, the scheduler has no history for that process. Each prediction uses at most the 100 most recent tasks for a process. For a process that runs often, those 100 tasks span less than 90 days.
 
 ## Configuration options
 
