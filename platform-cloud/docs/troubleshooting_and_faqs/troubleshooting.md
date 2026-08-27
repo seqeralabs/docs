@@ -297,6 +297,22 @@ Grant the following roles to the custom service account that submits Batch jobs:
 
 For detailed setup instructions, see [Service account permissions](../compute-envs/google-cloud-batch#service-account-permissions).
 
+#### IAM policy conflicts when creating or deleting Google Cloud compute environments
+
+Creating or deleting a Google Cloud compute environment updates the IAM policy on the Google Cloud project and on the work directory bucket. When you create or delete several compute environments that share a project or bucket at the same time, these updates can conflict. Google Cloud rejects a policy write made from a stale read with `409` (project policy) or `412 Precondition Failed` (bucket policy). Seqera Platform re-reads the policy and retries the update automatically. Concurrent operations usually complete without intervention.
+
+If the policy is still changing when the retries are exhausted, the operation fails with a message that names the contended resource:
+
+```
+IAM policy update failed for project <project-id>. Another operation changed the policy concurrently. Try again.
+```
+
+A failed creation leaves the compute environment in the `ERRORED` state. When the work directory bucket policy is contended, the message names `bucket <bucket-name>` instead.
+
+To resolve, create or delete the compute environment again. If the error persists, another process is repeatedly modifying the same IAM policy. Identify and pause that process, then retry.
+
+Google Cloud Batch compute environments are not affected. Creating or deleting one does not write these IAM policies.
+
 ## Kubernetes
 
 #### `Invalid value: "xxx": must be less or equal to memory limit`
