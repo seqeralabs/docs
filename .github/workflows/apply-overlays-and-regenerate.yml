@@ -15,6 +15,11 @@ on:
         required: true
         type: number
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 jobs:
   apply-and-regenerate:
     runs-on: ubuntu-latest
@@ -26,17 +31,23 @@ jobs:
       - name: Get PR branch name
         id: pr_branch
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # ratchet:actions/github-script@v9.0.0
+        env:
+          PR_NUMBER: ${{ github.event.inputs.pr_number || '' }}
         with:
           script: |
             let branchName;
             if (context.eventName === 'pull_request') {
               branchName = context.payload.pull_request.head.ref;
             } else {
+              const prNumber = Number(process.env.PR_NUMBER);
+              if (!prNumber) {
+                throw new Error('pr_number is required for workflow_dispatch');
+              }
               // workflow_dispatch - get branch from PR number
               const pr = await github.rest.pulls.get({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                pull_number: ${{ github.event.inputs.pr_number }}
+                pull_number: prNumber
               });
               branchName = pr.data.head.ref;
             }
@@ -44,12 +55,12 @@ jobs:
             return branchName;
 
       - name: Checkout PR branch
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ steps.pr_branch.outputs.branch }}
 
       - name: Set up Python
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # ratchet:actions/setup-python@v6.2.0
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # ratchet:actions/setup-python@v6.3.0
         with:
           python-version: '3.14'
 
@@ -58,7 +69,7 @@ jobs:
           pip install pyyaml==6.0.3
 
       - name: Set up Node.js
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # ratchet:actions/setup-node@v6.4.0
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
           node-version: '24'
 
@@ -68,8 +79,8 @@ jobs:
 
       - name: Install Speakeasy CLI
         run: |
-          VERSION=1.759.2 curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | sh
-          echo "$HOME/.speakeasy/bin" >> $GITHUB_PATH
+          curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | VERSION=1.759.2 sh
+          echo "$HOME/.speakeasy/bin" >> "$GITHUB_PATH"
 
       - name: Detect version from specs directory
         id: version
@@ -128,6 +139,7 @@ jobs:
           # Also try to find filenames mentioned before code blocks
           # Pattern: "filename.yaml" or **filename.yaml** or <!-- filename.yaml -->
           filename_pattern = r'(?:^|\n)(?:#+\s*)?(?:\*\*)?([a-zA-Z0-9_-]+-overlay-[0-9.]+\.ya?ml)(?:\*\*)?'
+          filename_comment_pattern = r'^\s*#\s*([a-zA-Z0-9_-]+-overlay-[0-9.]+\.ya?ml)\s*$'
 
           blocks = re.finditer(pattern, content, re.MULTILINE | re.DOTALL)
 
@@ -137,13 +149,23 @@ jobs:
           for block in blocks:
               yaml_content = block.group(1).strip()
 
-              # Look backwards from this block to find a filename (use the LAST/closest match)
+              filename = None
+
+              # Prefer filenames in the Markdown immediately before the code block.
               text_before = content[current_pos:block.start()]
               filename_matches = re.findall(filename_pattern, text_before, re.MULTILINE | re.IGNORECASE)
-
               if filename_matches:
-                  # Take the last (closest) filename match
                   filename = filename_matches[-1]
+
+              # Fall back to a filename comment as the first line inside the YAML block.
+              if not filename:
+                  first_line = yaml_content.splitlines()[0] if yaml_content else ""
+                  comment_match = re.match(filename_comment_pattern, first_line, re.IGNORECASE)
+                  if comment_match:
+                      filename = comment_match.group(1)
+                      yaml_content = "\n".join(yaml_content.splitlines()[1:]).strip()
+
+              if filename:
                   # Normalize to .yaml extension
                   filename = re.sub(r'\.yml$', '.yaml', filename)
 
@@ -348,6 +370,54 @@ jobs:
             echo "⚠️  No analysis file found - sidebar not updated"
           fi
 
+      - name: Validate Platform API sidebar entries
+        run: |
+          python3 - <<'PYTHON_SCRIPT'
+          import re
+          from pathlib import Path
+
+          docs_dir = Path("platform-api-docs/docs")
+          sidebar_file = docs_dir / "sidebar" / "sidebar.js"
+
+          sidebar = sidebar_file.read_text()
+          sidebar_ids = set(re.findall(r'id:\s*["\']([^"\']+)["\']', sidebar))
+
+          operation_doc_ids = set()
+          for path in docs_dir.glob("*.api.mdx"):
+              text = path.read_text(errors="ignore")
+              match = re.search(r"^id:\s*([^\n]+)", text, re.MULTILINE)
+              if match:
+                  doc_id = match.group(1).strip().strip("\"'")
+                  if doc_id != "info":
+                      operation_doc_ids.add(doc_id)
+
+          # Info pages are linked by path (for example info/labels-info) and
+          # are not operation pages. This gate validates generated operation
+          # pages only, where Docusaurus sidebar drift breaks builds.
+          sidebar_operation_ids = {
+              doc_id for doc_id in sidebar_ids
+              if "/" not in doc_id and doc_id != "info"
+          }
+
+          missing_docs = sorted(sidebar_operation_ids - operation_doc_ids)
+          missing_sidebar_entries = sorted(operation_doc_ids - sidebar_operation_ids)
+
+          if missing_docs or missing_sidebar_entries:
+              print("❌ Platform API sidebar does not match generated operation docs.")
+              if missing_docs:
+                  print("\nSidebar operation IDs with no generated doc:")
+                  for doc_id in missing_docs:
+                      print(f"  - {doc_id}")
+              if missing_sidebar_entries:
+                  print("\nGenerated operation docs missing from the sidebar:")
+                  for doc_id in missing_sidebar_entries:
+                      print(f"  - {doc_id}")
+              print("\nUpdate platform-api-docs/docs/sidebar/sidebar.js before merging this docs PR.")
+              raise SystemExit(1)
+
+          print(f"✅ Platform API sidebar matches {len(operation_doc_ids)} generated operation docs")
+          PYTHON_SCRIPT
+
       - name: Archive used overlays
         run: |
           cd platform-api-docs/scripts/specs
@@ -424,9 +494,43 @@ jobs:
 
       - name: Update PR
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # ratchet:actions/github-script@v9.0.0
+        env:
+          PR_NUMBER: ${{ github.event.inputs.pr_number || '' }}
         with:
           script: |
-            const prNumber = context.payload.pull_request?.number || ${{ github.event.inputs.pr_number }};
+            const prNumber = context.payload.pull_request?.number || Number(process.env.PR_NUMBER);
+            if (!prNumber) {
+              throw new Error('Unable to determine PR number');
+            }
+
+            const {data: pr} = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber
+            });
+
+            if (pr.draft) {
+              await github.graphql(`
+                mutation($pullRequestId: ID!) {
+                  markPullRequestReadyForReview(input: {pullRequestId: $pullRequestId}) {
+                    pullRequest {
+                      isDraft
+                    }
+                  }
+                }
+              `, {
+                pullRequestId: pr.node_id
+              });
+            }
+
+            if (pr.title.startsWith('[Draft] ')) {
+              await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber,
+                title: pr.title.replace(/^\[Draft\]\s*/, '')
+              });
+            }
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
@@ -451,20 +555,11 @@ jobs:
 
             1. **Review the generated documentation** - Check MDX files look correct
             2. **Test locally** - Run \`npm run start\` to preview
-            3. **Request final review** - Mark PR ready for review
-            4. **Merge when approved** - Documentation will be published
+            3. **Merge when approved** - Documentation will be published
 
             ---
 
             *This PR is now ready for final review and approval.*`
-            });
-
-            // Remove draft status
-            await github.rest.pulls.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: prNumber,
-              draft: false
             });
 
       - name: Create summary

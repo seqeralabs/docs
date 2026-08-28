@@ -2,7 +2,7 @@
 title: "Pipeline versioning"
 description: "Introduction to pipeline versioning in Seqera Platform."
 date created: "2025-11-14"
-last updated: "2026-04-17"
+last updated: "2026-08-20"
 tags: [pipelines, versioning, nextflow, parameters]
 ---
 
@@ -67,8 +67,8 @@ For more information, see [Building pipeline schema files](../pipeline-schema/ov
 
 Select a pipeline from the workspace Launchpad to open the pipeline's details page. From here, users with Maintain or higher permissions can:
 
-- **View version history**: See a chronological list of all draft and published versions with creator, date, and hash.
-  - Use the drop-down next to **Show:** to show all versions, or filter by draft or published versions.
+- **View version history**: See a chronological list of all draft and published versions with creator, date, hash, and version ID.
+  - Use the drop-down next to **Show:** to display all versions, or filter by draft or published versions.
   - **Search** for specific version names (freetext search), or use keywords to search by `versionId:`, `versionName:`, or `versionHash:` ([version hash](#version-hash)).
 - **Manage draft versions**:
   - Select **Publish** from the options menu of a draft version to name this version and optionally make it the default version to launch from the Launchpad.

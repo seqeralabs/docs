@@ -1,0 +1,143 @@
+---
+title: "Compute environment pre-flight checks"
+description: "How Seqera Platform continuously validates compute environments and what to do when a check fails"
+date created: "2026-06-23"
+last updated: "2026-08-24"
+tags: [compute environments, credentials, troubleshooting]
+---
+
+Pre-flight checks validate that a compute environment is usable before and at the point of pipeline launch. They run at three points, and the checks differ at each:
+
+- When you create or update a compute environment, Platform verifies the status recorded for the selected credential.
+- On a recurring background schedule, Platform re-validates credentials against the cloud provider and re-checks compute environments.
+- At launch time, Platform re-checks both.
+
+Problems appear before pipeline submission rather than mid-run. Pre-flight checks only flag conditions that would block a pipeline launch.
+
+Pre-flight checks are enabled by default for all Cloud customers and cannot be disabled.
+
+## What to verify before creating a compute environment
+
+Before creating or deploying a compute environment, confirm the following:
+
+**Credentials**
+- The access keys, service account key, or managed identity are valid and have not been rotated or revoked.
+- The IAM role or service account has the permissions required by the target platform. See the relevant compute environment page for the minimum required policy.
+
+**Work directory**
+- The bucket or storage container exists in the same region as the compute environment (required for AWS Batch and AWS Cloud compute environments only).
+- The credential attached to the compute environment has read and write access to the work directory path.
+
+**Wave** (if enabled)
+- The Wave service is running and reachable from the Platform instance.
+
+**Tower Agent** (HPC/grid compute environments only)
+- Tower Agent is reachable from Platform. See [Tower Agent](../supported_software/agent/overview) for installation and startup instructions.
+
+## Validation process
+
+Platform runs four tiers of validation:
+
+### 1. Compute environment creation and update checks
+
+Runs synchronously when you create a compute environment, and when you update a compute environment to use different credentials. Platform reads the persisted status of the selected credential. If the credential has been deleted or is marked `INVALID`, Platform rejects the request with a `400 Bad Request` that names the credential and the recovery step, instead of saving a compute environment that fails later. The check runs before any provider validation.
+
+This check does not apply to compute environments that use a managed identity, because no credential is attached.
+
+On update, Seqera Platform checks only the newly selected credential. Seqera Platform does not block other edits, such as a name or description change. To restore a compute environment whose credential has failed, replace the `INVALID` or deleted credential with a working one.
+
+### 2. Credential validation
+
+Runs on a recurring schedule. For each cloud credential (AWS, GCP, Azure) in scope, Platform calls the provider API to verify that the credential is still accepted. For AWS role-based credentials and GCP Workload Identity Federation, this check confirms the credential is well-formed but cannot fully verify the underlying role or identity provider trust configuration.
+
+When a credential fails this check, Platform marks it **INVALID** and records the provider error on the credential record. This error appears in the launch-time error when a pipeline is blocked, but not in the compute environment banner. To see the specific provider error, check the credential record directly.
+
+A transient probe failure, such as a network interruption or provider throttling, does not mark the credential `INVALID`. Platform retries the credential with exponential backoff. Some failures indicate the credential can never validate, such as an Azure storage or Batch account hostname that no longer resolves. After 10 consecutive failures of this kind, Platform marks the credential `INVALID`.
+
+### 3. Compute environment validation
+
+Seqera checks the associated credential status. If the credential is `INVALID`, the compute environment is marked `INVALID` immediately.
+
+A compute environment marked `INVALID` displays a banner with the error message. An `AVAILABLE` compute environment has its `lastValidated` timestamp refreshed.
+
+:::note
+These checks cover AWS Batch, AWS Cloud, Azure Batch, Azure Cloud, Google Cloud Batch, and Google Cloud compute environments.
+:::
+
+### 4. Pipeline launch-time checks
+
+Runs immediately when a user submits a pipeline launch. If any check fails, the launch is blocked and a specific error is returned. Multiple failures are reported together.
+
+| Check | What it does |
+|---|---|
+| Compute environment status | Blocks launch if the compute environment is marked `INVALID` |
+| Credential status | Blocks launch if the credential associated with the compute environment is marked `INVALID` |
+| Wave connectivity | For compute environments with Wave enabled, verifies the Wave service connection is active |
+| Tower Agent | For HPC compute environments, verifies a Tower Agent is online for the environment |
+
+## Manual credential validation
+
+When a credential is marked `INVALID` and you have rotated the keys or fixed the underlying issue, you can trigger an immediate re-validation:
+
+1. Navigate to **Credentials** in your workspace.
+2. Find the credential and select **Validate**.
+
+Platform makes a live call to the cloud provider and updates the credential status immediately. If the check passes, the credential returns to `AVAILABLE`.
+
+Compute environments marked `INVALID` because of this credential do not recover automatically. Use **Validate** on each affected compute environment after restoring the credential.
+
+## Manual compute environment validation
+
+When a compute environment is marked `INVALID` and you have fixed the underlying issue, you can trigger an immediate re-validation without waiting for the next background sweep:
+
+1. Navigate to **Compute environments** in your workspace.
+2. Find the compute environment and open its **⋮** (three-dot) drop-down.
+3. Select **Validate**.
+
+Platform runs pre-flight checks and updates the compute environment status immediately. If all checks pass, the compute environment returns to `AVAILABLE`.
+
+:::warning[Validate the credential before the compute environment]
+If both the credential and its associated compute environment are marked `INVALID`, you must restore the credential to `AVAILABLE` before validating the compute environment. If the credential is still `INVALID`, the compute environment will remain `INVALID` regardless.
+:::
+
+## Error reference
+
+### Compute environment creation and update errors
+
+These errors are returned immediately when you create a compute environment, or update one to use different credentials, and the selected credential cannot be used. No changes are saved. On update, only the newly selected credential is checked. Other edits to the compute environment are unaffected. When the credential record has no stored provider error, the invalid-credentials message omits the `— <provider error>` clause.
+
+| Error | Cause | Resolution |
+|---|---|---|
+| `The credentials '...' are invalid — <provider error>. Update and validate the credentials, then try again` | The selected credential is marked `INVALID` | Go to **Credentials**, update or rotate the credential, select **Validate**, then create or update the compute environment again |
+| `The credentials '...' have been deleted. Select different credentials and try again` | The selected credential has been deleted | Select a different credential or create a new one |
+
+### Compute environment error messages
+
+These banners appear on the compute environment detail page when the compute environment is `INVALID`.
+
+| Banner | Meaning | Action |
+|---|---|---|
+| `Associated credentials are invalid or expired. Update the credentials and validate this compute environment, or contact your workspace maintainer to resolve this.` | The background sweep found the attached credential is no longer valid | Go to **Credentials**, update or rotate the credential, then use **Validate** on the compute environment |
+
+### Launch-time errors
+
+These are returned immediately to the user when a launch is blocked.
+
+| Error | Cause | Resolution |
+|---|---|---|
+| `The selected compute environment '...' is in an invalid state` | Compute environment is marked `INVALID` (see banner for the specific reason) | Fix the root cause, then use **Validate** on the compute environment |
+| `The credentials '...' used by this compute environment are invalid` | Credential is marked `INVALID` | Go to **Credentials**, update or rotate the credential, then use **Validate** on the compute environment |
+| `Wave is required by the selected compute environment but the Wave service connection is not active. Verify that Wave is running and check for connectivity issues` | Platform cannot reach the Wave service | Contact your platform administrator. Once Wave is restored, retry the launch |
+| `No Tower Agent is online for the selected compute environment. Check that Tower Agent is running at your cluster.` | No Tower Agent is connected for this compute environment (HPC/grid only) | Start or restart Tower Agent on the cluster. See [Tower Agent](../supported_software/agent/overview) |
+
+### Credential error messages
+
+When the credential sweep marks a credential `INVALID`, the provider-specific reason is stored on the credential record. It appears in the launch-time error when a pipeline is blocked, but not in the compute environment banner. To see the specific provider error, check the credential record directly.
+
+| Provider | Example message |
+|---|---|
+| AWS | `AWS credentials are invalid or expired. Update or rotate the access keys.` |
+| GCP | `Google credentials are invalid or expired. Update the service account key.` |
+| GCP Workload Identity Federation | `Google WIF credential validation failed. Verify the provider and service account configuration.` |
+| Azure Batch | `Azure Batch credentials are invalid. Verify the Batch account name and key.` |
+| Azure Storage | `Azure Storage credentials are invalid. Verify the storage account name and key.` |

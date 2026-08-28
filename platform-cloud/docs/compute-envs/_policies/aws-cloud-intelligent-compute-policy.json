@@ -16,6 +16,7 @@
         "ecs:StopTask",
         "ecs:DescribeTasks",
         "ecs:DescribeContainerInstances",
+        "ecs:UpdateContainerInstancesState",
         "ecs:TagResource"
       ],
       "Resource": "arn:aws:ecs:*:*:*/seqera-sched-*"
@@ -103,7 +104,7 @@
         "logs:GetLogEvents",
         "logs:TagResource"
       ],
-      "Resource": "arn:aws:logs:*:*:log-group:/seqera/sched*"
+      "Resource": "arn:aws:logs:*:*:log-group:/seqera/*"
     },
     {
       "Sid": "EC2NetworkDiscovery",

@@ -2,7 +2,7 @@
 title: "AWS Batch"
 description: "Instructions to set up AWS Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-05-28"
+last updated: "2026-08-25"
 tags: [aws, batch, compute environments]
 ---
 
@@ -90,6 +90,7 @@ A permissive and broad policy with all the required permissions is provided here
         "batch:CreateJobQueue",
         "batch:DeleteComputeEnvironment",
         "batch:DeleteJobQueue",
+        "batch:TagResource",
         "batch:UpdateComputeEnvironment",
         "batch:UpdateJobQueue"
       ],
@@ -389,11 +390,11 @@ The policy can be scoped down to limit access to the [specific log group](#advan
 
 ### S3 access (optional)
 
-Seqera automatically attempts to fetch a list of S3 buckets available in the AWS account connected to Platform, to provide them in a drop-down to be used as Nextflow working directory, and make the compute environment creation smoother. This feature is optional, and users can type the bucket name manually when setting up a compute environment. To allow Seqera to fetch the list of buckets in the account, the `s3:ListAllMyBuckets` action can be added, and it must have the `Resource` field set to `*`, as shown in the generic policy at the beginning of this document.
+Seqera automatically attempts to fetch a list of S3 buckets available in the AWS account connected to Platform, to provide them in a drop-down to be used as Nextflow working directory, and make the compute environment creation smoother. This feature is optional, and users can type the bucket name manually when setting up a compute environment. To allow Seqera to fetch the list of buckets in the account, the `s3:ListAllMyBuckets` action can be added, and it must have the `Resource` field set to `*`, as shown in the generic policy at the beginning of this document. The `s3:ListAllMyBuckets` action also allows Data Explorer to auto-discover the data repositories accessible to your workspace credentials.
 
 Seqera offers several products to manipulate data on AWS S3 buckets, such as [Studios](../studios/overview) and [Data Explorer](../data/data-explorer); if these features are not used the related permissions can be omitted.
 
-The IAM policy can be scoped down to only allow limited read/write permissions in certain S3 buckets used by Studios/Data Explorer. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory. We also recommend granting the `s3:GetObject` permission on the work directory path to fetch Nextflow log files.
+The IAM policy can be scoped down to only allow limited read/write permissions in certain S3 buckets used by Studios/Data Explorer. For each bucket you want to browse, upload to, or download from with Data Explorer, grant `s3:GetObject` and `s3:PutObject` on the bucket objects, and `s3:ListBucket`, `s3:GetBucketLocation`, `s3:GetBucketPolicy`, and `s3:GetBucketAcl` on the bucket itself. In addition, the policy must include permission to check the region and list the content of the S3 bucket used as Nextflow work directory. We also recommend granting the `s3:GetObject` permission on the work directory path to fetch Nextflow log files.
 
 :::note
 If you opted to create a separate S3 bucket only for Nextflow work directories, there is no need for the IAM user to have read/write access to it. If Seqera is allowed to manage resources (using Batch Forge) the IAM roles automatically created will have the necessary permissions.
@@ -427,9 +428,15 @@ If you set up the compute environment manually, you can create the required IAM 
   "Sid": "S3ReadWriteBucketsForStudiosDataExplorer",
   "Effect": "Allow",
   "Action": [
-    "s3:Get*",
-    "s3:List*",
-    "s3:PutObject"
+    "s3:GetObject",
+    "s3:GetObjectTagging",
+    "s3:GetBucketLocation",
+    "s3:GetBucketPolicy",
+    "s3:GetBucketAcl",
+    "s3:ListBucket",
+    "s3:PutObject",
+    "s3:PutObjectTagging",
+    "s3:DeleteObject"
   ],
   "Resource": [
     "arn:aws:s3:::example-bucket-read-write-studios",
@@ -439,6 +446,10 @@ If you set up the compute environment manually, you can create the required IAM 
   ]
 }
 ```
+
+:::note
+`s3:GetBucketLocation` allows Data Explorer to resolve each bucket's region. `s3:GetBucketPolicy` and `s3:GetBucketAcl` allow it to inspect each bucket's access configuration when it lists and connects to data repositories. If you prefer not to enumerate individual actions, the `s3:Get*` and `s3:List*` wildcards shown in the full permissive policy above also cover these actions.
+:::
 
 ### IAM roles for AWS Batch (optional)
 
@@ -571,6 +582,20 @@ The listing of secrets cannot be restricted, but the management actions can be r
     "secretsmanager:CreateSecret"
   ],
   "Resource": "arn:aws:secretsmanager:<REGION>:<ACCOUNT_ID>:secret:tower-*"
+}
+```
+
+If you specify a customer-managed KMS key (CMK) in the **Pipeline secrets KMS key** field under **Advanced options**, or as the `TOWER_AWS_SECRETS_KMS_KEY_ID` installation default, the compute environment credentials also require `kms:GenerateDataKey` and `kms:Decrypt` on that key. Grant these actions either by naming the compute environment principal in the key policy, or in the principal's own IAM policy if the key policy delegates to IAM. The default key policy created by `aws kms create-key` delegates to IAM.
+
+```json
+{
+  "Sid": "PipelineSecretsKmsKey",
+  "Effect": "Allow",
+  "Action": [
+    "kms:GenerateDataKey",
+    "kms:Decrypt"
+  ],
+  "Resource": "arn:aws:kms:<REGION>:<ACCOUNT_ID>:key/<KEY_ID>"
 }
 ```
 
@@ -816,13 +841,16 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
 
     </details>
 
-1. Select **Enable Fusion Snapshots (beta)** to enable Fusion to automatically restore jobs that are interrupted when an AWS Spot instance reclamation occurs. Requires Fusion v2. See [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots) for more information.
+1. Select **Enable Fusion Snapshots (beta)** to enable Fusion to automatically restore jobs that are interrupted when an AWS Spot instance reclamation occurs. Requires Fusion v2 and a **Spot** provisioning model. See [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots) for more information.
+    :::caution
+    Restrict **Instance types** under **Advanced options** to the [recommended instance types](https://docs.seqera.io/fusion/guide/snapshots/aws#selecting-an-ec2-instance). Enabling Fusion Snapshots does not populate this field. Do not enable Fusion Snapshots on an On-Demand compute environment.
+    :::
 1. Set the **Config mode** to **Batch Forge** to allow Seqera Platform to manage AWS Batch compute environments using the Forge tool.
 1. Select a **Provisioning model**. To minimize compute costs select **Spot**. You can specify an allocation strategy and instance types under [**Advanced options**](#advanced-options). If advanced options are omitted, Seqera Platform 23.2 and later versions default to `BEST_FIT_PROGRESSIVE` for On-Demand and `SPOT_PRICE_CAPACITY_OPTIMIZED` for Spot compute environments.
     :::note
     You can create a compute environment that launches either Spot or On-Demand instances. Spot instances can cost as little as 20% of On-Demand instances, and with Nextflow's ability to automatically relaunch failed tasks, Spot is almost always the recommended provisioning model. Note, however, that when choosing Spot instances, Seqera will also create a dedicated queue for running the main Nextflow job using a single On-Demand instance to prevent any execution interruptions.
 
-    From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow#spot-instance-failures-and-retries-in-nextflow).
+    From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow#spot-instance-failures-and-retries).
     :::
 1. Enter the **Max CPUs**, e.g., `64`. This is the maximum number of combined CPUs (the sum of all instances' CPUs) AWS Batch will provision at any time.
 1. Select **EBS Auto scale (deprecated)** to allow the EC2 virtual machines to dynamically expand the amount of available disk space during task execution. This feature is deprecated, and is not compatible with Fusion v2.
@@ -965,6 +993,7 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
 
 - Use **Head job role** and **Compute job role** to grant fine-grained IAM permissions to the **Head job** and **Compute jobs**.
 - Add an execution role ARN to the **Batch execution role** field to grant permissions to make API calls on your behalf to the ECS container used by Batch. This is required if the pipeline launched with this compute environment needs access to the secrets stored in this workspace. This field can be ignored if you are not using secrets.
+- Use **Pipeline secrets KMS key** to specify a customer-managed KMS key that encrypts the temporary AWS Secrets Manager secrets Seqera creates for runs that use pipeline secrets. This field accepts a key ARN or a key ID. A key ARN must be in the same region as the compute environment. Leave this field empty to use the installation default set with [`TOWER_AWS_SECRETS_KMS_KEY_ID`](../enterprise/configuration/overview#compute-environments), or the default AWS-managed key if neither is set. See [Pipeline secrets (optional)](#pipeline-secrets-optional) for the KMS permissions your compute environment credentials require.
 - Specify an EBS block size (in GB) in the **EBS auto-expandable block size** field to control the initial size of the EBS auto-expandable volume. New blocks of this size are added when the volume begins to run out of free space. This feature is deprecated, and is not compatible with Fusion v2.
 - Enter the **Boot disk size** (in GB) to specify the size of the boot disk in the VMs created by this compute environment.
 - If you're using **Spot** instances, you can also specify the **Cost percentage**, which is the maximum allowed price of a **Spot** instance as a percentage of the **On-Demand** price for that instance type. Spot instances will not be launched until the current Spot price is below the specified cost percentage.
@@ -1063,7 +1092,10 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
 
     </details>
 
-1. Select **Enable Fusion Snapshots (beta)** to enable Fusion to automatically restore jobs that are interrupted when an AWS Spot instance reclamation occurs. Requires Fusion v2. See [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots) for more information.
+1. Select **Enable Fusion Snapshots (beta)** to enable Fusion to automatically restore jobs that are interrupted when an AWS Spot instance reclamation occurs. Requires Fusion v2 and a **Spot** provisioning model. See [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots) for more information.
+    :::caution
+    Restrict **Instance types** under **Advanced options** to the [recommended instance types](https://docs.seqera.io/fusion/guide/snapshots/aws#selecting-an-ec2-instance). Enabling Fusion Snapshots does not populate this field. Do not enable Fusion Snapshots on an On-Demand compute environment.
+    :::
 
 1. Set the **Config mode** to **Manual**.
 1. Enter the **Head queue** created following the [instructions](../enterprise/advanced-topics/manual-aws-batch-setup.mdx), which is the name of the AWS Batch queue that the Nextflow main job will run.
@@ -1101,6 +1133,7 @@ Seqera compute environments for AWS Batch include advanced options to configure 
 - Use **Head job CPUs** and **Head job memory** to specify the hardware resources allocated for the Nextflow head job. The default head job memory allocation is 4096 MiB.
 - Use **Head job role** and **Compute job role** to grant fine-grained IAM permissions to the head job and compute jobs,
 - Add an execution role ARN to the **Batch execution role** field to grant permissions to make API calls on your behalf to the ECS container used by Batch. This is required if the pipeline launched with this compute environment needs access to the secrets stored in this workspace. This field can be ignored if you are not using secrets.
+- Use **Pipeline secrets KMS key** to specify a customer-managed KMS key that encrypts the temporary AWS Secrets Manager secrets Seqera creates for runs that use pipeline secrets. This field accepts a key ARN or a key ID. A key ARN must be in the same region as the compute environment. Leave this field empty to use the installation default set with [`TOWER_AWS_SECRETS_KMS_KEY_ID`](../enterprise/configuration/overview#compute-environments), or the default AWS-managed key if neither is set. See [Pipeline secrets (optional)](#pipeline-secrets-optional) for the KMS permissions your compute environment credentials require.
 - Use **AWS CLI tool path** to specify the location of the `aws` CLI.
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.
 

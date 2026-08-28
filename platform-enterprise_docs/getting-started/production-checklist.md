@@ -158,9 +158,9 @@ Spot reclamation interrupts pipeline execution when cloud providers reclaim capa
 
 **Pipeline developer configuration**
 
-- `aws.batch.maxSpotAttempts` controls how many times a task is retried at the AWS Batch level before Nextflow sees it as a failure. See [Handle retries in AWS](../tutorials/retry-strategy#handle-retries-in-aws-by-setting-awsbatchmaxspotattempts).
-- `errorStrategy` and `maxRetries` in Nextflow handle failures that survive all AWS-native retries. See [Handle retries in Nextflow](../tutorials/retry-strategy#handle-retries-in-nextflow-by-setting-errorstrategy-and-maxretries).
-- Spot to On-Demand fallback logic should be implemented for tasks where interruption is unacceptable. See [Spot to On-Demand fallback](../tutorials/retry-strategy#implement-spot-to-on-demand-fallback-logic).
+- `aws.batch.maxSpotAttempts` controls how many times a task is retried at the AWS Batch level before Nextflow sees it as a failure. See [Handle retries in AWS](../compute-envs/aws-spot-interruptions#handle-retries-in-aws-by-setting-awsbatchmaxspotattempts).
+- `errorStrategy` and `maxRetries` in Nextflow handle failures that survive all AWS-native retries. See [Handle retries in Nextflow](../compute-envs/aws-spot-interruptions#handle-retries-in-nextflow-by-setting-errorstrategy-and-maxretries).
+- Spot to On-Demand fallback logic should be implemented for tasks where interruption is unacceptable. See [Spot to On-Demand fallback](../compute-envs/aws-spot-interruptions#implement-spot-to-on-demand-fallback-logic).
 
 :::note
 `aws.batch.maxSpotAttempts` and Nextflow's `maxRetries` operate at independent layers. AWS-native Spot retries happen silently — Nextflow only sees the task as failed after all AWS retries are exhausted. Pipeline developers must set both values intentionally; neither is configured by Platform automatically.

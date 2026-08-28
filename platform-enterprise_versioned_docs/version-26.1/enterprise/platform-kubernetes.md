@@ -145,7 +145,7 @@ spec:
   ...
       containers:
         - name: frontend
-          image: cr.seqera.io/enterprise/platform/frontend:v26.1.3-unprivileged
+          image: cr.seqera.io/enterprise/platform/frontend:v26.1.5-unprivileged
           env:
             - name: NGINX_LISTEN_PORT  # If not defined, defaults to 8000.
               value: 8000
@@ -160,11 +160,16 @@ spec:
       targetPort: 8000
 ```
 
+The external `port` of the `frontend` service is independent of `NGINX_LISTEN_PORT`. Leave the `port` at `80` and change only the `targetPort` to match the port NGINX listens on inside the container:
+
+- If `NGINX_LISTEN_PORT` is unset, set `targetPort` to `8000`.
+- If you set `NGINX_LISTEN_PORT` to another value, set `targetPort` to that value.
+
+`NGINX_UPSTREAM_PORT` (default `8080`) sets the backend port that NGINX routes requests to, not the frontend listening port.
+
 The unprivileged Seqera image will soon deprecate the current image that requires root. The unprivileged image can be easily customized using environment variables:
 
-- `NGINX_LISTEN_PORT` (default `8000`): The port the NGINX process will listen on
-  inside the container. The `targetPort` on the `frontend` service must match the value
-  defined in the environment variable.
+- `NGINX_LISTEN_PORT` (default `8000`): The port the NGINX process will listen on inside the container.
 - `NGINX_LISTEN_PORT_IPV6` (default `8000`): The NGINX listening port to open on the IPv6 address.
 - `NGINX_UPSTREAM_HOST` (default `backend`): The hostname of the backend service to which the NGINX process will route requests.
 - `NGINX_UPSTREAM_PORT` (default `8080`): The port where the backend service is exposed.

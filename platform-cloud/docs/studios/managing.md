@@ -2,7 +2,7 @@
 title: "Manage Studios"
 description: "Manage Studio sessions."
 date created: "2025-02-06"
-last updated: "2026-06-09"
+last updated: "2026-08-20"
 tags: [data, sessions, studios]
 ---
 
@@ -53,6 +53,8 @@ To stop a running session, select the three dots next to the status message and 
 
 Stopping a running session creates a new checkpoint.
 
+If a session doesn't advance from **stopping** to **stopped** within 10 minutes, the **Force stop** action becomes available. Force stopping marks the session as **stopped** immediately so that you can start it again. See [Session is stuck in stopping](../troubleshooting_and_faqs/studios_troubleshooting#session-is-stuck-in-stopping).
+
 ## Restart a stopped session
 
 When you restart a stopped session, the session uses the most recent checkpoint.
@@ -64,6 +66,25 @@ This functionality is available to all user roles excluding the **View** role.
 :::
 
 You can only delete a Studio when it's **stopped**. Select the three dots next to the status message and then select **Delete**. The Studio is deleted immediately and can't be recovered.
+
+## Star a Studio
+
+To star (favorite) a Studio, select the star icon in the list of Studios or on a Studio's details page. A starred Studio shows a filled yellow star. To unstar it, select the star icon again.
+
+Stars are saved per user. Starring a Studio doesn't change how it appears to other workspace members. To list only the Studios you've starred, use the `is:starred` keyword in the [search](#search) bar.
+
+## Search
+
+The **Search studios** bar filters by one or more `<keyword>:<value>` entries:
+
+- `status`: Search Studios with a specific status.
+- `username`: Search Studios created by a specific user.
+- `computeEnvName`: Search Studios in a specific compute environment.
+- `is:starred`: Search Studios that have been starred by the user.
+
+The field suggests valid keywords as you type.
+
+Search covers all Studios in a workspace. Enter a query in the Search studios field. Platform identifies each valid `keyword:value` substring, combines the remaining text into a single freeform string, and filters Studios using all of these criteria.
 
 ## Connect to a Studio
 
@@ -232,13 +253,142 @@ Sessions have the following possible statuses:
 - **build-failed**:  When a custom environment build has failed. This is a non-recoverable error. Logs are provided to assist with troubleshooting. For more information on this status, see [Inspect custom container template build status][build-status].
 - **starting**: The Studio is initializing.
 - **running**: When a session is **running**, you can connect to it, copy the URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
-- **stopping**: The recently-running session is in the process of being stopped.
+- **stopping**: The recently-running session is in the process of being stopped. If a session stays in this status for more than 10 minutes, the **Force stop** action becomes available.
 - **stopped**: When a session is stopped, the associated compute resources are deallocated. You can start or delete the session when it's in this state.
 - **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state.
 
 :::note
 There might be errors reported by the session itself but these will be overwritten with a **running** status if the session is still running.
 :::
+
+## Connect to a Studio via SSH (public preview)
+
+:::info[**Prerequisites**]
+- SSH access enabled for your workspace
+- Your SSH public key added to your Seqera Platform user profile
+- **SSH Connection** toggle enabled when adding the Studio
+- The Studio is in a **running** state.
+- **Connect client**: Version 0.10.0 or later
+:::
+
+Direct SSH connections to running Studio containers support standard SSH clients, terminal access, and [VS Code Remote SSH](https://code.visualstudio.com/docs/remote/ssh). JupyterLab, R-IDE, VS Code, and Xpra container templates are supported.
+
+:::note
+If you didn't enable SSH when you initially added your Studio, stop and enable **SSH Connection** before restarting the Studio.
+:::
+
+### Terminal access
+
+Connect to a Studio using standard SSH:
+
+```bash
+ssh <username>@<studio-session-id>@<connect-domain> -p 2222
+```
+
+**Example:**
+
+```bash
+ssh alice@a01ac8894@connect.example.com -p 2222
+```
+
+Where:
+- `<username>`: Your Seqera Platform username
+- `<studio-session-id>`: The Studio session ID (visible in the Studios list)
+- `<connect-domain>`: Your connect proxy domain
+- Port: `2222` (default SSH proxy port)
+
+The session ID is displayed in the Studio details page and the Studios list.
+
+### VS Code Remote SSH
+
+Connect to a Studio using VS Code Remote SSH:
+
+1. Install the [Remote - SSH extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) in VS Code.
+
+2. **Required:** Disable local server mode in your VS Code settings:
+
+   - Open VS Code Settings (Code > Preferences > Settings or Cmd+,)
+   - Search for `remote.SSH.useLocalServer`
+   - Set to `false`
+
+   Alternatively, add this to your `settings.json`:
+
+   ```json
+   {
+     "remote.SSH.useLocalServer": false,
+     "remote.SSH.enableRemoteCommand": true,
+     "remote.SSH.useLocalServer": false,
+     "remote.SSH.preconnect": ""
+   }
+   ```
+
+   :::warning
+   VS Code's local server mode (SSH multiplexing over SOCKS) is not supported. Connections will fail if this setting is enabled.
+   :::
+
+3. Connect to the Studio:
+
+   - Open the Command Palette (Cmd+Shift+P or Ctrl+Shift+P)
+   - Run **Remote-SSH: Connect to Host**
+   - Select your configured host or enter the SSH connection string directly
+   - VS Code opens a new window connected to your Studio
+
+Once connected, you can:
+
+- Access the Studio filesystem
+- Open folders and files
+- Use the integrated terminal
+- Install VS Code extensions in the remote environment
+- Debug code running in the Studio
+- Install packages
+
+### Claude Code desktop app
+
+The Claude Code desktop app requires later Connect versions than other SSH connection methods.
+
+:::info[**Prerequisites**]
+
+You need the following:
+
+- Connect server and proxy version 0.12.1 or later
+- Connect client version 0.13.0 or later
+
+:::
+
+The app reads `~/.ssh/config`, but its **SSH Host** field accepts a hostname only. It cannot parse the `<username>@<studio-session-id>` pair. Define a host alias, then reference the alias in the app.
+
+1. Add an entry to `~/.ssh/config`:
+
+   ```
+   Host my-studio
+       HostName connect.connect.cloud.seqera.io
+       User alice@a01ac8894
+       Port 2222
+       IdentityFile ~/.ssh/id_ed25519
+   ```
+
+   Put the `<username>@<studio-session-id>` pair in `User`, and only the connect domain in `HostName`.
+
+2. Add an SSH connection in the app:
+
+   - **SSH Host**: `my-studio`
+   - **SSH Port**: `2222`
+
+:::warning
+Set **SSH Port** explicitly. The app ignores the `Port` value in `~/.ssh/config` and defaults to port 22. The connection then fails with a handshake timeout.
+:::
+
+If the connection fails, see [SSH connections](../troubleshooting_and_faqs/studios_troubleshooting#ssh-connections-public-preview).
+
+### SSH authentication
+
+SSH connections use public key authentication:
+
+1. Platform validates your credentials and workspace permissions.
+2. Your SSH client uses your private key for authentication.
+3. The connection is encrypted end-to-end.
+
+For troubleshooting SSH connection issues, see [Studios troubleshooting](../troubleshooting_and_faqs/studios_troubleshooting#ssh-connections-public-preview).
 
 ## Studio session data-links
 

@@ -41,3 +41,8 @@
   Description: >
     Require the use of the STARTTLS command. Must be `true` for production SMTP hosts.
   Value:                '**Recommended**: `true`'
+-
+  tower.yml:            '`mail.debug`'
+  Description: >
+    Enable verbose SMTP session logging to troubleshoot mail delivery. When enabled, the full SMTP protocol exchange (connection, STARTTLS negotiation, authentication, and message transfer) is written to the application logs. Leave disabled during normal operation. This option can only be set in `tower.yml`.
+  Value:                'Default: `false`'

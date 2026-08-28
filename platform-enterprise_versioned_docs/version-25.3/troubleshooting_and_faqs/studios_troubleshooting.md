@@ -14,11 +14,17 @@ In your interactive analysis environment, open a new terminal and type `ls -la /
 
 ## Enabling AI coding assistants in Studios
 
-VS Code, RStudio, and Jupyter environments natively integrate with [GitHub Copilot][gh-copilot]. Enabling it requires a GitHub Account and an active Copilot subscription.
+RStudio and Jupyter environments integrate with [GitHub Copilot][gh-copilot]. Enabling it requires a GitHub account and an active Copilot subscription.
 
-- **VS Code:** To enable GitHub Copilot in your VS Code session, install the extension and then sign in with your GitHub account. [Learn more][vscode-blog].
-- **RStudio:** To enable GitHub Copilot in your RStudio session requires RStudio configuration changes. By default, the Studio session user has root permissions, so configuration changes are possible. You will need to restart the RStudio once the required changes have been made. [Learn more][posit-ghcopilot-guide].
-- **Jupyter:** [Notebook Intelligence (NBI)][nbi] is an AI coding assistant and extensible AI framework for Jupyter. It can use GitHub Copilot or AI models from any other LLM Provider. [Learn more][nbi-blog].
+- **RStudio:** Enabling GitHub Copilot in an RStudio session requires configuration changes. The session user has root permissions by default and can make these changes. Restart RStudio to apply them. [Learn more][posit-ghcopilot-guide].
+- **Jupyter:** [Notebook Intelligence (NBI)][nbi] is an AI coding assistant and extensible framework for Jupyter. It can use GitHub Copilot or models from other LLM providers. [Learn more][nbi-blog].
+- **VS Code:** GitHub Copilot **cannot** be installed directly in the browser-based Studios VS Code session. Studios VS Code is built on [OpenVSCode Server][open-vscode-server], which uses the [Open VSX registry][open-vsx] instead of the Microsoft VS Code Marketplace. GitHub does not publish the Copilot extension to Open VSX, and manual VSIX installation is not supported.
+
+    To use Copilot with a Studios VS Code session, connect to the session from your local VS Code (with Copilot already installed and licensed) using the Remote SSH extension. See [Studios SSH configuration](../enterprise/studios-ssh) for setup.
+
+    :::note
+    SSH access requires admin enablement and Platform 25.3.3 or later with Connect server and proxy 0.10.0 or later.
+    :::
 
 ## Session size limited by compute environment advanced options: Head job CPUs and Head job memory
 
@@ -81,16 +87,16 @@ This is displayed because logging is set to `stderr` by default to ensure all lo
 
 By default, Fusion does not resync objects from remotely mounted data-link(s) after initial mounting.
 
-If you have a running session with data mounted and the underlying storage is updated, the data will not be resynced to the Studio session.
+If you have a running session with data mounted and the underlying storage is updated, the data is not resynced to the Studio session.
 
-You can change this behavior when you are [adding a Studio session](../studios/add-studio) by defining the `FUSION_REFRESH_TIMEOUT` environment variable to a specified number of seconds (e.g., `30`). This will force Fusion to refresh the view of the mounted data-link(s) at the specified interval.
+You can change this behavior when you [add a Studio session](../studios/add-studio) by setting the `FUSION_REFRESH_TIMEOUT` environment variable to a number of seconds (e.g., `120`). Fusion refreshes the view of the mounted data-links at that interval.
 
 :::note
-Setting the environment variable _inside_ an already running Studio session by executing the command `export FUSION_REFRESH_TIMEOUT=30` won't change the behavior of the outer Fusion session. The environment variable should be set in the "General config" section durion Studio creation.
+Setting the environment variable _inside_ an already running Studio session by executing the command `export FUSION_REFRESH_TIMEOUT=120` won't change the behavior of the outer Fusion session. Set the environment variable in the **General config** section durion Studio creation.
 :::
 
 :::warning
-This is an experimental feature and may cause consistency issues in the Fusion namespace, resulting in data loss.
+Fusion waits two minutes before it uploads the working chunk. Always set `FUSION_REFRESH_TIMEOUT` to `120` or higher. Lower values can create orphaned chunks in the Studio environment that are never uploaded to object storage and cannot be recovered.
 :::
 
 ## When starting an existing Studio session, extra processes are not automatically restarted
@@ -262,7 +268,8 @@ Debug logs include SSH handshake details, authentication attempts, channel lifec
 {/* links */}
 
 [gh-copilot]: https://github.com/features/copilot
-[vscode-blog]: https://code.visualstudio.com/docs/copilot/setup-simplified
+[open-vscode-server]: https://github.com/gitpod-io/openvscode-server
+[open-vsx]: https://open-vsx.org/
 [posit-ghcopilot-guide]: https://docs.posit.co/ide/user/ide/guide/tools/copilot.html
 [nbi]: https://github.com/notebook-intelligence/notebook-intelligence
 [nbi-blog]: https://blog.jupyter.org/introducing-notebook-intelligence-3648c306b91a

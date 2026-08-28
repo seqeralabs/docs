@@ -111,8 +111,9 @@ jobs:
 
       - name: Checkout docs repo (for version check)
         if: steps.check-pr.outputs.pr_exists != 'true'
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          path: docs-version-check
           sparse-checkout: |
             platform-api-docs/scripts/specs
           sparse-checkout-cone-mode: false
@@ -122,25 +123,26 @@ jobs:
         id: version-check
         run: |
           VERSION="${{ steps.version.outputs.api_version }}"
+          SPEC_DIR="docs-version-check/platform-api-docs/scripts/specs"
 
           # Check if a spec file already exists for this version
-          if [ -f "platform-api-docs/scripts/specs/seqera-api-${VERSION}.yaml" ] || [ -f "platform-api-docs/scripts/specs/seqera-api-${VERSION}.yml" ]; then
+          if [ -f "${SPEC_DIR}/seqera-api-${VERSION}.yaml" ] || [ -f "${SPEC_DIR}/seqera-api-${VERSION}.yml" ]; then
             echo "ℹ️  Version $VERSION already exists in docs repo - skipping workflow"
-            echo "should_skip=true" >> $GITHUB_OUTPUT
+            echo "should_skip=true" >> "$GITHUB_OUTPUT"
           else
             echo "✅ Version $VERSION is new - proceeding with overlay generation"
-            echo "should_skip=false" >> $GITHUB_OUTPUT
+            echo "should_skip=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Checkout docs repo (full)
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         # Don't specify ref - use the branch that triggered the workflow
 
       - name: Generate Platform app token
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
         id: platform-app-token
-        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # ratchet:actions/create-github-app-token@v3.0.0
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
           app-id: ${{ secrets.DOCS_BOT_APP_ID }}
           private-key: ${{ secrets.DOCS_BOT_APP_PRIVATE_KEY }}
@@ -149,7 +151,7 @@ jobs:
 
       - name: Checkout Platform repo
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6.0.3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: seqeralabs/platform
           ref: ${{ steps.version.outputs.platform_ref }}
@@ -158,7 +160,7 @@ jobs:
 
       - name: Set up Python
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # ratchet:actions/setup-python@v6.2.0
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # ratchet:actions/setup-python@v6.3.0
         with:
           python-version: '3.14'
 
@@ -170,8 +172,8 @@ jobs:
       - name: Install Speakeasy CLI
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
         run: |
-          VERSION=1.759.2 curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | sh
-          echo "$HOME/.speakeasy/bin" >> $GITHUB_PATH
+          curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | VERSION=1.759.2 sh
+          echo "$HOME/.speakeasy/bin" >> "$GITHUB_PATH"
 
       - name: Copy new base spec from Platform repo
         if: steps.check-pr.outputs.pr_exists != 'true' && steps.version-check.outputs.should_skip != 'true'
@@ -284,6 +286,8 @@ jobs:
           - Descriptions are full sentences with periods
           - Follow verb-entity pattern for operations
           - Group by controller/feature
+          - Put the overlay filename as a plain Markdown line immediately before each YAML code block
+          - Do not put the filename only as a comment inside the YAML block
 
           Generate the overlay files as separate YAML code blocks, clearly labeled with the filename."""
 
@@ -324,6 +328,8 @@ jobs:
           branch: ${{ steps.version.outputs.branch_name }}
           delete-branch: true
           draft: true
+          add-paths: |
+            platform-api-docs/scripts/specs
           title: '[Draft] API Documentation Updates for v${{ steps.version.outputs.api_version }}'
           body: |
             ## API Version: ${{ steps.version.outputs.api_version }}

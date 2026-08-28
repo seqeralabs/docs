@@ -10,7 +10,7 @@ Configure Microsoft Entra ID (formerly Azure AD) to push your tenant's groups to
 :::info[**Prerequisites**]{#prerequisites}
 You will need the following to get started:
 
-- An Entra ID enterprise application configured as your Platform SSO connection. See [Entra ID authentication](../../entra).
+- An Entra ID application registration configured as your Platform SSO connection. See [Entra ID authentication](../../oidc). SCIM provisioning requires a separate enterprise application that you create in this guide.
 - Organization owner access to your Platform organization.
 - Administrator access to your Entra ID tenant with permission to manage application provisioning.
 :::
@@ -25,24 +25,41 @@ You will need the following to get started:
 The bearer token grants write access to your group catalog. Store it in a secrets manager and rotate it on a schedule. To rotate, generate a new token in Seqera and update Entra ID's configuration. The previous token is revoked when the new token is issued.
 :::
 
+## Create a provisioning application
+
+:::caution
+Entra ID does not support automatic provisioning on applications created through **App Registrations**. You cannot use the SSO application you created in [Entra ID authentication](../../oidc) for SCIM. Its **Provisioning > Get started** button is disabled and Entra ID warns that out-of-the-box automatic provisioning is not supported. Create a separate non-gallery enterprise application for provisioning instead. Your existing SSO application registration continues to handle sign-in unchanged.
+:::
+
+1. In the Azure portal, open **Entra ID**, then **Enterprise applications**.
+2. Select **New application**, then **Create your own application**.
+3. Enter a name (for example, `Seqera SCIM provisioning`) and select **Integrate any other application you don't find in the gallery (Non-gallery)**.
+4. Select **Create**.
+
+Use this application only for SCIM provisioning. Do not configure sign-on for it.
+
 ## Enable provisioning in Entra ID
 
-1. Sign in to the Azure portal and open **Entra ID**, then **Enterprise applications**.
-2. Select the application that fronts your Platform SSO connection.
-3. Open **Provisioning** and select **Get started**.
-4. Set **Provisioning Mode** to **Automatic**.
-5. Under **Admin Credentials**, provide:
-   - **Tenant URL**: The Platform SCIM endpoint URL from the previous section.
-   - **Secret Token**: The Platform bearer token from the previous section.
-6. Select **Test Connection**. Entra ID should report success.
-7. Select **Save**.
+1. In **Enterprise applications**, select the provisioning application you created in the previous section.
+2. Open **Provisioning** and select **Get started**.
+3. Set **Provisioning Mode** to **Automatic**.
+4. Under **Admin Credentials**, provide:
+   - **Tenant URL**: The Platform SCIM endpoint URL from [Get the Platform SCIM connection details](#get-the-platform-scim-connection-details).
+   - **Secret Token**: The Platform bearer token from the same section.
+5. Select **Test Connection**. Entra ID should report success.
+6. Select **Save**.
 
 ## Scope and start provisioning
 
+:::caution
+Platform supports group provisioning only, and rejects every user create, update, and delete that Entra ID sends. Disable the **Provision Microsoft Entra ID Users** mapping (step 3) before you turn provisioning on. If you leave it enabled, every provisioning cycle fills the Entra ID provisioning log with failures and shows a provisioning error on the application in the Azure portal. Platform users are created automatically at SSO login and don't need SCIM.
+:::
+
 1. With **Provisioning** still open, expand **Settings**.
 2. Set **Scope** to **Sync only assigned users and groups**.
-3. Save, then set **Provisioning Status** to **On**.
-4. Return to the application's **Users and groups** tab and assign the groups you want Platform to receive.
+3. Expand **Mappings** and select **Provision Microsoft Entra ID Users**. Under **Target Object Actions**, clear **Create**, **Update**, and **Delete**, then select **Save**. Leave the **Provision Microsoft Entra ID Groups** mapping enabled.
+4. Save, then set **Provisioning Status** to **On**.
+5. Return to the provisioning application's **Users and groups** tab and assign the groups you want Platform to receive.
 
 Entra ID runs an initial cycle within minutes and then syncs incrementally every ~40 minutes.
 
@@ -74,22 +91,4 @@ Renames and deletes propagate automatically through SCIM:
 
 ## Troubleshooting
 
-### Groups appear in Entra ID but not in Platform
-
-Confirm the bearer token configured in Entra ID matches the latest token that was issued. If you generated a new token after configuring Entra ID, the previous token is revoked.
-
-### Provisioning logs show `401 Unauthorized`
-
-The bearer token is invalid or expired. Generate a new token in Platform and replace it in Entra ID.
-
-### The catalog shows GUID-style identifiers instead of group names
-
-Entra ID is emitting object IDs rather than display names. See the **Group display names vs object IDs** caution above for the two options.
-
-### `409 Conflict` on a specific group
-
-A group with the same display name already exists in another organization on the same Enterprise instance. See [Multi-organization routing](../multi-org-routing) for the cross-organization uniqueness rule and conflict resolution.
-
-### A group is assigned to the application but doesn't sync
-
-Confirm the provisioning scope is set to **Sync only assigned users and groups** and that the group is actually listed under **Users and groups**, not just nested in another assigned group.
+For SCIM provisioning issues, see [SCIM provisioning](../../../../../troubleshooting_and_faqs/authentication#scim-provisioning).
