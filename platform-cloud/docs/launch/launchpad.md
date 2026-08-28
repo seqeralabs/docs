@@ -2,7 +2,7 @@
 title: "Launch pipelines"
 description: "Curate and launch pipelines in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-08-24"
+last updated: "2026-08-26"
 tags: [launchpad, launch, configure, pipelines, schema, configuration, nextflow, parameters, input, output]
 ---
 
@@ -50,6 +50,10 @@ Configure the core settings for your run, including the pipeline source, compute
   :::
 - **Main script**: The script file to execute (default: `main.nf`). Config profile suggestions may update when this field changes. See [Main script](./advanced#main-script) for custom script paths.
 - **Config profiles**: One or more [configuration profile][nextflow-config-profile] names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository.
+
+    :::caution
+    When you select or change config profiles, Platform reloads the pipeline parameters. Any run parameter that a selected profile defines takes the profile's value, replacing a value you already entered. Select config profiles before you enter run parameter values.
+    :::
 
     <details>
     <summary>How config profiles are detected</summary>
@@ -113,6 +117,8 @@ Enter **Run parameters** in one of four ways before launch:
 - The **Params file view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** drop-down.
 - Use **Upload params file** to upload a JSON or YAML file with run parameters.
 - Specify run parameters with query parameters in the launch URL. See [URL query parameters](#url-query-parameters) for more information.
+
+If you select or change **Config profiles** in [General config](#general-config) after entering run parameters, any parameter that a selected profile defines takes the profile's value.
 
 If the pipeline includes a `nextflow_schema.json` file in its repository root, Seqera Platform uses it to dynamically generate a form with that pipeline's parameters. The fields shown vary by pipeline, depending on the parameters defined in the schema.
 
