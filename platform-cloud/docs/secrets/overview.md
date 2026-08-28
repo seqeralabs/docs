@@ -81,6 +81,17 @@ The ECS Agent uses the [Batch Execution role](https://docs.aws.amazon.com/batch/
 Including `tower-*` in the Resource ARN above limits access to Platform secrets only (as opposed to all secrets in the given region).
 :::
 
+If the compute environment specifies a **Pipeline secrets KMS key**, the execution role also requires `kms:Decrypt` on that key to inject secrets encrypted with the key. Grant the action either by naming the role in the key policy, or in the role's own IAM policy if the key policy delegates to IAM. The default key policy created by `aws kms create-key` delegates to IAM:
+
+```json
+    {
+        "Sid": "AllowECSAgentToDecryptSecrets",
+        "Effect": "Allow",
+        "Action": "kms:Decrypt",
+        "Resource": "arn:aws:kms:<YOUR_COMPUTE_REGION>:<ACCOUNT_ID>:key/<KEY_ID>"
+    }
+```
+
 **IAM trust relationship**
 
 ```json
@@ -177,3 +188,11 @@ You must [enable Google Secret Manager](https://cloud.google.com/secret-manager/
 See the [Google documentation](https://cloud.google.com/secret-manager/docs/access-control) for permission configuration instructions to integrate with Google Secret Manager.
 
 Seqera Platform requires `roles/secretmanager.admin` permissions in the project where it will manage your secrets. Ensure that your compute environment contains credentials with this access role for the same `project_id` listed in the service account JSON file.
+
+### Secret replication
+
+Seqera Platform creates pipeline secrets in Google Secret Manager with user-managed replication, stored in the same region as the compute environment that runs the pipeline. For Google Batch compute environments, this is the compute environment's location (`us-central1` when no location is set). For Google Cloud compute environments, this is the compute environment's region. As secrets are not stored in the `global` location, secret creation succeeds in projects that enforce the [`constraints/gcp.resourceLocations`](https://cloud.google.com/resource-manager/docs/organization-policy/defining-locations) organization policy.
+
+:::note
+Each secret is stored in a single region. If Google Secret Manager is unavailable in that region, secret creation fails and the run does not launch.
+:::

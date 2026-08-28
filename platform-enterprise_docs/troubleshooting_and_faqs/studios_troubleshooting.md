@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-08-12"
+last updated: "2026-08-28"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -17,6 +17,12 @@ If your Studio session doesn't advance from **starting** status to **running** s
 If you are not a **Maintain** or higher user but you have access to the AWS Console for your organization, check that the AWS Batch compute environment associated with the session is in the **ENABLED** state with a **VALID** status. You can also check the **Compute resources** settings. Contact your organization's AWS administrator if you don't have access to the AWS Console.
 
 If sufficient compute resources aren't available, select **Stop** for the session and any others that are running before trying again. If you have access to the AWS Console for your organization, you can terminate a specific session from the AWS Batch Jobs page (filtering by compute environment queue).
+
+#### Session is stuck in **stopping**
+
+If your Studio session doesn't advance from **stopping** status to **stopped** status within 10 minutes, the **Force stop** action becomes available. Select the three dots next to the status message, then select **Force stop**. Force stopping marks the session as **stopped** immediately so that you can start it again. Any work since the last saved checkpoint may be lost. Checkpoint revalidation restores your data when the session next starts.
+
+To change how long a session must be in **stopping** before you can force stop it, set the `TOWER_DATA_STUDIO_FORCE_STOP_THRESHOLD` environment variable. The default is 10 minutes.
 
 #### Session status is **errored**
 
@@ -96,6 +102,14 @@ Setting the environment variable _inside_ an already running Studio session by e
 :::warning
 Fusion waits two minutes before it uploads the working chunk. Always set `FUSION_REFRESH_TIMEOUT` to `120` or higher. Lower values can create orphaned chunks in the Studio environment that are never uploaded to object storage and cannot be recovered.
 :::
+
+#### Data written by a running session is not visible to pipeline runs {#studio-write-not-visible}
+
+A pipeline run fails when it reads a path that a running Studio session wrote to. The files exist but are 0 bytes, or the directory appears empty.
+
+This issue occurs because Fusion uploads data to object storage in chunks and consolidates those chunks into a complete object only when the Fusion instance that wrote them shuts down. For a Studio session, that happens when the session stops. Separate Fusion instances also do not share a live view of each other's in-progress writes.
+
+To resolve, [stop the Studio session](../studios/managing#stop-a-studio-session) and wait for its status to change to **stopped** before you launch the run. To avoid the problem, upload data for a pipeline with **Data Explorer** or the Seqera Platform CLI (`tw`) instead of writing it from a running session.
 
 ## Custom environments and container images
 

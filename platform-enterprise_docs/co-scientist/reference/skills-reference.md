@@ -45,8 +45,7 @@ The CLI includes the following built-in skills by default:
 | `/convert-jupyter-notebook` | Convert Jupyter notebooks to Nextflow pipelines |
 | `/convert-python-script` | Convert Python scripts, including standalone scripts and Snakemake-style logic, to Nextflow |
 | `/convert-r-script` | Convert R scripts to Nextflow pipelines |
-| `/migrate-from-wdl` | Convert WDL to Nextflow |
-| `/write-nf-test` | Write nf-tests for your pipeline |
+| `/nf-test` | Set up nf-test and write tests for pipelines, modules, and subworkflows |
 | `/fix-strict-syntax` | Fix Nextflow strict syntax errors and help migrate pipelines to the v2 parser |
 | `/nf-aggregate` | Aggregate metrics from Nextflow runs on Seqera Platform using the `nf-aggregate` pipeline |
 | `/nf-data-lineage` | Explore Nextflow data lineage to trace which inputs and processes produced a result |

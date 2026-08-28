@@ -27,6 +27,8 @@ When launching pipelines in Platform, Nextflow configuration is resolved from fo
 **Global Nextflow config** values are pre-filled in the launch form's **Nextflow config file** field, but also apply independently at the priority level shown above. Clearing the launch form field does not remove the **Global Nextflow config** values.
 :::
 
+This table applies to Nextflow configuration settings only. For how config profiles affect run parameter values entered in the launch form, see [Config profiles](./launchpad#config-profiles).
+
 For example, if:
 
 1. The pipeline repository `nextflow.config` file contains this manifest:

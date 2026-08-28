@@ -53,6 +53,8 @@ To stop a running session, select the three dots next to the status message and 
 
 Stopping a running session creates a new checkpoint.
 
+If a session doesn't advance from **stopping** to **stopped** within 10 minutes, the **Force stop** action becomes available. Force stopping marks the session as **stopped** immediately so that you can start it again. See [Session is stuck in stopping](../troubleshooting_and_faqs/studios_troubleshooting#session-is-stuck-in-stopping).
+
 ## Restart a stopped session
 
 When you restart a stopped session, the session uses the most recent checkpoint.
@@ -64,6 +66,25 @@ This functionality is available to all user roles excluding the **View** role.
 :::
 
 You can only delete a Studio when it's **stopped**. Select the three dots next to the status message and then select **Delete**. The Studio is deleted immediately and can't be recovered.
+
+## Star a Studio
+
+To star (favorite) a Studio, select the star icon in the list of Studios or on a Studio's details page. A starred Studio shows a filled yellow star. To unstar it, select the star icon again.
+
+Stars are saved per user. Starring a Studio doesn't change how it appears to other workspace members. To list only the Studios you've starred, use the `is:starred` keyword in the [search](#search) bar.
+
+## Search
+
+The **Search studios** bar filters by one or more `<keyword>:<value>` entries:
+
+- `status`: Search Studios with a specific status.
+- `username`: Search Studios created by a specific user.
+- `computeEnvName`: Search Studios in a specific compute environment.
+- `is:starred`: Search Studios that have been starred by the user.
+
+The field suggests valid keywords as you type.
+
+Search covers all Studios in a workspace. Enter a query in the Search studios field. Platform identifies each valid `keyword:value` substring, combines the remaining text into a single freeform string, and filters Studios using all of these criteria.
 
 ## Connect to a Studio
 
@@ -232,7 +253,7 @@ Sessions have the following possible statuses:
 - **build-failed**:  When a custom environment build has failed. This is a non-recoverable error. Logs are provided to assist with troubleshooting. For more information on this status, see [Inspect custom container template build status][build-status].
 - **starting**: The Studio is initializing.
 - **running**: When a session is **running**, you can connect to it, copy the URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
-- **stopping**: The recently-running session is in the process of being stopped.
+- **stopping**: The recently-running session is in the process of being stopped. If a session stays in this status for more than 10 minutes, the **Force stop** action becomes available.
 - **stopped**: When a session is stopped, the associated compute resources are deallocated. You can start or delete the session when it's in this state.
 - **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state.
 
@@ -391,6 +412,20 @@ When starting a Studio session, a *checkpoint* is automatically created. A check
 
 :::warning
 Checkpoints vary in size depending on libraries installed in your session environment. This can potentially result in many large files stored in the compute environment's work directory and saved to cloud storage. This storage will incur costs based on the cloud provider. Due to the architecture of Studios, you cannot delete any checkpoint files to save on storage costs. Deleting a Studio session's checkpoints will result in a corrupted Studio session that cannot be started nor recovered.
+:::
+
+### Object storage versioning and checkpoint storage costs
+
+If your compute environment work directory uses an object storage bucket with **versioning enabled**, checkpoint writes create a new object version every five minutes rather than overwriting the previous one. For an active Studio session, this produces up to 96 new object versions per day per session. Over time, these non-current versions accumulate and can significantly increase storage costs.
+
+:::warning
+Only the latest version of each checkpoint file is read by Platform. However, non-current object versions are not automatically removed and will continue to accrue storage costs until explicitly deleted or expired.
+:::
+
+**Recommended mitigation:** Apply a lifecycle policy to expire non-current object versions on the `.studios/checkpoints/` prefix. A one-day expiry retains the current version while removing intermediate five-minute writes. You can also delete existing accumulated non-current versions manually using your cloud provider's console or CLI.
+
+:::note
+Non-current object versions (intermediate checkpoint writes) are safe to delete. Do **not** delete the current (latest) version of any checkpoint file or the checkpoint directory itself — doing so will corrupt the Studio session and it cannot be recovered.
 :::
 
 When you stop and start a session, or start a new session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available. Changes made to mounted data are not included in a checkpoint.

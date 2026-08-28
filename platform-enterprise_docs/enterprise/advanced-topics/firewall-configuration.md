@@ -8,7 +8,7 @@ tags: [firewall, configuration]
 
 Seqera Platform Cloud ([cloud.seqera.io](https://cloud.seqera.io)) may need to connect to resources within your network, e.g., your storage server. To do so, your firewall must be configured to allow certain IPs to reach your resources.
 
-A dynamic list of IPs is kept up-to-date at https://meta.seqera.io.
+A dynamic list of IPs is kept up-to-date at [`meta.seqera.io`](https://meta.seqera.io).
 
 This endpoint returns a JSON object that can be parsed to dynamically adapt your firewall, e.g., in Python with the `requests` package:
 
@@ -17,17 +17,19 @@ $ python3
 >>> import requests
 >>> requests.get("https://meta.seqera.io").json()
 {
-  "cloud.seqera.io": [
-    "18.135.7.45/32",
-    "18.169.21.18/32",
-    "18.171.4.252/32"
-  ],
-  "licenses.seqera.io": [
-    "35.176.121.51/32",
-    "35.178.254.247/32"
-  ]
+  "egress": ["a.b.c.d/32", "..."],
+  "ingress": ["e.f.g.h/32", "..."]
 }
 ```
+
+The response contains two lists:
+
+- `egress` — the addresses Seqera connects *from*. Allow these at your firewall so Seqera Platform Cloud can reach your resources.
+- `ingress` — the addresses Seqera services are reachable *at*, including `wave.seqera.io`. Allow these if your outbound rules are IP-based rather than DNS-based.
+
+:::note
+Always query [`meta.seqera.io`](https://meta.seqera.io) when you build or review your firewall rules. The addresses change as services are added, so a copied list becomes stale.
+:::
 
 ### DNS allowlist
 
@@ -37,8 +39,10 @@ In order for you to access resources such as Fusion tarballs, `nf-xpack` files, 
 - `api.cloud.seqera.io`
 - `user-data.cloud.seqera.io`
 - `tower.nf`
+- `api.tower.nf`
 - `connect.cloud.seqera.io` and its subdomains `*.connect.cloud.seqera.io`
 - `hub.seqera.io`
+- `intern.seqera.io`
 - `ai.seqera.io`
 - `ai-api.seqera.io`
 - `wave.seqera.io`

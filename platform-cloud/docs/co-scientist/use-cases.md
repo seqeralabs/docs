@@ -92,7 +92,7 @@ Trace output provenance with data lineage:
 ### Fix strict syntax
 
 ```
-> /fix-strict-syntax
+> /nextflow-26-syntax
 ```
 
 ### Migrate old schema definitions
@@ -134,7 +134,7 @@ Use Seqera Platform capabilities to run and manage workflows at scale with AI as
 ### Debug your most recent run
 
 ```
-> /debug-last-run-on-seqera
+> /debug-seqera-failed-run
 ```
 
 ## Build containers with Wave

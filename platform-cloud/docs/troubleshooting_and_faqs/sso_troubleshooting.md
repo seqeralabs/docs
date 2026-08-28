@@ -31,3 +31,29 @@ Confirm that the user has access to the application or connection configured in 
 #### An existing user sees a linking problem during sign-in
 
 If Seqera can't link an existing account to the SSO identity, the user should contact an organization owner or Seqera support before trying again.
+
+## IdP group provisioning (SCIM)
+
+#### The Get started button under Provisioning is disabled (Entra ID)
+
+The application was created through **App Registrations**, which doesn't support automatic provisioning. Create a separate non-gallery enterprise application for SCIM. See [Create a provisioning application](../sso/idp-delegation/group-catalog/scim-entra-id#create-a-provisioning-application).
+
+#### Groups appear in the IdP but not in Seqera
+
+Confirm the bearer token configured in your IdP matches the latest token that Seqera issued. If you generated a new token after configuring the IdP, the previous token is revoked.
+
+#### `401 Unauthorized` in IdP provisioning logs
+
+The bearer token is invalid or expired. Generate a new token from **Organization settings > Group mapping** in Platform and replace it in the IdP.
+
+#### The catalog shows GUID-style identifiers instead of group names (Entra ID)
+
+Entra ID is emitting object IDs rather than display names. See [Group display names vs. object IDs](../sso/idp-delegation/group-catalog/scim-entra-id#group-display-names-vs-object-ids) for the two options.
+
+#### Entra ID reports failed user provisioning on every cycle
+
+The enterprise application's **Provision Microsoft Entra ID Users** mapping is enabled. Platform supports group provisioning only, so it rejects every user create, update, and delete, and Entra ID records a failure for each one on every cycle. Left enabled, the repeated failures can cause Entra ID to quarantine the provisioning job, which also stops group sync. Open the application's **Provisioning** page, expand **Mappings**, select **Provision Microsoft Entra ID Users**, and clear **Create**, **Update**, and **Delete** under **Target Object Actions**. Platform users are created automatically at SSO login, so no user provisioning is needed.
+
+#### A group is assigned to the application but doesn't sync (Entra ID)
+
+Confirm the provisioning scope is set to **Sync only assigned users and groups**, and that the group is listed directly under **Users and groups** rather than nested inside another assigned group.
