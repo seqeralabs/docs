@@ -233,24 +233,16 @@ The following permissions enable Seqera to populate values for drop-down fields.
 
 ## Seqera Intelligent Compute
 
-<<<<<<< HEAD
-=======
 :::info[Private preview]
 Seqera Intelligent Compute is in private preview. [Contact us](https://seqera.io/intelligent-compute/) to request access.
 :::
 
->>>>>>> origin/master
 Seqera Intelligent Compute is an optional capability that executes Nextflow tasks on a Seqera-managed Amazon ECS cluster instead of running them entirely on the head EC2 instance. The AWS Cloud compute environment scales beyond the resources of a single instance while preserving its fast startup behavior.
 
 When you enable Seqera Intelligent Compute, Seqera provisions and manages all ECS infrastructure on your behalf, including clusters, capacity providers, task definitions, IAM roles, and (optionally) Auto Scaling Groups for spot and on-demand capacity. All managed resources use the `seqera-sched-` prefix and are torn down automatically when no longer needed.
 
 ### Additional IAM permissions
 
-<<<<<<< HEAD
-To enable Seqera Intelligent Compute, attach an additional IAM policy (beyond the [Required Platform IAM permissions](#required-platform-iam-permissions)) to the same IAM user or role that Seqera uses to access your AWS account.
-
-The policy scopes every ARN-eligible action to the `seqera-sched-*` prefix. The remaining `Resource: "*"` entries correspond to AWS APIs that do not support resource-level permissions, such as EC2 `Describe*`, ECR authorization tokens, and Cost Explorer.
-=======
 :::info[Private preview]
 Seqera Intelligent Compute is in private preview. [Contact us](https://seqera.io/intelligent-compute/) to request access.
 :::
@@ -258,7 +250,6 @@ Seqera Intelligent Compute is in private preview. [Contact us](https://seqera.io
 To enable Seqera Intelligent Compute, attach an additional IAM policy (beyond the [Required permissions](#required-permissions)) to the same IAM user or role that Seqera uses to access your AWS account.
 
 The policy scopes ARN-eligible actions to the `seqera-sched-*` resource prefix, except for CloudWatch Logs actions, which are scoped to the `/seqera/*` log-group prefix (Seqera writes logs to groups such as `/seqera/platform`). The remaining `Resource: "*"` entries correspond to AWS APIs that do not support resource-level permissions, such as EC2 `Describe*`, ECR authorization tokens, and Cost Explorer.
->>>>>>> origin/master
 
 <details>
 <summary>Seqera Intelligent Compute policy</summary>
@@ -282,10 +273,7 @@ The policy scopes ARN-eligible actions to the `seqera-sched-*` resource prefix, 
         "ecs:StopTask",
         "ecs:DescribeTasks",
         "ecs:DescribeContainerInstances",
-<<<<<<< HEAD
-=======
         "ecs:UpdateContainerInstancesState",
->>>>>>> origin/master
         "ecs:TagResource"
       ],
       "Resource": "arn:aws:ecs:*:*:*/seqera-sched-*"
@@ -328,23 +316,6 @@ The policy scopes ARN-eligible actions to the `seqera-sched-*` resource prefix, 
         "arn:aws:iam::*:instance-profile/seqera-sched-*"
       ]
     },
-<<<<<<< HEAD
-    {
-      "Sid": "PassRoleToECS",
-      "Effect": "Allow",
-      "Action": "iam:PassRole",
-      "Resource": "arn:aws:iam::*:role/seqera-sched-*",
-      "Condition": {
-        "StringEquals": {
-          "iam:PassedToService": [
-            "ecs-tasks.amazonaws.com",
-            "ecs.amazonaws.com",
-            "ec2.amazonaws.com"
-          ]
-        }
-      }
-    },
-=======
  {
     "Sid": "PassRoleToECS",
     "Effect": "Allow",
@@ -363,7 +334,6 @@ The policy scopes ARN-eligible actions to the `seqera-sched-*` resource prefix, 
       }
     }
   },
->>>>>>> origin/master
     {
       "Sid": "ServiceLinkedRoles",
       "Effect": "Allow",
@@ -391,20 +361,13 @@ The policy scopes ARN-eligible actions to the `seqera-sched-*` resource prefix, 
         "logs:GetLogEvents",
         "logs:TagResource"
       ],
-<<<<<<< HEAD
-      "Resource": "arn:aws:logs:*:*:log-group:/seqera/sched*"
-=======
       "Resource": "arn:aws:logs:*:*:log-group:/seqera/*"
->>>>>>> origin/master
     },
     {
       "Sid": "EC2NetworkDiscovery",
       "Effect": "Allow",
       "Action": [
-<<<<<<< HEAD
-=======
         "ec2:DescribeImages",
->>>>>>> origin/master
         "ec2:DescribeVpcs",
         "ec2:DescribeSubnets",
         "ec2:DescribeSecurityGroups",
@@ -483,23 +446,13 @@ The policy scopes ARN-eligible actions to the `seqera-sched-*` resource prefix, 
 }
 ```
 
-<<<<<<< HEAD
-</details>
-
-:::note
-- The `ASGEC2Operations` and `ASGManagement` statements are required only if you enable Auto Scaling Group-backed clusters (managed instances). Omit them for Fargate-only deployments.
-- The `CreateECSServiceLinkedRole` is required only if the Service Role is not already created.
-- The `CostExplorer` statement is only required if you enable Cost Analysis.
-:::
-=======
 Some statements in the policy above are conditional and can be omitted depending on your deployment:
 
-- The `ASGEC2Operations` and `ASGManagement` statements are required only if you enable Auto Scaling Group-backed clusters (managed instances). Omit them for Fargate-only deployments.
-- The `CreateECSServiceLinkedRole` is required only if the Service Role is not already created.
-- The `CostExplorer` statement is only required if you enable Cost Analysis.
+- `ASGEC2Operations`, `ASGManagement`, and `ASGDescribe` are required only if you enable Auto Scaling Group-backed clusters.
+- `ServiceLinkedRoles` is required only if the listed service-linked roles do not already exist in your AWS account.
+- `CostExplorer` is required only if you want cost predictions at pipeline launch.
 
 </details>
->>>>>>> origin/master
 
 ## Managed Amazon Machine Image (AMI)
 
