@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-07-24"
+last updated: "2026-08-20"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -20,8 +20,7 @@ If sufficient compute resources aren't available, select **Stop** for the sessio
 
 ### Session is stuck in **stopping**
 
-If your Studio session doesn't advance from **stopping** status to **stopped** status within 10 minutes, select **Force stop** to skip the intermediate **canceling** status. Checkpoint revalidation restores your data when the session next starts.
-
+If your Studio session doesn't advance from **stopping** status to **stopped** status within 10 minutes, the **Force stop** action becomes available. Select the three dots next to the status message, then select **Force stop**. Force stopping marks the session as **stopped** immediately so that you can start it again. Any work since the last saved checkpoint may be lost. Checkpoint revalidation restores your data when the session next starts.
 
 ### Session status is **errored**
 
@@ -183,6 +182,33 @@ Host <connect-domain>
   User <username>@<studio-session-id>
   Port <port>
 ```
+
+### AI coding assistant fails with `Pseudo-terminal will not be allocated`
+
+```bash
+ssh alice@a01ac8894@connect.example.com -p 2222
+# Pseudo-terminal will not be allocated because stdin is not a terminal.
+```
+
+This issue occurs when an AI coding assistant runs `ssh` as a subprocess, such as Claude Code in a terminal. The assistant doesn't attach a terminal to stdin, and the SSH client refuses to allocate a pseudo-terminal. To resolve, force pseudo-terminal allocation with `-tt`:
+
+```bash
+ssh -tt alice@a01ac8894@connect.example.com -p 2222
+```
+
+### Claude Code desktop app fails with `Couldn't inspect the remote machine`
+
+```
+Connecting to remote host...
+Detecting remote OS and shell...
+Couldn't inspect the remote machine.
+```
+
+This issue occurs when the Connect server and proxy are earlier than version 0.12.1, or the Connect client is earlier than version 0.13.0. Earlier versions don't run remote commands through a shell, and the app's environment checks fail. To resolve, ensure your Studio runs Connect client 0.13.0 or later. See [Claude Code desktop app](../studios/managing#claude-code-desktop-app) for setup instructions.
+
+### Claude Code desktop app fails with `Timed out while waiting for handshake`
+
+This issue occurs because the app ignores the `Port` value in `~/.ssh/config` and defaults to port 22. To resolve, set **SSH Port** to `2222` in the app's connection settings. See [Claude Code desktop app](../studios/managing#claude-code-desktop-app) for setup instructions.
 
 ### SSH connection string format
 

@@ -90,6 +90,7 @@ dragen
 ec2
 ecr
 ecs
+egress
 eks
 email
 ena
@@ -138,11 +139,14 @@ ibm
 idp delegation
 igv
 image
+inbound
+ingress
 input
 installation
 integration
 intelligent compute
 interactive
+ip
 jupyter
 k8s
 keycloak
@@ -168,7 +172,7 @@ manage datasets
 managed identities
 mcp
 mcp server
-meta-seqera.io
+meta.seqera.io
 metrics
 migration notes
 minio
@@ -193,6 +197,7 @@ optimization
 oracle object storage
 organization settings
 organizations
+outbound
 output
 overview
 parameters
@@ -242,6 +247,7 @@ s3-compatible
 schema
 scim
 scripts
+search
 secrets
 securestring
 security

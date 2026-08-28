@@ -259,6 +259,18 @@ If you rely on silent Spot retries (the previous default behavior), you may now 
 
 Since the default for Spot retries is now zero, you must actively enable a retry strategy if you want Nextflow to handle reclaimed Spot instances automatically. For more information, see [manage Spot interruptions](../tutorials/retry-strategy).
 
+### Pipeline secret creation fails under a Google Cloud resource location policy
+
+In Google Cloud projects that enforce a resource location policy, launching a pipeline with a pipeline secret attached fails before any task starts. This affects Google Batch and Google Cloud compute environments. The error is similar to:
+
+```
+Unable to store pipeline secret 'my_secret' - Reason: io.grpc.StatusRuntimeException:
+FAILED_PRECONDITION: Constraint constraints/gcp.resourceLocations violated for
+[orgpolicy:projects/123456789012] attempting to create a secret in [global].
+```
+
+This issue occurs because Seqera Platform creates pipeline secrets in Google Secret Manager with automatic replication, which stores the secret in the `global` location. If the [`constraints/gcp.resourceLocations`](https://cloud.google.com/resource-manager/docs/organization-policy/defining-locations) organization policy does not permit the `global` location, Google rejects the secret and the run cannot launch. The compute environment's location setting has no effect on where the secret is stored.
+
 ### Nextflow syntax parser
 
 Up to version 25.10, Nextflow uses the v1 syntax parser (also known as the legacy parser) by default. The v2 parser introduces stricter validation and is available as an opt-in via `NXF_SYNTAX_PARSER=v2`.
