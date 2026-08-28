@@ -1,7 +1,7 @@
 ---
 name: docs-fix
 description: "Use when explicitly asked to fix documentation issues. Shows diffs for approval or auto-applies fixes. Invoke with 'fix' in the request."
-tools: read, write, grep, glob, diff
+tools: Read, Write, Grep, Glob
 ---
 
 # Documentation fix agent
