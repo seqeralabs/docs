@@ -2,11 +2,11 @@
 title: "Compute environment pre-flight checks"
 description: "How Seqera Platform validates compute environments and credentials, and what to do when a check fails"
 date created: "2026-07-24"
-last updated: "2026-07-24"
+last updated: "2026-08-24"
 tags: [compute environments, credentials, troubleshooting, configuration]
 ---
 
-Pre-flight checks validate that a compute environment is usable before you launch a pipeline. They run on a recurring background schedule and again at launch time, so problems surface before submission rather than mid-run. Pre-flight checks only flag conditions that would block a launch.
+Pre-flight checks validate that a compute environment is usable before you launch a pipeline. They run when you create or update a compute environment, on a recurring background schedule, and again at launch time. Problems surface before submission rather than mid-run. Pre-flight checks only flag conditions that would block a launch.
 
 Pre-flight checks are **disabled by default** in Seqera Platform Enterprise and must be enabled by an administrator.
 
@@ -39,15 +39,31 @@ Both flags are read once at process start. Restart the `backend` and `cron` cont
 
 ## Validation process
 
-Platform runs three tiers of validation:
+Platform runs four tiers of validation:
 
-### 1. Credential validation
+### 1. Compute environment creation and update checks
+
+Runs synchronously when you create a compute environment, and when you update a compute environment to use different credentials. Platform reads the persisted status of the selected credential. If the credential has been deleted or is marked `INVALID`, Platform rejects the request with a `400 Bad Request` that names the credential and the recovery step, instead of saving a compute environment that fails later. The check runs before any provider validation.
+
+This check does not apply to compute environments that use a managed identity, because no credential is attached.
+
+On update, Seqera Platform checks only the newly selected credential. Seqera Platform does not block other edits, such as a name or description change. To restore a compute environment whose credential has failed, replace the `INVALID` or deleted credential with a working one.
+
+:::note
+This is the only check that reads credential status regardless of `TOWER_PREFLIGHT_CHECK_ENABLED`. When `TOWER_PREFLIGHT_CHECK_ENABLED` is `false`, Platform rejects a new compute environment that uses an `INVALID` credential, but does not block launches against a compute environment that already uses one.
+
+The check only takes effect where credential validation has run at some point, because nothing else writes the `INVALID` status. On an installation where both flags have always been `false`, every credential is `AVAILABLE` and this check never fires.
+:::
+
+### 2. Credential validation
 
 Runs on a recurring schedule. For each cloud credential (AWS, Google Cloud, Azure) in scope, Platform calls the provider API to verify that the credential is still accepted. For AWS role-based credentials and Google Cloud Workload Identity Federation, this check confirms the credential is well-formed but cannot fully verify the underlying role or identity provider trust configuration.
 
 When a credential fails this check, Platform marks it **INVALID** and records the provider error on the credential record. This error appears in the launch-time error message when a pipeline is blocked, but not in the compute environment banner. To see the specific provider error, check the credential record directly.
 
-### 2. Compute environment validation
+A transient probe failure, such as a network interruption or provider throttling, does not mark the credential `INVALID`. Platform retries the credential with exponential backoff. Some failures indicate the credential can never validate, such as an Azure storage or Batch account hostname that no longer resolves. After 10 consecutive failures of this kind, Platform marks the credential `INVALID`. See [Credential validation cron](#credential-validation-cron) to tune the retry ceiling and the escalation threshold.
+
+### 3. Compute environment validation
 
 Platform checks the associated credential status. If the credential is `INVALID`, the compute environment is marked `INVALID` immediately.
 
@@ -57,7 +73,7 @@ A compute environment marked `INVALID` displays a banner with the error message.
 These checks cover AWS Batch, AWS Cloud, Azure Batch, Azure Cloud, Google Cloud Batch, and Google Cloud compute environments.
 :::
 
-### 3. Pipeline launch-time checks
+### 4. Pipeline launch-time checks
 
 Runs immediately when a user submits a pipeline launch. If any check fails, the launch is blocked and a specific error is returned. Multiple failures are reported together.
 
@@ -108,6 +124,10 @@ The defaults work for most deployments. Only adjust these if you have specific r
 | `TOWER_CRON_CREDENTIALS_VALIDATION_CONCURRENCY` | `tower.cron.credentials-validation.concurrency` | Global in-flight cap on concurrent cloud probes across all evaluator pumps. Tune conservatively when many credentials in one workspace share a single cloud account to avoid provider rate limits (for example, AWS STS `TooManyRequests`). | `10` |
 | `TOWER_CRON_CREDENTIALS_VALIDATION_PROBE_DELAY` | `tower.cron.credentials-validation.probe-delay` | Optional sleep between probes within a single pump. Set to a non-zero value (for example, `200ms`) when many credentials share a cloud account and a cold-start burst would exceed provider rate limits. | `0ms` (no pacing) |
 | `TOWER_CRON_CREDENTIALS_VALIDATION_TRANSIENT_RETRY_INTERVAL` | `tower.cron.credentials-validation.transient-retry-interval` | Shorter cadence used to re-enqueue a credential after a transient probe failure (network interruption, provider 5xx, unexpected SDK exception). Prevents a credential from being silently skipped until the next process restart. | `5m` |
+| `TOWER_CRON_CREDENTIALS_VALIDATION_TRANSIENT_RETRY_MAX_INTERVAL` | `tower.cron.credentials-validation.transient-retry-max-interval` | Ceiling on the transient retry delay. The retry delay doubles after each consecutive transient failure, starting from `TOWER_CRON_CREDENTIALS_VALIDATION_TRANSIENT_RETRY_INTERVAL` (5m, 10m, 20m, 40m, up to this ceiling). Platform probes a persistently failing credential less often over time instead of retrying at the base cadence forever. Must be greater than or equal to the transient retry interval, or the process fails at startup. | `24h` |
+| `TOWER_CRON_CREDENTIALS_VALIDATION_UNVERIFIABLE_MAX_ATTEMPTS` | `tower.cron.credentials-validation.unverifiable-max-attempts` | Number of consecutive unverifiable probe failures before Platform marks the credential `INVALID`. Only a DNS resolution failure on a hostname derived from the credential itself counts as unverifiable. Currently this applies to Azure storage and Batch account hostnames. Platform never escalates fixed provider endpoints, such as `sts.amazonaws.com`. Must be `1` or greater, or the process fails at startup. To disable escalation and keep backoff only, set a very high value and also lower `TOWER_CRON_CREDENTIALS_VALIDATION_TRANSIENT_RETRY_MAX_INTERVAL` (for example, to `21h`). With the default `24h` ceiling, values above `10` fail the startup check described below. | `10` (about 1.8 days) |
+
+The consecutive-failure counters behind these two settings expire 24 hours after the last failed probe. At startup, Platform verifies that the configured combination cannot delay the final escalation attempt past that window. If it can, the process fails to start with an error that names both settings. Lower one of the two values to resolve it.
 
 ### Compute environment validation cron
 

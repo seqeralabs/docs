@@ -1,35 +1,32 @@
 ---
-title: tw info
-description: Show system info and health status
+title: "tw info"
+description: "Show system info and health status"
 ---
 
-# tw info
+# `tw info`
 
-Show system info and health status.
-
-#### Example
-
-Command:
+Show system info and health status
 
 ```bash
 tw info
 ```
 
-Example output:
-
-```bash
-Details
-    -------------------------+-----------------------------
-     Tower API endpoint      | https://api.cloud.seqera.io
-     Tower API version       | 1.97.0
-     Tower version           | 26.1.0-cycle37
-     CLI version             | 0.20.0 (ef1335d)
-     CLI minimum API version | 1.37.0
-     Authenticated user      | sai-user
-
-    System health status
-    ---------------------------------------+----
-     Remote API server connection check    | OK
-     Tower API version check               | OK
-     Authentication API credential's token | OK
-```
+[actions]: /platform-cloud/pipeline-actions/overview
+[compute-envs]: /platform-cloud/compute-envs/overview
+[credentials]: /platform-cloud/credentials/overview
+[data-explorer]: /platform-cloud/data/data-explorer
+[datasets]: /platform-cloud/data/datasets
+[git-integration]: /platform-cloud/git/overview
+[labels]: /platform-cloud/labels/overview
+[nextflow-config]: https://docs.seqera.io/nextflow/config#config-syntax
+[organizations]: /platform-cloud/orgs-and-teams/organizations
+[participant-roles]: /platform-cloud/orgs-and-teams/roles
+[resource-labels]: /platform-cloud/resource-labels/overview
+[run-details]: /platform-cloud/monitoring/run-details
+[secrets]: /platform-cloud/secrets/overview
+[shared-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
+[studio-checkpoints]: /platform-cloud/studios/managing#studio-session-checkpoints
+[studios]: /platform-cloud/studios/overview
+[tower-agent]: /platform-cloud/supported_software/agent/overview
+[user-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
+[wave-docs]: https://docs.seqera.io/wave

@@ -2,7 +2,7 @@
 title: "Data Explorer"
 description: "Using Seqera Data Explorer."
 date created: "2023-04-21"
-last updated: "2026-07-31"
+last updated: "2026-08-20"
 tags: [data, explorer, igv, molstar, object, storage, lineage]
 ---
 
@@ -77,7 +77,7 @@ If you remove a data-link associated with a repository, the repository is automa
 
 - **View data repository contents**
 
-  Select a data-link from the Data Explorer list to view the contents of that data repository. From the **View data repository** page, you can browse directories and search for objects by name in a particular directory. The size and path of an object appear in columns to the right of the object name. To view data repository details such as the provider, address, and credentials, select the information icon.
+  Select a data-link from the Data Explorer list to view the contents of that data repository. From the **View data repository** page, you can browse directories and search for objects by name in a particular directory. The size and last-modified timestamp appear in columns to the right of the object name. Additional actions include copying the path to the object to the clipboard or creating a custom data-link (if the target is a directory) and downloading or deleting the object (if the user has Maintain role or above). On the Data Explorer landing page you can view data repository details such as the provider, address, and credentials by selecting the information icon. You may also choose to show or hide the data repository or delete a custom created data link.
 
 - **Preview and download files**
 
@@ -95,14 +95,26 @@ If you remove a data-link associated with a repository, the repository is automa
   - Images (JPG, PNG, and SVG)
 
   :::note
-  With the exception of genome tracks, the preview file size limit is 10 MB. Files of 10-25 MB can still be downloaded directly.
+  Except for genome tracks, the preview file size limit is 10 MB. You can still download files of 10-25 MB directly.
 
-  Seqera Enterprise users can increase the default 25 MB file size download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#data-features) file. Increasing this value can degrade Platform performance.
+  Seqera Enterprise users can increase the default 25 MB download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#data-features) file. Increasing this value can degrade Platform performance.
+  :::
+
+  :::note
+  Data Explorer previews an HTML file in isolation, using a pre-signed URL scoped to that file only. Relative references to other files, such as hyperlinks to sibling report pages, images, stylesheets, and scripts, fail with an access denied error. To preview a multi-page report, generate it as a single self-contained HTML file that inlines its assets and uses JavaScript to show and hide sections.
   :::
 
 - **Copy object paths**
 
   Select the **Path** of an object on the **View data repository** page to copy its absolute path to the clipboard. Use these object paths to specify input data locations during [pipeline launch](../launch/launchpad), add them to a [dataset](../data/datasets) for pipeline input, or when mounting data during Studio creation.
+
+### Preview genome files with IGV
+
+Data Explorer renders genome tracks in the browser using the [igv.js library][igv]. Select a supported file, such as a BAM or BED file, from the **View data repository** page to open the viewer. You do not need to download the file or start a Studio.
+
+The viewer requests file data directly from your bucket. Apply a [CORS configuration](#cors-configurations-for-cloud-providers) to each bucket or storage account that holds genome files you want to preview.
+
+For the full IGV desktop application, create an [Xpra Studio with IGV](../getting-started/studios#xpra-visualize-genetic-variants-with-igv) instead.
 
 ### View lineage data for objects
 

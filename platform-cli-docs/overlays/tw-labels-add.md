@@ -1,8 +1,8 @@
 Run `tw labels add -h` to view the required and optional fields for adding a label.
 
 :::note
-[Resource labels](../resource-labels/overview) consist of a `name=value` pair and can only be applied to compute environments, pipelines, runs, and actions.
-[Labels](../labels/overview) require only a name and can be applied to pipelines, runs, and actions.
+[Resource labels][resource-labels] consist of a `name=value` pair and can only be applied to compute environments, pipelines, runs, and actions.
+[Labels][labels] require only a name and can be applied to pipelines, runs, and actions.
 :::
 
 ```bash
