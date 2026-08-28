@@ -138,7 +138,6 @@ How entries are interpreted:
 - An entry can be an `s3://` URI or a bare bucket name. Entries for other storage providers (`gs://`, `az://`) and local paths are ignored.
 - A key prefix is discarded. `s3://shared-bucket/team-a` grants access to all of `shared-bucket`, not just the `team-a` prefix.
 - An entry that is not a valid S3 bucket name is dropped.
-- The list is part of the cluster fingerprint, so changing it provisions a new cluster with a freshly scoped role. The new scope applies to the next run; runs in progress keep the permissions they started with.
 
 ### Access buckets in another AWS account
 
