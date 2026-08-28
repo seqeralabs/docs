@@ -2,7 +2,7 @@
 title: "Pipeline schema"
 description: "Introduction to pipeline schema in Seqera Platform."
 date: "24 Apr 2023"
-tags: [pipeline, schema]
+tags: [pipelines, schema]
 ---
 
 Pipeline schema files describe the structure and validation constraints of your workflow parameters. They are used to validate parameters before launch to prevent software or pipelines from failing in unexpected ways at runtime.
@@ -43,12 +43,18 @@ The schema `id` field must be unique. If you're pasting pipeline schema contents
 
 ### Building pipeline schema files
 
-The pipeline schema is based on [json-schema.org](https://json-schema.org/) syntax, with some additional conventions. While you can create your pipeline schema manually, we highly recommend using [nf-core tools](https://nf-co.re/docs/nf-core-tools/pipelines/schema), a toolset for developing Nextflow pipelines built by the nf-core community.
+The pipeline schema is based on [json-schema.org](https://json-schema.org/) syntax, with some additional conventions. While you can create your pipeline schema manually, we highly recommend using [nf-core tools](https://nf-co.re/tools#json-schema-graphical-interface), a toolset for developing Nextflow pipelines built by the nf-core community.
 
 When you run the `nf-core schema build` command in your pipeline root directory, the tool collects your pipeline parameters and gives you interactive prompts about missing or unexpected parameters. If no existing schema file is found, the tool creates one for you. The `schema build` commands include the option to validate and lint your schema file according to best practice guidelines from the nf-core community.
 
 :::note
 The nf-core community creates the schema builder but it can be used with any Nextflow pipeline.
+:::
+
+:::note Null and blank parameter values
+When you launch a pipeline, the launch form validates your parameters against the pipeline schema and blocks the launch if validation fails. Seqera Platform removes top-level parameters with `null` or blank values before validation. This handling doesn't apply to parameters nested inside object-typed groups, such as `params.alignment.reference`. The launch form validates nested parameters strictly against their declared type per the [JSON Schema](https://json-schema.org/) specification. For example, a nested parameter typed `"string"` with a `null` value fails validation and blocks the launch.
+
+To leave an optional nested parameter unset, omit the key from your parameters instead of setting it to `null`. Nextflow resolves a missing nested key to `null` at runtime, and your pipeline's conditional logic behaves the same. You can't use nullable types such as `["string", "null"]` in nf-core-style schema files because the nf-schema specification restricts `type` to a single value.
 :::
 
 ### Customize pipeline schema

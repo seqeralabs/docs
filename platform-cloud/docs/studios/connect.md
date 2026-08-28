@@ -1,8 +1,8 @@
 ---
 title: Connect changelog
 date created: "2025-07-30"
-last updated: "2026-03-11"
-tags: [connect, changelog, connect-changelog]
+last updated: "2026-05-29"
+tags: [connect, changelog, connect changelog]
 ---
 
 :::note
@@ -11,7 +11,13 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ## Connect server
 
-### server/v0.10.0 `latest` - 2026-02-11
+### server/v0.11.0 `latest` - 2026-03-02
+
+* Fix(proxy): bidirectional proxy fixes
+* Fix(proxy): apply security team suggestions
+* Fix: slow/flaky tests
+
+### server/v0.10.0 - 2026-02-11
 
 * Add: SSH Connectivity:
   * Server implementation (initialize SSH server when enabled)
@@ -108,7 +114,32 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ## Connect client
 
-### client/v0.10.0 `latest` - 2026-02-11
+### client/v0.12.1 `latest` - 2026-05-19
+
+* Chore(client): expose BTRFS resize configuration
+* Fix(client): skip auto-discovered mounts under /proc in overlay setup
+* Chore: bump go_modules group dependencies across components
+
+### client/v0.12.0 - 2026-04-16
+
+* Feat(client): support agent forwarding in SSH server
+* Chore(deps): pin dependencies
+* Update CI actions
+
+### client/v0.11.1 - 2026-03-24
+
+* Fix(client): git cloning failing with conflicts on mounted datalink and preexisting files
+
+### client/v0.11.0 - 2026-03-02
+
+* Fix: x/net vulnerability
+* Fix(client): add new version to matrix
+* Fix: slow/flaky tests
+* Fix: update dependencies to fix security vulnerabilities
+* Refactor(client): refactor executor package
+* Fix(client): apply suggested security fixes
+
+### client/v0.10.0 - 2026-02-11
 
 * Moved Docker service management to the Connect-client.
 * Add: SSH Connectivity:

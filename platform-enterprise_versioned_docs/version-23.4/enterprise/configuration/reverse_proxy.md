@@ -2,7 +2,7 @@
 title: "Reverse proxy"
 description: Configuration options for reverse proxy connection
 date: "5 Oct 2023"
-tags: [reverse-proxy, configuration]
+tags: [reverse proxy, configuration]
 ---
 
 :::caution

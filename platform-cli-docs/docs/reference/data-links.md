@@ -1,11 +1,15 @@
 ---
-title: tw data-links
-description: Manage data links
+title: "tw data-links"
+description: "Manage data links"
 ---
 
-# tw data-links
+# `tw data-links`
 
-Data-links allow you to work with public and private cloud storage buckets in [Data Explorer](https://docs.seqera.io/platform-cloud/data/data-explorer) in the specified workspace. AWS S3, Azure Blob Storage, and Google Cloud Storage are supported. The full list of operations are:
+Manage data links
+
+Run `tw data-links -h` to view supported data-link operations.
+
+Data-links allow you to work with public and private cloud storage buckets in [Data Explorer][data-explorer] in the specified workspace. AWS S3, Azure Blob Storage, and Google Cloud Storage are supported. The full list of operations are:
 
 - `list`: List data-links in a workspace
 - `add`: Add a custom data-link to a workspace
@@ -15,26 +19,29 @@ Data-links allow you to work with public and private cloud storage buckets in [D
 - `upload`: Upload files and directories to a data-link in a workspace
 - `download`: Download files and directories from a data-link in a workspace
 
-## tw data-links list
+## `tw data-links list`
 
-List data links.
+List data links
 
 ```bash
 tw data-links list [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-c`, `--credentials` | Credentials identifier. **Required for private cloud storage buckets** | No | `null` |
-| `--wait` | Wait for all data links to be fetched to cache | No | `null` |
-| `-n`, `--name` | Filter by data-link name | No | `null` |
-| `--visibility` | Filter by visibility: hidden, visible, or all | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
-| `--page` | Page number for paginated results (default: 1) | No | `null` |
-| `--offset` | Row offset for paginated results (default: 0) | No | `null` |
-| `--max` | Maximum number of records to display (default: ) | No | `null` |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `--page` | Page number for paginated results (default: 1) | No |  |
+| `--offset` | Row offset for paginated results (default: 0) | No |  |
+| `--max` | Maximum number of records to display (default: 100) | No |  |
+| `-c`, `--credentials` | Credentials identifier | No |  |
+| `--wait` | Wait for all data links to be fetched to cache | No |  |
+| `--visibility` | Filter by visibility: hidden, visible, or all | No |  |
+| `-n`, `--name` | Show only data links with names that start with the given word. | No |  |
+| `-r`, `--region` | Show only data links belonging to given region | No |  |
+| `-p`, `--providers` | Show only data links belonging to given providers. [aws,azure,google] | No |  |
+| `-u`, `--uri` | Show only data links with URI (resource reference) that start with the given URI. | No |  |
 
 Run `tw data-links list -h` to view all the optional fields for listing data-links in a workspace.
 
@@ -43,17 +50,9 @@ If a workspace is not defined, the `TOWER_WORKSPACE_ID` workspace is used by def
 - `v1-cloud-<id>`: Cloud data-links auto-discovered using credentials attached to the workspace.
 - `v1-user-<id>`: Custom data-links created by users.
 
-#### Example
-
-Command:
-
 ```bash
 tw data-links list -w seqeralabs/showcase
-```
 
-Example output:
-
-```bash
 data-links at [seqeralabs / showcase] workspace:
 
 ID                                        | Provider | Name                           | Resource ref                                                    | Region
@@ -72,61 +71,33 @@ v1-user-e7bf26921ba74032bd6ae1870df381fc  | aws      | NCBI_Sequence_Read_Archiv
 Showing from 0 to 99 from a total of 16 entries.
 ```
 
-#### Filtering example
+## `tw data-links add`
 
-List filtered by data-link name.
-
-Command:
-
-```bash
-tw data-links list -w seqeralabs/showcase -n 1000genomes
-```
-
-Example output:
-
-```bash
-data-links at [seqeralabs / showcase] workspace:
-
-ID                                       | Provider | Name        | Resource ref     | Region
-------------------------------------------+----------+-------------+------------------+-----------
-v1-user-6d8f44c239e2a098b3e02e918612452a | aws      | 1000genomes | s3://1000genomes | us-east-1
-
-Showing from 0 to 99 from a total of 1 entries.
-```
-
-## tw data-links add
-
-Add a data link.
+Add a data link
 
 ```bash
 tw data-links add [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-n`, `--name` | Data link name | Yes | `null` |
-| `-d`, `--description` | Data link description | No | `null` |
-| `-u`, `--uri` | Data link URI | Yes | `null` |
-| `-p`, `--provider` | Cloud provider: aws, azure, or google | Yes | `null` |
-| `-c`, `--credentials` | Credentials identifier. **Required for private cloud storage buckets** | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-n`, `--name` | Data link name | Yes |  |
+| `-d`, `--description` | Data link description | No |  |
+| `-u`, `--uri` | Data link URI | Yes |  |
+| `-p`, `--provider` | Cloud provider: aws, azure, or google | Yes |  |
+| `-c`, `--credentials` | Credentials identifier | No |  |
 
 Run `tw data-links add -h` to view all the required and optional fields for adding a custom data-link to a workspace.
 
 Users with the workspace `MAINTAIN` role and above can add custom data-links. The data-link `name`, `uri`, and `provider` (`aws`, `azure`, or `google`) fields are required. If adding a custom data-link for a private bucket, the credentials identifier field is also required. Adding a custom data-link for a public bucket doesn't require credentials.
 
-#### Example
-
 ```bash
 tw data-links add -w seqeralabs/showcase -n FOO -u az://seqeralabs.azure-benchmarking \
 -p azure -c seqera_azure_credentials
-```
 
-Example output:
-
-```bash
 data-link created:
 
 ID                                       | Provider | Name | Resource ref                       | Region
@@ -134,72 +105,60 @@ ID                                       | Provider | Name | Resource ref       
 v1-user-152116183ee325463901430bb9efb8c9 | azure    | FOO  | az://seqeralabs.azure-benchmarking |
 ```
 
-## tw data-links delete
+## `tw data-links delete`
 
-Delete a data link.
+Delete a data link
 
 ```bash
 tw data-links delete [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
-| `-i`, `--id` | Data link identifier | No | `null` |
-| `-n`, `--name` | Data link name | No | `null` |
-| `--uri` | Data link URI (e.g., s3://bucket-name) | No | `null` |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Data link identifier | Yes |  |
+| `-n`, `--name` | Data link name | Yes |  |
+| `--uri` | Data link URI (e.g., s3://bucket-name) | Yes |  |
 
 Run `tw data-links delete -h` to view all the required and optional fields for deleting a custom data-link from a workspace.
 
 Users with the `MAINTAIN` role and above for a workspace can delete custom data-links.
 
-#### Example
-
-Command:
+:::note
+`tw data-links delete` removes only the data-link record from Seqera Platform. It does not delete the files in cloud storage. To delete those files, use your cloud provider's tools.
+:::
 
 ```bash
 tw data-links delete -w seqeralabs/showcase -i v1-user-152116183ee325463901430bb9efb8c9
-```
 
-Example output:
-
-```bash
 data-link 'v1-user-152116183ee325463901430bb9efb8c9' deleted at '138659136604200' workspace.
 ```
 
-## tw data-links update
+## `tw data-links update`
 
-Update a data link.
+Update a data link
 
 ```bash
 tw data-links update [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-i`, `--id` | Data link identifier | Yes | `null` |
-| `-n`, `--name` | Data link name | Yes | `null` |
-| `-d`, `--description` | Data link description | No | `null` |
-| `-c`, `--credentials` | Credentials identifier. **Required for private cloud storage buckets** | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Data link identifier | Yes |  |
+| `-n`, `--name` | Data link name | Yes |  |
+| `-d`, `--description` | Data link description | No |  |
+| `-c`, `--credentials` | Credentials identifier | No |  |
 
 Run `tw data-links update -h` to view all the required and optional fields for updating a custom data-link in a workspace. Users with the `MAINTAIN` role and above for a workspace can update custom data-links.
 
-#### Example
-
-Command:
-
 ```bash
 tw data-links update -w seqeralabs/showcase -i v1-user-152116183ee325463901430bb9efb8c9 -n BAR
-```
 
-Example output:
-
-```bash
 data-link updated:
 
 ID                                       | Provider | Name | Resource ref                       | Region
@@ -207,43 +166,51 @@ ID                                       | Provider | Name | Resource ref       
 v1-user-152116183ee325463901430bb9efb8c9 | azure    | BAR  | az://seqeralabs.azure-benchmarking |
 ```
 
-## tw data-links browse
+## `tw data-links browse`
 
-Browse data link contents.
+Browse data link contents
 
 ```bash
 tw data-links browse [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-c`, `--credentials` | Credentials identifier. **Required for private cloud storage buckets** | No | `null` |
-| `-p`, `--path` | Path to browse within the data link | No | `null` |
-| `-f`, `--filter` | Filter results by prefix | No | `null` |
-| `-t`, `--token` | Next page token for pagination | No | `null` |
-| `--page` | Page number to display | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
-| `-i`, `--id` | Data link identifier | No | `null` |
-| `-n`, `--name` | Data link name | No | `null` |
-| `--uri` | Data link URI (e.g., s3://bucket-name) | No | `null` |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Data link identifier | Yes |  |
+| `-n`, `--name` | Data link name | Yes |  |
+| `--uri` | Data link URI (e.g., s3://bucket-name) | Yes |  |
+| `-c`, `--credentials` | Credentials identifier | No |  |
+| `-p`, `--path` | Path to browse within the data link | No |  |
+| `-f`, `--filter` | Filter results by prefix | No |  |
+| `-t`, `--token` | Next page token for pagination | No |  |
+| `--page` | Page number to display | No |  |
 
 Run `tw data-links browse -h` to view all the required and optional fields for browsing a data-link in a workspace.
 
-Define the data-link ID using the required `-i` or `--id` argument, which can be found by first using the list operation for a workspace. In the example below, a name is defined to only retrieve data-links with names that start with the given word.
-
-#### Example
+Define the data-link ID using the required `-i` or `--id` argument, which can be found by first using the list operation for a workspace. In the example below, a name is defined to only retrieve data-links with names that start with the given word:
 
 Command:
 
 ```bash
-tw data-links browse -w seqeralabs/showcase -i v1-user-6d8f44c239e2a098b3e02e918612452a
+tw data-links list -w seqeralabs/showcase -n 1000genomes
+
+data-links at [seqeralabs / showcase] workspace:
+
+ID                                       | Provider | Name        | Resource ref     | Region
+------------------------------------------+----------+-------------+------------------+-----------
+v1-user-6d8f44c239e2a098b3e02e918612452a | aws      | 1000genomes | s3://1000genomes | us-east-1
 ```
 
 Example output:
 
 ```bash
+Showing from 0 to 99 from a total of 1 entries.
+
+tw data-links browse -w seqeralabs/showcase -i v1-user-6d8f44c239e2a098b3e02e918612452a
+
   Content of 's3://1000genomes' and path 'null':
 
 Type   | Name                                       | Size
@@ -281,33 +248,39 @@ FOLDER | sequence_indices/                          | 0
 FOLDER | technical/                                 | 0
 ```
 
-## tw data-links download
+## `tw data-links download`
 
-Download data link contents.
+Download data link contents
 
 ```bash
-tw data-links download [OPTIONS]
+tw data-links download [OPTIONS] <paths>
 ```
 
-#### Options
+### Arguments
+
+| Argument | Description | Required |
+|----------|-------------|----------|
+| `&lt;paths&gt;` | Paths to files or directories to download | Yes |
+
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-c`, `--credentials` | Credentials identifier. **Required for private cloud storage buckets** | Yes | `null` |
-| `-o`, `--output-dir` | Output directory for downloaded files | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
-| `-i`, `--id` | Data link identifier | No | `null` |
-| `-n`, `--name` | Data link name | No | `null` |
-| `--uri` | Data link URI (e.g., s3://bucket-name) | No | `null` |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Data link identifier | Yes |  |
+| `-n`, `--name` | Data link name | Yes |  |
+| `--uri` | Data link URI (e.g., s3://bucket-name) | Yes |  |
+| `-c`, `--credentials` | Credentials identifier | Yes |  |
+| `-o`, `--output-dir` | Output directory for downloaded files | No |  |
 
 Run `tw data-links download -h` to view all the required and optional fields for downloading files and directories from a data-link in a workspace.
 
-#### Download files
+### Download files
 
 Command:
 
 ```bash
-tw data-links download -n my-bucket -c 1sxCxvxfx8xnxdxGxQxqxH -w 123456789012345 path/to/file.txt
+tw data-links download -n my-bucket -c <credentials_ID> -w <workspace_ID> path/to/file.txt
 ```
 
 Example output:
@@ -316,8 +289,11 @@ Example output:
 Downloading file: file.txt
 ....
  Progress: [========================================] 100% (269/269 KBs, ETA: 0.0s)
+```
 
+Example output:
 
+```bash
 Successfully downloaded files
 
 
@@ -326,17 +302,13 @@ Successfully downloaded files
      FILE | 1          | file.txt
 ```
 
-#### Download directories
+### Download directories
 
 Command:
 
 ```bash
-tw data-links download -n my-bucket -c 1sxCxvxfx8xnxdxGxQxqxH -w 123456789012345 path/to/my-directory/
-```
+tw data-links download -n my-bucket -c <credentials_ID> -w <workspace_ID> path/to/my-directory/
 
-Example output:
-
-```bash
 Downloading file: my-directory/file.txt
 ....
  Progress: [========================================] 100% (5/5 bytes, ETA: 0.0s)
@@ -350,33 +322,39 @@ Successfully downloaded files
      FOLDER | 1          | my-directory/
 ```
 
-## tw data-links upload
+## `tw data-links upload`
 
-Upload files to a data link.
+Upload files to a data link
 
 ```bash
-tw data-links upload [OPTIONS]
+tw data-links upload [OPTIONS] <paths>
 ```
 
-#### Options
+### Arguments
+
+| Argument | Description | Required |
+|----------|-------------|----------|
+| `&lt;paths&gt;` | Paths to files or directories to upload | Yes |
+
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-c`, `--credentials` | Credentials identifier. **Required for private cloud storage buckets** | Yes | `null` |
-| `-o`, `--output-dir` | Destination directory in the data link | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
-| `-i`, `--id` | Data link identifier | No | `null` |
-| `-n`, `--name` | Data link name | No | `null` |
-| `--uri` | Data link URI (e.g., s3://bucket-name) | No | `null` |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Data link identifier | Yes |  |
+| `-n`, `--name` | Data link name | Yes |  |
+| `--uri` | Data link URI (e.g., s3://bucket-name) | Yes |  |
+| `-c`, `--credentials` | Credentials identifier | Yes |  |
+| `-o`, `--output-dir` | Destination directory in the data link | No |  |
 
 Run `tw data-links upload -h` to view all the required and optional fields for uploading files and directories to a data-link in a workspace.
 
-#### Upload files
+### Upload files
 
 Command:
 
 ```bash
-tw data-links upload -n my-bucket -c 1sxCxvxfx8xnxdxGxQxqxH -w 123456789012345 path/to/file.txt
+tw data-links upload -n my-bucket -c <credentials_ID> -w <workspace_ID> path/to/file.txt
 ```
 
 Example output:
@@ -388,8 +366,11 @@ Fetching data-links.
 Uploading file: file.txt
 ....
  Progress: [========================================] 100% (269/269 KBs, ETA: 0.0s)
+```
 
+Example output:
 
+```bash
 Successfully uploaded files
 
 
@@ -398,17 +379,13 @@ Successfully uploaded files
      FILE | 1          | file.txt
 ```
 
-#### Upload directories
+### Upload directories
 
 Command:
 
 ```bash
-tw data-links upload -n my-bucket -c 1sxCxvxfx8xnxdxGxQxqxH -w 123456789012345 path/to/my-directory/
-```
+tw data-links upload -n my-bucket -c <credentials_ID> -w <workspace_ID> path/to/my-directory/
 
-Example output:
-
-```bash
 Uploading file: my-directory/file.txt
 ....
  Progress: [========================================] 100% (5/5 bytes, ETA: 0.0s)
@@ -421,3 +398,23 @@ Successfully uploaded files
     --------+------------+---------------
      FOLDER | 1          | my-directory/
 ```
+
+[actions]: /platform-cloud/pipeline-actions/overview
+[compute-envs]: /platform-cloud/compute-envs/overview
+[credentials]: /platform-cloud/credentials/overview
+[data-explorer]: /platform-cloud/data/data-explorer
+[datasets]: /platform-cloud/data/datasets
+[git-integration]: /platform-cloud/git/overview
+[labels]: /platform-cloud/labels/overview
+[nextflow-config]: https://docs.seqera.io/nextflow/config#config-syntax
+[organizations]: /platform-cloud/orgs-and-teams/organizations
+[participant-roles]: /platform-cloud/orgs-and-teams/roles
+[resource-labels]: /platform-cloud/resource-labels/overview
+[run-details]: /platform-cloud/monitoring/run-details
+[secrets]: /platform-cloud/secrets/overview
+[shared-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
+[studio-checkpoints]: /platform-cloud/studios/managing#studio-session-checkpoints
+[studios]: /platform-cloud/studios/overview
+[tower-agent]: /platform-cloud/supported_software/agent/overview
+[user-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
+[wave-docs]: https://docs.seqera.io/wave

@@ -3,7 +3,7 @@ title: "Add data"
 description: "An introduction to adding pipeline input data in Seqera Platform"
 date created: "2024-07-21"
 last updated: "2025-08-01"
-tags: [platform, data, data-explorer, datasets]
+tags: [platform, data, data explorer, datasets]
 ---
 
 import Tabs from '@theme/Tabs';

@@ -27,6 +27,10 @@ Resource labels can be applied to compute environments, pipelines, actions, runs
 Seqera applies resource labels to cloud resources in one direction only. Any tags changed or deleted directly in your cloud environment will not be reflected in Seqera.
 :::
 
+:::note
+Resource labels are normally created and managed in Seqera at the workspace, compute environment, pipeline, action, run, and Studio levels. Advanced users can also define resource labels directly in Nextflow configuration using the [`resourceLabels`](https://docs.seqera.io/nextflow/reference/process#resourcelabels) process directive, set per process or globally with `process.resourceLabels`. Labels defined this way are applied by Nextflow at task submission and execution time.
+:::
+
 ### Resource labels applied to compute environments
 
 Resource labels can be applied to all cloud compute environments. Cloud resources are tagged when a pipeline run is launched or a Studio is started with those resource labels applied.
@@ -135,7 +139,7 @@ Search and filter pipelines on the Launchpad, and runs on the **Runs** tab, usin
 
 ### AWS
 
-The following resources are tagged using the resource labels associated with the compute environment (either [Batch](../compute-envs/aws-batch.md) or [Cloud](../compute-envs/aws-cloud.md)):
+The following resources are tagged using the resource labels associated with the compute environment (either [Batch](../compute-envs/aws-batch) or [Cloud](../compute-envs/aws-cloud)):
 
 **Batch**:
 
@@ -165,9 +169,17 @@ The following resources are tagged using the resource labels associated with the
 
 At execution time, when jobs are submitted to Batch, the requests are set up to propagate tags to all the instances and volumes created by the head job.
 
-The [IAM permissions](../compute-envs/aws-batch.md#required-platform-iam-permissions) contain the roles needed for Batch Forge-created AWS Batch compute environments to tag AWS resources. Specifically, the required roles are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
+:::caution
+Only compute environments and their associated queues **created by Batch Forge** are tagged with your resource labels automatically. AWS Batch compute environments, job queues, or other resources you create **manually outside of Seqera** don't inherit these tags, so their costs aren't attributable in AWS Cost Explorer or your data exports until you tag them yourself. If you run a mix of Forge-created and manually created queues, add the relevant cost-allocation tag (for example, `project=<value>`) to the manually created resources in the AWS console.
+:::
 
-To view and manage the resource labels applied to AWS resources by Seqera and Nextflow, go to the [AWS Tag Editor](https://docs.aws.amazon.com/tag-editor/latest/userguide/find-resources-to-tag.html) (as an administrative user) and follow these steps:
+The [IAM permissions](../compute-envs/aws-batch#required-platform-iam-permissions) contain the roles needed for Batch Forge-created AWS Batch compute environments to tag AWS resources. Specifically, the required roles are `iam:TagRole`, `iam:TagInstanceProfile`, and `batch:TagResource`.
+
+#### Verify resource label propagation to AWS
+
+Resource labels applied in Seqera surface as AWS tags with the same `key=value` on the resources listed above. For example, a resource label `project=rnaseq` on a Batch Forge compute environment is applied as the AWS tag `project=rnaseq` on the Batch compute environment, job queues, and EC2 instances at creation time, and on the jobs and job definitions submitted for each run. A dynamic resource label such as `platformRun=${workflowId}` is applied as a tag like `platformRun=12345abcde` on the jobs and job definitions spawned by that run.
+
+To view, manage, and verify the resource labels applied to AWS resources by Seqera and Nextflow, go to the [AWS Tag Editor](https://docs.aws.amazon.com/tag-editor/latest/userguide/find-resources-to-tag.html) (as an administrative user) and follow these steps:
 
 1. Under **Find resources to tag**, search for the resource label key and value in the relevant search fields under **Tags**. Your search can be further refined by AWS region and resource type.
 1. Select **Search resources**. **Resource search results** display all the resources tagged with your given resource label key and/or value.
@@ -175,6 +187,10 @@ To view and manage the resource labels applied to AWS resources by Seqera and Ne
 ### Include Seqera resource labels in AWS billing reports
 
 To include the cost information associated with your resource labels in your AWS billing reports, you need to activate cost allocation tags. The method for viewing costs differs between static and dynamic resource labels:
+
+:::tip
+Resource labels combined with your cloud provider's native cost tools are the recommended way to achieve full cost accounting — including compute, storage, and networking — for your pipeline runs. Avoid custom wrapper scripts that dedicate an entire EC2 instance to a single job to attribute cost: this pattern is incompatible with AWS Batch's shared-instance scheduling model and typically increases cost. Tag your resources with resource labels and report on them in AWS Cost Explorer or your data exports instead.
+:::
 
 **For static resource labels**: Because static resource labels have fixed values at compute environment creation time or workflow submission time, they are applied to static resources including Batch compute environments and EC2 instances. Static resource label costs can be viewed in AWS Cost Explorer, [Data Exports](https://docs.aws.amazon.com/cur/latest/userguide/what-is-data-exports.html), and QuickSight dashboards.
 
@@ -200,6 +216,14 @@ To include the cost information associated with your resource labels in your AWS
    - View costs in your [Data Exports](https://docs.aws.amazon.com/cur/latest/userguide/what-is-data-exports.html) and Cost and Usage Reports (CUR)
    - Query reports using Amazon Athena or visualize in Amazon QuickSight dashboards (requires a QuickSight subscription)
    - For a complete walkthrough, see our [guide to AWS cost tracking with resource labels](https://seqera.io/blog/aws-labels-cost-tracking/)
+
+#### Verify cost data in your AWS billing reports
+
+After you activate cost-allocation tags, cost data for your labeled resources typically appears in Cost Explorer and your data exports (CUR/Parquet) only after a **24–48 hour delay**. To confirm that your labels and their costs landed, inspect the data export directly — for example, query the Parquet files with Amazon Athena, or download and open them — and check that your resource-label tag keys are present and associated with non-zero costs.
+
+:::caution
+AWS Cost and Usage Reports normalize tag characters. In CUR (version 2), colons (`:`) are rewritten as underscores (`_`), and mixed- or upper-case characters are lowercased and separated with underscores. For example, a tag key `costCenter` can appear as `cost_center`, and `team:genomics` as `team_genomics`, in the export. Design your resource-label keys and values so they remain unambiguous after this normalization, and account for it in downstream Athena or QuickSight queries.
+:::
 
 #### AWS limitations
 
@@ -232,7 +256,7 @@ Google Cloud includes resource labels in billing data for cost analysis and repo
 2. **Configure Reports**: Use the **Labels** filter to select specific label keys and set **Group by** to organize costs by your label values.
 3. **Export for Analysis**:
    - [Enable Cloud Billing export to BigQuery](https://cloud.google.com/billing/docs/how-to/export-data-bigquery) for detailed analysis and custom reporting.
-   - Use tools like [Looker Studio](https://cloud.google.com/looker-studio/docs/overview) to visualize your labeled cost data.
+   - Use tools like [Looker Studio](https://cloud.google.com/looker-studio) to visualize your labeled cost data.
 
 #### Google Cloud limitations
 
@@ -247,25 +271,37 @@ See [here](https://cloud.google.com/resource-manager/docs/creating-managing-labe
 
 ### Azure
 
-The system used for labeling resources in Azure differs depending on your compute environment type:
-- In an **Azure Batch** compute environment created with Batch Forge, resource labels are added to the Pool parameters — this adds set of `key=value` **metadata** pairs to the Azure Batch Pool.
-- In an **Azure Cloud** (single instance) compute environment, resource labels are propagated to VMs and related resources as **tags**.
+The following resources receive the labels associated with the compute environment (either [Batch](../compute-envs/azure-batch.md) or [Cloud](../compute-envs/azure-cloud.md)):
 
-:::warning
-In Azure Batch compute environments, the [Azure Batch node pool](https://learn.microsoft.com/en-us/azure/batch/nodes-and-pools) is managed by the compute environment and **resource labels are fixed at the time of creation**.
-:::
+**Batch**:
+
+- **Compute environment creation time**
+  - Pool metadata (Azure Batch Pool)
+
+- **Submission time**
+  - Jobs
+
+- **Execution time**
+  - Tasks
+
+Static resource labels from the compute environment are written to the Azure Batch Pool `metadata` fields when the compute environment is created, and are also propagated to Azure Batch jobs and tasks at submission and execution time. Resource labels added or overridden when you launch a pipeline are applied only to Azure Batch submission and execution time resources. Dynamic resource labels do not modify the existing Pool metadata.
+
+**Cloud**:
+
+- **Submission and execution time**
+  - Virtual machines and related resources
 
 #### View costs by resource labels in Azure
 
-Azure supports cost analysis by tags. However, you must configure tag inheritance and cost allocation.
+Azure cost analysis by tags applies to Azure Resource Manager resources that support tags, such as Azure Cloud virtual machines and related resources. Azure Batch uses `metadata` pairs rather than Azure Resource Manager tags, so Azure Batch resource labels may have limited or no visibility in Azure Cost Management.
 
 :::note
-Dynamic resource labels create tags in the form of metadata pairs on Azure Batch resources. However, Azure's cost reporting integration has some limitations. Azure tags may not always appear immediately in **Cost Management**.
+For Azure Batch, both static and dynamic resource labels are added as `key=value` metadata pairs on Azure Batch jobs and tasks. Dynamic resource labels are not applied to the Azure Batch Pool itself. Because Azure Batch uses metadata rather than Azure Resource Manager tags, these labels may not be available for filtering or grouping in **Cost Management**.
 :::
 
-**Prerequisites**: Billing profile contributor/owner permissions for billing profile tags, and Contributor role or Tag Contributor role for resource tagging.
+**Prerequisites for tag-based Azure cost tracking**: Billing profile contributor/owner permissions for billing profile tags, and Contributor role or Tag Contributor role for resource tagging.
 
-**Steps to enable cost tracking**:
+**Steps to enable tag-based cost tracking for Azure-tagged resources**:
 
 1. **Enable Tag Inheritance** (recommended): Navigate to Cost Management in the Azure portal, select a billing account or subscription scope, and under **Settings** > **Configuration** > **Tag inheritance**, enable **Automatically apply subscription and resource group tags to new data**. See [Azure tag inheritance documentation](https://docs.microsoft.com/en-us/azure/cost-management-billing/costs/enable-tag-inheritance) for detailed steps.
 2. **View Tagged Costs**: Navigate to **Cost Management + Billing** > **Cost Management** > **Cost analysis** and select **Group by** for your tag key.

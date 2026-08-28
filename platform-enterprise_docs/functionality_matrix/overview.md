@@ -1,19 +1,22 @@
 ---
 title: "Default version compatibility"
-description: "Platform / nf-launcher / Nextflow / Fusion version compatibility"
+description: "Version compatibility for Seqera Platform, nf-launcher, Nextflow, Fusion, and the Connect client"
 date created: "2024-06-20"
-last updated: "2065-02-09"
+last updated: "2026-07-06"
 tags: [compatibility, nextflow, nf-launcher]
 ---
 
-The two most recent major Seqera Platform versions (25.3.x, 25.2.x, etc) are supported at any given time.
+Seqera supports the two most recent major Seqera Platform versions (for example, 25.3.x and 26.1.x) at any given time.
 
-Each version makes use of `nf-launcher` to determine the Nextflow version used as its baseline. You can override this version during pipeline launch, but note that Seqera may not work reliably with Nextflow versions other than the baseline version. To use a Nextflow version other than the baseline in your pipeline run, use a [pre-run script](../launch/advanced#pre-and-post-run-scripts) during launch.
+Each Seqera Platform version uses `nf-launcher` to set its baseline Nextflow version. To use a different Nextflow version in your pipeline runs, add a [pre-run script](../launch/advanced#pre-and-post-run-scripts) during launch. Seqera Platform may not work reliably with Nextflow versions other than the baseline.
 
-If no Nextflow version is specified in your configuration, Seqera defaults to the baseline version outlined below:
+If you do not specify a Nextflow version in your configuration, Seqera Platform uses the baseline version listed in the following table:
 
-| Platform version | nf-launcher version | Nextflow version | Fusion version | Connect client version|
-| ---------------- | ------------------- | ---------------- | -------------- |-------------- |
+| Platform version | nf-launcher version | Nextflow version | Fusion version | Connect client version |
+| ---------------- | ------------------- | ---------------- | -------------- | ---------------------- |
+| 26.1.2           | j21-26.04           | 26.04            | 2.4            | 0.12.0        |
+| 26.1.0           | j21-26.04           | 26.04            | 2.4            | 0.12.0        |
+| 25.3.6           | j21-25.10.2         | 25.10.2          | 2.4            | 0.11.0        |
 | 25.3.4           | j21-25.10.2         | 25.10.2          | 2.4            | 0.9.0         |
 | 25.3.1           | j21-25.10.2         | 25.10.2          | 2.4            | 0.9.0         |
 | 25.3.0           | j21-25.04.8         | 25.04.8          | 2.4            |               |
@@ -48,4 +51,4 @@ If no Nextflow version is specified in your configuration, Seqera defaults to th
 | 24.2.1           | j17-24.10.2         | 24.10.2          | 2.4            |               |
 | 24.2.0           | j17-24.10.0         | 24.10.0          | 2.4            |               |
 
-nf-launcher versions prefixed with j21 refer to Java version 21; j17 refers to Java version 17.
+`nf-launcher` versions prefixed with `j21` use Java 21, and versions prefixed with `j17` use Java 17.

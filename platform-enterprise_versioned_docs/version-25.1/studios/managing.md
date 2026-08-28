@@ -2,7 +2,7 @@
 title: "Manage Studio sessions"
 description: "Manage Studio sessions."
 date: "6 February 2025"
-tags: [data, session, studios]
+tags: [data, sessions, studios]
 ---
 
 Select the **Studios** tab in Platform to view all Studio sessions. The list includes the name, cloud provider, analysis template, region, author, creation date, and status of each session. In this view, you can add a new Studio and start, stop, or connect to an existing session. Dynamically filter the list of Studios using the search bar to search by name (default), author username, or compute environment name. Select a Studio to open a detailed view that displays configuration information.

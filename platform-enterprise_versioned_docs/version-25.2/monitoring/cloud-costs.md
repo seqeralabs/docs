@@ -3,7 +3,7 @@ title: "Monitoring cloud costs"
 description: Guidelines for monitoring Seqera Platform cloud expenditure.
 date created: "2023-04-12"
 last updated: "2025-08-01"
-tags: [aws, gcp, azure, cloud-costs, cost, billing, alerts]
+tags: [aws, gcp, azure, cloud costs, cost, billing, alerts]
 ---
 
 Monitor cloud costs to manage resources effectively and prevent unexpected expenses when running pipelines in Seqera Platform.

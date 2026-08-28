@@ -30,22 +30,47 @@ GRANT ALL PRIVILEGES ON tower.* TO 'tower'@'%';
 
 See [Database configuration](./configuration/overview#seqera-and-redis-databases) for details.
 
-## Redis configuration
+## Redis or Valkey configuration
+
+Seqera Platform requires a Redis-compatible cache store for transient data, primarily Nextflow job metrics reporting. Both Redis and Valkey are supported.
 
 :::info
 The bundled `redis` container in `docker-compose.yml` is intended for evaluation and small workloads. For production, use a managed service or an [official Redis installation source](https://redis.io/docs/latest/operate/oss_and_stack/install/).
 :::
 
-Configure the Redis connection URL in your Seqera environment:
+### Supported versions
 
-```bash
-TOWER_REDIS_URL=redis://<redis-host>:6379
-```
+| Cache / version | Status                       |
+| --------------- | ---------------------------- |
+| Redis 6.x       | Not supported (EoL upstream) |
+| Redis 7.2       | Supported                    |
+| Redis 7.4       | Supported                    |
+| Valkey 7.x      | Supported (from 26.1)        |
 
-Use a managed Redis service for production:
+### Connection URL
+
+Configure the connection URL in your Seqera environment using the scheme that matches your cache backend:
+
+| Backend         | Scheme       | Example                                  |
+| --------------- | ------------ | ---------------------------------------- |
+| Redis           | `redis://`   | `TOWER_REDIS_URL=redis://<host>:6379`    |
+| Redis with TLS  | `rediss://`  | `TOWER_REDIS_URL=rediss://<host>:6380`   |
+
+The Redisson client embedded in Platform 26.1+ supports Valkey 7 dial schema — no further configuration is required. Redis password and ACL configuration carry over unchanged when migrating to Valkey.
+
+### Managed service options
+
+Use a managed cache service for production:
+
 - [Amazon ElastiCache](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html) (`cache.m4.large` or larger)
-- [Azure Cache for Redis](https://learn.microsoft.com/en-gb/azure/azure-cache-for-redis/cache-overview) (C3 tier or larger)
+- [Azure Managed Redis](https://learn.microsoft.com/azure/redis/overview) (production-capable tier appropriate for your workload)
 - [Google Memorystore](https://cloud.google.com/memorystore/docs/redis) (M2 tier or larger)
+
+:::caution
+Microsoft is retiring Azure Cache for Redis. As of April 1, 2026, new customers cannot create instances, and from October 1, 2026, no new instances can be created. For new Azure deployments, use [Azure Managed Redis](https://learn.microsoft.com/azure/redis/overview).
+:::
+
+For migration guidance from Redis to Valkey on an existing installation, see [Cache layer changes](./upgrade#cache-layer-changes-redis-eol-and-valkey-support).
 
 
 ## Deploy Seqera Enterprise
@@ -80,11 +105,11 @@ For more information on configuration, see [Configuration options](./configurati
 
 An unprivileged version of the Seqera frontend image is also available. This image listens on an unprivileged port and therefore doesn't need to be run as the root user.
 
-Replace the tag of the frontend image `cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x` with `cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x-unprivileged`. Then update the `frontend` section of the `docker-compose.yml` file as follows, replacing the port mappings as needed:
+Replace the tag of the frontend image `cr.seqera.io/enterprise/platform/frontend:v24.x.x` with `cr.seqera.io/enterprise/platform/frontend:v24.x.x-unprivileged`. Then update the `frontend` section of the `docker-compose.yml` file as follows, replacing the port mappings as needed:
 
 ```yaml
   frontend:
-    image: cr.seqera.io/private/nf-tower-enterprise/frontend:v24.x.x-unprivileged
+    image: cr.seqera.io/enterprise/platform/frontend:v24.x.x-unprivileged
     platform: linux/amd64
     environment:
       NGINX_LISTEN_PORT: 8001  # If not defined, defaults to 8000
@@ -101,8 +126,8 @@ The unprivileged Seqera image will soon deprecate the current image that require
 
 - `NGINX_LISTEN_PORT`: The port the NGINX process will listen on inside the container. Default: `8000`.
 - `NGINX_LISTEN_PORT_IPV6`: The NGINX listening port to open on the IPv6 address. Default: `8000`.
-- `NGINX_UPSTREAM_HOST`: The hostname of the backend service to which the NGINX process will route requests. Default: `8000`.
-- `NGINX_UPSTREAM_PORT`: The port where the backend service is exposed. Default: `8000`.
+- `NGINX_UPSTREAM_HOST`: The hostname of the backend service to which the NGINX process will route requests. Default: `backend`.
+- `NGINX_UPSTREAM_PORT`: The port where the backend service is exposed. Default: `8080`.
 
 If further customization of the config file is needed, mount a config map/secret over the templated NGINX configuration file at `/etc/nginx/templates/tower.conf.template`. See [SSL/TLS](./configuration/ssl_tls#configure-seqera-to-present-a-ssltls-certificate) for an example.
 

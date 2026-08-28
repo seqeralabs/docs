@@ -2,7 +2,7 @@
 title: "Amazon EKS"
 description: "Instructions to set up Amazon EKS in Seqera Platform"
 date: "21 Apr 2023"
-tags: [eks, amazon, compute environment]
+tags: [eks, amazon, compute environments]
 ---
 
 [Amazon EKS](https://aws.amazon.com/eks/) is a managed Kubernetes cluster that enables the execution of containerized workloads in the AWS cloud at scale.

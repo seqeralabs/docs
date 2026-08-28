@@ -39,16 +39,16 @@ We recommend installing the latest version of Skopeo (or at least v1.15+ to work
 1. Listing the available tags for a given image can be done with the `list-tags` command:
 
    ```console
-   skopeo list-tags docker://cr.seqera.io/private/nf-tower-enterprise
+   skopeo list-tags docker://cr.seqera.io/enterprise/platform
    ```
 
-1. Syncing images can be done with the `sync` command. For example, to sync all images stored in the `cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-server` repository to your internal registry, run:
+1. Syncing images can be done with the `sync` command. For example, to sync all images stored in the `cr.seqera.io/enterprise/studios/server` repository to your internal registry, run:
 
    ```console
-   skopeo sync --scoped --src docker --dest docker cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-server YOUR_INTERNAL_REGISTRY
+   skopeo sync --scoped --src docker --dest docker cr.seqera.io/enterprise/studios/server YOUR_INTERNAL_REGISTRY
    ```
 
-   Note that `--scoped` will populate your internal registry with images like `YOUR_INTERNAL_REGISTRY/cr.seqera.io/private/nf-tower-enterprise/data-studio/connect-server`.
+   Note that `--scoped` will populate your internal registry with images like `YOUR_INTERNAL_REGISTRY/cr.seqera.io/enterprise/studios/server`.
    More advanced usage examples are available in the Skopeo documentation: https://github.com/containers/skopeo/blob/main/docs/skopeo-sync.1.md#examples
 
 To avoid duplicating several years of Seqera images, we recommend using the `images-by-semver` option in the `sync` command. This option allows you to specify semantic versioning constraints for each image to be synced. For example, to sync all images with tags greater than or equal to a certain version, create a YAML file (for example, `seqera-container-registry.yaml`) with content similar to the following (adapt it to the versions you want to sync and the images you need):
@@ -56,13 +56,13 @@ To avoid duplicating several years of Seqera images, we recommend using the `ima
 ```yaml
 cr.seqera.io:
     images-by-semver:
-        private/nf-tower-enterprise/backend: ">= v25.2.0"
-        private/nf-tower-enterprise/frontend: ">= v25.2.0"
-        private/nf-tower-enterprise/migrate-db: ">= v25.2.0"
-        private/nf-tower-enterprise/data-studio/connect-server: ">= 0.8.0"
-        private/nf-tower-enterprise/data-studio/connect-proxy: ">= 0.8.0"
-        private/nf-tower-enterprise/wave: ">= v1.23.0"
-        private/nf-tower-enterprise/groundswell: ">= 0.4.0"
+        enterprise/platform/backend: ">= v25.2.0"
+        enterprise/platform/frontend: ">= v25.2.0"
+        enterprise/platform/migrate-db: ">= v25.2.0"
+        enterprise/studios/server: ">= 0.8.0"
+        enterprise/studios/proxy: ">= 0.8.0"
+        enterprise/wave/server: ">= v1.23.0"
+        enterprise/platform/pipeline-optimization: ">= 0.4.0"
 ```
 
 Note that some image tags are prefixed with `v` while others are not.
@@ -91,13 +91,13 @@ The general process to manually replicate images involves:
 1. Downloading the image from the Seqera container registry.
 
    ```console
-   docker pull cr.seqera.io/private/nf-tower-enterprise/backend:v25.2.3
+   docker pull cr.seqera.io/enterprise/platform/backend:v25.2.3
    ```
 
 1. Re-tagging the image.
 
    ```console
-   docker tag cr.seqera.io/private/nf-tower-enterprise/backend:v25.2.3 YOUR_INTERNAL_REGISTRY/your-repo/backend:v25.2.3
+   docker tag cr.seqera.io/enterprise/platform/backend:v25.2.3 YOUR_INTERNAL_REGISTRY/your-repo/backend:v25.2.3
    ```
 
 1. Pushing the image to your preferred container registry (for example, ECR, GCR, Docker Hub).

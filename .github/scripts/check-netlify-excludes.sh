@@ -16,7 +16,6 @@ VARS=(
   EXCLUDE_PLATFORM_CLOUD
   EXCLUDE_PLATFORM_API
   EXCLUDE_PLATFORM_CLI
-  EXCLUDE_PLATFORM_OPENAPI
   EXCLUDE_MULTIQC
   EXCLUDE_FUSION
   EXCLUDE_WAVE
@@ -27,7 +26,6 @@ LABELS=(
   "Platform Cloud"
   "Platform API"
   "Platform CLI"
-  "Platform OpenAPI"
   "MultiQC"
   "Fusion"
   "Wave"

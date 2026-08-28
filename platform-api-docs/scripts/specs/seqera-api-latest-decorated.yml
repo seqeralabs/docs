@@ -843,7 +843,7 @@ paths:
       tags:
         - compute-envs
       summary: Delete compute environment
-      description: Deletes the compute environment identified by the given `computeEnvId`.
+      description: Deletes the specified compute environment. Append `?force=true` to bypass active-job checks and SCMS/forge cleanup. Force deletion is only allowed for environments in ERRORED, INVALID, or DELETING status.
       operationId: DeleteComputeEnv
       parameters:
         - name: computeEnvId
@@ -6156,7 +6156,7 @@ paths:
       security:
         - BearerAuth: []
     put:
-      description: Updates the given Studio session ID. Can only update non-running Studios.
+      description: Updates the specified Data Studio session. Can only update non-running Studios. The compute environment can be changed by setting `computeEnvId` to a compute environment compatible with the Studio's current one. See `GET /studios/{sessionId}/compatible-ce` for compatible options.
       operationId: UpdateDataStudio
       parameters:
         - name: sessionId

@@ -3,7 +3,7 @@ title: "Google registry credentials"
 description: "Create Google Cloud registry credentials in Seqera Platform."
 date created: "2023-04-21"
 last updated: "2025-10-21"
-tags: [google, container, registry, artifact, credentials]
+tags: [google, containers, registry, artifact, credentials]
 ---
 
 Google Cloud registry credentials allow the Wave container service to authenticate and pull container images from Google Artifact Registry. Google Cloud registries require programmatic access using service account keys with appropriate read permissions.

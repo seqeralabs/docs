@@ -1,0 +1,393 @@
+---
+-
+  Event: '`workflow_launched`'
+  Target: 'Workflow run'
+  Description: 'A workflow run was launched from Platform.'
+-
+  Event: '`workflow_created`'
+  Target: 'Workflow run'
+  Description: 'A workflow run was created after Nextflow established connection.'
+-
+  Event: '`workflow_updated`'
+  Target: 'Workflow run'
+  Description: 'A workflow run was updated.'
+-
+  Event: '`workflow_completed`'
+  Target: 'Workflow run'
+  Description: 'A workflow run completed execution.'
+-
+  Event: '`workflow_deleted`'
+  Target: 'Workflow run'
+  Description: 'A workflow run was deleted.'
+-
+  Event: '`workflow_dropped`'
+  Target: 'Workflow run'
+  Description: 'A workflow run was permanently deleted.'
+-
+  Event: '`access_token_created`'
+  Target: 'Access token'
+  Description: 'A personal access token was created.'
+-
+  Event: '`access_token_deleted`'
+  Target: 'Access token'
+  Description: 'A personal access token was deleted.'
+-
+  Event: '`ssh_key_created`'
+  Target: 'SSH key'
+  Description: 'An SSH public key was added to a user account.'
+-
+  Event: '`ssh_key_deleted`'
+  Target: 'SSH key'
+  Description: 'An SSH public key was removed from a user account.'
+-
+  Event: '`user_created`'
+  Target: 'User'
+  Description: 'A new user account was created.'
+-
+  Event: '`user_updated`'
+  Target: 'User'
+  Description: 'A user account was updated.'
+-
+  Event: '`user_deleted`'
+  Target: 'User'
+  Description: 'A user account was deleted.'
+-
+  Event: '`user_sign_in`'
+  Target: 'User'
+  Description: 'A user signed in to the platform.'
+-
+  Event: '`compute_environment_created`'
+  Target: 'Compute environment'
+  Description: 'A compute environment was created.'
+-
+  Event: '`compute_environment_updated`'
+  Target: 'Compute environment'
+  Description: 'A compute environment was updated.'
+-
+  Event: '`compute_environment_deleted`'
+  Target: 'Compute environment'
+  Description: 'A compute environment was deleted.'
+-
+  Event: '`credentials_created`'
+  Target: 'Credentials'
+  Description: 'Credentials were created.'
+-
+  Event: '`credentials_updated`'
+  Target: 'Credentials'
+  Description: 'Credentials were updated.'
+-
+  Event: '`credentials_deleted`'
+  Target: 'Credentials'
+  Description: 'Credentials were deleted.'
+-
+  Event: '`credentials_dropped`'
+  Target: 'Credentials'
+  Description: 'Credentials were permanently deleted.'
+-
+  Event: '`action_created`'
+  Target: 'Action'
+  Description: 'A pipeline action was created.'
+-
+  Event: '`action_updated`'
+  Target: 'Action'
+  Description: 'A pipeline action was updated.'
+-
+  Event: '`action_deleted`'
+  Target: 'Action'
+  Description: 'A pipeline action was deleted.'
+-
+  Event: '`organization_created`'
+  Target: 'Organization'
+  Description: 'An organization was created.'
+-
+  Event: '`organization_updated`'
+  Target: 'Organization'
+  Description: 'An organization was updated.'
+-
+  Event: '`organization_deleted`'
+  Target: 'Organization'
+  Description: 'An organization was deleted.'
+-
+  Event: '`team_created`'
+  Target: 'Team'
+  Description: 'A team was created.'
+-
+  Event: '`team_updated`'
+  Target: 'Team'
+  Description: 'A team was updated.'
+-
+  Event: '`team_deleted`'
+  Target: 'Team'
+  Description: 'A team was deleted.'
+-
+  Event: '`workspace_created`'
+  Target: 'Workspace'
+  Description: 'A workspace was created.'
+-
+  Event: '`workspace_updated`'
+  Target: 'Workspace'
+  Description: 'A workspace was updated.'
+-
+  Event: '`workspace_deleted`'
+  Target: 'Workspace'
+  Description: 'A workspace was deleted.'
+-
+  Event: '`pipeline_created`'
+  Target: 'Pipeline'
+  Description: 'A pipeline was added to a workspace launchpad.'
+-
+  Event: '`pipeline_updated`'
+  Target: 'Pipeline'
+  Description: 'A pipeline was updated.'
+-
+  Event: '`pipeline_deleted`'
+  Target: 'Pipeline'
+  Description: 'A pipeline was deleted from a workspace launchpad.'
+-
+  Event: '`participant_created`'
+  Target: 'Participant'
+  Description: 'A user or team was added as a participant to a workspace.'
+-
+  Event: '`participant_deleted`'
+  Target: 'Participant'
+  Description: 'A user or team was removed as a participant from a workspace.'
+-
+  Event: '`participant_role_updated`'
+  Target: 'Participant'
+  Description: 'A workspace participant role was changed in a workspace.'
+-
+  Event: '`member_created`'
+  Target: 'Member'
+  Description: 'A user was added as a member to an organization.'
+-
+  Event: '`member_deleted`'
+  Target: 'Member'
+  Description: 'A user was removed as a member from the organization.'
+-
+  Event: '`member_role_updated`'
+  Target: 'Member'
+  Description: 'A member role was changed in an organization.'
+-
+  Event: '`team_member_created`'
+  Target: 'Team member'
+  Description: 'A member was added to a team.'
+-
+  Event: '`team_member_deleted`'
+  Target: 'Team member'
+  Description: 'A member was deleted from a team.'
+-
+  Event: '`pipeline_secret_created`'
+  Target: 'Pipeline secret'
+  Description: 'A pipeline secret was created.'
+-
+  Event: '`pipeline_secret_updated`'
+  Target: 'Pipeline secret'
+  Description: 'A pipeline secret was updated.'
+-
+  Event: '`pipeline_secret_deleted`'
+  Target: 'Pipeline secret'
+  Description: 'A pipeline secret was deleted.'
+-
+  Event: '`dataset_created`'
+  Target: 'Dataset'
+  Description: 'A dataset was created.'
+-
+  Event: '`dataset_updated`'
+  Target: 'Dataset'
+  Description: 'A dataset was updated.'
+-
+  Event: '`dataset_deleted`'
+  Target: 'Dataset'
+  Description: 'A dataset was deleted.'
+-
+  Event: '`dataset_content_uploaded`'
+  Target: 'Dataset'
+  Description: 'Dataset content was uploaded.'
+-
+  Event: '`dataset_content_downloaded`'
+  Target: 'Dataset'
+  Description: 'Dataset content was downloaded.'
+-
+  Event: '`data_link_created`'
+  Target: 'Data-link'
+  Description: 'A data-link was created.'
+-
+  Event: '`data_link_updated`'
+  Target: 'Data-link'
+  Description: 'A data-link was updated.'
+-
+  Event: '`data_link_deleted`'
+  Target: 'Data-link'
+  Description: 'A data-link was deleted.'
+-
+  Event: '`data_link_hide`'
+  Target: 'Data-link (metadata)'
+  Description: 'A data-link was hidden from the workspace.'
+-
+  Event: '`data_link_show`'
+  Target: 'Data-link (metadata)'
+  Description: 'A hidden data-link was made visible in the workspace.'
+-
+  Event: '`data_link_file_preview`'
+  Target: 'Data-link (file)'
+  Description: 'A file was previewed through a data-link.'
+-
+  Event: '`data_link_file_upload`'
+  Target: 'Data-link (file)'
+  Description: 'A file was uploaded through a data-link.'
+-
+  Event: '`data_link_file_download`'
+  Target: 'Data-link (file)'
+  Description: 'A file was downloaded through a data-link.'
+-
+  Event: '`data_link_file_deleted`'
+  Target: 'Data-link (file)'
+  Description: 'A file was deleted through a data-link.'
+-
+  Event: '`studio_session_created`'
+  Target: 'Studio'
+  Description: 'A studio session was created.'
+-
+  Event: '`studio_session_deleted`'
+  Target: 'Studio'
+  Description: 'A studio session was deleted.'
+-
+  Event: '`studio_session_started`'
+  Target: 'Studio'
+  Description: 'A studio session was started.'
+-
+  Event: '`studio_session_stopped`'
+  Target: 'Studio'
+  Description: 'A studio session was stopped.'
+-
+  Event: '`studio_session_updated`'
+  Target: 'Studio'
+  Description: 'A studio session was updated.'
+-
+  Event: '`studio_session_connected`'
+  Target: 'Studio (connection)'
+  Description: 'A user connected to a studio session.'
+-
+  Event: '`studio_session_disconnected`'
+  Target: 'Studio (connection)'
+  Description: 'A user disconnected from a studio session.'
+-
+  Event: '`studio_session_build_started`'
+  Target: 'Studio'
+  Description: 'A studio session container build was started.'
+-
+  Event: '`studio_session_build_failed`'
+  Target: 'Studio'
+  Description: 'A studio session container build failed.'
+-
+  Event: '`studio_session_build_succeeded`'
+  Target: 'Studio'
+  Description: 'A studio session container build succeeded.'
+-
+  Event: '`studio_session_lifespan_extended`'
+  Target: 'Studio'
+  Description: 'A studio session lifespan was extended.'
+-
+  Event: '`studio_session_ssh_auth_succeeded`'
+  Target: 'Studio (SSH)'
+  Description: 'SSH authentication to a studio session succeeded.'
+-
+  Event: '`studio_session_ssh_auth_failed`'
+  Target: 'Studio (SSH)'
+  Description: 'SSH authentication to a studio session failed.'
+-
+  Event: '`label_created`'
+  Target: 'Label'
+  Description: 'A label was created.'
+-
+  Event: '`label_updated`'
+  Target: 'Label'
+  Description: 'A label was updated.'
+-
+  Event: '`label_deleted`'
+  Target: 'Label'
+  Description: 'A label was deleted.'
+-
+  Event: '`resource_label_created`'
+  Target: 'Label'
+  Description: 'A resource label was created.'
+-
+  Event: '`resource_label_updated`'
+  Target: 'Label'
+  Description: 'A resource label was updated.'
+-
+  Event: '`resource_label_deleted`'
+  Target: 'Label'
+  Description: 'A resource label was deleted.'
+-
+  Event: '`label_assignment_created`'
+  Target: 'Label assignment'
+  Description: 'A label was assigned to a resource.'
+-
+  Event: '`label_assignment_deleted`'
+  Target: 'Label assignment'
+  Description: 'A label was removed from a resource.'
+-
+  Event: '`managed_identity_created`'
+  Target: 'Managed identity'
+  Description: 'A managed identity was created.'
+-
+  Event: '`managed_identity_edited`'
+  Target: 'Managed identity'
+  Description: 'A managed identity was updated.'
+-
+  Event: '`managed_identity_deleted`'
+  Target: 'Managed identity'
+  Description: 'A managed identity was deleted.'
+-
+  Event: '`managed_credentials_created`'
+  Target: 'Managed credentials'
+  Description: 'Managed credentials were created.'
+-
+  Event: '`managed_credentials_updated`'
+  Target: 'Managed credentials'
+  Description: 'Managed credentials were updated.'
+-
+  Event: '`managed_credentials_deleted`'
+  Target: 'Managed credentials'
+  Description: 'Managed credentials were deleted.'
+-
+  Event: '`credits_modified`'
+  Target: 'Credit info'
+  Description: 'A credit grant was modified.'
+-
+  Event: '`user_role_created`'
+  Target: 'User role'
+  Description: 'A role was assigned to a user. Note: this can happen via changes to the user''s team (namely, team role changes).'
+-
+  Event: '`user_role_updated`'
+  Target: 'User role'
+  Description: 'A user''s role was updated. Note: this can happen via changes to the user''s team (namely, team role changes).'
+-
+  Event: '`user_role_deleted`'
+  Target: 'User role'
+  Description: 'A user''s role was removed.'
+-
+  Event: '`role_created`'
+  Target: 'Role'
+  Description: 'A custom role was created.'
+-
+  Event: '`role_updated`'
+  Target: 'Role'
+  Description: 'A custom role was updated.'
+-
+  Event: '`role_deleted`'
+  Target: 'Role'
+  Description: 'A custom role was deleted.'
+-
+  Event: '`idp_group_created`'
+  Target: 'IdP group'
+  Description: 'An IdP group was created.'
+-
+  Event: '`idp_group_updated`'
+  Target: 'IdP group'
+  Description: 'An IdP group was updated.'
+-
+  Event: '`idp_group_deleted`'
+  Target: 'IdP group'
+  Description: 'An IdP group was deleted.'

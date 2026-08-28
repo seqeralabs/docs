@@ -3,7 +3,7 @@ title: Fusion Doctor
 description: "Run Fusion Doctor diagnostics with nf-canary to validate Fusion compute environments"
 date created: "2026-04-23"
 last updated: "2026-04-23"
-tags: [troubleshooting, fusion, fusion-doctor, nf-canary, diagnostics]
+tags: [troubleshooting, fusion, fusion doctor, nf-canary, diagnostics]
 ---
 
 Fusion Doctor is a diagnostic tool that validates whether a compute environment meets the requirements for running Fusion. It checks the host kernel, memory, disk, vCPUs, and bucket access, then produces a report you can use to resolve environment issues or share with Seqera support.
@@ -22,7 +22,7 @@ Run Fusion Doctor when you:
 
 ## Run Fusion Doctor with nf-canary
 
-[nf-canary](https://github.com/seqeralabs/nf-canary) is a Nextflow pipeline that runs Fusion Doctor on your compute environment and generates an HTML report. This is the supported path for most users. It does not require direct access to the task container. Fusion Doctor is only possible with nf-canary.
+[nf-canary](https://github.com/seqeralabs/nf-canary) is a Nextflow pipeline that runs Fusion Doctor on your compute environment and generates an HTML report. Fusion Doctor runs only through nf-canary and doesn't require direct access to the task container.
 
 ### Select a validation profile
 
@@ -52,7 +52,7 @@ In the launch form, open the **Fusion Filesystem Options** section and set:
 - **Redact PII**: Toggle on to mask bucket names, instance IDs, and home paths in the report. Enable this when sharing reports externally.
 
    :::note
-   Redaction hides infrastructure details that may help diagnose issues.
+   Redaction hides infrastructure details that can help diagnose issues.
    :::
 
 - **Read-only buckets**: Comma-separated list of bucket URIs to validate with read-only checks (e.g., `s3://reference-data,gs://shared-files`).
@@ -70,7 +70,7 @@ The report assigns one of three overall statuses:
 | Status     | Meaning                                                                                                             |
 | ---------- | ------------------------------------------------------------------------------------------------------------------- |
 | `pass`     | All checks passed. The environment meets the thresholds in the selected profile.                                    |
-| `degraded` | Non-critical checks failed or returned warnings. The environment is usable but may not meet recommended thresholds. |
+| `degraded` | Non-critical checks failed or returned warnings. The environment is usable but might not meet recommended thresholds. |
 | `fail`     | One or more critical checks failed. The environment does not meet the requirements for the selected profile.        |
 
 :::tip

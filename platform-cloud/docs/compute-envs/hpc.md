@@ -1,8 +1,9 @@
 ---
 title: "HPC compute environments"
 description: "Instructions to set up HPC compute environments in Seqera Platform"
-date: "11 May 2023"
-tags: [slurm, lsf, pbs, grid, altair, ibm, moab, slurm, compute environment]
+date created: "2023-05-11"
+last updated: "2026-05-28"
+tags: [slurm, lsf, pbs, grid engine, altair, ibm, moab, compute environments]
 ---
 
 Seqera Platform streamlines the deployment of Nextflow pipelines into both cloud-based and on-prem HPC clusters and supports compute environment creation for the following management and scheduling solutions:
@@ -46,7 +47,7 @@ To create a new **HPC** compute environment:
 
 1.  In a Seqera workspace, select **Compute environments > New environment**.
 1.  Enter a descriptive name for this environment. Use only alphanumeric characters, dashes, and underscores.
-1.  Select your HPC environment from the **Platform** dropdown menu.
+1.  Select your HPC environment from the **Platform** drop-down.
 1.  Select your existing managed identity, SSH, or Tower Agent credentials, or select **+** and **SSH** or **Tower Agent** to add new credentials.
 1.  Enter the absolute path of the **Work directory** to be used on the cluster. You can use the `TW_AGENT_WORKDIR` and `TW_AGENT_USER` variables in the file system path.
 
@@ -72,7 +73,15 @@ To create a new **HPC** compute environment:
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
-1. Specify custom **Environment variables** for the head job and/or compute jobs.
+1. Under **Environment variables**, add each variable with a **Name**, **Value**, and **Target Environment**:
+
+    - **Head job**: Adds the variable to the Nextflow head job container, which evaluates `nextflow.config` and submits tasks to the compute backend. Use this target for variables that Nextflow or its plugins read, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings the head node uses to reach external services.
+    - **Compute job**: Adds the variable to the worker containers that run individual pipeline tasks. Use this target for variables your pipeline tools read, such as `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials needed inside the task container, or tool-specific settings like `JAVA_HOME`.
+    - **Head and Compute jobs**: Adds the variable to both the head job and the compute jobs. Use this target for values needed in both places, such as an HTTP proxy used by both Nextflow and task tools, or a credential needed in both the head job and individual compute tasks.
+
+    :::note
+    For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation. To rotate a value, recreate the compute environment.
+    :::
 1. Configure any advanced options needed:
     - Use the **Nextflow queue size** to limit the number of jobs that Nextflow can submit to the scheduler at the same time.
     - Use the **Head job submit options** to add platform-specific submit options for the head job. You can optionally apply these options to compute jobs as well:

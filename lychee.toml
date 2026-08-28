@@ -9,5 +9,8 @@ exclude = [
   '^https://api.tower.nf/ephemeral/example.json',
   '^https://api.cloud.seqera.io/workflow/launch',
   '^https://git.seqera.io',
-  '^https://www.gnu.org/software/screen/'
+  '^https://www.gnu.org/software/screen/',
+  # bot-blocking 403s — reachable in a browser, rejected to automated checkers
+  '^https://www\.oracle\.com/cloud/',
+  '^https://support\.10xgenomics\.com/'
 ]

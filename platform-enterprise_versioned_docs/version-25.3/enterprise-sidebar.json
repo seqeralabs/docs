@@ -220,14 +220,14 @@
      {
       "type": "category",
       "label": "Seqera AI CLI",
-      "link": {"type": "doc", "id": "seqera-ai/index"},
+      "link": {"type": "doc", "id": "co-scientist/index"},
       "collapsed": true,
       "items": [
-        "seqera-ai/get-started",
-        "seqera-ai/installation",
-        "seqera-ai/authentication",
-        "seqera-ai/command-approval",
-        "seqera-ai/use-cases"
+        "co-scientist/get-started",
+        "co-scientist/installation",
+        "co-scientist/authentication",
+        "co-scientist/command-approval",
+        "co-scientist/use-cases"
       ]
     },
        {

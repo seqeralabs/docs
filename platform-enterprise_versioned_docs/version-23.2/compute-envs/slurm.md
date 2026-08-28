@@ -2,7 +2,7 @@
 title: "Slurm"
 description: "Instructions to set up Slurm in Nextflow Tower"
 date: "21 Apr 2023"
-tags: [slurm, compute environment]
+tags: [slurm, compute environments]
 ---
 
 [Slurm](https://slurm.schedmd.com/overview.html) is an open source, fault-tolerant, and highly scalable cluster management and job scheduling system for large and small Linux clusters.

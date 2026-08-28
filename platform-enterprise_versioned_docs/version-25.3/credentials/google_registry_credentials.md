@@ -2,7 +2,7 @@
 title: "Google registry credentials"
 description: "Instructions to create Google Cloud registry credentials in Seqera Platform."
 date: "2023-04-21"
-tags: [google, container, registry, artifact, credentials]
+tags: [google, containers, registry, artifact, credentials]
 ---
 
 From version 22.3, Seqera Platform supports the configuration of credentials for the Nextflow Wave container service to authenticate to private and public container registries. For more information on Wave containers, see the [Nextflow documentation](https://docs.seqera.io/nextflow/wave).

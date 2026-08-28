@@ -16,7 +16,7 @@ This approach enables us to maintain documentation that serves our intended audi
     - [MySQL on Compute Engine | Google Cloud Documentation](https://docs.cloud.google.com/compute/docs/instances/mysql/discover-mysql)
     - [Memorystore: in-memory Redis compatible data store | Google Cloud](https://cloud.google.com/memorystore?hl=en)
   - Azure
-    - [Azure Cache for Redis | Microsoft Azure](https://azure.microsoft.com/en-us/products/cache)
+    - [Azure Managed Redis | Microsoft Learn](https://learn.microsoft.com/azure/redis/overview)
     - [Azure Database for MySQL documentation | Microsoft Learn](https://learn.microsoft.com/en-us/azure/mysql/)
   - Redis
     - [Install on Kubernetes | Docs](https://redis.io/docs/latest/operate/redisinsight/install/install-on-k8s/)

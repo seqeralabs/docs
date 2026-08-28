@@ -2,7 +2,7 @@
 title: "IBM LSF"
 description: "Instructions to set up IBM LSF in Nextflow Tower"
 date: "21 Apr 2023"
-tags: [ibm, lsf, compute environment]
+tags: [ibm, lsf, compute environments]
 ---
 
 [IBM Spectrum LSF](https://www.ibm.com/products/hpc-workload-management/details) (Load Sharing Facility)is an IBM workload management solution for HPC. LSF aims to enhance user and administrator experience, reliability and performance at scale.

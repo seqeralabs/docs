@@ -1,8 +1,9 @@
 ---
 title: "Admin panel"
 description: "Overview of Seqera user and organization administration"
-date: "21 Apr 2023"
-tags: [administration, user, workspace, organization]
+date created: "2023-04-21"
+last updated: "2026-08-11"
+tags: [administration, users, workspaces, organizations]
 ---
 
 As a root user, you can access a comprehensive overview of the organizations, workspaces, users, and teams in your account from the **Admin panel**. It also includes tabs for application event audit logs, administrative statistics, and system configuration options. The root user system role should only be assigned to a system administrator as it provides high-level visibility and configuration access to your account.
@@ -33,6 +34,12 @@ You can only add existing users to an organization. You can't remove the last ow
 
 See [Members](../orgs-and-teams/organizations#members) for more information.
 
+### Quotas
+
+Each organization has usage quotas, such as the maximum number of pipeline runs that can be active (submitted or running) at the same time. In Seqera Platform Enterprise, your Seqera license defines these quotas. You can't view or edit them in the **Admin panel**. [Contact Seqera support](https://support.seqera.io) to review or change the quotas for your organizations.
+
+If a pipeline launch fails with `Limit of N running workflows reached`, see [Troubleshooting](../troubleshooting_and_faqs/troubleshooting#limit-of-n-running-workflows-reached).
+
 ## Workspaces
 
 The **Workspaces** tab lists all the workspaces in your account.
@@ -59,7 +66,7 @@ See [User roles](../orgs-and-teams/roles) for more information on organization a
 
 The **Teams** tab lists all the teams in your account.
 
-- Use the organizations dropdown next to the search bar to filter teams by organization.
+- Use the organizations drop-down next to the search bar to filter teams by organization.
 - Use the search function to find a team by name and perform various operations.
 - Select **Add team** to create a new team.
 - Select **Edit** next to a team to edit the team's details, or select **Delete** to delete it.

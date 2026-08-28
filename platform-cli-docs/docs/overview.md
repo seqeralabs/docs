@@ -2,9 +2,15 @@
 title: "Overview"
 description: "Seqera Platform CLI overview."
 date: "24 Apr 2023"
-tags: [cli, tower]
+tags: [cli, platform]
 slug: /
 ---
+
+<!-- cli-release-version:start -->
+:::info CLI version
+This reference documents Seqera Platform CLI **0.38.0**, the latest stable release processed by the docs automation.
+:::
+<!-- cli-release-version:end -->
 
 Seqera Platform CLI brings concepts like pipelines and compute environments to the terminal.
 

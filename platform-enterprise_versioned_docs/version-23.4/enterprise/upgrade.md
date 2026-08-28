@@ -2,7 +2,7 @@
 title: "Upgrade deployment"
 description: "Platform Enterprise update guidance"
 date: "21 Aug 2024"
-tags: [enterprise, update, install]
+tags: [enterprise, update, installation]
 ---
 
 Follow these steps to upgrade your database instance and Platform Enterprise installation:

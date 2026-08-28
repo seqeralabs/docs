@@ -1,8 +1,9 @@
 ---
 title: "Google Kubernetes Engine"
 description: "Instructions to set up Google Kubernetes Engine in Seqera Platform"
-date: "21 Apr 2023"
-tags: [gke, google, compute environment]
+date created: "2023-04-21"
+last updated: "2026-05-28"
+tags: [gke, google, compute environments]
 ---
 
 [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine) is a managed Kubernetes cluster that allows the execution of containerized workloads in Google Cloud at scale.
@@ -54,7 +55,7 @@ After you've prepared your Kubernetes cluster and granted cluster access to your
 1. Enter a descriptive name for this environment, e.g., _Google Kubernetes Engine (europe-west1)_.
 1. From the **Provider** drop-down, select **Google Kubernetes Engine**.
 1. Under **Storage**, select either **Fusion storage** (recommended) or **Legacy storage**. The [Fusion v2](https://docs.seqera.io/fusion) virtual distributed file system allows access to your Google Cloud-hosted data (`gs://` URLs). This eliminates the need to configure a shared file system in your Kubernetes cluster. See [Fusion v2](#fusion-v2) below.
-1. From the **Credentials** drop-down menu, select existing GKE credentials, or select **+** to add new credentials. If you choose to use existing credentials, skip to step 8.
+1. From the **Credentials** drop-down, select existing GKE credentials, or select **+** to add new credentials. If you choose to use existing credentials, skip to step 8.
 1. Enter a name for the credentials, e.g., _GKE Credentials_.
 1. Enter the **Service account key** for your Google service account.
     :::tip
@@ -83,7 +84,15 @@ After you've prepared your Kubernetes cluster and granted cluster access to your
     :::info
     Configuration settings in this field override the same values in the pipeline repository `nextflow.config` file. See [Nextflow config file](../launch/advanced#nextflow-config-file) for more information on configuration priority.
     :::
-1. Specify custom **Environment variables** for the **Head job** and/or **Compute jobs**.
+1. Under **Environment variables**, add each variable with a **Name**, **Value**, and **Target Environment**:
+
+    - **Head job**: Adds the variable to the Nextflow head job container, which evaluates `nextflow.config` and submits tasks to the compute backend. Use this target for variables that Nextflow or its plugins read, such as `NXF_OPTS`, `NXF_JVM_ARGS`, `NXF_PLUGINS_DEFAULT`, or proxy settings the head node uses to reach external services.
+    - **Compute job**: Adds the variable to the worker containers that run individual pipeline tasks. Use this target for variables your pipeline tools read, such as `OPENAI_API_KEY` for a process that calls the OpenAI API, registry credentials needed inside the task container, or tool-specific settings like `JAVA_HOME`.
+    - **Head and Compute jobs**: Adds the variable to both the head job and the compute jobs. Use this target for values needed in both places, such as an HTTP proxy used by both Nextflow and task tools, or a credential needed in both the head job and individual compute tasks.
+
+    :::note
+    For sensitive values such as API keys and tokens, use [pipeline secrets](../secrets/overview) instead of custom environment variables. Custom environment variables are stored in the compute environment configuration and cannot be edited after creation. To rotate a value, recreate the compute environment.
+    :::
 1. Configure any advanced options described in the next section, as needed.
 1. Select **Create** to finalize the compute environment setup.
 
@@ -104,7 +113,7 @@ spec:
 ```
 
 - Use **Custom service pod specs** to provide custom options for the compute environment pod. See above for an example.
-- Use **Head Job CPUs** and **Head Job Memory** to specify the hardware resources allocated for the Nextflow workflow pod.
+- Use **Head job CPUs** and **Head job memory** to specify the hardware resources allocated for the Nextflow workflow pod.
 
 :::info
 See [Launch pipelines](../launch/launchpad) to start executing workflows in your GKE compute environment.

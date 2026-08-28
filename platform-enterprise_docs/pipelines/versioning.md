@@ -2,7 +2,7 @@
 title: "Pipeline versioning"
 description: "Introduction to pipeline versioning in Seqera Platform."
 date created: "2025-11-14"
-last updated: "2026-04-17"
+last updated: "2026-08-20"
 tags: [pipelines, versioning, nextflow, parameters]
 ---
 
@@ -45,7 +45,7 @@ New draft versions are automatically generated during pipeline edit or launch wh
   - **Description**
   - **Labels**
   - **Resource labels**
-- Pipeline schema selection (see [Define pipeline schema](../pipeline-schema/overview.md#define-pipeline-schema))
+- Pipeline schema selection (see [Building pipeline schema files](../pipeline-schema/overview.md#building-pipeline-schema-files))
 
 Published versions provide a stable reference for team-wide pipeline launches. Users with Maintain or higher permissions can publish a draft version, giving it a name and optionally setting it as the default version. This makes important configurations easy to identify, share, and promote across your team.
 
@@ -59,7 +59,7 @@ Seqera maintains a history of all draft and published versions, providing an aud
 
 Users with [Maintain or higher](../orgs-and-teams/roles.md) permissions can upload a `nextflow_schema.json` file to Seqera Platform to control which pipeline parameters appear in the launch form. Changes to the Seqera Platform schema trigger a new draft version of the pipeline.
 
-For more information, see [Define pipeline schema](../pipeline-schema/overview.md#define-pipeline-schema).
+For more information, see [Building pipeline schema files](../pipeline-schema/overview.md#building-pipeline-schema-files).
 
 ### Manage pipeline versions
 
@@ -67,8 +67,8 @@ For more information, see [Define pipeline schema](../pipeline-schema/overview.m
 
 Select a pipeline from the workspace Launchpad to open the pipeline's details page. From here, users with Maintain or higher permissions can:
 
-- **View version history**: See a chronological list of all draft and published versions with creator, date, and hash.
-  - Use the dropdown next to **Show:** to show all versions, or filter by draft or published versions.
+- **View version history**: See a chronological list of all draft and published versions with creator, date, hash, and version ID.
+  - Use the drop-down next to **Show:** to display all versions, or filter by draft or published versions.
   - **Search** for specific version names (freetext search), or use keywords to search by `versionId:`, `versionName:`, or `versionHash:` ([version hash](#version-hash)).
 - **Manage draft versions**:
   - Select **Publish** from the options menu of a draft version to name this version and optionally make it the default version to launch from the Launchpad.
