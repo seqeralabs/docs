@@ -1,7 +1,7 @@
 ---
 name: clarity
 description: "Use PROACTIVELY on documentation PRs. Checks sentence length, jargon, readability, and assumed knowledge. Important for user-facing content."
-tools: read, grep, glob
+tools: Read, Grep, Glob
 ---
 
 # Clarity SME
