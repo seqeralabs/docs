@@ -93,19 +93,13 @@ The following configuration is suggested to overcome AWS limitations:
 
 **`Part number must be an integer between 1 and 10000`**
 
-If you see this error in your Nextflow log:
-
 ```
 Caused by: Part number must be an integer between 1 and 10000, inclusive
 ```
 
-This error occurs when a pipeline output file exceeds AWS S3's multipart upload limit of 10,000 parts. With Seqera's default chunk size of 10 MB, files larger than 100 GB hit this limit.
+This error occurs when a pipeline output file exceeds the AWS S3 multipart upload limit of 10,000 parts. At the Seqera Platform default chunk size of 10 MB, files larger than 100 GB reach this limit.
 
-There are two ways to resolve this:
-
-_Increase the upload chunk size_
-
-Divide the file size in megabytes by 10,000 and round up to get the minimum required chunk size. Specify `uploadChunkSize` in the **Nextflow config file** field of the launch form. For a 200 GB file, set the chunk size to at least 21 MB:
+To resolve, increase the upload chunk size. Divide the file size in megabytes by 10,000 and round up to get the minimum chunk size. For a 200 GB file, set `uploadChunkSize` to at least 21 MB in the **Nextflow config file** field of the launch form:
 
 ```
 aws {
@@ -115,11 +109,9 @@ aws {
 }
 ```
 
-See the [AWS S3 multipart upload limits](https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html) for the full list of constraints.
+Alternatively, if the large files are intermediate results you do not need, configure your pipeline to skip publishing them. See your pipeline documentation for the parameters that disable specific outputs.
 
-_Disable large file publishing_
-
-If the large files are intermediate results you do not need, configure your pipeline to skip publishing them. Most pipelines offer parameters to disable saving specific output types — for example, intermediate alignment files. Refer to your pipeline's documentation for the available options.
+For the full list of constraints, see the [AWS S3 multipart upload limits](https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html).
 
 **Nextflow unable to parse a params file from Seqera**
 
