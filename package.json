@@ -4,7 +4,7 @@
   "private": true,
   "overrides": {
     "@docusaurus/plugin-content-docs": "3.9.2",
-    "picomatch": "^4.0.4",
+    "picomatch": "^4.0.5",
     "glob": "^11.1.0",
     "immutable": "^5.1.6",
     "serialize-javascript": "^7.0.3",
