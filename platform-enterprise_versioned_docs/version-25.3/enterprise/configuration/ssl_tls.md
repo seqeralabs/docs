@@ -53,6 +53,10 @@ CONTAINER_NAME:
           /tower.sh"
 ```
 
+:::caution
+The two Kubernetes recipes below import the certificate directly into the JVM trust store inside the container image. This requires a writable container root filesystem. If you deploy with the Seqera Helm charts, follow **Use Helm charts** below instead.
+:::
+
 **Use K8s ConfigMap**
 
 1. Retrieve the private certificate on a machine with CLI access to your Kubernetes cluster:
@@ -129,6 +133,71 @@ spec:
               keytool -import -trustcacerts -cacerts -storepass changeit -noprompt -alias TARGET_ALIAS -file /PRIVATE_CERT.pem;
               ./tower.sh
 ```
+
+**Use Helm charts**
+
+The Seqera Helm charts set `containerSecurityContext.readOnlyRootFilesystem: true` by default for every component except Studios, so an in-place import into the image's trust store fails when the pod starts:
+
+```
+keytool error: java.io.FileNotFoundException: /usr/lib/jvm/JDK_VERSION/lib/security/cacerts (Read-only file system)
+```
+
+`keytool` prints `Certificate was added to keystore` before it writes the keystore back to disk, so this error appears immediately after an apparent success message. Treat the error, not the success line, as the outcome.
+
+Mounted volumes remain writable when `readOnlyRootFilesystem` is enabled. Copy the trust store to a volume, import your certificate into the copy, then point the JVM at the copy.
+
+1. Load the certificate as a `ConfigMap` in the same namespace as your release:
+
+```bash
+kubectl create configmap private-cert-pemstore --from-file=/PRIVATE_CERT.pem
+```
+
+2. Add the following to your values file. This example configures Wave. The same four keys are available for `backend`, `cron`, and the other components:
+
+```yaml
+wave:
+  command: ["/bin/sh"]
+  args:
+    - -c
+    - |
+      cp $JAVA_HOME/lib/security/cacerts /opt/cacerts/cacerts
+      chmod +w /opt/cacerts/cacerts
+      keytool -import -trustcacerts -storepass changeit -noprompt -alias TARGET_ALIAS -file /ca/PRIVATE_CERT.pem -keystore /opt/cacerts/cacerts
+      /launch.sh
+  extraVolumes:
+    - name: cacerts
+      emptyDir: {}
+    - name: private-cert-pemstore
+      configMap:
+        name: private-cert-pemstore
+  extraVolumeMounts:
+    - name: cacerts
+      mountPath: /opt/cacerts
+    - name: private-cert-pemstore
+      mountPath: /ca/PRIVATE_CERT.pem
+      subPath: PRIVATE_CERT.pem
+  extraEnvVars:
+    - name: JAVA_TOOL_OPTIONS
+      value: "-Djavax.net.ssl.trustStore=/opt/cacerts/cacerts"
+```
+
+Replace `/launch.sh` with `./tower.sh` for the `backend` and `cron` components. To avoid overriding the container command, you can instead do the copy and import in an `initContainers` entry that mounts the same `cacerts` volume.
+
+3. Confirm that the JVM received the flag. The pod log prints the following line at startup:
+
+```
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/opt/cacerts/cacerts
+```
+
+If the line is absent, the JVM never received the flag and the contents of your trust store make no difference. Check the rendered environment with `kubectl get deploy DEPLOYMENT_NAME -o jsonpath='{.spec.template.spec.containers[0].env}'`. A frequent cause is an `extraEnvVars` entry that isn't a list of `name` and `value` maps: the charts render `- MY_VAR: "some-value"` as an empty variable and drop it without an error.
+
+:::note
+Use `JAVA_TOOL_OPTIONS` rather than a component-specific variable. The JVM reads `JAVA_TOOL_OPTIONS` itself, so it works for every Seqera Java service and adds your flag while leaving the JVM options that each container sets by default in place. `JAVA_OPTS` is read by the `backend` and `cron` containers but ignored by Wave, which reads `WAVE_JVM_OPTS`. Setting `WAVE_JVM_OPTS` replaces Wave's default heap, garbage collector, and Netty options rather than adding to them.
+:::
+
+:::note
+Copying the full trust store before importing keeps the public Certificate Authorities trusted, so other outbound connections are unaffected. If `PRIVATE_CERT.pem` holds a chain of more than one certificate, `keytool -import` adds only the first. Import each certificate under its own alias, or import only the root CA that anchors the chain.
+:::
 
 ## Configure the Nextflow launcher image to trust your private certificate
 
