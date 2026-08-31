@@ -117,6 +117,38 @@ RStudio Professional Server supports multi-user collaboration. Add your own cust
 
 Multi-user collaboration in custom containers is dependent on the container configuration.
 
+### Grant a user access to a private session
+
+A private session restricts connections to its creator. From Enterprise v26.2, the creator can grant one other workspace member access to the session. Use the `--allow-user` option in the [Seqera Platform CLI (`tw`)][cli-studios], and identify the user by numeric ID, username, or email address. The Studio creation form doesn't include this setting.
+
+Grant access when you create the session:
+
+```bash
+tw studios add --name my-studio --workspace my-org/my-workspace \
+--compute-env my-compute-env --template <TEMPLATE> \
+--private --allow-user user@example.com
+```
+
+To change the allowed user, start the stopped session with a new `--allow-user` value. The new value replaces the previous one:
+
+```bash
+tw studios start --workspace my-org/my-workspace --name my-studio \
+--allow-user user@example.com
+```
+
+Omit `--allow-user` to leave the current value unchanged.
+
+The following limits apply:
+
+- A session accepts one allowed user in addition to the creator.
+- The allowed user must be a participant in the workspace.
+- The workspace role of the allowed user still applies. Connecting to a session needs the **Connect** role or above, and starting one needs the **Maintain** role or above.
+- Only the creator can change the allowed user, and the session must be stopped.
+
+Run `tw studios view` to see the allowed user for a session.
+
+The Seqera Terraform provider sets the same allow list with the `allowed_user_ids` attribute on the `seqera_studios` resource, from provider version 0.42.0. This attribute accepts numeric user IDs only. See the [`seqera_studios` resource reference][tf-studios].
+
 ## Limit Studio access to a specific cloud bucket subdirectory {#cloud-bucket-subdirectory}
 
 For a cloud bucket that is writeable, as enabled by including the bucket in a compute environment's **Allowed S3 bucket** list, you can limit write access to that bucket from within a Studio session.
@@ -476,3 +508,5 @@ Stop the active session to trigger a snapshot from the active volume. The snapsh
 [connect]: ./connect
 [liveshare]: https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare
 [p2p-liveshare]: https://open-vsx.org/extension/kermanx/p2p-live-share
+[cli-studios]: https://docs.seqera.io/platform-cli/reference/studios
+[tf-studios]: https://registry.terraform.io/providers/seqeralabs/seqera/latest/docs/resources/studios

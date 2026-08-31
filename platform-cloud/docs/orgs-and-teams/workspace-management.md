@@ -52,7 +52,7 @@ Your available credit balance depends on the credits purchased and limits applie
 
 ### Studios
 
-- **Collaboration mode**: Limit which members can connect to a running Studio in the workspace. Toggle between **Collaborative**  (any member with the right permissions can connect) and **Private** (only the creator can connect). Default is **Collaborative** mode.
+- **Collaboration mode**: Limit which members can connect to a running Studio in the workspace. Toggle between **Collaborative** (any member with the right permissions can connect) and **Private** (connections restricted to the session creator). Default is **Collaborative** mode. The creator of a private session can grant one other workspace member access to it. See [Grant a user access to a private session](../studios/managing#grant-a-user-access-to-a-private-session).
 - **Session lifespan**: Set a predefined lifespan (between 1 and 120 hours), after which all Studio sessions in the workspace are automatically stopped. To keep all workspace Studios running indefinitely, select **Always keep the session running**. Default is a session lifespan of **8 hours**.
 - **Container repository**: Define the target container repository where custom Studio images built with Wave will be pushed. The workspace must have a credential with read and write permissions to the target container registry. Default for Seqera Cloud is the [community-wave](https://seqera.io/containers) registry.
 - **Container naming strategy**: Define your container registry naming strategy. Default for Seqera Cloud is **tagPrefix**.

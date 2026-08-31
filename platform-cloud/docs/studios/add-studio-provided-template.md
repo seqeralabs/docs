@@ -26,9 +26,9 @@ Configure the following fields:
 - **Environment variable**: Environment variables for the session. The session inherits and displays all variables from the selected compute environment. Add session-specific variables as needed. Session-level variables take precedence. To override an inherited variable, define the same key with a different value.
 - **Studio name**: The name for the Studio.
 - **Description** (optional): A description for the Studio.
-- **Collaboration**: Session access permissions. By default, all workspace users with the launch role and above can connect to the session. Toggle **Private** on to restrict connections to the session creator only.
+- **Collaboration**: Session access permissions. By default, all workspace users with the launch role and above can connect to the session. Toggle **Private** on to restrict connections to the session creator.
     :::note
-    When private, workspace administrators can still start, stop, and delete sessions, but cannot connect to them.
+    When private, workspace administrators can still start, stop, and delete sessions, but cannot connect to them. The session creator can grant one other workspace member access to the session. See [Grant a user access to a private session][private-access].
     :::
 - **Session lifespan**: The duration the session remains active. Available options depend on your workspace settings:
     - **Stop the session automatically after a predefined period of time**: An automatic timeout for the session (minimum: 1 hour; maximum: 120 hours; default: 8 hours). If a workspace-level session lifespan is configured, this field cannot be edited. Changes apply only to the current session and revert to default values after the session stops.
@@ -66,3 +66,4 @@ Studios you create are listed on the Studios landing page with a status of **sto
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
 [containers]: ./container-images
+[private-access]: ./managing#grant-a-user-access-to-a-private-session

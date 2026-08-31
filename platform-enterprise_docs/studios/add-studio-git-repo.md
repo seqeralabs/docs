@@ -86,9 +86,9 @@ You can add a Studio by referencing a Git repository containing Studio configura
 - **Environment variables**: Environment variables for the session. All variables from the selected compute environment are automatically inherited and displayed. Additional session-specific variables can be added. Session-level variables take precedence. To override an inherited variable, define the same key with a different value.
 - **Studio name**: The name for the Studio.
 - **Description** (optional): A description for the Studio.
-- **Collaboration**: Session access permissions. By default, all workspace users with the launch role and above can connect to the session. Toggle **Private** on to restrict connections to the session creator only.
+- **Collaboration**: Session access permissions. By default, all workspace users with the launch role and above can connect to the session. Toggle **Private** on to restrict connections to the session creator.
     :::note
-    When private, workspace administrators can still start, stop, and delete sessions, but cannot connect to them.
+    When private, workspace administrators can still start, stop, and delete sessions, but cannot connect to them. From Enterprise v26.2, the session creator can grant one other workspace member access to the session. See [Grant a user access to a private session][private-access].
     :::
 - **SSH Connection (public preview)**: From Enterprise v25.3.3, you can enable direct connections to running Studio sessions using standard SSH clients, VS Code Remote SSH, or terminal access. Enable the toggle to allow SSH connections to this Studio session. See [Studios SSH configuration](../enterprise/studios-ssh) for configuration details.
 - **Session lifespan**: The duration the session remains active. Available options depend on your workspace settings:
@@ -144,3 +144,4 @@ Studios you create will be listed on the Studios landing page with a status of e
 [conda-syntax]: ./custom-envs#conda-package-syntax
 [custom-image]: ./custom-envs#custom-containers
 [containers]: ./container-images
+[private-access]: ./managing#grant-a-user-access-to-a-private-session
