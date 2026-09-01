@@ -2,6 +2,7 @@
 title: Google Cloud Batch
 description: "Use Fusion with Google Cloud Batch and Google Cloud Storage"
 date created: "2024-08-23"
+last updated: "2026-09-01"
 tags: [fusion, storage, compute, gcp batch, gcs, google cloud]
 ---
 
@@ -21,13 +22,10 @@ See [Google Cloud Batch](https://docs.seqera.io/platform-cloud/compute-envs/goog
 ### Nextflow CLI
 
 :::tip
-When Fusion v2 is enabled, the following virtual machine settings are applied:
-  - A 375 GB local NVMe SSD is selected for all compute jobs.
-  - If you do not specify a machine type, a VM from the following families that support local SSDs will be selected: `n1-*`, `n2-*`, `n2d-*`, `c2-*`, `c2d-*`, `m3-*`.
-  - Any machine types you specify in the Nextflow config must support local SSDs.
-  - Local SSDs are only offered in multiples of 375 GB. You can increment the number of SSDs used per process with the `disk` directive to request multiples of 375 GB.
-  - Fusion v2 can also use persistent disks for caching. Override the disk requested by Fusion using the `disk` directive and the `type: pd-standard`.
-  - The `machineType` directive can be used to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
+When you enable Fusion v2, the following virtual machine settings apply:
+  - Unless you specify an instance template, Nextflow requests a 375 GB scratch disk for all compute jobs. The disk type depends on the machine family. See [Scratch disk](#scratch-disk).
+  - If you do not specify a machine type, a VM from the following families that support local SSDs is selected: `n1-*`, `n2-*`, `n2d-*`, `c2-*`, `c2d-*`, `m3-*`.
+  - Use the `machineType` directive to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
 :::
 
 1. Provide your Google credentials via the `GOOGLE_APPLICATION_CREDENTIALS` environment variable
@@ -57,3 +55,47 @@ or with the `gcloud` auth application-default login command. See [Credentials](h
     Replace the following:
     - `<PIPELINE_SCRIPT>`: your pipeline Git repository URI.
     - `<GCS_BUCKET>`: your Google Cloud Storage bucket to which you have read-write access.
+
+### Scratch disk
+
+Fusion caches data on a scratch disk mounted at `/tmp` on each task VM. When a process does not set the `disk` directive, Nextflow requests a 375 GB disk and selects the type from the machine family:
+
+- Families that support local SSDs use `local-ssd`.
+- The `e2-*` family, which does not support local SSDs, uses `pd-balanced`.
+- Other families without local SSD support use `hyperdisk-balanced`.
+
+Local SSDs are sold in fixed increments. The increment is 375 GB for most machine series. Request additional scratch space in multiples of that increment.
+
+#### Set the disk type
+
+Set the `disk` directive with a `type` option to choose the disk type yourself. In your Nextflow configuration, pass the request and the type as a map:
+
+```groovy
+process {
+    // Two local SSDs for a process that does heavy I/O
+    withName: 'ALIGN' {
+        disk = [request: 750.GB, type: 'local-ssd']
+    }
+    // A smaller persistent disk for a process that does light I/O
+    withName: 'INDEX' {
+        disk = [request: 100.GB, type: 'pd-balanced']
+    }
+}
+```
+
+:::caution
+Include the `type` option whenever you set the `disk` directive. Without it, `disk = 750.GB` sets the boot disk size and leaves the Fusion scratch disk unchanged.
+:::
+
+An instance template overrides the `disk` directive, and Nextflow does not add a scratch disk to it. To use Fusion with an instance template, the template must include a `local-ssd` disk named `fusion` with 375 GB.
+
+#### Choose between local SSD and persistent disk
+
+Keep the `local-ssd` default for processes that do heavy random or streaming I/O. Fusion caching depends on local SSD throughput. A slower disk reduces the speedup that Fusion provides.
+
+Use a persistent disk in two cases:
+
+- Your local SSD quota constrains your runs. Google Cloud caps local SSD capacity per project, per region, and per machine family, and large or highly parallel workloads can exhaust that cap. A persistent disk draws on a separate quota. For runs that hit the cap, see [Jobs stay pending with `CODE_GCE_QUOTA_EXCEEDED`](../troubleshooting/general.md#jobs-stay-pending-with-code_gce_quota_exceeded).
+- A process needs less than 375 GB of cache. Because local SSDs come in fixed increments, you pay for a full 375 GB disk that a light-I/O process never fills. Size a persistent disk to the cache the process needs.
+
+Per GB, local SSD costs less than `pd-balanced`. A persistent disk saves money by being smaller, not by costing less per GB. See [Disk pricing](https://cloud.google.com/compute/disks-image-pricing) for current rates.
