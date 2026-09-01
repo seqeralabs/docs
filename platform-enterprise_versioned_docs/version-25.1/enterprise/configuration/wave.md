@@ -64,7 +64,7 @@ Wave features are available on the compute environment creation page after integ
 
 ## Limitations
 
-- The Seqera-hosted Wave service at `https://wave.seqera.io` cannot pull from container repositories secured by a private Certificate Authority, as its trust store can't be modified. Self-hosted Wave deployments can, by adding your CA certificate to the Wave container's trust store. See [Configure Seqera to trust your private certificate](./ssl_tls#configure-seqera-to-trust-your-private-certificate).
+- The Seqera-hosted Wave service at `https://wave.seqera.io` cannot pull from container repositories secured by a private Certificate Authority (CA), because you cannot modify its trust store. A self-hosted Wave deployment can pull from these repositories after you add your CA certificate to the trust store in the Wave container. See [Configure Seqera to trust your private certificate](./ssl_tls#configure-seqera-to-trust-your-private-certificate).
 
 ## Self-hosted Wave deployment
 

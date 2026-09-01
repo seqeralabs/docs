@@ -54,7 +54,7 @@ CONTAINER_NAME:
 ```
 
 :::caution
-The two Kubernetes recipes below import the certificate directly into the JVM trust store inside the container image. This requires a writable container root filesystem. If you deploy with the Seqera Helm charts, follow **Use Helm charts** below instead.
+The two Kubernetes procedures that follow import the certificate directly into the JVM trust store inside the container image. This requires a writable container root filesystem. If you deploy with the Seqera Helm charts, follow **Use Helm charts** instead.
 :::
 
 **Use K8s ConfigMap**
@@ -136,13 +136,13 @@ spec:
 
 **Use Helm charts**
 
-The Seqera Helm charts set `containerSecurityContext.readOnlyRootFilesystem: true` by default for every component except Studios, so an in-place import into the image's trust store fails when the pod starts:
+The Seqera Helm charts set `containerSecurityContext.readOnlyRootFilesystem: true` by default for every component except Studios. Because the root filesystem is read-only, an in-place import into the image's trust store fails when the pod starts:
 
 ```
 keytool error: java.io.FileNotFoundException: /usr/lib/jvm/JDK_VERSION/lib/security/cacerts (Read-only file system)
 ```
 
-`keytool` prints `Certificate was added to keystore` before it writes the keystore back to disk, so this error appears immediately after an apparent success message. Treat the error, not the success line, as the outcome.
+`keytool` prints `Certificate was added to keystore` before it writes the keystore back to disk. The error appears immediately after this apparent success message. Treat the error, not the success line, as the outcome.
 
 Mounted volumes remain writable when `readOnlyRootFilesystem` is enabled. Copy the trust store to a volume, import your certificate into the copy, then point the JVM at the copy.
 
@@ -152,7 +152,7 @@ Mounted volumes remain writable when `readOnlyRootFilesystem` is enabled. Copy t
 kubectl create configmap private-cert-pemstore --from-file=/PRIVATE_CERT.pem
 ```
 
-2. Add the following to your values file. This example configures Wave. The same four keys are available for `backend`, `cron`, and the other components:
+2. Add the following to your values file. This example configures Wave. The same `command`, `args`, `extraVolumes`, `extraVolumeMounts`, and `extraEnvVars` keys are available for `backend`, `cron`, and the other components. Studios takes them under `studios.proxy` and `studios.server`:
 
 ```yaml
 wave:
@@ -181,7 +181,7 @@ wave:
       value: "-Djavax.net.ssl.trustStore=/opt/cacerts/cacerts"
 ```
 
-Replace `/launch.sh` with `./tower.sh` for the `backend` and `cron` components. To avoid overriding the container command, you can instead do the copy and import in an `initContainers` entry that mounts the same `cacerts` volume.
+Replace `/launch.sh` with `./tower.sh` for the `backend` and `cron` components. To avoid overriding the container command, copy and import the certificate in an `initContainers` entry that mounts the same `cacerts` volume.
 
 3. Confirm that the JVM received the flag. The pod log prints the following line at startup:
 
@@ -189,14 +189,14 @@ Replace `/launch.sh` with `./tower.sh` for the `backend` and `cron` components. 
 Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/opt/cacerts/cacerts
 ```
 
-If the line is absent, the JVM never received the flag and the contents of your trust store make no difference. Check the rendered environment with `kubectl get deploy DEPLOYMENT_NAME -o jsonpath='{.spec.template.spec.containers[0].env}'`. A frequent cause is an `extraEnvVars` entry that isn't a list of `name` and `value` maps: the charts render `- MY_VAR: "some-value"` as an empty variable and drop it without an error.
+If the line is absent, the JVM never received the flag and your trust store has no effect. Check the rendered environment with `kubectl get deploy DEPLOYMENT_NAME -o jsonpath='{.spec.template.spec.containers[0].env}'`. A frequent cause is an `extraEnvVars` entry that is not a list of `name` and `value` maps. Because `- MY_VAR: "some-value"` has no `name` key, the charts render it as `name: <nil>` with no value and the variable you intended is never set.
 
 :::note
-Use `JAVA_TOOL_OPTIONS` rather than a component-specific variable. The JVM reads `JAVA_TOOL_OPTIONS` itself, so it works for every Seqera Java service and adds your flag while leaving the JVM options that each container sets by default in place. `JAVA_OPTS` is read by the `backend` and `cron` containers but ignored by Wave, which reads `WAVE_JVM_OPTS`. Setting `WAVE_JVM_OPTS` replaces Wave's default heap, garbage collector, and Netty options rather than adding to them.
+Use `JAVA_TOOL_OPTIONS` rather than a component-specific variable. Because the JVM reads `JAVA_TOOL_OPTIONS` directly, it works for every Seqera Java service. `JAVA_TOOL_OPTIONS` also adds your flag without replacing the JVM options that each container sets by default. The `backend` and `cron` containers read `JAVA_OPTS`, but Wave ignores it and reads `WAVE_JVM_OPTS` instead. Setting `WAVE_JVM_OPTS` replaces the default Wave heap, garbage collector, and Netty options rather than adding to them.
 :::
 
 :::note
-Copying the full trust store before importing keeps the public Certificate Authorities trusted, so other outbound connections are unaffected. If `PRIVATE_CERT.pem` holds a chain of more than one certificate, `keytool -import` adds only the first. Import each certificate under its own alias, or import only the root CA that anchors the chain.
+Copying the full trust store before importing keeps the public Certificate Authorities trusted and leaves other outbound connections unaffected. If `PRIVATE_CERT.pem` holds a chain of more than one certificate, `keytool -import` adds only the first. Import each certificate under its own alias, or import only the root Certificate Authority that anchors the chain.
 :::
 
 ## Configure the Nextflow launcher image to trust your private certificate
