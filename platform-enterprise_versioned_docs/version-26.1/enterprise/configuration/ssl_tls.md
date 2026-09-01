@@ -20,122 +20,191 @@ Use [Amazon Certificate Manager](https://aws.amazon.com/certificate-manager/) (A
 
 If you secure related infrastructure (such as private Git repositories) with certificates issued by a private Certificate Authority, these certificates must be loaded into the Seqera Enterprise containers. You can achieve this in several ways.
 
-**Configure private certificate trust**
+### Configure private certificate trust
 
 1. This guide assumes you're using the original containers supplied by Seqera.
 2. Replace `TARGET_HOSTNAME`, `TARGET_ALIAS`, and `PRIVATE_CERT.pem` with your unique values.
 3. Previous instructions advised using `openssl`. The native `keytool` utility is preferred as it simplifies steps and better accommodates private CA certificates.
 
-**Use Docker volume**
+### Use Docker volume
 
 1. Retrieve the private certificate on your Seqera container host:
 
-```
-keytool -printcert -rfc -sslserver TARGET_HOSTNAME:443  >  /PRIVATE_CERT.pem
-```
+    ```
+    keytool -printcert -rfc -sslserver TARGET_HOSTNAME:443  >  /PRIVATE_CERT.pem
+    ```
 
 2. Modify the `backend` and `cron` container configuration blocks in `docker-compose.yml`:
 
-```yaml
-CONTAINER_NAME:
-  # -- Other keys here like `image` and `networks`--
+    ```yaml
+    CONTAINER_NAME:
+      # -- Other keys here like `image` and `networks`--
 
-  # Add a new mount for the downloaded certificate
-  volumes:
-    - type: bind
-      source: /PRIVATE_CERT.pem
-      target: /etc/pki/ca-trust/source/anchors/PRIVATE_CERT.pem
+      # Add a new mount for the downloaded certificate
+      volumes:
+        - type: bind
+          source: /PRIVATE_CERT.pem
+          target: /etc/pki/ca-trust/source/anchors/PRIVATE_CERT.pem
 
-  # Add a new keytool import line PRIOR to 'update-ca-trust' for the certificate
-  command: >
-    sh -c "keytool -import -trustcacerts -storepass changeit -noprompt -alias TARGET_ALIAS -file /etc/pki/ca-trust/source/anchor/TARGET_HOSTNAME.pem &&
-          update-ca-trust &&
-          /wait-for-it.sh db:3306 -t 60 &&
-          /tower.sh"
-```
+      # Add a new keytool import line PRIOR to 'update-ca-trust' for the certificate
+      command: >
+        sh -c "keytool -import -trustcacerts -storepass changeit -noprompt -alias TARGET_ALIAS -file /etc/pki/ca-trust/source/anchor/TARGET_HOSTNAME.pem &&
+              update-ca-trust &&
+              /wait-for-it.sh db:3306 -t 60 &&
+              /tower.sh"
+    ```
 
-**Use K8s ConfigMap**
+:::caution
+The two Kubernetes procedures that follow import the certificate directly into the JVM trust store inside the container image. This requires a writable container root filesystem. If you deploy with the Seqera Helm charts, follow **Use Helm charts** instead.
+:::
+
+### Use K8s ConfigMap
 
 1. Retrieve the private certificate on a machine with CLI access to your Kubernetes cluster:
 
-```bash
-keytool -printcert -rfc -sslserver TARGET_HOSTNAME:443 > /PRIVATE_CERT.pem
-```
+    ```bash
+    keytool -printcert -rfc -sslserver TARGET_HOSTNAME:443 > /PRIVATE_CERT.pem
+    ```
 
 2. Load the certificate as a `ConfigMap` in the same namespace where your Seqera instance will run:
 
-```bash
-kubectl create configmap private-cert-pemstore --from-file=/PRIVATE_CERT.pem
-```
+    ```bash
+    kubectl create configmap private-cert-pemstore --from-file=/PRIVATE_CERT.pem
+    ```
 
 3. Modify both the `backend` and `cron` Deployment objects:
 
-- Define a new volume based on the certificate `ConfigMap`:
+    - Define a new volume based on the certificate `ConfigMap`:
 
-  ```yaml
-  spec:
-    template:
+      ```yaml
       spec:
-        volumes:
-          - name: private-cert-pemstore
-            configMap:
-              name: private-cert-pemstore
-  ```
-
-- Add a volumeMount entry into the container definition:
-
-  ```yaml
-  spec:
-    template:
-      spec:
-        containers:
-          - name: CONTAINER_NAME
-            volumeMounts:
+        template:
+          spec:
+            volumes:
               - name: private-cert-pemstore
-                mountPath: /etc/pki/ca-trust/source/anchors/PRIVATE_CERT.pem
-                subPath: PRIVATE_CERT.pem
-  ```
+                configMap:
+                  name: private-cert-pemstore
+      ```
 
-- Modify the container start command to load the certificate prior to running your Seqera instance:
+    - Add a volumeMount entry into the container definition:
 
-  ```yaml
-  spec:
-    template:
+      ```yaml
       spec:
-        containers:
-          - name: CONTAINER_NAME
-            command: ["/bin/sh"]
-            args:
-              - -c
-              - |
-                keytool -import -trustcacerts -cacerts -storepass changeit -noprompt -alias TARGET_ALIAS -file /PRIVATE_CERT.pem;
-                ./tower.sh
-  ```
+        template:
+          spec:
+            containers:
+              - name: CONTAINER_NAME
+                volumeMounts:
+                  - name: private-cert-pemstore
+                    mountPath: /etc/pki/ca-trust/source/anchors/PRIVATE_CERT.pem
+                    subPath: PRIVATE_CERT.pem
+      ```
 
-**Download on Pod start**
+    - Modify the container start command to load the certificate prior to running your Seqera instance:
+
+      ```yaml
+      spec:
+        template:
+          spec:
+            containers:
+              - name: CONTAINER_NAME
+                command: ["/bin/sh"]
+                args:
+                  - -c
+                  - |
+                    keytool -import -trustcacerts -cacerts -storepass changeit -noprompt -alias TARGET_ALIAS -file /PRIVATE_CERT.pem;
+                    ./tower.sh
+      ```
+
+### Download on Pod start
 
 1. Modify both the `backend` and `cron` Deployment objects to retrieve and load the certificate prior to running your Seqera instance:
 
-```yaml
-spec:
-  template:
+    ```yaml
     spec:
-      containers:
-        - name: CONTAINER_NAME
-          command: ["/bin/sh"]
-          args:
-            - -c
-            - |
-              keytool -printcert -rfc -sslserver TARGET_HOST:443  >  /PRIVATE_CERT.pem;
-              keytool -import -trustcacerts -cacerts -storepass changeit -noprompt -alias TARGET_ALIAS -file /PRIVATE_CERT.pem;
-              ./tower.sh
+      template:
+        spec:
+          containers:
+            - name: CONTAINER_NAME
+              command: ["/bin/sh"]
+              args:
+                - -c
+                - |
+                  keytool -printcert -rfc -sslserver TARGET_HOST:443  >  /PRIVATE_CERT.pem;
+                  keytool -import -trustcacerts -cacerts -storepass changeit -noprompt -alias TARGET_ALIAS -file /PRIVATE_CERT.pem;
+                  ./tower.sh
+    ```
+
+### Use Helm charts
+
+The Seqera Helm charts set `containerSecurityContext.readOnlyRootFilesystem: true` by default for every component except Studios. Because the root filesystem is read-only, an in-place import into the image's trust store fails when the pod starts:
+
 ```
+keytool error: java.io.FileNotFoundException: /usr/lib/jvm/JDK_VERSION/lib/security/cacerts (Read-only file system)
+```
+
+`keytool` prints `Certificate was added to keystore` before it writes the keystore back to disk. The error appears immediately after this apparent success message. Treat the error, not the success line, as the outcome.
+
+Mounted volumes remain writable when `readOnlyRootFilesystem` is enabled. Copy the trust store to a volume, import your certificate into the copy, then point the JVM at the copy.
+
+1. Load the certificate as a `ConfigMap` in the same namespace as your release:
+
+    ```bash
+    kubectl create configmap private-cert-pemstore --from-file=/PRIVATE_CERT.pem
+    ```
+
+2. Add the following to your values file. This example configures Wave. The same `command`, `args`, `extraVolumes`, `extraVolumeMounts`, and `extraEnvVars` keys are available for `backend`, `cron`, and the other components. Studios takes them under `studios.proxy` and `studios.server`:
+
+    ```yaml
+    wave:
+      command: ["/bin/sh"]
+      args:
+        - -c
+        - |
+          cp $JAVA_HOME/lib/security/cacerts /opt/cacerts/cacerts
+          chmod +w /opt/cacerts/cacerts
+          keytool -import -trustcacerts -storepass changeit -noprompt -alias TARGET_ALIAS -file /ca/PRIVATE_CERT.pem -keystore /opt/cacerts/cacerts
+          /launch.sh
+      extraVolumes:
+        - name: cacerts
+          emptyDir: {}
+        - name: private-cert-pemstore
+          configMap:
+            name: private-cert-pemstore
+      extraVolumeMounts:
+        - name: cacerts
+          mountPath: /opt/cacerts
+        - name: private-cert-pemstore
+          mountPath: /ca/PRIVATE_CERT.pem
+          subPath: PRIVATE_CERT.pem
+      extraEnvVars:
+        - name: JAVA_TOOL_OPTIONS
+          value: "-Djavax.net.ssl.trustStore=/opt/cacerts/cacerts"
+    ```
+
+    Replace `/launch.sh` with `./tower.sh` for the `backend` and `cron` components. To avoid overriding the container command, copy and import the certificate in an `initContainers` entry that mounts the same `cacerts` volume.
+
+3. Confirm that the JVM received the flag. The pod log prints the following line at startup:
+
+    ```
+    Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/opt/cacerts/cacerts
+    ```
+
+    If the line is absent, the JVM never received the flag and your trust store has no effect. Check the rendered environment with `kubectl get deploy DEPLOYMENT_NAME -o jsonpath='{.spec.template.spec.containers[0].env}'`. A frequent cause is an `extraEnvVars` entry that is not a list of `name` and `value` maps. Because `- MY_VAR: "some-value"` has no `name` key, the charts render it as `name: <nil>` with no value and the variable you intended is never set.
+
+:::note
+Use `JAVA_TOOL_OPTIONS` rather than a component-specific variable. Because the JVM reads `JAVA_TOOL_OPTIONS` directly, it works for every Seqera Java service. `JAVA_TOOL_OPTIONS` also adds your flag without replacing the JVM options that each container sets by default. The `backend` and `cron` containers read `JAVA_OPTS`, but Wave ignores it and reads `WAVE_JVM_OPTS` instead. Setting `WAVE_JVM_OPTS` replaces the default Wave heap, garbage collector, and Netty options rather than adding to them.
+:::
+
+:::note
+Copying the full trust store before importing keeps the public Certificate Authorities trusted and leaves other outbound connections unaffected. If `PRIVATE_CERT.pem` holds a chain of more than one certificate, `keytool -import` adds only the first. Import each certificate under its own alias, or import only the root Certificate Authority that anchors the chain.
+:::
 
 ## Configure the Nextflow launcher image to trust your private certificate
 
 If you secure infrastructure such as private Git repositories or your Seqera Enterprise instance with certificates issued by a private Certificate Authority, these certificates must also be loaded into the Nextflow launcher container.
 
-**Import private certificates via pre-run script**
+### Import private certificates via pre-run script
 
 1. This configuration assumes you're using the default `nf-launcher` image supplied by Seqera.
 2. Replace `TARGET_HOSTNAME`, `TARGET_ALIAS`, and `PRIVATE_CERT.pem` with your unique values.
@@ -155,17 +224,17 @@ update-ca-trust
 
 You can secure your Seqera instance with a TLS certificate in several ways.
 
-**Load balancer (recommended)**
+### Load balancer (recommended)
 
 Place a load balancer, configured to present a certificate and act as a TLS termination point, in front of your Seqera instance.
 
 This solution is likely already implemented for cloud-based Kubernetes implementations and can be easily implemented for Docker Compose-based stacks. See [this example](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-application-load-balancer.html).
 
-**Reverse proxy container**
+### Reverse proxy container
 
 This solution works well for Docker Compose-based stacks to avoid the additional cost and maintenance of a load balancer. See [this example](https://doc.traefik.io/traefik/v1.7/configuration/acme/).
 
-**Modify `frontend` container**
+### Modify `frontend` container
 
 Due to complications that can be encountered during upgrades, this approach is not recommended.
 
