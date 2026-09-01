@@ -2,11 +2,11 @@
 title: "Single sign-on (SSO)"
 description: "Configure single sign-on for a Seqera Platform Cloud organization."
 date created: "2026-03-10"
-last updated: "2026-07-28"
+last updated: "2026-07-29"
 tags: [sso, authentication, organization settings, cloud pro]
 ---
 
-With single sign-on (SSO), a Seqera Platform Cloud organization authenticates through its corporate identity provider (IdP). After SSO is enabled, users with a matching email domain are routed to the organization's IdP when they sign in.
+Single sign-on (SSO) lets a Seqera Platform Cloud organization use its corporate identity provider (IdP) for authentication. After SSO is enabled, users with a matching email domain are routed to the organization's IdP when they sign in.
 
 SSO is available for Cloud Pro organizations and uses Auth0 self-service SSO to connect supported SAML and OpenID Connect (OIDC) identity providers.
 
@@ -44,21 +44,11 @@ Before you configure SSO:
 4. Open the setup URL to start the Auth0 self-service SSO wizard.
 5. In the wizard, select your identity provider and complete the provider-specific configuration.
 6. Run the connection test in the Auth0 wizard to confirm that authentication works.
+7. Return to Seqera and select **Enable SSO** to activate the connection.
 
 Seqera validates the configured Auth0 connection when you enable SSO. If the domain configured in Auth0 doesn't match the domain claimed in Seqera, activation fails. Correct the Auth0 configuration or delete the SSO configuration and create a new one with the correct domain.
 
-The setup link expires after five days. After an IdP administrator opens the Auth0 access ticket, the ticket expires after five hours. If the ticket expires before setup or verification is complete, refresh the URL from the SSO settings page.
-
-After the connection test succeeds, verify your domain before you enable SSO.
-
-## Verify your domain
-
-Before you enable SSO, prove that you control the domain you claimed. The Auth0 wizard shows provider-specific instructions, but domain verification works the same way for every identity provider.
-
-1. In the **Domain Configuration** step of the Auth0 self-service wizard, copy the **TXT Record Name** and **Record Value**.
-2. In your DNS provider, create a TXT record with those exact values.
-3. Wait for the DNS record to propagate, then for Auth0 to verify the domain. Verification can take up to 48 hours.
-4. After Auth0 verifies the domain, return to Seqera and select **Enable SSO**.
+The setup link expires after five days. After an IdP administrator opens the Auth0 access ticket, the ticket expires after five hours. If the wizard requires DNS verification for the claimed domain, verification can take up to 48 hours. If the ticket expires before verification or setup is complete, refresh the URL from the SSO settings page.
 
 ## Identity provider setup
 
@@ -86,7 +76,7 @@ When a user signs in through an active SSO connection for the first time:
 - Existing organization memberships, workspace roles, ownership, and run history are preserved for linked accounts.
 - Name and profile fields are populated from the IdP when those attributes are available.
 
-Newly provisioned users receive the lowest organization-level role by default. Organization owners can then promote them or grant workspace-level access.
+Newly provisioned users receive the lowest organization-level role by default. Organization owners can then promote those users or grant workspace-level access as needed.
 
 SSO applies only to users with the claimed email domain. External users who need workspace access must be added to the organization's IdP as guest or external accounts, provisioned as organization members through SSO, and granted the appropriate workspace access. Active SSO blocks new workspace collaborator assignments.
 
@@ -101,10 +91,13 @@ Organization owners can manage the SSO connection from **Organization settings**
 
 :::note
 You can't change the claimed domain through the edit flow. To move SSO to a different domain, delete the existing connection and create a new one.
-
-For setup, sign-in, and account-linking problems, see [SSO troubleshooting](../troubleshooting_and_faqs/sso_troubleshooting).
 :::
 
-## Next steps
+## Audit log coverage
 
-After SSO is active, you can map Seqera teams to groups in your IdP so team membership is controlled at the IdP and evaluated on every login. See [IdP delegation](./idp-delegation/overview).
+The audit log records SSO activity for compliance and troubleshooting, including:
+
+- SSO configuration changes such as create, enable, disable, and delete
+- Identity-linking updates for existing users
+
+For setup, sign-in, and account-linking problems, see [SSO troubleshooting](../troubleshooting_and_faqs/sso_troubleshooting).

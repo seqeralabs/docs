@@ -2,7 +2,7 @@
 title: "Azure Cloud"
 description: "Instructions to set up an Azure Cloud compute environment in Seqera Platform"
 date created: "2025-09-29"
-last updated: "2026-08-14"
+last updated: "2026-07-29"
 tags: [cloud, vm, azure, compute environments]
 ---
 
@@ -38,7 +38,7 @@ Seqera will create the following resources in Azure when creating the compute en
 - One log analytics workspace: Used to collect and query execution logs.
 - One data collection rule: To route execution logs to the appropriate Log Analytics table.
 - One data collection endpoint: The endpoint that receives logs, tied to the data collection rule.
-- One virtual network: The network in which virtual machines are launched. This resource is only created when no existing virtual network is specified in **Advanced options**. When you provide your own VNet, Platform uses it directly and no network resources are provisioned.
+- One virtual network: The network in which virtual machines are launched.
 
 When virtual machines are launched, other resources are provisioned for each machine and tied to the machine lifecycle:
 
@@ -52,13 +52,6 @@ Nextflow_log_CL | where workflowId == "<WORKFLOW_ID>"
 ```
 
 The table retains logs for 7 days. Nextflow uploads log files to Azure Storage for long-term storage.
-
-## Networking
-
-Azure Cloud compute environments use a private-only networking model:
-
-- **No public IP**: VMs are launched without a public IP address. All connectivity between Platform and the VM is routed via private networking. If you specify an existing VNet, ensure it has outbound connectivity to Azure services (Storage, Entra ID, Log Analytics) and to Platform.
-- **Entra ID only**: Azure Cloud credentials require Microsoft Entra ID (client ID and client secret). Storage account key–based credentials are not supported. This applies to both Forge-provisioned and existing virtual networks.
 
 ## Requirements
 
@@ -92,6 +85,11 @@ For granular control over the permissions granted to Seqera, use [Azure custom r
                     "Microsoft.Resources/subscriptions/resourceGroups/write",
                     "Microsoft.Resources/subscriptions/resourceGroups/read",
                     "Microsoft.Resources/subscriptions/resourceGroups/delete",
+
+                    "Microsoft.Network/publicIPAddresses/read",
+                    "Microsoft.Network/publicIPAddresses/write",
+                    "Microsoft.Network/publicIPAddresses/delete",
+                    "Microsoft.Network/publicIPAddresses/join/action",
 
                     "Microsoft.Network/virtualNetworks/read",
                     "Microsoft.Network/virtualNetworks/write",
@@ -163,12 +161,7 @@ This role definition can be applied as-is for convenience, or it can be broken d
 
 #### Compute environment creation
 
-The following permissions are required to provision resources in the Azure account when first creating the compute environment.
-
-
-- If you specify an existing virtual network:
-    -  `Microsoft.Network/virtualNetworks/write` and `Microsoft.Network/virtualNetworks/subnets/write` can be omitted from this role, as Platform skips network provisioning and never writes to your VNet or its subnets.
-    - `Microsoft.Network/virtualNetworks/delete` and `Microsoft.Network/virtualNetworks/subnets/delete` become optional.
+The following permissions are required to provision resources in the Azure account when first creating the compute environment:
 
 ```json
 {
@@ -238,6 +231,11 @@ The following permissions are required to launch pipelines and Studios:
                     "Microsoft.Compute/virtualMachines/delete",
                     "Microsoft.Compute/virtualMachines/deallocate/action",
                     "Microsoft.Compute/virtualMachines/attachDetachDataDisks/action",
+
+                    "Microsoft.Network/publicIPAddresses/read",
+                    "Microsoft.Network/publicIPAddresses/write",
+                    "Microsoft.Network/publicIPAddresses/delete",
+                    "Microsoft.Network/publicIPAddresses/join/action",
 
                     "Microsoft.Network/networkInterfaces/read",
                     "Microsoft.Network/networkInterfaces/write",
@@ -365,6 +363,7 @@ The following permissions are required to delete the resources created for the c
             {
                 "actions": [
                     "Microsoft.Resources/subscriptions/resourceGroups/delete",
+                    "Microsoft.Network/publicIPAddresses/delete",
                     "Microsoft.Network/virtualNetworks/delete",
                     "Microsoft.Network/virtualNetworks/subnets/delete",
                     "Microsoft.Network/networkInterfaces/delete",

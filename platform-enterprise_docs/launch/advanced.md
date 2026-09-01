@@ -2,7 +2,7 @@
 title: "Advanced options"
 description: "Advanced guide to launching Nextflow pipelines in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2026-08-26"
+last updated: "2026-07-29"
 tags: [advanced, launch]
 ---
 

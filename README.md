@@ -339,7 +339,7 @@ This repository ships 18 GitHub Actions workflows under [.github/workflows/](.gi
 |---|---|---|---|---|
 | No unresolved conflicts | [no-conflict-markers.yml](.github/workflows/no-conflict-markers.yml) | `pull_request` to `master` | Automatic | Active |
 | Pre-commit check | [pre-commit-check.yaml](.github/workflows/pre-commit-check.yaml) | `pull_request` | Automatic | Active |
-| Pre-commit fix | [pre-commit-fix.yaml](.github/workflows/pre-commit-fix.yaml) | PR comment `fix formatting` | Manual (comment) | Active |
+| Pre-commit fix | [pre-commit-fix.yaml](.github/workflows/pre-commit-fix.yaml) | `pull_request: opened/synchronize/reopened` (same-repo PRs only), PR comment `fix formatting` (any PR) | Automatic + manual | Active |
 | Internal link checking | [check-internal-links.yml](.github/workflows/check-internal-links.yml) | `pull_request` | Automatic | Active |
 || External link check (Links) | [links.yml](.github/workflows/links.yml) | Weekly cron (Sat 18:00 UTC), `repository_dispatch`, manual | Automatic + manual | Active |
 | markdownlint-cli2 | [markdown-lint.yml](.github/workflows/markdown-lint.yml) | `workflow_dispatch` only | Manual | Disabled (manual-only) |
@@ -425,10 +425,11 @@ Platform repo (release tag cut)
 tower-cli release
    └── check-cli-updates.yml ──► dispatch: cli-release ──► update-cli-docs.yml ──► PR
 
-PR comment `/editorial-review`  ──► docs-review.yml (gates + Vale + /editorial-review skill)
-PR comment `fix formatting`     ──► pre-commit-fix.yaml
-PR label `overlays-approved`    ──► apply-overlays-and-regenerate.yml
-@claude in comment/issue/review ──► claude.yml
+PR comment `/editorial-review`   ──► docs-review.yml (gates + Vale + /editorial-review skill)
+PR opened/synchronize (same-repo)──► pre-commit-fix.yaml (bumps last-updated, fixes formatting)
+PR comment `fix formatting`      ──► pre-commit-fix.yaml (manual route, works for fork PRs)
+PR label `overlays-approved`     ──► apply-overlays-and-regenerate.yml
+@claude in comment/issue/review  ──► claude.yml
 ```
 
 The two `repository_dispatch` content pipelines (permissions, audit events) and the API overlay pipeline are independent of each other — they share the `DOCS_BOT_APP_ID` / `DOCS_BOT_APP_PRIVATE_KEY` GitHub App credentials but otherwise don't interact.

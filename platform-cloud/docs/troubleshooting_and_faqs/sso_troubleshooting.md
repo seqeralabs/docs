@@ -2,11 +2,11 @@
 title: "Single sign-on"
 description: "Single sign-on (SSO) troubleshooting with Seqera Platform."
 date created: "2026-06-05"
-last updated: "2026-07-28"
+last updated: "2026-07-29"
 tags: [faq, help, sso, troubleshooting]
 ---
 
-These issues can occur when you configure or use [single sign-on (SSO)](../sso/single-sign-on) with your organization's corporate identity provider (IdP).
+When you configure or use [single sign-on (SSO)](../getting-started/single-sign-on) with your organization's corporate identity provider (IdP), you might encounter the following issues.
 
 ## Common issues
 
@@ -14,21 +14,11 @@ These issues can occur when you configure or use [single sign-on (SSO)](../sso/s
 
 Seqera blocks domain claiming when the organization has members with email addresses outside the claimed domain or existing workspace collaborators. The setup flow lists the affected users.
 
-To resolve, see [Prepare users before setup](../sso/single-sign-on#prepare-users-before-setup).
+To resolve, see [Prepare users before setup](../getting-started/single-sign-on#prepare-users-before-setup).
 
 #### The claimed domain is rejected or becomes unclaimable
 
 Another organization might already have claimed the domain, or enabled a connection with the same domain claim after you claimed it. Contact Seqera support.
-
-#### Domain verification fails or doesn't complete
-
-During [domain verification](../sso/single-sign-on#verify-your-domain), Auth0 can't verify the claimed domain, or the check stays pending. This issue occurs when the TXT record is missing or incorrect, or when DNS changes haven't propagated.
-
-To resolve:
-
-- Confirm that the TXT record uses the correct host or name, and that the **Record Value** matches the value from the Auth0 wizard.
-- Allow up to 48 hours for DNS propagation.
-- Confirm that the record is live with a DNS lookup, for example `dig TXT <domain>`.
 
 #### Users are not redirected to the corporate IdP
 
