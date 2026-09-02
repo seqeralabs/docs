@@ -92,6 +92,8 @@ Add new AWS Batch compute environment.
 tw compute-envs add aws-batch
 ```
 
+Use `--secrets-kms-key` to encrypt the temporary AWS Secrets Manager secrets that Platform creates for runs that use pipeline secrets with a customer-managed KMS key. Pass a key ARN or a key ID. When omitted, Platform uses the AWS-managed default key. The compute environment credentials and the execution role need additional KMS permissions on the key. See [Pipeline secrets][aws-batch-pipeline-secrets] for the required policy statements.
+
 #### `tw compute-envs add aws-batch forge`
 
 Add new AWS Batch compute environment with automatic provisioning of compute resources.
@@ -235,6 +237,8 @@ tw compute-envs add aws-cloud [OPTIONS]
 | `-r`, `--region` | AWS region where EC2 instances will be launched (e.g., us-east-1, eu-west-1). | Yes |  |
 | `--allow-buckets` | S3 buckets that the compute environment can access. Comma-separated list of S3 bucket names or paths to grant read-write permissions for workflow data. | No |  |
 | `--fusion-metrics-collection` | Send Fusion metrics to Seqera for this compute environment. Fusion always generates the metrics; this only controls whether they are collected and sent to Seqera. Only valid when Fusion is enabled. If unset, Platform applies its default. | No |  |
+
+Use `--secrets-kms-key` to encrypt the temporary AWS Secrets Manager secrets that Platform creates for runs that use pipeline secrets with a customer-managed KMS key. Pass a key ARN or a key ID. When omitted, Platform uses the AWS-managed default key. The instance profile role needs `kms:Decrypt` on the key. See [Advanced options][aws-cloud-advanced-options] for the field description and the required policy statement.
 
 ### `tw compute-envs add eks`
 
@@ -548,6 +552,22 @@ tw compute-envs add google-cloud [OPTIONS]
 | `-r`, `--region` | Google Cloud region where compute instances will be launched (e.g., us-central1, europe-west1). | Yes |  |
 | `-z`, `--zone` | Google Cloud zone within the region (e.g., us-central1-a). If omitted, defaults to the first zone alphabetically in the region. | Yes |  |
 | `--fusion-metrics-collection` | Send Fusion metrics to Seqera for this compute environment. Fusion always generates the metrics; this only controls whether they are collected and sent to Seqera. Only valid when Fusion is enabled. If unset, Platform applies its default. | No |  |
+
+Use the networking options to place VMs in an existing VPC instead of the project's default network:
+
+```bash
+tw compute-envs add google-cloud --name=my_gcp_ce \
+--credentials=<my_gcp_creds> --region=europe-west2 --zone=europe-west2-a \
+--work-dir=gs://<bucket name> \
+--network=my-vpc --subnetworks=my-subnet-a,my-subnet-b \
+--network-tags=allow-ssh --use-private-address
+```
+
+- `--subnetworks` and `--network-tags` require `--network`. The CLI rejects the command before contacting Platform if `--network` is missing or a tag is not lowercase letters, numbers, and hyphens.
+- Subnetworks must be in the compute environment region. VMs are placed in the first listed subnetwork, and Intelligent Compute may use all of them.
+- With `--use-private-address`, VMs have no public IP address, so the VPC must provide outbound access through Cloud NAT and Private Google Access.
+
+See [Advanced options][google-cloud-advanced-options] for the equivalent fields in the Platform UI.
 
 ### `tw compute-envs add azure-batch`
 
@@ -939,14 +959,19 @@ tw compute-envs validate [OPTIONS]
 | `--force` | Skip the pre-flight checks and force an INVALID compute environment (with an AVAILABLE credential) to AVAILABLE. Rejected otherwise. | No |  |
 
 [actions]: /platform-cloud/pipeline-actions/overview
+[aws-batch-pipeline-secrets]: /platform-cloud/compute-envs/aws-batch#pipeline-secrets-optional
+[aws-cloud-advanced-options]: /platform-cloud/compute-envs/aws-cloud#advanced-options
 [compute-envs]: /platform-cloud/compute-envs/overview
 [credentials]: /platform-cloud/credentials/overview
 [data-explorer]: /platform-cloud/data/data-explorer
 [datasets]: /platform-cloud/data/datasets
 [git-integration]: /platform-cloud/git/overview
+[google-cloud-advanced-options]: /platform-cloud/compute-envs/google-cloud#advanced-options
 [labels]: /platform-cloud/labels/overview
 [nextflow-config]: https://docs.seqera.io/nextflow/config#config-syntax
+[nextflow-version]: /platform-cloud/launch/advanced#nextflow-version
 [organizations]: /platform-cloud/orgs-and-teams/organizations
+[output-directory]: /platform-cloud/launch/launchpad#output-directory
 [participant-roles]: /platform-cloud/orgs-and-teams/roles
 [resource-labels]: /platform-cloud/resource-labels/overview
 [run-details]: /platform-cloud/monitoring/run-details
@@ -954,6 +979,7 @@ tw compute-envs validate [OPTIONS]
 [shared-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
 [studio-checkpoints]: /platform-cloud/studios/managing#studio-session-checkpoints
 [studios]: /platform-cloud/studios/overview
+[syntax-parser-v2]: /platform-cloud/launch/advanced#enable-nextflow-syntax-parser-v2
 [tower-agent]: /platform-cloud/supported_software/agent/overview
 [user-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
 [wave-docs]: https://docs.seqera.io/wave

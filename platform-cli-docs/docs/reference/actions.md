@@ -68,6 +68,8 @@ tw actions add
 
 Run `tw actions add -h` to view the required and optional fields for adding an action.
 
+Use `--nextflow-version`, `--syntax-parser`, and `--output-dir` to save the Nextflow version, language parser, and workflow output directory with the action. See [Nextflow version][nextflow-version], [Enable Nextflow syntax parser v2][syntax-parser-v2], and [Output directory][output-directory].
+
 ### `tw actions add github`
 
 Add a pipeline action triggered by GitHub events
@@ -179,6 +181,10 @@ tw actions update [OPTIONS]
 | `--user-secrets` | Array of user secrets to make available to the pipeline. | No |  |
 | `--workspace-secrets` | Array of workspace secrets to make available to the pipeline. | No |  |
 
+Run `tw actions update -h` to view the fields you can change on an existing action.
+
+Options you omit keep their stored values. For example, updating only `--params-file` leaves the action's saved revision, profiles, Nextflow version, syntax parser, and output directory unchanged.
+
 ## `tw actions labels`
 
 Manage pipeline action labels
@@ -204,14 +210,19 @@ tw actions labels [OPTIONS] [labels]
 | `--operations`, `-o` | Type of operation (set, append, delete) [default: set]. | No | `set` |
 
 [actions]: /platform-cloud/pipeline-actions/overview
+[aws-batch-pipeline-secrets]: /platform-cloud/compute-envs/aws-batch#pipeline-secrets-optional
+[aws-cloud-advanced-options]: /platform-cloud/compute-envs/aws-cloud#advanced-options
 [compute-envs]: /platform-cloud/compute-envs/overview
 [credentials]: /platform-cloud/credentials/overview
 [data-explorer]: /platform-cloud/data/data-explorer
 [datasets]: /platform-cloud/data/datasets
 [git-integration]: /platform-cloud/git/overview
+[google-cloud-advanced-options]: /platform-cloud/compute-envs/google-cloud#advanced-options
 [labels]: /platform-cloud/labels/overview
 [nextflow-config]: https://docs.seqera.io/nextflow/config#config-syntax
+[nextflow-version]: /platform-cloud/launch/advanced#nextflow-version
 [organizations]: /platform-cloud/orgs-and-teams/organizations
+[output-directory]: /platform-cloud/launch/launchpad#output-directory
 [participant-roles]: /platform-cloud/orgs-and-teams/roles
 [resource-labels]: /platform-cloud/resource-labels/overview
 [run-details]: /platform-cloud/monitoring/run-details
@@ -219,6 +230,7 @@ tw actions labels [OPTIONS] [labels]
 [shared-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
 [studio-checkpoints]: /platform-cloud/studios/managing#studio-session-checkpoints
 [studios]: /platform-cloud/studios/overview
+[syntax-parser-v2]: /platform-cloud/launch/advanced#enable-nextflow-syntax-parser-v2
 [tower-agent]: /platform-cloud/supported_software/agent/overview
 [user-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
 [wave-docs]: https://docs.seqera.io/wave
