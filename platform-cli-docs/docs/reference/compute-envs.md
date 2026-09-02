@@ -137,6 +137,7 @@ tw compute-envs add aws-batch forge [OPTIONS]
 | `--ebs-blocksize` | Initial EBS auto-expandable volume size in GB. Additional blocks of this size are added automatically when storage runs low. If absent, Platform defaults to 50 GB. | No |  |
 | `--bid-percentage` | Maximum Spot instance price as percentage of On-Demand price. Controls cost ceiling for Spot instances. You pay the market price up to this maximum. If absent, Platform defaults to 100%. | No |  |
 | `--cli-path` | AWS CLI installation path on EC2 instances. Specify custom path if AWS CLI is installed in non-standard location. | No |  |
+| `--secrets-kms-key` | Customer-managed KMS key used to encrypt the temporary Secrets Manager secrets created for runs that use pipeline secrets. Accepts a key ARN or a key id. When omitted, the AWS-managed default Secrets Manager key is used. | No |  |
 | `--work-dir` | Nextflow work directory. Path where workflow intermediate files are stored. Must be an S3 bucket path (e.g., s3://your-bucket/work). | Yes |  |
 | `-r`, `--region` | AWS region where compute resources will be created (e.g., us-east-1, eu-west-1). | Yes |  |
 | `--max-cpus` | Maximum CPUs provisioned by Batch Forge. Defines the upper limit for auto-scaling compute capacity. | Yes |  |
@@ -182,6 +183,7 @@ tw compute-envs add aws-batch manual [OPTIONS]
 | `--compute-job-role` | IAM role ARN to grant fine-grained permissions to Nextflow compute jobs. Controls access for individual pipeline tasks. | No |  |
 | `--batch-execution-role` | IAM role ARN for ECS task execution. Grants Amazon ECS containers permission to make AWS API calls on your behalf. | No |  |
 | `--cli-path` | Nextflow requires the AWS CLI installed in the Ec2 instances. Use this field to specify the path. | No |  |
+| `--secrets-kms-key` | Customer-managed KMS key used to encrypt the temporary Secrets Manager secrets created for runs that use pipeline secrets. Accepts a key ARN or a key id. When omitted, the AWS-managed default Secrets Manager key is used. | No |  |
 | `--work-dir` | Nextflow work directory. Path where workflow intermediate files are stored. Must be an S3 bucket path (e.g., s3://your-bucket/work). | Yes |  |
 | `-r`, `--region` | AWS region where compute resources will be created (e.g., us-east-1, eu-west-1). | Yes |  |
 | `--head-queue` | AWS Batch queue for the Nextflow head job. Should use on-demand instances for reliability. | Yes |  |
@@ -220,6 +222,7 @@ tw compute-envs add aws-cloud [OPTIONS]
 | `--boot-disk-size` | EC2 instance boot disk size in GB. Controls the root volume size for compute instances. If absent, Platform defaults to 50 GB gp3 volume. | No |  |
 | `--ebs-encryption` | Encrypt the boot EBS volume of provisioned instances. Defaults to false if not specified. | No |  |
 | `--ebs-kms-key` | KMS key ARN used to encrypt the boot EBS volume. Only applied when EBS encryption is enabled (--ebs-encryption). When omitted, the account/region default EBS encryption key is used. | No |  |
+| `--secrets-kms-key` | Customer-managed KMS key used to encrypt the temporary Secrets Manager secrets created for runs that use pipeline secrets. Accepts a key ARN or a key id. When omitted, the AWS-managed default Secrets Manager key is used. | No |  |
 | `--ec2-key-pair` | EC2 key pair name for SSH access to running instances. The key pair must already exist in the specified region. | No |  |
 | `--image-id` | AMI ID for launching EC2 instances. If omitted, Seqera-maintained default AMI is used. Use Seqera AMIs for best performance. | No |  |
 | `--instance-profile-arn` | IAM instance profile ARN used by EC2 instances to assume roles. If unspecified, Seqera provisions an ARN with sufficient permissions. | No |  |
@@ -537,6 +540,10 @@ tw compute-envs add google-cloud [OPTIONS]
 | `--gpu` | Enable GPU-enabled instances for compute jobs. When enabled, Deep Learning VM base images with CUDA are automatically selected. | No |  |
 | `--image-id` | Image ID defining the operating system and pre-installed software for Compute Engine instances. Supports Ubuntu LTS Google public images. For GPU instances, Deep Learning VM base images with CUDA are automatically selected. | No |  |
 | `--instance-type` | Compute Engine machine type (e.g., n1-standard-1, n2-standard-2). If omitted, a default machine type is used. | No |  |
+| `--network` | Google Cloud VPC network name or URI. Required when using subnetworks or network tags. When omitted, the project's 'default' network is used. | No |  |
+| `--subnetworks` | Google Cloud VPC subnetworks for instance placement. Comma-separated list of names or URIs in the same region as the compute environment; the first is used for basic placement while Intelligent Compute may use all of them. Requires --network. | No |  |
+| `--network-tags` | Comma-separated list of network tags applied to VMs for firewall rule targeting. Tags must be lowercase, use only letters, numbers, and hyphens (1-63 chars). Requires --network. | No |  |
+| `--use-private-address` | Do not attach a public IP address to VM instances. When enabled, only Google internal services are accessible. Requires Cloud NAT for external access. | No |  |
 | `--work-dir` | Nextflow work directory. Path where workflow intermediate files are stored. Must be a Google Cloud Storage bucket path (e.g., gs://your-bucket/work). Credentials must have read-write access. | Yes |  |
 | `-r`, `--region` | Google Cloud region where compute instances will be launched (e.g., us-central1, europe-west1). | Yes |  |
 | `-z`, `--zone` | Google Cloud zone within the region (e.g., us-central1-a). If omitted, defaults to the first zone alphabetically in the region. | Yes |  |

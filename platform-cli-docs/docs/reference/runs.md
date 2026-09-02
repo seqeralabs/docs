@@ -287,6 +287,9 @@ tw runs relaunch [OPTIONS]
 | `--no-resume` | Start workflow execution from scratch instead of resuming from the last successful process. Use this to rerun the entire workflow without using cached results. | No |  |
 | `-n`, `--name` | Custom workflow run name. Overrides the automatically generated run name with a user-defined identifier. | No |  |
 | `--launch-container` | Container image for the Nextflow head job. Overrides the default launcher container. | No |  |
+| `--syntax-parser` | Nextflow language syntax parser version: 'v1' (legacy) or 'v2'. Takes precedence over the value stored in the launch configuration. | No |  |
+| `--nextflow-version` | Nextflow version to run the workflow with. Must exist in the Platform version catalog and meet the minimum required by the compute environment. Takes precedence over the value stored in the launch configuration. | No |  |
+| `--output-dir` | Per-run output directory, passed to Nextflow as '-output-dir'. Requires Nextflow 24.10.0 or later and the workflow outputs syntax. Takes precedence over the value stored in the launch configuration. | No |  |
 | `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. | No |  |
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No |  |
 | `-p`, `--profile` | Array of Nextflow configuration profile names to apply. | No |  |

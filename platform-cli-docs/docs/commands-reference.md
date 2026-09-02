@@ -7,7 +7,7 @@ tags: [cli, commands, reference]
 
 <!-- cli-release-version:start -->
 :::info CLI version
-This reference documents Seqera Platform CLI **0.38.0**, the latest stable release processed by the docs automation.
+This reference documents Seqera Platform CLI **0.40.0**, the latest stable release processed by the docs automation.
 :::
 <!-- cli-release-version:end -->
 

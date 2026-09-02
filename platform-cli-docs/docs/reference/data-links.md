@@ -272,6 +272,7 @@ tw data-links download [OPTIONS] <paths>
 | `--uri` | Data link URI (e.g., s3://bucket-name) | Yes |  |
 | `-c`, `--credentials` | Credentials identifier | Yes |  |
 | `-o`, `--output-dir` | Output directory for downloaded files | No |  |
+| `--silent` | Suppress download progress indicators. Useful for scripting or logging to files. | No |  |
 
 Run `tw data-links download -h` to view all the required and optional fields for downloading files and directories from a data-link in a workspace.
 
@@ -346,6 +347,8 @@ tw data-links upload [OPTIONS] <paths>
 | `--uri` | Data link URI (e.g., s3://bucket-name) | Yes |  |
 | `-c`, `--credentials` | Credentials identifier | Yes |  |
 | `-o`, `--output-dir` | Destination directory in the data link | No |  |
+| `--silent` | Suppress upload progress indicators. Useful for scripting or logging to files. | No |  |
+| `--concurrency` | Number of file chunks to upload in parallel (default: 4). Each in-flight chunk buffers up to 250 MB in memory, so peak memory is roughly concurrency x 250 MB. | No | `4` |
 
 Run `tw data-links upload -h` to view all the required and optional fields for uploading files and directories to a data-link in a workspace.
 
