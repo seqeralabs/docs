@@ -37,6 +37,8 @@ Access your Seqera instance through the UI, the API, the CLI, or in Nextflow dir
 
 ### Web-based UI
 
+To get started in the Seqera Cloud UI:
+
 1. Create an account and sign in to Seqera Cloud at [cloud.seqera.io](https://cloud.seqera.io).
 
    :::note

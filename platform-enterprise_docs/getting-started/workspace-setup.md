@@ -38,6 +38,8 @@ You are the first **Owner** of the organizations that you create. Add other orga
 
 ## Create a workspace
 
+Workspaces contain the pipelines, compute environments, and data that participants share. An organization can contain multiple workspaces.
+
 1. From the organization's **Workspaces** tab, select **Add Workspace**.
 1. Complete the workspace details fields:
     - The workspace's **Name** in Platform.

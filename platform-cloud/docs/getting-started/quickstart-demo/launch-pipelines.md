@@ -40,6 +40,8 @@ See [Best Practices for Deploying Pipelines with the Seqera Platform](https://se
 
 ### General config
 
+The **General config** section sets the pipeline version, compute environment, and work directory for the run:
+
 - **Pipeline to launch**: The pipeline Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited.
 - **Version name**: The version selected as the default for this pipeline.
 - **Version ID**: The ID of the pipeline version.
@@ -93,6 +95,8 @@ Modify other parameters to customize the pipeline execution through the paramete
 ![Read trimming options](./assets/trimmer-settings.png)
 
 ### Advanced settings
+
+Configure optional run settings before you launch:
 
 - Use [resource labels](../../resource-labels/overview) to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, workspace admins can override them from the launch form. Applied resource label names must be unique.
 - Use [Pipeline secrets](../../secrets/overview) to store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.

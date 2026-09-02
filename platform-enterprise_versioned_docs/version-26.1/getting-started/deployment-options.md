@@ -27,6 +27,8 @@ You can access your Seqera instance through the UI, the [API](https://docs.seqer
 
 ### Web-based UI
 
+To get started in the Platform UI:
+
 1. Sign in to your Seqera Platform instance at the URL provided by your administrator.
 
    :::note

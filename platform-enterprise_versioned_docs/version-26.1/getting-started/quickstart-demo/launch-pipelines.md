@@ -44,6 +44,8 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 
 ### General config
 
+The **General config** section sets the pipeline version, compute environment, and work directory for the run:
+
 ![General config tab](../_images/launch-form-2.gif)
 
 - **Pipeline to launch**: The pipeline Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited.
@@ -64,9 +66,9 @@ The launch form consists of **General config**, **Run parameters**, and **Advanc
 
 ### Run parameters
 
-![Run parameters](../_images/launch-form-3.gif)
-
 There are three ways to enter **Run parameters** prior to launch:
+
+![Run parameters](../_images/launch-form-3.gif)
 
 - The **Input form view** displays form fields to enter text or select attributes from lists, and browse input and output locations with [Data Explorer](../../data/data-explorer).
 - The **Config view** displays raw configuration text that you can edit directly. Select JSON or YAML format from the **View as** list.
@@ -94,6 +96,8 @@ Modify other parameters to customize the pipeline execution through the paramete
 ![Read trimming options](./assets/trimmer-settings.png)
 
 ### Advanced settings
+
+Configure optional run settings before you launch:
 
 - Use [resource labels](../../resource-labels/overview) to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, workspace admins can override them from the launch form. Applied resource label names must be unique.
 - [Pipeline secrets](../../secrets/overview) store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
