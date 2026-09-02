@@ -1,12 +1,14 @@
 ---
-title: "Deployment options"
+title: "Deploy Platform"
 description: "Seqera Platform deployment options and ways to access your Seqera instance."
 date created: "2023-04-21"
-last updated: "2026-06-16"
-tags: [deployment]
+last updated: "2026-09-02"
+tags: [platform, deployment]
 ---
 
-Seqera Platform is available in two deployment options: Seqera Cloud, hosted by Seqera, and Seqera Enterprise, installed in your organization's own infrastructure. You can access either deployment through the web-based user interface (UI), the API, the CLI, or directly in Nextflow.
+Choose the Seqera Platform deployment that suits your organization, then access it through the UI, the API, the CLI, or Nextflow.
+
+Platform is available as Seqera Cloud, hosted by Seqera, and as Seqera Enterprise, installed in your organization's own infrastructure.
 
 ## Platform options
 
@@ -78,7 +80,7 @@ If you run Nextflow directly in an existing environment, add the `-with-tower` o
 
     ```bash
     export TOWER_ACCESS_TOKEN=<ACCESS_TOKEN>
-    export NXF_VER=23.10.1
+    export NXF_VER=26.04.6
     ```
 
     :::note
