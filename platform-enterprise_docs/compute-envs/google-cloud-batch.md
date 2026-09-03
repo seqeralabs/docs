@@ -2,7 +2,7 @@
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-07-20"
+last updated: "2026-08-21"
 tags: [google, batch, gcp, compute environments]
 ---
 
@@ -67,6 +67,8 @@ By default, Google Cloud Batch uses the default Compute Engine service account t
 * Secret Manager Secret Accessor (`roles/secretmanager.secretAccessor`) on the project (required if your pipelines use Seqera secrets; the head job and tasks read secrets from GCP Secret Manager)
 
 If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below.
+
+Seqera uses the `storage.buckets.list` permission on the project to validate the credential, to list buckets when you create a compute environment, and to discover buckets in Data Explorer. Project-wide Storage Admin includes this permission. If you grant access per bucket instead, also grant `storage.buckets.list` at the project level - `roles/storage.bucketViewer` is the narrowest predefined role that includes it — because bucket-level bindings cannot confer this project-level permission. Seqera validates the credential when you create or update it and [re-validates it roughly every 12 hours](./preflight-checks) for as long as it exists. Keep the permission in place for the life of the credential. If you revoke the permission, Seqera marks the credential and the compute environments that use it as invalid and rejects pipeline launches against them. To recover, restore the permission, then validate the credential and each affected compute environment.
 
 #### User permissions
 
