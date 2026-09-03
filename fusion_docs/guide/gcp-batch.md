@@ -84,7 +84,7 @@ process {
 ```
 
 :::caution
-Include the `type` option whenever you set the `disk` directive. Without it, `disk = 750.GB` sets the boot disk size and leaves the Fusion scratch disk unchanged.
+Include the `type` option whenever you set the `disk` directive. Without it, `disk = 750.GB` sets the boot disk size and no dedicated Fusion scratch SSD is attached.
 :::
 
 An instance template overrides the `disk` directive, and Nextflow does not add a scratch disk to it. To use Fusion with an instance template, the template must include a `local-ssd` disk named `fusion` with 375 GB.
