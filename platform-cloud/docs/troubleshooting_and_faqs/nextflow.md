@@ -100,9 +100,11 @@ To resolve, adjust the head job resources and configuration:
 Caused by: Part number must be an integer between 1 and 10000, inclusive
 ```
 
-This error occurs when a pipeline output file exceeds the AWS S3 multipart upload limit of 10,000 parts. At the Seqera Platform default chunk size of 10 MB, files larger than 100 GB reach this limit.
+This error occurs when a pipeline output file exceeds the AWS S3 multipart upload limit of 10,000 parts. At a chunk size of 10 MB, files larger than 100 GB reach this limit.
 
-To resolve, increase the upload chunk size. Divide the file size in megabytes by 10,000 and round up to get the minimum chunk size. For a 200 GB file, set `uploadChunkSize` to at least 21 MB in the [**Nextflow config file**](../launch/launchpad) field of the launch form:
+Nextflow 25.10 and later handle this automatically. The `nf-amazon` plugin uses the AWS SDK v2 S3 transfer manager, which sizes multipart chunks for you. The `aws.client.uploadChunkSize` option is no longer supported and is ignored if you set it. To control chunk sizing, use `aws.client.minimumPartSize` instead.
+
+If you run a Nextflow version earlier than 25.10, increase the upload chunk size. Divide the file size in megabytes by 10,000 and round up to get the minimum chunk size. For a 200 GB file, set `uploadChunkSize` to at least 21 MB in the [**Nextflow config file**](../launch/launchpad) field of the launch form:
 
 ```groovy
 aws {
