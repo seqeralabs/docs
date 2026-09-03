@@ -53,7 +53,7 @@
     "@rspack/core": "^2.0.0",
     "@seqera/docusaurus-preset-seqera": "^1.0.39",
     "buffer": "^6.0.3",
-    "docusaurus-theme-search-typesense": "^0.26.0",
+    "docusaurus-theme-search-typesense": "^0.27.0",
     "image-size": "^2.0.2",
     "path-browserify": "^1.0.1",
     "postcss-import": "^17.0.0",
