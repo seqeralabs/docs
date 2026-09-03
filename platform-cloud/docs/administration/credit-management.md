@@ -2,7 +2,7 @@
 title: "Billing and credit management"
 description: "Manage Seqera credits across Seqera Compute and Co-Scientist."
 date created: "2025-10-20"
-last updated: "2026-08-19"
+last updated: "2026-08-26"
 tags: [seqera compute, compute environments, co-scientist, billing]
 ---
 
@@ -16,7 +16,7 @@ One Seqera credit equals $1 USD. Compute resources are charged at AWS on-demand 
 
 - **Task-level billing (Compute)**: Credits are deducted as each pipeline task completes, providing real-time visibility into run costs. Credit spend for running Studio sessions updates at regular intervals.
 - **Per-inference billing (Co-Scientist)**: Once your monthly included allowance is consumed, credits are deducted per AI inference call. Usage under the included allowance is not charged.
-- **Cost aggregation**: The [usage report](#usage-report) shows aggregated compute and memory costs per workflow or Studio session.
+- **Cost aggregation**: The [usage report](#usage-report) shows aggregated compute and memory costs per workflow or Studio session, and aggregated Co-Scientist token usage per workspace per day.
 
 ### Compute resources
 
@@ -99,10 +99,33 @@ The report is structured as follows:
 | 2025-10-10 | 2BYxxxxxxxMoy | 1884xxxxxxx2036 | us-east-2 | Cpu Hours   | 0.1            | 1.3255897223       | 0.13255897223         |
 | 2025-10-10 | 2BYxxxxxxxMoy | 1884xxxxxxx2036 | us-east-2 | Memory Gb   | 0.025          | 5.514970833333334  | 0.13787427083333334   |
 
-The report includes:
+#### Report scope
 
-- Separate line items for compute and memory per workflow or Studio session.
-- Aggregated costs (not individual task breakdowns).
+- Reports downloaded from organization **Settings** cover every workspace in the organization. Reports downloaded from workspace **Settings** cover only that workspace.
+- Every report spans all recorded usage from 1 May 2025 to the end of the current day. You can't select a date range.
+- Line items with a zero or negative total are excluded.
+
+#### How rows are grouped
+
+Each row is one product's usage for one day in one workspace. Costs are aggregated — the report never breaks usage down by individual task or by individual user.
+
+- **Compute rows** are additionally grouped by run: `WorkflowId` identifies the pipeline run or Studio session the cost belongs to.
+- **Co-Scientist rows** aren't associated with a run, so `WorkflowId` is `N/A`. Co-Scientist usage is pooled across all users in the workspace for each day, so you can't attribute a row to a specific user.
+
+#### ProductName values
+
+| ProductName                   | Billed for                                     | Quantity unit |
+| ----------------------------- | ---------------------------------------------- | ------------- |
+| `Cpu Hours`                   | Seqera Compute CPU time                         | CPU-hours     |
+| `Memory Gb`                   | Seqera Compute memory                           | GB-hours      |
+| `Storage Gb Month`            | Seqera Compute S3 storage                       | GB-months     |
+| `Network Cost`                | Seqera Compute data egress                      | GB            |
+| `Co-Scientist Input Tokens`   | Tokens sent to the model                        | Tokens        |
+| `Co-Scientist Output Tokens`  | Tokens returned by the model                    | Tokens        |
+| `Co-Scientist Cache Read`     | Tokens read from the prompt cache               | Tokens        |
+| `Co-Scientist Cache Creation` | Tokens written to the prompt cache              | Tokens        |
+
+A single Co-Scientist session produces usage across several of these products.
 
 ### Request additional credits
 
