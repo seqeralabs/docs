@@ -22,7 +22,8 @@
     "joi": "^18.0.0",
     "dompurify": ">=3.4.11",
     "postcss": "^8.5.25",
-    "@tailwindcss/postcss": "^4.3.3"
+    "@tailwindcss/postcss": "^4.3.3",
+    "fast-uri": "^3.1.6"
   },
   "scripts": {
     "docusaurus": "docusaurus",
