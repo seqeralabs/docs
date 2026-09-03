@@ -101,19 +101,9 @@ To resolve, adjust the head job resources and configuration:
 Caused by: Part number must be an integer between 1 and 10000, inclusive
 ```
 
-This error occurs when a pipeline output file exceeds the AWS S3 multipart upload limit of 10,000 parts. At a chunk size of 10 MB, files larger than 100 GB reach this limit.
+This error occurs when a pipeline output file exceeds the AWS S3 multipart upload limit of 10,000 parts.
 
-Nextflow 25.10 and later handle this automatically. The `nf-amazon` plugin uses the AWS SDK v2 S3 transfer manager, which sizes multipart chunks for you. The `aws.client.uploadChunkSize` option is no longer supported and is ignored if you set it. To control chunk sizing, use `aws.client.minimumPartSize` instead.
-
-If you run a Nextflow version earlier than 25.10, increase the upload chunk size. Divide the file size in megabytes by 10,000 and round up to get the minimum chunk size. For a 200 GB file, set `uploadChunkSize` to at least 21 MB in the [**Nextflow config file**](../launch/launchpad) field of the launch form:
-
-```groovy
-aws {
-  client {
-    uploadChunkSize = '21MB'
-  }
-}
-```
+Nextflow 25.10 and later set the multipart chunk size automatically. The `aws.client.uploadChunkSize` option is no longer supported and is ignored if you set it. Use `aws.client.minimumPartSize` to control chunk size.
 
 Alternatively, if the large files are intermediate results you do not need, configure your pipeline to skip publishing them. See your pipeline documentation for the parameters that disable specific outputs.
 
