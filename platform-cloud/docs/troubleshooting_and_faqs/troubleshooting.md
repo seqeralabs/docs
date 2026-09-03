@@ -121,6 +121,12 @@ k8s.securityContext = [
 
 If you supplied the correct Bitbucket credentials and URL details in your `tower.yml` and still see this error, upgrade to at least v22.3.0. This version addresses SCM provider authentication issues and likely resolves the retrieval failure.
 
+#### `Cannot invoke "String.toCharArray()" because "password" is null` {#gitlab-token-without-password}
+
+This error occurs when a GitLab credential has an **Access token** but no **Password**. When cloning the repository, Nextflow releases before 26.04.0 authenticate with the username and password only and ignore the access token.
+
+To resolve, enter your token value in both the **Password** and **Access token** fields of your [GitLab credential](../git/overview#gitlab). Nextflow accepts the access token without a **Password** from 26.04.0 onward.
+
 ## Optimization
 
 #### `OutOfMemoryError: Container killed due to memory usage`
