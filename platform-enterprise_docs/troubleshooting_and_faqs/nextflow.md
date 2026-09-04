@@ -250,16 +250,18 @@ This issue is resolved in Platform v26.2, which creates pipeline secrets with us
 
 Up to version 25.10, Nextflow uses the v1 syntax parser (also known as the legacy parser) by default. The v2 parser introduces stricter validation and is available as an opt-in through `NXF_SYNTAX_PARSER=v2`.
 
-From version 26.04, Nextflow uses the v2 syntax parser by default. Pipelines that run without modification under the v1 parser can fail under v2.
+From version 26.04, and from 26.01.1-edge on the edge release channel, Nextflow uses the v2 syntax parser by default. Pipelines that run without modification under the v1 parser can fail under v2.
+
+In Platform, the supported way to select the parser is the [**Enable Nextflow syntax parser v2**](../launch/advanced#enable-nextflow-syntax-parser-v2) launch toggle, not a pre-run script. The toggle does not track Nextflow's version-based default. With the toggle off, Platform exports `NXF_SYNTAX_PARSER=v1` regardless of the Nextflow version.
 
 #### Pin the v1 parser
 
-To run existing pipelines unchanged under Nextflow 26, set `NXF_SYNTAX_PARSER` to `v1` in a [pre-run script](../launch/advanced#pre-and-post-run-scripts):
+To run existing pipelines unchanged under Nextflow 26.04 and later, leave the launch toggle off.
+
+A [pre-run script](../launch/advanced#pre-and-post-run-scripts) that exports `NXF_SYNTAX_PARSER` takes precedence over the toggle. For example, the following pins the v1 parser even when the toggle is on:
 
 ```bash
 export NXF_SYNTAX_PARSER=v1
 ```
-
-This restores the legacy parser behavior.
 
 For migration guidance to the v2 parser, see [Preparing for strict syntax](https://docs.seqera.io/nextflow/strict-syntax).
