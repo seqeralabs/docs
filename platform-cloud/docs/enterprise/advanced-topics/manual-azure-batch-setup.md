@@ -1,434 +1,204 @@
 ---
-title: Azure Batch compute environment setup
-headline: "Azure Batch compute environment tutorial"
-description: "A tutorial for using Azure Batch with Seqera Platform"
+title: Set up advanced Azure Batch compute environments
+headline: "Set up advanced Azure Batch compute environments"
+description: "Build Azure Batch compute environments with separate head and worker pools, Entra authentication, and private networking."
 ---
 
-This guide details how to set up an Azure Batch and Seqera Cloud account to run a workflow in a Seqera Azure Batch compute environment.
+Batch Forge provisions most Azure Batch topologies for you: separate head and worker pools, dedicated head job resources, autoscaling, Microsoft Entra authentication, and private networking. Each part below adds one capability to the setup before it. Work through them in order. The final part covers the cases that still need a pool you create yourself.
 
-It begins with the simplest possible setup and then details more complex environment configuration options.
+For every compute environment field, see the [Azure Batch][azure-batch-reference] reference.
 
-## Prerequisites
+:::info[**Prerequisites**]
 
-- An Azure account with sufficient permissions to create resources.
-- [Azure CLI][install-azure-cli]
-- [Seqera Platform CLI][install-seqera-cli]
+You need the following:
 
-### Set up Azure Batch
+- An Azure account with permissions to create resources.
+- The [Azure CLI][install-azure-cli].
+- The [Seqera Platform CLI][install-seqera-cli].
+
+:::
+
+## Set up Azure Batch
 
 In the Azure Portal:
 
 1. Create an Azure Storage account with the default settings.
-1. In the Azure Storage account, add a single blob container called `work`. This is the [Nextflow working directory][nextflow-working-directory].
-1. Create a new Azure Batch account. Use Batch Managed for now, with the default settings. Use the same region as your Storage account and attach the Storage account to the Batch account when prompted.
+1. In the Storage account, add a single blob container called `work`. This is the [Nextflow working directory][nextflow-working-directory].
+1. Create an Azure Batch account with the default settings and the Batch Managed pool allocation mode. Use the same region as your Storage account, and attach the Storage account to the Batch account when prompted.
 1. On the Azure Batch page, select **Quotas**.
 1. Select **Request Quota Increase**.
 1. For **Quota Type**, select **Batch**, then select **Next**.
-1. Select **Enter Details**, then choose the **Location** as the region of your Batch account.
+1. Select **Enter Details**, then set **Location** to the region of your Batch account.
 1. Select **EDv5 Series**.
 1. Select **Active jobs and job schedules per Batch account**.
 1. Select **Pools per Batch account**.
 
-Increase each value to a minimum of the following:
+Increase each value to at least the following:
 
 - **EDv5 Series**: 192
 - **Active jobs and job schedules per Batch account**: 100
 - **Pools per Batch account**: 50
 
-### Set up Seqera Cloud
+## Set up Seqera Cloud
 
 In Seqera Cloud:
 
 - Create a new account.
 - [Create a new organization and workspace][create-org-workspace].
-- Add a GitHub credential the workspace to prevent API rate-limiting issues with GitHub.
+- Add a GitHub credential to the workspace to prevent API rate-limiting issues with GitHub.
 
-## Compute environment and pipeline configuration
+## Part 1. Create a Batch Forge compute environment
 
-### Option 1. Azure Batch with Seqera Batch Forge
+Batch Forge creates and manages the Azure Batch pools for you. By default it creates two pools, one for the Nextflow head job and one for compute tasks, named `tower-pool-{envId}-head` and `tower-pool-{envId}-worker`. The head node does not compete with tasks for resources, and you can size each pool independently. Both pools autoscale based on the number of waiting tasks.
 
-**Behavior**:
+Add the Azure Batch account credentials to Seqera Platform:
 
-- Seqera Platform will submit a Nextflow job and task to this pool.
-- The Nextflow job will execute and submit each task to the same node pool on Azure Batch.
-- The node pool will autoscale up and down based on the number of waiting tasks.
+1. In the Azure Portal, open the Batch account you created and note the Batch account name and region.
+1. On the **Keys** tab, find the primary access keys for the Batch account and the Storage account.
+1. In your Seqera Platform workspace, select the **Credentials** tab, then select **Add credentials**.
+1. Enter a credential name such as `azure-keys`, then select **Azure** for **Provider**.
+1. Enter the Batch account name and key, and the Storage account name and key.
+1. Select **Create**.
 
-**Advantages**:
+Create the compute environment:
 
-- Simple to set up.
-- Low cost.
-- Autoscales for number of waiting tasks.
-
-**Disadvantages**:
-
-- The Nextflow job will submit each task to the same node pool on Azure Batch, which can cause bottlenecks.
-- Because the processes require larger resources than the head node, you often have oversized machines running Nextflow or undersized machines running processes.
-- Dedicated nodes only.
-
-The first configuration is a simple Azure Batch compute environment created with Batch Forge. This environment uses the same Batch pool for both the Nextflow head job and task nodes.
-
-First, add the Azure Batch account credentials to Seqera Platform:
-
-1. In the Azure portal, go to the Batch account you created and note the Batch account name and region.
-1. Go to the **Keys** tab to find the primary access keys for the Batch account and Storage account.
-1. In your Seqera Platform workspace, go to the **Credentials** tab and select **Add credentials**.
-1. Enter a credential name such as `azure-keys` and select Azure from the **Provider** drop-down.
-1. Enter the Batch account name and key, and Storage account name and key.
-1. Select **Create** to save the credentials.
-
-Seqera now has the credentials needed to access your Azure Batch and Storage accounts and make the necessary changes.
-
-Next, create a compute environment with Batch Forge:
-
-1. Go to the **Compute Environments** tab and select **Add Compute Environment**.
-1. Enter a name such as `1-azure-batch-forge`.
-1. Select Azure Batch from the **Provider** drop-down.
+1. Select **Compute Environments**, then select **Add compute environment**.
+1. Enter a name such as `azure-batch-forge`.
+1. For **Provider**, select **Azure Batch**.
 1. Select your `azure-keys` credentials.
 1. Select the **Region** of your Batch account.
 1. Select the `az://work` container in your Storage account.
-1. For **VMs type**, select `standard_e2ds_v5`.
+1. Set **Config mode** to **Batch Forge**.
+1. For **VMs type**, select `Standard_E2ds_v5`.
 1. For **VMs count**, select 4.
 1. Enable **Autoscale** and **Dispose resources**.
-1. All other options can be left default. Select **Create** to save the compute environment.
-
-Add the `nextflow-hello` pipeline to your workspace:
-
-[Add a pipeline][add-pipeline] from your workspace Launchpad with the following settings:
-
-- Select your Azure Batch compute environment from the drop-down.
-- For **Pipeline to launch**, enter `https://github.com/nextflow-io/hello`.
-- For **Work directory**, enter a subdirectory in the `az://work` container in your Storage account.
-
-Select **Launch** next to the pipeline name in your workspace Launchpad to complete the launch form and launch the workflow.
-
-### Option 2. Use a separate node and head pool on Seqera Platform
-
-**Behavior**:
-
-- Seqera Platform will submit a Nextflow job and task to the first pool.
-- The Nextflow job will execute and submit each task to the second pool.
-- Both pools will autoscale up and down based on the number of waiting tasks.
-
-**Advantages**:
-
-- The processes are not bottlenecked by the head node.
-- You can set the worker nodes to use a different VM size than the head node.
-
-**Disadvantages**:
-
-- More complex to set up.
-- Still fairly inflexible.
-- You have to wait a long time for nodes to autoscale up and down in response to the work.
-
-This configuration separates head and task nodes into different Batch pools.
-
-To create a separate node pool to run all the processes:
-
-1. Create another compute environment in Seqera Platform, exactly as before:
-    - **Name**: `2-azure-batch-low-priority` or similar
-    - **Platform**: Azure Batch
-    - **Credentials**: `azure-keys`
-    - **Region**: As before
-    - **Work directory**: As before
-    - **VMs type**: `standard_e2ds_v5`
-    - **VMs count**: `4`
-1. Note the compute environment ID, which is the first item on the compute environment page.
-1. In the Azure Portal, go to the Batch account you created earlier.
-1. Go to the **Pools** tab and create a new pool.
-1. Find the pool called `tower-pool-${id}`, where `${id}` is the ID you noted earlier.
-1. Select **Scale**.
-1. Select **Evaluate**, then **Save**.
-
-You can now run Nextflow on the first pool, but execute all the processes on the second pool.
-
-1. On the pipeline launch page, duplicate the existing pipeline, but do not save it yet.
-1. Under advanced options, add the following configuration block to the `nextflow.config` text input:
-
-    ```nextflow
-    process.queue = 'tower-pool-${id}'
-    ```
-
-    :::info
-    Remember to replace `${id}` with the ID of the compute environment you created earlier!
-    :::
-
-1. Save the pipeline as `hello-world-worker`.
-
-Select **Launch** next to the `hello-world-worker` pipeline in your workspace Launchpad to complete the launch form and launch the workflow.
-
-### Option 3. Configure the head pool with a hot node
-
-**Behavior**:
-
-- A "hot" head node is left running.
-- The head node will run Nextflow as soon as the work is created.
-- The worker node pool will autoscale up and down based on the number of waiting tasks.
-
-**Advantages**:
-
-- The latency of the pipeline is reduced.
-
-**Disadvantages**:
-
-- The always-on head node incurs additional cost.
-
-This configuration separates the head and task pools as before and leaves a single head node up and running to make the response time faster.
-
-To create the compute environment with a persistent head node:
-
-1. Get the ID of the first node pool (`1-azure-batch-forge`).
-1. In the Azure Portal, go to the Batch account you created earlier.
-1. Go to the **Pools** tab and find the pool called `tower-pool-${id}`, where `${id}` is the ID you made a note of earlier.
-1. Select **Scale**.
-1. In the line `targetPoolSize = max(0, min($targetVMs, 4));`, change the `0` to `1`.
-1. Select **Evaluate**, then **Save**.
-
-The node pool will increase to a minimum of 1 node. Now, when you make adjustments to the pipeline, the head node will not be scaled down.
-
-Select **Launch** next to the `hello-world-worker` pipeline in your workspace Launchpad to complete the launch form and launch the workflow. With this run, it should respond much faster. The _latency_ of the pipeline has improved, although the overall run time will be similar. This effect is more substantial on larger production pipelines.
+1. (Optional) Under **Head job resources**, set **Head VM type**, **Head job CPUs**, and **Head job memory** to size the head node independently of the compute tasks.
+1. Leave the remaining options at their defaults, then select **Create**.
 
 :::tip
-If you do not wish to continue paying for the head node, scale the node pool back down by replacing the original autoscale formula (`targetPoolSize = max(0, min($targetVMs, 4))`).
-You can also delete the compute environment in Platform, which will delete the head node.
+To reduce pipeline latency, expand **Head job resources**, disable **Autoscale**, and set **VMs count** to `1`. One head node then stays running while the worker pool autoscales independently. An always-on head node costs more but responds faster. The difference is most noticeable on large production pipelines.
 :::
 
-### Option 4. Use the Nextflow autopool feature
+[Add a pipeline][add-pipeline] named `nextflow-hello` from your workspace Launchpad with the following settings:
 
-**Behavior**:
+- Select your Azure Batch compute environment.
+- For **Pipeline to launch**, enter `https://github.com/nextflow-io/hello`.
+- For **Work directory**, enter a subdirectory of the `az://work` container in your Storage account.
 
-- Seqera will submit a Nextflow job and task to the first pool, which uses dedicated VMs.
-- The Nextflow job will create pools in the Azure Batch account based on the pipeline's requirements.
-- The pools are called `nf-pool-${id}`, where `${id}` is a unique identifier for the pool.
-- The pools are created with the VM size specified in the Nextflow config.
-- The pools are created with the autoscale settings specified in the Nextflow config.
+On the Launchpad, select **Launch** next to the pipeline name, complete the launch form, and start the run.
 
-:::info
-Nextflow will create a range of pools based on resource sizes and try to reuse them for similar tasks. This means that if you run a process with different CPU, memory, or machineType, it will create a new pool for that process.
-:::
+## Part 2. Authenticate with Microsoft Entra
 
-**Advantages**:
+Instead of access keys, Seqera Platform can authenticate to Azure Batch and Storage with a Microsoft Entra service principal, and Nextflow can authenticate with a managed identity. You create the service principal and managed identity in Azure, then select them in the compute environment form. Batch Forge configures the pool identity for you.
 
-- Nextflow handles the creation and management of pools.
-- You can create flexible pools with the correct VM size and autoscale settings.
-- The pools are highly configurable via Nextflow configuration.
+Entra authentication has the following advantages over access keys:
 
-**Disadvantages**:
+- No keys or short-lived access tokens are exchanged.
+- A service principal holds only the permissions you grant it.
+- A managed identity scoped to a single resource keeps the Nextflow head job's permissions narrow.
+- Different compute environments can use different managed identities, each with its own permissions.
 
-- You may be overly specific and end up with a lot of pools, which can exhaust your quota for the maximum number of pools.
+For more detail, see [Microsoft Entra](https://docs.seqera.io/nextflow/azure#microsoft-entra) in the Nextflow documentation.
 
-With the autopool feature, Nextflow automatically creates and manages Azure Batch pools based on your pipeline's requirements.
+### Create a service principal for Seqera Platform
 
-To configure your pipeline to use Nextflow autopool:
-
-1. Duplicate the `hello-world-worker` pipeline to a new pipeline called `hello-world-autopool`.
-1. Update your Nextflow config to use autopool mode:
-
-```groovy
-process.queue = "auto"
-process.machineType = "Standard_E*d_v5"
-azure {
-    batch {
-        autoPoolMode = true
-        allowPoolCreation = true
-        pools {
-            auto {
-                autoscale = true
-                vmCount = 1
-                maxVmCount = 4
-            }
-        }
-    }
-}
-```
-
-3. Save the pipeline.
-
-Select **Launch** next to the `hello-world-autopool` pipeline in your workspace Launchpad to complete the launch form and launch the workflow.
-
-### Option 5. Use Entra authentication
-
-**Behavior**:
-
-- Seqera authenticates to Azure Batch and Azure Storage using a service principal.
-- It submits a job and task to the Azure Batch service using the service principal.
-- The task runs Nextflow, which authenticates to Azure Batch and Azure Storage using the managed identity.
-- All processes run on the head node as in the first example.
-
-**Advantages**:
-
-- No keys or short access tokens are exchanged, increasing security.
-- A service principal can have very granular permissions, so you can grant it only the permissions it needs.
-- Managed identities can be scoped to a specific resource, so the Nextflow head job has very restricted permissions.
-- Different managed IDs can have different permissions, so different compute environments can have different scoped permissions.
-
-**Disadvantages**:
-
-- The setup is quite complicated with room for error.
-- Errors can be harder to troubleshoot.
-
-Seqera can utilize an Azure Entra service principal to authenticate and access Azure Batch for job execution and Azure Storage for data management, and Nextflow can authenticate to Azure services using a managed identity. This method offers enhanced security compared to access keys, but must run on Azure infrastructure.
-
-See [Microsoft Entra](https://docs.seqera.io/nextflow/azure#microsoft-entra) in the Nextflow documentation for more information.
-
-#### Create a service principal for Seqera to use for authentication
+In the Azure Portal:
 
 1. [Create an Azure service principal](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal).
 1. [Assign roles to the service principal](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=current).
-1. [Get the Service Principal ID, Tenant ID, and Client Secret](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal#option-3-create-a-new-client-secret).
-1. [Add to Seqera credentials](../../compute-envs/azure-batch.md#entra-service-principal-and-managed-identity)
+1. [Create a client secret](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal#option-3-create-a-new-client-secret), then note the client ID, tenant ID, and client secret value.
 
-In Seqera:
+The service principal needs the following role assignments:
 
-1. Add new credentials with the name `entra-keys` and select the Azure **Provider**.
-1. Add the Service Principal ID, Tenant ID and Client Secret.
-1. Select **Create** to save the credentials.
+- **Azure Batch Data Contributor** on the Batch account.
+- **Storage Blob Data Contributor** on the Storage account.
+- **Managed Identity Operator** on each managed identity.
+- **Network Contributor** on the virtual network (VNet), when you use one.
 
-#### Create a managed identity for Nextflow to use for authentication
+For details, see [Entra service principal and managed identity][azure-batch-entra] in the Azure Batch reference.
 
-Back in the Azure Portal:
+In Seqera Platform:
 
-1. [Create a managed identity](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities?pivots=identity-mi-methods-azp)
-1. [Assign the relevant roles to the managed identity](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=current). See [Required role assignments](https://docs.seqera.io/nextflow/azure#required-role-assignments) for Nextflow requirements.
-1. Note the managed identity client ID for later.
-1. In the Azure Portal, go to the Batch account you created earlier.
-1. Go to the **Pools** tab and find the pool called `tower-pool-${id}`, where `${id}` is the ID of the head node pool created earlier.
-1. Select **Identity**.
-1. Select **Add User Assigned Identity**.
-1. Select the managed identity created earlier.
-1. Select **Add**.
+1. Select the **Credentials** tab, then select **Add credentials**.
+1. Enter the name `entra-keys` and select **Azure** for **Provider**.
+1. Select the **Entra** tab, then enter the **Client ID**, **Tenant ID**, and **Client secret**.
+1. Select **Create**.
 
-Processes running on this pool can now use the managed identity to authenticate to Azure Batch and Storage.
+### Create a managed identity for Nextflow
 
-In Seqera:
+In the Azure Portal:
 
-1. Add a new compute environment with the name `entra-mi` and select the Azure Batch **Provider** type.
-1. For **Location**, select the same region as your Batch account.
-1. For **Config mode**, select Manual.
-1. For **Compute pool**, select the pool you added the managed identity to earlier (`tower-pool-${id}`).
-1. For **Managed Identity Client ID**, enter the client ID of the managed identity created earlier.
+1. [Create a managed identity](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/how-manage-user-assigned-managed-identities?pivots=identity-mi-methods-azp).
+1. [Assign the relevant roles to the managed identity](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=current). For the Nextflow requirements, see [Required role assignments](https://docs.seqera.io/nextflow/azure#required-role-assignments).
+1. Note the managed identity client ID and resource ID.
 
-Duplicate the `hello-world-autopool` pipeline and save it as `hello-world-entra-mi` but use the new compute environment.
+In Seqera Platform:
 
-Select **Launch** next to the `hello-world-entra-mi` pipeline in your workspace Launchpad to complete the launch form and launch the workflow.
+1. Add a new Batch Forge compute environment named `entra-mi`, and select **Azure Batch** for **Provider**.
+1. For **Credentials**, select the `entra-keys` service principal credentials.
+1. Select the **Region** of your Batch account.
+1. In the managed identity fields, enter the client ID and resource ID for both the head and worker pools. You can use the same managed identity for both pools.
+1. Configure the remaining fields as in [Part 1](#part-1-create-a-batch-forge-compute-environment).
 
-The pipeline will run as before, but using the managed identity to authenticate to Azure Batch and Storage. No keys or storage required.
+Duplicate the `nextflow-hello` pipeline, save it as `hello-world-entra-mi`, and select the new compute environment.
+
+On the Launchpad, select **Launch** next to `hello-world-entra-mi` and start the run. The pipeline runs as before, but authenticates to Azure Batch and Storage with the managed identity. No keys are exchanged.
+
+## Part 3. Attach the pool to a virtual network
+
+To connect the Batch pool nodes to a private Azure VNet, enter a **Subnet ID** when you create the Batch Forge compute environment. Batch Forge attaches the subnet to both the head and worker pools, and the worker nodes inherit the same networking.
+
+A private VNet restricts network access to the subnet you specify, and data transfer inside the VNet can be faster and cheaper than routing over the public internet.
 
 :::note
-You can also use User Subscription mode instead of Batch Managed here, but this is beyond the scope of this tutorial.
+The **Subnet ID** field is only available when you select Entra credentials. See [Entra service principal and managed identity][azure-batch-entra] in the Azure Batch reference.
 :::
 
-### Option 6. Use a node pool attached to a VNet
+Before you create the compute environment, assign the **Network Contributor** role to the service principal on the VNet. Alternatively, use a custom role that grants `Microsoft.Network/virtualNetworks/subnets/join/action`.
 
-**Behavior**:
+1. Add a new Batch Forge compute environment named `azure-batch-vnet`, and select **Azure Batch** for **Provider**.
+1. For **Credentials**, select the `entra-keys` service principal credentials.
+1. Select the **Region** of your Batch account.
+1. For **Subnet ID**, enter the full Azure Resource Manager (ARM) subnet resource ID:
 
-- Each node is attached to the VNet and uses the security and networking rules of that virtual network subnetwork.
-- All other behavior is as normal.
+    ```
+    /subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Network/virtualNetworks/{vnetName}/subnets/{subnetName}
+    ```
 
-**Advantages**:
+1. Configure the remaining fields as in [Part 1](#part-1-create-a-batch-forge-compute-environment).
 
-- Security can be increased by restricting the virtual network subnet.
-- Exchange of data can be faster and cheaper than other services.
+Duplicate the `nextflow-hello` pipeline, save it as `hello-world-vnet`, and select the new compute environment. Select **Launch** to run the pipeline on the pool attached to the VNet.
 
-**Disadvantages**:
+## Part 4. Use a pre-existing Azure Batch pool
 
-- It requires fairly complicated setup.
-- If security is too restrictive, it can fail silently and be unable to report the error state.
+Some setups still need a pool you create yourself: low-priority (spot) worker nodes, custom VM images, or Azure Batch features that Batch Forge does not expose. Batch Forge provisions dedicated (on-demand) nodes only. In these cases, create the pool in Azure and select it in a **Manual** compute environment.
 
-It is common to attach Azure Batch pools to a virtual network. This is useful to connect to other resources in the same VNet or place things behind enhanced security. Seqera Platform does not support this feature directly, so you must manually create an Azure Batch pool.
+Manual pools can use the Batch Managed or User Subscription pool allocation mode. Batch Forge supports Batch Managed only.
 
-See [Create a Nextflow-compatible Azure Batch pool](../../compute-envs/azure-batch#create-a-nextflow-compatible-azure-batch-pool) to create an Azure Batch pool manually that is compatible with Seqera and Nextflow. Use the following settings:
+Manual mode does not attach a subnet to a pre-existing pool. Configure the VNet and subnet on each pool as you create it.
 
-- Name & ID: `3-azure-batch-vnet`
-- Add the managed identity created earlier as a user-assigned managed identity.
-- VMs type: `standard_e2ds_v5`
-- Use the autoscale formula described in the documentation, with a minimum size of 0 and a maximum size of 4.
-- For Virtual network, create a new virtual network with the default subnet. You can add this to a new resource group here.
+For the full pool configuration (identity, OS image, autoscale formula, start task, and networking), see [Create a Nextflow-compatible Azure Batch pool][azure-batch-manual-pool] in the Azure Batch reference. Then create a Manual compute environment that points at the pool name.
 
-In practice, you are more likely to connect an Azure Batch Node pool to an existing virtual network that is connected to other resources, such as Seqera Platform or the Azure Storage Account. In this instance, connecting it to a VNet with public internet access will route the network traffic via the virtual network while still allowing you to perform every action.
+To run compute tasks on low-priority nodes, create one dedicated pool and one low-priority pool, then route compute tasks to the low-priority pool with the `process.queue` directive. See [Use separate Batch pools for head and compute nodes][azure-separate-pools].
 
-Back in Seqera Platform, add a new Azure Batch compute environment:
+:::note
+The Nextflow autopool feature (`azure.batch.autoPoolMode` and `azure.batch.allowPoolCreation`) is deprecated and unused by Seqera Platform. Use the Batch Forge head and worker pools instead.
+:::
 
-1. Add a new compute environment with the name `3-azure-batch-vnet` and select the Azure Batch **Provider** type.
-1. For **Location**, select the same region as your Batch account.
-1. For **Credentials**, select the service principal credentials.
-1. For **Config mode**, select Manual.
-1. For **Compute pool**, select the Compute pool name `3-azure-batch-vnet`.
-1. For **Managed Identity Client ID**, enter the client ID of the managed identity created earlier.
+## Clear up resources
 
-Duplicate the **original** `hellow-world` pipeline and save it as `hello-world-vnet`.
+After the setup and the runs are complete, delete the pipelines and compute environments from Seqera Platform.
 
-Select **Launch** next to the `hello-world-vnet` pipeline in your workspace Launchpad to complete the launch form and launch the workflow.
+In Azure, deleting the Batch account deletes all its pools, jobs, and tasks. You can then delete the Storage account.
 
-The pipeline runs as before, but it will run on the node pool attached to the VNet. It will resemble a normal Azure Batch pipeline run.
-
-Using this technique allows you to run pipelines on Azure Batch with more restrictive networking and security requirements.
-
-### Option 7. Use a node pool attached to a VNet with worker nodes attached to the same VNet
-
-**Behavior**:
-
-- We use a separate head node pool to run Nextflow, along with automatically created Nextflow autoscale pools to run processes.
-- Each worker node is attached to the VNet and uses the security and networking rules of that virtual network subnetwork.
-
-**Advantages**:
-
-- Security can be increased by restricting the virtual network subnet.
-- Exchange of data can be faster and cheaper than other services.
-- Additionally, you get the advantages of using worker nodes with autopools.
-
-**Disadvantages**:
-
-- The set up is very complicated now and errors are likely to occur.
-- Errors can be hard to troubleshoot.
-
-Finally, you can combine some of the previous approaches. Nextflow can create and modify Azure Batch pools based on the pipeline requirements. You can also attach Azure Batch pools to a VNet. Next, attach the worker nodes to the same VNet.
-
-To achieve this, the following requirements must be met:
-
-- The pipeline must be launched on the node pool attached to the VNet.
-- The managed identity must be used to authenticate to Azure Batch and Storage.
-- The managed identity must have permissions to create resources attached to the VNet.
-- Nextflow creates node pools attached to the VNet.
-
-Do the following:
-
-1. Duplicate the `hello-world-entra-mi` pipeline, but modify the compute environment to `3-azure-batch-vnet` and change the pipeline name to `hello-world-vnet`.
-1. Check the virtual network string under the pool details in the Azure Portal, under the **Network Configuration** section. The value should be a Subnet ID, such as `/subscriptions/${subscriptionId}/resourceGroups/${resourceGroup}/providers/Microsoft.Network/virtualNetworks/${vnetName}/subnets/${subnetName}`. Save this value.
-1. Change the Nextflow configuration under the **Advanced** tab to include a virtual network with the autopools:
-
-```nextflow
-process.queue = "auto"
-process.machineType = "Standard_E*d_v5"
-azure {
-    batch {
-        autoPoolMode = true
-        allowPoolCreation = true
-        pools {
-            auto {
-                autoscale = true
-                vmCount = 1
-                maxVmCount = 4
-                virtualNetwork = '/subscriptions/${subscriptionId}/resourceGroups/${resourceGroup}/providers/Microsoft.Network/virtualNetworks/${vnetName}/subnets/${subnetName}'
-            }
-        }
-    }
-}
-```
-
-Select **Launch** next to the `hello-world-vnet` pipeline in your workspace Launchpad to complete the launch form and launch the workflow.
-
-The pipeline runs as before, but using the managed identity to authenticate to Azure Batch and Storage. It also creates worker pools attached to the VNet.
-
-### Clear up resources
-
-Once you have completed setup and workflow execution, you can delete the pipelines and compute environments from Seqera.
-
-In Azure, you can delete the Batch account, which will delete all pools, jobs, and tasks. You can then delete the Storage account.
-
-If you wish to keep the Azure resources, you can remove each pool within a Batch account and mark any active jobs as terminated to free up any quotas on your Azure Batch account.
+To keep the Azure resources, remove each pool in the Batch account and mark any active jobs as terminated to free up quota on the Batch account.
 
 [install-azure-cli]: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
 [install-seqera-cli]: https://docs.seqera.io/platform-cli/installation
 [nextflow-working-directory]: https://docs.seqera.io/nextflow/cache-and-resume#work-directory
 [create-org-workspace]: ../../getting-started/workspace-setup
 [add-pipeline]: ../../getting-started/quickstart-demo/add-pipelines#add-from-the-launchpad
+[azure-batch-reference]: ../../compute-envs/azure-batch
+[azure-batch-entra]: ../../compute-envs/azure-batch#entra-service-principal-and-managed-identity
+[azure-batch-manual-pool]: ../../compute-envs/azure-batch#create-a-nextflow-compatible-azure-batch-pool
+[azure-separate-pools]: ../../troubleshooting_and_faqs/azure_troubleshooting#use-separate-batch-pools-for-head-and-compute-nodes
