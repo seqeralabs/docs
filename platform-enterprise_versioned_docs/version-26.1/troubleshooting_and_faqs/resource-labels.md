@@ -7,6 +7,38 @@ tags: [troubleshooting, help]
 
 Common issues experienced with resource labels in AWS, Azure, and GCP:
 
+**AWS Batch rejects a resource label defined in Nextflow configuration**:
+- Seqera Platform validates the resource labels you create in a workspace, but resource labels defined with the Nextflow [`resourceLabels`](https://docs.seqera.io/nextflow/reference/process#resourcelabels) directive bypass that validation and reach AWS Batch unchanged
+- AWS documents the [allowed characters for Batch tags](https://docs.aws.amazon.com/batch/latest/userguide/tag-restrictions.html) as letters, numbers, spaces, and `_ . : / = + - @`. AWS Batch rejects a job submission whose tag value contains any other character, and the run fails:
+
+  ```text
+  Error executing process > 'NFCORE_RNASEQ:RNASEQ:SORTMERNA_INDEX ([])'
+  Caused by:
+    Tags can only contain letters, numbers, spaces, and the following special characters: _ . : / = + - @ (Service: Batch, Status Code: 400)
+  ```
+
+- This affects any resource label whose value comes from a process or workflow property, such as `task.tag`. Square brackets are a common cause. In a process that declares the Nextflow `tag` directive as `tag "$meta.id"`, an empty `meta` input resolves `$meta.id` to an empty list, and the directive becomes the literal string `[]`
+- To resolve, convert each resource label value to a string, replace the disallowed characters, and truncate to the AWS tag value limit of 256 characters. Replace the example keys and values below with your own:
+
+  ```groovy title="nextflow.config"
+  def sanitizeLabel(value) {
+      // The character class is negated: it matches everything AWS Batch disallows
+      "${value}".replaceAll(/[^A-Za-z0-9 _.:\/=+@-]/, '_').take(256)
+  }
+
+  process {
+      // The closure is evaluated per task, so task and workflow properties resolve at submission
+      resourceLabels = { [
+          pipelineTag: sanitizeLabel(task.tag),
+          pipelineContainer: sanitizeLabel(task.container),
+          pipelineRevision: sanitizeLabel(workflow.revision),
+          pipelineCommitId: sanitizeLabel(workflow.commitId),
+      ] }
+  }
+  ```
+
+- Converting each value to a string also protects against unset properties. `task.tag` and `task.container` are `null` when the process omits the matching directive, `workflow.revision` and `workflow.commitId` are `null` when the run has no Git revision, and string operations on `null` fail. A label that comes out as `__` or `null` records an empty or unset property rather than a usable value
+
 **Tags not appearing in cost reports**:
 - Allow up to 24 hours for tags to appear in AWS cost allocation console
 - For Azure, enable tag inheritance and allow 24 hours for processing
