@@ -18,3 +18,5 @@ The optional `--config` flag is used to pass a custom Nextflow configuration fil
 :::tip
 The `params-file` or `--config` file must be a YAML or JSON file using [Nextflow configuration][nextflow-config] syntax.
 :::
+
+Use `--nextflow-version`, `--syntax-parser`, and `--output-dir` to save the Nextflow version, language parser, and workflow output directory with the pipeline. Launches of the pipeline use these values unless a launch overrides them. See [Nextflow version][nextflow-version], [Enable Nextflow syntax parser v2][syntax-parser-v2], and [Output directory][output-directory].
