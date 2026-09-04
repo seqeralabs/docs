@@ -2,7 +2,7 @@
 title: "Manage Studios"
 description: "Manage Studio sessions."
 date created: "2025-02-06"
-last updated: "2026-08-20"
+last updated: "2026-08-24"
 tags: [data, sessions, studios]
 ---
 
@@ -212,7 +212,7 @@ The drop-down lists only compute environments compatible with the Studio's curre
 - Uses the same `workDir` as the Studio's current compute environment.
 - Is in the `AVAILABLE` status.
 
-The Studio's current compute environment is always listed first, even when it would not be selectable on its own.
+The drop-down groups compute environments by platform. Use the search field to filter by name, region, or platform.
 
 #### Resource label changes {#resource-labels-on-migration}
 

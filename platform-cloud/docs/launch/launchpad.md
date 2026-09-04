@@ -90,7 +90,7 @@ Configure the core settings for your run, including the pipeline source, compute
 
 - **Workflow run name**: A unique identifier for the run, pre-filled with a random name that you can customize.
 - **Labels**: Assign new or existing [labels][labels] to the run.
-- **Compute environment**: The [compute environment][compute-envs] where the run launches.
+- **Compute environment**: The [compute environment][compute-envs] where the run launches. The drop-down groups compute environments by platform and marks the workspace [primary compute environment][primary-compute-env] with a **Primary** badge. Use the search field to filter by name, region, or platform.
 - **Work directory**: The cloud storage or file system path where pipeline scratch data is stored. Seqera Platform creates a scratch sub-folder if you specify only a cloud bucket location. Use file system paths for local or high-performance computing (HPC) compute environments.
   :::note
   The credentials associated with the compute environment must have access to the work directory.
@@ -262,6 +262,7 @@ The following table lists the supported URL query parameters and their correspon
 [nextflow-workflow-outputs]: https://docs.seqera.io/nextflow/workflow#outputs
 [labels]: ../labels/overview
 [compute-envs]: ../compute-envs/overview
+[primary-compute-env]: ../compute-envs/overview#select-default-compute-environment
 [pipeline-schema]: ../pipeline-schema/overview
 [data-lineage]: ../data/data-lineage
 [workspace-settings-lineage]: ../orgs-and-teams/workspace-management#lineage
