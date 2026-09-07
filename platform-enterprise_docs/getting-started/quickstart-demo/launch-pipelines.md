@@ -1,18 +1,20 @@
 ---
 title: "Launch pipelines"
-description: "An introduction to launching nf-core/rnaseq in the community/showcase workspace"
+description: "Launch a pipeline from the Launchpad and set its run parameters."
 date created: "2024-07-08"
-last updated: "2026-06-05"
+last updated: "2026-09-02"
 tags: [platform, launch, pipelines, launchpad, tutorial]
 ---
 
-From the Launchpad in every workspace, you can create and share Nextflow pipelines that run on any supported infrastructure, including all public clouds and most HPC schedulers. A Launchpad pipeline consists of a preconfigured workflow Git repository, [compute environment](../../compute-envs/overview), and launch parameters. This tutorial walks you through launching the nf-core/rnaseq pipeline.
+Launch a pipeline from your workspace Launchpad and set its run parameters, using nf-core/rnaseq as the example.
+
+From the Launchpad in every workspace, you can create and share Nextflow pipelines that run on any supported infrastructure, including all public clouds and most HPC schedulers. A Launchpad pipeline consists of a preconfigured workflow Git repository, [compute environment](../../compute-envs/overview), and launch parameters.
 
 :::info[**Prerequisites**]
 
 You need the following:
 
-- An organization and workspace. See [Set up an organization and workspace](../workspace-setup).
+- An organization and workspace. See [Set up your workspace](../workspace-setup).
 - A workspace [compute environment](../../compute-envs/overview) for your cloud or HPC compute infrastructure.
 - A [pipeline](./add-pipelines) added to your workspace.
 - [Pipeline input data](./add-data) added to your workspace.
@@ -38,8 +40,10 @@ See [Best Practices for Deploying Pipelines with the Seqera Platform](https://se
 
 ### General config
 
+The **General config** section sets the pipeline version, compute environment, and work directory for the run:
+
 - **Pipeline to launch**: The pipeline Git repository name or URL. For saved pipelines, this is prefilled and cannot be edited.
-- **Version name**: The version that will be selected as default for this pipeline.
+- **Version name**: The version selected as the default for this pipeline.
 - **Version ID**: The ID of the pipeline version.
 - **Revision**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch.
 - **Commit ID**: Pin pipeline revision to the most recent HEAD commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
@@ -67,7 +71,7 @@ There are three ways to enter **Run parameters** prior to launch:
 
 - The **Input form view** displays form fields to enter text or select attributes from lists, and browse input and output locations with [Data Explorer](../../data/data-explorer).
 - The **Config view** displays raw configuration text that you can edit directly. Select JSON or YAML format from the **View as** list.
-- **Upload params file** allows you to upload a JSON or YAML file with run parameters.
+- **Upload params file** accepts a JSON or YAML file with run parameters.
 
 Specify your pipeline input and output and modify other pipeline parameters as needed:
 
@@ -91,6 +95,8 @@ Modify other parameters to customize the pipeline execution through the paramete
 ![Read trimming options](./assets/trimmer-settings.png)
 
 ### Advanced settings
+
+Configure optional run settings before you launch:
 
 - Use [resource labels](../../resource-labels/overview) to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, workspace admins can override them from the launch form. Applied resource label names must be unique.
 - Use [Pipeline secrets](../../secrets/overview) to store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
