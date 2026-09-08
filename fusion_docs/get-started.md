@@ -23,13 +23,13 @@ See the compute environment documentation for your specific cloud provider above
 
 ### Task metrics
 
-On Seqera Cloud, Fusion records per-task performance metrics and Seqera retains a copy of them. Seqera uses these metrics to troubleshoot support tickets and to improve Fusion. Self-hosted Seqera Platform installations ship with metrics retention turned off.
+On Seqera Cloud, Fusion records per-task performance metrics and Seqera retains a copy. Seqera uses these metrics to troubleshoot support tickets and to improve Fusion. Self-hosted Seqera Platform installations ship with metrics retention turned off.
 
-Retention is on by default for **new Fusion-enabled compute environments only**. Existing compute environments are unaffected: they keep whatever setting they already have, and Seqera does not start retaining metrics for them.
+Retention is on by default for new Fusion-enabled compute environments only. Existing compute environments keep the setting they already have, and Seqera does not start retaining metrics for them.
 
-You can opt out at any time by turning off **Send Fusion metrics to Seqera** on the compute environment, either when you create it or by editing an existing one. Fusion then continues to write metrics to your own work directory for your own troubleshooting, but Seqera retains nothing.
+To opt out, turn off **Send Fusion metrics to Seqera** on the compute environment, either when you create it or by editing an existing one. Fusion then continues to write metrics to your work directory for your own troubleshooting, but Seqera retains nothing.
 
-The retained copy contains only numeric measurements and a fixed set of labels, such as operation names, cloud providers, and HTTP status codes. It contains no personally identifiable information: no file names, object keys, bucket names, paths, hostnames, or user identifiers. Fields that identify your environment are removed before the copy is written to Seqera-owned storage.
+The retained copy contains only numeric measurements and a fixed set of labels, such as operation names, cloud providers, and HTTP status codes. It contains no personally identifiable information, such as file names, object keys, bucket names, paths, hostnames, or user identifiers. Fields that identify your environment are removed before the copy is written to Seqera-owned storage.
 
 See [Fusion task metrics](./troubleshooting/fusion-task-metrics) for the metric catalog, diagnostic queries, and how to disable collection entirely.
 
