@@ -1,24 +1,37 @@
 ---
-title: "Co-Scientist in Seqera CLI"
-description: "AI-powered assistant for bioinformatics workflows and Seqera Platform"
+title: "Co-Scientist"
+description: "AI assistant for bioinformatics, available in Seqera Platform and the Seqera CLI"
 date created: "2026-03-11"
-last updated: "2026-04-29"
-tags: [co-scientist, cli, ai]
+last updated: "2026-08-25"
+tags: [co-scientist, platform, cli, ai]
 ---
 
-Co-Scientist is Seqera's AI assistant for bioinformatics. You interact with it through the [Seqera CLI](./installation.mdx) (`seqera ai`) to build, run, and debug Nextflow pipelines, manage your data, and drive Seqera Platform from a single terminal session. It combines self-service bioinformatics, conversational intelligence, and autonomous execution in one experience.
+Co-Scientist is Seqera's AI assistant for bioinformatics. It builds, runs, and debugs Nextflow pipelines, manages your data, and works with your Seqera Platform resources.
 
-Co-Scientist works across three contexts:
+Co-Scientist is available on two surfaces:
 
-- **Your Seqera Platform workspace**: View and manage workflows, pipelines, and data through your authenticated account.
-- **Your local environment**: Run commands and edit files in your working directory, with configurable approval controls.
-- **AI capabilities**: Natural language understanding, code generation, and intelligent suggestions.
+- **In Seqera Platform**: Open the Co-Scientist panel from any workspace page. Because Co-Scientist reads the page you are on, you can ask about the run, pipeline, or dataset in front of you without describing it first. See [Co-Scientist in Seqera Platform](./platform.md).
+- **In the Seqera CLI**: Run `seqera ai` in your terminal to work in your local checkout with access to your Platform workspace. See [Installation](./installation.mdx).
+
+Both surfaces use the same assistant and the same Seqera Platform account. Skills, modes, command approval, and the Nextflow language server protocol (LSP) are specific to the CLI.
 
 ## Get started
 
-To get started with Co-Scientist:
+Co-Scientist is available in Seqera Platform and in the Seqera CLI.
 
-1. Install Seqera CLI:
+### In Seqera Platform
+
+The Co-Scientist panel opens alongside the page you are viewing. It can answer questions about what's in front of you.
+
+1. Sign in to [Seqera Platform](https://cloud.seqera.io) and open a workspace.
+1. Select **Co-Scientist** in the navigation to open the panel.
+1. Ask a question about the page you are on, such as why a run failed.
+
+See [Co-Scientist in Seqera Platform](./platform.md) for page context, conversation history, and workspace scope.
+
+### In the Seqera CLI
+
+1. Install the Seqera CLI:
 
    ```bash
    npm install -g seqera
@@ -40,7 +53,7 @@ See [Installation](./installation.mdx) for prerequisites, updates, and developme
 
 ## What you can do
 
-Co-Scientist helps across the full pipeline lifecycle, from writing code to running it on Seqera Platform:
+Co-Scientist helps across the full pipeline lifecycle, from writing code to running it on Seqera Platform.
 
 ### Develop pipelines
 
@@ -48,16 +61,17 @@ Generate Nextflow configurations and pipeline schemas, convert scripts from othe
 
 ### Run and debug on Platform
 
-Launch, monitor, and debug Nextflow workflows from your terminal with real-time status, logs, and run metrics. Browse cloud storage through data links, manage datasets, generate upload and download URLs, and access reference genomes. Co-Scientist has full access to your compute environments, datasets, and workspace.
+Launch, monitor, and debug Nextflow workflows with real-time status, logs, and run metrics. Browse cloud storage through data links, manage datasets, generate upload and download URLs, and access reference genomes. Co-Scientist works with the compute environments, datasets, and workspaces your account can already access.
 
 ### Work your way
 
-Interact in plain English, or use reusable [skills](./skills.md) exposed as slash commands in the `/` palette. Switch between [build, plan, and goal modes](./modes.md) to match execution, analysis, or long-running tasks. Resume earlier sessions with `seqera ai -c`, and organize workspace resources into [projects](./projects.md) using Platform labels.
+Ask in plain English from either surface. In the CLI, use reusable [skills](./skills.md) exposed as slash commands in the `/` palette. Switch between [build, plan, and goal modes](./modes.md) to match execution, analysis, or long-running tasks. Resume earlier sessions with `seqera ai -c`, and organize workspace resources into [projects](./projects.md) using Platform labels.
 
 ## Learn more
 
+- [Co-Scientist in Seqera Platform](./platform.md): Use the Co-Scientist panel in Seqera Platform
 - [Installation](./installation.mdx): Install, update, and configure the CLI
-- [Quickstart](./quickstart.md): Run your first Co-Scientist session
+- [Quickstart](./quickstart.md): Run your first Co-Scientist session in the CLI
 - [Authentication](./authentication.md): Log in, log out, and manage sessions
 - [Use cases](./use-cases.md): Seqera CLI use cases
 - [Using Co-Scientist](./configuration.md): Configure modes, sessions, skills, command approval, and more
