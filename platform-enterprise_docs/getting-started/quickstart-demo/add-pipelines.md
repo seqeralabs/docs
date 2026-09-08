@@ -1,13 +1,23 @@
 ---
 title: "Add pipelines"
-description: "An introduction to adding pipelines to Seqera Platform workspaces"
-date: "12 Jul 2024"
+description: "Add pipelines to your Seqera Platform workspace Launchpad."
+date created: "2024-07-12"
+last updated: "2026-09-02"
 tags: [platform, launch, pipelines, launchpad]
 ---
 
-The Launchpad lists the preconfigured Nextflow pipelines that you can run on the [compute environments](../../compute-envs/overview) in your workspace.
+Add a pipeline to your workspace Launchpad so that workspace participants can launch it in a preconfigured compute environment.
 
-You can import pipelines to your workspace Launchpad in two ways: directly from Seqera Pipelines, or manually with **Add pipeline** in Seqera Platform.
+The Launchpad lists the preconfigured Nextflow pipelines that you can run on the [compute environments](../../compute-envs/overview) in your workspace. You can import pipelines either directly from Seqera Pipelines or manually with **Add pipeline** in Seqera Platform.
+
+:::info[**Prerequisites**]
+
+You need the following:
+
+- An organization and workspace. See [Set up your workspace](../workspace-setup).
+- A workspace [compute environment](../../compute-envs/overview) for your cloud or HPC compute infrastructure.
+
+:::
 
 ## Import from Seqera Pipelines
 

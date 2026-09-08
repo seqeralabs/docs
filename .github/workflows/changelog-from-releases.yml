@@ -61,7 +61,7 @@ jobs:
 
       - name: Install uv
         if: steps.should-process.outputs.process == 'true'
-        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # ratchet:astral-sh/setup-uv@v8.1.0
+        uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
 
       - name: Configure git
         if: steps.should-process.outputs.process == 'true'
