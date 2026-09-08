@@ -151,6 +151,7 @@
             "co-scientist/command-approval",
             "co-scientist/nextflow-lsp",
             "co-scientist/projects",
+            "co-scientist/agents",
             "co-scientist/credits"
           ]
         },
