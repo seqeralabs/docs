@@ -31,33 +31,101 @@ The second kind, AI commands, are backed by skills and sent to the AI backend. T
 
 ## Built-in skills
 
-Your Co-Scientist deployment can expose built-in skills as slash commands. These appear in the `/` command palette and in `/help`.
+Co-Scientist includes a set of built-in skills. Invoke a skill directly with its slash command, or describe your task and Co-Scientist loads the matching skill.
 
-The CLI includes the following built-in skills by default:
+:::note
+Built-in skills change from release to release. Treat this page as a guide rather than an inventory. Type `/` or run `/help` in your session to see the current list for your deployment.
+:::
+
+### Build a pipeline
 
 | Command | Description |
 |---------|-------------|
-| `/nextflow-config` | Generate and explain Nextflow configuration files |
+| `/build-nextflow-pipeline` | Plan and scaffold a new DSL2 pipeline from scripts, notebooks, papers, or informal instructions, before you write any `.nf` code |
+| `/create-workflow` | Assemble a pipeline from existing modules |
+| `/nf-pipeline-design` | Design or refactor pipeline structure, including the shape of `main.nf`, subworkflow boundaries, and channel and metadata flow |
+| `/nextflow-config` | Generate and explain `nextflow.config` files, including scopes, selectors, profiles, and container runtimes |
 | `/nextflow-schema` | Generate `nextflow_schema.json` and sample sheet schema files |
-| `/debug-local-run` | Debug a local Nextflow pipeline run using `.nextflow.log`, work directories, and related artifacts |
-| `/debug-last-run-on-seqera` | Debug the last pipeline run on Seqera Platform |
-| `/convert-jupyter-notebook` | Convert Jupyter notebooks to Nextflow pipelines |
-| `/convert-python-script` | Convert Python scripts, including standalone scripts and Snakemake-style logic, to Nextflow |
-| `/convert-r-script` | Convert R scripts to Nextflow pipelines |
-| `/fix-strict-syntax` | Fix Nextflow strict syntax errors and help migrate pipelines to the v2 parser |
-| `/nf-aggregate` | Aggregate metrics from Nextflow runs on Seqera Platform using the `nf-aggregate` pipeline |
-| `/nf-data-lineage` | Explore Nextflow data lineage to trace which inputs and processes produced a result |
-| `/nf-pipeline-structure` | Analyze a local Nextflow pipeline structure, including processes, workflows, modules, and channel flow |
-| `/nf-run-history` | Analyze local Nextflow run history and summarize recent activity, progress, and recurring issues |
-| `/nf-schema-migration` | Migrate Nextflow pipelines from `nf-validation` to `nf-schema` v2 |
-| `/seqera-mcp` | Access Seqera Platform through MCP tools for structured, validated operations |
-| `/seqera-platform-api` | Query and manipulate Seqera Platform resources directly through the REST API |
-| `/seqerakit` | Write `seqerakit` YAML configuration for automating Seqera Platform setup |
-| `/simplify` | Review changed code for reuse, quality, and efficiency, then clean up issues found |
+| `/triage-pipeline-parameters` | Extract each meaningful setting from source material and triage it into a parameter, a pinned constant, or a profile override |
+| `/nextflow-output-patterns` | Apply the correct operator idioms when aggregating per-sample outputs, including `collectFile`, `join`, `groupTuple`, and channel-level null handling |
+| `/create-container` | Build, claim, or recommend a verified container for a tool, and verify it runs before you write a module |
+| `/nf-docker-scripts` | Decide whether custom scripts belong in `bin/`, in the `template` directive, or inline |
+| `/search-existing-modules` | Search nf-core and the wider community for an existing module before writing your own |
+| `/run-module` | Discover, inspect, and run a single module with `nextflow module search`, `view`, and `run` |
 
-:::note
-The exact built-in skills available in your environment may vary by deployment and release. Use `/help` or type `/` in the CLI to see the current list.
-:::
+### Migrate and modernize
+
+| Command | Description |
+|---------|-------------|
+| `/convert-jupyter-notebook` | Convert Jupyter notebooks to Nextflow processes and workflows |
+| `/convert-python-script` | Convert standalone Python scripts to Nextflow |
+| `/convert-r-script` | Convert R scripts to Nextflow, with containers and conda environments |
+| `/migrate-from-snakemake` | Convert Snakemake workflows to idiomatic DSL2, using a test-first migration loop |
+| `/nextflow-26-syntax` | Write, migrate, or debug workflows under the v2 strict-syntax parser used by Nextflow 26+ |
+| `/nf-v2-boolean-params` | Fix boolean parameter handling under v2 strict syntax |
+| `/nf-schema-migration` | Migrate from `nf-validation` to `nf-schema` v2 |
+| `/maintain-nf-core-pipeline` | Bring an nf-core pipeline up to date, applying template syncs and module updates before remaining code changes |
+| `/nf-plugin-legacy-migration` | Move a legacy plugin to the current plugin registry format |
+
+### Test
+
+| Command | Description |
+|---------|-------------|
+| `/nf-test` | Set up nf-test and write tests for pipelines, modules, and subworkflows |
+| `/repair-nf-test` | Diagnose and fix failing nf-tests, snapshot mismatches, and assertion errors |
+
+### Debug and repair
+
+| Command | Description |
+|---------|-------------|
+| `/debug-local-run` | Debug a local run from `.nextflow.log`, work directories, and task error logs |
+| `/debug-seqera-failed-run` | Debug a failed run on Seqera Platform using workflow details, failed tasks, and logs |
+| `/repair-workflow` | Fix or improve an existing workflow, with the right validation loop for the problem |
+| `/doctor` | Run an end-to-end self-test of your Co-Scientist deployment and report pass/fail per subsystem |
+
+### Understand a pipeline or its history
+
+| Command | Description |
+|---------|-------------|
+| `/nf-pipeline-structure` | Analyze how a local pipeline is organized, including processes, workflows, modules, and data flow |
+| `/nf-run-history` | Summarize your recent local runs, including patterns, progress, and recurring issues |
+| `/nextflow-history` | Inspect the local Nextflow history and cache, and correlate runs with work directories |
+| `/nf-data-lineage` | Trace which inputs and processes produced a result, using the lineage store |
+| `/nf-aggregate` | Aggregate metrics across Seqera Platform runs with the `nf-aggregate` pipeline |
+| `/generate-pipeline-docs` | Generate publishable pipeline documentation from the code and its observed run patterns |
+| `/generate-pipeline-memory` | Build private notes on a pipeline's run history and failure patterns at your organization |
+
+### Work with Seqera Platform
+
+| Command | Description |
+|---------|-------------|
+| `/launch-workflow` | Launch a pipeline on cloud or high-performance computing (HPC) infrastructure, and choose or confirm a compute environment |
+| `/ce-credentials-setup` | Set up compute environments and the cloud or cluster credentials they need |
+| `/seqera-data-links` | Add, list, update, and delete data links, including Amazon S3, Google Cloud Storage, and Azure storage |
+| `/seqera-mcp` | Access Seqera Platform through Model Context Protocol (MCP) tools for structured, validated operations |
+| `/seqerakit` | Write `seqerakit` YAML to automate Seqera Platform setup |
+
+### Choose tools and accelerate
+
+| Command | Description |
+|---------|-------------|
+| `/find-alternative-tools` | For a given analysis step, find the credible tool options with pros, cons, licensing, and a ranked recommendation |
+| `/enumerate-alternative-tools` | Run the same tool enumeration as `/find-alternative-tools`. The `/create-workflow` and `/nf-pipeline-design` planning flows invoke this skill |
+| `/parabricks` | Get version-aware guidance on NVIDIA Parabricks `pbrun` tools and assess GPU readiness |
+| `/genomics-workflow-acceleration` | Add optional GPU steps to an existing genomics workflow, with runtime toggles that default to off |
+
+### Set up and extend Nextflow
+
+| Command | Description |
+|---------|-------------|
+| `/install-nextflow` | Install, upgrade, or verify Nextflow and its Java prerequisites |
+| `/nf-plugin-development` | Create a plugin from the official template and publish it to the plugin registry |
+
+### Review your code
+
+| Command | Description |
+|---------|-------------|
+| `/simplify` | Review changed code for reuse, quality, and efficiency, then clean up the issues found |
 
 ## Payload limits
 

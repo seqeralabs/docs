@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-08-03"
+last updated: "2026-08-28"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -17,6 +17,12 @@ If your Studio session doesn't advance from **starting** status to **running** s
 If you are not a **Maintain** or higher user but you have access to the AWS Console for your organization, check that the AWS Batch compute environment associated with the session is in the **ENABLED** state with a **VALID** status. You can also check the **Compute resources** settings. Contact your organization's AWS administrator if you don't have access to the AWS Console.
 
 If sufficient compute resources aren't available, select **Stop** for the session and any others that are running before trying again. If you have access to the AWS Console for your organization, you can terminate a specific session from the AWS Batch Jobs page (filtering by compute environment queue).
+
+#### Session is stuck in **stopping**
+
+If your Studio session doesn't advance from **stopping** status to **stopped** status within 10 minutes, the **Force stop** action becomes available. Select the three dots next to the status message, then select **Force stop**. Force stopping marks the session as **stopped** immediately so that you can start it again. Any work since the last saved checkpoint may be lost. Checkpoint revalidation restores your data when the session next starts.
+
+To change how long a session must be in **stopping** before you can force stop it, set the `TOWER_DATA_STUDIO_FORCE_STOP_THRESHOLD` environment variable. The default is 10 minutes.
 
 #### Session status is **errored**
 
@@ -97,6 +103,14 @@ Setting the environment variable _inside_ an already running Studio session by e
 Fusion waits two minutes before it uploads the working chunk. Always set `FUSION_REFRESH_TIMEOUT` to `120` or higher. Lower values can create orphaned chunks in the Studio environment that are never uploaded to object storage and cannot be recovered.
 :::
 
+#### Data written by a running session is not visible to pipeline runs {#studio-write-not-visible}
+
+A pipeline run fails when it reads a path that a running Studio session wrote to. The files exist but are 0 bytes, or the directory appears empty.
+
+This issue occurs because Fusion uploads data to object storage in chunks and consolidates those chunks into a complete object only when the Fusion instance that wrote them shuts down. For a Studio session, that happens when the session stops. Separate Fusion instances also do not share a live view of each other's in-progress writes.
+
+To resolve, [stop the Studio session](../studios/managing#stop-a-studio-session) and wait for its status to change to **stopped** before you launch the run. To avoid the problem, upload data for a pipeline with **Data Explorer** or the Seqera Platform CLI (`tw`) instead of writing it from a running session.
+
 ## Custom environments and container images
 
 #### Failed custom environment rebuilds use the cached image
@@ -141,6 +155,34 @@ These are the false positive confirmed findings:
 | json:1.0.0       | CVE-2020-7712⁠       |
 | ini:1.0.0        | CVE-2020-7788⁠       |
 | diff:1.0.0       | GHSA-h6ch-v84p-w6p9⁠ |
+
+## Connect proxy
+
+#### Permission denied errors on OpenShift
+
+The `connect-proxy` pod starts, but the logs show that Caddy, the reverse proxy that `connect-proxy` is built on, can't create its configuration and data directories:
+
+```
+ERROR unable to create folder for config autosave {"dir": "/.config/caddy", "error": "mkdir /.config: permission denied"}
+WARN unable to get instance ID; storage clean stamps will be incomplete {"error": "mkdir /.local: permission denied"}
+```
+
+This issue occurs when OpenShift's `restricted-v2` security context constraint runs the container as an arbitrary user ID (UID) from the namespace's assigned range, ignoring the user the container image defines. Because that UID has no entry in the container image's `/etc/passwd` file, `HOME` resolves to `/`, a directory the UID can't write to. The `runAsUser`, `runAsGroup`, and `fsGroup` values of `65532` in the proxy deployment template are also incompatible with this constraint.
+
+To work around this issue on Kubernetes:
+
+1. Remove the `runAsUser`, `runAsGroup`, and `fsGroup` values from your [Studios Kubernetes deployment](../enterprise/studios-kubernetes).
+2. Caddy uses `XDG_CONFIG_HOME` and `XDG_DATA_HOME` to locate its configuration and data directories. Set them on the proxy container to directories under the `/data` volume that the template already mounts:
+
+   ```yaml
+   env:
+     - name: XDG_CONFIG_HOME
+       value: /data/config
+     - name: XDG_DATA_HOME
+       value: /data/lib
+   ```
+
+If writes to `/data/config` and `/data/lib` still fail with permission denied errors, mount a writable volume, such as an `emptyDir`, at each path.
 
 ## SSH connections (public preview)
 
@@ -228,6 +270,33 @@ Host <connect-domain>
   User <username>@<studio-session-id>
   Port <port>
 ```
+
+#### AI coding assistant fails with `Pseudo-terminal will not be allocated`
+
+```bash
+ssh alice@a01ac8894@connect.example.com -p 2222
+# Pseudo-terminal will not be allocated because stdin is not a terminal.
+```
+
+This issue occurs when an AI coding assistant runs `ssh` as a subprocess, such as Claude Code in a terminal. The assistant doesn't attach a terminal to stdin, and the SSH client refuses to allocate a pseudo-terminal. To resolve, force pseudo-terminal allocation with `-tt`:
+
+```bash
+ssh -tt alice@a01ac8894@connect.example.com -p 2222
+```
+
+#### Claude Code desktop app fails with `Couldn't inspect the remote machine`
+
+```
+Connecting to remote host...
+Detecting remote OS and shell...
+Couldn't inspect the remote machine.
+```
+
+This issue occurs when the connect-server/proxy is earlier than version 0.12.1, or the Connect client is earlier than version 0.13.0. Earlier versions don't run remote commands through a shell, and the app's environment checks fail. To resolve, upgrade the connect-server/proxy to 0.12.1 or later, and ensure your Studio runs Connect client 0.13.0 or later. See [Claude Code desktop app](../studios/managing#claude-code-desktop-app) for setup instructions.
+
+#### Claude Code desktop app fails with `Timed out while waiting for handshake`
+
+This issue occurs because the app ignores the `Port` value in `~/.ssh/config` and defaults to port 22. To resolve, set **SSH Port** to `2222` in the app's connection settings. See [Claude Code desktop app](../studios/managing#claude-code-desktop-app) for setup instructions.
 
 #### SSH connection string format
 

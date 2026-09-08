@@ -2,7 +2,7 @@
 title: "Data Explorer"
 description: "Using Seqera Data Explorer."
 date created: "2023-04-21"
-last updated: "2026-03-31"
+last updated: "2026-08-28"
 tags: [data, explorer, igv, molstar, object, storage, lineage]
 ---
 
@@ -35,6 +35,10 @@ Data Explorer lists public and private data repositories. Repositories accessibl
 - **Configure individual data repositories manually**
 
   Select **Add data repository** from the Data Explorer tab to add a link to an individual repository (or prefix within a cloud bucket). Specify the **Provider**, **Path**, **Name**, **Credentials**, and **Description**, then select **Add**. For public cloud buckets, select **Public** from the **Credentials** drop-down.
+
+:::note
+Add a data-link at the root of any bucket or container used as a pipeline work directory, such as `s3://my-bucket`. Seqera Platform matches a run's work directory only against bucket-root data-links. A data-link scoped to a prefix such as `s3://my-bucket/work` does not open the work directory in Data Explorer. See [Isolate view, read, and write permissions to specific data repository paths](#isolate-view-read-and-write-permissions-to-specific-data-repository-paths).
+:::
 
 ## Remove data repository links
 
@@ -82,14 +86,26 @@ If you remove a data-link associated with a repository, the repository is automa
   - Images (JPG, PNG, SVG, etc.)
 
   :::note
-  With the specific exception of genome tracks, the file size limit for preview is 10 MB. 10-25 MB files can still be downloaded directly.
+  Except for genome tracks, the preview file size limit is 10 MB. You can still download files of 10-25 MB directly.
 
-  Seqera Enterprise users can increase the default 25 MB file size download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#data-features) file. Note that increasing this value may degrade Platform performance.
+  Seqera Enterprise users can increase the default 25 MB download limit with `tower.content.max-file-size` in the `tower.yml` [configuration](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#data-features) file. Increasing this value can degrade Platform performance.
+  :::
+
+  :::note
+  Data Explorer previews an HTML file in isolation, using a pre-signed URL scoped to that file only. Relative references to other files, such as hyperlinks to sibling report pages, images, stylesheets, and scripts, fail with an access denied error. To preview a multi-page report, generate it as a single self-contained HTML file that inlines its assets and uses JavaScript to show and hide sections.
   :::
 
 - **Copy object paths**
 
   Select the **Path** of an object on the **View data repository** page to copy its absolute path to the clipboard. Use these object paths to specify input data locations during [pipeline launch](../launch/launchpad), add them to a [dataset](../data/datasets) for pipeline input, or when mounting data during Studio creation.
+
+### Preview genome files with IGV
+
+Data Explorer renders genome tracks in the browser using the [igv.js library][igv]. Select a supported file, such as a BAM or BED file, from the **View data repository** page to open the viewer. You do not need to download the file or start a Studio.
+
+The viewer requests file data directly from your bucket. Apply a [CORS configuration](#cors-configurations-for-cloud-providers) to each bucket or storage account that holds genome files you want to preview.
+
+For the full IGV desktop application, create an [Xpra Studio with IGV](../getting-started/studios#xpra-visualize-genetic-variants-with-igv) instead.
 
 ### View lineage data for objects
 
@@ -125,6 +141,16 @@ To isolate pipeline or Studios view, read, and write permissions to a specific *
 
 :::note
 This customized Data Explorer view will be displayed by default to all workspace users, until the filter is updated or removed by a workspace maintainer.
+:::
+
+Custom data-links scoped to a prefix do not resolve run work directories. Seqera Platform matches a run's work directory to a data-link whose path is the root of the bucket or container, such as `s3://my-bucket` rather than `s3://my-bucket/work`. It strips the path below the root before matching, searches visible data-links only, and reapplies the path once a data-link matches.
+
+You can still browse a data-link registered at `s3://my-bucket/work`, but it never matches a run whose work directory is `s3://my-bucket/work/a1/b2c3d4`. A hidden bucket-root data-link has the same effect as no bucket-root data-link.
+
+To keep the work directory view, add a visible data-link at the root of each bucket or container used as a pipeline work directory. Your existing prefix-scoped data-links continue to work unchanged. For the symptoms and resolution, see [Work directory cannot be viewed in Data Explorer](../troubleshooting_and_faqs/data_explorer_troubleshooting#work-directory-cannot-be-viewed-in-data-explorer).
+
+:::warning
+A visible bucket-root data-link lets every workspace member, including participants with the View role, browse and download the whole bucket. This removes the path isolation that your prefix-scoped data-links provide. Hiding the bucket-root data-link does not narrow this access, because hidden data-links remain reachable. The credentials you select when you add a data-link define the scope of what Data Explorer reaches through it.
 :::
 
 ## Upload files to private data repositories
@@ -181,11 +207,11 @@ The code snippet provided is specific to the data repository provider you've con
 
 ## CORS configurations for cloud providers
 
-Each cloud provider has a specific way to allow Cross-Origin Resource Sharing (CORS) for both uploads and multi-file downloads.
+Each cloud provider has a specific way to allow Cross-Origin Resource Sharing (CORS) for uploads, multi-file downloads, and genome file previews (IGV).
 
 ### Amazon S3 CORS configuration
 
-Apply a [CORS configuration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html) to enable file uploads and folder downloads from the Seqera Platform to and from specific S3 buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these AWS instructions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enabling-cors-examples.html) to apply the CORS configuration below to each bucket you wish to enable file uploads and folder downloads for:
+Apply a [CORS configuration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html) to enable file uploads, folder downloads, and genome file previews (IGV) from the Seqera Platform to and from specific S3 buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these AWS instructions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enabling-cors-examples.html) to apply the CORS configuration below to each bucket you wish to enable file uploads, folder downloads, and genome file previews for:
 
 **Seqera Cloud S3 CORS configuration**
 
@@ -221,7 +247,7 @@ Replace `<your-seqera-instance.url>` with your Seqera Enterprise server URL:
 CORS configuration in Azure Blob Storage is set at the account level. This means that CORS rules for your account apply to every blob in the account.
 :::
 
-Apply a [CORS configuration](https://learn.microsoft.com/en-us/rest/api/storageservices/cross-origin-resource-sharing--cors--support-for-the-azure-storage-services#enabling-cors-for-azure-storage) to enable file uploads and folder downloads from the Seqera Platform to and from your Azure Blob Storage account.
+Apply a [CORS configuration](https://learn.microsoft.com/en-us/rest/api/storageservices/cross-origin-resource-sharing--cors--support-for-the-azure-storage-services#enabling-cors-for-azure-storage) to enable file uploads, folder downloads, and genome file previews (IGV) from the Seqera Platform to and from your Azure Blob Storage account.
 
 **Seqera Cloud Azure CORS configuration**
 
@@ -251,10 +277,11 @@ Apply a [CORS configuration](https://learn.microsoft.com/en-us/rest/api/storages
 
 ### Google Cloud Storage CORS configuration
 
-Apply a [CORS configuration](https://cloud.google.com/storage/docs/cross-origin#cors-components) to enable file uploads from Seqera to specific GCS buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these Google instructions](https://cloud.google.com/storage/docs/using-cors#command-line) to apply the CORS configuration below to each bucket you wish to enable file uploads for.
+Apply a [CORS configuration](https://cloud.google.com/storage/docs/cross-origin#cors-components) to enable file uploads and genome file previews (IGV) from Seqera to specific GCS buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these Google instructions](https://cloud.google.com/storage/docs/using-cors#command-line) to apply the CORS configuration below to each bucket you wish to enable file uploads and genome file previews for.
 
 :::note
-Google Cloud Storage only supports CORS configuration via gcloud CLI.
+- Google Cloud Storage only supports CORS configuration via gcloud CLI.
+- Genome file previews (IGV) for Google Cloud Storage require Seqera Enterprise 26.1.5 or later.
 :::
 
 **Seqera Cloud GCS CORS configuration**
@@ -286,6 +313,8 @@ Using remote data repositories as inputs for pipelines or Studios currently requ
 :::note
 Compute environment and Fusion multi-credential support will resolve this existing limitation, and is under active development.
 :::
+
+A run's work directory opens in Data Explorer only when the workspace has a visible data-link at the root of the bucket or container that holds the work directory. Data-links scoped to a prefix below the root do not resolve work directories. See [Isolate view, read, and write permissions to specific data repository paths](#isolate-view-read-and-write-permissions-to-specific-data-repository-paths).
 
 {/* links */}
 [roles]: ../orgs-and-teams/roles

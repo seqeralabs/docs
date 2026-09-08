@@ -1,189 +1,312 @@
 #!/usr/bin/env python3
-"""
-Generate CLI reference documentation from metadata JSON.
+"""Generate deterministic CLI reference pages from resolved picocli metadata."""
 
-Similar to OpenAPI overlay pattern:
-1. Parse cli-metadata.json
-2. Generate base markdown from metadata
-3. Merge with manual overlays
-4. Output final documentation
-"""
+from __future__ import annotations
 
-import json
-from pathlib import Path
 import argparse
+import json
+import re
+from pathlib import Path
+from typing import Any, Iterable
 
 
-def generate_subcommand_section(command_data, overlays_dir, level=2):
-    """Generate markdown section for a subcommand."""
+PREFERRED_COMMAND_ORDER = [
+    "info",
+    "generate-completion",
+    "credentials",
+    "compute-envs",
+    "datasets",
+    "data-links",
+    "labels",
+    "secrets",
+    "pipelines",
+    "pipeline-schemas",
+    "launch",
+    "runs",
+    "actions",
+    "organizations",
+    "workspaces",
+    "teams",
+    "members",
+    "participants",
+    "collaborators",
+    "studios",
+]
 
-    # Use full_command from metadata or construct from fullPath
-    full_path = command_data.get('fullPath') or command_data.get('full_command', command_data['name'])
-    description = command_data.get('description', '')
 
-    # Section heading (## for subcommands)
-    heading = '#' * level
-    md = f"\n{heading} `{full_path}`\n\n"
-    md += f"{description}\n\n"
+def clean_text(value: Any) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, list):
+        value = " ".join(str(item) for item in value)
+    return re.sub(r"\s+", " ", str(value)).strip()
 
-    # Command syntax (no Synopsis heading)
-    md += f"```bash\n{full_path} [OPTIONS]\n```\n"
 
-    # Add options table
-    if command_data.get('options'):
-        md += "\n### Options\n\n"
-        md += "| Option | Description | Required | Default |\n"
-        md += "|--------|-------------|----------|----------|\n"
+def prose_text(value: Any) -> str:
+    return (
+        clean_text(value)
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace("{", "&#123;")
+        .replace("}", "&#125;")
+    )
 
-        for opt in command_data['options']:
-            names = ', '.join([f"`{n}`" for n in opt['names']])
-            desc = opt.get('description', '').replace('|', '\\|')
-            required = '✓' if opt.get('required') else ''
-            default = f"`{opt.get('default_value', '')}`" if opt.get('default_value') else ''
-            md += f"| {names} | {desc} | {required} | {default} |\n"
 
-    # Check for subcommand-specific overlay (try multiple patterns)
-    overlay_patterns = [
-        f"{full_path.replace(' ', '-')}.md",          # tw-credentials-add.md
-        f"{full_path.replace(' ', '-')}-examples.md", # tw-credentials-add-examples.md
+def table_cell(value: Any) -> str:
+    return prose_text(value).replace("\\", "\\\\").replace("|", "\\|")
+
+
+def children(command: dict[str, Any]) -> list[dict[str, Any]]:
+    values = command.get("children") or command.get("subcommands") or []
+    return [value for value in values if isinstance(value, dict) and not value.get("hidden")]
+
+
+def full_command(command: dict[str, Any], parent: str | None = None) -> str:
+    explicit = command.get("full_command") or command.get("fullPath")
+    if explicit:
+        return clean_text(explicit)
+    return f"{parent} {command['name']}" if parent else clean_text(command["name"])
+
+
+def overlay_paths(command_path: str, overlays_dir: Path) -> Iterable[Path]:
+    base = re.sub(r"\s+", "-", command_path.strip())
+    yield overlays_dir / f"{base}.md"
+    yield overlays_dir / f"{base}-examples.md"
+
+
+def render_overlays(command_path: str, overlays_dir: Path) -> str:
+    sections = []
+    for overlay in overlay_paths(command_path, overlays_dir):
+        if overlay.is_file():
+            sections.append(overlay.read_text().strip())
+    return "\n\n".join(section for section in sections if section)
+
+
+def render_shared_links(overlays_dir: Path) -> str:
+    shared_links = overlays_dir / "_links.md"
+    return shared_links.read_text().strip() if shared_links.is_file() else ""
+
+
+def syntax(command: dict[str, Any], command_path: str) -> str:
+    parts = [command_path]
+    if command.get("options"):
+        parts.append("[OPTIONS]")
+    for positional in command.get("positionals", []):
+        label = clean_text(positional.get("param_label")) or "PARAM"
+        label = label.strip("<>")
+        parts.append(f"<{label}>" if positional.get("required") else f"[{label}]")
+    return " ".join(parts)
+
+
+def render_arguments(command: dict[str, Any], heading_level: int) -> str:
+    positionals = [item for item in command.get("positionals", []) if not item.get("hidden")]
+    if not positionals:
+        return ""
+    heading = "#" * min(heading_level, 6)
+    lines = [
+        f"{heading} Arguments",
+        "",
+        "| Argument | Description | Required |",
+        "|----------|-------------|----------|",
     ]
+    for positional in positionals:
+        label = clean_text(positional.get("param_label")) or "PARAM"
+        lines.append(
+            f"| `{table_cell(label)}` | {table_cell(positional.get('description'))} | "
+            f"{'Yes' if positional.get('required') else 'No'} |"
+        )
+    return "\n".join(lines)
 
-    for pattern in overlay_patterns:
-        overlay_file = overlays_dir / pattern
-        if overlay_file.exists():
-            md += "\n" + overlay_file.read_text() + "\n"
-            break  # Only use first matching overlay
 
-    return md
+def render_options(command: dict[str, Any], heading_level: int) -> str:
+    options = [item for item in command.get("options", []) if not item.get("hidden")]
+    if not options:
+        return ""
+    heading = "#" * min(heading_level, 6)
+    lines = [
+        f"{heading} Options",
+        "",
+        "| Option | Description | Required | Default |",
+        "|--------|-------------|----------|---------|",
+    ]
+    for option in options:
+        names = ", ".join(f"`{table_cell(name)}`" for name in option.get("names", []))
+        default_value = option.get("default_value")
+        default = f"`{table_cell(default_value)}`" if default_value not in (None, "", "null") else ""
+        lines.append(
+            f"| {names} | {table_cell(option.get('description'))} | "
+            f"{'Yes' if option.get('required') else 'No'} | {default} |"
+        )
+    return "\n".join(lines)
 
 
-def generate_command_page(command_data, overlays_dir):
-    """Generate markdown page for a main command with all its subcommands."""
+def render_command_section(
+    command: dict[str, Any],
+    overlays_dir: Path,
+    level: int,
+    parent_path: str,
+) -> str:
+    command_path = full_command(command, parent_path)
+    heading = "#" * min(level, 6)
+    blocks = [f"{heading} `{command_path}`"]
+    description = prose_text(command.get("description"))
+    if description:
+        blocks.append(description)
+    blocks.append(f"```bash\n{syntax(command, command_path)}\n```")
 
-    name = command_data['name']
-    full_path = command_data.get('fullPath', name)
-    description = command_data.get('description', '')
+    arguments = render_arguments(command, level + 1)
+    if arguments:
+        blocks.append(arguments)
+    options = render_options(command, level + 1)
+    if options:
+        blocks.append(options)
+    overlay = render_overlays(command_path, overlays_dir)
+    if overlay:
+        blocks.append(overlay)
 
-    # Base template with frontmatter
-    md = f"""---
-title: {full_path}
-description: {description}
----
+    for child in children(command):
+        blocks.append(render_command_section(child, overlays_dir, level + 1, command_path))
+    return "\n\n".join(blocks)
 
-# `{full_path}`
 
-{description}
-"""
+def generate_command_page(command: dict[str, Any], overlays_dir: Path) -> str:
+    command_path = full_command(command)
+    raw_description = clean_text(command.get("description"))
+    description = prose_text(raw_description)
+    frontmatter_description = raw_description or f"Reference for {command_path}."
+    blocks = [
+        "---\n"
+        f"title: {json.dumps(command_path)}\n"
+        f"description: {json.dumps(frontmatter_description)}\n"
+        "---",
+        f"# `{command_path}`",
+    ]
+    if description:
+        blocks.append(description)
 
-    # Check for command-level overlay (goes after description, before subcommands)
-    main_overlay_file = overlays_dir / f"{full_path.replace(' ', '-')}.md"
-    if main_overlay_file.exists():
-        md += "\n" + main_overlay_file.read_text() + "\n"
+    overlay = render_overlays(command_path, overlays_dir)
+    if overlay:
+        blocks.append(overlay)
 
-    # Process subcommands (prefer 'children' which has resolved objects over 'subcommands' which may have class names)
-    subcommands = command_data.get('children') or command_data.get('subcommands', [])
-    # Filter out string entries (class names) if any
-    subcommands = [s for s in subcommands if isinstance(s, dict)]
-
-    if subcommands:
-        for subcmd in subcommands:
-            # Use full_command from metadata if available
-            if not subcmd.get('fullPath') and not subcmd.get('full_command'):
-                subcmd['fullPath'] = f"{full_path} {subcmd['name']}"
-            md += generate_subcommand_section(subcmd, overlays_dir, level=2)
-
-            # Process nested subcommands if any (prefer 'children' over 'subcommands')
-            nested_subcommands = subcmd.get('children') or subcmd.get('subcommands', [])
-            # Filter out string entries (class names) if any
-            nested_subcommands = [ns for ns in nested_subcommands if isinstance(ns, dict)]
-
-            if nested_subcommands:
-                for nested_subcmd in nested_subcommands:
-                    # Use full_command from metadata if available
-                    if not nested_subcmd.get('fullPath') and not nested_subcmd.get('full_command'):
-                        parent_path = subcmd.get('fullPath') or subcmd.get('full_command', f"{full_path} {subcmd['name']}")
-                        nested_subcmd['fullPath'] = f"{parent_path} {nested_subcmd['name']}"
-                    md += generate_subcommand_section(nested_subcmd, overlays_dir, level=3)
+    command_children = children(command)
+    if command_children:
+        for child in command_children:
+            blocks.append(render_command_section(child, overlays_dir, 2, command_path))
     else:
-        # Main command has no subcommands, treat it as standalone
-        md += f"\n```bash\n{full_path} [OPTIONS]\n```\n"
-
-        if command_data.get('options'):
-            md += "\n## Options\n\n"
-            md += "| Option | Description | Required | Default |\n"
-            md += "|--------|-------------|----------|----------|\n"
-
-            for opt in command_data['options']:
-                names = ', '.join([f"`{n}`" for n in opt['names']])
-                desc = opt.get('description', '').replace('|', '\\|')
-                required = '✓' if opt.get('required') else ''
-                default = f"`{opt.get('default_value', '')}`" if opt.get('default_value') else ''
-                md += f"| {names} | {desc} | {required} | {default} |\n"
-
-        # Check for command-level overlay for standalone commands (try multiple patterns)
-        standalone_overlay_patterns = [
-            f"{full_path.replace(' ', '-')}.md",
-            f"{full_path.replace(' ', '-')}-examples.md",
-        ]
-
-        for pattern in standalone_overlay_patterns:
-            standalone_overlay_file = overlays_dir / pattern
-            if standalone_overlay_file.exists():
-                md += "\n" + standalone_overlay_file.read_text() + "\n"
-                break
-
-    return md
+        blocks.append(f"```bash\n{syntax(command, command_path)}\n```")
+        arguments = render_arguments(command, 2)
+        if arguments:
+            blocks.append(arguments)
+        options = render_options(command, 2)
+        if options:
+            blocks.append(options)
+    shared_links = render_shared_links(overlays_dir)
+    if shared_links:
+        blocks.append(shared_links)
+    return "\n\n".join(blocks).rstrip() + "\n"
 
 
-def generate_all_docs(metadata_path, overlays_dir, output_dir):
-    """Generate documentation for all commands - one file per main command."""
+def command_sort_key(command: dict[str, Any]) -> tuple[int, str]:
+    name = command["name"]
+    try:
+        return (PREFERRED_COMMAND_ORDER.index(name), name)
+    except ValueError:
+        return (len(PREFERRED_COMMAND_ORDER), name)
 
-    with open(metadata_path) as f:
-        data = json.load(f)
 
-    output_dir = Path(output_dir)
+def expected_overlay_names(command: dict[str, Any]) -> set[str]:
+    command_path = full_command(command)
+    base = re.sub(r"\s+", "-", command_path.strip())
+    names = {f"{base}.md", f"{base}-examples.md"}
+    for child in children(command):
+        names.update(expected_overlay_names(child))
+    return names
+
+
+def validate_overlays(hierarchy: dict[str, Any], overlays_dir: Path) -> None:
+    expected = expected_overlay_names(hierarchy) | {"README.md", "_links.md"}
+    stale = sorted(path.name for path in overlays_dir.glob("*.md") if path.name not in expected)
+    if stale:
+        raise ValueError(
+            "Overlay files do not match a visible command path; rename or remove them: " + ", ".join(stale)
+        )
+
+
+def render_sidebar(commands: list[dict[str, Any]]) -> str:
+    items = "\n".join(
+        f'        {{ type: "doc", id: "reference/{command["name"]}" }},'
+        for command in sorted(commands, key=command_sort_key)
+    )
+    return f'''module.exports = {{
+  clisidebar: [
+    {{ type: "doc", id: "overview" }},
+    {{ type: "doc", id: "installation" }},
+    {{
+      type: "category",
+      label: "Command Reference",
+      link: {{ type: "doc", id: "commands-reference" }},
+      collapsed: false,
+      items: [
+{items}
+      ],
+    }},
+  ],
+}};
+'''
+
+
+def generate_all_docs(
+    metadata_path: Path,
+    overlays_dir: Path,
+    output_dir: Path,
+    sidebar_path: Path | None = None,
+) -> list[Path]:
+    data = json.loads(metadata_path.read_text())
+    hierarchy = data.get("hierarchy") or data.get("tw")
+    if not isinstance(hierarchy, dict):
+        raise ValueError("Metadata has no command hierarchy")
+    commands = children(hierarchy)
+    if not commands:
+        raise ValueError("Metadata command hierarchy has no visible children")
+    validate_overlays(hierarchy, overlays_dir)
+
+    names = [command.get("name") for command in commands]
+    if any(not isinstance(name, str) or not name for name in names):
+        raise ValueError("Every top-level command must have a non-empty name")
+    if len(names) != len(set(names)):
+        raise ValueError("Top-level command names must be unique")
+
     output_dir.mkdir(parents=True, exist_ok=True)
+    generated = []
+    expected_names = {f"{name}.md" for name in names}
+    for stale_page in output_dir.glob("*.md"):
+        if stale_page.name not in expected_names:
+            stale_page.unlink()
 
-    # Use the pre-built hierarchy which has the complete command tree
-    hierarchy = data.get('hierarchy', {})
-
-    if not hierarchy or not hierarchy.get('children'):
-        print("Error: Could not find hierarchy or it has no children")
-        return
-
-    # Process only top-level commands (one file per main command)
-    for main_cmd in hierarchy['children']:
-        # Use the command name from the metadata
-        page_name = main_cmd['name']
-
-        # Set fullPath based on full_command in metadata
-        main_cmd['fullPath'] = main_cmd.get('full_command', f"tw {page_name}")
-
-        # Convert children list to subcommands for compatibility with existing functions
-        if main_cmd.get('children'):
-            main_cmd['subcommands'] = main_cmd['children']
-
-        # Generate single page with all subcommands
-        page_path = output_dir / f"{page_name}.md"
-
-        content = generate_command_page(main_cmd, overlays_dir)
-        page_path.write_text(content)
-
+    for command in commands:
+        page_path = output_dir / f"{command['name']}.md"
+        page_path.write_text(generate_command_page(command, overlays_dir))
+        generated.append(page_path)
         print(f"Generated: {page_path}")
 
-    print(f"\n✓ Generated documentation in {output_dir}")
+    if sidebar_path:
+        sidebar_path.write_text(render_sidebar(commands))
+        generated.append(sidebar_path)
+        print(f"Generated: {sidebar_path}")
+    print(f"Generated {len(commands)} command pages in {output_dir}")
+    return generated
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Generate CLI docs from metadata')
-    parser.add_argument('--metadata', required=True, help='Path to cli-metadata.json')
-    parser.add_argument('--overlays', required=True, help='Directory with manual overlays')
-    parser.add_argument('--output', required=True, help='Output directory')
-
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--metadata", type=Path, required=True)
+    parser.add_argument("--overlays", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--sidebar", type=Path)
     args = parser.parse_args()
+    generate_all_docs(args.metadata, args.overlays, args.output, args.sidebar)
+    return 0
 
-    generate_all_docs(
-        Path(args.metadata),
-        Path(args.overlays),
-        Path(args.output)
-    )
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,23 +1,35 @@
 ---
 title: "Add data"
-description: "An introduction to adding pipeline input data in Seqera Platform"
+description: "Add pipeline input data to your workspace with Data Explorer and datasets."
 date created: "2024-07-21"
-last updated: "2025-08-01"
+last updated: "2026-09-02"
 tags: [platform, data, data explorer, datasets]
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Most bioinformatics pipelines require an input of some sort. This is typically a samplesheet where each row consists of a sample, the location of files for that sample (such as FASTQ files), and other sample details. Reliable shared access to pipeline input data is crucial to simplify data management, minimize user data-input errors, and facilitate reproducible workflows.
+Make your pipeline input data available in your workspace for participants to select at launch.
 
-In Platform, samplesheets and other data can be made easily accessible in one of two ways:
+Most bioinformatics pipelines require input data, typically a samplesheet where each row consists of a sample, the location of files for that sample (such as FASTQ files), and other sample details. Reliable shared access to pipeline input data simplifies data management, reduces data-input errors, and supports reproducible workflows.
+
+In Platform, you can make samplesheets and other data accessible in two ways:
+
 - Use **Data Explorer** to browse and interact with remote data from AWS S3, Azure Blob Storage, and Google Cloud Storage repositories, directly in your organization workspace.
 - Use **Datasets** to upload structured data to your workspace in CSV (Comma-Separated Values) or TSV (Tab-Separated Values) format.
 
-## Data Explorer
+:::info[**Prerequisites**]
 
-For pipeline runs in the cloud, users typically need access to buckets or blob storage to upload files (such as samplesheets and reference data) for analysis and to view pipeline results. Managing credentials and permissions for multiple users and training users to navigate cloud consoles and CLIs can be complicated. Data Explorer provides the simplified alternative of viewing your data directly in Platform.
+You need the following:
+
+- An organization and workspace. See [Set up your workspace](../workspace-setup).
+- Workspace [credentials](../../credentials/overview) for the cloud provider that hosts your data. Public buckets do not require credentials.
+
+:::
+
+## Add data with Data Explorer
+
+For pipeline runs in the cloud, users typically need access to buckets or blob storage to upload files (such as samplesheets and reference data) for analysis and to view pipeline results. Managing credentials and permissions for multiple users and training users to navigate cloud consoles and CLIs can be complicated. Instead, view your data directly in Platform with Data Explorer.
 
 ### Add a cloud bucket
 
@@ -60,7 +72,7 @@ In Data Explorer, you can:
    - **Preview files**:
     Select a file to open a preview window that includes a **Download** button. For example, view the resultant gene counts of the salmon quantification step of an *nf-core/rnaseq* run:
 
-## Datasets
+## Add data with datasets
 
 Datasets in Platform are CSV (comma-separated values) and TSV (tab-separated values) files stored in a workspace. You can select stored datasets as input data when launching a pipeline.
 
@@ -94,7 +106,7 @@ Specify the following dataset details:
 - A **Name** for the dataset, such as `nf-core-rnaseq-test-dataset`.
 - A **Description** for the dataset.
 - Select the **First row as header** option to prevent Platform from parsing the header row of the samplesheet as sample data.
-- Select **Upload file** and browse to your CSV or TSV file in local storage, or simply drag and drop it into the box.
+- Select **Upload file** and browse to your CSV or TSV file in local storage, or drag and drop it into the box.
 
 Notice the location of the files in the *nf-core/rnaseq* example dataset point to a path on S3. This could also be a path to a shared filesystem, if using an HPC compute environment. Nextflow will use these paths to stage the files into the task working directory.
 

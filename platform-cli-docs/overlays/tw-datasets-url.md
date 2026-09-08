@@ -1,7 +1,7 @@
-Run `tw datasets url -h` to view the required and optional fields for obtaining dataset URLs.
+Run `tw datasets url -h` to view the required and optional fields for obtaining a dataset URL.
 
-```bash
-tw datasets url -n dataset2
+```console
+$ tw datasets url -n dataset2
 
 Dataset URL
 

@@ -1,177 +1,114 @@
 ---
-title: tw secrets
-description: Manage secrets
+title: "tw secrets"
+description: "Manage secrets"
 ---
 
-# tw secrets
+# `tw secrets`
+
+Manage secrets
 
 Run `tw secrets -h` to view supported workspace secret operations.
 
-[Secrets](https://docs.seqera.io/platform-cloud/secrets/overview) are used to store the keys and tokens used by workflow tasks to interact with external systems, such as a password to connect to an external database or an API token.
+[Secrets][secrets] are used to store the keys and tokens used by workflow tasks to interact with external systems, such as a password to connect to an external database or an API token.
 
-## tw secrets list
+## `tw secrets list`
 
-List secrets.
+List secrets
 
 ```bash
 tw secrets list [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
 
-#### Example
+## `tw secrets add`
 
-Command:
-
-```bash
-tw secrets list -w 123456789012345
-```
-
-Example output:
-
-```bash
-  Secrets at [my-organization-updated / my-workspace] workspace:
-
-
-ID              | Name                 | Last updated
-    -----------------+----------------------+-------------------------------
-    333444555666777 | secret2              | Thu, 15 Jan 2026 13:33:55 GMT
-```
-
-## tw secrets add
-
-Add a secret.
+Add a secret
 
 ```bash
 tw secrets add [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-n`, `--name` | Secret name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. | Yes | `null` |
-| `-v`, `--value` | Secret value, to be stored securely. The secret is made available to pipeline executions at runtime. | No | `null` |
+|--------|-------------|----------|---------|
+| `-n`, `--name` | Secret name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. | Yes |  |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-v`, `--value` | Secret value, to be stored securely. The secret is made available to pipeline executions at runtime. | No |  |
 | `--overwrite` | Overwrite the secret if it already exists | No | `false` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
 
 Run `tw secrets add -h` to view the required and optional fields for adding a secret.
 
-#### Example
+## `tw secrets delete`
 
-Command:
-
-```bash
-tw secrets add -n secret2 -v secret-value -w 123456789012345
-```
-
-Example output:
-
-```bash
-New secret 'secret2' (333444555666777) added at [my-organization-updated / my-workspace] workspace
-```
-
-## tw secrets view
-
-View secret details.
-
-```bash
-tw secrets view [OPTIONS]
-```
-
-#### Options
-
-| Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
-| `-i`, `--id` | Secret identifier | No | `null` |
-| `-n`, `--name` | Secret name | No | `null` |
-
-#### Example
-
-Command:
-
-```bash
-tw secrets view -n secret2 -w 123456789012345
-```
-
-Example output:
-
-```bash
-Secret at [my-organization-updated / my-workspace] workspace:
-
-
----------+-------------------------------
-     ID      | 333444555666777
-     Name    | secret2
-     Created | Thu, 15 Jan 2026 13:33:55 GMT
-     Updated | Thu, 15 Jan 2026 13:33:55 GMT
-     Used    |
-```
-
-## tw secrets update
-
-Update a secret.
-
-```bash
-tw secrets update [OPTIONS]
-```
-
-#### Options
-
-| Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-v`, `--value` | New secret value, to be stored securely. The secret is made available to pipeline executions at runtime. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
-| `-i`, `--id` | Secret identifier | No | `null` |
-| `-n`, `--name` | Secret name | No | `null` |
-
-#### Example
-
-Command:
-
-```bash
-tw secrets update -n secret2 -v new-value -w 123456789012345
-```
-
-Example output:
-
-```bash
-Secret 'secret2' updated at [my-organization-updated / my-workspace] workspace
-```
-
-## tw secrets delete
-
-Delete a secret.
+Delete a secret
 
 ```bash
 tw secrets delete [OPTIONS]
 ```
 
-#### Options
+### Options
 
 | Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
-| `-i`, `--id` | Secret identifier | No | `null` |
-| `-n`, `--name` | Secret name | No | `null` |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Secret identifier | Yes |  |
+| `-n`, `--name` | Secret name | Yes |  |
 
-#### Example
+## `tw secrets view`
 
-Command:
-
-```bash
-tw secrets delete -n secret2 -w 123456789012345
-```
-
-Example output:
+View secret details
 
 ```bash
-
-
-  Secret 'secret2' deleted at [my-organization-updated / my-workspace] workspace
+tw secrets view [OPTIONS]
 ```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Secret identifier | Yes |  |
+| `-n`, `--name` | Secret name | Yes |  |
+
+## `tw secrets update`
+
+Update a secret
+
+```bash
+tw secrets update [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-v`, `--value` | New secret value, to be stored securely. The secret is made available to pipeline executions at runtime. | No |  |
+| `-i`, `--id` | Secret identifier | Yes |  |
+| `-n`, `--name` | Secret name | Yes |  |
+
+[actions]: /platform-cloud/pipeline-actions/overview
+[compute-envs]: /platform-cloud/compute-envs/overview
+[credentials]: /platform-cloud/credentials/overview
+[data-explorer]: /platform-cloud/data/data-explorer
+[datasets]: /platform-cloud/data/datasets
+[git-integration]: /platform-cloud/git/overview
+[labels]: /platform-cloud/labels/overview
+[nextflow-config]: https://docs.seqera.io/nextflow/config#config-syntax
+[organizations]: /platform-cloud/orgs-and-teams/organizations
+[participant-roles]: /platform-cloud/orgs-and-teams/roles
+[resource-labels]: /platform-cloud/resource-labels/overview
+[run-details]: /platform-cloud/monitoring/run-details
+[secrets]: /platform-cloud/secrets/overview
+[shared-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
+[studio-checkpoints]: /platform-cloud/studios/managing#studio-session-checkpoints
+[studios]: /platform-cloud/studios/overview
+[tower-agent]: /platform-cloud/supported_software/agent/overview
+[user-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
+[wave-docs]: https://docs.seqera.io/wave

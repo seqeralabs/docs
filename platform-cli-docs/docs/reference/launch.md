@@ -1,90 +1,101 @@
 ---
-title: tw launch
-description: Launch a pipeline
+title: "tw launch"
+description: "Launch a pipeline"
 ---
 
-# tw launch
+# `tw launch`
 
-Launch a pipeline.
-
-```bash
-tw launch [OPTIONS] <pipeline>
-```
+Launch a pipeline
 
 Run `tw launch -h` to view supported launch options.
 
-The `<pipeline>` parameter can be:
-- **Saved pipeline name**: Launch a pre-configured pipeline from your workspace Launchpad (e.g., `nf-hello-2026`)
-- **Git repository URL**: Launch directly from a pipeline repository (e.g., `https://github.com/nextflow-io/hello`)
+### Example
 
-Use saved pipeline names for pre-configured workflows with specific parameters and compute environments. Use Git URLs for ad-hoc pipeline execution or when launching pipelines not yet saved to the workspace.
-
-## Options
-
-| Option | Description | Required | Default |
-|--------|-------------|----------|----------|
-| `--params-file` | Pipeline parameters in JSON or YAML format. Provide the path to a file containing the content. | No | `null` |
-| `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. | No | `null` |
-| `-n`, `--name` | Custom run name for the workflow execution. | No | `null` |
-| `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No | `null` |
-| `-p`, `--profile` | Array of Nextflow configuration profile names to apply. | No | `null` |
-| `-r`, `--revision` | Git [revision, branch, or tag](https://docs.seqera.io/platform-cloud/pipelines/revision) to use. Use `--commit-id` to pin a specific commit within that revision. | No | `null` |
-| `--commit-id` | Specific Git commit hash to [pin](https://docs.seqera.io/platform-cloud/pipelines/revision) the pipeline execution to. | No | `null` |
-| `--version-id` | Launch a specific saved [pipeline version](https://docs.seqera.io/platform-cloud/pipelines/versioning) by version identifier. Available when launching a saved pipeline name from the Launchpad. | No | `null` |
-| `--version-name` | Launch a specific saved [pipeline version](https://docs.seqera.io/platform-cloud/pipelines/versioning) by version name. Available when launching a saved pipeline name from the Launchpad. | No | `null` |
-| `--wait` | Wait until workflow reaches specified status: SUBMITTED, RUNNING, SUCCEEDED, FAILED, CANCELLED | No | `null` |
-| `-l`, `--labels` | Labels to assign to each pipeline run. Provide comma-separated label values (use key=value format for resource labels). Labels will be created if they don't exist | No | `null` |
-| `--launch-container` | Container image to use for the Nextflow launcher. | No | `null` |
-| `--config` | Nextflow configuration as text (overrides config files). Provide the path to a file containing the content. | No | `null` |
-| `--pre-run` | Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No | `null` |
-| `--post-run` | Add a script that executes after all Nextflow processes have completed. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No | `null` |
-| `--pull-latest` | Pull the latest version of the pipeline from the repository. | No | `null` |
-| `--stub-run` | Execute a stub run for testing (processes return dummy results). | No | `null` |
-| `--main-script` | Alternative main script filename. Default: `main.nf`. | No | `null` |
-| `--entry-name` | Workflow entry point name when using Nextflow DSL2. | No | `null` |
-| `--schema-name` | Name of the pipeline schema to use. | No | `null` |
-| `--user-secrets` | Array of user secrets to make available to the pipeline. | No | `null` |
-| `--workspace-secrets` | Array of workspace secrets to make available to the pipeline. | No | `null` |
-| `--disable-optimization` | Turn off the optimization for the pipeline before launching. | No | `null` |
-| `--head-job-cpus` | Number of CPUs allocated for the Nextflow head job. | No | `null` |
-| `--head-job-memory` | Memory allocation for the Nextflow head job in megabytes. | No | `null` |
-| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to `TOWER_WORKSPACE_ID` environment variable, or personal workspace if not set) | No | `TOWER_WORKSPACE_ID` |
-
-#### Example
-
-Command:
+Launch a pipeline directly from its repository URL:
 
 ```bash
-tw launch -w 123456789012345 nf-hello-2026
+tw launch https://github.com/nf-core/rnaseq \
+  --params-file=./custom_rnaseq_params.yaml \
+  --config=<path/to/nextflow/conf/file> \
+  --compute-env=my_aws_ce \
+  --revision 3.8.1 \
+  --profile=test,docker
 ```
 
 Example output:
 
-```bash
-Workflow 7q8r9s0t1u2v3 submitted at [my-organization-updated / my-workspace] workspace.
+```console
+Workflow 2XDXxX0vCX8xhx submitted at user workspace.
 
-    https://cloud.seqera.io/orgs/my-organization-updated/workspaces/my-workspace/watch/7q8r9s0t1u2v3
+    https://cloud.seqera.io/user/user1/watch/2XDXxX0vCX8xhx
 ```
 
-## Pipeline versions and source revision
+- Pipeline parameters are defined in `custom_rnaseq_params.yaml`.
+- The optional `--config` file overrides values from the pipeline repository's `nextflow.conf` and ignores values in Platform pipeline or compute environment **Nextflow config** fields.
+- Use `--profile` and `--revision` to select Nextflow profiles and a Git revision.
+- Omit `--compute-env` to use the workspace primary compute environment.
 
-For saved Launchpad pipelines, target a published version by name or ID:
-
-```bash
-tw launch \
-  -w 123456789012345 \
-  --version-name my-pipeline-2 \
-  my-pipeline
-```
-
-If you do not provide `--version-id` or `--version-name`, the CLI launches the pipeline's default saved version.
-
-For direct Git URL launches, use `--revision` and optionally `--commit-id` to control the source revision:
+:::note
+CLI users have the same permissions as in the Platform UI. Launch users can run preconfigured pipelines in accessible workspaces, but they cannot add or run a new pipeline directly from its repository URL.
+:::
 
 ```bash
-tw launch \
-  -w 123456789012345 \
-  --revision main \
-  --commit-id a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2 \
-  https://github.com/nextflow-io/hello
+tw launch [OPTIONS] <PIPELINE_OR_URL>
 ```
+
+## Arguments
+
+| Argument | Description | Required |
+|----------|-------------|----------|
+| `PIPELINE_OR_URL` | Workspace pipeline name or pipeline URL | Yes |
+
+## Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `--params-file` | Pipeline parameters in JSON or YAML format. Provide the path to a file containing the content. Use '-' to read from stdin. | No |  |
+| `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. | No |  |
+| `-n`, `--name` | Custom run name for the workflow execution. | No |  |
+| `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No |  |
+| `-p`, `--profile` | Array of Nextflow configuration profile names to apply. | No |  |
+| `-r`, `--revision` | Git revision, branch, or tag to use. Use --commit-id to pin to a specific commit within the revision. | No |  |
+| `--commit-id` | Specific Git commit hash to pin the pipeline execution to. | No |  |
+| `--version-id` | Pipeline version identifier | Yes |  |
+| `--version-name` | Pipeline version name | Yes |  |
+| `--wait` | Wait until workflow reaches specified status: SUBMITTED, RUNNING, SUCCEEDED, FAILED, CANCELLED, UNKNOWN | No |  |
+| `-l`, `--labels` | Labels to assign to each pipeline run. Provide comma-separated label values (use key=value format for resource labels). Labels will be created if they don't exist | No |  |
+| `--launch-container` | Container image to use for the Nextflow launcher. | No |  |
+| `--config` | Nextflow configuration as text (overrides config files). Provide the path to a file containing the content. Use '-' to read from stdin. | No |  |
+| `--pre-run` | Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. Use '-' to read from stdin. | No |  |
+| `--post-run` | Add a script that executes after all Nextflow processes have completed. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. Use '-' to read from stdin. | No |  |
+| `--pull-latest` | Pull the latest version of the pipeline from the repository. | No |  |
+| `--stub-run` | Execute a stub run for testing (processes return dummy results). | No |  |
+| `--main-script` | Alternative main script filename. Default: `main.nf`. | No |  |
+| `--entry-name` | Workflow entry point name when using Nextflow DSL2. | No |  |
+| `--schema-name` | Name of the pipeline schema to use. | No |  |
+| `--user-secrets` | Array of user secrets to make available to the pipeline. | No |  |
+| `--workspace-secrets` | Array of workspace secrets to make available to the pipeline. | No |  |
+| `--disable-optimization` | Turn off the optimization for the pipeline before launching. | No |  |
+| `--head-job-cpus` | Number of CPUs allocated for the Nextflow head job. | No |  |
+| `--head-job-memory` | Memory allocation for the Nextflow head job in megabytes. | No |  |
+
+[actions]: /platform-cloud/pipeline-actions/overview
+[compute-envs]: /platform-cloud/compute-envs/overview
+[credentials]: /platform-cloud/credentials/overview
+[data-explorer]: /platform-cloud/data/data-explorer
+[datasets]: /platform-cloud/data/datasets
+[git-integration]: /platform-cloud/git/overview
+[labels]: /platform-cloud/labels/overview
+[nextflow-config]: https://docs.seqera.io/nextflow/config#config-syntax
+[organizations]: /platform-cloud/orgs-and-teams/organizations
+[participant-roles]: /platform-cloud/orgs-and-teams/roles
+[resource-labels]: /platform-cloud/resource-labels/overview
+[run-details]: /platform-cloud/monitoring/run-details
+[secrets]: /platform-cloud/secrets/overview
+[shared-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
+[studio-checkpoints]: /platform-cloud/studios/managing#studio-session-checkpoints
+[studios]: /platform-cloud/studios/overview
+[tower-agent]: /platform-cloud/supported_software/agent/overview
+[user-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
+[wave-docs]: https://docs.seqera.io/wave
