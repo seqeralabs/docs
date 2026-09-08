@@ -2,7 +2,7 @@
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-05-28"
+last updated: "2026-09-01"
 tags: [google, batch, gcp, compute environments]
 ---
 
@@ -64,6 +64,7 @@ By default, Google Cloud Batch uses the default Compute Engine service account t
 - Logs Writer (`roles/logging.logWriter`) on the project (to let jobs generate logs in Cloud Logging)
 - Logs Viewer (`roles/logging.logViewer`) on the project (to view and retrieve logs from Cloud Logging)
 - Service Account User (`roles/iam.serviceAccountUser`)
+- Secret Manager Secret Accessor (`roles/secretmanager.secretAccessor`) on the project (required if your pipelines use Seqera secrets; the head job and tasks read secrets from GCP Secret Manager)
 
 If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below.
 
@@ -74,6 +75,7 @@ Ask your Google Cloud administrator to grant you the following IAM user permissi
 - Batch Job Editor (`roles/batch.jobsEditor`) on the project
 - Service Account User (`roles/iam.serviceAccountUser`) on the job's service account (default: Compute Engine service account)
 - View Service Accounts (`roles/iam.serviceAccountViewer`) on the project
+- `storage.buckets.list` on the project via a custom role, if you use per-bucket Storage grants instead of project-wide Storage Admin. Seqera requires this permission to validate credentials — without it, credential validation fails and the compute environment is marked invalid.
 
 #### Authentication methods
 
@@ -217,13 +219,13 @@ To specify virtual machine settings in Platform during compute environment creat
 To specify virtual machine settings per pipeline run in Platform, or as a persistent configuration in your Nextflow pipeline repository, use Nextflow process directives. See [Google Cloud Batch process definition](https://docs.seqera.io/nextflow/google#process-definition) for more information.
 :::
 
-When Fusion v2 is enabled, the following virtual machine settings are applied:
-- A 375 GB local NVMe SSD is selected for all compute jobs.
+When you enable Fusion v2, the following virtual machine settings apply:
+- Unless you specify an instance template, Nextflow requests a 375 GB scratch disk for all compute jobs. Families that support local SSDs use `local-ssd`. Other families use a persistent disk or Hyperdisk volume.
 - If you do not specify a machine type, a VM from families that support local SSDs is selected.
-- Any machine types you specify in the Nextflow config must support local SSDs.
-- Local SSDs are only offered in multiples of 375 GB. You can increment the number of SSDs used per process with the `disk` directive to request multiples of 375 GB. To work with files larger than 100 GB, use at least two SSDs (750 GB or more).
-- Fusion v2 can also use persistent disks for caching. Override the disk requested by Fusion using the `disk` directive and the `type: pd-standard`.
-- The `machineType` directive can be used to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
+- Local SSDs are only offered in multiples of 375 GB. Increment the scratch disk per process with the `disk` directive, for example `disk = [request: 750.GB, type: 'local-ssd']`. Without the `type` option, `disk` sets the boot disk size instead. To work with files larger than 100 GB, use at least two local SSDs (750 GB or more).
+- Fusion v2 can also use persistent disks for caching. See [Scratch disk](https://docs.seqera.io/fusion/guide/gcp-batch#scratch-disk) to choose a disk type.
+- Instance templates override the `disk` directive. To use Fusion with an instance template, the template must include a `local-ssd` disk named `fusion` with 375 GB.
+- Use the `machineType` directive to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
 
 :::note
 Wave containers and Fusion v2 are recommended features for added capability and improved performance, but neither are required to execute workflows in your compute environment.
@@ -283,6 +285,32 @@ If you use VM instance templates for the head or compute jobs (see below), resou
     The **Instance Type** field sets a default machine type at the compute environment level. You can override this for individual processes using the `machineType` [process directive](https://docs.seqera.io/nextflow/google#process-definition) in your Nextflow configuration.
     :::
 1. Use **Head job CPUs** and **Head job memory** to specify the CPUs and memory allocated for the head job.
+
+   :::caution
+   The default head job resource values are insufficient for production pipelines.
+   The Nextflow head job is a JVM process that tracks every submitted task, manages pipeline state, and polls the GCP Batch API.
+   If the head job runs out of memory mid-run, the pipeline fails.
+   Tasks already running on worker VMs run to completion, but no new tasks are scheduled.
+   Output files that were already written are not cleaned up automatically. Results may be incomplete.
+
+   Size the head job based on the number of tasks in your pipeline:
+
+   | Pipeline scale | Tasks | Recommended CPUs | Recommended memory |
+   |---|---|---|---|
+   | Small | Up to 100 | 2 | 4 GB |
+   | Medium | 100–500 | 4 | 8 GB |
+   | Large | 500+ | 8 | 16 GB |
+
+   Head job memory scales with the number of concurrent tasks and total pipeline duration.
+   Long-running pipelines keep thousands of task records in memory for resumability, and need more memory than short pipelines with the same peak parallelism.
+   Increase CPUs if task scheduling is slow or the head job logs show high garbage collection (GC) pressure.
+
+   For large pipelines, you can also increase the JVM heap directly by setting `NXF_JVM_ARGS="-Xms4g -Xmx12g"` as a **Head job** environment variable (see [Scripting and environment variables](#scripting-and-environment-variables)).
+   :::
+
+   :::note
+   If you specify a **Head job instance template** (see step 9), the template's machine type overrides the **Head job CPUs** and **Head job memory** values set here.
+   :::
 1. Use **Service Account email** to specify a service account email address other than the Compute Engine default to execute workflows with this compute environment (recommended for productions environments).
 1. Use **VPC** and **Subnet** to specify the name of a VPC network and subnet to be used by this compute environment. You can apply network tags directly in the **Network Tags** field (see below) or through VM instance templates used for the Nextflow head and compute jobs.
     :::note

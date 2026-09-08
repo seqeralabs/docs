@@ -68,6 +68,23 @@ process {
 }
 ```
 
+## GPUs
+
+#### `CUDA safe call. System has unsupported display driver / CUDA driver combination`
+
+```
+CUDA safe call. System has unsupported display driver / CUDA driver combination exiting
+```
+
+This error occurs when the container's CUDA runtime is newer than the NVIDIA driver on the compute environment's AMI.
+
+To resolve, do one of the following:
+
+- Update the AMI to one with a newer NVIDIA driver. Use the latest AWS-recommended GPU-optimized ECS AMI (the default when **Enable GPUs** is set), or build a custom AMI with a driver version that meets the container's CUDA requirement. See the [NVIDIA CUDA compatibility matrix](https://docs.nvidia.com/deploy/cuda-compatibility/) for the minimum driver version.
+- Pin the container to a supported CUDA version. Use a container image built against a CUDA runtime the installed driver supports. NVIDIA Parabricks, for example, publishes image tags for each CUDA version. Select one that matches the AMI's driver.
+
+To confirm the active driver on a failed task, see the **Driver version** field in [GPU metrics](../compute-envs/overview#gpu-metrics).
+
 ## Storage
 
 **Enable pipelines to write to S3 buckets that enforces AES256 server-side encryption**

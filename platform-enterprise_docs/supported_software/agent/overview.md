@@ -26,6 +26,19 @@ The default Seqera Platform HPC model opens an SSH connection to the cluster log
 
 Tower Agent reverses the connection direction. The agent runs on a node that can submit jobs to the scheduler (typically the login node) and opens a persistent outbound authenticated WebSocket connection to Seqera. Seqera sends pipeline commands (submit jobs, check status, stream logs) through that channel. The agent executes them locally as the user who started it.
 
+```mermaid
+flowchart RL
+    subgraph login["Login node"]
+        direction TB
+        agent["tw-agent"]
+        scheduler["Slurm / LSF / PBS Pro / Grid Engine"]
+        workers["Worker nodes"]
+        agent -->|submits| scheduler
+        scheduler --> workers
+    end
+    login ==>|outbound secure channel| seqera["Seqera Platform<br/>(Cloud or Enterprise)"]
+```
+
 This approach has three properties:
 
 - **Jobs run as you.** The agent submits to the scheduler as the Linux user who launched it. Job accounting, quotas, and audit logs reflect the correct identity, with no shared service account.

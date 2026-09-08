@@ -16,6 +16,7 @@ Pipeline optimization (Groundswell) uses resource usage data from previous workf
 | Docker Compose | [Pipeline optimization: Docker Compose](./groundswell-docker-compose) |
 
 See each deployment guide for detailed requirements.
+For an example TLS configuration for the pipeline optimization databases, see the [helm charts repository](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/examples).
 
 ## Prerequisites
 

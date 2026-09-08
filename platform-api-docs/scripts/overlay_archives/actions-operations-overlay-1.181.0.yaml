@@ -1,0 +1,14 @@
+overlay: 1.0.0
+info:
+  title: Actions operations overlay
+  version: 0.0.0
+actions:
+  # ===== ACTIONS - OPERATIONS =====
+
+  # ---- RESOLVE CRON EXPRESSION ----
+
+  - target: "$.paths['/actions/cron/resolve'].post.summary"
+    update: "Resolve cron expression"
+
+  - target: "$.paths['/actions/cron/resolve'].post.description"
+    update: "Resolves a human-readable schedule description to a cron expression format. Append `?workspaceId` to resolve in a workspace context."

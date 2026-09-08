@@ -212,9 +212,9 @@ If you're restricted from using public container registries, see Seqera Enterpri
 
 #### Specify the Nextflow version
 
-Each Seqera Platform release uses a specific nf-launcher image by default. This image is loaded with a specific Nextflow version that any workflow in the container uses by default. Force your jobs to use a newer or older Nextflow version with one of the following:
+Each Seqera Platform release uses a specific nf-launcher image by default. This image is loaded with a specific Nextflow version that any workflow in the container uses by default. To run a job with a different Nextflow version:
 
-- Use a [pre-run script](../launch/advanced#pre-and-post-run-scripts) to set the Nextflow version. For example: `export NXF_VER=22.08.0-edge`
+- Use the [**Nextflow version**](../launch/advanced#nextflow-version) selector in the pipeline or launch advanced options. This is the recommended method. Setting `NXF_VER` in a pre-run script or the pipeline configuration is no longer recommended; a value set there overrides the selector. The selector is not available when the installation pins a [custom launch container](../enterprise/advanced-topics/custom-launch-container).
 - For jobs executing in an AWS Batch compute environment, create a [custom job definition](../enterprise/advanced-topics/custom-launch-container) which references a different nf-launcher image.
 
 ## Spot instance failures and retries
@@ -231,6 +231,20 @@ If you rely on silent Spot retries (the previous default), you might now see mor
 - **Google**: Spot reclamation typically produces a specific code, but is now surfaced as a recognizable task failure in Nextflow logs.
 
 Because the default for Spot retries is now zero, you must enable a retry strategy for Nextflow to handle reclaimed Spot instances automatically. For more information, see [manage Spot interruptions](../tutorials/retry-strategy).
+
+## Pipeline secret creation fails under a Google Cloud resource location policy
+
+In Platform v26.1 and earlier, launching a pipeline with a pipeline secret attached fails before any task starts in Google Cloud projects that enforce a resource location policy. This affects Google Batch and Google Cloud compute environments. The error is similar to:
+
+```
+Unable to store pipeline secret 'my_secret' - Reason: io.grpc.StatusRuntimeException:
+FAILED_PRECONDITION: Constraint constraints/gcp.resourceLocations violated for
+[orgpolicy:projects/123456789012] attempting to create a secret in [global].
+```
+
+This issue occurs because Platform v26.1 and earlier create pipeline secrets in Google Secret Manager with automatic replication, which stores the secret in the `global` location. If the [`constraints/gcp.resourceLocations`](https://cloud.google.com/resource-manager/docs/organization-policy/defining-locations) organization policy does not permit the `global` location, Google rejects the secret and the run cannot launch. The compute environment's location setting has no effect on where the secret is stored.
+
+This issue is resolved in Platform v26.2, which creates pipeline secrets with user-managed regional replication instead of automatic replication.
 
 ## Nextflow syntax parser
 

@@ -1,0 +1,62 @@
+overlay: 1.0.0
+info:
+  title: Organizations operations overlay
+  version: 0.0.0
+actions:
+  # ===== ORGANIZATIONS - OPERATIONS =====
+
+  # ---- LIST ORGANIZATION IDP GROUPS ----
+
+  - target: "$.paths['/orgs/{orgId}/idp-groups'].get.summary"
+    update: "List IdP groups"
+
+  - target: "$.paths['/orgs/{orgId}/idp-groups'].get.description"
+    update: "Lists all identity provider groups in the organization catalog, including both SCIM-pushed and manually entered groups."
+
+  # ---- CREATE ORGANIZATION IDP GROUP ----
+
+  - target: "$.paths['/orgs/{orgId}/idp-groups'].post.summary"
+    update: "Create IdP group"
+
+  - target: "$.paths['/orgs/{orgId}/idp-groups'].post.description"
+    update: "Manually adds an identity provider group to the organization catalog. The admin must enter the exact claim value their IdP sends in the groups claim."
+
+  # ---- DELETE ORGANIZATION IDP GROUP ----
+
+  - target: "$.paths['/orgs/{orgId}/idp-groups/{groupId}'].delete.summary"
+    update: "Delete IdP group"
+
+  - target: "$.paths['/orgs/{orgId}/idp-groups/{groupId}'].delete.description"
+    update: "Removes a manually-entered identity provider group from the organization catalog. SCIM-managed groups cannot be deleted via this endpoint."
+
+  # ---- DESCRIBE ORGANIZATION SCIM CONFIG ----
+
+  - target: "$.paths['/orgs/{orgId}/scim/config'].get.summary"
+    update: "Get SCIM configuration"
+
+  - target: "$.paths['/orgs/{orgId}/scim/config'].get.description"
+    update: "Retrieves the SCIM configuration for the organization, including token metadata, group count, and SSO state. Accessible to all organization members."
+
+  # ---- CREATE ORGANIZATION SCIM TOKEN ----
+
+  - target: "$.paths['/orgs/{orgId}/scim/token'].post.summary"
+    update: "Create SCIM token"
+
+  - target: "$.paths['/orgs/{orgId}/scim/token'].post.description"
+    update: "Generates a new SCIM bearer token for the organization. If an active token already exists it is revoked first. The plaintext token is returned only once."
+
+  # ---- REVOKE ORGANIZATION SCIM TOKEN ----
+
+  - target: "$.paths['/orgs/{orgId}/scim/token'].delete.summary"
+    update: "Revoke SCIM token"
+
+  - target: "$.paths['/orgs/{orgId}/scim/token'].delete.description"
+    update: "Revokes the active SCIM bearer token for the organization. Returns 404 if no active token exists."
+
+  # ---- ROTATE ORGANIZATION SCIM TOKEN ----
+
+  - target: "$.paths['/orgs/{orgId}/scim/token/rotate'].post.summary"
+    update: "Rotate SCIM token"
+
+  - target: "$.paths['/orgs/{orgId}/scim/token/rotate'].post.description"
+    update: "Revokes the current active SCIM token and generates a new one. The new plaintext token is returned only once."

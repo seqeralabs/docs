@@ -10,7 +10,7 @@
  * themeConfig.typesense.productRoutes.
  */
 
-import React, {useState, useRef, useCallback, useMemo} from 'react';
+import React, {useState, useRef, useCallback, useEffect, useMemo} from 'react';
 // @ts-ignore
 import {createPortal} from 'react-dom';
 // @ts-ignore
@@ -311,6 +311,28 @@ function DocSearch({
         ),
       [onClose],
     );
+
+  // `useDocSearchKeyboardEvents` (from typesense-docsearch-react) registers a
+  // global keydown listener that calls `event.key.toLowerCase()` with no guard.
+  // Synthetic keydown events dispatched by password managers, autofill, or
+  // browser extensions (notably on Safari) can arrive without a `key`, making
+  // `event.key` undefined and throwing `undefined is not an object`. We install
+  // our own capture-phase listener first so it runs before the upstream handler
+  // and swallows these malformed, key-less events. A real user keystroke always
+  // carries a `key`, so nothing legitimate is affected.
+  useEffect(() => {
+    function guardKeylessKeydown(event: KeyboardEvent) {
+      if (!event.key) {
+        event.stopImmediatePropagation();
+      }
+    }
+    window.addEventListener('keydown', guardKeylessKeydown, {capture: true});
+    return () => {
+      window.removeEventListener('keydown', guardKeylessKeydown, {
+        capture: true,
+      });
+    };
+  }, []);
 
   useDocSearchKeyboardEvents({
     isOpen,

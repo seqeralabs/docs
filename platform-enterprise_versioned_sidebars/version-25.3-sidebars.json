@@ -72,9 +72,7 @@
                 "enterprise/configuration/authentication/email",
                 "enterprise/configuration/authentication/github",
                 "enterprise/configuration/authentication/google",
-                "enterprise/configuration/authentication/keycloak",
-                "enterprise/configuration/authentication/entra",
-                "enterprise/configuration/authentication/okta"
+                "enterprise/configuration/authentication/oidc"
               ]
             },
             "enterprise/configuration/networking",
@@ -98,8 +96,7 @@
             "enterprise/advanced-topics/content-security-policy",
             "enterprise/advanced-topics/monitoring"
           ]
-        },
-        "enterprise/general_troubleshooting"
+        }
       ]
     },
     {
@@ -327,6 +324,7 @@
       "collapsed": true,
       "items": [
         "troubleshooting_and_faqs/troubleshooting",
+        "troubleshooting_and_faqs/authentication",
         "troubleshooting_and_faqs/api_and_cli",
         "troubleshooting_and_faqs/studios_troubleshooting",
         "troubleshooting_and_faqs/nextflow",

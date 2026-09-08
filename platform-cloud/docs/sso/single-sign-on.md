@@ -2,7 +2,7 @@
 title: "Single sign-on (SSO)"
 description: "Configure single sign-on for a Seqera Platform Cloud organization."
 date created: "2026-03-10"
-last updated: "2026-05-05"
+last updated: "2026-07-28"
 tags: [sso, authentication, organization settings, cloud pro]
 ---
 
@@ -44,11 +44,21 @@ Before you configure SSO:
 4. Open the setup URL to start the Auth0 self-service SSO wizard.
 5. In the wizard, select your identity provider and complete the provider-specific configuration.
 6. Run the connection test in the Auth0 wizard to confirm that authentication works.
-7. Return to Seqera and select **Enable SSO** to activate the connection.
 
 Seqera validates the configured Auth0 connection when you enable SSO. If the domain configured in Auth0 doesn't match the domain claimed in Seqera, activation fails. Correct the Auth0 configuration or delete the SSO configuration and create a new one with the correct domain.
 
-The setup link expires after five days. After an IdP administrator opens the Auth0 access ticket, the ticket expires after five hours. If the wizard requires DNS verification for the claimed domain, verification can take up to 48 hours. If the ticket expires before verification or setup is complete, refresh the URL from the SSO settings page.
+The setup link expires after five days. After an IdP administrator opens the Auth0 access ticket, the ticket expires after five hours. If the ticket expires before setup or verification is complete, refresh the URL from the SSO settings page.
+
+After the connection test succeeds, verify your domain before you enable SSO.
+
+## Verify your domain
+
+Before you enable SSO, prove that you control the domain you claimed. The Auth0 wizard shows provider-specific instructions, but domain verification works the same way for every identity provider.
+
+1. In the **Domain Configuration** step of the Auth0 self-service wizard, copy the **TXT Record Name** and **Record Value**.
+2. In your DNS provider, create a TXT record with those exact values.
+3. Wait for the DNS record to propagate, then for Auth0 to verify the domain. Verification can take up to 48 hours.
+4. After Auth0 verifies the domain, return to Seqera and select **Enable SSO**.
 
 ## Identity provider setup
 

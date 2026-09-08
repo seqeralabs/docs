@@ -2,7 +2,7 @@
 title: "Organizations"
 description: "Manage organizations in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2025-07-01"
+last updated: "2026-08-27"
 tags: [organizations, administration, workspaces, create organization, organization settings]
 ---
 
@@ -43,7 +43,7 @@ To delete your organization, select **Delete** in the **Delete organization** ca
 
 ## Members
 
-You can view the list of all **Members** from the organization's landing page.
+You can view the list of all **Members** from **Access Control > Members** in the sidebar of the organization landing page.
 
 Seqera provides access control for members of an organization by classifying them either as an **Owner** or a **Member**. Each organization can have multiple owners and members.
 
@@ -51,7 +51,7 @@ Seqera provides access control for members of an organization by classifying the
 
 To add a new member to an organization:
 
-1. Go to the **Members** tab in the sidebar of the organization landing page.
+1. Go to **Access Control > Members** in the sidebar of the organization landing page.
 2. Select **Add member**.
 3. Enter the name or email address of the user you'd like to add to the organization.
 

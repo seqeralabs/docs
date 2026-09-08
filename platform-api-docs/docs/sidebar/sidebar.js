@@ -11,6 +11,16 @@ module.exports = {
     { type: "doc", id: "info", label: "API service info", className: "api-method get" },
     {
       type: "category",
+      label: "Permissions",
+      link: {type: 'doc', id: 'info/permissions-info'},
+      items: [
+        { type: "doc", id: "retrieve-permissions", label: "Retrieve permissions", className: "api-method get" },
+        { type: "doc", id: "check-permission", label: "Check permission", className: "api-method get" },
+        { type: "doc", id: "list-available-features", label: "List available features", className: "api-method get" },
+      ],
+    },
+    {
+      type: "category",
       label: "Credentials",
       link: {type: 'doc', id: 'info/credentials-info'},
       items: [
@@ -31,6 +41,8 @@ module.exports = {
             { type: "doc", id: "create-managed-identity", label: "Create managed identity", className: "api-method post" },
             { type: "doc", id: "create-managed-credentials", label: "Create managed credentials", className: "api-method post" },
             { type: "doc", id: "describe-managed-identity", label: "Describe managed identity", className: "api-method get" },
+            { type: "doc", id: "update-managed-identity", label: "Update managed identity", className: "api-method put" },
+            { type: "doc", id: "update-managed-credentials", label: "Update managed credentials", className: "api-method put" },
             { type: "doc", id: "delete-managed-identity", label: "Delete managed identity", className: "api-method delete" },
             { type: "doc", id: "delete-managed-credentials", label: "Delete managed credentials", className: "api-method delete" },
           ],
@@ -204,6 +216,7 @@ module.exports = {
         { type: "doc", id: "create-label", label: "Create label", className: "api-method post" },
         { type: "doc", id: "update-label", label: "Update label", className: "api-method put" },
         { type: "doc", id: "delete-label", label: "Delete label", className: "api-method delete" },
+        { type: "doc", id: "get-allowed-dynamic-labels", label: "Get allowed dynamic labels", className: "api-method get" },
         { type: "doc", id: "add-labels-to-pipelines", label: "Add labels to pipelines", className: "api-method post" },
         { type: "doc", id: "apply-labels-to-pipelines", label: "Replace pipeline labels", className: "api-method post" },
         { type: "doc", id: "remove-labels-from-pipelines", label: "Remove labels from pipelines", className: "api-method post" },
@@ -356,7 +369,8 @@ module.exports = {
         { type: "doc", id: "find-data-studios-workspace-settings", label: "List workspace Studios settings", className: "api-method get" },
         { type: "doc", id: "update-data-studios-workspace-settings", label: "Update workspace Studios settings", className: "api-method put" },
         { type: "doc", id: "list-workspaces-user", label: "List user workspaces and organizations", className: "api-method get" },
-        { type: "doc", id: "delete-workspace-user", label: "Delete workspace user", className: "api-method delete" },],
+        { type: "doc", id: "delete-workspace-user", label: "Delete workspace user", className: "api-method delete" },
+      ],
     },
     {
       type: "category",

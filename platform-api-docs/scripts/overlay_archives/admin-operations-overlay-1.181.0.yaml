@@ -1,0 +1,30 @@
+overlay: 1.0.0
+info:
+  title: Admin operations overlay
+  version: 0.0.0
+actions:
+  # ===== ADMIN - OPERATIONS =====
+
+  # ---- LIST AUDIT LOGS V2 ----
+
+  - target: "$.paths['/admin/audit-logs-v2'].get.summary"
+    update: "List audit logs"
+
+  - target: "$.paths['/admin/audit-logs-v2'].get.description"
+    update: "Lists audit logs with token-based pagination, ordered by timestamp descending. Supports filtering by timestamp range and optional inclusion of pre/post state images."
+
+  # ---- EXPORT AUDIT LOGS V2 CSV ----
+
+  - target: "$.paths['/admin/audit-logs-v2/export-csv'].get.summary"
+    update: "Export audit logs as CSV"
+
+  - target: "$.paths['/admin/audit-logs-v2/export-csv'].get.description"
+    update: "Exports audit log entries as a CSV file. Supports filtering by timestamp range. Fails if the number of matching logs exceeds the configured maximum."
+
+  # ---- DESCRIBE AUDIT LOG V2 ----
+
+  - target: "$.paths['/admin/audit-logs-v2/{auditLogId}'].get.summary"
+    update: "Get audit log details"
+
+  - target: "$.paths['/admin/audit-logs-v2/{auditLogId}'].get.description"
+    update: "Retrieves detailed information for the specified audit log including optional pre/post state change images."

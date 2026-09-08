@@ -23,6 +23,10 @@ Enterprise reads the IdP's tokens directly.
    - **Filter**: Match the groups you want exposed (`Matches regex .*` to expose all of them).
 5. Select **Save**.
 
+:::note
+Okta only includes the `groups` claim in the token when the client requests a matching scope. Add `groups` to the scopes Seqera requests by setting `TOWER_OIDC_SCOPES=openid,email,profile,groups`. See [OpenID Connect](../oidc#configure-seqera) for details.
+:::
+
 ### Entra ID
 
 Entra ID requires an app-registration change and attention to the format Entra emits.
@@ -51,5 +55,5 @@ After saving the IdP changes, confirm the claim is reaching Platform::
 3. Confirm the `groups` claim is present and contains the expected group identifiers.
 
 :::caution
-If the user's token has no `groups` claim or the claim is malformed, no changes take place.
+An absent or empty `groups` claim is treated as "no groups": the user is removed from every team they joined through delegation. Only a malformed `groups` claim (a value that is not a list) is ignored and leaves existing memberships unchanged.
 :::

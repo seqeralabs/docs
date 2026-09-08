@@ -1,0 +1,16 @@
+overlay: 1.0.0
+info:
+  title: Actions parameters overlay
+  version: 0.0.0
+actions:
+  # ===== ACTIONS PARAMETERS - PATH, QUERY, AND REQUEST BODY =====
+
+  # ---- QUERY PARAMETERS ----
+
+  - target: "$.paths['/actions/cron/resolve'].post.parameters[?(@.name=='workspaceId')].description"
+    update: "Workspace numeric identifier."
+
+  # ---- REQUEST BODY DESCRIPTIONS ----
+
+  - target: "$.paths['/actions/cron/resolve'].post.requestBody.description"
+    update: "Cron expression resolution request"

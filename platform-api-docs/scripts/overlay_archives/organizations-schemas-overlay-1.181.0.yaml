@@ -1,0 +1,210 @@
+overlay: 1.0.0
+info:
+  title: Organizations schemas overlay
+  version: 0.0.0
+actions:
+  # ===== ORGANIZATIONS SCHEMAS - REQUEST/RESPONSE OBJECTS =====
+
+  # ---- ORG IDP GROUP SOURCE ----
+
+  - target: "$.components.schemas.OrgIdpGroupSource.description"
+    update: "Identity provider group source. Accepts `SCIM` for SCIM-provisioned groups or `MANUAL` for manually entered groups."
+
+  # ---- IDP GROUP ENTRY ----
+
+  - target: "$.components.schemas.IdpGroupEntry.properties.displayName"
+    update:
+      type: string
+      description: "Identity provider group display name."
+
+  - target: "$.components.schemas.IdpGroupEntry.properties.id"
+    update:
+      type: integer
+      format: int64
+      description: "IdP group numeric identifier."
+
+  - target: "$.components.schemas.IdpGroupEntry.properties.source"
+    update:
+      description: "Group source. Accepts `SCIM` or `MANUAL`."
+
+  # ---- CREATE IDP GROUP REQUEST ----
+
+  - target: "$.components.schemas.CreateIdpGroupRequest.properties.displayName"
+    update:
+      type: string
+      description: "Identity provider group display name. Must match the exact claim value from the IdP."
+
+  # ---- LIST IDP GROUPS RESPONSE ----
+
+  - target: "$.components.schemas.ListIdpGroupsResponse.properties.groups"
+    update:
+      type: array
+      description: "Array of identity provider group entries."
+
+  # ---- DESCRIBE SCIM CONFIG RESPONSE ----
+
+  - target: "$.components.schemas.DescribeScimConfigResponse.properties.endpointUrl"
+    update:
+      type: string
+      description: "SCIM endpoint URL for the organization."
+
+  - target: "$.components.schemas.DescribeScimConfigResponse.properties.groupCount"
+    update:
+      type: integer
+      format: int32
+      description: "Number of IdP groups in the organization catalog."
+
+  - target: "$.components.schemas.DescribeScimConfigResponse.properties.hasActiveToken"
+    update:
+      type: boolean
+      description: "If true, an active SCIM bearer token exists for the organization."
+
+  - target: "$.components.schemas.DescribeScimConfigResponse.properties.maskedToken"
+    update:
+      type: string
+      nullable: true
+      description: "Masked SCIM bearer token showing only the last few characters. Can be `null` if no token exists."
+
+  - target: "$.components.schemas.DescribeScimConfigResponse.properties.ssoActive"
+    update:
+      type: boolean
+      description: "If true, SSO is active for the organization."
+
+  - target: "$.components.schemas.DescribeScimConfigResponse.properties.tokenCreatedAt"
+    update:
+      type: string
+      format: date-time
+      nullable: true
+      description: "SCIM token creation timestamp in ISO 8601 format. Can be `null` if no token exists."
+
+  - target: "$.components.schemas.DescribeScimConfigResponse.properties.tokenLastUsed"
+    update:
+      type: string
+      format: date-time
+      nullable: true
+      description: "SCIM token last used timestamp in ISO 8601 format. Can be `null` if token has never been used."
+
+  # ---- CREATE SCIM TOKEN RESPONSE ----
+
+  - target: "$.components.schemas.CreateScimTokenResponse.properties.endpointUrl"
+    update:
+      type: string
+      description: "SCIM endpoint URL for the organization."
+
+  - target: "$.components.schemas.CreateScimTokenResponse.properties.maskedToken"
+    update:
+      type: string
+      description: "Masked SCIM bearer token showing only the last few characters."
+
+  - target: "$.components.schemas.CreateScimTokenResponse.properties.token"
+    update:
+      type: string
+      description: "Plaintext SCIM bearer token. Only returned once upon creation."
+
+  # ---- IDP GROUP IMAGE ----
+
+  - target: "$.components.schemas.IdpGroupImage.properties.auditImageType"
+    update:
+      description: "Audit image type discriminator."
+
+  - target: "$.components.schemas.IdpGroupImage.properties.displayName"
+    update:
+      type: string
+      description: "Identity provider group display name."
+
+  - target: "$.components.schemas.IdpGroupImage.properties.scimExternalId"
+    update:
+      type: string
+      description: "SCIM external identifier for the group."
+
+  - target: "$.components.schemas.IdpGroupImage.properties.source"
+    update:
+      description: "Group source. Accepts `SCIM` or `MANUAL`."
+
+  # ---- ORGANIZATION IMAGE ----
+
+  - target: "$.components.schemas.OrganizationImage.properties.auditImageType"
+    update:
+      description: "Audit image type discriminator."
+
+  - target: "$.components.schemas.OrganizationImage.properties.description"
+    update:
+      type: string
+      description: "Organization description."
+
+  - target: "$.components.schemas.OrganizationImage.properties.fullName"
+    update:
+      type: string
+      description: "Organization full name."
+
+  - target: "$.components.schemas.OrganizationImage.properties.location"
+    update:
+      type: string
+      description: "Organization location."
+
+  - target: "$.components.schemas.OrganizationImage.properties.logoId"
+    update:
+      type: string
+      description: "Logo identifier for the organization."
+
+  - target: "$.components.schemas.OrganizationImage.properties.name"
+    update:
+      type: string
+      description: "Organization name."
+
+  - target: "$.components.schemas.OrganizationImage.properties.type"
+    update:
+      description: "Organization type."
+
+  - target: "$.components.schemas.OrganizationImage.properties.website"
+    update:
+      type: string
+      description: "Organization website URL."
+
+  # ---- ORG SSO CONNECTION IMAGE ----
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.auditImageType"
+    update:
+      description: "Audit image type discriminator."
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.auth0OrgId"
+    update:
+      type: string
+      description: "Auth0 organization identifier."
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.connectionId"
+    update:
+      type: string
+      description: "SSO connection identifier."
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.connectionName"
+    update:
+      type: string
+      description: "SSO connection name."
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.createdAt"
+    update:
+      type: string
+      format: date-time
+      description: "SSO connection creation timestamp in ISO 8601 format."
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.createdById"
+    update:
+      type: integer
+      format: int64
+      description: "User numeric identifier who created the SSO connection."
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.domain"
+    update:
+      type: string
+      description: "Domain associated with the SSO connection."
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.status"
+    update:
+      type: string
+      description: "SSO connection status."
+
+  - target: "$.components.schemas.OrgSsoConnectionImage.properties.ticketUrl"
+    update:
+      type: string
+      description: "SSO ticket URL for configuration."

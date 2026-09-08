@@ -1,5 +1,30 @@
 # GitHub Actions scripts
 
+## docs-diff-since-release.sh
+
+Lists what has changed in the working Enterprise docs (`platform-enterprise_docs/`) since a frozen release snapshot (`platform-enterprise_versioned_docs/version-<VERSION>/`), so you can see at a glance which pages accumulated changes for the next Enterprise version. The report is derived live from the two trees, so it never goes stale — run it whenever you start assembling content for the next release.
+
+### Usage
+
+```bash
+.github/scripts/docs-diff-since-release.sh [VERSION] [--full]
+```
+
+### Parameters
+
+- `VERSION`: Baseline release to compare against (default: the highest-numbered `version-*` snapshot)
+- `--full`: Also print the unified diff for every changed page
+
+### Examples
+
+```bash
+# Summary of new / removed / changed pages since v26.1
+.github/scripts/docs-diff-since-release.sh 26.1
+
+# Same, plus full unified diffs, saved to a file
+.github/scripts/docs-diff-since-release.sh 26.1 --full > since-26.1.md
+```
+
 ## verify-agent-findings.py
 
 Validates agent output by checking that quoted text actually exists at the claimed line numbers, preventing hallucinations from being reported.

@@ -92,7 +92,6 @@
 
 # Co-Scientist docs: seqera-ai path renamed to co-scientist
 /platform-enterprise/seqera-ai/get-started       /platform-enterprise/co-scientist/quickstart        301
-/platform-enterprise/26.1/seqera-ai/get-started  /platform-enterprise/26.1/co-scientist/quickstart   301
 
 # Catch-all: rename seqera-ai path to co-scientist (Enterprise, all versions)
 /platform-enterprise/seqera-ai/*                /platform-enterprise/co-scientist/:splat            301
@@ -211,10 +210,6 @@
 # ════════════════════════════════════════════════════════════════
 # Nextflow (legacy doc paths)
 # ════════════════════════════════════════════════════════════════
-# Old Sphinx-era Nextflow doc slugs, still linked from Google, GitHub, and
-# bookmarks (PostHog 404 digest). These MUST stay in _redirects (processed
-# before netlify.toml) so they fire ahead of the /nextflow/* proxy in
-# netlify.toml, which would otherwise rewrite them to a 404 on the docs site.
 /nextflow/getstarted   /nextflow/install      301
 /nextflow/basic        /nextflow/overview     301
 /nextflow/dsl1         /nextflow/workflow     301
@@ -223,15 +218,43 @@
 /nextflow/awscloud     /nextflow/aws          301
 /nextflow/search       /nextflow/             301
 /nextflow/singularity  /nextflow/container    301
+/nextflow/metadata     /nextflow/reference/stdlib-namespaces/workflow   301
+/nextflow/docker       /nextflow/container/docker         301
+/nextflow/podman       /nextflow/container/podman         301
+/nextflow/shifter      /nextflow/container/shifter        301
+/nextflow/charliecloud /nextflow/container/charliecloud   301
+/nextflow/mail         /nextflow/notifications            301
+/nextflow/example      /nextflow/your-first-script        301
+/nextflow/ignite       /nextflow/executor     301
+/nextflow/dnanexus     /nextflow/             301
+/nextflow/faq          /nextflow/             301
+/nextflow/en/latest/*   /nextflow/:splat   301
+/nextflow/en/stable/*   /nextflow/:splat   301
 
-# Malformed link circulating externally (trailing bracket from a bad
-# markdown paste); the real page is /nextflow/process-typed.
-/nextflow/process-typed]   /nextflow/process-typed   301
+# Top-level docs sections wrongly nested under /nextflow/ (404 digest
+# 2026-08-10; 38% of all 404s, ~6-9 hits each, present two weeks running).
+# Root cause is upstream: the proxied nextflow-docs build double-prefixes some
+# nav links with its /nextflow/ baseUrl on client-side navigation (server-
+# rendered hrefs are correct). These rules stop the user-facing 404 but do not
+/nextflow/changelog              /changelog                    301
+/nextflow/changelog/*            /changelog/:splat             301
+/nextflow/multiqc                /multiqc                      301
+/nextflow/multiqc/*              /multiqc/:splat               301
+/nextflow/platform-api           /platform-api                 301
+/nextflow/platform-api/*         /platform-api/:splat          301
+/nextflow/platform-cloud         /platform-cloud               301
+/nextflow/platform-cloud/*       /platform-cloud/:splat        301
+/nextflow/platform-enterprise    /platform-enterprise          301
+/nextflow/platform-enterprise/*  /platform-enterprise/:splat   301
+/nextflow/platform-cli           /platform-cli                 301
+/nextflow/platform-cli/*         /platform-cli/:splat          301
+/nextflow/nextflow               /nextflow/                    301
+/nextflow/nextflow/*             /nextflow/:splat              301
 
 # Legacy paths served from the docs root before Nextflow docs moved under
 # /nextflow (no /nextflow prefix in the inbound link).
-/install                  /nextflow/install            301
-/overview                 /nextflow/overview           301
-/your-first-script        /nextflow/your-first-script  301
-/release_notes/23.1       /nextflow/updating-nextflow  301
-/configuration/mail_server   /nextflow/notifications   301
+/install                         /nextflow/install            301
+/overview                        /nextflow/overview           301
+/your-first-script               /nextflow/your-first-script  301
+/release_notes/23.1              /nextflow/updating-nextflow  301
+/configuration/mail_server       /nextflow/notifications   301

@@ -1,382 +1,287 @@
-# Platform API Documentation
+# Platform API documentation
 
-Automated workflow for maintaining Seqera Platform API documentation using Claude Skills, GitHub Actions, and Speakeasy overlays.
+This directory contains the generated Seqera Platform API docs, the OpenAPI
+specs that feed them, and the automation that keeps the public docs in sync
+with Platform API changes.
 
-## 🎯 Overview
+The current v1 process is intentionally human-reviewed. Automation finds API
+changes, asks Claude to draft Speakeasy overlays, and then applies approved
+overlays to the decorated public spec and generated MDX docs.
 
-This documentation system uses a multi-phase automation approach to keep API docs in sync with Platform backend changes. **This branch implements Phase 2** of the automation system (overlay generation). Phase 3 (applying overlays and regenerating docs) will be added in a future PR.
+## Workflow overview
 
-### Automation Phases
+The docs repo has two API docs workflows:
 
-```
-┌─────────────────────────────────────┐
-│ Phase 1: Platform Repo (Future)    │
-│ Detects API spec changes            │
-│ Triggers docs repo workflow         │
-└────────────┬────────────────────────┘
-             │
-             ▼
-┌─────────────────────────────────────┐
-│ Phase 2: Generate Overlays (✅)     │
-│ - Copies flattened base spec        │
-│ - Runs Speakeasy comparison         │
-│ - Analyzes changes                  │
-│ - Calls Claude API with skill       │
-│ - Creates draft PR for review       │
-└────────────┬────────────────────────┘
-             │
-             ▼
-┌─────────────────────────────────────┐
-│ Phase 3: Apply Overlays (Future)    │
-│ - Consolidates overlays             │
-│ - Applies to decorated spec         │
-│ - Regenerates MDX docs              │
-│ - Updates sidebar                   │
-└─────────────────────────────────────┘
-```
+1.  `Generate API Documentation Overlays`
+   (`.github/workflows/generate-openapi-overlays.yml`)
+2.  `Apply Overlays and Regenerate Docs`
+   (`.github/workflows/apply-overlays-and-regenerate.yml`)
 
-## 🚀 Current Workflow (Phase 2)
+The normal flow is:
 
-### Prerequisites
+1.  Platform publishes or identifies a new flattened OpenAPI spec.
+2.  The generate workflow copies that base spec into this repo, compares it with
+   the previous base spec, and opens a draft docs PR with Claude-generated
+   overlay suggestions.
+3.  A human reviews and edits the generated overlays in the draft PR.
+4.  After review, add the `overlays-approved` label.
+5.  The apply workflow consolidates the overlays, updates the decorated spec,
+   regenerates the MDX docs, updates the sidebar, validates sidebar drift, and
+   marks the PR ready for final review.
 
-- **Speakeasy CLI**: For overlay comparison and application
-- **Node.js/npm**: For Docusaurus commands
-- **GitHub Actions**: Automated workflow execution
-- **Claude Skill**: OpenAPI overlay generator (in `.claude/skills/`)
+The generated docs are for the public Platform API surface. Admin-only
+endpoints can exist in the flattened base spec but still be absent from
+`seqera-api-latest-decorated.yml`, the generated docs, and the sidebar.
 
-### Automated Overlay Generation
+## Generate overlays
 
-The `generate-openapi-overlays.yml` workflow automates the initial documentation work:
+The generate workflow can be triggered in two ways:
 
-#### Workflow Trigger
+- Automatically by a `repository_dispatch` event of type
+  `api-version-updated`.
+- Manually from GitHub Actions with:
+  - `api_version`: required, for example `1.181.0`
+  - `platform_ref`: optional Platform branch, tag, or SHA. Defaults to `master`.
 
-**Manual trigger** (via GitHub Actions UI):
-1. Go to Actions → "Generate API Documentation Overlays"
-2. Click "Run workflow"
-3. Enter the API version (e.g., `1.95`)
-4. The workflow will create a draft PR with generated overlay files
+Before doing the full checkout and Claude generation work, the workflow checks
+whether an open PR already exists for `api-docs-v{version}` and whether the
+base spec version already exists under `platform-api-docs/scripts/specs/`.
+The version check uses a sparse checkout at `docs-version-check`; the full docs
+checkout happens only when a new API version needs processing.
 
-**Future**: Will be triggered automatically by Platform repo changes.
+When the version is new, the workflow:
 
-#### What the Workflow Does
+1.  Creates a GitHub App token for `seqeralabs/platform` using
+   `DOCS_BOT_APP_ID` and `DOCS_BOT_APP_PRIVATE_KEY`.
+2.  Checks out the Platform repo at the requested ref.
+3.  Copies
+   `tower-backend/src/main/resources/META-INF/openapi/seqera-api-latest-flattened.yml`
+   to `platform-api-docs/scripts/specs/seqera-api-{version}.yaml`.
+4.  Finds the previous checked-in base spec.
+5.  Runs Speakeasy `1.759.2` to produce a comparison overlay.
+6.  Runs `.claude/skills/api-overlay-generator/scripts/analyze_comparison.py`.
+7.  Calls Claude with the `api-overlay-generator` skill standards and patterns.
+8.  Opens a draft PR containing only
+   `platform-api-docs/scripts/specs` changes.
 
-1. **Copies flattened base spec** from Platform repo:
-   ```bash
-   platform-repo/tower-backend/src/main/resources/META-INF/openapi/seqera-api-latest-flattened.yml
-   ```
+The generated PR includes `claude-generated-overlays.md`, comparison output,
+and analysis JSON. The overlay Markdown should put each overlay filename as a
+plain Markdown line immediately before the YAML block; the apply workflow also
+supports a first-line YAML filename comment as a fallback.
 
-2. **Finds previous version** (handles both `.yml` and `.yaml` extensions)
+## Review overlays
 
-3. **Generates comparison overlay** using Speakeasy:
-   ```bash
-   speakeasy overlay compare -b <previous> -a <new> > comparison.yaml
-   ```
+Before adding `overlays-approved`, review the generated overlay suggestions for
+technical accuracy and documentation quality.
 
-4. **Analyzes changes** using Python script:
-   ```bash
-   python3 .claude/skills/openapi-overlay-generator/scripts/analyze_comparison.py
-   ```
+Typical review checks:
 
-5. **Generates overlay files** using Claude API with the skill context:
-   - Reads standards from `.claude/skills/openapi-overlay-generator/references/standards.md`
-   - Reads patterns from `.claude/skills/openapi-overlay-generator/references/overlay-patterns.md`
-   - Generates operations, parameters, and schemas overlays
-   - Follows documentation standards automatically
+- Endpoint summaries use sentence case and no trailing period.
+- Descriptions are complete sentences.
+- Common parameters use the standard descriptions from
+  `.claude/skills/api-overlay-generator/references/standards.md`.
+- Overlay targets match real paths in the decorated spec.
+- Public docs do not add admin-only operations that are intentionally excluded
+  from `seqera-api-latest-decorated.yml`.
 
-6. **Creates draft PR** with all generated files for review
-
-### Claude Skill Integration
-
-The workflow uses the **openapi-overlay-generator** skill located at `.claude/skills/openapi-overlay-generator/`:
-
-**Skill Contents**:
-- `SKILL.md`: Core workflow and instructions
-- `references/standards.md`: Complete documentation style guide
-- `references/overlay-patterns.md`: Templates and examples
-- `scripts/analyze_comparison.py`: Change analysis automation
-- `scripts/validate_overlay.py`: Overlay validation
-- `scripts/check_consistency.py`: Standards compliance checking
-- `scripts/healthcheck-overlay.yaml`: Permanent overlay for /service-info
-
-**How It's Used**:
-1. Workflow calls `analyze_comparison.py` to categorize changes
-2. Workflow reads `standards.md` and `overlay-patterns.md` into Claude's context
-3. Claude API generates overlay files following the standards
-4. Human reviews and refines the generated overlays
-5. Engineering team validates technical accuracy
-
-### Human Review Process
-
-After the workflow creates a draft PR:
-
-1. **Review Claude-generated overlays** in `claude-generated-overlays.md`
-2. **Extract overlay files** from markdown into separate YAML files:
-   - `{feature}-operations-overlay-{version}.yaml`
-   - `{feature}-parameters-overlay-{version}.yaml`
-   - `{feature}-schemas-overlay-{version}.yaml`
-3. **Edit overlays** for accuracy and completeness
-4. **Run validation**:
-   ```bash
-   python3 .claude/skills/openapi-overlay-generator/scripts/validate_overlay.py <file>
-   python3 .claude/skills/openapi-overlay-generator/scripts/check_consistency.py <file>
-   ```
-5. **Request engineering review** from appropriate team
-6. **Once approved**, Phase 3 workflow will handle application (coming in future PR)
-
-## 📁 File Organization
-
-### Specs Directory (`platform-api-docs/scripts/specs/`)
-
-**Base specs** (version-specific):
-- `seqera-api-{version}.yaml` (e.g., `seqera-api-1.95.yaml`)
-- Keep only the latest 2 versions
-
-**Decorated spec** (consistent filename for Docusaurus):
-- `seqera-api-latest-decorated.yml`
-
-**Permanent overlays** (not archived):
-- `servers-overlay.yaml`: Adds API server URLs
-- `healthcheck-overlay.yaml`: Fixes /service-info endpoint
-
-**Generated overlays** (version-specific):
-- `base-{old}-to-{new}-changes.yaml`: Speakeasy comparison output
-- `{feature}-operations-overlay-{version}.yaml`
-- `{feature}-parameters-overlay-{version}.yaml`
-- `{feature}-schemas-overlay-{version}.yaml`
-
-**Archives** (`overlays_archive/`):
-- Old overlays after they're applied
-
-## 📋 Documentation Standards
-
-The Claude skill enforces these standards automatically:
-
-### Format Rules
-
-- ✅ **Summaries**: Sentence case, no period (e.g., "List datasets")
-- ✅ **Descriptions**: Full sentences with periods
-- ✅ **Defaults**: In backticks (e.g., "Default: `0`.")
-- ✅ **Standard parameters**: Consistent descriptions across all endpoints
-
-### Terminology
-
-- **data-links** (not "datalinks" or "data links")
-- **resource path** (not "bucket path" or "URI")
-- **Array of** (not "List of")
-- **Workspace numeric identifier** (consistent phrasing)
-
-### Common Parameter Descriptions
-
-| Parameter | Standard Description |
-|-----------|---------------------|
-| `workspaceId` | Workspace numeric identifier. |
-| `max` | Maximum number of results to return. Default: `{value}`. |
-| `offset` | Number of results to skip for pagination. Default: `0`. |
-| `search` | Free-text search filter to match against {field names}. |
-
-See `.claude/skills/openapi-overlay-generator/references/standards.md` for complete guide.
-
-## 🛠 Local Development with Claude Code
-
-With Claude Code and the skill available:
+Useful local validation commands:
 
 ```bash
-# Analyze changes
-/openapi-overlay-generator "Analyze the comparison overlay"
+python3 .claude/skills/api-overlay-generator/scripts/validate_overlay.py \
+  platform-api-docs/scripts/specs/{overlay-file}.yaml
 
-# Generate overlays
-/openapi-overlay-generator "Generate overlay files for version 1.95"
-
-# Validate overlays
-/openapi-overlay-generator "Validate all overlay files"
+python3 .claude/skills/api-overlay-generator/scripts/check_consistency.py \
+  platform-api-docs/scripts/specs/{overlay-file}.yaml
 ```
 
-The skill provides context-aware assistance for all API documentation tasks.
+## Apply overlays and regenerate docs
 
-## 🔄 Manual Workflow (Fallback)
+The apply workflow runs when the draft PR receives the `overlays-approved`
+label. It can also be run manually with a PR number.
 
-If automation is unavailable, follow the manual process:
+The workflow:
 
-### 1. Get Base Spec from Platform Repo
+1.  Checks out the PR branch.
+2.  Installs Python dependencies, Node dependencies, and Speakeasy `1.759.2`.
+3.  Detects the latest base spec version in
+   `platform-api-docs/scripts/specs/`.
+4.  Extracts versioned overlay files from `claude-generated-overlays.md`.
+5.  Consolidates versioned overlays into
+   `all-changes-overlay-{version}.yaml`.
+6.  Applies the consolidated overlay to `seqera-api-latest-decorated.yml`.
+7.  Validates the decorated spec with `speakeasy validate openapi`.
+8.  Updates the Platform API info page version.
+9.  Regenerates parameter tables.
+10.  Runs Docusaurus API doc generation for the Platform API only.
+11.  Updates `platform-api-docs/docs/sidebar/sidebar.js` with
+    `.claude/skills/api-overlay-generator/scripts/update_sidebar_v2.py`.
+12.  Validates that generated operation docs and sidebar operation entries
+    match.
+13.  Archives used overlay, comparison, generated Markdown, and analysis files
+    under `platform-api-docs/scripts/overlay_archives/`.
+14.  Keeps only the latest two base specs.
+15.  Commits and pushes the regenerated docs to the PR branch.
+16.  Marks the PR ready for review and comments with a summary.
+
+The sidebar validation step is deliberately strict for generated operation
+pages. If the workflow reports either "Sidebar operation IDs with no generated
+doc" or "Generated operation docs missing from the sidebar", update
+`platform-api-docs/docs/sidebar/sidebar.js` before merging the docs PR.
+Info pages under `platform-api-docs/docs/info/` are linked by path and are not
+part of that operation-page drift check.
+
+## Local build check
+
+Install dependencies if needed:
 
 ```bash
-# Copy flattened spec from Platform repo
+npm install
+```
+
+Build the docs with the other generated API surfaces excluded:
+
+```bash
+NO_UPDATE_NOTIFIER=1 \
+EXCLUDE_MULTIQC=true \
+EXCLUDE_FUSION=true \
+EXCLUDE_WAVE=true \
+npm run build
+```
+
+For local development, run:
+
+```bash
+npm run start
+```
+
+Then open <http://localhost:3000/platform-api/>.
+
+## Manual fallback
+
+If the workflows are unavailable, use the same files and commands manually.
+
+Copy the flattened base spec from Platform:
+
+```bash
 cp platform-repo/tower-backend/src/main/resources/META-INF/openapi/seqera-api-latest-flattened.yml \
-   platform-api-docs/scripts/specs/seqera-api-{version}.yaml
+  platform-api-docs/scripts/specs/seqera-api-{version}.yaml
 ```
 
-### 2. Generate Comparison
+Generate and analyze the comparison:
 
 ```bash
 cd platform-api-docs/scripts/specs
 
 speakeasy overlay compare \
   -b seqera-api-{old-version}.yaml \
-  -a seqera-api-{new-version}.yaml \
-  > base-{old}-to-{new}-changes.yaml
+  -a seqera-api-{version}.yaml \
+  > base-{old-version}-to-{version}-changes.yaml
+
+python3 ../../../.claude/skills/api-overlay-generator/scripts/analyze_comparison.py \
+  base-{old-version}-to-{version}-changes.yaml
 ```
 
-### 3. Analyze and Generate Overlays
+Create or edit the overlay files, then apply and validate them:
 
 ```bash
-# Analyze changes
-python3 ../../.claude/skills/openapi-overlay-generator/scripts/analyze_comparison.py \
-  base-{old}-to-{new}-changes.yaml
-
-# Review analysis.json output
-# Create overlay files manually or with Claude assistance
-```
-
-### 4. Validate Overlays
-
-```bash
-python3 ../../.claude/skills/openapi-overlay-generator/scripts/validate_overlay.py \
-  {feature}-operations-overlay-{version}.yaml
-```
-
-### 5. Consolidate and Apply
-
-```bash
-# Manually consolidate all overlay files into:
-# all-changes-overlay-{version}.yaml
-
-# Apply consolidated overlay
 speakeasy overlay apply \
   -s seqera-api-latest-decorated.yml \
   -o all-changes-overlay-{version}.yaml \
   > seqera-api-latest-decorated-new.yml
 
-# Replace old decorated spec
 mv seqera-api-latest-decorated-new.yml seqera-api-latest-decorated.yml
-```
 
-### 6. Validate Output
-
-```bash
 speakeasy validate openapi -s seqera-api-latest-decorated.yml
 ```
 
-### 7. Regenerate Documentation
+Regenerate docs and update the sidebar:
 
 ```bash
-cd ../..
+cd ../../..
 
-# Clean and regenerate API docs
-npx docusaurus clean-api-docs all
-npx docusaurus gen-api-docs all
-```
+node platform-api-docs/scripts/extract-api-tables.mjs
 
-### 8. Update Sidebar (Future)
+EXCLUDE_MULTIQC=true EXCLUDE_FUSION=true EXCLUDE_WAVE=true \
+  npx docusaurus clean-api-docs platform
 
-The `update_sidebar.py` script will be included in Phase 3:
+EXCLUDE_MULTIQC=true EXCLUDE_FUSION=true EXCLUDE_WAVE=true \
+  npx docusaurus gen-api-docs platform
 
-```bash
-python3 .claude/skills/openapi-overlay-generator/scripts/update_sidebar.py \
-  platform-api-docs/docs/sidebar/sidebar.js \
-  platform-api-docs/scripts/specs/analysis.json
-```
-
-### 9. Clean Up
-
-```bash
 cd platform-api-docs/scripts/specs
 
-# Move overlays to archive
-mv *-overlay-{version}.yaml overlays_archive/
-
-# Delete old base spec (keep latest 2)
-rm seqera-api-{old-version}.yaml
+python3 ../../../.claude/skills/api-overlay-generator/scripts/update_sidebar_v2.py \
+  ../../docs/sidebar/sidebar.js \
+  base-{old-version}-to-{version}-changes-analysis.json
 ```
 
-## 🐛 Troubleshooting
-
-### Workflow Fails
-
-**Missing secrets**: Verify GitHub secrets are set:
-- `PLATFORM_REPO_PAT`: Read access to Platform repo
-- `ENG_ANTHROPIC_API_KEY`: Claude API access
-
-**Workflow not triggering**: See docs about GitHub Actions workflow recognition issues.
-
-### Claude API Call Fails
-
-**Rate limits**: Check Anthropic API quota and status.
-
-**Invalid context**: Ensure skill files exist in `.claude/skills/openapi-overlay-generator/`.
-
-### Overlay Application Errors
-
-**JSONPath issues**: Verify target paths exist in base spec.
-
-**YAML syntax**: Check indentation and quotes in overlay files.
-
-### Validation Failures
-
-Run validation scripts for detailed error messages:
+Run a full local build before pushing:
 
 ```bash
-python3 .claude/skills/openapi-overlay-generator/scripts/validate_overlay.py <file>
-python3 .claude/skills/openapi-overlay-generator/scripts/check_consistency.py <file>
+cd ../../..
+
+NO_UPDATE_NOTIFIER=1 \
+EXCLUDE_MULTIQC=true \
+EXCLUDE_FUSION=true \
+EXCLUDE_WAVE=true \
+npm run build
 ```
 
-## 📚 Resources
+## File organization
 
-### Full Automation System
+`platform-api-docs/scripts/specs/` contains:
 
-See **README-AUTOMATION-SYSTEM.md** (available separately) for:
-- Complete 3-phase automation architecture
-- Platform repo trigger workflow (Phase 1)
-- Apply overlays workflow (Phase 3)
-- Advanced troubleshooting
-- Performance metrics
+- `seqera-api-{version}.yaml`: versioned flattened base specs copied from
+  Platform.
+- `seqera-api-latest-decorated.yml`: the public decorated spec consumed by
+  Docusaurus.
+- `base-{old-version}-to-{version}-changes.yaml`: Speakeasy comparison output.
+- `*-overlay-{version}.yaml`: reviewed version-specific overlays.
+- `all-changes-overlay-{version}.yaml`: temporary consolidated overlay used by
+  the apply workflow.
+- `*-analysis.json`: analysis output from `analyze_comparison.py`.
+- `claude-generated-overlays.md`: Claude's generated overlay suggestions.
 
-### Documentation
+`platform-api-docs/scripts/overlay_archives/` stores applied overlays,
+comparison output, analysis JSON, and generated overlay Markdown after the
+apply workflow completes.
 
-- [Speakeasy Overlays](https://speakeasy.com/docs/overlay)
+`.claude/skills/api-overlay-generator/` contains the Claude skill, standards,
+overlay patterns, and helper scripts used by the workflows.
+
+## Required secrets
+
+- `DOCS_BOT_APP_ID`: GitHub App ID used to read the private Platform repo.
+- `DOCS_BOT_APP_PRIVATE_KEY`: private key for the same GitHub App.
+- `ENG_ANTHROPIC_API_KEY`: Anthropic API key used by the generate workflow.
+
+The apply workflow uses `GITHUB_TOKEN` for changes to the docs PR branch and PR
+updates.
+
+## Troubleshooting
+
+If the generate workflow says a script is missing, check that the sparse
+checkout and full checkout are isolated. The full workflow needs
+`.claude/skills/api-overlay-generator/scripts/analyze_comparison.py`, while the
+pre-flight duplicate-version check should only use the separate
+`docs-version-check` path.
+
+If the apply workflow cannot extract overlays, make sure each YAML block in
+`claude-generated-overlays.md` has a versioned overlay filename immediately
+above the block, for example `credentials-operations-overlay-1.181.0.yaml`.
+
+If the Docusaurus build fails with missing sidebar document IDs, compare
+`platform-api-docs/docs/sidebar/sidebar.js` with the generated
+`platform-api-docs/docs/*.api.mdx` files. Sidebar entries should only reference
+operation docs that exist in the generated public docs.
+
+If a newly expected operation is missing from the docs, confirm whether it is
+present in `seqera-api-latest-decorated.yml`. Operations that are only in the
+flattened base spec may have been intentionally filtered out of the public
+decorated spec.
+
+## References
+
+- [Speakeasy overlays](https://speakeasy.com/docs/overlay)
 - [OpenAPI Specification](https://spec.openapis.org/oas/v3.1.0)
 - [Google Developer Style Guide](https://developers.google.com/style)
 - [GitHub Actions](https://docs.github.com/en/actions)
-
-### Skill Documentation
-
-See `.claude/skills/openapi-overlay-generator/SKILL.md` for:
-- Detailed workflow instructions
-- Overlay pattern examples
-- Standards reference
-- Script usage
-
-## ✨ Benefits
-
-### Time Savings
-- **Before**: 4-6 hours per API update
-- **After (Phase 2 only)**: 2-3 hours of review time
-- **After (Full automation)**: 30-60 minutes of review time
-
-### Quality Improvements
-- ✅ Consistent terminology enforced by Claude skill
-- ✅ Standard descriptions for common parameters
-- ✅ Automatic validation against style guide
-- ✅ Reduced human error
-
-### Developer Experience
-- ✅ Clear workflow with automated generation
-- ✅ Human review at critical checkpoints
-- ✅ Engineering validation before application
-- ✅ Claude Code for local development
-
-## 🔮 Coming Soon (Phase 3)
-
-The next PR will add:
-- `apply-overlays-and-regenerate.yml` workflow
-- Automatic overlay consolidation
-- Decorated spec application
-- MDX docs regeneration
-- Sidebar updates
-- Archive management
-- Ready-for-review automation
-
----
-
-**Current Status**: Phase 2 (Generate Overlays) implemented ✅
-
-**Next Step**: Implement Phase 3 (Apply Overlays and Regenerate)

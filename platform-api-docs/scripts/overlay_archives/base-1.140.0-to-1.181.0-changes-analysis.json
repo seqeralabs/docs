@@ -1,0 +1,1761 @@
+{
+  "new_endpoints": [
+    {
+      "endpoint": "/actions/cron/resolve",
+      "method": "POST",
+      "operation_id": "ResolveCronExpression",
+      "tag": "actions",
+      "summary": "Resolve a schedule description to a cron expression",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/admin/audit-logs-v2",
+      "method": "GET",
+      "operation_id": "ListAuditLogsV2",
+      "tag": "admin",
+      "summary": "List audit logs (v2)",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/admin/audit-logs-v2/export-csv",
+      "method": "GET",
+      "operation_id": "ExportAuditLogsV2Csv",
+      "tag": "admin",
+      "summary": "Export audit logs (v2) as CSV",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/admin/audit-logs-v2/{auditLogId}",
+      "method": "GET",
+      "operation_id": "DescribeAuditLogV2",
+      "tag": "admin",
+      "summary": "Describe a single audit log (v2)",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/agents",
+      "method": "GET",
+      "operation_id": "ListAgents",
+      "tag": "agents",
+      "summary": "List agents",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/agents",
+      "method": "POST",
+      "operation_id": "CreateAgent",
+      "tag": "agents",
+      "summary": "Create agent",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/agents/{agentId}",
+      "method": "DELETE",
+      "operation_id": "DeleteAgent",
+      "tag": "agents",
+      "summary": "Delete agent",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/agents/{agentId}",
+      "method": "GET",
+      "operation_id": "DescribeAgent",
+      "tag": "agents",
+      "summary": "Describe agent",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/agents/{agentId}",
+      "method": "PUT",
+      "operation_id": "UpdateAgent",
+      "tag": "agents",
+      "summary": "Update agent",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/agents/{agentId}/disable",
+      "method": "POST",
+      "operation_id": "DisableAgent",
+      "tag": "agents",
+      "summary": "Disable agent",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/agents/{agentId}/enable",
+      "method": "POST",
+      "operation_id": "EnableAgent",
+      "tag": "agents",
+      "summary": "Enable agent",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/compute-envs/{computeEnvId}/validate",
+      "method": "POST",
+      "operation_id": "ValidateComputeEnv",
+      "tag": "compute-envs",
+      "summary": "Validate a compute environment",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/credentials/{credentialsId}/validate",
+      "method": "POST",
+      "operation_id": "ValidateCredentials",
+      "tag": "credentials",
+      "summary": "Validate credentials against their cloud provider and report the outcome",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/orgs/{orgId}/idp-groups",
+      "method": "GET",
+      "operation_id": "ListOrganizationIdpGroups",
+      "tag": "orgs",
+      "summary": "List IdP groups for an organization",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/orgs/{orgId}/idp-groups",
+      "method": "POST",
+      "operation_id": "CreateOrganizationIdpGroup",
+      "tag": "orgs",
+      "summary": "Manually add an IdP group to the catalog",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/orgs/{orgId}/idp-groups/{groupId}",
+      "method": "DELETE",
+      "operation_id": "DeleteOrganizationIdpGroup",
+      "tag": "orgs",
+      "summary": "Remove an IdP group from the catalog",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/orgs/{orgId}/scim/config",
+      "method": "GET",
+      "operation_id": "DescribeOrganizationScimConfig",
+      "tag": "orgs",
+      "summary": "View SCIM configuration",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/orgs/{orgId}/scim/token",
+      "method": "DELETE",
+      "operation_id": "RevokeOrganizationScimToken",
+      "tag": "orgs",
+      "summary": "Revoke the active SCIM bearer token",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/orgs/{orgId}/scim/token",
+      "method": "POST",
+      "operation_id": "CreateOrganizationScimToken",
+      "tag": "orgs",
+      "summary": "Generate a SCIM bearer token",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/orgs/{orgId}/scim/token/rotate",
+      "method": "POST",
+      "operation_id": "RotateOrganizationScimToken",
+      "tag": "orgs",
+      "summary": "Rotate the SCIM bearer token",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/studios/{sessionId}/compatible-ce",
+      "method": "GET",
+      "operation_id": "ListDataStudioCompatibleComputeEnvs",
+      "tag": "studios",
+      "summary": "List compute environments compatible with a Studio",
+      "target": "$[\"paths\"]"
+    },
+    {
+      "endpoint": "/workflow/{workflowId}",
+      "method": "PATCH",
+      "operation_id": "UpdateWorkflow",
+      "tag": "workflows",
+      "summary": "Apply a partial update to the workflow-extension metadata for the given Workflow ID",
+      "target": "$[\"paths\"][\"/workflow/{workflowId}\"]"
+    }
+  ],
+  "modified_endpoints": [
+    {
+      "endpoint": "/avatars/{avatarId}",
+      "method": "GET",
+      "operation_id": null,
+      "tag": "avatars",
+      "summary": null,
+      "target": "$[\"paths\"][\"/avatars/{avatarId}\"][\"get\"][\"responses\"][\"200\"][\"content\"]"
+    },
+    {
+      "endpoint": "/compute-envs/{computeEnvId}",
+      "method": "DELETE",
+      "operation_id": null,
+      "tag": "compute-envs",
+      "summary": null,
+      "target": "$[\"paths\"][\"/compute-envs/{computeEnvId}\"][\"delete\"][\"description\"]"
+    },
+    {
+      "endpoint": "/data-links/{dataLinkId}/download/{filePath}",
+      "method": "GET",
+      "operation_id": null,
+      "tag": "data-links",
+      "summary": null,
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/download/{filePath}\"][\"get\"][\"responses\"][\"200\"][\"content\"]"
+    },
+    {
+      "endpoint": "/datasets/{datasetId}/v/{version}/n/{fileName}",
+      "method": "GET",
+      "operation_id": null,
+      "tag": "datasets",
+      "summary": null,
+      "target": "$[\"paths\"][\"/datasets/{datasetId}/v/{version}/n/{fileName}\"][\"get\"][\"responses\"][\"200\"][\"content\"]"
+    },
+    {
+      "endpoint": "/studios/{sessionId}",
+      "method": "PUT",
+      "operation_id": null,
+      "tag": "studios",
+      "summary": null,
+      "target": "$[\"paths\"][\"/studios/{sessionId}\"][\"put\"][\"description\"]"
+    },
+    {
+      "endpoint": "/workflow/launch",
+      "method": "POST",
+      "operation_id": null,
+      "tag": "workflow",
+      "summary": null,
+      "target": "$[\"paths\"][\"/workflow/launch\"][\"post\"][\"responses\"][\"400\"][\"content\"][\"application/json\"][\"schema\"]"
+    },
+    {
+      "endpoint": "/workflow/launch",
+      "method": "POST",
+      "operation_id": null,
+      "tag": "workflow",
+      "summary": null,
+      "target": "$[\"paths\"][\"/workflow/launch\"][\"post\"][\"responses\"][\"400\"][\"description\"]"
+    },
+    {
+      "endpoint": "/workflow/{workflowId}/download",
+      "method": "GET",
+      "operation_id": null,
+      "tag": "workflow",
+      "summary": null,
+      "target": "$[\"paths\"][\"/workflow/{workflowId}/download\"][\"get\"][\"responses\"][\"200\"][\"content\"]"
+    },
+    {
+      "endpoint": "/workflow/{workflowId}/download/{taskId}",
+      "method": "GET",
+      "operation_id": null,
+      "tag": "workflow",
+      "summary": null,
+      "target": "$[\"paths\"][\"/workflow/{workflowId}/download/{taskId}\"][\"get\"][\"responses\"][\"200\"][\"content\"]"
+    }
+  ],
+  "new_schemas": [
+    {
+      "schema": "AccessTokenImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ActionImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Agent.Status",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AgentDbDto",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AuditActor.ActorType",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AuditEventType",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AuditImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AuditImageType",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AuditLogTargetState",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AuditLogTargetStateMetadata",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AuditLogTargetStateMetadataStatus",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AuditLogV2QueryAttribute",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AuditLogV2ResponseDto",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AuditLogV2ResponseDto.Actor",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AuditLogV2ResponseDto.Client",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AuditLogV2ResponseDto.ResourceOrganization",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AuditLogV2ResponseDto.ResourceUser",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AuditLogV2ResponseDto.ResourceWorkspace",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AuditLogV2ResponseDto.Target",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AzNetwork",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "AzSubnet",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ComputeEnvImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "CreateAgentRequest",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "CreateAgentResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "CreateIdpGroupRequest",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "CreateScimTokenResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Credentials.Status",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "CredentialsImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "CreditInfoImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "CronActionConfig",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "CronActionEvent",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "CronActionRequest",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "CustomRoleImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "DataLinkFileImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "DataLinkImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "DataLinkMetadataImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "DataStudioConnectionImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "DataStudioImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "DatasetImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "DatasetVersionImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "DatasetVersionImage.BlobContentImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "DatasetVersionImage.LinkedSourceImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "DescribeAgentResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "DescribeScimConfigResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "EntityContext",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Feature",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "GpuMetrics",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "IdpGroupEntry",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "IdpGroupImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "LabelAssignmentImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "LabelImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "LaunchImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "LaunchValidationError",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ListAgentsResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ListAuditLogV2Response",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ListIdpGroupsResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ManagedCredentialsImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ManagedIdentityImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "MemberImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "OAuthConsentImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "OrgIdpGroupSource",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "OrgSsoConnectionImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "OrganizationImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ParticipantImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "PipelineImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "PipelineSecretImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "SchedConfig.Pool",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "TeamImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "TeamMemberImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "UpdateAgentRequest",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "UpdateAgentResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "UpdateWorkflowRequest",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "UserImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "UserRoleImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "UserSshPublicKeyImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ValidateComputeEnvResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ValidateCredentialsResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "WaveBuildNotification",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "WfSched",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "WorkflowExtAttributes",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "WorkflowImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "WorkflowLaunchValidationErrorResponse",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "WorkspaceImage",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "WspRole",
+      "target": "$[\"components\"][\"schemas\"]",
+      "is_property_change": false
+    }
+  ],
+  "modified_schemas": [
+    {
+      "schema": "Action",
+      "target": "$[\"components\"][\"schemas\"][\"Action.ConfigType\"][\"discriminator\"][\"mapping\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Action",
+      "target": "$[\"components\"][\"schemas\"][\"Action.ConfigType\"][\"oneOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Action",
+      "target": "$[\"components\"][\"schemas\"][\"Action.EventType\"][\"discriminator\"][\"mapping\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Action",
+      "target": "$[\"components\"][\"schemas\"][\"Action.EventType\"][\"oneOf\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Action",
+      "target": "$[\"components\"][\"schemas\"][\"Action.Source\"][\"enum\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "Action",
+      "target": "$[\"components\"][\"schemas\"][\"Action.Source\"][\"x-enum-varnames\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ActionResponseDto",
+      "target": "$[\"components\"][\"schemas\"][\"ActionResponseDto\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsBatchConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsBatchConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsCloudConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsCloudConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsCloudConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsCloudConfig\"][\"properties\"][\"subnetId\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsCloudConfig\"][\"properties\"][\"subnetId\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsCloudConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AwsCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AwsCloudConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchForgeConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchForgeConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzBatchPoolConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzBatchPoolConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzCloudConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzCloudConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzCloudConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"AzCloudConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzCloudPlatformMetaInfo",
+      "target": "$[\"components\"][\"schemas\"][\"AzCloudPlatformMetaInfo\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "AzCloudPlatformMetaInfo",
+      "target": "$[\"components\"][\"schemas\"][\"AzCloudPlatformMetaInfo\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ComputeEnv",
+      "target": "$[\"components\"][\"schemas\"][\"ComputeEnv.Status\"][\"enum\"][*]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ComputeEnv",
+      "target": "$[\"components\"][\"schemas\"][\"ComputeEnv.Status\"][\"enum\"]",
+      "is_property_change": false
+    },
+    {
+      "schema": "ComputeEnvResources",
+      "target": "$[\"components\"][\"schemas\"][\"ComputeEnvResources\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ComputeEnvResponseDto",
+      "target": "$[\"components\"][\"schemas\"][\"ComputeEnvResponseDto\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ComputeEnv_ComputeConfig_",
+      "target": "$[\"components\"][\"schemas\"][\"ComputeEnv_ComputeConfig_\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "CreateActionRequest",
+      "target": "$[\"components\"][\"schemas\"][\"CreateActionRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "CreateTeamRequest",
+      "target": "$[\"components\"][\"schemas\"][\"CreateTeamRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "Credentials",
+      "target": "$[\"components\"][\"schemas\"][\"Credentials\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "Credentials",
+      "target": "$[\"components\"][\"schemas\"][\"Credentials\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "Credentials",
+      "target": "$[\"components\"][\"schemas\"][\"Credentials\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DataStudioUpdateRequest",
+      "target": "$[\"components\"][\"schemas\"][\"DataStudioUpdateRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DatasetVersionDto",
+      "target": "$[\"components\"][\"schemas\"][\"DatasetVersionDto\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DescribeCredentialsResponse",
+      "target": "$[\"components\"][\"schemas\"][\"DescribeCredentialsResponse\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DescribeWorkflowResponse",
+      "target": "$[\"components\"][\"schemas\"][\"DescribeWorkflowResponse\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DescribeWorkflowResponse",
+      "target": "$[\"components\"][\"schemas\"][\"DescribeWorkflowResponse\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DescribeWorkflowResponse",
+      "target": "$[\"components\"][\"schemas\"][\"DescribeWorkflowResponse\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DescribeWorkflowResponse",
+      "target": "$[\"components\"][\"schemas\"][\"DescribeWorkflowResponse\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DescribeWorkflowResponse",
+      "target": "$[\"components\"][\"schemas\"][\"DescribeWorkflowResponse\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DescribeWorkflowResponse",
+      "target": "$[\"components\"][\"schemas\"][\"DescribeWorkflowResponse\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "DescribeWorkflowResponse",
+      "target": "$[\"components\"][\"schemas\"][\"DescribeWorkflowResponse\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleCloudConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleCloudConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleCloudConfig",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleCloudConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "GoogleInstanceType",
+      "target": "$[\"components\"][\"schemas\"][\"GoogleInstanceType\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "InstanceType",
+      "target": "$[\"components\"][\"schemas\"][\"InstanceType\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "LaunchDbDto",
+      "target": "$[\"components\"][\"schemas\"][\"LaunchDbDto\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "LaunchDbDto",
+      "target": "$[\"components\"][\"schemas\"][\"LaunchDbDto\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ListActionsResponse",
+      "target": "$[\"components\"][\"schemas\"][\"ListActionsResponse.ActionInfo\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ListActionsResponse",
+      "target": "$[\"components\"][\"schemas\"][\"ListActionsResponse.ActionInfo\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ListComputeEnvsResponse",
+      "target": "$[\"components\"][\"schemas\"][\"ListComputeEnvsResponse.Entry\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ListComputeEnvsResponse",
+      "target": "$[\"components\"][\"schemas\"][\"ListComputeEnvsResponse.Entry\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ListComputeEnvsResponse",
+      "target": "$[\"components\"][\"schemas\"][\"ListComputeEnvsResponse.Entry\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ListComputeEnvsResponse",
+      "target": "$[\"components\"][\"schemas\"][\"ListComputeEnvsResponse.Entry\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ProcessLoad",
+      "target": "$[\"components\"][\"schemas\"][\"ProcessLoad\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ProcessLoad",
+      "target": "$[\"components\"][\"schemas\"][\"ProcessLoad\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "SchedConfig",
+      "target": "$[\"components\"][\"schemas\"][\"SchedConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "SchedConfig",
+      "target": "$[\"components\"][\"schemas\"][\"SchedConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "SchedConfig",
+      "target": "$[\"components\"][\"schemas\"][\"SchedConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "SchedConfig",
+      "target": "$[\"components\"][\"schemas\"][\"SchedConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "SchedConfig",
+      "target": "$[\"components\"][\"schemas\"][\"SchedConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "SchedConfig",
+      "target": "$[\"components\"][\"schemas\"][\"SchedConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "SchedConfig",
+      "target": "$[\"components\"][\"schemas\"][\"SchedConfig\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ServiceInfo",
+      "target": "$[\"components\"][\"schemas\"][\"ServiceInfo\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ServiceInfo",
+      "target": "$[\"components\"][\"schemas\"][\"ServiceInfo\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "ServiceInfo",
+      "target": "$[\"components\"][\"schemas\"][\"ServiceInfo\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "Task",
+      "target": "$[\"components\"][\"schemas\"][\"Task\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "TeamDbDto",
+      "target": "$[\"components\"][\"schemas\"][\"TeamDbDto\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "TeamDbDto",
+      "target": "$[\"components\"][\"schemas\"][\"TeamDbDto\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "UpdateActionRequest",
+      "target": "$[\"components\"][\"schemas\"][\"UpdateActionRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "UpdateComputeEnvRequest",
+      "target": "$[\"components\"][\"schemas\"][\"UpdateComputeEnvRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "UpdateComputeEnvRequest",
+      "target": "$[\"components\"][\"schemas\"][\"UpdateComputeEnvRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "UpdateTeamRequest",
+      "target": "$[\"components\"][\"schemas\"][\"UpdateTeamRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "UpsertUserRequest",
+      "target": "$[\"components\"][\"schemas\"][\"UpsertUserRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "UpsertUserRequest",
+      "target": "$[\"components\"][\"schemas\"][\"UpsertUserRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "UserResponseDto",
+      "target": "$[\"components\"][\"schemas\"][\"UserResponseDto\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "Workflow",
+      "target": "$[\"components\"][\"schemas\"][\"Workflow\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "Workflow",
+      "target": "$[\"components\"][\"schemas\"][\"Workflow\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowLaunchRequest",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowLaunchRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowLaunchRequest",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowLaunchRequest\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowLaunchResponse",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowLaunchResponse\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowLaunchResponse",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowLaunchResponse\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowLoad",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowLoad\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowLoad",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowLoad\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowLoad",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowLoad\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowLoad",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowLoad\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowLoad",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowLoad\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowLoad",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowLoad\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowMaxDbDto",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowMaxDbDto\"][\"allOf\"][1][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowMaxDbDto",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowMaxDbDto\"][\"allOf\"][1][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowMaxDbDto",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowMaxDbDto\"][\"allOf\"][1][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowMaxDbDto",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowMaxDbDto\"][\"allOf\"][1][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowMaxDbDto",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowMaxDbDto\"][\"allOf\"][1][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowMaxDbDto",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowMaxDbDto\"][\"allOf\"][1][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowMetrics",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowMetrics\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowMetrics",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowMetrics\"][\"properties\"]",
+      "is_property_change": true
+    },
+    {
+      "schema": "WorkflowMetrics",
+      "target": "$[\"components\"][\"schemas\"][\"WorkflowMetrics\"][\"properties\"]",
+      "is_property_change": true
+    }
+  ],
+  "new_parameters": [
+    {
+      "target": "$[\"paths\"][\"/compute-envs/{computeEnvId}\"][\"delete\"][\"parameters\"]",
+      "update": [
+        {
+          "description": "Force-delete a stuck compute environment, bypassing active-job checks. Only valid for environments in ERRORED, INVALID, or DELETING status.",
+          "in": "query",
+          "name": "force",
+          "schema": {
+            "type": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "target": "$[\"paths\"][\"/platforms/{platformId}\"][\"get\"][\"parameters\"][*]",
+      "update": null
+    },
+    {
+      "target": "$[\"paths\"][\"/platforms/{platformId}\"][\"get\"][\"parameters\"]",
+      "update": [
+        {
+          "description": "Platform string identifier",
+          "in": "path",
+          "name": "platformId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "description": "Workspace numeric identifier",
+          "in": "query",
+          "name": "workspaceId",
+          "schema": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        {
+          "description": "When true, narrow the catalog to Scheduler-compatible instance types (AWS only).",
+          "in": "query",
+          "name": "sched",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "description": "When true, narrow the catalog to NVMe-equipped instance types (AWS only).",
+          "in": "query",
+          "name": "nvme",
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "explode": false,
+          "in": "query",
+          "name": "regionId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "explode": false,
+          "in": "query",
+          "name": "credentialsId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  ],
+  "deprecated_endpoints": [
+    {
+      "endpoint": "/avatars/{avatarId}",
+      "method": "GET",
+      "operation_id": null,
+      "tag": "avatars",
+      "summary": null,
+      "target": "$[\"paths\"][\"/avatars/{avatarId}\"][\"get\"][\"responses\"][\"200\"][\"content\"][\"application/json\"]"
+    },
+    {
+      "endpoint": "/data-links/{dataLinkId}/download/{filePath}",
+      "method": "GET",
+      "operation_id": null,
+      "tag": "data-links",
+      "summary": null,
+      "target": "$[\"paths\"][\"/data-links/{dataLinkId}/download/{filePath}\"][\"get\"][\"responses\"][\"200\"][\"content\"][\"application/json\"]"
+    },
+    {
+      "endpoint": "/datasets/{datasetId}/v/{version}/n/{fileName}",
+      "method": "GET",
+      "operation_id": null,
+      "tag": "datasets",
+      "summary": null,
+      "target": "$[\"paths\"][\"/datasets/{datasetId}/v/{version}/n/{fileName}\"][\"get\"][\"responses\"][\"200\"][\"content\"][\"application/json\"]"
+    },
+    {
+      "endpoint": "/workflow/launch",
+      "method": "POST",
+      "operation_id": null,
+      "tag": "workflow",
+      "summary": null,
+      "target": "$[\"paths\"][\"/workflow/launch\"][\"post\"][\"responses\"][\"400\"][\"content\"][\"application/json\"][\"schema\"][\"$ref\"]"
+    },
+    {
+      "endpoint": "/workflow/{workflowId}/download",
+      "method": "GET",
+      "operation_id": null,
+      "tag": "workflow",
+      "summary": null,
+      "target": "$[\"paths\"][\"/workflow/{workflowId}/download\"][\"get\"][\"responses\"][\"200\"][\"content\"][\"application/json\"]"
+    },
+    {
+      "endpoint": "/workflow/{workflowId}/download/{taskId}",
+      "method": "GET",
+      "operation_id": null,
+      "tag": "workflow",
+      "summary": null,
+      "target": "$[\"paths\"][\"/workflow/{workflowId}/download/{taskId}\"][\"get\"][\"responses\"][\"200\"][\"content\"][\"application/json\"]"
+    }
+  ],
+  "by_tag": {
+    "actions": {
+      "endpoints": [
+        {
+          "endpoint": "/actions/cron/resolve",
+          "method": "POST",
+          "operation_id": "ResolveCronExpression",
+          "tag": "actions",
+          "summary": "Resolve a schedule description to a cron expression",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": [
+        {
+          "schema": "ActionImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "CronActionConfig",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "CronActionEvent",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "CronActionRequest",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "orgs": {
+      "endpoints": [
+        {
+          "endpoint": "/orgs/{orgId}/idp-groups",
+          "method": "GET",
+          "operation_id": "ListOrganizationIdpGroups",
+          "tag": "orgs",
+          "summary": "List IdP groups for an organization",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/orgs/{orgId}/idp-groups",
+          "method": "POST",
+          "operation_id": "CreateOrganizationIdpGroup",
+          "tag": "orgs",
+          "summary": "Manually add an IdP group to the catalog",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/orgs/{orgId}/idp-groups/{groupId}",
+          "method": "DELETE",
+          "operation_id": "DeleteOrganizationIdpGroup",
+          "tag": "orgs",
+          "summary": "Remove an IdP group from the catalog",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/orgs/{orgId}/scim/config",
+          "method": "GET",
+          "operation_id": "DescribeOrganizationScimConfig",
+          "tag": "orgs",
+          "summary": "View SCIM configuration",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/orgs/{orgId}/scim/token",
+          "method": "DELETE",
+          "operation_id": "RevokeOrganizationScimToken",
+          "tag": "orgs",
+          "summary": "Revoke the active SCIM bearer token",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/orgs/{orgId}/scim/token",
+          "method": "POST",
+          "operation_id": "CreateOrganizationScimToken",
+          "tag": "orgs",
+          "summary": "Generate a SCIM bearer token",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/orgs/{orgId}/scim/token/rotate",
+          "method": "POST",
+          "operation_id": "RotateOrganizationScimToken",
+          "tag": "orgs",
+          "summary": "Rotate the SCIM bearer token",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": [
+        {
+          "schema": "AuditLogV2ResponseDto.ResourceOrganization",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "OrgIdpGroupSource",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "OrgSsoConnectionImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "OrganizationImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "users": {
+      "endpoints": [],
+      "schemas": [
+        {
+          "schema": "AuditLogV2ResponseDto.ResourceUser",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "UserImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "UserRoleImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "UserSshPublicKeyImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "workspaces": {
+      "endpoints": [],
+      "schemas": [
+        {
+          "schema": "AuditLogV2ResponseDto.ResourceWorkspace",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "WorkspaceImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "compute-envs": {
+      "endpoints": [
+        {
+          "endpoint": "/compute-envs/{computeEnvId}/validate",
+          "method": "POST",
+          "operation_id": "ValidateComputeEnv",
+          "tag": "compute-envs",
+          "summary": "Validate a compute environment",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": [
+        {
+          "schema": "ComputeEnvImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "ValidateComputeEnvResponse",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "credentials": {
+      "endpoints": [
+        {
+          "endpoint": "/credentials/{credentialsId}/validate",
+          "method": "POST",
+          "operation_id": "ValidateCredentials",
+          "tag": "credentials",
+          "summary": "Validate credentials against their cloud provider and report the outcome",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": [
+        {
+          "schema": "Credentials.Status",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "CredentialsImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "ManagedCredentialsImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "ValidateCredentialsResponse",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "data-links": {
+      "endpoints": [],
+      "schemas": [
+        {
+          "schema": "DataLinkFileImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "DataLinkImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "DataLinkMetadataImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "studios": {
+      "endpoints": [
+        {
+          "endpoint": "/studios/{sessionId}/compatible-ce",
+          "method": "GET",
+          "operation_id": "ListDataStudioCompatibleComputeEnvs",
+          "tag": "studios",
+          "summary": "List compute environments compatible with a Studio",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": [
+        {
+          "schema": "DataStudioConnectionImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "DataStudioImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "datasets": {
+      "endpoints": [],
+      "schemas": [
+        {
+          "schema": "DatasetImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "DatasetVersionImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "DatasetVersionImage.BlobContentImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "DatasetVersionImage.LinkedSourceImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "pipelines": {
+      "endpoints": [],
+      "schemas": [
+        {
+          "schema": "PipelineImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "PipelineSecretImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "teams": {
+      "endpoints": [],
+      "schemas": [
+        {
+          "schema": "TeamImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "TeamMemberImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "workflows": {
+      "endpoints": [
+        {
+          "endpoint": "/workflow/{workflowId}",
+          "method": "PATCH",
+          "operation_id": "UpdateWorkflow",
+          "tag": "workflows",
+          "summary": "Apply a partial update to the workflow-extension metadata for the given Workflow ID",
+          "target": "$[\"paths\"][\"/workflow/{workflowId}\"]"
+        }
+      ],
+      "schemas": [
+        {
+          "schema": "UpdateWorkflowRequest",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "WorkflowExtAttributes",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "WorkflowImage",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        },
+        {
+          "schema": "WorkflowLaunchValidationErrorResponse",
+          "target": "$[\"components\"][\"schemas\"]",
+          "is_property_change": false
+        }
+      ]
+    },
+    "admin": {
+      "endpoints": [
+        {
+          "endpoint": "/admin/audit-logs-v2",
+          "method": "GET",
+          "operation_id": "ListAuditLogsV2",
+          "tag": "admin",
+          "summary": "List audit logs (v2)",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/admin/audit-logs-v2/export-csv",
+          "method": "GET",
+          "operation_id": "ExportAuditLogsV2Csv",
+          "tag": "admin",
+          "summary": "Export audit logs (v2) as CSV",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/admin/audit-logs-v2/{auditLogId}",
+          "method": "GET",
+          "operation_id": "DescribeAuditLogV2",
+          "tag": "admin",
+          "summary": "Describe a single audit log (v2)",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": []
+    },
+    "agents": {
+      "endpoints": [
+        {
+          "endpoint": "/agents",
+          "method": "GET",
+          "operation_id": "ListAgents",
+          "tag": "agents",
+          "summary": "List agents",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/agents",
+          "method": "POST",
+          "operation_id": "CreateAgent",
+          "tag": "agents",
+          "summary": "Create agent",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/agents/{agentId}",
+          "method": "DELETE",
+          "operation_id": "DeleteAgent",
+          "tag": "agents",
+          "summary": "Delete agent",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/agents/{agentId}",
+          "method": "GET",
+          "operation_id": "DescribeAgent",
+          "tag": "agents",
+          "summary": "Describe agent",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/agents/{agentId}",
+          "method": "PUT",
+          "operation_id": "UpdateAgent",
+          "tag": "agents",
+          "summary": "Update agent",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/agents/{agentId}/disable",
+          "method": "POST",
+          "operation_id": "DisableAgent",
+          "tag": "agents",
+          "summary": "Disable agent",
+          "target": "$[\"paths\"]"
+        },
+        {
+          "endpoint": "/agents/{agentId}/enable",
+          "method": "POST",
+          "operation_id": "EnableAgent",
+          "tag": "agents",
+          "summary": "Enable agent",
+          "target": "$[\"paths\"]"
+        }
+      ],
+      "schemas": []
+    }
+  },
+  "summary": {
+    "total_new_endpoints": 22,
+    "total_modified_endpoints": 9,
+    "total_new_schemas": 84,
+    "total_modified_schemas": 99,
+    "affected_tags": [
+      "actions",
+      "orgs",
+      "users",
+      "workspaces",
+      "compute-envs",
+      "credentials",
+      "data-links",
+      "studios",
+      "datasets",
+      "pipelines",
+      "teams",
+      "workflows",
+      "admin",
+      "agents"
+    ],
+    "requires_new_category": true
+  }
+}

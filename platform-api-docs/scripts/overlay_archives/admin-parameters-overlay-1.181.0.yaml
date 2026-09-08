@@ -1,0 +1,40 @@
+overlay: 1.0.0
+info:
+  title: Admin parameters overlay
+  version: 0.0.0
+actions:
+  # ===== ADMIN PARAMETERS - PATH, QUERY, AND REQUEST BODY =====
+
+  # ---- PATH PARAMETERS ----
+
+  - target: "$.paths['/admin/audit-logs-v2/{auditLogId}'].get.parameters[?(@.name=='auditLogId')].description"
+    update: "Audit log numeric identifier."
+
+  # ---- QUERY PARAMETERS ----
+
+  - target: "$.paths['/admin/audit-logs-v2'].get.parameters[?(@.name=='attributes')].description"
+    update: "Additional attribute values to include in the response. Accepts `state` for pre/post image payloads."
+
+  - target: "$.paths['/admin/audit-logs-v2'].get.parameters[?(@.name=='nextPageToken')].description"
+    update: "Token for retrieving the next page of results."
+
+  - target: "$.paths['/admin/audit-logs-v2'].get.parameters[?(@.name=='max')].description"
+    update: "Maximum number of results to return."
+
+  - target: "$.paths['/admin/audit-logs-v2'].get.parameters[?(@.name=='timestampAfterOrEqual')].description"
+    update: "Filter logs with timestamp on or after this date in ISO 8601 format."
+
+  - target: "$.paths['/admin/audit-logs-v2'].get.parameters[?(@.name=='timestampBeforeOrEqual')].description"
+    update: "Filter logs with timestamp on or before this date in ISO 8601 format."
+
+  - target: "$.paths['/admin/audit-logs-v2/export-csv'].get.parameters[?(@.name=='attributes')].description"
+    update: "Additional attribute values to include in the response. Accepts `state` for pre/post image payloads."
+
+  - target: "$.paths['/admin/audit-logs-v2/export-csv'].get.parameters[?(@.name=='timestampAfterOrEqual')].description"
+    update: "Filter logs with timestamp on or after this date in ISO 8601 format."
+
+  - target: "$.paths['/admin/audit-logs-v2/export-csv'].get.parameters[?(@.name=='timestampBeforeOrEqual')].description"
+    update: "Filter logs with timestamp on or before this date in ISO 8601 format."
+
+  - target: "$.paths['/admin/audit-logs-v2/{auditLogId}'].get.parameters[?(@.name=='attributes')].description"
+    update: "Additional attribute values to include in the response. Accepts `state` for pre/post change images."

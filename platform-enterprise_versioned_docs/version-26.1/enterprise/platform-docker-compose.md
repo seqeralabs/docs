@@ -1,7 +1,8 @@
 ---
 title: "Platform: Docker Compose"
 description: Deploy Seqera Platform Enterprise with Docker Compose
-date: "12 Feb 2024"
+date created: "2024-02-14"
+last updated: "2026-07-30"
 tags: [docker, compose, deployment]
 ---
 
@@ -43,8 +44,7 @@ The bundled `redis` container in `docker-compose.yml` is intended for evaluation
 | Cache / version | Status                       |
 | --------------- | ---------------------------- |
 | Redis 6.x       | Not supported (EoL upstream) |
-| Redis 7.2       | Supported                    |
-| Redis 7.4       | Supported                    |
+| Redis 7.x       | Supported                    |
 | Valkey 7.x      | Supported (from 26.1)        |
 
 ### Connection URL
@@ -126,8 +126,8 @@ The unprivileged Seqera image will soon deprecate the current image that require
 
 - `NGINX_LISTEN_PORT`: The port the NGINX process will listen on inside the container. Default: `8000`.
 - `NGINX_LISTEN_PORT_IPV6`: The NGINX listening port to open on the IPv6 address. Default: `8000`.
-- `NGINX_UPSTREAM_HOST`: The hostname of the backend service to which the NGINX process will route requests. Default: `8000`.
-- `NGINX_UPSTREAM_PORT`: The port where the backend service is exposed. Default: `8000`.
+- `NGINX_UPSTREAM_HOST`: The hostname of the backend service to which the NGINX process will route requests. Default: `backend`.
+- `NGINX_UPSTREAM_PORT`: The port where the backend service is exposed. Default: `8080`.
 
 If further customization of the config file is needed, mount a config map/secret over the templated NGINX configuration file at `/etc/nginx/templates/tower.conf.template`. See [SSL/TLS](./configuration/ssl_tls#configure-seqera-to-present-a-ssltls-certificate) for an example.
 

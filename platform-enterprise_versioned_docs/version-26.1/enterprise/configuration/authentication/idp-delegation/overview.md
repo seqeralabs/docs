@@ -15,7 +15,7 @@ Delegation has three components that you configure once per organization.
 
 ### The IdP group catalog
 
-Seqera maintains a per-organization catalog of IdP groups. The catalog populates the **IdP Group** drop-down on the group mapping page. Oorganization owners can select an IdP group when delegating a team. Groups appear in the catalog as soon as they're synced or entered, before any user has signed in.
+Seqera maintains a per-organization catalog of IdP groups. The catalog populates the **IdP Group** drop-down on the group mapping page. Organization owners can select an IdP group when delegating a team. Groups appear in the catalog as soon as they're synced or entered, before any user has signed in.
 
 The catalog is populated in one of two ways:
 
@@ -51,13 +51,13 @@ In deployments with more than one organization, a user does not need to be an ex
 
 On every SSO login, Seqera evaluates each delegated team in your organization against the user's `groups` claim:
 
-- **Match found**: The user is added to the team if they aren't already a member.
-- **No match and the user was previously a member**: The user is removed from the team.
+- **Match found**: The user is added to the team if they aren't already a member, and gains the workspace access the team grants.
+- **No match and the user was previously a member**: The user is removed from the team, and the workspace access the team granted is revoked.
 - **No match and the user was never a delegation-driven member**: no change.
 
 Manual assignments to non-delegated teams are never touched by this evaluation. Users added manually to a team with no **IdP Group** value keep their membership regardless of their IdP claims.
 
-If the user's token has no `groups` claim or the claim is malformed, no changes take place.
+An **absent or empty** `groups` claim is treated as "member of no groups": the user is removed from every team they joined through delegation. Only a **malformed** `groups` claim (a value that is not a list) is ignored, leaving existing memberships unchanged.
 
 ## Multi-organization deployments
 
@@ -70,6 +70,7 @@ Delegation activity is recorded in the [audit log](../../../../monitoring/audit-
 - Setting, changing, or clearing the **IdP Group** field on a team produces a `team_updated` event with the previous and new value of `idpGroup`.
 - Each delegation-driven membership change at login produces a `team_member_added` or `team_member_removed` event.
 - Group catalog operations produce `idp_group_created`, `idp_group_updated`, and `idp_group_deleted` events so you can correlate catalog changes with downstream membership changes.
+- SCIM bearer token lifecycle operations produce `scim_token_created` and `scim_token_updated` events (the latter covers rotation and revocation), so changes to the token used against Seqera's SCIM endpoint are captured in the audit trail.
 
 SCIM-originated entries (operations performed by your IdP's provisioning agent against Seqera's SCIM endpoint) are attributed to a **System** operator rather than to a named administrator, because they authenticate with a SCIM bearer token. To correlate a SCIM event with a specific administrator action, match by `displayName` and timestamp against your IdP's provisioning logs.
 

@@ -1,7 +1,7 @@
 ---
 name: punctuation
 description: "Use on documentation PRs for punctuation consistency. Checks list punctuation, Oxford commas, quotation marks, and dash usage. Specialized complement to other agents."
-tools: read, grep, glob
+tools: Read, Grep, Glob
 ---
 
 # Punctuation SME
