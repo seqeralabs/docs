@@ -99,3 +99,10 @@ A collaborator is created automatically when you add a workspace participant by 
 - Receive an email notification each time they are added to a workspace, including workspaces after the first.
 
 To promote a collaborator to a full organization member, add them as an organization member or add them to a team. Their role is upgraded in place, so you don't need to remove them first.
+
+### Collaborators and SSO
+
+Collaborators authenticate outside your organization's identity provider, so collaborators and SSO are mutually exclusive:
+
+- While SSO is active for an organization, adding a new collaborator to a workspace fails. Invite the person as an organization member through your identity provider instead. Existing collaborators and existing organization members are unaffected.
+- While an organization has collaborators, SSO cannot be configured or activated. Remove the collaborator participants, then add those users as organization members with email addresses that match your SSO domain.

@@ -140,6 +140,7 @@ The equivalent setting for organization members and team members, `TOWER_MEMBER_
 | ------- | ----- |
 | `Can't find any user record with the given email` | No Seqera account matches that email address, and [account creation on add](#allow-accounts-to-be-created-on-the-fly) is disabled. |
 | `Can't find any user record with the given name` | A username was entered for someone without a Seqera account. Usernames only resolve to existing accounts — use their email address instead. |
+| `Cannot add external collaborators to workspaces in an organization with active SSO. Invite the user as an organization member instead.` | The organization uses SSO. See [Collaborators and SSO](./organizations#collaborators-and-sso). |
 | `Already a participant` | That user or team is already a participant in this workspace. |
 
 ## Workspace run monitoring
