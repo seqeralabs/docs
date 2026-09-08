@@ -109,10 +109,10 @@ This issue occurs when a pipeline carries a `project_*` label that was not creat
 
 To avoid this issue, create `project_*` labels in workspace settings before applying them to resources. See [Projects](../co-scientist/projects.md).
 
-#### The Projects page shows **No projects configured yet**
+#### No projects configured yet
 
-The **Projects** page shows a **No projects configured yet** empty state, the project selector is hidden, and the workspace view shows a header-only empty state.
+The **Projects** page shows a **No projects configured yet** empty state, the project selector is hidden, and the workspace view shows only its header.
 
-This occurs when the workspace has no `project_*` labels.
+This issue occurs when the workspace has no `project_*` labels.
 
 To resolve, ask a workspace admin to create the first `project_*` label for the workspace. See [Create a project](../co-scientist/projects.md#create-a-project).

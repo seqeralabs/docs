@@ -6,7 +6,7 @@ last updated: "2026-08-26"
 tags: [co-scientist, projects, labels]
 ---
 
-Projects in Co-Scientist group the pipelines, datasets, and workflow runs that belong to a single piece of work. View and chat about them without the noise of the rest of the workspace.
+Projects in Co-Scientist group the pipelines, datasets, and workflow runs that belong to a single piece of work. View and ask about them without the noise of the rest of the workspace.
 
 Projects are not created inside Co-Scientist. They are derived from **workspace labels in Seqera Platform** whose names start with `project_`. Each matching label surfaces in Co-Scientist as a separate project scope, with the Platform label acting as the source of truth for membership.
 

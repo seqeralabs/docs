@@ -8,20 +8,16 @@ tags: [co-scientist, platform, cli, ai]
 
 Co-Scientist is Seqera's AI assistant for bioinformatics. It builds, runs, and debugs Nextflow pipelines, manages your data, and works with your Seqera Platform resources.
 
-Co-Scientist is available on two surfaces:
+You can use Co-Scientist in two places:
 
 - **In Seqera Platform**: Open the Co-Scientist panel from any workspace page. Because Co-Scientist reads the page you are on, you can ask about the run, pipeline, or dataset in front of you without describing it first. See [Co-Scientist in Seqera Platform](./platform.md).
 - **In the Seqera CLI**: Run `seqera ai` in your terminal to work in your local checkout with access to your Platform workspace. See [Installation](./installation.mdx).
 
-Both surfaces use the same assistant and the same Seqera Platform account. Skills, modes, command approval, and the Nextflow language server protocol (LSP) are specific to the CLI.
+Both use the same assistant and the same Seqera Platform account. Skills, modes, command approval, and the Nextflow language server protocol (LSP) are available only in the CLI.
 
 ## Get started
 
-Co-Scientist is available in Seqera Platform and in the Seqera CLI.
-
 ### In Seqera Platform
-
-The Co-Scientist panel opens alongside the page you are viewing. It can answer questions about what's in front of you.
 
 1. Sign in to [Seqera Platform](https://cloud.seqera.io) and open a workspace.
 1. Select **Co-Scientist** in the navigation to open the panel.
@@ -53,19 +49,19 @@ See [Installation](./installation.mdx) for prerequisites, updates, and developme
 
 ## What you can do
 
-Co-Scientist helps across the full pipeline lifecycle, from writing code to running it on Seqera Platform.
+Co-Scientist works across the pipeline lifecycle, from writing Nextflow code to running it on Seqera Platform.
 
 ### Develop pipelines
 
-Generate Nextflow configurations and pipeline schemas, convert scripts from other languages (WDL, R) to Nextflow, and discover over 1,000 nf-core modules with ready-to-run commands. Build reproducible Wave containers from conda or pip packages without writing a Dockerfile. Real-time LSP code intelligence detects errors and powers AI navigation across Nextflow, Python, and R files.
+Generate Nextflow configurations and pipeline schemas, convert scripts from other languages (WDL, R) to Nextflow, and discover over 1,000 nf-core modules with ready-to-run commands. Build reproducible Wave containers from conda or pip packages without writing a Dockerfile. The Nextflow language server detects errors as you edit and lets Co-Scientist navigate Nextflow, Python, and R files.
 
 ### Run and debug on Platform
 
-Launch, monitor, and debug Nextflow workflows with real-time status, logs, and run metrics. Browse cloud storage through data links, manage datasets, generate upload and download URLs, and access reference genomes. Co-Scientist works with the compute environments, datasets, and workspaces your account can already access.
+Launch, monitor, and debug pipeline runs with real-time status, logs, and run metrics. Browse cloud storage through data-links, manage datasets, generate upload and download URLs, and access reference genomes. Co-Scientist works with the compute environments, datasets, and workspaces your account can already access.
 
-### Work your way
+### Sessions, skills, and modes
 
-Ask in plain English from either surface. In the CLI, use reusable [skills](./skills.md) exposed as slash commands in the `/` palette. Switch between [build, plan, and goal modes](./modes.md) to match execution, analysis, or long-running tasks. Resume earlier sessions with `seqera ai -c`, and organize workspace resources into [projects](./projects.md) using Platform labels.
+Ask in plain English in Seqera Platform or the CLI. In the CLI, use reusable [skills](./skills.md) exposed as slash commands in the `/` palette. Switch between [build, plan, and goal modes](./modes.md) to match execution, analysis, or long-running tasks. Resume earlier sessions with `seqera ai -c`, and organize workspace resources into [projects](./projects.md) using Platform labels.
 
 ## Learn more
 
