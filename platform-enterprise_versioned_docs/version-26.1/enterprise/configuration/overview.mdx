@@ -474,6 +474,38 @@ Configuration values to enable computing platforms and customize Batch Forge res
 </TabItem>
 </Tabs>
 
+### Available platform values
+
+`TOWER_ENABLE_PLATFORMS` (`tower_enable_platforms` in the Terraform installer) controls which compute environment types are available in your installation. A platform must be listed here before a compute environment of that type can be created — if a compute environment type does not appear in the Platform UI, the corresponding value is missing from this variable.
+
+| Platform value | Compute environment type |
+| :------------- | :----------------------- |
+| `awsbatch-platform` | [AWS Batch](../../compute-envs/aws-batch) |
+| `awscloud-platform` | [AWS Cloud](../../compute-envs/aws-cloud) |
+| `azbatch-platform` | [Azure Batch](../../compute-envs/azure-batch) |
+| `azcloud-platform` | [Azure Cloud](../../compute-envs/azure-cloud) |
+| `googlebatch-platform` | [Google Cloud Batch](../../compute-envs/google-cloud-batch) |
+| `googlecloud-platform` | [Google Cloud](../../compute-envs/google-cloud) |
+| `eks-platform` | [Amazon EKS](../../compute-envs/eks) |
+| `gke-platform` | [Google Kubernetes Engine](../../compute-envs/gke) |
+| `k8s-platform` | [Kubernetes](../../compute-envs/k8s) |
+| `slurm-platform` | [Slurm](../../compute-envs/hpc) |
+| `lsf-platform` | [IBM Spectrum LSF](../../compute-envs/hpc) |
+| `uge-platform` | [Grid Engine](../../compute-envs/hpc) |
+| `altair-platform` | [Altair PBS Pro](../../compute-envs/hpc) |
+| `moab-platform` | [Moab](../../compute-envs/hpc) |
+| `local-platform` | Local (evaluation and development only) |
+
+Specify values as a comma-separated list with no spaces:
+
+```bash
+TOWER_ENABLE_PLATFORMS=awsbatch-platform,azcloud-platform,k8s-platform
+```
+
+:::note
+Azure Batch and Azure Cloud are separate compute environment types with separate platform values. Enabling `azbatch-platform` does not make Azure Cloud compute environments available, and vice versa.
+:::
+
 ### Compute environment cleanup
 
 A scheduled cron job can transition compute environments that are stuck in `CREATING` or `DELETING` states into terminal states (`ERRORED` or `INVALID`). The cleanup job is disabled by default.

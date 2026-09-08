@@ -2,7 +2,7 @@
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-07-20"
+last updated: "2026-09-01"
 tags: [google, batch, gcp, compute environments]
 ---
 
@@ -219,13 +219,13 @@ To specify virtual machine settings in Platform during compute environment creat
 To specify virtual machine settings per pipeline run in Platform, or as a persistent configuration in your Nextflow pipeline repository, use Nextflow process directives. See [Google Cloud Batch process definition](https://docs.seqera.io/nextflow/google#process-definition) for more information.
 :::
 
-When Fusion v2 is enabled, the following virtual machine settings are applied:
-- A 375 GB local NVMe SSD is selected for all compute jobs.
+When you enable Fusion v2, the following virtual machine settings apply:
+- Unless you specify an instance template, Nextflow requests a 375 GB scratch disk for all compute jobs. Families that support local SSDs use `local-ssd`. Other families use a persistent disk or Hyperdisk volume.
 - If you do not specify a machine type, a VM from families that support local SSDs is selected.
-- Any machine types you specify in the Nextflow config must support local SSDs.
-- Local SSDs are only offered in multiples of 375 GB. You can increment the number of SSDs used per process with the `disk` directive to request multiples of 375 GB. To work with files larger than 100 GB, use at least two SSDs (750 GB or more).
-- Fusion v2 can also use persistent disks for caching. Override the disk requested by Fusion using the `disk` directive and the `type: pd-standard`.
-- The `machineType` directive can be used to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
+- Local SSDs are only offered in multiples of 375 GB. Increment the scratch disk per process with the `disk` directive, for example `disk = [request: 750.GB, type: 'local-ssd']`. Without the `type` option, `disk` sets the boot disk size instead. To work with files larger than 100 GB, use at least two local SSDs (750 GB or more).
+- Fusion v2 can also use persistent disks for caching. See [Scratch disk](https://docs.seqera.io/fusion/guide/gcp-batch#scratch-disk) to choose a disk type.
+- Instance templates override the `disk` directive. To use Fusion with an instance template, the template must include a `local-ssd` disk named `fusion` with 375 GB.
+- Use the `machineType` directive to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
 
 :::note
 Wave containers and Fusion v2 are recommended features for added capability and improved performance, but neither are required to execute workflows in your compute environment.
