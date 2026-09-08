@@ -103,7 +103,7 @@ Do not hand-edit generated option tables. Put durable additions in the matching 
 
 Requirements:
 
-- Java 21 (`java` and `javac` on `PATH`)
+- Java 25 or later (`java` and `javac` on `PATH`), matching the Java release the tower-cli JAR is compiled for
 - Python 3.11 or later
 - network access to public GitHub releases
 
