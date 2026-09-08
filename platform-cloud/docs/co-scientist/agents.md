@@ -7,7 +7,7 @@ tags: [co-scientist, platform, agent, ai]
 
 An agent is a reusable, named set of instructions that Co-Scientist runs on your behalf in a Seqera Platform workspace. Where a Co-Scientist conversation is interactive and starts empty each time, an agent captures a task you repeat — investigating failed runs, summarizing results — so anyone in the workspace can run it without rewriting the prompt.
 
-Agents are workspace-scoped. Every agent in a workspace is visible to everyone with permission to read agents, not only the person who created it. An agent acts as the [service account](#agent-identity-and-permissions) bound to it rather than as the person who starts it, and reaches private repositories through the [Git credentials](#access-to-private-git-repositories) in its workspace.
+Agents are workspace-scoped. Every agent in a workspace is visible to everyone with permission to read agents, not only the person who created it. An agent acts as the [service account](#agent-identity-and-permissions) bound to it rather than as the person who starts it, and reaches private repositories through a [GitHub App credential](#access-to-private-git-repositories) in its workspace.
 
 :::info
 Agents are being rolled out to Seqera Platform Cloud. If you do not see **Agents** under **AI** in the workspace navigation, contact Seqera to enable it for your organization.
@@ -68,11 +68,12 @@ If you do not see an **Agent permissions** section on the agent form, service ac
 
 ## Access to private Git repositories
 
-An agent reads pipeline code through the Git credentials in the workspace it runs in. To let an agent work with a private repository, add credentials for that repository to that workspace.
+An agent reaches a private repository only through a [GitHub App credential](../git/overview.md#github). No other Git credential type works for an agent — a personal access token does not, even though it works elsewhere in Seqera Platform.
 
-For GitHub, add a [GitHub App credential](../git/overview.md#github): the app is installed against the repositories you choose, so the agent's access is scoped per repository and does not depend on any one person's account remaining active. Personal access tokens also work, with the access of the user who issued them.
+Two things have to be in place:
 
-Because the agent acts as its service account, that account needs permission to use the credentials in the workspace.
+- A GitHub organization admin installs the GitHub App in the GitHub organization and grants it access to the repositories the agent needs.
+- The credential exists in the workspace the agent runs in. Credentials are workspace-scoped, so an agent cannot use one from another workspace or from someone's personal credentials.
 
 ## Create an agent
 
