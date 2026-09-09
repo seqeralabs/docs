@@ -9,10 +9,6 @@ When working with Seqera Platform, you might encounter the following issues.
 
 ## Common errors
 
-#### `timeout is not an integer or out of range`
-
-This error occurs on Seqera Platform v24.2 and later when Redis is outdated. Version 24.2 requires Redis 6.2 or later. To resolve, upgrade your Redis instance according to your cloud provider's instructions.
-
 #### `Unknown pipeline repository or missing credentials` from public GitHub repositories
 
 GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls, including public repositories: unauthenticated requests are capped at 60 per hour and authenticated requests at 5000 per hour. This error is usually caused by the 60-per-hour cap. For the same error on a private organization-owned repository, see [the following entry](#github-org-repo-access).
@@ -117,10 +113,6 @@ k8s.securityContext = [
 
 ## Git integration
 
-#### `Get branches operation not supported by BitbucketServerRepositoryProvider provider`
-
-If you supplied the correct Bitbucket credentials and URL details in your `tower.yml` and still see this error, upgrade to at least v22.3.0. This version addresses SCM provider authentication issues and likely resolves the retrieval failure.
-
 #### `Cannot invoke "String.toCharArray()" because "password" is null` {#gitlab-token-without-password}
 
 This error occurs when a GitLab credential has an **Access token** but no **Password**. When cloning the repository, Nextflow releases before 26.04.0 authenticate with the username and password only and ignore the access token.
@@ -196,10 +188,6 @@ cp /root/.docker/config.json /home/ec2-user/.docker/config.json && chmod 777 /ho
 For **Azure Batch**, create a **Container registry**-type credential in your Seqera workspace and associate it with the Azure Batch compute environment in the same workspace.
 
 For **Kubernetes**, use an `imagePullSecret`, per [#2827](https://github.com/nextflow-io/nextflow/issues/2827).
-
-#### `Remote resource not found`
-
-This error occurs when the Nextflow head job fails to retrieve the repository credentials from Seqera. If your Nextflow log contains an entry like `DEBUG nextflow.scm.RepositoryProvider - Request [credentials -:-]`, check the protocol of your instance's `TOWER_SERVER_URL` value. It must be set to `https` rather than `http`, unless you use `TOWER_ENABLE_UNSAFE_MODE` to allow HTTP connections to Seqera in a test environment.
 
 ## Secrets
 
@@ -373,7 +361,7 @@ Connect to the head node over SSH and run `ps -p $$` to verify your default shel
 
 1. Check which shells are available: `cat /etc/shells`
 2. Change your shell: `chsh -s /usr/bin/bash` (the path to the binary might differ, depending on your HPC configuration).
-3. If submissions continue to fail after the shell change, ask your Seqera Platform admin to restart the **backend** and **cron** containers, then submit again.
+3. If submissions continue to fail after the shell change, [contact Seqera support](https://support.seqera.io).
 
 #### Execution logs don't update in real time for HPC compute environments
 
