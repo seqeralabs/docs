@@ -39,9 +39,9 @@ These metrics count and time every request Fusion makes to the cloud object stor
 | `fusion_backend_requests_total`           | Counter   | Almost all series carry `outcome="ok"`.                               | A sustained share of `outcome="error"` points at permissions, credentials, or provider faults. Check the `error_code` label for the category. |
 | `fusion_backend_requests_retries_total`   | Counter   | Absent or near zero.                                                  | Any sustained count with `retry_reason="throttling"` means the provider rate-limited you. See [The object store is throttling requests](#the-object-store-is-throttling-requests). |
 | `fusion_backend_requests_bytes_total`     | Counter   | Comparable to the input and output volume of the process.             | Far more bytes downloaded than the inputs contain means data was fetched more than once. Cross-check the cache hit ratio.  |
-| `fusion_backend_requests_latency_seconds` | Histogram | Same-region time to first byte sits in the tens of milliseconds.      | A sustained mean in the hundreds of milliseconds points at a bucket in a different region than the compute, or traffic leaving through a NAT instead of a VPC endpoint. |
+| `fusion_backend_requests_latency_seconds` | Histogram | Same-region time to first byte sits in the tens of milliseconds.      | A sustained mean in the hundreds of milliseconds indicates networking issues. |
 | `fusion_backend_requests_bytes`           | Histogram | Reflects the read sizes the process issues.                           | A distribution concentrated in the smallest buckets means many small requests where fewer large ones would be cheaper.     |
-| `fusion_backend_requests_in_flight`       | Gauge     | Returns to `0` when the task goes quiet.                              | A non-zero value in the final sample means a request started and never completed, either a hang or a leaked connection. Open a support ticket. |
+| `fusion_backend_requests_in_flight`       | Gauge     | Returns to `0` when the task goes quiet.                              | A non-zero value in the final sample means a request started and never completed. |
 
 Fusion records a request that returns `404` as `outcome="expected-miss"` rather than `error`, because a negative lookup is normal. It records a request the caller abandoned as `outcome="cancelled"`. Neither counts toward the error rate.
 
@@ -61,9 +61,6 @@ Cache tiers are named by access type:
 | `fusion_cache_io_bytes_total`  | Counter | Roughly tracks the data the task read and wrote.                                                  | No fixed baseline. Compare it against `fusion_backend_requests_bytes_total` to see how much traffic the cache absorbed. |
 | `fusion_cache_entries`         | Gauge   | Grows during the task and does not fall on eviction.                                              | Unbounded growth well beyond the number of files touched. The gauge counts tracking slots, not cache occupancy.       |
 
-:::note
-Renames, moves, and copies also increment the `directory` miss counter. Under heavy rename traffic, the `directory` hit ratio therefore biases downward. Read it as populate frequency, not as a pure read-cache ratio.
-:::
 
 ### File system (`fusion_fs_*`)
 
@@ -84,7 +81,7 @@ Fusion splits large files into chunks. These metrics track how those chunks move
 | Metric                               | Type      | Expected value                                                    | An anomalous reading indicates                                                                                    |
 | ------------------------------------ | --------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | `fusion_chunk_transfers_total`         | Counter   | Scales with the volume of large-file data moved.                   | No fixed baseline. Use it as the denominator for the stall and retry counters.                                     |
-| `fusion_chunk_stalls_total`            | Counter   | Absent.                                                            | Any count means a transfer stopped mid-stream and the stall watchdog intervened. Usually a network path problem.   |
+| `fusion_chunk_stalls_total`            | Counter   | Absent.                                                            | Any count means a transfer stopped mid-stream and the stall watchdog intervened.   |
 | `fusion_chunk_retries_total`           | Counter   | Absent or a small fraction of transfers.                           | A high ratio to `fusion_chunk_transfers_total` means transfers repeatedly fail and resume. The task slows but does not fail. |
 | `fusion_chunk_errors_total`            | Counter   | Absent, except for `error_type="canceled"`.                        | Counts under `stall`, `timeout`, or `exhausted` are real failures. Exclude `canceled`, which marks a normal caller interruption. |
 | `fusion_chunk_transfers_in_flight`     | Gauge     | Returns to `0` when the task goes quiet.                           | A non-zero value in the final sample means a transfer never finished.                                             |
@@ -103,7 +100,7 @@ These metrics describe the node and the mount rather than individual requests.
 | `fusion_health_memory_bytes`              | Gauge     | Plateaus once the workload reaches steady state. Labeled `heap`, `stacks`, and `other`. | A `heap` value that climbs without plateauing risks an out-of-memory kill of the task.            |
 | `fusion_health_open_file_handles`         | Gauge     | Returns to `0` when the task goes quiet.                                  | A value that only ever rises means the application opens files without closing them.              |
 | `fusion_health_disk_bytes`                | Gauge     | `free` stays well clear of zero for the whole task.                       | `free` bottoming out near zero means the cache device filled up. This usually appears alongside the cache thrash signature. |
-| `fusion_health_mount_init_seconds`        | Histogram | Seconds.                                                                  | A value in the tens of seconds delays every task in the run, usually because of a credential or network setup problem. |
+| `fusion_health_mount_init_seconds`        | Histogram | Seconds.                                                                  | A value in the tens of seconds delays every task in the run. |
 | `fusion_health_shutdown_flush_seconds`    | Histogram | Proportional to the volume of output still to upload at task end.         | A long flush relative to the task runtime means output upload, not computation, dominates the task. |
 
 ## Download the metrics file
@@ -130,7 +127,7 @@ az storage blob download --account-name <account> -c <container> \
 gcloud storage cp gs://<bucket>/<workdir>/.fusion/metrics.jsonl.gz .
 ```
 
-Seqera Platform has no metrics dashboard. The file is a gzip stream of JSON records, sampled every 10 seconds by default.
+The file is a gzip stream of JSON records, sampled every 10 seconds by default.
 
 ## Inspect the file
 
@@ -155,7 +152,7 @@ zcat metrics.jsonl.gz | jq -c 'select(.type=="closing")'
 If nothing comes back, the task was killed before Fusion could shut down cleanly. Look for a spot reclaim, an out-of-memory kill, or a hard cancellation.
 
 :::note
-The file is safe to attach to a support ticket. The metric records carry only numbers and fixed label vocabularies, and never contain file names, bucket names, or paths.
+The file never contain file names, bucket names, or paths.
 :::
 
 ## Diagnostic queries
@@ -229,7 +226,7 @@ zcat metrics.jsonl.gz | jq -s '
   . + {mean_bytes_per_read: (.bytes / .reads)}'
 ```
 
-Millions of reads with a mean of a few hundred bytes each is the signature. This is workload behavior rather than a Fusion malfunction, and no Fusion setting changes it. As a workaround for tools known to behave this way, copy the input to local scratch inside the process before running the tool. The small reads then come from local disk instead of the mount.
+Millions of reads with a mean of a few hundred bytes each is the signature. As a workaround for tools known to behave this way, copy the input to local scratch inside the process before running the tool. The small reads then come from local disk instead of the mount.
 
 ### A request never completed
 
@@ -260,9 +257,9 @@ There are two levels of opt-out.
 
 ### Stop sending metrics to Seqera
 
-On Seqera Cloud, turn off **Send Fusion metrics to Seqera** on the compute environment, either when you create it or by editing an existing compute environment. Seqera then stops retaining a copy. Fusion continues to write `.fusion/metrics.jsonl.gz` to the task work directory for your own troubleshooting.
+On Seqera Cloud only, turn off **Send Fusion metrics to Seqera** on the compute environment, either when you create it or by editing an existing compute environment. Seqera will not retaining any copy. Fusion continues to write `.fusion/metrics.jsonl.gz` to the task work directory for your own troubleshooting only.
 
-The toggle is on by default for new Fusion-enabled compute environments only. Existing compute environments keep the setting they already have.
+The toggle is on by default for new Fusion-enabled compute environments only. Existing compute environments keep the setting they already have. This feature is not present on Enterprise deployments.
 
 ### Disable collection entirely
 
@@ -274,7 +271,7 @@ process {
 }
 ```
 
-Fusion writes no metrics file, and Seqera retains nothing.
+Fusion writes no metrics file at all.
 
 :::note
 Disabling metrics does not affect logging. Fusion always writes critical operational events, such as stall watchdog warnings and errors, to `.fusion.log` regardless of this setting.
@@ -296,7 +293,7 @@ If a task produced no `.fusion/metrics.jsonl.gz`, work through these causes in o
 
 | Cause                                                              | How to confirm                                                                  |
 | ------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
-| The Fusion version is earlier than 2.6.4, or earlier than 2.5.15 on the 2.5 line. | Check the Fusion version reported in `.fusion.log`.              |
+| The Fusion version is earlier than 2.6.4, or earlier than 2.5.15. | Check the Fusion version reported in `.fusion.log`.              |
 | Collection was disabled with `FUSION_METRICS_ENABLED=false`.        | Check `containerOptions` in your Nextflow configuration.                        |
 | A non-default output format is configured.                          | `FUSION_METRICS_FORMAT=log` writes no file. The debug-only `json-otel` writes an uncompressed file that `zcat` refuses. |
 | The node disappeared before Fusion could upload the file.           | Look for a spot reclaim or a hard kill on the task.                             |
