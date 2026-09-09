@@ -19,6 +19,8 @@ Helm bundles resource definitions into templates for repeatable deployments: inp
 
 The `values.yaml` file defines a chart's settings, such as container image tags, CPU/memory limits, ingress definition to expose the service, environment variables, etc. Each Helm chart generally comes with its own `values.yaml` file containing default settings, which can be overridden by providing a custom values file. More details about values customization can be found in the [Helm documentation](https://helm.sh/docs/topics/charts#values-files).
 
+These are chart-level settings. To set application-level options that Platform reads from `tower.yml`, such as a [custom navigation menu](./configuration/overview#custom-navigation-menu), add them to the `platform.YAMLConfigFileContent` field of your values file. The chart writes this content to the `tower.yml` file. For the available `tower.yml` options, see [Configuration](./configuration/overview).
+
 1. Fetch the default `values.yaml` file to customize the installation with your specific configuration:
 
    ```bash

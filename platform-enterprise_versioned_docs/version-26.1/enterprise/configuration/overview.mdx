@@ -2,7 +2,7 @@
 title: "Configuration"
 description: Overview of Seqera configuration options
 date created: "2023-04-21"
-last updated: "2026-05-26"
+last updated: "2026-09-09"
 tags: [configuration]
 ---
 
@@ -54,6 +54,17 @@ Set Seqera configuration values using environment variables, a `tower.yml` confi
         auth:
             oidc:
                 - "*@foo.com"
+    ```
+
+    In a [Helm chart](../platform-helm) deployment, set any of the `tower.yml` values on this page in the `platform.YAMLConfigFileContent` field of your values file. The chart writes this content to the `tower.yml` file that Platform reads:
+
+    ```yaml
+    platform:
+        YAMLConfigFileContent: |-
+            mail:
+                from: "hello@foo.com"
+                smtp:
+                    host: "your.smtphost.com"
     ```
 
 </TabItem>
@@ -703,6 +714,23 @@ tower:
         url: "https://host.com/foo"
       - label: "My Pipelines"
         url: "https://other.com/bar"
+```
+
+</TabItem>
+<TabItem value="Helm chart" label="Helm chart">
+
+In a [Helm chart](../platform-helm) deployment, set the menu options in the `platform.YAMLConfigFileContent` field of your values file:
+
+```yaml
+platform:
+  YAMLConfigFileContent: |-
+    tower:
+      navbar:
+        menus:
+          - label: "My Community"
+            url: "https://host.com/foo"
+          - label: "My Pipelines"
+            url: "https://other.com/bar"
 ```
 
 </TabItem>
