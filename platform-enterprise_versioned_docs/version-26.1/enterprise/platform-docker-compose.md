@@ -2,7 +2,7 @@
 title: "Platform: Docker Compose"
 description: Deploy Seqera Platform Enterprise with Docker Compose
 date created: "2024-02-14"
-last updated: "2026-07-30"
+last updated: "2026-09-03"
 tags: [docker, compose, deployment]
 ---
 
@@ -43,9 +43,14 @@ The bundled `redis` container in `docker-compose.yml` is intended for evaluation
 
 | Cache / version | Status                       |
 | --------------- | ---------------------------- |
-| Redis 6.x       | Not supported (EoL upstream) |
-| Redis 7.x       | Supported                    |
-| Valkey 7.x      | Supported (from 26.1)        |
+| Redis 6.x       | Not supported from 26.1      |
+| Redis 7.2       | Supported                    |
+| Redis 7.4       | Supported                    |
+| Valkey 7.x      | Supported        |
+
+:::note
+Seqera supports Redis 7.2 or 7.4, or Valkey 7.x. Newer major versions aren't tested or supported.
+:::
 
 ### Connection URL
 
@@ -56,7 +61,7 @@ Configure the connection URL in your Seqera environment using the scheme that ma
 | Redis           | `redis://`   | `TOWER_REDIS_URL=redis://<host>:6379`    |
 | Redis with TLS  | `rediss://`  | `TOWER_REDIS_URL=rediss://<host>:6380`   |
 
-The Redisson client embedded in Platform 26.1+ supports Valkey 7 dial schema — no further configuration is required. Redis password and ACL configuration carry over unchanged when migrating to Valkey.
+Platform 26.1+ supports the Valkey 7 dial schema — no further configuration is required. Redis password and ACL configuration carry over unchanged when migrating to Valkey.
 
 ### Managed service options
 
