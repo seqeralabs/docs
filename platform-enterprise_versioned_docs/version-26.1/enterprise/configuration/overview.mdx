@@ -2,7 +2,7 @@
 title: "Configuration"
 description: Overview of Seqera configuration options
 date created: "2023-04-21"
-last updated: "2026-05-26"
+last updated: "2026-09-03"
 tags: [configuration]
 ---
 
@@ -134,17 +134,14 @@ Replace `{prefix}` in each configuration path with `/config/<application_name>`,
 Configuration values that control Seqera's interaction with databases and Redis instances. `TOWER_DB_USER`, `TOWER_DB_PASSWORD`, and `TOWER_DB_URL` must be specified using environment variables during initial Seqera Enterprise deployment in a new environment. A new installation will fail if DB values are only defined in `tower.yml` or the AWS Parameter Store. Once the database has been created, these values can be added to `tower.yml` or [AWS Parameter Store](./aws_parameter_store) entries and removed from your environment variables.
 
 :::note
-**Database version requirements:**
+**Database and cache version requirements:**
 
-From Seqera Enterprise version 23.4:
+From Seqera Enterprise version 26.1:
 
-- MySQL 8 is the officially supported and tested database version.
-- MySQL versions 5.6 and 5.7 are no longer supported.
+- MySQL 8.4 (LTS) is the recommended and tested database version. MySQL 5.7 and 8.0 have reached upstream end-of-life and are no longer tested or supported. Migrate to MySQL 8.4 before you upgrade.
+- Redis 7.2 and 7.4 are supported, as is Valkey 7.x. Redis 6.x is no longer supported.
 
-From Seqera Enterprise version 24.2:
-
-- Redis version 6.2 or greater is required.
-- Redis version 7 is officially supported.
+For the full support matrices, see [Database changes](../upgrade#database-changes) and [Cache layer changes](../upgrade#cache-layer-changes-redis-eol-and-valkey-support).
 
 Follow your cloud provider specifications to upgrade your instance.
 :::
