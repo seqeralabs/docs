@@ -1,7 +1,7 @@
 ---
 name: terminology
 description: "Use PROACTIVELY on documentation PRs. Checks for context-dependent terminology, formatting conventions, and UI text accuracy. Focuses on issues Vale can't catch."
-tools: read, grep, glob
+tools: Read, Grep, Glob
 ---
 
 # Terminology SME (Context-Aware)

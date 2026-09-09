@@ -51,10 +51,15 @@ Use this application only for SCIM provisioning. Do not configure sign-on for it
 
 ## Scope and start provisioning
 
+:::caution
+Platform supports group provisioning only, and rejects every user create, update, and delete that Entra ID sends. Disable the **Provision Microsoft Entra ID Users** mapping (step 3) before you turn provisioning on. If you leave it enabled, every provisioning cycle fills the Entra ID provisioning log with failures and shows a provisioning error on the application in the Azure portal. Platform users are created automatically at SSO login and don't need SCIM.
+:::
+
 1. With **Provisioning** still open, expand **Settings**.
 2. Set **Scope** to **Sync only assigned users and groups**.
-3. Save, then set **Provisioning Status** to **On**.
-4. Return to the provisioning application's **Users and groups** tab and assign the groups you want Platform to receive.
+3. Expand **Mappings** and select **Provision Microsoft Entra ID Users**. Under **Target Object Actions**, clear **Create**, **Update**, and **Delete**, then select **Save**. Leave the **Provision Microsoft Entra ID Groups** mapping enabled.
+4. Save, then set **Provisioning Status** to **On**.
+5. Return to the provisioning application's **Users and groups** tab and assign the groups you want Platform to receive.
 
 Entra ID runs an initial cycle within minutes and then syncs incrementally every ~40 minutes.
 

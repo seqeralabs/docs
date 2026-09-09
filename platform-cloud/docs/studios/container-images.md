@@ -2,7 +2,7 @@
 title: "Container image templates"
 description: "Use container images with Studios."
 date created: "2025-10-16"
-last updated: "2026-06-03"
+last updated: "2026-08-17"
 tags: [containers, container images, sessions, studios]
 ---
 
@@ -16,7 +16,7 @@ The image template tag has the format:
 <tool_version>-[u<update_version>]-<connect_version>
 ```
 
-- `<tool_version>`: Third-party analysis application that follows its own semantic versioning `<major>.<minor>.<patch>`, such as `4.2.5` for JupyterLab.
+- `<tool_version>`: Third-party analysis application that follows its own semantic versioning `<major>.<minor>.<patch>`, such as `4.6.0` for JupyterLab.
 - `<update_version>`: Optional analysis application update version, such as `u1`, for instances where a backwards incompatible change is introduced.
 - `<connect_version>`: Seqera Connect client version, such as `0.12` or `0.12.0`.
 
@@ -37,29 +37,34 @@ When pushed to the container registry, an image template is tagged with the foll
 
 To view the latest versions of the images, see [public.cr.seqera.io](https://public.cr.seqera.io/). You can also augment the Seqera-provided image templates or use your own custom container image templates. This is the recommended approach for managing reproducible analysis environments. For more information, see [Custom environments][custom-envs].
 
-## JupyterLab 4.2.5
+## JupyterLab
 
-The default user is the `root` account. The following [conda-forge](https://conda-forge.org/) packages are available by default:
+The latest JupyterLab image template version is `4.6.0`. The default user is the `root` account. The following [conda-forge](https://conda-forge.org/) packages are available by default:
 
-- `python=3.13.0`
-- `pip=24.2`
-- `jedi-language-server=0.41.4`
-- `jupyterlab=4.2.5`
-- `jupyter-collaboration=1.2.0`
-- `jupyterlab-git=0.50.1`
-- `jupytext=1.16.4`
-- `jupyter-dash=0.4.2`
-- `ipywidgets=7.8.4`
-- `pandas[all]=2.2.3`
-- `scikit-learn=1.5.2`
-- `statsmodels=0.14.4`
-- `itables=2.2.2`
-- `seaborn[stats]=0.13.2`
-- `altair=5.4.1`
-- `plotly=5.24.1`
-- `r-ggplot2=3.5.1`
-- `nb_black=1.0.7`
-- `qgrid=1.3.1`
+- `python=3.13`
+- `pip=25.3`
+- `jedi-language-server=0.46.0`
+- `jupyterlab=4.6.0`
+- `jupyter-collaboration=4.1.2`
+- `jupyterlab-git=0.51.2`
+- `jupyterlab_code_formatter=3.0.3`
+- `black=25.1.0`
+- `isort=6.1.0`
+- `jupytext=1.18.1`
+- `ipywidgets=8.1.8`
+- `pandas=2.3.3`
+- `scikit-learn=1.7.2`
+- `statsmodels=0.14.5`
+- `itables=2.5.2`
+- `seaborn=0.13.2`
+- `altair=6.0.0`
+- `plotly=6.5.0`
+- `r-ggplot2=4.0.1`
+- `polars=1.35.2`
+
+:::note
+Current templates specify `pandas` and `seaborn` without extras because libmamba 2.x rejects the extras syntax used in earlier templates (`pandas[all]`, `seaborn[stats]`). Remove the extras from any package list you copy from an older template into a custom environment.
+:::
 
 To install additional Python packages during a running Studio session, execute `!pip install <packagename>` commands in your notebook environment. Install additional system-level packages in a terminal window with `apt install <packagename>`.
 

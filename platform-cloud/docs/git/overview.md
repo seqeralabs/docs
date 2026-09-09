@@ -218,6 +218,8 @@ To resolve a duplicate:
 
 GitLab supports [Personal](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html), [Group](https://docs.gitlab.com/ee/user/group/settings/group_access_tokens.html#group-access-tokens), and [Project](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html) access tokens for authentication. Your access token must have the `api`, `read_api`, and `read_repository` scopes to work with Seqera. For all three token types, use the token value in both the **Password** and **Access token** fields in the Seqera credential creation form.
 
+Nextflow releases before 26.04.0 ignore the access token when cloning the repository. If you leave the **Password** field empty, runs on those releases fail with [`Cannot invoke "String.toCharArray()" because "password" is null`](../troubleshooting_and_faqs/troubleshooting#gitlab-token-without-password).
+
 After you have created and copied your access token, create a new credential in Seqera with these steps:
 
 #### Create GitLab credentials

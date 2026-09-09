@@ -99,6 +99,37 @@ _Cannot parse params file: /ephemeral/example.json - Cause: Server returned HTTP
 
 To resolve this problem, upgrade Nextflow to version 22.04.x or later.
 
+**Job fails after extended queue time: ephemeral endpoint expiration**
+
+Jobs that remain in queue longer than the ephemeral endpoint lifetime (8 hours by default) fail when they finally start, because Nextflow can no longer retrieve its parameters from Platform. The same applies if the refresh token expires before the job starts — Nextflow cannot authenticate.
+
+**Symptoms:**
+- Jobs submitted successfully but fail when starting after 8+ hours in queue
+- Error messages indicating expired tokens or 403 responses from Platform
+
+**Solution:**
+
+Increase the ephemeral endpoint duration and the refresh token expiration to accommodate your expected queue times. For example, for queue times up to 12 hours:
+
+```yaml
+tower:
+  ephemeral:
+    duration: 12h
+
+micronaut:
+  security:
+    token:
+      jwt:
+        signatures:
+          refresh-token:
+            expiration: 12h
+      refresh:
+        cookie:
+          cookie-max-age: 14h
+```
+
+See [Ephemeral endpoint configuration](../secrets/overview#ephemeral-endpoint-configuration) and [Session management](../enterprise/configuration/authentication/overview#session-management).
+
 **Prevent Nextflow from uploading intermediate files from local scratch to AWS S3 work directory**
 
 Nextflow will only unstage files/folders that have been explicitly defined as process outputs. If your workflow has processes that generate folder-type outputs, ensure that the process also purges any intermediate files in those folders. Otherwise, the intermediate files are copied as part of the task unstaging process, resulting in additional storage costs and lengthened pipeline execution times.
@@ -227,6 +258,18 @@ If you rely on silent Spot retries (the previous default behavior), you may now 
 - **Google**: Spot reclamation typically produces a specific code, but is now surfaced as a recognizable task failure in Nextflow logs.
 
 Since the default for Spot retries is now zero, you must actively enable a retry strategy if you want Nextflow to handle reclaimed Spot instances automatically. For more information, see [manage Spot interruptions](../tutorials/retry-strategy).
+
+### Pipeline secret creation fails under a Google Cloud resource location policy
+
+In Google Cloud projects that enforce a resource location policy, launching a pipeline with a pipeline secret attached fails before any task starts. This affects Google Batch and Google Cloud compute environments. The error is similar to:
+
+```
+Unable to store pipeline secret 'my_secret' - Reason: io.grpc.StatusRuntimeException:
+FAILED_PRECONDITION: Constraint constraints/gcp.resourceLocations violated for
+[orgpolicy:projects/123456789012] attempting to create a secret in [global].
+```
+
+This issue occurs because Seqera Platform creates pipeline secrets in Google Secret Manager with automatic replication, which stores the secret in the `global` location. If the [`constraints/gcp.resourceLocations`](https://cloud.google.com/resource-manager/docs/organization-policy/defining-locations) organization policy does not permit the `global` location, Google rejects the secret and the run cannot launch. The compute environment's location setting has no effect on where the secret is stored.
 
 ### Nextflow syntax parser
 

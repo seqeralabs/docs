@@ -60,6 +60,10 @@ The bearer token is invalid or expired. Generate a new token from **Organization
 
 Entra ID is emitting object IDs rather than display names. See [Group display names vs. object IDs](../sso/idp-delegation/group-catalog/scim-entra-id#group-display-names-vs-object-ids) for the two options.
 
+#### Entra ID reports failed user provisioning on every cycle
+
+The enterprise application's **Provision Microsoft Entra ID Users** mapping is enabled. Platform supports group provisioning only, so it rejects every user create, update, and delete, and Entra ID records a failure for each one on every cycle. Left enabled, the repeated failures can cause Entra ID to quarantine the provisioning job, which also stops group sync. Open the application's **Provisioning** page, expand **Mappings**, select **Provision Microsoft Entra ID Users**, and clear **Create**, **Update**, and **Delete** under **Target Object Actions**. Platform users are created automatically at SSO login, so no user provisioning is needed.
+
 #### A group is assigned to the application but doesn't sync (Entra ID)
 
 Confirm the provisioning scope is set to **Sync only assigned users and groups**, and that the group is listed directly under **Users and groups** rather than nested inside another assigned group.

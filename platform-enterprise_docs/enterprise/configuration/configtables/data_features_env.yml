@@ -80,6 +80,11 @@
     Add this variable and set it to `true` to configure Studios requests to use path-based routing and a single, fixed domain for Studio sessions. See [Studios deployment](../install-studios).
   Value:                'Default: null'
 -
+  Environment variable:            '`TOWER_DATA_STUDIO_FORCE_STOP_THRESHOLD`'
+  Description: >
+    The minimum time a Studio session must be in the **stopping** status before a stop request force-stops it. A force stop terminates the compute job immediately instead of waiting for a graceful shutdown.
+  Value:                'Default: `10m`'
+-
   Environment variable:            '`TOWER_OIDC_PEM_PATH`'
   Description: >
     The file path to a PEM certificate used to sign the OIDC tokens for the OpenID connect provider. See [Studios deployment](../install-studios).

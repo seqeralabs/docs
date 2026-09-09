@@ -32,6 +32,10 @@ This error occurs when a group with the same display name already exists in anot
 
 This issue occurs when Entra ID emits group object IDs rather than display names. To resolve, configure Entra ID to emit display names. See [Group display names vs. object IDs](../enterprise/configuration/authentication/idp-delegation/group-catalog/scim-entra-id#group-display-names-vs-object-ids).
 
+#### Entra ID reports failed user provisioning on every cycle
+
+This issue occurs when the enterprise application's **Provision Microsoft Entra ID Users** mapping is enabled. Platform supports group provisioning only, so it rejects every user create, update, and delete, and Entra ID records a failure for each one on every cycle. Left enabled, the repeated failures can cause Entra ID to quarantine the provisioning job, which also stops group sync. To resolve, open the application's **Provisioning** page, expand **Mappings**, select **Provision Microsoft Entra ID Users**, and clear **Create**, **Update**, and **Delete** under **Target Object Actions**. Platform users are created automatically at SSO login, so no user provisioning is needed.
+
 #### A group assigned in Entra ID doesn't sync
 
 This issue occurs when the provisioning scope excludes the group. To resolve, set the scope to **Sync only assigned users and groups** and confirm the group is listed directly under **Users and groups**, not nested inside another assigned group.

@@ -2,7 +2,7 @@
 title: "Advanced options"
 description: "Advanced guide to launching Nextflow pipelines in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2026-04-02"
+last updated: "2026-08-26"
 tags: [advanced, launch]
 ---
 
@@ -26,6 +26,8 @@ When launching pipelines in Platform, Nextflow configuration is resolved from fo
 :::note
 **Global Nextflow config** values are pre-filled in the launch form's **Nextflow config file** field, but also apply independently at the priority level shown above. Clearing the launch form field does not remove the **Global Nextflow config** values.
 :::
+
+This table applies to Nextflow configuration settings only. For how config profiles affect run parameter values entered in the launch form, see [Config profiles](./launchpad#config-profiles).
 
 For example, if:
 
