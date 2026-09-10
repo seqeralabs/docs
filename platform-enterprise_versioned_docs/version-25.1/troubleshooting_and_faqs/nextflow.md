@@ -90,6 +90,28 @@ The following configuration is suggested to overcome AWS limitations:
   }
   ```
 
+**`Part number must be an integer between 1 and 10000`**
+
+```
+Caused by: Part number must be an integer between 1 and 10000, inclusive
+```
+
+This error occurs when a pipeline output file exceeds the AWS S3 multipart upload limit of 10,000 parts. At the Seqera Platform default chunk size of 10 MB, files larger than 100 GB reach this limit.
+
+To resolve, increase the upload chunk size. Divide the file size in megabytes by 10,000 and round up to get the minimum chunk size. For a 200 GB file, set `uploadChunkSize` to at least 21 MB in the **Nextflow config file** field of the launch form:
+
+```
+aws {
+  client {
+    uploadChunkSize = '21MB'
+  }
+}
+```
+
+Alternatively, if the large files are intermediate results you do not need, configure your pipeline to skip publishing them. See your pipeline documentation for the parameters that disable specific outputs.
+
+For the full list of constraints, see the [AWS S3 multipart upload limits](https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html).
+
 **Nextflow unable to parse a params file from Seqera**
 
 Ephemeral endpoints can only be consumed once. Nextflow versions older than 22.04 may try to call the same endpoint more than once, resulting in an error:
