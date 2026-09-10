@@ -97,7 +97,7 @@ To promote a collaborator to a full organization member, add them as an organiza
 
 ### Collaborators and SSO
 
-Collaborators authenticate outside your organization's identity provider, so collaborators and [single sign-on (SSO)](../sso/single-sign-on) are mutually exclusive:
+Collaborators authenticate outside your organization's identity provider. Collaborators and [single sign-on (SSO)](../sso/single-sign-on) are mutually exclusive:
 
 - While SSO is active for an organization, adding a new collaborator to a workspace fails. Invite the person as an organization member through your identity provider instead. Existing collaborators and existing organization members are unaffected.
 - While an organization has collaborators, SSO cannot be configured or activated. Remove the collaborator participants, then add those users as organization members with email addresses that match your SSO domain.
