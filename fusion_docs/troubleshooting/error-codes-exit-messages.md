@@ -233,8 +233,8 @@ The `sysexits.h` standard uses exit code 74 for "input/output error" and reserve
 
 Exit codes `172` and `173` apply to compute environments that use Seqera Intelligent Compute, on Fusion v2.6.4 and later. Before Fusion starts the task command, it verifies that the task work directory is readable through the mount. If that check fails, Fusion unmounts and exits with one of two codes:
 
-- `172` is a configuration fault, such as a bucket policy that denies access, a bucket that does not exist, an archived object, or an exceeded storage quota. The task fails the same way on every host. The scheduler surfaces the failure instead of relocating the task. Correct the environment, then launch the run again.
-- `173` is a transient fault in the path to remote storage. The scheduler relocates the task to another host and quarantines the faulty host. Fusion also exits `173` when both the mount and the fallback mount fail.
+- `172` is a configuration fault, such as a bucket policy that denies access, a bucket that does not exist, an archived object, or an exceeded storage quota. The task fails the same way on every host. Intelligent Compute surfaces the failure instead of relocating the task. Correct the environment, then launch the run again.
+- `173` is a transient fault in the path to remote storage. Intelligent Compute relocates the task to another host and quarantines the faulty host. Fusion also exits `173` when both the mount and the fallback mount fail.
 
 Fusion returns both codes before the task command runs. A task that exits with either code produced no output.
 
