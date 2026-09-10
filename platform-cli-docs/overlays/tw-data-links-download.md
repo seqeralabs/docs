@@ -46,3 +46,5 @@ Successfully downloaded files
     --------+------------+---------------
      FOLDER | 1          | my-directory/
 ```
+
+Add `--silent` to suppress the per-file lines and the progress bar, for example in scripts or when logging to a file.

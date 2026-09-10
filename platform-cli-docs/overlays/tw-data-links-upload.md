@@ -49,3 +49,10 @@ Successfully uploaded files
     --------+------------+---------------
      FOLDER | 1          | my-directory/
 ```
+
+### Upload options
+
+Control progress output and parallelism for large uploads:
+
+- `--silent` suppresses the per-file lines and the progress bar. Use it in scripts or when logging to a file.
+- `--concurrency` sets how many file chunks upload in parallel. The default is 4. Each in-flight chunk buffers up to 250 MB, so peak memory use is roughly the concurrency value multiplied by 250 MB. Set `--concurrency=1` to upload chunks sequentially. Values below 1 are rejected.

@@ -55,6 +55,9 @@ tw pipelines add [OPTIONS] <PIPELINE_URL>
 | `--version-name` | Initial pipeline version name. | No |  |
 | `--labels` | Labels to apply to the resource. Provide comma-separated label values (use key=value format for resource labels). Labels will be created if they don't exist | No |  |
 | `--pipeline-schema-id` | Pipeline schema identifier to use. | No |  |
+| `--syntax-parser` | Nextflow language syntax parser version: 'v1' (legacy) or 'v2'. Takes precedence over the value stored in the launch configuration. | No |  |
+| `--nextflow-version` | Nextflow version to run the workflow with. Must exist in the Platform version catalog and meet the minimum required by the compute environment. Takes precedence over the value stored in the launch configuration. | No |  |
+| `--output-dir` | Per-run output directory, passed to Nextflow as '-output-dir'. Requires Nextflow 24.10.0 or later and the workflow outputs syntax. Takes precedence over the value stored in the launch configuration. | No |  |
 | `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. | No |  |
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No |  |
 | `-p`, `--profile` | Array of Nextflow configuration profile names to apply. | No |  |
@@ -92,6 +95,8 @@ The optional `--config` flag is used to pass a custom Nextflow configuration fil
 :::tip
 The `params-file` or `--config` file must be a YAML or JSON file using [Nextflow configuration][nextflow-config] syntax.
 :::
+
+Use `--nextflow-version`, `--syntax-parser`, and `--output-dir` to save the Nextflow version, language parser, and workflow output directory with the pipeline. Launches of the pipeline use these values unless a launch overrides them. See [Nextflow version][nextflow-version], [Enable Nextflow syntax parser v2][syntax-parser-v2], and [Output directory][output-directory].
 
 ## `tw pipelines delete`
 
@@ -144,6 +149,9 @@ tw pipelines update [OPTIONS]
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
 | `-d`, `--description` | Pipeline description | No |  |
 | `--new-name` | Pipeline new name | No |  |
+| `--syntax-parser` | Nextflow language syntax parser version: 'v1' (legacy) or 'v2'. Takes precedence over the value stored in the launch configuration. | No |  |
+| `--nextflow-version` | Nextflow version to run the workflow with. Must exist in the Platform version catalog and meet the minimum required by the compute environment. Takes precedence over the value stored in the launch configuration. | No |  |
+| `--output-dir` | Per-run output directory, passed to Nextflow as '-output-dir'. Requires Nextflow 24.10.0 or later and the workflow outputs syntax. Takes precedence over the value stored in the launch configuration. | No |  |
 | `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. | No |  |
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No |  |
 | `-p`, `--profile` | Array of Nextflow configuration profile names to apply. | No |  |
@@ -172,6 +180,8 @@ The default launch parameters can be changed with the `update` command:
 tw pipelines update --name=my_rnaseq_nf_pipeline \
 --params-file=my_rnaseq_nf_pipeline_params_2.yaml
 ```
+
+Options you omit keep their stored values. For example, updating only `--params-file` leaves the pipeline's saved Nextflow version, syntax parser, and output directory unchanged.
 
 ## `tw pipelines export`
 
@@ -323,14 +333,19 @@ tw pipelines versions manage [OPTIONS]
 | `--set-default` | Set this version as the default | No |  |
 
 [actions]: /platform-cloud/pipeline-actions/overview
+[aws-batch-pipeline-secrets]: /platform-cloud/compute-envs/aws-batch#pipeline-secrets-optional
+[aws-cloud-advanced-options]: /platform-cloud/compute-envs/aws-cloud#advanced-options
 [compute-envs]: /platform-cloud/compute-envs/overview
 [credentials]: /platform-cloud/credentials/overview
 [data-explorer]: /platform-cloud/data/data-explorer
 [datasets]: /platform-cloud/data/datasets
 [git-integration]: /platform-cloud/git/overview
+[google-cloud-advanced-options]: /platform-cloud/compute-envs/google-cloud#advanced-options
 [labels]: /platform-cloud/labels/overview
 [nextflow-config]: https://docs.seqera.io/nextflow/config#config-syntax
+[nextflow-version]: /platform-cloud/launch/advanced#nextflow-version
 [organizations]: /platform-cloud/orgs-and-teams/organizations
+[output-directory]: /platform-cloud/launch/launchpad#output-directory
 [participant-roles]: /platform-cloud/orgs-and-teams/roles
 [resource-labels]: /platform-cloud/resource-labels/overview
 [run-details]: /platform-cloud/monitoring/run-details
@@ -338,6 +353,7 @@ tw pipelines versions manage [OPTIONS]
 [shared-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
 [studio-checkpoints]: /platform-cloud/studios/managing#studio-session-checkpoints
 [studios]: /platform-cloud/studios/overview
+[syntax-parser-v2]: /platform-cloud/launch/advanced#enable-nextflow-syntax-parser-v2
 [tower-agent]: /platform-cloud/supported_software/agent/overview
 [user-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
 [wave-docs]: https://docs.seqera.io/wave
