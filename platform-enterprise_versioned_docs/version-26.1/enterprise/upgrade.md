@@ -2,7 +2,7 @@
 title: "Upgrade deployment"
 description: "Guidance for upgrading to Platform Enterprise version 26.1"
 date created: "2025-11-11"
-last updated: "2026-05-06"
+last updated: "2026-09-03"
 tags: [enterprise, update, installation]
 ---
 
@@ -102,7 +102,7 @@ In the 26.1 migration plan, dual-write is transitional. Plan for 26.2 to make v2
 | AWS Aurora MySQL (provisioned) | Supported | No action |
 | AWS Aurora Serverless | Not supported (existing guidance) | Migrate to a supported configuration |
 
-If you are running on MySQL 5.7, MySQL 8.0, or MariaDB, complete your database migration **before** running the 26.1 application upgrade. The Seqera-supplied `migrate-db` container will not run against an unsupported database version.
+If you are running on MySQL 5.7 or MySQL 8.0, complete your database migration **before** running the 26.1 application upgrade. The Seqera-supplied `migrate-db` container will not run against an unsupported database version.
 
 ## Cache layer changes: Redis EoL and Valkey support
 
@@ -110,14 +110,20 @@ If you are running on MySQL 5.7, MySQL 8.0, or MariaDB, complete your database m
 
 | Cache / version | 26.1 status | Action |
 | --- | --- | --- |
-| Redis 6.x | EoL upstream — no longer supported | Upgrade to Redis 7.2+ or migrate to Valkey 7+ |
+| Redis 6.x | No longer supported by Seqera from 26.1 | Upgrade to Redis 7.2+ or migrate to Valkey 7+ |
 | Redis 7.2 | Supported | No action |
 | Redis 7.4 | Supported | No action |
 | Valkey 7.x | Newly supported in 26.1 | Optional migration path from Redis |
 
+:::note
+Redis 6.2 is still an upstream extended-support release until 1 April 2027, and Amazon ElastiCache supports Redis OSS 6 until 31 January 2027 (with paid extended support until 31 January 2030). These upstream dates don't extend Seqera support: Platform 26.1 isn't tested against Redis 6.x, so upgrade your cache before you upgrade Platform.
+
+Seqera supports Redis 7.2 or 7.4, or Valkey 7.x. Newer major versions aren't tested or supported.
+:::
+
 ### Migrating from Redis to Valkey
 
-To migrate from Redis to Valkey, update the `TOWER_REDIS_URL` environment variable. The Redisson client embedded in Platform 26.1 has been upgraded to support Valkey 7 dial schema; no further configuration is required.
+To migrate from Redis to Valkey, update the `TOWER_REDIS_URL` environment variable. Platform 26.1 supports the Valkey 7 dial schema; no further configuration is required.
 
 :::note
 Redis password and ACL configuration carry over unchanged when migrating to Valkey.
