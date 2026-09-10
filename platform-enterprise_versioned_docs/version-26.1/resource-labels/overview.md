@@ -28,7 +28,7 @@ Seqera applies resource labels to cloud resources in one direction only. Any tag
 :::
 
 :::note
-Resource labels are normally created and managed in Seqera at the workspace, compute environment, pipeline, action, run, and Studio levels. Advanced users can also define resource labels directly in Nextflow configuration using the [`resourceLabels`](https://docs.seqera.io/nextflow/reference/process#resourcelabels) process directive, set per process or globally with `process.resourceLabels`. Labels defined this way are applied by Nextflow at task submission and execution time.
+Resource labels are normally created and managed in Seqera at the workspace, compute environment, pipeline, action, run, and Studio levels. Advanced users can also define resource labels directly in Nextflow configuration using the [`resourceLabels`](https://docs.seqera.io/nextflow/reference/process#resourcelabels) process directive, set per process or globally with `process.resourceLabels`. Labels defined this way are applied by Nextflow at task submission and execution time. They skip Platform validation and reach the cloud provider unchanged. Before you use a value taken from process or workflow metadata, remove any characters your cloud provider disallows. See [AWS Batch rejects a resource label defined in Nextflow configuration](../troubleshooting_and_faqs/resource-labels.md).
 :::
 
 ### Resource labels applied to compute environments
