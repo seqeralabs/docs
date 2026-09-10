@@ -223,6 +223,12 @@ The **Metrics** tab for a run on Intelligent Compute shows three resource values
 - If **Used** is close to **Allocated**, resource utilization is near-optimal for that task.
 - If **Allocated** matches **Requested**, confirm whether Seqera Intelligent Compute has been set up with a prediction model.
 
+## Prediction scope and data retention
+
+Intelligent Compute builds prediction history from the resource metrics of successful tasks, grouped by Nextflow process name rather than by compute environment, workspace, or organization. Creating a new compute environment, workspace, or organization does not reset prediction history. A run in a new compute environment uses the history from earlier Intelligent Compute runs of the same processes.
+
+A task contributes to history only if it completes successfully, records resource metrics, and reports a non-zero total size for its input files.
+
 ## Configuration options
 
 Configure the following options when you enable Intelligent Compute on a compute environment.
