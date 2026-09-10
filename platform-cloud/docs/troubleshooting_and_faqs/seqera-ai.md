@@ -103,16 +103,16 @@ seqera login
 
 #### Dataset uploads do not auto-attach the project label
 
-When you upload a dataset into a project, the project's `project_*` label is not attached automatically.
+When you upload a dataset into a project, the project's `proj_*` label is not attached automatically.
 
-This issue occurs when a pipeline carries a `project_*` label that was not created in workspace settings. Co-Scientist still surfaces the project, inferred from the pipeline, but the project has no Platform-assigned label ID. Auto-attach requires that ID.
+This issue occurs when a pipeline carries a `proj_*` label that was not created in workspace settings. Co-Scientist still surfaces the project, inferred from the pipeline, but the project has no Platform-assigned label ID. Auto-attach requires that ID.
 
-To avoid this issue, create `project_*` labels in workspace settings before applying them to resources. See [Projects](../co-scientist/projects.md).
+To avoid this issue, create `proj_*` labels in workspace settings before applying them to resources. See [Projects](../co-scientist/projects.md).
 
 #### No projects configured yet
 
 The **Projects** page shows a **No projects configured yet** empty state, the project selector is hidden, and the workspace view shows only its header.
 
-This issue occurs when the workspace has no `project_*` labels.
+This issue occurs when the workspace has no `proj_*` labels.
 
-To resolve, ask a workspace admin to create the first `project_*` label for the workspace. See [Create a project](../co-scientist/projects.md#create-a-project).
+To resolve, ask a workspace admin to create the first `proj_*` label for the workspace. See [Create a project](../co-scientist/projects.md#create-a-project).
