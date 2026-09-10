@@ -508,7 +508,7 @@ Amazon EKS compute environments include advanced options for storage and work di
     This can be the same Service Account used by the Head jobs (`tower-launcher-sa`, created in the [cluster preparation](./k8s) guide), or a separate Service Account with more granular permissions.
     :::
 
-- The **Pod cleanup policy** determines when to delete terminated pods.
+- The **Pod cleanup policy** determines when Seqera deletes the run's head pod, the pod that runs the Nextflow head job. **On success** (the default) deletes the head pod when the run succeeds, **Always** deletes it whether the run succeeded or failed, and **Never** keeps it. This policy does not delete task pods — see [Kubernetes pods remain after a run ends](../troubleshooting_and_faqs/nextflow).
 - Use **Custom head pod specs** to provide custom options for the Nextflow workflow pod (e.g., `nodeSelector`, `affinity`, etc). For example:
 
 ```yaml

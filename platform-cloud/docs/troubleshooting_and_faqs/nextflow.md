@@ -165,6 +165,27 @@ process terminateError {
 }
 ```
 
+#### Kubernetes pods remain after a run ends
+
+Seqera and Nextflow clean up different pods, and some pods are removed by neither.
+
+- The compute environment's **Pod cleanup policy** governs the run's head pod only. **On success** deletes the head pod when the run succeeds, **Always** deletes it whether the run succeeded or failed, and **Never** keeps it.
+- Task pods are deleted by Nextflow, according to its [`k8s.cleanup`](https://docs.seqera.io/nextflow/reference/config#k8scleanup) setting. When `k8s.cleanup` is `true` — the default — Nextflow deletes the pods of successful tasks and keeps failed task pods for debugging. Seqera sets `k8s.cleanup` to `false` when the pod cleanup policy is **Never**, and otherwise leaves it at the default, so **On success** and **Always** produce the same task-pod behavior.
+- Pods that never start are removed by neither. A pod that cannot pull its container image (`ErrImagePull` or `ImagePullBackOff`), or that cannot be scheduled, is dropped from Nextflow's tracking as soon as Nextflow detects it. It remains in the namespace after the run ends and after you cancel the run.
+
+:::caution
+A leftover pod in `Pending` state still holds its CPU and memory requests. On an autoscaling cluster, these requests can prevent nodes from scaling down, so a run that fails on a missing container image can continue to incur cost after it ends.
+:::
+
+Remove leftover pods with `kubectl`. List the pods in the compute environment's namespace, then delete the ones that never started:
+
+```bash
+kubectl get pods -n <namespace>
+kubectl delete pod <pod-name> -n <namespace>
+```
+
+To avoid the problem, confirm that every container image your pipeline references exists in the configured registry and can be pulled by the compute service account before you launch.
+
 #### Cached tasks run from scratch on relaunch
 
 When you relaunch a pipeline, Seqera relies on Nextflow's `resume` functionality to continue the execution. This skips previously completed tasks and uses cached results in downstream tasks, rather than running the completed tasks again. Nextflow calculates each task's unique ID (hash) from the task's:
