@@ -177,5 +177,25 @@
 -
   Environment variable:            '`TOWER_LINEAGE_ALLOWED_WORKSPACES`'
   Description: >
-    Enable date lineage. Set to `null` (undefined) to disable for all workspaces, set to an empty string to enable for all workspaces, or provide a comma-separated list of workspace IDs to enable per workspace.
+    Enable data lineage. Set to `null` (undefined) to disable for all workspaces, set to an empty string to enable for all workspaces, or provide a comma-separated list of workspace IDs to enable per workspace.
   Value:                'Default: `null`'
+-
+  Environment variable:            '`TOWER_LINEAGE_STORE_PREFIX`'
+  Description: >
+    Bucket name prefix for automatically provisioned lineage stores. The bucket is named `<prefix>-<workspace-id>` and its notification topic `<prefix>-<workspace-id>-notifications`.
+  Value:                'Default: `seqera-lineage`'
+-
+  Environment variable:            '`TOWER_LINEAGE_SNS_MAX_RETRIES`'
+  Description: >
+    Total SNS delivery attempts for the lineage webhook. The AWS default of 3 spans roughly a minute and loses events across a Platform restart. AWS caps the total retry window at 3600 seconds and rejects a delivery policy that exceeds it, so an over-budget value is trimmed to fit at startup.
+  Value:                'Default: `17`'
+-
+  Environment variable:            '`TOWER_LINEAGE_SNS_MAX_DELAY_SECONDS`'
+  Description: >
+    Ceiling on the delay between SNS delivery retries, in seconds. Counts toward the same 3600-second budget as `TOWER_LINEAGE_SNS_MAX_RETRIES`.
+  Value:                'Default: `300`'
+-
+  Environment variable:            '`TOWER_LINEAGE_MIGRATE_SQS_TRANSPORT`'
+  Description: >
+    Whether to migrate lineage workspaces off the retired SQS event transport once at startup. Runs on the `cron` instance only. Automatic for automatically provisioned workspaces; customer-managed workspaces are flagged for reconfiguration instead, since Platform holds no permission over their resources. A workspace that fails is left errored and can be retried or disabled from its lineage settings page. See [Upgrade deployment](../upgrade#data-lineage-event-ingestion-moves-from-sqs-to-sns).
+  Value:                'Default: `true`'

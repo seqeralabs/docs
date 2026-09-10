@@ -148,9 +148,35 @@ To preserve previous opt-in behavior after upgrading, set `TOWER_DATA_STUDIO_ALL
 
 The recommended Studios container template version for 26.1 is **0.12**. If you have customized your Studios container templates, update them to the 0.12 base images during this upgrade. Templates pinned to earlier Connect versions may no longer be supported. See the [Studios migration documentation](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
 
-## AWS data lineage tracking via SQS (preview, AWS only)
+## Data lineage event ingestion moves from SQS to SNS
 
-26.1 introduces a preview of AWS data lineage tracking that depends on an Amazon SQS queue. This feature is AWS-only and disabled by default. If you plan to enable it, ensure your IAM policies grant the Seqera role the relevant [SQS permissions](../data/data-lineage#additional-iam-permissions-required) in addition to the existing [Seqera IAM permissions](../compute-envs/aws-batch#iam-user-creation).
+Data lineage remains a preview feature and AWS-only. From 26.2, Platform no longer polls an Amazon SQS queue in your AWS account for lineage record notifications. Instead, the lineage bucket publishes object-created events to an Amazon SNS topic, which pushes them to a Platform webhook over HTTPS. Platform holds no permission over messaging infrastructure in your account, and no `sqs:*` grant remains in the documented permission set.
+
+If you plan to enable lineage, grant the [lineage IAM permissions](../data/data-lineage#additional-iam-permissions-required) in addition to the existing [Seqera IAM permissions](../compute-envs/aws-batch#iam-user-creation).
+
+### If lineage is already configured
+
+On the first startup after the upgrade, a one-off migration runs and converts each lineage-enabled workspace still on the SQS transport. For an automatically provisioned workspace, it creates and configures the SNS topic, subscribes the Platform webhook, repoints the bucket notification rule at the topic, and then attempts to decommission the legacy SQS queue.
+
+The migration therefore needs **both** permission sets while it runs: the new SNS permissions, and the existing SQS permissions for the queue teardown. Once the migration has completed, the SQS permissions can be removed from your IAM policies.
+
+Customer-managed (**Manual**) workspaces cannot be migrated by Platform, because it holds no permission over resources you own. Those workspaces are flagged in their lineage settings with instructions to create an SNS topic, subscribe the Platform lineage webhook to it, and enter the topic ARN.
+
+:::note
+In-flight SQS messages are not drained, and the queue itself may survive the teardown if the credentials do not permit `sqs:DeleteQueue`. Nothing is lost either way: the bucket is the source of truth for lineage records, the queue stops receiving events once its notification rule is removed, and its URL is logged so it can be deleted by hand.
+:::
+
+### If the migration reports an error
+
+A workspace whose credentials lacked the permissions needed is left in an errored state, with the cause recorded on its lineage settings page. Your bucket and the lineage data in it are never affected. To recover:
+
+1. Update the IAM role or user behind the workspace's lineage credentials to grant the [permissions listed on the data lineage page](../data/data-lineage#additional-iam-permissions-required).
+1. Open **Settings > Workspace settings > Lineage** and select **Update** to retry provisioning.
+1. If provisioning still does not complete, select **Disable lineage** and configure lineage again. This removes the configuration and the automatically provisioned notification infrastructure only — the S3 bucket and the lineage data in it are not affected.
+
+Records already written to the bucket are re-indexed once event delivery is established, so no lineage is lost by retrying.
+
+The migration is enabled by default and can be disabled with `TOWER_LINEAGE_MIGRATE_SQS_TRANSPORT=false`. See [Configuration options](./configuration/overview#data-features).
 
 ## General upgrade steps
 

@@ -7,7 +7,7 @@ tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, l
 ---
 
 :::info
-Data lineage in Platform is in public preview. It requires Nextflow 25.04 or later, AWS S3 object storage, and Amazon Simple Queue Service (SQS). For best results, use Nextflow 26.04 or later.
+Data lineage in Platform is in public preview. It requires Nextflow 25.04 or later, AWS S3 object storage, and Amazon Simple Notification Service (SNS). For best results, use Nextflow 26.04 or later.
 :::
 
 :::warning
@@ -41,11 +41,13 @@ Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the
 ### Functional flow
 
 1. Nextflow appends lineage record objects (`*.data.json`) to the defined object storage bucket.
-1. The bucket is configured to filter for objects matching `.data.json` and sends object store notifications to the queue.
-1. SQS queue receives `s3:ObjectCreated:*` events.
-1. Platform reads the queue, returning the lineage objects created, and indexes them in the database.
+1. The bucket is configured to filter for objects matching `.data.json` and publishes `s3:ObjectCreated:*` events to an SNS topic.
+1. The SNS topic pushes each event to a per-workspace Platform webhook over HTTPS. Platform never reads a queue in your account — your bucket only sends events outward.
+1. Platform verifies each delivery, buffers it, then reads the lineage object from the bucket and indexes it in the database.
 1. The index enriches the [run details][run-details].
 1. The index enriches the display of workflow-generated objects in Data Explorer with links to the origin pipeline run and task, sources of the object, and any lineage labels associated with the object.
+
+The webhook URL is unique to the workspace and is shown on the workspace lineage settings page once the configuration is saved. The settings page also reports an **Event delivery** status, so you can tell whether events are actually arriving.
 
 ## Enable data lineage
 
@@ -54,8 +56,8 @@ To start collecting data lineage for all pipeline runs in your workspace:
 1. Open **Settings > Workspace settings**.
 2. Select **Lineage**. If you don't see **Lineage** listed, contact your system administrator.
 3. Toggle the **Enable lineage by default** on to collect data lineage for all pipeline runs in the workspace or toggle off to require per pipeline launch configuration. Choose either a **Manual** or an **Automatic** configuration for lineage resources:
-    - **Manual**: Define the credentials, region, object storage bucket and path, SQS queue name, and (optionally) SQS queue ARN.
-    - **Automatic**: Define the credentials, region, and (optionally) the object storage bucket and path where lineage data is stored and indexed. This is the default setting. If the storage bucket field is empty, a default bucket is generated for storing lineage data.
+    - **Manual**: Use your own pre-provisioned bucket and SNS topic. Define the credentials, region, bucket name, and SNS topic ARN. After saving, subscribe the webhook URL shown on the settings page to your topic. See [Manual configuration](#manual-configuration).
+    - **Automatic**: Define the credentials and region. Platform creates the bucket, the SNS topic, the topic policies, the webhook subscription, and the bucket notification rule. This is the default setting.
 4. Once set and enabled, all pipeline runs in the workspace generate data lineage. See [Lineage][workspace-lineage] for more information about the settings.
 
 :::danger
@@ -75,6 +77,104 @@ Data lineage requires additional AWS IAM permissions. The permissions required d
 - **Platform integration credentials** (IAM user): see [AWS Batch — Data lineage](../compute-envs/aws-batch#data-lineage-optional) or [AWS Cloud — Data lineage](../compute-envs/aws-cloud#data-lineage-optional)
 - **EC2 instance role / head job role** (manually managed): see [Manual AWS Batch configuration](../enterprise/advanced-topics/manual-aws-batch-setup#create-an-ec2-instance-role)
 
+Lineage credentials grant no queue permissions. Platform never reads messaging infrastructure in your account — your bucket publishes events outward to an SNS topic, which pushes them to Platform.
+
+In **Manual** mode, Platform makes no control-plane calls other than confirming its own webhook subscription, so the credentials need only:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ReadLineageBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::<your-lineage-bucket>",
+                "arn:aws:s3:::<your-lineage-bucket>/*"
+            ]
+        },
+        {
+            "Sid": "ConfirmLineageWebhook",
+            "Effect": "Allow",
+            "Action": [
+                "sns:ConfirmSubscription"
+            ],
+            "Resource": "arn:aws:sns:<region>:<account>:<your-lineage-topic>"
+        }
+    ]
+}
+```
+
+### Manual configuration
+
+In **Manual** mode you own the bucket, the topic, and the subscription. Before saving the workspace settings:
+
+1. Create the S3 bucket and the SNS topic.
+1. Attach a topic access policy that allows the bucket to publish to the topic:
+
+    ```json
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AllowBucketToPublishEvents",
+          "Effect": "Allow",
+          "Principal": { "Service": "s3.amazonaws.com" },
+          "Action": "sns:Publish",
+          "Resource": "arn:aws:sns:<region>:<account>:<your-lineage-topic>",
+          "Condition": {
+            "ArnEquals": {
+              "aws:SourceArn": "arn:aws:s3:::<your-lineage-bucket>"
+            }
+          }
+        }
+      ]
+    }
+    ```
+
+1. Configure a bucket notification rule that sends `s3:ObjectCreated:*` events for the `.data.json` suffix to the topic:
+
+    ```json
+    {
+      "TopicConfigurations": [
+        {
+          "Id": "LineageRecordCreated",
+          "TopicArn": "arn:aws:sns:<region>:<account>:<your-lineage-topic>",
+          "Events": ["s3:ObjectCreated:*"],
+          "Filter": {
+            "Key": {
+              "FilterRules": [
+                { "Name": "suffix", "Value": ".data.json" }
+              ]
+            }
+          }
+        }
+      ]
+    }
+    ```
+
+1. Grant the compute environment's IAM role read/write access to the bucket. See [Manual AWS Batch configuration](../enterprise/advanced-topics/manual-aws-batch-setup#create-an-ec2-instance-role).
+
+Then save the workspace lineage settings, copy the **Webhook URL** shown on the settings page, and subscribe it to your topic:
+
+```bash
+aws sns subscribe \
+  --topic-arn arn:aws:sns:<region>:<account>:<your-lineage-topic> \
+  --protocol https \
+  --notification-endpoint '<webhook URL from the lineage settings page>'
+```
+
+SNS immediately posts a subscription confirmation to the endpoint, which Platform verifies and confirms with the workspace's lineage credentials. The **Event delivery** badge on the settings page moves from **Awaiting confirmation** to **Active**.
+
+
+:::note
+The `.data.json` suffix filter is recommended to reduce cost and delivery volume, but it is not required — Platform discards any event whose object key does not end in `.data.json`.
+:::
+
 ### Lineage labels
 
 Assign lineage labels to output files using the `label` directive in your Nextflow process definitions. Labels appear in lineage records.
@@ -89,16 +189,18 @@ Nextflow lineage labels are **immutable**. They are set at execution time and ca
 
 If data lineage is **changed** from automatically-provisioned to manually-provisioned:
 
-- **New object storage bucket**: The bucket notification rule is cleared and the Platform-managed SQS queue is deleted. Some events may be missed. The bucket and its data are preserved.
-- **Same object storage bucket, different SQS queue**: The bucket notification rule is redirected to the new SQS queue ARN, and the old Platform-managed SQS queue is deleted. Some events may be missed. The bucket and its data are preserved.
-- **Same object storage bucket, same SQS queue**: No cloud provider resources change. All events, the bucket, and its data are preserved.
+- **New object storage bucket**: The bucket notification rule is cleared, and the Platform-managed SNS topic and its subscription are deleted. Some events may be missed. The bucket and its data are preserved.
+- **Same object storage bucket, different SNS topic**: The bucket notification rule is redirected to the new topic ARN, and the old Platform-managed topic and subscription are deleted. Some events may be missed. The bucket and its data are preserved.
+- **Same object storage bucket, same SNS topic**: No cloud provider resources change. All events, the bucket, and its data are preserved.
 
-If data lineage is **changed** from manually provisioned to automatically provisioned a new object storage bucket, SQS queue, and notification are created by Platform. Previously defined bucket and data, SQS queue and notifications are preserved.
+If data lineage is **changed** from manually provisioned to automatically provisioned, Platform creates a new object storage bucket, SNS topic, subscription, and bucket notification rule. Your previously defined bucket and data, topic, and notification rule are preserved.
 
-If data lineage is **deactivated**:
+If data lineage is **deactivated** with **Disable lineage**:
 
-- **Automatically provisioned**: Queue notification rule is cleared on the bucket, SQS queue deleted. Bucket and data are preserved.
-- **Manually provisioned**: No change to cloud resources. Bucket and data are preserved.
+- **Automatically provisioned**: The notification rule is cleared on the bucket, and the Platform-managed topic and subscription are deleted. Bucket and data are preserved.
+- **Manually provisioned**: No change to cloud resources. Bucket, topic, and data are preserved.
+
+In both cases you can configure lineage again at any time. Records already written to the bucket are re-indexed once delivery is restored.
 
 ## Data lineage displayed in Platform
 
@@ -196,9 +298,9 @@ If data lineage is defined for a workspace, only that data is displayed in Platf
 
 ## Costs associated with data lineage
 
-Monthly S3 object storage bucket and SQS costs scale based on the number of pipeline runs launched with lineage enabled.
+Monthly S3 object storage and SNS notification costs scale based on the number of pipeline runs launched with lineage enabled. Each lineage record written to the bucket produces one SNS notification delivery.
 
-Typical SQS queue costs for a single rnaseq pipeline run daily are less than $10 USD/month.
+Filtering bucket notifications to the `.data.json` suffix keeps delivery volume — and therefore cost — proportional to the lineage records themselves rather than to all bucket activity.
 
 {/* links */}
 [workflow-labels]: https://docs.seqera.io/nextflow/workflow#labels

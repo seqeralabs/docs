@@ -7,7 +7,7 @@ tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, l
 ---
 
 :::info
-Data lineage in Platform is in public preview. It is supported in AWS compute environments. It requires Nextflow v25.04 or later, AWS S3 object storage, and Amazon Simple Queue Service (SQS).
+Data lineage in Platform is in public preview. It is supported in AWS compute environments. It requires Nextflow v25.04 or later, AWS S3 object storage, and Amazon Simple Notification Service (SNS).
 :::
 
 :::warning
@@ -38,6 +38,22 @@ Nextflow creates a structured JSON record for each entity in your pipeline when 
 
 Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the entity.
 
+### Functional flow
+
+1. Nextflow appends lineage record objects (`*.data.json`) to the configured object storage bucket.
+1. The bucket filters for objects matching `.data.json` and publishes `s3:ObjectCreated:*` events to an SNS topic.
+1. The SNS topic pushes each event to a per-workspace Platform webhook over HTTPS. Platform never reads a queue in your AWS account — the bucket only sends events outward.
+1. Platform verifies each delivery, buffers it, then reads the lineage object from the bucket and indexes it in the database.
+1. The index enriches the [run details][run-details] and the display of workflow-generated objects in Data Explorer.
+
+:::info
+Because delivery is a push over HTTPS, `TOWER_SERVER_URL` must resolve to a publicly reachable **HTTPS** endpoint that AWS can reach. SNS refuses plain HTTP and cannot resolve a private address. Installations that AWS cannot reach cannot receive lineage events; the records themselves are still written to your bucket and are indexed once delivery is established.
+:::
+
+:::note
+Lineage event ingestion moved from polling an Amazon SQS queue to SNS notifications pushed to Platform. If you are upgrading an installation that already has lineage configured, see [Data lineage event ingestion moves from SQS to SNS](../enterprise/upgrade#data-lineage-event-ingestion-moves-from-sqs-to-sns) for the permissions needed during the upgrade.
+:::
+
 ## Enable data lineage
 
 To start collecting data lineage for all pipeline runs in your workspace:
@@ -45,8 +61,8 @@ To start collecting data lineage for all pipeline runs in your workspace:
 1. Open **Settings > Workspace settings**.
 2. Select **Lineage**. If you don't see **Lineage** listed, contact your system administrator.
 3. Toggle the **Enable lineage by default** on to collect data lineage for all pipeline runs in the workspace or toggle off to require per pipeline launch configuration. Choose either a **Manual** or an **Automatic** configuration for lineage resources:
-    - **Manual**: Define the credentials, region, object storage bucket and path, SQS queue name, and (optionally) SQS queue ARN.
-    - **Automatic**: Define the credentials, region, and (optionally) the object storage bucket and path where lineage data is stored and indexed. This is the default setting. If the storage bucket field is empty, a default bucket is generated for storing lineage data.
+    - **Manual**: Use your own pre-provisioned bucket and SNS topic. Define the credentials, region, bucket name, and SNS topic ARN. After saving, subscribe the webhook URL shown on the settings page to your topic. See [Manual configuration](#manual-configuration).
+    - **Automatic**: Define the credentials and region. Platform creates the bucket, the SNS topic, the topic policies, the webhook subscription, and the bucket notification rule. This is the default setting.
 4. Once set and enabled, all pipeline runs in the workspace generate data lineage. See [Lineage][workspace-lineage] for more information about the settings.
 
 :::danger
@@ -94,37 +110,158 @@ If you use existing AWS Batch or AWS Cloud compute environments with custom IAM 
 }
 ```
 
-Platform integration credentials require the following additional permissions:
+Platform integration credentials require the following additional permissions for **Automatic** provisioning, which creates the bucket, the notification topic, and the webhook subscription:
 
 ```json
 {
     "Version": "2012-10-17",
     "Statement": [
         {
+            "Sid": "ManageNotificationTopics",
             "Effect": "Allow",
             "Action": [
-                "sqs:CreateQueue",
-                "sqs:GetQueueAttributes",
-                "sqs:SetQueueAttributes",
-                "sqs:GetQueueUrl",
-                "sqs:ReceiveMessage",
-                "sqs:DeleteMessage"
+                "sns:CreateTopic",
+                "sns:SetTopicAttributes",
+                "sns:Subscribe",
+                "sns:ConfirmSubscription",
+                "sns:Unsubscribe",
+                "sns:DeleteTopic"
             ],
-            "Resource": "arn:aws:sqs:*:*:seqera-lineage-*"
+            "Resource": "arn:aws:sns:*:*:seqera-lineage-*"
         },
         {
+            "Sid": "ManageLineageBuckets",
             "Effect": "Allow",
             "Action": [
                 "s3:CreateBucket",
                 "s3:GetBucketNotification",
                 "s3:PutBucketNotification",
-                "s3:GetBucketLocation"
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket"
             ],
-            "Resource": "arn:aws:s3:::seqera-lineage-*"
+            "Resource": [
+                "arn:aws:s3:::seqera-lineage-*",
+                "arn:aws:s3:::seqera-lineage-*/*"
+            ]
         }
     ]
 }
 ```
+
+No `sqs:*` permission is required. Platform holds no permission over messaging infrastructure in your account.
+
+:::note
+`sns:ConfirmSubscription` and `s3:ListBucket` are both required, and both fail quietly if omitted:
+
+- Without `sns:ConfirmSubscription`, provisioning completes and the workspace reports as configured, but **Event delivery** shows **Failed** and nothing is indexed. Platform completes the SNS handshake through the API, so the permission is needed even though a subscription can be confirmed by hand in a browser.
+- Without `s3:ListBucket`, rebuilding a workspace's lineage index from its bucket fails with `AccessDenied`. Reindexing pages the store with `ListObjectsV2`.
+:::
+
+In **Manual** mode, Platform makes no control-plane calls other than confirming its own webhook subscription, so the credentials need only:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ReadLineageBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::<your-lineage-bucket>",
+                "arn:aws:s3:::<your-lineage-bucket>/*"
+            ]
+        },
+        {
+            "Sid": "ConfirmLineageWebhook",
+            "Effect": "Allow",
+            "Action": [
+                "sns:ConfirmSubscription"
+            ],
+            "Resource": "arn:aws:sns:<region>:<account>:<your-lineage-topic>"
+        }
+    ]
+}
+```
+
+### Manual configuration
+
+In **Manual** mode you own the bucket, the topic, and the subscription. Before saving the workspace settings:
+
+1. Create the S3 bucket and the SNS topic.
+1. Attach a topic access policy that allows the bucket to publish to the topic:
+
+    ```json
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "AllowBucketToPublishEvents",
+          "Effect": "Allow",
+          "Principal": { "Service": "s3.amazonaws.com" },
+          "Action": "sns:Publish",
+          "Resource": "arn:aws:sns:<region>:<account>:<your-lineage-topic>",
+          "Condition": {
+            "ArnEquals": {
+              "aws:SourceArn": "arn:aws:s3:::<your-lineage-bucket>"
+            }
+          }
+        }
+      ]
+    }
+    ```
+
+1. Configure a bucket notification rule that sends `s3:ObjectCreated:*` events for the `.data.json` suffix to the topic:
+
+    ```json
+    {
+      "TopicConfigurations": [
+        {
+          "Id": "LineageRecordCreated",
+          "TopicArn": "arn:aws:sns:<region>:<account>:<your-lineage-topic>",
+          "Events": ["s3:ObjectCreated:*"],
+          "Filter": {
+            "Key": {
+              "FilterRules": [
+                { "Name": "suffix", "Value": ".data.json" }
+              ]
+            }
+          }
+        }
+      ]
+    }
+    ```
+
+1. Grant the compute environment's IAM role read/write access to the bucket, using the service role policy above.
+
+Then save the workspace lineage settings, copy the **Webhook URL** shown on the settings page, and subscribe it to your topic:
+
+```bash
+aws sns subscribe \
+  --topic-arn arn:aws:sns:<region>:<account>:<your-lineage-topic> \
+  --protocol https \
+  --notification-endpoint '<webhook URL from the lineage settings page>'
+```
+
+SNS immediately posts a subscription confirmation to the endpoint, which Platform verifies and confirms with the workspace's lineage credentials. The **Event delivery** badge on the settings page moves from **Awaiting confirmation** to **Active**.
+
+:::tip
+Set a delivery policy on your topic or subscription to widen the retry schedule. The AWS default of three attempts over roughly a minute drops events across an ordinary Platform restart. Automatically provisioned topics are configured with a wider schedule for this reason, tunable with `TOWER_LINEAGE_SNS_MAX_RETRIES` and `TOWER_LINEAGE_SNS_MAX_DELAY_SECONDS`.
+:::
+
+:::note
+The `.data.json` suffix filter is recommended to reduce cost and delivery volume, but it is not required — Platform discards any event whose object key does not end in `.data.json`.
+:::
+
+### Event delivery status
+
+Once the settings are saved, the lineage settings page reports **Event delivery** — **Active**, **Awaiting confirmation**, **Failed**, or **Not configured** — alongside the workspace's **Webhook URL**. Delivery status is independent of the configuration status: a workspace can be configured and writable while nothing is being delivered.
+
+If delivery does not become **Active**, confirm that AWS can reach the installation over public HTTPS and that the lineage credentials grant `sns:ConfirmSubscription`. Records already written to the bucket are intact and are re-indexed once delivery resumes.
 
 ### Advanced: Experimenting with data lineage
 

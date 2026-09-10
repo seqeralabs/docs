@@ -64,16 +64,24 @@ Select **Manage** and then choose to enable lineage by default for all pipeline 
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| **Credentials** | Yes | The workspace credentials Platform uses to create and access the lineage storage bucket. The credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage the SQS queue. |
+| **Credentials** | Yes | The workspace credentials Platform uses to create and access the lineage storage bucket and its notification topic. In **Automatic** mode, the credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage the SNS topic and its subscription. In **Manual** mode, they only need to read the bucket and confirm the webhook subscription. See [Data lineage](../data/data-lineage#additional-iam-permissions-required). |
 | **Region** | Yes | Cloud region where the lineage storage bucket is created (for example, `us-east-1`, `eu-west-1`). |
-| **Bucket name** | No | Bucket where lineage records are stored. If left empty, Platform generates a default bucket name in the form `seqera-lineage-<workspace-id>`. |
+| **Bucket name** | No | Bucket where lineage records are stored. If left empty, Platform generates a default bucket name in the form `seqera-lineage-<workspace-id>`. Required in **Manual** mode, where it must match the bucket you have provisioned. |
 
-If configuring **manually**, two additional settings can be defined:
+If configuring **manually**, one additional setting is required:
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| **SQS Queue name** | No | The Amazon Simple Queue Service (SQS) name. If left empty, Platform generates a default queue name in the form `<bucket-name>-notifications`. |
-| **SQS Queue ARN** | No | The ARN of the SQS queue. This is useful if your Platform deployment requires cross-account access. |
+| **SNS topic ARN** | Yes | The ARN of the Amazon SNS topic your bucket publishes object notifications to, in the form `arn:aws:sns:<region>:<account-id>:<topic-name>`. In **Automatic** mode, Platform creates the topic as `<bucket-name>-notifications`. |
+
+Once the settings are saved, the lineage settings page also shows:
+
+| Field | Description |
+|-------|-------------|
+| **Event delivery** | Whether events are reaching Platform: **Active**, **Awaiting confirmation**, **Failed**, or **Not configured**. This is independent of the configuration status — a workspace can be configured and writable while nothing is being delivered. |
+| **Webhook URL** | The per-workspace HTTPS endpoint AWS delivers this workspace's bucket events to. In **Manual** mode, subscribe this URL to your SNS topic (protocol `https`). |
+
+Select **Disable lineage** to remove the configuration and stop indexing records for the workspace. Automatically provisioned notification infrastructure is removed; the bucket and the lineage data in it are not affected, and lineage can be configured again at any time.
 
 ### Edit or delete a workspace
 
