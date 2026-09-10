@@ -70,7 +70,7 @@ Select **Manage** to open the workspace [labels and resource labels](../labels/o
 ### Lineage
 
 :::note
-Data lineage is currently in public preview. It requires Nextflow 25.04 or later, AWS S3 object storage, and Amazon Simple Notification Service (SNS). For best results, use Nextflow 26.04 or higher.
+Data lineage is currently in public preview. It requires Nextflow 25.04 or later, AWS S3 object storage, and Amazon Simple Notification Service (SNS). For best results, use Nextflow 26.04 or later.
 :::
 
 Configure where Nextflow lineage data are stored and whether lineage tracking is on by default for every run launched in the workspace.
@@ -108,12 +108,12 @@ Once the settings are saved, the lineage settings page also shows:
 
 | Field | Description |
 |-------|-------------|
-| **Event delivery** | Whether events are reaching Platform: **Active**, **Awaiting confirmation**, **Failed**, or **Not configured**. This is independent of the configuration status — a workspace can be configured and writable while nothing is being delivered. |
-| **Webhook URL** | The per-workspace HTTPS endpoint AWS delivers this workspace's bucket events to. In **Manual** mode, subscribe this URL to your SNS topic (protocol `https`). |
+| **Event delivery** | Whether events are reaching Platform: **Active**, **Awaiting confirmation**, **Failed**, or **Not configured**. This is independent of the configuration status. A workspace can be configured and writable while Platform receives nothing. |
+| **Webhook URL** | The per-workspace HTTPS endpoint to which AWS delivers this workspace's bucket events. In **Manual** mode, subscribe this URL to your SNS topic (protocol `https`). |
 
 If **Event delivery** does not become **Active**, confirm that Platform is reachable from AWS over public HTTPS. Records already written to the bucket are intact and are re-indexed once delivery resumes.
 
-Select **Disable lineage** to remove the configuration and stop indexing records for the workspace. Automatically provisioned notification infrastructure is removed; your bucket and the lineage data in it are not affected, and you can configure lineage again at any time.
+Select **Disable lineage** to remove the configuration and stop indexing records for the workspace. Platform removes any automatically provisioned notification infrastructure. Your bucket and the lineage data in it are not affected, and you can configure lineage again at any time.
 
 When lineage is enabled:
 
@@ -125,7 +125,7 @@ The pipeline launch form toggle's default state is controlled by **Enable lineag
 
 #### Credentials
 
-The credentials required for **Automatic** lineage provisioning are indicated below in an example AWS policy. No queue permissions are required — Platform does not create or read a queue in your account.
+The following example AWS policy shows the credentials required for **Automatic** lineage provisioning. No queue permissions are required. Platform does not create or read a queue in your account.
 
 ```
 {

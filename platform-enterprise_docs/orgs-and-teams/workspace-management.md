@@ -64,7 +64,7 @@ Select **Manage** and then choose to enable lineage by default for all pipeline 
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| **Credentials** | Yes | The workspace credentials Platform uses to create and access the lineage storage bucket and its notification topic. In **Automatic** mode, the credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage the SNS topic and its subscription. In **Manual** mode, they only need to read the bucket and confirm the webhook subscription. See [Data lineage](../data/data-lineage#additional-iam-permissions-required). |
+| **Credentials** | Yes | The workspace credentials Platform uses to create and access the lineage storage bucket and its notification topic. In **Automatic** mode, the credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage the Amazon Simple Notification Service (SNS) topic and its subscription. In **Manual** mode, they only need to read the bucket and confirm the webhook subscription. See [Data lineage](../data/data-lineage#additional-iam-permissions-required). |
 | **Region** | Yes | Cloud region where the lineage storage bucket is created (for example, `us-east-1`, `eu-west-1`). |
 | **Bucket name** | No | Bucket where lineage records are stored. If left empty, Platform generates a default bucket name in the form `seqera-lineage-<workspace-id>`. Required in **Manual** mode, where it must match the bucket you have provisioned. |
 
@@ -78,10 +78,10 @@ Once the settings are saved, the lineage settings page also shows:
 
 | Field | Description |
 |-------|-------------|
-| **Event delivery** | Whether events are reaching Platform: **Active**, **Awaiting confirmation**, **Failed**, or **Not configured**. This is independent of the configuration status — a workspace can be configured and writable while nothing is being delivered. |
-| **Webhook URL** | The per-workspace HTTPS endpoint AWS delivers this workspace's bucket events to. In **Manual** mode, subscribe this URL to your SNS topic (protocol `https`). |
+| **Event delivery** | Whether events are reaching Platform: **Active**, **Awaiting confirmation**, **Failed**, or **Not configured**. This is independent of the configuration status. A workspace can be configured and writable while Platform receives nothing. |
+| **Webhook URL** | The per-workspace HTTPS endpoint to which AWS delivers this workspace's bucket events. In **Manual** mode, subscribe this URL to your SNS topic (protocol `https`). |
 
-Select **Disable lineage** to remove the configuration and stop indexing records for the workspace. Automatically provisioned notification infrastructure is removed; the bucket and the lineage data in it are not affected, and lineage can be configured again at any time.
+Select **Disable lineage** to remove the configuration and stop indexing records for the workspace. Platform removes any automatically provisioned notification infrastructure. The bucket and the lineage data in it are not affected, and you can configure lineage again at any time.
 
 ### Edit or delete a workspace
 

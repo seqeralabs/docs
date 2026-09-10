@@ -11,7 +11,7 @@ Data lineage in Platform is in public preview. It requires Nextflow 25.04 or lat
 :::
 
 :::warning
-The feature is experimental and subject to change. This page provides the latest configuration recommendations and limitations.
+The feature is experimental and subject to change.
 :::
 
 Data lineage tracks the full provenance of every pipeline run at both the task and workflow level, including what executed, what data it consumed, and what outputs it produced. Use it to audit results, verify reproducibility, and trace file provenance.
@@ -22,13 +22,13 @@ Production pipelines generate results that teams need to trust, audit, and repro
 
 - **Reproducibility**: Every run, task, and output file receives a unique lineage ID (LID), a traversable URI that points to a structured record of what ran. Verify that two runs produced identical results, or identify where they diverged.
 - **Auditing and compliance**: For teams in regulated industries such as pharma, clinical genomics, and contract research organizations (CROs), lineage provides the audit trail needed for regulatory compliance. Each record captures inputs, outputs, parameters, compute environment, and the user who launched the run.
-- **Debugging**: When a cached task unexpectedly re-executes, or a pipeline produces an unexpected result, lineage traces backward from any output to all contributing tasks and parameters. Compare two task runs to isolate what changed.
-- **Broader team access**: Exploring Nextflow lineage previously required CLI access and comfort reading raw JSON. Platform now surfaces lineage data in pipeline run detail pages and Data Explorer. Users can inspect provenance directly.
-- **Cross-workflow discoverability**: [Workflow output labels][workflow-labels] make output files discoverable across runs. Navigate lineage records by label to find all matching outputs workspace-wide, without knowing which specific run produced a file.
+- **Debugging**: When a cached task re-executes, or a pipeline produces an unexpected result, lineage traces backward from any output to all contributing tasks and parameters. Compare two task runs to isolate what changed.
+- **Broader team access**: Exploring Nextflow lineage previously required CLI access and the ability to read raw JSON. Platform now surfaces lineage data on pipeline run detail pages and in Data Explorer.
+- **Discovery across runs**: [Workflow output labels][workflow-labels] make output files discoverable across runs. Navigate lineage records by label to find all matching outputs workspace-wide, without knowing which specific run produced a file.
 
-## How data lineage works
+## Lineage records and event delivery
 
-When lineage is enabled, Nextflow generates a structured JSON record for each entity in your pipeline during workflow execution:
+When lineage is enabled, Nextflow generates a structured JSON record for each entity in your pipeline:
 
 | Record type | Description |
 |---|---|
@@ -36,18 +36,17 @@ When lineage is enabled, Nextflow generates a structured JSON record for each en
 | **TaskRun** | Individual task execution: script, code checksum, inputs, outputs, container, and dependencies |
 | **FileOutput** | Output file: path, checksum, size, timestamp, and links back to the task and workflow that produced it |
 
-Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the entity. Every LID and lineage label renders as a clickable link, and you can navigate to all related entities across your organization.
+Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the entity. Every LID and lineage label renders as a link you can follow to related entities across your organization.
 
 ### Functional flow
 
 1. Nextflow appends lineage record objects (`*.data.json`) to the defined object storage bucket.
 1. The bucket is configured to filter for objects matching `.data.json` and publishes `s3:ObjectCreated:*` events to an SNS topic.
-1. The SNS topic pushes each event to a per-workspace Platform webhook over HTTPS. Platform never reads a queue in your account — your bucket only sends events outward.
+1. The SNS topic pushes each event to a per-workspace Platform webhook over HTTPS.
 1. Platform verifies each delivery, buffers it, then reads the lineage object from the bucket and indexes it in the database.
-1. The index enriches the [run details][run-details].
-1. The index enriches the display of workflow-generated objects in Data Explorer with links to the origin pipeline run and task, sources of the object, and any lineage labels associated with the object.
+1. The index enriches the [run details][run-details] and the display of workflow-generated objects in Data Explorer, adding links to the origin pipeline run and task, the sources of each object, and any lineage labels.
 
-The webhook URL is unique to the workspace and is shown on the workspace lineage settings page once the configuration is saved. The settings page also reports an **Event delivery** status, so you can tell whether events are actually arriving.
+The webhook URL is unique to the workspace. It appears on the workspace lineage settings page once you save the configuration, alongside an **Event delivery** status that shows whether events are arriving.
 
 ## Enable data lineage
 
@@ -55,13 +54,13 @@ To start collecting data lineage for all pipeline runs in your workspace:
 
 1. Open **Settings > Workspace settings**.
 2. Select **Lineage**. If you don't see **Lineage** listed, contact your system administrator.
-3. Toggle the **Enable lineage by default** on to collect data lineage for all pipeline runs in the workspace or toggle off to require per pipeline launch configuration. Choose either a **Manual** or an **Automatic** configuration for lineage resources:
-    - **Manual**: Use your own pre-provisioned bucket and SNS topic. Define the credentials, region, bucket name, and SNS topic ARN. After saving, subscribe the webhook URL shown on the settings page to your topic. See [Manual configuration](#manual-configuration).
+3. Toggle **Enable lineage by default** on to collect data lineage for all pipeline runs in the workspace, or off to require per-pipeline launch configuration. Choose either a **Manual** or an **Automatic** configuration for lineage resources:
+    - **Manual**: Use your own pre-provisioned bucket and SNS topic. Define the credentials, region, bucket name, and SNS topic ARN. After saving, subscribe the webhook URL shown on the settings page to your topic. See [Configure lineage manually](#configure-lineage-manually).
     - **Automatic**: Define the credentials and region. Platform creates the bucket, the SNS topic, the topic policies, the webhook subscription, and the bucket notification rule. This is the default setting.
 4. Once set and enabled, all pipeline runs in the workspace generate data lineage. See [Lineage][workspace-lineage] for more information about the settings.
 
 :::danger
-Updating the lineage settings after pipelines have generated lineage data will result in historic data loss. The lineage index is tied to the lineage storage bucket and path. Changing it makes existing records inaccessible. To avoid data loss when updating the storage location, first copy all existing lineage data to the new bucket and path (for example, `aws s3 cp --recursive s3://old-bucket/path s3://new-bucket/path`), then update the workspace setting.
+Updating the lineage settings after pipelines have generated lineage data will result in historical data loss. The lineage index is tied to the lineage storage bucket and path. Changing it makes existing records inaccessible. To avoid data loss when updating the storage location, first copy all existing lineage data to the new bucket and path (for example, `aws s3 cp --recursive s3://old-bucket/path s3://new-bucket/path`), then update the workspace setting.
 :::
 
 When launching a pipeline in a data-lineage enabled workspace, the **Enable lineage** toggle in the pipeline **Run setup** reflects the **Enable lineage by default** workspace setting. Turn it off to _explicitly exclude_ data lineage for the pipeline run.
@@ -77,9 +76,9 @@ Data lineage requires additional AWS IAM permissions. The permissions required d
 - **Platform integration credentials** (IAM user): see [AWS Batch — Data lineage](../compute-envs/aws-batch#data-lineage-optional) or [AWS Cloud — Data lineage](../compute-envs/aws-cloud#data-lineage-optional)
 - **EC2 instance role / head job role** (manually managed): see [Manual AWS Batch configuration](../enterprise/advanced-topics/manual-aws-batch-setup#create-an-ec2-instance-role)
 
-Lineage credentials grant no queue permissions. Platform never reads messaging infrastructure in your account — your bucket publishes events outward to an SNS topic, which pushes them to Platform.
+Lineage credentials grant no queue permissions. Your bucket publishes events outward to an SNS topic, which pushes them to Platform.
 
-In **Manual** mode, Platform makes no control-plane calls other than confirming its own webhook subscription, so the credentials need only:
+In **Manual** mode, Platform makes no control-plane calls other than confirming its own webhook subscription. The credentials need only:
 
 ```json
 {
@@ -109,7 +108,7 @@ In **Manual** mode, Platform makes no control-plane calls other than confirming 
 }
 ```
 
-### Manual configuration
+### Configure lineage manually
 
 In **Manual** mode you own the bucket, the topic, and the subscription. Before saving the workspace settings:
 
@@ -170,24 +169,23 @@ aws sns subscribe \
 
 SNS immediately posts a subscription confirmation to the endpoint, which Platform verifies and confirms with the workspace's lineage credentials. The **Event delivery** badge on the settings page moves from **Awaiting confirmation** to **Active**.
 
-
 :::note
-The `.data.json` suffix filter is recommended to reduce cost and delivery volume, but it is not required — Platform discards any event whose object key does not end in `.data.json`.
+The `.data.json` suffix filter is recommended to reduce cost and delivery volume, but it is not required. Platform discards any event whose object key does not end in `.data.json`.
 :::
 
 ### Lineage labels
 
-Assign lineage labels to output files using the `label` directive in your Nextflow process definitions. Labels appear in lineage records.
+Assign lineage labels to output files using the `label` directive in your Nextflow process definitions.
 
 Both Platform labels and Nextflow lineage labels propagate to lineage records. Platform excludes resource labels because they relate to underlying compute resources, not the data itself.
 
 :::info
-Nextflow lineage labels are **immutable**. They are set at execution time and cannot be changed. Platform labels are _mutable_ by design and can change after a run launches. Changing Platform labels after launch produces a mismatch between Platform run labels and Nextflow lineage labels.
+Nextflow sets lineage labels at execution time, and they cannot be changed. Platform labels are mutable and can change after a run launches. Changing Platform labels after launch produces a mismatch between Platform run labels and Nextflow lineage labels.
 :::
 
-### Changing or disabling data lineage
+### Change or disable lineage
 
-If data lineage is **changed** from automatically-provisioned to manually-provisioned:
+If data lineage is **changed** from automatically provisioned to manually provisioned:
 
 - **New object storage bucket**: The bucket notification rule is cleared, and the Platform-managed SNS topic and its subscription are deleted. Some events may be missed. The bucket and its data are preserved.
 - **Same object storage bucket, different SNS topic**: The bucket notification rule is redirected to the new topic ARN, and the old Platform-managed topic and subscription are deleted. Some events may be missed. The bucket and its data are preserved.
@@ -202,19 +200,21 @@ If data lineage is **deactivated** with **Disable lineage**:
 
 In both cases you can configure lineage again at any time. Records already written to the bucket are re-indexed once delivery is restored.
 
-## Data lineage displayed in Platform
+## Lineage in the Platform UI
+
+Platform surfaces lineage data on the run details page and in Data Explorer.
 
 ### Workflow run details
 
-When a run was executed with lineage enabled, the [run details page][run-details] displays lineage data across the following tabs:
+For a run executed with lineage enabled, the [run details page][run-details] displays lineage data across the following tabs:
 
-- **Run Info**: Shows the lineage ID, lineage labels, and the full Platform context captured at execution time: user, workspace, compute environment, pipeline name, revision, and commit ID.
+- **Run Info**: Shows the lineage ID, lineage labels, and the full Platform context captured at execution time, including user, workspace, compute environment, pipeline name, revision, and commit ID.
 - **Tasks**: Displays the lineage ID and lineage labels for each `TaskRun` alongside existing task data. You can trace any task back to its lineage record. All task file inputs and outputs, and upstream and downstream tasks linked by lineage records, are displayed.
 - **Inputs**: Lists all input datasets and parameters with file paths, types, and lineage IDs and lineage labels where available.
-- **Outputs**: Lists all `FileOutput` records linked to the workflow run: output name, file path, type, lineage ID, and lineage labels. Files link directly to [Data Explorer][data-explorer].
+- **Outputs**: Lists all `FileOutput` records linked to the workflow run, including output name, file path, type, lineage ID, and lineage labels. Files link directly to [Data Explorer][data-explorer].
 
 :::tip
-All LIDs and lineage labels are clickable links. Click any LID to open [lineage search](#search-lineage-records) pre-filled with that identifier.
+All LIDs and lineage labels are clickable links. Select any LID to open [lineage search](#search-lineage-records) pre-filled with that identifier.
 :::
 
 :::note
@@ -281,9 +281,9 @@ The field suggests `workspace:`, `type:`, and `label:` as you type. Enter the re
 Lineage search is also available through the Platform API. The `GET /lineage/search` endpoint accepts the same query syntax in its `q` parameter and returns paginated results. See the [Platform API reference][platform-api] for the full set of lineage endpoints.
 :::
 
-## Advanced: Experimenting with data lineage
+## Test lineage for a single pipeline or run
 
-To test or troubleshoot data lineage for a _specific pipeline_, add the following to your **Nextflow config file** under **Advanced options** when _adding_ a pipeline to the launchpad.
+To test or troubleshoot data lineage for a _specific pipeline_, add the following to your **Nextflow config file** under **Advanced options** when _adding_ a pipeline to the Launchpad.
 
 ```groovy
 lineage.enabled = true
@@ -296,11 +296,11 @@ To test for a _single pipeline run_, add the same code to your **Nextflow config
 If data lineage is defined for a workspace, only that data is displayed in Platform. Any unique _specific pipeline_ or _single pipeline run_ lineage data is only accessible via the AWS S3 console and other related services (such as Amazon Athena).
 :::
 
-## Costs associated with data lineage
+## Lineage costs
 
 Monthly S3 object storage and SNS notification costs scale based on the number of pipeline runs launched with lineage enabled. Each lineage record written to the bucket produces one SNS notification delivery.
 
-Filtering bucket notifications to the `.data.json` suffix keeps delivery volume — and therefore cost — proportional to the lineage records themselves rather than to all bucket activity.
+Filtering bucket notifications to the `.data.json` suffix keeps delivery volume (and therefore cost) proportional to the lineage records themselves rather than to all bucket activity.
 
 {/* links */}
 [workflow-labels]: https://docs.seqera.io/nextflow/workflow#labels
