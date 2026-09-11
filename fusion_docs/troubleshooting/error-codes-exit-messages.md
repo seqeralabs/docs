@@ -2,7 +2,7 @@
 title: Error codes and exit messages
 description: "Reference for Fusion error codes, exit codes, and error messages"
 date created: "2025-01-12"
-last updated: "2025-01-20"
+last updated: "2026-09-10"
 tags: [errors, error codes, exit codes, fuse, logging, fusion]
 ---
 
@@ -169,7 +169,7 @@ jq 'select(.provider_request_id != null) | {provider, provider_request_id, provi
 When troubleshooting Fusion errors:
 
 1. Check the [exit code](#exit-codes):
-    - Check the task exit status in Platform to understand whether Fusion terminated normally (`0`), encountered an I/O error (`174`), or had a command issue (`127`).
+    - Check the task exit status in Platform to understand whether Fusion terminated normally (`0`), encountered an I/O error (`174`), had a command issue (`127`), or failed a work directory check before the task ran (`172` or `173`).
 1. Look for an `errno` code in the logs:
     - If a filesystem operation failed, use the logs to identify the `errno`  status code (e.g., `ENOENT`, `EREMOTEIO`, `EIO`) returned to the application.
 1. Check for cloud error fields:
@@ -210,6 +210,8 @@ For exit codes `175` and `176`, see [Fusion Snapshots](./fusion-snapshots).
 | `0` | - | Success, normal completion. |
 | `1` | - | Fatal error during startup (via `log.Fatal()`). |
 | `127` | - | Command not found (`.command.sh` missing). Triggers automatic retry up to `FUSION_MAX_MOUNT_RETRIES` times. |
+| `172` | `ConfigFaultExitCode` | Environment misconfiguration that Fusion detected before starting the task. Retrying fails the same way on every host until an operator corrects the environment. See [Exit codes 172 and 173](#exit-codes-172-and-173). |
+| `173` | `RemoteFaultExitCode` | Transient fault in the path to remote storage that Fusion detected before starting the task. Another attempt, on another host or later, can succeed. See [Exit codes 172 and 173](#exit-codes-172-and-173). |
 | `174` | `ErrorExitCode` | Fusion I/O error, application-level input/output error. |
 
 :::note
@@ -226,6 +228,15 @@ The `sysexits.h` standard uses exit code 74 for "input/output error" and reserve
 | Error during filesystem shutdown | `on file system shutdown` | Check Fusion logs for pending upload errors. See [Fusion logs](#fusion-logs). |
 | Error during filesystem unmount | `on file system unmount` | Run `fusermount -u /fusion` or `umount -l /fusion` manually. |
 | Failed read/write path validation | `check-rw` or `check-ro` | Verify cloud credentials and bucket permissions. |
+
+### Exit codes 172 and 173
+
+Exit codes `172` and `173` apply to compute environments that use Seqera Intelligent Compute, on Fusion v2.6.4 and later. Before Fusion starts the task command, it verifies that the task work directory is readable through the mount. If that check fails, Fusion unmounts and exits with one of two codes:
+
+- `172` is a configuration fault, such as a bucket policy that denies access, a bucket that does not exist, an archived object, or an exceeded storage quota. The task fails the same way on every host. Intelligent Compute surfaces the failure instead of relocating the task. Correct the environment, then launch the run again.
+- `173` is a transient fault in the path to remote storage. Intelligent Compute relocates the task to another host and quarantines the faulty host. Fusion also exits `173` when both the mount and the fallback mount fail.
+
+Fusion returns both codes before the task command runs. A task that exits with either code produced no output.
 
 ### GPU tracer binary
 
