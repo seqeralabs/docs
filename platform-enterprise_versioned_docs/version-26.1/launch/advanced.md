@@ -151,12 +151,20 @@ The v2 parser implements Nextflow's [strict syntax](https://nextflow.io/docs/lat
 
 The toggle only selects the parser. It does not change the Nextflow runtime version, the pipeline source, or any pipeline parameters.
 
-The v2 parser becomes the default in Nextflow 26.04:
+The toggle does not track Nextflow's own parser default. Nextflow defaults to the v2 parser from version 26.04, and from 26.01.1-edge on the edge release channel, but only when `NXF_SYNTAX_PARSER` is unset. Platform always sets it. With the toggle off, Platform exports `NXF_SYNTAX_PARSER=v1` for every Nextflow version. On stable releases up to 25.10, where v1 is also the runtime default, the off position matches Nextflow's own behavior. To run a pipeline with the v2 parser on any Nextflow version, turn the toggle on.
 
-- **Before Nextflow 26.04**: v1 is the runtime default. Turn the toggle on to opt in to v2.
-- **From Nextflow 26.04**: v2 is the runtime default. Turn the toggle off to pin a pipeline to v1.
+:::warning
+On Nextflow 26.04 and later, a pipeline that uses v2-only syntax fails to compile unless this toggle is on. The Nextflow version alone does not select the v2 parser, even when the run log reports Nextflow 26.04 or later. The failure is a Groovy compilation error that does not mention the parser. To confirm which parser ran, look for `Using script parser v2` in the run's Nextflow log file, `nf-<workflow-id>.log`. The line is absent when the v1 parser runs.
+:::
 
-A [pre-run script](#pre-and-post-run-scripts) that exports `NXF_SYNTAX_PARSER` overrides this toggle.
+The toggle is not the only route that sets the parser. The following routes set it, in increasing order of precedence:
+
+- The pipeline's toggle.
+- The launch form's toggle, pre-filled from the pipeline's toggle.
+- An `NXF_SYNTAX_PARSER` environment variable defined on the compute environment with a target that includes the head job.
+- A [pre-run script](#pre-and-post-run-scripts) that exports `NXF_SYNTAX_PARSER`.
+
+Platform exports the toggle value before it applies the compute environment variables and the pre-run script. Either source can overwrite the value the toggle sets. Neither source is visible in the launch form, and the toggle continues to display its own setting when one of them selects the parser.
 
 :::note
 The launch form inherits this setting from the pipeline. You can override it per launch without changing the stored value. Changing the toggle on the pipeline edit form creates a new pipeline version.
