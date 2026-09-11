@@ -70,7 +70,7 @@ Select **Manage** to open the workspace [labels and resource labels](../labels/o
 ### Lineage
 
 :::note
-Data lineage is currently in public preview. It requires Nextflow 25.04 or later, AWS S3 object storage, and Amazon Simple Queue Service (SQS). For best results, use Nextflow 26.04 or higher.
+Data lineage is currently in public preview. It requires Nextflow 25.04 or later, AWS S3 object storage, and Amazon Simple Notification Service (SNS). For best results, use Nextflow 26.04 or later.
 :::
 
 Configure where Nextflow lineage data are stored and whether lineage tracking is on by default for every run launched in the workspace.
@@ -83,26 +83,37 @@ Select **Manage** and then choose to enable lineage by default for all pipeline 
 
 | Field | Description |
 |-------|-------------|
-| **Credentials** | The workspace credentials Platform uses to create and access the lineage storage bucket and SQS queue. The credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage the SQS queue. See [Credentials](#credentials). |
+| **Credentials** | The workspace credentials Platform uses to create and access the lineage storage bucket and its notification topic. In **Automatic** mode, the credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage the SNS topic and its subscription. In **Manual** mode, they only need to read the bucket and confirm the webhook subscription. See [Credentials](#credentials). |
 | **Region** | Cloud region where the lineage storage bucket is created (for example, `us-east-1`, `eu-west-1`). |
 
 If configuring **manually**, two additional settings are required:
 
 | Field | Description |
 |-------|-------------|
-| **Bucket name** | Object storage bucket where lineage records are stored. |
-| **SQS Queue ARN** | ARN of the SQS queue. This is useful if your Platform deployment requires cross-account access. |
+| **Bucket name** | Object storage bucket where lineage records are stored. Must match the name of the bucket you have provisioned. |
+| **SNS topic ARN** | ARN of the SNS topic your bucket publishes object notifications to, in the form `arn:aws:sns:<region>:<account-id>:<topic-name>`. |
 
-If configuring **automatically**, Platform generates the object storage bucket and SQS queue.
+If configuring **automatically**, Platform generates the object storage bucket and the notification topic.
 
 | Field | Auto-generated name pattern |
 |-------|-----------------------------|
 | **Bucket name** | `seqera-lineage-<workspace-id>` |
-| **SQS Queue ARN** | `seqera-lineage-<workspace-id>-notifications` |
+| **SNS topic ARN** | `arn:aws:sns:<region>:<account-id>:seqera-lineage-<workspace-id>-notifications` |
 
 :::note
 Automated configuration uses the **configured workspace credentials** through the same model as [Data Explorer](../data/data-explorer).
 :::
+
+Once the settings are saved, the lineage settings page also shows:
+
+| Field | Description |
+|-------|-------------|
+| **Event delivery** | Whether events are reaching Platform: **Active**, **Awaiting confirmation**, **Failed**, or **Not configured**. This is independent of the configuration status. A workspace can be configured and writable while Platform receives nothing. |
+| **Webhook URL** | The per-workspace HTTPS endpoint to which AWS delivers this workspace's bucket events. In **Manual** mode, subscribe this URL to your SNS topic (protocol `https`). |
+
+If **Event delivery** does not become **Active**, confirm that Platform is reachable from AWS over public HTTPS. Records already written to the bucket are intact and are re-indexed once delivery resumes.
+
+Select **Disable lineage** to remove the configuration and stop indexing records for the workspace. Platform removes any automatically provisioned notification infrastructure. Your bucket and the lineage data in it are not affected, and you can configure lineage again at any time.
 
 When lineage is enabled:
 
@@ -114,7 +125,7 @@ The pipeline launch form toggle's default state is controlled by **Enable lineag
 
 #### Credentials
 
-The credentials required for lineage are indicated below in an example AWS policy.
+The following example AWS policy shows the credentials required for **Automatic** lineage provisioning. No queue permissions are required. Platform does not create or read a queue in your account.
 
 ```
 {
@@ -122,16 +133,17 @@ The credentials required for lineage are indicated below in an example AWS polic
     "Statement": [
         {
   ///  ---- LINEAGE SPECIFIC
-            "Sid": "SQSQueueActions",
+            "Sid": "SNSTopicActions",
             "Effect": "Allow",
             "Action": [
-                "sqs:CreateQueue",
-                "sqs:GetQueueAttributes",
-                "sqs:SetQueueAttributes",
-                "sqs:ReceiveMessage",
-                "sqs:DeleteMessage"
+                "sns:CreateTopic",
+                "sns:SetTopicAttributes",
+                "sns:Subscribe",
+                "sns:ConfirmSubscription",
+                "sns:Unsubscribe",
+                "sns:DeleteTopic"
             ],
-            "Resource": "arn:aws:sqs:*:*:seqera-lineage-*"
+            "Resource": "arn:aws:sns:*:*:seqera-lineage-*"
         },
 ///  ----
         {
