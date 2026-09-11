@@ -174,16 +174,46 @@ Workspace **owners** can edit their workspace name from the workspace **Settings
 
 - Select **Edit workspace** to update the workspace name, full name, description, and sharing. Select **Update** to save changes.
 - Select **Delete workspace** to delete the workspace and its associated resources. This action cannot be reversed.
-``
 
 ## Add a new participant
 
-A new workspace participant can be an existing organization member, team, or collaborator. To add a new participant to a workspace:
+A new workspace participant can be an existing organization member, a team, or a collaborator. To add a new participant to a workspace:
 
 1. Go to the **Participants** tab in the workspace menu.
 2. Select **Add participant**.
-3. Enter the **Name** of the new participant.
-4. Optionally, update the participant **role**.
+3. Enter one of the following:
+   - The name of an existing organization **member** or **team**, selected from the suggestions.
+   - The username or email address of a Seqera user, to add them to this workspace as a **collaborator**.
+4. Optionally, update the participant **role**. New participants are added with the **Launch** role by default.
+
+### What happens when you add a participant by username or email
+
+Adding a participant this way can create two records: an **organization membership** and a **workspace participant**. Which of these are created determines which usage limit applies, and whether the person is notified by email.
+
+| Their existing status | Organization membership | Email notification |
+| --------------------- | ----------------------- | ------------------ |
+| Already a member of this organization | Reused. Their organization role is unchanged | No |
+| Already a collaborator elsewhere in this organization | Reused. They remain a collaborator | Yes |
+| Has a Seqera account, but is not in this organization | Created, with the **Collaborator** role | Yes |
+
+:::note
+Having a Seqera account is not the same as being a member of your organization. Someone with an existing account who is not yet in your organization still consumes an organization member seat when you add them to a workspace.
+:::
+
+Two [usage limits](../limits/overview) apply independently:
+
+- The **members per organization** limit is checked only when a new organization membership is created. Collaborators count toward this limit.
+- The **participants per workspace** limit is checked every time, including when you add someone who is already a member of your organization.
+
+Adding an existing organization member to a second workspace therefore consumes a participant slot but no member seat, while adding someone from outside the organization consumes both.
+
+### Participants that can't be added
+
+| Message | Cause |
+| ------- | ----- |
+| `Can't find any user record with the given email` | No Seqera account matches that email address. Ask the person to create an account, then add them. |
+| `Can't find any user record with the given name` | A username was entered for someone without a Seqera account. Usernames only resolve to existing accounts — use their email address instead. |
+| `Already a participant` | That user or team is already a participant in this workspace. |
 
 ## Workspace run monitoring
 
