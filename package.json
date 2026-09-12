@@ -21,7 +21,7 @@
     "markdown-it": ">=14.2.0",
     "joi": "^18.0.0",
     "dompurify": ">=3.4.11",
-    "postcss": "^8.5.25",
+    "postcss": "^8.5.26",
     "@tailwindcss/postcss": "^4.3.3",
     "fast-uri": "^3.1.6"
   },
