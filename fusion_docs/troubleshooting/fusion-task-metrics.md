@@ -151,10 +151,6 @@ zcat metrics.jsonl.gz | jq -c 'select(.type=="closing")'
 
 If nothing comes back, the task was killed before Fusion could shut down cleanly. Look for a spot reclaim, an out-of-memory kill, or a hard cancellation.
 
-:::note
-The file never contains file names, bucket names, or paths.
-:::
-
 ## Diagnostic queries
 
 Each query returns the end-of-task total for a specific failure signature. Run them against a downloaded `metrics.jsonl.gz`.
