@@ -195,24 +195,24 @@ process terminateError {
 
 **Kubernetes pods remain after a run ends**
 
-Seqera and Nextflow clean up different pods, and some pods are removed by neither.
+Seqera and Nextflow clean up different pods. Neither removes a pod that never started.
 
-- The compute environment's **Pod cleanup policy** governs the run's head pod only. **On success** deletes the head pod when the run succeeds, **Always** deletes it whether the run succeeded or failed, and **Never** keeps it.
-- Task pods are deleted by Nextflow, according to its [`k8s.cleanup`](https://docs.seqera.io/nextflow/reference/config#k8scleanup) setting. When `k8s.cleanup` is `true` — the default — Nextflow deletes the pods of successful tasks and keeps failed task pods for debugging. Seqera sets `k8s.cleanup` to `false` when the pod cleanup policy is **Never**, and otherwise leaves it at the default, so **On success** and **Always** produce the same task-pod behavior.
-- Pods that never start are removed by neither. A pod that cannot pull its container image (`ErrImagePull` or `ImagePullBackOff`), or that cannot be scheduled, is dropped from Nextflow's tracking as soon as Nextflow detects it. It remains in the namespace after the run ends and after you cancel the run.
+- The compute environment's **Pod cleanup policy** governs the run's head pod only. A head pod remains when the policy is **Never**, or when the policy is **On success** and the run failed.
+- Nextflow deletes task pods according to its [`k8s.cleanup`](https://docs.seqera.io/nextflow/reference/config#k8scleanup) setting. By default, Nextflow deletes the pods of successful tasks and keeps failed task pods for debugging. Seqera sets `k8s.cleanup` to `false` only when the pod cleanup policy is **Never**.
+- When a pod cannot pull its container image (`ErrImagePull` or `ImagePullBackOff`) or cannot be scheduled, Nextflow stops tracking it. The pod remains in the namespace after the run ends or after you cancel the run.
 
 :::caution
-A leftover pod in `Pending` state still holds its CPU and memory requests. On an autoscaling cluster, these requests can prevent nodes from scaling down, so a run that fails on a missing container image can continue to incur cost after it ends.
+A leftover pod in `Pending` state still holds its CPU and memory requests. On an autoscaling cluster, these requests can prevent nodes from scaling down. A run that fails on a missing container image can continue to incur cost after it ends.
 :::
 
-Remove leftover pods with `kubectl`. List the pods in the compute environment's namespace, then delete the ones that never started:
+To resolve, list the pods in the compute environment's namespace and delete the ones that never started:
 
 ```bash
 kubectl get pods -n <namespace>
 kubectl delete pod <pod-name> -n <namespace>
 ```
 
-To avoid the problem, confirm that every container image your pipeline references exists in the configured registry and can be pulled by the compute service account before you launch.
+To prevent this, verify that every container image your pipeline references exists in the configured registry and that the compute service account can pull it.
 
 **Cached tasks run from scratch during pipeline relaunch**
 
