@@ -26,7 +26,7 @@ Metrics are grouped into five families by name prefix. Each family answers a dif
 
 ## Metric catalog
 
-Values are cumulative. Every sample restates the running total since the mount started. The last record of a series is therefore the end-of-task total, and the difference between two consecutive samples is the activity during that interval.
+Counters and histograms are cumulative: every sample restates the running total since the mount started, so the last record of a series is the end-of-task total and the difference between two consecutive samples is the activity during that interval. Other values instead report a point-in-time level that can rise and fall between samples: read the last value as the final state, or take the min/max across samples, never a difference.
 
 A metric that never fired is absent from the file. Treat a missing series as zero, not as a broken file. A healthy task has no eviction series and no throttling retries.
 
