@@ -257,7 +257,7 @@ There are two levels of opt-out.
 
 ### Stop sending metrics to Seqera
 
-On Seqera Cloud only, turn off **Send Fusion metrics to Seqera** on the compute environment, either when you create it or by editing an existing compute environment. Seqera will not retaining any copy. Fusion continues to write `.fusion/metrics.jsonl.gz` to the task work directory for your own troubleshooting only.
+On Seqera Cloud only, turn off **Send Fusion metrics to Seqera** on the compute environment, either when you create it or by editing an existing compute environment. Seqera will not retain any copy. Fusion continues to write `.fusion/metrics.jsonl.gz` to the task work directory for your own troubleshooting only.
 
 The toggle is on by default for new Fusion-enabled compute environments only. Existing compute environments keep the setting they already have. This feature is not present on Enterprise deployments.
 
