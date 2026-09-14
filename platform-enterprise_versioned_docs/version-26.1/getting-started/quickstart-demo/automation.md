@@ -1,12 +1,22 @@
 ---
 title: "Automation"
-description: "An introduction to automation with APIs and CLI tools in Seqera Platform"
+description: "Automate Seqera Platform with the API, the CLI, and seqerakit."
 date created: "2024-07-21"
-last updated: "2026-06-10"
+last updated: "2026-09-02"
 tags: [platform, automation, api, cli, seqerakit]
 ---
 
-Seqera Platform provides several programmatic interfaces to automate pipeline execution, chain pipelines together, and integrate Platform with third-party services.
+Automate pipeline execution, chain pipelines together, and integrate Platform with third-party services, using the Platform API, the CLI, or seqerakit.
+
+:::info[**Prerequisites**]
+
+You need the following:
+
+- An organization and workspace. See [Set up your workspace](../workspace-setup).
+- A [pipeline](./add-pipelines) added to your workspace.
+- A Platform access token. Create one from the user menu under **Your tokens**.
+
+:::
 
 ## Platform API
 
@@ -14,27 +24,27 @@ The Seqera Platform public API is the lowest-level programmatic interface. It ca
 
 Use the API to launch pipelines in response to a file event (such as a file upload to a bucket) or the completion of a previous run.
 
-The API is available at `https://api.cloud.seqera.io`.
+The API is available at your Platform instance URL followed by `/api`, for example `https://platform.yourcompany.com/api`. Set `TOWER_API_ENDPOINT` to this value.
 
-The full list of endpoints is available in Seqera's [OpenAPI schema](https://cloud.seqera.io/openapi/index.html). Every API request requires an authentication token. Create one from your user menu under **Your tokens**.
+The full list of endpoints is available in the [Platform API reference](https://docs.seqera.io/platform-api). Your instance also serves the OpenAPI schema at `/openapi/index.html` when `TOWER_ENABLE_OPENAPI` is enabled. Every API request requires an authentication token. Create one from your user menu under **Your tokens**.
 
-The token is displayed only once. Store it securely and use it to authenticate API requests.
+Platform displays the token only once. Store it securely and use it to authenticate API requests.
 
 <details>
   <summary>**Example pipeline launch API request**</summary>
     ```
-    curl -X POST "https://api.cloud.seqera.io/workflow/launch?workspaceId=38659136604200" \
+    curl -X POST "$TOWER_API_ENDPOINT/workflow/launch?workspaceId=<workspaceId>" \
         -H "Accept: application/json" \
         -H "Authorization: Bearer <your_access_token>" \
         -H "Content-Type: application/json" \
         -H "Accept-Version:1" \
         -d '{
         "launch": {
-            "computeEnvId": "hjE97A8TvD9PklUb0hwEJ",
+            "computeEnvId": "<computeEnvId>",
             "runName": "first-time-pipeline-api-byname",
             "pipeline": "first-time-pipeline",
-            "workDir": "s3://nf-ireland",
-            "revision": "master"
+            "workDir": "s3://<your-bucket>/work",
+            "revision": "main"
         }
     }'
     ```
@@ -46,7 +56,7 @@ The token is displayed only once. Store it securely and use it to authenticate A
 
 For bioinformaticians and scientists who prefer the command line, Platform provides `tw`, a command-line tool to manage resources.
 
-Use the CLI to launch pipelines, manage compute environments, retrieve run metadata, and monitor runs on Platform. It provides a Nextflow-like experience and lets you store Seqera resource configuration, such as pipelines and compute environments, as code. The CLI is built on the [Seqera Platform API](#platform-api) but is simpler to use. For example, you can refer to resources by name instead of by unique identifier.
+Use the CLI to launch pipelines, manage compute environments, retrieve run metadata, and monitor runs on Platform. It provides a Nextflow-like experience, and you can store Seqera resource configuration, such as pipelines and compute environments, as code. The CLI is built on the [Seqera Platform API](#platform-api) but is simpler to use. For example, you can refer to resources by name instead of by unique identifier.
 
 ![Seqera Platform CLI](./assets/platform-cli.png)
 
@@ -93,7 +103,7 @@ See the [seqerakit GitHub repository](https://github.com/seqeralabs/seqera-kit/)
 
 </details>
 
-## Resources
+## Automation use cases and examples
 
 Common use cases for these automation methods include executing a pipeline as data arrives from a sequencer, or integrating Platform into a broader user-facing application. For a step-by-step guide to setting up these automation methods, see [Workflow automation for Nextflow pipelines](https://seqera.io/blog/workflow-automation/).
 

@@ -39,6 +39,22 @@ Secrets are automatically deleted from the secret manager when the pipeline comp
 In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://docs.seqera.io/nextflow/aws#custom-job-definition).
 :::
 
+## Ephemeral endpoint configuration
+
+When you launch a pipeline, Platform passes secrets and parameters to the Nextflow head job through ephemeral endpoints — one-time-use URLs that each consumer can read once before they expire.
+
+The default lifetime is 8 hours, configurable via `tower.ephemeral.duration` in `tower.yml`:
+
+```yaml
+tower:
+  ephemeral:
+    duration: 8h
+```
+
+:::caution
+If a submitted job sits in the queue longer than the endpoint lifetime, it fails when execution begins because Nextflow can no longer fetch its parameters. For workflows with long queue times, increase `tower.ephemeral.duration` and align the [refresh token expiration](../enterprise/configuration/authentication/overview#session-management).
+:::
+
 ## AWS Secrets Manager integration
 
 Seqera and associated AWS Batch IAM Roles require additional permissions to interact with AWS Secrets Manager, as detailed in the [Pipeline secrets section](../compute-envs/aws-batch#pipeline-secrets-optional) of the AWS Batch documentation.

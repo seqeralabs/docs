@@ -2,7 +2,7 @@
 title: "Data Explorer"
 description: "Using Seqera Data Explorer."
 date created: "2025-05-08"
-last updated: "2026-08-20"
+last updated: "2026-08-28"
 tags: [data, explorer]
 ---
 
@@ -56,6 +56,10 @@ Data Explorer lists public and private data repositories. Repositories accessibl
 - **Configure individual data repositories manually**
 
   Select **Add data repository** from the Data Explorer tab to add a link to an individual repository (or prefix within a cloud bucket). Specify the **Provider**, **Path**, **Name**, **Credentials**, and **Description**, then select **Add**. For public cloud buckets, select **Public** from the **Credentials** drop-down.
+
+:::note
+Add a data-link at the root of any bucket or container used as a pipeline work directory, such as `s3://my-bucket`. Seqera Platform matches a run's work directory only against bucket-root data-links. A data-link scoped to a prefix such as `s3://my-bucket/work` does not open the work directory in Data Explorer. See [Isolate view, read, and write permissions to specific data repository paths](#isolate-view-read-and-write-permissions-to-specific-data-repository-paths).
+:::
 
 ## Browse data repositories
 
@@ -126,6 +130,16 @@ To isolate pipeline or Studios view, read, and write permissions to a specific *
 
 :::note
 This customized Data Explorer view displays by default for all workspace users until a workspace maintainer updates or removes the filter.
+:::
+
+Custom data-links scoped to a prefix do not resolve run work directories. Seqera Platform matches a run's work directory to a data-link whose path is the root of the bucket or container, such as `s3://my-bucket` rather than `s3://my-bucket/work`. It strips the path below the root before matching, searches visible data-links only, and reapplies the path once a data-link matches.
+
+You can still browse a data-link registered at `s3://my-bucket/work`, but it never matches a run whose work directory is `s3://my-bucket/work/a1/b2c3d4`. A hidden bucket-root data-link has the same effect as no bucket-root data-link.
+
+To keep the work directory view, add a visible data-link at the root of each bucket or container used as a pipeline work directory. Your existing prefix-scoped data-links continue to work unchanged. For the symptoms and resolution, see [Work directory cannot be viewed in Data Explorer](../troubleshooting_and_faqs/data_explorer_troubleshooting#work-directory-cannot-be-viewed-in-data-explorer).
+
+:::warning
+A visible bucket-root data-link lets every workspace member, including participants with the View role, browse and download the whole bucket. This removes the path isolation that your prefix-scoped data-links provide. Hiding the bucket-root data-link does not narrow this access, because hidden data-links remain reachable. The credentials attached to a data-link define what Data Explorer reaches through it. See [Access control](#access-control).
 :::
 
 ## Upload files to private data repositories
