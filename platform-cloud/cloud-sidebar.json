@@ -135,6 +135,7 @@
       "link": {"type": "doc", "id": "co-scientist/index"},
       "collapsed": true,
       "items": [
+        "co-scientist/platform",
         "co-scientist/installation",
         "co-scientist/quickstart",
         "co-scientist/authentication",

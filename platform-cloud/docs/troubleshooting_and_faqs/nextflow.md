@@ -165,6 +165,27 @@ process terminateError {
 }
 ```
 
+#### Kubernetes pods remain after a run ends
+
+Seqera and Nextflow clean up different pods. Neither removes a pod that never started.
+
+- The compute environment's **Pod cleanup policy** governs the run's head pod only. A head pod remains when the policy is **Never**, or when the policy is **On success** and the run failed.
+- Nextflow deletes task pods according to its [`k8s.cleanup`](https://docs.seqera.io/nextflow/reference/config#k8scleanup) setting. By default, Nextflow deletes the pods of successful tasks and keeps failed task pods for debugging. Seqera sets `k8s.cleanup` to `false` only when the pod cleanup policy is **Never**.
+- When a pod cannot pull its container image (`ErrImagePull` or `ImagePullBackOff`) or cannot be scheduled, Nextflow stops tracking it. The pod remains in the namespace after the run ends or after you cancel the run.
+
+:::caution
+A leftover pod in `Pending` state still holds its CPU and memory requests. On an autoscaling cluster, these requests can prevent nodes from scaling down. A run that fails on a missing container image can continue to incur cost after it ends.
+:::
+
+To resolve, list the pods in the compute environment's namespace and delete the ones that never started:
+
+```bash
+kubectl get pods -n <namespace>
+kubectl delete pod <pod-name> -n <namespace>
+```
+
+To prevent this, verify that every container image your pipeline references exists in the configured registry and that the compute service account can pull it.
+
 #### Cached tasks run from scratch on relaunch
 
 When you relaunch a pipeline, Seqera relies on Nextflow's `resume` functionality to continue the execution. This skips previously completed tasks and uses cached results in downstream tasks, rather than running the completed tasks again. Nextflow calculates each task's unique ID (hash) from the task's:
