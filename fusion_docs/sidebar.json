@@ -47,6 +47,7 @@
         "troubleshooting/general",
         "troubleshooting/fusion-snapshots",
         "troubleshooting/fusion-doctor",
+        "troubleshooting/fusion-task-metrics",
         "troubleshooting/error-codes-exit-messages"
       ]
     },

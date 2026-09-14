@@ -11,7 +11,7 @@ When working with Seqera Platform, you might encounter the following issues.
 
 #### `timeout is not an integer or out of range`
 
-This error occurs on Seqera Platform v24.2 and later when Redis is outdated. Version 24.2 requires Redis 6.2 or later. To resolve, upgrade your Redis instance according to your cloud provider's instructions.
+This error occurs when your Redis instance is older than the version Platform requires. Platform versions 24.2 to 25.3 require Redis 6.2 or later. From Platform 26.1, Redis 6.x is no longer supported: upgrade to Redis 7.2 or 7.4, or migrate to Valkey 7.x. To resolve, upgrade your Redis instance according to your cloud provider's instructions. See [Cache layer changes](../enterprise/upgrade#cache-layer-changes-redis-eol-and-valkey-support).
 
 #### `Unknown pipeline repository or missing credentials` from public GitHub repositories
 

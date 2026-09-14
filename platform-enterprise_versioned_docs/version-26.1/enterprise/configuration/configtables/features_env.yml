@@ -35,3 +35,13 @@
   Description: >
     Enable [pipeline versioning](https://docs.seqera.io/platform-enterprise/pipelines/versioning) in the workspaces specified. Accepts a comma-separated list of workspace IDs.
   Value:                'Default: Disabled for all workspaces'
+-
+  Environment variable:            '`TOWER_PARTICIPANT_AUTO_CREATE_USER`'
+  Description: >
+    Allow a Seqera account to be created when a workspace participant is added by email address. When `false`, only people who already have an account can be added as workspace collaborators. Accounts created this way are marked as trusted. See [Add a new participant](https://docs.seqera.io/platform-enterprise/orgs-and-teams/workspace-management#allow-accounts-to-be-created-on-the-fly).
+  Value:                'Default: `false`'
+-
+  Environment variable:            '`TOWER_MEMBER_AUTO_CREATE_USER`'
+  Description: >
+    Allow a Seqera account to be created when an organization member or team member is added by email address. Unlike the equivalent setting for workspace participants, this is enabled by default.
+  Value:                'Default: `true`'
