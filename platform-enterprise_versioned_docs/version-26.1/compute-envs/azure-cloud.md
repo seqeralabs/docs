@@ -38,7 +38,7 @@ Seqera will create the following resources in Azure when creating the compute en
 - One log analytics workspace: Used to collect and query execution logs.
 - One data collection rule: To route execution logs to the appropriate Log Analytics table.
 - One data collection endpoint: The endpoint that receives logs, tied to the data collection rule.
-- One virtual network: The network in which virtual machines are launched.
+- One virtual network: The network in which virtual machines are launched. This resource is only created when no existing virtual network is specified in **Advanced options**. When you provide your own VNet, Platform uses it directly and no network resources are provisioned.
 
 When virtual machines are launched, other resources are provisioned for each machine and tied to the machine lifecycle:
 
@@ -52,6 +52,18 @@ Nextflow_log_CL | where workflowId == "<WORKFLOW_ID>"
 ```
 
 The table retains logs for 7 days. Nextflow uploads log files to Azure Storage for long-term storage.
+
+## Networking
+
+Azure Cloud compute environments use a private-only networking model:
+
+- **No public IP**: VMs are launched without a public IP address. All connectivity between Platform and the VM is routed via private networking. If you specify an existing VNet, ensure it has outbound connectivity to Azure services (Storage, Entra ID, Log Analytics) and to Platform.
+- **Studios sessions are outbound-only**: The Seqera Connect client inside a Studio session opens a tunnel outward to the Connect server and registers the session over it. All session traffic, including SSH when enabled, travels over that outbound connection. **No inbound path to the session VM is required.** Users reach a Studio through the Connect proxy rather than by connecting to the VM, so you do not need inbound rules or source-IP allow-lists for dynamically launched Studio VMs. If you specify an existing VNet, ensure it also has outbound connectivity to the Connect server.
+- **Entra ID only**: Azure Cloud credentials require Microsoft Entra ID (client ID and client secret). Storage account key–based credentials are not supported. This applies to both Forge-provisioned and existing virtual networks.
+
+For the ports and directions to configure on your firewall, see [Firewall configuration](../enterprise/advanced-topics/firewall-configuration).
+
+{/* TODO: EDU-420 owns the Studios port/direction table on the firewall page. Link the specific anchor once it publishes; do not duplicate the table here. */}
 
 ## Requirements
 
