@@ -2,7 +2,7 @@
 title: "Configuration"
 description: Overview of Seqera configuration options
 date created: "2023-04-21"
-last updated: "2026-09-03"
+last updated: "2026-09-14"
 tags: [configuration]
 ---
 
@@ -55,6 +55,18 @@ Set Seqera configuration values using environment variables, a `tower.yml` confi
             oidc:
                 - "*@foo.com"
     ```
+
+    In a [Helm chart](../platform-helm) deployment, the chart writes the `platform.YAMLConfigFileContent` field of your values file to the `tower.yml` file that Platform reads. Reserve this field for structured values that no environment variable can express, such as the trusted email list or a [custom navigation menu](#custom-navigation-menu):
+
+    ```yaml
+    platform:
+        YAMLConfigFileContent: |-
+            tower:
+                trustedEmails:
+                    - "*@foo.com"
+    ```
+
+    Where the chart exposes a dedicated value for a setting, such as `platform.contactEmail` or `platform.smtp.host`, use that value instead. For other settings that accept an environment variable, use `backend.extraEnvVars` and `cron.extraEnvVars`. These apply per deployment, so set both where the backend and cron pods need the same value.
 
 </TabItem>
 <TabItem value="AWS Parameter Store" label="AWS Parameter Store" default>
@@ -700,6 +712,23 @@ tower:
         url: "https://host.com/foo"
       - label: "My Pipelines"
         url: "https://other.com/bar"
+```
+
+</TabItem>
+<TabItem value="Helm chart" label="Helm chart">
+
+In a [Helm chart](../platform-helm) deployment, set the menu options in the `platform.YAMLConfigFileContent` field of your values file:
+
+```yaml
+platform:
+  YAMLConfigFileContent: |-
+    tower:
+      navbar:
+        menus:
+          - label: "My Community"
+            url: "https://host.com/foo"
+          - label: "My Pipelines"
+            url: "https://other.com/bar"
 ```
 
 </TabItem>
