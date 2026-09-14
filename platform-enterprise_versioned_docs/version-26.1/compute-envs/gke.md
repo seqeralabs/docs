@@ -103,7 +103,7 @@ Seqera Platform compute environments for GKE include advanced options for storag
 - The **Storage mount path** is the file system path where the Storage claim is mounted (default: `/scratch`).
 - The **Work directory** is the file system path used as a working directory by Nextflow pipelines. It must be the storage mount path (default) or a subdirectory of it.
 - The **Compute service account** is the service account used by Nextflow to submit tasks (default: the `default` account in the given namespace).
-- The **Pod cleanup policy** determines when to delete terminated pods.
+- The **Pod cleanup policy** determines when Seqera deletes the run's Nextflow head pod. **On success** (the default) deletes it when the run succeeds, **Always** deletes it regardless of outcome, and **Never** keeps it. This policy does not delete task pods. See [Kubernetes pods remain after a run ends](../troubleshooting_and_faqs/nextflow).
 - Use **Custom head pod specs** to provide custom options for the Nextflow workflow pod (`nodeSelector`, `affinity`, etc). For example:
 
 ```yaml
