@@ -1,0 +1,18 @@
+{
+  "name": "Seqera Docs",
+  "user": "ubuntu",
+  "install": "bash .cursor/cloud-agent-install.sh",
+  "ports": [
+    {
+      "name": "Docusaurus dev server",
+      "port": 3001
+    }
+  ],
+  "terminals": [
+    {
+      "name": "docs-dev",
+      "command": "export NODE_OPTIONS=\"--max-old-space-size=4096\" DISABLE_RSPACK_INCREMENTAL=true && cd /workspace && npm run start -- --port 3001 --host 0.0.0.0",
+      "description": "Seqera Docs Docusaurus dev server (http://localhost:3001). Uses memory limits from netlify.toml to avoid OOM."
+    }
+  ]
+}

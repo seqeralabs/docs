@@ -2,7 +2,7 @@
 title: "Enterprise installation"
 description: Platform Enterprise installation overview
 date created: "2025-04-09"
-last updated: "2026-01-30"
+last updated: "2026-09-02"
 tags: [installation, deployment]
 ---
 
@@ -30,20 +30,21 @@ Cron is an auxiliary backend service that executes regularly-occurring activitie
 
 The Seqera frontend is an NGINX web server that serves the [Angular](https://angular.io/) application and reverse-proxies HTTP traffic to the backend. The frontend should run on port `80` within the container and should be the only service that accepts incoming HTTP traffic. The frontend can also be exposed via HTTPS or a load balancer.
 
-### Redis database
+### Redis or Valkey cache
 
-Seqera Enterprise requires a Redis database for caching purposes.
+Seqera Enterprise requires a Redis-compatible cache store for caching purposes. Redis 7.2 and 7.4 are supported, as is Valkey 7.x. See [Cache layer changes](./upgrade#cache-layer-changes-redis-eol-and-valkey-support) for migration guidance.
 
 ### SQL database
 
-Seqera requires a SQL database to persist user activities and state. The application has been tested against MySQL 8.0. [Contact Seqera support](https://support.seqera.io) if you need to use a different JDBC-compliant SQL database.
+Seqera requires a SQL database to persist user activities and state. MySQL 8.4 (LTS) is the recommended version. [Contact Seqera support](https://support.seqera.io) if you need to use a different JDBC-compliant SQL database.
 
 :::note
-From Seqera Enterprise version 23.4:
-- MySQL 8 is the officially supported and tested database version.
-- MySQL versions 5.6 and 5.7 are no longer supported.
-:::
 
+- MySQL 8.4 (LTS) is the recommended and tested database version from Seqera Enterprise 26.1.
+- MySQL 5.7 and 8.0 have reached upstream end-of-life and are no longer tested or supported. Migrate to MySQL 8.4 before upgrading to 26.1.
+- For the full database support matrix, including AWS Aurora MySQL and MariaDB, see [Upgrade](./upgrade#database-changes).
+
+:::
 
 ### SMTP service
 
@@ -55,7 +56,7 @@ Seqera supports enterprise authentication mechanisms such as OAuth and OpenID. T
 
 ## Deployment options
 
-Seqera can be deployed to a single node, either with [Docker Compose](./platform-docker-compose) or natively, or to a [Kubernetes](./platform-kubernetes) cluster. This documentation includes instructions for both options across multiple platforms, including Amazon AWS, Microsoft Azure, Google Cloud, and on-prem infrastructure.
+Seqera can be deployed to a single node with [Docker Compose](./platform-docker-compose), or to a [Kubernetes](./platform-kubernetes) cluster either with raw manifests or via the [Helm chart](./platform-helm). This documentation includes instructions for all options across multiple platforms, including Amazon AWS, Microsoft Azure, Google Cloud, and on-prem infrastructure.
 
 ### Single-node
 
@@ -63,9 +64,9 @@ The minimal Seqera Enterprise deployment requires only the frontend, backend, an
 
 ### Kubernetes
 
-Kubernetes is emerging as the technology of choice for deploying applications that require high-availability, scalability, and security. Seqera Enterprise includes configuration manifests for Kubernetes deployment.
+Kubernetes is the recommended deployment target for production workloads requiring high availability and scalability. Seqera Enterprise supports Kubernetes deployments using raw manifests or the Seqera Helm chart.
 
-![](./_images/seqera_reference_architecture_aws.png)
+![Reference architecture for Seqera Platform Enterprise on AWS EKS](./_images/seqera_reference_architecture_aws.png)
 _Reference architecture diagram of Seqera Platform Enterprise on AWS using Elastic Kubernetes Service (EKS)_
 
 ## Application container images

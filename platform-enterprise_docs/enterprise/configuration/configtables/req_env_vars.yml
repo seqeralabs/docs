@@ -29,8 +29,8 @@
 -
   Environment variable:            '`TOWER_ENABLE_PLATFORMS`'
   Description: >
-    A comma-separated list of execution backends to enable. **At least one is required.**
-  Value:                '`altair-platform,awsbatch-platform,awscloud-platform,azbatch-platform,eks-platform,googlebatch-platform,googlecloud-platform,gke-platform,k8s-platform,local-platform,lsf-platform,moab-platform,slurm-platform`'
+    A comma-separated list of execution backends to enable. **At least one is required.** A backend must be enabled here before compute environments of that type can be created. See [Compute environments](./overview#compute-environments) for the platform value that corresponds to each compute environment type.
+  Value:                '`altair-platform,awsbatch-platform,awscloud-platform,azbatch-platform,azcloud-platform,eks-platform,googlebatch-platform,googlecloud-platform,gke-platform,k8s-platform,local-platform,lsf-platform,moab-platform,slurm-platform,uge-platform`'
 -
   Environment variable:            '`TOWER_ENABLE_UNSAFE_MODE`'
   Description: >

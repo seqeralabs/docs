@@ -2,7 +2,7 @@
 title: "Run details"
 description: "Monitoring a Nextflow pipeline executed through Seqera Platform."
 date created: "2023-04-21"
-last updated: "2026-04-29"
+last updated: "2026-08-28"
 tags: [logging, monitoring, runs, details, workflows, execution, lineage]
 ---
 
@@ -179,6 +179,8 @@ Real-time log streaming is available only for compute environments that stream l
 #### Data Explorer
 
 If the pipeline work directory is in cloud storage, this tab shows a [Data Explorer](../data/data-explorer) view of the task's work directory location with the files associated with the task.
+
+This view requires a visible data-link at the root of the bucket or container that holds the work directory. If the workspace has only data-links scoped to a prefix below the root, this tab reports that the work directory cannot be viewed. See [Work directory cannot be viewed in Data Explorer](../troubleshooting_and_faqs/data_explorer_troubleshooting#work-directory-cannot-be-viewed-in-data-explorer).
 
 #### Container
 
@@ -390,7 +392,7 @@ The **Infrastructure details** view displays compute environment and work direct
 
 - **Compute environment** name. Select **Preview** to view a window with basic compute environment details, or **View** to navigate to the compute environment page.
 - **(Provider) operation ID**. The unique identifier for the task submitted to the cloud provider or compute platform, such as an AWS Batch operation ID.
-- **Work directory**. Select **View** to browse the work directory in Data Explorer.
+- **Work directory**. Select **View** to browse the work directory in Data Explorer. **View** is disabled when the work directory is not in cloud storage, or when the workspace has no visible [bucket-root data-link](../data/data-explorer#isolate-view-read-and-write-permissions-to-specific-data-repository-paths) for it.
 - **Compute environment ID**.
 
 #### Executor(s) details
