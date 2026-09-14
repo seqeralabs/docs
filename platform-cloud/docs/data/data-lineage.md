@@ -2,7 +2,7 @@
 title: "Data lineage"
 description: "Track and search the provenance of pipeline runs, tasks, and output files in Seqera Platform."
 date created: "2026-05-04"
-last updated: "2026-08-11"
+last updated: "2026-09-14"
 tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, labels, search]
 ---
 
@@ -140,7 +140,7 @@ A query is a series of space-separated tokens. Each token is either a `qualifier
 Qualifier names and free text are case-insensitive. Free text matches any substring of the record value. For example, `salmon` matches any record whose value contains `salmon`.
 
 :::caution
-A record has exactly one type and lives in exactly one workspace. Repeating `type:` or `workspace:` returns an empty list because no record can match both values. For example, `type:workflow type:file` requires a record to be both a workflow run and a file. Use the comma form `type:workflow,file` to match either type.
+A record has exactly one type, lives in exactly one workspace, and comes from at most one pipeline. Repeating `type:`, `workspace:`, or `pipeline:` returns an empty list because no record can match both values. For example, `type:workflow type:file` requires a record to be both a workflow run and a file. Use the comma form `type:workflow,file` to match either type.
 :::
 
 ### Qualifiers
@@ -153,11 +153,19 @@ A record has exactly one type and lives in exactly one workspace. Repeating `typ
 | `workspaceId:` | Numeric workspace ID | Numeric alias for `workspace:`. |
 | `workflow:` | A `WorkflowRun` LID | Scope the search to a single run. Results include the run itself, its tasks, and its published output files. |
 | `task:` | A `TaskRun` LID | Scope the search to a single task. Results include the task itself and the output files in its work directory. |
+| `pipeline:` | A pipeline name | Scope the search to the runs of one or more pipelines. Results include each matching run, its tasks, and its published output files. |
+| `pipelineId:` | Numeric pipeline ID | Numeric alias for `pipeline:`. |
 | Free text | Any string | Case-insensitive substring match on the record value. |
 
-The field suggests `workspace:`, `type:`, and `label:` as you type. Enter the remaining qualifiers manually.
+The field suggests `workspace:`, `type:`, `pipeline:`, and `label:` as you type. Enter the remaining qualifiers manually. Only `workspace:` and `type:` suggest values, so enter pipeline names and labels in full.
 
 `workspace:` and `workspaceId:` set the scope of a search rather than filter its results. A query that contains only a workspace still returns that workspace's most recent records. Omit both to search every workspace available to you. Referencing a workspace you do not participate in returns an error rather than an empty list.
+
+`pipeline:` matches the pipeline's current name, so a renamed pipeline matches its new name. Matching is case-insensitive and the whole name must match. Platform resolves the name within the workspaces already in scope, and one name can match pipelines in several workspaces. A name that matches no pipeline returns an empty list rather than an error. Use `pipelineId:` for a reference that survives a rename. A non-numeric `pipelineId:` value returns an error.
+
+:::note
+`pipeline:` and `pipelineId:` match only records from runs launched from a [saved pipeline][launchpad]. Runs launched any other way, such as **Quick launch**, have no originating pipeline to match. Platform also does not backfill records indexed before pipeline filtering became available.
+:::
 
 ### Examples
 
@@ -174,6 +182,11 @@ The field suggests `workspace:`, `type:`, and `label:` as you type. Enter the re
 | `workflow:lid://abc123` | The run `lid://abc123`, its tasks, and its published output files |
 | `workflow:lid://abc123 type:task` | The tasks of run `lid://abc123` |
 | `task:lid://abc123 type:file` | The output files of task `lid://abc123` |
+| `pipeline:my-rnaseq` | Records produced by runs of the `my-rnaseq` pipeline |
+| `pipeline:my-rnaseq type:file` | The published output files produced by runs of the `my-rnaseq` pipeline |
+| `pipeline:rnaseq,sarek` | Records from the `rnaseq` or `sarek` pipeline |
+| `pipeline:rnaseq pipeline:sarek` | Nothing, because a record comes from one pipeline. Use the comma form instead. |
+| `pipelineId:12345 label:qc` | Records labeled `qc` from pipeline ID `12345` |
 
 :::tip
 Lineage search is also available through the Platform API. The `GET /lineage/search` endpoint accepts the same query syntax in its `q` parameter and returns paginated results. See the [Platform API reference][platform-api] for the full set of lineage endpoints.
@@ -203,6 +216,7 @@ Typical SQS queue costs for a single rnaseq pipeline run daily are less than $10
 {/* links */}
 [workflow-labels]: https://docs.seqera.io/nextflow/workflow#labels
 [workspace-lineage]: ../orgs-and-teams/workspace-management#lineage
+[launchpad]: ../launch/launchpad
 [run-details]: ../monitoring/run-details
 [data-explorer]: data-explorer
 [platform-api]: https://docs.seqera.io/platform-api
