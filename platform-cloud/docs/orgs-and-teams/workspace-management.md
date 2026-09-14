@@ -193,7 +193,7 @@ Adding a participant this way can create two records: an **organization membersh
 | Their existing status | Organization membership | Email notification |
 | --------------------- | ----------------------- | ------------------ |
 | Already a member of this organization | Reused. Their organization role is unchanged | No |
-| Already a collaborator elsewhere in this organization | Reused. They remain a collaborator | Yes |
+| Already a collaborator elsewhere in this organization | Reused. They remain a collaborator | Yes, if the email address is manually entered. |
 | Has a Seqera account, but is not in this organization | Created, with the **Collaborator** role | Yes |
 
 :::note
