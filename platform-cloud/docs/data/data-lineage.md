@@ -24,6 +24,7 @@ Production pipelines generate results that teams need to trust, audit, and repro
 - **Auditing and compliance**: For teams in regulated industries such as pharma, clinical genomics, and contract research organizations (CROs), lineage provides the audit trail needed for regulatory compliance. Each record captures inputs, outputs, parameters, compute environment, and the user who launched the run.
 - **Debugging**: When a cached task unexpectedly re-executes, or a pipeline produces an unexpected result, lineage traces backward from any output to all contributing tasks and parameters. Compare two task runs to isolate what changed.
 - **Broader team access**: Exploring Nextflow lineage previously required CLI access and comfort reading raw JSON. Platform now surfaces lineage data in pipeline run detail pages and Data Explorer. Users can inspect provenance directly.
+- **Pipeline output visibility**: When lineage is enabled and a pipeline uses the [Nextflow workflow output syntax][nextflow-workflow-outputs] (Nextflow 24.10.0 or later), all published output files appear in the **Pipeline outputs** sub-tab on the [run details page][run-details]. Each file entry includes its lineage ID, lineage labels, and a direct link to Data Explorer, so any team member can locate and open a result without navigating cloud storage.
 - **Cross-workflow discoverability**: [Workflow output labels][workflow-labels] make output files discoverable across runs. Navigate lineage records by label to find all matching outputs workspace-wide, without knowing which specific run produced a file.
 
 ## How data lineage works
@@ -202,6 +203,7 @@ Typical SQS queue costs for a single rnaseq pipeline run daily are less than $10
 
 {/* links */}
 [workflow-labels]: https://docs.seqera.io/nextflow/workflow#labels
+[nextflow-workflow-outputs]: https://docs.seqera.io/nextflow/workflow#outputs
 [workspace-lineage]: ../orgs-and-teams/workspace-management#lineage
 [run-details]: ../monitoring/run-details
 [data-explorer]: data-explorer
