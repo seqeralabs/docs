@@ -2,7 +2,7 @@
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-09-01"
+last updated: "2026-09-16"
 tags: [google, batch, gcp, compute environments]
 ---
 
@@ -65,8 +65,9 @@ By default, Google Cloud Batch uses the default Compute Engine service account t
 * Service Account User (`roles/iam.serviceAccountUser`)
 * Service Usage Consumer (`roles/serviceusage.serviceUsageConsumer`)
 * Secret Manager Secret Accessor (`roles/secretmanager.secretAccessor`) on the project (required if your pipelines use Seqera secrets; the head job and tasks read secrets from GCP Secret Manager)
+* Storage Bucket Viewer (`roles/storage.bucketViewer`) on the project (required if you grant Storage access per bucket instead of project-wide Storage Admin, which already includes the `storage.buckets.list` permission)
 
-If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below.
+If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below. Seqera needs the `storage.buckets.list` permission at the project level to list buckets when you create a compute environment, to browse buckets in Data Explorer, and to [validate the credential](./preflight-checks). Bucket-level grants cannot confer `storage.buckets.list`.
 
 #### User permissions
 
