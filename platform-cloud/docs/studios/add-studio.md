@@ -43,5 +43,4 @@ To mount an EFS volume in a Studio session (for example, if your organization ha
 [github]: ./add-studio-git-repo
 [custom-container]: ./add-studio-custom-container
 [custom-image]: ./custom-envs#custom-containers
-[custom-container]: ./add-studio-custom-container
 [provided-template]: ./add-studio-provided-template

@@ -40,7 +40,7 @@ Configure the core settings for your run, including the pipeline source, compute
   :::note
   Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration][git] in the Seqera docs and [Pipeline sharing][pipeline-sharing] in the Nextflow docs for more details.
   :::
-- **Version name**: The pipeline version name selected as the default for this run. See [Pipeline versioning][pipeline-version] for details.
+- **Version name**: The pipeline version name selected as the default for this run. See [Pipeline versioning][pipeline-versioning] for details.
 - **Version ID**: The pipeline version ID selected as the default for this run. See [Pipeline versioning][pipeline-versioning] for details.
 - **Revision**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch.
 - **Commit ID**: The pipeline revision commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
