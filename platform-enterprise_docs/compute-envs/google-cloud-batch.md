@@ -296,6 +296,9 @@ If you use VM instance templates for the head or compute jobs (see step 8 below)
 :::
 
 1. Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
+   :::note
+   This option requires both a **VPC** and a **Subnet** (step 7). You cannot create the compute environment without them.
+   :::
 2. Use **Boot disk size** to control the persistent disk size that each task and the head job are provided.
 3. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The drop-down is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional. If not set, Google Batch uses the default image.
 4. Use **Instance Type** to select one or more machine types for the compute instances. The drop-down is populated with available instance types for the selected region and supports autocomplete filtering. You can select multiple specific instance types or use family wildcards (for example, `c2-*` or `n*`) to allow Google Batch to choose from a family. This field is optional. If not set, Google Batch automatically selects an appropriate machine type.
