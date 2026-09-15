@@ -192,22 +192,22 @@
       "Resource": "*"
     },
     {
-      "Sid": "OptionalLineageIntegrationSQSAndS3",
+      "Sid": "OptionalLineageIntegrationSNSAndS3",
       "Effect": "Allow",
       "Action": [
-        "sqs:CreateQueue",
-        "sqs:GetQueueAttributes",
-        "sqs:SetQueueAttributes",
-        "sqs:GetQueueUrl",
-        "sqs:ReceiveMessage",
-        "sqs:DeleteMessage",
+        "sns:CreateTopic",
+        "sns:SetTopicAttributes",
+        "sns:Subscribe",
+        "sns:ConfirmSubscription",
+        "sns:Unsubscribe",
+        "sns:DeleteTopic",
         "s3:CreateBucket",
         "s3:GetBucketNotification",
         "s3:PutBucketNotification",
         "s3:GetBucketLocation"
       ],
       "Resource": [
-        "arn:aws:sqs:*:*:seqera-lineage-*",
+        "arn:aws:sns:*:*:seqera-lineage-*",
         "arn:aws:s3:::seqera-lineage-*"
       ]
     }
