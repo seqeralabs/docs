@@ -2,15 +2,25 @@
 title: "Set up your workspace"
 description: "Create an organization workspace and add participants in Seqera Platform."
 date created: "2024-04-15"
-last updated: "2026-06-04"
+last updated: "2026-09-02"
 tags: [platform, organizations, workspaces, users]
 ---
+
+Create an organization and a workspace inside it, then add participants and control their access with teams.
 
 Workspaces in Seqera Platform contain the resources to run your analyses and manage your computing infrastructure. Each workspace participant has an access role that determines how they interact with the pipelines, compute environments, and data in the workspace. While each Platform user has a personal workspace, resource sharing and access management happen in organization workspaces.
 
 To set up an organization workspace, first create the organization that contains it.
 
-### Create an organization
+:::info[**Prerequisites**]
+
+You need the following:
+
+- A [Seqera Cloud](https://cloud.seqera.io) account. See [Deployment options](./deployment-options) for the deployment and access methods available to you.
+
+:::
+
+## Create an organization
 
 Organizations are the top-level structure and contain workspaces, members, and teams. You can also add external collaborators to an organization. For more information, see [Organization management](../orgs-and-teams/organizations).
 
@@ -26,7 +36,9 @@ Organizations are the top-level structure and contain workspaces, members, and t
 
 You are the first **Owner** of each organization you create. Add other organization owners and members from the organization's **Members** tab.
 
-### Create a workspace
+## Create a workspace
+
+Workspaces contain the pipelines, compute environments, and data that participants share. An organization can contain multiple workspaces.
 
 1. From the organization's **Workspaces** tab, select **Add Workspace**.
 1. Complete the workspace details:
@@ -39,7 +51,7 @@ You are the first **Owner** of each organization you create. Add other organizat
 1. Enter the names of existing organization members or teams and select **Add**.
 1. Update a participant's access **Role** from the drop-down, if needed.
 
-### Manage workspace access with teams
+## Manage workspace access with teams
 
 Teams group organization members for workspace role-based access control (RBAC). All team members inherit the per-workspace access roles you assign to the team.
 

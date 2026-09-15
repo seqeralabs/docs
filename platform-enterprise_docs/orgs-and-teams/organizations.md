@@ -2,7 +2,7 @@
 title: "Organizations"
 description: "Manage organizations in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2026-08-11"
+last updated: "2026-08-27"
 tags: [organizations, administration]
 ---
 
@@ -52,7 +52,7 @@ Usage limits differ per organization and [subscription type](https://seqera.io/p
 
 ## Members
 
-You can view the list of all organization **Members** from the organization's page. Once an organization is created, the user who created the organization is the default owner of that organization. You can invite or add additional members to the workspace from the workspace page or the [Admin panel](../administration/overview).
+You can view the list of all organization **Members** from **Access Control > Members** in the organization menu. Once an organization is created, the user who created the organization is the default owner of that organization. You can invite or add additional members to the workspace from the workspace page or the [Admin panel](../administration/overview).
 
 Seqera provides access control for members of an organization by classifying them either as an **Owner** or a **Member**. Each organization can have multiple owners and members.
 
@@ -60,7 +60,7 @@ Seqera provides access control for members of an organization by classifying the
 
 To add a new member to an organization:
 
-1. Go to the **Members** tab of the organization menu.
+1. Go to **Access Control > Members** in the organization menu.
 2. Select **Add member**.
 3. Enter the name or email address of the user you'd like to add to the organization.
 
@@ -93,5 +93,20 @@ To start adding members to your team, select **Edit > Members of team > Add memb
 New collaborators to an organization's workspace can be added as **Participants** from the workspace page. See [User roles](./roles) to learn more about participant access levels.
 
 :::note
-**Collaborators** can only be added from a workspace. For more information, see [workspace management](./workspace-management#create-a-new-workspace).
+**Collaborators** can only be added from a workspace. For more information, see [Add a new participant](./workspace-management#add-a-new-participant).
 :::
+
+A collaborator is created automatically when you add a workspace participant by username or email address and that user is not already a member of the organization. Collaborators:
+
+- Count toward your organization's **members** limit, as well as the **participants** limit of each workspace they belong to. See [Usage limits](../limits/overview).
+- Can only access the workspaces they have been added to.
+- Receive an email notification each time they are added to a workspace, including workspaces after the first.
+
+To promote a collaborator to a full organization member, add them as an organization member or add them to a team. Their role is upgraded in place, so you don't need to remove them first.
+
+### Collaborators and SSO
+
+Collaborators authenticate outside your organization's identity provider. Collaborators and SSO are mutually exclusive:
+
+- While SSO is active for an organization, adding a new collaborator to a workspace fails. Invite the person as an organization member through your identity provider instead. Existing collaborators and existing organization members are unaffected.
+- While an organization has collaborators, SSO cannot be configured or activated. Remove the collaborator participants, then add those users as organization members with email addresses that match your SSO domain.

@@ -135,6 +135,7 @@
       "link": {"type": "doc", "id": "co-scientist/index"},
       "collapsed": true,
       "items": [
+        "co-scientist/platform",
         "co-scientist/installation",
         "co-scientist/quickstart",
         "co-scientist/authentication",
@@ -312,6 +313,7 @@
           "troubleshooting_and_faqs/workspaces_troubleshooting",
           "troubleshooting_and_faqs/resource-labels",
           "troubleshooting_and_faqs/datasets_troubleshooting",
+          "troubleshooting_and_faqs/data_explorer_troubleshooting",
           "troubleshooting_and_faqs/sso_troubleshooting",
           "troubleshooting_and_faqs/seqera-ai"
         ]

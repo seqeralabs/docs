@@ -1,7 +1,7 @@
 ---
 name: voice-tone
 description: "Use PROACTIVELY on documentation PRs. Checks for consistent voice (second person, active voice, present tense) and confident tone (no hedging). Essential for all content changes."
-tools: read, grep, glob
+tools: Read, Grep, Glob
 ---
 
 # Voice and tone SME

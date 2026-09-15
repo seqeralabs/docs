@@ -14,7 +14,7 @@ Seqera Platform Enterprise is a web application with a microservice-oriented arc
 
 ## Architecture
 
-![Platform architecture diagram](./_images/seqera_reference_architecture.png)
+![Platform architecture diagram](./_images/seqera_reference_architecture2.png)
 
 ### Platform backend
 

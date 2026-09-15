@@ -2,7 +2,7 @@
 title: "Manage Studios"
 description: "Manage Studio sessions."
 date created: "2025-02-06"
-last updated: "2026-08-20"
+last updated: "2026-08-24"
 tags: [data, sessions, studios]
 ---
 
@@ -212,7 +212,7 @@ The drop-down lists only compute environments compatible with the Studio's curre
 - Uses the same `workDir` as the Studio's current compute environment.
 - Is in the `AVAILABLE` status.
 
-The Studio's current compute environment is always listed first, even when it would not be selectable on its own.
+The drop-down groups compute environments by platform. Use the search field to filter by name, region, or platform.
 
 #### Resource label changes {#resource-labels-on-migration}
 
@@ -411,6 +411,20 @@ When starting a Studio session, a *checkpoint* is automatically created. A check
 
 :::warning
 Checkpoints vary in size depending on libraries installed in your session environment. This can potentially result in many large files stored in the compute environment's pipeline work directory and saved to cloud storage. This storage will incur costs based on the cloud provider. Due to the architecture of Studios, you cannot delete any checkpoint files to save on storage costs. Deleting a Studio session's checkpoints will result in a corrupted Studio session that cannot be started nor recovered.
+:::
+
+### Object storage versioning and checkpoint storage costs
+
+If your compute environment work directory uses an object storage bucket with **versioning enabled**, checkpoint writes create a new object version rather than overwriting the previous one. For an active Studio session, this produces many object versions per session. Over time, these non-current versions accumulate and can significantly increase storage costs.
+
+:::warning
+Only the latest version of each checkpoint file is read by Platform. However, non-current object versions are not automatically removed and will continue to accrue storage costs until explicitly deleted or expired.
+:::
+
+**Recommended mitigation:** Apply lifecycle rules to expire non-current object versions on the `.studios/checkpoints/` prefix. A one-day expiry retains the current version while removing intermediate five-minute writes. You can also delete existing accumulated non-current versions manually using your cloud provider's console or CLI.
+
+:::note
+Non-current object versions (intermediate checkpoint writes) are safe to delete. Do **not** delete the current (latest) version of any checkpoint file or the checkpoint directory itself — doing so will corrupt the Studio session and it cannot be recovered.
 :::
 
 When you stop and start a session, or start a new session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available. Changes made to mounted data are not included in a checkpoint.

@@ -2,7 +2,7 @@
 title: "Overview"
 description: "Introduction to pipelines in Seqera Platform."
 date created: "2025-10-16"
-tags: [pipelines, versioning, nextflow, parameters]
+tags: [pipelines, versioning, nextflow, parameters, reports, output, lineage]
 ---
 
 Seqera Platform provides version-controlled, access-controlled, reproducible execution of Nextflow pipelines.
@@ -26,6 +26,13 @@ When you add a pipeline to Seqera, you define:
 #### Pipeline revision management
 
 Workflow repositories change over time as code is updated. Seqera provides [revision management](./revision.md) features, such as **commit ID pinning** to ensure reproducible execution by locking pipelines to specific Git commits, and **Pull latest** controls to instruct Nextflow to fetch the most recent commit at execution time.
+
+#### Pipeline outputs and reports
+
+After a run completes, the [**Outputs** tab](../monitoring/run-details) on the run details page shows the files the pipeline produced. It contains up to two sub-tabs:
+
+- **Pipeline outputs** — Output files declared using the [Nextflow workflow output syntax](https://docs.seqera.io/nextflow/workflow#outputs), with lineage IDs and labels that link each file back to the run that produced it. This sub-tab requires [data lineage](../data/data-lineage) enabled in the workspace or on the individual run, and a pipeline using the Nextflow workflow output syntax (Nextflow 24.10.0 or later).
+- **Reports** — Named report files configured via `tower.yml`, visible for all runs where reports are set up. See [Reports](../reports/overview) to configure this.
 
 #### Pipeline versioning
 

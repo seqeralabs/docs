@@ -128,3 +128,11 @@ To save files to an S3 bucket with a policy that [enforces AES256 server-side en
    ```bash
    export TOWER_AWS_SSE=AES256
    ```
+
+#### Tasks fail with S3 `AccessDenied` on Intelligent Compute
+
+A task fails at container runtime with `AccessDenied` on a bucket the pipeline could read or write before.
+
+This issue occurs when the compute environment's **Allow buckets** list does not cover every bucket the pipeline uses. Once the list is non-empty, Intelligent Compute scopes the IAM role it creates per cluster to the listed buckets plus the work directories, and denies everything else. A bucket encrypted with a customer-managed KMS key, or owned by another AWS account that has not granted access, fails the same way.
+
+Resolution: add the failing bucket to **Allow buckets** on the compute environment, or clear the list to restore account-wide S3 access for that compute environment. Either change applies to the next run — runs in progress keep the permissions they started with. For buckets in another AWS account, and for the encryption and ACL limits, see [S3 bucket access](../compute-envs/intelligent-compute#s3-bucket-access).
