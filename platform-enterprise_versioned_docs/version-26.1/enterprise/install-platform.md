@@ -2,7 +2,7 @@
 title: "Platform"
 description: Install Seqera Platform Enterprise
 date created: "2023-04-12"
-last updated: "2026-01-30"
+last updated: "2026-09-02"
 tags: [installation, deployment]
 ---
 
@@ -22,10 +22,12 @@ See each deployment guide for detailed requirements.
 
 :::info
 Before you begin, you need:
-- A MySQL 8 database
-- A Redis 7 instance
+
+- A MySQL 8.4 (LTS) database. MySQL 5.7 and 8.0 have reached upstream end-of-life and are no longer tested or supported.
+- A Redis 7.2 or 7.4 instance, or Valkey 7.x (from Platform 26.1).
+
+:::
 
 :::note
-MySQL 8 is the only supported database version from Seqera Enterprise version 23.4 onwards. MySQL 5.6 and 5.7 are not supported.
-:::
+See each deployment guide for full version requirements and supported managed-service options for MySQL and Redis/Valkey.
 :::

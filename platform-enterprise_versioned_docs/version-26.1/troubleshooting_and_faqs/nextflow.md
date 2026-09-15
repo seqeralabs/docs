@@ -99,6 +99,37 @@ _Cannot parse params file: /ephemeral/example.json - Cause: Server returned HTTP
 
 To resolve this problem, upgrade Nextflow to version 22.04.x or later.
 
+**Job fails after extended queue time: ephemeral endpoint expiration**
+
+Jobs that remain in queue longer than the ephemeral endpoint lifetime (8 hours by default) fail when they finally start, because Nextflow can no longer retrieve its parameters from Platform. The same applies if the refresh token expires before the job starts — Nextflow cannot authenticate.
+
+**Symptoms:**
+- Jobs submitted successfully but fail when starting after 8+ hours in queue
+- Error messages indicating expired tokens or 403 responses from Platform
+
+**Solution:**
+
+Increase the ephemeral endpoint duration and the refresh token expiration to accommodate your expected queue times. For example, for queue times up to 12 hours:
+
+```yaml
+tower:
+  ephemeral:
+    duration: 12h
+
+micronaut:
+  security:
+    token:
+      jwt:
+        signatures:
+          refresh-token:
+            expiration: 12h
+      refresh:
+        cookie:
+          cookie-max-age: 14h
+```
+
+See [Ephemeral endpoint configuration](../secrets/overview#ephemeral-endpoint-configuration) and [Session management](../enterprise/configuration/authentication/overview#session-management).
+
 **Prevent Nextflow from uploading intermediate files from local scratch to AWS S3 work directory**
 
 Nextflow will only unstage files/folders that have been explicitly defined as process outputs. If your workflow has processes that generate folder-type outputs, ensure that the process also purges any intermediate files in those folders. Otherwise, the intermediate files are copied as part of the task unstaging process, resulting in additional storage costs and lengthened pipeline execution times.
@@ -161,6 +192,27 @@ process terminateError {
   <your command string here>
 }
 ```
+
+**Kubernetes pods remain after a run ends**
+
+Seqera and Nextflow clean up different pods. Neither removes a pod that never started.
+
+- The compute environment's **Pod cleanup policy** governs the run's head pod only. A head pod remains when the policy is **Never**, or when the policy is **On success** and the run failed.
+- Nextflow deletes task pods according to its [`k8s.cleanup`](https://docs.seqera.io/nextflow/reference/config#k8scleanup) setting. By default, Nextflow deletes the pods of successful tasks and keeps failed task pods for debugging. Seqera sets `k8s.cleanup` to `false` only when the pod cleanup policy is **Never**.
+- When a pod cannot pull its container image (`ErrImagePull` or `ImagePullBackOff`) or cannot be scheduled, Nextflow stops tracking it. The pod remains in the namespace after the run ends or after you cancel the run.
+
+:::caution
+A leftover pod in `Pending` state still holds its CPU and memory requests. On an autoscaling cluster, these requests can prevent nodes from scaling down. A run that fails on a missing container image can continue to incur cost after it ends.
+:::
+
+To resolve, list the pods in the compute environment's namespace and delete the ones that never started:
+
+```bash
+kubectl get pods -n <namespace>
+kubectl delete pod <pod-name> -n <namespace>
+```
+
+To prevent this, verify that every container image your pipeline references exists in the configured registry and that the compute service account can pull it.
 
 **Cached tasks run from scratch during pipeline relaunch**
 
@@ -244,16 +296,18 @@ This issue occurs because Seqera Platform creates pipeline secrets in Google Sec
 
 Up to version 25.10, Nextflow uses the v1 syntax parser (also known as the legacy parser) by default. The v2 parser introduces stricter validation and is available as an opt-in via `NXF_SYNTAX_PARSER=v2`.
 
-From version 26.04, Nextflow uses the v2 syntax parser by default. Pipelines that run without modification under the v1 parser may fail under v2.
+From version 26.04, and from 26.01.1-edge on the edge release channel, Nextflow uses the v2 syntax parser by default. Pipelines that run without modification under the v1 parser may fail under v2.
+
+In Platform, the supported way to select the parser is the [**Enable Nextflow syntax parser v2**](../launch/advanced#enable-nextflow-syntax-parser-v2) launch toggle, not a pre-run script. The toggle does not track Nextflow's version-based default. With the toggle off, Platform exports `NXF_SYNTAX_PARSER=v1` regardless of the Nextflow version.
 
 **Pin the v1 parser**
 
-To run existing pipelines unchanged under Nextflow 26, set `NXF_SYNTAX_PARSER` to `v1` in a [pre-run script](../launch/advanced#pre-and-post-run-scripts):
+To run existing pipelines unchanged under Nextflow 26.04 and later, leave the launch toggle off.
+
+A [pre-run script](../launch/advanced#pre-and-post-run-scripts) that exports `NXF_SYNTAX_PARSER` takes precedence over the toggle. For example, the following pins the v1 parser even when the toggle is on:
 
 ```
 export NXF_SYNTAX_PARSER=v1
 ```
-
-This restores the legacy parser behavior.
 
 For migration guidance to the v2 parser, see [Preparing for strict syntax](https://docs.seqera.io/nextflow/strict-syntax).
