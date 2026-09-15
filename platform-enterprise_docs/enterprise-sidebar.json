@@ -77,33 +77,7 @@
                 "enterprise/configuration/authentication/email",
                 "enterprise/configuration/authentication/github",
                 "enterprise/configuration/authentication/google",
-                "enterprise/configuration/authentication/oidc",
-                {
-                  "type": "category",
-                  "label": "IdP delegation",
-                  "collapsed": true,
-                  "link": {
-                    "type": "doc",
-                    "id": "enterprise/configuration/authentication/idp-delegation/overview"
-                  },
-                  "items": [
-                    {
-                      "type": "category",
-                      "label": "Group catalog",
-                      "collapsed": true,
-                      "link": {
-                        "type": "doc",
-                        "id": "enterprise/configuration/authentication/idp-delegation/group-catalog/overview"
-                      },
-                      "items": [
-                        "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-okta",
-                        "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-entra-id"
-                      ]
-                    },
-                    "enterprise/configuration/authentication/idp-delegation/claim-mapping",
-                    "enterprise/configuration/authentication/idp-delegation/multi-org-routing"
-                  ]
-                }
+                "enterprise/configuration/authentication/oidc"
               ]
             },
             "enterprise/configuration/networking",
@@ -338,6 +312,32 @@
         },
         "studios/managing",
         "studios/connect"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Single sign-on",
+      "collapsed": true,
+      "link": {
+        "type": "doc",
+        "id": "enterprise/configuration/authentication/idp-delegation/overview"
+      },
+      "items": [
+        "enterprise/configuration/authentication/idp-delegation/claim-mapping",
+        {
+          "type": "category",
+          "label": "IdP group catalog",
+          "collapsed": true,
+          "link": {
+            "type": "doc",
+            "id": "enterprise/configuration/authentication/idp-delegation/group-catalog/overview"
+          },
+          "items": [
+            "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-okta",
+            "enterprise/configuration/authentication/idp-delegation/group-catalog/scim-entra-id"
+          ]
+        },
+        "enterprise/configuration/authentication/idp-delegation/multi-org-routing"
       ]
     },
     {
