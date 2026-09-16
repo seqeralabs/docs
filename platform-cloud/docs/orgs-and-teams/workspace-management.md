@@ -70,7 +70,7 @@ Select **Manage** to open the workspace [labels and resource labels](../labels/o
 ### Lineage
 
 :::note
-Data lineage is currently in public preview. It requires Nextflow 25.04 or later, AWS S3 object storage, and Amazon Simple Notification Service (SNS). For best results, use Nextflow 26.04 or later.
+Data lineage requires Nextflow 25.04 or later, AWS S3 object storage, and Amazon Simple Notification Service (SNS). For best results, use Nextflow 26.04 or later.
 :::
 
 Configure where Nextflow lineage data are stored and whether lineage tracking is on by default for every run launched in the workspace.
