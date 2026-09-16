@@ -11,7 +11,7 @@ When working with Seqera Platform, you might encounter the following issues.
 
 #### `timeout is not an integer or out of range`
 
-This error occurs on Seqera Platform v24.2 and later when Redis is outdated. Version 24.2 requires Redis 6.2 or later. To resolve, upgrade your Redis instance according to your cloud provider's instructions.
+This error occurs when your Redis instance is older than the version Platform requires. Platform versions 24.2 to 25.3 require Redis 6.2 or later. From Platform 26.1, Redis 6.x is no longer supported: upgrade to Redis 7.2 or 7.4, or migrate to Valkey 7.x. To resolve, upgrade your Redis instance according to your cloud provider's instructions. See [Cache layer changes](../enterprise/upgrade#cache-layer-changes-redis-eol-and-valkey-support).
 
 #### `Unknown pipeline repository or missing credentials` from public GitHub repositories
 
@@ -179,6 +179,12 @@ To resolve:
 #### `Get branches operation not supported by BitbucketServerRepositoryProvider provider`
 
 If you supplied the correct Bitbucket credentials and URL details in your `tower.yml` and still see this error, upgrade to at least v22.3.0. This version addresses SCM provider authentication issues and likely resolves the retrieval failure.
+
+#### `Cannot invoke "String.toCharArray()" because "password" is null` {#gitlab-token-without-password}
+
+This error occurs when a GitLab credential has an **Access token** but no **Password**. When cloning the repository, Nextflow releases before 26.04.0 authenticate with the username and password only and ignore the access token.
+
+To resolve, enter your token value in both the **Password** and **Access token** fields of your [GitLab credential](../git/overview#gitlab). Nextflow accepts the access token without a **Password** from 26.04.0 onward.
 
 ## Healthcheck
 

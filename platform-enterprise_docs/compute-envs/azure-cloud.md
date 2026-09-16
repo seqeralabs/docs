@@ -2,7 +2,7 @@
 title: "Azure Cloud"
 description: "Instructions to set up an Azure Cloud compute environment in Seqera Platform"
 date created: "2025-09-29"
-last updated: "2025-09-29"
+last updated: "2026-08-14"
 tags: [cloud, vm, azure, compute environments]
 ---
 
@@ -419,6 +419,7 @@ Create a compute environment in Seqera using the credentials:
 
 - (Optional) **Subscription ID**: The ID of the subscription where resources must be deployed. If not specified, the subscription ID of the credentials is used.
 - **Instance Type**: The virtual machine type used by the compute environment. Choosing the instance type will directly allocate the CPU and memory available for computation. See [virtual machine sizes](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview) for a comprehensive list of instance types and their resource limitations.
+- **Boot disk size**: The size of the OS disk (in GB) for the virtual machines launched by this compute environment, including Studio session VMs. Must be between 50 and 4095 GB. If undefined, the OS disk uses the default size of the VM image.
 - **Virtual network**: An existing Azure virtual network (VNet) in the configured location. The drop-down is populated with VNets discovered in your Azure account for the selected location. When specified, Platform uses this network for all VMs launched in this compute environment and skips network provisioning. Leave blank to let Platform provision a dedicated VNet automatically.
 
   :::note
