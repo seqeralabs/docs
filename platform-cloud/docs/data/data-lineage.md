@@ -2,7 +2,7 @@
 title: "Data lineage"
 description: "Track and search the provenance of pipeline runs, tasks, and output files in Seqera Platform."
 date created: "2026-05-04"
-last updated: "2026-08-11"
+last updated: "2026-09-16"
 tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, labels, search]
 ---
 
