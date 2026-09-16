@@ -7,11 +7,7 @@ tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, l
 ---
 
 :::info
-Data lineage in Platform is in public preview. It requires Nextflow 25.04 or later, AWS S3 object storage, and Amazon Simple Notification Service (SNS). For best results, use Nextflow 26.04 or later.
-:::
-
-:::warning
-The feature is experimental and subject to change.
+Data lineage in Platform requires Nextflow 25.04 or later, AWS S3 object storage, and Amazon Simple Notification Service (SNS). For best results, use Nextflow 26.04 or later.
 :::
 
 Data lineage tracks the full provenance of every pipeline run at both the task and workflow level, including what executed, what data it consumed, and what outputs it produced. Use it to audit results, verify reproducibility, and trace file provenance.
