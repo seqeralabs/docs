@@ -61,7 +61,7 @@ Compared `orgs-and-teams/roles.md` and `orgs-and-teams/custom-roles.md` across a
 
 | Fix | Tree | File |
 |---|---|---|
-| `studio:execute` for **Launch**: ✅ → ❌, aligning Enterprise with Cloud | Unversioned + 26.1 | `roles.md` |
+| `studio:execute` for **Launch**: ✅ → ❌, aligning Enterprise with Cloud. Independently confirmed and landed on master by PR #1866 | Unversioned + 26.1 | `roles.md` |
 | Added the `pinned-header-row` wrapper so the permissions table header sticks, as it already does on Cloud | 26.1 | `roles.md` |
 | `favourited`/`favourite`/`unfavourite` → US spelling | 26.1 | `custom-roles.md` |
 | Restored the `See [Custom roles]` pointer, which Cloud had dropped — the custom-roles page was otherwise unreachable from the roles page | Cloud | `roles.md` |
@@ -72,18 +72,11 @@ After these changes `roles.md` and `custom-roles.md` are identical between Unver
 
 ### Not fixed — the Enterprise permissions reference is behind the API
 
-Cloud's `custom-roles.md` documents a `data_link_object:*` permission family that splits browse, download, and upload operations out of `data_link:*`. Enterprise still documents all of them under `data_link:*`, and Cloud's `roles.md` carries three matching `data_link_object:*` rows that Enterprise's role table lacks. On top of that, Enterprise's table is missing rows that Cloud has and that the 1.181.0 spec confirms exist:
+Cloud splits browse, download, and upload out of `data_link:*` into a `data_link_object:*` family (`custom-roles.md`, plus three role-matrix rows in `roles.md`). Enterprise has neither. It also lacks nine rows Cloud has and the 1.181.0 spec confirms: compute-env enable/disable, dataset preview, dataset URL linking, and studio update.
 
-| Missing from Enterprise | Spec path |
-|---|---|
-| Enable / disable compute environment | `POST /compute-envs/{computeEnvId}/{enable,disable}` |
-| Dataset preview (2 rows) | `POST /datasets/preview-url`, `GET /datasets/{datasetId}/v/{version}/preview` |
-| Dataset URL linking (2 rows) | `POST /datasets/{datasetId}/link`, `POST /datasets/validate-url` |
-| Update a studio (3 rows, incl. resource labels and another user's private studio) | `PUT /studios/{sessionId}` |
+This matters because the two trees imply different access: on Cloud `data_link_object:read` is ✅ for every role, while Enterprise files the same operations under `data_link:write`, which is ❌ below Maintain.
 
-Enterprise also documents the data-link download endpoint as `GET /data-links/{dataLinkId}/download`; the spec has `GET /data-links/{dataLinkId}/download/{filePath}`, which is Cloud's form. Conversely Enterprise has a `List containers` row that Cloud lacks.
-
-This is a table-wide reconciliation rather than a set of isolated typos, and whether `data_link_object:*` exists on Enterprise 26.1 is a product question, not a docs one. **See "Open questions" #2.**
+Table-wide reconciliation, and a product question rather than a docs one. **See "Open questions" #2.**
 
 ---
 
@@ -117,16 +110,14 @@ The 2026-06-08 audit was wrong or now out of date on these:
 2. **"`/migrate-from-wdl` and `/write-nf-test` are missing from one tree"** — no longer applicable; neither skill appears in any tree's `skills-reference.md`.
 3. **"`a uploaded dataset` grammar regression", "duplicate Work directory bullet", "stray backtick block above Add a new participant"** — all fixed on master since June.
 4. **"Agent capitalization drift"** and **"token placeholder drift in `quickstart-demo/automation.md`"** — both trees now agree (lowercase `agent`, `<your_access_token>`). Only `credentials/agent_credentials.md` still diverges: `<YOUR TOKEN>` on Enterprise, `<TOKEN_NAME>` on Cloud. Left alone pending a canonical choice.
-5. **Functionality matrix** — the unversioned table is both stale (stops at 26.1.2) and corrupted (36 rows against 26, with seven duplicated version numbers). Deliberately **not** touched here: open PR #1858 already fixes exactly these three files, and editing them would conflict.
+5. **Functionality matrix** — the unversioned table is both stale (stops at 26.1.2) and corrupted (36 rows against 26, with seven duplicated version numbers). Deliberately **not** touched here: PR #1858 fixed exactly these three files and has since merged into this branch.
 
 ---
 
 ## Open questions
 
 1. **Should the unversioned Enterprise tree be published, or should contributors stop editing it?** Right now it is neither. Sixty-two files differ from the published 26.1 snapshot, deploy previews cannot show enterprise changes made there, and there is no signal to a contributor that their edit went nowhere. Either flip `INCLUDE_NEXT` for previews, or make the versioned tree the edit target for anything that is not a next-release feature.
-2. **Does Enterprise 26.1 have the `data_link_object:*` permission family?** If yes, both Enterprise permission tables need the split plus the seven missing rows listed above. If no, the divergence is correct and should be labelled as Cloud-only.
+2. **Does Enterprise 26.1 have the `data_link_object:*` permission family?** If yes, both Enterprise permission tables need the split plus the nine missing rows. If no, label it Cloud-only.
 3. **Is the Bitbucket app-password warning still accurate?** It says app passwords "will be phased out June 9, 2026" and are "still supported". That date has passed. The wording needs updating on **both** trees, but only someone who can confirm the current Atlassian state should write it — I have not guessed.
 4. **Should the Antigravity/Gemini skill be documented for Enterprise?** The skill content is platform-agnostic, so this is a product-availability question rather than a content one.
-5. **`[vscode-blog]` is an undefined link reference in all three copies of `troubleshooting_and_faqs/studios_troubleshooting.md`.** `[Learn more][vscode-blog]` renders as literal text on the live site. Needs the intended URL; not fixed here because I would be inventing it.
-6. **Confirm `studio:execute` = ❌ for Launch.** This PR flips Enterprise to match Cloud on the basis that Cloud is the more recently maintained table, but the two trees disagreed and one of them is wrong about the product.
-7. **Is `Maintain` allowed to create Studios?** Enterprise says maintainers "cannot create workspace credentials, compute environments, or Studios"; Cloud omits the Studios clause. The permission rows (`studio:write` ✅ for Maintain) match Cloud's prose, which suggests Enterprise's prose is wrong — but that contradicts its own table, so it needs confirming rather than silently editing.
+5. **Is `Maintain` allowed to create Studios?** Enterprise says maintainers "cannot create workspace credentials, compute environments, or Studios"; Cloud omits the Studios clause. The permission rows (`studio:write` ✅ for Maintain) match Cloud's prose, which suggests Enterprise's prose is wrong — but that contradicts its own table, so it needs confirming rather than silently editing.
