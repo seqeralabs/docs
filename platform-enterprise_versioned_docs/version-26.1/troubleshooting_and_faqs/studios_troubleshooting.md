@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-08-28"
+last updated: "2026-09-16"
 tags: [faq, help, studios, troubleshooting]
 ---
 
