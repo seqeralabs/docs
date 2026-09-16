@@ -231,6 +231,44 @@ The following permissions enable Seqera to populate values for drop-down fields.
 }
 ```
 
+#### Data lineage (optional)
+
+If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials so they can create the notification topic and bucket notifications used by the lineage service:
+
+```json
+{
+  "Sid": "LineageIntegrationSNS",
+  "Effect": "Allow",
+  "Action": [
+    "sns:CreateTopic",
+    "sns:SetTopicAttributes",
+    "sns:Subscribe",
+    "sns:ConfirmSubscription",
+    "sns:Unsubscribe",
+    "sns:DeleteTopic"
+  ],
+  "Resource": "arn:aws:sns:<REGION>:<ACCOUNT_ID>:seqera-lineage-*"
+},
+{
+  "Sid": "LineageIntegrationS3",
+  "Effect": "Allow",
+  "Action": [
+    "s3:CreateBucket",
+    "s3:GetBucketNotification",
+    "s3:PutBucketNotification",
+    "s3:GetBucketLocation",
+    "s3:ListBucket",
+    "s3:GetObject"
+  ],
+  "Resource": [
+    "arn:aws:s3:::seqera-lineage-*",
+    "arn:aws:s3:::seqera-lineage-*/*"
+  ]
+}
+```
+
+These permissions cover **Automatic** provisioning. For **Manual** provisioning, Platform makes no control-plane calls other than confirming its own webhook subscription: see [Data lineage](../data/data-lineage#additional-iam-permissions-required) for the reduced permission set.
+
 ## Seqera Intelligent Compute
 
 :::info[Private preview]
