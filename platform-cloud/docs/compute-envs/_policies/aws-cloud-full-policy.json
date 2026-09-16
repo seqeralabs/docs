@@ -107,7 +107,8 @@
         "s3:CreateBucket",
         "s3:GetBucketNotification",
         "s3:PutBucketNotification",
-        "s3:GetBucketLocation"
+        "s3:GetBucketLocation",
+        "s3:ListBucket"
       ],
       "Resource": [
         "arn:aws:sns:*:*:seqera-lineage-*",
