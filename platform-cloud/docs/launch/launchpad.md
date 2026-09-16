@@ -151,6 +151,7 @@ In AWS Batch compute environments, Seqera Platform passes stored secrets to jobs
 - **Pre-run scripts**: Custom shell commands to run before the execution.
 - **Post-run scripts**: Custom shell commands to run after the execution.
 - **Stub run**: Replace process commands with [stubs](https://docs.seqera.io/nextflow/process#stub), where defined, before execution.
+- **Nextflow version**: The Nextflow version that runs the pipeline. Available versions depend on the selected compute environment.
 - **Enable Nextflow syntax parser v2**: Run the pipeline with the v2 Nextflow language parser.
 - **Workflow entry name**: A named DSL2 workflow other than the default.
 - **Schema name**: The name of a pipeline schema file in the workflow repository root folder to override the default `nextflow_schema.json`.
