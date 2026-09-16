@@ -205,11 +205,13 @@
         "s3:GetBucketNotification",
         "s3:PutBucketNotification",
         "s3:GetBucketLocation",
-        "s3:ListBucket"
+        "s3:ListBucket",
+        "s3:GetObject"
       ],
       "Resource": [
         "arn:aws:sns:*:*:seqera-lineage-*",
-        "arn:aws:s3:::seqera-lineage-*"
+        "arn:aws:s3:::seqera-lineage-*",
+        "arn:aws:s3:::seqera-lineage-*/*"
       ]
     }
   ]
