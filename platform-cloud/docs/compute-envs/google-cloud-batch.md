@@ -2,7 +2,7 @@
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-09-01"
+last updated: "2026-09-16"
 tags: [google, batch, gcp, compute environments]
 ---
 
@@ -65,8 +65,9 @@ By default, Google Cloud Batch uses the default Compute Engine service account t
 - Logs Viewer (`roles/logging.logViewer`) on the project (to view and retrieve logs from Cloud Logging)
 - Service Account User (`roles/iam.serviceAccountUser`)
 - Secret Manager Secret Accessor (`roles/secretmanager.secretAccessor`) on the project (required if your pipelines use Seqera secrets; the head job and tasks read secrets from GCP Secret Manager)
+- Storage Bucket Viewer (`roles/storage.bucketViewer`) on the project (required if you grant Storage access per bucket instead of project-wide Storage Admin, which already includes the `storage.buckets.list` permission)
 
-If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below.
+If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below. Seqera needs the `storage.buckets.list` permission at the project level to list buckets when you create a compute environment, to browse buckets in Data Explorer, and to [validate the credential](./preflight-checks). Bucket-level grants cannot confer `storage.buckets.list`.
 
 #### User permissions
 
@@ -75,7 +76,6 @@ Ask your Google Cloud administrator to grant you the following IAM user permissi
 - Batch Job Editor (`roles/batch.jobsEditor`) on the project
 - Service Account User (`roles/iam.serviceAccountUser`) on the job's service account (default: Compute Engine service account)
 - View Service Accounts (`roles/iam.serviceAccountViewer`) on the project
-- `storage.buckets.list` on the project via a custom role, if you use per-bucket Storage grants instead of project-wide Storage Admin. Seqera requires this permission to validate credentials — without it, credential validation fails and the compute environment is marked invalid.
 
 #### Authentication methods
 
@@ -278,6 +278,9 @@ If you use VM instance templates for the head or compute jobs (see below), resou
 :::
 
 1. Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
+    :::note
+    This option requires both a **VPC** and a **Subnet**. You cannot create the compute environment without them.
+    :::
 1. Use **Boot disk size** to control the persistent disk size that each task and the head job are provided.
 1. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The drop-down is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional. If not set, Google Batch uses the default image.
 1. Use **Instance Type** to select a specific machine type for the compute instances. The drop-down is populated with available instance types for the selected region and supports autocomplete filtering. This field is optional. If not set, Google Batch selects an appropriate machine type automatically.

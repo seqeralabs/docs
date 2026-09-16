@@ -361,6 +361,7 @@ Nextflow sets lineage labels at execution time, and they cannot be changed. Seqe
 
 {/* links */}
 [workflow-labels]: https://docs.seqera.io/nextflow/workflow#labels
+[nextflow-workflow-outputs]: https://docs.seqera.io/nextflow/workflow#outputs
 [workspace-lineage]: ../orgs-and-teams/workspace-management#lineage
 [run-details]: ../monitoring/run-details
 [data-explorer]: data-explorer
