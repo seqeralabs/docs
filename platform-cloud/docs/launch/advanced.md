@@ -143,6 +143,8 @@ Version availability depends on the compute environment:
 - **Cloud and Kubernetes** compute environments (AWS Batch, Azure Batch, Google Batch, Kubernetes) support version selection. You cannot select versions below the compute environment's minimum. Platform rejects any launch submitted with a lower or unknown version through any channel (UI, API, or CLI) before execution.
 - **Grid/HPC** compute environments (Slurm, LSF, Grid Engine, Altair PBS Pro, Moab) run a pre-installed Nextflow and have no launch container. The version selector does not appear for them, and a version carried over from a pipeline default has no effect when you launch on a grid environment.
 
+The effective minimum is the higher of the compute environment type's minimum and the minimum required by its enabled features. Compute environments with [Intelligent Compute](../compute-envs/intelligent-compute) enabled require Nextflow 26.04 or later. The version list updates when you change the compute environment or its Intelligent Compute setting.
+
 Changing only the Nextflow version registers a new pipeline version, because the version determines the runtime that runs the workflow.
 
 :::note
