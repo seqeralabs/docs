@@ -22,8 +22,17 @@ Studios in Enterprise is not enabled by default. To enable it, see [Deploy Studi
 Studios supports [AWS Cloud][aws-cloud], [Google Cloud][google-cloud], and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
 :::
 
+## Networking
+
+The Seqera Connect client inside a Studio session opens a tunnel outward to the Connect server and registers the session over it. All session traffic, including SSH when enabled, travels over that outbound connection. **No inbound path to the session VM is required.** Users reach a Studio through the Connect proxy rather than by connecting to the VM, so you do not need inbound rules or source-IP allow-lists for dynamically launched Studio VMs.
+
+This applies to every compute environment that supports Studios. If you run Studios inside a private network, see the networking guidance on your compute environment page for the outbound connectivity to allow: [AWS Cloud][aws-cloud-networking], [Google Cloud][google-cloud-networking], or [AWS Batch][aws-batch-networking]. For the ports and directions to configure on your firewall, see [Firewall configuration](../enterprise/advanced-topics/firewall-configuration).
+
 {/* links */}
 [aws-cloud]: ../compute-envs/aws-cloud
+[aws-cloud-networking]: ../compute-envs/aws-cloud#networking
 [aws-batch]: ../compute-envs/aws-batch
+[aws-batch-networking]: ../compute-envs/aws-batch#networking
 [google-cloud]: ../compute-envs/google-cloud
+[google-cloud-networking]: ../compute-envs/google-cloud#networking
 [contact]: https://support.seqera.io/
