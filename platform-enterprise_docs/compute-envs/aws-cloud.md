@@ -44,6 +44,16 @@ The following regions are currently supported:
 - `eu-west-3`
 - `ap-southeast-1`
 
+## Networking
+
+An AWS Cloud compute environment launches a single EC2 instance into a VPC subnet. Set **VPC ID**, **Subnets**, and **Security groups** under [Advanced options](#advanced-options).
+
+- **Outbound access is required**: The instance must reach Amazon S3 for the work directory, and Seqera Platform. A private subnet — one that does not auto-assign a public IP address — reaches S3 only through an S3 gateway endpoint or a NAT gateway. When Seqera Intelligent Compute selects a subnet for you, Seqera creates an S3 gateway endpoint in the VPC if one does not already exist, using the permissions described in [Additional IAM permissions](#additional-iam-permissions). If you select the subnet yourself, provide that route.
+- **Studios sessions are outbound-only**: The Seqera Connect client inside a Studio session opens a tunnel outward to the Connect server, and all session traffic — including SSH when enabled — travels over that outbound connection. **No inbound path to the session VM is required**, so you do not need inbound security group rules or source-IP allow-lists for dynamically launched Studio instances. The subnet does need outbound access to the Connect server. See [Networking](../studios/overview#networking) in the Studios documentation.
+- **Seqera does not create inbound rules**: Where Seqera manages a security group for you, it authorizes egress only. The policy grants `ec2:AuthorizeSecurityGroupEgress` and no inbound equivalent.
+
+For the ports and directions to configure on your firewall, see [Firewall configuration](../enterprise/advanced-topics/firewall-configuration).
+
 ## Requirements
 
 ### Platform credentials
@@ -230,6 +240,44 @@ The following permissions enable Seqera to populate values for drop-down fields.
     ]
 }
 ```
+
+#### Data lineage (optional)
+
+If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials so they can create the notification topic and bucket notifications used by the lineage service:
+
+```json
+{
+  "Sid": "LineageIntegrationSNS",
+  "Effect": "Allow",
+  "Action": [
+    "sns:CreateTopic",
+    "sns:SetTopicAttributes",
+    "sns:Subscribe",
+    "sns:ConfirmSubscription",
+    "sns:Unsubscribe",
+    "sns:DeleteTopic"
+  ],
+  "Resource": "arn:aws:sns:<REGION>:<ACCOUNT_ID>:seqera-lineage-*"
+},
+{
+  "Sid": "LineageIntegrationS3",
+  "Effect": "Allow",
+  "Action": [
+    "s3:CreateBucket",
+    "s3:GetBucketNotification",
+    "s3:PutBucketNotification",
+    "s3:GetBucketLocation",
+    "s3:ListBucket",
+    "s3:GetObject"
+  ],
+  "Resource": [
+    "arn:aws:s3:::seqera-lineage-*",
+    "arn:aws:s3:::seqera-lineage-*/*"
+  ]
+}
+```
+
+These permissions cover **Automatic** provisioning. For **Manual** provisioning, Platform makes no control-plane calls other than confirming its own webhook subscription: see [Data lineage](../data/data-lineage#additional-iam-permissions-required) for the reduced permission set.
 
 ## Seqera Intelligent Compute
 
