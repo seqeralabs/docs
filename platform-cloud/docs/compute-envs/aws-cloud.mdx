@@ -86,6 +86,14 @@ The AWS Cloud compute environment uses a public AMI maintained by Seqera, and th
 
 The AMI is based on the [Amazon Linux 2023 image](https://docs.aws.amazon.com/linux/al2023/ug/what-is-amazon-linux.html). System package versions are pinned for each specific Amazon Linux 2023 version. Seqera subscribes to the [AWS SNS topic](https://docs.aws.amazon.com/linux/al2023/ug/receive-update-notification.html) to receive Amazon Linux 2023 update notifications. When updates are available, this triggers a new Seqera AMI release built on the latest image, which includes system package updates and security patches.
 
+## Networking
+
+An AWS Cloud compute environment launches a single EC2 instance into a VPC subnet. Set **VPC ID**, **Subnets**, and **Security groups** under [Advanced options](#advanced-options).
+
+- **Outbound access is required**: The instance must reach Amazon S3 for the work directory, and Seqera Platform. A private subnet — one that does not auto-assign a public IP address — reaches S3 only through an S3 gateway endpoint or a NAT gateway. When Seqera Intelligent Compute selects a subnet for you, Seqera creates an S3 gateway endpoint in the VPC if one does not already exist, using the permissions described in [Seqera Intelligent Compute permissions](#seqera-intelligent-compute-permissions). If you select the subnet yourself, provide that route.
+- **Studios sessions are outbound-only**: The Seqera Connect client inside a Studio session opens a tunnel outward to the Connect server, and all session traffic — including SSH when enabled — travels over that outbound connection. **No inbound path to the session VM is required**, so you do not need inbound security group rules or source-IP allow-lists for dynamically launched Studio instances. The subnet does need outbound access to the Connect server. See [Networking](../studios/overview#networking) in the Studios documentation.
+- **Seqera does not create inbound rules**: Where Seqera manages a security group for you, it authorizes egress only. The policy grants `ec2:AuthorizeSecurityGroupEgress` and no inbound equivalent.
+
 ## Setup
 
 To use the AWS Cloud compute environment, grant Seqera Platform access to your AWS account. Create an IAM policy with the permissions Platform needs, then attach it to either an IAM user (for long-lived access keys) or an IAM role (for assumed-role credentials) depending on which credential type suits your security model.
