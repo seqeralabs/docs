@@ -2,7 +2,7 @@
 title: "General"
 description: "Troubleshooting Seqera Platform"
 date created: "2023-04-23"
-last updated: "2026-08-11"
+last updated: "2026-09-16"
 tags: [troubleshooting, help]
 ---
 
@@ -104,20 +104,6 @@ To resolve:
 2. [Contact Seqera support](https://support.seqera.io) to raise the quota.
 
 Seqera Platform retrieves license changes when it next polls the license server, every 24 hours by default.
-
-#### Large number of batch job definitions
-
-Platform normally looks for an existing job definition that matches your workflow requirement. If nothing matches, it recreates the job definition. Use a bash script to clear job definitions. Tailor it to your needs, for example to deregister only job definitions older than a set number of days:
-
-```bash
-jobs=$(aws --region eu-west-1 batch describe-job-definitions | jq -r .jobDefinitions[].jobDefinitionArn)
-
-for x in $jobs; do
-  echo "Deregister $x";
-  sleep 0.01;
-  aws --region eu-west-1 batch deregister-job-definition --job-definition $x;
-done
-```
 
 ## Containers
 
