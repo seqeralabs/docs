@@ -115,7 +115,17 @@ Connect version 0.8.3 introduced a change which required the creation of a `/dat
 
 ## Connect client
 
-### client/v0.12.1 `latest` - 2026-05-19
+### client/v0.13.0 `latest` - 2026-08-11
+
+* Feat(client): add custom CA and TLS verification modes for Studios
+* Feat(client): add Fusion execution supervisor
+* Feat(client): add service worker to serve page when proxy not available
+* Feat(client): multipart upload for checkpoint in S3
+* Feat(client): upload checkpoint metadata file
+* Fix(all): support Claude Code desktop app remote commands
+* Fix(deps): bump dependencies and Go toolchain to resolve security advisories
+
+### client/v0.12.1 - 2026-05-19
 
 * Fix(client): skip auto-discovered mounts under /proc in overlay setup
 * Chore: bump go_modules group dependencies across components
