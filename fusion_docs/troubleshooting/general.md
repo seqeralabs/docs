@@ -2,7 +2,7 @@
 title: General
 description: "Troubleshooting for general Fusion issues"
 date created: "2025-11-29"
-last updated: "2026-09-01"
+last updated: "2026-09-18"
 tags: [troubleshooting, fusion, fusion snapshots, configuration]
 ---
 
@@ -64,3 +64,15 @@ process {
 ```
 
 See [Scratch disk](../guide/gcp-batch.md#scratch-disk) to choose a disk type.
+
+#### Unrelated `changing entry timestamp` errors after a task failure
+
+After a task fails, the Fusion log contains one `error`-level entry for each `.bai`, `.tbi`, or `.csi` index file that the task created but did not upload:
+
+```json
+{"level":"error","provider":"s3","error_code":"NotFound","provider_code":"NoSuchKey","provider_http_status":404,"path":".../recalibrate.bai","message":"changing entry timestamp - cannot create a copy"}
+```
+
+These entries are a side effect of the task failure, not its cause. At shutdown, Fusion updates the timestamp of each `.bai`, `.tbi`, and `.csi` index file in object storage so that the index file is newer than the data file it indexes. When a task fails before its output files finish uploading, the objects do not exist in object storage and each timestamp update fails. `NoSuchKey` is the S3 error code for an object that does not exist. Any task failure that occurs before index files upload produces these entries, and tasks that produce many index files can log thousands of them for a single failure.
+
+These entries require no action. To find the cause of the task failure, check the task error output and logs for the error that stopped the task. Common causes include resource limits, out-of-memory errors, and file descriptor limits.
