@@ -43,7 +43,7 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 |  | Validate credentials | _(Used by Platform)_ |
 |  | Validate credential name availability | `GET /credentials/validate` |
 | **credentials:delete** | Delete credentials | `DELETE /credentials/{credentialsId}` |
-| **credentials_encrypted:read** | Get encrypted credentials | _(Used by Platform)_ |
+| **credentials_encrypted:read** | Get encrypted credentials | `GET /credentials/{credentialsId}/keys` |
 | **pipeline_secrets:read** | List all pipeline secrets | `GET /pipeline-secrets` |
 |  | View pipeline secret details | `GET /pipeline-secrets/{secretId}` |
 | **pipeline_secrets:write** | Create a new pipeline secret | `POST /pipeline-secrets` |
@@ -182,9 +182,9 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 | **workflow_quick:execute** | Launch quick pipeline | Sub-operation on `POST /workflow/launch` |
 |  | Launch quick pipeline | _(Used by Platform)_ |
 |  | GA4GH: create a run | `POST /ga4gh/wes/v1/runs` |
-| **workflow_star:read** | Check if run is starred (favourited) | `GET /workflow/{workflowId}/star` |
-| **workflow_star:write** | Star (favourite) a run | `POST /workflow/{workflowId}/star` |
-| **workflow_star:delete** | Unstar (unfavourite) a run | `DELETE /workflow/{workflowId}/star` |
+| **workflow_star:read** | Check if run is starred (favorited) | `GET /workflow/{workflowId}/star` |
+| **workflow_star:write** | Star (favorite) a run | `POST /workflow/{workflowId}/star` |
+| **workflow_star:delete** | Unstar (unfavorite) a run | `DELETE /workflow/{workflowId}/star` |
 
 #### Settings
 

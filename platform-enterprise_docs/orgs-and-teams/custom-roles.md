@@ -43,7 +43,7 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 |  | Validate credentials | _(Used by Platform)_ |
 |  | Validate credential name availability | `GET /credentials/validate` |
 | **credentials:delete** | Delete credentials | `DELETE /credentials/{credentialsId}` |
-| **credentials_encrypted:read** | Get encrypted credentials | _(Used by Platform)_ |
+| **credentials_encrypted:read** | Get encrypted credentials | `GET /credentials/{credentialsId}/keys` |
 | **pipeline_secrets:read** | List all pipeline secrets | `GET /pipeline-secrets` |
 |  | View pipeline secret details | `GET /pipeline-secrets/{secretId}` |
 | **pipeline_secrets:write** | Create a new pipeline secret | `POST /pipeline-secrets` |
