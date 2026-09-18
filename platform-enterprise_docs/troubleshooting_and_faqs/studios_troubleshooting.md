@@ -28,6 +28,16 @@ To change how long a session must be in **stopping** before you can force stop i
 
 The **errored** status is generally related to problems creating the Studio session resources in the compute environment, such as invalid credentials, insufficient permissions, or network issues. It can also be related to insufficient compute resources set in your compute environment configuration. Contact your organization's AWS administrator if you don't have access to the AWS Console, and contact your Seqera account executive to investigate.
 
+#### Session doesn't start with an internal certificate authority
+
+A session in a private network doesn't reach **running** status, and the session log shows `x509: certificate signed by unknown authority`. This issue occurs when an endpoint the session connects to presents a certificate issued by an internal or private certificate authority (CA). By default, a session trusts only the publicly trusted authorities in its container image's system trust store.
+
+The same failure occurs if your organization inspects HTTPS traffic at the network boundary, because the inspecting proxy presents its own internally issued certificate.
+
+To resolve, provide your CA to Platform so that it's installed in every session. See [Configure a private certificate authority for Studios](../enterprise/studios-private-ca).
+
+This requires Connect client version 0.13.0 or later. If your Studio images run an earlier client and can't be rebuilt, build a custom Studio container image with your organization's CA certificates in its trust store, then use that image for the Studio. See [Custom container images](../studios/container-images).
+
 #### Session can't be **stopped**
 
 If you can't stop a session, the Batch job running the session usually failed. If you have access to the AWS Console for your organization, stop the session from the compute environment screen. Contact your organization's AWS administrator if you don't have access to the AWS Console, and contact your Seqera account executive to investigate.

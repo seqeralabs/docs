@@ -20,7 +20,11 @@ Use [Amazon Certificate Manager](https://aws.amazon.com/certificate-manager/) (A
 
 If you secure related infrastructure (such as private Git repositories) with certificates issued by a private Certificate Authority, these certificates must be loaded into the Seqera Enterprise containers. You can achieve this in several ways.
 
-### Configure private certificate trust
+:::note
+This procedure loads certificates into the Seqera Enterprise containers. It doesn't reach Studio sessions, which run as separate containers in your compute environment with their own trust store. To let Studio sessions trust an internal certificate authority, see [Configure a private certificate authority for Studios](../studios-private-ca).
+:::
+
+**Configure private certificate trust**
 
 1. This guide assumes you're using the original containers supplied by Seqera.
 2. Replace `TARGET_HOSTNAME`, `TARGET_ALIAS`, and `PRIVATE_CERT.pem` with your unique values.
