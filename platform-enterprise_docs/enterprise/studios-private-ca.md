@@ -34,7 +34,7 @@ You supply the CA once, at the deployment level. Platform distributes it to sess
 3. When a Studio session launches, Platform passes the encoded certificate to the session as `TOWER_CONNECT_CA_CERT_BASE64`.
 4. The Connect client installs the certificate at the operating system level inside the session container.
 
-Because the certificate is installed at the OS level, it is inherited by the Connect client, the interactive tool, Fusion, and the AWS SDK — not only by the tunnel connection.
+Installing the certificate at the OS level makes it available to the tunnel connection, the Connect client, the interactive tool, Fusion, and the AWS SDK.
 
 This setting covers Studio sessions only. It doesn't add your CA to Platform's own Java trust store — trust for infrastructure that Platform itself reaches, such as private Git repositories, is configured separately. See [SSL/TLS](./configuration/ssl_tls).
 
