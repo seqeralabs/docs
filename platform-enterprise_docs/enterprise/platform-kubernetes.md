@@ -129,9 +129,7 @@ kubectl apply -f tower-svc.yml
 
 #### Seqera frontend unprivileged
 
-An unprivileged version of the Seqera frontend image is also available. This image listens on an unprivileged port and therefore doesn't need to be run as the root user.
-
-Replace the tag of the frontend image `cr.seqera.io/enterprise/platform/frontend:v24.x.x` with `cr.seqera.io/enterprise/platform/frontend:v24.x.x-unprivileged`. In the `frontend` service below, specify the `targetPort` to match the environment variable `NGINX_LISTEN_PORT` (see below):
+The Seqera frontend image listens on an unprivileged port. In the `frontend` service below, specify the `targetPort` to match the environment variable `NGINX_LISTEN_PORT` (see below):
 
 ```yaml
 ---
@@ -145,7 +143,7 @@ spec:
   ...
       containers:
         - name: frontend
-          image: cr.seqera.io/enterprise/platform/frontend:v25.3.0-unprivileged
+          image: cr.seqera.io/enterprise/platform/frontend:v26.2.0
           env:
             - name: NGINX_LISTEN_PORT  # If not defined, defaults to 8000.
               value: 8000
@@ -167,7 +165,7 @@ The external `port` of the `frontend` service is independent of `NGINX_LISTEN_PO
 
 `NGINX_UPSTREAM_PORT` (default `8080`) sets the backend port that NGINX routes requests to, not the frontend listening port.
 
-The unprivileged Seqera image will soon deprecate the current image that requires root. The unprivileged image can be easily customized using environment variables:
+The Seqera frontend image can be easily customized using environment variables:
 
 - `NGINX_LISTEN_PORT` (default `8000`): The port the NGINX process will listen on inside the container.
 - `NGINX_LISTEN_PORT_IPV6` (default `8000`): The NGINX listening port to open on the IPv6 address.
