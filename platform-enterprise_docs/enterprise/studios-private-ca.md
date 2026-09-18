@@ -107,7 +107,7 @@ Sessions must be restarted to pick up the certificate. Running sessions are unaf
 | `false` | Your CA only | A fully private network where an egress proxy re-signs all traffic with your internal CA. |
 
 :::warning
-Setting `TOWER_CONNECT_CA_KEEP_DEFAULT=false` breaks connections to any endpoint that presents a publicly-trusted certificate. Use it only when every endpoint a session reaches — including object storage and package indexes — is signed by your internal CA.
+Setting `TOWER_CONNECT_CA_KEEP_DEFAULT=false` breaks connections to any endpoint that presents a publicly trusted certificate. Set it to `false` only when your internal CA signs the certificate for every endpoint a session reaches, including object storage and package indexes.
 :::
 
 Full closure applies to the Connect client and Fusion. It does not extend to the interactive tool or to Node-based tooling, both of which keep the container image's public roots. Treat `false` as a way to force internal traffic through your CA, not as a guarantee that nothing in the session can reach a publicly-trusted endpoint.
