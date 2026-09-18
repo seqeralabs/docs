@@ -70,6 +70,12 @@ To create a new FSx for Lustre file system manually, visit the [FSx console](htt
 
 Make sure the [Lustre client](https://docs.aws.amazon.com/fsx/latest/LustreGuide/install-lustre-client.html) is available in the AMIs used by your AWS Batch compute environment to allow mounting FSx file systems.
 
+## Networking
+
+A Studio session on an AWS Batch compute environment runs as the head job, on the head queue, in the subnets configured for the underlying Batch compute environment. Studios is not supported on a compute environment with **Enable Fargate for head job** selected.
+
+- **Studios sessions are outbound-only**: The Seqera Connect client inside a Studio session opens a tunnel outward to the Connect server, and all session traffic — including SSH when enabled — travels over that outbound connection. **No inbound path to the session is required**, so you do not need inbound security group rules or source-IP allow-lists for dynamically launched Studio jobs. The Batch compute environment subnets do need outbound access to the Connect server, through a NAT gateway or equivalent for private subnets. See [Networking](../studios/overview#networking) in the Studios documentation.
+
 ## Required Platform IAM permissions
 
 To create and launch pipelines, explore buckets with Data Explorer or run Studio sessions with the AWS Batch compute environment, an IAM user with specific permissions must be provided. Some permissions are mandatory for the compute environment to be created and function correctly, while others are optional and used for example to provide list of values to pick from in the Platform UI.
@@ -437,21 +443,21 @@ Platform can retrieve the EC2 instance console output to detect errors in the us
 
 ### Data lineage (optional)
 
-If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials to create the queue infrastructure and bucket notifications used by the lineage service:
+If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials so they can create the notification topic and bucket notifications used by the lineage service:
 
 ```json
 {
-  "Sid": "LineageIntegrationSQS",
+  "Sid": "LineageIntegrationSNS",
   "Effect": "Allow",
   "Action": [
-    "sqs:CreateQueue",
-    "sqs:GetQueueAttributes",
-    "sqs:SetQueueAttributes",
-    "sqs:GetQueueUrl",
-    "sqs:ReceiveMessage",
-    "sqs:DeleteMessage"
+    "sns:CreateTopic",
+    "sns:SetTopicAttributes",
+    "sns:Subscribe",
+    "sns:ConfirmSubscription",
+    "sns:Unsubscribe",
+    "sns:DeleteTopic"
   ],
-  "Resource": "arn:aws:sqs:<REGION>:<ACCOUNT_ID>:seqera-lineage-*"
+  "Resource": "arn:aws:sns:<REGION>:<ACCOUNT_ID>:seqera-lineage-*"
 },
 {
   "Sid": "LineageIntegrationS3",
@@ -460,9 +466,14 @@ If you enable [data lineage](../data/data-lineage) in your workspace, add the fo
     "s3:CreateBucket",
     "s3:GetBucketNotification",
     "s3:PutBucketNotification",
-    "s3:GetBucketLocation"
+    "s3:GetBucketLocation",
+    "s3:ListBucket",
+    "s3:GetObject"
   ],
-  "Resource": "arn:aws:s3:::seqera-lineage-*"
+  "Resource": [
+    "arn:aws:s3:::seqera-lineage-*",
+    "arn:aws:s3:::seqera-lineage-*/*"
+  ]
 }
 ```
 
