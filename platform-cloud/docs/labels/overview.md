@@ -1,6 +1,6 @@
 ---
 title: "Labels"
-description: "Instructions for using labels in Nextflow Tower."
+description: "Instructions for using labels in Seqera Platform."
 date: "21 Apr 2023"
 tags: [labels]
 ---
