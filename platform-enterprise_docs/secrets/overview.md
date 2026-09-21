@@ -39,6 +39,22 @@ Secrets are automatically deleted from the secret manager when the pipeline comp
 In AWS Batch compute environments, Seqera passes stored secrets to jobs as part of the Seqera-created job definition. Seqera secrets cannot be used in Nextflow processes that use a [custom job definition](https://docs.seqera.io/nextflow/aws#custom-job-definition).
 :::
 
+## Ephemeral endpoint configuration
+
+When you launch a pipeline, Platform passes secrets and parameters to the Nextflow head job through ephemeral endpoints — one-time-use URLs that each consumer can read once before they expire.
+
+The default lifetime is 8 hours, configurable via `tower.ephemeral.duration` in `tower.yml`:
+
+```yaml
+tower:
+  ephemeral:
+    duration: 8h
+```
+
+:::caution
+If a submitted job sits in the queue longer than the endpoint lifetime, it fails when execution begins because Nextflow can no longer fetch its parameters. For workflows with long queue times, increase `tower.ephemeral.duration` and align the [refresh token expiration](../enterprise/configuration/authentication/overview#session-management).
+:::
+
 ## AWS Secrets Manager integration
 
 Seqera and associated AWS Batch IAM Roles require additional permissions to interact with AWS Secrets Manager, as detailed in the [Pipeline secrets section](../compute-envs/aws-batch#pipeline-secrets-optional) of the AWS Batch documentation.
@@ -72,6 +88,17 @@ The ECS Agent uses the [Batch Execution role](https://docs.aws.amazon.com/batch/
 :::note
 Including `tower-*` in the Resource ARN above limits access to Platform secrets only (as opposed to all secrets in the given region).
 :::
+
+If the compute environment specifies a **Pipeline secrets KMS key**, the execution role also requires `kms:Decrypt` on that key to inject secrets encrypted with the key. Grant the action either by naming the role in the key policy, or in the role's own IAM policy if the key policy delegates to IAM. The default key policy created by `aws kms create-key` delegates to IAM:
+
+```json
+    {
+        "Sid": "AllowECSAgentToDecryptSecrets",
+        "Effect": "Allow",
+        "Action": "kms:Decrypt",
+        "Resource": "arn:aws:kms:<YOUR_COMPUTE_REGION>:<ACCOUNT_ID>:key/<KEY_ID>"
+    }
+```
 
 **IAM trust relationship**
 
@@ -169,3 +196,7 @@ You must [enable Google Secret Manager](https://cloud.google.com/secret-manager/
 See the [Google documentation](https://cloud.google.com/secret-manager/docs/access-control) for permission configuration instructions to integrate with Google Secret Manager.
 
 Seqera Platform requires `roles/secretmanager.admin` permissions in the project where it will manage your secrets. Ensure that your compute environment contains credentials with this access role for the same `project_id` listed in the service account JSON file.
+
+:::caution
+Seqera Platform creates pipeline secrets in Google Secret Manager with automatic replication, which stores the secret in the `global` location. If your project enforces the [`constraints/gcp.resourceLocations`](https://cloud.google.com/resource-manager/docs/organization-policy/defining-locations) organization policy and does not permit the `global` location, secret creation fails and pipelines with a secret attached cannot launch.
+:::

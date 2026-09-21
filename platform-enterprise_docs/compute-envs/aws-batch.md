@@ -2,7 +2,7 @@
 title: "AWS Batch"
 description: "Instructions to set up AWS Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-05-28"
+last updated: "2026-08-25"
 tags: [aws, batch, compute environments]
 ---
 
@@ -66,6 +66,14 @@ To create a new FSx for Lustre file system manually, visit the [FSx console](htt
 1. Review the configuration and select **Create file system**.
 
 Make sure the [Lustre client](https://docs.aws.amazon.com/fsx/latest/LustreGuide/install-lustre-client.html) is available in the AMIs used by your AWS Batch compute environment to allow mounting FSx file systems.
+
+## Networking
+
+A Studio session on an AWS Batch compute environment runs as the head job, on the head queue, in the subnets configured for the underlying Batch compute environment. Studios is not supported on a compute environment with **Enable Fargate for head job** selected.
+
+- **Studios sessions are outbound-only**: The Seqera Connect client inside a Studio session opens a tunnel outward to the Connect server, and all session traffic — including SSH when enabled — travels over that outbound connection. **No inbound path to the session is required**, so you do not need inbound security group rules or source-IP allow-lists for dynamically launched Studio jobs. The Batch compute environment subnets do need outbound access to the Connect server, through a NAT gateway or equivalent for private subnets. See [Networking](../studios/overview#networking) in the Studios documentation.
+
+For the ports and directions to configure on your firewall, see [Firewall configuration](../enterprise/advanced-topics/firewall-configuration).
 
 ## Required Platform IAM permissions
 
@@ -263,6 +271,29 @@ A permissive and broad policy with all the required permissions is provided here
         "secretsmanager:CreateSecret"
       ],
       "Resource": "arn:aws:secretsmanager:*:*:secret:tower-*"
+    },
+    {
+      "Sid": "OptionalLineageIntegrationSNSAndS3",
+      "Effect": "Allow",
+      "Action": [
+        "sns:CreateTopic",
+        "sns:SetTopicAttributes",
+        "sns:Subscribe",
+        "sns:ConfirmSubscription",
+        "sns:Unsubscribe",
+        "sns:DeleteTopic",
+        "s3:CreateBucket",
+        "s3:GetBucketNotification",
+        "s3:PutBucketNotification",
+        "s3:GetBucketLocation",
+        "s3:ListBucket",
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "arn:aws:sns:*:*:seqera-lineage-*",
+        "arn:aws:s3:::seqera-lineage-*",
+        "arn:aws:s3:::seqera-lineage-*/*"
+      ]
     }
   ]
 }
@@ -585,9 +616,61 @@ The listing of secrets cannot be restricted, but the management actions can be r
 }
 ```
 
+If you specify a customer-managed KMS key (CMK) in the **Pipeline secrets KMS key** field under **Advanced options**, or as the `TOWER_AWS_SECRETS_KMS_KEY_ID` installation default, the compute environment credentials also require `kms:GenerateDataKey` and `kms:Decrypt` on that key. Grant these actions either by naming the compute environment principal in the key policy, or in the principal's own IAM policy if the key policy delegates to IAM. The default key policy created by `aws kms create-key` delegates to IAM.
+
+```json
+{
+  "Sid": "PipelineSecretsKmsKey",
+  "Effect": "Allow",
+  "Action": [
+    "kms:GenerateDataKey",
+    "kms:Decrypt"
+  ],
+  "Resource": "arn:aws:kms:<REGION>:<ACCOUNT_ID>:key/<KEY_ID>"
+}
+```
+
 #### Additional steps required to use secrets in a pipeline
 
 To successfully use pipeline secrets, the IAM roles manually created must follow the steps detailed in the [documentation](../secrets/overview#aws-secrets-manager-integration).
+
+### Data lineage (optional)
+
+If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials so they can create the notification topic and bucket notifications used by the lineage service:
+
+```json
+{
+  "Sid": "LineageIntegrationSNS",
+  "Effect": "Allow",
+  "Action": [
+    "sns:CreateTopic",
+    "sns:SetTopicAttributes",
+    "sns:Subscribe",
+    "sns:ConfirmSubscription",
+    "sns:Unsubscribe",
+    "sns:DeleteTopic"
+  ],
+  "Resource": "arn:aws:sns:<REGION>:<ACCOUNT_ID>:seqera-lineage-*"
+},
+{
+  "Sid": "LineageIntegrationS3",
+  "Effect": "Allow",
+  "Action": [
+    "s3:CreateBucket",
+    "s3:GetBucketNotification",
+    "s3:PutBucketNotification",
+    "s3:GetBucketLocation",
+    "s3:ListBucket",
+    "s3:GetObject"
+  ],
+  "Resource": [
+    "arn:aws:s3:::seqera-lineage-*",
+    "arn:aws:s3:::seqera-lineage-*/*"
+  ]
+}
+```
+
+These permissions cover **Automatic** provisioning. For **Manual** provisioning, Platform makes no control-plane calls other than confirming its own webhook subscription: see [Data lineage](../data/data-lineage#additional-iam-permissions-required) for the reduced permission set.
 
 ## Create the IAM policy
 
@@ -827,7 +910,10 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
 
     </details>
 
-1. Select **Enable Fusion Snapshots (beta)** to enable Fusion to automatically restore jobs that are interrupted when an AWS Spot instance reclamation occurs. Requires Fusion v2. See [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots) for more information.
+1. Select **Enable Fusion Snapshots (beta)** to enable Fusion to automatically restore jobs that are interrupted when an AWS Spot instance reclamation occurs. Requires Fusion v2 and a **Spot** provisioning model. See [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots) for more information.
+    :::caution
+    Restrict **Instance types** under **Advanced options** to the [recommended instance types](https://docs.seqera.io/fusion/guide/snapshots/aws#selecting-an-ec2-instance). Enabling Fusion Snapshots does not populate this field. Do not enable Fusion Snapshots on an On-Demand compute environment.
+    :::
 1. Set the **Config mode** to **Batch Forge** to allow Seqera Platform to manage AWS Batch compute environments using the Forge tool.
 1. Select a **Provisioning model**. To minimize compute costs select **Spot**. You can specify an allocation strategy and instance types under [**Advanced options**](#advanced-options). If advanced options are omitted, Seqera Platform 23.2 and later versions default to `BEST_FIT_PROGRESSIVE` for On-Demand and `SPOT_PRICE_CAPACITY_OPTIMIZED` for Spot compute environments.
     :::note
@@ -976,6 +1062,7 @@ Seqera Platform compute environments for AWS Batch include advanced options to c
 
 - Use **Head job role** and **Compute job role** to grant fine-grained IAM permissions to the **Head job** and **Compute jobs**.
 - Add an execution role ARN to the **Batch execution role** field to grant permissions to make API calls on your behalf to the ECS container used by Batch. This is required if the pipeline launched with this compute environment needs access to the secrets stored in this workspace. This field can be ignored if you are not using secrets.
+- Use **Pipeline secrets KMS key** to specify a customer-managed KMS key that encrypts the temporary AWS Secrets Manager secrets Seqera creates for runs that use pipeline secrets. This field accepts a key ARN or a key ID. A key ARN must be in the same region as the compute environment. Leave this field empty to use the installation default set with [`TOWER_AWS_SECRETS_KMS_KEY_ID`](../enterprise/configuration/overview#compute-environments), or the default AWS-managed key if neither is set. See [Pipeline secrets (optional)](#pipeline-secrets-optional) for the KMS permissions your compute environment credentials require.
 - Specify an EBS block size (in GB) in the **EBS auto-expandable block size** field to control the initial size of the EBS auto-expandable volume. New blocks of this size are added when the volume begins to run out of free space. This feature is deprecated, and is not compatible with Fusion v2.
 - Enter the **Boot disk size** (in GB) to specify the size of the boot disk in the VMs created by this compute environment.
 - If you're using **Spot** instances, you can also specify the **Cost percentage**, which is the maximum allowed price of a **Spot** instance as a percentage of the **On-Demand** price for that instance type. Spot instances will not be launched until the current Spot price is below the specified cost percentage.
@@ -1074,7 +1161,10 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
 
     </details>
 
-1. Select **Enable Fusion Snapshots (beta)** to enable Fusion to automatically restore jobs that are interrupted when an AWS Spot instance reclamation occurs. Requires Fusion v2. See [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots) for more information.
+1. Select **Enable Fusion Snapshots (beta)** to enable Fusion to automatically restore jobs that are interrupted when an AWS Spot instance reclamation occurs. Requires Fusion v2 and a **Spot** provisioning model. See [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots) for more information.
+    :::caution
+    Restrict **Instance types** under **Advanced options** to the [recommended instance types](https://docs.seqera.io/fusion/guide/snapshots/aws#selecting-an-ec2-instance). Enabling Fusion Snapshots does not populate this field. Do not enable Fusion Snapshots on an On-Demand compute environment.
+    :::
 
 1. Set the **Config mode** to **Manual**.
 1. Enter the **Head queue** created following the [instructions](../enterprise/advanced-topics/manual-aws-batch-setup.mdx), which is the name of the AWS Batch queue that the Nextflow main job will run.
@@ -1112,6 +1202,7 @@ Seqera compute environments for AWS Batch include advanced options to configure 
 - Use **Head job CPUs** and **Head job memory** to specify the hardware resources allocated for the Nextflow head job. The default head job memory allocation is 4096 MiB.
 - Use **Head job role** and **Compute job role** to grant fine-grained IAM permissions to the head job and compute jobs,
 - Add an execution role ARN to the **Batch execution role** field to grant permissions to make API calls on your behalf to the ECS container used by Batch. This is required if the pipeline launched with this compute environment needs access to the secrets stored in this workspace. This field can be ignored if you are not using secrets.
+- Use **Pipeline secrets KMS key** to specify a customer-managed KMS key that encrypts the temporary AWS Secrets Manager secrets Seqera creates for runs that use pipeline secrets. This field accepts a key ARN or a key ID. A key ARN must be in the same region as the compute environment. Leave this field empty to use the installation default set with [`TOWER_AWS_SECRETS_KMS_KEY_ID`](../enterprise/configuration/overview#compute-environments), or the default AWS-managed key if neither is set. See [Pipeline secrets (optional)](#pipeline-secrets-optional) for the KMS permissions your compute environment credentials require.
 - Use **AWS CLI tool path** to specify the location of the `aws` CLI.
 - Specify a **CloudWatch Log group** for the `awslogs` driver to stream the logs entry to an existing Log group in Cloudwatch.
 

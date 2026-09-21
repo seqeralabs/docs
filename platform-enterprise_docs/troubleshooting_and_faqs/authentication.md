@@ -12,6 +12,10 @@ When configuring authentication for Seqera Platform, you might encounter the fol
 
 These issues apply to SCIM group provisioning with [Okta](../enterprise/configuration/authentication/idp-delegation/group-catalog/scim-okta) and [Entra ID](../enterprise/configuration/authentication/idp-delegation/group-catalog/scim-entra-id).
 
+#### The Get started button under Provisioning is disabled in Entra ID
+
+This issue occurs when the application was created through **App Registrations**, which doesn't support automatic provisioning. To resolve, create a separate non-gallery enterprise application for SCIM. See [Create a provisioning application](../enterprise/configuration/authentication/idp-delegation/group-catalog/scim-entra-id#create-a-provisioning-application).
+
 #### Groups appear in the identity provider but not in Platform
 
 This issue occurs when the bearer token configured in your identity provider doesn't match the current Platform token. Generating a new token in Platform revokes the previous one. To resolve, confirm the token in your identity provider matches the current Platform token, and replace it if necessary.
@@ -27,6 +31,10 @@ This error occurs when a group with the same display name already exists in anot
 #### Catalog shows GUID-style identifiers instead of group names
 
 This issue occurs when Entra ID emits group object IDs rather than display names. To resolve, configure Entra ID to emit display names. See [Group display names vs. object IDs](../enterprise/configuration/authentication/idp-delegation/group-catalog/scim-entra-id#group-display-names-vs-object-ids).
+
+#### Entra ID reports failed user provisioning on every cycle
+
+This issue occurs when the enterprise application's **Provision Microsoft Entra ID Users** mapping is enabled. Platform supports group provisioning only, so it rejects every user create, update, and delete, and Entra ID records a failure for each one on every cycle. Left enabled, the repeated failures can cause Entra ID to quarantine the provisioning job, which also stops group sync. To resolve, open the application's **Provisioning** page, expand **Mappings**, select **Provision Microsoft Entra ID Users**, and clear **Create**, **Update**, and **Delete** under **Target Object Actions**. Platform users are created automatically at SSO login, so no user provisioning is needed.
 
 #### A group assigned in Entra ID doesn't sync
 

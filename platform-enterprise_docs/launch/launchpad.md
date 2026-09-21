@@ -2,7 +2,7 @@
 title: "Launch pipelines"
 description: "Curate and launch workflows in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-05-18"
+last updated: "2026-08-26"
 tags: [launchpad, launch, configure, pipelines, schema, configuration, nextflow, parameters, input, output]
 ---
 
@@ -50,9 +50,12 @@ The launch form accepts URL query parameters. See [Populate launch form with URL
   :::
 - **Main script**: The script file to execute (default: `main.nf`). Config profiles suggestions may update when this field changes.
 - **Config profiles**: One or more [configuration profile][nextflow-config-profile] names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository. See below for additional details.
+  :::caution
+  When you select or change config profiles, Platform reloads the pipeline parameters. Any run parameter that a selected profile defines takes the profile's value, replacing a value you already entered. Select config profiles before you enter run parameter values.
+  :::
 - **Workflow run name**: A unique identifier for the run, pre-filled with a random name. This can be customized.
 - **Labels**: Assign new or existing [labels][labels] to the run.
-- **Compute environment**: The [compute environment][compute-envs] where the run will be launched.
+- **Compute environment**: The [compute environment][compute-envs] where the run will be launched. The drop-down groups compute environments by platform and marks the workspace [primary compute environment][primary-compute-env] with a **Primary** badge. Use the search field to filter by name, region, or platform.
 - **Schema**: Select the [pipeline schema][pipeline-schema] to validate pipeline parameters and prevent runtime failures.
 - **Enable lineage**: Track the [provenance][data-lineage] of files produced by pipeline runs. Defaults to the [workspace setting][workspace-settings-lineage].
 
@@ -110,6 +113,8 @@ There are four ways to enter **Run parameters** prior to launch:
 - The **Params file view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** drop-down.
 - **Upload params file** allows you to upload a JSON or YAML file with run parameters.
 - Specify run parameters with query parameters in the launch URL. See [Populate launch form with URL query parameters](#populate-launch-form-with-url-query-parameters) for more information.
+
+If you select or change [config profiles](#config-profiles) after entering run parameters, any parameter that a selected profile defines takes the profile's value.
 
 Seqera uses a `nextflow_schema.json` file in the root of the pipeline repository to dynamically create a form with the necessary pipeline parameters. Most pipelines contain at least input and output parameters:
 
@@ -253,6 +258,7 @@ Platform will ignore added percent-encoding characters in form fields, so you do
 [nextflow-workflow-outputs]: https://docs.seqera.io/nextflow/workflow#outputs
 [labels]: ../labels/overview
 [compute-envs]: ../compute-envs/overview
+[primary-compute-env]: ../compute-envs/overview#select-default-compute-environment
 [pipeline-schema]: ../pipeline-schema/overview
 [data-lineage]: ../data/data-lineage
 [workspace-settings-lineage]: ../orgs-and-teams/workspace-management#lineage

@@ -2,21 +2,32 @@
 title: "Monitor runs"
 description: "Monitor pipeline runs from the Runs page, All runs page, and Dashboard in Seqera Platform"
 date created: "2024-07-08"
-last updated: "2026-06-03"
+last updated: "2026-09-02"
 tags: [platform, runs, monitoring]
 ---
 
-After you [launch a pipeline](./launch-pipelines), Seqera Platform provides three views to monitor the progress and status of your runs:
+Track the progress and status of your pipeline runs, in a single workspace or across every workspace you can access.
 
-- The [**Runs** page](#runs) lists the runs in a single workspace.
-- The [**All runs** page](#all-runs) lists runs across all your organizations and workspaces.
-- The [**Dashboard**](#dashboard) summarizes run status totals across all your organizations and workspaces.
+After you [launch a pipeline](./launch-pipelines), Seqera Platform provides three views to monitor your runs:
 
-## Runs
+- The [**Runs**](#monitor-runs-in-a-workspace) page lists the runs in a single workspace.
+- The [**All runs**](#monitor-runs-across-workspaces) page lists runs across all your organizations and workspaces.
+- The [**Dashboard**](#view-run-totals-on-the-dashboard) summarizes run status totals across all your organizations and workspaces.
+
+:::info[**Prerequisites**]
+
+You need the following:
+
+- An organization and workspace. See [Set up your workspace](../workspace-setup).
+- At least one [launched pipeline run](./launch-pipelines) in your workspace.
+
+:::
+
+## Monitor runs in a workspace
 
 Select **Runs** in the left-hand navigation to view the full run history of a workspace. Each row corresponds to one run and displays its status. Select a run to view its [run details](../../monitoring/run-details), including the tasks, jobs, metrics, configuration, inputs, outputs, containers, and run info.
 
-## All runs
+## Monitor runs across workspaces
 
 Access the **All runs** page from the user menu. This page lists runs across the entire Platform instance. The default view includes all organizations and workspaces you can access. To limit the view to specific workspaces, select the drop-down next to **View**.
 
@@ -41,12 +52,12 @@ rnaseq username:johndoe status:succeeded after:2024-01-01
 
 See [All runs view](../../monitoring/overview#all-runs-view) for the full search syntax.
 
-## Dashboard
+## View run totals on the Dashboard
 
 Access the **Dashboard** from the user menu. This page displays run totals across the Platform instance, grouped by run status. The default view includes all organizations and workspaces you can access:
 
 - To limit the view to specific workspaces, select the drop-down next to **View**.
-- To filter by time, select a preset period or a custom date range of up to 12 months. Times are displayed in the local timezone defined in your device's system settings.
+- To filter by time, select a preset period or a custom date range of up to 12 months. Times use the local timezone defined in your device's system settings.
 - To download the displayed data as a CSV file, select **Export data**.
 
 See [Dashboard](../../monitoring/dashboard) for the Studios, Fusion, and resource usage views.

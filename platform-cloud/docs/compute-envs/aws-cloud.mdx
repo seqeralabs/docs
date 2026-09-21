@@ -1,6 +1,6 @@
 ---
 title: "AWS Cloud"
-description: "Instructions to set up an AWS Cloud CE in Seqera Platform"
+description: "Instructions to set up an AWS Cloud compute environment in Seqera Platform"
 date created: "2025-05-15"
 last updated: "2026-05-05"
 tags: [cloud, vm, amazon, compute environments]
@@ -85,6 +85,14 @@ The AWS Cloud compute environment uses a public AMI maintained by Seqera, and th
 ### Release cadence and software updates
 
 The AMI is based on the [Amazon Linux 2023 image](https://docs.aws.amazon.com/linux/al2023/ug/what-is-amazon-linux.html). System package versions are pinned for each specific Amazon Linux 2023 version. Seqera subscribes to the [AWS SNS topic](https://docs.aws.amazon.com/linux/al2023/ug/receive-update-notification.html) to receive Amazon Linux 2023 update notifications. When updates are available, this triggers a new Seqera AMI release built on the latest image, which includes system package updates and security patches.
+
+## Networking
+
+An AWS Cloud compute environment launches a single EC2 instance into a VPC subnet. Set **VPC ID**, **Subnets**, and **Security groups** under [Advanced options](#advanced-options).
+
+- **Outbound access is required**: The instance must reach Amazon S3 for the work directory, and Seqera Platform. A private subnet — one that does not auto-assign a public IP address — reaches S3 only through an S3 gateway endpoint or a NAT gateway. When Seqera Intelligent Compute selects a subnet for you, Seqera creates an S3 gateway endpoint in the VPC if one does not already exist, using the permissions described in [Seqera Intelligent Compute permissions](#seqera-intelligent-compute-permissions). If you select the subnet yourself, provide that route.
+- **Studios sessions are outbound-only**: The Seqera Connect client inside a Studio session opens a tunnel outward to the Connect server, and all session traffic — including SSH when enabled — travels over that outbound connection. **No inbound path to the session VM is required**, so you do not need inbound security group rules or source-IP allow-lists for dynamically launched Studio instances. The subnet does need outbound access to the Connect server. See [Networking](../studios/overview#networking) in the Studios documentation.
+- **Seqera does not create inbound rules**: Where Seqera manages a security group for you, it authorizes egress only. The policy grants `ec2:AuthorizeSecurityGroupEgress` and no inbound equivalent.
 
 ## Setup
 
@@ -255,21 +263,21 @@ Platform can retrieve the EC2 instance console output to detect errors in the us
 
 #### Data lineage (optional)
 
-If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials to create the queue infrastructure and bucket notifications used by the lineage service:
+If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials so they can create the notification topic and bucket notifications used by the lineage service:
 
 ```json
 {
-  "Sid": "LineageIntegrationSQS",
+  "Sid": "LineageIntegrationSNS",
   "Effect": "Allow",
   "Action": [
-    "sqs:CreateQueue",
-    "sqs:GetQueueAttributes",
-    "sqs:SetQueueAttributes",
-    "sqs:GetQueueUrl",
-    "sqs:ReceiveMessage",
-    "sqs:DeleteMessage"
+    "sns:CreateTopic",
+    "sns:SetTopicAttributes",
+    "sns:Subscribe",
+    "sns:ConfirmSubscription",
+    "sns:Unsubscribe",
+    "sns:DeleteTopic"
   ],
-  "Resource": "arn:aws:sqs:<REGION>:<ACCOUNT_ID>:seqera-lineage-*"
+  "Resource": "arn:aws:sns:<REGION>:<ACCOUNT_ID>:seqera-lineage-*"
 },
 {
   "Sid": "LineageIntegrationS3",
@@ -278,9 +286,14 @@ If you enable [data lineage](../data/data-lineage) in your workspace, add the fo
     "s3:CreateBucket",
     "s3:GetBucketNotification",
     "s3:PutBucketNotification",
-    "s3:GetBucketLocation"
+    "s3:GetBucketLocation",
+    "s3:ListBucket",
+    "s3:GetObject"
   ],
-  "Resource": "arn:aws:s3:::seqera-lineage-*"
+  "Resource": [
+    "arn:aws:s3:::seqera-lineage-*",
+    "arn:aws:s3:::seqera-lineage-*/*"
+  ]
 }
 ```
 
@@ -443,6 +456,7 @@ For role-based AWS credentials in Seqera Cloud, allow the Seqera Cloud access ro
 - **Subnets**: The list of VPC subnets where the EC2 instance will run. If unspecified, all the subnets of the VPC will be used.
 - **Security groups**: The security groups the EC2 instance will be a part of. If unspecified, no security groups will be used.
 - **Instance Profile**: The ARN of the `InstanceProfile` used by the EC2 instance to assume a role while running. If unspecified, Seqera will provision one with enough permissions to run. See [Custom instance profile](#custom-instance-profile) for the minimum permissions required if you provide your own.
+- **Pipeline secrets KMS key**: A customer-managed KMS key (CMK) that encrypts the temporary AWS Secrets Manager secrets Seqera creates for runs that use pipeline secrets. This field accepts a key ARN or a key ID. A key ARN must be in the same region as the compute environment. If unspecified, Seqera uses the default AWS-managed key. See [Custom instance profile](#custom-instance-profile) for the KMS permissions the instance profile role requires.
 - **Boot disk size**: The size of the EBS boot disk for the EC2 instance. If undefined, a default 50 GB `gp3` volume will be used.
 
 ### Custom instance profile
@@ -527,6 +541,22 @@ In addition to the managed policies, attach the following inline policies:
       "Effect": "Allow",
       "Action": ["secretsmanager:ListSecrets"],
       "Resource": ["*"]
+    }
+  ]
+}
+```
+
+If the compute environment specifies a **Pipeline secrets KMS key**, the role also requires `kms:Decrypt` on that key to read secrets encrypted with the key at task start. Grant the action either by naming the role in the key policy, or in the role's own IAM policy if the key policy delegates to IAM. The default key policy created by `aws kms create-key` delegates to IAM:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PipelineSecretsKmsKey",
+      "Effect": "Allow",
+      "Action": ["kms:Decrypt"],
+      "Resource": "arn:aws:kms:<REGION>:<ACCOUNT_ID>:key/<KEY_ID>"
     }
   ]
 }

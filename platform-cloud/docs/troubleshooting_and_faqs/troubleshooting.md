@@ -1,7 +1,8 @@
 ---
 title: "General"
 description: "Troubleshooting Seqera Platform"
-date: "24 Apr 2023"
+date created: "2023-04-23"
+last updated: "2026-09-16"
 tags: [troubleshooting, help]
 ---
 
@@ -9,13 +10,9 @@ When working with Seqera Platform, you might encounter the following issues.
 
 ## Common errors
 
-#### `timeout is not an integer or out of range`
-
-This error occurs on Seqera Platform v24.2 and later when Redis is outdated. Version 24.2 requires Redis 6.2 or later. To resolve, upgrade your Redis instance according to your cloud provider's instructions.
-
 #### `Unknown pipeline repository or missing credentials` from public GitHub repositories
 
-GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls, including public repositories: unauthenticated requests are capped at 60 per hour and authenticated requests at 5000 per hour. This error is usually caused by the 60-per-hour cap.
+GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls, including public repositories: unauthenticated requests are capped at 60 per hour and authenticated requests at 5000 per hour. This error is usually caused by the 60-per-hour cap. For the same error on a private organization-owned repository, see [the following entry](#github-org-repo-access).
 
 To resolve:
 
@@ -25,9 +22,51 @@ To resolve:
 
    `curl -H "Authorization: token ghp_LONG_ALPHANUMERIC_PAT" -H "Accept: application/vnd.github.v3+json" https://api.github.com/rate_limit`
 
+#### `Unknown pipeline repository or expired Git credentials` from private organization-owned GitHub repositories {#github-org-repo-access}
+
+GitHub organizations can restrict token access independently of your own repository access, and GitHub returns `404` for private repositories that a token can't access. Platform reports `401`, `403`, and `404` responses as this same error, even when the workspace credential works for user-owned repositories.
+
+Check the following:
+
+1. The repository URL is exactly `https://github.com/<org>/<repo>`, with no `.git` suffix or `/tree/<branch>` segment.
+2. The token can access the organization's repositories:
+   - Fine-grained tokens must be created with the organization as the resource owner. The organization must allow fine-grained tokens and may need to approve yours.
+   - Classic tokens require the `repo` scope and, if the organization enforces SAML single sign-on (SSO), [SSO authorization for that organization](https://docs.github.com/en/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on).
+   - GitHub Apps must be installed on the organization with access to the repository.
+
+To test the token stored in the workspace credential:
+
+```bash
+curl -sS -D - -o /dev/null \
+  -H "Authorization: Bearer <your_access_token>" \
+  -H "Accept: application/vnd.github+json" \
+  https://api.github.com/repos/<org>/<repo>
+```
+
+A `404` response means the token can't see the repository. To resolve, re-authorize or re-scope the token in GitHub. A `403` response with an `X-GitHub-SSO` header means the token needs SSO authorization. A `200` response means the token is valid. Check which credential the workspace selects in [Multiple credential filtering](../git/overview#multiple-credential-filtering).
+
+For the same error on a public repository, see [the previous entry](#unknown-pipeline-repository-or-missing-credentials-from-public-github-repositories).
+
 #### `No such variable`
 
 This error occurs when you execute a DSL1-based Nextflow workflow with [Nextflow 22.03.0-edge](https://github.com/nextflow-io/nextflow/releases/tag/v22.03.0-edge) or later.
+
+#### `"<parameter>" must be string` when launching a pipeline
+
+This error occurs when a parameter nested inside an object-typed schema group has a `null` value. Seqera Platform tolerates `null` and blank values for top-level parameters only, and the error message concatenates the group and parameter names. Omit optional nested parameters instead of setting them to `null`:
+
+```yaml
+# Fails validation
+alignment:
+  aligner: bwa
+  reference: null
+
+# Passes validation
+alignment:
+  aligner: bwa
+```
+
+Nextflow resolves a missing key to `null` at runtime, and your pipeline logic behaves the same. For more information, see [Pipeline schema](../pipeline-schema/overview).
 
 #### Sleep commands in Nextflow workflows
 
@@ -35,20 +74,6 @@ The behavior of `sleep` commands in your Nextflow workflows depends on where the
 
 - In an `errorStrategy` block, Nextflow uses the Groovy sleep function, which takes its value in milliseconds.
 - In a process script block, that language's sleep binary or method is used. For example, [this bash script](https://docs.seqera.io/nextflow/metrics) uses the bash sleep binary, which takes its value in seconds.
-
-#### Large number of batch job definitions
-
-Platform normally looks for an existing job definition that matches your workflow requirement. If nothing matches, it recreates the job definition. Use a bash script to clear job definitions. Tailor it to your needs, for example to deregister only job definitions older than a set number of days:
-
-```bash
-jobs=$(aws --region eu-west-1 batch describe-job-definitions | jq -r .jobDefinitions[].jobDefinitionArn)
-
-for x in $jobs; do
-  echo "Deregister $x";
-  sleep 0.01;
-  aws --region eu-west-1 batch deregister-job-definition --job-definition $x;
-done
-```
 
 ## Containers
 
@@ -75,9 +100,11 @@ k8s.securityContext = [
 
 ## Git integration
 
-#### `Get branches operation not supported by BitbucketServerRepositoryProvider provider`
+#### `Cannot invoke "String.toCharArray()" because "password" is null` {#gitlab-token-without-password}
 
-If you supplied the correct Bitbucket credentials and URL details in your `tower.yml` and still see this error, upgrade to at least v22.3.0. This version addresses SCM provider authentication issues and likely resolves the retrieval failure.
+This error occurs when a GitLab credential has an **Access token** but no **Password**. When cloning the repository, Nextflow releases before 26.04.0 authenticate with the username and password only and ignore the access token.
+
+To resolve, enter your token value in both the **Password** and **Access token** fields of your [GitLab credential](../git/overview#gitlab). Nextflow accepts the access token without a **Password** from 26.04.0 onward.
 
 ## Optimization
 
@@ -148,10 +175,6 @@ cp /root/.docker/config.json /home/ec2-user/.docker/config.json && chmod 777 /ho
 For **Azure Batch**, create a **Container registry**-type credential in your Seqera workspace and associate it with the Azure Batch compute environment in the same workspace.
 
 For **Kubernetes**, use an `imagePullSecret`, per [#2827](https://github.com/nextflow-io/nextflow/issues/2827).
-
-#### `Remote resource not found`
-
-This error occurs when the Nextflow head job fails to retrieve the repository credentials from Seqera. If your Nextflow log contains an entry like `DEBUG nextflow.scm.RepositoryProvider - Request [credentials -:-]`, check the protocol of your instance's `TOWER_SERVER_URL` value. It must be set to `https` rather than `http`, unless you use `TOWER_ENABLE_UNSAFE_MODE` to allow HTTP connections to Seqera in a test environment.
 
 ## Secrets
 
@@ -325,7 +348,7 @@ Connect to the head node over SSH and run `ps -p $$` to verify your default shel
 
 1. Check which shells are available: `cat /etc/shells`
 2. Change your shell: `chsh -s /usr/bin/bash` (the path to the binary might differ, depending on your HPC configuration).
-3. If submissions continue to fail after the shell change, ask your Seqera Platform admin to restart the **backend** and **cron** containers, then submit again.
+3. If submissions continue to fail after the shell change, [contact Seqera support](https://support.seqera.io).
 
 #### Execution logs don't update in real time for HPC compute environments
 

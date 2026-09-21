@@ -2,7 +2,7 @@
 title: "Azure Cloud"
 description: "Instructions to set up an Azure Cloud compute environment in Seqera Platform"
 date created: "2025-09-29"
-last updated: "2026-07-22"
+last updated: "2026-08-14"
 tags: [cloud, vm, azure, compute environments]
 ---
 
@@ -58,7 +58,10 @@ The table retains logs for 7 days. Nextflow uploads log files to Azure Storage f
 Azure Cloud compute environments use a private-only networking model:
 
 - **No public IP**: VMs are launched without a public IP address. All connectivity between Platform and the VM is routed via private networking. If you specify an existing VNet, ensure it has outbound connectivity to Azure services (Storage, Entra ID, Log Analytics) and to Platform.
+- **Studios sessions are outbound-only**: The Seqera Connect client inside a Studio session opens a tunnel outward to the Connect server and registers the session over it. All session traffic, including SSH when enabled, travels over that outbound connection. **No inbound path to the session VM is required.** Users reach a Studio through the Connect proxy rather than by connecting to the VM, so you do not need inbound rules or source-IP allow-lists for dynamically launched Studio VMs. If you specify an existing VNet, ensure it also has outbound connectivity to the Connect server. See [Networking](../studios/overview#networking) in the Studios documentation.
 - **Entra ID only**: Azure Cloud credentials require Microsoft Entra ID (client ID and client secret). Storage account key–based credentials are not supported. This applies to both Forge-provisioned and existing virtual networks.
+
+{/* TODO: link the Studios port/direction table here once EDU-420 publishes it. Scope boundary: EDU-420 owns the firewall pages and the port table; do not duplicate the table on this page. No firewall-configuration page exists under platform-cloud today. */}
 
 ## Requirements
 
@@ -461,6 +464,7 @@ Create a compute environment in Seqera using the credentials:
 
 - (Optional) **Subscription ID**: The ID of the subscription where resources must be deployed. If not specified, the subscription ID of the credentials is used.
 - **Instance Type**: The virtual machine type used by the compute environment. Choosing the instance type will directly allocate the CPU and memory available for computation. See [virtual machine sizes](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview) for a comprehensive list of instance types and their resource limitations.
+- **Boot disk size**: The size of the OS disk (in GB) for the virtual machines launched by this compute environment, including Studio session VMs. Must be between 50 and 4095 GB. If undefined, the OS disk uses the default size of the VM image.
 - **Virtual network**: An existing Azure virtual network (VNet) in the configured location. The drop-down is populated with VNets discovered in your Azure account for the selected location. When specified, Platform uses this network for all VMs launched in this compute environment and skips network provisioning. Leave blank to let Platform provision a dedicated VNet automatically.
 
   :::note

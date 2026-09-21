@@ -2,7 +2,7 @@
 title: "AWS Batch"
 description: "Instructions to set up AWS Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-05-28"
+last updated: "2026-08-25"
 tags: [aws, batch, compute environments]
 ---
 
@@ -66,6 +66,14 @@ To create a new FSx for Lustre file system manually, visit the [FSx console](htt
 1. Review the configuration and select **Create file system**.
 
 Make sure the [Lustre client](https://docs.aws.amazon.com/fsx/latest/LustreGuide/install-lustre-client.html) is available in the AMIs used by your AWS Batch compute environment to allow mounting FSx file systems.
+
+## Networking
+
+A Studio session on an AWS Batch compute environment runs as the head job, on the head queue, in the subnets configured for the underlying Batch compute environment. Studios is not supported on a compute environment with **Enable Fargate for head job** selected.
+
+- **Studios sessions are outbound-only**: The Seqera Connect client inside a Studio session opens a tunnel outward to the Connect server, and all session traffic — including SSH when enabled — travels over that outbound connection. **No inbound path to the session is required**, so you do not need inbound security group rules or source-IP allow-lists for dynamically launched Studio jobs. The Batch compute environment subnets do need outbound access to the Connect server, through a NAT gateway or equivalent for private subnets. See [Networking](../studios/overview#networking) in the Studios documentation.
+
+For the ports and directions to configure on your firewall, see [Firewall configuration](../enterprise/advanced-topics/firewall-configuration).
 
 ## Required Platform IAM permissions
 
@@ -827,7 +835,10 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
 
     </details>
 
-1. Select **Enable Fusion Snapshots (beta)** to enable Fusion to automatically restore jobs that are interrupted when an AWS Spot instance reclamation occurs. Requires Fusion v2. See [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots) for more information.
+1. Select **Enable Fusion Snapshots (beta)** to enable Fusion to automatically restore jobs that are interrupted when an AWS Spot instance reclamation occurs. Requires Fusion v2 and a **Spot** provisioning model. See [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots) for more information.
+    :::caution
+    Restrict **Instance types** under **Advanced options** to the [recommended instance types](https://docs.seqera.io/fusion/guide/snapshots/aws#selecting-an-ec2-instance). Enabling Fusion Snapshots does not populate this field. Do not enable Fusion Snapshots on an On-Demand compute environment.
+    :::
 1. Set the **Config mode** to **Batch Forge** to allow Seqera Platform to manage AWS Batch compute environments using the Forge tool.
 1. Select a **Provisioning model**. To minimize compute costs select **Spot**. You can specify an allocation strategy and instance types under [**Advanced options**](#advanced-options). If advanced options are omitted, Seqera Platform 23.2 and later versions default to `BEST_FIT_PROGRESSIVE` for On-Demand and `SPOT_PRICE_CAPACITY_OPTIMIZED` for Spot compute environments.
     :::note
@@ -1074,7 +1085,10 @@ AWS Batch creates resources that you may be charged for in your AWS account. See
 
     </details>
 
-1. Select **Enable Fusion Snapshots (beta)** to enable Fusion to automatically restore jobs that are interrupted when an AWS Spot instance reclamation occurs. Requires Fusion v2. See [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots) for more information.
+1. Select **Enable Fusion Snapshots (beta)** to enable Fusion to automatically restore jobs that are interrupted when an AWS Spot instance reclamation occurs. Requires Fusion v2 and a **Spot** provisioning model. See [Fusion Snapshots](https://docs.seqera.io/fusion/guide/snapshots) for more information.
+    :::caution
+    Restrict **Instance types** under **Advanced options** to the [recommended instance types](https://docs.seqera.io/fusion/guide/snapshots/aws#selecting-an-ec2-instance). Enabling Fusion Snapshots does not populate this field. Do not enable Fusion Snapshots on an On-Demand compute environment.
+    :::
 
 1. Set the **Config mode** to **Manual**.
 1. Enter the **Head queue** created following the [instructions](../enterprise/advanced-topics/manual-aws-batch-setup.mdx), which is the name of the AWS Batch queue that the Nextflow main job will run.

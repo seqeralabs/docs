@@ -2,7 +2,7 @@
 title: "Azure Cloud"
 description: "Instructions to set up an Azure Cloud compute environment in Seqera Platform"
 date created: "2025-09-29"
-last updated: "2025-09-29"
+last updated: "2026-08-14"
 tags: [cloud, vm, azure, compute environments]
 ---
 
@@ -38,7 +38,7 @@ Seqera will create the following resources in Azure when creating the compute en
 - One log analytics workspace: Used to collect and query execution logs.
 - One data collection rule: To route execution logs to the appropriate Log Analytics table.
 - One data collection endpoint: The endpoint that receives logs, tied to the data collection rule.
-- One virtual network: The network in which virtual machines are launched.
+- One virtual network: The network in which virtual machines are launched. This resource is only created when no existing virtual network is specified in **Advanced options**. When you provide your own VNet, Platform uses it directly and no network resources are provisioned.
 
 When virtual machines are launched, other resources are provisioned for each machine and tied to the machine lifecycle:
 
@@ -52,6 +52,18 @@ Nextflow_log_CL | where workflowId == "<WORKFLOW_ID>"
 ```
 
 The table retains logs for 7 days. Nextflow uploads log files to Azure Storage for long-term storage.
+
+## Networking
+
+Azure Cloud compute environments use a private-only networking model:
+
+- **No public IP**: VMs are launched without a public IP address. All connectivity between Platform and the VM is routed via private networking. If you specify an existing VNet, ensure it has outbound connectivity to Azure services (Storage, Entra ID, Log Analytics) and to Platform.
+- **Studios sessions are outbound-only**: The Seqera Connect client inside a Studio session opens a tunnel outward to the Connect server and registers the session over it. All session traffic, including SSH when enabled, travels over that outbound connection. **No inbound path to the session VM is required.** Users reach a Studio through the Connect proxy rather than by connecting to the VM, so you do not need inbound rules or source-IP allow-lists for dynamically launched Studio VMs. If you specify an existing VNet, ensure it also has outbound connectivity to the Connect server.
+- **Entra ID only**: Azure Cloud credentials require Microsoft Entra ID (client ID and client secret). Storage account key–based credentials are not supported. This applies to both Forge-provisioned and existing virtual networks.
+
+For the ports and directions to configure on your firewall, see [Firewall configuration](../enterprise/advanced-topics/firewall-configuration).
+
+{/* TODO: EDU-420 owns the Studios port/direction table on the firewall page. Link the specific anchor once it publishes; do not duplicate the table here. */}
 
 ## Requirements
 
@@ -419,6 +431,7 @@ Create a compute environment in Seqera using the credentials:
 
 - (Optional) **Subscription ID**: The ID of the subscription where resources must be deployed. If not specified, the subscription ID of the credentials is used.
 - **Instance Type**: The virtual machine type used by the compute environment. Choosing the instance type will directly allocate the CPU and memory available for computation. See [virtual machine sizes](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview) for a comprehensive list of instance types and their resource limitations.
+- **Boot disk size**: The size of the OS disk (in GB) for the virtual machines launched by this compute environment, including Studio session VMs. Must be between 50 and 4095 GB. If undefined, the OS disk uses the default size of the VM image.
 - **Virtual network**: An existing Azure virtual network (VNet) in the configured location. The drop-down is populated with VNets discovered in your Azure account for the selected location. When specified, Platform uses this network for all VMs launched in this compute environment and skips network provisioning. Leave blank to let Platform provision a dedicated VNet automatically.
 
   :::note

@@ -2,7 +2,7 @@
 title: "Launch pipelines"
 description: "Curate and launch pipelines in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-05-18"
+last updated: "2026-08-26"
 tags: [launchpad, launch, configure, pipelines, schema, configuration, nextflow, parameters, input, output]
 ---
 
@@ -51,6 +51,10 @@ Configure the core settings for your run, including the pipeline source, compute
 - **Main script**: The script file to execute (default: `main.nf`). Config profile suggestions may update when this field changes. See [Main script](./advanced#main-script) for custom script paths.
 - **Config profiles**: One or more [configuration profile][nextflow-config-profile] names to use for the execution. Config profiles must be defined in the `nextflow.config` file in the pipeline repository.
 
+    :::caution
+    When you select or change config profiles, Platform reloads the pipeline parameters. Any run parameter that a selected profile defines takes the profile's value, replacing a value you already entered. Select config profiles before you enter run parameter values.
+    :::
+
     <details>
     <summary>How config profiles are detected</summary>
 
@@ -86,7 +90,7 @@ Configure the core settings for your run, including the pipeline source, compute
 
 - **Workflow run name**: A unique identifier for the run, pre-filled with a random name that you can customize.
 - **Labels**: Assign new or existing [labels][labels] to the run.
-- **Compute environment**: The [compute environment][compute-envs] where the run launches.
+- **Compute environment**: The [compute environment][compute-envs] where the run launches. The drop-down groups compute environments by platform and marks the workspace [primary compute environment][primary-compute-env] with a **Primary** badge. Use the search field to filter by name, region, or platform.
 - **Work directory**: The cloud storage or file system path where pipeline scratch data is stored. Seqera Platform creates a scratch sub-folder if you specify only a cloud bucket location. Use file system paths for local or high-performance computing (HPC) compute environments.
   :::note
   The credentials associated with the compute environment must have access to the work directory.
@@ -113,6 +117,8 @@ Enter **Run parameters** in one of four ways before launch:
 - The **Params file view** displays a raw schema that you can edit directly. Select JSON or YAML format from the **View as** drop-down.
 - Use **Upload params file** to upload a JSON or YAML file with run parameters.
 - Specify run parameters with query parameters in the launch URL. See [URL query parameters](#url-query-parameters) for more information.
+
+If you select or change **Config profiles** in [General config](#general-config) after entering run parameters, any parameter that a selected profile defines takes the profile's value.
 
 If the pipeline includes a `nextflow_schema.json` file in its repository root, Seqera Platform uses it to dynamically generate a form with that pipeline's parameters. The fields shown vary by pipeline, depending on the parameters defined in the schema.
 
@@ -145,6 +151,7 @@ In AWS Batch compute environments, Seqera Platform passes stored secrets to jobs
 - **Pre-run scripts**: Custom shell commands to run before the execution.
 - **Post-run scripts**: Custom shell commands to run after the execution.
 - **Stub run**: Replace process commands with [stubs](https://docs.seqera.io/nextflow/process#stub), where defined, before execution.
+- **Nextflow version**: The Nextflow version that runs the pipeline. Available versions depend on the selected compute environment.
 - **Enable Nextflow syntax parser v2**: Run the pipeline with the v2 Nextflow language parser.
 - **Workflow entry name**: A named DSL2 workflow other than the default.
 - **Schema name**: The name of a pipeline schema file in the workflow repository root folder to override the default `nextflow_schema.json`.
@@ -256,6 +263,7 @@ The following table lists the supported URL query parameters and their correspon
 [nextflow-workflow-outputs]: https://docs.seqera.io/nextflow/workflow#outputs
 [labels]: ../labels/overview
 [compute-envs]: ../compute-envs/overview
+[primary-compute-env]: ../compute-envs/overview#select-default-compute-environment
 [pipeline-schema]: ../pipeline-schema/overview
 [data-lineage]: ../data/data-lineage
 [workspace-settings-lineage]: ../orgs-and-teams/workspace-management#lineage

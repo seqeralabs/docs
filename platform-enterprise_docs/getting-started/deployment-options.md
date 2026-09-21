@@ -1,10 +1,12 @@
 ---
 title: "Deploy Platform"
-description: "An overview of deployment versions and ways to run Seqera Platform."
+description: "Seqera Platform Enterprise deployment and the ways to access your instance."
 date created: "2023-04-21"
-last updated: "2026-06-16"
-tags: [deployment]
+last updated: "2026-09-02"
+tags: [platform, deployment]
 ---
+
+Deploy Seqera Platform Enterprise in your organization's own infrastructure, then access it through the UI, the API, the CLI, or Nextflow.
 
 [Seqera Platform Enterprise](../enterprise/overview) is installed in an organization's own cloud or on-premises infrastructure. It includes:
 
@@ -19,16 +21,18 @@ tags: [deployment]
 
 To install Platform in your organization's infrastructure, [contact us](https://cloud.seqera.io/demo/) for a demo to discuss your requirements.
 
-## How to use Platform
+## Access Platform
 
 You can access your Seqera instance through the UI, the [API](https://docs.seqera.io/platform-api), the [CLI](https://docs.seqera.io/platform-cli), or in Nextflow directly using the `-with-tower` option.
 
-### Platform web-based UI
+### Web-based UI
 
-1. Create an account and log in to Seqera Cloud at [cloud.seqera.io](https://cloud.seqera.io).
+To get started in the Platform UI:
+
+1. Sign in to your Seqera Platform instance at the URL provided by your administrator.
 
    :::note
-   Platform login sessions remain active as long as the application browser window remains open and active. When the browser window is terminated, automatic logout occurs within 6 hours by default.
+   Login sessions remain active while the browser window is open and active. After you close the browser window, Platform signs you out within 6 hours by default.
    :::
 
 2. Create and configure a new [compute environment](../compute-envs/overview).
@@ -48,27 +52,27 @@ See [CLI](https://docs.seqera.io/platform-cli).
 
 ### Nextflow `-with-tower`
 
-If you have an existing environment where you run Nextflow directly, you can still leverage Seqera Platform capabilities by executing your Nextflow run with a `with-tower` flag:
+If you run Nextflow directly in an existing environment, add the `-with-tower` option to your run command to use Platform capabilities:
 
-1. Create an account and log in to Seqera at [cloud.seqera.io](https://cloud.seqera.io).
-2. From your personal workspace: Go to the user menu and select **Settings > Your tokens**.
+1. Sign in to your Seqera Platform instance.
+2. In your personal workspace, go to the user menu and select **Settings** > **Your tokens**.
 3. Select **Add token**.
 4. Enter a unique name for your token, then select **Add**.
 5. Copy and store your token securely.
 
     :::caution
-    The access token is displayed only once. Save the token value before closing the **Personal Access Token** window.
+    Platform displays the access token only once. Save the token value before you close the **Personal Access Token** window.
     :::
 
-6. Open a terminal window and create environment variables to store the Seqera access token and Nextflow version. Replace `<ACCESS_TOKEN>` with your newly-created token.
+6. Open a terminal window and create environment variables to store the Seqera access token and Nextflow version. Replace `<ACCESS_TOKEN>` with your new token.
 
     ```bash
     export TOWER_ACCESS_TOKEN=<ACCESS_TOKEN>
-    export NXF_VER=23.10.1
+    export NXF_VER=26.04.6
     ```
 
     :::note
-    Bearer token support requires Nextflow version 20.10.0 or later. Set with the `NXF_VER` environment variable.
+    Bearer token support requires Nextflow version 20.10.0 or later. Set the version with the `NXF_VER` environment variable.
     :::
 
 7. To submit a pipeline to a [workspace](../orgs-and-teams/workspace-management) using Nextflow, add the workspace ID to your environment:

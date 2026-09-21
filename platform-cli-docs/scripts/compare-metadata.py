@@ -1,159 +1,192 @@
 #!/usr/bin/env python3
-"""
-Compare two CLI metadata versions to identify changes.
-Outputs markdown report for PR description.
+"""Compare resolved CLI metadata and write a review-oriented Markdown report."""
 
-Supports both metadata formats:
-- Old: { "tw": {...} }
-- New: { "metadata": {...}, "hierarchy": {...} }
-"""
+from __future__ import annotations
 
+import argparse
 import json
-import sys
 from pathlib import Path
+from typing import Any
 
 
-def get_hierarchy(data):
-    """
-    Extract hierarchy from metadata, supporting both old and new formats.
+def hierarchy(data: dict[str, Any]) -> dict[str, Any]:
+    value = data.get("hierarchy") or data.get("tw")
+    return value if isinstance(value, dict) else {}
 
-    Old format: { "tw": {...} }
-    New format: { "metadata": {...}, "hierarchy": {...} }
-    """
-    if 'hierarchy' in data:
-        return data['hierarchy']
-    elif 'tw' in data:
-        return data['tw']
+
+def children(command: dict[str, Any]) -> list[dict[str, Any]]:
+    values = command.get("children") or command.get("subcommands") or []
+    return [value for value in values if isinstance(value, dict) and not value.get("hidden")]
+
+
+def command_path(command: dict[str, Any], fallback: str) -> str:
+    return command.get("full_command") or command.get("fullPath") or fallback
+
+
+def all_commands(command: dict[str, Any], fallback: str = "tw") -> dict[str, dict[str, Any]]:
+    path = command_path(command, fallback)
+    result = {path: command}
+    for child in children(command):
+        result.update(all_commands(child, f"{path} {child.get('name', '')}".strip()))
+    return result
+
+
+def option_key(option: dict[str, Any]) -> tuple[str, ...]:
+    return tuple(sorted(option.get("names") or []))
+
+
+def option_summary(option: dict[str, Any]) -> tuple[Any, ...]:
+    return (
+        option.get("description") or "",
+        bool(option.get("required")),
+        option.get("default_value"),
+        option.get("arity"),
+        option.get("param_label"),
+        option.get("type"),
+    )
+
+
+def positional_summary(command: dict[str, Any]) -> list[tuple[Any, ...]]:
+    return [
+        (
+            item.get("index"),
+            item.get("param_label"),
+            item.get("description") or "",
+            bool(item.get("required")),
+            item.get("arity"),
+            item.get("type"),
+        )
+        for item in command.get("positionals", [])
+        if not item.get("hidden")
+    ]
+
+
+def describe_option_change(old: dict[str, Any], new: dict[str, Any]) -> str:
+    fields = []
+    if (old.get("description") or "") != (new.get("description") or ""):
+        fields.append("description")
+    if bool(old.get("required")) != bool(new.get("required")):
+        fields.append("required status")
+    if old.get("default_value") != new.get("default_value"):
+        fields.append("default")
+    if old.get("arity") != new.get("arity") or old.get("param_label") != new.get("param_label"):
+        fields.append("value shape")
+    if old.get("type") != new.get("type"):
+        fields.append("type")
+    return ", ".join(fields) or "metadata"
+
+
+def compare(old: dict[str, Any] | None, new: dict[str, Any]) -> str:
+    tag = new.get("metadata", {}).get("cli_version", "unknown release")
+    new_commands = all_commands(hierarchy(new))
+    lines = [
+        f"## CLI documentation update for `{tag}`",
+        "",
+        "This draft PR was generated from the verified `tw-jar.jar` release asset. "
+        "Raw metadata is attached to the workflow run and is not committed to the repository.",
+        "",
+    ]
+
+    if old is None:
+        lines.extend(
+            [
+                "### Baseline",
+                "",
+                f"- Captured {len(new_commands)} visible commands as the first docs-owned metadata baseline.",
+                "- Review all generated reference pages and preserved overlays before merging.",
+                "",
+            ]
+        )
     else:
-        return {}
+        old_commands = all_commands(hierarchy(old))
+        added = sorted(set(new_commands) - set(old_commands))
+        removed = sorted(set(old_commands) - set(new_commands))
+        changed_descriptions = []
+        changed_positionals = []
+        option_changes: list[str] = []
+
+        for path in sorted(set(old_commands) & set(new_commands)):
+            old_command = old_commands[path]
+            new_command = new_commands[path]
+            if (old_command.get("description") or "") != (new_command.get("description") or ""):
+                changed_descriptions.append(path)
+            if positional_summary(old_command) != positional_summary(new_command):
+                changed_positionals.append(path)
+
+            old_options = {option_key(item): item for item in old_command.get("options", [])}
+            new_options = {option_key(item): item for item in new_command.get("options", [])}
+            for names in sorted(set(new_options) - set(old_options)):
+                option_changes.append(f"- `{path}`: added `{', '.join(names)}`")
+            for names in sorted(set(old_options) - set(new_options)):
+                option_changes.append(f"- `{path}`: removed `{', '.join(names)}`")
+            for names in sorted(set(old_options) & set(new_options)):
+                if option_summary(old_options[names]) != option_summary(new_options[names]):
+                    details = describe_option_change(old_options[names], new_options[names])
+                    option_changes.append(f"- `{path}`: changed `{', '.join(names)}` ({details})")
+
+        lines.extend(
+            [
+                "### Resolved CLI changes",
+                "",
+                f"- Visible commands: {len(old_commands)} → {len(new_commands)}",
+                f"- Added commands: {len(added)}",
+                f"- Removed commands: {len(removed)}",
+                f"- Commands with changed descriptions: {len(changed_descriptions)}",
+                f"- Commands with changed positional arguments: {len(changed_positionals)}",
+                f"- Added, removed, or changed options: {len(option_changes)}",
+                "",
+            ]
+        )
+        if added:
+            lines.extend(["#### Added commands", "", *[f"- `{path}`" for path in added], ""])
+        if removed:
+            lines.extend(["#### Removed commands", "", *[f"- `{path}`" for path in removed], ""])
+        if changed_descriptions:
+            lines.extend(
+                ["#### Changed command descriptions", "", *[f"- `{path}`" for path in changed_descriptions], ""]
+            )
+        if changed_positionals:
+            lines.extend(
+                ["#### Changed positional arguments", "", *[f"- `{path}`" for path in changed_positionals], ""]
+            )
+        if option_changes:
+            lines.extend(["#### Option changes", "", *option_changes, ""])
+        if not any((added, removed, changed_descriptions, changed_positionals, option_changes)):
+            lines.extend(["No user-visible command-model changes were detected.", ""])
+
+    lines.extend(
+        [
+            "### Required review",
+            "",
+            "- [ ] Confirm generated command and option changes against release notes and `tw ... --help`.",
+            "- [ ] Update or remove overlays affected by renamed or removed commands.",
+            "- [ ] Add conceptual guidance or examples for new behavior; do not infer unsupported examples.",
+            "- [ ] Check the command index and sidebar placement for new top-level commands.",
+            "- [ ] Build the Platform CLI docset and inspect the preview.",
+            "",
+            "Use `.claude/skills/review-cli-docs-release/SKILL.md` for the evidence and inference workflow.",
+            "",
+        ]
+    )
+    return "\n".join(lines)
 
 
-def count_commands(data, path='tw'):
-    """
-    Count total number of commands recursively.
-    Supports both 'subcommands' (old) and 'children' (new) fields.
-    """
-    count = 1
-    # Support both 'children' (new format) and 'subcommands' (old format)
-    subcommands = data.get('children', []) or data.get('subcommands', [])
-    # Filter out string entries (class names) if any
-    subcommands = [s for s in subcommands if isinstance(s, dict)]
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("new_metadata", type=Path)
+    parser.add_argument("old_metadata", type=Path, nargs="?")
+    parser.add_argument("--output", type=Path)
+    args = parser.parse_args()
 
-    for subcmd in subcommands:
-        count += count_commands(subcmd, f"{path} {subcmd['name']}")
-    return count
-
-
-def get_all_commands(data, path='tw'):
-    """
-    Extract all commands with their full paths.
-    Supports both 'subcommands' (old) and 'children' (new) fields.
-    """
-    commands = {path: data}
-    # Support both 'children' (new format) and 'subcommands' (old format)
-    subcommands = data.get('children', []) or data.get('subcommands', [])
-    # Filter out string entries (class names) if any
-    subcommands = [s for s in subcommands if isinstance(s, dict)]
-
-    for subcmd in subcommands:
-        commands.update(get_all_commands(subcmd, f"{path} {subcmd['name']}"))
-    return commands
+    new = json.loads(args.new_metadata.read_text())
+    old = json.loads(args.old_metadata.read_text()) if args.old_metadata else None
+    report = compare(old, new)
+    if args.output:
+        args.output.write_text(report)
+    else:
+        print(report, end="")
+    return 0
 
 
-def compare_metadata(old_path, new_path):
-    """Compare two metadata files and generate report."""
-
-    with open(old_path) as f:
-        old = json.load(f)
-    with open(new_path) as f:
-        new = json.load(f)
-
-    report = []
-    report.append("## CLI Documentation Changes\n\n")
-
-    # Extract hierarchy from both formats
-    old_hierarchy = get_hierarchy(old)
-    new_hierarchy = get_hierarchy(new)
-
-    # Add metadata version info if present
-    if 'metadata' in new:
-        metadata = new['metadata']
-        if metadata.get('extractor_version'):
-            report.append(f"**Metadata Version:** {metadata['extractor_version']}\n")
-        if metadata.get('extracted_at'):
-            report.append(f"**Extracted:** {metadata['extracted_at']}\n")
-        report.append("\n")
-
-    # Count changes
-    old_count = count_commands(old_hierarchy)
-    new_count = count_commands(new_hierarchy)
-
-    report.append(f"**Commands:** {old_count} → {new_count} ({new_count - old_count:+d})\n\n")
-
-    # Find new/removed commands
-    old_cmds = get_all_commands(old_hierarchy)
-    new_cmds = get_all_commands(new_hierarchy)
-
-    new_command_paths = set(new_cmds.keys()) - set(old_cmds.keys())
-    removed_command_paths = set(old_cmds.keys()) - set(new_cmds.keys())
-
-    if new_command_paths:
-        report.append("### New Commands\n\n")
-        for cmd_path in sorted(new_command_paths):
-            report.append(f"- `{cmd_path}`\n")
-        report.append("\n")
-
-    if removed_command_paths:
-        report.append("### Removed Commands\n\n")
-        for cmd_path in sorted(removed_command_paths):
-            report.append(f"- `{cmd_path}`\n")
-        report.append("\n")
-
-    # Find changed options
-    has_changes = False
-    changes_section = ["### Changed Options\n\n"]
-
-    for cmd_path in sorted(set(old_cmds.keys()) & set(new_cmds.keys())):
-        old_cmd = old_cmds[cmd_path]
-        new_cmd = new_cmds[cmd_path]
-
-        old_opts = {tuple(opt['names']): opt for opt in old_cmd.get('options', [])}
-        new_opts = {tuple(opt['names']): opt for opt in new_cmd.get('options', [])}
-
-        added_opts = set(new_opts.keys()) - set(old_opts.keys())
-        removed_opts = set(old_opts.keys()) - set(new_opts.keys())
-        changed_opts = []
-
-        for opt_names in set(old_opts.keys()) & set(new_opts.keys()):
-            if old_opts[opt_names] != new_opts[opt_names]:
-                changed_opts.append(opt_names)
-
-        if added_opts or removed_opts or changed_opts:
-            has_changes = True
-            changes_section.append(f"**`{cmd_path}`**:\n")
-            if added_opts:
-                for names in sorted(added_opts):
-                    changes_section.append(f"  - ➕ Added: `{', '.join(names)}`\n")
-            if removed_opts:
-                for names in sorted(removed_opts):
-                    changes_section.append(f"  - ➖ Removed: `{', '.join(names)}`\n")
-            if changed_opts:
-                for names in sorted(changed_opts):
-                    old_desc = old_opts[names].get('description', '')[:50]
-                    new_desc = new_opts[names].get('description', '')[:50]
-                    changes_section.append(f"  - 📝 Updated: `{', '.join(names)}` (description changed)\n")
-            changes_section.append("\n")
-
-    if has_changes:
-        report.extend(changes_section)
-
-    return ''.join(report)
-
-
-if __name__ == '__main__':
-    if len(sys.argv) != 3:
-        print("Usage: compare-metadata.py <old-metadata.json> <new-metadata.json>")
-        sys.exit(1)
-
-    report = compare_metadata(sys.argv[1], sys.argv[2])
-    print(report)
+if __name__ == "__main__":
+    raise SystemExit(main())

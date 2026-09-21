@@ -2,7 +2,7 @@
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-07-20"
+last updated: "2026-09-16"
 tags: [google, batch, gcp, compute environments]
 ---
 
@@ -64,8 +64,9 @@ By default, Google Cloud Batch uses the default Compute Engine service account t
 * Logs Writer (`roles/logging.logWriter`) on the project (to let jobs generate logs in Cloud Logging)
 * Service Account User (`roles/iam.serviceAccountUser`)
 * Service Usage Consumer (`roles/serviceusage.serviceUsageConsumer`)
+* Storage Bucket Viewer (`roles/storage.bucketViewer`) on the project (required if you grant Storage access per bucket instead of project-wide Storage Admin, which already includes the `storage.buckets.list` permission)
 
-If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below.
+If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below. Seqera needs the `storage.buckets.list` permission at the project level to list buckets when you create a compute environment, to browse buckets in Data Explorer, and to [validate the credential](./preflight-checks). Bucket-level grants cannot confer `storage.buckets.list`.
 
 #### User permissions
 
@@ -74,7 +75,6 @@ Ask your Google Cloud administrator to grant you the following IAM user permissi
 * Batch Job Editor (`roles/batch.jobsEditor`) on the project
 * Service Account User (`roles/iam.serviceAccountUser`) on the job's service account (default: Compute Engine service account)
 * View Service Accounts (`roles/iam.serviceAccountViewer`) on the project
-* `storage.buckets.list` on the project via a custom role, if you use per-bucket Storage grants instead of project-wide Storage Admin. Seqera requires this permission to validate credentials — without it, credential validation fails and the compute environment is marked invalid.
 
 #### Authentication methods
 
@@ -221,11 +221,11 @@ To specify virtual machine settings per pipeline run in Platform, or as a persis
 
 When Fusion v2 is enabled, Seqera Platform applies the following virtual machine settings:
 
-* A 375 GB local NVMe SSD is selected for all compute jobs.
-* If you do not specify a machine type, Seqera selects a VM from families that support local SSDs.
-* Any machine types you specify in the Nextflow config must support local SSDs.
-* Local SSDs are only offered in multiples of 375 GB. You can increment the number of SSDs used per process with the `disk` directive to request multiples of 375 GB. To work with files larger than 100 GB, use at least two SSDs (750 GB or more).
-* Fusion v2 can also use persistent disks for caching. Override the disk requested by Fusion using the `disk` directive and the `type: pd-standard`.
+* Unless you specify an instance template, Nextflow requests a 375 GB scratch disk for all compute jobs. Families that support local SSDs use `local-ssd`. Other families use a persistent disk or Hyperdisk volume.
+* If you do not specify a machine type, Seqera Platform selects a VM from families that support local SSDs.
+* Local SSDs are only offered in multiples of 375 GB. Increment the scratch disk per process with the `disk` directive, for example `disk = [request: 750.GB, type: 'local-ssd']`. Without the `type` option, `disk` sets the boot disk size instead. To work with files larger than 100 GB, use at least two local SSDs (750 GB or more).
+* Fusion v2 can also use persistent disks for caching. See [Scratch disk](https://docs.seqera.io/fusion/guide/gcp-batch#scratch-disk) to choose a disk type.
+* Instance templates override the `disk` directive. To use Fusion with an instance template, the template must include a `local-ssd` disk named `fusion` with 375 GB.
 * Use the `machineType` directive to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
 
 :::note

@@ -2,7 +2,7 @@
 title: "Google Cloud Batch"
 description: "Instructions to set up Google Cloud Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-07-20"
+last updated: "2026-09-16"
 tags: [google, batch, gcp, compute environments]
 ---
 
@@ -65,8 +65,9 @@ By default, Google Cloud Batch uses the default Compute Engine service account t
 * Service Account User (`roles/iam.serviceAccountUser`)
 * Service Usage Consumer (`roles/serviceusage.serviceUsageConsumer`)
 * Secret Manager Secret Accessor (`roles/secretmanager.secretAccessor`) on the project (required if your pipelines use Seqera secrets; the head job and tasks read secrets from GCP Secret Manager)
+* Storage Bucket Viewer (`roles/storage.bucketViewer`) on the project (required if you grant Storage access per bucket instead of project-wide Storage Admin, which already includes the `storage.buckets.list` permission)
 
-If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below.
+If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below. Seqera needs the `storage.buckets.list` permission at the project level to list buckets when you create a compute environment, to browse buckets in Data Explorer, and to [validate the credential](./preflight-checks). Bucket-level grants cannot confer `storage.buckets.list`.
 
 #### User permissions
 
@@ -230,11 +231,11 @@ To specify virtual machine settings per pipeline run in Platform, or as a persis
 
 When Fusion v2 is enabled, Seqera Platform applies the following virtual machine settings:
 
-* A 375 GB local NVMe SSD is selected for all compute jobs.
-* If you do not specify a machine type, Seqera selects a VM from families that support local SSDs.
-* Any machine types you specify in the Nextflow config must support local SSDs.
-* Local SSDs are only offered in multiples of 375 GB. You can increment the number of SSDs used per process with the `disk` directive to request multiples of 375 GB. To work with files larger than 100 GB, use at least two SSDs (750 GB or more).
-* Fusion v2 can also use persistent disks for caching. Override the disk requested by Fusion using the `disk` directive and the `type: pd-standard`.
+* Unless you specify an instance template, Nextflow requests a 375 GB scratch disk for all compute jobs. Families that support local SSDs use `local-ssd`. Other families use a persistent disk or Hyperdisk volume.
+* If you do not specify a machine type, Seqera Platform selects a VM from families that support local SSDs.
+* Local SSDs are only offered in multiples of 375 GB. Increment the scratch disk per process with the `disk` directive, for example `disk = [request: 750.GB, type: 'local-ssd']`. Without the `type` option, `disk` sets the boot disk size instead. To work with files larger than 100 GB, use at least two local SSDs (750 GB or more).
+* Fusion v2 can also use persistent disks for caching. See [Scratch disk](https://docs.seqera.io/fusion/guide/gcp-batch#scratch-disk) to choose a disk type.
+* Instance templates override the `disk` directive. To use Fusion with an instance template, the template must include a `local-ssd` disk named `fusion` with 375 GB.
 * Use the `machineType` directive to specify a VM instance type, family, or custom machine type in a comma-separated list of patterns. For example, `c2-*`, `n1-standard-1`, `custom-2-4`, `n*`, `m?-standard-*`.
 
 :::note
@@ -296,6 +297,9 @@ If you use VM instance templates for the head or compute jobs (see step 8 below)
 :::
 
 1. Enable **Use Private Address** to ensure that your Google Cloud VMs aren't accessible to the public internet.
+   :::note
+   This option requires both a **VPC** and a **Subnet** (step 7). You cannot create the compute environment without them.
+   :::
 2. Use **Boot disk size** to control the persistent disk size that each task and the head job are provided.
 3. Use **Boot Disk Image** to select a specific boot disk image for the compute instances. The drop-down is populated with available images from the GCP Compute API and supports autocomplete filtering. This field is optional. If not set, Google Batch uses the default image.
 4. Use **Instance Type** to select one or more machine types for the compute instances. The drop-down is populated with available instance types for the selected region and supports autocomplete filtering. You can select multiple specific instance types or use family wildcards (for example, `c2-*` or `n*`) to allow Google Batch to choose from a family. This field is optional. If not set, Google Batch automatically selects an appropriate machine type.

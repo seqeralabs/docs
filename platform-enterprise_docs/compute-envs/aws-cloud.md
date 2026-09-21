@@ -44,6 +44,16 @@ The following regions are currently supported:
 - `eu-west-3`
 - `ap-southeast-1`
 
+## Networking
+
+An AWS Cloud compute environment launches a single EC2 instance into a VPC subnet. Set **VPC ID**, **Subnets**, and **Security groups** under [Advanced options](#advanced-options).
+
+- **Outbound access is required**: The instance must reach Amazon S3 for the work directory, and Seqera Platform. A private subnet — one that does not auto-assign a public IP address — reaches S3 only through an S3 gateway endpoint or a NAT gateway. When Seqera Intelligent Compute selects a subnet for you, Seqera creates an S3 gateway endpoint in the VPC if one does not already exist, using the permissions described in [Additional IAM permissions](#additional-iam-permissions). If you select the subnet yourself, provide that route.
+- **Studios sessions are outbound-only**: The Seqera Connect client inside a Studio session opens a tunnel outward to the Connect server, and all session traffic — including SSH when enabled — travels over that outbound connection. **No inbound path to the session VM is required**, so you do not need inbound security group rules or source-IP allow-lists for dynamically launched Studio instances. The subnet does need outbound access to the Connect server. See [Networking](../studios/overview#networking) in the Studios documentation.
+- **Seqera does not create inbound rules**: Where Seqera manages a security group for you, it authorizes egress only. The policy grants `ec2:AuthorizeSecurityGroupEgress` and no inbound equivalent.
+
+For the ports and directions to configure on your firewall, see [Firewall configuration](../enterprise/advanced-topics/firewall-configuration).
+
 ## Requirements
 
 ### Platform credentials
@@ -231,6 +241,44 @@ The following permissions enable Seqera to populate values for drop-down fields.
 }
 ```
 
+#### Data lineage (optional)
+
+If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials so they can create the notification topic and bucket notifications used by the lineage service:
+
+```json
+{
+  "Sid": "LineageIntegrationSNS",
+  "Effect": "Allow",
+  "Action": [
+    "sns:CreateTopic",
+    "sns:SetTopicAttributes",
+    "sns:Subscribe",
+    "sns:ConfirmSubscription",
+    "sns:Unsubscribe",
+    "sns:DeleteTopic"
+  ],
+  "Resource": "arn:aws:sns:<REGION>:<ACCOUNT_ID>:seqera-lineage-*"
+},
+{
+  "Sid": "LineageIntegrationS3",
+  "Effect": "Allow",
+  "Action": [
+    "s3:CreateBucket",
+    "s3:GetBucketNotification",
+    "s3:PutBucketNotification",
+    "s3:GetBucketLocation",
+    "s3:ListBucket",
+    "s3:GetObject"
+  ],
+  "Resource": [
+    "arn:aws:s3:::seqera-lineage-*",
+    "arn:aws:s3:::seqera-lineage-*/*"
+  ]
+}
+```
+
+These permissions cover **Automatic** provisioning. For **Manual** provisioning, Platform makes no control-plane calls other than confirming its own webhook subscription: see [Data lineage](../data/data-lineage#additional-iam-permissions-required) for the reduced permission set.
+
 ## Seqera Intelligent Compute
 
 :::info[Private preview]
@@ -273,6 +321,7 @@ The policy scopes ARN-eligible actions to the `seqera-sched-*` resource prefix, 
         "ecs:StopTask",
         "ecs:DescribeTasks",
         "ecs:DescribeContainerInstances",
+        "ecs:UpdateContainerInstancesState",
         "ecs:TagResource"
       ],
       "Resource": "arn:aws:ecs:*:*:*/seqera-sched-*"
@@ -471,6 +520,7 @@ The AWS Cloud compute environment uses an AMI maintained by Seqera, and the pipe
 - **Subnets**: The list of VPC subnets where the EC2 instance will run. If unspecified, all the subnets of the VPC will be used.
 - **Security groups**: The security groups the EC2 instance will be a part of. If unspecified, no security groups will be used.
 - **Instance Profile**: The ARN of the `InstanceProfile` used by the EC2 instance to assume a role while running. If unspecified, Seqera will provision one with enough permissions to run. See [Custom instance profile](#custom-instance-profile) for the minimum permissions required if you provide your own.
+- **Pipeline secrets KMS key**: A customer-managed KMS key (CMK) that encrypts the temporary AWS Secrets Manager secrets Seqera creates for runs that use pipeline secrets. This field accepts a key ARN or a key ID. A key ARN must be in the same region as the compute environment. If unspecified, Seqera uses the installation default set with [`TOWER_AWS_SECRETS_KMS_KEY_ID`](../enterprise/configuration/overview#compute-environments), or the default AWS-managed key if neither is set. See [Custom instance profile](#custom-instance-profile) for the KMS permissions the instance profile role requires.
 - **Boot disk size**: The size of the EBS boot disk for the EC2 instance. If undefined, a default 50 GB `gp3` volume will be used.
 
 ### Custom instance profile
@@ -555,6 +605,22 @@ In addition to the managed policies, attach the following inline policies:
       "Effect": "Allow",
       "Action": ["secretsmanager:ListSecrets"],
       "Resource": ["*"]
+    }
+  ]
+}
+```
+
+If the compute environment specifies a **Pipeline secrets KMS key**, the role also requires `kms:Decrypt` on that key to read secrets encrypted with the key at task start. Grant the action either by naming the role in the key policy, or in the role's own IAM policy if the key policy delegates to IAM. The default key policy created by `aws kms create-key` delegates to IAM:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PipelineSecretsKmsKey",
+      "Effect": "Allow",
+      "Action": ["kms:Decrypt"],
+      "Resource": "arn:aws:kms:<REGION>:<ACCOUNT_ID>:key/<KEY_ID>"
     }
   ]
 }
