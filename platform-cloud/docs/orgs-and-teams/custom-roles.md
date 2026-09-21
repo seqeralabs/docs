@@ -89,7 +89,7 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 |  | List workspace dataset versions (legacy endpoint) | `GET /workspaces/{workspaceId}/datasets/versions` |
 |  | List dataset versions (legacy endpoint) | `GET /workspaces/{workspaceId}/datasets/{datasetId}/versions` |
 |  | View dataset metadata (legacy endpoint) | `GET /workspaces/{workspaceId}/datasets/{datasetId}/metadata` |
-|  | Download dataset | _(Used by Platform)_ |
+|  | Download dataset | `GET /workspaces/{workspaceId}/datasets/{datasetId}/v/{version}/n/{fileName}` |
 |  | List all datasets | `GET /datasets` |
 |  | List latest dataset versions | `GET /datasets/versions` |
 |  | List versions for a specific dataset | `GET /datasets/{datasetId}/versions` |
