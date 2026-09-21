@@ -67,16 +67,17 @@ Compared `orgs-and-teams/roles.md` and `orgs-and-teams/custom-roles.md` across a
 | Restored the `See [Custom roles]` pointer, which Cloud had dropped — the custom-roles page was otherwise unreachable from the roles page | Cloud | `roles.md` |
 | `credentials_encrypted:read`: `_(Used by Platform)_` → `GET /credentials/{credentialsId}/keys`. The endpoint is in the spec; Cloud already had it right | Unversioned + 26.1 | `custom-roles.md` |
 | `Download dataset`: `_(Used by Platform)_` → `GET /workspaces/{workspaceId}/datasets/{datasetId}/v/{version}/n/{fileName}`. The endpoint is in the spec; Enterprise already had it right | Cloud | `custom-roles.md` |
+| `data_link_object:*` split plus nine missing rows — see below | Unversioned + 26.1 | `roles.md`, `custom-roles.md` |
 
-After these changes `roles.md` and `custom-roles.md` are identical between Unversioned and 26.1, and the only remaining Enterprise/Cloud differences are the deliberate Cloud Pro gating notes and the items below.
+After these changes `roles.md` and `custom-roles.md` are identical between Unversioned and 26.1, and the only remaining Enterprise/Cloud differences are the deliberate Cloud Pro gating notes, one `container:read` sub-operation row (`List containers`) that only Enterprise carries, and the items in section 4.
 
-### Not fixed — the Enterprise permissions reference is behind the API
+### The Enterprise permissions reference caught up with the API
 
-Cloud splits browse, download, and upload out of `data_link:*` into a `data_link_object:*` family (`custom-roles.md`, plus three role-matrix rows in `roles.md`). Enterprise has neither. It also lacks nine rows Cloud has and the 1.181.0 spec confirms: compute-env enable/disable, dataset preview, dataset URL linking, and studio update.
+Cloud splits browse, download, and upload out of `data_link:*` into a `data_link_object:*` family (`custom-roles.md`, plus three role-matrix rows in `roles.md`). Enterprise documented neither, and also lacked nine rows Cloud has and the 1.181.0 spec confirms: compute-env enable/disable, dataset preview, dataset URL linking, and studio update.
 
-This matters because the two trees imply different access: on Cloud `data_link_object:read` is ✅ for every role, while Enterprise files the same operations under `data_link:write`, which is ❌ below Maintain.
+This mattered because the two trees implied different access: on Cloud `data_link_object:read` is ✅ for every role, while Enterprise filed the same operations under `data_link:write`, which is ❌ below Maintain — so the published Enterprise table told View, Connect, and Launch participants they could not browse or download data-link contents.
 
-Table-wide reconciliation, and a product question rather than a docs one. **See "Open questions" #2.**
+Confirmed in review that Enterprise has the same permission model from 26.1, so both Enterprise trees now carry Cloud's `data_link`/`data_link_object` block verbatim, the three role-matrix rows, and the nine missing sub-operation rows.
 
 ---
 
@@ -94,7 +95,7 @@ Table-wide reconciliation, and a product question rather than a docs one. **See 
 - **Cloud Pro gating** — SSO/external-collaborator note in `roles.md`, the Cloud-Pro-only note in `custom-roles.md`, free-tier Studio limit in `studios/overview.md`.
 - **Seqera Compute and credits pricing** — `orgs-and-teams/organizations.md`, `workspace-management.md`, `limits/overview.md`.
 - **Enterprise install/config subtree** — the `enterprise/` tree, `TOWER_*` environment variables, Enterprise-only troubleshooting sections (Databases, Email/TLS, Healthcheck, APM).
-- **Antigravity/Gemini skill** — `co-scientist/skill-antigravity.md` is Cloud-only, and Enterprise's `coding-agents.md` omits it. Not ported. **See "Open questions" #4.**
+- **Antigravity/Gemini skill** — `co-scientist/skill-antigravity.md` is Cloud-only, and Enterprise's `coding-agents.md` omits it. Not ported. **See "Open questions" #2.**
 - **`launch/advanced.md` "Pull latest" section** — Enterprise-only, but Cloud documents Pull latest more fully in `pipelines/revision.md` and `launch/launchpad.md`. Enterprise's version is a one-line duplicate of better content; no port needed.
 - **Anchor names that differ per tree** — Enterprise's `#config-profiles` and `#building-pipeline-schema-files` versus Cloud's `#general-config` and `#define-pipeline-schema`. Each link resolves inside its own tree. Renaming either to match the other would break live links.
 - **`tutorials/retry-strategy.md` vs `compute-envs/aws-spot-interruptions.md`** — the page was renamed in the unversioned tree; `getting-started/production-checklist.md` links correctly in each tree.
@@ -117,6 +118,5 @@ The 2026-06-08 audit was wrong or now out of date on these:
 ## Open questions
 
 1. **Should the unversioned Enterprise tree be published, or should contributors stop editing it?** Right now it is neither. Sixty-two files differ from the published 26.1 snapshot, deploy previews cannot show enterprise changes made there, and there is no signal to a contributor that their edit went nowhere. Either flip `INCLUDE_NEXT` for previews, or make the versioned tree the edit target for anything that is not a next-release feature.
-2. **Does Enterprise 26.1 have the `data_link_object:*` permission family?** If yes, both Enterprise permission tables need the split plus the nine missing rows. If no, label it Cloud-only.
-3. **Should the Antigravity/Gemini skill be documented for Enterprise?** The skill content is platform-agnostic, so this is a product-availability question rather than a content one.
-4. **Is `Maintain` allowed to create Studios?** Enterprise says maintainers "cannot create workspace credentials, compute environments, or Studios"; Cloud omits the Studios clause. The permission rows (`studio:write` ✅ for Maintain) match Cloud's prose, which suggests Enterprise's prose is wrong — but that contradicts its own table, so it needs confirming rather than silently editing.
+2. **Should the Antigravity/Gemini skill be documented for Enterprise?** The skill content is platform-agnostic, so this is a product-availability question rather than a content one.
+3. **Is `Maintain` allowed to create Studios?** Enterprise says maintainers "cannot create workspace credentials, compute environments, or Studios"; Cloud omits the Studios clause. The permission rows (`studio:write` ✅ for Maintain) match Cloud's prose, which suggests Enterprise's prose is wrong — but that contradicts its own table, so it needs confirming rather than silently editing.
