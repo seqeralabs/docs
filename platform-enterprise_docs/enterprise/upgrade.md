@@ -123,13 +123,6 @@ To migrate from Redis to Valkey, update the `TOWER_REDIS_URL` environment variab
 Redis password and ACL configuration carry over unchanged when migrating to Valkey.
 :::
 
-## Frontend image root user deprecation
-
-The frontend image running as root user is deprecated in 26.1 in favor of the unprivileged ("rootless") image. The privileged image running as root will be removed in a future major release. If you have not already migrated, update your [Kubernetes](../enterprise/platform-kubernetes) or [Docker Compose](../enterprise/platform-docker-compose) manifests to reference the unprivileged image when downloading the new templates in the General upgrade steps below.
-
-See the [unprivileged frontend image documentation](../enterprise/platform-kubernetes#seqera-frontend-unprivileged) for security context, file system, and port differences.
-The unprivileged image is a requirement for the installation via the [Helm chart](../enterprise/platform-helm).
-
 ## Studios enabled on all workspaces by default
 
 In 26.1, Studios is enabled on every workspace in your instance by default. This is a behavior change from earlier versions where Studios required explicit per-workspace enablement.
