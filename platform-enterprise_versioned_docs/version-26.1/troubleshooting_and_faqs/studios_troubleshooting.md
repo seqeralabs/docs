@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-08-28"
+last updated: "2026-09-21"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -215,6 +215,7 @@ If you receive a permission denied error, there are several possible causes:
 1. Verify the user has the correct role and permissions in the workspace.
 2. Check that the user's SSH public key is configured in their Seqera user profile.
 3. Ensure SSH was enabled when adding the Studio using the **SSH Connection** toggle. The SSH setting persists across stop/start but defaults to disabled for new Studios.
+4. If some concurrent connections fail while others succeed with the same key, connect one session at a time. If sequential connections succeed, your key and permissions are correct. The concurrent connections exceeded the rate limit for SSH authorization, which the proxy reports as an authentication failure. This applies only when `MICRONAUT_ENVIRONMENTS` includes `ratelim`. To resolve, open fewer connections at the same time, or raise `TOWER_RATELIMIT_PERIOD`. See [Seqera API](../enterprise/configuration/overview#seqera-api) for the rate limit variables.
 
 If the issue persists, verify your administrator configured the SSH environment variables during Studios deployment.
 
@@ -243,6 +244,16 @@ Check Studio logs for:
 ```
 
 The `authorized` field should be `true` and `expected` should equal `incoming`. If they differ, the proxy SSH key configuration is incorrect.
+
+#### SSH command exits with code 255 but no error message
+
+```bash
+ssh alice@a01ac8894@connect.example.com -p 2222 ls /workspace
+echo $?
+# 255
+```
+
+The command completes with full output, but the SSH client exits with code 255 and prints no error. The proxy logs a clean session. This issue occurs when connect-server/proxy version 0.12.1 or 0.12.2 closes the SSH channel before it relays the exit status of the command. Many concurrent connections, or a command that produces no output, make it more likely. Any caller that reads exit codes, such as a script, `scp`, Git over SSH, or VS Code Remote SSH, treats the successful command as a failure. To confirm, check that the output of the command is complete. As a workaround, verify the result of the command before you retry it, because a retry repeats a command that already succeeded.
 
 #### VS Code Remote SSH not working
 
