@@ -1,6 +1,5 @@
 ---
 title: Set up advanced Azure Batch compute environments
-headline: "Set up advanced Azure Batch compute environments"
 description: "Build Azure Batch compute environments with separate head and worker pools, Entra authentication, and private networking."
 ---
 
@@ -43,7 +42,7 @@ Increase each value to at least the following:
 
 In Seqera Platform:
 
-- Create a new account.
+- Sign in to your Seqera Platform deployment.
 - [Create a new organization and workspace][create-org-workspace].
 - Add a GitHub credential to the workspace to prevent API rate-limiting issues with GitHub.
 
@@ -66,17 +65,18 @@ Create the compute environment:
 1. Enter a name such as `azure-batch-forge`.
 1. For **Provider**, select **Azure Batch**.
 1. Select your `azure-keys` credentials.
-1. Select the **Region** of your Batch account.
+1. Select the **Location** of your Batch account.
 1. Select the `az://work` container in your Storage account.
+1. For **Pool mode**, select **Separate head and worker pools**.
 1. Set **Config mode** to **Batch Forge**.
-1. For **VMs type**, select `Standard_E2ds_v5`.
-1. For **VMs count**, select 4.
-1. Enable **Autoscale** and **Dispose resources**.
-1. (Optional) Under **Head job resources**, set **Head VM type**, **Head job CPUs**, and **Head job memory** to size the head node independently of the compute tasks.
+1. Under **Head pool**, leave **VM type** and **VMs count** at their defaults, and enable **Autoscale**.
+1. Under **Worker pool**, set **VM type** to `Standard_E2ds_v5`, set **VMs count** to `4`, and enable **Autoscale**.
+1. (Optional) Set **Head job CPUs** and **Head job memory** to size each Nextflow head job within the head pool.
+1. Enable **Dispose resources**.
 1. Leave the remaining options at their defaults, then select **Create**.
 
 :::tip
-To reduce pipeline latency, expand **Head job resources**, disable **Autoscale**, and set **VMs count** to `1`. One head node then stays running while the worker pool autoscales independently. An always-on head node costs more but responds faster. The difference is most noticeable on large production pipelines.
+To reduce pipeline latency, disable **Autoscale** under **Head pool** and set its **VMs count** to `1`. One head node then stays running while the worker pool autoscales independently. An always-on head node costs more but responds faster. The difference is most noticeable on large production pipelines.
 :::
 
 [Add a pipeline][add-pipeline] named `nextflow-hello` from your workspace Launchpad with the following settings:
@@ -136,7 +136,7 @@ In Seqera Platform:
 
 1. Add a new Batch Forge compute environment named `entra-mi`, and select **Azure Batch** for **Provider**.
 1. For **Credentials**, select the `entra-keys` service principal credentials.
-1. Select the **Region** of your Batch account.
+1. Select the **Location** of your Batch account.
 1. In the managed identity fields, enter the client ID and resource ID for both the head and worker pools. You can use the same managed identity for both pools.
 1. Configure the remaining fields as in [Part 1](#part-1-create-a-batch-forge-compute-environment).
 
@@ -158,7 +158,7 @@ Before you create the compute environment, assign the **Network Contributor** ro
 
 1. Add a new Batch Forge compute environment named `azure-batch-vnet`, and select **Azure Batch** for **Provider**.
 1. For **Credentials**, select the `entra-keys` service principal credentials.
-1. Select the **Region** of your Batch account.
+1. Select the **Location** of your Batch account.
 1. For **Subnet ID**, enter the full Azure Resource Manager (ARM) subnet resource ID:
 
     ```
