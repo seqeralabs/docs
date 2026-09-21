@@ -211,7 +211,7 @@ For a run executed with lineage enabled, the [run details page][run-details] dis
 - **Outputs**: Lists all `FileOutput` records linked to the workflow run, including output name, file path, type, lineage ID, and lineage labels. Files link directly to [Data Explorer][data-explorer].
 
 :::tip
-All LIDs and lineage labels are clickable links. Select any LID to open [lineage search](#search-lineage-records) pre-filled with that identifier.
+All LIDs and lineage labels are clickable links. Select any LID to open [lineage search](#search-data-lineage-records) pre-filled with that identifier.
 :::
 
 :::note

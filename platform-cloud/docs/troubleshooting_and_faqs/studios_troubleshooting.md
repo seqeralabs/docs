@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-08-28"
+last updated: "2026-09-16"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -59,9 +59,9 @@ Seqera creates automated snapshots of running sessions every five minutes. If th
 
 Check whether the instance type you selected [supports GPU](https://aws.amazon.com/ec2/instance-types/). If you specify multiple GPUs, make sure that your compute environment can launch multi-GPU instances and that your maximum CPU configuration doesn't limit them.
 
-### RStudio session initializes with error
+### R-IDE session initializes with error
 
-Connecting to a running RStudio session with R version 4.4.1 (2024-06-14) -- "Race for Your Life" returns a `[rsession-root]` error similar to the following:
+Connecting to a running R-IDE session with R version 4.4.1 (2024-06-14) -- "Race for Your Life" returns a `[rsession-root]` error similar to the following:
 
 ```
 ERROR system error 2 (No such file or directory) [path:/sys/fs/cgroup/memory/memory.limit_in_bytes]; OCCURRED AT rstudio::core::Error rstudio::core::FilePath::openForRead(std::shared_ptr<std::basic_istream<char> >&)
@@ -270,6 +270,7 @@ VS Code, RStudio, and Jupyter environments natively integrate with [GitHub Copil
 [gh-copilot]: https://github.com/features/copilot
 [open-vscode-server]: https://github.com/gitpod-io/openvscode-server
 [open-vsx]: https://open-vsx.org/
+[vscode-blog]: https://code.visualstudio.com/docs/setup/copilot
 [posit-ghcopilot-guide]: https://docs.posit.co/ide/user/ide/guide/tools/copilot.html
 [nbi]: https://github.com/notebook-intelligence/notebook-intelligence
 [nbi-blog]: https://blog.jupyter.org/introducing-notebook-intelligence-3648c306b91a
