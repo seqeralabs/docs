@@ -2,6 +2,7 @@
 title: "Command approval"
 description: "Control which local commands require user approval in Co-Scientist"
 date created: "2025-12-15"
+last updated: "2026-09-22"
 tags: [co-scientist, cli, approval, security]
 ---
 
@@ -31,6 +32,8 @@ You can:
 - **1**: Run the command once (or press Enter)
 - **2**: Run the command and auto-approve all commands for the rest of the session
 - **3**: Reject the command (or press Escape)
+
+An approval prompt stays open for 15 minutes. If you don't respond in that time, the request times out and Co-Scientist stops waiting for the command result.
 
 ## Approval modes
 
