@@ -33,6 +33,8 @@ In plan mode, Co-Scientist focuses on:
 Plan mode blocks write and execution tools, including:
 
 - `execute_bash_local`
+- `run_nextflow_lint_local`
+- `run_nf_core_lint_local`
 - `write_file_local`
 - `edit_file_local`
 - `create_directory_local`

@@ -98,8 +98,8 @@ seqera skill check [options]
 | Option | Short | Description |
 |--------|-------|-------------|
 | `--update` | `-u` | Automatically update outdated skills |
-| `--global` | | Check only global installations |
-| `--local` | | Check only local (repository) installations |
+| `--global` | `-g` | Check only global installations |
+| `--local` | `-l` | Check only local (repository) installations |
 
 ## seqera update
 
