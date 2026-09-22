@@ -2,6 +2,7 @@
 title: "Codex"
 description: "Install and maintain the Co-Scientist skill for Codex"
 date created: "2026-03-11"
+last updated: "2026-09-22"
 tags: [co-scientist, cli, skills, codex]
 ---
 
@@ -11,37 +12,29 @@ This page covers how to install the skill into Codex and keep it in sync as you 
 
 ## `seqera skill install`
 
-Use `seqera skill install` to add the Co-Scientist skill to Codex. Run it without options to launch an interactive installer that detects your setup and prompts for a location, or pass a flag to install directly to a specific path.
+Use `seqera skill install` to add the Co-Scientist skill to Codex. Pass the Codex skill directory with `--path`. Relative paths resolve from the repository root.
 
-Launch the interactive installer:
-
-```bash
-seqera skill install
-```
-
-Install to your project `AGENTS.md` path:
+Install into the current repository:
 
 ```bash
-seqera skill install --path AGENTS.md
+seqera skill install --path .codex/skills/seqera
 ```
 
-Install into the current repository root and let the CLI select the Codex format automatically:
+Install for your user account, relative to your home directory:
 
 ```bash
-seqera skill install --local
+seqera skill install --global --path .codex/skills/seqera
 ```
 
-Or install to your home directory:
-
-```bash
-seqera skill install --global
-```
-
-You can also auto-detect and update an existing installation:
+Update an existing installation by detecting where it is:
 
 ```bash
 seqera skill install --detect
 ```
+
+:::note
+Without `--path`, `seqera skill install` installs the Claude Code layout (`.claude/skills/seqera`), at the repository root or, with `--global`, in your home directory. It does not prompt for a location. Run it inside a git repository unless you pass `--global` or an absolute `--path`. `--path` is a directory: the CLI creates it and writes `SKILL.md` and its supporting files inside it.
+:::
 
 ### Usage
 
@@ -89,8 +82,8 @@ seqera skill check [OPTIONS]
 | Option | Short | Description |
 |--------|-------|-------------|
 | `--update` | `-u` | Automatically update outdated skills |
-| `--global` | | Check only global installations |
-| `--local` | | Check only local (repository) installations |
+| `--global` | `-g` | Check only global installations |
+| `--local` | `-l` | Check only local (repository) installations |
 
 ## Learn more
 
