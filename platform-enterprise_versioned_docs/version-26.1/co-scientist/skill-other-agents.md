@@ -2,6 +2,7 @@
 title: "Other coding agents"
 description: "Install and maintain the Co-Scientist skill for other coding agents"
 date created: "2026-03-11"
+last updated: "2026-09-22"
 tags: [co-scientist, cli, skills, coding agents]
 ---
 
@@ -11,48 +12,40 @@ This page covers the agents the CLI supports, how to install the skill into one 
 
 ## Supported agents
 
-The CLI can install the skill into the following agents, each in the format that agent expects:
+The CLI can install the skill into the following agents. Each path is relative to the repository root for a local install, or to your home directory with `--global`:
 
-| Agent | Format |
+| Agent | Skill directory |
 |-------|--------|
-| [Cursor](https://www.cursor.com/) | `.cursor/rules/` |
-| [OpenCode](https://opencode.ai/) | `.opencode/` |
-| [Pi](https://github.com/badlogic/pi-mono) | `.pi/` |
-| [Windsurf](https://windsurf.com/) | `.windsurf/rules/` |
+| [Cursor](https://www.cursor.com/) | `.cursor/skills/seqera` |
+| [OpenCode](https://opencode.ai/) | `.opencode/skills/seqera` |
+| [Pi](https://github.com/badlogic/pi-mono) | `.pi/agent/skills/seqera` |
+| [Windsurf](https://windsurf.com/) | `.windsurf/skills/seqera` |
 
 ## `seqera skill install`
 
-Use `seqera skill install` to add the Co-Scientist skill to your coding agent. Run it without options to launch an interactive installer that detects your setup and prompts for a location, or pass a flag to install directly to a specific path.
+Use `seqera skill install` to add the Co-Scientist skill to your coding agent. Pass the agent's skill directory from the [supported agents](#supported-agents) table with `--path`. Relative paths resolve from the repository root.
 
-Launch the interactive installer:
-
-```bash
-seqera skill install
-```
-
-Install to a specific agent path:
+Install into the current repository, for example for Cursor:
 
 ```bash
-seqera skill install --path <agent-path>
+seqera skill install --path .cursor/skills/seqera
 ```
 
-Install into the current repository root:
+Install for your user account, relative to your home directory:
 
 ```bash
-seqera skill install --local
+seqera skill install --global --path .cursor/skills/seqera
 ```
 
-Or install to your home directory:
-
-```bash
-seqera skill install --global
-```
-
-You can also auto-detect and update an existing installation:
+Update an existing installation by detecting where it is:
 
 ```bash
 seqera skill install --detect
 ```
+
+:::note
+Without `--path`, `seqera skill install` installs the Claude Code layout (`.claude/skills/seqera`), at the repository root or, with `--global`, in your home directory. It does not prompt for a location. Run it inside a git repository unless you pass `--global` or an absolute `--path`. `--path` is a directory: the CLI creates it and writes `SKILL.md` and its supporting files inside it.
+:::
 
 ### Usage
 
@@ -100,8 +93,8 @@ seqera skill check [OPTIONS]
 | Option | Short | Description |
 |--------|-------|-------------|
 | `--update` | `-u` | Automatically update outdated skills |
-| `--global` | | Check only global installations |
-| `--local` | | Check only local (repository) installations |
+| `--global` | `-g` | Check only global installations |
+| `--local` | `-l` | Check only local (repository) installations |
 
 ## Learn more
 

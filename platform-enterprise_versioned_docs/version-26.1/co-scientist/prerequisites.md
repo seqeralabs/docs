@@ -2,7 +2,7 @@
 title: "Prerequisites"
 description: "Prerequisites for Co-Scientist"
 date created: "2026-04-20"
-last updated: "2026-05-21"
+last updated: "2026-09-22"
 tags: [prerequisites]
 ---
 
@@ -37,11 +37,12 @@ Co-Scientist uses Claude models via [Amazon Bedrock](https://aws.amazon.com/bedr
 
 The following Bedrock model access must be enabled in your account:
 
-| Role    | Model ID                    | Used for                        |
-| ------- | --------------------------- | ------------------------------- |
-| Primary | `anthropic.claude-sonnet-4-6`         | General AI interactions         |
-| Fast    | `anthropic.claude-haiku-4-5-20251001-v1:0` | Quick tasks (search, summaries) |
-| Deep    | `anthropic.claude-opus-4-6-v1`        | Complex planning tasks          |
+| Role | Model | How it is set |
+| --- | --- | --- |
+| Primary | Claude Sonnet 4.6, through the `global.anthropic.claude-sonnet-4-6` inference profile | `bedrock.inference.anthropicModel` in the agent backend chart. Defaults to `global.anthropic.claude-sonnet-4-6` when unset |
+| Fast, deep, and summary | Claude Sonnet 4.6, through the `global.anthropic.claude-sonnet-4-6` inference profile | Agent backend default. Not exposed as chart values |
+
+By default, every role uses Claude Sonnet 4.6, so you only need access to that one Claude model.
 
 ## Database
 
