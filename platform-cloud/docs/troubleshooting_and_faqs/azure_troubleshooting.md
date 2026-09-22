@@ -15,7 +15,7 @@ When running pipelines on Azure, you might encounter the following issues.
 After September 30, 2025 low-priority VMs are only available in user subscription pool allocation mode Batch accounts. See the [Microsoft migration guide](https://learn.microsoft.com/en-us/azure/batch/low-priority-vms-retirement-migration-guide).
 :::
 
-The default Azure Batch implementation in Seqera Platform uses a single pool for head and compute nodes, and all jobs spawn dedicated (on-demand) VMs. To save costs by running compute jobs on low-priority VMs, use separate pools for head and compute jobs:
+Batch Forge creates separate head and worker pools with dedicated (on-demand) VMs by default. To save costs by running compute tasks on low-priority VMs, create the pools manually:
 
 1. Create two Batch pools in Azure:
     - One dedicated pool
