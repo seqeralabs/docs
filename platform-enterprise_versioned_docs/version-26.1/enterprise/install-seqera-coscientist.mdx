@@ -24,10 +24,10 @@ Before you begin, make sure you have:
 - DNS names and TLS certificates for the Platform, agent backend, MCP server, and portal web interface hosts. By default, the Helm charts derive `mcp.<platformExternalDomain>`, `ai-api.<platformExternalDomain>`, and `ai.<platformExternalDomain>`. Override `global.mcpDomain`, `global.agentBackendDomain`, and `global.portalWebDomain` if you use different hostnames.
 - Access to pull the images required by the Helm charts from the configured container registry, or mirrored copies in your internal registry. See [Seqera container images](./advanced-topics/seqera-container-images.md) and [Mirroring container images](./configuration/mirroring.md).
 - A MySQL 8.4 LTS-compatible database for the agent backend. You can use the same MySQL instance as Platform with a separate database and user, or a separate instance.
-- A Redis 7.2-compatible or Valkey 7.2-compatible instance for agent backend task coordination.
+- A Redis 7.2-compatible or Valkey 7.2-compatible instance for agent backend task coordination. You can use the same instance as Platform with a different Redis database index, or a separate instance.
 - A stable Fernet token encryption key for the agent backend if you use Kustomize. Helm-only installs can let the chart generate this key, but explicitly setting it avoids accidental regeneration.
 - Access to a supported Claude inference provider. AWS Bedrock is recommended for Enterprise deployments; direct Anthropic API access is also supported.
-- If you use AWS Bedrock, access to the required Claude model or inference profile and the Amazon Titan embedding model. See AWS documentation to [add or remove access to Amazon Bedrock foundation models](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access-modify.html).
+- If you use AWS Bedrock, a configured AWS account: model access, the IAM permissions the agent backend pods need, and an AgentCore runtime if you enable sandboxed sessions. See [Bedrock setup](../co-scientist/bedrock-setup.md).
 - If you use direct Anthropic API access, an Anthropic API key stored in a Kubernetes Secret.
 
 Generate a Fernet token encryption key when you set the key manually:
@@ -124,7 +124,9 @@ agent-backend:
   # -- Redis or Valkey
   redis:
     host: redis.example.com
-    db: 0
+    port: 6379
+    # Database index. Set a different index to Platform's when both share one instance.
+    database: 0
     existingSecretName: seqera-ai-secrets
     existingSecretKey: AGENT_BACKEND_REDIS_PASSWORD
 
@@ -140,7 +142,7 @@ agent-backend:
   sandbox:
     provider: bedrock   # optional; omit to disable AgentCore sandbox sessions
 
-  # -- Bedrock configuration
+  # -- Bedrock configuration. See Bedrock setup for the IAM policies these roles require.
   bedrock:
     # Default credentials applied to all Bedrock-backed services unless overridden per-service.
     # Use this when inference, embeddings, and sandbox all share the same role and region.
