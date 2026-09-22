@@ -2,6 +2,7 @@
 title: "CLI"
 description: "Seqera CLI commands and options for Co-Scientist"
 date created: "2026-05-28"
+last updated: "2026-09-22"
 tags: [co-scientist, cli, reference]
 ---
 
@@ -34,15 +35,31 @@ seqera ai [query] [options]
 | Option | Description |
 |--------|-------------|
 | `[query]` | Optional initial prompt to start the session with |
-| `-c` | Continue your most recent session |
-| `-s <session-id>` | Resume a specific session by ID |
-| `--approval-mode <mode>` | Set the approval mode for local commands, for example `basic` or `full` (see [Command approval](../command-approval.md)) |
+| `-c`, `--continue` | Continue your most recent session in the current directory |
+| `-s`, `--session <session-id>` | Resume a specific session by ID |
+| `--approval-mode <mode>` | Set the approval mode for local commands: `basic`, `default`, or `full` (see [Command approval](../command-approval.md)) |
 | `--headless` | Run non-interactively and send output to stdout |
 | `--show-thinking` | Include thinking messages in headless output |
 | `--show-tools` | Include tool calls in headless output |
+| `--show-tool-results` | Include tool results in headless output |
 | `--sub-agent` | Run as a subagent with structured JSONL output |
+| `--events-path <file>` | Write all session events to a file as JSONL |
+| `-v`, `--verbose` | Enable verbose logging |
+| `--debug` | Enable debug logging |
 
 See [Sessions](../sessions.md) for usage examples.
+
+## seqera info
+
+Show the authenticated user, the agent backend, and Seqera Platform connection details.
+
+```bash
+seqera info [-o console|json]
+```
+
+| Option | Short | Description |
+|--------|-------|-------------|
+| `--output <format>` | `-o` | Output format: `console` (default) or `json` |
 
 ## seqera org
 
@@ -83,6 +100,14 @@ seqera skill check [options]
 | `--update` | `-u` | Automatically update outdated skills |
 | `--global` | | Check only global installations |
 | `--local` | | Check only local (repository) installations |
+
+## seqera update
+
+Check for a newer CLI version and print the command to install it.
+
+```bash
+seqera update
+```
 
 ## seqera --version
 

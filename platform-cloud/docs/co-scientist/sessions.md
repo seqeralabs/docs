@@ -2,6 +2,7 @@
 title: "Sessions"
 description: "Start, continue, resume, and exit Co-Scientist sessions, and run non-interactively"
 date created: "2026-05-27"
+last updated: "2026-09-22"
 tags: [co-scientist, cli, sessions]
 ---
 
@@ -74,6 +75,24 @@ seqera ai --headless --show-tools "list my workflows"
 :::note
 Headless mode is also auto-detected when stdout is piped, for example `seqera ai "query" | grep "result"`.
 :::
+
+## Session retention and limits
+
+Co-Scientist keeps session history for a fixed period and caps the number of sessions:
+
+| Setting | Limit |
+| --- | --- |
+| CLI session history retention | 14 days |
+| Seqera Platform Co-Scientist conversation retention | 180 days |
+| Idle time before a session's in-memory state is released | 48 hours |
+| Sessions per user | 100 |
+| Sessions per workspace | 500 |
+
+After 48 hours without activity, Co-Scientist releases a session's in-memory state. The conversation history is kept, so you can still resume the session until it reaches the retention limit. After the retention limit, the session is deleted and can no longer be resumed.
+
+## Interrupt a response
+
+Press `Esc` to interrupt the current response. The CLI stops the run on the Co-Scientist backend as well as in your terminal, so interrupted work does not continue in the background.
 
 ## Exit a session
 

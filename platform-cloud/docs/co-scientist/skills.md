@@ -2,6 +2,7 @@
 title: "Skills configuration"
 description: "Discover, create, and install skills in the Seqera CLI"
 date created: "2026-03-11"
+last updated: "2026-09-22"
 tags: [co-scientist, cli, skills]
 ---
 
@@ -18,11 +19,11 @@ See [Skills](./reference/skills-reference.md) for a list of the available built-
 
 ## Use skills in the CLI
 
-When you start `seqera ai`, the CLI discovers available skills automatically. Backend-provided skills are also exposed as slash commands in the `/` command palette and `/help`.
+When you start `seqera ai`, the CLI discovers available skills automatically. Built-in skills from the Co-Scientist backend and the project and user skills discovered from your [discovery directories](#discovery-directories) are all exposed as slash commands in the `/` command palette and `/help`. If a project or user skill has the same name as a built-in skill, your skill takes precedence.
 
 You can:
 
-- Type `/` to browse built-in commands and backend skills
+- Type `/` to browse built-in commands, built-in skills, and your own skills
 - Run `/help` to see commands and skill descriptions in the terminal
 - Add project-specific `SKILL.md` files so Co-Scientist starts each session with the right context
 

@@ -2,6 +2,7 @@
 title: "Skills"
 description: "Built-in skills, slash commands, and session limits for the Seqera CLI"
 date created: "2026-05-27"
+last updated: "2026-09-22"
 tags: [co-scientist, cli, skills, reference]
 ---
 
@@ -19,15 +20,18 @@ Co-Scientist exposes two kinds of slash command in the `/` palette. TUI commands
 | `/thinking` | Toggle thinking display |
 | `/scroll` | Toggle auto-scroll |
 | `/org` | Show current organization |
+| `/session` | Show the current session ID |
+| `/sessions` | Browse and switch sessions |
 | `/lsp` | Show LSP server status |
 | `/status` | Show system status |
 | `/credits` | Show credit balance and usage |
 | `/approval` | Show or set approval mode |
+| `/update` | Check for CLI updates and show next steps |
 | `/feedback` | Open feedback form |
 | `/help-community` | Open community help |
 | `/stickers` | Get Seqera stickers |
 
-The second kind, AI commands, are backed by skills and sent to the AI backend. The built-in ones are listed below, and any skills your deployment exposes appear alongside them in `/` and `/help`.
+The second kind, AI commands, are backed by skills and sent to the AI backend. The built-in ones are listed below. Project and user skills you author appear alongside them in `/` and `/help`, and take precedence over a built-in skill with the same name. See [Skills configuration](../skills.md).
 
 ## Built-in skills
 
