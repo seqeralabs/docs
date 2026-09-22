@@ -103,13 +103,11 @@ For more information on configuration, see [Configuration options](./configurati
 
 #### Seqera frontend unprivileged
 
-An unprivileged version of the Seqera frontend image is also available. This image listens on an unprivileged port and therefore doesn't need to be run as the root user.
-
-Replace the tag of the frontend image `cr.seqera.io/enterprise/platform/frontend:v24.x.x` with `cr.seqera.io/enterprise/platform/frontend:v24.x.x-unprivileged`. Then update the `frontend` section of the `docker-compose.yml` file as follows, replacing the port mappings as needed:
+The Seqera frontend image listens on an unprivileged port. Update the `frontend` section of the `docker-compose.yml` file as follows, replacing the port mappings as needed:
 
 ```yaml
   frontend:
-    image: cr.seqera.io/enterprise/platform/frontend:v24.x.x-unprivileged
+    image: cr.seqera.io/enterprise/platform/frontend:v26.2.0
     platform: linux/amd64
     environment:
       NGINX_LISTEN_PORT: 8001  # If not defined, defaults to 8000
@@ -122,7 +120,7 @@ Replace the tag of the frontend image `cr.seqera.io/enterprise/platform/frontend
       - backend
 ```
 
-The unprivileged Seqera image will soon deprecate the current image that requires root. The unprivileged image can be easily customized using environment variables:
+The Seqera frontend image can be easily customized using environment variables:
 
 - `NGINX_LISTEN_PORT`: The port the NGINX process will listen on inside the container. Default: `8000`.
 - `NGINX_LISTEN_PORT_IPV6`: The NGINX listening port to open on the IPv6 address. Default: `8000`.

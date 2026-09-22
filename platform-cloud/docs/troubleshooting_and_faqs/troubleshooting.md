@@ -1,17 +1,14 @@
 ---
 title: "General"
 description: "Troubleshooting Seqera Platform"
-date: "24 Apr 2023"
+date created: "2023-04-23"
+last updated: "2026-09-16"
 tags: [troubleshooting, help]
 ---
 
 When working with Seqera Platform, you might encounter the following issues.
 
 ## Common errors
-
-#### `timeout is not an integer or out of range`
-
-This error occurs on Seqera Platform v24.2 and later when Redis is outdated. Version 24.2 requires Redis 6.2 or later. To resolve, upgrade your Redis instance according to your cloud provider's instructions.
 
 #### `Unknown pipeline repository or missing credentials` from public GitHub repositories
 
@@ -78,20 +75,6 @@ The behavior of `sleep` commands in your Nextflow workflows depends on where the
 - In an `errorStrategy` block, Nextflow uses the Groovy sleep function, which takes its value in milliseconds.
 - In a process script block, that language's sleep binary or method is used. For example, [this bash script](https://docs.seqera.io/nextflow/metrics) uses the bash sleep binary, which takes its value in seconds.
 
-#### Large number of batch job definitions
-
-Platform normally looks for an existing job definition that matches your workflow requirement. If nothing matches, it recreates the job definition. Use a bash script to clear job definitions. Tailor it to your needs, for example to deregister only job definitions older than a set number of days:
-
-```bash
-jobs=$(aws --region eu-west-1 batch describe-job-definitions | jq -r .jobDefinitions[].jobDefinitionArn)
-
-for x in $jobs; do
-  echo "Deregister $x";
-  sleep 0.01;
-  aws --region eu-west-1 batch deregister-job-definition --job-definition $x;
-done
-```
-
 ## Containers
 
 #### Use rootless containers in Nextflow pipelines
@@ -116,10 +99,6 @@ k8s.securityContext = [
 ```
 
 ## Git integration
-
-#### `Get branches operation not supported by BitbucketServerRepositoryProvider provider`
-
-If you supplied the correct Bitbucket credentials and URL details in your `tower.yml` and still see this error, upgrade to at least v22.3.0. This version addresses SCM provider authentication issues and likely resolves the retrieval failure.
 
 #### `Cannot invoke "String.toCharArray()" because "password" is null` {#gitlab-token-without-password}
 
@@ -196,10 +175,6 @@ cp /root/.docker/config.json /home/ec2-user/.docker/config.json && chmod 777 /ho
 For **Azure Batch**, create a **Container registry**-type credential in your Seqera workspace and associate it with the Azure Batch compute environment in the same workspace.
 
 For **Kubernetes**, use an `imagePullSecret`, per [#2827](https://github.com/nextflow-io/nextflow/issues/2827).
-
-#### `Remote resource not found`
-
-This error occurs when the Nextflow head job fails to retrieve the repository credentials from Seqera. If your Nextflow log contains an entry like `DEBUG nextflow.scm.RepositoryProvider - Request [credentials -:-]`, check the protocol of your instance's `TOWER_SERVER_URL` value. It must be set to `https` rather than `http`, unless you use `TOWER_ENABLE_UNSAFE_MODE` to allow HTTP connections to Seqera in a test environment.
 
 ## Secrets
 
@@ -373,7 +348,7 @@ Connect to the head node over SSH and run `ps -p $$` to verify your default shel
 
 1. Check which shells are available: `cat /etc/shells`
 2. Change your shell: `chsh -s /usr/bin/bash` (the path to the binary might differ, depending on your HPC configuration).
-3. If submissions continue to fail after the shell change, ask your Seqera Platform admin to restart the **backend** and **cron** containers, then submit again.
+3. If submissions continue to fail after the shell change, [contact Seqera support](https://support.seqera.io).
 
 #### Execution logs don't update in real time for HPC compute environments
 

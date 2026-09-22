@@ -64,16 +64,24 @@ Select **Manage** and then choose to enable lineage by default for all pipeline 
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| **Credentials** | Yes | The workspace credentials Platform uses to create and access the lineage storage bucket. The credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage the SQS queue. |
+| **Credentials** | Yes | The workspace credentials Platform uses to create and access the lineage storage bucket and its notification topic. In **Automatic** mode, the credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage the Amazon Simple Notification Service (SNS) topic and its subscription. In **Manual** mode, they only need to read the bucket and confirm the webhook subscription. See [Data lineage](../data/data-lineage#additional-iam-permissions-required). |
 | **Region** | Yes | Cloud region where the lineage storage bucket is created (for example, `us-east-1`, `eu-west-1`). |
-| **Bucket name** | No | Bucket where lineage records are stored. If left empty, Platform generates a default bucket name in the form `seqera-lineage-<workspace-id>`. |
+| **Bucket name** | No | Bucket where lineage records are stored. If left empty, Platform generates a default bucket name in the form `seqera-lineage-<workspace-id>`. Required in **Manual** mode, where it must match the bucket you have provisioned. |
 
-If configuring **manually**, two additional settings can be defined:
+If configuring **manually**, one additional setting is required:
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| **SQS Queue name** | No | The Amazon Simple Queue Service (SQS) name. If left empty, Platform generates a default queue name in the form `<bucket-name>-notifications`. |
-| **SQS Queue ARN** | No | The ARN of the SQS queue. This is useful if your Platform deployment requires cross-account access. |
+| **SNS topic ARN** | Yes | The ARN of the Amazon SNS topic your bucket publishes object notifications to, in the form `arn:aws:sns:<region>:<account-id>:<topic-name>`. In **Automatic** mode, Platform creates the topic as `<bucket-name>-notifications`. |
+
+Once the settings are saved, the lineage settings page also shows:
+
+| Field | Description |
+|-------|-------------|
+| **Event delivery** | Whether events are reaching Platform: **Active**, **Awaiting confirmation**, **Failed**, or **Not configured**. This is independent of the configuration status. A workspace can be configured and writable while Platform receives nothing. |
+| **Webhook URL** | The per-workspace HTTPS endpoint to which AWS delivers this workspace's bucket events. In **Manual** mode, subscribe this URL to your SNS topic (protocol `https`). |
+
+Select **Disable lineage** to remove the configuration and stop indexing records for the workspace. Platform removes any automatically provisioned notification infrastructure. The bucket and the lineage data in it are not affected, and you can configure lineage again at any time.
 
 ### Edit or delete a workspace
 
@@ -87,12 +95,61 @@ Select **Delete workspace** to delete the workspace and its associated resources
 
 ## Add a new participant
 
-A new workspace participant can be an existing organization member, team, or collaborator. To add a new participant to a workspace:
+A new workspace participant can be an existing organization member, a team, or a collaborator. To add a new participant to a workspace:
 
 1. Go to the **Participants** tab in the workspace menu.
 2. Select **Add participant**.
-3. Enter the **Name** of the new participant.
-4. Optionally, update the participant **role**.
+3. Enter one of the following:
+   - The name of an existing organization **member** or **team**, selected from the suggestions.
+   - The username or email address of a Seqera user, to add them to this workspace as a **collaborator**.
+4. Optionally, update the participant **role**. New participants are added with the **Launch** role by default.
+
+### What happens when you add a participant by username or email
+
+Adding a participant this way can create two records: an **organization membership** and a **workspace participant**. Which of these are created determines which usage limit applies, and whether the person is notified by email.
+
+| Their existing status | Organization membership | Email notification |
+| --------------------- | ----------------------- | ------------------ |
+| Already a member of this organization | Reused. Their organization role is unchanged | No |
+| Already a collaborator elsewhere in this organization | Reused. They remain a collaborator | Yes |
+| Has a Seqera account, but is not in this organization | Created, with the **Collaborator** role | Yes |
+| Has no Seqera account | Created, if [account creation on add](#allow-accounts-to-be-created-on-the-fly) is enabled | Yes |
+
+:::note
+Having a Seqera account is not the same as being a member of your organization. Someone with an existing account who is not yet in your organization still consumes an organization member seat when you add them to a workspace.
+:::
+
+Two [usage limits](../limits/overview) apply independently:
+
+- The **members per organization** limit is checked only when a new organization membership is created. Collaborators count toward this limit.
+- The **participants per workspace** limit is checked every time, including when you add someone who is already a member of your organization.
+
+Adding an existing organization member to a second workspace therefore consumes a participant slot but no member seat, while adding someone from outside the organization consumes both.
+
+### Allow accounts to be created on the fly
+
+By default, you can only add people who already have a Seqera account. To allow an account to be created when a participant is added by email address, set `TOWER_PARTICIPANT_AUTO_CREATE_USER=true`. See [Opt-in Seqera features](../enterprise/configuration/overview#core-features).
+
+With this enabled, entering an email address that has no matching account creates the account, adds it to the organization as a collaborator, and adds it to the workspace.
+
+Accounts are never created from a username. A username for someone without an account always fails, even when account creation on add is enabled — use their email address instead.
+
+:::caution
+Accounts created this way are marked as trusted regardless of your [trusted email](../enterprise/configuration/authentication/email#restrict-access) configuration. Anyone who can add workspace participants can therefore create a trusted account for an address that would otherwise be unable to sign in.
+:::
+
+:::note
+The equivalent setting for organization members and team members, `TOWER_MEMBER_AUTO_CREATE_USER`, is enabled by default. The participant setting is disabled by default.
+:::
+
+### Participants that can't be added
+
+| Message | Cause |
+| ------- | ----- |
+| `Can't find any user record with the given email` | No Seqera account matches that email address, and [account creation on add](#allow-accounts-to-be-created-on-the-fly) is disabled. |
+| `Can't find any user record with the given name` | A username was entered for someone without a Seqera account. Usernames only resolve to existing accounts — use their email address instead. |
+| `Cannot add external collaborators to workspaces in an organization with active SSO. Invite the user as an organization member instead.` | The organization uses SSO. See [Collaborators and SSO](./organizations#collaborators-and-sso). |
+| `Already a participant` | That user or team is already a participant in this workspace. |
 
 ## Workspace run monitoring
 

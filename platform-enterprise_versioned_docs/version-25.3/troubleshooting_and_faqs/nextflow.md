@@ -91,6 +91,30 @@ The following configuration is suggested to overcome AWS limitations:
   }
   ```
 
+**`Part number must be an integer between 1 and 10000`**
+
+```
+Caused by: Part number must be an integer between 1 and 10000, inclusive
+```
+
+This error occurs when a pipeline output file exceeds the AWS S3 multipart upload limit of 10,000 parts. At a chunk size of 10 MB, files larger than 100 GB reach this limit.
+
+Nextflow 25.10 and later set the multipart chunk size automatically. The `aws.client.uploadChunkSize` option is no longer supported and is ignored if you set it. Use `aws.client.minimumPartSize` to control chunk size.
+
+On Nextflow 25.04 and earlier, increase the upload chunk size. Divide the file size in megabytes by 10,000 and round up to get the minimum chunk size. For a 200 GB file, set `uploadChunkSize` to at least 21 MB in the **Nextflow config file** field of the launch form:
+
+```
+aws {
+  client {
+    uploadChunkSize = '21MB'
+  }
+}
+```
+
+Alternatively, if the large files are intermediate results you do not need, configure your pipeline to skip publishing them. See your pipeline documentation for the parameters that disable specific outputs.
+
+For the full list of constraints, see the [AWS S3 multipart upload limits](https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html).
+
 **Nextflow unable to parse a params file from Seqera**
 
 Ephemeral endpoints can only be consumed once. Nextflow versions older than 22.04 may try to call the same endpoint more than once, resulting in an error:
@@ -98,6 +122,37 @@ Ephemeral endpoints can only be consumed once. Nextflow versions older than 22.0
 _Cannot parse params file: /ephemeral/example.json - Cause: Server returned HTTP response code: 403 for URL: https://api.tower.nf/ephemeral/example.json_
 
 To resolve this problem, upgrade Nextflow to version 22.04.x or later.
+
+**Job fails after extended queue time: ephemeral endpoint expiration**
+
+Jobs that remain in queue longer than the ephemeral endpoint lifetime (8 hours by default) fail when they finally start, because Nextflow can no longer retrieve its parameters from Platform. The same applies if the refresh token expires before the job starts — Nextflow cannot authenticate.
+
+**Symptoms:**
+- Jobs submitted successfully but fail when starting after 8+ hours in queue
+- Error messages indicating expired tokens or 403 responses from Platform
+
+**Solution:**
+
+Increase the ephemeral endpoint duration and the refresh token expiration to accommodate your expected queue times. For example, for queue times up to 12 hours:
+
+```yaml
+tower:
+  ephemeral:
+    duration: 12h
+
+micronaut:
+  security:
+    token:
+      jwt:
+        signatures:
+          refresh-token:
+            expiration: 12h
+      refresh:
+        cookie:
+          cookie-max-age: 14h
+```
+
+See [Ephemeral endpoint configuration](../secrets/overview#ephemeral-endpoint-configuration) and [Session management](../enterprise/configuration/authentication/overview#session-management).
 
 **Prevent Nextflow from uploading intermediate files from local scratch to AWS S3 work directory**
 

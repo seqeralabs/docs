@@ -2,7 +2,7 @@
 title: "Intelligent Compute"
 description: "Set up Seqera Intelligent Compute on an AWS Cloud compute environment"
 date created: "2026-06-12"
-last updated: "2026-08-21"
+last updated: "2026-09-09"
 tags: [intelligent compute, aws, ecs, compute environments]
 toc_min_heading_level: 2
 toc_max_heading_level: 4
@@ -225,10 +225,13 @@ The **Metrics** tab for a run on Intelligent Compute shows three resource values
 
 ## Configuration options
 
+Configure the following options when you enable Intelligent Compute on a compute environment.
+
 | Option | Values | Default | Description |
 |--------|--------|---------|-------------|
 | **Seqera Intelligent Compute** | Enabled / Disabled | Disabled | Enables the Intelligent Compute scheduler for this compute environment. This option only appears if Intelligent Compute is enabled for your workspace. |
 | **Provisioning model** | `spotFirst`, `spot`, `ondemand` | `spotFirst` | Instance procurement strategy. `spotFirst` uses Spot instances and falls back to On-Demand if Spot capacity is unavailable. `spot` uses Spot instances only. `ondemand` uses On-Demand instances only. |
+| **Max spot attempts** | Integer, `1`–`10` | `3` | Total number of Spot provisioning attempts for a task, including the first, before falling back to On-Demand with `spotFirst`. Only visible when **Provisioning model** is `spot` or `spotFirst`. Set to `1` for a single attempt with no retry. Compute environments created before this setting was introduced are not backfilled and keep their current behavior. |
 | **Instance types** | Comma-separated EC2 instance type identifiers (for example, `m5.xlarge, c5.2xlarge`) | Empty | Restricts which instance types the scheduler can select. When empty, the scheduler picks the most cost-effective type for each task. |
 | **Prediction model** | `none`, `qr/v1`, `qr/v2` | `none` | For private preview, use `qr/v2`. |
 | **Backend strategy** | `ECS`, `EC2` | `ECS` | Task execution backend. Use `ECS` (default). `EC2` is reserved for future use. |
@@ -237,3 +240,15 @@ The **Metrics** tab for a run on Intelligent Compute shows three resource values
 | **Enable warm pool** | Enabled / Disabled | Disabled | Keep a pool of idle VMs available to reduce task start latency. Only available when **Backend strategy** is `EC2`. |
 | **Desired warm VMs** | Integer | — | Target number of idle VMs to keep warm. Must be greater than zero. Only visible when **Enable warm pool** is enabled. |
 | **Scale-to-zero timeout** | Seconds | — | Seconds of inactivity after which the warm pool scales to zero. Set to `0` to never scale to zero. Only visible when **Enable warm pool** is enabled. |
+
+### Spot retries and `process.maxRetries`
+
+Intelligent Compute and Nextflow retry tasks at two independent layers.
+
+The scheduler retries a task on Spot capacity up to the **Max spot attempts** value. These retries happen inside the scheduler. Neither Nextflow nor Seqera Platform sees them. With `spotFirst`, the scheduler can also move a task from Spot to On-Demand capacity. Nextflow does not see this transition either.
+
+A Spot capacity failure reaches Nextflow only after the scheduler exhausts its attempts. Nextflow then counts one task error. That error consumes a `process.maxRetries` attempt when the process sets `errorStrategy = 'retry'`.
+
+:::note
+**Max spot attempts** is a separate setting from the `aws.batch.maxSpotAttempts` Nextflow configuration property described in [AWS Spot interruption management](./aws-spot-interruptions). That property applies to AWS Batch compute environments only and has no effect on Intelligent Compute.
+:::

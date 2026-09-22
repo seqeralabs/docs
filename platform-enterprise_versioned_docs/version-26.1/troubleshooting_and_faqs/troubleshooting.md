@@ -1,7 +1,8 @@
 ---
 title: "General"
 description: "Troubleshooting Seqera Platform"
-date: "24 Apr 2023"
+date created: "2023-04-23"
+last updated: "2026-09-16"
 tags: [troubleshooting, help]
 ---
 
@@ -11,7 +12,7 @@ When working with Seqera Platform, you might encounter the following issues.
 
 #### `timeout is not an integer or out of range`
 
-This error occurs on Seqera Platform v24.2 and later when Redis is outdated. Version 24.2 requires Redis 6.2 or later. To resolve, upgrade your Redis instance according to your cloud provider's instructions.
+This error occurs when your Redis instance is older than the version Platform requires. Platform versions 24.2 to 25.3 require Redis 6.2 or later. From Platform 26.1, Redis 6.x is no longer supported: upgrade to Redis 7.2 or 7.4, or migrate to Valkey 7.x. To resolve, upgrade your Redis instance according to your cloud provider's instructions. See [Cache layer changes](../enterprise/upgrade#cache-layer-changes-redis-eol-and-valkey-support).
 
 #### `Unknown pipeline repository or missing credentials` from public GitHub repositories
 
@@ -50,20 +51,6 @@ The behavior of `sleep` commands in your Nextflow workflows depends on where the
 
 - In an `errorStrategy` block, Nextflow uses the Groovy sleep function, which takes its value in milliseconds.
 - In a process script block, that language's sleep binary or method is used. For example, [this bash script](https://docs.seqera.io/nextflow/metrics) uses the bash sleep binary, which takes its value in seconds.
-
-#### Large number of batch job definitions
-
-Platform normally looks for an existing job definition that matches your workflow requirement. If nothing matches, it recreates the job definition. Use a bash script to clear job definitions. Tailor it to your needs, for example to deregister only job definitions older than a set number of days:
-
-```bash
-jobs=$(aws --region eu-west-1 batch describe-job-definitions | jq -r .jobDefinitions[].jobDefinitionArn)
-
-for x in $jobs; do
-  echo "Deregister $x";
-  sleep 0.01;
-  aws --region eu-west-1 batch deregister-job-definition --job-definition $x;
-done
-```
 
 ## Containers
 

@@ -72,6 +72,16 @@ The following locations are currently supported:
 - `us-west4`
 
 
+## Networking
+
+A Google Cloud compute environment launches a Compute Engine instance into a VPC network and subnet.
+
+- **Outbound access is required**: When the compute environment is configured to launch VMs without an external IP address, the VPC must provide outbound access through Cloud NAT and Private Google Access.
+- **Firewall rules target network tags**: Network tags configured on the compute environment are applied to launched VMs, and are what your VPC firewall rules target.
+- **Studios sessions are outbound-only**: The Seqera Connect client inside a Studio session opens a tunnel outward to the Connect server, and all session traffic — including SSH when enabled — travels over that outbound connection. **No inbound path to the session VM is required**, so you do not need ingress firewall rules or source-IP allow-lists for dynamically launched Studio VMs. The network does need outbound access to the Connect server. See [Networking](../studios/overview#networking) in the Studios documentation.
+
+For the ports and directions to configure on your firewall, see [Firewall configuration](../enterprise/advanced-topics/firewall-configuration).
+
 ## Requirements
 
 ### Platform credentials

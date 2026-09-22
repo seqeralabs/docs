@@ -40,7 +40,7 @@ Configure the core settings for your run, including the pipeline source, compute
   :::note
   Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration][git] in the Seqera docs and [Pipeline sharing][pipeline-sharing] in the Nextflow docs for more details.
   :::
-- **Version name**: The pipeline version name selected as the default for this run. See [Pipeline versioning][pipeline-version] for details.
+- **Version name**: The pipeline version name selected as the default for this run. See [Pipeline versioning][pipeline-versioning] for details.
 - **Version ID**: The pipeline version ID selected as the default for this run. See [Pipeline versioning][pipeline-versioning] for details.
 - **Revision**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch.
 - **Commit ID**: The pipeline revision commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
@@ -90,7 +90,7 @@ Configure the core settings for your run, including the pipeline source, compute
 
 - **Workflow run name**: A unique identifier for the run, pre-filled with a random name that you can customize.
 - **Labels**: Assign new or existing [labels][labels] to the run.
-- **Compute environment**: The [compute environment][compute-envs] where the run launches.
+- **Compute environment**: The [compute environment][compute-envs] where the run launches. The drop-down groups compute environments by platform and marks the workspace [primary compute environment][primary-compute-env] with a **Primary** badge. Use the search field to filter by name, region, or platform.
 - **Work directory**: The cloud storage or file system path where pipeline scratch data is stored. Seqera Platform creates a scratch sub-folder if you specify only a cloud bucket location. Use file system paths for local or high-performance computing (HPC) compute environments.
   :::note
   The credentials associated with the compute environment must have access to the work directory.
@@ -151,6 +151,7 @@ In AWS Batch compute environments, Seqera Platform passes stored secrets to jobs
 - **Pre-run scripts**: Custom shell commands to run before the execution.
 - **Post-run scripts**: Custom shell commands to run after the execution.
 - **Stub run**: Replace process commands with [stubs](https://docs.seqera.io/nextflow/process#stub), where defined, before execution.
+- **Nextflow version**: The Nextflow version that runs the pipeline. Available versions depend on the selected compute environment.
 - **Enable Nextflow syntax parser v2**: Run the pipeline with the v2 Nextflow language parser.
 - **Workflow entry name**: A named DSL2 workflow other than the default.
 - **Schema name**: The name of a pipeline schema file in the workflow repository root folder to override the default `nextflow_schema.json`.
@@ -262,6 +263,7 @@ The following table lists the supported URL query parameters and their correspon
 [nextflow-workflow-outputs]: https://docs.seqera.io/nextflow/workflow#outputs
 [labels]: ../labels/overview
 [compute-envs]: ../compute-envs/overview
+[primary-compute-env]: ../compute-envs/overview#select-default-compute-environment
 [pipeline-schema]: ../pipeline-schema/overview
 [data-lineage]: ../data/data-lineage
 [workspace-settings-lineage]: ../orgs-and-teams/workspace-management#lineage
