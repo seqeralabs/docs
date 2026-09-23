@@ -101,6 +101,16 @@ For a complete example, see the [Co-Scientist Helm example](https://github.com/s
 
 When MCP runs under the Platform parent chart, leave `mcp.oidcToken` unset unless you need to override the default wiring. The parent chart sets it to the Platform backend secret key `OIDC_CLIENT_REGISTRATION_TOKEN`.
 
+MCP server images from 1.4.3 are published only to `cr.seqera.io/enterprise/mcp/server`. The 26.1 charts default the MCP image repository to `ai/mcp/server`, which serves releases up to 1.4.2 only, and the chart is not patched retroactively. If your chart deploys MCP 1.4.3 or later, override the repository:
+
+```yaml
+mcp:
+  image:
+    repository: enterprise/mcp/server
+```
+
+The chart sets no default registry. Set `global.imageRegistry` to the registry you copy Seqera images into, or to `cr.seqera.io` if your cluster pulls directly. If you mirror images, mirror `enterprise/mcp/server`.
+
 ## Configure the agent backend
 
 The agent backend needs MySQL, Redis or Valkey, inference provider access, MCP connectivity, and a stable token encryption key. In this example sensitive values (db and redis passwords, token encryption key, etc) are stored in a Kubernetes secret named `seqera-ai-secrets`, which needs to already exist before the chart installation, either created manually or with automated secret extraction tools (like External Secrets, not covered in this tutorial).

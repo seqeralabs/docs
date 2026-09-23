@@ -122,3 +122,7 @@ Co-Scientist container images are hosted at `cr.seqera.io`. The exact repository
 | Portal web interface | [portal-web chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/portal-web)    |
 
 Ensure your cluster can pull from `cr.seqera.io`, or if your cluster runs in a restricted network, mirror these images to your own registry.
+
+:::caution
+MCP server images from 1.4.3 are published only to `cr.seqera.io/enterprise/mcp/server`. The 26.1 charts default the MCP image repository to `ai/mcp/server`, which serves releases up to 1.4.2 only. If your chart deploys MCP 1.4.3 or later, set `mcp.image.repository: enterprise/mcp/server` in your values, and mirror from `cr.seqera.io/enterprise/mcp/server`. See [Configure MCP](../enterprise/install-seqera-coscientist.mdx#configure-mcp).
+:::
