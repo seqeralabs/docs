@@ -1,27 +1,27 @@
 ---
 title: "Agents"
-description: "Create reusable background agents in a workspace and run them against your pipelines"
+description: "Create reusable background agents in a workspace and run them against pipeline runs"
 date created: "2026-08-28"
 tags: [co-scientist, platform, agent, ai]
 ---
 
-An agent is a reusable, named set of instructions that Co-Scientist runs on your behalf in a Seqera Platform workspace. Where a Co-Scientist conversation is interactive and starts empty each time, an agent captures a task you repeat — investigating failed runs, summarizing results — so anyone in the workspace can run it without rewriting the prompt.
+An agent is a named, reusable set of instructions that Co-Scientist runs on your behalf in a Seqera Platform workspace. A Co-Scientist conversation is interactive and starts empty each time. An agent captures a task you repeat, such as investigating failed runs or summarizing results, and anyone in the workspace can run it without rewriting the prompt.
 
 Agents are workspace-scoped. Every agent in a workspace is visible to everyone with permission to read agents, not only the person who created it. An agent acts as the [service account](#agent-identity-and-permissions) bound to it rather than as the person who starts it, and reaches private repositories through a [GitHub App credential](#access-to-private-git-repositories) in its workspace.
 
 :::info
-Agents are being rolled out to Seqera Platform Cloud. If you do not see **Agents** under **AI** in the workspace navigation, contact Seqera to enable it for your organization.
+Seqera is rolling out agents to Seqera Platform Cloud organizations. If you do not see **Agents** under **AI** in the workspace navigation, contact Seqera to enable it for your organization.
 :::
 
 ## Agents, chat, and coding agents
 
-Seqera uses "agent" for three different things. This page covers the first:
+Seqera uses the word "agent" for three different things:
 
-- **Agents** — reusable instruction sets you create in a workspace and run against your pipelines, described here.
-- **[Co-Scientist chat](./platform.md)** — the interactive assistant panel in Seqera Platform.
-- **[Coding agents](./coding-agents.md)** — third-party tools such as Claude Code or Codex, which you connect to Seqera through a skill.
+- **Agents** (this page): Reusable instruction sets you create in a workspace and run against pipeline runs.
+- **[Co-Scientist chat](./platform.md)**: The interactive assistant panel in Seqera Platform.
+- **[Coding agents](./coding-agents.md)**: Third-party tools such as Claude Code or Codex that you connect to Seqera through a skill.
 
-Agents are also unrelated to Tower Agent, the component that connects Seqera Platform to an HPC cluster.
+Agents are also unrelated to Tower Agent, the component that connects Seqera Platform to a high-performance computing (HPC) cluster.
 
 ### Agents compared with Co-Scientist chat
 
@@ -33,15 +33,15 @@ Agents and Co-Scientist chat are the same assistant reached two ways. Both work 
 | Instructions | Written once and saved, reused on every run | Written fresh in each conversation |
 | Acts as | The service account bound to the agent | You, with your own permissions |
 | Who sees it | Everyone in the workspace who can read agents | Only you, in your own session |
-| What starts it | You, from a run — or an event, where automated actions are enabled | You, by typing in the panel |
+| What starts it | You, from a run, or an event where automated actions are enabled | You, by typing in the panel |
 
 ## Permissions
 
-Two things control agents: the workspace grants that decide who can see and manage them, and the service account that decides what an agent can do when it runs.
+Workspace grants decide who can see and manage agents. The service account bound to an agent decides what the agent can do when it runs.
 
-### Who can manage agents
+### Workspace grants
 
-Access to agents is controlled by four workspace grants:
+Four workspace grants control access to agents:
 
 | Grant | Allows |
 |---|---|
@@ -54,7 +54,7 @@ Access to agents is controlled by four workspace grants:
 
 ### Agent identity and permissions
 
-An agent acts as a service account, not as the person who starts it. Binding one is required: select it under **Agent permissions** when you create or edit the agent. Every run of that agent then uses that account's roles, so the agent can only reach what the service account is allowed to reach, whoever runs it.
+An agent acts as a service account, not as the person who starts it. You must bind one. Select it under **Agent permissions** when you create or edit the agent. Every run of that agent uses that account's roles. Whoever starts the run, the agent reaches only what the service account can reach.
 
 - Only service accounts assigned to the agent's workspace can be bound. An account with no role in the workspace cannot act there.
 - You cannot bind a service account that holds permissions you do not hold in the workspace yourself.
@@ -62,56 +62,58 @@ An agent acts as a service account, not as the person who starts it. Binding one
 - If the bound service account is later disabled or removed, the agent's runs fail rather than fall back to the permissions of whoever started them.
 
 :::caution
-Scope the service account to what the agent's instructions need. Every run of the agent carries those permissions, started by anyone in the workspace who can read the agent.
+Scope the service account to what the agent's instructions need. Every run of the agent carries those permissions, whoever in the workspace starts it.
 :::
 
-If you do not see an **Agent permissions** section on the agent form, service accounts are not enabled for your organization and the agent's runs act as the user who starts them.
+If the agent form has no **Agent permissions** section, service accounts are not enabled for your organization. The agent's runs then act as the user who starts them.
 
 ## Access to private Git repositories
 
-An agent reaches a private repository only through a [GitHub App credential](../git/overview.md#github). No other Git credential type works for an agent — a personal access token does not, even though it works elsewhere in Seqera Platform.
+An agent reaches a private repository only through a [GitHub App credential](../git/overview.md#github). No other Git credential type works for an agent. A personal access token works elsewhere in Seqera Platform but not here.
 
-Bind the credential to the agent under **Agent permissions**, alongside the service account. It is optional: an agent without one still runs, but cannot clone, commit, or push. With one bound, the agent can do all three, as that credential.
+Bind the credential to the agent under **Agent permissions**, alongside the service account. The credential is optional. An agent without one still runs but cannot clone, commit, or push. An agent with one can do all three, as that credential.
 
-Two things have to be in place before you can bind it:
+Before you can bind a credential:
 
-- A GitHub organization admin installs the GitHub App in the GitHub organization and grants it access to the repositories the agent needs.
-- The credential exists in the workspace the agent runs in. Credentials are workspace-scoped, so an agent cannot use one from another workspace or from someone's personal credentials.
+- A GitHub organization admin must install the GitHub App in the GitHub organization and grant it access to the repositories the agent needs.
+- The credential must exist in the workspace the agent runs in. Because credentials are workspace-scoped, an agent cannot use one from another workspace or from a user's personal credentials.
 
 If a bound credential is later removed from the workspace or marked invalid, the agent form warns you and blocks saving until you select a different credential or clear it with **None**.
 
 ## Create an agent
 
+To create an agent, you need `Agent_Write`.
+
 1. In your workspace, select **AI** > **Agents**.
 1. Select **Add agent**.
 1. Choose a starting point:
-    - **Fix failed runs**, **Summarize successful runs**, or **Summarize failed runs** — a template that prefills the name, description, and instructions.
-    - **New agent** — write your own instructions.
+    - **Fix failed runs**, **Summarize successful runs**, or **Summarize failed runs**: A template that prefills the name, description, and instructions.
+    - **New agent**: Write your own instructions.
 1. Complete the details:
-    - **Name** (required). Letters, numbers, dashes, and underscores only.
+    - **Name** (required): Letters, numbers, dashes, and underscores only.
     - **Description** (optional).
-    - **Agent instructions** (required). What the agent should do when it runs.
+    - **Agent instructions** (required): What the agent does when it runs.
 1. Under **Agent permissions**:
-    - **Service account** (required). The identity the agent runs as. Only accounts assigned to this workspace are listed. See [Agent identity and permissions](#agent-identity-and-permissions).
-    - **GitHub App credential** (optional). Needed only if the agent works with private Git repositories. See [Access to private Git repositories](#access-to-private-git-repositories).
+    - **Service account** (required): The identity the agent runs as. Only accounts assigned to this workspace are listed. See [Agent identity and permissions](#agent-identity-and-permissions).
+    - **GitHub App credential** (optional): Needed only if the agent works with private Git repositories. See [Access to private Git repositories](#access-to-private-git-repositories).
 1. Save the agent.
 
-Templates prefill text only. They do not set a trigger, a schedule, or anything about where the agent runs — review and edit the instructions before saving.
+Templates prefill text only. They do not set a trigger, a schedule, or where the agent runs. Review and edit the instructions before saving.
 
 ## Manage agents
 
 The **Agents** page lists every agent in the workspace that you can read, with its status. From there you can:
 
 - **Search** for an agent by name.
-- **Edit** an agent's name, description, instructions, service account, and GitHub App credential. The template picker is not shown when editing.
-- **Disable** an agent to keep its definition but stop it being selectable, and **enable** it again later.
-- **Remove** an agent. You are asked to confirm.
+- **Edit** an agent's name, description, instructions, service account, and GitHub App credential. The template picker does not appear when you edit.
+- **Disable** an agent to keep its definition but remove it from the list of agents to run, and **enable** it again later.
+- **Remove** an agent. Seqera Platform asks you to confirm.
 
-Disabled and removed agents do not appear when selecting an agent to run. Removing an agent does not delete the sessions it already produced.
+Disabled and removed agents do not appear when you select an agent to run. Removing an agent does not delete the sessions it already produced.
 
 ## Run an agent
 
-You start an agent from a run, so it works with that run's context. Running one needs `Agent_Read` and `Agent_Execute`:
+Start an agent from a run. The agent works with that run's context. To run an agent, you need `Agent_Read` and `Agent_Execute`:
 
 1. Open the run, or find it in a project's **Runs** tab.
 1. Select **Trigger agent**.
@@ -121,9 +123,9 @@ The agent's conversation opens in the Co-Scientist panel, where you can follow w
 
 Only enabled agents appear in the list. If the workspace has none, the list offers **Add agent** to users with `Agent_Write`.
 
-## What an agent does not define
+## Agent definition
 
-An agent holds a name, a description, its instructions, and the service account it acts as. It does not carry a trigger, a schedule, a compute environment, or a sandbox configuration. Those are properties of how the agent is run, not of the agent itself — an agent that runs on an event is an agent selected as the target of an action, not a different kind of agent.
+An agent holds a name, a description, its instructions, the service account it acts as, and an optional GitHub App credential. It does not carry a trigger, a schedule, a compute environment, or a sandbox configuration. Those are properties of how the agent is run, not of the agent itself. An agent that runs on an event is an agent selected as the target of an action, not a different kind of agent.
 
 ## Learn more
 
