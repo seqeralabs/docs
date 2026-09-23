@@ -75,7 +75,7 @@
   "devDependencies": {
     "@docusaurus/eslint-plugin": "3.10.2",
     "@tsconfig/docusaurus": "2.0.9",
-    "dotenv": "17.4.2",
+    "dotenv": "18.0.0",
     "eslint": "8.57.1",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-react": "7.37.5",
