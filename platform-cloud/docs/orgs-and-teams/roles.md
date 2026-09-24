@@ -61,6 +61,7 @@ The following table shows which operations are available to the default workspac
 | **action:write**               | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **action:delete**              | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
 | **action_label:write**         | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **chat:execute**               | ✅     | ✅     | ✅        | ✅      | ✅       | ❌      |
 | **compute_environment:read**   | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
 | **compute_environment:write**  | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
 | **compute_environment:delete** | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
