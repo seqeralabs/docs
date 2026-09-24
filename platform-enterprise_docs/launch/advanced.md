@@ -140,10 +140,13 @@ The default version is:
 - **Pipeline advanced options**: the system default version, or the compute environment type's minimum version when that minimum is higher.
 - **Launch advanced options**: the version saved on the pipeline, when it is compatible with the selected compute environment. If the pipeline's saved version is below the minimum required by the compute environment, no version is preselected and you must choose a compatible version before launching.
 
-Version availability depends on the compute environment:
+Version availability depends on the compute environment type:
 
-- **Cloud and Kubernetes** compute environments (AWS Batch, Azure Batch, Google Batch, Kubernetes) support version selection. You cannot select versions below the compute environment's minimum. Platform rejects any launch submitted with a lower or unknown version through any channel (UI, API, or CLI) before execution.
+- **AWS Batch, Azure Batch, Google Cloud Batch, Kubernetes, Amazon EKS, and Google GKE** compute environments offer every version in the catalog, back to Nextflow 23.03.0-edge.
+- **AWS Cloud, Azure Cloud, Google Cloud, and Seqera Compute** compute environments offer Nextflow 25.04.1 and later. Older versions have no launch container image for these compute environment types.
 - **Grid/HPC** compute environments (Slurm, LSF, Grid Engine, Altair PBS Pro, Moab) run a pre-installed Nextflow and have no launch container. The version selector does not appear for them, and a version carried over from a pipeline default has no effect when you launch on a grid environment.
+
+The selector hides versions that the selected compute environment does not accept. Platform rejects a launch that names an unsupported or unknown version before execution, whether it comes from the UI, API, or CLI. An unsupported version fails with `Nextflow version '<version>' is not supported by the selected compute environment, which requires at least version '<minimum>'`.
 
 Changing only the Nextflow version registers a new pipeline version, because the version determines the runtime that runs the workflow.
 
@@ -166,12 +169,20 @@ The v2 parser implements Nextflow's [strict syntax](https://nextflow.io/docs/lat
 
 The toggle only selects the parser. It does not change the Nextflow runtime version, the pipeline source, or any pipeline parameters.
 
-The v2 parser becomes the default in Nextflow 26.04:
+The toggle does not track Nextflow's own parser default. Nextflow defaults to the v2 parser from version 26.04, and from 26.01.1-edge on the edge release channel, but only when `NXF_SYNTAX_PARSER` is unset. Platform always sets it. With the toggle off, Platform exports `NXF_SYNTAX_PARSER=v1` for every Nextflow version. On stable releases up to 25.10, where v1 is also the runtime default, the off position matches Nextflow's own behavior. To run a pipeline with the v2 parser on any Nextflow version, turn the toggle on.
 
-- **Before Nextflow 26.04**: v1 is the runtime default. Turn the toggle on to opt in to v2.
-- **From Nextflow 26.04**: v2 is the runtime default. Turn the toggle off to pin a pipeline to v1.
+:::warning
+On Nextflow 26.04 and later, a pipeline that uses v2-only syntax fails to compile unless this toggle is on. The Nextflow version alone does not select the v2 parser, even when the run log reports Nextflow 26.04 or later. The failure is a Groovy compilation error that does not mention the parser. To confirm which parser ran, look for `Using script parser v2` in the run's Nextflow log file, `nf-<workflow-id>.log`. The line is absent when the v1 parser runs.
+:::
 
-A [pre-run script](#pre-and-post-run-scripts) that exports `NXF_SYNTAX_PARSER` overrides this toggle.
+The toggle is not the only route that sets the parser. The following routes set it, in increasing order of precedence:
+
+- The pipeline's toggle.
+- The launch form's toggle, pre-filled from the pipeline's toggle.
+- An `NXF_SYNTAX_PARSER` environment variable defined on the compute environment with a target that includes the head job.
+- A [pre-run script](#pre-and-post-run-scripts) that exports `NXF_SYNTAX_PARSER`.
+
+Platform exports the toggle value before it applies the compute environment variables and the pre-run script. Either source can overwrite the value the toggle sets. Neither source is visible in the launch form, and the toggle continues to display its own setting when one of them selects the parser.
 
 :::note
 The launch form inherits this setting from the pipeline. You can override it per launch without changing the stored value. Changing the toggle on the pipeline edit form creates a new pipeline version.

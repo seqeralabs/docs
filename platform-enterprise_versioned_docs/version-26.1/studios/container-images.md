@@ -32,8 +32,8 @@ Additionally, the Seqera Connect client version string has the format:
 
 When pushed to the container registry, an image template is tagged with the following tags:
 
-- `<tool_version>-<major>.<minor>`, such as `4.2.3-0.10`. When adding a new container template image this is the tag displayed in Seqera Platform.
-- `<tool_version>-<major>.<minor>.<patch>`, such as `4.2.3-0.10.0`.
+- `<tool_version>-<major>.<minor>`, such as `4.2.3-0.12`. When adding a new container template image this is the tag displayed in Seqera Platform.
+- `<tool_version>-<major>.<minor>.<patch>`, such as `4.2.3-0.12.0`.
 
 To view the latest versions of the images, see [public.cr.seqera.io](https://public.cr.seqera.io/). You can also augment the Seqera-provided image templates or use your own custom container image templates. This is the recommended approach for managing reproducible analysis environments. For more information, see [Custom environments][custom-envs].
 

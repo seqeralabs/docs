@@ -287,6 +287,9 @@ tw runs relaunch [OPTIONS]
 | `--no-resume` | Start workflow execution from scratch instead of resuming from the last successful process. Use this to rerun the entire workflow without using cached results. | No |  |
 | `-n`, `--name` | Custom workflow run name. Overrides the automatically generated run name with a user-defined identifier. | No |  |
 | `--launch-container` | Container image for the Nextflow head job. Overrides the default launcher container. | No |  |
+| `--syntax-parser` | Nextflow language syntax parser version: 'v1' (legacy) or 'v2'. Takes precedence over the value stored in the launch configuration. | No |  |
+| `--nextflow-version` | Nextflow version to run the workflow with. Must exist in the Platform version catalog and meet the minimum required by the compute environment. Takes precedence over the value stored in the launch configuration. | No |  |
+| `--output-dir` | Per-run output directory, passed to Nextflow as '-output-dir'. Requires Nextflow 24.10.0 or later and the workflow outputs syntax. Takes precedence over the value stored in the launch configuration. | No |  |
 | `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. | No |  |
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No |  |
 | `-p`, `--profile` | Array of Nextflow configuration profile names to apply. | No |  |
@@ -305,6 +308,8 @@ tw runs relaunch [OPTIONS]
 | `--workspace-secrets` | Array of workspace secrets to make available to the pipeline. | No |  |
 
 Run `tw runs relaunch -h` to view all the required and optional fields for relaunching a run in a workspace.
+
+A relaunch starts from the original run's launch configuration. Use `--nextflow-version`, `--syntax-parser`, or `--output-dir` to override the corresponding stored value for the new run. See [Nextflow version][nextflow-version], [Enable Nextflow syntax parser v2][syntax-parser-v2], and [Output directory][output-directory].
 
 ## `tw runs cancel`
 
@@ -412,14 +417,19 @@ Pipeline run '5z4AMshti4g0GK' at [seqeralabs / testing] workspace details dump a
 ```
 
 [actions]: /platform-cloud/pipeline-actions/overview
+[aws-batch-pipeline-secrets]: /platform-cloud/compute-envs/aws-batch#pipeline-secrets-optional
+[aws-cloud-advanced-options]: /platform-cloud/compute-envs/aws-cloud#advanced-options
 [compute-envs]: /platform-cloud/compute-envs/overview
 [credentials]: /platform-cloud/credentials/overview
 [data-explorer]: /platform-cloud/data/data-explorer
 [datasets]: /platform-cloud/data/datasets
 [git-integration]: /platform-cloud/git/overview
+[google-cloud-advanced-options]: /platform-cloud/compute-envs/google-cloud#advanced-options
 [labels]: /platform-cloud/labels/overview
 [nextflow-config]: https://docs.seqera.io/nextflow/config#config-syntax
+[nextflow-version]: /platform-cloud/launch/advanced#nextflow-version
 [organizations]: /platform-cloud/orgs-and-teams/organizations
+[output-directory]: /platform-cloud/launch/launchpad#output-directory
 [participant-roles]: /platform-cloud/orgs-and-teams/roles
 [resource-labels]: /platform-cloud/resource-labels/overview
 [run-details]: /platform-cloud/monitoring/run-details
@@ -427,6 +437,7 @@ Pipeline run '5z4AMshti4g0GK' at [seqeralabs / testing] workspace details dump a
 [shared-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
 [studio-checkpoints]: /platform-cloud/studios/managing#studio-session-checkpoints
 [studios]: /platform-cloud/studios/overview
+[syntax-parser-v2]: /platform-cloud/launch/advanced#enable-nextflow-syntax-parser-v2
 [tower-agent]: /platform-cloud/supported_software/agent/overview
 [user-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
 [wave-docs]: https://docs.seqera.io/wave

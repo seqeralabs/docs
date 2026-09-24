@@ -35,6 +35,24 @@ Workflow 2XDXxX0vCX8xhx submitted at user workspace.
 - Use `--profile` and `--revision` to select Nextflow profiles and a Git revision.
 - Omit `--compute-env` to use the workspace primary compute environment.
 
+### Nextflow version, syntax parser, and output directory
+
+Override the Nextflow runtime settings saved with the pipeline for a single launch:
+
+```bash
+tw launch https://github.com/nf-core/rnaseq \
+  --compute-env=my_aws_ce \
+  --nextflow-version=<nextflow_version> \
+  --syntax-parser=v2 \
+  --output-dir=s3://<bucket name>/results
+```
+
+- `--nextflow-version` selects a Nextflow release from the Platform version catalog. The version must meet the minimum required by the compute environment. See [Nextflow version][nextflow-version] for defaults and availability by compute environment type.
+- `--syntax-parser` accepts `v1` or `v2`. See [Enable Nextflow syntax parser v2][syntax-parser-v2] for runtime requirements and defaults.
+- `--output-dir` sets the directory for workflow outputs and is passed to Nextflow as `-output-dir`. It is separate from a pipeline `outdir` parameter. See [Output directory][output-directory].
+
+Each option takes precedence over the value stored in the pipeline's launch configuration. Omit an option to keep the stored value.
+
 :::note
 CLI users have the same permissions as in the Platform UI. Launch users can run preconfigured pipelines in accessible workspaces, but they cannot add or run a new pipeline directly from its repository URL.
 :::
@@ -66,6 +84,9 @@ tw launch [OPTIONS] <PIPELINE_OR_URL>
 | `--wait` | Wait until workflow reaches specified status: SUBMITTED, RUNNING, SUCCEEDED, FAILED, CANCELLED, UNKNOWN | No |  |
 | `-l`, `--labels` | Labels to assign to each pipeline run. Provide comma-separated label values (use key=value format for resource labels). Labels will be created if they don't exist | No |  |
 | `--launch-container` | Container image to use for the Nextflow launcher. | No |  |
+| `--syntax-parser` | Nextflow language syntax parser version: 'v1' (legacy) or 'v2'. Takes precedence over the value stored in the launch configuration. | No |  |
+| `--nextflow-version` | Nextflow version to run the workflow with. Must exist in the Platform version catalog and meet the minimum required by the compute environment. Takes precedence over the value stored in the launch configuration. | No |  |
+| `--output-dir` | Per-run output directory, passed to Nextflow as '-output-dir'. Requires Nextflow 24.10.0 or later and the workflow outputs syntax. Takes precedence over the value stored in the launch configuration. | No |  |
 | `--config` | Nextflow configuration as text (overrides config files). Provide the path to a file containing the content. Use '-' to read from stdin. | No |  |
 | `--pre-run` | Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. Use '-' to read from stdin. | No |  |
 | `--post-run` | Add a script that executes after all Nextflow processes have completed. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. Use '-' to read from stdin. | No |  |
@@ -81,14 +102,19 @@ tw launch [OPTIONS] <PIPELINE_OR_URL>
 | `--head-job-memory` | Memory allocation for the Nextflow head job in megabytes. | No |  |
 
 [actions]: /platform-cloud/pipeline-actions/overview
+[aws-batch-pipeline-secrets]: /platform-cloud/compute-envs/aws-batch#pipeline-secrets-optional
+[aws-cloud-advanced-options]: /platform-cloud/compute-envs/aws-cloud#advanced-options
 [compute-envs]: /platform-cloud/compute-envs/overview
 [credentials]: /platform-cloud/credentials/overview
 [data-explorer]: /platform-cloud/data/data-explorer
 [datasets]: /platform-cloud/data/datasets
 [git-integration]: /platform-cloud/git/overview
+[google-cloud-advanced-options]: /platform-cloud/compute-envs/google-cloud#advanced-options
 [labels]: /platform-cloud/labels/overview
 [nextflow-config]: https://docs.seqera.io/nextflow/config#config-syntax
+[nextflow-version]: /platform-cloud/launch/advanced#nextflow-version
 [organizations]: /platform-cloud/orgs-and-teams/organizations
+[output-directory]: /platform-cloud/launch/launchpad#output-directory
 [participant-roles]: /platform-cloud/orgs-and-teams/roles
 [resource-labels]: /platform-cloud/resource-labels/overview
 [run-details]: /platform-cloud/monitoring/run-details
@@ -96,6 +122,7 @@ tw launch [OPTIONS] <PIPELINE_OR_URL>
 [shared-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
 [studio-checkpoints]: /platform-cloud/studios/managing#studio-session-checkpoints
 [studios]: /platform-cloud/studios/overview
+[syntax-parser-v2]: /platform-cloud/launch/advanced#enable-nextflow-syntax-parser-v2
 [tower-agent]: /platform-cloud/supported_software/agent/overview
 [user-workspaces]: /platform-cloud/orgs-and-teams/workspace-management
 [wave-docs]: https://docs.seqera.io/wave
