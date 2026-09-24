@@ -138,10 +138,13 @@ The default version is:
 - **Pipeline advanced options**: the system default version, or the compute environment type's minimum version when that minimum is higher.
 - **Launch advanced options**: the version saved on the pipeline, when it is compatible with the selected compute environment. If the pipeline's saved version is below the minimum required by the compute environment, no version is preselected and you must choose a compatible version before launching.
 
-Version availability depends on the compute environment:
+Version availability depends on the compute environment type:
 
-- **Cloud and Kubernetes** compute environments (AWS Batch, Azure Batch, Google Batch, Kubernetes) support version selection. You cannot select versions below the compute environment's minimum. Platform rejects any launch submitted with a lower or unknown version through any channel (UI, API, or CLI) before execution.
+- **AWS Batch, Azure Batch, Google Cloud Batch, Kubernetes, Amazon EKS, and Google GKE** compute environments offer every version in the catalog, back to Nextflow 23.03.0-edge.
+- **AWS Cloud, Azure Cloud, Google Cloud, and Seqera Compute** compute environments offer Nextflow 25.04.1 and later. Older versions have no launch container image for these compute environment types.
 - **Grid/HPC** compute environments (Slurm, LSF, Grid Engine, Altair PBS Pro, Moab) run a pre-installed Nextflow and have no launch container. The version selector does not appear for them, and a version carried over from a pipeline default has no effect when you launch on a grid environment.
+
+The selector hides versions that the selected compute environment does not accept. Platform rejects a launch that names an unsupported or unknown version before execution, whether it comes from the UI, API, or CLI. An unsupported version fails with `Nextflow version '<version>' is not supported by the selected compute environment, which requires at least version '<minimum>'`.
 
 The effective minimum is the higher of the compute environment type's minimum and the minimum required by its enabled features. Compute environments with [Intelligent Compute](../compute-envs/intelligent-compute) enabled require Nextflow 26.04 or later. The version list updates when you change the compute environment or its Intelligent Compute setting.
 

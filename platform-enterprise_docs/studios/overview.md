@@ -19,7 +19,7 @@ Studios in Enterprise is not enabled by default. To enable it, see [Deploy Studi
 - [Connect changelog](./connect): Release notes for the Seqera Connect client.
 
 :::note
-Studios supports [AWS Cloud][aws-cloud], [Google Cloud][google-cloud], and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
+Studios supports [AWS Cloud][aws-cloud], [Azure Cloud][azure-cloud], [Google Cloud][google-cloud], and [AWS Batch][aws-batch] compute environments that **do not** have Fargate enabled.
 :::
 
 ## Networking
@@ -30,6 +30,7 @@ This applies to every compute environment that supports Studios. If you run Stud
 
 {/* links */}
 [aws-cloud]: ../compute-envs/aws-cloud
+[azure-cloud]: ../compute-envs/azure-cloud
 [aws-cloud-networking]: ../compute-envs/aws-cloud#networking
 [aws-batch]: ../compute-envs/aws-batch
 [aws-batch-networking]: ../compute-envs/aws-batch#networking
