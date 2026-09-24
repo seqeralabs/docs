@@ -42,6 +42,8 @@ As a best practice, use teams as the primary vehicle for assigning rights within
 - **Connect**: Connect users can connect to running workspace Studios.
 - **View**: View users can view workspace resources, but cannot modify or execute them.
 
+See [Custom roles](./custom-roles.md) for instructions to create roles with custom permissions.
+
 :::note
 Workspace participants with any role can leave the workspace, i.e., remove themselves as a workspace participant. However, only workspace owners and admins can add or remove workspace participants other than themselves.
 :::
