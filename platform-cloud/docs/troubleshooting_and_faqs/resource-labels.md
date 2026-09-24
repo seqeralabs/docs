@@ -11,7 +11,7 @@ When working with resource labels on AWS, Azure, and Google Cloud, you might enc
 
 #### AWS Batch rejects a resource label defined in Nextflow configuration
 
-Soon after a run starts, it fails with an AWS Batch tag error similar to the following:
+A run fails soon after it starts with an AWS Batch tag error similar to the following:
 
 ```text
 Error executing process > 'NFCORE_RNASEQ:RNASEQ:SORTMERNA_INDEX ([])'
@@ -19,20 +19,17 @@ Caused by:
   Tags can only contain letters, numbers, spaces, and the following special characters: _ . : / = + - @ (Service: Batch, Status Code: 400)
 ```
 
-Seqera Platform validates the resource labels you create in a workspace. Resource labels defined with the Nextflow [`resourceLabels`](https://docs.seqera.io/nextflow/reference/process#resourcelabels) directive bypass that validation and reach AWS Batch unchanged. AWS documents the [allowed characters for Batch tags](https://docs.aws.amazon.com/batch/latest/userguide/tag-restrictions.html) as letters, numbers, spaces, and `_ . : / = + - @`. AWS Batch rejects a job submission whose tag value contains any other character, and the run fails.
+Resource labels set with the Nextflow [`resourceLabels`](https://docs.seqera.io/nextflow/reference/process#resourcelabels) directive skip Seqera Platform validation and reach AWS Batch unchanged. AWS Batch rejects any [tag](https://docs.aws.amazon.com/batch/latest/userguide/tag-restrictions.html) value that contains other characters. A common cause is `task.tag`: a process with `tag "$meta.id"` and an empty `meta` input has the tag `[]`.
 
-This affects any resource label whose value comes from a process or workflow property, such as `task.tag`. Square brackets are a common cause. In a process that declares the Nextflow `tag` directive as `tag "$meta.id"`, an empty `meta` input resolves `$meta.id` to an empty list, and the directive becomes the literal string `[]`.
-
-To resolve, convert each resource label value to a string, replace the disallowed characters, and truncate to the AWS tag value limit of 256 characters. Replace the example keys and values below with your own:
+To resolve, sanitize each label value in your Nextflow configuration:
 
 ```groovy title="nextflow.config"
 def sanitizeLabel(value) {
-    // The character class is negated: it matches everything AWS Batch disallows
+    // Replace disallowed characters and truncate to the 256-character tag value limit
     "${value}".replaceAll(/[^A-Za-z0-9 _.:\/=+@-]/, '_').take(256)
 }
 
 process {
-    // The closure is evaluated per task, so task and workflow properties resolve at submission
     resourceLabels = { [
         pipelineTag: sanitizeLabel(task.tag),
         pipelineContainer: sanitizeLabel(task.container),
@@ -42,7 +39,7 @@ process {
 }
 ```
 
-Converting each value to a string also protects against unset properties. `task.tag` and `task.container` are `null` when the process omits the matching directive, `workflow.revision` and `workflow.commitId` are `null` when the run has no Git revision, and string operations on `null` fail. A label that comes out as `__` or `null` records an empty or unset property rather than a usable value.
+The `"${value}"` conversion turns unset properties, such as `task.tag` for a process without a `tag` directive, into the string `null`. Without it, `replaceAll` fails on `null`.
 
 #### Tags not appearing in cost reports
 
