@@ -73,6 +73,12 @@ A smart-gate in the CI workflow blocks wasteful runs: recent re-review (<60 min)
 | [wave_docs/](wave_docs/) | Wave docs | ~43 |
 | [changelog/](changelog/) | Release notes (Cloud, Enterprise, Nextflow, Wave) | ~232 |
 
+## Changelog links
+
+Links in `changelog/` files that point to another doc tree must be absolute URLs, for example `https://docs.seqera.io/platform-enterprise/...` or `https://docs.seqera.io/platform-cloud/...`. The changelog is served by the blog plugin under `/changelog` (see `changelog` in [docusaurus.config.js](docusaurus.config.js)), so a relative link to a page in `platform-enterprise_docs/` or any other doc tree resolves under `/changelog/...` and breaks. When moving content from a doc page into a changelog file, rewrite its relative links as absolute.
+
+Links between pages inside the same doc tree stay relative.
+
 ## Enterprise release version bumps (quick reference)
 
 When cutting an enterprise point release (e.g., `25.3.4` → `25.3.5`), six files under `platform-enterprise_versioned_docs/version-<MAJOR.MINOR>/` need manual version bumps:
