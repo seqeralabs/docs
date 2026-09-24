@@ -19,7 +19,7 @@ The Seqera CLI reads the following environment variables for authentication, for
 | <code style={{whiteSpace: 'nowrap'}}>SEQERA_AUTH_AUDIENCE</code> | OAuth audience requested during login. Defaults to `platform`. |
 | <code style={{whiteSpace: 'nowrap'}}>SEQERA_AUTH_REDIRECT_PORT</code> | Local port for the browser login callback. Defaults to `53682`. |
 | <code style={{whiteSpace: 'nowrap'}}>SEQERA_AUTH_CALLBACK_TIMEOUT_MS</code> | How long the CLI waits for the browser login callback, in milliseconds. |
-| <code style={{whiteSpace: 'nowrap'}}>SEQERA_BROWSER_AUTO_OPEN</code> | Set to `false` to print the login URL instead of opening a browser. Useful on remote hosts. |
+| <code style={{whiteSpace: 'nowrap'}}>SEQERA_BROWSER_AUTO_OPEN</code> | Set to `false` to print the login URL instead of opening a browser, for example on a remote host. |
 | <code style={{whiteSpace: 'nowrap'}}>SEQERA_ACCESS_TOKEN</code> | Platform access token for non-interactive use. When set, the CLI skips the browser login flow and uses this token directly. |
 | <code style={{whiteSpace: 'nowrap'}}>TOWER_ACCESS_TOKEN</code> | Platform personal access token used instead of browser login. |
 

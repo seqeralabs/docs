@@ -37,7 +37,7 @@ seqera ai [query] [options]
 | `[query]` | Optional initial prompt to start the session with |
 | `-c`, `--continue` | Continue your most recent session in the current directory |
 | `-s`, `--session <session-id>` | Resume a specific session by ID |
-| `--approval-mode <mode>` | Set the approval mode for local commands: `basic`, `default`, or `full` (see [Command approval](../command-approval.md)) |
+| `--approval-mode <mode>` | Set the approval mode for local commands to `basic`, `default`, or `full` (see [Command approval](../command-approval.md)) |
 | `--headless` | Run non-interactively and send output to stdout |
 | `--show-thinking` | Include thinking messages in headless output |
 | `--show-tools` | Include tool calls in headless output |
@@ -59,7 +59,7 @@ seqera info [-o console|json]
 
 | Option | Short | Description |
 |--------|-------|-------------|
-| `--output <format>` | `-o` | Output format: `console` (default) or `json` |
+| `--output <format>` | `-o` | Output format, `console` (default) or `json` |
 
 ## seqera org
 

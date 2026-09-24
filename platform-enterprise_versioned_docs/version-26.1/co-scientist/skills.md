@@ -60,7 +60,7 @@ Co-Scientist searches these directories in order. The first directory to registe
 | 4 | `~/.seqera/skills/` | user |
 | 5 | `~/.agents/skills/` | user |
 
-At each directory level, Co-Scientist checks `.seqera/skills/` before `.agents/skills/`. Outside a git repository, it checks only the current directory. Project skills take priority over user skills, so you can override a global skill with a repository-specific version.
+Outside a git repository, Co-Scientist checks only the current directory. Project skills take priority over user skills, so you can override a global skill with a repository-specific version.
 
 ### Cross-agent compatibility
 

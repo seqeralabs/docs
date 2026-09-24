@@ -27,7 +27,7 @@ Co-Scientist exposes two kinds of slash command in the `/` palette. TUI commands
 | `/credits` | Show Enterprise usage ownership and administrator contact guidance |
 | `/approval` | Show or set approval mode |
 | `/update` | Check for CLI updates and show next steps |
-| `/goal <task>` | Set a persistent goal. Co-Scientist makes up to 3 attempts. See [Modes](../modes.md) |
+| `/goal <task>` | Set a persistent goal. Co-Scientist makes up to 3 attempts. See [Modes](../modes.md). |
 | `/feedback` | Open feedback form |
 | `/help-community` | Open community help |
 | `/stickers` | Get Seqera stickers |
@@ -39,7 +39,7 @@ The second kind, AI commands, are backed by skills and sent to the AI backend. T
 Co-Scientist includes a set of built-in skills. Invoke a skill directly with its slash command, or describe your task and Co-Scientist loads the matching skill.
 
 :::note
-Built-in skills change from release to release. Treat this page as a guide rather than an inventory. Type `/` or run `/help` in your session to see the current list for your deployment.
+Built-in skills change between releases. To see the current list for your deployment, type `/` or run `/help` in your session.
 :::
 
 ### Build a pipeline
@@ -114,8 +114,8 @@ Built-in skills change from release to release. Treat this page as a guide rathe
 
 | Command | Description |
 |---------|-------------|
-| `/find-alternative-tools` | For a given analysis step, find the credible tool options with pros, cons, licensing, and a ranked recommendation |
-| `/enumerate-alternative-tools` | Run the same tool enumeration as `/find-alternative-tools`. The `/create-workflow` and `/nf-pipeline-design` planning flows invoke this skill |
+| `/find-alternative-tools` | Find credible tool options for an analysis step, with pros, cons, licensing, and a ranked recommendation |
+| `/enumerate-alternative-tools` | Run the same tool enumeration as `/find-alternative-tools`. The `/create-workflow` and `/nf-pipeline-design` planning flows invoke this skill. |
 | `/parabricks` | Get version-aware guidance on NVIDIA Parabricks `pbrun` tools and assess GPU readiness |
 | `/genomics-workflow-acceleration` | Add optional GPU steps to an existing genomics workflow, with runtime toggles that default to off |
 

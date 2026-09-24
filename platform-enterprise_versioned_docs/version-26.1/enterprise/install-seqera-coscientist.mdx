@@ -2,7 +2,7 @@
 title: "Co-Scientist"
 description: Install and configure Co-Scientist for Seqera Platform Enterprise
 date created: "2026-05-04"
-last updated: "2026-05-14"
+last updated: "2026-09-24"
 tags: [seqera ai, installation, deployment, aws, helm]
 ---
 
@@ -15,9 +15,9 @@ Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. This guide cov
 
 Deploy the agent backend, Seqera MCP server, and web interface alongside Platform to provide Co-Scientist assistance for workflows, data, projects, and Platform resources in the Seqera CLI and browser. The MCP, agent backend, and portal web Helm charts provide the option to define Kubernetes ingresses. Other methods to expose the services can be used, e.g. via the `extraDeploy` resource.
 
-## Prerequisites
+:::info[**Prerequisites**]{#prerequisites}
 
-Before you begin, make sure you have:
+You need the following:
 
 - Seqera Platform Enterprise 25.3.6 or later deployed with the [Seqera Platform Helm chart](./platform-helm.md).
 - Helm v3 and `kubectl` installed locally.
@@ -27,8 +27,12 @@ Before you begin, make sure you have:
 - A Redis 7.2-compatible or Valkey 7.2-compatible instance for agent backend task coordination. You can use the same instance as Platform with a different Redis database index, or a separate instance.
 - A stable Fernet token encryption key for the agent backend if you use Kustomize. Helm-only installs can let the chart generate this key, but explicitly setting it avoids accidental regeneration.
 - Access to a supported Claude inference provider. AWS Bedrock is recommended for Enterprise deployments; direct Anthropic API access is also supported.
-- If you use AWS Bedrock, a configured AWS account: model access, the IAM permissions the agent backend pods need, and an AgentCore runtime if you enable sandboxed sessions. See [Bedrock setup](../co-scientist/bedrock-setup.md).
+- If you use AWS Bedrock, an AWS account with model access, the IAM permissions the agent backend pods need, and an AgentCore runtime if you enable sandboxed sessions. See [Bedrock setup](../co-scientist/bedrock-setup.md).
 - If you use direct Anthropic API access, an Anthropic API key stored in a Kubernetes Secret.
+
+:::
+
+## Token encryption key and secrets
 
 Generate a Fernet token encryption key when you set the key manually:
 
@@ -101,7 +105,7 @@ For a complete example, see the [Co-Scientist Helm example](https://github.com/s
 
 When MCP runs under the Platform parent chart, leave `mcp.oidcToken` unset unless you need to override the default wiring. The parent chart sets it to the Platform backend secret key `OIDC_CLIENT_REGISTRATION_TOKEN`.
 
-MCP server images from 1.4.3 are published only to `cr.seqera.io/enterprise/mcp/server`. The 26.1 charts default the MCP image repository to `ai/mcp/server`, which serves releases up to 1.4.2 only, and the chart is not patched retroactively. If your chart deploys MCP 1.4.3 or later, override the repository:
+Seqera publishes MCP server images for 1.4.3 and later only to `cr.seqera.io/enterprise/mcp/server`. The 26.1 charts default the MCP image repository to `ai/mcp/server`, which holds releases up to 1.4.2 only. Seqera does not patch the 26.1 charts to change this default. If your chart deploys MCP 1.4.3 or later, override the repository:
 
 ```yaml
 mcp:
@@ -109,7 +113,7 @@ mcp:
     repository: enterprise/mcp/server
 ```
 
-The chart sets no default registry. Set `global.imageRegistry` to the registry you copy Seqera images into, or to `cr.seqera.io` if your cluster pulls directly. If you mirror images, mirror `enterprise/mcp/server`.
+The chart sets no default registry. Set `global.imageRegistry` to the registry you mirror Seqera images to, or to `cr.seqera.io` if your cluster pulls directly. If you mirror images, mirror `enterprise/mcp/server`.
 
 ## Configure the agent backend
 
