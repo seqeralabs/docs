@@ -2,7 +2,7 @@
 title: "User roles"
 description: "Understand the various roles in Seqera Platform."
 date created: "2024-06-10"
-last updated: "2026-05-22"
+last updated: "2026-09-25"
 tags: [roles]
 ---
 
@@ -41,6 +41,7 @@ As a best practice, use teams as the primary vehicle for assigning rights within
 - **Launch**: Launch users can use existing workspace resources and launch pipelines, but they cannot modify workspace resources.
 - **Connect**: Connect users can connect to running workspace Studios.
 - **View**: View users can view workspace resources, but cannot modify or execute them.
+- **Project**: Project users work only in the **Projects** view. They can launch the pipelines attached to a project, add datasets to a project, and view and download run reports. They cannot create or rename projects, or open other workspace views such as **Launchpad**, **Runs**, **Datasets**, **Compute**, and **Settings**.
 
 See [Custom roles](./custom-roles.md) for instructions to create roles with custom permissions.
 
