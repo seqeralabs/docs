@@ -55,73 +55,72 @@ The following table shows which operations are available to the default workspac
 
 <div className="pinned-header-row">
 
-| Permission                     | Owner | Admin | Maintain | Launch | Connect | Viewer | Project user |
-|--------------------------------|-------|-------|----------|--------|---------|--------|--------------|
-| **action:read**                | ✅    | ✅    | ✅       | ✅     | ❌      | ❌     | ❌           |
-| **action:execute**             | ✅    | ✅    | ✅       | ✅     | ❌      | ❌     | ❌           |
-| **action:write**               | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **action:delete**              | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **action_label:write**         | ✅    | ✅    | ❌       | ❌     | ❌      | ❌     | ❌           |
-| **compute_environment:read**   | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ✅           |
-| **compute_environment:write**  | ✅    | ✅    | ❌       | ❌     | ❌      | ❌     | ❌           |
-| **compute_environment:delete** | ✅    | ✅    | ❌       | ❌     | ❌      | ❌     | ❌           |
-| **container:read**             | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ✅           |
-| **credentials:read**           | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ✅           |
-| **credentials:write**          | ✅    | ✅    | ❌       | ❌     | ❌      | ❌     | ❌           |
-| **credentials:delete**         | ✅    | ✅    | ❌       | ❌     | ❌      | ❌     | ❌           |
-| **credentials_encrypted:read** | ✅    | ✅    | ✅       | ✅     | ❌      | ❌     | ❌           |
-| **data_link:read**             | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ✅           |
-| **data_link:write**            | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **data_link:delete**           | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **data_link:admin**            | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **data_link_object:read**      | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ✅           |
-| **data_link_object:write**     | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **data_link_object:delete**    | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **dataset:read**               | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ✅           |
-| **dataset:write**              | ✅    | ✅    | ✅       | ✅     | ❌      | ❌     | ✅           |
-| **dataset:delete**             | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **dataset:admin**              | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **dataset_label:write**        | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ✅           |
-| **label:read**                 | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ✅           |
-| **label:write**                | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **label:delete**               | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **launch:read**                | ✅    | ✅    | ✅       | ✅     | ❌      | ❌     | ✅           |
-| **lineage:read**               | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ✅           |
-| **pipeline:read**              | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ✅           |
-| **pipeline:write**             | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **pipeline:delete**            | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **pipeline_label:write**       | ✅    | ✅    | ❌       | ❌     | ❌      | ❌     | ❌           |
-| **pipeline_secrets:read**      | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ✅           |
-| **pipeline_secrets:write**     | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **pipeline_secrets:delete**    | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **platform:read**              | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ✅           |
-| **project_view:read**          | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ✅           |
-| **studio:read**                | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ❌           |
-| **studio:execute**             | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **studio:write**               | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **studio:delete**              | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **studio:admin**               | ✅    | ✅    | ❌       | ❌     | ❌      | ❌     | ❌           |
-| **studio_label:write**         | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **studio_session:read**        | ✅    | ✅    | ✅       | ✅     | ✅      | ❌     | ❌           |
-| **studio_session:execute**     | ✅    | ✅    | ✅       | ✅     | ✅      | ❌     | ❌           |
-| **workflow:read**              | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ✅           |
-| **workflow:execute**           | ✅    | ✅    | ✅       | ✅     | ❌      | ❌     | ✅           |
-| **workflow:write**             | ✅    | ✅    | ✅       | ✅     | ❌      | ❌     | ✅           |
-| **workflow:delete**            | ✅    | ✅    | ✅       | ✅     | ❌      | ❌     | ❌           |
-| **workflow_label:write**       | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **workflow_quick:execute**     | ✅    | ✅    | ✅       | ❌     | ❌      | ❌     | ❌           |
-| **workflow_star:read**         | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ✅           |
-| **workflow_star:write**        | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ✅           |
-| **workflow_star:delete**       | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ✅           |
-| **workspace:read**             | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ❌           |
-| **workspace:write**            | ✅    | ✅    | ❌       | ❌     | ❌      | ❌     | ❌           |
-| **workspace:delete**           | ✅    | ❌    | ❌       | ❌     | ❌      | ❌     | ❌           |
-| **workspace:admin**            | ✅    | ❌    | ❌       | ❌     | ❌      | ❌     | ❌           |
-| **workspace_lineage:read**     | ✅    | ✅    | ✅       | ✅     | ❌      | ❌     | ✅           |
-| **workspace_lineage:write**    | ✅    | ✅    | ❌       | ❌     | ❌      | ❌     | ❌           |
-| **workspace_resources:read**   | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ❌           |
-| **workspace_self:delete**      | ✅    | ✅    | ✅       | ✅     | ✅      | ✅     | ✅           |
-| **workspace_studio:read**      | ✅    | ✅    | ✅       | ✅     | ❌      | ❌     | ❌           |
-| **workspace_studio:write**     | ✅    | ✅    | ❌       | ❌     | ❌      | ❌     | ❌           |
+| Permission                     | Owner | Admin | Maintain | Launch | Connect | Viewer |
+|--------------------------------|-------|-------|----------|--------|---------|--------|
+| **action:read**                | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **action:execute**             | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **action:write**               | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **action:delete**              | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **action_label:write**         | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **chat:execute**               | ✅     | ✅     | ✅        | ✅      | ✅       | ❌      |
+| **compute_environment:read**   | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **compute_environment:write**  | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **compute_environment:delete** | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **container:read**             | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **credentials:read**           | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **credentials:write**          | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **credentials:delete**         | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **credentials_encrypted:read** | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **data_link:read**             | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **data_link:write**            | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **data_link:delete**           | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **data_link:admin**            | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **data_link_object:read**      | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **data_link_object:write**     | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **data_link_object:delete**    | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **dataset:read**               | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **dataset:write**              | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **dataset:delete**             | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **dataset:admin**              | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **dataset_label:write**        | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **label:read**                 | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **label:write**                | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **label:delete**               | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **launch:read**                | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **lineage:read**               | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **pipeline:read**              | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **pipeline:write**             | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **pipeline:delete**            | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **pipeline_label:write**       | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **pipeline_secrets:read**      | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **pipeline_secrets:write**     | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **pipeline_secrets:delete**    | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **platform:read**              | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **studio:read**                | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **studio:execute**             | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **studio:write**               | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **studio:delete**              | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **studio:admin**               | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **studio_label:write**         | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **studio_session:read**        | ✅     | ✅     | ✅        | ✅      | ✅       | ❌      |
+| **studio_session:execute**     | ✅     | ✅     | ✅        | ✅      | ✅       | ❌      |
+| **workflow:read**              | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **workflow:execute**           | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **workflow:write**             | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **workflow:delete**            | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **workflow_label:write**       | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **workflow_quick:execute**     | ✅     | ✅     | ✅        | ❌      | ❌       | ❌      |
+| **workflow_star:read**         | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **workflow_star:write**        | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **workflow_star:delete**       | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **workspace:read**             | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **workspace:write**            | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **workspace:delete**           | ✅     | ❌     | ❌        | ❌      | ❌       | ❌      |
+| **workspace:admin**            | ✅     | ❌     | ❌        | ❌      | ❌       | ❌      |
+| **workspace_lineage:read**     | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **workspace_lineage:write**    | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
+| **workspace_self:delete**      | ✅     | ✅     | ✅        | ✅      | ✅       | ✅      |
+| **workspace_studio:read**      | ✅     | ✅     | ✅        | ✅      | ❌       | ❌      |
+| **workspace_studio:write**     | ✅     | ✅     | ❌        | ❌      | ❌       | ❌      |
 
 </div>
