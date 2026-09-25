@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-08-28"
+last updated: "2026-09-16"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -364,6 +364,7 @@ VS Code, RStudio, and Jupyter environments natively integrate with [GitHub Copil
 [gh-copilot]: https://github.com/features/copilot
 [open-vscode-server]: https://github.com/gitpod-io/openvscode-server
 [open-vsx]: https://open-vsx.org/
+[vscode-blog]: https://code.visualstudio.com/docs/setup/copilot
 [posit-ghcopilot-guide]: https://docs.posit.co/ide/user/ide/guide/tools/copilot.html
 [nbi]: https://github.com/notebook-intelligence/notebook-intelligence
 [nbi-blog]: https://blog.jupyter.org/introducing-notebook-intelligence-3648c306b91a

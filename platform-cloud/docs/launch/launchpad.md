@@ -40,7 +40,7 @@ Configure the core settings for your run, including the pipeline source, compute
   :::note
   Nextflow pipelines are Git repositories that can reside on any public or private Git-hosting platform. See [Git integration][git] in the Seqera docs and [Pipeline sharing][pipeline-sharing] in the Nextflow docs for more details.
   :::
-- **Version name**: The pipeline version name selected as the default for this run. See [Pipeline versioning][pipeline-version] for details.
+- **Version name**: The pipeline version name selected as the default for this run. See [Pipeline versioning][pipeline-versioning] for details.
 - **Version ID**: The pipeline version ID selected as the default for this run. See [Pipeline versioning][pipeline-versioning] for details.
 - **Revision**: A valid repository commit ID, tag, or branch name. Determines the version of the pipeline to launch.
 - **Commit ID**: The pipeline revision commit ID. If no commit ID is pinned, the latest revision of the repository branch or tag is used.
@@ -151,6 +151,7 @@ In AWS Batch compute environments, Seqera Platform passes stored secrets to jobs
 - **Pre-run scripts**: Custom shell commands to run before the execution.
 - **Post-run scripts**: Custom shell commands to run after the execution.
 - **Stub run**: Replace process commands with [stubs](https://docs.seqera.io/nextflow/process#stub), where defined, before execution.
+- **Nextflow version**: The Nextflow version that runs the pipeline. Available versions depend on the selected compute environment.
 - **Enable Nextflow syntax parser v2**: Run the pipeline with the v2 Nextflow language parser.
 - **Workflow entry name**: A named DSL2 workflow other than the default.
 - **Schema name**: The name of a pipeline schema file in the workflow repository root folder to override the default `nextflow_schema.json`.

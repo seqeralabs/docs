@@ -91,6 +91,20 @@ The following configuration is suggested to overcome AWS limitations:
   }
   ```
 
+**`Part number must be an integer between 1 and 10000`**
+
+```
+Caused by: Part number must be an integer between 1 and 10000, inclusive
+```
+
+This error occurs when a pipeline output file exceeds the AWS S3 multipart upload limit of 10,000 parts.
+
+Nextflow 25.10 and later set the multipart chunk size automatically. The `aws.client.uploadChunkSize` option is no longer supported and is ignored if you set it. Use `aws.client.minimumPartSize` to control chunk size.
+
+Alternatively, if the large files are intermediate results you do not need, configure your pipeline to skip publishing them. See your pipeline documentation for the parameters that disable specific outputs.
+
+For the full list of constraints, see the [AWS S3 multipart upload limits](https://docs.aws.amazon.com/AmazonS3/latest/userguide/qfacts.html).
+
 **Nextflow unable to parse a params file from Seqera**
 
 Ephemeral endpoints can only be consumed once. Nextflow versions older than 22.04 may try to call the same endpoint more than once, resulting in an error:
@@ -296,16 +310,18 @@ This issue occurs because Seqera Platform creates pipeline secrets in Google Sec
 
 Up to version 25.10, Nextflow uses the v1 syntax parser (also known as the legacy parser) by default. The v2 parser introduces stricter validation and is available as an opt-in via `NXF_SYNTAX_PARSER=v2`.
 
-From version 26.04, Nextflow uses the v2 syntax parser by default. Pipelines that run without modification under the v1 parser may fail under v2.
+From version 26.04, and from 26.01.1-edge on the edge release channel, Nextflow uses the v2 syntax parser by default. Pipelines that run without modification under the v1 parser may fail under v2.
+
+In Platform, the supported way to select the parser is the [**Enable Nextflow syntax parser v2**](../launch/advanced#enable-nextflow-syntax-parser-v2) launch toggle, not a pre-run script. The toggle does not track Nextflow's version-based default. With the toggle off, Platform exports `NXF_SYNTAX_PARSER=v1` regardless of the Nextflow version.
 
 **Pin the v1 parser**
 
-To run existing pipelines unchanged under Nextflow 26, set `NXF_SYNTAX_PARSER` to `v1` in a [pre-run script](../launch/advanced#pre-and-post-run-scripts):
+To run existing pipelines unchanged under Nextflow 26.04 and later, leave the launch toggle off.
+
+A [pre-run script](../launch/advanced#pre-and-post-run-scripts) that exports `NXF_SYNTAX_PARSER` takes precedence over the toggle. For example, the following pins the v1 parser even when the toggle is on:
 
 ```
 export NXF_SYNTAX_PARSER=v1
 ```
-
-This restores the legacy parser behavior.
 
 For migration guidance to the v2 parser, see [Preparing for strict syntax](https://docs.seqera.io/nextflow/strict-syntax).

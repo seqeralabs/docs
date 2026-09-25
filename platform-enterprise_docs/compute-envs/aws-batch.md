@@ -67,6 +67,14 @@ To create a new FSx for Lustre file system manually, visit the [FSx console](htt
 
 Make sure the [Lustre client](https://docs.aws.amazon.com/fsx/latest/LustreGuide/install-lustre-client.html) is available in the AMIs used by your AWS Batch compute environment to allow mounting FSx file systems.
 
+## Networking
+
+A Studio session on an AWS Batch compute environment runs as the head job, on the head queue, in the subnets configured for the underlying Batch compute environment. Studios is not supported on a compute environment with **Enable Fargate for head job** selected.
+
+- **Studios sessions are outbound-only**: The Seqera Connect client inside a Studio session opens a tunnel outward to the Connect server, and all session traffic — including SSH when enabled — travels over that outbound connection. **No inbound path to the session is required**, so you do not need inbound security group rules or source-IP allow-lists for dynamically launched Studio jobs. The Batch compute environment subnets do need outbound access to the Connect server, through a NAT gateway or equivalent for private subnets. See [Networking](../studios/overview#networking) in the Studios documentation.
+
+For the ports and directions to configure on your firewall, see [Firewall configuration](../enterprise/advanced-topics/firewall-configuration).
+
 ## Required Platform IAM permissions
 
 To create and launch pipelines, explore buckets with Data Explorer or run Studio sessions with the AWS Batch compute environment, an IAM user with specific permissions must be provided. Some permissions are mandatory for the compute environment to be created and function correctly, while others are optional and used for example to provide list of values to pick from in the Platform UI.
@@ -263,6 +271,29 @@ A permissive and broad policy with all the required permissions is provided here
         "secretsmanager:CreateSecret"
       ],
       "Resource": "arn:aws:secretsmanager:*:*:secret:tower-*"
+    },
+    {
+      "Sid": "OptionalLineageIntegrationSNSAndS3",
+      "Effect": "Allow",
+      "Action": [
+        "sns:CreateTopic",
+        "sns:SetTopicAttributes",
+        "sns:Subscribe",
+        "sns:ConfirmSubscription",
+        "sns:Unsubscribe",
+        "sns:DeleteTopic",
+        "s3:CreateBucket",
+        "s3:GetBucketNotification",
+        "s3:PutBucketNotification",
+        "s3:GetBucketLocation",
+        "s3:ListBucket",
+        "s3:GetObject"
+      ],
+      "Resource": [
+        "arn:aws:sns:*:*:seqera-lineage-*",
+        "arn:aws:s3:::seqera-lineage-*",
+        "arn:aws:s3:::seqera-lineage-*/*"
+      ]
     }
   ]
 }
@@ -602,6 +633,44 @@ If you specify a customer-managed KMS key (CMK) in the **Pipeline secrets KMS ke
 #### Additional steps required to use secrets in a pipeline
 
 To successfully use pipeline secrets, the IAM roles manually created must follow the steps detailed in the [documentation](../secrets/overview#aws-secrets-manager-integration).
+
+### Data lineage (optional)
+
+If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials so they can create the notification topic and bucket notifications used by the lineage service:
+
+```json
+{
+  "Sid": "LineageIntegrationSNS",
+  "Effect": "Allow",
+  "Action": [
+    "sns:CreateTopic",
+    "sns:SetTopicAttributes",
+    "sns:Subscribe",
+    "sns:ConfirmSubscription",
+    "sns:Unsubscribe",
+    "sns:DeleteTopic"
+  ],
+  "Resource": "arn:aws:sns:<REGION>:<ACCOUNT_ID>:seqera-lineage-*"
+},
+{
+  "Sid": "LineageIntegrationS3",
+  "Effect": "Allow",
+  "Action": [
+    "s3:CreateBucket",
+    "s3:GetBucketNotification",
+    "s3:PutBucketNotification",
+    "s3:GetBucketLocation",
+    "s3:ListBucket",
+    "s3:GetObject"
+  ],
+  "Resource": [
+    "arn:aws:s3:::seqera-lineage-*",
+    "arn:aws:s3:::seqera-lineage-*/*"
+  ]
+}
+```
+
+These permissions cover **Automatic** provisioning. For **Manual** provisioning, Platform makes no control-plane calls other than confirming its own webhook subscription: see [Data lineage](../data/data-lineage#additional-iam-permissions-required) for the reduced permission set.
 
 ## Create the IAM policy
 

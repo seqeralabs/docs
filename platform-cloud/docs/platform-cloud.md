@@ -11,7 +11,7 @@ Seqera helps organizations:
 
 - **Run pipelines**: Launch, manage, and monitor [Nextflow](https://www.nextflow.io) pipelines on cloud or HPC compute, with a [Launchpad](/platform-cloud/launch/launchpad) interface for non-technical users.
 - **Analyze interactively**: Spin up [Studios](/platform-cloud/studios/overview) with JupyterLab, R-IDE, VS Code, or Xpra remote desktops on a connected compute environment.
-- **Manage data**: Browse data across AWS, Azure, and Google Cloud buckets with [Data Explorer](/platform-cloud/data/data-explorer), and trace pipeline provenance with [Data Lineage](/platform-cloud/data/data-lineage) (public preview).
+- **Manage data**: Browse data across AWS, Azure, and Google Cloud buckets with [Data Explorer](/platform-cloud/data/data-explorer), and trace pipeline provenance with [Data Lineage](/platform-cloud/data/data-lineage).
 - **Optimize cost and performance**: Get automated resource recommendations from [pipeline optimization](/platform-cloud/pipeline-optimization/overview).
 - **Work with AI**: Use [Co-Scientist](/platform-cloud/co-scientist/) and MCP-compatible agents to write, debug, and run pipelines.
 - **Collaborate securely**: Share pipelines, data, and compute across [organizations and teams](/platform-cloud/orgs-and-teams/workspace-management).
