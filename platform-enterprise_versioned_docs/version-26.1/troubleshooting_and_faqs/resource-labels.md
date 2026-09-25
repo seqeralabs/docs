@@ -7,6 +7,36 @@ tags: [troubleshooting, help]
 
 Common issues experienced with resource labels in AWS, Azure, and GCP:
 
+**AWS Batch rejects a resource label defined in Nextflow configuration**:
+- A run fails soon after it starts with an AWS Batch tag error similar to the following:
+
+  ```text
+  Error executing process > 'NFCORE_RNASEQ:RNASEQ:SORTMERNA_INDEX ([])'
+  Caused by:
+    Tags can only contain letters, numbers, spaces, and the following special characters: _ . : / = + - @ (Service: Batch, Status Code: 400)
+  ```
+
+- Resource labels set with the Nextflow [`resourceLabels`](https://docs.seqera.io/nextflow/reference/process#resourcelabels) directive skip Seqera Platform validation and reach AWS Batch unchanged. AWS Batch rejects any [tag](https://docs.aws.amazon.com/batch/latest/userguide/tag-restrictions.html) value that contains other characters. A common cause is `task.tag`: a process with `tag "$meta.id"` and an empty `meta` input has the tag `[]`
+- To resolve, sanitize each label value in your Nextflow configuration:
+
+  ```groovy title="nextflow.config"
+  def sanitizeLabel(value) {
+      // Replace disallowed characters and truncate to the 256-character tag value limit
+      "${value}".replaceAll(/[^A-Za-z0-9 _.:\/=+@-]/, '_').take(256)
+  }
+
+  process {
+      resourceLabels = { [
+          pipelineTag: sanitizeLabel(task.tag),
+          pipelineContainer: sanitizeLabel(task.container),
+          pipelineRevision: sanitizeLabel(workflow.revision),
+          pipelineCommitId: sanitizeLabel(workflow.commitId),
+      ] }
+  }
+  ```
+
+- The `"${value}"` conversion turns unset properties, such as `task.tag` for a process without a `tag` directive, into the string `null`. Without it, `replaceAll` fails on `null`
+
 **Tags not appearing in cost reports**:
 - Allow up to 24 hours for tags to appear in AWS cost allocation console
 - For Azure, enable tag inheritance and allow 24 hours for processing
