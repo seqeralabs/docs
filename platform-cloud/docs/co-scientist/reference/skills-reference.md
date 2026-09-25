@@ -2,6 +2,7 @@
 title: "Skills"
 description: "Built-in skills, slash commands, and session limits for the Seqera CLI"
 date created: "2026-05-27"
+last updated: "2026-09-22"
 tags: [co-scientist, cli, skills, reference]
 ---
 
@@ -13,28 +14,32 @@ Co-Scientist exposes two kinds of slash command in the `/` palette. TUI commands
 
 | Command | Description |
 |---------|-------------|
-| `/help` | Show available commands |
+| `/help` (`?`) | Show available commands |
 | `/exit` (`/quit`, `/q`) | Exit the application |
 | `/clear` | Clear conversation history |
 | `/thinking` | Toggle thinking display |
 | `/scroll` | Toggle auto-scroll |
 | `/org` | Show current organization |
+| `/session` | Show the current session ID |
+| `/sessions` | Browse and switch sessions |
 | `/lsp` | Show LSP server status |
 | `/status` | Show system status |
 | `/credits` | Show credit balance and usage |
 | `/approval` | Show or set approval mode |
+| `/update` | Check for CLI updates and show next steps |
+| `/goal <task>` | Set a persistent goal, which Co-Scientist attempts up to 3 times (see [Modes](../modes.md)) |
 | `/feedback` | Open feedback form |
 | `/help-community` | Open community help |
 | `/stickers` | Get Seqera stickers |
 
-The second kind, AI commands, are backed by skills and sent to the AI backend. The built-in ones are listed below, and any skills your deployment exposes appear alongside them in `/` and `/help`.
+The second kind, AI commands, are backed by skills and sent to the AI backend. The following section lists the built-in ones. Project and user skills you author appear alongside them in `/` and `/help`, and take precedence over a built-in skill with the same name. See [Skills configuration](../skills.md).
 
 ## Built-in skills
 
-Co-Scientist includes a set of built-in skills. Invoke a skill directly with its slash command, or describe your task and Co-Scientist loads the matching skill.
+Co-Scientist includes built-in skills. Invoke a skill directly with its slash command, or describe your task and Co-Scientist loads the matching skill.
 
 :::note
-Built-in skills change from release to release. Treat this page as a guide rather than an inventory. Type `/` or run `/help` in your session to see the current list for your deployment.
+Built-in skills change between releases. To see the current list for your deployment, type `/` or run `/help` in your session.
 :::
 
 ### Build a pipeline
@@ -59,7 +64,7 @@ Built-in skills change from release to release. Treat this page as a guide rathe
 |---------|-------------|
 | `/convert-jupyter-notebook` | Convert Jupyter notebooks to Nextflow processes and workflows |
 | `/convert-python-script` | Convert standalone Python scripts to Nextflow |
-| `/convert-r-script` | Convert R scripts to Nextflow, with containers and conda environments |
+| `/convert-r-script` | Convert R scripts to Nextflow, with containers and Conda environments |
 | `/migrate-from-snakemake` | Convert Snakemake workflows to idiomatic DSL2, using a test-first migration loop |
 | `/nextflow-26-syntax` | Write, migrate, or debug workflows under the v2 strict-syntax parser used by Nextflow 26+ |
 | `/nf-v2-boolean-params` | Fix boolean parameter handling under v2 strict syntax |
@@ -109,8 +114,8 @@ Built-in skills change from release to release. Treat this page as a guide rathe
 
 | Command | Description |
 |---------|-------------|
-| `/find-alternative-tools` | For a given analysis step, find the credible tool options with pros, cons, licensing, and a ranked recommendation |
-| `/enumerate-alternative-tools` | Run the same tool enumeration as `/find-alternative-tools`. The `/create-workflow` and `/nf-pipeline-design` planning flows invoke this skill |
+| `/find-alternative-tools` | Find credible tool options for an analysis step, with pros, cons, licensing, and a ranked recommendation |
+| `/enumerate-alternative-tools` | Run the same tool enumeration as `/find-alternative-tools` (the `/create-workflow` and `/nf-pipeline-design` planning flows invoke this skill) |
 | `/parabricks` | Get version-aware guidance on NVIDIA Parabricks `pbrun` tools and assess GPU readiness |
 | `/genomics-workflow-acceleration` | Add optional GPU steps to an existing genomics workflow, with runtime toggles that default to off |
 
@@ -129,7 +134,7 @@ Built-in skills change from release to release. Treat this page as a guide rathe
 
 ## Payload limits
 
-To keep session payloads small, Co-Scientist caps discovered skill context at **5 KB**. The total session payload cap is **20 KB**.
+To keep session payloads small, Co-Scientist caps discovered skill context at **5,000 characters**. The total session payload cap is **20,000 characters**.
 
 ## Learn more
 

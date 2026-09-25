@@ -2,7 +2,7 @@
 title: "Git integration"
 description: "Connecting to Git repositories in Seqera Platform and Co-Scientist."
 date created: "2025-10-11"
-last updated: "2026-08-10"
+last updated: "2026-09-25"
 tags: [git]
 ---
 
@@ -74,23 +74,13 @@ For the application to select the most appropriate credential for your repositor
 
 ## Co-Scientist
 
-[Co-Scientist](https://ai.seqera.io) integrates with your pipeline GitHub repositories to provide intelligent assistance with pipeline development and modification. To fully utilize the power of Co-Scientist, it needs access to your pipeline codebase to analyze, suggest changes, and even create pull requests on your behalf.
+[Co-Scientist](../co-scientist/index.md) integrates with your pipeline GitHub repositories to provide intelligent assistance with pipeline development and modification. To fully utilize the power of Co-Scientist, it needs access to your pipeline codebase to analyze, suggest changes, and even create pull requests on your behalf.
 
 ### Set up GitHub access
 
-To enable Co-Scientist to interact with your pipeline GitHub repositories:
+Co-Scientist connects to GitHub through the Seqera Co-Scientist GitHub App. You connect your own GitHub account from a Co-Scientist conversation the first time Co-Scientist needs access to a private repository. An organization admin installs the app on each GitHub organization that owns those repositories. See [Work with GitHub repositories](../co-scientist/platform.md#work-with-github-repositories) for the steps.
 
-1. **Generate a personal access token**
-   - Navigate to [GitHub Personal Access Tokens](https://github.com/settings/personal-access-tokens)
-   - Create a new token with the following permissions:
-     - **Pull Requests**: Read & Write
-     - **Contents**: Read & Write
-   - Your token value will be displayed only once. Copy it before navigating away from the tokens page.
-
-2. **Add the token to Co-Scientist**
-   - Open [Co-Scientist](https://ai.seqera.io).
-   - In the bottom-left user menu, select **Add token**.
-   - Enter your personal access token in the field provided, then select **Set token**.
+This connection is separate from the [Seqera Platform Git provider credentials](#seqera-platform-git-provider-credentials) used to launch pipelines.
 
 ### Capabilities
 
