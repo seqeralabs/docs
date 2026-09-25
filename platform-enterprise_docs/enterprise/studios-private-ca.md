@@ -137,9 +137,6 @@ Studio sessions run Linux containers, and the mechanism relies on standard Linux
 Behavior in specific private-network topologies is still being verified under [PLAT-6506](https://seqera.atlassian.net/browse/PLAT-6506). Contact your Seqera account executive if a session behaves differently from what's described here.
 :::
 
-{/* TODO: revisit once PLAT-6506 closes — field-verified topology behavior may add or remove
-     limitations. AWS EC2 user-data size ceiling is tracked separately as PLAT-6380. */}
-
 ## Browser trust is separate
 
 Configuring the CA in Platform allows the *session* to establish its outbound connections. It does not affect the user's browser. To open a Studio whose Connect endpoint uses an internal certificate, the internal CA must also be present in the trust store of the user's own machine or browser. Distributing the CA to users is a separate decision from this setting.
