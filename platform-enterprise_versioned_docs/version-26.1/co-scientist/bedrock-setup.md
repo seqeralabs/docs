@@ -1,5 +1,5 @@
 ---
-title: "Bedrock setup"
+title: "Set up Amazon Bedrock"
 description: "Configure Amazon Bedrock model access, IAM permissions, and the AgentCore runtime for Co-Scientist"
 date created: "2026-08-19"
 last updated: "2026-09-22"

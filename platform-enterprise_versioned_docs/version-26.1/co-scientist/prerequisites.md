@@ -6,7 +6,7 @@ last updated: "2026-09-22"
 tags: [prerequisites]
 ---
 
-Complete these requirements before you install Co-Scientist, then configure your AWS account with [Bedrock setup](./bedrock-setup.md).
+Complete these requirements before you install Co-Scientist, then [set up Amazon Bedrock](./bedrock-setup.md) in your AWS account.
 
 :::caution
 Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. It is currently only available on AWS.
