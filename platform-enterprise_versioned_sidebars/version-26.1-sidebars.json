@@ -235,7 +235,6 @@
       "collapsed": true,
       "items": [
         "co-scientist/prerequisites",
-        "co-scientist/bedrock-setup",
         "co-scientist/installation",
         "co-scientist/quickstart",
         "co-scientist/authentication",

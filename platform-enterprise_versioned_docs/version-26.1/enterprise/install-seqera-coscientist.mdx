@@ -27,7 +27,7 @@ You need the following:
 - A Redis 7.2-compatible or Valkey 7.2-compatible instance for agent backend task coordination. You can use the same instance as Platform with a different Redis database index, or a separate instance.
 - A stable Fernet token encryption key for the agent backend if you use Kustomize. Helm-only installs can let the chart generate this key, but explicitly setting it avoids accidental regeneration.
 - Access to a supported Claude inference provider. AWS Bedrock is recommended for Enterprise deployments; direct Anthropic API access is also supported.
-- If you use AWS Bedrock, an AWS account with model access, the IAM permissions the agent backend pods need, and an AgentCore runtime if you enable sandboxed sessions. See [Set up Amazon Bedrock](../co-scientist/bedrock-setup.md).
+- If you use AWS Bedrock, access to the required Claude model or inference profile and the Amazon Titan embedding model. See AWS documentation to [add or remove access to Amazon Bedrock foundation models](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access-modify.html).
 - If you use direct Anthropic API access, an Anthropic API key stored in a Kubernetes Secret.
 
 :::
@@ -156,7 +156,7 @@ agent-backend:
   sandbox:
     provider: bedrock   # optional; omit to disable AgentCore sandbox sessions
 
-  # -- Bedrock configuration. See Bedrock setup for the IAM policies these roles require.
+  # -- Bedrock configuration
   bedrock:
     # Default credentials applied to all Bedrock-backed services unless overridden per-service.
     # Use this when inference, embeddings, and sandbox all share the same role and region.
