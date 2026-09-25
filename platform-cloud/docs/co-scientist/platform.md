@@ -54,6 +54,25 @@ Type `@` in the message box to reference a Platform resource by name (a pipeline
 
 A request keeps running after you navigate away or switch workspaces. Reopen the panel to see the result. Long-running work draws on the same credits as any other Co-Scientist usage. Check your active conversations before you leave requests running.
 
+## Work with GitHub repositories
+
+Co-Scientist can clone GitHub repositories, create branches, push commits, and open pull requests. It reaches private repositories through the Seqera Co-Scientist GitHub App. You connect your own GitHub account to the app the first time Co-Scientist needs access to a private repository.
+
+This connection is separate from the [Git credentials](../git/overview.md#seqera-platform-git-provider-credentials) that Seqera Platform uses to launch pipelines.
+
+To connect GitHub:
+
+1. Ask Co-Scientist to work with a private repository. If you have not connected GitHub, Co-Scientist replies with a link to authorize the Seqera Co-Scientist GitHub App.
+1. Open the link and approve the authorization on GitHub. The page that opens shows a connection ID.
+1. Copy the connection ID and paste it into the conversation to finish connecting.
+1. If the repository belongs to a GitHub organization where the app is not installed, Co-Scientist returns an install link for the app. Ask an organization admin to install the app and grant it access to the repository, then ask Co-Scientist to retry.
+
+The authorization link and the connection ID expire after a short time. If either expires, ask Co-Scientist to start again.
+
+:::note
+If your GitHub organization enforces SAML single sign-on (SSO), GitHub rejects access until you authorize the connection for that organization. Co-Scientist tells you when this happens. Open the authorization link from GitHub, approve access for the organization, and retry.
+:::
+
 ## Download session files
 
 Some requests produce files, such as a generated configuration or a converted pipeline. When a session has produced files, use the sandbox chip above the message box to download the session contents as a `.tar.gz` archive.
