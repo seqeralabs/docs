@@ -100,6 +100,16 @@ grep -rl "{old-version}" platform-enterprise_versioned_docs/version-<MAJOR.MINOR
 
 For the full playbook — including the Connect-client surface and verification commands — see [`.claude/skills/platform-version-bumps/SKILL.md`](.claude/skills/platform-version-bumps/SKILL.md).
 
+## Cutting a new Enterprise version (quick reference)
+
+On the release branch, run the Docusaurus command. Don't move the folder by hand:
+
+```bash
+npx docusaurus docs:version:platform-enterprise <MAJOR.MINOR>
+```
+
+It copies `platform-enterprise_docs/` to `platform-enterprise_versioned_docs/version-<MAJOR.MINOR>/`, writes the versioned sidebar, and adds the version to the front of `platform-enterprise_versions.json`. If you cut before every feeder PR has merged, do two things before the release branch merges to master: refresh `version-<MAJOR.MINOR>/` from `platform-enterprise_docs/`, and set the deploy-preview `INCLUDE_NEXT` back to `""`.
+
 ## Related
 
 - Skill definitions: [.claude/skills/](.claude/skills/)
