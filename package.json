@@ -84,7 +84,7 @@
     "gray-matter": "4.0.3",
     "markdownlint-cli2": "0.23.2",
     "netlify-plugin-cache": "1.0.3",
-    "prettier": "3.9.6",
+    "prettier": "3.9.8",
     "simple-git": "3.36.0",
     "typescript": "7.0.2"
   },
