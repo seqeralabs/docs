@@ -2,7 +2,7 @@
 title: "Co-Scientist"
 description: Install and configure Co-Scientist for Seqera Platform Enterprise
 date created: "2026-05-04"
-last updated: "2026-05-14"
+last updated: "2026-09-24"
 tags: [seqera ai, installation, deployment, aws, helm]
 ---
 
@@ -15,20 +15,24 @@ Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. This guide cov
 
 Deploy the agent backend, Seqera MCP server, and web interface alongside Platform to provide Co-Scientist assistance for workflows, data, projects, and Platform resources in the Seqera CLI and browser. The MCP, agent backend, and portal web Helm charts provide the option to define Kubernetes ingresses. Other methods to expose the services can be used, e.g. via the `extraDeploy` resource.
 
-## Prerequisites
+:::info[**Prerequisites**]{#prerequisites}
 
-Before you begin, make sure you have:
+You need the following:
 
 - Seqera Platform Enterprise 25.3.6 or later deployed with the [Seqera Platform Helm chart](./platform-helm.md).
 - Helm v3 and `kubectl` installed locally.
 - DNS names and TLS certificates for the Platform, agent backend, MCP server, and portal web interface hosts. By default, the Helm charts derive `mcp.<platformExternalDomain>`, `ai-api.<platformExternalDomain>`, and `ai.<platformExternalDomain>`. Override `global.mcpDomain`, `global.agentBackendDomain`, and `global.portalWebDomain` if you use different hostnames.
 - Access to pull the images required by the Helm charts from the configured container registry, or mirrored copies in your internal registry. See [Seqera container images](./advanced-topics/seqera-container-images.md) and [Mirroring container images](./configuration/mirroring.md).
 - A MySQL 8.4 LTS-compatible database for the agent backend. You can use the same MySQL instance as Platform with a separate database and user, or a separate instance.
-- A Redis 7.2-compatible or Valkey 7.2-compatible instance for agent backend task coordination.
+- A Redis 7.2-compatible or Valkey 7.2-compatible instance for agent backend task coordination. You can use the same instance as Platform with a different Redis database index, or a separate instance.
 - A stable Fernet token encryption key for the agent backend if you use Kustomize. Helm-only installs can let the chart generate this key, but explicitly setting it avoids accidental regeneration.
 - Access to a supported Claude inference provider. AWS Bedrock is recommended for Enterprise deployments; direct Anthropic API access is also supported.
 - If you use AWS Bedrock, access to the required Claude model or inference profile and the Amazon Titan embedding model. See AWS documentation to [add or remove access to Amazon Bedrock foundation models](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access-modify.html).
 - If you use direct Anthropic API access, an Anthropic API key stored in a Kubernetes Secret.
+
+:::
+
+## Generate the token encryption key and store secrets
 
 Generate a Fernet token encryption key when you set the key manually:
 
@@ -101,6 +105,16 @@ For a complete example, see the [Co-Scientist Helm example](https://github.com/s
 
 When MCP runs under the Platform parent chart, leave `mcp.oidcToken` unset unless you need to override the default wiring. The parent chart sets it to the Platform backend secret key `OIDC_CLIENT_REGISTRATION_TOKEN`.
 
+Seqera publishes MCP server images for 1.4.3 and later only to `cr.seqera.io/enterprise/mcp/server`. The 26.1 charts default the MCP image repository to `ai/mcp/server`, which holds releases up to 1.4.2 only. Seqera does not patch the 26.1 charts to change this default. If your chart deploys MCP 1.4.3 or later, override the repository:
+
+```yaml
+mcp:
+  image:
+    repository: enterprise/mcp/server
+```
+
+The chart sets no default registry. Set `global.imageRegistry` to the registry you mirror Seqera images to, or to `cr.seqera.io` if your cluster pulls directly. If you mirror images, mirror `enterprise/mcp/server`.
+
 ## Configure the agent backend
 
 The agent backend needs MySQL, Redis or Valkey, inference provider access, MCP connectivity, and a stable token encryption key. In this example sensitive values (db and redis passwords, token encryption key, etc) are stored in a Kubernetes secret named `seqera-ai-secrets`, which needs to already exist before the chart installation, either created manually or with automated secret extraction tools (like External Secrets, not covered in this tutorial).
@@ -124,7 +138,9 @@ agent-backend:
   # -- Redis or Valkey
   redis:
     host: redis.example.com
-    db: 0
+    port: 6379
+    # Database index. Set a different index to Platform's when both share one instance.
+    database: 0
     existingSecretName: seqera-ai-secrets
     existingSecretKey: AGENT_BACKEND_REDIS_PASSWORD
 
