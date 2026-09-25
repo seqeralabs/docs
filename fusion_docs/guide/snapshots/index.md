@@ -2,7 +2,7 @@
 title: Fusion Snapshots
 description: "Checkpoint and restore for Nextflow tasks on Spot and preemptible instances"
 date created: "2024-11-29"
-last updated: "2026-08-19"
+last updated: "2026-09-22"
 tags: [fusion, fusion snapshots, storage, snapshot, checkpoint, restore]
 ---
 
@@ -21,6 +21,17 @@ Fusion Snapshots is available for the following cloud providers:
 
 - **[AWS Batch with Spot instances](./aws.md)**: 120-second guaranteed reclamation window.
 - **[Google Batch with preemptible instances](./gcp.md)**: Up to 30-second reclamation window.
+
+## Hardware compatibility
+
+Fusion Snapshots capture process state. Hardware accelerators are supported only where their device state can also be captured.
+
+| Hardware | Fusion Snapshots | Notes |
+| -------- | ---------------- | ----- |
+| CPU, `x86_64` | Supported | Incremental snapshots are enabled by default. |
+| CPU, ARM64 | Supported | Full dumps only. See [Incremental snapshots](#incremental-snapshots). |
+| NVIDIA GPU | Supported on AWS Batch | Requires `x86_64` GPU instances and a container with `libcuda.so` on `LD_LIBRARY_PATH`. Restrict **Instance types** to a single GPU instance type so that the task is restored on the same GPU model and driver version. |
+| FPGA (AWS `f1`, `f2`) | Not supported | FPGA device state is outside process memory and cannot be captured. A task on a reclaimed FPGA Spot instance cannot be restored and may keep running without completing. Run FPGA workloads such as Illumina DRAGEN in an On-Demand compute environment. |
 
 ## How Fusion Snapshots work
 

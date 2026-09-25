@@ -2,7 +2,7 @@
 title: AWS Batch
 description: "Fusion Snapshots requirements, instance selection, and storage on AWS Batch"
 date created: "2024-11-21"
-last updated: "2026-08-25"
+last updated: "2026-09-22"
 tags: [fusion, fusion snapshots, storage, compute, snapshot, aws, batch]
 ---
 
@@ -95,6 +95,10 @@ When you select instance types:
 - Maintain a 5:1 or better ratio between memory (GiB) and network bandwidth (Gbps). Instances with lower ratios complete snapshots faster.
 - Prefer NVMe storage instances (those with a `d` suffix: `c6id`, `r6id`, `m6id`).
 - Use `x86_64` instances for [incremental snapshots](./index.md#incremental-snapshots). Do not enable **Use Graviton CPU architecture**.
+
+:::caution
+Do not add FPGA instance types (`f1`, `f2`) to **Instance types**. Fusion Snapshots cannot restore a task on a reclaimed FPGA instance. Run FPGA workloads such as Illumina DRAGEN in an On-Demand compute environment. See [Hardware compatibility](./index.md#hardware-compatibility).
+:::
 
 For example, a `c6id.8xlarge` instance provides 64 GiB memory and 12.5 Gbps guaranteed network bandwidth. This configuration can transfer the entire memory contents to S3 in approximately 70 seconds. Instances with memory:bandwidth ratios over 5:1 may not complete a full-memory transfer before termination.
 
