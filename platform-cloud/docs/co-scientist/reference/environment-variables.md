@@ -20,7 +20,7 @@ The Seqera CLI reads the following environment variables for authentication, for
 | <code style={{whiteSpace: 'nowrap'}}>SEQERA_PLATFORM_API_URL</code> | Platform API endpoint used by `seqera info`. |
 | <code style={{whiteSpace: 'nowrap'}}>SEQERA_AUTH_REDIRECT_PORT</code> | Local port for the browser login callback. Defaults to `53682`. |
 | <code style={{whiteSpace: 'nowrap'}}>SEQERA_AUTH_CALLBACK_TIMEOUT_MS</code> | How long the CLI waits for the browser login callback, in milliseconds. |
-| <code style={{whiteSpace: 'nowrap'}}>SEQERA_BROWSER_AUTO_OPEN</code> | Set to `false` to print the login URL instead of opening a browser. Useful on remote hosts. |
+| <code style={{whiteSpace: 'nowrap'}}>SEQERA_BROWSER_AUTO_OPEN</code> | Set to `false` to print the login URL instead of opening a browser, for example on a remote host. |
 
 :::note
 `SEQERA_AI_BACKEND_URL`, `SEQERA_AUTH_DOMAIN`, and `SEQERA_AUTH_CLI_CLIENT_ID` are only needed when pointing a development build at the hosted Co-Scientist backend. See [Authentication](../authentication.md) for the full setup.

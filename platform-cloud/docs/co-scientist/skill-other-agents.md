@@ -37,14 +37,14 @@ Install for your user account, relative to your home directory:
 seqera skill install --global --path .cursor/skills/seqera
 ```
 
-Update an existing installation by detecting where it is:
+Detect and update an existing installation:
 
 ```bash
 seqera skill install --detect
 ```
 
 :::note
-Without `--path`, `seqera skill install` installs the Claude Code layout (`.claude/skills/seqera`), at the repository root or, with `--global`, in your home directory. It does not prompt for a location. Run it inside a git repository unless you pass `--global` or an absolute `--path`. `--path` is a directory: the CLI creates it and writes `SKILL.md` and its supporting files inside it.
+Without `--path`, `seqera skill install` installs the Claude Code layout (`.claude/skills/seqera`) at the repository root, or in your home directory with `--global`. It does not prompt for a location. Unless you pass `--global` or an absolute `--path`, run the command inside a git repository. The CLI creates the `--path` directory and writes `SKILL.md` and its supporting files inside it.
 :::
 
 ### Usage

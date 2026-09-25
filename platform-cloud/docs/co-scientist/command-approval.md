@@ -29,9 +29,9 @@ Press 1, 2, or 3 to choose
 
 You can:
 
-- **1**: Run the command once (or press Enter)
-- **2**: Run the command and auto-approve commands that match it for the rest of the session. Co-Scientist stores a pattern derived from the command, such as `git commit*`, not a blanket approval. Other commands still prompt. A session keeps up to 100 approved patterns.
-- **3**: Reject the command (or press Escape)
+- **1**: Run the command once (or press Enter).
+- **2**: Run the command and auto-approve commands that match it for the rest of the session. Co-Scientist stores a pattern derived from the command, such as `git commit*`. Commands that do not match the pattern still prompt. A session keeps up to 100 approved patterns.
+- **3**: Reject the command (or press Escape).
 
 An approval prompt stays open for 15 minutes. If you don't respond in that time, the request times out and Co-Scientist stops waiting for the command result.
 

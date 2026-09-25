@@ -27,7 +27,7 @@ Co-Scientist exposes two kinds of slash command in the `/` palette. TUI commands
 | `/credits` | Show credit balance and usage |
 | `/approval` | Show or set approval mode |
 | `/update` | Check for CLI updates and show next steps |
-| `/goal <task>` | Set a persistent goal. Co-Scientist makes up to 3 attempts. See [Modes](../modes.md) |
+| `/goal <task>` | Set a persistent goal. Co-Scientist makes up to 3 attempts. See [Modes](../modes.md). |
 | `/feedback` | Open feedback form |
 | `/help-community` | Open community help |
 | `/stickers` | Get Seqera stickers |
