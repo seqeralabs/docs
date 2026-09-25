@@ -12,7 +12,7 @@ This page covers how to install the skill into Claude Code and keep it in sync a
 
 ## `seqera skill install`
 
-Use `seqera skill install` to add the Co-Scientist skill to Claude Code. Pass the Claude Code skill directory with `--path`. Relative paths resolve from the repository root.
+Use `seqera skill install` to add the Co-Scientist skill to Claude Code. Use `--path` to specify the Claude Code skill directory. Relative paths resolve from the repository root.
 
 Install into the current repository:
 
