@@ -36,7 +36,7 @@ The Seqera CLI reads the following environment variables for authentication, for
 
 ## Configuration file
 
-The CLI also reads connection settings from `~/.config/seqera-ai/config.json`. Use it instead of exporting environment variables in every shell:
+The CLI also reads connection settings from `~/.config/seqera-ai/config.json`. Use the file instead of exporting environment variables in every shell:
 
 ```json
 {

@@ -88,11 +88,11 @@ Co-Scientist keeps session history for a fixed period and caps the number of ses
 | Sessions per user | 100 |
 | Sessions per workspace | 500 |
 
-After 48 hours without activity, Co-Scientist releases a session's in-memory state. The conversation history is kept, so you can still resume the session until it reaches the retention limit. After the retention limit, the session is deleted and can no longer be resumed.
+After 48 hours without activity, Co-Scientist releases a session's in-memory state but keeps its conversation history. You can resume the session until it reaches the retention limit. After the retention limit, Co-Scientist deletes the session and you can no longer resume it.
 
 ## Interrupt a response
 
-Press `Esc` to interrupt the current response. The CLI stops the run on the Co-Scientist backend as well as in your terminal, so interrupted work does not continue in the background.
+Press `Esc` to interrupt the current response. The CLI stops the response on the Co-Scientist backend as well as in your terminal. Interrupted work does not continue in the background.
 
 ## Exit a session
 

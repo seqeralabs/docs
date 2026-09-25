@@ -19,7 +19,7 @@ See [Skills](./reference/skills-reference.md) for a list of the available built-
 
 ## Use skills in the CLI
 
-When you start `seqera ai`, the CLI discovers available skills automatically. Built-in skills from the Co-Scientist backend and the project and user skills discovered from your [discovery directories](#discovery-directories) are all exposed as slash commands in the `/` command palette and `/help`. If a project or user skill has the same name as a built-in skill, your skill takes precedence.
+When you start `seqera ai`, the CLI discovers available skills automatically. Built-in skills from the Co-Scientist backend appear as slash commands in the `/` command palette and `/help`. Project and user skills from your [discovery directories](#discovery-directories) appear there too. If a project or user skill has the same name as a built-in skill, your skill takes precedence.
 
 You can:
 
@@ -60,7 +60,7 @@ Co-Scientist searches these directories in order. The first directory to registe
 | 4 | `~/.seqera/skills/` | user |
 | 5 | `~/.agents/skills/` | user |
 
-Outside a git repository, Co-Scientist checks only the current directory. Project skills take priority over user skills, so you can override a global skill with a repository-specific version.
+Outside a git repository, Co-Scientist checks only the current directory. Because project skills take priority over user skills, a repository-specific skill overrides a global skill with the same name.
 
 ### Cross-agent compatibility
 

@@ -8,7 +8,7 @@ tags: [co-scientist, aws, iam, installation]
 
 Co-Scientist runs Claude inference in your own AWS account through Amazon Bedrock. Before you install the Helm charts, enable model access, grant the IAM permissions the agent backend needs, and create an AgentCore runtime if you use sandboxed sessions.
 
-Complete this page after the [prerequisites](./prerequisites.md) and before [installation](./installation.mdx).
+Complete these steps after the [prerequisites](./prerequisites.md) and before [installation](./installation.mdx).
 
 :::info[**Prerequisites**]{#prerequisites}
 
@@ -45,7 +45,7 @@ You can invoke a model served through AWS Marketplace only while an active agree
 - Open the model in the [Bedrock model catalog](https://docs.aws.amazon.com/bedrock/latest/userguide/model-catalog.html) and run it in the playground.
 - Invoke the model once with the [InvokeModel](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModel.html) or [Converse](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html) API.
 
-If you skip this step, Co-Scientist's first inference call fails even with model access enabled.
+If you skip this step, the first Co-Scientist inference call fails even with model access enabled.
 
 ## Use an inference profile for Claude Sonnet
 
@@ -55,7 +55,7 @@ Bedrock does not offer Claude Sonnet 4.6 with on-demand throughput. Invoke it th
 global.anthropic.claude-sonnet-4-6
 ```
 
-Supply its full ARN to the agent backend as `bedrock.inference.anthropicModel` when you install the chart:
+Supply the full inference profile ARN to the agent backend as `bedrock.inference.anthropicModel` when you install the chart:
 
 ```yaml
 arn:aws:bedrock:<region>:<account-id>:inference-profile/global.anthropic.claude-sonnet-4-6
@@ -63,7 +63,7 @@ arn:aws:bedrock:<region>:<account-id>:inference-profile/global.anthropic.claude-
 
 ## Grant Bedrock inference permissions
 
-Attach the following policy to the IAM role or user that the agent backend pods use. Include one resource entry for the foundation model and one for the inference profile of each model you enabled above:
+Attach the following policy to the IAM role or user that the agent backend pods use. Include one resource entry for the foundation model and one for the inference profile of each model you enabled earlier:
 
 ```json
 {
@@ -87,7 +87,7 @@ Attach the following policy to the IAM role or user that the agent backend pods 
 Replace `<region>` and `<account-id>` with your own values. Foundation model ARNs have no region or account component because they are not region-scoped. List both the inference profile and the foundation model it routes to. Bedrock authorizes a request through a profile against both.
 
 :::caution
-By default, the primary, fast, deep, and summary roles all use Claude Sonnet 4.6. The example policy covers every Claude call the agent backend makes. If you set `bedrock.inference.anthropicModel` to a different model, add its foundation model entry and inference profile ARN. If you use documentation semantic search, also add the embedding model:
+The example policy covers every Claude call the agent backend makes with the default models. If you set `bedrock.inference.anthropicModel` to a different model, add its foundation model entry and inference profile ARN. If you use documentation semantic search, also add the embedding model:
 
 ```
 arn:aws:bedrock:::foundation-model/amazon.titan-embed-text-v2:0
@@ -105,7 +105,7 @@ Complete this section only if you enable sandboxed sessions with `sandbox.provid
 Seqera publishes the AgentCore runtime image. Copy it into a repository in your own Amazon ECR registry, in the same account as the runtime.
 
 :::caution
-AgentCore cannot pull the image from Seqera's container registry because it resolves images through AWS IAM within your account. Store the image in your own ECR registry.
+AgentCore cannot pull the image from the Seqera container registry because it resolves images through AWS IAM within your account. Store the image in your own ECR registry.
 :::
 
 Seqera builds the image for `arm64`. Pull it, retag it for your registry, and push:
@@ -127,7 +127,7 @@ Pin a specific dated tag, not `latest`. Contact Seqera for the tag that matches 
 ### Create the runtime
 
 :::note
-The identity you use to create the runtime needs the `bedrock-agentcore:CreateAgentRuntime` and `bedrock-agentcore:ListAgentRuntimes` permissions. These are separate from the invocation permissions the agent backend pods need, described in the next section. Service control policies or permissions boundaries in your organization can block these actions even when your own role allows them.
+The identity you use to create the runtime needs the `bedrock-agentcore:CreateAgentRuntime` and `bedrock-agentcore:ListAgentRuntimes` permissions. These are separate from the [invocation permissions](#grant-runtime-invocation-permissions) the agent backend pods need. Service control policies or permissions boundaries in your organization can block these actions even when your own role allows them.
 :::
 
 To create the runtime:
@@ -186,5 +186,5 @@ For the full values file and the surrounding chart configuration, see [Install C
 
 After you configure your AWS account, continue with the following pages:
 
-- [Install Co-Scientist](../enterprise/install-seqera-coscientist.mdx)
-- [Usage and cost](./usage-and-cost.md) — how model access, inference profiles, quotas, and IAM roles map to what your organization is billed for
+- [Install Co-Scientist](../enterprise/install-seqera-coscientist.mdx): Install and configure Co-Scientist for Seqera Platform Enterprise
+- [Usage and cost](./usage-and-cost.md): How model access, inference profiles, quotas, and IAM roles map to what your organization is billed for

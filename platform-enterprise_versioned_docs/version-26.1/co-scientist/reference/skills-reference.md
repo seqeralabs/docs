@@ -27,7 +27,7 @@ Co-Scientist exposes two kinds of slash command in the `/` palette. TUI commands
 | `/credits` | Show Enterprise usage ownership and administrator contact guidance |
 | `/approval` | Show or set approval mode |
 | `/update` | Check for CLI updates and show next steps |
-| `/goal <task>` | Set a persistent goal. Co-Scientist makes up to 3 attempts. See [Modes](../modes.md). |
+| `/goal <task>` | Set a persistent goal, which Co-Scientist attempts up to 3 times (see [Modes](../modes.md)) |
 | `/feedback` | Open feedback form |
 | `/help-community` | Open community help |
 | `/stickers` | Get Seqera stickers |
@@ -36,7 +36,7 @@ The second kind, AI commands, are backed by skills and sent to the AI backend. T
 
 ## Built-in skills
 
-Co-Scientist includes a set of built-in skills. Invoke a skill directly with its slash command, or describe your task and Co-Scientist loads the matching skill.
+Co-Scientist includes built-in skills. Invoke a skill directly with its slash command, or describe your task and Co-Scientist loads the matching skill.
 
 :::note
 Built-in skills change between releases. To see the current list for your deployment, type `/` or run `/help` in your session.
@@ -64,7 +64,7 @@ Built-in skills change between releases. To see the current list for your deploy
 |---------|-------------|
 | `/convert-jupyter-notebook` | Convert Jupyter notebooks to Nextflow processes and workflows |
 | `/convert-python-script` | Convert standalone Python scripts to Nextflow |
-| `/convert-r-script` | Convert R scripts to Nextflow, with containers and conda environments |
+| `/convert-r-script` | Convert R scripts to Nextflow, with containers and Conda environments |
 | `/migrate-from-snakemake` | Convert Snakemake workflows to idiomatic DSL2, using a test-first migration loop |
 | `/nextflow-26-syntax` | Write, migrate, or debug workflows under the v2 strict-syntax parser used by Nextflow 26+ |
 | `/nf-v2-boolean-params` | Fix boolean parameter handling under v2 strict syntax |
@@ -115,7 +115,7 @@ Built-in skills change between releases. To see the current list for your deploy
 | Command | Description |
 |---------|-------------|
 | `/find-alternative-tools` | Find credible tool options for an analysis step, with pros, cons, licensing, and a ranked recommendation |
-| `/enumerate-alternative-tools` | Run the same tool enumeration as `/find-alternative-tools`. The `/create-workflow` and `/nf-pipeline-design` planning flows invoke this skill. |
+| `/enumerate-alternative-tools` | Run the same tool enumeration as `/find-alternative-tools` (the `/create-workflow` and `/nf-pipeline-design` planning flows invoke this skill) |
 | `/parabricks` | Get version-aware guidance on NVIDIA Parabricks `pbrun` tools and assess GPU readiness |
 | `/genomics-workflow-acceleration` | Add optional GPU steps to an existing genomics workflow, with runtime toggles that default to off |
 

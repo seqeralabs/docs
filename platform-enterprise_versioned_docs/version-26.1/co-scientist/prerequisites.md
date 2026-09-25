@@ -57,7 +57,7 @@ By default, every role uses Claude Sonnet 4.6, the only Claude model you need to
   - Redis 8.x is supported (the search/JSON/bloom modules moved into core in Redis 8.0).
   - Valkey 7.2+ and 8.x are supported for the default caching and task-queue workload. If you enable the optional Redis-backed knowledge index (off by default), Redis Stack 7.x or Redis 8+ is required — Valkey does not ship the `RediSearch` module.
 - Accessible from your cluster.
-- Either a dedicated instance or the instance Platform already uses. To share one instance, set the chart's `redis.database` value to a different database index from Platform's.
+- Either a dedicated instance or the instance Platform already uses. To share one instance, set the chart's `redis.database` value to a different database index than the one Platform uses.
 - You will need the hostname and port ready for Helm configuration.
 
 ## Networking and DNS
