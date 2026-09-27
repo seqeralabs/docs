@@ -2,7 +2,7 @@
 title: "Enterprise installation"
 description: Platform Enterprise installation overview
 date created: "2025-04-09"
-last updated: "2026-09-02"
+last updated: "2026-09-25"
 tags: [installation, deployment]
 ---
 
@@ -64,7 +64,7 @@ The minimal Seqera Enterprise deployment requires only the frontend, backend, an
 
 ### Kubernetes
 
-Kubernetes is the recommended deployment target for production workloads requiring high availability and scalability. Seqera Enterprise supports Kubernetes deployments using raw manifests or the Seqera Helm chart.
+Kubernetes is the recommended deployment target for production workloads requiring high availability and scalability. Amazon Elastic Kubernetes Service (EKS) is the preferred Kubernetes platform for Seqera Enterprise. Seqera Enterprise supports Kubernetes deployments using raw manifests or the Seqera Helm chart.
 
 ![Reference architecture for Seqera Platform Enterprise on AWS EKS](./_images/seqera_reference_architecture_aws.png)
 _Reference architecture diagram of Seqera Platform Enterprise on AWS using Elastic Kubernetes Service (EKS)_

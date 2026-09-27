@@ -37,7 +37,8 @@
             "enterprise/studios-kubernetes",
             "enterprise/studios-docker-compose",
             "enterprise/studios-ssh",
-            "enterprise/studios-transfer-quotas"
+            "enterprise/studios-transfer-quotas",
+            "enterprise/studios-private-ca"
           ]
         },
         {

@@ -9,7 +9,7 @@ tags: [helm, deployment, installation, kubernetes]
 
 :::info Prerequisites <span id="prerequisites" />
 Other than the basic requirements [already listed in the Platform installation overview](./install-platform#prerequisites), you will need:
-- A Kubernetes cluster
+- A Kubernetes cluster, preferably Amazon EKS
 - [Helm v3](https://helm.sh/docs/intro/install) and [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
 :::
 

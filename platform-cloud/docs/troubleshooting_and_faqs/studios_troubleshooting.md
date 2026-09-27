@@ -26,6 +26,19 @@ If your Studio session doesn't advance from **stopping** status to **stopped** s
 
 The `errored` status is generally related to problems creating the Studio session resources in the compute environment, such as invalid credentials, insufficient permissions, or network issues. It can also be related to insufficient compute resources set in your compute environment configuration. Contact your organization's AWS administrator if you don't have access to the AWS Console, and contact your Seqera account executive to investigate.
 
+### Session doesn't start with an internal certificate authority
+
+A session in a private network doesn't reach **running** status, and the session log shows `x509: certificate signed by unknown authority`. This issue occurs when an endpoint the session connects to presents a certificate issued by an internal or private certificate authority (CA). A session trusts only the publicly trusted authorities in its container image's system trust store.
+
+The same failure occurs if your organization inspects HTTPS traffic at the network boundary, because the inspecting proxy presents its own internally issued certificate.
+
+Custom CA trust is configured at the Seqera Platform deployment level, which Seqera manages for Cloud. Use one of the following workarounds:
+
+- Present a publicly trusted certificate on the endpoint the session connects to.
+- Build a custom Studio container image with your organization's CA certificates in its trust store, then use that image for the Studio. See [Custom container images](../studios/container-images).
+
+Contact your Seqera account executive if neither workaround is practical for your network.
+
 ### Session can't be **stopped**
 
 If you can't stop a session, the Batch job running the session usually failed. If you have access to the AWS Console for your organization, stop the session from the compute environment screen. Contact your organization's AWS administrator if you don't have access to the AWS Console, and contact your Seqera account executive to investigate.

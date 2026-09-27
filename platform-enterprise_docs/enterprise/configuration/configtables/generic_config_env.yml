@@ -54,3 +54,8 @@
   Description: >
     Enable or disable user private workspaces (requires version 22.1.0 or later).
   Value:                'Default: `true`'
+-
+  Environment variable:            '`TOWER_SSL_CUSTOM_CA_CERT_FILE`'
+  Description: >
+    Path to a PEM file containing your internal certificate authority (CA) certificate, mounted into the Platform container. When set, Platform provisions the certificate to Studio sessions so they can connect to endpoints signed by that CA. See [Configure a private certificate authority for Studios](../studios-private-ca).
+  Value:                '`/etc/seqera/certs/internal-ca.pem`'

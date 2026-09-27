@@ -49,7 +49,7 @@ Co-Scientist helps you develop, debug, and understand Nextflow pipelines with AI
 ### Debug your pipeline
 
 ```
-> /debug
+> /debug-local-run
 ```
 
 ```

@@ -2,11 +2,11 @@
 title: "Custom roles"
 description: "Introduction to custom roles in Seqera Platform."
 date created: "2025-11-17"
-last updated: "2026-04-17"
+last updated: "2026-09-25"
 tags: [roles, rbac, permissions]
 ---
 
-Seqera Platform supports custom roles to define permissions-based access control at a more granular level than the six default [workspace participant roles](./roles.md#workspace-participant-roles).
+Seqera Platform supports custom roles to define permissions-based access control at a more granular level than the seven default [workspace participant roles](./roles.md#workspace-participant-roles).
 
 ### Create custom roles
 
@@ -197,6 +197,16 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 | **workflow_star:write** | Star (favorite) a run | `POST /workflow/{workflowId}/star` |
 | **workflow_star:delete** | Unstar (unfavorite) a run | `DELETE /workflow/{workflowId}/star` |
 
+#### Projects
+
+Participants with a custom role see the **Projects** view only if their role includes `project_view:read`. Existing custom roles do not include it. Add it to each custom role that needs the **Projects** view.
+
+To limit a custom role to the **Projects** view, select `project_view:read` and clear `workspace_resources:read`. The [Project role](./roles.md#workspace-participant-roles) uses this combination. Custom roles that predate `workspace_resources:read` received it automatically.
+
+| Permission            | Description              | API endpoint         |
+|-----------------------|--------------------------|----------------------|
+| **project_view:read** | Browse the Projects view | _(Used by Platform)_ |
+
 #### Settings
 
 | Permission | Description | API endpoint |
@@ -217,6 +227,7 @@ Individual permissions grant read, write, execute, admin, or delete access for e
 | **workspace:admin** | Change participant role to/from Owner | Sub-operation on `PUT /orgs/{orgId}/workspaces/{workspaceId}/participants/{participantId}/role` |
 |  | Remove a workspace Owner by participantId | Sub-operation on `DELETE /orgs/{orgId}/workspaces/{workspaceId}/participants/{participantId}` |
 |  | Remove a workspace Owner by userId | Sub-operation on `DELETE /orgs/{orgId}/workspaces/{workspaceId}/users/{userId}` |
+| **workspace_resources:read** | Browse the workspace resource views | _(Used by Platform)_ |
 | **workspace_self:delete** | Leave workspace (remove self as participant) | `DELETE /orgs/{orgId}/workspaces/{workspaceId}/participants` |
 | **workspace_studio:read** | View studio settings for workspace | `GET /orgs/{orgId}/workspaces/{workspaceId}/settings/studios` |
 | **workspace_studio:write** | Edit studio settings for workspace | `PUT /orgs/{orgId}/workspaces/{workspaceId}/settings/studios` |

@@ -77,6 +77,12 @@ These are the environment variables used to configure the components of Connect.
 | `CONNECT_TELEMETRY_FLUSH_INTERVAL`       | `30s`                         | no       | proxy        | How often the proxy writes in-memory byte counters to Redis.                                      |
 | `CONNECT_TELEMETRY_TTL`                  | `168h`                        | no       | proxy        | TTL for cumulative per-bucket telemetry keys in Redis (7 days).                                   |
 | `CONNECT_TELEMETRY_STREAM_EMIT_INTERVAL` | `1s`                          | no       | proxy        | How often long-lived streams (WebSocket and SSH) report transferred bytes.                        |
+| `TOWER_CONNECT_CA_CERT_BASE64`           |                               | no       | client       | Base64-encoded internal CA certificate that the client installs in the session trust store. Platform sets this automatically from `TOWER_SSL_CUSTOM_CA_CERT_FILE` — don't set it by hand. Requires client 0.13.0 or later. See [Configure a private certificate authority for Studios](./studios-private-ca). |
+| `TOWER_CONNECT_CA_KEEP_DEFAULT`          | `true`                        | no       | client       | Whether the session keeps the container image's public CAs alongside your internal CA. Set to `false` to close trust to your CA alone. See [Configure a private certificate authority for Studios](./studios-private-ca). |
+
+:::note
+The internal CA itself is supplied to Platform, not to Connect. Set `TOWER_SSL_CUSTOM_CA_CERT_FILE` on the Platform deployment and Platform provisions the certificate into every Studio session. See [Configure a private certificate authority for Studios](./studios-private-ca).
+:::
 
 ## DNS configuration
 

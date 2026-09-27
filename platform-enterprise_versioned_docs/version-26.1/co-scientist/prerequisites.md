@@ -2,17 +2,17 @@
 title: "Prerequisites"
 description: "Prerequisites for Co-Scientist"
 date created: "2026-04-20"
-last updated: "2026-05-21"
+last updated: "2026-09-22"
 tags: [prerequisites]
 ---
 
-## Overview
-
-Everything you need to have in place before installing Co-Scientist. Complete these requirements, then proceed to the Bedrock Setup Guide to configure your AWS account.
+Complete these requirements before you install Co-Scientist.
 
 :::caution
 Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. It is currently only available on AWS.
 :::
+
+## Deployment components
 
 Co-Scientist enables users to interact with Seqera Platform through a conversational AI interface, available through both the web (portal) and the CLI. The following components are deployed in sequence:
 
@@ -37,11 +37,12 @@ Co-Scientist uses Claude models via [Amazon Bedrock](https://aws.amazon.com/bedr
 
 The following Bedrock model access must be enabled in your account:
 
-| Role    | Model ID                    | Used for                        |
-| ------- | --------------------------- | ------------------------------- |
-| Primary | `anthropic.claude-sonnet-4-6`         | General AI interactions         |
-| Fast    | `anthropic.claude-haiku-4-5-20251001-v1:0` | Quick tasks (search, summaries) |
-| Deep    | `anthropic.claude-opus-4-6-v1`        | Complex planning tasks          |
+| Role | Model | How it is set |
+| --- | --- | --- |
+| Primary | Claude Sonnet 4.6, through the `global.anthropic.claude-sonnet-4-6` inference profile | `bedrock.inference.anthropicModel` in the agent backend chart. Defaults to `global.anthropic.claude-sonnet-4-6` when unset. |
+| Fast, deep, and summary | Claude Sonnet 4.6, through the `global.anthropic.claude-sonnet-4-6` inference profile | Agent backend default. Not exposed as chart values. |
+
+By default, every role uses Claude Sonnet 4.6, the only Claude model you need to enable.
 
 ## Database
 
@@ -56,6 +57,7 @@ The following Bedrock model access must be enabled in your account:
   - Redis 8.x is supported (the search/JSON/bloom modules moved into core in Redis 8.0).
   - Valkey 7.2+ and 8.x are supported for the default caching and task-queue workload. If you enable the optional Redis-backed knowledge index (off by default), Redis Stack 7.x or Redis 8+ is required — Valkey does not ship the `RediSearch` module.
 - Accessible from your cluster.
+- Either a dedicated instance or the instance Platform already uses. To share one instance, set the chart's `redis.database` value to a different database index than the one Platform uses.
 - You will need the hostname and port ready for Helm configuration.
 
 ## Networking and DNS
@@ -120,3 +122,7 @@ Co-Scientist container images are hosted at `cr.seqera.io`. The exact repository
 | Portal web interface | [portal-web chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/portal-web)    |
 
 Ensure your cluster can pull from `cr.seqera.io`, or if your cluster runs in a restricted network, mirror these images to your own registry.
+
+:::caution
+Seqera publishes MCP server images for 1.4.3 and later only to `cr.seqera.io/enterprise/mcp/server`. The 26.1 charts default the MCP image repository to `ai/mcp/server`, which holds releases up to 1.4.2 only. If your chart deploys MCP 1.4.3 or later, set `mcp.image.repository: enterprise/mcp/server` in your values file. If you mirror images, mirror them from `cr.seqera.io/enterprise/mcp/server`. See [Configure MCP](../enterprise/install-seqera-coscientist.mdx#configure-mcp).
+:::
