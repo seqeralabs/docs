@@ -568,6 +568,18 @@ If `tmux ls` shows no sessions, or attaching reveals the agent has exited, resta
 
 If Seqera Platform shows the agent as disconnected while it's running on the cluster, verify that the **Agent Connection ID** in your workspace credential exactly matches the argument you passed to `tw-agent`.
 
+#### _Timeout waiting for command response_ when adding a pipeline
+
+Before version 26.2, adding a pipeline to an agent-backed compute environment could fail intermittently with this error, even when the agent was running and connected:
+
+```
+ERROR: Timeout waiting for command response - Check Tower Agent is running and connected
+```
+
+The failure was more likely for `file://` pipeline repositories, pipelines with several `includeConfig` statements, and concurrent adds. The agent answered every command, but Seqera Platform dropped some responses before they reached the request. The agent doesn't need investigating, and raising `tower.agent.execution-timeout` doesn't help.
+
+Version 26.2 fixes the issue. On earlier versions, retry the failed add. The failure isn't deterministic, so a retry usually succeeds.
+
 #### _Authentication errors_ on agent startup
 
 Personal access tokens can be revoked or expire. If the agent logs authentication errors, generate a new token in Seqera Platform and restart the agent with the updated `TOWER_ACCESS_TOKEN` value.

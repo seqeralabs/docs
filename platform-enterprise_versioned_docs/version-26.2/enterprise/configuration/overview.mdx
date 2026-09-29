@@ -819,6 +819,26 @@ logger:
 </TabItem>
 </Tabs>
 
+### Distributed tracing
+
+Seqera Platform emits OpenTelemetry traces with stable, route-aware span names, so endpoint latency, error rate, and throughput are observable per API route rather than per raw URL.
+
+There is no Platform-specific switch. Standard OpenTelemetry configuration governs tracing, and the tracing libraries ship in every installation. With no exporter configured, Platform uses an always-off sampler and records no spans, so tracing costs nothing until you turn it on.
+
+To send traces to a collector, set the standard exporter variables:
+
+```bash
+OTEL_TRACES_EXPORTER=otlp
+OTEL_EXPORTER_OTLP_ENDPOINT=http://collector:4318
+OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Set `OTEL_SERVICE_NAME`, `OTEL_RESOURCE_ATTRIBUTES`, `OTEL_TRACES_SAMPLER`, and `OTEL_TRACES_SAMPLER_ARG` as appropriate for your deployment. To turn tracing off again, set `OTEL_TRACES_EXPORTER=none`.
+
+:::note
+Platform writes the active trace and span IDs into the logging context. The default [`TOWER_LOG_PATTERN`](#logging) includes `%X{trace_id:--} %X{span_id:--}` so that log lines correlate with traces. If you override the pattern, keep both fields.
+:::
+
 ### Audit log v2
 
 Configuration values for the v2 audit log subsystem and the audit log cleanup cron job. The v2 audit log adds support for pre/post change state capture and CSV export limits.

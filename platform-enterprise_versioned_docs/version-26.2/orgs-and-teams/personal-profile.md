@@ -25,6 +25,8 @@ These settings control how you're identified in Seqera Platform, which workspace
 | Setting | Default | Description |
 | --- | --- | --- |
 | **Send notification email on workflow completion** | Off | Receive an email when a pipeline run completes. |
+| **Default workspace** | None | Organization and workspace you land in after sign-in. Takes precedence over the installation default workspace an administrator sets with `TOWER_DEFAULT_WORKSPACE_ID`. If you lose access to the workspace you chose, the installation default applies instead. |
+| **Wave build notifications** | Always | Email you when Wave finishes building a container image for a [custom Studio environment](../studios/custom-envs). Select **Always** for every build, **On error** for failed builds only, or **Never** to turn the emails off. |
 
 ## Delete your account
 

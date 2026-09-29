@@ -119,7 +119,7 @@ Redis password and ACL configuration carry over unchanged when migrating to Valk
 
 ## Frontend image: only the unprivileged image is published
 
-From 26.2, Seqera publishes one frontend image and it is the unprivileged ("rootless") one. The `-root` and `-unprivileged` tag variants are no longer published, so a manifest that references either fails to pull.
+From 26.2, Seqera only publishes a single frontend image, running as a non-root user, formerly tagged as `-unprivileged`. The `-root` tag variant and the `-unprivileged` tag alias are no longer published, so a manifest that references either fails to pull.
 
 Before upgrading, update your [Kubernetes](../enterprise/platform-kubernetes) or [Docker Compose](../enterprise/platform-docker-compose) manifests:
 
