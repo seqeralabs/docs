@@ -20,7 +20,7 @@ You need the following:
 
 ## Upgrade from versions earlier than 24.1
 
-- If you're upgrading from a version earlier than 23.4.1, upgrade your installation to version 23.4.4 **first**, before you upgrade to version 26.1 with the steps on this page.
+- If you're upgrading from a version earlier than 23.4.1, upgrade your installation to version 23.4.4 **first**, before you upgrade to version 26.2 with the steps on this page.
 - **MySQL 8 required**
 
   From version 23.4, Seqera Enterprise supports only MySQL 8. If you run MySQL 5.6 or 5.7, upgrade your database to a supported MySQL version before you upgrade Seqera. See [Database changes](#database-changes) for the current baseline.
@@ -136,7 +136,7 @@ See the [frontend image documentation](../enterprise/platform-kubernetes#seqera-
 
 ## Studios container template version
 
-For 26.2, use Studios container template version **0.12**. If you customized your Studios container templates, update them to the 0.12 base images during the upgrade. Seqera may not support templates pinned to earlier Connect versions. See the [Studios migration documentation](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
+For 26.2, use Studios container template version **0.14**. If you customized your Studios container templates, update them to the 0.14 base images during the upgrade. Seqera may not support templates pinned to earlier Connect versions. See the [Studios migration documentation](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
 
 ## Data lineage available in all workspaces by default
 
