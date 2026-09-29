@@ -105,19 +105,21 @@ This issue occurs because Fusion uploads data to object storage in chunks and co
 
 To resolve, [stop the Studio session](../studios/managing#stop-a-studio-session) and wait for its status to change to **stopped** before you launch the run. To avoid the problem, upload data for a pipeline with **Data Explorer** or the Seqera Platform CLI (`tw`) instead of writing it from a running session.
 
-#### Files are missing after a restart, with `missing SquashFS image` warnings {#missing-squashfs-image}
+#### Files from earlier sessions are missing after a restart, with `missing SquashFS image` warnings {#missing-squashfs-image}
 
-A Studio session starts, but files or folders saved in earlier sessions are missing. The session log shows one or more warnings similar to the following:
+If files or folders saved in earlier sessions are missing when a Studio session starts, check the session log for warnings similar to the following:
 
 ```text
 missing SquashFS image /fusion/s3/<bucket>/<work-dir>/.studios/checkpoints/<checkpoint-id>/data.img
 ```
 
-Connect client 0.11.0 and later logs `SquashFS image not found` instead.
+:::note
+Connect client v0.11.0 and later logs `SquashFS image not found` instead.
+:::
 
-This issue occurs when checkpoint images were removed from the compute environment work directory, most often by an object storage lifecycle rule that expires or deletes objects under the work directory. Each checkpoint stores only the changes made during one session, and a session rebuilds its filesystem by stacking every earlier checkpoint. When a checkpoint image is missing, the session skips that layer, so files last changed during that session are missing. Seqera Platform deletes checkpoint files only when the Studio that references them is deleted.
+This issue occurs when checkpoint images were removed from the compute environment work directory, most often by an object storage lifecycle rule that expires or deletes objects in the work directory. Each checkpoint stores only the changes made during one session, and a session rebuilds its filesystem by stacking every earlier checkpoint chronologically. When a checkpoint image is missing, the session skips that layer, so files last changed during that session are missing. Seqera Platform deletes checkpoint files only when the Studio that references them is deleted.
 
-To resolve, restore each missing `data.img` object to its original path. If versioning is enabled on the bucket, check whether an earlier version exists:
+To resolve this issue, restore each missing `data.img` object to its original path. If versioning is enabled on the bucket, check whether an earlier version exists:
 
 ```bash
 aws s3api list-object-versions \
@@ -134,7 +136,7 @@ aws s3api delete-object \
   --version-id <delete-marker-version-id>
 ```
 
-The next session start picks up restored checkpoints without any change in Seqera Platform. If no earlier version of `data.img` exists, the changes from that session can't be recovered.
+The next Studio session start retrieves the restored checkpoints without any change in Seqera Platform. If no earlier version of `data.img` exists, the changes from that session can't be recovered.
 
 To prevent this issue, exclude the `.studios/` prefix of the work directory from any lifecycle rule that expires current object versions. Rules that expire only non-current versions don't remove checkpoints. See [Studio session checkpoints](../studios/managing#studio-session-checkpoints).
 
