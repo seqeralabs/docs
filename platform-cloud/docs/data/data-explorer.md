@@ -2,7 +2,7 @@
 title: "Data Explorer"
 description: "Using Seqera Data Explorer."
 date created: "2023-04-21"
-last updated: "2026-08-28"
+last updated: "2026-09-23"
 tags: [data, explorer, igv, molstar, object, storage, lineage]
 ---
 
@@ -21,7 +21,7 @@ The role assigned to a workspace user affects what functionality is available in
 Two mechanisms control Data Explorer access:
 
 - **Participant roles** determine which Data Explorer actions a workspace user can perform, such as browsing, previewing, downloading, and uploading. See [Participant roles][roles].
-- **Credentials** determine which objects those actions can reach. Each data-link uses the credentials you select when you add the data repository to the workspace. The cloud provider permissions attached to those credentials define the scope of Data Explorer access to that repository. To narrow what Data Explorer can do in a bucket, assign that data-link a dedicated credential with a more restrictive cloud provider policy. Sharing one broad credential across compute environments and data repositories gives Data Explorer the full scope of that credential.
+- **Credentials** determine which objects those actions can reach. A manually added data-link uses the credentials you select when you add the data repository to the workspace. A data-link that Data Explorer retrieves automatically uses one of the workspace credentials that can access the repository. See [Add data repository links](#add-data-repository-links). The cloud provider permissions attached to those credentials define the scope of Data Explorer access to that repository. To narrow what Data Explorer can do in a bucket, assign that data-link a dedicated credential with a more restrictive cloud provider policy. Sharing one broad credential across compute environments and data repositories gives Data Explorer the full scope of that credential.
 
 Data Explorer has no per-bucket or per-workspace setting that disables downloads or uploads while leaving browsing available. To remove download and upload access completely, disable Data Explorer for your entire Seqera Cloud account.
 
@@ -44,6 +44,12 @@ Data Explorer lists public and private data repositories. Repositories accessibl
   - `s3:GetObject` and `s3:PutObject` on the objects in each bucket, to download and upload files.
 
   These are a subset of the S3 permissions documented for the [AWS Batch](../compute-envs/aws-batch#required-platform-iam-permissions), [AWS Cloud](../compute-envs/aws-cloud#required-platform-iam-permissions), and [Amazon EKS](../compute-envs/eks#required-platform-iam-permissions) compute environments. For Azure Blob Storage, see the [Azure Cloud data-links permissions](../compute-envs/azure-cloud#data-links).
+
+  :::note
+  When more than one workspace credential can access the same repository, Data Explorer lists the repository once and uses one of those credentials for every action on it: browsing, previewing, downloading, uploading, and deleting. If that credential lacks the permission an action needs, the action fails. Data Explorer does not retry with the other credentials. For example, if a read-only credential and a read-write credential both reach the same bucket, uploads can fail even though the read-write credential would succeed.
+
+  To control which credential Data Explorer uses, add a data-link for the repository manually and select that credential from the **Credentials** drop-down. Use that data-link for actions that need the credential's permissions.
+  :::
 
 - **Configure individual data repositories manually**
 
