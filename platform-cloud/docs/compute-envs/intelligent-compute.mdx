@@ -255,9 +255,9 @@ A Spot capacity failure reaches Nextflow only after the scheduler exhausts its a
 
 ### On-Demand fallback cost limit
 
-With `spotFirst`, the scheduler falls back to On-Demand only while On-Demand costs at most a set multiple of the Spot price. The scheduler compares the highest On-Demand hourly price with the highest Spot hourly price across the instance types it selected for the task. Seqera sets this multiple for each cloud provider. You cannot change it on the compute environment. The current values are:
+With `spotFirst`, the scheduler falls back to On-Demand only while On-Demand costs at most a set multiple of the Spot price. The scheduler compares the highest On-Demand hourly price with the highest Spot hourly price across the instance types it selected for the task. Seqera sets a default multiple for each cloud provider. The current defaults are:
 
-| Cloud provider | On-Demand fallback cost limit |
+| Cloud provider | Default On-Demand fallback cost limit |
 | --- | --- |
 | AWS | 3.25 times the Spot price |
 | Google Cloud | 2.48 times the Spot price |
@@ -266,5 +266,17 @@ With `spotFirst`, the scheduler falls back to On-Demand only while On-Demand cos
 Seqera can change these values as Spot and On-Demand pricing evolves.
 
 When On-Demand exceeds the limit, the scheduler does not fall back. It retries the task on new Spot capacity instead. If Spot capacity is still unavailable after those retries, the task fails. Its error message starts with `on-demand fallback refused` and states how many times the Spot price On-Demand would have cost.
+
+You cannot change the limit on the compute environment. To set a different limit for a pipeline run, set `seqera.executor.machineRequirement.onDemandCostRatio` in the pipeline's Nextflow configuration (Nextflow 26.10 or later). For example:
+
+```groovy
+seqera.executor.machineRequirement.onDemandCostRatio = 2.5
+```
+
+- Not set: the default for the cloud provider applies.
+- `0`: no limit. Tasks always fall back to On-Demand, whatever the price. `0` does not disable the fallback. To never fall back to On-Demand, use the `spot` provisioning model.
+- Greater than `0`: the limit for this run, used instead of the default.
+
+The setting applies to the whole run and cannot be set per process. See [On-demand fallback cost limit](https://docs.seqera.io/nextflow/executor/seqera#on-demand-fallback-cost-limit) in the Nextflow documentation.
 
 If a pipeline must complete even when Spot capacity is scarce, set **Provisioning model** to `ondemand`. The `spot` provisioning model never falls back to On-Demand.
