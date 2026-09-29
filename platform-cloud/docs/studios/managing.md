@@ -2,7 +2,7 @@
 title: "Manage Studios"
 description: "Manage Studio sessions."
 date created: "2025-02-06"
-last updated: "2026-08-24"
+last updated: "2026-09-29"
 tags: [data, sessions, studios]
 ---
 
@@ -268,7 +268,7 @@ There might be errors reported by the session itself but these will be overwritt
 - Your SSH public key added to your Seqera Platform user profile
 - **SSH Connection** toggle enabled when adding the Studio
 - The Studio is in a **running** state.
-- **Connect client**: Version 0.10.0 or later
+- **Connect client**: Version 0.12.0 or later
 :::
 
 Direct SSH connections to running Studio containers support standard SSH clients, terminal access, and [VS Code Remote SSH](https://code.visualstudio.com/docs/remote/ssh). JupyterLab, R-IDE, VS Code, and Xpra container templates are supported.

@@ -2,11 +2,11 @@
 title: "Default version compatibility"
 description: "Version compatibility for Seqera Platform, nf-launcher, Nextflow, Fusion, and the Connect client"
 date created: "2024-06-20"
-last updated: "2026-09-14"
+last updated: "2026-09-29"
 tags: [compatibility, nextflow, nf-launcher]
 ---
 
-Seqera supports the two most recent major Seqera Platform versions (for example, 25.3.x and 26.1.x) at any given time.
+Seqera supports the two most recent major Seqera Platform versions (for example, 26.1.x and 26.2.x) at any given time.
 
 Each Seqera Platform version uses `nf-launcher` to set its baseline Nextflow version. To use a different Nextflow version in your pipeline runs, add a [pre-run script](../launch/advanced#pre-and-post-run-scripts) during launch. Seqera Platform may not work reliably with Nextflow versions other than the baseline.
 
@@ -14,6 +14,7 @@ If you do not specify a Nextflow version in your configuration, Seqera Platform 
 
 | Platform version | nf-launcher version | Nextflow version | Fusion version | Connect client version |
 | ---------------- | ------------------- | ---------------- | -------------- | ---------------------- |
+| 26.2.0           | j21-26.04           | 26.04            | 2.5            | 0.14.0                 |
 | 26.1.5           | j21-26.04           | 26.04            | 2.5            | 0.12.0                 |
 | 26.1.4           | j21-26.04           | 26.04            | 2.5            | 0.12.0                 |
 | 26.1.3           | j21-26.04           | 26.04            | 2.5            | 0.12.0                 |

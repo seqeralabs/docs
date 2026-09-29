@@ -1,16 +1,16 @@
 ---
 title: "Upgrade deployment"
-description: "Guidance for upgrading to Platform Enterprise version 26.1"
+description: "Guidance for upgrading to Platform Enterprise version 26.2"
 date created: "2025-11-11"
-last updated: "2026-05-06"
+last updated: "2026-09-23"
 tags: [enterprise, update, installation]
 ---
 
-This page outlines the steps to upgrade your database instance and Platform Enterprise installation to version 26.1, including special considerations for upgrading from earlier versions.
+This page outlines the steps to upgrade your Platform Enterprise installation and database instance to version 26.2, including special considerations for upgrading from earlier versions.
 
 :::note
 - Make a backup of your Platform database prior to upgrade.
-- If you are upgrading from a version prior to 25.1, complete all intermediate major version upgrades before upgrading to 26.1, for example from 23.1 upgrade to 24.1, then 25.1, and finally 26.1. More specific requirements are detailed below for each major version.
+- If you are upgrading from a version prior to 25.1, complete all intermediate major version upgrades before upgrading to 26.2, for example from 24.1 upgrade to 25.1, then 26.1, and finally 26.2. More specific requirements are detailed below for each major version.
 - Ensure that no pipelines are in a running state during this upgrade as active run data may be lost.
 :::
 
@@ -64,36 +64,24 @@ You can upgrade directly from 25.3.x to 26.1. However, take note of the breaking
   - All backend pods or containers for your Enterprise deployment must contain the same previous and new secret key values in their configuration.
   - All backend pods or containers must be in a ready/running state before starting the Platform cron service.
 
-## 26.1 upgrade breaking changes
+## Upgrading from version 26.1.x to 26.2
 
-### Audit log versions in 26.1
+You can upgrade directly from 26.1.x to 26.2. Review the breaking changes and default changes below before upgrading, then follow the [general upgrade steps](#general-upgrade-steps).
 
-Seqera Platform Enterprise 26.1 introduces the audit log v2 schema as a **breaking change** for direct database consumers and custom ETL jobs.
+## 26.2 upgrade breaking changes
 
-- The legacy audit log schema remains in the `tw_audit_log` table. This table is now deprecated.
-- The new audit log v2 schema is written to a separate table.
-- The v2 schema is not backward-compatible with the legacy schema. Field names, structure, and pagination behavior differ.
-- The v2 Admin panel view and CSV export are available when `TOWER_AUDIT_LOG_V2_WRITE_MODE` is set to `dual` or `v2`.
+### Audit log v1 writes removed in 26.2
 
-Use `TOWER_AUDIT_LOG_V2_WRITE_MODE` to control how new audit events are written:
+Seqera Platform Enterprise 26.2 writes audit events only to the v2 schema. This is a **breaking change** for direct database consumers and custom ETL jobs that still read new events from the legacy v1 schema (`tw_audit_log` table).
 
-- `dual`: Default. Write new events to both `v1` schema and `v2` schema. This is the recommended 26.1 migration mode if you need to validate the v2 schema while keeping existing v1 integrations unchanged.
-- `v2`: Write new events to `v2` schema only.
-
-#### Upgrade path for existing integrations
-
-If you have existing scripts, exports, or ETL processes that read from the legacy audit log schema, plan the 26.1 upgrade in two stages:
-
-1. Upgrade to 26.1.
-2. Validate your integrations against v2 while your existing v1 readers continue to work from the legacy table.
-
-In the 26.1 migration plan, dual-write is transitional. Plan for 26.2 to make v2 the only write-side schema, while the legacy v1 data remains available for reads as long as your retention policy still covers the required historical period.
+- The `TOWER_AUDIT_LOG_V2_WRITE_MODE` setting is removed. Setting the variable has no effect, so remove it from your configuration.
+- No new rows are written to the v1 schema. Existing rows remain until the audit log retention period deletes them. As long as the table has records, they stay visible in the legacy table view of the Admin panel **Audit logs** tab.
 
 ## Database changes
 
-26.1 changes the supported database baseline. Review your current database against the table below **before upgrading**.
+From Platform Enterprise v26.1 onwards, the supported database baselines were changed. Review your current database against the table below **before upgrading**.
 
-| Database / version | 26.1 status | Action |
+| Database / version | 26.x status | Action |
 | --- | --- | --- |
 | MySQL 5.7 | No longer tested or supported (upstream EoL) | Upgrade to MySQL 8.4 before upgrading to 26.1 |
 | MySQL 8.0 | No longer tested or supported (upstream EoL April 2026) | Upgrade to MySQL 8.4 |
@@ -102,44 +90,65 @@ In the 26.1 migration plan, dual-write is transitional. Plan for 26.2 to make v2
 | AWS Aurora MySQL (provisioned) | Supported | No action |
 | AWS Aurora Serverless | Not supported (existing guidance) | Migrate to a supported configuration |
 
-If you are running on MySQL 5.7, MySQL 8.0, or MariaDB, complete your database migration **before** running the 26.1 application upgrade. The Seqera-supplied `migrate-db` container will not run against an unsupported database version.
+If you are running on MySQL 5.7 or MySQL 8.0, complete your database migration **before** running the 26.1 application upgrade. The Seqera-supplied `migrate-db` container will not run against an unsupported database version.
 
 ## Cache layer changes: Redis EoL and Valkey support
 
-26.1 introduces Valkey support and tightens Redis version requirements.
+From Platform Enterprise v26.1, Valkey support was introduced and Redis version requirements tightened.
 
-| Cache / version | 26.1 status | Action |
+| Cache / version | 26.x status | Action |
 | --- | --- | --- |
-| Redis 6.x | EoL upstream — no longer supported | Upgrade to Redis 7.2+ or migrate to Valkey 7+ |
+| Redis 6.x | Not supported from 26.1 | Upgrade to Redis 7.x or migrate to Valkey 7.x |
 | Redis 7.2 | Supported | No action |
 | Redis 7.4 | Supported | No action |
-| Valkey 7.x | Newly supported in 26.1 | Optional migration path from Redis |
+| Valkey 7.x | Newly supported in 26.1 upwards | Optional migration path from Redis |
+
+:::note
+Redis 6.2 remains an upstream extended-support release until 1 April 2027, and Amazon ElastiCache supports Redis OSS 6 until 31 January 2027, with paid extended support until 31 January 2030. These upstream dates do not extend Seqera support. Seqera Platform 26.1 is not tested against Redis 6.x. Upgrade your cache before you upgrade Seqera Platform.
+
+Select Redis 7.2 or 7.4, or Valkey 7.x. Newer major versions are not tested or supported.
+:::
 
 ### Migrating from Redis to Valkey
 
-To migrate from Redis to Valkey, update the `TOWER_REDIS_URL` environment variable. The Redisson client embedded in Platform 26.1 has been upgraded to support Valkey 7 dial schema; no further configuration is required.
+To migrate from Redis to Valkey, point `TOWER_REDIS_URL` at your Valkey 7.x installation. No further configuration is required as Valkey 7.x supports the same schema as Redis.
 
 :::note
 Redis password and ACL configuration carry over unchanged when migrating to Valkey.
 :::
 
-## Studios enabled on all workspaces by default
+## Frontend image: only the unprivileged image is published
 
-In 26.1, Studios is enabled on every workspace in your instance by default. This is a behavior change from earlier versions where Studios required explicit per-workspace enablement.
+From 26.2, Seqera publishes one frontend image and it is the unprivileged ("rootless") one. The `-root` and `-unprivileged` tag variants are no longer published, so a manifest that references either fails to pull.
 
-The [`TOWER_DATA_STUDIO_ALLOWED_WORKSPACES`](./configuration/overview#data-features) environment variable controls Studios availability:
+Before upgrading, update your [Kubernetes](../enterprise/platform-kubernetes) or [Docker Compose](../enterprise/platform-docker-compose) manifests:
 
-| Value | Behavior |
-| --- | --- |
-| Unset (new default) | Studios enabled on **all workspaces** |
-| `""` (empty string) | Studios disabled on all workspaces |
-| Comma-separated workspace IDs | Studios enabled only on the listed workspaces |
+- Drop the `-unprivileged` or `-root` suffix from every frontend image reference.
+- Make the port match. The image listens on `8000`, not `80`. In Kubernetes, set the container port and the frontend service `targetPort` to `8000` and leave the service `port` at `80`. In Docker Compose, map the host port to container port `8000`.
 
-To preserve previous opt-in behavior after upgrading, set `TOWER_DATA_STUDIO_ALLOWED_WORKSPACES=""` before the upgrade, or set it to a comma-separated list of workspace IDs to allow.
+The new templates downloaded in the General upgrade steps below are already configured this way.
+
+See the [frontend image documentation](../enterprise/platform-kubernetes#seqera-frontend-unprivileged) for security context, file system, and port differences. This image is also a requirement for installation via the [Helm chart](../enterprise/platform-helm).
 
 ### Studios container template version
 
-The recommended Studios container template version for 26.1 is **0.12**. If you have customized your Studios container templates, update them to the 0.12 base images during this upgrade. Templates pinned to earlier Connect versions may no longer be supported. See the [Studios migration documentation](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
+The recommended Studios container template version for 26.2 is **0.12**. If you have customized your Studios container templates, update them to the 0.12 base images during this upgrade. Templates pinned to earlier Connect versions may no longer be supported. See the [Studios migration documentation](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
+
+## Data lineage available in all workspaces by default
+
+In 26.2, data lineage is available in every organization workspace by default. In 26.1, lineage was available only if you set `TOWER_LINEAGE_ALLOWED_WORKSPACES`.
+
+Availability does not change which runs generate lineage. Runs in a workspace generate lineage by default only after you configure the workspace lineage settings in **Settings > Workspace settings > Lineage** and turn on **Enable lineage by default**. The **Enable lineage** launch toggle overrides that setting for a single run. See [Enable data lineage](../data/data-lineage#enable-data-lineage).
+
+The [`TOWER_LINEAGE_ALLOWED_WORKSPACES`](./configuration/overview#data-features) environment variable controls lineage availability:
+
+| Value | Behavior |
+| --- | --- |
+| Unset (new default) | Lineage available in **all workspaces** |
+| `""` (empty string) | Lineage available in **all workspaces** |
+| Comma-separated workspace IDs | Lineage available only in the listed workspaces |
+
+To limit lineage to specific workspaces, set the variable to a comma-separated list of their IDs before you upgrade.
 
 ## Data lineage event ingestion moves from SQS to SNS
 
@@ -149,7 +158,7 @@ If you plan to enable lineage, grant the [lineage IAM permissions](../data/data-
 
 ### If lineage is already configured
 
-On the first startup after the upgrade, a one-off migration runs and converts each lineage-enabled workspace still on the SQS transport. For an automatically provisioned workspace, the migration creates and configures the SNS topic, subscribes the Platform webhook, repoints the bucket notification rule at the topic, and then attempts to decommission the legacy SQS queue.
+On the first startup after the upgrade, a one-off migration runs and converts each lineage-enabled workspace still on the SQS transport. For an automatically provisioned workspace, the migration creates and configures the SNS topic, subscribes the Platform webhook, points the bucket notification rule to the topic, and then attempts to decommission the legacy SQS queue.
 
 While it runs, the migration therefore needs **both** the new SNS permissions and the existing SQS permissions for the queue teardown. Once the migration has completed, remove the SQS permissions from your IAM policies.
 

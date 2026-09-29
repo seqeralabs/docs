@@ -1,0 +1,296 @@
+---
+title: "Custom roles"
+description: "Introduction to custom roles in Seqera Platform."
+date created: "2025-11-17"
+last updated: "2026-09-25"
+tags: [roles, rbac, permissions]
+---
+
+Seqera Platform supports custom roles to define permissions-based access control at a more granular level than the seven default [workspace participant roles](./roles.md#workspace-participant-roles).
+
+### Create custom roles
+
+Organization owners can add custom roles and assign read, write, execute, admin, and delete permissions for every Seqera resource type:
+
+1. Select your organization name from the organization and workspace switcher in the top navigation.
+1. Select **Access control** to view the list of default and custom roles available in your organization.
+1. Select **Add role**.
+1. Enter a role **Name** and optional **Description**.
+1. From the **Permissions** list, select the **Read**, **Write**, **Execute**, **Admin**, and **Delete** permissions your custom role requires for each resource type.
+1. Select **Add** to create the custom role and return to the **Access control** roles list.
+
+Select **Edit** or **Delete** to manage existing custom roles in the list.
+
+{/* doc-skills: DRAFT — reviewed: no — from EDU-1442, 2026-09-10 — brief: .docs-operating-model/briefs/evidence/PLAT-5551.md — availability: unconfirmed (SERVICE_ACCOUNTS feature flag, org allow-list, not GA) */}
+
+Custom roles can be assigned to [service accounts](./create-service-accounts) as well as to people. Whoever assigns a role to a service account must already hold every permission that role carries. This check applies to every workspace role assignment to a service account, not only to custom ones.
+
+If the service account will run an agent, include `agent:execute` in the custom role. Every built-in role except **Connect** and **View** already has it, but a custom role only has the permissions you select.
+
+### Permissions
+
+Individual permissions grant read, write, execute, admin, or delete access for each Seqera entity. Individual read and write permissions may grant access for multiple operations via the Platform UI, API, and other programmatic tools such as Platform CLI. For example, the `action:read` permission allows a user to view the list of actions in a workspace, view the details of a specific action, and view available action types.
+
+#### Compute
+
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
+| **compute_environment:read** | List all compute environments | `GET /compute-envs` |
+|  | View compute environment details | `GET /compute-envs/{computeEnvId}` |
+| **compute_environment:write** | Create a new compute environment | `POST /compute-envs` |
+|  | Edit an existing compute environment | `PUT /compute-envs/{computeEnvId}` |
+|  | Set a compute environment as primary | `POST /compute-envs/{computeEnvId}/primary` |
+|  | Disable compute environment | `POST /compute-envs/{computeEnvId}/disable` |
+|  | Enable compute environment | `POST /compute-envs/{computeEnvId}/enable` |
+|  | Validate compute environment name availability | `GET /compute-envs/validate` |
+| **compute_environment:delete** | Delete a compute environment | `DELETE /compute-envs/{computeEnvId}` |
+| **credentials:read** | List all credentials in workspace | `GET /credentials` |
+|  | View credential details | `GET /credentials/{credentialsId}` |
+| **credentials:write** | Add new credentials | `POST /credentials` |
+|  | Edit existing credentials | `PUT /credentials/{credentialsId}` |
+|  | Validate credentials | _(Used by Platform)_ |
+|  | Validate credential name availability | `GET /credentials/validate` |
+| **credentials:delete** | Delete credentials | `DELETE /credentials/{credentialsId}` |
+| **credentials_encrypted:read** | Get encrypted credentials | `GET /credentials/{credentialsId}/keys` |
+| **pipeline_secrets:read** | List all pipeline secrets | `GET /pipeline-secrets` |
+|  | View pipeline secret details | `GET /pipeline-secrets/{secretId}` |
+| **pipeline_secrets:write** | Create a new pipeline secret | `POST /pipeline-secrets` |
+|  | Validate secret name availability | `GET /pipeline-secrets/validate` |
+|  | Edit an existing pipeline secret | `PUT /pipeline-secrets/{secretId}` |
+| **pipeline_secrets:delete** | Delete a pipeline secret | `DELETE /pipeline-secrets/{secretId}` |
+| **platform:read** | List available platforms | `GET /platforms` |
+|  | List platform regions | `GET /platforms/{platformId}/regions` |
+|  | View platform details | `GET /platforms/{platformId}` |
+
+#### Data
+
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
+| **data_link:read** | List all data-links (cloud buckets) | `GET /data-links` |
+|  | View data-link details | `GET /data-links/{dataLinkId}` |
+|  | Resolve data-link cloud-scheme URLs | _(Used by Platform)_ |
+| **data_link:write** | Refresh data-link cache | `GET /data-links/cache/refresh` |
+|  | Create a custom data-link | `POST /data-links` |
+|  | Edit data-link metadata | `PUT /data-links/{dataLinkId}` |
+| **data_link:delete** | Remove a data-link from workspace | `DELETE /data-links/{dataLinkId}` |
+| **data_link:admin** | Hide data-links | _(Used by Platform)_ |
+|  | Show data-links | _(Used by Platform)_ |
+| **data_link_object:read** | Browse data-link contents | `GET /data-links/{dataLinkId}/browse` |
+|  | Browse data-link contents at the given path | `GET /data-links/{dataLinkId}/browse/{path}` |
+|  | Browse data-link directory tree | `GET /data-links/{dataLinkId}/browse-tree` |
+|  | Download files from data-link | `GET /data-links/{dataLinkId}/download/{filePath}` |
+|  | Generate download URL for data-link files | `GET /data-links/{dataLinkId}/generate-download-url` |
+|  | Generate download script | `GET /data-links/{dataLinkId}/script/download` |
+|  | Sign data-link URLs for batch access | _(Used by Platform)_ |
+| **data_link_object:write** | Upload files to data-link | `POST /data-links/{dataLinkId}/upload` |
+|  | Upload files to data-link at the given path | `POST /data-links/{dataLinkId}/upload/{dirPath}` |
+|  | Complete file upload to data-link | `POST /data-links/{dataLinkId}/upload/finish` |
+|  | Complete file upload to data-link at the given path | `POST /data-links/{dataLinkId}/upload/finish/{dirPath}` |
+| **data_link_object:delete** | Delete files from data-link | `DELETE /data-links/{dataLinkId}/content` |
+| **dataset:read** | List datasets (legacy endpoint) | `GET /workspaces/{workspaceId}/datasets` |
+|  | List workspace dataset versions (legacy endpoint) | `GET /workspaces/{workspaceId}/datasets/versions` |
+|  | List dataset versions (legacy endpoint) | `GET /workspaces/{workspaceId}/datasets/{datasetId}/versions` |
+|  | View dataset metadata (legacy endpoint) | `GET /workspaces/{workspaceId}/datasets/{datasetId}/metadata` |
+|  | Download dataset | `GET /workspaces/{workspaceId}/datasets/{datasetId}/v/{version}/n/{fileName}` |
+|  | List all datasets | `GET /datasets` |
+|  | List latest dataset versions | `GET /datasets/versions` |
+|  | List versions for a specific dataset | `GET /datasets/{datasetId}/versions` |
+|  | List datasets used in a pipeline launch | `GET /launch/{launchId}/datasets` |
+|  | View dataset metadata | `GET /datasets/{datasetId}/metadata` |
+|  | Download dataset files | `GET /datasets/{datasetId}/v/{version}/n/{fileName}` |
+|  | Fetch preview content for a URL without persisting | `POST /datasets/preview-url` |
+|  | Preview linked dataset content | `GET /datasets/{datasetId}/v/{version}/preview` |
+| **dataset:write** | Create dataset (legacy endpoint) | `POST /workspaces/{workspaceId}/datasets` |
+|  | Edit dataset (legacy endpoint) | `PUT /workspaces/{workspaceId}/datasets/{datasetId}` |
+|  | Upload dataset (legacy endpoint) | `POST /workspaces/{workspaceId}/datasets/{datasetId}/upload` |
+|  | Create a new dataset | `POST /datasets` |
+|  | Edit dataset metadata | `PUT /datasets/{datasetId}` |
+|  | Upload files to dataset | `POST /datasets/{datasetId}/upload` |
+|  | Link external URL as dataset version | `POST /datasets/{datasetId}/link` |
+|  | Validate URL for dataset linking | `POST /datasets/validate-url` |
+| **dataset:delete** | Delete dataset (legacy endpoint) | `DELETE /workspaces/{workspaceId}/datasets/{datasetId}` |
+|  | Delete a single dataset | `DELETE /datasets/{datasetId}` |
+|  | Delete multiple datasets | `DELETE /datasets` |
+| **dataset:admin** | Hide any workspace user's datasets | `POST /datasets/hide` |
+|  | Show any workspace user's datasets | `POST /datasets/show` |
+|  | Disable any workspace user's dataset version | `POST /datasets/{datasetId}/versions/{version}/disable` |
+| **dataset_label:write** | Add labels to datasets | `POST /datasets/labels/add` |
+|  | Remove labels from datasets | `POST /datasets/labels/remove` |
+|  | Apply label sets to datasets | `POST /datasets/labels/apply` |
+
+#### Pipelines
+
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
+| **action:read** | View action details | `GET /actions/{actionId}` |
+|  | View available action types | `GET /actions/types` |
+|  | List all actions in workspace | `GET /actions` |
+| **action:execute** | Trigger an action to run | `POST /actions/{actionId}/launch` |
+| **action:write** | Create a new action | `POST /actions` |
+|  | Edit an existing action | `PUT /actions/{actionId}` |
+|  | Test action configuration | _(Used by Platform)_ |
+|  | Pause a running action | `POST /actions/{actionId}/pause` |
+|  | Validate action name availability | `GET /actions/validate` |
+| **action:delete** | Delete an action | `DELETE /actions/{actionId}` |
+| **action_label:write** | Apply resource labels when adding an action | Sub-operation on `POST /actions` |
+|  | Apply resource labels when editing an action | Sub-operation on `PUT /actions/{actionId}` |
+|  | Add labels to actions | `POST /actions/labels/add` |
+|  | Remove labels from actions | `POST /actions/labels/remove` |
+|  | Apply label sets to actions | `POST /actions/labels/apply` |
+| **container:read** | View container details | _(Used by Platform)_ |
+|  | List containers | _(Used by Platform)_ |
+|  | List workflow containers | _(Used by Platform)_ |
+| **launch:read** | View launch details | `GET /launch/{launchId}` |
+| **pipeline:read** | View pipeline repository information | `GET /pipelines/info` |
+|  | View pipeline schema and parameters | `GET /pipelines/{pipelineId}/schema` |
+|  | View pipeline schema from repository URL | _(Used by Platform)_ |
+|  | View pipeline launch configuration | `GET /pipelines/{pipelineId}/launch` |
+|  | List available pipeline repositories | `GET /pipelines/repositories` |
+|  | List all pipelines in workspace | `GET /pipelines` |
+|  | View pipeline details | `GET /pipelines/{pipelineId}` |
+|  | List pipeline versions | `GET /pipelines/{pipelineId}/versions` |
+|  | Fetch pipeline optimization | _(Used by Platform)_ |
+| **pipeline:write** | Modify pipeline details when launching a pipeline run | Sub-operation on `POST /workflow/launch` |
+|  | Add a new pipeline to workspace | `POST /pipelines` |
+|  | Edit pipeline (default version) configuration | `PUT /pipelines/{pipelineId}` |
+|  | Configure pipeline | _(Used by Platform)_ |
+|  | Validate pipeline name availability | `GET /pipelines/validate` |
+|  | Create a pipeline schema | `POST /pipeline-schemas` |
+|  | Validate pipeline version name availability | `GET /pipelines/{pipelineId}/versions/validate` |
+|  | Manage pipeline version | `PUT /pipelines/{pipelineId}/versions/{versionId}/manage` |
+|  | Edit pipeline version configuration | `POST /pipelines/{pipelineId}/versions/{versionId}` |
+| **pipeline:delete** | Delete a pipeline | `DELETE /pipelines/{pipelineId}` |
+| **pipeline_label:write** | Apply resource labels when launching a pipeline run | Sub-operation on `POST /workflow/launch` |
+|  | Add labels to pipelines | `POST /pipelines/labels/add` |
+|  | Apply resource labels when adding a pipeline | Sub-operation on `POST /pipelines` |
+|  | Apply resource labels when editing a pipeline (default version) | Sub-operation on `PUT /pipelines/{pipelineId}` |
+|  | Apply resource labels when editing a pipeline version | Sub-operation on `POST /pipelines/{pipelineId}/versions/{versionId}` |
+|  | Remove labels from pipelines | `POST /pipelines/labels/remove` |
+|  | Apply label sets to pipelines | `POST /pipelines/labels/apply` |
+| **workflow:read** | View run details | `GET /workflow/{workflowId}` |
+|  | View run progress | `GET /workflow/{workflowId}/progress` |
+|  | List tasks in a run | `GET /workflow/{workflowId}/tasks` |
+|  | View individual task details | `GET /workflow/{workflowId}/task/{taskId}` |
+|  | View run metrics | `GET /workflow/{workflowId}/metrics` |
+|  | List all runs in workspace | `GET /workflow` |
+|  | View run launch configuration | `GET /workflow/{workflowId}/launch` |
+|  | View run execution logs | `GET /workflow/{workflowId}/log` |
+|  | View task-specific logs | `GET /workflow/{workflowId}/log/{taskId}` |
+|  | Download run logs | `GET /workflow/{workflowId}/download` |
+|  | Download run content in a workspace | _(Used by Platform)_ |
+|  | Download task logs | `GET /workflow/{workflowId}/download/{taskId}` |
+|  | View run reports | _(Used by Platform)_ |
+|  | Download run report | _(Used by Platform)_ |
+|  | Fetch workflow optimization | _(Used by Platform)_ |
+|  | Check optimized workflow list | _(Used by Platform)_ |
+| **workflow:execute** | Launch a pipeline run | `POST /workflow/launch` |
+|  | Cancel a running pipeline | `POST /workflow/{workflowId}/cancel` |
+|  | Launch a pipeline run | _(Used by Platform)_ |
+| **workflow:write** | Create execution trace | `POST /trace/create` |
+|  | Update trace heartbeat | `PUT /trace/{workflowId}/heartbeat` |
+|  | Mark trace begin | `PUT /trace/{workflowId}/begin` |
+|  | Mark trace complete | `PUT /trace/{workflowId}/complete` |
+|  | Update trace progress | `PUT /trace/{workflowId}/progress` |
+| **workflow:delete** | Delete a single run | `DELETE /workflow/{workflowId}` |
+|  | Delete multiple runs | `POST /workflow/delete` |
+| **workflow_label:write** | Add labels to runs | `POST /workflow/labels/add` |
+|  | Remove labels from runs | `POST /workflow/labels/remove` |
+|  | Apply label sets to runs | `POST /workflow/labels/apply` |
+| **workflow_quick:execute** | Launch quick pipeline | Sub-operation on `POST /workflow/launch` |
+|  | Launch quick pipeline | _(Used by Platform)_ |
+|  | GA4GH: create a run | `POST /ga4gh/wes/v1/runs` |
+| **workflow_star:read** | Check if run is starred (favorited) | `GET /workflow/{workflowId}/star` |
+| **workflow_star:write** | Star (favorite) a run | `POST /workflow/{workflowId}/star` |
+| **workflow_star:delete** | Unstar (unfavorite) a run | `DELETE /workflow/{workflowId}/star` |
+
+#### Projects
+
+Participants with a custom role see the **Projects** view only if their role includes `project_view:read`. Existing custom roles do not include it. Add it to each custom role that needs the **Projects** view.
+
+To limit a custom role to the **Projects** view, select `project_view:read` and clear `workspace_resources:read`. The [Project role](./roles.md#workspace-participant-roles) uses this combination. Custom roles that predate `workspace_resources:read` received it automatically.
+
+| Permission            | Description              | API endpoint         |
+|-----------------------|--------------------------|----------------------|
+| **project_view:read** | Browse the Projects view | _(Used by Platform)_ |
+
+#### Settings
+
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
+| **label:read** | List all workspace labels | `GET /labels` |
+| **label:write** | Create a new label | `POST /labels` |
+|  | Edit an existing label | `PUT /labels/{labelId}` |
+| **label:delete** | Delete a label | `DELETE /labels/{labelId}` |
+| **workspace:read** | View workspace details | `GET /orgs/{orgId}/workspaces/{workspaceId}` |
+|  | List workspace participants | `GET /orgs/{orgId}/workspaces/{workspaceId}/participants` |
+| **workspace:write** | Edit workspace settings | `PUT /orgs/{orgId}/workspaces/{workspaceId}` |
+|  | Add a workspace participant | `PUT /orgs/{orgId}/workspaces/{workspaceId}/participants/add` |
+|  | Find workspace participant candidates | _(Used by Platform)_ |
+|  | Change participant role | `PUT /orgs/{orgId}/workspaces/{workspaceId}/participants/{participantId}/role` |
+|  | Remove a workspace participant (user or team) | `DELETE /orgs/{orgId}/workspaces/{workspaceId}/participants/{participantId}` |
+|  | Remove a workspace user (member or collaborator) | `DELETE /orgs/{orgId}/workspaces/{workspaceId}/users/{userId}` |
+| **workspace:delete** | Delete the workspace | `DELETE /orgs/{orgId}/workspaces/{workspaceId}` |
+| **workspace:admin** | Change participant role to/from Owner | Sub-operation on `PUT /orgs/{orgId}/workspaces/{workspaceId}/participants/{participantId}/role` |
+|  | Remove a workspace Owner by participantId | Sub-operation on `DELETE /orgs/{orgId}/workspaces/{workspaceId}/participants/{participantId}` |
+|  | Remove a workspace Owner by userId | Sub-operation on `DELETE /orgs/{orgId}/workspaces/{workspaceId}/users/{userId}` |
+| **workspace_resources:read** | Browse the workspace resource views | _(Used by Platform)_ |
+| **workspace_self:delete** | Leave workspace (remove self as participant) | `DELETE /orgs/{orgId}/workspaces/{workspaceId}/participants` |
+| **workspace_studio:read** | View studio settings for workspace | `GET /orgs/{orgId}/workspaces/{workspaceId}/settings/studios` |
+| **workspace_studio:write** | Edit studio settings for workspace | `PUT /orgs/{orgId}/workspaces/{workspaceId}/settings/studios` |
+
+#### Studios
+
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
+| **studio:read** | View studio session details | `GET /studios/{sessionId}` |
+|  | View studio repository details | _(Used by Platform)_ |
+|  | List all studios in workspace | `GET /studios` |
+|  | List available studio templates | `GET /studios/templates` |
+|  | List checkpoints for a studio | `GET /studios/{sessionId}/checkpoints` |
+|  | View checkpoint details | `GET /studios/{sessionId}/checkpoints/{checkpointId}` |
+| **studio:execute** | List mounted data-links for studios | `GET /studios/data-links` |
+|  | Start a studio session | `PUT /studios/{sessionId}/start` |
+|  | Stop a studio session | `PUT /studios/{sessionId}/stop` |
+| **studio:write** | Create a new studio | `POST /studios` |
+|  | Edit checkpoint name | `PUT /studios/{sessionId}/checkpoints/{checkpointId}` |
+|  | Update a studio | `PUT /studios/{sessionId}` |
+|  | Validate studio name availability | `GET /studios/validate` |
+| **studio:delete** | Delete a studio | `DELETE /studios/{sessionId}` |
+| **studio:admin** | Delete another user's private studio | Sub-operation on `DELETE /studios/{sessionId}` |
+|  | Start another user's private studio | Sub-operation on `PUT /studios/{sessionId}/start` |
+|  | Update another user's private studio | Sub-operation on `PUT /studios/{sessionId}` |
+|  | Stop another user's private studio | Sub-operation on `PUT /studios/{sessionId}/stop` |
+|  | Extend another user's private studio session lifespan (iframe) | _(Used by Platform)_ |
+|  | Extend another user's private studio session lifespan | Sub-operation on `POST /studios/{sessionId}/lifespan` |
+|  | Administer another user's private studio | _(Used by Platform)_ |
+| **studio_label:write** | Apply resource labels when starting a studio | Sub-operation on `PUT /studios/{sessionId}/start` |
+|  | Apply resource labels when updating a studio | Sub-operation on `PUT /studios/{sessionId}` |
+| **studio_session:read** | Open a studio | _(Used by Platform)_ |
+| **studio_session:execute** | Extend studio session lifespan (iframe) | _(Used by Platform)_ |
+|  | Extend studio session lifespan | `POST /studios/{sessionId}/lifespan` |
+
+<!-- doc-skills: DRAFT — reviewed: no — from seqeralabs/platform#11929 (merged 2026-08-05), 2026-08-10 — brief: .docs-operating-model/briefs/pr-11929.md — availability: unconfirmed (Enterprise release carrying chat:execute not yet confirmed) -->
+
+#### AI
+
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
+| **agent:read** | List background AI agents | `GET /agents` |
+|  | View background AI agent details | `GET /agents/{agentId}` |
+|  | List background AI agent runs | `GET /agents/runs` |
+|  | View the status of a background AI agent run | `GET /agents/runs/{agentRunId}/status` |
+| **agent:execute** | Launch a background AI agent | `POST /agents/launch` |
+| **agent:write** | Create a background AI agent | `POST /agents` |
+|  | Edit an existing background AI agent | `PUT /agents/{agentId}` |
+|  | Enable a background AI agent | `POST /agents/{agentId}/enable` |
+|  | Disable a background AI agent | `POST /agents/{agentId}/disable` |
+|  | List the service accounts assigned to a workspace | `GET /orgs/{orgId}/workspaces/{workspaceId}/service-accounts` |
+| **agent:delete** | Delete a background AI agent | `DELETE /agents/{agentId}` |
+| **chat:execute** | Use Co-Scientist chat | _(Used by Platform)_ |
+|  | Use the **Trigger agent** action on run pages, together with `agent:execute` | _(Used by Platform)_ |
+
+:::info
+Custom roles never receive the `chat:execute` permission automatically — not when they are created, duplicated, or restored to defaults, and not when your installation is upgraded to a version that includes the permission. An organization owner must explicitly select the **Execute** permission for the `chat` resource type on each custom role that should have Co-Scientist chat access. The predefined Owner, Admin, Maintain, Launch, and Connect roles include `chat:execute` by default; the View role does not.
+:::
+
+Users with `chat:execute` see the [Co-Scientist panel](../co-scientist/platform.md) only when Co-Scientist is deployed and the panel is enabled for their organization. See the [Co-Scientist configuration](../enterprise/configuration/overview.mdx#co-scientist) for `TOWER_AGENT_BACKEND_URL` and `TOWER_AI_CHAT_ALLOWED_ORGANIZATIONS`.

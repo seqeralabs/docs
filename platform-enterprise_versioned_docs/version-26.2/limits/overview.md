@@ -1,0 +1,51 @@
+---
+title: "Usage limits"
+description: "Seqera Platform usage limits per organization and workspace"
+date: "19 Feb 2025"
+tags: [limits]
+---
+
+Seqera Platform features have default limits per organization and workspace.
+
+## Organizations
+
+| Description             | Basic | Cloud Pro + Enterprise |
+| ----------------------- | ----- | ---------------------- |
+| Members                 | 3     | 50, or per license     |
+| Workspaces              | 50    | 50, or per license     |
+| Teams                   | 20    | 20, or per license     |
+| Run history             | 250   | 250, or per license    |
+| Active runs             | 3     | 100, or per license    |
+| Running Studio sessions | 1     | 1000, or per license   |
+
+{/* doc-skills: DRAFT — reviewed: no — from EDU-1442, 2026-09-18 — brief: .docs-operating-model/briefs/evidence/PLAT-5551.md — availability: unconfirmed (SERVICE_ACCOUNTS feature flag, org allow-list, not GA) */}
+
+:::note
+A [service account](../orgs-and-teams/create-service-accounts) counts toward the **Members** limit. Creating one in an organization that has reached the limit fails.
+:::
+
+:::info
+Seqera applies custom usage limits to academic institutions and commercial organizations evaluating Seqera Platform. [Contact us](https://seqera.io/contact-us/) for more information.
+:::
+
+## Workspaces
+
+| Description  | Basic | Cloud Pro + Enterprise |
+| ------------ | ----- | ---------------------- |
+| Participants | 3     | 50, or per license     |
+| Pipelines    | 100   | 100, or per license    |
+| Datasets     | 100   | 1000, or per license   |
+| Labels       | 1000  | 1000, or per license   |
+
+:::note
+Some Enterprise instances on older licenses are limited to 100 labels per workspace. [Contact support](mailto:support@seqera.io) to upgrade your license.
+:::
+
+## Datasets
+
+| Description          | Default limit |
+| -------------------- | ------------- |
+| File size            | 10 MB         |
+| Versions per dataset | 100           |
+
+If you need higher limits, [contact us](https://seqera.io/contact-us/) to discuss your requirements.

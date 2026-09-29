@@ -21,6 +21,12 @@ Organization owners can add custom roles and assign read, write, execute, admin,
 
 Select **Edit** or **Delete** to manage existing custom roles in the list.
 
+{/* doc-skills: DRAFT — reviewed: no — from EDU-1442, 2026-09-10 — brief: .docs-operating-model/briefs/evidence/PLAT-5551.md — availability: unconfirmed (SERVICE_ACCOUNTS feature flag, org allow-list, not GA) */}
+
+Custom roles can be assigned to [service accounts](./create-service-accounts) as well as to people. Whoever assigns a role to a service account must already hold every permission that role carries. This check applies to every workspace role assignment to a service account, not only to custom ones.
+
+If the service account will run an agent, include `agent:execute` in the custom role. Every built-in role except **Connect** and **View** already has it, but a custom role only has the permissions you select.
+
 ### Permissions
 
 Individual permissions grant read, write, execute, admin, or delete access for each Seqera entity. Individual read and write permissions may grant access for multiple operations via the Platform UI, API, and other programmatic tools such as Platform CLI. For example, the `action:read` permission allows a user to view the list of actions in a workspace, view the details of a specific action, and view available action types.
@@ -242,6 +248,7 @@ To limit a custom role to the **Projects** view, select `project_view:read` and 
 |  | List available studio templates | `GET /studios/templates` |
 |  | List checkpoints for a studio | `GET /studios/{sessionId}/checkpoints` |
 |  | View checkpoint details | `GET /studios/{sessionId}/checkpoints/{checkpointId}` |
+|  | View studio session logs | `GET /studios/{sessionId}/log` |
 | **studio:execute** | List mounted data-links for studios | `GET /studios/data-links` |
 |  | Start a studio session | `PUT /studios/{sessionId}/start` |
 |  | Stop a studio session | `PUT /studios/{sessionId}/stop` |
@@ -262,3 +269,29 @@ To limit a custom role to the **Projects** view, select `project_view:read` and 
 | **studio_session:read** | Open a studio | _(Used by Platform)_ |
 | **studio_session:execute** | Extend studio session lifespan (iframe) | _(Used by Platform)_ |
 |  | Extend studio session lifespan | `POST /studios/{sessionId}/lifespan` |
+
+<!-- doc-skills: DRAFT — reviewed: no — from seqeralabs/platform#11929 (merged 2026-08-05), 2026-08-10 — brief: .docs-operating-model/briefs/pr-11929.md — availability: unconfirmed (Enterprise release carrying chat:execute not yet confirmed) -->
+
+#### AI
+
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
+| **agent:read** | List background AI agents | `GET /agents` |
+|  | View background AI agent details | `GET /agents/{agentId}` |
+|  | List background AI agent runs | `GET /agents/runs` |
+|  | View the status of a background AI agent run | `GET /agents/runs/{agentRunId}/status` |
+| **agent:execute** | Launch a background AI agent | `POST /agents/launch` |
+| **agent:write** | Create a background AI agent | `POST /agents` |
+|  | Edit an existing background AI agent | `PUT /agents/{agentId}` |
+|  | Enable a background AI agent | `POST /agents/{agentId}/enable` |
+|  | Disable a background AI agent | `POST /agents/{agentId}/disable` |
+|  | List the service accounts assigned to a workspace | `GET /orgs/{orgId}/workspaces/{workspaceId}/service-accounts` |
+| **agent:delete** | Delete a background AI agent | `DELETE /agents/{agentId}` |
+| **chat:execute** | Use Co-Scientist chat | _(Used by Platform)_ |
+|  | Use the **Trigger agent** action on run pages, together with `agent:execute` | _(Used by Platform)_ |
+
+:::info
+Custom roles never receive the `chat:execute` permission automatically — not when they are created, duplicated, or restored to defaults, and not when your installation is upgraded to a version that includes the permission. An organization owner must explicitly select the **Execute** permission for the `chat` resource type on each custom role that should have Co-Scientist chat access. The predefined Owner, Admin, Maintain, Launch, and Connect roles include `chat:execute` by default; the View role does not.
+:::
+
+Users with `chat:execute` see the [Co-Scientist panel](../co-scientist/platform.md) only when Co-Scientist is deployed and the panel is enabled for their organization. See the [Co-Scientist configuration](../enterprise/configuration/overview.mdx#co-scientist) for `TOWER_AGENT_BACKEND_URL` and `TOWER_AI_CHAT_ALLOWED_ORGANIZATIONS`.

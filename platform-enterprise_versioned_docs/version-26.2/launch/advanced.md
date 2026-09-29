@@ -1,0 +1,213 @@
+---
+title: "Advanced options"
+description: "Advanced guide to launching Nextflow pipelines in Seqera Platform."
+date created: "2023-04-21"
+last updated: "2026-08-26"
+tags: [advanced, launch]
+---
+
+You can modify the configuration and execution of a pipeline with advanced launch options.
+
+## Nextflow config file
+
+Add additional or modified Nextflow configuration settings. Use the same syntax as the [Nextflow configuration file](https://docs.seqera.io/nextflow/config#config-syntax).
+
+### Nextflow configuration order of priority
+
+When launching pipelines in Platform, Nextflow configuration is resolved from four sources. If the same parameter is defined in more than one source, the highest-priority source is used:
+
+| Priority | Nextflow configuration                                   | Source                                                                                             |
+|----------|----------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| Highest  | The pipeline launch form **Nextflow config file** field  | User-defined at launch                                                                             |
+|          | Platform-managed compute settings                        | Derived from CE definition (see [Platform-managed configuration](#platform-managed-configuration)) |
+|          | The compute environment **Global Nextflow config** field | User-defined during CE creation                                                                    |
+| Lowest   | The pipeline repository `nextflow.config` file           | Pipeline Git repository                                                                            |
+
+:::note
+**Global Nextflow config** values are pre-filled in the launch form's **Nextflow config file** field, but also apply independently at the priority level shown above. Clearing the launch form field does not remove the **Global Nextflow config** values.
+:::
+
+This table applies to Nextflow configuration settings only. For how config profiles affect run parameter values entered in the launch form, see [Config profiles](./launchpad#config-profiles).
+
+For example, if:
+
+1. The pipeline repository `nextflow.config` file contains this manifest:
+
+    ```ini title="Pipeline repository nextflow.config"
+    manifest {
+        name = 'A'
+        description = 'Pipeline description A'
+    }
+    ```
+
+2. Your compute environment **Global Nextflow config** field contains this manifest:
+
+    ```ini title="Compute environment Global Nextflow config field"
+    manifest {
+        name = 'B'
+        description = 'Pipeline description B'
+    }
+    ```
+
+3. You specify this manifest in the **Nextflow config file** field on the pipeline launch form:
+
+    ```ini title="Pipeline launch form Nextflow config file field"
+    manifest {
+        name = 'C'
+        description = 'Pipeline description C'
+    }
+    ```
+
+The resolved configuration will contain the **Nextflow config file** field's manifest:
+
+```ini title="Resolved configuration"
+manifest {
+    name = 'C'
+    description = 'Pipeline description C'
+}
+```
+
+### Platform-managed configuration
+
+Platform generates a configuration file from the compute environment definition. For any property defined in both this file and the pipeline repository `nextflow.config`, the Platform-generated value takes precedence. There is no warning repository config values are replaced.
+
+### Pre-launch configuration preview
+
+The configuration preview shown on the launch form reflects the **Nextflow config file** field and the compute environment's **Global Nextflow config** field only. Platform-managed compute settings and the pipeline repository `nextflow.config` are not visible in the preview. Both are resolved at launch time.
+
+:::tip{title="Best practices"}
+To ensure compute-specific settings are applied consistently:
+
+- Define compute-specific settings in the compute environment's **Global Nextflow config** field or the launch form's **Nextflow config file** field to make settings visible in the pre-launch preview and ensure they apply regardless of what the repository config contains.
+- Use the launch form's **Nextflow config file** field for settings that must take precedence over everything else.
+:::
+
+## Seqera Cloud config file
+
+Configure per-pipeline Seqera reporting behavior. Settings specified here override the same settings in the `tower.yml` [configuration file](../enterprise/configuration/overview) for this execution. Use the `reports` key to specify report paths, titles, and MIME types:
+
+```yml
+reports:
+  reports/multiqc/index.html:
+    display: "MultiQC Reports"
+    mimeType: "text/html"
+```
+
+## Pre and post-run scripts
+
+Run custom code either before or after the execution of the Nextflow script. These fields allow you to enter shell commands.
+
+Pre-run scripts are executed in the nf-launch script prior to invoking Nextflow processes. Pre-run scripts are useful for:
+- Executor setup, such as loading a private CA certificate.
+- Troubleshooting. For example, add `sleep 3600` to your pre-run script to instruct Nextflow to wait 3600 seconds (60 minutes) before process execution after the nf-launcher container is started, to create a window in which to test connectivity and other issues before your Nextflow processes execute.
+
+Post-run scripts are executed after all Nextflow processes have completed. The scripts have access to the following environment variables:
+
+| Environment variable | Description                                  |
+|----------------------|----------------------------------------------|
+| `TOWER_WORKFLOW_ID`  | The unique workflow run identifier           |
+| `TOWER_WORKSPACE_ID` | The workspace identifier                     |
+| `NXF_UUID`           | The Nextflow session ID                      |
+| `NXF_OUT_FILE`       | Path to the Nextflow console output file     |
+| `NXF_LOG_FILE`       | Path to the Nextflow log file                |
+| `NXF_TML_FILE`       | Path to the timeline report HTML file        |
+| `NXF_EXIT_STATUS`    | The exit code of the workflow execution      |
+| `TOWER_ACCESS_TOKEN` | Platform API access token for authentication |
+| `TOWER_REFRESH_TOKEN`| Platform API refresh token                   |
+| `NXF_WORK`           | The work directory path used by the workflow |
+| `TOWER_CONFIG_FILE`  | Path to the Tower configuration file         |
+
+Post-run scripts are also useful for triggering a third party service via API request.
+
+:::note
+Post-run script failures do not affect the workflow exit status. Post-run scripts have a maximum size limit of 1 KB.
+:::
+
+## Pull latest
+
+Instruct Nextflow to pull the latest pipeline version from the pipeline repository. This is equivalent to using the `-latest` flag.
+
+## Stub run
+
+Replace Nextflow process commands with command [stubs](https://docs.seqera.io/nextflow/process#stub), where defined, before execution.
+
+## Nextflow version
+
+Select the Nextflow version for the run. The selector lists the versions available in your installation and maps your choice to the launch container image that runs the workflow.
+
+The default version is:
+
+- **Pipeline advanced options**: the system default version, or the compute environment type's minimum version when that minimum is higher.
+- **Launch advanced options**: the version saved on the pipeline, when it is compatible with the selected compute environment. If the pipeline's saved version is below the minimum required by the compute environment, no version is preselected and you must choose a compatible version before launching.
+
+Version availability depends on the compute environment type:
+
+- **AWS Batch, Azure Batch, Google Cloud Batch, Kubernetes, Amazon EKS, and Google GKE** compute environments offer every version in the catalog, back to Nextflow 23.03.0-edge.
+- **AWS Cloud, Azure Cloud, Google Cloud, and Seqera Compute** compute environments offer Nextflow 25.04.1 and later. Older versions have no launch container image for these compute environment types.
+- **Grid/HPC** compute environments (Slurm, LSF, Grid Engine, Altair PBS Pro, Moab) run a pre-installed Nextflow and have no launch container. The version selector does not appear for them, and a version carried over from a pipeline default has no effect when you launch on a grid environment.
+
+The selector hides versions that the selected compute environment does not accept. Platform rejects a launch that names an unsupported or unknown version before execution, whether it comes from the UI, API, or CLI. An unsupported version fails with `Nextflow version '<version>' is not supported by the selected compute environment, which requires at least version '<minimum>'`.
+
+Changing only the Nextflow version registers a new pipeline version, because the version determines the runtime that runs the workflow.
+
+:::note
+Use the **Nextflow version** selector instead of setting `NXF_VER` in a pre-run script or the pipeline configuration. If `NXF_VER` is set in the pipeline configuration, it overrides the version selected here.
+:::
+
+:::caution
+When your installation pins a custom launch container with [`TOWER_LAUNCH_CONTAINER`](../enterprise/advanced-topics/custom-launch-container), that image determines the Nextflow runtime for every run. The version selector is hidden on all compute environments and any selected version has no effect.
+:::
+
+## Enable Nextflow syntax parser v2
+
+Use the v2 Nextflow language parser. Requires Nextflow 25.02.0-edge or later. Older runtimes ignore this setting.
+
+The v2 parser implements Nextflow's [strict syntax](https://nextflow.io/docs/latest/strict-syntax.html). Platform selects it by exporting `NXF_SYNTAX_PARSER` to the launch environment:
+
+- **Off (default)**: Workflows run with the v1 parser. Platform exports `NXF_SYNTAX_PARSER=v1`.
+- **On**: Workflows run with the v2 parser. Platform exports `NXF_SYNTAX_PARSER=v2`.
+
+The toggle only selects the parser. It does not change the Nextflow runtime version, the pipeline source, or any pipeline parameters.
+
+The toggle does not track Nextflow's own parser default. Nextflow defaults to the v2 parser from version 26.04, and from 26.01.1-edge on the edge release channel, but only when `NXF_SYNTAX_PARSER` is unset. Platform always sets it. With the toggle off, Platform exports `NXF_SYNTAX_PARSER=v1` for every Nextflow version. On stable releases up to 25.10, where v1 is also the runtime default, the off position matches Nextflow's own behavior. To run a pipeline with the v2 parser on any Nextflow version, turn the toggle on.
+
+:::warning
+On Nextflow 26.04 and later, a pipeline that uses v2-only syntax fails to compile unless this toggle is on. The Nextflow version alone does not select the v2 parser, even when the run log reports Nextflow 26.04 or later. The failure is a Groovy compilation error that does not mention the parser. To confirm which parser ran, look for `Using script parser v2` in the run's Nextflow log file, `nf-<workflow-id>.log`. The line is absent when the v1 parser runs.
+:::
+
+The toggle is not the only route that sets the parser. The following routes set it, in increasing order of precedence:
+
+- The pipeline's toggle.
+- The launch form's toggle, pre-filled from the pipeline's toggle.
+- An `NXF_SYNTAX_PARSER` environment variable defined on the compute environment with a target that includes the head job.
+- A [pre-run script](#pre-and-post-run-scripts) that exports `NXF_SYNTAX_PARSER`.
+
+Platform exports the toggle value before it applies the compute environment variables and the pre-run script. Either source can overwrite the value the toggle sets. Neither source is visible in the launch form, and the toggle continues to display its own setting when one of them selects the parser.
+
+:::note
+The launch form inherits this setting from the pipeline. You can override it per launch without changing the stored value. Changing the toggle on the pipeline edit form creates a new pipeline version.
+:::
+
+## Main script
+
+Nextflow will attempt to run the script named `main.nf` in the root of the project repository by default. You can configure a custom script path and/or filename in `manifest.mainScript`, or you can provide the script path and filename in this field.
+
+In a pipeline repository set up with subdirectories containing multiple main script files, enter the path name to your desired custom script in **Main script**. For example: `/custom-pipeline/custom-script.nf`
+
+If you point to a custom script using this field, Platform also looks for a `nextflow.config` in the same directory as the custom script, and if none exists, it defaults to the `nextflow.config` in the repository root.
+
+:::note
+If you specify a custom script filename, the root of the default branch in your pipeline repository must still contain a `main.nf` file, even if blank. See [Nextflow configuration](../troubleshooting_and_faqs/nextflow) for more information on this known Nextflow behavior.
+:::
+
+## Workflow entry name
+
+Nextflow DSL2 provides the ability to launch workflows with specific names. Enter the name of the workflow to be executed in this field.
+
+## Schema name
+
+Specify the name of a pipeline schema file in the workflow repository root folder to override the default `nextflow_schema.json`.
+
+## Head job CPUs and memory
+
+Specify the compute resources allocated to the Nextflow head job. These fields are only displayed for runs executing on [AWS Batch](../compute-envs/aws-batch) and [Azure Batch](../compute-envs/azure-batch) compute environments.

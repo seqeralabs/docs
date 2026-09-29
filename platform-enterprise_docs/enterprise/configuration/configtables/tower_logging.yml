@@ -2,18 +2,13 @@
 -
  Environment variable: "`TOWER_CRON_AUDIT_LOG_CLEAN_UP_ENABLED`"
  Description: >
-   Set `false` to disable automatic deletion of audit log records. In 26.1, this applies to both the legacy table and the new table. Restart Platform after changing this value.
+   Set `false` to disable automatic deletion of audit log records. This applies to both the legacy (v1) and v2 audit log tables. Restart Platform after changing this value.
  Value: "Default: `true`"
 -
  Environment variable: "`TOWER_CRON_AUDIT_LOG_CLEAN_UP_TIME_OFFSET`"
  Description: >
-   Application event audit log retention period. When cleanup is enabled, audit log records older than this period are celeted from both v1 and v2 audit log tables. Value includes units (`30d`, `24h`, `60m`, etc.).
+   Application event audit log retention period. When cleanup is enabled, audit log records older than this period are deleted from both the legacy (v1) and v2 audit log tables. Value includes units (`30d`, `24h`, `60m`, etc.).
    Value: "Default: `365d`"
--
- Environment variable: "`TOWER_AUDIT_LOG_V2_WRITE_MODE`"
- Description: >
-   Determines which audit log tables receive new write operations. Use `dual` to write to both legacy and v2 tables during the 26.1 migration period, or `v2` for the new table only.
- Value: "Options: `dual`, `v2`. Default: `dual`"
 -
  Environment variable: "`TOWER_AUDIT_LOG_V2_CSV_EXPORT_MAX_LOGS`"
  Description: >
@@ -42,8 +37,8 @@
 -
  Environment variable: "`TOWER_LOG_PATTERN`"
  Description: >
-   The logging format emitted to STDOUT. See [here](https://logback.qos.ch/manual/layouts.html#conversionWord) for a reference of the full logback pattern syntax.
- Value: "`%d{MMM-dd HH:mm:ss.SSS} [%t] %X{ip:--} %-5level %logger{36} - %msg%n}  # Default logging pattern shown`"
+   The logging format emitted to STDOUT. See [here](https://logback.qos.ch/manual/layouts.html#conversionWord) for a reference of the full logback pattern syntax. Keep `%X{trace_id:--} %X{span_id:--}` in any override to preserve correlation between logs and traces, and `%X{requestId:--}` to keep the request correlation ID.
+ Value: "`%d{MMM-dd HH:mm:ss.SSS} [%t] %X{ip:--} %X{requestId:--} %X{trace_id:--} %X{span_id:--} %-5level %logger{36} - %msg%n`  # Default logging pattern shown"
 -
  Environment variable: "`TOWER_LOG_MAX_HISTORY`"
  Description: >

@@ -1,0 +1,65 @@
+---
+title: "Create and manage service accounts"
+description: "Create, edit, and delete service accounts in a Seqera Platform organization."
+date created: "2026-09-10"
+last updated: "2026-09-10"
+tags: [service accounts, organizations, administration, automation]
+---
+
+{/* doc-skills: DRAFT — reviewed: no — from EDU-1442, 2026-09-10 — brief: .docs-operating-model/briefs/evidence/PLAT-5551.md — availability: unconfirmed (SERVICE_ACCOUNTS feature flag, org allow-list, not GA) */}
+
+A Seqera service account is a non-human identity that agents and automation use to act in your organization. Create one when you want automated work attributed to the automation itself rather than to a person's account.
+
+Service accounts are managed at the organization level and belong to the organization, not to the user who created them. They have no password and cannot sign in. A sign-in attempt with a service account address is rejected.
+
+:::info[**Prerequisites**]
+
+You need the following:
+
+- The **Owner** role in the organization
+- Service accounts enabled for your organization. They are enabled in every organization once `TOWER_AGENT_BACKEND_URL` is set, unless an administrator restricts them with `TOWER_AGENT_CONFIGURATION_ALLOWED_ORGANIZATIONS`. See [Enable agents](../co-scientist/agents#enable-agents).
+
+:::
+
+## Create a service account
+
+1. From the organization page, select **Access control**, then select the **Service accounts** tab.
+1. Select **Add service account**.
+1. Enter a **Name**. The name must be unique across Seqera Platform, not only within your organization. Use lowercase letters, digits, and hyphens between them, from 2 to 39 characters.
+1. Optional: enter a **Description** to record what the service account is for.
+1. Optional: under **Workspace access**, select **Assign to workspace** to grant the service account a role in one or more workspaces. See [Assign a service account to a workspace](./assign-service-accounts).
+1. Select **Add**.
+
+A new service account has no access to any workspace until you assign it one. It holds a fixed organization role, shown as **Service account**. You cannot change that role, and you cannot make a service account an organization owner.
+
+## Edit a service account
+
+1. From the **Service accounts** tab, select the service account.
+1. Select **Edit**.
+1. Change the **Name** or **Description**.
+1. Select **Update**.
+
+The edit page also shows the **Workspace access** and **Permissions** sections. Under **Workspace access**, you can assign the service account to workspaces, change its role in each, and remove it. These changes apply as soon as you make them. **Update** saves only the name and description, and **Cancel** does not undo workspace access changes. On the service account's detail page, both sections are read-only. See [Assign a service account to a workspace](./assign-service-accounts).
+
+Renaming a service account does not interrupt anything using it. Its identity is independent of the name you give it.
+
+## Delete a service account
+
+To stop a service account without deleting it, a root user can disable it: in the [Admin panel](../administration/overview#users) **Users** tab, select **Disable user** next to the service account, then **Confirm**. Its requests are then refused, and agents bound to it fail when they run, until a root user selects **Enable user**.
+
+1. From the **Service accounts** tab, select the service account.
+1. Select **Delete**.
+1. Review the workspaces listed under **Workspace access** in the confirmation dialog. Anything that relies on this service account stops working as soon as you confirm.
+1. Confirm the deletion.
+
+Deletion is not recoverable. Audit records of its past actions are retained and keep naming it.
+
+## Where service accounts appear
+
+Service accounts are **not** shown in the organization **Members** list, which lists people only. They appear:
+
+- In the **Service accounts** tab, where you manage them.
+- In the participant list of every workspace they are assigned to, marked with a **service account** badge.
+- In the platform admin views, marked with the same badge.
+
+A service account counts toward your organization's **Members** limit, in the same way a person does. Creating one in an organization that has reached the limit fails. See [Usage limits](../limits/overview).
