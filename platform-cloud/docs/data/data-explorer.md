@@ -128,10 +128,6 @@ For the full IGV desktop application, create an [Xpra Studio with IGV](../gettin
 
 ### View lineage data for objects
 
-:::note
-Data lineage is available on request. Contact your Seqera account manager.
-:::
-
 When an object in Data Explorer was produced by a Nextflow run with [data lineage tracking enabled][workspace-lineage-settings], the object preview displays the object's lineage data alongside its file metadata.
 
 Select an object to preview. When lineage data is available, this displays:
