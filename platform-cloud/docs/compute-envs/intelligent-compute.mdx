@@ -255,7 +255,15 @@ A Spot capacity failure reaches Nextflow only after the scheduler exhausts its a
 
 ### On-Demand fallback cost limit
 
-With `spotFirst`, the scheduler falls back to On-Demand only while On-Demand costs at most a set multiple of the Spot price. The scheduler compares the highest On-Demand hourly price with the highest Spot hourly price across the instance types it selected for the task. Seqera sets this multiple. You cannot change it on the compute environment.
+With `spotFirst`, the scheduler falls back to On-Demand only while On-Demand costs at most a set multiple of the Spot price. The scheduler compares the highest On-Demand hourly price with the highest Spot hourly price across the instance types it selected for the task. Seqera sets this multiple for each cloud provider. You cannot change it on the compute environment. The current values are:
+
+| Cloud provider | On-Demand fallback cost limit |
+| --- | --- |
+| AWS | 3.25 times the Spot price |
+| Google Cloud | 2.48 times the Spot price |
+| Azure | No limit |
+
+Seqera can change these values as Spot and On-Demand pricing evolves.
 
 When On-Demand exceeds the limit, the scheduler does not fall back. It retries the task on new Spot capacity instead. If Spot capacity is still unavailable after those retries, the task fails. Its error message starts with `on-demand fallback refused` and states how many times the Spot price On-Demand would have cost.
 
