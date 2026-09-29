@@ -1,0 +1,36 @@
+---
+-
+  Environment variable:            '`TOWER_CATALOG_ENABLED`'
+  Description: >
+    Enable the component compatibility catalog. When enabled, the launch form's Nextflow version selector, launch validation, and the `nf-launcher` and Fusion versions used at launch are read from the catalog at `TOWER_CATALOG_SOURCE`. Set it to `false` to use the built-in version list of earlier releases.
+  Value:                'Default: `true`'
+-
+  Environment variable:            '`TOWER_CATALOG_SOURCE`'
+  Description: >
+    Where Seqera Platform reads the catalog from. `classpath:catalog-state.json` is the catalog bundled with the release. `file:/path/to/state.json` reads a catalog file you supply, for example in an air-gapped installation. `licman` reads the live catalog from the Seqera License Manager, with a cached copy and `TOWER_CATALOG_EMBEDDED` as fallbacks. A catalog that cannot be read or parsed at startup prevents backend startup.
+  Value:                'Default: `classpath:catalog-state.json`'
+-
+  Environment variable:            '`TOWER_CATALOG_EMBEDDED`'
+  Description: >
+    The catalog used when `TOWER_CATALOG_SOURCE` is `licman` and neither the License Manager nor the cached copy is available.
+  Value:                'Default: `classpath:catalog-state.json`'
+-
+  Environment variable:            '`TOWER_CATALOG_LICMAN_URL`'
+  Description: >
+    License Manager URL for the live catalog when `TOWER_CATALOG_SOURCE` is `licman`. If unset, Seqera Platform uses the license server URL. If neither is set in `licman` mode, the backend fails to start.
+  Value:                'Default: License server URL'
+-
+  Environment variable:            '`TOWER_CATALOG_LICMAN_TIMEOUT`'
+  Description: >
+    Connect and read timeout for the live catalog request. When it is exceeded, Seqera Platform uses the cached copy or the embedded catalog instead.
+  Value:                'Default: `5s`'
+-
+  Environment variable:            '`TOWER_CATALOG_REFRESH_INTERVAL`'
+  Description: >
+    How often the cron service refreshes the cached copy from the live `licman` source.
+  Value:                'Default: `5m`'
+-
+  Environment variable:            '`TOWER_CATALOG_REFRESH_INITIAL_DELAY`'
+  Description: >
+    Delay before the first catalog refresh after startup.
+  Value:                'Default: `10s`'

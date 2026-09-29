@@ -265,3 +265,23 @@ To limit a custom role to the **Projects** view, select `project_view:read` and 
 | **studio_session:read** | Open a studio | _(Used by Platform)_ |
 | **studio_session:execute** | Extend studio session lifespan (iframe) | _(Used by Platform)_ |
 |  | Extend studio session lifespan | `POST /studios/{sessionId}/lifespan` |
+
+<!-- doc-skills: DRAFT — reviewed: no — source: seqeralabs/platform#11929 (merged 2026-08-05) — availability: unconfirmed -->
+
+#### AI
+
+| Permission | Description | API endpoint |
+|------------|-------------|--------------|
+| **agent:read** | List background AI agents | `GET /agents` |
+|  | View background AI agent details | `GET /agents/{agentId}` |
+| **agent:write** | Create a background AI agent | `POST /agents` |
+|  | Edit an existing background AI agent | `PUT /agents/{agentId}` |
+|  | Enable a background AI agent | `POST /agents/{agentId}/enable` |
+|  | Disable a background AI agent | `POST /agents/{agentId}/disable` |
+| **agent:delete** | Delete a background AI agent | `DELETE /agents/{agentId}` |
+| **chat:execute** | Use Co-Scientist chat | _(Used by Platform)_ |
+|  | Use the **Trigger agent** and **Explain failure** AI actions on run pages | _(Used by Platform)_ |
+
+:::info
+Custom roles never receive the `chat:execute` permission automatically — not when they are created, duplicated, or restored to defaults, and not when the permission first becomes available in your organization. An organization owner must explicitly select the **Execute** permission for the `chat` resource type on each custom role that should have Co-Scientist chat access. The predefined Owner, Admin, Maintain, Launch, and Connect roles include `chat:execute` by default; the View role does not.
+:::

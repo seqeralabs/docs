@@ -1,0 +1,46 @@
+---
+-
+  Environment variable:            '`TOWER_WORKSPACE_ORPHAN_CLEANUP_ENABLED`'
+  Description: >
+    Enable the two cleanup cron jobs that soft-delete credentials and compute environments whose workspace has been deleted. Removal uses the same path as a user-initiated deletion, and writes one audit log entry per removed item. Previous versions did not remove these items when a workspace was deleted, so a large backlog may exist. Consider lowering the batch size and concurrency for the first runs.
+  Value:                'Default: `false`'
+-
+  Environment variable:            '`TOWER_CRON_CREDENTIALS_ORPHAN_CLEANUP_TICK_RATE`'
+  Description: >
+    How often the credentials cleanup job checks for credentials whose workspace has been deleted.
+  Value:                'Default: `60s`'
+-
+  Environment variable:            '`TOWER_CRON_CREDENTIALS_ORPHAN_CLEANUP_DELAY`'
+  Description: >
+    Delay before the first credentials cleanup run after startup. The delay varies by up to 50% either way, to spread the load across replicas.
+  Value:                'Default: `30s`'
+-
+  Environment variable:            '`TOWER_CRON_CREDENTIALS_ORPHAN_CLEANUP_BATCH_SIZE`'
+  Description: >
+    Maximum number of credentials the job removes per run.
+  Value:                'Default: `100`'
+-
+  Environment variable:            '`TOWER_CRON_CREDENTIALS_ORPHAN_CLEANUP_CONCURRENCY`'
+  Description: >
+    Maximum number of credentials removed concurrently on a single replica. Must be `1` or higher.
+  Value:                'Default: `5`'
+-
+  Environment variable:            '`TOWER_CRON_COMPUTE_ENV_ORPHAN_CLEANUP_TICK_RATE`'
+  Description: >
+    How often the compute environment cleanup job checks for compute environments whose workspace has been deleted.
+  Value:                'Default: `60s`'
+-
+  Environment variable:            '`TOWER_CRON_COMPUTE_ENV_ORPHAN_CLEANUP_DELAY`'
+  Description: >
+    Delay before the first compute environment cleanup run after startup. The delay varies by up to 50% either way, to spread the load across replicas.
+  Value:                'Default: `30s`'
+-
+  Environment variable:            '`TOWER_CRON_COMPUTE_ENV_ORPHAN_CLEANUP_BATCH_SIZE`'
+  Description: >
+    Maximum number of compute environments the job removes per run.
+  Value:                'Default: `100`'
+-
+  Environment variable:            '`TOWER_CRON_COMPUTE_ENV_ORPHAN_CLEANUP_CONCURRENCY`'
+  Description: >
+    Maximum number of compute environments removed concurrently on a single replica. Deleting a compute environment also removes the cloud resources Batch Forge created for it. Must be `1` or higher.
+  Value:                'Default: `5`'

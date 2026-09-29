@@ -1,0 +1,11 @@
+---
+-
+  Environment variable:            '`TOWER_OIDC_ACCESS_TOKEN_AUDIENCE`'
+  Description: >
+    The audience (`aud`) claim stamped on the OIDC access tokens Seqera Platform issues, and checked on the ones it receives. When `TOWER_AUTH_TOKEN_SIGNING_RS256_ENABLED` is set, it also applies to Platform session, agent, and service tokens. Personal access tokens are not affected. If unset, the audience is `platform`, which covers every service behind the Platform API.
+  Value:                'Default: `platform`'
+-
+  Environment variable:            '`TOWER_OIDC_AUDIENCE_ENFORCEMENT_ENABLED`'
+  Description: >
+    Reject Platform-issued OIDC access tokens whose `iss` or `aud` claim does not match. When `false`, mismatches are logged and the tokens are still accepted, so you can check your clients before you enforce. Both claims are compared against the current configuration. With `TOWER_AUTH_TOKEN_SIGNING_RS256_ENABLED` also set, changing `TOWER_SERVER_URL` or `TOWER_OIDC_ACCESS_TOKEN_AUDIENCE` rejects every session, agent, and service token until it expires.
+  Value:                'Default: `false`'
