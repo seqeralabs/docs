@@ -48,7 +48,7 @@ Some Enterprise instances on older licenses are limited to 100 labels per worksp
 
 ## Launch form
 
-The launch form rejects run parameters and Nextflow configuration that exceed these sizes. The limits apply to the submitted payload, so a parameter set that passes validation in the form can still exceed the limit once Platform expands it.
+The launch form rejects run parameters and Nextflow configuration that exceed these sizes. The form checks run parameters when you launch, against the parameters it submits to Platform.
 
 | Description            | Configuration property        | Default limit |
 | ---------------------- | ----------------------------- | ------------- |
