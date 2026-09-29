@@ -42,8 +42,6 @@ The Admin panel shows the following event details:
 
 For organization-scoped, personal workspace-scoped, or system-wide targets, the organization and workspace columns display `N/A` labels to indicate when a field does not apply to that resource scope.
 
-{/* doc-skills: DRAFT — reviewed: no — from EDU-1442, 2026-09-10 — brief: .docs-operating-model/briefs/evidence/PLAT-5551.md — availability: unconfirmed (SERVICE_ACCOUNTS feature flag, org allow-list, not GA) */}
-
 :::note
 Service account authentication is not audited. Service accounts cannot sign in, and bearer-token validation does not raise a `user_sign_in` event. No service account appears in sign-in events or sign-in metrics. The audit log records what a service account did, not that it authenticated.
 :::

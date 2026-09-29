@@ -21,8 +21,6 @@ Actions fit when the next step is a pipeline or an agent that should live alongs
 
 Nothing from the trigger reaches the launched run, whatever the event source: not the marker file name or the finished run's ID. You cannot use it for a dynamic run name or as a pipeline parameter. The run holds the configuration saved on the action. The exception is a [Tower launch hook](#tower-launch-hooks), whose request can pass pipeline parameters that override the ones saved on the action.
 
-<!-- doc-skills: DRAFT — reviewed: no — Targets section from platform@9e43e1b4af (PLAT-6622) -->
-
 ### Targets
 
 An action either launches a pipeline or hands the event to an AI agent.
@@ -103,8 +101,6 @@ To create a new action, select the **Actions** tab and select **Add action**.
 The pipeline action is now set up and the new endpoint can be used to launch the corresponding pipeline programmatically.
 
 When you create a **Tower launch hook**, you also create an **access token** for launching pipelines. Access tokens can be managed on the [tokens page](https://cloud.seqera.io/tokens), which is also accessible from the user menu.
-
-<!-- doc-skills: DRAFT — reviewed: no — from platform#10650, platform#10653; re-grounded 2026-09-22 against platform@9e43e1b4af — brief: .docs-operating-model/briefs/evidence/pr-10650.md -->
 
 ### Bucket events
 
@@ -257,8 +253,6 @@ When you create a scheduled action through the API, supply either an `expression
 
 The form offers **Daily**, **Weekly**, and **Custom cron expression** only, and chooses between them by matching the saved expression. An action created from `daily_midnight`, `daily_noon`, or `weekly_monday` opens as a named schedule. The other four open as **Custom cron expression** and show the raw expression.
 
-<!-- doc-skills: DRAFT — reviewed: no — from platform@9e43e1b4af: docs/event-driven-actions.md, ActionServiceImpl, RunStateEventDrainerJob, action-form.component.{ts,html}, run-state-options.ts -->
-
 ### Pipeline run events
 
 A **Pipeline run event** action launches a pipeline when a run of a watched pipeline reaches a terminal state. It is how one pipeline is chained to another: when a run of pipeline A succeeds, launch pipeline B.
@@ -329,8 +323,6 @@ Unlike the launch repository, the trigger can be changed after the action is sav
 #### No event data reaches the launch
 
 The run that finished decides only whether to launch. Its identifier does not become a pipeline parameter, and neither does anything else about the event. The launched run holds the configuration saved on the action and nothing else. The event is recorded on the action and in its trigger history. The same holds for every event source except Tower launch hooks. See [When to use actions](#when-to-use-actions).
-
-<!-- doc-skills: DRAFT — reviewed: no — from platform v26.2.0-RC18-enterprise: action-trigger-list.component.{ts,html}, action-detail-page.component.{ts,html}, action-form.component.ts, action-list.component.{ts,html}, ActionServiceImpl, TriggerAvailability, DeactivatedAgentReason, BucketOutputOverlapValidator, ActionDispatcher -->
 
 ### Trigger history
 

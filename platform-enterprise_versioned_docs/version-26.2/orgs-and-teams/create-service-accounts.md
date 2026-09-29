@@ -6,8 +6,6 @@ last updated: "2026-09-10"
 tags: [service accounts, organizations, administration, automation]
 ---
 
-{/* doc-skills: DRAFT — reviewed: no — from EDU-1442, 2026-09-10 — brief: .docs-operating-model/briefs/evidence/PLAT-5551.md — availability: unconfirmed (SERVICE_ACCOUNTS feature flag, org allow-list, not GA) */}
-
 A Seqera service account is a non-human identity that agents and automation use to act in your organization. Create one when you want automated work attributed to the automation itself rather than to a person's account.
 
 Service accounts are managed at the organization level and belong to the organization, not to the user who created them. They have no password and cannot sign in. A sign-in attempt with a service account address is rejected.

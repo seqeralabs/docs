@@ -266,8 +266,6 @@ To limit a custom role to the **Projects** view, select `project_view:read` and 
 | **studio_session:execute** | Extend studio session lifespan (iframe) | _(Used by Platform)_ |
 |  | Extend studio session lifespan | `POST /studios/{sessionId}/lifespan` |
 
-<!-- doc-skills: DRAFT — reviewed: no — source: seqeralabs/platform#11929 (merged 2026-08-05) — availability: unconfirmed -->
-
 #### AI
 
 | Permission | Description | API endpoint |

@@ -18,8 +18,6 @@ Seqera Platform features have default limits per organization and workspace.
 | Active runs             | 3     | 100, or per license    |
 | Running Studio sessions | 1     | 1000, or per license   |
 
-{/* doc-skills: DRAFT — reviewed: no — from EDU-1442, 2026-09-18 — brief: .docs-operating-model/briefs/evidence/PLAT-5551.md — availability: unconfirmed (SERVICE_ACCOUNTS feature flag, org allow-list, not GA) */}
-
 :::note
 A [service account](../orgs-and-teams/create-service-accounts) counts toward the **Members** limit. Creating one in an organization that has reached the limit fails.
 :::

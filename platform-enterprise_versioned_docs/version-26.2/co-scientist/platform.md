@@ -69,8 +69,6 @@ A request keeps running after you close the panel, navigate away, or switch work
 
 Conversations started by background agents are owned by the workspace and are read-only in the panel. To continue one, fork it into your own conversation.
 
-{/* doc-skills: DRAFT — reviewed: no — from EDU-1551, 2026-09-25 — brief: .docs-operating-model/briefs/evidence/co-scientist-panel-github-app-config.md — availability: unconfirmed (agent backend version that Enterprise 26.2 pins) */}
-
 ## Work with GitHub repositories
 
 Co-Scientist can clone GitHub repositories, create branches, push commits, and open pull requests. It reaches private repositories through a GitHub App that your administrator configures for your installation. You connect your own GitHub account to the app the first time Co-Scientist needs access to a private repository.
