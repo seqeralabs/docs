@@ -230,7 +230,7 @@ Configure the following options when you enable Intelligent Compute on a compute
 | Option | Values | Default | Description |
 |--------|--------|---------|-------------|
 | **Seqera Intelligent Compute** | Enabled / Disabled | Disabled | Enables the Intelligent Compute scheduler for this compute environment. This option only appears if Intelligent Compute is enabled for your workspace. |
-| **Provisioning model** | `spotFirst`, `spot`, `ondemand` | `spotFirst` | Instance procurement strategy. `spotFirst` uses Spot instances and falls back to On-Demand if Spot capacity is unavailable. `spot` uses Spot instances only. `ondemand` uses On-Demand instances only. |
+| **Provisioning model** | `spotFirst`, `spot`, `ondemand` | `spotFirst` | Instance procurement strategy. `spotFirst` uses Spot instances and falls back to On-Demand if Spot capacity is unavailable, unless On-Demand is too expensive (see [On-Demand fallback cost limit](#on-demand-fallback-cost-limit)). `spot` uses Spot instances only. `ondemand` uses On-Demand instances only. |
 | **Max spot attempts** | Integer, `1`–`10` | `3` | Total number of Spot provisioning attempts for a task, including the first, before falling back to On-Demand with `spotFirst`. Only visible when **Provisioning model** is `spot` or `spotFirst`. Set to `1` for a single attempt with no retry. Compute environments created before this setting was introduced are not backfilled and keep their current behavior. |
 | **Instance types** | Comma-separated EC2 instance type identifiers (for example, `m5.xlarge, c5.2xlarge`) | Empty | Restricts which instance types the scheduler can select. When empty, the scheduler picks the most cost-effective type for each task. |
 | **Prediction model** | `none`, `qr/v1`, `qr/v2` | `none` | For private preview, use `qr/v2`. |
@@ -252,3 +252,11 @@ A Spot capacity failure reaches Nextflow only after the scheduler exhausts its a
 :::note
 **Max spot attempts** is a separate setting from the `aws.batch.maxSpotAttempts` Nextflow configuration property described in [AWS Spot interruption management](./aws-spot-interruptions). That property applies to AWS Batch compute environments only and has no effect on Intelligent Compute.
 :::
+
+### On-Demand fallback cost limit
+
+With `spotFirst`, the scheduler falls back to On-Demand only while On-Demand costs at most a set multiple of the Spot price. The scheduler compares the highest On-Demand hourly price with the highest Spot hourly price across the instance types it selected for the task. Seqera sets this multiple. You cannot change it on the compute environment.
+
+When On-Demand exceeds the limit, the scheduler does not fall back. It retries the task on new Spot capacity instead. If Spot capacity is still unavailable after those retries, the task fails. Its error message starts with `on-demand fallback refused` and states how many times the Spot price On-Demand would have cost.
+
+If a pipeline must complete even when Spot capacity is scarce, set **Provisioning model** to `ondemand`. The `spot` provisioning model never falls back to On-Demand.
