@@ -24,7 +24,7 @@ If your Studio session doesn't advance from **stopping** status to **stopped** s
 
 ### Session status is **errored**
 
-The `errored` status is generally related to problems creating the Studio session resources in the compute environment, such as invalid credentials, insufficient permissions, or network issues. It can also be related to insufficient compute resources set in your compute environment configuration. Contact your organization's AWS administrator if you don't have access to the AWS Console, and contact your Seqera account executive to investigate.
+The `errored` status is generally related to problems creating the Studio session resources in the compute environment, such as invalid credentials, insufficient permissions, or network issues. It can also be related to insufficient compute resources set in your compute environment configuration. Check the Studio's **Logs** tab for the cause first. See [Studio session logs](../studios/managing#studio-session-logs). If you still need help, contact your organization's AWS administrator if you don't have access to the AWS Console, and contact your Seqera account executive to investigate.
 
 ### Session doesn't start with an internal certificate authority
 

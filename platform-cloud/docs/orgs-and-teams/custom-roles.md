@@ -245,6 +245,7 @@ To limit a custom role to the **Projects** view, select `project_view:read` and 
 |  | List available studio templates | `GET /studios/templates` |
 |  | List checkpoints for a studio | `GET /studios/{sessionId}/checkpoints` |
 |  | View checkpoint details | `GET /studios/{sessionId}/checkpoints/{checkpointId}` |
+|  | View studio session logs | `GET /studios/{sessionId}/log` |
 | **studio:execute** | List mounted data-links for studios | `GET /studios/data-links` |
 |  | Start a studio session | `PUT /studios/{sessionId}/start` |
 |  | Stop a studio session | `PUT /studios/{sessionId}/stop` |
