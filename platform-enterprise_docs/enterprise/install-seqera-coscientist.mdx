@@ -20,7 +20,7 @@ Enterprise 26.2 removes the `portal-web` subchart and the standalone Co-Scientis
 
 Before you begin, make sure you have:
 
-- Seqera Platform Enterprise 25.3.6 or later deployed with the [Seqera Platform Helm chart](./platform-helm.md).
+- Seqera Platform Enterprise 25.3.6 or later deployed with the [Seqera Platform Helm chart](./platform-helm.md). For Enterprise 26.2, use Platform chart 1.0.x or later. Earlier charts include the removed `portal-web` subchart and are not compatible with 26.2.
 - Helm v3 and `kubectl` installed locally.
 - DNS names and TLS certificates for the Platform, agent backend, and MCP server hosts. By default, the Helm charts derive `mcp.<platformExternalDomain>` and `ai-api.<platformExternalDomain>`. Override `global.mcpDomain` and `global.agentBackendDomain` if you use different hostnames. The agent backend host must share a parent domain with Platform so the Co-Scientist panel can authenticate with the Platform session cookie.
 - Access to pull the images required by the Helm charts from the configured container registry, or mirrored copies in your internal registry. See [Seqera container images](./advanced-topics/seqera-container-images.md) and [Mirroring container images](./configuration/mirroring.md).
@@ -186,7 +186,7 @@ agent-backend:
 
 Use `bedrock.default.assumeRoleArn` when the pod must assume a role to access Bedrock services. Leave it empty when the pod already has direct AWS credentials for the target account. Per-service overrides (`bedrock.inference.assumeRoleArn`, `bedrock.embeddings.assumeRoleArn`, `bedrock.sandbox.assumeRoleArn`) are available when different roles are required per capability.
 
-To use direct Anthropic API access instead of Bedrock for inference, replace the `inference` and `bedrock.inference` blocks above with the following, and add the `anthropic` block. Bedrock embeddings can still be enabled alongside Anthropic inference:
+To use direct Anthropic API access instead of Bedrock for inference, replace the `inference` and `bedrock.inference` blocks above with the following, and add the `anthropic` block. From `platform` chart 1.0.5 onwards (shipping `agent-backend` subchart 1.6.0), the Anthropic inference model can be configured directly in the chart. Bedrock embeddings can still be enabled alongside Anthropic inference:
 
 ```yaml
   inference:
@@ -194,6 +194,10 @@ To use direct Anthropic API access instead of Bedrock for inference, replace the
 
   anthropic:
     existingSecretName: seqera-ai-secrets
+    # Platform chart 1.0.5 (shipping agent-backend subchart 1.6.0) provides the option to configure the Anthropic inference model directly.
+    # Alternatively, you can configure the Anthropic inference model by setting the `ANTHROPIC_MODEL` environment variable on the agent backend.
+    inference:
+      model: claude-opus-5-5
 
   embeddings:
     provider: bedrock
