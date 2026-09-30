@@ -33,7 +33,7 @@ seqera skill install --detect
 ```
 
 :::note
-Without `--path`, `seqera skill install` installs the Claude Code layout (`.claude/skills/seqera`), at the repository root or, with `--global`, in your home directory. It does not prompt for a location. Run it inside a git repository unless you pass `--global` or an absolute `--path`. `--path` is a directory: the CLI creates it and writes `SKILL.md` and its supporting files inside it.
+Without `--path`, `seqera skill install` installs the Claude Code layout (`.claude/skills/seqera`), at the repository root or, with `--global`, in your home directory. It does not prompt for a location. Run it inside a git repository unless you pass `--global` or an absolute `--path`. `--path` is a directory. The CLI creates it and writes `SKILL.md` and its supporting files inside it.
 :::
 
 ### Usage

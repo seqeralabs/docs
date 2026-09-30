@@ -26,7 +26,7 @@ To change how long a session must be in **stopping** before you can force stop i
 
 #### Session status is **errored**
 
-The **errored** status is generally related to problems creating the Studio session resources in the compute environment, such as invalid credentials, insufficient permissions, or network issues. It can also be related to insufficient compute resources set in your compute environment configuration. Check the Studio's **Logs** tab for the cause first. See [Studio session logs](../studios/managing#studio-session-logs). If you still need help, contact your organization's AWS administrator if you don't have access to the AWS Console, and contact your Seqera account executive to investigate.
+The **errored** status usually indicates problems creating the Studio session resources in the compute environment, such as invalid credentials, insufficient permissions, or network issues. It can also be related to insufficient compute resources set in your compute environment configuration. Check the Studio's **Logs** tab for the cause first. See [Studio session logs](../studios/managing#studio-session-logs). If you still need help, contact your Seqera account executive to investigate. If you don't have access to the AWS Console, also contact your organization's AWS administrator.
 
 #### Session doesn't start with an internal certificate authority
 
@@ -34,7 +34,7 @@ A session in a private network doesn't reach **running** status, and the session
 
 The same failure occurs if your organization inspects HTTPS traffic at the network boundary, because the inspecting proxy presents its own internally issued certificate.
 
-To resolve, provide your CA to Platform so that it's installed in every session. See [Configure a private certificate authority for Studios](../enterprise/studios-private-ca).
+To resolve, provide your CA to Platform so that Platform installs it in every session. See [Configure a private certificate authority for Studios](../enterprise/studios-private-ca).
 
 This requires Connect client version 0.13.0 or later. If your Studio images run an earlier client and can't be rebuilt, build a custom Studio container image with your organization's CA certificates in its trust store, then use that image for the Studio. See [Custom container images](../studios/container-images).
 
@@ -103,10 +103,10 @@ By default, Fusion does not resync objects from remotely mounted data-link(s) af
 
 If you have a running session with data mounted and the underlying storage is updated, the data is not resynced to the Studio session.
 
-You can change this behavior when you [add a Studio session](../studios/add-studio) by setting the `FUSION_REFRESH_TIMEOUT` environment variable to a number of seconds (e.g., `120`). Fusion then refreshes the view of the mounted data links at that interval.
+You can change this behavior when you [add a Studio session](../studios/add-studio) by setting the `FUSION_REFRESH_TIMEOUT` environment variable to a number of seconds (for example, `120`). Fusion then refreshes the view of the mounted data links at that interval.
 
 :::note
-Setting the environment variable _inside_ an already running Studio session by executing the command `export FUSION_REFRESH_TIMEOUT=120` won't change the behavior of the outer Fusion session. Set the environment variable in the **General config** section during Studio creation.
+Setting the environment variable _inside_ an already running Studio session by running `export FUSION_REFRESH_TIMEOUT=120` doesn't change the behavior of the outer Fusion session. Set the environment variable in the **General config** section during Studio creation.
 :::
 
 :::warning
@@ -323,7 +323,7 @@ ssh alice@a01ac8894@connect.example.com -p 2222
 # Pseudo-terminal will not be allocated because stdin is not a terminal.
 ```
 
-This issue occurs when an AI coding assistant runs `ssh` as a subprocess, such as Claude Code in a terminal. The assistant doesn't attach a terminal to stdin, and the SSH client refuses to allocate a pseudo-terminal. To resolve, force pseudo-terminal allocation with `-tt`:
+This issue occurs when an AI coding assistant, such as Claude Code in a terminal, runs `ssh` as a subprocess. The assistant doesn't attach a terminal to stdin, and the SSH client refuses to allocate a pseudo-terminal. To resolve, force pseudo-terminal allocation with `-tt`:
 
 ```bash
 ssh -tt alice@a01ac8894@connect.example.com -p 2222

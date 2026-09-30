@@ -68,20 +68,20 @@ Select **Manage** and then choose to enable lineage by default for all pipeline 
 | **Region** | Yes | Cloud region where the lineage storage bucket is created (for example, `us-east-1`, `eu-west-1`). |
 | **Bucket name** | No | Bucket where lineage records are stored. If left empty, Platform generates a default bucket name in the form `seqera-lineage-<workspace-id>`. Required in **Manual** mode, where it must match the bucket you have provisioned. |
 
-If configuring **manually**, one additional setting is required:
+If you configure lineage in **Manual** mode, one additional setting is required:
 
 | Field | Required | Description |
 |-------|----------|-------------|
 | **SNS topic ARN** | Yes | The ARN of the Amazon SNS topic your bucket publishes object notifications to, in the form `arn:aws:sns:<region>:<account-id>:<topic-name>`. In **Automatic** mode, Platform creates the topic as `<bucket-name>-notifications`. |
 
-Once the settings are saved, the lineage settings page also shows:
+After you save the settings, the lineage settings page also shows:
 
 | Field | Description |
 |-------|-------------|
 | **Event delivery** | Whether events are reaching Platform: **Active**, **Awaiting confirmation**, **Failed**, or **Not configured**. This is independent of the configuration status. A workspace can be configured and writable while Platform receives nothing. |
 | **Webhook URL** | The per-workspace HTTPS endpoint to which AWS delivers this workspace's bucket events. In **Manual** mode, subscribe this URL to your SNS topic (protocol `https`). |
 
-Select **Disable lineage** to remove the configuration and stop indexing records for the workspace. Platform removes any automatically provisioned notification infrastructure. The bucket and the lineage data in it are not affected, and you can configure lineage again at any time.
+Select **Disable lineage** to remove the configuration and stop indexing records for the workspace. Platform removes any automatically provisioned notification infrastructure. Disabling lineage does not affect the bucket or the lineage data in it, and you can configure lineage again at any time.
 
 ### Edit or delete a workspace
 

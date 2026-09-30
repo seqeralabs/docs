@@ -27,5 +27,5 @@
 -
   Environment variable:            '`TOWER_COMPUTE_ENV_LAST_USED_FLUSH_INTERVAL`'
   Description: >
-    How often Seqera Platform writes buffered compute environment last-used timestamps to the database. The write is buffered rather than made inside the launch, to avoid deadlocks between concurrent launches on the same compute environment.
+    How often Seqera Platform writes buffered compute environment last-used timestamps to the database. Seqera Platform buffers the write instead of making it inside the launch, to avoid deadlocks between concurrent launches on the same compute environment.
   Value:               'Default: `1s`'

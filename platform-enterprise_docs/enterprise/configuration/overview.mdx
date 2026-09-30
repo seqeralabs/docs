@@ -821,9 +821,9 @@ logger:
 
 ### Distributed tracing
 
-Seqera Platform emits OpenTelemetry traces with stable, route-aware span names, so endpoint latency, error rate, and throughput are observable per API route rather than per raw URL.
+Seqera Platform emits OpenTelemetry traces with stable, route-aware span names. You can observe endpoint latency, error rate, and throughput per API route rather than per raw URL.
 
-There is no Platform-specific switch. Standard OpenTelemetry configuration governs tracing, and the tracing libraries ship in every installation. With no exporter configured, Platform uses an always-off sampler and records no spans, so tracing costs nothing until you turn it on.
+Platform has no tracing switch of its own. Standard OpenTelemetry configuration governs tracing, and the tracing libraries ship in every installation. With no exporter configured, Platform uses an always-off sampler and records no spans. Tracing costs nothing until you turn it on.
 
 To send traces to a collector, set the standard exporter variables:
 

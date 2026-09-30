@@ -52,7 +52,7 @@ The **General config** section sets the pipeline version, compute environment, a
   See [Git revision management](../../pipelines/revision.md) for more information on **Commit ID**, **Pull latest**, and **Revision** behavior.
   :::
 - **Main script**: The script file to execute (default: `main.nf`). Config profiles suggestions may update when this field changes.
-- **Config profiles**: One or more [configuration profile](https://docs.seqera.io/nextflow/config#config-profiles) names to use for the execution.
+- **Config profiles**: One or more [configuration profile](https://docs.seqera.io/nextflow/config#config-profiles) names to use for the run.
 - **Workflow run name**: An identifier for the run, pre-filled with a random name. This can be customized.
 - **Labels**: Assign new or existing [labels](../../labels/overview) to the run.
 - **Compute environment**: Select an existing workspace [compute environment](../../compute-envs/overview).
@@ -90,7 +90,7 @@ Use the `outdir` parameter to specify where the pipeline publishes outputs. `out
 
 #### Pipeline-specific parameters
 
-Modify other parameters to customize the pipeline execution through the parameters form. For example, in [nf-core/rnaseq](https://github.com/nf-core/rnaseq) (version 3.15.1), change the `trimmer` under **Read trimming options** to `fastp` instead of `trimgalore`.
+Modify other parameters to customize the pipeline run through the parameters form. For example, in [nf-core/rnaseq](https://github.com/nf-core/rnaseq) (version 3.15.1), change the `trimmer` under **Read trimming options** to `fastp` instead of `trimgalore`.
 
 ![Read trimming options](./assets/trimmer-settings.png)
 
@@ -99,7 +99,7 @@ Modify other parameters to customize the pipeline execution through the paramete
 Configure optional run settings before you launch:
 
 - Use [resource labels](../../resource-labels/overview) to tag the computing resources created during the workflow execution. While resource labels for the run are inherited from the compute environment and pipeline, workspace admins can override them from the launch form. Applied resource label names must be unique.
-- Use [Pipeline secrets](../../secrets/overview) to store keys and tokens used by workflow tasks to interact with external systems. Enter the names of any stored user or workspace secrets required for the workflow execution.
+- Use [Pipeline secrets](../../secrets/overview) to store keys and tokens that workflow tasks use to interact with external systems. Enter the names of any stored user or workspace secrets that the run requires.
 - See [Advanced options](../../launch/advanced) for more details.
 
 After you fill in the launch details, select **Launch**. The **Runs** tab shows your new run in a **submitted** status at the top of the list. Select the run name to open the [**View Workflow Run**](../../monitoring/overview) page, where you can view the configuration, parameters, status of individual tasks, and run report.

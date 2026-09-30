@@ -16,8 +16,8 @@ Application event audit logs are retained for 365 days by default. In Platform E
 
 Seqera Platform Enterprise 26.1 introduced the audit log v2 schema as a **breaking change** for direct database consumers and custom ETL jobs. From 26.2, v2 is the only schema that receives new events.
 
-- The `TOWER_AUDIT_LOG_V2_WRITE_MODE` setting is removed. Setting the variable has no effect, so remove it from your configuration.
-- No new rows are written to the legacy v1 schema (`tw_audit_log` table). Existing rows remain until the audit log retention period deletes them. As long as the table has records, they stay visible in the legacy table view of the Admin panel **Audit logs** tab.
+- The `TOWER_AUDIT_LOG_V2_WRITE_MODE` setting is removed. Setting the variable has no effect. Remove it from your configuration.
+- Platform writes no new rows to the legacy v1 schema (`tw_audit_log` table). Existing rows remain until the audit log retention period deletes them. As long as the table has records, they stay visible in the legacy table view of the Admin panel **Audit logs** tab.
 
 ## Upgrade path for existing integrations
 
@@ -33,7 +33,7 @@ The Admin panel shows the following event details:
 
 - **Timestamp**: Event timestamp in ISO 8601 format.
 - **Event**: The audit event name, such as `user_sign_in` or `credentials_created`.
-- **Actor**: Whether the event was triggered by a user, a service account, or the system, including point-in-time identity details for user- and service-account-initiated events. Where an agent acted under a service account, the actor also carries an **Agent ID**, which is the agent's raw identifier rather than a name.
+- **Actor**: Whether a user, a service account, or the system triggered the event, including point-in-time identity details for user- and service-account-initiated events. Where an agent acted under a service account, the actor also carries an **Agent ID**, which is the agent's raw identifier rather than a name.
 - **Client**: Client IP address, user agent, and access token ID when available. Client details are empty for system-initiated events.
 - **Target**: The resource type, ID, and resource name associated with the event.
 - **Organization**: The organization ID and name for organization-scoped or workspace-scoped resources.

@@ -44,7 +44,7 @@ EOT
 
 #### SSL CA certificate errors
 
-This can occur when a tool or library in your task container requires SSL certificates to validate an external data source. To resolve, mount the SSL certificates into the container. See [SSL/TLS](../enterprise/configuration/ssl_tls#configure-seqera-to-trust-your-private-certificate).
+This error can occur when a tool or library in your task container requires SSL certificates to validate an external data source. To resolve, mount the SSL certificates into the container. See [SSL/TLS](../enterprise/configuration/ssl_tls#configure-seqera-to-trust-your-private-certificate).
 
 #### `Connections using insecure transport are prohibited while --require_secure_transport=ON`
 
@@ -66,7 +66,7 @@ On Seqera Platform v25.2.3 and earlier, Entra ID (Azure) authentication fails an
 java.lang.IllegalArgumentException: No enum constant io.micronaut.security.oauth2.endpoint.AuthenticationMethod.SELF_SIGNED_TLS_CLIENT_AUTH**
 ```
 
-This issue is caused by a change in Azure's supported authentication methods, which is incompatible with the OIDC library in older versions of Seqera Platform.
+A change in Azure's supported authentication methods causes this issue. The change is incompatible with the OIDC library in older versions of Seqera Platform.
 
 To resolve, force the authentication method to `client_secret_post` by adding the following environment variable to your `tower.env` file or Kubernetes ConfigMap:
 

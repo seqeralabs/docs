@@ -7,7 +7,7 @@
 -
  Environment variable: "`TOWER_CRON_AUDIT_LOG_CLEAN_UP_TIME_OFFSET`"
  Description: >
-   Application event audit log retention period. When cleanup is enabled, audit log records older than this period are deleted from both the legacy (v1) and v2 audit log tables. Value includes units (`30d`, `24h`, `60m`, etc.).
+   Application event audit log retention period. When cleanup is enabled, Seqera Platform deletes audit log records older than this period from both the legacy (v1) and v2 audit log tables. Value includes units (`30d`, `24h`, `60m`, etc.).
    Value: "Default: `365d`"
 -
  Environment variable: "`TOWER_AUDIT_LOG_V2_CSV_EXPORT_MAX_LOGS`"

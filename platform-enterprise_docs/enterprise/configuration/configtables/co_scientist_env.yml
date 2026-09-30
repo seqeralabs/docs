@@ -2,11 +2,11 @@
 -
   Environment variable:            '`TOWER_AGENT_BACKEND_URL`'
   Description: >
-    Origin of the Co-Scientist agent backend (the `ai-api.` host). Host root only — Seqera
+    Origin of the Co-Scientist agent backend (the `ai-api.` host). Use the host root only. Seqera
     Platform appends the request path. The Co-Scientist panel, agents, service accounts, and the
-    **Trigger agent** button are unavailable until this value is set.
-    The Platform Helm chart sets it automatically when the `agent-backend` subchart is enabled, which
-    chart 1.0.4 does by default.
+    **Trigger agent** button are unavailable until you set this value.
+    The Platform Helm chart sets it automatically when the `agent-backend` subchart is enabled.
+    Chart 1.0.4 enables the subchart by default.
   Value:                'Example: `https://ai-api.platform.example.com`'
 -
   Environment variable:            '`TOWER_AGENT_CONFIGURATION_ALLOWED_ORGANIZATIONS`'
@@ -16,8 +16,8 @@
     and the **Trigger agent** button to the organizations specified. Accepts a comma-separated list of
     organization IDs. Omit it, or set it empty, to enable them in every organization once
     `TOWER_AGENT_BACKEND_URL` is set. While `TOWER_AGENT_BACKEND_URL` is empty, all three are off
-    whatever this variable says. Never applies to personal workspaces. The variable governs the web
-    interface, actions that target an agent, and the API: in an organization where the features are
+    regardless of this variable. Never applies to personal workspaces. The variable governs the web
+    interface, actions that target an agent, and the API. In an organization where the features are
     off, the `/agents` and service account endpoints return `404`.
   Value:                'Default: Enabled for all organizations'
 -
@@ -30,8 +30,8 @@
 -
   Environment variable:            '`TOWER_AUTH_COOKIE_DOMAIN`'
   Description: >
-    Domain that the Platform `JWT` cookie is scoped to. Set it to the parent domain of Platform and the agent backend,
-    with a leading dot, so the Co-Scientist panel can authenticate to the agent backend on its own subdomain.
+    Domain that the Platform `JWT` cookie is scoped to. To let the Co-Scientist panel authenticate to the agent backend on its own
+    subdomain, set it to the parent domain of Platform and the agent backend, with a leading dot.
     The Platform Helm chart sets it automatically when the `agent-backend` subchart is enabled.
   Value:                'Example: `.platform.example.com`'
 -

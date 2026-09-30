@@ -17,7 +17,7 @@ The role assigned to a workspace user affects what functionality is available in
 - **View**: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
 - **Launch**: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
 - **Connect**: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
-- **Maintain**: Can view download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
+- **Maintain**: Can view, download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
 - **Admin**: Can view, download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
 - **Owner**: Can view, download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
 
@@ -43,7 +43,7 @@ Data Explorer lists public and private data repositories. Repositories accessibl
 
 - **Retrieve data repositories with workspace credentials**
 
-  Private data repositories accessible to the credentials defined in your workspace are listed in Data Explorer automatically. The permissions required for your [AWS](../compute-envs/aws-batch#iam-user-creation), [Google Cloud](../compute-envs/google-cloud-batch#iam), [Azure Batch](../compute-envs/azure-batch#storage-account), or high-performance computing (HPC) compute environment credentials allow full Data Explorer functionality.
+  Data Explorer automatically lists private data repositories that the credentials defined in your workspace can access. The permissions required for your [AWS](../compute-envs/aws-batch#iam-user-creation), [Google Cloud](../compute-envs/google-cloud-batch#iam), [Azure Batch](../compute-envs/azure-batch#storage-account), or high-performance computing (HPC) compute environment credentials allow full Data Explorer functionality.
 
   For AWS S3, Data Explorer requires the following minimum IAM permissions:
 
@@ -54,7 +54,7 @@ Data Explorer lists public and private data repositories. Repositories accessibl
   These are a subset of the S3 permissions documented for the [AWS Batch](../compute-envs/aws-batch#required-platform-iam-permissions), [AWS Cloud](../compute-envs/aws-cloud#required-permissions), and [Amazon EKS](../compute-envs/eks#required-platform-iam-permissions) compute environments. For Azure Blob Storage, see the [Azure Cloud data-links permissions](../compute-envs/azure-cloud#data-links).
 
   :::note
-  When more than one workspace credential can access the same repository, Data Explorer lists the repository once and uses one of those credentials for every action on it: browsing, previewing, downloading, uploading, and deleting. That credential is not selected in a deterministic order. If that credential lacks the permission an action needs, the action fails. Data Explorer does not retry with the other credentials. For example, if a read-only credential and a read-write credential both reach the same bucket, uploads can fail even though the read-write credential would succeed.
+  When more than one workspace credential can access the same repository, Data Explorer lists the repository once and uses one of those credentials for every action on it: browsing, previewing, downloading, uploading, and deleting. Data Explorer does not select that credential in a deterministic order. If that credential lacks the permission an action needs, the action fails. Data Explorer does not retry with the other credentials. For example, if a read-only credential and a read-write credential both reach the same bucket, uploads can fail even though the read-write credential would succeed.
 
   To control which credential Data Explorer uses, add a data-link for the repository manually and select that credential from the **Credentials** drop-down. Use that data-link for actions that need the credential's permissions.
   :::
@@ -93,7 +93,7 @@ From the **Data Explorer** tab, find the data repository that you want to remove
 
 - **View data repository contents**
 
-  Select a data-link from the Data Explorer list to view the contents of that data repository. From the **View data repository** page, you can browse directories and search for objects by name in a particular directory. The size and last-modified timestamp appear in columns to the right of the object name. Additional actions include copying the path to the object to the clipboard or creating a custom data-link (if the target is a directory) and downloading or deleting the object (if the user has Maintain role or above). On the Data Explorer landing page you can view data repository details such as the provider, address, and credentials by selecting the information icon. You may also choose to show or hide the data repository or delete a custom created data link.
+  Select a data-link from the Data Explorer list to view the contents of that data repository. From the **View data repository** page, you can browse directories and search for objects by name in a particular directory. The size and last-modified timestamp appear in columns to the right of the object name. You can also copy the path to the object to the clipboard or create a custom data-link (if the target is a directory). Users with the Maintain role or above can also download or delete the object. On the Data Explorer landing page you can view data repository details such as the provider, address, and credentials by selecting the information icon. You can also show or hide the data repository, or delete a custom data-link.
 
 - **Preview and download files**
 
@@ -134,7 +134,7 @@ For the full IGV desktop application, create an [Xpra Studio with IGV](../gettin
 
 ### View lineage data for objects
 
-When an object was produced by a Nextflow run with data lineage enabled, the top of the object preview shows its lineage data:
+When a Nextflow run with data lineage enabled produced the object, the top of the object preview shows its lineage data:
 
 | Field | Description |
 |-------|-------------|
@@ -146,7 +146,7 @@ If the object has no lineage data, no lineage fields appear in the preview. To c
 
 ### Isolate view, read, and write permissions to specific data repository paths
 
-To isolate pipeline or Studios view, read, and write permissions to a specific **data repository path**, workspace maintainers can create **custom data-links** by manually configuring an individual data repository plus path to a specific folder/directory. This is supported to any level of the data repository path hierarchy, provided it is a folder (also known as a **prefix**). You can **Hide** or **Show** either the base data repository or any related custom data-links on demand in Data Explorer using the **Show/Hide** toggle and the **Show data repositories** filter options:
+To isolate pipeline or Studios view, read, and write permissions to a specific **data repository path**, workspace maintainers can create **custom data-links**. A custom data-link is an individual data repository plus a manually configured path to a specific folder or directory. You can create one at any level of the data repository path hierarchy, provided the path is a folder (also known as a **prefix**). You can **Hide** or **Show** either the base data repository or any related custom data-links in Data Explorer using the **Show/Hide** toggle and the **Show data repositories** filter options:
 
 - Only visible (default)
 - Only hidden
@@ -210,7 +210,7 @@ You can download up to 1,000 files using the browser interface, or an unlimited 
 If you use a non-Chromium based browser, such as Safari or Firefox, file paths are concatenated with an underscore (`_`) character and the data repository directory structure is not reproduced locally. For example, the file `s3://example-us-east-1/path/to/files/my-file-1.txt` is saved as `path_to_files_my-file-1.txt`.
 :::
 
-Open the data repository and navigate to the folder that you want to download files and folders from. By default, you can download the contents of the current directory by choosing **Download current directory**. Alternatively, use checkboxes to select specific files and folders, and select the **Download** button. You can **Download files** via the browser or **Download using code**.
+Open the data repository and navigate to the folder that you want to download files and folders from. By default, you can download the contents of the current directory by selecting **Download current directory**. Alternatively, use checkboxes to select specific files and folders, and select the **Download** button. You can **Download files** via the browser or **Download using code**.
 
 The code snippet is specific to the data repository provider you configured. You may be prompted to authenticate during the download process. Refer to your data repository provider's documentation for troubleshooting credential-related issues:
 
@@ -224,7 +224,7 @@ Each cloud provider has a specific way to allow Cross-Origin Resource Sharing (C
 
 ### Amazon S3 CORS configuration
 
-Apply a [CORS configuration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html) to enable file uploads, folder downloads, and genome file previews (IGV) from the Seqera Platform to and from specific S3 buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these AWS instructions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enabling-cors-examples.html) to apply the following CORS configuration to each bucket you want to enable file uploads, folder downloads, and genome file previews for:
+Apply a [CORS configuration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html) to enable file uploads, folder downloads, and genome file previews (IGV) from Seqera Platform to and from specific S3 buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these AWS instructions](https://docs.aws.amazon.com/AmazonS3/latest/userguide/enabling-cors-examples.html) to apply the following CORS configuration to each bucket you want to enable file uploads, folder downloads, and genome file previews for:
 
 **Seqera Cloud S3 CORS configuration**
 
@@ -277,7 +277,7 @@ Apply a [CORS configuration](https://learn.microsoft.com/en-us/rest/api/storages
 
 **Seqera Enterprise Azure CORS configuration**
 
-1. From the [Azure portal](https://portal.azure.com), go to the Storage account you want to configure.
+1. From the [Azure portal](https://portal.azure.com), go to the **Storage account** you want to configure.
 2. Under **Settings** in the left navigation menu, select **Resource sharing (CORS)**.
 3. Add a new entry under **Blob service**:
 
@@ -293,7 +293,7 @@ Apply a [CORS configuration](https://learn.microsoft.com/en-us/rest/api/storages
 Apply a [CORS configuration](https://cloud.google.com/storage/docs/cross-origin#cors-components) to enable file uploads and genome file previews (IGV) from Seqera to specific GCS buckets. The CORS configuration is a JSON file that defines the origins, headers, and methods allowed for resource sharing requests to a bucket. Follow [these Google instructions](https://cloud.google.com/storage/docs/using-cors#command-line) to apply the following CORS configuration to each bucket you want to enable file uploads and genome file previews for.
 
 :::note
-Google Cloud Storage only supports CORS configuration via gcloud CLI.
+Google Cloud Storage supports CORS configuration only through the gcloud CLI.
 :::
 
 **Seqera Cloud GCS CORS configuration**

@@ -7,7 +7,7 @@ tags: [pipelines, schema]
 
 Most Nextflow pipelines will generate reports or output files which are useful to inspect at the end of the pipeline execution. Reports may be in various formats (e.g. HTML, PDF, TXT) and would typically contain quality control (QC) metrics that would be important to assess the integrity of the results.
 
-**Reports** allow you to directly visualize supported file types or to download them via the user interface (see [Limitations](#limitations)). This saves users the time and effort of having to retrieve and visualize output files from their local storage.
+Use **Reports** to visualize supported file types or download them in the user interface (see [Limitations](#limitations)). You don't need to retrieve output files and visualize them from your local storage.
 
 ### Visualize reports
 
@@ -85,7 +85,7 @@ Nextflow can generate a number of built-in reports:
 - [Execution report](https://docs.seqera.io/nextflow/reports#execution-report)
 - [Execution timeline](https://docs.seqera.io/nextflow/reports#timeline-report)
 - [Trace file](https://docs.seqera.io/nextflow/reports#trace-report)
-- [Workflow diagram](https://docs.seqera.io/nextflow/reports#dag-visualisation) (i.e. DAG)
+- [Workflow diagram](https://docs.seqera.io/nextflow/reports#dag-visualisation) (DAG)
 
 In Nextflow version 24.03.0-edge and later, these reports can be included as pipeline reports in Seqera Platform. Specify them in `tower.yml` like any other file:
 

@@ -133,9 +133,9 @@ kubectl apply -f tower-svc.yml
 
 #### Seqera frontend unprivileged
 
-From Seqera Platform Enterprise 26.2, Seqera publishes one frontend image, `cr.seqera.io/enterprise/platform/frontend:<tag>`. It is unprivileged: it listens on an unprivileged port and doesn't run as the root user. The `-root` and `-unprivileged` tag variants are no longer published — a manifest that references one fails to pull.
+From Seqera Platform Enterprise 26.2, Seqera publishes one frontend image, `cr.seqera.io/enterprise/platform/frontend:<tag>`. The image is unprivileged. It listens on an unprivileged port and doesn't run as the root user. Seqera no longer publishes the `-root` and `-unprivileged` tag variants. A manifest that references one fails to pull.
 
-The `tower-svc.yml` manifest above is already configured for this image. If you maintain your own manifests, set the container port and the service `targetPort` to `8000`:
+The `tower-svc.yml` manifest earlier on this page is already configured for this image. If you maintain your own manifests, set the container port and the service `targetPort` to `8000`:
 
 ```yaml
 ---

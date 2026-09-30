@@ -21,9 +21,9 @@ Organization owners can add custom roles and assign read, write, execute, admin,
 
 Select **Edit** or **Delete** to manage existing custom roles in the list.
 
-Custom roles can be assigned to [service accounts](./create-service-accounts) as well as to people. Whoever assigns a role to a service account must already hold every permission that role carries. This check applies to every workspace role assignment to a service account, not only to custom ones.
+You can assign custom roles to [service accounts](./create-service-accounts) as well as to people. Whoever assigns a role to a service account must already hold every permission that role carries. This check applies to every workspace role assignment to a service account, not only to custom ones.
 
-If the service account will run an agent, include `agent:execute` in the custom role. Every built-in role except **Connect** and **View** already has it, but a custom role only has the permissions you select.
+If the service account runs an agent, include `agent:execute` in the custom role. Every built-in role except **Connect** and **View** already has it. A custom role has only the permissions you select.
 
 ### Permissions
 
@@ -287,7 +287,7 @@ To limit a custom role to the **Projects** view, select `project_view:read` and 
 |  | Use the **Trigger agent** action on run pages, together with `agent:execute` | _(Used by Platform)_ |
 
 :::info
-Custom roles never receive the `chat:execute` permission automatically — not when they are created, duplicated, or restored to defaults, and not when your installation is upgraded to a version that includes the permission. An organization owner must explicitly select the **Execute** permission for the `chat` resource type on each custom role that should have Co-Scientist chat access. The predefined Owner, Admin, Maintain, Launch, and Connect roles include `chat:execute` by default; the View role does not.
+Custom roles never receive the `chat:execute` permission automatically. This applies when you create, duplicate, or restore a custom role to defaults, and when you upgrade your installation to a version that includes the permission. An organization owner must explicitly select the **Execute** permission for the `chat` resource type on each custom role that should have Co-Scientist chat access. The predefined Owner, Admin, Maintain, Launch, and Connect roles include `chat:execute` by default. The View role does not.
 :::
 
 Users with `chat:execute` see the [Co-Scientist panel](../co-scientist/platform.md) only when Co-Scientist is deployed and the panel is enabled for their organization. See the [Co-Scientist configuration](../enterprise/configuration/overview.mdx#co-scientist) for `TOWER_AGENT_BACKEND_URL` and `TOWER_AI_CHAT_ALLOWED_ORGANIZATIONS`.

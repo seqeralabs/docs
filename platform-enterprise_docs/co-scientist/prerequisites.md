@@ -11,10 +11,10 @@ tags: [prerequisites]
 Everything you need to have in place before installing Co-Scientist. Complete these requirements, then follow [Bedrock setup](./bedrock-setup.md) to configure your AWS account.
 
 :::caution
-Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. The Co-Scientist panel in Seqera Platform requires Enterprise 26.2 or later. Co-Scientist is currently only available on AWS.
+Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. The Co-Scientist panel in Seqera Platform requires Enterprise 26.2 or later. Co-Scientist is available only on AWS.
 :::
 
-Co-Scientist enables users to interact with Seqera Platform through a conversational AI interface, available in the [Co-Scientist panel](./platform.md) in Seqera Platform and in the Seqera CLI. Seqera Platform serves the panel itself, so no separate web interface is deployed. The following components are deployed in sequence:
+Co-Scientist is a conversational AI interface for Seqera Platform, available in the [Co-Scientist panel](./platform.md) in Seqera Platform and in the Seqera CLI. Seqera Platform serves the panel itself. You do not deploy a separate web interface. Deploy the following components in sequence:
 
 | Order | Component | Purpose |
 | --- | --- | --- |
@@ -41,10 +41,10 @@ The following Bedrock model access must be enabled in your account:
 | Text inference | `anthropic.claude-opus-5-5` | Always |
 | Text embeddings | `amazon.titan-embed-text-v2:0` | Only when documentation semantic search is enabled |
 
-Co-Scientist uses a single model for all text inference. Agent backend versions up to and including `1.14.1` route requests across separate primary, fast, and deep models and need access to each — see the 26.1 documentation if your deployment pins an earlier version of the agent-backend images.
+Co-Scientist uses a single model for all text inference. Agent backend versions up to and including `1.14.1` route requests across separate primary, fast, and deep models and need access to each. See the 26.1 documentation if your deployment pins an earlier version of the agent-backend images.
 
-When using a recent Anthropic model via AWS Bedrock like `anthropic.claude-opus-5-5`, ensure your account has access to it through the Bedrock service in your chosen region.
-Certain AWS Accounts have additional account-level eligibility requirements for certain models and may produce errors like `anthropic.claude-opus-5-5 is not available for this account`. These requirements aren't visible in the Service Quotas console, but can be tested by interacting with AWS Bedrock Playground via the console. If that's the case, contact AWS Support to get access to the required models, as explained in [this AWS blog post](https://repost.aws/knowledge-center/bedrock-serverless-models-access-denied).
+If you use a recent Anthropic model through AWS Bedrock, such as `anthropic.claude-opus-5-5`, make sure your account has access to it through the Bedrock service in your chosen region.
+Some AWS accounts have additional account-level eligibility requirements for certain models and can return errors like `anthropic.claude-opus-5-5 is not available for this account`. These requirements aren't visible in the Service Quotas console. To test them, use the AWS Bedrock Playground in the console. If your account has these requirements, contact AWS Support to get access to the required models, as explained in [this AWS blog post](https://repost.aws/knowledge-center/bedrock-serverless-models-access-denied).
 
 For the IAM permissions these models require, see [Bedrock setup](./bedrock-setup.md).
 
@@ -74,7 +74,7 @@ Two domains are required in addition to your Platform domain, each serving a dif
 | MCP server | `mcp.platform.example.com` | Model Context Protocol server |
 
 - TLS certificates for both domains.
-- Both domains must be subdomains of a domain shared with Platform, such as `platform.example.com`. The Co-Scientist panel authenticates to the agent backend with the Platform session cookie, which is scoped to the shared parent domain with `TOWER_AUTH_COOKIE_DOMAIN` (automatically set by the Platform Helm Chart when the agent-backend sub-chart is enabled).
+- Both domains must be subdomains of a domain shared with Platform, such as `platform.example.com`. The Co-Scientist panel authenticates to the agent backend with the Platform session cookie. `TOWER_AUTH_COOKIE_DOMAIN` scopes that cookie to the shared parent domain. The Platform Helm chart sets `TOWER_AUTH_COOKIE_DOMAIN` automatically when the agent-backend subchart is enabled.
 - Ingress controller configured in your cluster.
 
 ## Encryption key
@@ -125,7 +125,7 @@ Co-Scientist container images are hosted at `cr.seqera.io`. The Helm charts defi
 | MCP server | `cr.seqera.io/enterprise/mcp/server` | [mcp chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/mcp) |
 
 :::info
-From MCP 1.4.3, MCP server images are published only to `cr.seqera.io/enterprise/mcp/server`. Earlier releases (up to 1.4.2) remain available at `cr.seqera.io/ai/mcp/server`, but no new releases are published there.
+From MCP 1.4.3, Seqera publishes MCP server images only to `cr.seqera.io/enterprise/mcp/server`. Earlier releases (up to 1.4.2) remain available at `cr.seqera.io/ai/mcp/server`, but Seqera publishes no new releases there.
 :::
 
 Ensure your cluster can pull from `cr.seqera.io`, or if your cluster runs in a restricted network, mirror these images to your own registry.

@@ -72,7 +72,7 @@ After creating a resource group, set up an [Azure Storage account][azure-storage
 11. Select **Review and Create**.
 12. Select **Create** to create the Azure Storage account.
     - You will need at least one Blob Storage container to act as a working directory for Nextflow.
-13. Go to your new storage account and select **+ Container** to create a new Blob Storage container. A new container dialog will open. Enter a suitable name, such as *seqeracomputestorage-container*.
+13. Go to your new storage account and select **+ Container** to create a new Blob Storage container. A new container dialog opens. Enter a suitable name, such as *seqeracomputestorage-container*.
 14. Go to the **Access Keys** section of your new storage account (*seqeracomputestorage* in this example).
 15. Store the access keys for your Azure Storage account, to be used when you create a compute environment.
 
@@ -225,7 +225,7 @@ When you don't attach a head managed identity, Platform passes the service princ
 When you submit a pipeline to this compute environment, Nextflow authenticates using the managed identity associated with the Azure Batch node it runs on, rather than relying on access keys.
 
 :::caution
-If a managed identity is misconfigured (e.g., invalid client ID or missing RBAC roles), the pipeline fails with an explicit error. Seqera does not silently fall back to the service principal at runtime.
+If a managed identity is misconfigured (for example, an invalid client ID or missing RBAC roles), the pipeline fails with an explicit error. Seqera does not silently fall back to the service principal at runtime.
 :::
 
 ## Add compute environment
@@ -326,7 +326,7 @@ Create a Batch Forge Azure Batch compute environment:
     ```
 
     :::note
-    VNet/subnet configuration requires Entra credentials. This field is only available when Entra credentials are selected. If no subnet ID is provided, default networking is used. The service principal must have the **Network Contributor** role (or `Microsoft.Network/virtualNetworks/subnets/join/action`) on the VNet, otherwise pool creation fails.
+    VNet/subnet configuration requires Entra credentials. This field is only available when you select Entra credentials. If you do not provide a subnet ID, default networking is used. The service principal must have the **Network Contributor** role (or `Microsoft.Network/virtualNetworks/subnets/join/action`) on the VNet. Otherwise, pool creation fails.
     :::
 
 11. Set the **Config mode** to **Batch Forge**.
@@ -514,7 +514,7 @@ The following settings can be modified after creating a pool:
    ```
 
    :::note
-   VNet/subnet configuration requires Entra credentials. This field is only available when Entra credentials are selected. If no subnet ID is provided, default networking is used. The service principal must have the **Network Contributor** role (or `Microsoft.Network/virtualNetworks/subnets/join/action`) on the VNet, otherwise pool creation fails.
+   VNet/subnet configuration requires Entra credentials. This field is only available when you select Entra credentials. If you do not provide a subnet ID, default networking is used. The service principal must have the **Network Contributor** role (or `Microsoft.Network/virtualNetworks/subnets/join/action`) on the VNet. Otherwise, pool creation fails.
    :::
 
 10. Set the **Config mode** to **Manual**.

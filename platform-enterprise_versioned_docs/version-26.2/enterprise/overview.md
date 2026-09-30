@@ -32,7 +32,7 @@ The Seqera frontend is an NGINX web server that serves the [Angular](https://ang
 
 ### Redis or Valkey cache
 
-Seqera Enterprise requires a Redis-compatible cache. It only supports Redis 7.2/7.4 and Valkey 7.x from Seqera Enterprise 26.1. See [Cache layer changes](./upgrade#cache-layer-changes-redis-eol-and-valkey-support) for migration guidance.
+Seqera Enterprise requires a Redis-compatible cache. From Seqera Enterprise 26.1, it supports only Redis 7.2 and 7.4 and Valkey 7.x. See [Cache layer changes](./upgrade#cache-layer-changes-redis-eol-and-valkey-support) for migration guidance.
 
 ### SQL database
 

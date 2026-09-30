@@ -10,7 +10,7 @@ When pre-flight checks flag a compute environment or credential as `INVALID`, yo
 
 ## Compute environment creation and update errors
 
-These errors are returned immediately when you create a compute environment, or update one to use different credentials, and the selected credential cannot be used. No changes are saved. On update, only the newly selected credential is checked. Other edits to the compute environment are unaffected.
+Platform returns these errors immediately when you create a compute environment, or update one to use different credentials, and the selected credential cannot be used. Platform saves no changes. On update, Platform checks only the newly selected credential. Other edits to the compute environment are unaffected.
 
 #### `The credentials '...' are invalid`
 
@@ -116,6 +116,6 @@ Full message:
 ERROR c.a.c.h.netty.NettyAsyncHttpClient - java.net.UnknownHostException: <account>.blob.core.windows.net
 ```
 
-The Azure SDK cannot resolve a credential's storage or Batch account hostname during a background validation probe, and logs the failure before Platform's retry handling sees it. Platform treats the failure as transient and retries with exponential backoff. The probes, and the log bursts they produce, become less frequent over time. If the hostname still does not resolve after 10 consecutive attempts, Platform marks the credential `INVALID` with the corresponding `Cannot validate Azure Blob/Batch Security Keys` message.
+The Azure SDK cannot resolve a credential's storage or Batch account hostname during a background validation probe. The SDK logs the failure before Platform's retry handling sees it. Platform treats the failure as transient and retries with exponential backoff. The probes, and the log bursts they produce, become less frequent over time. If the hostname still does not resolve after 10 consecutive attempts, Platform marks the credential `INVALID` with the corresponding `Cannot validate Azure Blob/Batch Security Keys` message.
 
 If the DNS failure is temporary, no action is required. If the storage or Batch account was deleted or renamed, go to **Credentials** and update or delete the credential. See [Credential validation cron](../compute-envs/preflight-checks#credential-validation-cron) to tune the retry and escalation behavior.

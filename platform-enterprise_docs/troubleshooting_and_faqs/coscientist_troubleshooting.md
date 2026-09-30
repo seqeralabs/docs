@@ -27,7 +27,7 @@ The Co-Scientist panel appears only when all of the following are true:
 
 ### The Co-Scientist panel opens but requests fail to authenticate
 
-The panel authenticates to the agent backend with the Platform session cookie. Check that the agent backend domain is a subdomain of a domain shared with Platform, and that `TOWER_AUTH_COOKIE_DOMAIN` is set to that parent domain with a leading dot, for example `.platform.example.com`. The Platform Helm chart sets it when the `agent-backend` subchart is enabled.
+The panel authenticates to the agent backend with the Platform session cookie. Check that the agent backend domain is a subdomain of a domain shared with Platform. Also check that `TOWER_AUTH_COOKIE_DOMAIN` is set to that parent domain with a leading dot, for example `.platform.example.com`. The Platform Helm chart sets it when the `agent-backend` subchart is enabled.
 
 ### Approval prompts time out
 
@@ -95,7 +95,7 @@ If authentication times out:
 
 1.  Check that your Seqera Platform URL is reachable from your machine.
 1.  Confirm that `SEQERA_AUTH_DOMAIN`, or `authDomain` in `~/.config/seqera-ai/config.json`, points at your Enterprise deployment, for example `https://platform.example.com/api`. Run `seqera info` to see the values the CLI resolved.
-1.  If you are on a remote host, set `SEQERA_BROWSER_AUTO_OPEN=false` and open the printed URL in a browser on a machine that can reach the callback port (`53682` by default, set with `SEQERA_AUTH_REDIRECT_PORT`).
+1.  If you are on a remote host, set `SEQERA_BROWSER_AUTO_OPEN=false`. Open the printed URL in a browser on a machine that can reach the callback port (`53682` by default, set with `SEQERA_AUTH_REDIRECT_PORT`).
 1.  Log out and log in again.
 
 ### Token storage errors
@@ -131,7 +131,7 @@ The Projects view appears only when all of the following are true:
 
 1.  You are in an organization workspace. Projects are not available in personal workspaces.
 1.  `TOWER_SCIENTIST_VIEW_ALLOWED_WORKSPACES` is unset or empty, or lists the workspace ID. Projects are enabled in every organization workspace by default. See [Enable projects](../co-scientist/projects.md#enable-projects).
-1.  Your workspace role includes the `project_view:read` permission. Every predefined role includes it. Custom roles do not unless an organization owner adds it from the **Projects** permission category, and existing custom roles do not gain it on upgrade. See [Permissions](../co-scientist/projects.md#permissions).
+1.  Your workspace role includes the `project_view:read` permission. Every predefined role includes it. Custom roles do not unless an organization owner adds it from the **Projects** permission category. Existing custom roles do not gain it on upgrade. See [Permissions](../co-scientist/projects.md#permissions).
 
 ### Existing `project_*` labels do not appear as projects
 
@@ -139,14 +139,14 @@ Seqera Platform recognizes only labels with the `proj_` prefix. Rename `project_
 
 ### Dataset uploads do not auto-attach the project label
 
-When you upload a dataset into a project, the project's `proj_*` label is not attached automatically.
+When you upload a dataset into a project, Seqera Platform does not automatically attach the project's `proj_*` label.
 
-This issue occurs when a resource carries a `proj_*` label that was not created in workspace settings, so the label has no Platform-assigned ID. Auto-attach requires that ID.
+This issue occurs when a resource carries a `proj_*` label that was not created in workspace settings. That label has no Platform-assigned ID, and auto-attach requires that ID.
 
 To avoid this issue, create `proj_*` labels in workspace settings, or with **Add project**, before applying them to resources. See [Projects](../co-scientist/projects.md).
 
 ### The Projects page shows **Get started with projects**
 
-This occurs when the workspace has no `proj_*` labels.
+This issue occurs when the workspace has no `proj_*` labels.
 
 To resolve, select **Add project**, or ask a workspace admin to create the first `proj_*` label for the workspace. Creating a project requires permission to create labels. See [Create a project](../co-scientist/projects.md#create-a-project).

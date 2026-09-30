@@ -88,13 +88,13 @@ The Co-Scientist agent backend keeps session history for a fixed period and caps
 | Sessions per user | 100 |
 | Sessions per workspace | 500 |
 
-After 48 hours without activity, the backend releases a session's in-memory state. The conversation history is kept, so you can still resume the session until it reaches the retention limit. After the retention limit, the session is deleted and can no longer be resumed.
+After 48 hours without activity, the backend releases a session's in-memory state. The backend keeps the conversation history, and you can still resume the session until it reaches the retention limit. After the retention limit, the backend deletes the session and you can no longer resume it.
 
 Your Seqera Platform administrator can change these defaults in the agent backend configuration.
 
 ## Interrupt a response
 
-Press `Esc` to interrupt the current response. The CLI stops the run on the Co-Scientist backend as well as in your terminal, so interrupted work does not continue in the background.
+Press `Esc` to interrupt the current response. The CLI stops the run on the Co-Scientist backend as well as in your terminal. Interrupted work does not continue in the background.
 
 ## Exit a session
 

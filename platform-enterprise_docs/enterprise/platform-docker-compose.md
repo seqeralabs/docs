@@ -107,9 +107,9 @@ For more information on configuration, see [Configuration options](./configurati
 
 #### Seqera frontend unprivileged
 
-From Seqera Platform Enterprise 26.2, Seqera publishes one frontend image, `cr.seqera.io/enterprise/platform/frontend:<tag>`. It is unprivileged: it listens on an unprivileged port and doesn't run as the root user. The `-root` and `-unprivileged` tag variants are no longer published — a `docker-compose.yml` that references one fails to pull.
+From Seqera Platform Enterprise 26.2, Seqera publishes one frontend image, `cr.seqera.io/enterprise/platform/frontend:<tag>`. The image is unprivileged. It listens on an unprivileged port and doesn't run as the root user. Seqera no longer publishes the `-root` and `-unprivileged` tag variants. A `docker-compose.yml` that references one fails to pull.
 
-The `docker-compose.yml` template above is already configured for this image. To listen on a port other than the default `8000`, set `NGINX_LISTEN_PORT` and map the host port to it:
+The `docker-compose.yml` template earlier on this page is already configured for this image. To listen on a port other than the default `8000`, set `NGINX_LISTEN_PORT` and map the host port to it:
 
 ```yaml
   frontend:

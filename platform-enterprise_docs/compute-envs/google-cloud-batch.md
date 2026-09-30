@@ -64,7 +64,7 @@ By default, Google Cloud Batch uses the default Compute Engine service account t
 * Logs Writer (`roles/logging.logWriter`) on the project (to let jobs generate logs in Cloud Logging)
 * Service Account User (`roles/iam.serviceAccountUser`)
 * Service Usage Consumer (`roles/serviceusage.serviceUsageConsumer`)
-* Secret Manager Secret Accessor (`roles/secretmanager.secretAccessor`) on the project (required if your pipelines use Seqera secrets; the head job and tasks read secrets from GCP Secret Manager)
+* Secret Manager Secret Accessor (`roles/secretmanager.secretAccessor`) on the project (required if your pipelines use Seqera secrets, because the head job and tasks read secrets from GCP Secret Manager)
 * Storage Bucket Viewer (`roles/storage.bucketViewer`) on the project (required if you grant Storage access per bucket instead of project-wide Storage Admin, which already includes the `storage.buckets.list` permission)
 
 If your Google Cloud project does not require access restrictions on any of its Cloud Storage buckets, you can grant project Storage Admin (`roles/storage.admin`) permissions to your service account to simplify setup. To grant access only to specific buckets, add the service account as a principal on each bucket individually. See [Cloud Storage bucket](#cloud-storage-bucket) below. Seqera needs the `storage.buckets.list` permission at the project level to list buckets when you create a compute environment, to browse buckets in Data Explorer, and to [validate the credential](./preflight-checks). Bucket-level grants cannot confer `storage.buckets.list`.
@@ -247,7 +247,7 @@ Wave containers and Fusion v2 are recommended features for added capability and 
 Enable **Spot** to use Spot instances, which have significantly reduced cost compared to On-Demand instances.
 
 :::note
-From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow treats these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow#spot-instance-failures-and-retries).
+From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (for example, returning `exit code 1` on AWS). Nextflow treats these failures like any other job failure unless you configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow#spot-instance-failures-and-retries).
 
 Selecting the 'enable Fusion snapshots' option (Google Cloud Batch) changes the default Spot reclamation retry setting to `5`.
 

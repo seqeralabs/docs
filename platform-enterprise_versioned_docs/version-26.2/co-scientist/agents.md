@@ -6,9 +6,9 @@ last updated: "2026-09-22"
 tags: [co-scientist, platform, agent, ai]
 ---
 
-An agent is a reusable, named set of instructions that Co-Scientist runs on your behalf in a Seqera Platform workspace. Where a Co-Scientist conversation is interactive and starts empty each time, an agent captures a task you repeat — investigating failed runs, summarizing results — so anyone in the workspace can run it without rewriting the prompt.
+An agent is a reusable, named set of instructions that Co-Scientist runs on your behalf in a Seqera Platform workspace. A Co-Scientist conversation is interactive and starts empty each time. An agent captures a task you repeat, such as investigating failed runs or summarizing results. Anyone in the workspace can then run it without rewriting the prompt.
 
-Agents are workspace-scoped. Every agent in a workspace is visible to everyone with permission to read agents, not only the person who created it. An agent acts as the [service account](#agent-identity-and-permissions) bound to it rather than as the person who starts it, and reaches private repositories through a [GitHub App credential](#access-to-private-git-repositories) in its workspace.
+Agents are workspace-scoped. Every agent in a workspace is visible to everyone with permission to read agents, not only the person who created it. An agent acts as the [service account](#agent-identity-and-permissions) bound to it rather than as the person who starts it. It reaches private repositories through a [GitHub App credential](#access-to-private-git-repositories) in its workspace.
 
 ## Enable agents
 
@@ -16,14 +16,14 @@ Agents are available from Seqera Platform Enterprise 26.2. Once `TOWER_AGENT_BAC
 
 | Environment variable | Effect |
 |---|---|
-| `TOWER_AGENT_BACKEND_URL` | Origin of the Co-Scientist agent backend. While it is empty, agents are off in every organization, whatever the allow-list says. The Platform Helm chart sets it when the `agent-backend` subchart is enabled, which chart 1.0.4 does by default. Set it by hand only if you deploy some other way. See [Co-Scientist configuration](../enterprise/configuration/overview#co-scientist). |
+| `TOWER_AGENT_BACKEND_URL` | Origin of the Co-Scientist agent backend. While it is empty, agents are off in every organization, whatever the allow-list says. The Platform Helm chart sets it when the `agent-backend` subchart is enabled. Chart 1.0.4 enables that subchart by default. Set it by hand only if you deploy some other way. See [Co-Scientist configuration](../enterprise/configuration/overview#co-scientist). |
 | `TOWER_AGENT_CONFIGURATION_ALLOWED_ORGANIZATIONS` | Which organizations have agents. Leave it unset, or set it empty, to enable agents in every organization. Set it to a comma-separated list of organization IDs to enable them for those organizations only. |
 
 Agents are organization-scoped. They are never available in a personal workspace, whatever the allow-list says.
 
 The allow-list controls the **Agents** pages, the **Trigger agent** button, [Actions that target an agent](../pipeline-actions/overview#agent-targets), and the agents API. In an organization where agents are off, the `/agents` endpoints return `404`.
 
-The same variables govern [service accounts](../orgs-and-teams/create-service-accounts). Enabling agents for an organization enables service accounts for it as well, which is what makes an agent's identity configurable.
+The same variables govern [service accounts](../orgs-and-teams/create-service-accounts). Enabling agents for an organization also enables service accounts for it. With service accounts enabled, you can configure an agent's identity.
 
 :::note
 GitHub App credentials need no configuration in Enterprise. They are available in every workspace.
@@ -31,7 +31,7 @@ GitHub App credentials need no configuration in Enterprise. They are available i
 
 ## Agents, chat, and coding agents
 
-Seqera uses "agent" for three different things. This page covers the first:
+Seqera uses "agent" for three things:
 
 - **Agents** — reusable instruction sets you create in a workspace and run against your pipelines, described here.
 - **[Co-Scientist chat](./platform.md)** — the interactive assistant panel in Seqera Platform.
@@ -53,11 +53,11 @@ Agents and Co-Scientist chat are the same assistant reached two ways. Both work 
 
 ## Permissions
 
-Two things control agents: the workspace grants that decide who can see and manage them, and the service account that decides what an agent can do when it runs.
+Two things control agents. Workspace grants decide who can see and manage them, and the bound service account decides what an agent can do when it runs.
 
 ### Who can manage agents
 
-Access to agents is controlled by four workspace grants:
+Four workspace grants control access to agents:
 
 | Grant | Allows |
 |---|---|
@@ -70,12 +70,12 @@ Access to agents is controlled by four workspace grants:
 
 ### Agent identity and permissions
 
-An agent acts as a service account, not as the person who starts it. Binding one is required: select it under **Agent permissions** when you create or edit the agent. Every run of that agent then uses that account's roles, so the agent can only reach what the service account is allowed to reach, whoever runs it.
+An agent acts as a service account, not as the person who starts it. Binding one is required. Select it under **Agent permissions** when you create or edit the agent. Every run of that agent then uses that account's roles. Whoever runs it, the agent can only reach what the service account is allowed to reach.
 
 - Only service accounts assigned to the agent's workspace can be bound. An account with no role in the workspace cannot act there.
 - You cannot bind a service account that holds permissions you do not hold in the workspace yourself.
 - Service accounts belong to the organization. If none is assigned to your workspace, ask an organization owner to [create one and assign it](../orgs-and-teams/create-service-accounts) before you create the agent.
-- If the bound service account is later removed from the workspace or deleted from the organization, Seqera Platform pauses the agent. It shows as **Inactive** and drops out of **Trigger agent**. Adding the service account back does not resume the agent: select **Resume** on the **Agents** page. When the person removing the service account is not a participant in the agent's workspace, the agent stays active, and its next launch is refused instead.
+- If the bound service account is later removed from the workspace or deleted from the organization, Seqera Platform pauses the agent. It shows as **Inactive** and drops out of **Trigger agent**. Adding the service account back does not resume the agent. Select **Resume** on the **Agents** page. When the person removing the service account is not a participant in the agent's workspace, the agent stays active, and Seqera Platform refuses its next launch instead.
 - If the bound service account is disabled, the agent's runs fail rather than fall back to the permissions of whoever started them.
 
 :::caution
@@ -86,14 +86,14 @@ If you do not see an **Agent permissions** section on the agent form, agents are
 
 ## Access to private Git repositories
 
-An agent reaches a private repository only through a [GitHub App credential](../git/overview.md#github-app). No other Git credential type works for an agent — a personal access token does not, even though it works elsewhere in Seqera Platform.
+An agent reaches a private repository only through a [GitHub App credential](../git/overview.md#github-app). No other Git credential type works for an agent. A personal access token does not, even though it works elsewhere in Seqera Platform.
 
-Bind the credential to the agent under **Agent permissions**, alongside the service account. It is optional: an agent without one still runs, but cannot clone, commit, or push. With one bound, the agent can do all three, as that credential.
+Bind the credential to the agent under **Agent permissions**, alongside the service account. The credential is optional. An agent without one still runs, but cannot clone, commit, or push. With one bound, the agent can do all three, as that credential.
 
 Two things have to be in place before you can bind it:
 
 - A GitHub organization admin installs the GitHub App in the GitHub organization and grants it access to the repositories the agent needs.
-- The credential exists in the workspace the agent runs in. Credentials are workspace-scoped, so an agent cannot use one from another workspace or from someone's personal credentials.
+- The credential exists in the workspace the agent runs in. Credentials are workspace-scoped. An agent cannot use one from another workspace or from someone's personal credentials.
 
 If a bound credential is later removed from the workspace or marked invalid, the agent form warns you and blocks saving until you select a different credential or clear it with **None**.
 
@@ -113,7 +113,7 @@ If a bound credential is later removed from the workspace or marked invalid, the
     - **GitHub App credential** (optional). Needed only if the agent works with private Git repositories. See [Access to private Git repositories](#access-to-private-git-repositories).
 1. Save the agent.
 
-Templates prefill text only. They do not set a trigger, a schedule, or anything about where the agent runs — review and edit the instructions before saving.
+Templates prefill text only. They do not set a trigger, a schedule, or anything about where the agent runs. Review and edit the instructions before saving.
 
 ## Manage agents
 
@@ -122,13 +122,13 @@ The **Agents** page lists every agent in the workspace that you can read, with i
 - **Search** for an agent by name.
 - **Edit** an agent's name, description, instructions, service account, and GitHub App credential. The template picker is not shown when editing.
 - **Pause** an agent to keep its definition but stop it being selectable, and **Resume** it later. A paused agent shows as **Inactive**.
-- **Remove** an agent. You are asked to confirm.
+- **Remove** an agent. Seqera Platform asks you to confirm.
 
 Paused and removed agents do not appear when selecting an agent to run. Removing an agent does not delete the sessions it already produced.
 
 ## Run an agent
 
-You start an agent from a run, so it works with that run's context. Running one needs `Agent_Read` and `Agent_Execute`, and access to [Co-Scientist chat](./platform.md): the panel enabled for your organization and the `chat:execute` permission. Without chat, **Trigger agent** does not appear.
+You start an agent from a run, so it works with that run's context. Running one needs `Agent_Read` and `Agent_Execute`, and access to [Co-Scientist chat](./platform.md). Chat access requires the panel to be enabled for your organization and the `chat:execute` permission. Without chat, **Trigger agent** does not appear.
 
 1. Open the run, or find it in a project's **Runs** tab.
 1. Select **Trigger agent**.

@@ -29,7 +29,7 @@ These are chart-level settings. To set an application-level option, use the dedi
 
    Now edit the `my-values.yaml` file to set your options, such as internal container image registry, database connection details, license information, and other settings.
 
-   You can drop lines that you don't want to customize to keep the file concise and only include the settings you want to change: this will make it easier to maintain your configuration in the future. The values you don't specify will fall back to the defaults defined in the chart in the `values.yaml` file. For an example of a minimal configuration file, see the [example values file](https://github.com/seqeralabs/helm-charts/blob/platform-1.0.5/charts/platform/examples/kustomize/values.yaml).
+   To keep the file concise, drop the lines you don't want to customize and include only the settings you want to change. This makes your configuration easier to maintain. Values you don't specify fall back to the defaults defined in the chart's `values.yaml` file. For an example of a minimal configuration file, see the [example values file](https://github.com/seqeralabs/helm-charts/blob/platform-1.0.5/charts/platform/examples/kustomize/values.yaml).
 
    You can browse all the available configuration options in a tabular format in the [README](https://github.com/seqeralabs/helm-charts/tree/platform-1.0.5/charts/platform) file.
 
@@ -47,7 +47,7 @@ These are chart-level settings. To set an application-level option, use the dedi
 
 ### Installing a Helm chart with Kustomize
 
-Kustomize can be used to manage Helm chart installations as well and provides further customization options. To install the Seqera Platform Enterprise Helm chart using Kustomize, check out the [Kustomize example directory](https://github.com/seqeralabs/helm-charts/tree/platform-1.0.5/charts/platform/examples/kustomize).
+You can also use Kustomize to manage Helm chart installations. Kustomize provides further customization options. To install the Seqera Platform Enterprise Helm chart with Kustomize, see the [Kustomize example directory](https://github.com/seqeralabs/helm-charts/tree/platform-1.0.5/charts/platform/examples/kustomize).
 
 ## Upgrading the Helm chart
 

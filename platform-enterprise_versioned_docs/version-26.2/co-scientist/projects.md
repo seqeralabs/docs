@@ -6,9 +6,9 @@ last updated: "2026-09-22"
 tags: [co-scientist, platform, projects, labels]
 ---
 
-Projects group the pipelines, datasets, and runs that belong to a single piece of work, so you can view and work with them without the noise of the rest of the workspace.
+Projects group the pipelines, datasets, and runs that belong to a single piece of work. Use a project to view and work with them without the noise of the rest of the workspace.
 
-A project is not a separate Platform resource. It is a **workspace label whose name starts with `proj_`**. The label is the source of truth for membership: a pipeline, dataset, or run belongs to a project when it carries the project's label.
+A project is not a separate Platform resource. It is a **workspace label whose name starts with `proj_`**. The label is the source of truth for membership. A pipeline, dataset, or run belongs to a project when it carries the project's label.
 
 :::note
 Earlier releases used the `project_` prefix. Seqera Platform Enterprise 26.2 recognizes only `proj_` labels. Rename existing `project_*` labels to `proj_*` in workspace settings to keep them as projects.
@@ -42,7 +42,7 @@ Creating a project requires permission to create labels, and editing a project r
 
 ## Open projects
 
-When projects are enabled for a workspace and your role includes `project_view:read`, the side navigation shows a **Workspace**/**Projects** switcher. Select **Projects** to open the projects list. A role with `project_view:read` but without `workspace_resources:read`, such as the **Project** role, shows only the Projects view, with no switcher.
+When projects are enabled for a workspace and your role includes `project_view:read`, the side navigation shows a **Workspace**/**Projects** switcher. Select **Projects** to open the projects list. A role with `project_view:read` but without `workspace_resources:read`, such as the **Project** role, shows only the **Projects** view, with no switcher.
 
 If the workspace has no projects yet, the page shows a **Get started with projects** empty state with an **Add project** button. Otherwise, the list shows one row per project, plus a **\<workspace name\> overview** row that covers every resource in the workspace. Use **Search projects** to filter the list.
 
@@ -85,23 +85,23 @@ Choose descriptive names after the prefix so projects are easy to identify.
 Because membership lives on the label, adding a resource to a project is the same action as applying the project's label to it:
 
 - **Pipelines and datasets**: Select them when you create or edit the project, or apply the `proj_*` label in Seqera Platform.
-- **Datasets uploaded inside a project**: The project's label is attached automatically.
+- **Datasets uploaded inside a project**: Seqera Platform attaches the project's label automatically.
 - **Runs**: Runs launched from inside a project carry the project's label.
 
-The pipeline and dataset forms hide `proj_*` labels from their **Labels** field and refuse to create one there, so manage project membership from the project itself.
+The pipeline and dataset forms hide `proj_*` labels from their **Labels** field and refuse to create one there. Manage project membership from the project itself.
 
 ## Edit or delete a project
 
 Open the project's actions menu in the projects list:
 
 - **Edit**: Rename the project or change which pipelines and datasets belong to it, then select **Save**. Renaming a project renames its label.
-- **Delete**: Remove the project's label and its resource associations. The pipelines, datasets, and runs themselves are not deleted.
+- **Delete**: Remove the project's label and its resource associations. Deleting a project does not delete the pipelines, datasets, and runs themselves.
 
-The **\<workspace name\> overview** row cannot be edited or deleted.
+You cannot edit or delete the **\<workspace name\> overview** row.
 
 ## Projects and Co-Scientist
 
-Background agents can be triggered from a project's **Runs** tab. The Co-Scientist panel works with the page you are viewing and the current workspace; it does not have a separate project selector. See [Co-Scientist in Seqera Platform](./platform.md).
+You can trigger background agents from a project's **Runs** tab. The Co-Scientist panel works with the page you are viewing and the current workspace. It does not have a separate project selector. See [Co-Scientist in Seqera Platform](./platform.md).
 
 For problems with project labels and empty states, see [Co-Scientist troubleshooting](../troubleshooting_and_faqs/coscientist_troubleshooting.md).
 

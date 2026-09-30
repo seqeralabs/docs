@@ -5,7 +5,7 @@ date: "24 Apr 2023"
 tags: [actions, webhooks, automation]
 ---
 
-Actions launch a pipeline, or hand the event to an AI agent, in response to something happening: a push to the pipeline repository, a file arriving in cloud storage, a clock reaching a time, or a pipeline run finishing. Seqera Platform supports five event sources:
+Actions launch a pipeline, or hand the event to an AI agent, in response to an event, such as a push to the pipeline repository, a file arriving in cloud storage, a clock reaching a time, or a pipeline run finishing. Seqera Platform supports five event sources:
 
 - **GitHub webhook**: a native webhook that fires on a change to the pipeline repository.
 - **Tower launch hook**: an endpoint URL that you call programmatically.
@@ -13,13 +13,13 @@ Actions launch a pipeline, or hand the event to an AI agent, in response to some
 - **Schedule**: a recurring cadence.
 - **Pipeline run event**: a run reaching a terminal state.
 
-Every action also has a **target**: what it does when its event arrives. See [Targets](#targets).
+Every action also has a **target**, which is what it does when its event arrives. See [Targets](#targets).
 
 ### When to use actions
 
-Actions fit when the next step is a pipeline or an agent that should live alongside the analysis in Seqera Platform: chaining pipelines, loading a run's output once a marker file lands, or running on a schedule. An action launches a pipeline or an agent, not an arbitrary script. For a small post-processing step, use the pipeline's [post-run script](../launch/advanced#pre-and-post-run-scripts) instead. For heavy or continuous data replication, cloud-native tooling, such as S3 event notifications with AWS Lambda, AWS Glue, or AWS DMS, is a better fit.
+Actions fit when the next step is a pipeline or an agent that should live alongside the analysis in Seqera Platform, such as chaining pipelines, loading a run's output once a marker file lands, or running on a schedule. An action launches a pipeline or an agent, not an arbitrary script. For a small post-processing step, use the pipeline's [post-run script](../launch/advanced#pre-and-post-run-scripts) instead. For heavy or continuous data replication, cloud-native tooling, such as S3 event notifications with AWS Lambda, AWS Glue, or AWS DMS, is a better fit.
 
-Nothing from the trigger reaches the launched run, whatever the event source: not the marker file name or the finished run's ID. You cannot use it for a dynamic run name or as a pipeline parameter. The run holds the configuration saved on the action. The exception is a [Tower launch hook](#tower-launch-hooks), whose request can pass pipeline parameters that override the ones saved on the action.
+Nothing from the trigger reaches the launched run, whatever the event source. The run receives neither the marker file name nor the finished run's ID. You cannot use trigger data for a dynamic run name or as a pipeline parameter. The run holds the configuration saved on the action. The exception is a [Tower launch hook](#tower-launch-hooks), whose request can pass pipeline parameters that override the ones saved on the action.
 
 ### Targets
 
@@ -33,7 +33,7 @@ An action either launches a pipeline or hands the event to an AI agent.
 | Schedule | Yes | Yes |
 | Pipeline run event | Yes | Yes |
 
-For the three newer sources, select **Launch a pipeline** or **Launch agent** under **Target** while you create the action. The choice is fixed once the action exists: to change it, delete the action and create it again.
+For the three newer sources, select **Launch a pipeline** or **Launch agent** under **Target** while you create the action. The choice is fixed once the action exists. To change it, delete the action and create it again.
 
 The rest of the per-source sections on this page describe a pipeline target.
 
@@ -41,8 +41,8 @@ The rest of the per-source sections on this page describe a pipeline target.
 
 An agent target differs from a pipeline target in two ways:
 
-- **The agent receives the event.** It is told what fired the action — which object arrived, which tick came due, or which run finished, and when. A pipeline launch receives none of the event detail: it runs the configuration saved on the action and nothing else.
-- **The agent must already exist.** The action form chooses between the agents the workspace holds; it does not create one. Create the agent on the workspace's **Agents** page first. The **+** beside the picker opens the **Add agent** form in a new tab, but the picker reads its list once, so an agent created that way appears only after you reload the action form.
+- **The agent receives the event.** It learns what fired the action (which object arrived, which tick came due, or which run finished, and when). A pipeline launch receives none of the event detail. It runs the configuration saved on the action and nothing else.
+- **The agent must already exist.** In the action form, you choose from the agents the workspace holds. The form does not create one. Create the agent on the workspace's **Agents** page first. The **+** beside the picker opens the **Add agent** form in a new tab. The picker reads its list once, and an agent created that way appears only after you reload the action form.
 
 To target an agent, at the **Target** step of any of the three sources:
 
@@ -50,13 +50,13 @@ To target an agent, at the **Target** step of any of the three sources:
 1. Select the **Agent**. Only active agents are listed. A workspace whose agents are all inactive shows an empty picker.
 1. Select **Add**.
 
-There is no compute environment, pipeline, work directory, or pipeline parameters to set. Those fields belong to a pipeline launch, and the form hides them for an agent target: the agent acts on its own saved instructions.
+You do not set a compute environment, pipeline, work directory, or pipeline parameters. Those fields belong to a pipeline launch, and the form hides them for an agent target. The agent acts on its own saved instructions.
 
 An agent target is available in every organization workspace once the Co-Scientist agent backend is configured (`TOWER_AGENT_BACKEND_URL`), and never in a personal workspace. Administrators restrict agents to named organizations with [`TOWER_AGENT_CONFIGURATION_ALLOWED_ORGANIZATIONS`](../enterprise/configuration/overview#co-scientist). If **Launch agent** is missing from **Target**, agents are not enabled for your organization.
 
-You can edit an agent action's name, labels, and trigger — the marker file for a bucket event action, the schedule for a scheduled action, the watched pipeline and run state for a pipeline run event action. You cannot change which agent responds, or switch the action to a pipeline target.
+You can edit an agent action's name, labels, and trigger (the marker file for a bucket event action, the schedule for a scheduled action, or the watched pipeline and run state for a pipeline run event action). You cannot change which agent responds, or switch the action to a pipeline target.
 
-Disabling or deleting the agent pauses every action that targets it, with the reason `Target agent '<name>' was disabled` or `Target agent '<name>' was deleted`. Seqera Platform refuses to resume the action while the agent is inactive. Enable the agent, then resume the action. An action whose agent was deleted cannot be resumed: delete the action and create a new one.
+Disabling or deleting the agent pauses every action that targets it, with the reason `Target agent '<name>' was disabled` or `Target agent '<name>' was deleted`. Seqera Platform refuses to resume the action while the agent is inactive. Enable the agent, then resume the action. You cannot resume an action whose agent was deleted. Delete the action and create a new one.
 
 ### GitHub webhooks
 
@@ -104,7 +104,7 @@ When you create a **Tower launch hook**, you also create an **access token** for
 
 ### Bucket events
 
-A **Bucket event** action launches a pipeline or an agent when a marker file arrives in an AWS S3 bucket. Seqera Platform watches the bucket for the event types you select and fires the action when an object whose key matches the marker arrives. Objects that do not match the marker are discarded.
+A **Bucket event** action launches a pipeline or an agent when a marker file arrives in an AWS S3 bucket. Seqera Platform watches the bucket for the event types you select and fires the action when an object whose key matches the marker arrives. Seqera Platform discards objects that do not match the marker.
 
 The pipeline runs with the parameters saved on the action. The marker controls when the pipeline or agent launches and is recorded in the action's trigger history, but it is not passed to the run. Set the pipeline's input location in the action's **Pipeline parameters**.
 
@@ -116,7 +116,7 @@ Bucket events are available in every workspace by default. Administrators restri
 
 You need the following:
 
-- An AWS S3 data link in the workspace, with credentials attached. Auto-discovered cloud data links cannot be watched. Create an explicit data link instead.
+- An AWS S3 data link in the workspace, with credentials attached. Actions cannot watch auto-discovered cloud data links. Create an explicit data link instead.
 - A Seqera Platform installation reachable over HTTPS. AWS SNS does not deliver notifications to a plain HTTP endpoint, and Seqera Platform does not check this itself. Over plain HTTP, AWS rejects the subscription and the action moves to **Error**.
 - Data link credentials with the `s3:GetBucketNotificationConfiguration`, `s3:PutBucketNotificationConfiguration`, `sns:CreateTopic`, `sns:Subscribe`, `sns:SetTopicAttributes`, and `sns:DeleteTopic` permissions. Seqera Platform uses them to provision the bucket notification and its SNS topic when you create the action, and to release them when the action is no longer active.
 
@@ -129,7 +129,7 @@ To create a new action, select the **Actions** tab and select **Add action**.
 1. Select the **Data repository** whose bucket you want to watch. **Resource** shows the full path the action watches.
 1. Under **Triggers**, select **Object created**, **Object deleted**, or both.
 1. Enter the **Marker file** whose arrival fires the action, such as `*.done`. Use `*` to match any characters and `?` to match a single character.
-1. Under **Target**, select **Launch a pipeline** or **Launch agent**. For **Launch agent**, continue from [Agent targets](#agent-targets) — the steps below apply to a pipeline target only.
+1. Under **Target**, select **Launch a pipeline** or **Launch agent**. For **Launch agent**, continue from [Agent targets](#agent-targets). The following steps apply to a pipeline target only.
 1. Select the **Compute environment** where the pipeline runs.
 1. Select the **Pipeline repository** and, optionally, the **Revision**. To launch a pipeline saved in the Launchpad, select it under **Pipeline** instead. If the pipeline has more than one version, **Version** selects the version whose launch settings the action copies. A pipeline run event action can watch the runs this action creates only when the action names a Launchpad pipeline.
 1. Enter the **Work directory**, the **Config profiles**, and the **Pipeline parameters**. **Main script** is optional.
@@ -173,7 +173,7 @@ Seqera Platform can refuse a resume. A paused action holds no bucket notificatio
 
 Deleting the data repository pauses every bucket action that uses it and removes the SNS topic and its subscription. The reason recorded on the action reads `Referenced Data Link was deleted`. Data link is the older term for what the form calls a **Data repository**.
 
-Failed triggers are recorded in the action's trigger history with their reason. To retry a bucket action, fix the cause, resume the action, and upload the marker file again.
+Seqera Platform records failed triggers, with their reason, in the action's trigger history. To retry a bucket action, fix the cause, resume the action, and upload the marker file again.
 
 #### Notification provisioning
 
@@ -185,7 +185,7 @@ AWS S3 rejects overlapping notification configurations on a bucket. Seqera Platf
 
 #### Pipeline output in the watched folder
 
-Seqera Platform rejects a bucket event action whose pipeline writes into the location the action watches, because each run would publish output that fires the action again. When you add or edit the action, it compares the watched location — the data repository folder plus the marker file up to its first wildcard — with the pipeline's output directory and **Work directory**. If either falls inside the watched location, the save fails with a `400` naming both paths. Set a different output or work directory to save the action.
+Seqera Platform rejects a bucket event action whose pipeline writes into the location the action watches, because each run would publish output that fires the action again. When you add or edit the action, Seqera Platform compares the watched location (the data repository folder plus the marker file up to its first wildcard) with the pipeline's output directory and **Work directory**. If either falls inside the watched location, the save fails with a `400` naming both paths. Set a different output or work directory to save the action.
 
 The check compares whole folder names, so a pipeline writing to `incoming-old/` does not overlap an action watching `incoming/`. It cannot see a path that the pipeline sets in its own Nextflow code, and it does not apply to an agent target. The [trigger rate limit](#trigger-rate-limit) stops those loops instead.
 
@@ -205,13 +205,13 @@ To create a new action, select the **Actions** tab and select **Add action**.
     :::note
     See [Cron](https://docs.gitlab.com/topics/cron/) for more information about the cron syntax.
     :::
-1. Under **Target**, select **Launch a pipeline** or **Launch agent**. For **Launch agent**, continue from [Agent targets](#agent-targets) — the steps below apply to a pipeline target only.
+1. Under **Target**, select **Launch a pipeline** or **Launch agent**. For **Launch agent**, continue from [Agent targets](#agent-targets). The following steps apply to a pipeline target only.
 1. Select the **Compute environment** where the pipeline runs.
 1. Select the **Pipeline repository** and, optionally, the **Revision**. To launch a pipeline saved in the Launchpad, select it under **Pipeline** instead. If the pipeline has more than one version, **Version** selects the version whose launch settings the action copies.
 1. Enter the **Work directory**, the **Config profiles**, and the **Pipeline parameters**. **Main script** is optional.
 1. Select **Add**.
 
-The time zone is shown beside **Time** and cannot be chosen in the form. A new action uses your browser's time zone, and a saved action shows the time zone it runs in. Through the API, `timezone` takes an IANA time zone ID such as `Europe/Madrid` and defaults to `UTC`.
+The form shows the time zone beside **Time**, and you cannot choose it. A new action uses your browser's time zone, and a saved action shows the time zone it runs in. Through the API, `timezone` takes an IANA time zone ID such as `Europe/Madrid` and defaults to `UTC`.
 
 #### Tick timing
 
@@ -255,7 +255,7 @@ The form offers **Daily**, **Weekly**, and **Custom cron expression** only, and 
 
 ### Pipeline run events
 
-A **Pipeline run event** action launches a pipeline when a run of a watched pipeline reaches a terminal state. It is how one pipeline is chained to another: when a run of pipeline A succeeds, launch pipeline B.
+A **Pipeline run event** action launches a pipeline when a run of a watched pipeline reaches a terminal state. Use it to chain one pipeline to another. For example, when a run of pipeline A succeeds, launch pipeline B.
 
 Pipeline run events are available in every workspace by default. Administrators restrict them to named workspaces with [`TOWER_ACTIONS_PIPELINE_TRIGGER_ALLOWED_WORKSPACES`](../enterprise/configuration/overview#core-features). If **Pipeline run event** is missing from the **Event source** drop-down, your workspace is not on that list.
 
@@ -272,43 +272,43 @@ To create a new action, select the **Actions** tab and select **Add action**.
 
 1. Enter a **Name** for your action. **Labels** are optional.
 1. Select **Pipeline run event** as the **Event source**.
-1. Select the **Pipeline to watch**. The list shows the workspace's Launchpad pipelines with their repositories, and is searched as you type.
+1. Select the **Pipeline to watch**. The list shows the workspace's Launchpad pipelines with their repositories, and filters as you type.
 1. Select the **Run state** that fires the action: **Succeeded**, **Failed**, or **Cancelled**.
-1. Under **Target**, select **Launch a pipeline** or **Launch agent**. For **Launch agent**, continue from [Agent targets](#agent-targets) — the steps below apply to a pipeline target only.
+1. Under **Target**, select **Launch a pipeline** or **Launch agent**. For **Launch agent**, continue from [Agent targets](#agent-targets). The following steps apply to a pipeline target only.
 1. Select the **Compute environment** where the pipeline runs.
 1. Select the **Pipeline repository** and, optionally, the **Revision**. To launch a pipeline saved in the Launchpad, select it under **Pipeline** instead. If the pipeline has more than one version, **Version** selects the version whose launch settings the action copies. Another pipeline run event action can watch the runs this action creates only when the action names a Launchpad pipeline.
 1. Enter the **Work directory**, the **Config profiles**, and the **Pipeline parameters**. **Main script** is optional.
 1. Select **Add**.
 
-The action is active as soon as you save it. Nothing is registered with a cloud provider, so there is no provisioning step to wait through.
+The action is active as soon as you save it. Nothing is registered with a cloud provider. There is no provisioning step to wait through.
 
 #### One action, one run state
 
 An action watches a single run state. To act on both failures and cancellations, create two actions. Each keeps its own trigger history and its own [trigger rate limit](#trigger-rate-limit).
 
-**Submitted**, **Running**, and **Unknown** are not offered, and the API refuses them. The first two are states a run passes through before it has a result, and a run reported as unknown returns to running if it reconnects. There is no state for a run starting.
+The form does not offer **Submitted**, **Running**, or **Unknown**, and the API refuses them. The first two are states a run passes through before it has a result, and a run reported as unknown returns to running if it reconnects. There is no state for a run starting.
 
 #### Which runs match
 
 The action watches a Launchpad pipeline by its identity, not by its repository URL:
 
-- Two Launchpad pipelines that point at the same repository are told apart. An action watching one does not fire on runs of the other.
-- Changing a pipeline's repository does not stop the action firing.
+- The action tells apart two Launchpad pipelines that point at the same repository. An action watching one does not fire on runs of the other.
+- Changing a pipeline's repository does not stop the action from firing.
 - A run launched outside the Launchpad fires no action, because there is no Launchpad pipeline to attribute it to.
 
 A run started with the API fires the action only when it is attributed to the Launchpad pipeline. Call `POST /workflow/launch` and set `launch.id` to the pipeline's launch ID, from `GET /pipelines/{pipelineId}/launch`. A quick launch with no `launch.id`, or a run started from the Nextflow CLI, is not attributed to any Launchpad pipeline and never fires the action.
 
-An action sees only the runs in its own workspace. A personal action watches its owner's runs. A watched or target pipeline outside the action's workspace is refused.
+An action sees only the runs in its own workspace. A personal action watches its owner's runs. Seqera Platform refuses a watched or target pipeline outside the action's workspace.
 
 #### Chaining actions together
 
 Any action that names a Launchpad pipeline under **Pipeline** produces runs another action can watch, whatever its event source. A nightly schedule that runs pipeline B, and a pipeline run event action that runs pipeline C when B succeeds, is a two-step chain headed by a clock.
 
-An action whose target is an agent launches no pipeline, so nothing can chain from it.
+An action whose target is an agent launches no pipeline. Nothing can chain from it.
 
 #### Loops
 
-Seqera Platform refuses an event that would close a loop. Before the action fires, it traces the run back through the triggers that led to it. If the action itself started the run, or started something that led to it, the event is recorded as suppressed with the reason naming how many steps back the loop closed, and nothing launches. A chain longer than 20 steps is suppressed for the same reason. Administrators change the limit with [`TOWER_ACTION_CYCLE_MAX_CHAIN_DEPTH`](../enterprise/configuration/overview#core-features).
+Seqera Platform refuses an event that would close a loop. Before the action fires, Seqera Platform traces the run back through the triggers that led to it. If the action itself started the run, or started something that led to it, nothing launches. Seqera Platform records the event as suppressed, with a reason that names how many steps back the loop closed. A chain longer than 20 steps is suppressed for the same reason. Administrators change the limit with [`TOWER_ACTION_CYCLE_MAX_CHAIN_DEPTH`](../enterprise/configuration/overview#core-features).
 
 Only the event is refused. The action stays active and still fires on a run someone launches by hand.
 
@@ -318,7 +318,7 @@ Deleting the watched pipeline or the target pipeline pauses every action that na
 
 Edit the action onto a live pipeline to lift the pause. An action that someone paused by hand stays paused whatever you edit.
 
-Unlike the launch repository, the trigger can be changed after the action is saved. Moving an action onto a different pipeline or a different run state keeps its trigger history.
+Unlike the launch repository, you can change the trigger after you save the action. Moving an action onto a different pipeline or a different run state keeps its trigger history.
 
 #### No event data reaches the launch
 
@@ -370,6 +370,6 @@ Seqera Platform also pauses an action itself, and records why. The reason appear
 
 Seqera Platform refuses a resume that cannot succeed, with a `400` that says what to fix.
 
-When an administrator removes a workspace from a trigger's allow-list, such as `TOWER_ACTIONS_BUCKET_TRIGGER_ALLOWED_WORKSPACES`, each active action of that type in the workspace pauses at its next event. The reason reads `Bucket event trigger is not enabled for this workspace`, `Schedule trigger is not enabled for this workspace`, or `Pipeline run event trigger is not enabled for this workspace`. The action cannot be edited or resumed until the workspace is back on the list.
+When an administrator removes a workspace from a trigger's allow-list, such as `TOWER_ACTIONS_BUCKET_TRIGGER_ALLOWED_WORKSPACES`, each active action of that type in the workspace pauses at its next event. The reason reads `Bucket event trigger is not enabled for this workspace`, `Schedule trigger is not enabled for this workspace`, or `Pipeline run event trigger is not enabled for this workspace`. You cannot edit or resume the action until the workspace is back on the list.
 
 The **Actions** list also shows who created each action under **Created by**.

@@ -22,7 +22,7 @@
 -
   Environment variable:            '`TOWER_CATALOG_LICMAN_TIMEOUT`'
   Description: >
-    Connect and read timeout for the live catalog request. When it is exceeded, Seqera Platform uses the cached copy or the embedded catalog instead.
+    Connect and read timeout for the live catalog request. If the request exceeds this timeout, Seqera Platform uses the cached copy or the embedded catalog instead.
   Value:                'Default: `5s`'
 -
   Environment variable:            '`TOWER_CATALOG_REFRESH_INTERVAL`'

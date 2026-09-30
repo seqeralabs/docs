@@ -243,7 +243,7 @@ The following permissions enable Seqera to populate values for drop-down fields.
 
 #### Data lineage (optional)
 
-If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials so they can create the notification topic and bucket notifications used by the lineage service:
+If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials so they can create the notification topic and bucket notifications that the lineage service uses:
 
 ```json
 {
@@ -277,7 +277,7 @@ If you enable [data lineage](../data/data-lineage) in your workspace, add the fo
 }
 ```
 
-These permissions cover **Automatic** provisioning. For **Manual** provisioning, Platform makes no control-plane calls other than confirming its own webhook subscription: see [Data lineage](../data/data-lineage#additional-iam-permissions-required) for the reduced permission set.
+These permissions cover **Automatic** provisioning. For **Manual** provisioning, Platform makes no control-plane calls other than confirming its own webhook subscription. See [Data lineage](../data/data-lineage#additional-iam-permissions-required) for the reduced permission set.
 
 ## Seqera Intelligent Compute
 

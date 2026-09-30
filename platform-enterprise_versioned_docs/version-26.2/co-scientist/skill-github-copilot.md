@@ -20,7 +20,7 @@ Install into the current repository:
 seqera skill install --path .github/skills/seqera
 ```
 
-Install for your user account, relative to your home directory: GitHub Copilot uses a different directory for global installs: `.copilot/skills/seqera` in your home directory.
+GitHub Copilot uses a different directory for global installs. Install for your user account into `.copilot/skills/seqera`, relative to your home directory:
 
 ```bash
 seqera skill install --global --path .copilot/skills/seqera
@@ -33,7 +33,7 @@ seqera skill install --detect
 ```
 
 :::note
-Without `--path`, `seqera skill install` installs the Claude Code layout (`.claude/skills/seqera`), at the repository root or, with `--global`, in your home directory. It does not prompt for a location. Run it inside a git repository unless you pass `--global` or an absolute `--path`. `--path` is a directory: the CLI creates it and writes `SKILL.md` and its supporting files inside it.
+Without `--path`, `seqera skill install` installs the Claude Code layout (`.claude/skills/seqera`), at the repository root or, with `--global`, in your home directory. It does not prompt for a location. Run it inside a git repository unless you pass `--global` or an absolute `--path`. `--path` is a directory. The CLI creates it and writes `SKILL.md` and its supporting files inside it.
 :::
 
 ### Usage

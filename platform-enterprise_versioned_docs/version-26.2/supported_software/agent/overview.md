@@ -69,7 +69,7 @@ You need the following:
 
 The agent authenticates to Seqera Platform with a personal access token (PAT) tied to your user account.
 
-1. Log in to Seqera Platform.
+1. Sign in to Seqera Platform.
 2. Open your user menu and select **Your tokens**.
 3. Select **Add token**, give it a descriptive name (for example, `hpc-agent-token`), and create it.
 4. Copy the token immediately. You cannot view it again after leaving the page.
@@ -207,7 +207,7 @@ tw-agent [OPTIONS] AGENT_CONNECTION_ID
 | Option | Default | Description |
 |---|---|---|
 | `-t`, `--access-token=<token>` | — | Seqera personal access token. Required unless `TOWER_ACCESS_TOKEN` is set. |
-| `-u`, `--url=<url>` | — | Seqera API endpoint URL. If not set, `TOWER_API_ENDPOINT` is used. |
+| `-u`, `--url=<url>` | — | Seqera API endpoint URL. If not set, the agent uses `TOWER_API_ENDPOINT`. |
 | `-w`, `--work-dir=<workDir>` | `~/work` | Path where pipeline scratch data is stored. You can change it when launching a pipeline. |
 | `-h`, `--help` | — | Show the help message and exit. |
 | `-V`, `--version` | — | Print version information and exit. |

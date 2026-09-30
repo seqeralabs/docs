@@ -16,7 +16,7 @@ This error occurs when your Redis instance is older than the version Seqera Plat
 
 #### `Unknown pipeline repository or missing credentials` from public GitHub repositories
 
-GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls, including public repositories: unauthenticated requests are capped at 60 per hour and authenticated requests at 5000 per hour. This error is usually caused by the 60-per-hour cap. For the same error on a private organization-owned repository, see [the following entry](#github-org-repo-access).
+GitHub imposes [rate limits](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#rate-limiting) on repository pulls, including public repositories. GitHub caps unauthenticated requests at 60 per hour and authenticated requests at 5000 per hour. The 60-per-hour cap usually causes this error. For the same error on a private organization-owned repository, see [the following entry](#github-org-repo-access).
 
 To resolve:
 
@@ -28,7 +28,7 @@ To resolve:
 
 #### `Unknown pipeline repository or expired Git credentials` from private organization-owned GitHub repositories {#github-org-repo-access}
 
-GitHub organizations can restrict token access independently of your own repository access, and GitHub returns `404` for private repositories that a token can't access. Seqera reports `401`, `403`, and `404` responses as this same error, even when the workspace credential works for user-owned repositories.
+GitHub organizations can restrict token access independently of your own repository access. GitHub returns `404` for private repositories that a token can't access. Seqera reports `401`, `403`, and `404` responses as this same error, even when the workspace credential works for user-owned repositories.
 
 Check the following:
 
@@ -72,7 +72,7 @@ This error occurs when you execute a DSL1-based Nextflow workflow with [Nextflow
 
 #### `"<parameter>" must be string` when launching a pipeline
 
-This error occurs when a parameter nested inside an object-typed schema group has a `null` value. Seqera Platform tolerates `null` and blank values for top-level parameters only, and the error message concatenates the group and parameter names. Omit optional nested parameters instead of setting them to `null`:
+This error occurs when a parameter nested inside an object-typed schema group has a `null` value. Seqera Platform tolerates `null` and blank values for top-level parameters only. The error message concatenates the group and parameter names. Omit optional nested parameters instead of setting them to `null`:
 
 ```yaml
 # Fails validation
@@ -85,7 +85,7 @@ alignment:
   aligner: bwa
 ```
 
-Nextflow resolves a missing key to `null` at runtime, and your pipeline logic behaves the same. For more information, see [Pipeline schema](../pipeline-schema/overview).
+Nextflow resolves a missing key to `null` at runtime. Your pipeline logic behaves the same. For more information, see [Pipeline schema](../pipeline-schema/overview).
 
 #### Sleep commands in Nextflow workflows
 
@@ -562,7 +562,7 @@ You can see the current log output. Detach again with **Ctrl-b**, then **d**, to
 
 #### Agent process stopped
 
-If `tmux ls` shows no sessions, or attaching reveals the agent has exited, restart it as in [Tower Agent setup](../supported_software/agent/overview#start-the-agent-inside-tmux). Common causes: login node reboot, the process killed for exceeding login-node resource limits, or a revoked access token.
+If `tmux ls` shows no sessions, or attaching reveals the agent has exited, restart it as in [Tower Agent setup](../supported_software/agent/overview#start-the-agent-inside-tmux). Common causes are a login node reboot, a process killed for exceeding login-node resource limits, or a revoked access token.
 
 #### Agent shows as disconnected in Seqera Platform
 
@@ -576,9 +576,9 @@ Before version 26.2, adding a pipeline to an agent-backed compute environment co
 ERROR: Timeout waiting for command response - Check Tower Agent is running and connected
 ```
 
-The failure was more likely for `file://` pipeline repositories, pipelines with several `includeConfig` statements, and concurrent adds. The agent answered every command, but Seqera Platform dropped some responses before they reached the request. The agent doesn't need investigating, and raising `tower.agent.execution-timeout` doesn't help.
+The failure was more likely for `file://` pipeline repositories, pipelines with several `includeConfig` statements, and concurrent adds. The agent answered every command, but Seqera Platform dropped some responses before they reached the request. You don't need to investigate the agent. Raising `tower.agent.execution-timeout` doesn't help.
 
-Version 26.2 fixes the issue. On earlier versions, retry the failed add. The failure isn't deterministic, so a retry usually succeeds.
+Version 26.2 fixes the issue. On earlier versions, retry the failed add. Because the failure isn't deterministic, a retry usually succeeds.
 
 #### _Authentication errors_ on agent startup
 
@@ -608,7 +608,7 @@ Trace logging shows WebSocket connection details, message exchanges, reconnectio
 
 #### Spot VM preemption causes task interruptions
 
-Spot VMs reduce cost but increase the likelihood that a task is interrupted before completion. When Google Cloud reclaims a Spot VM, Google Cloud Batch terminates the task with exit code `50001`. Add a retry strategy to your Nextflow configuration so interrupted tasks are automatically re-executed. See [Spot Instances](https://docs.seqera.io/nextflow/google#spot-instances) in the Nextflow documentation. For example:
+Spot VMs reduce cost but increase the likelihood that a task is interrupted before completion. When Google Cloud reclaims a Spot VM, Google Cloud Batch terminates the task with exit code `50001`. Add a retry strategy to your Nextflow configuration so that Nextflow automatically re-executes interrupted tasks. See [Spot Instances](https://docs.seqera.io/nextflow/google#spot-instances) in the Nextflow documentation. For example:
 
 ```groovy
 process {

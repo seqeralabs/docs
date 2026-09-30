@@ -8,7 +8,7 @@ tags: [service accounts, organizations, administration, automation]
 
 A Seqera service account is a non-human identity that agents and automation use to act in your organization. Create one when you want automated work attributed to the automation itself rather than to a person's account.
 
-Service accounts are managed at the organization level and belong to the organization, not to the user who created them. They have no password and cannot sign in. A sign-in attempt with a service account address is rejected.
+Service accounts are managed at the organization level and belong to the organization, not to the user who created them. They have no password and cannot sign in. Platform rejects a sign-in attempt with a service account address.
 
 :::info[**Prerequisites**]
 
@@ -43,18 +43,18 @@ Renaming a service account does not interrupt anything using it. Its identity is
 
 ## Delete a service account
 
-To stop a service account without deleting it, a root user can disable it: in the [Admin panel](../administration/overview#users) **Users** tab, select **Disable user** next to the service account, then **Confirm**. Its requests are then refused, and agents bound to it fail when they run, until a root user selects **Enable user**.
+To stop a service account without deleting it, a root user can disable it. In the [Admin panel](../administration/overview#users) **Users** tab, select **Disable user** next to the service account, then **Confirm**. Platform then refuses its requests, and agents bound to it fail when they run, until a root user selects **Enable user**.
 
 1. From the **Service accounts** tab, select the service account.
 1. Select **Delete**.
 1. Review the workspaces listed under **Workspace access** in the confirmation dialog. Anything that relies on this service account stops working as soon as you confirm.
 1. Confirm the deletion.
 
-Deletion is not recoverable. Audit records of its past actions are retained and keep naming it.
+You cannot recover a deleted service account. Audit records of its past actions remain and still name it.
 
 ## Where service accounts appear
 
-Service accounts are **not** shown in the organization **Members** list, which lists people only. They appear:
+The organization **Members** list does **not** show service accounts. It lists people only. Service accounts appear:
 
 - In the **Service accounts** tab, where you manage them.
 - In the participant list of every workspace they are assigned to, marked with a **service account** badge.

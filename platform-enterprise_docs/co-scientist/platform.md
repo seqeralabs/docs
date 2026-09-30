@@ -12,7 +12,7 @@ You will need the following to get started:
 
 - Co-Scientist deployed for your Seqera Platform Enterprise installation. See [Install Co-Scientist](../enterprise/install-seqera-coscientist.mdx).
 - An organization workspace. The panel is not available in personal workspaces.
-- A workspace role that includes the `chat:execute` permission. The predefined Owner, Admin, Maintain, Launch, Connect, and Project roles include it; the View role does not. Custom roles must be granted it explicitly. See [Custom roles](../orgs-and-teams/custom-roles.md#ai).
+- A workspace role that includes the `chat:execute` permission. The predefined Owner, Admin, Maintain, Launch, Connect, and Project roles include it. The View role does not. Grant it to custom roles explicitly. See [Custom roles](../orgs-and-teams/custom-roles.md#ai).
 
 :::
 
@@ -48,7 +48,7 @@ The screenshot captures the main content area of the page. It excludes the navig
 The current page's screenshot appears as a chip above the message box. Select the chip to preview it. Remove the chip before sending if you do not want the screenshot attached to that message.
 
 :::note
-Page context and screenshots are sent to the agent backend and to the inference provider your administrator configured for Co-Scientist.
+Co-Scientist sends page context and screenshots to the agent backend and to the inference provider your administrator configured for Co-Scientist.
 :::
 
 ## Reference resources with `@`
@@ -59,7 +59,7 @@ Type `@` in the message box to reference a Platform resource by name and attach 
 
 Each conversation is a separate thread. Open the conversation history to search past conversations by title and return to earlier work. The history separates your own chats from agent sessions.
 
-When you delete a conversation from the history, it is removed from your account.
+Deleting a conversation from the history removes it from your account.
 
 Seqera Platform keeps Co-Scientist conversations for 180 days by default. See [Sessions](./sessions.md#session-retention-and-limits).
 
@@ -67,7 +67,7 @@ Seqera Platform keeps Co-Scientist conversations for 180 days by default. See [S
 
 A request keeps running after you close the panel, navigate away, or switch workspaces. Reopen the conversation to see the result. A response still in progress resumes streaming when you reopen it.
 
-Conversations started by background agents are owned by the workspace and are read-only in the panel. To continue one, fork it into your own conversation.
+The workspace owns conversations that background agents start, and they are read-only in the panel. To continue one, fork it into your own conversation.
 
 ## Work with GitHub repositories
 

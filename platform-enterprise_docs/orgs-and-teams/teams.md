@@ -85,7 +85,7 @@ To convert a delegated team back to manual management:
 2. Clear the **IdP Group** field.
 3. Select **Update** to save.
 
-Existing members are kept. The **Add member** and **Remove member** controls become available again, and the team can be deleted as normal.
+The team keeps its existing members. The **Add member** and **Remove member** controls become available again, and you can delete the team as normal.
 
 ## Workspace and role assignment
 

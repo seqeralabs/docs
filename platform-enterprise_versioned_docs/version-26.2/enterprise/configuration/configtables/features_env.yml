@@ -43,7 +43,7 @@
 -
   Environment variable:            '`TOWER_ACTIONS_BUCKET_TRIGGER_ALLOWED_WORKSPACES`'
   Description: >
-    Restrict [bucket event actions](../../pipeline-actions/overview#bucket-events) to the workspaces specified. Accepts a comma-separated list of workspace IDs. Omit it, or set it empty (`TOWER_ACTIONS_BUCKET_TRIGGER_ALLOWED_WORKSPACES=`), to make bucket event actions available in every workspace. To disable them everywhere, set it to `0`: workspace IDs are positive, so no workspace matches.
+    Restrict [bucket event actions](../../pipeline-actions/overview#bucket-events) to the workspaces specified. Accepts a comma-separated list of workspace IDs. Omit it, or set it empty (`TOWER_ACTIONS_BUCKET_TRIGGER_ALLOWED_WORKSPACES=`), to make bucket event actions available in every workspace. To disable them everywhere, set it to `0`. Because workspace IDs are positive, no workspace matches.
   Value:                'Default: Available in all workspaces'
 -
   Environment variable:            '`TOWER_ACTIONS_CRON_TRIGGER_ALLOWED_WORKSPACES`'
@@ -53,17 +53,17 @@
 -
   Environment variable:            '`TOWER_ACTIONS_PIPELINE_TRIGGER_ALLOWED_WORKSPACES`'
   Description: >
-    Restrict [pipeline run event actions](../../pipeline-actions/overview#pipeline-run-events) to the workspaces specified. A pipeline run event action launches a pipeline when a run of a Launchpad pipeline reaches a terminal state, which is how one pipeline is chained to another. Accepts a comma-separated list of workspace IDs. Omit it, or set it empty (`TOWER_ACTIONS_PIPELINE_TRIGGER_ALLOWED_WORKSPACES=`), to make pipeline run event actions available in every workspace. To disable them everywhere, set it to `0`.
+    Restrict [pipeline run event actions](../../pipeline-actions/overview#pipeline-run-events) to the workspaces specified. A pipeline run event action launches a pipeline when a run of a Launchpad pipeline reaches a terminal state. Use it to chain one pipeline to another. Accepts a comma-separated list of workspace IDs. Omit it, or set it empty (`TOWER_ACTIONS_PIPELINE_TRIGGER_ALLOWED_WORKSPACES=`), to make pipeline run event actions available in every workspace. To disable them everywhere, set it to `0`.
   Value:                'Default: Available in all workspaces'
 -
   Environment variable:            '`TOWER_AGENT_CONFIGURATION_ALLOWED_ORGANIZATIONS`'
   Description: >
-    Restrict AI agents to the organizations specified, including the option for a bucket event, scheduled, or pipeline run event action to [target an agent](../../pipeline-actions/overview#agent-targets) instead of launching a pipeline. Accepts a comma-separated list of organization IDs. Omit it, or set it empty, to enable agents in every organization once `TOWER_AGENT_BACKEND_URL` is set. Note that this variable is organization-scoped, not workspace-scoped.
+    Restrict AI agents to the organizations specified, including the option for a bucket event, scheduled, or pipeline run event action to [target an agent](../../pipeline-actions/overview#agent-targets) instead of launching a pipeline. Accepts a comma-separated list of organization IDs. Omit it, or set it empty, to enable agents in every organization once `TOWER_AGENT_BACKEND_URL` is set. This variable is organization-scoped, not workspace-scoped.
   Value:                'Default: Enabled for all organizations'
 -
   Environment variable:            '`TOWER_ACTIONS_TRIGGER_RATE_MAX_PER_WINDOW`'
   Description: >
-    How many times an action may fire within `TOWER_ACTIONS_TRIGGER_RATE_WINDOW` before Seqera Platform pauses it. The trigger that reaches the limit is recorded as suppressed, and the action keeps its configuration until someone resumes it. Raise it to let an action fire more often; lower it to cap the cost of a runaway action sooner.
+    How many times an action may fire within `TOWER_ACTIONS_TRIGGER_RATE_WINDOW` before Seqera Platform pauses it. Seqera Platform records the trigger that reaches the limit as suppressed. The action keeps its configuration until someone resumes it. Raise it to let an action fire more often. Lower it to cap the cost of a runaway action sooner.
   Value:                'Default: `20`'
 -
   Environment variable:            '`TOWER_ACTIONS_TRIGGER_RATE_WINDOW`'
@@ -73,5 +73,5 @@
 -
   Environment variable:            '`TOWER_ACTION_CYCLE_MAX_CHAIN_DEPTH`'
   Description: >
-    How many steps back Seqera Platform traces a run's chain of action triggers before it refuses the event. A chain longer than this is suppressed whether or not it closes a [loop](../../pipeline-actions/overview#loops). Raise it for deliberately long automation chains. Each extra step is one more database read per finished run. Values below `1` or above `50` log a warning at startup, and a value that is not a whole number prevents backend startup.
+    How many steps back Seqera Platform traces a run's chain of action triggers before it refuses the event. Seqera Platform suppresses a chain longer than this whether or not it closes a [loop](../../pipeline-actions/overview#loops). Raise it for deliberately long automation chains. Each extra step is one more database read per finished run. Values below `1` or above `50` log a warning at startup, and a value that is not a whole number prevents backend startup.
   Value:                'Default: `20`'

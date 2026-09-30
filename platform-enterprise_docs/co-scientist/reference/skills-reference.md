@@ -36,7 +36,7 @@ The second kind, AI commands, are backed by skills and sent to the AI backend. T
 
 ## Built-in skills
 
-Co-Scientist includes a set of built-in skills. Invoke a skill directly with its slash command, or describe your task and Co-Scientist loads the matching skill.
+Co-Scientist includes built-in skills. Invoke a skill directly with its slash command, or describe your task and Co-Scientist loads the matching skill.
 
 :::note
 Built-in skills change from release to release. Treat this page as a guide rather than an inventory. Type `/` or run `/help` in your session to see the current list for your deployment.

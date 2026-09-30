@@ -616,7 +616,7 @@ The listing of secrets cannot be restricted, but the management actions can be r
 }
 ```
 
-If you specify a customer-managed KMS key (CMK) in the **Pipeline secrets KMS key** field under **Advanced options**, or as the `TOWER_AWS_SECRETS_KMS_KEY_ID` installation default, the compute environment credentials also require `kms:GenerateDataKey` and `kms:Decrypt` on that key. Grant these actions either by naming the compute environment principal in the key policy, or in the principal's own IAM policy if the key policy delegates to IAM. The default key policy created by `aws kms create-key` delegates to IAM.
+You can specify a customer-managed KMS key (CMK) in the **Pipeline secrets KMS key** field under **Advanced options**, or as the `TOWER_AWS_SECRETS_KMS_KEY_ID` installation default. If you do, the compute environment credentials also require `kms:GenerateDataKey` and `kms:Decrypt` on that key. Grant these actions either by naming the compute environment principal in the key policy, or in the principal's own IAM policy if the key policy delegates to IAM. The default key policy created by `aws kms create-key` delegates to IAM.
 
 ```json
 {
@@ -636,7 +636,7 @@ To successfully use pipeline secrets, the IAM roles manually created must follow
 
 ### Data lineage (optional)
 
-If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials so they can create the notification topic and bucket notifications used by the lineage service:
+If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials so they can create the notification topic and bucket notifications that the lineage service uses:
 
 ```json
 {
@@ -670,7 +670,7 @@ If you enable [data lineage](../data/data-lineage) in your workspace, add the fo
 }
 ```
 
-These permissions cover **Automatic** provisioning. For **Manual** provisioning, Platform makes no control-plane calls other than confirming its own webhook subscription: see [Data lineage](../data/data-lineage#additional-iam-permissions-required) for the reduced permission set.
+These permissions cover **Automatic** provisioning. For **Manual** provisioning, Platform makes no control-plane calls other than confirming its own webhook subscription. See [Data lineage](../data/data-lineage#additional-iam-permissions-required) for the reduced permission set.
 
 ## Create the IAM policy
 
@@ -919,7 +919,7 @@ Depending on the provided configuration in the UI, Seqera might also create IAM 
     :::note
     You can create a compute environment that launches either Spot or On-Demand instances. Spot instances can cost as little as 20% of On-Demand instances, and with Nextflow's ability to automatically relaunch failed tasks, Spot is almost always the recommended provisioning model. Note, however, that when choosing Spot instances, Seqera will also create a dedicated queue for running the main Nextflow job using a single On-Demand instance to prevent any execution interruptions.
 
-    From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (returning for example, `exit code 1` on AWS). Nextflow will treat these failures like any other job failure unless you actively configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow#spot-instance-failures-and-retries).
+    From Nextflow version 24.10, the default Spot reclamation retry setting changed to `0` on AWS and Google. By default, no internal retries are attempted on these platforms. Spot reclamations now lead to an immediate failure, exposed to Nextflow in the same way as other generic failures (for example, returning `exit code 1` on AWS). Nextflow treats these failures like any other job failure unless you configure a retry strategy. For more information, see [Spot instance failures and retries](../troubleshooting_and_faqs/nextflow#spot-instance-failures-and-retries).
     :::
 1. Enter the **Max CPUs**, e.g., `64`. This is the maximum number of combined CPUs (the sum of all instances' CPUs) AWS Batch will provision at any time.
 1. Select **EBS Auto scale (deprecated)** to allow the EC2 virtual machines to dynamically expand the amount of available disk space during task execution. This feature is deprecated, and is not compatible with Fusion v2.

@@ -2,15 +2,15 @@
 -
   Environment variable:            '`TOWER_TELEMETRY_STANDARD_ENABLED`'
   Description: >
-    Report entity-level telemetry to the Seqera License Manager: one record per workflow run, Studios session, Studios audit event, day of Data Explorer activity, and workspace. When enabled, the aggregate counters controlled by `TOWER_TELEMETRY_BASIC_ENABLED` are not sent, because they can be derived from the records. Set it to `false` to report the aggregate counters only. User IDs, repository names, Studios template and image references, and workspace names are hashed before they leave the installation.
+    Report entity-level telemetry to the Seqera License Manager: one record per workflow run, Studios session, Studios audit event, day of Data Explorer activity, and workspace. When enabled, Seqera Platform does not send the aggregate counters controlled by `TOWER_TELEMETRY_BASIC_ENABLED`, because they can be derived from the records. Set it to `false` to report the aggregate counters only. Seqera Platform hashes user IDs, repository names, Studios template and image references, and workspace names before they leave the installation.
   Value:                'Default: `true`'
 -
   Environment variable:            '`TOWER_TELEMETRY_BASIC_ENABLED`'
   Description: >
-    Report the aggregate usage counters that Seqera Platform sent before entity-level telemetry. Only applies when `TOWER_TELEMETRY_STANDARD_ENABLED` is `false`. About half of these counters carry a row per user, such as sign-ins, launches, resource consumption, and Studios and Data Explorer activity. User IDs and organization and workspace names in them are hashed. Set both variables to `false` to opt out of telemetry: no telemetry query runs and no telemetry data leaves the installation, but the installation still reports that it has opted out. Licensing and quota retrieval are unaffected.
+    Report the aggregate usage counters that Seqera Platform sent before entity-level telemetry. Only applies when `TOWER_TELEMETRY_STANDARD_ENABLED` is `false`. About half of these counters carry a row per user, such as sign-ins, launches, resource consumption, and Studios and Data Explorer activity. Seqera Platform hashes the user IDs and organization and workspace names in them. Set both variables to `false` to opt out of telemetry. No telemetry query runs and no telemetry data leaves the installation, but the installation still reports that it has opted out. Licensing and quota retrieval are unaffected.
   Value:                'Default: `true`'
 -
   Environment variable:            '`TOWER_TELEMETRY_WINDOW_DAYS`'
   Description: >
-    Number of complete UTC days of entity-level telemetry sent on each run, ending with the previous day. The whole window is sent every run, so a run that fails to reach the License Manager is recovered by a later one. Raising it increases the payload size. Lower it if collecting the window puts too much load on the database.
+    Number of complete UTC days of entity-level telemetry sent on each run, ending with the previous day. Because Seqera Platform sends the whole window on every run, a later run recovers the data of any run that fails to reach the License Manager. Raising it increases the payload size. Lower it if collecting the window puts too much load on the database.
   Value:                'Default: `7`'

@@ -2,7 +2,7 @@
 -
   Environment variable:            '`TOWER_WORKSPACE_ORPHAN_CLEANUP_ENABLED`'
   Description: >
-    Enable the two cleanup cron jobs that soft-delete credentials and compute environments whose workspace has been deleted. Removal uses the same path as a user-initiated deletion, and writes one audit log entry per removed item. Previous versions did not remove these items when a workspace was deleted, so a large backlog may exist. Consider lowering the batch size and concurrency for the first runs.
+    Enable the two cleanup cron jobs that soft-delete credentials and compute environments whose workspace has been deleted. Removal uses the same path as a user-initiated deletion, and writes one audit log entry per removed item. Because previous versions did not remove these items when a workspace was deleted, a large backlog may exist. Consider lowering the batch size and concurrency for the first runs.
   Value:                'Default: `false`'
 -
   Environment variable:            '`TOWER_CRON_CREDENTIALS_ORPHAN_CLEANUP_TICK_RATE`'

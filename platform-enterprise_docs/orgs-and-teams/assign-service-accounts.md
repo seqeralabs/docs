@@ -43,13 +43,13 @@ The change applies as soon as you select the new role. The permission check in [
 
 ## Role limits
 
-You cannot grant a service account a role carrying permissions you do not hold yourself. This check runs on every workspace role assignment to a service account, and it runs once, at the moment you assign the role. It is not re-evaluated later if your own permissions change.
+You cannot grant a service account a role carrying permissions you do not hold yourself. This check runs on every workspace role assignment to a service account, and it runs once, at the moment you assign the role. Platform does not re-evaluate it later if your own permissions change.
 
-To run an agent, a service account needs the `agent:execute` permission in the workspace. Every built-in role except **Connect** and **View** includes it. Binding a service account without it is rejected.
+To run an agent, a service account needs the `agent:execute` permission in the workspace. Every built-in role except **Connect** and **View** includes it. Platform rejects binding a service account that lacks it.
 
-Both built-in roles and [custom roles](./custom-roles) can be assigned to a service account.
+You can assign both built-in roles and [custom roles](./custom-roles) to a service account.
 
-Service accounts take workspace roles directly. Adding one to a team is rejected. A service account therefore never inherits access the way a person in a team does.
+Service accounts take workspace roles directly. Platform rejects adding one to a team. A service account therefore never inherits access the way a person in a team does.
 
 ## Remove workspace access
 
@@ -61,5 +61,5 @@ Service accounts take workspace roles directly. Adding one to a team is rejected
 The service account immediately loses its role in that workspace and can no longer act there. It remains in the organization, and its access to other workspaces is unaffected. You can re-add it to this workspace later, because removing it deletes its participation rather than the account.
 
 :::caution
-Removing workspace access withdraws the service account's authorization in that workspace. Its requests there start failing. Work already running is not cancelled. That work continues, failing as it goes, until it finishes or is stopped where it runs.
+Removing workspace access withdraws the service account's authorization in that workspace. Its requests there start failing. Removing access does not cancel work that is already running. That work continues, failing as it goes, until it finishes or you stop it where it runs.
 :::

@@ -13,7 +13,7 @@ Select the **Studios** tab in Platform to:
 - Open a detailed view that displays configuration information.
 
 :::note
-- If you're not able to see the Studios tab, contact your Platform administrator.
+- If you can't see the **Studios** tab, contact your Platform administrator.
 - Review the user roles documentation for details about role permissions.
 :::
 
@@ -80,7 +80,7 @@ The **Search studios** bar filters by one or more `<keyword>:<value>` entries:
 - `status`: Search Studios with a specific status.
 - `username`: Search Studios created by a specific user.
 - `computeEnvName`: Search Studios in a specific compute environment.
-- `is:starred`: Search Studios that have been starred by the user.
+- `is:starred`: Search Studios that you starred.
 - `collaborationMode`: Search `private` or `shared` Studios.
 - `computeEnvType`: Search Studios in a specific type of compute environment.
 - `label`: Search Studios with a specific label. Repeat the keyword to match more than one label.
@@ -89,9 +89,9 @@ The **Search studios** bar filters by one or more `<keyword>:<value>` entries:
 
 The field suggests valid keywords as you type.
 
-Platform remembers your last search when you navigate away from the Studios list and back. The search is saved in your browser for your user account, so it applies in every workspace you open in that browser, and a different browser or device starts with no saved search.
+Platform remembers your last search when you navigate away from the Studios list and back. The search is saved in your browser for your user account. It applies in every workspace you open in that browser. A different browser or device starts with no saved search.
 
-Search covers all Studios in a workspace. Enter a query in the Search studios field. Platform identifies each valid `keyword:value` substring, combines the remaining text into a single freeform string, and filters Studios using all of these criteria.
+Search covers all Studios in a workspace. Enter a query in the **Search studios** field. Platform identifies each valid `keyword:value` substring, combines the remaining text into a single freeform string, and filters Studios using all of these criteria.
 
 ## Connect to a Studio
 
@@ -113,7 +113,7 @@ To share a link to a running session with collaborators inside your workspace, s
 
 Seqera-managed container templates offer varying levels of multi-user collaboration:
 
-- **JupyterLab:** Supports multi-user collaboration via the `jupyter-collaboration` package. Each connected user has a randomly assigned color-coded avatar and the user cursor inherits the same color for easily differentiating multiple connected users.
+- **JupyterLab:** Supports multi-user collaboration through the `jupyter-collaboration` package. Each connected user has a randomly assigned color-coded avatar. The user's cursor inherits the same color, to distinguish multiple connected users.
 - **VS Code:** Supports multi-user collaboration by default, but each connected user is not readily distinguishable. For a more fully-featured collaborative experience, install the [Microsoft Live Share extension][liveshare] or [P2P Live Share][p2p-liveshare].
 - **R-IDE:** By default, multi-user collaboration is not supported. When an additional user connects to the running session, the previously connected user is notified and forcibly disconnected.
 - **Xpra:** Supports multi-user collaboration by default and is similar to a remote desktop experience. Connected users are not readily distinguishable.
@@ -260,7 +260,7 @@ Sessions have the following possible statuses:
 - **build-failed**:  When a custom environment build has failed. This is a non-recoverable error. Logs are provided to assist with troubleshooting. For more information on this status, see [Inspect custom container template build status][build-status].
 - **starting**: The Studio is initializing.
 - **running**: When a session is **running**, you can connect to it, copy the URL, or stop it. In addition, the session can continue to process requests/run computations in the absence of an ongoing connection.
-- **stopping**: The recently-running session is in the process of being stopped. If a session stays in this status for more than 10 minutes, the **Force stop** action becomes available.
+- **stopping**: The recently running session is stopping. If a session stays in this status for more than 10 minutes, the **Force stop** action becomes available.
 - **stopped**: When a session is stopped, the associated compute resources are deallocated. You can start or delete the session when it's in this state.
 - **errored**: This state most often indicates that there has been an error starting the session but it is in a **stopped** state.
 
@@ -415,7 +415,7 @@ For more information, see [Limit Studio access to a specific cloud bucket subdir
 
 ## Studio session logs
 
-The **Logs** tab on the Studio details page shows the process log for the most recent session. Platform reads the log from the compute environment's log stream, so the log is available while the session is starting and running, and after it stops or crashes. The tab loads more of the log as you scroll down.
+The **Logs** tab on the Studio details page shows the process log for the most recent session. Platform reads the log from the compute environment's log stream. The log is available while the session is starting and running, and after it stops or crashes. The tab loads more of the log as you scroll down.
 
 The tab covers only the most recent session, not earlier start and stop cycles. How far back the log goes depends on the compute provider and its log retention settings. If no log is available, the tab shows **No data available**. For a stopped or errored Studio, the logs saved with a checkpoint are in the checkpoint's storage folder. See [Studio session checkpoints](#studio-session-checkpoints).
 
@@ -431,16 +431,16 @@ Checkpoints vary in size depending on libraries installed in your session enviro
 
 ### Object storage versioning and checkpoint storage costs
 
-If your compute environment work directory uses an object storage bucket with **versioning enabled**, checkpoint writes create a new object version every five minutes rather than overwriting the previous one. For an active Studio session, this produces up to 96 new object versions per day per session. Over time, these non-current versions accumulate and can significantly increase storage costs.
+If your compute environment work directory uses an object storage bucket with **versioning enabled**, checkpoint writes create a new object version every five minutes rather than overwriting the previous one. For an active Studio session, this produces up to 96 new object versions per day per session. Over time, these non-current versions accumulate and can increase storage costs.
 
 :::warning
-Only the latest version of each checkpoint file is read by Platform. However, non-current object versions are not automatically removed and will continue to accrue storage costs until explicitly deleted or expired.
+Platform reads only the latest version of each checkpoint file. However, non-current object versions are not removed automatically. They continue to accrue storage costs until they are deleted or expire.
 :::
 
 **Recommended mitigation:** Apply a lifecycle policy to expire non-current object versions on the `.studios/checkpoints/` prefix. A one-day expiry retains the current version while removing intermediate five-minute writes. You can also delete existing accumulated non-current versions manually using your cloud provider's console or CLI.
 
 :::note
-Non-current object versions (intermediate checkpoint writes) are safe to delete. Do **not** delete the current (latest) version of any checkpoint file or the checkpoint directory itself — doing so will corrupt the Studio session and it cannot be recovered.
+Non-current object versions (intermediate checkpoint writes) are safe to delete. Do **not** delete the current (latest) version of any checkpoint file or the checkpoint directory itself. Doing so corrupts the Studio session, and it cannot be recovered.
 :::
 
 When you stop and start a session, or start a new session from a previously created checkpoint, changes such as installed software packages and configuration files are restored and made available. Changes made to mounted data are not included in a checkpoint.

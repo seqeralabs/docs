@@ -51,7 +51,7 @@ This check runs when you create a compute environment, and when you update one t
 
 This check does not apply to compute environments that use a managed identity, because no credential is attached.
 
-On update, Platform checks only the newly selected credential. Other edits, such as a name or description change, are not blocked. To restore a compute environment whose credential has failed, replace the `INVALID` or deleted credential with a working one.
+On update, Platform checks only the newly selected credential. Platform does not block other edits, such as a name or description change. To restore a compute environment whose credential has failed, replace the `INVALID` or deleted credential with a working one.
 
 :::note
 This is the only check that reads credential status when `TOWER_PREFLIGHT_CHECK_ENABLED` is `false`. In that state, Platform rejects a new compute environment that uses an `INVALID` credential, but does not block launches against a compute environment that already uses one.
@@ -71,7 +71,7 @@ A transient probe failure, such as a network interruption or provider throttling
 
 This check runs on a recurring schedule. Platform reads the status of the associated credential. If the credential is `INVALID`, Platform marks the compute environment `INVALID` immediately.
 
-An `INVALID` compute environment displays a banner with the error message. An `AVAILABLE` compute environment has its `lastValidated` timestamp refreshed.
+An `INVALID` compute environment displays a banner with the error message. For an `AVAILABLE` compute environment, Platform refreshes the `lastValidated` timestamp.
 
 :::note
 This check covers AWS Batch, AWS Cloud, Azure Batch, Azure Cloud, Google Cloud Batch, and Google Cloud compute environments.
@@ -127,7 +127,7 @@ The defaults work for most deployments. Adjust these settings only if you have s
 | `TOWER_CRON_CREDENTIALS_VALIDATION_CONCURRENCY` | `tower.cron.credentials-validation.concurrency` | Global cap on concurrent cloud probes across all evaluator pumps. Lower it when many credentials in one workspace share a single cloud account, to avoid provider rate limits such as AWS STS `TooManyRequests`. | `10` |
 | `TOWER_CRON_CREDENTIALS_VALIDATION_PROBE_DELAY` | `tower.cron.credentials-validation.probe-delay` | Optional pause between probes within a single pump. Set a non-zero value, for example `200ms`, when many credentials share a cloud account and a cold-start burst would exceed provider rate limits. | `0ms` (no pacing) |
 | `TOWER_CRON_CREDENTIALS_VALIDATION_TRANSIENT_RETRY_INTERVAL` | `tower.cron.credentials-validation.transient-retry-interval` | Cadence for re-enqueuing a credential after a transient probe failure, such as a network interruption, a provider 5xx, or an unexpected SDK exception. Without it, Platform skips a failed credential until the next process restart. | `5m` |
-| `TOWER_CRON_CREDENTIALS_VALIDATION_TRANSIENT_RETRY_MAX_INTERVAL` | `tower.cron.credentials-validation.transient-retry-max-interval` | Ceiling on the transient retry delay. The delay doubles after each consecutive transient failure, starting from `TOWER_CRON_CREDENTIALS_VALIDATION_TRANSIENT_RETRY_INTERVAL` (5m, 10m, 20m, 40m, up to this ceiling), so Platform probes a persistently failing credential less often over time. Must be greater than or equal to the transient retry interval, or the process fails at startup. | `24h` |
+| `TOWER_CRON_CREDENTIALS_VALIDATION_TRANSIENT_RETRY_MAX_INTERVAL` | `tower.cron.credentials-validation.transient-retry-max-interval` | Ceiling on the transient retry delay. The delay doubles after each consecutive transient failure, starting from `TOWER_CRON_CREDENTIALS_VALIDATION_TRANSIENT_RETRY_INTERVAL` (5m, 10m, 20m, 40m, up to this ceiling). As a result, Platform probes a persistently failing credential less often over time. Must be greater than or equal to the transient retry interval, or the process fails at startup. | `24h` |
 | `TOWER_CRON_CREDENTIALS_VALIDATION_UNVERIFIABLE_MAX_ATTEMPTS` | `tower.cron.credentials-validation.unverifiable-max-attempts` | Number of consecutive unverifiable probe failures before Platform marks the credential `INVALID`. Only a DNS resolution failure on a hostname derived from the credential itself counts as unverifiable. This applies to Azure storage and Batch account hostnames. Platform never escalates fixed provider endpoints, such as `sts.amazonaws.com`. Must be `1` or greater, or the process fails at startup. To disable escalation and keep backoff only, set a very high value and also lower `TOWER_CRON_CREDENTIALS_VALIDATION_TRANSIENT_RETRY_MAX_INTERVAL`, for example to `21h`. With the default `24h` ceiling, values above `10` fail the startup check described later. | `10` (about 1.8 days) |
 
 The consecutive-failure counters behind these two settings expire 24 hours after the last failed probe. At startup, Platform verifies that the configured combination cannot delay the final escalation attempt past that window. If it can, the process fails to start with an error that names both settings. Lower one of the two values to resolve it.

@@ -55,6 +55,6 @@ The launch form rejects run parameters and Nextflow configuration that exceed th
 | Run parameters         | `tower.launch.params.maxSize` | 20 KB         |
 | Nextflow configuration | `tower.launch.config.maxSize` | 50 KB         |
 
-Platform reports both limits through the `serviceInfo` API endpoint, so the launch form and the CLI apply the same values your installation is configured with.
+Platform reports both limits through the `serviceInfo` API endpoint. As a result, the launch form and the CLI apply the same values your installation is configured with.
 
 If you need higher limits, [contact us](https://seqera.io/contact-us/) to discuss your requirements.

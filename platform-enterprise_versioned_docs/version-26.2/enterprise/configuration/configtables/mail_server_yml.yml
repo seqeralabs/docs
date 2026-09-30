@@ -44,5 +44,5 @@
 -
   tower.yml:            '`mail.debug`'
   Description: >
-    Enable verbose SMTP session logging to troubleshoot mail delivery. When enabled, the full SMTP protocol exchange (connection, STARTTLS negotiation, authentication, and message transfer) is written to the application logs. Leave disabled during normal operation. This option can only be set in `tower.yml`.
+    Enable verbose SMTP session logging to troubleshoot mail delivery. When enabled, Seqera Platform writes the full SMTP protocol exchange (connection, STARTTLS negotiation, authentication, and message transfer) to the application logs. Leave disabled during normal operation. You can set this option only in `tower.yml`.
   Value:                'Default: `false`'
