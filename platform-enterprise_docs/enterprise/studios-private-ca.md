@@ -3,7 +3,7 @@ title: "Configure a private certificate authority for Studios"
 description: Allow Studio sessions in a private network to trust certificates issued by your organization's internal certificate authority in Seqera Platform Enterprise.
 date created: "2026-08-18"
 last updated: "2026-08-27"
-tags: [studios, connect, tls, certificates, enterprise, administration]
+tags: [studios, connect, tls, certificate, enterprise, administration]
 ---
 
 Studio sessions open outbound TLS connections to the Connect proxy and to Seqera Platform. In a private network, those endpoints often present certificates issued by an internal certificate authority (CA) rather than a publicly-trusted one. By default a Studio session trusts only the public CAs in its container image's system trust store, so the session fails to establish its tunnel and never reaches **running** status.
