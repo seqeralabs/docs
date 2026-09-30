@@ -62,7 +62,7 @@ Intelligent Compute requires **two IAM policies** attached to the same IAM user 
 |-------|---------|
 | `ECSScopedOperations` | Create, delete, describe, and tag ECS clusters, capacity providers, and tasks, and drain a faulty container instance so it stops receiving tasks. Scoped to `seqera-sched-*` resources. |
 | `ECSUnscopedOperations` | Register, deregister, list, and describe ECS task definitions. ECS task definition APIs do not support resource-level permissions. |
-| `IAMRoleManagement` | Create, update, and delete IAM roles and instance profiles scoped to `seqera-sched-*`. Seqera creates four role types on first use: execution role, infrastructure role, instance role, and per-cluster task role. The instance role is per cluster on ECS, and one per compute environment and bucket set with the `EC2` backend strategy. |
+| `IAMRoleManagement` | Create, update, and delete IAM roles and instance profiles scoped to `seqera-sched-*`. On first use, Seqera creates an execution role, an infrastructure role, an instance role, and a per-cluster task role. With ECS, each cluster gets its own instance role. With the `EC2` backend strategy, each compute environment and bucket set gets one. |
 | `PassRoleToECS` | Pass `seqera-sched-*` and `TowerForge-*` roles to ECS, ECS tasks, and EC2. Required to attach roles to ECS infrastructure and task definitions. |
 | `ServiceLinkedRoles` | Create service-linked roles for ECS, autoscaling, and Spot. Required only if these roles do not already exist in your account. |
 | `CloudWatchLogs` | Create and manage log groups under `/seqera` (for example, `/seqera/platform`), and read log events. Task stdout and stderr are written to CloudWatch. |
@@ -115,7 +115,7 @@ Seqera validates credentials and configuration on save. On first use, it provisi
 
 ## S3 bucket access
 
-Intelligent Compute mints an IAM role in your AWS account and attaches it to the ECS tasks and EC2 instances that run your pipeline: one role per cluster with ECS, and one per compute environment and bucket set with the `EC2` backend strategy. The role's S3 permissions are derived from the compute environment's **Allow buckets** list:
+Intelligent Compute mints an IAM role in your AWS account and attaches it to the ECS tasks and EC2 instances that run your pipeline. With ECS, each cluster gets its own role. With the `EC2` backend strategy, each compute environment and bucket set gets one role. The role's S3 permissions are derived from the compute environment's **Allow buckets** list:
 
 - **Empty list** (default): the role grants S3 access account-wide (`"Resource": "*"`). Every bucket in the account is reachable.
 - **Populated list**: the role grants access to the listed buckets only, plus the compute environment work directory and the work directory of the run being launched, which are added automatically.
@@ -190,7 +190,7 @@ The policy above delegates the decision to your account's IAM. If the bucket own
 }
 ```
 
-Role names vary, but their prefixes are stable. ECS-backed clusters each get their own roles. With the `EC2` backend strategy, each compute environment and bucket set gets one instance role, shared by its clusters; Seqera may remove it after 30 days without use and recreates it under the same name on the next run.
+Role names vary, but their prefixes are stable. With the `EC2` backend strategy, all clusters of a compute environment and bucket set share one instance role. Seqera can remove the role after 30 days without use, and recreates it under the same name on the next run.
 
 | Role | Name pattern | Used by |
 |------|--------------|---------|
@@ -199,7 +199,7 @@ Role names vary, but their prefixes are stable. ECS-backed clusters each get the
 | EC2 instance role | `seqera-sched-vm-instance-*` | EC2 hosts when **Backend strategy** is `EC2` |
 
 :::note
-Match these roles with a pattern, as in the condition above, rather than naming a role's exact ARN in `Principal`. AWS binds a policy that names an exact role ARN to that role's internal ID, so the policy stops matching once the role is recreated. If your bucket policy lists `seqera-sched-vm-instance-clu-*`, widen it to `seqera-sched-vm-instance-*`.
+Match these roles with a pattern, as the condition above does, instead of naming a role's exact ARN in `Principal`. AWS binds a policy that names an exact role ARN to that role's internal ID. When Seqera recreates the role, the policy stops matching. If your bucket policy lists `seqera-sched-vm-instance-clu-*`, widen it to `seqera-sched-vm-instance-*`.
 :::
 
 ### Limitations
