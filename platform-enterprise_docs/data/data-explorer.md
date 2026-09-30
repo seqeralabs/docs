@@ -14,9 +14,10 @@ Access the **Data Explorer** tab from any workspace to view and manage all avail
 
 The role assigned to a workspace user affects what functionality is available in Data Explorer. These permissions are listed in the [Participant roles][roles].
 
-- **View**: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
-- **Launch**: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
-- **Connect**: Can only view contents of cloud storage buckets. Cannot download, upload, or preview. Cannot hide or add buckets.
+- **View**: Can view, download, and preview contents of cloud storage buckets. Cannot upload. Cannot hide or add buckets.
+- **Launch**: Can view, download, and preview contents of cloud storage buckets. Cannot upload. Cannot hide or add buckets.
+- **Connect**: Can view, download, and preview contents of cloud storage buckets. Cannot upload. Cannot hide or add buckets.
+- **Project**: Can view, download, and preview contents of cloud storage buckets. Cannot upload. Cannot hide or add buckets.
 - **Maintain**: Can view, download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
 - **Admin**: Can view, download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.
 - **Owner**: Can view, download, upload, and preview contents of cloud storage buckets. Can hide and add buckets.

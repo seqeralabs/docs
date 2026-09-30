@@ -287,7 +287,7 @@ To limit a custom role to the **Projects** view, select `project_view:read` and 
 |  | Use the **Trigger agent** action on run pages, together with `agent:execute` | _(Used by Platform)_ |
 
 :::info
-Custom roles never receive the `chat:execute` permission automatically. This applies when you create, duplicate, or restore a custom role to defaults, and when you upgrade your installation to a version that includes the permission. An organization owner must explicitly select the **Execute** permission for the `chat` resource type on each custom role that should have Co-Scientist chat access. The predefined Owner, Admin, Maintain, Launch, and Connect roles include `chat:execute` by default. The View role does not.
+Custom roles never receive the `chat:execute` permission automatically. This applies when you create, duplicate, or restore a custom role to defaults, and when you upgrade your installation to a version that includes the permission. An organization owner must explicitly select the **Execute** permission for the `chat` resource type on each custom role that should have Co-Scientist chat access. The predefined Owner, Admin, Maintain, Launch, Connect, and Project roles include `chat:execute` by default. The View role does not.
 :::
 
 Users with `chat:execute` see the [Co-Scientist panel](../co-scientist/platform.md) only when Co-Scientist is deployed and the panel is enabled for their organization. See the [Co-Scientist configuration](../enterprise/configuration/overview.mdx#co-scientist) for `TOWER_AGENT_BACKEND_URL` and `TOWER_AI_CHAT_ALLOWED_ORGANIZATIONS`.
