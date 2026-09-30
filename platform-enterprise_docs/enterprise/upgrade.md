@@ -136,7 +136,7 @@ See the [frontend image documentation](../enterprise/platform-kubernetes#seqera-
 
 ## Studios container template version
 
-For 26.2, use Studios container template version **0.14**. If you customized your Studios container templates, update them to the 0.14 base images during the upgrade. Seqera may not support templates pinned to earlier Connect versions. See the [Studios migration documentation](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
+For 26.2, the default Studios container template version is **0.14**. The minimum supported version is **0.12**. If you customized your Studios container templates, update them to the 0.14 base images during the upgrade. Templates on a Connect version earlier than 0.12 are not supported. See the [Studios migration documentation](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
 
 ## Data lineage available in all workspaces by default
 
