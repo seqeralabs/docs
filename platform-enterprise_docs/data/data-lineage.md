@@ -2,7 +2,7 @@
 title: "Data lineage"
 description: "Track and search the provenance of pipeline runs, tasks, and output files in Seqera Platform."
 date created: "2026-05-11"
-last updated: "2026-08-21"
+last updated: "2026-09-30"
 tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, labels, search]
 ---
 
@@ -65,6 +65,10 @@ To start collecting data lineage for all pipeline runs in your workspace:
     - **Manual**: Use your own pre-provisioned bucket and SNS topic. Define the credentials, region, bucket name, and SNS topic ARN. After saving, subscribe the webhook URL shown on the settings page to your topic. See [Configure lineage manually](#configure-lineage-manually).
     - **Automatic**: Define the credentials and region. Platform creates the bucket, the SNS topic, the topic policies, the webhook subscription, and the bucket notification rule. This is the default setting.
 4. Once set and enabled, all pipeline runs in the workspace generate data lineage. See [Lineage][workspace-lineage] for more information about the settings.
+
+:::note
+Lineage credentials must be key-based or role-based AWS credentials. Lineage does not support [workload identity federation](../credentials/workload_identity#limitations) credentials.
+:::
 
 :::danger
 Updating the lineage settings after pipelines have generated lineage data results in historical data loss. The lineage index is tied to the lineage storage bucket and path. Changing it makes existing records inaccessible. To avoid data loss when updating the storage location, first copy all existing lineage data to the new bucket and path (for example, `aws s3 cp --recursive s3://old-bucket/path s3://new-bucket/path`), then update the workspace setting.
@@ -137,7 +141,6 @@ Platform integration credentials require the following additional permissions fo
                 "s3:CreateBucket",
                 "s3:GetBucketNotification",
                 "s3:PutBucketNotification",
-                "s3:GetBucketLocation",
                 "s3:GetObject",
                 "s3:ListBucket"
             ],

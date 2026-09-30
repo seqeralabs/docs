@@ -2,11 +2,21 @@
 title: "Data Explorer"
 description: "Data Explorer troubleshooting with Seqera Platform."
 date created: "2026-08-28"
-last updated: "2026-08-28"
+last updated: "2026-09-24"
 tags: [faq, help, data explorer, troubleshooting]
 ---
 
 When working with Data Explorer, you might encounter the following issues.
+
+## Bucket visibility
+
+### A bucket you expect is missing from Data Explorer
+
+You cannot see a bucket that you know exists.
+
+On AWS, Data Explorer omits a bucket that the workspace credential cannot reach rather than showing it as inaccessible. This applies to every AWS credential type, including [workload identity federation][wif]. A missing bucket and a bucket that does not exist look the same. Every member of the workspace sees the same bucket list for a given credential.
+
+This is a cloud provider permission, not a Seqera Platform one. Changing your workspace role does not affect it. To resolve, ask your Platform administrator to grant the credential's role `s3:ListBucket` on that bucket. See [Workload identity troubleshooting][wif-troubleshooting] for the administrator-side steps.
 
 ## Work directories
 
@@ -27,3 +37,6 @@ To resolve, add a data-link at the bucket or container root, such as `s3://my-bu
 A visible bucket-root data-link lets every workspace member browse and download the whole bucket. See [Isolate view, read, and write permissions to specific data repository paths](../data/data-explorer#isolate-view-read-and-write-permissions-to-specific-data-repository-paths).
 
 If the work directory is not in cloud storage, such as a path on a high-performance computing (HPC) or local filesystem, Data Explorer cannot display it.
+
+[wif]: ../credentials/workload_identity
+[wif-troubleshooting]: ./workload_identity_troubleshooting

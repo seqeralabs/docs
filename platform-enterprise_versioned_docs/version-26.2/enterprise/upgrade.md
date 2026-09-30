@@ -2,7 +2,7 @@
 title: "Upgrade deployment"
 description: "Upgrade Seqera Platform Enterprise and its database to version 26.2."
 date created: "2025-11-11"
-last updated: "2026-09-23"
+last updated: "2026-09-30"
 tags: [enterprise, update, installation]
 ---
 
@@ -164,14 +164,26 @@ If you plan to turn on lineage, grant the [lineage IAM permissions](../data/data
 
 On the first startup after the upgrade, a one-off migration converts each lineage-enabled workspace that still uses the SQS transport. For an automatically provisioned workspace, the migration creates and configures the SNS topic, subscribes the Platform webhook, points the bucket notification rule to the topic, and then attempts to decommission the legacy SQS queue.
 
-While it runs, the migration needs **both** the new SNS permissions and the existing SQS permissions for the queue teardown. After the migration completes, remove the SQS permissions from your IAM policies.
+While it runs, the migration needs the new SNS permissions, plus `sqs:DeleteQueue` on the legacy queue so that it can delete the queue. It needs no other SQS permission. After the migration completes, remove the SQS permissions from your IAM policies.
+
+Platform deletes the queue only after the workspace's SNS delivery is set up, so lineage events keep arriving through one channel or the other. Queue deletion is best effort. If Platform cannot delete the queue, for example because the credentials lack `sqs:DeleteQueue`, the only effect is a stale queue left in your AWS account. The queue no longer receives events, and Platform logs a warning with its URL so that you can delete it manually. A queue left behind does not count as a failed migration.
+
+The migration runs on the `cron` instance. After it processes the workspaces still on SQS, the `cron` log shows:
+
+```console
+Lineage transport migration complete: migrated=X flagged=Y failed=Z
+```
+
+`migrated` counts automatically provisioned workspaces moved to SNS, `flagged` counts **Manual** workspaces left for you to reconfigure, and `failed` counts workspaces that could not be moved. When `failed` is `0`, every workspace has either moved to SNS or been flagged for you. A failed workspace keeps its queue and is retried on the next `cron` restart, or you can retry it from its lineage settings. See [If the migration reports an error](#if-the-migration-reports-an-error).
+
+If the installation is not reachable over public HTTPS, the migration logs an error, migrates nothing, and does not log the completion line. Set `TOWER_SERVER_URL` to a publicly resolvable HTTPS URL and restart.
 
 The migration is on by default. To turn it off, set `TOWER_LINEAGE_MIGRATE_SQS_TRANSPORT=false`. See [Configuration options](./configuration/overview#data-features).
 
 Platform cannot migrate customer-managed (**Manual**) workspaces, because it holds no permission over resources you own. The lineage settings of those workspaces show instructions to create an SNS topic, subscribe the Platform lineage webhook to it, and enter the topic ARN.
 
 :::note
-Platform does not drain in-flight SQS messages. The queue itself can survive the teardown if the credentials do not permit `sqs:DeleteQueue`. No lineage data is lost either way. The bucket is the source of truth for lineage records, and the queue stops receiving events once its notification rule is removed. Platform logs the queue URL so you can delete the queue by hand.
+The migration does not modify the lineage records in your bucket, and no lineage is lost. The bucket is the source of truth for lineage records. In rare cases, such as a delay during setup, the lineage index can fall out of sync with the bucket. Platform can rebuild the index from the bucket.
 :::
 
 ### If the migration reports an error

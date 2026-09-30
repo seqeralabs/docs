@@ -305,6 +305,7 @@ vscode
 wave
 wave cli
 webhooks
+workload identity
 workflows
 workspaces
 xpra

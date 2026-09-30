@@ -2,7 +2,7 @@
 title: "AWS Batch"
 description: "Instructions to set up AWS Batch in Seqera Platform"
 date created: "2023-04-21"
-last updated: "2026-08-25"
+last updated: "2026-09-17"
 tags: [aws, batch, compute environments]
 ---
 
@@ -814,10 +814,11 @@ Then create AWS credentials using an IAM role ARN only (no access key, secret ke
 
 ## AWS credential options
 
-AWS credentials can be configured in two ways:
+AWS credentials can be configured in three ways:
 
 - **Key-based credentials**: Access key and secret key with direct IAM permissions. If you provide a role ARN in **Assume role**, the **Generate External ID** switch is displayed and External ID generation is optional.
 - **Role-based credentials (recommended)**: Use role assumption only (no static keys). Paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. External ID is generated automatically when you save.
+- **Workload identity federation**: No stored credential. Platform exchanges a short-lived OpenID Connect (OIDC) token for temporary credentials against an IAM role you control, and stores only the role Amazon Resource Name (ARN). See [Workload identity federation][wif] for the trust policy, permission policies, and setup steps.
 
 Use the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. This field is available for both key-based and role-based credentials. It is optional for key-based credentials and required for role-based credentials.
 
@@ -1211,3 +1212,5 @@ Seqera is designed to terminate compute resources when a Nextflow pipeline compl
 
 From Nextflow v24.10+, compute jobs are identifiable by Seqera workflow ID. If you search your AWS console/CLI/API for jobs prefixed by a given workflow ID, you can check the status and perform additional cleanup in edge case scenarios.
 :::
+
+[wif]: ../credentials/workload_identity

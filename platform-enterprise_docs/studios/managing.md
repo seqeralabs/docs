@@ -124,6 +124,8 @@ RStudio Professional Server supports multi-user collaboration. Add your own cust
 
 Multi-user collaboration in custom containers is dependent on the container configuration.
 
+If the workspace uses [workload identity federation][studios-wif], whether a Studio is private also decides whether its cloud audit trail names a person. A private Studio names its creator or the one user you shared it with. A shared Studio names nobody.
+
 ## Limit Studio access to a specific cloud bucket subdirectory {#cloud-bucket-subdirectory}
 
 For a cloud bucket that is writeable, as enabled by including the bucket in a compute environment's **Allowed S3 bucket** list, you can limit write access to that bucket from within a Studio session.
@@ -491,3 +493,4 @@ Stop the active session to trigger a snapshot from the active volume. The snapsh
 [connect]: ./connect
 [liveshare]: https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare
 [p2p-liveshare]: https://open-vsx.org/extension/kermanx/p2p-live-share
+[studios-wif]: ./overview#workload-identity-federation

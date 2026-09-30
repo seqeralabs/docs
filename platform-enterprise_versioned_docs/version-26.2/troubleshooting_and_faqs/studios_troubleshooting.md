@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-09-29"
+last updated: "2026-09-30"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -155,6 +155,56 @@ aws s3api delete-object \
 The next Studio session start retrieves the restored checkpoints without any change in Seqera Platform. If no earlier version of `data.img` exists, the changes from that session can't be recovered.
 
 To prevent this issue, exclude the `.studios/` prefix of the work directory from any lifecycle rule that expires current object versions. Rules that expire only non-current versions don't remove checkpoints. See [Studio session checkpoints](../studios/managing#object-storage-versioning-and-checkpoint-storage-costs).
+
+## Workload identity federation
+
+#### Session uses the compute environment's credentials instead of its own identity
+
+In a workspace with [workload identity federation][studios-wif], `aws sts get-caller-identity` in the Studio terminal returns the compute environment's job role or instance role instead of the credential's role.
+
+This issue occurs when the session did not federate: an administrator restricted `TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES` to other workspaces, the compute environment's credential does not use workload identity federation, or the Studio's Connect client does not support it.
+
+When a Studio whose credential could federate launches without federation because the workspace is not in the allow list, Platform logs a warning in the backend log that names the session.
+
+To resolve, confirm that `TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES` is unset, empty, or includes the workspace, that the compute environment's credential uses workload identity federation, and that your installation runs Connect server and proxy 0.12.2 or later. Then start the Studio from a container image with Seqera Connect client 0.14.0 or later.
+
+#### Federated session fails to start
+
+A Studio on a compute environment with a workload identity credential does not reach the **running** status, while sessions on compute environments with other credentials start.
+
+This issue occurs when the Connect client cannot exchange the session's token at startup. On AWS, the trust policy does not admit the `studio` subject or does not grant `sts:TagSession` and `sts:SetSourceIdentity`. On Google Cloud, the attribute condition or the impersonation binding refuses the subject. A federated session does not fall back to the compute environment's credentials.
+
+To resolve, check the trust policy or the pool binding against the `studio` subject. See [Trust policy][wif-trust-policy] and [Impersonation and permissions][wif-impersonation].
+
+#### Session starts but data does not mount
+
+The session reaches the **running** status, and Fusion reports `store not found`.
+
+This issue occurs when the token exchange succeeds but the permission policy has no statement for the `studio` subject. See [A Studio starts but its data does not mount][wif-studio-mount].
+
+#### Tool in the session authenticates as a different identity
+
+`aws sts get-caller-identity` returns the credential's role, but a tool reaches buckets that the role does not grant, or your cloud provider denies it buckets that the role grants.
+
+This issue occurs when the container holds a credentials profile in `~/.aws/config` or `~/.aws/credentials`. The Connect client removes credential environment variables from the session but cannot remove a profile file, and a tool that reads a profile first authenticates with it.
+
+To resolve, remove the profile from the container image or from the session.
+
+#### Cloud provider denies bucket access that worked before federation
+
+Your cloud provider denies access to a bucket that the session could reach before you enabled workload identity federation, and the error does not mention federation.
+
+This issue occurs because a federated session no longer carries the compute environment's credentials. The permission policy of the credential's role decides access, under the `studio` subject.
+
+To resolve, grant the bucket to the `studio` subject in the permission policy. See [Permission policies][wif-permission-policies].
+
+#### Google Cloud denies access to a private Studio but not to shared Studios
+
+Google Cloud denies a private Studio on a Google Cloud compute environment access to data, while shared Studios in the same workspace reach it.
+
+This issue occurs when a `principal://` IAM binding names the exact subject `org:{orgId}:wsp:{workspaceId}:studio`. Platform attributes a private Studio's session to a user, and the mapped subject ends in `:usr:{userId}`. The exact binding does not match that subject.
+
+To resolve, bind the whole pool or `attribute.workspace` instead of the exact subject. See [Attribute mapping][wif-attribute-mapping].
 
 ## Custom environments and container images
 
@@ -446,3 +496,9 @@ VS Code, RStudio, and Jupyter environments natively integrate with [GitHub Copil
 [posit-ghcopilot-guide]: https://docs.posit.co/ide/user/ide/guide/tools/copilot.html
 [nbi]: https://github.com/notebook-intelligence/notebook-intelligence
 [nbi-blog]: https://blog.jupyter.org/introducing-notebook-intelligence-3648c306b91a
+[studios-wif]: ../studios/overview#workload-identity-federation
+[wif-trust-policy]: ../credentials/workload_identity#trust-policy
+[wif-impersonation]: ../credentials/workload_identity#impersonation-and-permissions
+[wif-studio-mount]: ./workload_identity_troubleshooting#a-studio-starts-but-its-data-does-not-mount
+[wif-permission-policies]: ../credentials/workload_identity#permission-policies
+[wif-attribute-mapping]: ../credentials/workload_identity#attribute-mapping

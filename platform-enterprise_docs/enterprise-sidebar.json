@@ -151,6 +151,7 @@
           ]
         },
         "credentials/managed_identities",
+        "credentials/workload_identity",
         "credentials/ssh_credentials",
         "credentials/agent_credentials"
       ]
@@ -421,6 +422,7 @@
         "troubleshooting_and_faqs/preflight_checks_troubleshooting",
         "troubleshooting_and_faqs/aws_troubleshooting",
         "troubleshooting_and_faqs/azure_troubleshooting",
+        "troubleshooting_and_faqs/workload_identity_troubleshooting",
         "troubleshooting_and_faqs/workspaces_troubleshooting",
         "troubleshooting_and_faqs/resource-labels",
         "troubleshooting_and_faqs/datasets_troubleshooting",

@@ -28,6 +28,12 @@ Two mechanisms control Data Explorer access:
 - **Participant roles** determine which Data Explorer actions a workspace user can perform, such as browsing, previewing, downloading, and uploading. See [Participant roles][roles].
 - **Credentials** determine which objects those actions can reach. A manually added data-link uses the credentials you select when you add the data repository to the workspace. A data-link that Data Explorer retrieves automatically uses one of the workspace credentials that can access the repository, without a deterministic selection order. See [Add data repository links](#add-data-repository-links). The cloud provider permissions attached to those credentials define the scope of Data Explorer access to that repository. To narrow what Data Explorer can do in a bucket, assign that data-link a dedicated credential with a more restrictive cloud provider policy. Sharing one broad credential across compute environments and data repositories gives Data Explorer the full scope of that credential.
 
+When a data-link uses a [workload identity federation][wif] credential, Data Explorer reaches storage by exchanging a short-lived token for temporary cloud credentials at request time, instead of using a stored key. The role the credential names determines access. No stored key exists whose scope you need to check. If the token exchange fails, the request fails. Data Explorer does not fall back to a shared or stored credential.
+
+:::caution
+Do not condition an IAM policy on the `seqera:principal-id` session tag when that policy governs bucket discovery. Because Data Explorer discovers buckets in a background refresh that carries no acting user, the tag is absent and the condition never matches. The bucket disappears for every workspace member. See [Cloud audit attribution][wif-audit].
+:::
+
 Data Explorer has no per-bucket or per-workspace setting that disables downloads or uploads while leaving browsing available. Two instance-level [environment variables](../enterprise/configuration/overview#data-features) control Data Explorer availability:
 
 - `TOWER_DATA_EXPLORER_ENABLED` enables or disables Data Explorer for every workspace in your Enterprise instance. This is the only way to remove download and upload access completely.
@@ -48,8 +54,8 @@ Data Explorer lists public and private data repositories. Repositories accessibl
   For AWS S3, Data Explorer requires the following minimum IAM permissions:
 
   - `s3:ListAllMyBuckets` (on `*`) to auto-discover the buckets accessible to your workspace credentials.
-  - `s3:ListBucket`, `s3:GetBucketLocation`, `s3:GetBucketPolicy`, and `s3:GetBucketAcl` on each bucket you want to browse, to resolve its region and access configuration.
-  - `s3:GetObject` and `s3:PutObject` on the objects in each bucket, to download and upload files.
+  - `s3:ListBucket` and `s3:GetBucketAcl` on each bucket you want to browse, to resolve its region and access configuration.
+  - `s3:GetObject`, `s3:PutObject`, `s3:DeleteObject`, and `s3:AbortMultipartUpload` on the objects in each bucket, to download, upload, and delete files.
 
   These are a subset of the S3 permissions documented for the [AWS Batch](../compute-envs/aws-batch#required-platform-iam-permissions), [AWS Cloud](../compute-envs/aws-cloud#required-permissions), and [Amazon EKS](../compute-envs/eks#required-platform-iam-permissions) compute environments. For Azure Blob Storage, see the [Azure Cloud data-links permissions](../compute-envs/azure-cloud#data-links).
 
@@ -319,3 +325,5 @@ Google Cloud Storage supports CORS configuration only through the gcloud CLI.
 ```
 
 [roles]: ../orgs-and-teams/roles
+[wif]: ../credentials/workload_identity
+[wif-audit]: ../credentials/workload_identity#cloud-audit-attribution

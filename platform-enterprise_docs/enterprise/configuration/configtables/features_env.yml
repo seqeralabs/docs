@@ -71,6 +71,16 @@
     How far back Seqera Platform counts an action's triggers when applying `TOWER_ACTIONS_TRIGGER_RATE_MAX_PER_WINDOW`. Widening it makes the limit easier to reach, because more past triggers fall inside the count. The count is shared across replicas and survives a restart.
   Value:                'Default: `1h`'
 -
+  Environment variable:            '`TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES`'
+  Description: >
+    Enable [workload identity federation](https://docs.seqera.io/platform-enterprise/credentials/workload_identity) in the workspaces specified. Omit the variable, or set it empty (`TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES=`), to enable it for all workspaces, or provide a comma-separated list of workspace IDs to enable it per workspace. Personal workspaces are excluded in all cases.
+  Value:                'Default: Enabled for all workspaces'
+-
+  Environment variable:            '`TOWER_PARTICIPANT_AUTO_CREATE_USER`'
+  Description: >
+    Allow a Seqera account to be created when a workspace participant is added by email address. When `false`, only people who already have an account can be added as workspace collaborators. Accounts created this way are marked as trusted. See [Add a new participant](https://docs.seqera.io/platform-enterprise/orgs-and-teams/workspace-management#allow-accounts-to-be-created-on-the-fly).
+  Value:                'Default: `false`'
+-
   Environment variable:            '`TOWER_ACTION_CYCLE_MAX_CHAIN_DEPTH`'
   Description: >
     How many steps back Seqera Platform traces a run's chain of action triggers before it refuses the event. Seqera Platform suppresses a chain longer than this whether or not it closes a [loop](../../pipeline-actions/overview#loops). Raise it for deliberately long automation chains. Each extra step is one more database read per finished run. Values below `1` or above `50` log a warning at startup, and a value that is not a whole number prevents backend startup.
