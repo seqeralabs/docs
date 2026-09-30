@@ -75,8 +75,3 @@
   Description: >
     How many steps back Seqera Platform traces a run's chain of action triggers before it refuses the event. A chain longer than this is suppressed whether or not it closes a [loop](../../pipeline-actions/overview#loops). Raise it for deliberately long automation chains. Each extra step is one more database read per finished run. Values below `1` or above `50` log a warning at startup, and a value that is not a whole number prevents backend startup.
   Value:                'Default: `20`'
--
-  Environment variable:            '`TOWER_FUSION_METRICS_COLLECTION_ALLOWED_WORKSPACES`'
-  Description: >
-    Enable Fusion metrics collection in the workspaces specified. In these workspaces, the compute environment form shows the **Send Fusion metrics to Seqera** toggle, and new compute environments collect Fusion metrics by default. Accepts a comma-separated list of workspace IDs. Set it empty to enable collection in every workspace. The list is also checked each time a run completes, so removing a workspace stops collection for its existing compute environments too.
-  Value:                'Default: Disabled in all workspaces'
