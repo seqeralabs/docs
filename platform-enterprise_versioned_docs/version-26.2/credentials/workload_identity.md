@@ -6,26 +6,22 @@ last updated: "2026-09-30"
 tags: [credentials, aws, google cloud, oidc, workload identity]
 ---
 
-With workload identity federation, Seqera Platform securely connects to your cloud provider account without storing a long-lived workspace credential. Seqera Platform mints a short-lived, signed OpenID Connect (OIDC) token that names your organization, workspace, and the kind of work in progress. Your cloud provider exchanges that token for temporary credentials against a role you control.
+With workload identity federation, Seqera Platform connects to your cloud provider account without storing a long-lived workspace credential. Seqera Platform mints a short-lived, signed OpenID Connect (OIDC) token that names your organization, your workspace, and the type of work in progress. Your cloud provider exchanges that token for temporary credentials against a role you control.
 
-Workload identity federation is an authentication mode on the AWS and Google Cloud credentials, not a separate credential type. You select it when you create the credential. Seqera Platform stores only a role reference: an Identity and Access Management (IAM) role Amazon Resource Name (ARN) for AWS, or a workload identity provider path and service account email for Google Cloud. You have no access key, service account key, or secret to rotate.
+Workload identity federation is an authentication mode you select when you create an AWS or Google Cloud credential. It is not a separate credential type. Seqera Platform stores only a role reference. For AWS, that is an Identity and Access Management (IAM) role Amazon Resource Name (ARN). For Google Cloud, it is a workload identity provider path and a service account email. You have no access key, service account key, or secret to rotate.
 
 :::info
-Workload identity federation is available for AWS and Google Cloud. Azure is not supported.
+Workload identity federation is not available for Azure credentials. See [Limitations](#limitations).
 :::
 
 ## Enable workload identity federation
 
-Workload identity federation requires Seqera Platform Enterprise 26.2 or later. It is enabled in every organization workspace by default, and works once your instance is configured as follows:
+Workload identity federation requires Seqera Platform Enterprise 26.2 or later, and is enabled in every organization workspace by default. To use it, configure your instance as follows:
 
-- Set `TOWER_OIDC_PEM_PATH` to an RSA keypair. This variable turns on the OIDC provider in Seqera Platform. With it unset, Seqera Platform serves no JSON Web Key Set (JWKS) endpoint and no token exchange can complete. See [Cryptographic options][crypto-options].
-- Optionally, set `TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES` to a comma-separated list of workspace IDs to restrict workload identity federation to those workspaces. If you omit the variable or set it empty, every workspace can use it.
-- Set `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN` to a random value. Setting `TOWER_OIDC_PEM_PATH` also opens the OIDC client registration endpoint, and without this token anyone who can reach the API can register a client. See [Data features][data-features].
-- Serve Seqera Platform over public HTTPS. AWS and Google Cloud both fetch `{issuer}/.well-known/openid-configuration` and `{issuer}/.well-known/jwks.json` directly. Neither works against a host it cannot reach. Workload identity federation cannot run on `localhost`.
-
-:::info
-Personal workspaces cannot use the workload identity federation credential mode, regardless of configuration.
-:::
+- Set `TOWER_OIDC_PEM_PATH` to the path of a PEM file that holds an RSA keypair. This variable turns on the Seqera Platform OIDC provider. If it is unset, Seqera Platform serves no JSON Web Key Set (JWKS) endpoint, and no token exchange can complete. See [Cryptographic options][crypto-options].
+- Set `TOWER_OIDC_REGISTRATION_INITIAL_ACCESS_TOKEN` to a random value. Setting `TOWER_OIDC_PEM_PATH` also opens the OIDC client registration endpoint. Without this token, anyone who can reach the API can register a client. See [Data features][data-features].
+- Serve Seqera Platform over public HTTPS. AWS and Google Cloud fetch `{issuer}/.well-known/openid-configuration` and `{issuer}/.well-known/jwks.json` directly, and fail if they cannot reach the host. Workload identity federation does not work on `localhost`.
+- Optionally, set `TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES` to a comma-separated list of workspace IDs to restrict workload identity federation to those workspaces. If you omit the variable or leave it empty, every workspace can use it.
 
 To generate the keypair:
 
@@ -35,13 +31,15 @@ openssl rsa -in private.pem -outform PEM -pubout -out public.pem
 cat private.pem public.pem > oidc.pem
 ```
 
-Platform signs every federation token with RS256 using this keypair, and gives it the audience your cloud provider expects. `TOWER_AUTH_TOKEN_SIGNING_RS256_ENABLED`, `TOWER_OIDC_ACCESS_TOKEN_AUDIENCE`, and `TOWER_OIDC_AUDIENCE_ENFORCEMENT_ENABLED` apply to Platform's own session and access tokens. Workload identity federation does not need them.
+Platform signs every federation token with RS256 using this keypair, and sets the audience your cloud provider expects. `TOWER_AUTH_TOKEN_SIGNING_RS256_ENABLED`, `TOWER_OIDC_ACCESS_TOKEN_AUDIENCE`, and `TOWER_OIDC_AUDIENCE_ENFORCEMENT_ENABLED` apply only to the session and access tokens Platform issues for its own API. Workload identity federation does not need them.
 
-If you have not set an RSA keypair, authentication fails. On Google Cloud, the error is `WIF credentials require the OIDC provider to be configured (tower.oidc.pem.path)`. On AWS, it is `AWS OIDC workload identity requires the OIDC provider to be configured (tower.oidc.pem.path)`.
+:::info
+Personal workspaces cannot use the workload identity federation credential mode, regardless of configuration.
+:::
 
-## What Platform sends to your cloud provider
+## Token exchange
 
-Platform does not store a cloud credential. For each call, it mints a short-lived token and exchanges it with your cloud provider for temporary credentials. Your trust policy and permissions decide what those credentials can do. Every organization sets this up differently, so this section describes exactly what Platform sends. The setup sections that follow show one way to configure it.
+For each call, Platform mints a short-lived token and exchanges it with your cloud provider for temporary credentials. Your trust policy and permissions decide what those credentials can do. Write your policies against the values in this section. [Configure AWS](#configure-aws) and [Configure Google Cloud](#configure-google-cloud) show one working setup.
 
 ### AWS
 
@@ -76,17 +74,17 @@ AWS turns the tags claim into these session tags:
 | `seqera:principal-email` | The acting user's email address | When a user is acting and the address fits AWS's tag character set |
 | `seqera:workload` | `platform`, `data`, `studio`, or `workflow` | Always |
 
-Credential validation sends the fixed source identity `seqera-validation` instead of a user. This checks, when you save the credential, that the trust policy allows `sts:SetSourceIdentity`. Without the check, a credential could validate and then fail on its first call that names a user.
+Credential validation sends the fixed source identity `seqera-validation` instead of a user. When you save the credential, this checks that the trust policy allows `sts:SetSourceIdentity`. Without the check, a credential could pass validation and then fail on the first call that names a user.
 
 ### Google Cloud
 
-Platform exchanges the token with the Google Cloud Security Token Service for a federated token. It then impersonates the service account with `generateAccessToken`, requesting the `https://www.googleapis.com/auth/cloud-platform` scope.
+Platform exchanges the token with the Google Cloud Security Token Service for a federated token. It then impersonates the service account with `generateAccessToken` and requests the `https://www.googleapis.com/auth/cloud-platform` scope.
 
 The token carries the same `iss`, `sub`, `iat`, `exp`, and `jti` claims as on AWS, plus `principal_id` and `principal_email` when a user is acting. Its `aud` is the provider resource name, `//iam.googleapis.com/projects/{PROJECT_NUMBER}/locations/global/workloadIdentityPools/{POOL}/providers/{PROVIDER}`, unless you set a custom token audience in the credential.
 
 Google Cloud has no session tags or source identity. The acting user reaches Google Cloud Audit Logs only through the `google.subject` mapping. See [Attribute mapping][attribute-mapping].
 
-For a workspace that is not in `TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES`, Platform sends the legacy `workflow` subject on every Google Cloud call, so existing trust configurations keep matching. A change to the allow list takes effect once Platform's cached client for the credential expires.
+For a workspace that is not in `TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES`, Platform sends the legacy `workflow` subject on every Google Cloud call. Existing trust configurations keep matching. A change to the allow list takes effect when Platform's cached client for the credential expires.
 
 ## Subjects and attribution
 
@@ -114,7 +112,7 @@ The trailing segment is the workload type. The following table shows the subject
 
 Platform decides a private Studio's attribution each time the Studio starts, because its privacy and allow list can change between sessions.
 
-One credential presents all four subjects. Write your trust policy and IAM bindings to admit all of them. A condition that matches only one subject breaks the rest of the product.
+One credential presents all four subjects. Write your trust policy and IAM bindings to admit all of them. A condition that matches only one subject breaks every call that presents another.
 
 The acting user is not part of the subject for organization workspaces, because a trust policy is scoped to a workspace. Per-user information travels separately, in session tags and source identity. See [Cloud audit attribution][cloud-audit-attribution].
 
@@ -129,7 +127,7 @@ You need the following:
 
 :::
 
-Seqera Platform shows the values to copy into AWS under **Credentials > AWS > Workload identity**: the issuer, all four subjects, and the session tag keys.
+Under **Credentials** > **AWS** > **Workload identity**, Seqera Platform shows the values to copy into AWS: the issuer, the four subjects, and the session tag keys.
 
 1. In the AWS console, go to **IAM > Identity providers > Add provider > OpenID Connect**.
 1. Set **Provider URL** to `${TOWER_SERVER_URL}/api` and **Audience** to `sts.amazonaws.com`.
@@ -140,7 +138,13 @@ Seqera Platform shows the values to copy into AWS under **Credentials > AWS > Wo
 
 ### Trust policy
 
-Replace `{{ACCOUNT_ID}}` with your AWS account ID, `{{ISSUER_HOST}}` with your Platform host and its `/api` path, without the scheme (for example, `seqera.example.com/api`), and `{{ORG_ID}}` and `{{WORKSPACE_ID}}` with the values Platform shows in the credential form. Wildcard the workload segment so that one role serves every subject:
+Replace the placeholders in this template:
+
+- `{{ACCOUNT_ID}}`: Your AWS account ID.
+- `{{ISSUER_HOST}}`: Your Platform host and its `/api` path, without the scheme. For example, `seqera.example.com/api`.
+- `{{ORG_ID}}` and `{{WORKSPACE_ID}}`: The values Platform shows in the credential form.
+
+The template wildcards the workload segment of the subject, so that one role serves every subject:
 
 ```json
 {
@@ -178,12 +182,12 @@ Each part of the trust policy is required:
 - `sts:AssumeRoleWithWebIdentity` performs the exchange.
 - `sts:TagSession` is required because every token carries session tags. Without it, AWS rejects the entire exchange rather than dropping the tags.
 - `sts:SetSourceIdentity` is required because tokens for a user's actions carry a source identity, and credential validation tests for it. Without it, AWS rejects the entire exchange.
-- The `aud` condition accepts only tokens minted for STS.
+- The `aud` condition accepts only tokens minted for the AWS Security Token Service (STS).
 - The tenant prefix in the `sub` condition is the security boundary. Without it, any organization or workspace on the same installation could assume the role. The trailing `*` admits every workload type, because one role serves all four. To let one role serve several workspaces, list each workspace's prefix in the condition.
 
 ### Permission policies
 
-Grant the role the combined permissions of every workload it serves. The trust policy's tenant prefix keeps other organizations and workspaces out, so the permission policy does not need to repeat it. Credential validation needs nothing beyond the AWS Security Token Service (STS), so a credential can validate successfully and still have no data access.
+Grant the role the combined permissions of every workload it serves. Because the trust policy's tenant prefix keeps other organizations and workspaces out, the permission policy does not need to repeat it. Credential validation needs nothing beyond STS. A credential can pass validation and still have no data access.
 
 | Workload | Needs |
 | --- | --- |
@@ -192,7 +196,7 @@ Grant the role the combined permissions of every workload it serves. The trust p
 | `studio` | Object access on the buckets your Studios mount and on the work directory |
 | `workflow` | `s3:ListBucket` on the work directory and the compute environment's allowed buckets, for the [launch probe](#pipeline-launch-bucket-probe) |
 
-Grant bucket discovery on its own. Because `s3:ListAllMyBuckets` has no resource dimension, a denial fails the whole listing instead of returning fewer buckets:
+Grant bucket discovery in its own statement. Because `s3:ListAllMyBuckets` has no resource dimension, a denial fails the whole listing instead of returning fewer buckets:
 
 ```json
 {
@@ -224,10 +228,10 @@ Grant object access on each bucket Data Explorer shows, each bucket your Studios
 }
 ```
 
-`s3:GetBucketAcl` only lets Data Explorer mark public buckets. Without it, every bucket shows as private.
+Data Explorer uses `s3:GetBucketAcl` only to mark public buckets. Without it, every bucket shows as private.
 
 :::caution
-When the trust policy is correct but the permission policy has no matching statement, the exchange succeeds and every request is denied afterwards. Inside a Studio, this surfaces as Fusion reporting `store not found`, and the message names no bucket, API call, or credential. If a Studio starts but its data does not mount, check the permission policy first.
+When the trust policy is correct but the permission policy has no matching statement, the exchange succeeds and AWS denies every request afterwards. See [A Studio starts but its data does not mount][wif-studio-mount].
 :::
 
 For compute environments, grant the describe permissions:
@@ -253,9 +257,11 @@ For compute environments, grant the describe permissions:
 }
 ```
 
-When you create an AWS Batch compute environment, Platform checks that the work directory is in the environment's region, which needs `s3:ListBucket`. Platform reads task logs and files from the work directory, which needs `s3:GetObject`. The `Buckets` statement covers both when it includes the work directory.
+When you create an AWS Batch compute environment, Platform checks that the work directory is in the environment's region. This check needs `s3:ListBucket`. Platform also reads task logs and files from the work directory, which needs `s3:GetObject`. The `Buckets` statement covers both if it includes the work directory.
 
-To submit runs, add `batch:RegisterJobDefinition`, `batch:SubmitJob`, `batch:TerminateJob`, `batch:TagResource`, and `iam:PassRole`. Platform registers a job definition on the first launch that has no matching one. A role without `batch:RegisterJobDefinition` fails on its first run. AWS Batch compute environments need no EC2 launch permissions because Batch scales the environment with its own service role. AWS Cloud compute environments launch and terminate EC2 instances directly under the `platform` subject. Grant them the EC2 permissions listed in [AWS Cloud][aws-cloud-permissions] as well.
+To submit runs, add `batch:RegisterJobDefinition`, `batch:SubmitJob`, `batch:TerminateJob`, `batch:TagResource`, and `iam:PassRole`. Platform registers a job definition on the first launch that has no matching one. A role without `batch:RegisterJobDefinition` fails on its first run.
+
+AWS Batch compute environments need no EC2 launch permissions, because Batch scales the environment with its own service role. AWS Cloud compute environments launch and terminate EC2 instances directly, under the `platform` subject. For AWS Cloud, also grant the role the EC2 permissions listed in [AWS Cloud][aws-cloud-permissions].
 
 #### Narrow access by workload or user
 
@@ -303,12 +309,12 @@ Remove `elasticfilesystem:*` and `fsx:*` if the environment mounts neither. Clou
 
 ### Pipeline runs
 
-Workload identity federation authenticates Platform's own calls: compute environment setup, job submission, Data Explorer, and Studios. A pipeline run does not use it yet. The Nextflow head job and every task it launches read the EC2 instance role from instance metadata, so the workload identity role plays no part once the job starts. Before the launch, though, Platform checks that the run's buckets are reachable, under the `workflow` subject and attributed to the launching user. See [Pipeline launch bucket probe](#pipeline-launch-bucket-probe).
+Workload identity federation authenticates the calls Platform makes itself, for compute environment setup, job submission, Data Explorer, and Studios. A pipeline run does not use it. The Nextflow head job and every task it launches read the EC2 instance role from instance metadata. The workload identity role plays no part once the job starts. Before the launch, Platform checks that the run's buckets are reachable, under the `workflow` subject and attributed to the launching user. See [Pipeline launch bucket probe](#pipeline-launch-bucket-probe).
 
-The instance role needs the permissions Nextflow uses. On AWS Batch, that is S3 on the work-directory bucket, plus Batch, ECS, EC2, and CloudWatch Logs. Do not condition these grants on `:sub`, because an instance-profile session presents no OIDC subject. On a compute environment that Forge creates, Forge writes these grants. On one you create manually, add them to the instance role yourself.
+The instance role needs the permissions Nextflow uses. On AWS Batch, these are S3 access on the work-directory bucket, plus Batch, ECS, EC2, and CloudWatch Logs permissions. Do not condition these grants on `:sub`, because an instance-profile session presents no OIDC subject. On a compute environment that Forge creates, Forge writes these grants. On one you create manually, add them to the instance role yourself.
 
 :::caution
-Leave `TOWER_WIF_FORGE_LEGACY_MODE_ENABLED` at its default, `true`. With `false`, Forge grants the instance role no data access, and a compute environment it creates for a workload identity credential cannot run a pipeline, because the head job starts with no credentials. Studios and compute environment provisioning are unaffected. The variable applies to the whole installation. Forge reads it when it creates a compute environment, so changing it does not affect existing ones.
+Leave `TOWER_WIF_FORGE_LEGACY_MODE_ENABLED` at its default, `true`. With `false`, Forge grants the instance role no data access. A compute environment that Forge creates for a workload identity credential then cannot run a pipeline, because the head job starts with no credentials. Studios and compute environment provisioning are unaffected. The variable applies to the whole installation. Forge reads it when it creates a compute environment. Changing it does not affect existing ones.
 :::
 
 ## Configure Google Cloud
@@ -322,26 +328,26 @@ You need the following:
 
 :::
 
-Seqera Platform shows the values to copy into Google Cloud under **Credentials > Google > Workload Identity**: the OIDC issuer URL, the `google.subject` mapping, and the recommended attribute condition.
+Under **Credentials** > **Google** > **Workload Identity**, Seqera Platform shows the values to copy into Google Cloud: the OIDC issuer URL, the `google.subject` mapping, and the recommended attribute condition.
 
 :::note
-Platform treats the project in the **Workload identity provider** path, the project that hosts the pool, as the credential's project. Credential validation and Data Explorer list buckets in that project. Compute environments run their jobs and VMs there, and Platform creates pipeline secrets and reads Cloud Logging there. The service account can live in another project, but it needs its roles on the pool's project. Google recommends keeping pools in a [dedicated project][gcp-wif-dedicated-project]. With Platform, that dedicated project is also where these calls go.
+Platform uses the project in the **Workload identity provider** path, which is the project that hosts the pool, as the credential's project. Credential validation and Data Explorer list buckets in that project. Compute environments run their jobs and VMs there, and Platform creates pipeline secrets and reads Cloud Logging there. The service account can live in another project, but it needs its roles on the pool's project. Google recommends keeping pools in a [dedicated project][gcp-wif-dedicated-project]. If you follow that recommendation, these calls also go to the dedicated project.
 :::
 
-1. In the project that will host the pool, enable the IAM, Resource Manager, Service Account Credentials, and Security Token Service APIs. See [Configure Workload Identity Federation][gcp-wif-configure].
+1. In the project that hosts the pool, enable the IAM, Resource Manager, Service Account Credentials, and Security Token Service APIs. See [Configure Workload Identity Federation][gcp-wif-configure].
 1. In the Google Cloud console, go to the **New workload provider and pool** page. Under **Create an identity pool**, enter a **Name** and **Description**, then select **Continue**. The name is also the pool ID, and you can't change it later.
 1. Under **Configure provider settings**, in **Select a provider**, select **OpenID Connect (OIDC)**. Enter a **Provider name**, which is also the provider ID, and set **Issuer URL** to `${TOWER_SERVER_URL}/api`. See [Create a workload identity pool and provider][gcp-wif-pool].
 1. Under **Audiences**, keep **Default audience**. The console shows it as `https://iam.googleapis.com/projects/{PROJECT_NUMBER}/locations/global/workloadIdentityPools/{POOL}/providers/{PROVIDER}`. Platform sends the same path without the scheme, `//iam.googleapis.com/projects/{PROJECT_NUMBER}/locations/global/workloadIdentityPools/{POOL}/providers/{PROVIDER}`, and the default audience accepts both forms. If you select **Allowed audiences** instead, add the `//iam.googleapis.com/...` form to the list. Select **Continue**.
 1. Under **Configure provider attributes**, set the `google.subject` mapping. Under **Attribute conditions**, enter the recommended condition. Select **Save**. See [Attribute mapping][attribute-mapping].
 1. Create or select a service account, and set up the two grants that [credential validation](#credential-validation) needs before you continue. They are on different tabs of the service account's page:
-   - **Permissions** tab, for what the service account can access: select **Manage access** and add Storage Bucket Viewer (`roles/storage.bucketViewer`). This grants the role on the service account's own project, so it only works when that is also the pool's project. Otherwise, grant it on the pool project's **IAM** page, with the service account as the principal.
+   - **Permissions** tab, for what the service account can access: select **Manage access** and add Storage Bucket Viewer (`roles/storage.bucketViewer`). This grants the role on the service account's own project. It works only when that project is also the pool's project. Otherwise, grant it on the pool project's **IAM** page, with the service account as the principal.
    - **Principals with access** tab, for who can act as the service account: select **Grant access**, enter the pool's principal, and add Workload Identity User (`roles/iam.workloadIdentityUser`). Without it, Platform cannot use the service account at all. Don't add this role on the **Permissions** tab or in the create flow. Those grant roles to the service account itself, which does not let the pool act as it.
 
    Without both, Platform saves the credential but marks it `INVALID`. IAM changes can take a few minutes to apply. For the principal to enter and the permissions each workload needs, see [Impersonation and permissions][impersonation-and-permissions].
 1. In Seqera Platform, create a Google credential, select **Workload Identity**, and enter:
    - **Workload identity provider**: The provider resource name, in the form `projects/{PROJECT_NUMBER}/locations/global/workloadIdentityPools/{POOL}/providers/{PROVIDER}`. Use the project number, not the project ID. See [Identifying projects][gcp-project-number].
    - **Service account email**: The service account to impersonate, in the form `NAME@PROJECT_ID.iam.gserviceaccount.com`.
-   - **Token audience** (optional): Leave it empty, so that Platform uses the provider path as the audience.
+   - **Token audience** (optional): Leave empty. Platform then uses the provider path as the audience.
 
    The credential uses workload identity federation only when both **Service account email** and **Workload identity provider** are set. Saving the credential runs [credential validation](#credential-validation).
 
@@ -392,9 +398,9 @@ To grant the role in the Google Cloud console:
 1. Enter the principal.
 1. Assign the **Workload Identity User** role, then select **Save**.
 
-See [Grant a single role][gcp-sa-grant-role]. Service Account User (`roles/iam.serviceAccountUser`) does not work here. It lacks `iam.serviceAccounts.getAccessToken`, so Google denies impersonation.
+See [Grant a single role][gcp-sa-grant-role]. Service Account User (`roles/iam.serviceAccountUser`) does not work here. It lacks `iam.serviceAccounts.getAccessToken`, and Google denies impersonation without it.
 
-To grant it with the gcloud CLI:
+To grant the role with the gcloud CLI:
 
 ```bash
 gcloud iam service-accounts add-iam-policy-binding SA_EMAIL \
@@ -402,13 +408,13 @@ gcloud iam service-accounts add-iam-policy-binding SA_EMAIL \
   --member="principalSet://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL/*"
 ```
 
-The whole-pool principal admits every identity that passes the provider's attribute condition, which is one workspace with the recommended condition. If one pool serves several workspaces, Google recommends [against granting access to all members of a pool][gcp-wif-avoid-all-members]. Add the attribute mapping `attribute.workspace = assertion.sub.extract("wsp:{workspace}:")`, and bind each workspace's service account to its one-workspace principal. One such binding covers all of that workspace's workloads.
+The whole-pool principal admits every identity that passes the provider's attribute condition. With the recommended condition, that is one workspace. If one pool serves several workspaces, Google recommends [against granting access to all members of a pool][gcp-wif-avoid-all-members]. Add the attribute mapping `attribute.workspace = assertion.sub.extract("wsp:{workspace}:")`, and bind each workspace's service account to its one-workspace principal. One such binding covers all of that workspace's workloads.
 
 :::caution
 Do not bind an exact subject (`principal://.../POOL/subject/SUBJECT`) or an `attribute.workload` value. Both break when a subject changes shape. Use a pool-wide or `attribute.workspace` binding.
 :::
 
-Platform signs presigned download URLs through the IAM `signBlob` API, which needs `roles/iam.serviceAccountTokenCreator` on the service account bound to itself:
+Platform signs download URLs through the IAM `signBlob` API. This needs `roles/iam.serviceAccountTokenCreator` on the service account, bound to the service account itself:
 
 ```bash
 gcloud iam service-accounts add-iam-policy-binding SA_EMAIL \
@@ -418,7 +424,7 @@ gcloud iam service-accounts add-iam-policy-binding SA_EMAIL \
 
 Without this binding, viewing or downloading file contents in Data Explorer fails with a signing error. Pipeline runs are unaffected.
 
-Grant the service account the combined permissions of every workload it serves. Every workload impersonates the same service account, and Google Cloud evaluates the service account as the principal, so a grant applies to every workload type.
+Grant the service account the combined permissions of every workload it serves. Every workload impersonates the same service account, and Google Cloud evaluates that service account as the principal. Each grant therefore applies to every workload type.
 
 | Workload | Needs |
 | --- | --- |
@@ -437,18 +443,18 @@ For Data Explorer, the service account needs both bucket-level and object-level 
 | `storage.objects.create` | Uploading |
 | `storage.objects.delete` | Deleting |
 
-Object roles such as `roles/storage.objectViewer` include no bucket permissions, so with only those, the service account can't list or open buckets in Data Explorer. Grant these two roles:
+Object roles such as `roles/storage.objectViewer` include no bucket permissions. With only object roles, the service account can't list or open buckets in Data Explorer. Grant these two roles:
 
-- `roles/storage.bucketViewer` on the pool's project, to list and open buckets. Listing buckets is a project-level action, so a grant on a single bucket isn't enough.
+- `roles/storage.bucketViewer` on the pool's project, to list and open buckets. Listing buckets is a project-level action. A grant on a single bucket isn't enough.
 - `roles/storage.objectAdmin` on each bucket, to browse, download, upload, and delete.
 
 Data Explorer discovers buckets in the pool's project only. To browse a bucket in another project, add it with **Add data repository**, and grant the service account `storage.buckets.get` and object access on it. See [Add data repository links][data-explorer-add].
 
 ### Credential validation
 
-Platform validates the credential when you save it, and re-checks a valid credential about every 12 hours. The check presents the `platform` subject, or `workflow` in a workspace that `TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES` leaves out. It runs the whole chain: it exchanges a token with the Security Token Service, impersonates the service account, and lists buckets in the pool's project. It passes only when all of the following are true:
+Platform validates the credential when you save it, and re-checks a valid credential about every 12 hours. The check presents the `platform` subject, or `workflow` in a workspace that `TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES` leaves out. The check runs the whole chain. It exchanges a token with the Security Token Service, impersonates the service account, and lists buckets in the pool's project. It passes only when all of the following are true:
 
-- The provider accepts the token: the issuer URL, audience, and attribute condition all match.
+- The provider accepts the token. The issuer URL, audience, and attribute condition all match.
 - The pool's principal holds the Workload Identity User role on the service account.
 - The service account holds the `storage.buckets.list` permission on the pool's project, for example through `roles/storage.bucketViewer`.
 
@@ -460,7 +466,7 @@ A failed check marks the credential `INVALID`, with a reason that starts with `C
 
 As on AWS, a pipeline run does not use workload identity federation. The Nextflow head job and its tasks authenticate as the service account attached to their VMs.
 
-On Google Cloud Batch, that is the compute environment's **Service account email**. If you leave it empty, Platform sets it to the credential's own service account, so the head job and every task run as that service account. It then needs the [Google Cloud Batch service account permissions][gcp-batch-sa-permissions], and its Service Account User role (`roles/iam.serviceAccountUser`) must cover itself, because Platform submits the jobs as the same account. Google requires Service Account User on a job's service account to create the job. See [Control access for a job using a custom service account][gcp-batch-custom-sa].
+On Google Cloud Batch, that is the compute environment's **Service account email**. If you leave it empty, Platform sets it to the credential's own service account. The head job and every task then run as that service account. It needs the [Google Cloud Batch service account permissions][gcp-batch-sa-permissions]. Its Service Account User role (`roles/iam.serviceAccountUser`) must also cover itself, because Platform submits the jobs as the same account. Google requires Service Account User on a job's service account to create the job. See [Control access for a job using a custom service account][gcp-batch-custom-sa].
 
 For Platform's own calls under the `platform` subject, the service account also needs the following on the pool's project:
 
@@ -472,15 +478,15 @@ On Google Cloud compute environments, Cloud Forge creates a service account for 
 
 ### Existing Google Cloud credentials
 
-Before workload identity federation, a Google workload identity credential always presented the `workflow` subject. The credential now presents `platform`, `data`, `studio`, or `workflow`, depending on the request.
+Before Seqera Platform Enterprise 26.2, a Google workload identity credential always presented the `workflow` subject. From 26.2, the credential presents `platform`, `data`, `studio`, or `workflow`, depending on the request.
 
 :::caution
-If you already use a Google workload identity credential, check your impersonation bindings before you upgrade. Workload identity federation is on in every organization workspace by default, so the subject fans out when you upgrade. A binding against the exact subject (`principal://.../POOL/subject/org:{{ORG_ID}}:wsp:{{WORKSPACE_ID}}:workflow`) or against an `attribute.workload` value then stops matching, and the workspace loses access. Move those bindings to a pool-wide (`POOL/*`) or `attribute.workspace` form first. Both read the tenant part of the subject, which does not change. To keep a workspace on the `workflow` subject while you move its bindings, set `TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES` to a list that leaves it out. See [Google Cloud](#google-cloud).
+If you already use a Google workload identity credential, check your impersonation bindings before you upgrade. Because workload identity federation is on in every organization workspace by default, the credential starts presenting all four subjects when you upgrade. A binding against the exact subject (`principal://.../POOL/subject/org:{{ORG_ID}}:wsp:{{WORKSPACE_ID}}:workflow`) or against an `attribute.workload` value then stops matching, and the workspace loses access. Move those bindings to a pool-wide (`POOL/*`) or `attribute.workspace` form first. Both read the tenant part of the subject, which does not change. To keep a workspace on the `workflow` subject while you move its bindings, set `TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES` to a list that leaves it out. See [Google Cloud](#google-cloud).
 :::
 
 ## Cloud audit attribution
 
-Workload identity sessions carry the acting user's identity into your cloud provider's audit log. You can attribute a request to a specific Seqera user. The two providers record the identity differently:
+Workload identity sessions carry the acting user's identity into your cloud provider's audit log, where you can attribute a request to a specific Seqera user. The two providers record the identity differently:
 
 | | What the audit log records | What it takes |
 | --- | --- | --- |
@@ -491,11 +497,11 @@ The identifier differs by provider. On AWS, the source identity is the user's em
 
 ### AWS
 
-Every session carries the session tags in [What Platform sends to your cloud provider](#aws), and a source identity when a user is behind the request.
+Every session carries the session tags listed in [Token exchange](#aws), and a source identity when a user is behind the request.
 
-Use tags to authorize a request and source identity to trace it. `aws:PrincipalTag/*` matches tags. CloudTrail records them as `principalTags` on the `AssumeRoleWithWebIdentity` event only, never on the requests made afterwards. CloudTrail records source identity on every request in the session, in `userIdentity.sessionContext.sourceIdentity`. Source identity is the only way to determine who read a given object.
+Use tags to authorize a request and source identity to trace it. `aws:PrincipalTag/*` condition keys match tags. CloudTrail records them as `principalTags` on the `AssumeRoleWithWebIdentity` event only, never on the requests made afterwards. CloudTrail records source identity on every request in the session, in `userIdentity.sessionContext.sourceIdentity`. Source identity is the only way to determine who read a given object.
 
-The role session name is `seqera-{workload}`, so CloudTrail shows the workload type in every assumed-role ARN.
+Because the role session name is `seqera-{workload}`, CloudTrail shows the workload type in every assumed-role ARN.
 
 To scope one role across many workspaces, use the workspace tag as a policy variable:
 
@@ -518,7 +524,7 @@ To scope one role across many workspaces, use the workspace tag as a policy vari
 
 Workload identity federation resolves to one role per workspace, not one role per user. Every user in the workspace assumes the same role and, by default, has the same cloud permissions.
 
-Per-user access control comes from your IAM policy, not from Platform. Condition a statement on the `seqera:principal-id` tag, and your cloud provider decides what that user can reach. An explicit `Deny` beats every `Allow`. To deny one person access to a bucket:
+Per-user access control comes from your IAM policy, not from Platform. Condition a statement on the `seqera:principal-id` tag, and your cloud provider decides what that user can reach. An explicit `Deny` overrides every `Allow`. To deny one person access to a bucket:
 
 ```json
 {
@@ -554,9 +560,7 @@ Note the following when you write policies against these values:
 
 Google Cloud Audit Logs record only the mapped `google.subject`. Custom claims and attributes never reach the log. Organization, workspace, and workload type are traceable because they are part of the base subject. The acting user is traceable only if the `google.subject` mapping appends `principal_id`. See [Attribute mapping][attribute-mapping].
 
-Cloud Storage reads and writes are Data Access audit logs, which are off by default. Enable them on the project or service account to see Data Explorer activity. Previews and downloads use a URL signed by the service account, so Cloud Storage logs them as the service account. The token exchange and impersonation entries need Data Access **Admin Read** for the Security Token Service and IAM Service Account Credentials APIs.
-
-`principal_id` is an internal numeric user ID, not an email address.
+Cloud Storage reads and writes are Data Access audit logs, which are off by default. Enable them on the project or service account to see Data Explorer activity. Because previews and downloads use a URL signed by the service account, Cloud Storage logs them as the service account. The token exchange and impersonation entries need Data Access **Admin Read** for the Security Token Service and IAM Service Account Credentials APIs.
 
 ### Requests with no acting user
 
@@ -570,7 +574,13 @@ On AWS, the probe performs a fresh, uncached token exchange with the `workflow` 
 
 On Google Cloud, the probe lists the root of the work-directory bucket rather than the work-directory prefix, and it does not check allowed buckets. Grant `storage.objects.list` on the bucket itself. A grant conditioned on the work-directory prefix is denied.
 
-An explicit `AccessDenied` refuses the launch with `WORK_DIR_INVALID`, naming the subject and the bucket. When AWS refuses the token exchange itself, the message names the subject only, because no bucket was reached. A trust policy that does not admit the `workflow` subject fails the same way. The token exchange returns `AccessDenied`, and the launch is refused rather than allowed. Inconclusive responses (throttling, quota, billing, and timeouts) log a warning and allow the launch. Platform does not probe credentials that use access keys or an assumed role.
+The probe response decides the launch:
+
+- An explicit `AccessDenied` refuses the launch with `WORK_DIR_INVALID`. The message names the subject and the bucket.
+- When AWS refuses the token exchange itself, the launch is also refused. The message names the subject only, because no bucket was reached. A trust policy that does not admit the `workflow` subject fails this way, with `AccessDenied` from the token exchange.
+- Inconclusive responses (throttling, quota, billing, and timeouts) log a warning and allow the launch.
+
+Platform does not probe credentials that use access keys or an assumed role.
 
 :::note
 The Google Cloud probe runs from your Platform instance's network location. VPC Service Controls or organization policies can deny that request even when a Batch job inside the permitted perimeter could reach the bucket.
@@ -590,11 +600,11 @@ Platform cannot recall access it has already handed out:
 
 - Azure is not supported. Azure federated identity credentials match the subject claim by exact string. That would require one federated credential per workspace per workload type, against a cap of 20 per identity. Flexible federated identity credentials solve this with wildcard matching, but only for a fixed list of Microsoft-supported issuers that Platform cannot join.
 - You cannot change an AWS credential's mode after creation. To move an existing AWS credential to workload identity, create a new credential. Google credentials have no mode field, and you can update them in place.
-- On AWS, Data Explorer omits buckets the credential cannot reach rather than showing them as inaccessible, so you cannot distinguish an omitted bucket from one that does not exist. This applies to every AWS credential type, not only workload identity federation.
+- On AWS, Data Explorer omits buckets the credential cannot reach rather than showing them as inaccessible. You cannot distinguish an omitted bucket from one that does not exist. This applies to every AWS credential type, not only workload identity federation.
 - The credential form accepts only `arn:aws:` role ARNs. To use a role in the `aws-us-gov` or `aws-cn` partition, create the credential through the API.
 - You can create AWS workload identity credentials through version 1 of the API only. Google workload identity credentials are available in both versions.
-- [Data lineage][data-lineage] does not support workload identity credentials. Platform builds its lineage bucket and SNS topic clients without a workload identity, so lineage works only with key-based or role-based AWS credentials.
-- A trust policy error does not prevent credential creation. Saving runs the token exchange, but a failed exchange does not roll back the create. Read the credential's status to confirm the exchange succeeded.
+- [Data lineage][data-lineage] does not support workload identity credentials. Platform builds its lineage bucket and SNS topic clients without a workload identity. Lineage works only with key-based or role-based AWS credentials.
+- A trust policy error does not prevent credential creation. Saving runs the token exchange, but a failed exchange does not roll back the new credential. Check the credential's status to confirm the exchange succeeded.
 
 For token exchange, permission, and audit attribution failures, see [Workload identity troubleshooting][wif-troubleshooting].
 
@@ -619,6 +629,7 @@ For token exchange, permission, and audit attribution failures, see [Workload id
 [data-explorer-add]: ../data/data-explorer#add-data-repository-links
 [aws-cloud-permissions]: ../compute-envs/aws-cloud#required-permissions
 [wif-troubleshooting]: ../troubleshooting_and_faqs/workload_identity_troubleshooting
+[wif-studio-mount]: ../troubleshooting_and_faqs/workload_identity_troubleshooting#a-studio-starts-but-its-data-does-not-mount
 [cloud-audit-attribution]: #cloud-audit-attribution
 [trust-policy]: #trust-policy
 [permission-policies]: #permission-policies

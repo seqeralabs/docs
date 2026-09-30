@@ -2,16 +2,29 @@
 title: "Workload identity"
 description: "Troubleshoot workload identity federation in Seqera Platform."
 date created: "2026-09-17"
-last updated: "2026-09-17"
+last updated: "2026-09-30"
 tags: [faq, help, credentials, workload identity, troubleshooting]
 ---
 
 When working with [workload identity federation][wif], you might encounter the following issues.
 
-Before you change a trust policy or an Identity and Access Management (IAM) binding, establish which half of the exchange failed:
+Before you change a trust policy or an Identity and Access Management (IAM) binding, establish whether the token exchange or the request that followed it failed:
 
 - **The exchange failed.** Your cloud provider refused to issue temporary credentials because the trust policy or the impersonation binding does not admit the subject Platform presented. The error names the resolved subject. The fix needs an administrator on the cloud account.
-- **The exchange succeeded, but the permission policy is too narrow.** Your cloud provider issued credentials, then denied the request those credentials made. The error does not name the subject. This is by design. Widen the permission policy for the workload in question.
+- **The exchange succeeded, but the permission policy is too narrow.** Your cloud provider issued credentials, then denied the request those credentials made. By design, the error does not name the subject. Widen the permission policy for that workload.
+
+## Instance configuration
+
+#### `…requires the OIDC provider to be configured (tower.oidc.pem.path)`
+
+Authentication fails with one of these errors:
+
+- Google Cloud: `WIF credentials require the OIDC provider to be configured (tower.oidc.pem.path)`
+- AWS: `AWS OIDC workload identity requires the OIDC provider to be configured (tower.oidc.pem.path)`
+
+This issue occurs when `TOWER_OIDC_PEM_PATH` is not set. Without it, the Seqera Platform OIDC provider is off.
+
+To resolve, set `TOWER_OIDC_PEM_PATH` to the path of a PEM file that holds an RSA keypair. See [Enable workload identity federation][wif-enable].
 
 ## AWS
 
@@ -21,7 +34,7 @@ Every field on the compute environment form fails to populate, and each failure 
 
 This issue occurs when the permission policy grants only `data`-subject permissions. Compute environment describe calls present the `platform` subject.
 
-To resolve, add the `platform`-subject statement to the permission policy. See [Permission policies][wif-permission-policies].
+To resolve, add the `platform` workload's permissions to the permission policy. See [Permission policies][wif-permission-policies].
 
 #### Data Explorer shows no buckets at all
 
@@ -51,9 +64,9 @@ To resolve, add a permission-policy statement for the `studio` subject covering 
 
 The launch fails before the run starts, and the error names the subject and the bucket. If AWS refused the token exchange itself, the message names the subject only.
 
-This issue occurs when the cloud provider denies the pre-flight probe. Either the trust policy does not admit the `workflow` subject, or the permission policy does not grant bucket listing for that subject. In the first case, the token exchange returns `AccessDenied`.
+This issue occurs when AWS denies the [launch bucket probe][wif-probe]. Either the trust policy does not admit the `workflow` subject, or the permission policy does not grant bucket listing for that subject. In the first case, the token exchange returns `AccessDenied`.
 
-To resolve, confirm the trust policy wildcards the workload segment, then grant `s3:ListBucket` under the `workflow` subject on the work-directory bucket and every allowed bucket. On Google Cloud, grant `storage.objects.list` on the bucket itself rather than on the work-directory prefix, because the probe lists the bucket root.
+To resolve, confirm the trust policy wildcards the workload segment, then grant `s3:ListBucket` under the `workflow` subject on the work-directory bucket and every allowed bucket.
 
 #### Forge fails with `iam:CreateRole` or `iam:PassRole` denied
 
@@ -73,7 +86,7 @@ This is expected for a `platform`-subject session, for a Studio shared with the 
 
 A presigned download or upload URL stops working before the expiry you configured.
 
-This is expected. A presigned URL cannot outlive the STS session that signed it, and that session lasts roughly one hour.
+This is expected. A presigned URL cannot outlive the AWS Security Token Service (STS) session that signed it, and that session lasts up to approximately one hour.
 
 ## Google Cloud
 
@@ -109,7 +122,7 @@ To resolve, grant `roles/storage.bucketViewer` on the bucket or its project.
 
 The credential is valid, but Data Explorer lists no buckets or omits buckets you know exist.
 
-Data Explorer discovers buckets in the pool's project only, which needs `storage.buckets.list` there. After a failed listing, Platform retries after 10 minutes, then after 20 minutes, then once a day. Updating the credential clears the cached list and lists again.
+This issue occurs when the service account lacks `storage.buckets.list` on the pool's project, or when the bucket is in another project. Data Explorer discovers buckets in the pool's project only. After a failed listing, Platform retries after 10 minutes, then after 20 minutes, then once a day. Updating the credential clears the cached list and lists again.
 
 To resolve, grant `storage.buckets.list` on the pool's project. To show a bucket from another project, add it with **Add data repository**.
 
@@ -129,6 +142,14 @@ This issue occurs when the service account cannot read the pool's project. Platf
 
 To resolve, grant `roles/logging.viewer` on the pool's project. It includes `resourcemanager.projects.get` and the log read permission.
 
+#### A pipeline launch is refused with `WORK_DIR_INVALID`
+
+The launch fails before the run starts, and the error names the subject and the bucket.
+
+This issue occurs when Google Cloud denies the [launch bucket probe][wif-probe]. The probe lists the root of the work-directory bucket, not the work-directory prefix. A grant conditioned on the work-directory prefix is denied. VPC Service Controls or organization policies can also deny the probe, because it runs from your Platform instance's network location.
+
+To resolve, grant the service account `storage.objects.list` on the work-directory bucket itself.
+
 #### Google requests fail once workload identity federation applies to the workspace
 
 Credential validation reports `Error requesting access token`, and the compute environment form, Data Explorer, and log views fail. By default this starts when you upgrade to Seqera Platform Enterprise 26.2, or when you add the workspace to `TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES`.
@@ -138,6 +159,8 @@ This issue occurs when the impersonation binding names one subject or one `attri
 To resolve, bind the whole pool or `attribute.workspace` rather than a specific subject or workload. See [Existing Google Cloud credentials][wif-existing-gcp].
 
 [wif]: ../credentials/workload_identity
+[wif-enable]: ../credentials/workload_identity#enable-workload-identity-federation
+[wif-probe]: ../credentials/workload_identity#pipeline-launch-bucket-probe
 [wif-permission-policies]: ../credentials/workload_identity#permission-policies
 [wif-forge]: ../credentials/workload_identity#batch-forge-and-cloud-forge
 [wif-validation]: ../credentials/workload_identity#credential-validation
