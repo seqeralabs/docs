@@ -124,7 +124,7 @@ services:
 
 # Uncomment the following section to enable Studios functionality. See [Studios configuration](../../../studios/overview) for more information.
 #  connect-proxy:
-#    image: cr.seqera.io/enterprise/studios/proxy:0.12.2
+#    image: cr.seqera.io/enterprise/studios/proxy:0.14.0
 #    platform: linux/amd64
 #    env_file:
 #      - data-studios.env
@@ -140,7 +140,7 @@ services:
 #     - $HOME/.tower/connect:/data
 #
 #  connect-server:
-#    image: cr.seqera.io/enterprise/studios/server:0.12.2
+#    image: cr.seqera.io/enterprise/studios/server:0.14.0
 #    platform: linux/amd64
 #    env_file:
 #      - data-studios.env

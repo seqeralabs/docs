@@ -21,7 +21,7 @@ spec:
         kubernetes.io/arch: amd64
       containers:
         - name: server
-          image: cr.seqera.io/enterprise/studios/server:0.12.2
+          image: cr.seqera.io/enterprise/studios/server:0.14.0
           ports:
             - containerPort: 7070
               name: server
