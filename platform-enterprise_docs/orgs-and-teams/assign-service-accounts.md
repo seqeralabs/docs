@@ -6,8 +6,6 @@ last updated: "2026-09-10"
 tags: [service accounts, workspaces, roles, administration, automation]
 ---
 
-{/* doc-skills: DRAFT — reviewed: no — from EDU-1442, 2026-09-10 — brief: .docs-operating-model/briefs/evidence/PLAT-5551.md — availability: unconfirmed (SERVICE_ACCOUNTS feature flag, org allow-list, not GA) */}
-
 A Seqera service account has no access to anything until you assign it to a workspace with a role. Assign one when an agent or an automated job needs to act in a specific workspace.
 
 Each assignment is direct. You grant the service account a role in one workspace at a time, and repeat that for every workspace it needs.

@@ -18,8 +18,6 @@ Seqera Platform features have default limits per organization and workspace.
 | Active runs             | 3     | 100, or per license    |
 | Running Studio sessions | 1     | 1000, or per license   |
 
-{/* doc-skills: DRAFT — reviewed: no — from EDU-1442, 2026-09-18 — brief: .docs-operating-model/briefs/evidence/PLAT-5551.md — availability: unconfirmed (SERVICE_ACCOUNTS feature flag, org allow-list, not GA) */}
-
 :::note
 A [service account](../orgs-and-teams/create-service-accounts) counts toward the **Members** limit. Creating one in an organization that has reached the limit fails.
 :::
@@ -50,7 +48,7 @@ Some Enterprise instances on older licenses are limited to 100 labels per worksp
 
 ## Launch form
 
-The launch form rejects run parameters and Nextflow configuration that exceed these sizes. The limits apply to the submitted payload, so a parameter set that passes validation in the form can still exceed the limit once Platform expands it.
+The launch form rejects run parameters and Nextflow configuration that exceed these sizes. The form checks run parameters when you launch, against the parameters it submits to Platform.
 
 | Description            | Configuration property        | Default limit |
 | ---------------------- | ----------------------------- | ------------- |

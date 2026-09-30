@@ -16,8 +16,6 @@ You can group **members** and **collaborators** into **teams** and apply a role 
 
 - **Owner**: After an organization is created, the user who created the organization is the default owner of that organization. Additional users can be assigned as organization owners. Owners have full read/write access to modify members, teams, collaborators, and settings within an organization. Organization owners always have full owner access to organization workspaces, regardless of their participant roles at the workspace level.
 - **Member**: A member is a user who is internal to the organization. Members have an organization role and can operate in one or more organization workspaces. In each workspace, members have a participant role that defines the permissions granted to them within that workspace.
-{/* doc-skills: DRAFT — reviewed: no — from EDU-1442, 2026-09-10 — brief: .docs-operating-model/briefs/evidence/PLAT-5551.md — availability: unconfirmed (SERVICE_ACCOUNTS feature flag, org allow-list, not GA) */}
-
 - **Service account**: A [service account](./create-service-accounts) is a non-human identity for agents and automation. It holds a fixed organization role that cannot be changed, and cannot be made an organization owner. It receives workspace access only through direct participant roles, never through a team.
 
 ### Role inheritance
@@ -37,7 +35,7 @@ As a best practice, use teams as the primary vehicle for assigning rights within
 The default workspace participant roles are:
 - **Owner**: The user who created the workspace is its first owner. Owners have full administrative privileges over a workspace and its resources, including permission to delete the workspace. Regular participants can also be promoted to workspace owners.
 - **Admin**: Workspace admins share most of the administrative privileges of workspace owners, but admins cannot delete a workspace.
-- **Maintain**: Workspace maintainers can use and manage all workspace resources, but cannot create workspace credentials, compute environments, or Studios
+- **Maintain**: Workspace maintainers can use and manage all workspace resources, but cannot create workspace credentials or compute environments.
 - **Launch**: Launch users can use existing workspace resources and launch pipelines, but they cannot modify workspace resources.
 - **Connect**: Connect users can connect to running workspace Studios.
 - **View**: View users can view workspace resources, but cannot modify or execute them.

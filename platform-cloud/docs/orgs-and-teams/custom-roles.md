@@ -245,6 +245,7 @@ To limit a custom role to the **Projects** view, select `project_view:read` and 
 |  | List available studio templates | `GET /studios/templates` |
 |  | List checkpoints for a studio | `GET /studios/{sessionId}/checkpoints` |
 |  | View checkpoint details | `GET /studios/{sessionId}/checkpoints/{checkpointId}` |
+|  | View studio session logs | `GET /studios/{sessionId}/log` |
 | **studio:execute** | List mounted data-links for studios | `GET /studios/data-links` |
 |  | Start a studio session | `PUT /studios/{sessionId}/start` |
 |  | Stop a studio session | `PUT /studios/{sessionId}/stop` |
@@ -265,8 +266,6 @@ To limit a custom role to the **Projects** view, select `project_view:read` and 
 | **studio_session:read** | Open a studio | _(Used by Platform)_ |
 | **studio_session:execute** | Extend studio session lifespan (iframe) | _(Used by Platform)_ |
 |  | Extend studio session lifespan | `POST /studios/{sessionId}/lifespan` |
-
-<!-- doc-skills: DRAFT — reviewed: no — source: seqeralabs/platform#11929 (merged 2026-08-05) — availability: unconfirmed -->
 
 #### AI
 

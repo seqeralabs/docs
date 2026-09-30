@@ -103,7 +103,7 @@ Set an optional **Output directory** to override the default location for your p
 
 - Enter an absolute cloud storage path, such as `s3://my-bucket/results`, or select **Browse** to choose a location with [Data Explorer][data-explorer]. Select a **Compute environment** before you browse.
 - Platform passes this value to Nextflow as `-output-dir`.
-- **Output directory** is optional and is not carried over on relaunch. Set it for each launch.
+- **Output directory** is optional. It is carried over when you **resume** a run, so the resumed run keeps publishing to the same location, and it is not carried over when you **relaunch**, so a new run does not overwrite a previous run's outputs. On relaunch, set it again if you need it.
 
 :::note
 The **Output directory** field requires Nextflow 24.10.0 or later and a pipeline that uses the [workflow outputs syntax][nextflow-workflow-outputs]. For older pipelines, use your pipeline output parameter (for example, `params.outdir`) instead.

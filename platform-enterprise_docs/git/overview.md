@@ -130,8 +130,6 @@ After you've created and copied your access token, create a new credential in Se
 
 As an alternative to personal access tokens, you can authenticate Seqera Platform to GitHub using a [GitHub App](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps). GitHub Apps are the GitHub-recommended way to integrate with the GitHub API: they act on their own behalf rather than impersonating a user, support fine-grained permissions scoped to specific repositories, and use short-lived installation tokens that are not tied to a single account.
 
-{/* doc-skills: DRAFT — reviewed: no — from EDU-1551, 2026-09-25 — brief: .docs-operating-model/briefs/evidence/co-scientist-panel-github-app-config.md */}
-
 :::note
 GitHub App credentials authenticate Seqera Platform and Co-Scientist [agents](../co-scientist/agents.md). The Co-Scientist panel connects to GitHub through a separate GitHub App that your administrator configures on the Co-Scientist agent backend. See [GitHub access](../enterprise/install-seqera-coscientist.mdx#github-access).
 :::

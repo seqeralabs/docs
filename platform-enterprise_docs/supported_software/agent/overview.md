@@ -8,8 +8,6 @@ tags: [agent]
 
 Tower Agent connects Seqera Platform to high-performance computing (HPC) clusters that do not accept inbound SSH connections.
 
-{/* doc-skills: DRAFT — reviewed: no — from EDU-1442, 2026-09-10 — brief: .docs-operating-model/briefs/evidence/PLAT-5551.md — availability: unconfirmed (SERVICE_ACCOUNTS feature flag, org allow-list, not GA) */}
-
 :::note
 Tower Agent is the HPC connector described on this page. It is unrelated to the AI agents that run work in Seqera Platform, which authenticate as [service accounts](../../orgs-and-teams/create-service-accounts) rather than with a personal access token.
 :::

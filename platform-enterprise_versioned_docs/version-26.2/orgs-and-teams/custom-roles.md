@@ -21,8 +21,6 @@ Organization owners can add custom roles and assign read, write, execute, admin,
 
 Select **Edit** or **Delete** to manage existing custom roles in the list.
 
-{/* doc-skills: DRAFT — reviewed: no — from EDU-1442, 2026-09-10 — brief: .docs-operating-model/briefs/evidence/PLAT-5551.md — availability: unconfirmed (SERVICE_ACCOUNTS feature flag, org allow-list, not GA) */}
-
 Custom roles can be assigned to [service accounts](./create-service-accounts) as well as to people. Whoever assigns a role to a service account must already hold every permission that role carries. This check applies to every workspace role assignment to a service account, not only to custom ones.
 
 If the service account will run an agent, include `agent:execute` in the custom role. Every built-in role except **Connect** and **View** already has it, but a custom role only has the permissions you select.
@@ -248,6 +246,7 @@ To limit a custom role to the **Projects** view, select `project_view:read` and 
 |  | List available studio templates | `GET /studios/templates` |
 |  | List checkpoints for a studio | `GET /studios/{sessionId}/checkpoints` |
 |  | View checkpoint details | `GET /studios/{sessionId}/checkpoints/{checkpointId}` |
+|  | View studio session logs | `GET /studios/{sessionId}/log` |
 | **studio:execute** | List mounted data-links for studios | `GET /studios/data-links` |
 |  | Start a studio session | `PUT /studios/{sessionId}/start` |
 |  | Stop a studio session | `PUT /studios/{sessionId}/stop` |
@@ -268,8 +267,6 @@ To limit a custom role to the **Projects** view, select `project_view:read` and 
 | **studio_session:read** | Open a studio | _(Used by Platform)_ |
 | **studio_session:execute** | Extend studio session lifespan (iframe) | _(Used by Platform)_ |
 |  | Extend studio session lifespan | `POST /studios/{sessionId}/lifespan` |
-
-<!-- doc-skills: DRAFT — reviewed: no — from seqeralabs/platform#11929 (merged 2026-08-05), 2026-08-10 — brief: .docs-operating-model/briefs/pr-11929.md — availability: unconfirmed (Enterprise release carrying chat:execute not yet confirmed) -->
 
 #### AI
 

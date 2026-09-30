@@ -37,8 +37,8 @@
 -
  Environment variable: "`TOWER_LOG_PATTERN`"
  Description: >
-   The logging format emitted to STDOUT. See [here](https://logback.qos.ch/manual/layouts.html#conversionWord) for a reference of the full logback pattern syntax.
- Value: "`%d{MMM-dd HH:mm:ss.SSS} [%t] %X{ip:--} %-5level %logger{36} - %msg%n}  # Default logging pattern shown`"
+   The logging format emitted to STDOUT. See [here](https://logback.qos.ch/manual/layouts.html#conversionWord) for a reference of the full logback pattern syntax. Keep `%X{trace_id:--} %X{span_id:--}` in any override to preserve correlation between logs and traces, and `%X{requestId:--}` to keep the request correlation ID.
+ Value: "`%d{MMM-dd HH:mm:ss.SSS} [%t] %X{ip:--} %X{requestId:--} %X{trace_id:--} %X{span_id:--} %-5level %logger{36} - %msg%n`  # Default logging pattern shown"
 -
  Environment variable: "`TOWER_LOG_MAX_HISTORY`"
  Description: >

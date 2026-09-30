@@ -40,7 +40,6 @@
   Description: >
     Allow a Seqera account to be created when an organization member or team member is added by email address. Unlike the equivalent setting for workspace participants, this is enabled by default.
   Value:                'Default: `true`'
-# doc-skills: DRAFT — reviewed: no — names and opt-out defaults per PLAT-6826, merged as platform#12664 and verified against v26.2.0-RC15-enterprise on 2026-09-25.
 -
   Environment variable:            '`TOWER_ACTIONS_BUCKET_TRIGGER_ALLOWED_WORKSPACES`'
   Description: >

@@ -154,3 +154,37 @@ tower:
 ```
 
 See [User access allow list](./overview#user-access-allow-list) for more information.
+
+## Platform as an OIDC provider
+
+The settings above configure Seqera Platform as an OIDC *client* against your identity provider. The settings below apply when Platform *issues* OIDC tokens of its own.
+
+### Additional static OIDC clients
+
+Seqera Platform ships with a set of built-in static OIDC clients. To register further clients for a deployment-specific or enterprise integration, add them to `oauth-client.additional-static-clients` in `tower.yml`:
+
+```yaml
+oauth-client:
+  additional-static-clients:
+    - client-id: my-integration
+      # same client types and fields as the built-in static clients
+```
+
+Additional clients support the same client types and fields as the built-in `oauth-client.static-clients`, and Platform applies the same validation to both at startup. Both lists are searched together for client lookup and conflict checks, so a client ID that duplicates a built-in one fails startup with a `Duplicate client IDs across static and additional clients` error. Platform logs the validated client counts at startup.
+
+### Access token audience
+
+Platform can stamp an `aud` claim on the OIDC access tokens it issues, and enforce that claim on incoming ones.
+
+| Environment variable | Configuration property | Description |
+| --- | --- | --- |
+| `TOWER_OIDC_ACCESS_TOKEN_AUDIENCE` | `tower.oidc.access-token.audience` | Audience stamped on issued OIDC access tokens. Defaults to the virtual audience `platform`, which covers every resource server behind the Platform API. |
+| `TOWER_OIDC_AUDIENCE_ENFORCEMENT_ENABLED` | `tower.oidc.audience-enforcement.enabled` | When `true`, Platform rejects its own OIDC access tokens whose `iss` or `aud` claims do not match. Default `false`, which logs violations without rejecting, for a warn-first rollout. |
+
+Personal access tokens are opaque and are unaffected by either setting.
+
+Enable enforcement only after confirming from the logs that your clients present the expected audience.
+
+:::warning
+When `TOWER_AUTH_TOKEN_SIGNING_RS256_ENABLED` is also set, the audience applies to the Platform token family as well, and both claims are compared against live configuration. Changing `TOWER_SERVER_URL` or `TOWER_OIDC_ACCESS_TOKEN_AUDIENCE` with enforcement on rejects every session, agent, and service token — not only OIDC ones — until they expire.
+:::

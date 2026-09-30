@@ -6,8 +6,6 @@ last updated: "2026-09-22"
 tags: [co-scientist, platform, agent, ai]
 ---
 
-{/* doc-skills: DRAFT — reviewed: no — from EDU-1300, 2026-09-22 — availability: 26.2, on in every organization once TOWER_AGENT_BACKEND_URL is set; TOWER_AGENT_CONFIGURATION_ALLOWED_ORGANIZATIONS restricts it (v26.2.0-RC16-enterprise) */}
-
 An agent is a reusable, named set of instructions that Co-Scientist runs on your behalf in a Seqera Platform workspace. Where a Co-Scientist conversation is interactive and starts empty each time, an agent captures a task you repeat — investigating failed runs, summarizing results — so anyone in the workspace can run it without rewriting the prompt.
 
 Agents are workspace-scoped. Every agent in a workspace is visible to everyone with permission to read agents, not only the person who created it. An agent acts as the [service account](#agent-identity-and-permissions) bound to it rather than as the person who starts it, and reaches private repositories through a [GitHub App credential](#access-to-private-git-repositories) in its workspace.

@@ -6,8 +6,6 @@ last updated: "2026-09-10"
 tags: [service accounts, security, roles, administration, automation]
 ---
 
-{/* doc-skills: DRAFT — reviewed: no — from EDU-1442, 2026-09-10 — brief: .docs-operating-model/briefs/evidence/PLAT-5551.md — availability: unconfirmed (SERVICE_ACCOUNTS feature flag, org allow-list, not GA) */}
-
 A Seqera service account holds access that no person signs in to use. That is what makes it useful for automation, and what makes its scope worth setting deliberately. Three things decide how safely one behaves: the role you grant it, who is allowed to grant that role, and when you delete it.
 
 ## Least-privilege role assignment

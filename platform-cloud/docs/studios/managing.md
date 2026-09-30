@@ -81,8 +81,15 @@ The **Search studios** bar filters by one or more `<keyword>:<value>` entries:
 - `username`: Search Studios created by a specific user.
 - `computeEnvName`: Search Studios in a specific compute environment.
 - `is:starred`: Search Studios that have been starred by the user.
+- `collaborationMode`: Search `private` or `shared` Studios.
+- `computeEnvType`: Search Studios in a specific type of compute environment.
+- `label`: Search Studios with a specific label. Repeat the keyword to match more than one label.
+- `createdAfter`, `createdBefore`: Search Studios created after or before a date.
+- `updatedAfter`, `updatedBefore`: Search Studios last updated after or before a date.
 
 The field suggests valid keywords as you type.
+
+Platform remembers your last search when you navigate away from the Studios list and back. The search is saved in your browser for your user account, so it applies in every workspace you open in that browser, and a different browser or device starts with no saved search.
 
 Search covers all Studios in a workspace. Enter a query in the Search studios field. Platform identifies each valid `keyword:value` substring, combines the remaining text into a single freeform string, and filters Studios using all of these criteria.
 
@@ -404,6 +411,14 @@ You can limit write access to just a subdirectory of a bucket by creating a cust
 Mounted data links are exposed at the `/workspace/data/` directory path inside a Studio session. For example, the bucket subdirectory `s3://biopharmaX/experiments/project-A/experiment-1/data`, when mounted as a data-link, is exposed at `/workspace/data/biopharmaxs-project-a-experiment-1-data`.
 
 For more information, see [Limit Studio access to a specific cloud bucket subdirectory][cloud-bucket-subdirectory].
+
+## Studio session logs
+
+The **Logs** tab on the Studio details page shows the process log for the most recent session. Platform reads the log from the compute environment's log stream, so the log is available while the session is starting and running, and after it stops or crashes. The tab loads more of the log as you scroll down.
+
+The tab covers only the most recent session, not earlier start and stop cycles. How far back the log goes depends on the compute provider and its log retention settings. If no log is available, the tab shows **No data available**. For a stopped or errored Studio, the logs saved with a checkpoint are in the checkpoint's storage folder. See [Studio session checkpoints](#studio-session-checkpoints).
+
+Viewing logs requires the `studio:read` permission. See [Custom roles](../orgs-and-teams/custom-roles).
 
 ## Studio session checkpoints
 

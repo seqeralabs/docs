@@ -1,100 +1,104 @@
 ---
 title: "Upgrade deployment"
-description: "Guidance for upgrading to Platform Enterprise version 26.2"
+description: "Upgrade Seqera Platform Enterprise and its database to version 26.2."
 date created: "2025-11-11"
 last updated: "2026-09-23"
 tags: [enterprise, update, installation]
 ---
 
-This page outlines the steps to upgrade your Platform Enterprise installation and database instance to version 26.2, including special considerations for upgrading from earlier versions.
+Upgrade your Seqera Platform Enterprise installation and database to version 26.2. The sections for earlier versions list the extra changes each upgrade path needs.
 
-:::note
-- Make a backup of your Platform database prior to upgrade.
-- If you are upgrading from a version prior to 25.1, complete all intermediate major version upgrades before upgrading to 26.2, for example from 24.1 upgrade to 25.1, then 26.1, and finally 26.2. More specific requirements are detailed below for each major version.
-- Ensure that no pipelines are in a running state during this upgrade as active run data may be lost.
+:::info[**Prerequisites**]
+
+You need the following:
+
+- A backup of your Platform database.
+- Each intermediate major version upgrade complete, if you're upgrading from a version earlier than 25.1. For example, upgrade from 24.1 to 25.1, then to 26.1, then to 26.2. The following sections list the requirements for each version.
+- No pipelines running during the upgrade. Data from active runs can be lost.
+
 :::
 
-## Upgrading from versions prior to 24.1
+## Upgrade from versions earlier than 24.1
 
-- If you are upgrading from a version older than 23.4.1, update your installation to version 23.4.4 **first**, before updating to version 26.1 with the steps on this page.
+- If you're upgrading from a version earlier than 23.4.1, upgrade your installation to version 23.4.4 **first**, before you upgrade to version 26.2 with the steps on this page.
 - **MySQL 8 required**
 
-  From Seqera Enterprise version 23.4, MySQL 8 was the only supported database version. If you are running MySQL 5.6 or 5.7, you must upgrade your database to a supported MySQL version (see the [26.1 database considerations below](#database-changes) for the new baseline) before upgrading.
+  From version 23.4, Seqera Enterprise supports only MySQL 8. If you run MySQL 5.6 or 5.7, upgrade your database to a supported MySQL version before you upgrade Seqera. See [Database changes](#database-changes) for the current baseline.
 
-## Upgrading from versions 24.1 - 25.1
+## Upgrade from versions 24.1–25.1
 
-- **OIDC Secrets injection modifications**
+- **OIDC secrets injection changes**
 
-  The `auth-oidc-secrets` Micronaut environment has been replaced with `oidc-token-import`. If you use this configuration, you must change the `MICRONAUT_ENV` environment variable in the manifest during the migration process. If you activate the feature with the `TOWER_OIDC_TOKEN_IMPORT` environment variable, no changes are needed.
+  The `oidc-token-import` Micronaut environment replaces `auth-oidc-secrets`. If you use `auth-oidc-secrets`, change the `MICRONAUT_ENV` environment variable in your manifest during the upgrade. If you turn on the feature with the `TOWER_OIDC_TOKEN_IMPORT` environment variable, no change is needed.
 
-- **MariaDB driver: New MySQL connection parameter required**
+- **MariaDB driver: new MySQL connection parameter required**
 
   MariaDB driver 3.x requires the `permitMysqlScheme=true` parameter in the connection URL to connect to a MySQL database:
 
   `jdbc:mysql://<domain>:<port>/tower?permitMysqlScheme=true`
 
-  All deployments using a MySQL database (regardless of version) must be updated when upgrading to Platform version 24.1 or later.
+  Update every deployment that uses a MySQL database, whatever the MySQL version, when you upgrade to version 24.1 or later.
 
 - **Redis version change and property deprecation**
 
-  - From Seqera Enterprise version 24.2, Redis version 6.2 or greater was required. **In 26.1, Redis 6.x is no longer supported — see the [26.1 cache considerations](#cache-layer-changes-redis-eol-and-valkey-support) below.**
-  - From Seqera Enterprise version 24.2, `redisson.*` configuration properties are deprecated. If you previously set `redisson.*` properties directly:
+  - From version 24.2, Seqera Enterprise requires Redis 6.2 or later. **From 26.1, Redis 6.x is not supported. See [Cache layer changes](#cache-layer-changes-redis-eol-and-valkey-support).**
+  - From version 24.2, the `redisson.*` configuration properties are deprecated. If you set `redisson.*` properties directly:
     - Replace `/redisson/*` references in AWS Parameter Store entries with `TOWER_REDIS_*` environment variables.
     - Replace `redisson.*` references in `tower.yml` with `TOWER_REDIS_*` environment variables.
 
 - **Micronaut property key changes**
 
-  In version 24.1, the property that determines the expiration time of the JWT access token (used for authenticating web sessions and Nextflow-Platform interactions) changed:
+  In version 24.1, the property that sets the expiration time of the JWT access token changed. This token authenticates web sessions and the requests Nextflow sends to Seqera Platform.
 
   | Previous | New |
   | --- | --- |
   | `micronaut.security.token.jwt.generator.access-token.expiration` | `micronaut.security.token.generator.access-token.expiration` |
 
-  Enterprise deployments that have customized this value previously will need to adopt the new format.
+  If you customized this value, use the new property name.
 
-## Upgrading from version 25.3.x to 26.1
+## Upgrade from version 25.3.x to 26.1
 
-You can upgrade directly from 25.3.x to 26.1. However, take note of the breaking changes as well as the upgrade steps in this document.
+You can upgrade directly from 25.3.x to 26.1. Review the following change, then follow the [general upgrade steps](#general-upgrade-steps).
 
-- **Secret key rotation requires backup and careful configuration**
+- **Secret key rotation**
 
   To configure [secret key rotation](https://docs.seqera.io/platform-enterprise/enterprise/configuration/overview#secret-key-rotation):
 
-  - To prevent data loss, perform a backup of your Platform database and securely back up your current crypto secret key before enabling and performing key rotation.
-  - All backend pods or containers for your Enterprise deployment must contain the same previous and new secret key values in their configuration.
-  - All backend pods or containers must be in a ready/running state before starting the Platform cron service.
+  - Before you turn on key rotation, back up your Platform database and your current crypto secret key to prevent data loss.
+  - Configure the same previous and new secret key values on every backend pod or container in your deployment.
+  - Start the Platform cron service only after every backend pod or container is ready and running.
 
-## Upgrading from version 26.1.x to 26.2
+## Upgrade from version 26.1.x to 26.2
 
-You can upgrade directly from 26.1.x to 26.2. Review the breaking changes and default changes below before upgrading, then follow the [general upgrade steps](#general-upgrade-steps).
+You can upgrade directly from 26.1.x to 26.2. Before you upgrade, review the breaking changes and default changes later on this page, then follow the [general upgrade steps](#general-upgrade-steps).
 
-## 26.2 upgrade breaking changes
+## 26.2 breaking changes
 
-### Audit log v1 writes removed in 26.2
+### Audit log v1 writes removed
 
 Seqera Platform Enterprise 26.2 writes audit events only to the v2 schema. This is a **breaking change** for direct database consumers and custom ETL jobs that still read new events from the legacy v1 schema (`tw_audit_log` table).
 
-- The `TOWER_AUDIT_LOG_V2_WRITE_MODE` setting is removed. Setting the variable has no effect, so remove it from your configuration.
-- No new rows are written to the v1 schema. Existing rows remain until the audit log retention period deletes them. As long as the table has records, they stay visible in the legacy table view of the Admin panel **Audit logs** tab.
+- The `TOWER_AUDIT_LOG_V2_WRITE_MODE` setting is removed and has no effect. Remove it from your configuration.
+- Platform writes no new rows to the v1 schema. Existing rows remain until the audit log retention period deletes them. While the table has records, they stay visible in the **Table v1** tab of the Admin panel **Audit logs** page.
 
 ## Database changes
 
-From Platform Enterprise v26.1 onwards, the supported database baselines were changed. Review your current database against the table below **before upgrading**.
+Seqera Platform Enterprise 26.1 changed the supported database versions. Before you upgrade, check your database against the following table.
 
 | Database / version | 26.x status | Action |
 | --- | --- | --- |
-| MySQL 5.7 | No longer tested or supported (upstream EoL) | Upgrade to MySQL 8.4 before upgrading to 26.1 |
-| MySQL 8.0 | No longer tested or supported (upstream EoL April 2026) | Upgrade to MySQL 8.4 |
+| MySQL 5.7 | No longer tested or supported (upstream end of life) | Upgrade to MySQL 8.4 before upgrading to 26.1 |
+| MySQL 8.0 | No longer tested or supported (upstream end of life April 2026) | Upgrade to MySQL 8.4 |
 | MySQL 8.4 (LTS) | Recommended default | No action |
 | MariaDB | MariaDB driver 3.x | No action |
 | AWS Aurora MySQL (provisioned) | Supported | No action |
 | AWS Aurora Serverless | Not supported (existing guidance) | Migrate to a supported configuration |
 
-If you are running on MySQL 5.7 or MySQL 8.0, complete your database migration **before** running the 26.1 application upgrade. The Seqera-supplied `migrate-db` container will not run against an unsupported database version.
+If you run MySQL 5.7 or 8.0, migrate your database **before** you upgrade the application to 26.1. The `migrate-db` container that Seqera supplies does not run against an unsupported database version.
 
 ## Cache layer changes: Redis EoL and Valkey support
 
-From Platform Enterprise v26.1, Valkey support was introduced and Redis version requirements tightened.
+Seqera Platform Enterprise 26.1 added support for Valkey and raised the minimum Redis version.
 
 | Cache / version | 26.x status | Action |
 | --- | --- | --- |
@@ -106,33 +110,33 @@ From Platform Enterprise v26.1, Valkey support was introduced and Redis version 
 :::note
 Redis 6.2 remains an upstream extended-support release until 1 April 2027, and Amazon ElastiCache supports Redis OSS 6 until 31 January 2027, with paid extended support until 31 January 2030. These upstream dates do not extend Seqera support. Seqera Platform 26.1 is not tested against Redis 6.x. Upgrade your cache before you upgrade Seqera Platform.
 
-Select Redis 7.2 or 7.4, or Valkey 7.x. Newer major versions are not tested or supported.
+Use Redis 7.2 or 7.4, or Valkey 7.x. Seqera does not test or support newer major versions.
 :::
 
-### Migrating from Redis to Valkey
+### Migrate from Redis to Valkey
 
-To migrate from Redis to Valkey, point `TOWER_REDIS_URL` at your Valkey 7.x installation. No further configuration is required as Valkey 7.x supports the same schema as Redis.
+To migrate from Redis to Valkey, point `TOWER_REDIS_URL` at your Valkey 7.x installation. No other configuration is needed because Valkey 7.x supports the same schema as Redis.
 
 :::note
-Redis password and ACL configuration carry over unchanged when migrating to Valkey.
+Redis password and ACL configuration carry over unchanged when you migrate to Valkey.
 :::
 
-## Frontend image: only the unprivileged image is published
+## Single unprivileged frontend image
 
-From 26.2, Seqera only publishes a single frontend image, running as a non-root user, formerly tagged as `-unprivileged`. The `-root` tag variant and the `-unprivileged` tag alias are no longer published, so a manifest that references either fails to pull.
+From 26.2, Seqera publishes one frontend image. It runs as a non-root user and was previously tagged `-unprivileged`. Seqera no longer publishes the `-root` tag variant or the `-unprivileged` tag alias. A manifest that references either tag fails to pull.
 
-Before upgrading, update your [Kubernetes](../enterprise/platform-kubernetes) or [Docker Compose](../enterprise/platform-docker-compose) manifests:
+Before you upgrade, update your [Kubernetes](../enterprise/platform-kubernetes) or [Docker Compose](../enterprise/platform-docker-compose) manifests:
 
-- Drop the `-unprivileged` or `-root` suffix from every frontend image reference.
-- Make the port match. The image listens on `8000`, not `80`. In Kubernetes, set the container port and the frontend service `targetPort` to `8000` and leave the service `port` at `80`. In Docker Compose, map the host port to container port `8000`.
+- Remove the `-unprivileged` or `-root` suffix from every frontend image reference.
+- Change the port. The image listens on `8000`, not `80`. In Kubernetes, set the container port and the frontend service `targetPort` to `8000`, and leave the service `port` at `80`. In Docker Compose, map the host port to container port `8000`.
 
-The new templates downloaded in the General upgrade steps below are already configured this way.
+The templates you download in the [general upgrade steps](#general-upgrade-steps) already use these settings.
 
-See the [frontend image documentation](../enterprise/platform-kubernetes#seqera-frontend-unprivileged) for security context, file system, and port differences. This image is also a requirement for installation via the [Helm chart](../enterprise/platform-helm).
+See the [frontend image documentation](../enterprise/platform-kubernetes#seqera-frontend-unprivileged) for the security context, file system, and port differences. The [Helm chart](../enterprise/platform-helm) also requires this image.
 
-### Studios container template version
+## Studios container template version
 
-The recommended Studios container template version for 26.2 is **0.12**. If you have customized your Studios container templates, update them to the 0.12 base images during this upgrade. Templates pinned to earlier Connect versions may no longer be supported. See the [Studios migration documentation](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
+For 26.2, use Studios container template version **0.14**. If you customized your Studios container templates, update them to the 0.14 base images during the upgrade. Seqera may not support templates pinned to earlier Connect versions. See the [Studios migration documentation](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template).
 
 ## Data lineage available in all workspaces by default
 
@@ -154,20 +158,20 @@ To limit lineage to specific workspaces, set the variable to a comma-separated l
 
 Data lineage remains a preview feature and AWS-only. From 26.2, Platform no longer polls an Amazon Simple Queue Service (SQS) queue in your AWS account for lineage record notifications. Instead, the lineage bucket publishes object-created events to an Amazon Simple Notification Service (SNS) topic, which pushes them to a Platform webhook over HTTPS. No `sqs:*` grant remains in the documented permission set.
 
-If you plan to enable lineage, grant the [lineage IAM permissions](../data/data-lineage#additional-iam-permissions-required) in addition to the existing [Seqera IAM permissions](../compute-envs/aws-batch#iam-user-creation).
+If you plan to turn on lineage, grant the [lineage IAM permissions](../data/data-lineage#additional-iam-permissions-required) in addition to the existing [Seqera IAM permissions](../compute-envs/aws-batch#iam-user-creation).
 
 ### If lineage is already configured
 
-On the first startup after the upgrade, a one-off migration runs and converts each lineage-enabled workspace still on the SQS transport. For an automatically provisioned workspace, the migration creates and configures the SNS topic, subscribes the Platform webhook, points the bucket notification rule to the topic, and then attempts to decommission the legacy SQS queue.
+On the first startup after the upgrade, a one-off migration converts each lineage-enabled workspace that still uses the SQS transport. For an automatically provisioned workspace, the migration creates and configures the SNS topic, subscribes the Platform webhook, points the bucket notification rule to the topic, and then attempts to decommission the legacy SQS queue.
 
-While it runs, the migration therefore needs **both** the new SNS permissions and the existing SQS permissions for the queue teardown. Once the migration has completed, remove the SQS permissions from your IAM policies.
+While it runs, the migration needs **both** the new SNS permissions and the existing SQS permissions for the queue teardown. After the migration completes, remove the SQS permissions from your IAM policies.
 
-The migration is enabled by default. Disable it with `TOWER_LINEAGE_MIGRATE_SQS_TRANSPORT=false`. See [Configuration options](./configuration/overview#data-features).
+The migration is on by default. To turn it off, set `TOWER_LINEAGE_MIGRATE_SQS_TRANSPORT=false`. See [Configuration options](./configuration/overview#data-features).
 
-Platform cannot migrate customer-managed (**Manual**) workspaces, because it holds no permission over resources you own. Those workspaces are flagged in their lineage settings with instructions to create an SNS topic, subscribe the Platform lineage webhook to it, and enter the topic ARN.
+Platform cannot migrate customer-managed (**Manual**) workspaces, because it holds no permission over resources you own. The lineage settings of those workspaces show instructions to create an SNS topic, subscribe the Platform lineage webhook to it, and enter the topic ARN.
 
 :::note
-In-flight SQS messages are not drained, and the queue itself may survive the teardown if the credentials do not permit `sqs:DeleteQueue`. Nothing is lost either way. The bucket is the source of truth for lineage records, the queue stops receiving events once its notification rule is removed, and its URL is logged so you can delete it by hand.
+Platform does not drain in-flight SQS messages. The queue itself can survive the teardown if the credentials do not permit `sqs:DeleteQueue`. No lineage data is lost either way. The bucket is the source of truth for lineage records, and the queue stops receiving events once its notification rule is removed. Platform logs the queue URL so you can delete the queue by hand.
 :::
 
 ### If the migration reports an error
@@ -178,15 +182,15 @@ If a workspace's credentials lack the required permissions, the migration leaves
 1. Open **Settings > Workspace settings > Lineage** and select **Update** to retry provisioning.
 1. If provisioning still does not complete, select **Disable lineage** and configure lineage again. This removes only the configuration and the automatically provisioned notification infrastructure.
 
-Records already written to the bucket are re-indexed once event delivery is established. Retrying loses no lineage.
+Platform re-indexes records already written to the bucket once event delivery is established. Retrying loses no lineage.
 
 ## General upgrade steps
 
 :::caution
-The database volume is persistent on the local machine by default if you use the `volumes` key in the `db` or `redis` section of your `docker-compose.yml` file to specify a local path to the DB or Redis instance. If your database is not persistent, you must back up your database before performing any application or database upgrades.
+The database volume is persistent on the local machine by default if you use the `volumes` key in the `db` or `redis` section of your `docker-compose.yml` file to specify a local path to the DB or Redis instance. If your database is not persistent, back it up before you upgrade the application or the database.
 :::
 
-1. Make a backup of the Seqera database. If you use the pipeline optimization service and your `groundswell` database resides in a database instance separate from your Seqera database, make a backup of your `groundswell` database as well.
+1. Back up the Seqera database. If you use the pipeline optimization service and its `groundswell` database is in a separate database instance, back up the `groundswell` database too.
 1. Download the latest versions of your deployment templates and update your Seqera container versions:
     - [docker-compose.yml](./_templates/docker/docker-compose.yml) for Docker Compose deployments
     - [tower-cron.yml](./_templates/k8s/tower-cron.yml) and [tower-svc.yml](./_templates/k8s/tower-svc.yml) for Kubernetes deployments
@@ -196,47 +200,47 @@ The database volume is persistent on the local machine by default if you use the
     JAVA_OPTS="-Xms1000M -Xmx2000M -XX:MaxDirectMemorySize=800m -Dio.netty.maxDirectMemory=0 -Djdk.nio.maxCachedBufferSize=262144"
     ```
 
-    These baseline values suit most deployments with moderate concurrent workflow loads.
+    These baseline values suit most deployments with a moderate number of concurrent runs.
 
     :::tip
-    These are starting values that may need tuning for your workload. See [Backend memory requirements](./configuration/overview.mdx#backend-memory-requirements) for when and how to adjust them.
+    You may need to tune these starting values for your workload. See [Backend memory requirements](./configuration/overview.mdx#backend-memory-requirements) for when and how to adjust them.
     :::
-1. If you're using Studios, download and apply the latest versions of the Kubernetes manifests:
+1. If you use Studios, download and apply the latest versions of the Kubernetes manifests:
     - [proxy.yml](./_templates/k8s/data_studios/proxy.yml)
     - [server.yml](./_templates/k8s/data_studios/server.yml)
 
     :::warning
-    If you have customized the default Studios container template images, you must ensure that you update to latest recommended versions. Templates using earlier versions of Connect (than defined in the latest `proxy.yml` and `server.yml`) may no longer be supported in your existing Studios environments. Refer to the [Studios migration documentation](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template) for guidance on migrating to the most recent versions of Connect server and clients.
+    If you customized the default Studios container template images, update them to the latest recommended versions. Seqera may not support templates that use a Connect version earlier than the one in the latest `proxy.yml` and `server.yml`. See the [Studios migration documentation](../studios/managing#migrate-a-studio-from-an-earlier-container-image-template) to migrate to the latest Connect server and client versions.
     :::
 
 1. Restart the application.
-1. If you're using a containerized database as part of your implementation:
+1. If you use a containerized database as part of your implementation:
     1. Stop the application.
     1. Upgrade the MySQL image.
     1. Restart the application.
-1. If you're using Amazon RDS or other managed database services:
+1. If you use Amazon RDS or another managed database service:
     1. Stop the application.
     1. Upgrade your database instance.
     1. Restart the application.
-1. If you're using the pipeline optimization service (`groundswell` database) in a database separate from your Seqera database, update the MySQL image for your `groundswell` database instance while the application is down (during step 4 or 5 above). If you're using the same database instance for both, the `groundswell` update will happen automatically during the Seqera database update.
+1. If you use the pipeline optimization service and its `groundswell` database is separate from your Seqera database, update the MySQL image for the `groundswell` database instance while the application is down (during step 6 or 7). If both use the same database instance, the `groundswell` update happens automatically during the Seqera database update.
 
 ### Database migrations
 
-Database migrations run automatically during upgrade. No manual steps required.
+Database migrations run automatically during the upgrade. No manual steps are needed.
 
 ### Custom deployments
 
-- Run the `/migrate-db.sh` script provided in the `migrate-db` container. This will migrate the database schema.
-- Deploy Seqera following your usual procedures.
+- Run the `/migrate-db.sh` script in the `migrate-db` container to migrate the database schema.
+- Deploy Seqera with your usual procedure.
 
 ## Nextflow launcher image
 
-If you host your nf-launcher container image on a private image registry, copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j21-26.04.x) to your private registry. Then set the launch container environment variable on your backend environment:
+If you host your nf-launcher container image on a private image registry, copy the [nf-launcher image](https://quay.io/seqeralabs/nf-launcher:j21-26.04.x) to your private registry. Then set the launch container environment variable in your backend environment:
 
 ```
 TOWER_LAUNCH_CONTAINER=<FULL_PATH_TO_YOUR_PRIVATE_IMAGE>
 ```
 
 :::caution
-If you're using AWS Batch, you will need to [configure a custom job definition](../enterprise/advanced-topics/custom-launch-container) and populate the `TOWER_LAUNCH_CONTAINER` with the job definition name instead.
+If you use AWS Batch, [configure a custom job definition](../enterprise/advanced-topics/custom-launch-container) and set `TOWER_LAUNCH_CONTAINER` to the job definition name instead.
 :::

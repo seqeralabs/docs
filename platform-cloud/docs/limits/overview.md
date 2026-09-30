@@ -50,4 +50,13 @@ Some Enterprise instances on older licenses are limited to 100 labels per worksp
 | File size            | 10 MB         |
 | Versions per dataset | 100           |
 
+## Launch form
+
+The launch form rejects run parameters and Nextflow configuration that exceed these sizes. The form checks run parameters when you launch, against the parameters it submits to Platform.
+
+| Description            | Default limit |
+| ---------------------- | ------------- |
+| Run parameters         | 20 KB         |
+| Nextflow configuration | 50 KB         |
+
 If you need higher limits, [contact us](https://seqera.io/contact-us/) to discuss your requirements.
