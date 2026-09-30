@@ -26,7 +26,7 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ### server/v0.13.0 - 2026-09-25
 
-* Fix(proxy): survive Platform key rotation without a restart [PLAT-6771] (#769) (e1a7aba)
+* Fix(proxy): survive Platform key rotation without a restart
 * Fix(proxy): wait for the exit status before closing an SSH channel
 * Bump(server): to 0.13.0
 
