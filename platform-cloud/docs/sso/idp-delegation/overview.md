@@ -6,28 +6,6 @@ last updated: "2026-07-09"
 tags: [sso, idp delegation, teams, organization settings, cloud pro]
 ---
 
-<!--
-REVIEW BEFORE MERGE — DO NOT PUBLISH YET (EDU-1266)
-
-- IdP delegation is NOT GA on Seqera Cloud. The feature flag
-  (TOWER_IDP_CLAIMS_MAPPING_ENABLED) is enabled in Cloud dev and stage but is
-  OFF in tower-prod as of 2026-06-29. Hold this page set until the flag is
-  enabled in Cloud production.
-- Verify against the shipped Cloud UI before publish: exact menu labels
-  (Organization settings > Group mapping / Teams), the SCIM endpoint URL host
-  and path, and the team "IdP Group" field label.
-- Draft adapted from the Enterprise IdP delegation pages. Multi-organization
-  routing was intentionally dropped — Cloud Pro tokens carry an org_id claim,
-  so evaluation is scoped to a single organization.
-- Verify the delegated-team list label ("Managed in IdP" here vs "IdP
-  Delegated" in Enterprise teams.md) — the two surfaces should agree.
-- Verify whether linking a team to an IdP group shows a confirmation dialog
-  (PLAT-5702 acceptance criterion, not delivered in PR #11672).
-- Login semantics updated 2026-07-09 to match PLAT-5702 / platform PR #11603:
-  an absent groups claim now revokes delegated memberships. Do not revert to
-  "absent claim is a no-op".
--->
-
 With IdP delegation, you map a Seqera team to a group in your identity provider (IdP). After you delegate a team, the IdP becomes the sole authority for that team's membership. Every time a user signs in through SSO, Seqera reads the `groups` claim from their token and updates the user's delegated-team memberships to match.
 
 IdP delegation requires an active SSO connection for your organization. See [Single sign-on (SSO)](../single-sign-on).
