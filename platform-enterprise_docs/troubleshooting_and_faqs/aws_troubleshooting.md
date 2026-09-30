@@ -128,3 +128,15 @@ To save files to an S3 bucket with a policy that [enforces AES256 server-side en
    ```bash
    export TOWER_AWS_SSE=AES256
    ```
+
+
+## AWS Bedrock
+
+#### `anthropic.claude-opus-5-5 is not available for this account`
+
+This error occurs when your AWS account does not meet the eligibility requirements for the specified model in AWS Bedrock. These requirements are not visible in the Service Quotas console.
+
+To resolve, you can:
+
+- Test access by interacting with AWS Bedrock Playground via the console.
+- If access is denied, contact AWS Support to request access to the required model, as explained in [this AWS blog post](https://repost.aws/knowledge-center/bedrock-serverless-models-access-denied).

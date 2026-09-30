@@ -2,7 +2,7 @@
 title: "Prerequisites"
 description: "Prerequisites for Co-Scientist"
 date created: "2026-04-20"
-last updated: "2026-09-23"
+last updated: "2026-09-30"
 tags: [prerequisites]
 ---
 
@@ -30,7 +30,7 @@ Co-Scientist enables users to interact with Seqera Platform through a conversati
 
 ## AWS account
 
-Co-Scientist uses Claude models via [Amazon Bedrock](https://aws.amazon.com/bedrock/). You need an AWS account with Bedrock available in your chosen region.
+Co-Scientist can use Claude models via [Amazon Bedrock](https://aws.amazon.com/bedrock/) or via an Anthropic API key. You need an AWS account with Bedrock available in your chosen region.
 
 ### Models
 
@@ -38,10 +38,13 @@ The following Bedrock model access must be enabled in your account:
 
 | Purpose | Model ID | Required |
 | --- | --- | --- |
-| Text inference | `anthropic.claude-opus-4-8` | Always |
+| Text inference | `anthropic.claude-opus-5-5` | Always |
 | Text embeddings | `amazon.titan-embed-text-v2:0` | Only when documentation semantic search is enabled |
 
-Co-Scientist uses a single model for all text inference. Agent backend versions up to and including `1.14.1` route requests across separate primary, fast, and deep models and need access to each — see the 26.1 documentation if your deployment pins an earlier version.
+Co-Scientist uses a single model for all text inference. Agent backend versions up to and including `1.14.1` route requests across separate primary, fast, and deep models and need access to each — see the 26.1 documentation if your deployment pins an earlier version of the agent-backend images.
+
+When using a recent Anthropic model via AWS Bedrock like `anthropic.claude-opus-5-5`, ensure your account has access to it through the Bedrock service in your chosen region.
+Certain AWS Accounts have additional account-level eligibility requirements for certain models and may produce errors like `anthropic.claude-opus-5-5 is not available for this account`. These requirements aren't visible in the Service Quotas console, but can be tested by interacting with AWS Bedrock Playground via the console. If that's the case, contact AWS Support to get access to the required models, as explained in [this AWS blog post](https://repost.aws/knowledge-center/bedrock-serverless-models-access-denied).
 
 For the IAM permissions these models require, see [Bedrock setup](./bedrock-setup.md).
 
@@ -71,7 +74,7 @@ Two domains are required in addition to your Platform domain, each serving a dif
 | MCP server | `mcp.platform.example.com` | Model Context Protocol server |
 
 - TLS certificates for both domains.
-- Both domains must be subdomains of a domain shared with Platform, such as `platform.example.com`. The Co-Scientist panel authenticates to the agent backend with the Platform session cookie, which is scoped to the shared parent domain with `TOWER_AUTH_COOKIE_DOMAIN`.
+- Both domains must be subdomains of a domain shared with Platform, such as `platform.example.com`. The Co-Scientist panel authenticates to the agent backend with the Platform session cookie, which is scoped to the shared parent domain with `TOWER_AUTH_COOKIE_DOMAIN` (automatically set by the Platform Helm Chart when the agent-backend sub-chart is enabled).
 - Ingress controller configured in your cluster.
 
 ## Encryption key

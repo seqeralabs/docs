@@ -2,7 +2,7 @@
 title: "Prerequisites"
 description: "Prerequisites for Co-Scientist"
 date created: "2026-04-20"
-last updated: "2026-09-22"
+last updated: "2026-09-30"
 tags: [prerequisites]
 ---
 
@@ -33,7 +33,7 @@ Co-Scientist enables users to interact with Seqera Platform through a conversati
 
 ## AWS account
 
-Co-Scientist uses Claude models via [Amazon Bedrock](https://aws.amazon.com/bedrock/). You need an AWS account with Bedrock available in your chosen region.
+Co-Scientist can use Claude models via [Amazon Bedrock](https://aws.amazon.com/bedrock/) or via an Anthropic API key. You need an AWS account with Bedrock available in your chosen region.
 
 ### Models
 

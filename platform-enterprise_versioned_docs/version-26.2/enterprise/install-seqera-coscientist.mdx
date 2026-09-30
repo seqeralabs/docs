@@ -2,12 +2,12 @@
 title: "Co-Scientist"
 description: Install and configure Co-Scientist for Seqera Platform Enterprise
 date created: "2026-05-04"
-last updated: "2026-09-29"
+last updated: "2026-09-30"
 tags: [seqera ai, installation, deployment, aws, helm]
 ---
 
 :::caution
-Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. This guide covers the Enterprise 26.2 deployment path for the agent backend, MCP server, and Seqera CLI. It is currently only available on AWS.
+Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. This guide covers the Enterprise 26.2 deployment path for the agent backend, MCP server, and Seqera CLI. Co-scientist is currently only available on AWS.
 :::
 
 Deploy the agent backend and Seqera MCP server alongside Platform to provide Co-Scientist assistance for workflows, data, and Platform resources in the [Co-Scientist panel](../co-scientist/platform.md) in Seqera Platform and in the Seqera CLI. Seqera Platform serves the Co-Scientist panel itself, so no separate web interface is deployed. The MCP and agent backend Helm charts provide the option to define Kubernetes ingresses. Other methods to expose the services can be used, e.g. via the `extraDeploy` resource.
@@ -29,6 +29,7 @@ Before you begin, make sure you have:
 - A stable Fernet token encryption key for the agent backend if you use Kustomize. Helm-only installs can let the chart generate this key, but explicitly setting it avoids accidental regeneration.
 - Access to a supported Claude inference provider. AWS Bedrock is recommended for Enterprise deployments; direct Anthropic API access is also supported.
 - If you use AWS Bedrock, a configured AWS account: model access, the IAM permissions the agent backend pods need, and an AgentCore runtime if you enable sandboxed sessions. See [Bedrock setup](../co-scientist/bedrock-setup.md).
+  * Note: Certain AWS Accounts have additional account-level eligibility requirements for recent models and may produce errors like `anthropic.claude-opus-5-5 is not available for this account`. These requirements aren't visible in the Service Quotas console, but can be tested by interacting with AWS Bedrock Playground via the console. If that's the case, contact AWS Support to get access to the required models, as explained in [this AWS blog post](https://repost.aws/knowledge-center/bedrock-serverless-models-access-denied).
 - If you use direct Anthropic API access, an Anthropic API key stored in a Kubernetes Secret.
 
 Generate a Fernet token encryption key when you set the key manually:
