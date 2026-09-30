@@ -2,7 +2,7 @@
 title: "Azure Cloud"
 description: "Instructions to set up an Azure Cloud compute environment in Seqera Platform"
 date created: "2025-09-29"
-last updated: "2026-08-14"
+last updated: "2026-09-30"
 tags: [cloud, vm, azure, compute environments]
 ---
 
@@ -140,6 +140,8 @@ For granular control over the permissions granted to Seqera, use [Azure custom r
                     "Microsoft.OperationalInsights/workspaces/query/Tables.Custom/read",
 
                     "Microsoft.Compute/virtualMachines/retrieveBootDiagnosticsData/action",
+
+                    "Microsoft.Resources/tags/write",
 
                     "Microsoft.Storage/storageAccounts/blobServices/containers/read",
                     "Microsoft.Storage/storageAccounts/blobServices/generateUserDelegationKey/action"
@@ -310,6 +312,34 @@ This requires [boot diagnostics](https://learn.microsoft.com/en-us/azure/virtual
             {
                 "actions": [
                     "Microsoft.Compute/virtualMachines/retrieveBootDiagnosticsData/action"
+                ],
+                "notActions": [],
+                "dataActions": [],
+                "notDataActions": []
+            }
+        ]
+    }
+}
+```
+
+#### OS disk cost attribution (optional)
+
+When a compute environment runs with Seqera Intelligent Compute, run cost is queried by the run's tags. Azure does not copy a virtual machine's tags onto the managed OS disk it creates with the VM, so shortly after each launch Seqera writes the VM's tags onto its OS disk. Without this permission, launches work as before, but the OS disk's cost is left out of the run's cost.
+
+The permission writes tags only. It grants no access to the disk itself, and it is the action behind the built-in `Tag Contributor` role. If you created the custom role before this permission was listed, add it to your existing role.
+
+```json
+{
+    "properties": {
+        "roleName": "seqera-azure-cloud-os-disk-tags",
+        "description": "Role to tag virtual machine OS disks for run cost attribution",
+        "assignableScopes": [
+            "/subscriptions/<SUBSCRIPTION-ID>"
+        ],
+        "permissions": [
+            {
+                "actions": [
+                    "Microsoft.Resources/tags/write"
                 ],
                 "notActions": [],
                 "dataActions": [],
