@@ -14,6 +14,7 @@ If you do not specify a Nextflow version in your configuration, Seqera Platform 
 
 | Platform version | nf-launcher version | Nextflow version | Fusion version | Connect client version |
 | ---------------- | ------------------- | ---------------- | -------------- | ---------------------- |
+| 26.2.1           | j21-26.04           | 26.04            | 2.5            | 0.14.0                 |
 | 26.2.0           | j21-26.04           | 26.04            | 2.5            | 0.14.0                 |
 | 26.1.5           | j21-26.04           | 26.04            | 2.5            | 0.12.0                 |
 | 26.1.4           | j21-26.04           | 26.04            | 2.5            | 0.12.0                 |
