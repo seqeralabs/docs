@@ -110,7 +110,7 @@ If you mirror images or override the MCP image repository:
 
 - Mirror `enterprise/mcp/server` into your registry. Copies of `ai/mcp/server` do not receive new releases.
 - Remove any `mcp.image.repository: ai/mcp/server` override from your values, or change it to `enterprise/mcp/server`. An explicit override takes precedence over the chart default.
-- On a chart earlier than 1.0.4, upgrade to the latest 1.0.x chart, or set `mcp.image.repository: enterprise/mcp/server`. Seqera does not patch charts retroactively.
+- If you're using a chart earlier than 1.0.4, upgrade to the latest 1.0.x chart, or set `mcp.image.repository: enterprise/mcp/server`. Seqera does not patch charts.
 
 ## Configure the agent backend
 
