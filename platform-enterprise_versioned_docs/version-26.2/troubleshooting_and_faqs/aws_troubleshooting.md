@@ -132,7 +132,7 @@ To save files to an S3 bucket with a policy that [enforces AES256 server-side en
 
 ## AWS Bedrock
 
-#### `anthropic.claude-opus-5-5 is not available for this account`
+#### `anthropic.claude-opus-4-8 is not available for this account`
 
 This error occurs when your AWS account does not meet the eligibility requirements for the specified model in AWS Bedrock. These requirements are not visible in the Service Quotas console.
 

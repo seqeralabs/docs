@@ -28,7 +28,7 @@ Enable access to the models Co-Scientist uses in your chosen region. See the AWS
 
 | Purpose | Model ID | Required |
 | --- | --- | --- |
-| Text inference | `anthropic.claude-opus-5-5` | Always |
+| Text inference | `anthropic.claude-opus-4-8` | Always |
 | Text embeddings | `amazon.titan-embed-text-v2:0` | Only when documentation semantic search is enabled |
 
 Co-Scientist uses a single model for all text inference. Earlier releases routed requests across separate primary, fast, and deep models. That tiering was removed, and only the one model above needs access.
@@ -50,16 +50,16 @@ If you skip this step, Co-Scientist's first inference call fails even though mod
 
 ## Use an inference profile for the Claude model
 
-`Claude Opus 5.5` is not available for on-demand throughput, and you must invoke it through an inference profile. Use the global profile:
+`Claude Opus 4.8` is not available for on-demand throughput, and you must invoke it through an inference profile. Use the global profile:
 
 ```text
-global.anthropic.claude-opus-5-5
+global.anthropic.claude-opus-4-8
 ```
 
 Supply its full ARN to the agent backend as `bedrock.inference.anthropicModel` when you install the chart:
 
 ```yaml
-arn:aws:bedrock:<region>:<account-id>:inference-profile/global.anthropic.claude-opus-5-5
+arn:aws:bedrock:<region>:<account-id>:inference-profile/global.anthropic.claude-opus-4-8
 ```
 
 ## Grant Bedrock inference permissions
@@ -77,8 +77,8 @@ Attach the following policy to the IAM role or user that the agent backend pods 
         "bedrock:InvokeModelWithResponseStream"
       ],
       "Resource": [
-        "arn:aws:bedrock:::foundation-model/anthropic.claude-opus-5-5",
-        "arn:aws:bedrock:<region>:<account-id>:inference-profile/global.anthropic.claude-opus-5-5",
+        "arn:aws:bedrock:::foundation-model/anthropic.claude-opus-4-8",
+        "arn:aws:bedrock:<region>:<account-id>:inference-profile/global.anthropic.claude-opus-4-8",
         "arn:aws:bedrock:::foundation-model/amazon.titan-embed-text-v2:0"
       ]
     }

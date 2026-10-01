@@ -38,13 +38,13 @@ The following Bedrock model access must be enabled in your account:
 
 | Purpose | Model ID | Required |
 | --- | --- | --- |
-| Text inference | `anthropic.claude-opus-5-5` | Always |
+| Text inference | `anthropic.claude-opus-4-8` | Always |
 | Text embeddings | `amazon.titan-embed-text-v2:0` | Only when documentation semantic search is enabled |
 
 Co-Scientist uses a single model for all text inference. Agent backend versions up to and including `1.14.1` route requests across separate primary, fast, and deep models and need access to each. See the 26.1 documentation if your deployment pins an earlier version of the agent-backend images.
 
-If you use a recent Anthropic model through AWS Bedrock, such as `anthropic.claude-opus-5-5`, make sure your account has access to it through the Bedrock service in your chosen region.
-Some AWS accounts have additional account-level eligibility requirements for certain models and can return errors like `anthropic.claude-opus-5-5 is not available for this account`. These requirements aren't visible in the Service Quotas console. To test them, use the AWS Bedrock Playground in the console. If your account has these requirements, contact AWS Support to get access to the required models, as explained in [this AWS blog post](https://repost.aws/knowledge-center/bedrock-serverless-models-access-denied).
+If you use a recent Anthropic model through AWS Bedrock, such as `anthropic.claude-opus-4-8`, make sure your account has access to it through the Bedrock service in your chosen region.
+Some AWS accounts have additional account-level eligibility requirements for certain models and can return errors like `anthropic.claude-opus-4-8 is not available for this account`. These requirements aren't visible in the Service Quotas console. To test them, use the AWS Bedrock Playground in the console. If your account has these requirements, contact AWS Support to get access to the required models, as explained in [this AWS blog post](https://repost.aws/knowledge-center/bedrock-serverless-models-access-denied).
 
 For the IAM permissions these models require, see [Bedrock setup](./bedrock-setup.md).
 

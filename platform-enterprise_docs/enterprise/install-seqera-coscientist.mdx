@@ -29,7 +29,7 @@ Before you begin, make sure you have:
 - A stable Fernet token encryption key for the agent backend if you use Kustomize. Helm-only installs can let the chart generate this key, but explicitly setting it avoids accidental regeneration.
 - Access to a supported Claude inference provider. AWS Bedrock is recommended for Enterprise deployments; direct Anthropic API access is also supported.
 - If you use AWS Bedrock, a configured AWS account: model access, the IAM permissions the agent backend pods need, and an AgentCore runtime if you enable sandboxed sessions. See [Bedrock setup](../co-scientist/bedrock-setup.md).
-  * Note: Certain AWS Accounts have additional account-level eligibility requirements for recent models and may produce errors like `anthropic.claude-opus-5-5 is not available for this account`. These requirements aren't visible in the Service Quotas console, but can be tested by interacting with AWS Bedrock Playground via the console. If that's the case, contact AWS Support to get access to the required models, as explained in [this AWS blog post](https://repost.aws/knowledge-center/bedrock-serverless-models-access-denied).
+  * Note: Certain AWS Accounts have additional account-level eligibility requirements for recent models and may produce errors like `anthropic.claude-opus-4-8 is not available for this account`. These requirements aren't visible in the Service Quotas console, but can be tested by interacting with AWS Bedrock Playground via the console. If that's the case, contact AWS Support to get access to the required models, as explained in [this AWS blog post](https://repost.aws/knowledge-center/bedrock-serverless-models-access-denied).
 - If you use direct Anthropic API access, an Anthropic API key stored in a Kubernetes Secret.
 
 Generate a Fernet token encryption key when you set the key manually:
@@ -199,7 +199,7 @@ To use direct Anthropic API access instead of Bedrock for inference, replace the
     # Platform chart 1.0.5 (shipping agent-backend subchart 1.6.0) provides the option to configure the Anthropic inference model directly.
     # Alternatively, you can configure the Anthropic inference model by setting the `ANTHROPIC_MODEL` environment variable on the agent backend.
     inference:
-      model: claude-opus-5-5
+      model: claude-opus-4-8
 
   embeddings:
     provider: bedrock
