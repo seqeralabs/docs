@@ -2,7 +2,7 @@
 title: "Custom environments"
 description: "Custom environments for Studios"
 date created: "2024-10-01"
-last updated: "2026-09-29"
+last updated: "2026-09-30"
 tags: [environments, custom, studios]
 ---
 
@@ -12,17 +12,21 @@ For ready-to-use examples, see [Example custom Studios][example-studios].
 
 ## Conda packages
 
-Augment a Seqera-provided image with Conda packages to add the tools you need to a Studio session.
+Augment a Seqera-provided image with Conda packages to add the tools you need to a Studio session. From version 26.2, you can also [augment a custom container image](#custom-image-conda).
 
 :::info[**Prerequisites**]
 
 You need the following:
 
 - Wave configured. See [Wave containers][wave].
-- A target repository set per workspace by the workspace Admin, in **Settings** > **Studios** > **Container repository**.
-- Workspace credentials with push access to the target repository.
+- A target container repository, set in one of these ways:
+  - For the whole Seqera Platform instance, with the `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY` and, optionally, `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REPOSITORY` [environment variables][studio-env-vars].
+  - Per workspace, by the workspace Admin, in **Settings** > **Studios** > **Container repository**. The workspace setting takes precedence over the environment variables.
+- Workspace credentials with push access to the target container repository.
 
 :::
+
+The workspace Admin can also set how built images are named, in **Settings** > **Studios** > **Container image naming strategy**: **Tag prefix**, **Image suffix**, or **None**. **Platform default** uses the `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_NAME_STRATEGY` environment variable, which defaults to `tagPrefix`.
 
 ### Conda package syntax {#conda-package-syntax}
 
@@ -132,6 +136,51 @@ ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
 # highlight-next-line
 CMD ["/usr/bin/bash", "-c", "python3 -m http.server $CONNECT_TOOL_PORT"]
 ```
+
+{/* doc-skills: PRE-IMPLEMENTATION — reviewed: no — brief: .docs-operating-model/briefs/PLAT-6576.md — verify against shipped behavior before publishing */}
+
+### Conda augmentation of custom images {#custom-image-conda}
+
+From version 26.2, you can augment a custom container image with Conda packages, in the same way as a Seqera-provided image template. Your image doesn't need its own Conda installation: Wave builds the Conda environment in a separate stage and copies it into your image.
+
+:::warning
+Conda augmentation hasn't been validated across custom images. Before you share an augmented custom image, start a test Studio from it and check that both your own tools and the added Conda packages work.
+:::
+
+The prerequisites for [Conda packages](#conda-packages) also apply: Wave must be configured, a target container repository must be set for the Seqera Platform instance or the workspace, and the workspace credentials must have push access to it.
+
+#### How the augmented image is built
+
+Studios builds the augmented image with Wave, using the `conda/micromamba:v2` multi-stage build template:
+
+1. Wave resolves the packages in your environment file into a Conda environment in a build stage based on `mambaorg/micromamba`.
+1. Wave then uses your custom image as the base of the final stage, copies the resolved environment into it at `MAMBA_ROOT_PREFIX` (`/opt/conda`), and prepends `/opt/conda/bin` to `PATH`.
+
+Wave doesn't add micromamba to the final image, only the resolved environment.
+
+The build pushes a new image to the workspace container repository or, if none is set, to the repository set by `TOWER_DATA_STUDIO_WAVE_CUSTOM_IMAGE_REGISTRY`. The image is named according to the container image naming strategy. Your source image in its own registry is not modified.
+
+#### Image compatibility
+
+:::caution
+
+- The resolved environment is copied to `/opt/conda`. If your image already has content at that path, the copied environment is written over it.
+- If your image installs its analysis tooling outside `/opt/conda`, through `apt` or a system Python for example, the augmented packages are installed against the Conda environment's own interpreter.
+- Binaries in `/opt/conda/bin` take precedence on `PATH`, which can shadow the equivalents in your image.
+
+:::
+
+:::note
+Studios builds the environment with [micromamba][micromamba-guide], currently the only supported package manager for augmenting custom images.
+:::
+
+When you add the Studio, Seqera Platform rejects the request with a 400 error, before any Wave build starts, if:
+
+- The Conda environment isn't valid.
+- The destination container repository is invalid, or uses a registry blocked by `TOWER_DATA_STUDIO_WAVE_DISALLOWED_REGISTRIES`.
+
+If an augmented build fails, the Studio session has the **build-failed** status. See [Inspect container augmentation build status](#build-status) for the build report and error details.
+
 ### Custom container image examples
 
 For example custom Studio environment container images, see the [custom Studios examples repository][custom-studios-examples].
@@ -153,7 +202,9 @@ To inspect the status of a build, complete the following steps:
 [add-s]: ./add-studio
 [aws-batch]: ../compute-envs/aws-batch
 [wave]: https://docs.seqera.io/platform-enterprise/enterprise/configuration/wave
+[studio-env-vars]: ../enterprise/configuration/overview#data-features
 [custom-studios-examples]: https://github.com/seqeralabs/custom-studios-examples
 [wave-home]: https://seqera.io/wave/
 [env-manually]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually
+[micromamba-guide]: https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html
 [example-studios]: ./example-studios
