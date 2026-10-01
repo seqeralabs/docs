@@ -88,12 +88,7 @@ For a workspace that is not in `TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES`, P
 
 ## Subjects and attribution
 
-Every token Seqera Platform generates carries a subject (`sub`) that names the tenant and the kind of work making the request:
-
-| Scope | Subject |
-| --- | --- |
-| Organization workspace | `org:{orgId}:wsp:{workspaceId}:{workload}` |
-| Personal workspace | `usr:{userId}:{workload}` |
+Every token Seqera Platform generates carries a subject (`sub`) that names the tenant and the kind of work making the request, in the form `org:{orgId}:wsp:{workspaceId}:{workload}`.
 
 The trailing segment is the workload type. The following table shows the subject each call presents, and who it is attributed to in `principal_id`, the user session tags, and the source identity. Platform makes every call except a Studio's own mounts and SDK calls, which the Studio container makes through its own token exchange.
 
@@ -101,7 +96,8 @@ The trailing segment is the workload type. The following table shows the subject
 | --- | --- | --- |
 | Data Explorer bucket list, cached and refreshed in the background | `data` | Unattributed |
 | Data Explorer browsing, previews, downloads, and uploads | `data` | The browsing user |
-| Studio mount dialog | `data` | As for Data Explorer |
+| Studio mount dialog bucket list | `data` | Unattributed |
+| Studio mount dialog browsing | `data` | The browsing user |
 | Studio checkpoints and data-link cache refresh | `data` | Unattributed |
 | A shared Studio's mounts and SDK calls | `studio` | Unattributed |
 | A private Studio's mounts and SDK calls | `studio` | The allow-listed user, or the creator if the allow list is empty. Unattributed if more than one user is allowed. |
@@ -546,7 +542,7 @@ Per-user access control comes from your IAM policy, not from Platform. Condition
 :::caution
 A deny list allows every new user by default. Allow-listing by team is not possible because Platform does not emit team membership as a session tag. Plan your policies around denying named users rather than admitting named teams.
 
-A `seqera:principal-id` condition also has no effect inside a Studio shared with the workspace. A shared session carries no acting user. The tag is absent, and the session reaches whatever the `studio` statement grants. To limit what a shared Studio can reach, scope the `Studios` statement's `Resource` to those buckets instead.
+A `seqera:principal-id` condition also has no effect inside a Studio shared with the workspace. A shared session carries no acting user. It presents itself as the Studio, with the subject `org:{orgId}:wsp:{workspaceId}:studio`, not as a user. Your policy can match the Studio but not an individual user. To limit what a shared Studio can reach, condition a statement on the `studio` workload and scope its `Resource` to those buckets. See [Narrow access by workload or user](#narrow-access-by-workload-or-user).
 :::
 
 Note the following when you write policies against these values:
