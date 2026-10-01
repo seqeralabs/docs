@@ -137,8 +137,6 @@ ENTRYPOINT ["/usr/bin/connect-client", "--entrypoint"]
 CMD ["/usr/bin/bash", "-c", "python3 -m http.server $CONNECT_TOOL_PORT"]
 ```
 
-{/* doc-skills: PRE-IMPLEMENTATION — reviewed: no — brief: .docs-operating-model/briefs/PLAT-6576.md — verify against shipped behavior before publishing */}
-
 ### Conda augmentation of custom images {#custom-image-conda}
 
 From version 26.2, you can augment a custom container image with Conda packages, in the same way as a Seqera-provided image template. Your image doesn't need its own Conda installation: Wave builds the Conda environment in a separate stage and copies it into your image.

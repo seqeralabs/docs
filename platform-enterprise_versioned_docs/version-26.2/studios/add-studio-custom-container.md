@@ -16,8 +16,6 @@ You will need the following to get started:
 - If your container image is in a private registry, [container registry credentials][registry-creds] for that registry in the workspace. Wave uses them to pull the image. They are separate from your compute environment and cloud storage credentials.
 :::
 
-{/* doc-skills: PRE-IMPLEMENTATION — reviewed: no — brief: .docs-operating-model/briefs/PLAT-6576.md — verify against shipped behavior before publishing */}
-
 For ready-to-use examples, see [Example custom Studios][example-studios]. Select **Custom container template** and provide your own template (see [Custom container template image][custom-image]). From version 26.2, you can also **Install Conda packages** on top of a custom container template. See [Conda augmentation of custom images][custom-image-conda].
 
 Configure the following fields in each section of the form:
