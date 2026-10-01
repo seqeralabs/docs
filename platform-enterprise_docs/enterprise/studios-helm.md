@@ -5,7 +5,7 @@ date created: "2026-01-30"
 tags: [helm, deployment, installation, kubernetes, studios]
 ---
 
-[Helm](https://helm.sh) is an open-source command line tool used for managing Kubernetes applications. Seqera offers a [Helm chart](https://github.com/seqeralabs/helm-charts/tree/studios-1.1.3/platform/charts/studios) to deploy Studios Enterprise on a Kubernetes cluster.
+[Helm](https://helm.sh) is an open-source command line tool used for managing Kubernetes applications. Seqera offers a [Helm chart](https://github.com/seqeralabs/helm-charts/tree/studios-1.7.5/charts/platform/charts/studios) to deploy Studios Enterprise on a Kubernetes cluster.
 
 :::info Prerequisites <span id="prerequisites" />
 Other than the basic requirements [already listed in the Studios installation overview](./install-studios#prerequisites), you will need:
@@ -26,7 +26,7 @@ studios:
   enabled: true
 ```
 
-At the same time, configure the desired Studios options as described in the [Studios Helm chart documentation](https://github.com/seqeralabs/helm-charts/tree/studios-1.1.3/platform/charts/studios), in particular the Studios service domain and the subdomains that it will use for incoming connections. Also refer to the [example](https://github.com/seqeralabs/helm-charts/tree/studios-1.1.3/platform/examples/studios) provided in the Helm charts repository.
+At the same time, configure the desired Studios options as described in the [Studios Helm chart documentation](https://github.com/seqeralabs/helm-charts/tree/studios-1.7.5/charts/platform/charts/studios), in particular the Studios service domain and the subdomains that it will use for incoming connections. Also refer to the [example](https://github.com/seqeralabs/helm-charts/tree/studios-1.7.5/charts/platform/examples/studios) provided in the Helm charts repository.
 
 Then, follow the instructions in the Seqera Platform Enterprise installation guide [using Helm](./platform-helm) to install or upgrade your Platform deployment with Studios.
 
