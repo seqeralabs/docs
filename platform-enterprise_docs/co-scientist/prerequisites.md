@@ -61,7 +61,7 @@ For the IAM permissions these models require, see [Bedrock setup](./bedrock-setu
   - Redis 8.x is supported (the search/JSON/bloom modules moved into core in Redis 8.0).
   - Valkey 7.2+ and 8.x are supported for the default caching and task-queue workload. If you enable the optional Redis-backed knowledge index (off by default), Redis Stack 7.x or Redis 8+ is required — Valkey does not ship the `RediSearch` module.
 - Accessible from your cluster.
-- Either a dedicated instance or the instance Platform already uses. To share one instance, give Platform and Co-Scientist different Redis database numbers with the chart's `redis.database` value.
+- Either a dedicated instance or the instance Platform already uses. To share one instance, give Co-Scientist a different Redis database number with `agent-backend.redis.database` (Platform defaults to database `0`).
 - You will need the hostname and port ready for Helm configuration.
 
 ## Networking and DNS
