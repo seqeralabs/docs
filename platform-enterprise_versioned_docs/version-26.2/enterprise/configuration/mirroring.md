@@ -31,9 +31,9 @@ Create a YAML file (`seqera-images.yaml`) to specify which images to sync:
 ```yaml
 cr.seqera.io:
     images-by-semver:
-        enterprise/platform/backend: ">= v26.2.0"
-        enterprise/platform/frontend: ">= v26.2.0"
-        enterprise/platform/migrate-db: ">= v26.2.0"
+        enterprise/platform/backend: ">= v26.2.1"
+        enterprise/platform/frontend: ">= v26.2.1"
+        enterprise/platform/migrate-db: ">= v26.2.1"
         # Co-Scientist MCP server, if you deploy Co-Scientist
         enterprise/mcp/server: ">= 1.4.3"
 ```

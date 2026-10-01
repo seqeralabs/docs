@@ -113,7 +113,7 @@ The `docker-compose.yml` template earlier on this page is already configured for
 
 ```yaml
   frontend:
-    image: cr.seqera.io/enterprise/platform/frontend:v26.2.0
+    image: cr.seqera.io/enterprise/platform/frontend:v26.2.1
     platform: linux/amd64
     environment:
       NGINX_LISTEN_PORT: 8001  # If not defined, defaults to 8000

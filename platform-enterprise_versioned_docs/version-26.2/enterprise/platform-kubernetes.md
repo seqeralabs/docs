@@ -149,7 +149,7 @@ spec:
   ...
       containers:
         - name: frontend
-          image: cr.seqera.io/enterprise/platform/frontend:v26.2.0
+          image: cr.seqera.io/enterprise/platform/frontend:v26.2.1
           ports:
             - containerPort: 8000
           env:
