@@ -13,16 +13,8 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ### server/v0.14.0 `latest` - 2026-09-28
 
-* Feat(client): publish the workload identity where Cloud SDKs look for it
-* Feat(client): let a studio resize /dev/shm via STUDIO_UNSAFE_SHMEM_SIZE
-* Feat(client): federate GCP studios through the same published identity
-* Feat(client): point the studio's cloud credential chain at its own identity
-* Feat(client): bind the published identity to the AWS credential chain
-* Feat(client): redeem the workload bootstrap token via RFC 8693
-* Feat(client): move Platform token ownership to the supervisor
-* Feat(client): bump Fusion 2.4.14 > 2.5.13
-* Bump(all): bump go to 1.27 version, and dependencies version
-* Bump(client): to 0.14.0
+* Bump(all): go to 1.27 version, and dependencies version
+* Bump(server): to 0.14.0
 
 ### server/v0.13.0 - 2026-09-25
 
@@ -141,6 +133,16 @@ Connect version 0.8.3 introduced a change which required the creation of a `/dat
 ### client/v0.14.0 `latest` - 2026-09-28
 
 * Fix: `1.105.1` VS Code template Docker daemon management fix
+* Feat(client): publish the workload identity where Cloud SDKs look for it
+* Feat(client): let a studio resize /dev/shm via STUDIO_UNSAFE_SHMEM_SIZE
+* Feat(client): federate GCP studios through the same published identity
+* Feat(client): point the studio's cloud credential chain at its own identity
+* Feat(client): bind the published identity to the AWS credential chain
+* Feat(client): redeem the workload bootstrap token via RFC 8693
+* Feat(client): move Platform token ownership to the supervisor
+* Feat(client): bump Fusion 2.4.14 > 2.5.13
+* Bump(all): bump go to 1.27 version, and dependencies version
+* Bump(client): to 0.14.0
 
 ### client/v0.13.0 - 2026-08-11
 
