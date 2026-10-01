@@ -38,7 +38,7 @@ The following Bedrock model access must be enabled in your account:
 
 | Purpose | Model ID | Required |
 | --- | --- | --- |
-| Text inference | `anthropic.claude-opus-5-5` | Always |
+| Text inference | `anthropic.claude-opus-4-8` | Always |
 | Text embeddings | `amazon.titan-embed-text-v2:0` | Only when documentation semantic search is enabled |
 
 Co-Scientist uses a single model for all text inference. Agent backend versions up to and including `1.14.1` route requests across separate primary, fast, and deep models and need access to each. See the 26.1 documentation if your deployment pins an earlier version of the agent-backend images.
