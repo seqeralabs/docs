@@ -100,7 +100,7 @@ From the **Data Explorer** tab, find the data repository that you want to remove
 
 - **View data repository contents**
 
-  Select a data-link from the Data Explorer list to view the contents of that data repository. From the **View data repository** page, you can browse directories and search for objects by name in a particular directory. The size and last-modified timestamp appear in columns to the right of the object name. You can also copy the path to the object to the clipboard or create a custom data-link (if the target is a directory). Users with the Maintain role or above can also download or delete the object. On the Data Explorer landing page you can view data repository details such as the provider, address, and credentials by selecting the information icon. You can also show or hide the data repository, or delete a custom data-link.
+  Select a data-link from the Data Explorer list to view the contents of that data repository. From the **View data repository** page, you can browse directories and search for objects by name in a particular directory. The size and last-modified timestamp appear in columns to the right of the object name. You can also copy the path to the object to the clipboard or create a custom data-link (if the target is a directory). Any workspace role can download the object. Users with the Maintain role or above can also delete it. On the Data Explorer landing page you can view data repository details such as the provider, address, and credentials by selecting the information icon. You can also show or hide the data repository, or delete a custom data-link.
 
 - **Preview and download files**
 
