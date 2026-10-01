@@ -2,6 +2,7 @@
 title: "Modes"
 description: "Work in Co-Scientist's build, plan, and goal modes"
 date created: "2026-03-11"
+last updated: "2026-09-22"
 tags: [co-scientist, cli, modes]
 ---
 
@@ -32,6 +33,8 @@ In plan mode, Co-Scientist focuses on:
 Plan mode blocks write and execution tools, including:
 
 - `execute_bash_local`
+- `run_nextflow_lint_local`
+- `run_nf_core_lint_local`
 - `write_file_local`
 - `edit_file_local`
 - `create_directory_local`
@@ -103,6 +106,8 @@ Co-Scientist currently gives goal mode up to **3 model attempts** before it stop
 | `Shift+Tab` | Toggle between build mode and plan mode. |
 | <code style={{whiteSpace: 'nowrap'}}>Ctrl+Enter</code> | If your terminal supports it, interrupt the current response and send a queued follow-up immediately. |
 | `Esc` | Clear a queued follow-up or interrupt the current response. |
+| `Shift+Enter` | Insert a newline in your message. |
+| `Ctrl+J` | Insert a newline in your message. Use it in terminals where `Shift+Enter` does not work. |
 
 ## Learn more
 

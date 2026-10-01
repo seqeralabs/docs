@@ -9,7 +9,7 @@ tags: [faq, help, azure, troubleshooting]
 
 **Use separate Batch pools for head and compute nodes**
 
-The default Azure Batch implementation in Seqera Platform uses a single pool for head and compute nodes. This means that all jobs spawn dedicated/on-demand VMs by default. To save cloud costs by using low priority VMs for compute jobs, specify separate pools for head and compute jobs:
+Batch Forge creates separate head and worker pools with dedicated (on-demand) VMs by default. To save costs by running compute tasks on low-priority VMs, create the pools manually:
 
 1. Create two Batch pools in Azure:
     - One Dedicated

@@ -231,6 +231,10 @@ There are two ways to create an Azure Batch compute environment in Seqera Platfo
 - [**Batch Forge**](#batch-forge): Automatically creates Azure Batch resources.
 - [**Manual**](#manual): For using existing Azure Batch resources.
 
+:::tip
+For an end-to-end walkthrough of Azure Batch topologies (separate head and worker pools, Entra authentication, and private networking), see [Set up advanced Azure Batch compute environments](../enterprise/advanced-topics/manual-azure-batch-setup).
+:::
+
 ### VM size considerations
 
 Azure Batch requires you to select an appropriate VM size for your compute environment. There are a number of considerations when selecting VM sizes — See [Sizes for virtual machines in Azure][az-vm-sizes] for more information.
@@ -496,7 +500,7 @@ The following settings can be modified after creating a pool:
 1. Set the **Config mode** to **Manual**.
 1. Enter the **Compute Pool name**. This is the name of the Azure Batch pool you created previously in the Azure Batch account.
     :::note
-    The default Azure Batch implementation uses a single pool for head and compute nodes. To use separate pools for head and compute nodes, see [this FAQ entry](../troubleshooting_and_faqs/azure_troubleshooting).
+    Batch Forge creates separate head and worker pools by default. For manual environments, you can also use separate pools to run compute tasks on low-priority VMs. See [Use separate Batch pools for head and compute nodes](../troubleshooting_and_faqs/azure_troubleshooting#use-separate-batch-pools-for-head-and-compute-nodes).
     :::
 1. Enter a user-assigned **Managed identity client ID**, if one is attached to your Azure Batch pool. See [Managed Identity](#managed-identity) below.
 1. Apply [**Resource labels**](../resource-labels/overview). This will populate the **Metadata** fields of the Azure Batch pool.

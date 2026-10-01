@@ -2,6 +2,7 @@
 title: "Skills configuration"
 description: "Discover, create, and install skills in the Seqera CLI"
 date created: "2026-03-11"
+last updated: "2026-09-22"
 tags: [co-scientist, cli, skills]
 ---
 
@@ -52,15 +53,14 @@ Detailed instructions, examples, and guidelines.
 Co-Scientist searches these directories in order. The first directory to register a skill name takes precedence, and later skills with the same name are ignored.
 
 | Priority | Path | Scope |
-|----------|------|-------|
-| 1 | `<cwd>/.agents/skills/` | project |
-| 2 | `<cwd>/.seqera/skills/` | project |
-| 3 | `~/.agents/skills/` | user |
+| --- | --- | --- |
+| 1 | `.seqera/skills/` in the current directory and each parent directory up to the repository root, nearest first | project |
+| 2 | `.agents/skills/` at the same levels, checked after `.seqera/skills/` at each level | project |
+| 3 | `$XDG_CONFIG_HOME/seqera/skills/` (default `~/.config/seqera/skills/`) | user |
 | 4 | `~/.seqera/skills/` | user |
-| 5 | `~/.config/agents/skills/` | user |
-| 6 | `~/.config/seqera/skills/` | user |
+| 5 | `~/.agents/skills/` | user |
 
-Project skills take priority over user skills, so you can override a global skill with a repository-specific version.
+Outside a git repository, Co-Scientist checks only the current directory. Because project skills take priority over user skills, a repository-specific skill overrides a global skill with the same name.
 
 ### Cross-agent compatibility
 
