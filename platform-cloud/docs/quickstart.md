@@ -2,15 +2,21 @@
 title: "Explore Seqera Cloud"
 description: "Explore your free workspace resources and launch your first pipelines with Seqera Compute."
 date created: "2025-10-16"
-last updated: "2026-06-04"
+last updated: "2026-10-01"
 toc_max_heading_level: 4
 tags: [pipelines, versioning, nextflow, parameters]
 ---
 
-When you create a Seqera Cloud account with a verified work email, Seqera provisions managed starter resources on your first login. These resources include a Seqera compute environment and $100 in free credits to launch pipelines and Studios.
+When you create a Seqera Cloud account with an eligible work email, Seqera provisions managed starter resources on your first login. These resources include a Seqera compute environment and $100 in free credits to launch pipelines and Studios.
 
 :::note
-Generic email domains like Gmail are not eligible for the free resources detailed in this guide.
+Eligibility for free credits and starter resources depends on your email domain:
+
+- Free, personal, disposable, and alias email providers, such as Gmail, aren't eligible.
+- Work email domains are eligible if Seqera recognizes the domain, the domain has an academic suffix such as `.edu` or `.ac.uk`, or the domain wasn't registered recently and Seqera can confirm its registration date.
+- Only a limited number of accounts per domain, and a limited number per day, receive free resources.
+
+If your email isn't eligible, you can still use your Seqera Cloud account, but Platform doesn't create your own organization and workspace or provision free credits and starter resources. To request credits, see [Request additional credits](./administration/credit-management.md#request-additional-credits).
 :::
 
 ## Your free resources
