@@ -13,7 +13,7 @@ Example output:
 ```bash
 Downloading file: file.txt
 ....
- Progress: [========================================] 100% (269/269 KBs, ETA: 0.0s)
+ Progress: [========================================] 100% (269/269 KBs, ETA: 0.0s, Elapsed: 1s)
 ```
 
 Example output:
@@ -36,7 +36,7 @@ tw data-links download -n my-bucket -c <credentials_ID> -w <workspace_ID> path/t
 
 Downloading file: my-directory/file.txt
 ....
- Progress: [========================================] 100% (5/5 bytes, ETA: 0.0s)
+ Progress: [========================================] 100% (5/5 bytes, ETA: 0.0s, Elapsed: 0s)
 
 
 Successfully downloaded files

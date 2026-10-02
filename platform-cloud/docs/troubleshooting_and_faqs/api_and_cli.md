@@ -60,6 +60,16 @@ tw --insecure info
 HTTP must not be used in production environments.
 :::
 
+#### `ExpiredToken` errors during large uploads
+
+```
+Failed to upload file: HTTP 400, Message: <Error><Code>ExpiredToken</Code><Message>The provided token has expired.</Message>...
+```
+
+This error occurs when a `tw data-links upload` transfer outlives the signed upload URLs that Platform issued when the upload started. tw CLI versions earlier than v0.40.0 cannot refresh those URLs. The remaining parts fail.
+
+To resolve, upgrade to tw CLI [v0.40.0](https://github.com/seqeralabs/tower-cli/releases/tag/v0.40.0) or later. For AWS S3 and Seqera Compute data links, the CLI requests fresh URLs for the remaining parts and continues the upload. See [Large uploads](https://docs.seqera.io/platform-cli/reference/data-links#large-uploads).
+
 #### Relaunch a run
 
 Relaunch a run with the [`tw runs relaunch`](../launch/cache-resume#relaunch-a-workflow-run) command:
