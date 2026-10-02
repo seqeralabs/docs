@@ -88,7 +88,7 @@ tw credentials add aws [OPTIONS]
 | `-a`, `--access-key` | AWS access key identifier. Part of AWS IAM credentials used for programmatic access to AWS services. | No |  |
 | `-s`, `--secret-key` | AWS secret access key. Part of AWS IAM credentials used for programmatic access to AWS services. Keep this value secure. | No |  |
 | `-r`, `--assume-role-arn` | IAM role ARN to assume for accessing AWS resources. Allows cross-account access or privilege elevation. Must be a fully qualified ARN (e.g., arn:aws:iam::123456789012:role/RoleName). | No |  |
-| `--mode` | AWS credential mode: 'keys' (access key + secret key) or 'role' (IAM role only). Default: keys. | No |  |
+| `--mode` | AWS credential mode: 'keys' (access key + secret key), 'role' (IAM role only) or 'workload-identity' (OIDC workload identity federation via sts:AssumeRoleWithWebIdentity, requires Identity Federation enabled). Default: keys. The mode cannot be changed after creation; on update, it defaults to the mode of the existing credentials. | No |  |
 | `--generate-external-id` | Generate a platform-managed External ID for the credential (used with IAM role ARN). | No | `false` |
 
 ### `tw credentials add codecommit`
@@ -126,10 +126,10 @@ tw credentials add google [OPTIONS]
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
 | `--overwrite` | Overwrite the credentials if it already exists. | No | `false` |
 | `-k`, `--key` | Path to JSON file containing Google Cloud service account key. Download from Google Cloud Console IAM & Admin &gt; Service Accounts. | No |  |
-| `--mode` | Google credential mode: 'service-account-key' (JSON key file) or 'workload-identity' (WIF with OIDC tokens). Default: service-account-key. | No |  |
+| `--mode` | Google credential mode: 'service-account-key' (JSON key file) or 'workload-identity' (WIF with OIDC tokens, requires Identity Federation enabled). Default: service-account-key. On update, it defaults to the mode of the existing credentials. | No |  |
 | `--service-account-email` | The email address of the Google Cloud service account to impersonate (required for workload-identity mode). | No |  |
 | `--workload-identity-provider` | The full resource name of the Workload Identity Pool provider. Format: projects/&#123;PROJECT&#125;/locations/global/workloadIdentityPools/&#123;POOL&#125;/providers/&#123;PROVIDER&#125; | No |  |
-| `--token-audience` | Optional. The intended audience for the OIDC token. If not specified, defaults to the Workload Identity Provider resource name. | No |  |
+| `--token-audience` | Optional. The intended audience for the OIDC token. If not specified, defaults to //iam.googleapis.com/&lt;workload identity provider&gt;. | No |  |
 
 ### `tw credentials add github`
 
@@ -349,7 +349,7 @@ tw credentials update aws [OPTIONS]
 | `-a`, `--access-key` | AWS access key identifier. Part of AWS IAM credentials used for programmatic access to AWS services. | No |  |
 | `-s`, `--secret-key` | AWS secret access key. Part of AWS IAM credentials used for programmatic access to AWS services. Keep this value secure. | No |  |
 | `-r`, `--assume-role-arn` | IAM role ARN to assume for accessing AWS resources. Allows cross-account access or privilege elevation. Must be a fully qualified ARN (e.g., arn:aws:iam::123456789012:role/RoleName). | No |  |
-| `--mode` | AWS credential mode: 'keys' (access key + secret key) or 'role' (IAM role only). Default: keys. | No |  |
+| `--mode` | AWS credential mode: 'keys' (access key + secret key), 'role' (IAM role only) or 'workload-identity' (OIDC workload identity federation via sts:AssumeRoleWithWebIdentity, requires Identity Federation enabled). Default: keys. The mode cannot be changed after creation; on update, it defaults to the mode of the existing credentials. | No |  |
 | `--generate-external-id` | Generate a platform-managed External ID for the credential (used with IAM role ARN). | No | `false` |
 
 ### `tw credentials update codecommit`
@@ -387,10 +387,10 @@ tw credentials update google [OPTIONS]
 | `-n`, `--name` | Credentials name | Yes |  |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
 | `-k`, `--key` | Path to JSON file containing Google Cloud service account key. Download from Google Cloud Console IAM & Admin &gt; Service Accounts. | No |  |
-| `--mode` | Google credential mode: 'service-account-key' (JSON key file) or 'workload-identity' (WIF with OIDC tokens). Default: service-account-key. | No |  |
+| `--mode` | Google credential mode: 'service-account-key' (JSON key file) or 'workload-identity' (WIF with OIDC tokens, requires Identity Federation enabled). Default: service-account-key. On update, it defaults to the mode of the existing credentials. | No |  |
 | `--service-account-email` | The email address of the Google Cloud service account to impersonate (required for workload-identity mode). | No |  |
 | `--workload-identity-provider` | The full resource name of the Workload Identity Pool provider. Format: projects/&#123;PROJECT&#125;/locations/global/workloadIdentityPools/&#123;POOL&#125;/providers/&#123;PROVIDER&#125; | No |  |
-| `--token-audience` | Optional. The intended audience for the OIDC token. If not specified, defaults to the Workload Identity Provider resource name. | No |  |
+| `--token-audience` | Optional. The intended audience for the OIDC token. If not specified, defaults to //iam.googleapis.com/&lt;workload identity provider&gt;. | No |  |
 
 ### `tw credentials update github`
 
@@ -580,6 +580,7 @@ tw credentials delete [OPTIONS]
 | `-i`, `--id` | Credentials unique identifier | Yes |  |
 | `-n`, `--name` | Credentials name | Yes |  |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `--force` | Delete the credentials even if running pipelines or Studio sessions use them. Those runs and sessions are stopped. By default, credentials in use are not deleted. | No |  |
 
 Command:
 
