@@ -12,7 +12,7 @@
 -
   Environment variable:            '`TOWER_FORGE_PREFIX`'
   Description: >
-    Override the default `TowerForge` prefix, appended to AWS resources created by Batch Forge, with a custom value.
+    Override the default `TowerForge` prefix, appended to AWS resources created by [Batch Forge](https://docs.seqera.io/platform-enterprise/compute-envs/aws-batch), with a custom value.
   Value:               'Default: `TowerForge`'
 -
   Environment variable:            '`TOWER_ALLOW_INSTANCE_CREDENTIALS`'
@@ -24,3 +24,8 @@
   Description: >
     Installation-wide customer-managed KMS key that encrypts the temporary AWS Secrets Manager secrets created for runs that use pipeline secrets. Accepts a key ARN or a key ID. Applies to AWS Batch and AWS Cloud compute environments, and only when the compute environment does not define its own **Pipeline secrets KMS key**. A key is account- and region-specific. Set this default only when every AWS Batch and AWS Cloud compute environment in the installation targets the same AWS account and region. The compute environment credentials require `kms:GenerateDataKey` and `kms:Decrypt` on the key, granted either in the key policy or in the credentials' own IAM policy. A malformed value prevents backend startup.
   Value:               'Default: none (AWS-managed key)'
+-
+  Environment variable:            '`TOWER_COMPUTE_ENV_LAST_USED_FLUSH_INTERVAL`'
+  Description: >
+    How often Seqera Platform writes buffered compute environment last-used timestamps to the database. Seqera Platform buffers the write instead of making it inside the launch, to avoid deadlocks between concurrent launches on the same compute environment.
+  Value:               'Default: `1s`'

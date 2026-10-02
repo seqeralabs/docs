@@ -5,11 +5,11 @@ date created: "2025-11-21"
 tags: [helm, deployment, installation, kubernetes]
 ---
 
-[Helm](https://helm.sh) is an open-source command line tool used for managing Kubernetes applications. Seqera offers a [Helm chart](https://github.com/seqeralabs/helm-charts/tree/platform-0.36.1/charts/platform) to deploy Seqera Platform Enterprise on a Kubernetes cluster.
+[Helm](https://helm.sh) is an open-source command line tool used for managing Kubernetes applications. Seqera offers a [Helm chart](https://github.com/seqeralabs/helm-charts/tree/platform-1.0.7/charts/platform) to deploy Seqera Platform Enterprise on a Kubernetes cluster.
 
 :::info Prerequisites <span id="prerequisites" />
 Other than the basic requirements [already listed in the Platform installation overview](./install-platform#prerequisites), you will need:
-- A Kubernetes cluster
+- A Kubernetes cluster, preferably Amazon EKS
 - [Helm v3](https://helm.sh/docs/intro/install) and [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
 :::
 
@@ -24,20 +24,20 @@ These are chart-level settings. To set an application-level option, use the dedi
 1. Fetch the default `values.yaml` file to customize the installation with your specific configuration:
 
    ```bash
-   helm show values oci://public.cr.seqera.io/charts/platform --version 0.36.1 > my-values.yaml
+   helm show values oci://public.cr.seqera.io/charts/platform --version 1.0.7 > my-values.yaml
    ```
 
    Now edit the `my-values.yaml` file to set your options, such as internal container image registry, database connection details, license information, and other settings.
 
-   You can drop lines that you don't want to customize to keep the file concise and only include the settings you want to change: this will make it easier to maintain your configuration in the future. The values you don't specify will fall back to the defaults defined in the chart in the `values.yaml` file. For an example of a minimal configuration file, see the [example values file](https://github.com/seqeralabs/helm-charts/blob/platform-0.36.1/charts/platform/examples/kustomize/values.yaml).
+   To keep the file concise, drop the lines you don't want to customize and include only the settings you want to change. This makes your configuration easier to maintain. Values you don't specify fall back to the defaults defined in the chart's `values.yaml` file. For an example of a minimal configuration file, see the [example values file](https://github.com/seqeralabs/helm-charts/blob/platform-1.0.7/charts/platform/examples/kustomize/values.yaml).
 
-   You can browse all the available configuration options in a tabular format in the [README](https://github.com/seqeralabs/helm-charts/tree/platform-0.36.1/charts/platform) file.
+   You can browse all the available configuration options in a tabular format in the [README](https://github.com/seqeralabs/helm-charts/tree/platform-1.0.7/charts/platform) file.
 
 1. Install the chart from the public OCI registry in your desired namespace and with the values file customized in the previous step:
 
    ```bash
    helm install my-release oci://public.cr.seqera.io/charts/platform \
-       --version 0.36.1 \
+       --version 1.0.7 \
        --namespace my-namespace \
        --create-namespace \
        --values my-values.yaml
@@ -47,7 +47,7 @@ These are chart-level settings. To set an application-level option, use the dedi
 
 ### Installing a Helm chart with Kustomize
 
-Kustomize can be used to manage Helm chart installations as well and provides further customization options. To install the Seqera Platform Enterprise Helm chart using Kustomize, check out the [Kustomize example directory](https://github.com/seqeralabs/helm-charts/tree/platform-0.36.1/charts/platform/examples/kustomize).
+You can also use Kustomize to manage Helm chart installations. Kustomize provides further customization options. To install the Seqera Platform Enterprise Helm chart with Kustomize, see the [Kustomize example directory](https://github.com/seqeralabs/helm-charts/tree/platform-1.0.7/charts/platform/examples/kustomize).
 
 ## Upgrading the Helm chart
 

@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-09-16"
+last updated: "2026-09-29"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -24,7 +24,7 @@ If your Studio session doesn't advance from **stopping** status to **stopped** s
 
 ### Session status is **errored**
 
-The `errored` status is generally related to problems creating the Studio session resources in the compute environment, such as invalid credentials, insufficient permissions, or network issues. It can also be related to insufficient compute resources set in your compute environment configuration. Contact your organization's AWS administrator if you don't have access to the AWS Console, and contact your Seqera account executive to investigate.
+The `errored` status is generally related to problems creating the Studio session resources in the compute environment, such as invalid credentials, insufficient permissions, or network issues. It can also be related to insufficient compute resources set in your compute environment configuration. Check the Studio's **Logs** tab for the cause first. See [Studio session logs](../studios/managing#studio-session-logs). If you still need help, contact your organization's AWS administrator if you don't have access to the AWS Console, and contact your Seqera account executive to investigate.
 
 ### Session doesn't start with an internal certificate authority
 
@@ -121,6 +121,41 @@ A pipeline run fails when it reads a path that a running Studio session wrote to
 This issue occurs because Fusion uploads data to object storage in chunks and consolidates those chunks into a complete object only when the Fusion instance that wrote them shuts down. For a Studio session, that happens when the session stops. Separate Fusion instances also do not share a live view of each other's in-progress writes.
 
 To resolve, [stop the Studio session](../studios/managing#stop-a-studio-session) and wait for its status to change to **stopped** before you launch the run. To avoid the problem, upload data for a pipeline with **Data Explorer** or the Seqera Platform CLI (`tw`) instead of writing it from a running session.
+
+### Files from earlier sessions are missing after a restart, with `missing SquashFS image` warnings {#missing-squashfs-image}
+
+If files or folders saved in earlier sessions are missing when a Studio session starts, check the session log for warnings similar to the following:
+
+```text
+missing SquashFS image /fusion/s3/<bucket>/<work-dir>/.studios/checkpoints/<checkpoint-id>/data.img
+```
+
+:::note
+Connect client v0.11.0 and later logs `SquashFS image not found` instead.
+:::
+
+This issue occurs when checkpoint images were removed from the compute environment work directory, most often by an object storage lifecycle rule that expires or deletes objects in the work directory. Each checkpoint stores only the changes made during one session, and a session rebuilds its filesystem by stacking every earlier checkpoint chronologically. When a checkpoint image is missing, the session skips that layer, so files last changed during that session are missing. Seqera Platform deletes checkpoint files only when the Studio that references them is deleted.
+
+To resolve this issue, restore each missing `data.img` object to its original path. If versioning is enabled on the bucket, check whether an earlier version exists:
+
+```bash
+aws s3api list-object-versions \
+  --bucket <bucket> \
+  --prefix <work-dir>/.studios/checkpoints/<checkpoint-id>/
+```
+
+If the current version of `data.img` is a delete marker, delete the marker to restore the image:
+
+```bash
+aws s3api delete-object \
+  --bucket <bucket> \
+  --key <work-dir>/.studios/checkpoints/<checkpoint-id>/data.img \
+  --version-id <delete-marker-version-id>
+```
+
+The next Studio session start retrieves the restored checkpoints without any change in Seqera Platform. If no earlier version of `data.img` exists, the changes from that session can't be recovered.
+
+To prevent this issue, exclude the `.studios/` prefix of the work directory from any lifecycle rule that expires current object versions. Rules that expire only non-current versions don't remove checkpoints. See [Studio session checkpoints](../studios/managing#object-storage-versioning-and-checkpoint-storage-costs).
 
 ## Custom environments and container images
 

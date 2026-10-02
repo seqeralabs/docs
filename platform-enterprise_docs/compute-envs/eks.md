@@ -2,7 +2,7 @@
 title: "Amazon EKS"
 description: "Instructions to set up Amazon EKS in Seqera Platform"
 date created: "2026-02-04"
-last updated: "2026-05-28"
+last updated: "2026-09-17"
 tags: [eks, amazon, compute environments, ce]
 ---
 
@@ -290,10 +290,11 @@ Then create AWS credentials using an IAM role ARN only (no access key, secret ke
 
 ## AWS credential options
 
-AWS credentials can be configured in two ways:
+AWS credentials can be configured in three ways:
 
 - **Key-based credentials**: Access key and secret key with direct IAM permissions. If you provide a role ARN in **Assume role**, the **Generate External ID** switch is displayed and External ID generation is optional.
 - **Role-based credentials (recommended)**: Use role assumption only (no static keys). Paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. External ID is generated automatically when you save.
+- **Workload identity federation**: No stored credential. Platform exchanges a short-lived OpenID Connect (OIDC) token for temporary credentials against an IAM role you control, and stores only the role Amazon Resource Name (ARN). See [Workload identity federation][wif] for the trust policy, permission policies, and setup steps.
 
 Use the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. This field is available for both key-based and role-based credentials. It is optional for key-based credentials and required for role-based credentials.
 
@@ -522,3 +523,5 @@ spec:
 :::info
 See [Launch pipelines](../launch/launchpad) to start executing workflows in your Amazon EKS compute environment.
 :::
+
+[wif]: ../credentials/workload_identity

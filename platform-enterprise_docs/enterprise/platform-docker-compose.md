@@ -42,10 +42,14 @@ The bundled `redis` container in `docker-compose.yml` is intended for evaluation
 
 | Cache / version | Status                       |
 | --------------- | ---------------------------- |
-| Redis 6.x       | Not supported (EoL upstream) |
+| Redis 6.x       | Not supported (from 26.1)    |
 | Redis 7.2       | Supported                    |
 | Redis 7.4       | Supported                    |
 | Valkey 7.x      | Supported (from 26.1)        |
+
+:::note
+Managed cache services can offer newer engine versions than Seqera Platform is tested against. For example, Amazon ElastiCache offers Valkey up to 9.x. Select a version from the table. Newer major versions are not tested or supported.
+:::
 
 ### Connection URL
 
@@ -56,7 +60,7 @@ Configure the connection URL in your Seqera environment using the scheme that ma
 | Redis           | `redis://`   | `TOWER_REDIS_URL=redis://<host>:6379`    |
 | Redis with TLS  | `rediss://`  | `TOWER_REDIS_URL=rediss://<host>:6380`   |
 
-The Redisson client embedded in Platform 26.1+ supports Valkey 7 dial schema — no further configuration is required. Redis password and ACL configuration carry over unchanged when migrating to Valkey.
+Seqera Platform 26.1 and later supports the Valkey 7 dial schema. No further configuration is required. Redis password and ACL configuration carry over unchanged when you migrate to Valkey.
 
 ### Managed service options
 
@@ -103,11 +107,13 @@ For more information on configuration, see [Configuration options](./configurati
 
 #### Seqera frontend unprivileged
 
-The Seqera frontend image listens on an unprivileged port. Update the `frontend` section of the `docker-compose.yml` file as follows, replacing the port mappings as needed:
+From Seqera Platform Enterprise 26.2, Seqera publishes one frontend image, `cr.seqera.io/enterprise/platform/frontend:<tag>`. The image is unprivileged. It listens on an unprivileged port and doesn't run as the root user. Seqera no longer publishes the `-root` and `-unprivileged` tag variants. A `docker-compose.yml` that references one fails to pull.
+
+The `docker-compose.yml` template earlier on this page is already configured for this image. To listen on a port other than the default `8000`, set `NGINX_LISTEN_PORT` and map the host port to it:
 
 ```yaml
   frontend:
-    image: cr.seqera.io/enterprise/platform/frontend:v26.2.0
+    image: cr.seqera.io/enterprise/platform/frontend:v26.2.1
     platform: linux/amd64
     environment:
       NGINX_LISTEN_PORT: 8001  # If not defined, defaults to 8000
@@ -120,7 +126,7 @@ The Seqera frontend image listens on an unprivileged port. Update the `frontend`
       - backend
 ```
 
-The Seqera frontend image can be easily customized using environment variables:
+Customize the image with these environment variables:
 
 - `NGINX_LISTEN_PORT`: The port the NGINX process will listen on inside the container. Default: `8000`.
 - `NGINX_LISTEN_PORT_IPV6`: The NGINX listening port to open on the IPv6 address. Default: `8000`.

@@ -2,7 +2,7 @@
 title: "Data lineage"
 description: "Track and search the provenance of pipeline runs, tasks, and output files in Seqera Platform."
 date created: "2026-05-11"
-last updated: "2026-08-21"
+last updated: "2026-09-30"
 tags: [data lineage, provenance, governance, reproducibility, lineage id, lid, labels, search]
 ---
 
@@ -23,7 +23,7 @@ Production pipelines generate results that teams need to trust, audit, and repro
 - **Reproducibility**: Every run, task, and output file receives a unique lineage ID (LID), a traversable URI that points to a structured record of what ran. Verify that two runs produced identical results, or identify where they diverged.
 - **Auditing and compliance**: For teams in regulated industries such as pharma, clinical genomics, and contract research organizations (CROs), lineage provides the audit trail needed for regulatory compliance. Each record captures inputs, outputs, parameters, compute environment, and the user who launched the run.
 - **Debugging**: When a cached task re-executes, or a pipeline produces an unexpected result, lineage traces backward from any output to all contributing tasks and parameters. Compare two task runs to isolate what changed.
-- **Broader team access**: Exploring Nextflow lineage previously required CLI access and the ability to read raw JSON. Platform now surfaces lineage data on pipeline run detail pages and in Data Explorer.
+- **Broader team access**: Exploring Nextflow lineage previously required CLI access and the ability to read raw JSON. Platform now shows lineage data on pipeline run detail pages and in Data Explorer.
 - **Pipeline output visibility**: When lineage is enabled and a pipeline uses the [Nextflow workflow output syntax][nextflow-workflow-outputs] (Nextflow 24.10.0 or later), all published output files appear in the **Pipeline outputs** sub-tab on the [run details page][run-details]. Each file entry includes its lineage ID, lineage labels, and a direct link to Data Explorer, so any team member can locate and open a result without navigating cloud storage.
 - **Discovery across runs**: [Workflow output labels][workflow-labels] make output files discoverable across runs. Navigate lineage records by label to find all matching outputs workspace-wide, without knowing which specific run produced a file.
 
@@ -48,7 +48,7 @@ Each record gets a lineage ID (LID), a `lid://` URI that uniquely identifies the
 1. The index enriches the [run details][run-details] and the display of workflow-generated objects in Data Explorer.
 
 :::info
-Because delivery is a push over HTTPS, `TOWER_SERVER_URL` must resolve to an **HTTPS** endpoint that AWS can reach from the public internet. SNS refuses plain HTTP and cannot resolve a private address. An installation AWS cannot reach receives no lineage events. The records are still written to your bucket, and Platform indexes them once delivery is established.
+Because delivery is a push over HTTPS, `TOWER_SERVER_URL` must resolve to an **HTTPS** endpoint that AWS can reach from the public internet. SNS refuses plain HTTP and cannot resolve a private address. An installation AWS cannot reach receives no lineage events. Nextflow still writes the records to your bucket, and Platform indexes them once delivery is established.
 :::
 
 :::note
@@ -66,14 +66,18 @@ To start collecting data lineage for all pipeline runs in your workspace:
     - **Automatic**: Define the credentials and region. Platform creates the bucket, the SNS topic, the topic policies, the webhook subscription, and the bucket notification rule. This is the default setting.
 4. Once set and enabled, all pipeline runs in the workspace generate data lineage. See [Lineage][workspace-lineage] for more information about the settings.
 
+:::note
+Lineage credentials must be key-based or role-based AWS credentials. Lineage does not support [workload identity federation](../credentials/workload_identity#limitations) credentials.
+:::
+
 :::danger
-Updating the lineage settings after pipelines have generated lineage data will result in historical data loss. The lineage index is tied to the lineage storage bucket and path. Changing it makes existing records inaccessible. To avoid data loss when updating the storage location, first copy all existing lineage data to the new bucket and path (for example, `aws s3 cp --recursive s3://old-bucket/path s3://new-bucket/path`), then update the workspace setting.
+Updating the lineage settings after pipelines have generated lineage data results in historical data loss. The lineage index is tied to the lineage storage bucket and path. Changing it makes existing records inaccessible. To avoid data loss when updating the storage location, first copy all existing lineage data to the new bucket and path (for example, `aws s3 cp --recursive s3://old-bucket/path s3://new-bucket/path`), then update the workspace setting.
 :::
 
 When launching a pipeline in a data-lineage enabled workspace, the **Enable lineage** toggle in the pipeline **Run setup** reflects the **Enable lineage by default** workspace setting. Turn it off to _explicitly exclude_ data lineage for the pipeline run.
 
 :::tip
-Maintain role users and above can toggle lineage on or off when launching a specific pipeline run.
+Users with the Maintain role or above can toggle lineage on or off when launching a specific pipeline run.
 :::
 
 ### Additional IAM permissions required
@@ -137,7 +141,6 @@ Platform integration credentials require the following additional permissions fo
                 "s3:CreateBucket",
                 "s3:GetBucketNotification",
                 "s3:PutBucketNotification",
-                "s3:GetBucketLocation",
                 "s3:GetObject",
                 "s3:ListBucket"
             ],
@@ -155,7 +158,7 @@ No `sqs:*` permission is required. Platform holds no permission over messaging i
 :::note
 `sns:ConfirmSubscription` and `s3:ListBucket` are both required, and both fail quietly if omitted:
 
-- Without `sns:ConfirmSubscription`, provisioning completes and the workspace reports as configured, but **Event delivery** shows **Failed** and nothing is indexed. Platform completes the SNS handshake through the API. The permission is required even though a subscription can also be confirmed by hand in a browser.
+- Without `sns:ConfirmSubscription`, provisioning completes and the workspace reports as configured, but **Event delivery** shows **Failed** and nothing is indexed. Platform completes the SNS handshake through the API. The permission is required even though you can also confirm a subscription by hand in a browser.
 - Without `s3:ListBucket`, rebuilding a workspace's lineage index from its bucket fails with `AccessDenied`. Reindexing pages the store with `ListObjectsV2`.
 :::
 
@@ -248,7 +251,7 @@ aws sns subscribe \
   --notification-endpoint '<webhook URL from the lineage settings page>'
 ```
 
-SNS immediately posts a subscription confirmation to the endpoint, which Platform verifies and confirms with the workspace's lineage credentials. The **Event delivery** badge on the settings page moves from **Awaiting confirmation** to **Active**.
+SNS immediately posts a subscription confirmation to the endpoint. Platform verifies and confirms it with the workspace's lineage credentials. The **Event delivery** badge on the settings page moves from **Awaiting confirmation** to **Active**.
 
 :::tip
 Set a delivery policy on your topic or subscription to widen the retry schedule. The AWS default of three attempts over roughly a minute drops events across an ordinary Platform restart. Automatically provisioned topics use a wider schedule for this reason. Tune it with `TOWER_LINEAGE_SNS_MAX_RETRIES` and `TOWER_LINEAGE_SNS_MAX_DELAY_SECONDS`.
@@ -260,9 +263,9 @@ The `.data.json` suffix filter is recommended to reduce cost and delivery volume
 
 ### Event delivery status
 
-Once the settings are saved, the lineage settings page reports **Event delivery** — **Active**, **Awaiting confirmation**, **Failed**, or **Not configured** — alongside the workspace's **Webhook URL**. Delivery status is independent of the configuration status. A workspace can be configured and writable while Platform receives nothing.
+After you save the settings, the lineage settings page reports the **Event delivery** status (**Active**, **Awaiting confirmation**, **Failed**, or **Not configured**) alongside the workspace's **Webhook URL**. Delivery status is independent of the configuration status. A workspace can be configured and writable while Platform receives nothing.
 
-If delivery does not become **Active**, confirm that AWS can reach the installation over public HTTPS and that the lineage credentials grant `sns:ConfirmSubscription`. Records already written to the bucket are intact and are re-indexed once delivery resumes.
+If delivery does not become **Active**, confirm that AWS can reach the installation over public HTTPS and that the lineage credentials grant `sns:ConfirmSubscription`. Records already written to the bucket are intact, and Platform re-indexes them once delivery resumes.
 
 ### Test lineage for a single pipeline or run
 
@@ -281,14 +284,14 @@ If data lineage is defined for a workspace, only that data is displayed in Platf
 
 ## Lineage in the Platform UI
 
-Platform surfaces lineage data on the run details page and in Data Explorer.
+Platform shows lineage data on the run details page and in Data Explorer.
 
 ### Workflow run details
 
 For a run executed with lineage enabled, the [run details page][run-details] displays lineage data across the following tabs:
 
 - **Run Info**: Shows the lineage ID, lineage labels, and the full Platform context captured at execution time, including user, workspace, compute environment, pipeline name, revision, and commit ID.
-- **Tasks**: Displays the lineage ID and lineage labels for each `TaskRun` alongside existing task data. You can trace any task back to its lineage record. All task file inputs and outputs, and upstream and downstream tasks linked by lineage records, are displayed.
+- **Tasks**: Displays the lineage ID and lineage labels for each `TaskRun` alongside existing task data. You can trace any task back to its lineage record. The tab also displays all task file inputs and outputs, and the upstream and downstream tasks linked by lineage records.
 - **Inputs**: Lists all input datasets and parameters with file paths, types, and lineage IDs and lineage labels where available.
 - **Outputs**: Lists all `FileOutput` records linked to the workflow run, including output name, file path, type, lineage ID, and lineage labels. Files link directly to [Data Explorer][data-explorer].
 
@@ -297,6 +300,8 @@ For a run executed with lineage enabled, the [run details page][run-details] dis
 Output objects from a lineage-enabled run display their LID and any lineage labels when you preview the object in Data Explorer. You can trace any file back to the pipeline run that produced it.
 
 ## Search data lineage records
+
+Global search is on by default. To hide the search bar, set `TOWER_GLOBAL_SEARCH_ENABLED=false`. See [Configuration overview](../enterprise/configuration/overview).
 
 Use the search bar in the top navigation to find workflow runs, tasks, pipelines, and output files across every workspace you can access. To open it, select **Search** or press `Cmd+K` (macOS) or `Ctrl+K` (Windows and Linux). Search covers only workspaces that have data lineage enabled and in which you are a participant. Results include only records you have permission to view.
 
@@ -334,7 +339,7 @@ The field suggests `workspace:`, `type:`, and `label:` as you type. Enter the re
 `workspace:` and `workspaceId:` set the scope of a search rather than filter its results. A query that contains only a workspace still returns that workspace's most recent records. Omit both to search every workspace available to you. Referencing a workspace you do not participate in returns an error rather than an empty list.
 
 :::caution
-Renaming pipelines after execution can cause data lineage consistency issues. Pipeline names are **mutable** by design (can be edited). Data lineage records are **immutable**. If you run a pipeline, generate data lineage records, and then rename the pipeline, the indexed data lineage records will not be associated with the new pipeline name.
+Renaming pipelines after execution can cause data lineage consistency issues. Pipeline names are **mutable** by design (can be edited). Data lineage records are **immutable**. If you run a pipeline, generate data lineage records, and then rename the pipeline, the indexed data lineage records are not associated with the new pipeline name.
 :::
 
 ### Examples
@@ -363,7 +368,7 @@ Lineage search is also available through the Platform API. The `GET /lineage/sea
 Assign lineage labels to output files using the `label` directive in your Nextflow process definitions. Both Seqera Platform labels and Nextflow lineage labels propagate to lineage records. Seqera Platform excludes resource labels because they relate to underlying compute resources, not the data itself.
 
 :::info
-Nextflow sets lineage labels at execution time, and they cannot be changed. Seqera Platform labels are mutable. Updating Platform labels after a run completes can produce a mismatch between Platform run labels and lineage labels. This is expected behavior.
+Nextflow sets lineage labels at execution time, and you cannot change them. Seqera Platform labels are mutable. Updating Platform labels after a run completes can produce a mismatch between Platform run labels and lineage labels. This is expected behavior.
 :::
 
 {/* links */}

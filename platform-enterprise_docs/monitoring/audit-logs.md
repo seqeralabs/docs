@@ -2,7 +2,7 @@
 title: "Audit logs"
 description: An overview of application event audit logs in the Admin panel
 date created: "2024-04-08"
-last updated: "2026-05-11"
+last updated: "2026-09-18"
 tags: [logging, audit logs, admin panel]
 ---
 
@@ -12,36 +12,28 @@ Root users can view application event audit logs from the [Admin panel](../admin
 Application event audit logs are retained for 365 days by default. In Platform Enterprise, this retention period can be [customized](../enterprise/configuration/overview#logging). You can also disable automatic audit log deletion with `TOWER_CRON_AUDIT_LOG_CLEAN_UP_ENABLED`.
 :::
 
-## Audit log versions in 26.1
+## Audit log versions
 
-Seqera Platform Enterprise 26.1 introduces the audit log v2 schema as a **breaking change** for direct database consumers and custom ETL jobs.
+Seqera Platform Enterprise 26.1 introduced the audit log v2 schema as a **breaking change** for direct database consumers and custom ETL jobs. From 26.2, v2 is the only schema that receives new events.
 
-- The legacy audit log schema remains in the `tw_audit_log` table.
-- The new audit log v2 schema is written to a separate table.
-- The v2 schema is not backward-compatible with the legacy schema. Field names, structure, and pagination behavior differ.
-- The v2 Admin panel view and CSV export are available when `TOWER_AUDIT_LOG_V2_WRITE_MODE` is set to `dual` or `v2`.
-
-Use `TOWER_AUDIT_LOG_V2_WRITE_MODE` to control how new audit events are written:
-
-- `dual`: Write new events to both `v1` schema and `v2` schema. This is the recommended 26.1 migration mode if you need to validate the v2 schema while keeping existing v1 integrations unchanged.
-- `v2`: Write new events to `v2` schema only.
+- The `TOWER_AUDIT_LOG_V2_WRITE_MODE` setting is removed. Setting the variable has no effect. Remove it from your configuration.
+- Platform writes no new rows to the legacy v1 schema (`tw_audit_log` table). Existing rows remain until the audit log retention period deletes them. As long as the table has records, they stay visible in the legacy table view of the Admin panel **Audit logs** tab.
 
 ## Upgrade path for existing integrations
 
-If you have existing scripts, exports, or ETL processes that read from the legacy audit log schema, plan the 26.1 upgrade in two stages:
+If you have existing scripts, exports, or ETL processes that read from the legacy audit log schema, switch them to the v2 schema before upgrading to 26.2:
 
-1. Upgrade to 26.1.
-2. Validate your integrations against the v2 schema while your existing v1 readers continue to work from the legacy table.
-
-In the 26.1 migration plan, dual-write is transitional. Plan for 26.2 to make v2 the only write-side schema, while the legacy v1 data remains available for reads as long as your retention policy still covers the required historical period.
+1. On 26.1, validate your integrations against the v2 schema while your existing v1 readers continue to work from the legacy v1 schema. Audit log v2 entries are available through the public API at `/admin/audit-logs-v2`, with a CSV export at `/admin/audit-logs-v2/export-csv`.
+2. Point every reader at the v2 schema.
+3. Upgrade to 26.2.
 
 ## Audit log event format
 
-When audit log v2 is enabled, the Admin panel shows the following event details:
+The Admin panel shows the following event details:
 
 - **Timestamp**: Event timestamp in ISO 8601 format.
 - **Event**: The audit event name, such as `user_sign_in` or `credentials_created`.
-- **Actor**: Whether the event was triggered by a user or by the system, including point-in-time user details for user-initiated events.
+- **Actor**: Whether a user, a service account, or the system triggered the event, including point-in-time identity details for user- and service-account-initiated events. Where an agent acted under a service account, the actor also carries an **Agent ID**, which is the agent's raw identifier rather than a name.
 - **Client**: Client IP address, user agent, and access token ID when available. Client details are empty for system-initiated events.
 - **Target**: The resource type, ID, and resource name associated with the event.
 - **Organization**: The organization ID and name for organization-scoped or workspace-scoped resources.
@@ -49,6 +41,12 @@ When audit log v2 is enabled, the Admin panel shows the following event details:
 - **Correlation ID**: An identifier that links all audit events emitted as part of the same cascade action.
 
 For organization-scoped, personal workspace-scoped, or system-wide targets, the organization and workspace columns display `N/A` labels to indicate when a field does not apply to that resource scope.
+
+:::note
+Service account authentication is not audited. Service accounts cannot sign in, and bearer-token validation does not raise a `user_sign_in` event. No service account appears in sign-in events or sign-in metrics. The audit log records what a service account did, not that it authenticated.
+:::
+
+If you parse the **Actor** field, update your integration to handle the `service_account` actor type before upgrading.
 
 CSV exports use the same v2 schema and date filters as the Admin panel view. You can control the maximum export size with `TOWER_AUDIT_LOG_V2_CSV_EXPORT_MAX_LOGS`.
 

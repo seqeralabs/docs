@@ -1,0 +1,45 @@
+---
+-
+  Environment variable:            '`TOWER_AGENT_BACKEND_URL`'
+  Description: >
+    Origin of the Co-Scientist agent backend (the `ai-api.` host). Use the host root only. Seqera
+    Platform appends the request path. The Co-Scientist panel, agents, service accounts, and the
+    **Trigger agent** button are unavailable until you set this value.
+    The Platform Helm chart sets it automatically when the `agent-backend` subchart is enabled.
+    Chart 1.0.4 enables the subchart by default.
+  Value:                'Example: `https://ai-api.platform.example.com`'
+-
+  Environment variable:            '`TOWER_AGENT_CONFIGURATION_ALLOWED_ORGANIZATIONS`'
+  Description: >
+    Restrict [agents](https://docs.seqera.io/platform-enterprise/co-scientist/agents),
+    [service accounts](https://docs.seqera.io/platform-enterprise/orgs-and-teams/create-service-accounts),
+    and the **Trigger agent** button to the organizations specified. Accepts a comma-separated list of
+    organization IDs. Omit it, or set it empty, to enable them in every organization once
+    `TOWER_AGENT_BACKEND_URL` is set. While `TOWER_AGENT_BACKEND_URL` is empty, all three are off
+    regardless of this variable. Never applies to personal workspaces. The variable governs the web
+    interface, actions that target an agent, and the API. In an organization where the features are
+    off, the `/agents` and service account endpoints return `404`.
+  Value:                'Default: Enabled for all organizations'
+-
+  Environment variable:            '`TOWER_AI_CHAT_ALLOWED_ORGANIZATIONS`'
+  Description: >
+    Restrict the [Co-Scientist panel](https://docs.seqera.io/platform-enterprise/co-scientist/platform) to the organizations specified.
+    Accepts a comma-separated list of organization IDs. Omit it, or set it empty, to enable the panel in every organization
+    once `TOWER_AGENT_BACKEND_URL` is set. The panel is never available in personal workspaces.
+  Value:                'Default: Enabled for all organizations'
+-
+  Environment variable:            '`TOWER_AUTH_COOKIE_DOMAIN`'
+  Description: >
+    Domain that the Platform `JWT` cookie is scoped to. To let the Co-Scientist panel authenticate to the agent backend on its own
+    subdomain, set it to the parent domain of Platform and the agent backend, with a leading dot.
+    The Platform Helm chart sets it automatically when the `agent-backend` subchart is enabled.
+  Value:                'Example: `.platform.example.com`'
+-
+  Environment variable:            '`TOWER_SCIENTIST_VIEW_ALLOWED_WORKSPACES`'
+  Description: >
+    Restrict the [Projects](https://docs.seqera.io/platform-enterprise/co-scientist/projects) view to the
+    workspaces specified. Accepts a comma-separated list of workspace IDs. Omit it, or set it empty, to enable
+    projects in every organization workspace. To disable them everywhere, set it to `0`. Never applies to
+    personal workspaces. Unlike the other variables in this table, it applies whether or not Co-Scientist is
+    deployed.
+  Value:                'Default: Enabled for all organization workspaces'

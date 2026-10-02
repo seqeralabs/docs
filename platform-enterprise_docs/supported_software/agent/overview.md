@@ -8,6 +8,10 @@ tags: [agent]
 
 Tower Agent connects Seqera Platform to high-performance computing (HPC) clusters that do not accept inbound SSH connections.
 
+:::note
+Tower Agent is the HPC connector described on this page. It is unrelated to the AI agents that run work in Seqera Platform, which authenticate as [service accounts](../../orgs-and-teams/create-service-accounts) rather than with a personal access token.
+:::
+
 ## When to use the agent
 
 Use Tower Agent if your HPC cluster has any of these constraints:
@@ -16,7 +20,7 @@ Use Tower Agent if your HPC cluster has any of these constraints:
 - **Strict inbound firewall rules.** Security teams allow outbound traffic but block unsolicited inbound connections, including SSH from third parties.
 - **Multi-factor authentication.** Login requires a hardware token or TOTP. Automated SSH from an external service is impractical.
 - **Air-gapped or regulated environments.** Clinical, pharmaceutical, and regulated research clusters are often isolated for compliance.
-- **No shared service accounts.** Some institutions require every job to run under an individual user identity rather than a shared account.
+- **No shared cluster accounts.** Some institutions require every job to run under an individual user identity rather than a shared account.
 
 If your cluster accepts inbound SSH from Seqera Platform, the standard SSH-based or managed-identity compute environment is simpler to operate (no persistent process to manage). Use Tower Agent when SSH is not an option.
 
@@ -65,7 +69,7 @@ You need the following:
 
 The agent authenticates to Seqera Platform with a personal access token (PAT) tied to your user account.
 
-1. Log in to Seqera Platform.
+1. Sign in to Seqera Platform.
 2. Open your user menu and select **Your tokens**.
 3. Select **Add token**, give it a descriptive name (for example, `hpc-agent-token`), and create it.
 4. Copy the token immediately. You cannot view it again after leaving the page.
@@ -203,7 +207,7 @@ tw-agent [OPTIONS] AGENT_CONNECTION_ID
 | Option | Default | Description |
 |---|---|---|
 | `-t`, `--access-token=<token>` | — | Seqera personal access token. Required unless `TOWER_ACCESS_TOKEN` is set. |
-| `-u`, `--url=<url>` | — | Seqera API endpoint URL. If not set, `TOWER_API_ENDPOINT` is used. |
+| `-u`, `--url=<url>` | — | Seqera API endpoint URL. If not set, the agent uses `TOWER_API_ENDPOINT`. |
 | `-w`, `--work-dir=<workDir>` | `~/work` | Path where pipeline scratch data is stored. You can change it when launching a pipeline. |
 | `-h`, `--help` | — | Show the help message and exit. |
 | `-V`, `--version` | — | Print version information and exit. |

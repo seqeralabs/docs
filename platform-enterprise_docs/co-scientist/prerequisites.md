@@ -2,27 +2,26 @@
 title: "Prerequisites"
 description: "Prerequisites for Co-Scientist"
 date created: "2026-04-20"
-last updated: "2026-05-21"
+last updated: "2026-09-30"
 tags: [prerequisites]
 ---
 
 ## Overview
 
-Everything you need to have in place before installing Co-Scientist. Complete these requirements, then proceed to the Bedrock Setup Guide to configure your AWS account.
+Everything you need to have in place before installing Co-Scientist. Complete these requirements, then follow [Bedrock setup](./bedrock-setup.md) to configure your AWS account.
 
 :::caution
-Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. It is currently only available on AWS.
+Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. The Co-Scientist panel in Seqera Platform requires Enterprise 26.2 or later. Co-Scientist is available only on AWS.
 :::
 
-Co-Scientist enables users to interact with Seqera Platform through a conversational AI interface, available through both the web (portal) and the CLI. The following components are deployed in sequence:
+Co-Scientist is a conversational AI interface for Seqera Platform, available in the [Co-Scientist panel](./platform.md) in Seqera Platform and in the Seqera CLI. Seqera Platform serves the panel itself. You do not deploy a separate web interface. Deploy the following components in sequence:
 
-| Order | Component            | Purpose                                                                                                                                                               |
-| ----- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1     | MCP server           | Model Context Protocol server providing Platform-aware tools (workflows, datasets, compute environments). Deploy first — the agent backend connects to it at startup. |
-| 2     | MySQL database       | Dedicated database for session state and conversation history.                                                                                                        |
-| 3     | Redis                | Caching and session management layer for the agent backend.                                                                                                           |
-| 4     | Agent backend        | FastAPI service that orchestrates AI interactions between the CLI/web, Bedrock, and MCP.                                                                              |
-| 5     | Portal web interface | Browser-based interface for Co-Scientist.                                                                                                                             |
+| Order | Component | Purpose |
+| --- | --- | --- |
+| 1 | MCP server | Model Context Protocol server providing Platform-aware tools (workflows, datasets, compute environments). Deploy first — the agent backend connects to it at startup. |
+| 2 | MySQL database | Dedicated database for session state and conversation history. |
+| 3 | Redis | Caching and session management layer for the agent backend. |
+| 4 | Agent backend | FastAPI service that orchestrates AI interactions between the CLI, the Co-Scientist panel in Seqera Platform, Bedrock, and MCP. |
 
 ## Platform
 
@@ -31,17 +30,23 @@ Co-Scientist enables users to interact with Seqera Platform through a conversati
 
 ## AWS account
 
-Co-Scientist uses Claude models via [Amazon Bedrock](https://aws.amazon.com/bedrock/). You need an AWS account with Bedrock available in your chosen region.
+Co-Scientist can use Claude models via [Amazon Bedrock](https://aws.amazon.com/bedrock/) or via an Anthropic API key. You need an AWS account with Bedrock available in your chosen region.
 
 ### Models
 
 The following Bedrock model access must be enabled in your account:
 
-| Role    | Model ID                    | Used for                        |
-| ------- | --------------------------- | ------------------------------- |
-| Primary | `anthropic.claude-sonnet-4-6`         | General AI interactions         |
-| Fast    | `anthropic.claude-haiku-4-5-20251001-v1:0` | Quick tasks (search, summaries) |
-| Deep    | `anthropic.claude-opus-4-6-v1`        | Complex planning tasks          |
+| Purpose | Model ID | Required |
+| --- | --- | --- |
+| Text inference | `anthropic.claude-opus-4-8` | Always |
+| Text embeddings | `amazon.titan-embed-text-v2:0` | Only when documentation semantic search is enabled |
+
+Co-Scientist uses a single model for all text inference. Agent backend versions up to and including `1.14.1` route requests across separate primary, fast, and deep models and need access to each. See the 26.1 documentation if your deployment pins an earlier version of the agent-backend images.
+
+If you use a recent Anthropic model through AWS Bedrock, such as `anthropic.claude-opus-4-8`, make sure your account has access to it through the Bedrock service in your chosen region.
+Some AWS accounts have additional account-level eligibility requirements for certain models and can return errors like `anthropic.claude-opus-4-8 is not available for this account`. These requirements aren't visible in the Service Quotas console. To test them, use the AWS Bedrock Playground in the console. If your account has these requirements, contact AWS Support to get access to the required models, as explained in [this AWS blog post](https://repost.aws/knowledge-center/bedrock-serverless-models-access-denied).
+
+For the IAM permissions these models require, see [Bedrock setup](./bedrock-setup.md).
 
 ## Database
 
@@ -56,19 +61,20 @@ The following Bedrock model access must be enabled in your account:
   - Redis 8.x is supported (the search/JSON/bloom modules moved into core in Redis 8.0).
   - Valkey 7.2+ and 8.x are supported for the default caching and task-queue workload. If you enable the optional Redis-backed knowledge index (off by default), Redis Stack 7.x or Redis 8+ is required — Valkey does not ship the `RediSearch` module.
 - Accessible from your cluster.
+- Either a dedicated instance or the instance Platform already uses. To share one instance, give Co-Scientist a different Redis database number with `agent-backend.redis.database` (Platform defaults to database `0`).
 - You will need the hostname and port ready for Helm configuration.
 
 ## Networking and DNS
 
-Three domains are required, each serving a different component:
+Two domains are required in addition to your Platform domain, each serving a different component:
 
-| Component            | Example domain                | Purpose                             |
-| -------------------- | ----------------------------- | ----------------------------------- |
-| Agent backend        | `ai-api.platform.example.com` | API endpoint for the CLI and portal |
-| MCP server           | `mcp.platform.example.com`    | Model Context Protocol server       |
-| Portal web interface | `ai.platform.example.com`     | Browser-based UI                    |
+| Component | Example domain | Purpose |
+| --- | --- | --- |
+| Agent backend | `ai-api.platform.example.com` | API endpoint for the CLI and the Co-Scientist panel |
+| MCP server | `mcp.platform.example.com` | Model Context Protocol server |
 
-- TLS certificates for all three domains.
+- TLS certificates for both domains.
+- Both domains must be subdomains of a domain shared with Platform, such as `platform.example.com`. The Co-Scientist panel authenticates to the agent backend with the Platform session cookie. `TOWER_AUTH_COOKIE_DOMAIN` scopes that cookie to the shared parent domain. The Platform Helm chart sets `TOWER_AUTH_COOKIE_DOMAIN` automatically when the agent-backend subchart is enabled.
 - Ingress controller configured in your cluster.
 
 ## Encryption key
@@ -90,14 +96,14 @@ Store this as a Kubernetes secret. It will be referenced as `AGENT_BACKEND_TOKEN
 
 Store the following values as Kubernetes secrets before installing the chart. Do not inline them in `values.yaml`.
 
-| Secret                          | Contains                                                                 | Used by        |
-| ------------------------------- | ------------------------------------------------------------------------ | -------------- |
-| Database password               | `AGENT_BACKEND_DB_PASSWORD`                                              | Agent backend  |
-| Redis password (if applicable)  | `AGENT_BACKEND_REDIS_PASSWORD`                                           | Agent backend  |
-| Token encryption key            | `AGENT_BACKEND_TOKEN_ENCRYPTION_KEY`                                     | Agent backend  |
-| Anthropic API key               | `ANTHROPIC_API_KEY` (direct Anthropic path only)                         | Agent backend  |
-| MCP JWT seed                    | `MCP_OAUTH_JWT_SECRET` 32+ char random string, `openssl rand -base64 32` | MCP server     |
-| MCP initial access token        | `MCP_OAUTH_INITIAL_ACCESS_TOKEN` (standalone MCP deploys only)           | MCP server     |
+| Secret | Contains | Used by |
+| --- | --- | --- |
+| Database password | `AGENT_BACKEND_DB_PASSWORD` | Agent backend |
+| Redis password (if applicable) | `AGENT_BACKEND_REDIS_PASSWORD` | Agent backend |
+| Token encryption key | `AGENT_BACKEND_TOKEN_ENCRYPTION_KEY` | Agent backend |
+| Anthropic API key | `ANTHROPIC_API_KEY` (direct Anthropic path only) | Agent backend |
+| MCP JWT seed | `MCP_OAUTH_JWT_SECRET` 32+ char random string, `openssl rand -base64 32` | MCP server |
+| MCP initial access token | `MCP_OAUTH_INITIAL_ACCESS_TOKEN` (standalone MCP deploys only) | MCP server |
 
 When MCP is deployed as a subchart of the Platform parent chart, the initial access token is wired automatically from the Platform backend secret - you do not need to create it separately. When deploying MCP standalone, copy the value out of the Platform backend secret (typically named `<platform-release>-backend`, e.g. `platform-backend`, under the data key `OIDC_CLIENT_REGISTRATION_TOKEN`) into a new secret and reference it via `oidcToken.existingSecretName`. The MCP container loads this value as `MCP_OAUTH_INITIAL_ACCESS_TOKEN` at runtime.
 
@@ -111,12 +117,15 @@ Bedrock authentication uses AWS IAM credentials and no API key secret is needed 
 
 ## Container images
 
-Co-Scientist container images are hosted at `cr.seqera.io`. The exact repository paths are defined by each component's Helm chart. See the chart READMEs for the authoritative `image.registry` / `image.repository` defaults and for vendoring guidance:
+Co-Scientist container images are hosted at `cr.seqera.io`. The Helm charts define each image's repository path but set no default registry, so that you copy the images into your own registry. Set `global.imageRegistry` in your Platform values to that registry, or to `cr.seqera.io` if your cluster pulls directly. See the chart READMEs for the authoritative `image.registry` / `image.repository` defaults and for vendoring guidance:
 
-| Image                | Chart                                                                                                          |
-| -------------------- | -------------------------------------------------------------------------------------------------------------- |
-| Agent backend        | [agent-backend chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/agent-backend) |
-| MCP server           | [mcp chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/mcp)                  |
-| Portal web interface | [portal-web chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/portal-web)    |
+| Image | Source image | Chart |
+| --- | --- | --- |
+| Agent backend | `cr.seqera.io/ai/agent-backend/backend` | [agent-backend chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/agent-backend) |
+| MCP server | `cr.seqera.io/enterprise/mcp/server` | [mcp chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/mcp) |
+
+:::info
+From MCP 1.4.3, Seqera publishes MCP server images only to `cr.seqera.io/enterprise/mcp/server`. Earlier releases (up to 1.4.2) remain available at `cr.seqera.io/ai/mcp/server`, but Seqera publishes no new releases there.
+:::
 
 Ensure your cluster can pull from `cr.seqera.io`, or if your cluster runs in a restricted network, mirror these images to your own registry.

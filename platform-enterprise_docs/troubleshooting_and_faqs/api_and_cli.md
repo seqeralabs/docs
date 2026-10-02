@@ -5,7 +5,7 @@ date: "26 August 2024"
 tags: [faq, help, aws, troubleshooting]
 ---
 
-When working with the Seqera Platform API and tw CLI, you might encounter the following issues.
+When working with the Seqera Platform API and `tw` CLI, you might encounter the following issues.
 
 ## API
 
@@ -32,15 +32,15 @@ curl -X GET "https://$TOWER_SERVER_URL/workflow/$WORKFLOW_ID/tasks? workspaceId=
 
 #### Connection errors with AWS Batch compute environments
 
-Creating or viewing an AWS Batch compute environment that uses the `SPOT_PRICE_CAPACITY_OPTIMIZED` [allocation strategy](../compute-envs/aws-batch#advanced-options) fails on tw CLI versions earlier than v0.8, which don't support it.
+Creating or viewing an AWS Batch compute environment that uses the `SPOT_PRICE_CAPACITY_OPTIMIZED` [allocation strategy](../compute-envs/aws-batch#advanced-options) fails on `tw` CLI versions earlier than v0.8, which don't support it.
 
 To resolve, upgrade to CLI v0.9 or later, where this was [addressed](https://github.com/seqeralabs/tower-cli/issues/332).
 
 #### Segmentation faults
 
-Legacy tw CLI versions can produce segmentation faults on older operating systems.
+Legacy `tw` CLI versions can produce segmentation faults on older operating systems.
 
-To resolve, upgrade the tw CLI to the latest version. If the fault persists, use the Java [JAR-based build](https://github.com/seqeralabs/tower-cli/releases/download/v0.8.0/tw.jar).
+To resolve, upgrade the `tw` CLI to the latest version. If the fault persists, use the Java [JAR-based build](https://github.com/seqeralabs/tower-cli/releases/download/v0.8.0/tw.jar).
 
 #### `You are trying to connect to an insecure server…`
 
@@ -59,6 +59,16 @@ tw --insecure info
 :::caution
 HTTP must not be used in production environments.
 :::
+
+#### `ExpiredToken` errors during large uploads
+
+```
+Failed to upload file: HTTP 400, Message: <Error><Code>ExpiredToken</Code><Message>The provided token has expired.</Message>...
+```
+
+This error occurs when a `tw data-links upload` transfer outlives the signed upload URLs that Platform issued when the upload started. `tw` CLI versions earlier than v0.40.0 cannot refresh those URLs. The remaining parts fail.
+
+To resolve, upgrade to `tw` CLI [v0.40.0](https://github.com/seqeralabs/tower-cli/releases/tag/v0.40.0) or later. For AWS S3 data links, the CLI requests fresh URLs for the remaining parts and continues the upload. URL refresh requires Seqera Enterprise 26.2 or later. On earlier versions, the upload stops with `Token refresh is not supported for this Platform version.` See [Large uploads](https://docs.seqera.io/platform-cli/reference/data-links#large-uploads).
 
 #### Relaunch a run
 

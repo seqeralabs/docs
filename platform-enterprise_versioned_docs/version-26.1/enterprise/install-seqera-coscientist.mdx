@@ -2,7 +2,7 @@
 title: "Co-Scientist"
 description: Install and configure Co-Scientist for Seqera Platform Enterprise
 date created: "2026-05-04"
-last updated: "2026-09-24"
+last updated: "2026-09-30"
 tags: [seqera ai, installation, deployment, aws, helm]
 ---
 
@@ -10,7 +10,7 @@ import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
 :::caution
-Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. This guide covers the Enterprise 26.1 deployment path for the agent backend, MCP server, web interface, and Seqera CLI. It is currently only available on AWS.
+Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. This guide covers the Enterprise 26.1 deployment path for the agent backend, MCP server, web interface, and Seqera CLI. Co-scientist is currently only available on AWS.
 :::
 
 Deploy the agent backend, Seqera MCP server, and web interface alongside Platform to provide Co-Scientist assistance for workflows, data, projects, and Platform resources in the Seqera CLI and browser. The MCP, agent backend, and portal web Helm charts provide the option to define Kubernetes ingresses. Other methods to expose the services can be used, e.g. via the `extraDeploy` resource.
@@ -27,7 +27,8 @@ You need the following:
 - A Redis 7.2-compatible or Valkey 7.2-compatible instance for agent backend task coordination. You can use the same instance as Platform with a different Redis database index, or a separate instance.
 - A stable Fernet token encryption key for the agent backend if you use Kustomize. Helm-only installs can let the chart generate this key, but explicitly setting it avoids accidental regeneration.
 - Access to a supported Claude inference provider. AWS Bedrock is recommended for Enterprise deployments; direct Anthropic API access is also supported.
-- If you use AWS Bedrock, access to the required Claude model or inference profile and the Amazon Titan embedding model. See AWS documentation to [add or remove access to Amazon Bedrock foundation models](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access-modify.html).
+- If you use AWS Bedrock, a configured AWS account: model access, the IAM permissions the agent backend pods need, and an AgentCore runtime if you enable sandboxed sessions. See [Bedrock setup](../co-scientist/bedrock-setup.md).
+  * Note: Certain AWS Accounts have additional account-level eligibility requirements for recent models and may produce errors like `anthropic.claude-opus-5-5 is not available for this account`. These requirements aren't visible in the Service Quotas console, but can be tested by interacting with AWS Bedrock Playground via the console. If that's the case, contact AWS Support to get access to the required models, as explained in [this AWS blog post](https://repost.aws/knowledge-center/bedrock-serverless-models-access-denied).
 - If you use direct Anthropic API access, an Anthropic API key stored in a Kubernetes Secret.
 
 :::
@@ -156,7 +157,7 @@ agent-backend:
   sandbox:
     provider: bedrock   # optional; omit to disable AgentCore sandbox sessions
 
-  # -- Bedrock configuration
+  # -- Bedrock configuration. See Bedrock setup for the IAM policies these roles require.
   bedrock:
     # Default credentials applied to all Bedrock-backed services unless overridden per-service.
     # Use this when inference, embeddings, and sandbox all share the same role and region.

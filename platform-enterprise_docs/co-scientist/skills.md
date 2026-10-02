@@ -2,6 +2,7 @@
 title: "Skills configuration"
 description: "Discover, create, and install skills in the Seqera CLI"
 date created: "2026-03-11"
+last updated: "2026-09-22"
 tags: [co-scientist, cli, skills]
 ---
 
@@ -18,11 +19,11 @@ See [Skills](./reference/skills-reference.md) for a list of the available built-
 
 ## Use skills in the CLI
 
-When you start `seqera ai`, the CLI discovers available skills automatically. Backend-provided skills are also exposed as slash commands in the `/` command palette and `/help`.
+When you start `seqera ai`, the CLI discovers available skills automatically. Built-in skills come from the Co-Scientist backend, and project and user skills come from your [discovery directories](#discovery-directories). All of them appear as slash commands in the `/` command palette and `/help`. If a project or user skill has the same name as a built-in skill, your skill takes precedence.
 
 You can:
 
-- Type `/` to browse built-in commands and backend skills
+- Type `/` to browse built-in commands, built-in skills, and your own skills
 - Run `/help` to see commands and skill descriptions in the terminal
 - Add project-specific `SKILL.md` files so Co-Scientist starts each session with the right context
 
@@ -52,15 +53,14 @@ Detailed instructions, examples, and guidelines.
 Co-Scientist searches these directories in order. The first directory to register a skill name takes precedence, and later skills with the same name are ignored.
 
 | Priority | Path | Scope |
-|----------|------|-------|
-| 1 | `<cwd>/.agents/skills/` | project |
-| 2 | `<cwd>/.seqera/skills/` | project |
-| 3 | `~/.agents/skills/` | user |
+| --- | --- | --- |
+| 1 | `.seqera/skills/` in the current directory and each parent directory up to the repository root, nearest first | project |
+| 2 | `.agents/skills/` at the same levels, checked after `.seqera/skills/` at each level | project |
+| 3 | `$XDG_CONFIG_HOME/seqera/skills/` (default `~/.config/seqera/skills/`) | user |
 | 4 | `~/.seqera/skills/` | user |
-| 5 | `~/.config/agents/skills/` | user |
-| 6 | `~/.config/seqera/skills/` | user |
+| 5 | `~/.agents/skills/` | user |
 
-Project skills take priority over user skills, so you can override a global skill with a repository-specific version.
+At each directory level, Co-Scientist checks `.seqera/skills/` before `.agents/skills/`. Outside a git repository, it checks only the current directory. Project skills take priority over user skills. A repository-specific version of a skill overrides the global one.
 
 ### Cross-agent compatibility
 
@@ -89,3 +89,4 @@ Co-Scientist can install itself as a skill or instruction file so another coding
 - [Using Co-Scientist](./configuration.md): Configure modes, sessions, skills, command approval, and more
 - [Coding Agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
 - [Skills](./reference/skills-reference.md): Built-in skills, slash commands, and session limits
+- [Troubleshooting](../troubleshooting_and_faqs/coscientist_troubleshooting.md): Troubleshoot common errors

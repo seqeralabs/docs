@@ -30,6 +30,7 @@ azure
 azure batch
 azure blob
 batch
+bedrock
 billing
 bioinformatics
 blob storage
@@ -262,6 +263,7 @@ seqera template
 seqera template studio
 seqerakit
 sequencing
+service accounts
 ses
 sessions
 settings
@@ -303,6 +305,7 @@ vscode
 wave
 wave cli
 webhooks
+workload identity
 workflows
 workspaces
 xpra

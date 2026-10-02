@@ -10,7 +10,7 @@ Kubernetes deployments are recommended for production workloads requiring high a
 :::info Prerequisites <span id="prerequisites" />
 Other than the basic requirements [already listed in the Platform installation overview](./install-platform#prerequisites), you will need:
 
-- A Kubernetes cluster
+- A Kubernetes cluster, preferably Amazon EKS
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) installed locally
 :::
 
@@ -48,10 +48,14 @@ Seqera Platform requires a Redis-compatible cache store for transient data, prim
 
 | Cache / version | Status                       |
 | --------------- | ---------------------------- |
-| Redis 6.x       | Not supported (EoL upstream) |
+| Redis 6.x       | Not supported (from 26.1)    |
 | Redis 7.2       | Supported                    |
 | Redis 7.4       | Supported                    |
 | Valkey 7.x      | Supported (from 26.1)        |
+
+:::note
+Managed cache services can offer newer engine versions than Seqera Platform is tested against. For example, Amazon ElastiCache offers Valkey up to 9.x. Select a version from the table. Newer major versions are not tested or supported.
+:::
 
 ### Connection URL
 
@@ -62,7 +66,7 @@ Configure the connection URL in your Seqera environment using the scheme that ma
 | Redis           | `redis://`   | `TOWER_REDIS_URL=redis://<host>:6379`    |
 | Redis with TLS  | `rediss://`  | `TOWER_REDIS_URL=rediss://<host>:6380`   |
 
-The Redisson client embedded in Platform 26.1+ supports Valkey 7 dial schema — no further configuration is required. Redis password and ACL configuration carry over unchanged when migrating to Valkey.
+Seqera Platform 26.1 and later supports the Valkey 7 dial schema. No further configuration is required. Redis password and ACL configuration carry over unchanged when you migrate to Valkey.
 
 ### Managed service options
 
@@ -129,7 +133,9 @@ kubectl apply -f tower-svc.yml
 
 #### Seqera frontend unprivileged
 
-The Seqera frontend image listens on an unprivileged port. In the `frontend` service below, specify the `targetPort` to match the environment variable `NGINX_LISTEN_PORT` (see below):
+From Seqera Platform Enterprise 26.2, Seqera publishes one frontend image, `cr.seqera.io/enterprise/platform/frontend:<tag>`. The image is unprivileged. It listens on an unprivileged port and doesn't run as the root user. Seqera no longer publishes the `-root` and `-unprivileged` tag variants. A manifest that references one fails to pull.
+
+The `tower-svc.yml` manifest earlier on this page is already configured for this image. If you maintain your own manifests, set the container port and the service `targetPort` to `8000`:
 
 ```yaml
 ---
@@ -143,7 +149,9 @@ spec:
   ...
       containers:
         - name: frontend
-          image: cr.seqera.io/enterprise/platform/frontend:v26.2.0
+          image: cr.seqera.io/enterprise/platform/frontend:v26.2.1
+          ports:
+            - containerPort: 8000
           env:
             - name: NGINX_LISTEN_PORT  # If not defined, defaults to 8000.
               value: 8000
@@ -165,7 +173,7 @@ The external `port` of the `frontend` service is independent of `NGINX_LISTEN_PO
 
 `NGINX_UPSTREAM_PORT` (default `8080`) sets the backend port that NGINX routes requests to, not the frontend listening port.
 
-The Seqera frontend image can be easily customized using environment variables:
+Customize the image with these environment variables:
 
 - `NGINX_LISTEN_PORT` (default `8000`): The port the NGINX process will listen on inside the container.
 - `NGINX_LISTEN_PORT_IPV6` (default `8000`): The NGINX listening port to open on the IPv6 address.

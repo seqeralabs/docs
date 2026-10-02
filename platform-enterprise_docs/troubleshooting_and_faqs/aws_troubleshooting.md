@@ -27,7 +27,7 @@ When Batch Forge creates an AWS Batch environment, it sets the ECS agent's `ECS_
 See the [AWS ECS documentation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html) for the difference between these values.
 
 :::note
-This behavior can't be changed within Seqera Platform.
+You can't change this behavior in Seqera Platform.
 :::
 
 ## Container errors
@@ -55,14 +55,14 @@ Essential container in task exited - CannotInspectContainerError: Could not tran
 To resolve:
 
 1. Upgrade your [ECS agent](https://github.com/aws/amazon-ecs-agent/releases) to [1.54.1](https://github.com/aws/amazon-ecs-agent/pull/2940) or later. See [Check for ECS Container Instance Agent Version](https://www.trendmicro.com/cloudoneconformity/knowledge-base/aws/ECS/latest-agent-version.html) to check your version.
-2. Provision more storage for your EC2 instance, preferably with EBS autoscaling for scalability.
+2. Provision more storage for your EC2 instance, preferably with EBS autoscaling.
 3. If the error includes `command exit status: 123` and a permissions-denied error on a system command, make the ECS agent binary executable (`chmod u+x`).
 
 ## Queues
 
 #### Distribute tasks across multiple AWS Batch queues
 
-You can identify only a single work queue when you define an AWS Batch compute environment, but you can distribute tasks across multiple queues in your pipeline configuration. Add a snippet like the following to your `nextflow.config`, or the **Advanced options > Nextflow config file** field of the launch form, to distribute processes across two queues by name:
+You can identify only a single work queue when you define an AWS Batch compute environment. However, you can distribute tasks across multiple queues in your pipeline configuration. To distribute processes across two queues by name, add a snippet like the following to your `nextflow.config` or to the **Advanced options** > **Nextflow config file** field of the launch form:
 
 ```groovy
 # nextflow.config
@@ -113,7 +113,7 @@ Requires Seqera v21.10.4 and Nextflow [22.04.0](https://github.com/nextflow-io/n
 
 To save files to an S3 bucket with a policy that [enforces AES256 server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html), configure the [nf-launcher](https://quay.io/repository/seqeralabs/nf-launcher?tab=tags) script that invokes the Nextflow head job:
 
-1. Add the following to the **Advanced options > Nextflow config file** field of the **Launch Pipeline** screen:
+1. Add the following to the **Advanced options** > **Nextflow config file** field of the **Launch Pipeline** screen:
 
    ```groovy
    aws {
@@ -123,8 +123,20 @@ To save files to an S3 bucket with a policy that [enforces AES256 server-side en
    }
    ```
 
-2. Add the following to the **Advanced options > Pre-run script** field:
+2. Add the following to the **Advanced options** > **Pre-run script** field:
 
    ```bash
    export TOWER_AWS_SSE=AES256
    ```
+
+
+## AWS Bedrock
+
+#### `anthropic.claude-opus-4-8 is not available for this account`
+
+This error occurs when your AWS account does not meet the eligibility requirements for the specified model in AWS Bedrock. These requirements are not visible in the Service Quotas console.
+
+To resolve, you can:
+
+- Test access by interacting with AWS Bedrock Playground via the console.
+- If access is denied, contact AWS Support to request access to the required model, as explained in [this AWS blog post](https://repost.aws/knowledge-center/bedrock-serverless-models-access-denied).

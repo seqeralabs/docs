@@ -1,0 +1,31 @@
+---
+-
+  Environment variable:            '`TOWER_ENABLE_PLATFORMS`'
+  Description: >
+    Comma-separated list of the execution backends to enable. **At least one is required**. A backend must be enabled here before compute environments of that type can be created.
+  Value:                '`altair-platform,awsbatch-platform,awscloud-platform,azbatch-platform,azcloud-platform,eks-platform,googlebatch-platform,googlecloud-platform,gke-platform,k8s-platform,local-platform,lsf-platform,moab-platform,slurm-platform,uge-platform`'
+-
+  Environment variable:            '`MICRONAUT_ENVIRONMENTS`'
+  Description: >
+    Configuration values to control the behavior of the Seqera `cron` and `backend` containers. **Do not edit these values**
+  Value:                'Backend configuration: `prod`, `redis`, `ha` Cron configuration: `prod`, `redis`, `cron`'
+-
+  Environment variable:            '`TOWER_FORGE_PREFIX`'
+  Description: >
+    Override the default `TowerForge` prefix, appended to AWS resources created by [Batch Forge](https://docs.seqera.io/platform-enterprise/compute-envs/aws-batch), with a custom value.
+  Value:               'Default: `TowerForge`'
+-
+  Environment variable:            '`TOWER_ALLOW_INSTANCE_CREDENTIALS`'
+  Description: >
+    Enable legacy role-based AWS credentials. When true, users provide an IAM role ARN only when creating AWS credentials. Access keys, secret keys, and External ID are not used.
+  Value:               'Default: `false`'
+-
+  Environment variable:            '`TOWER_AWS_SECRETS_KMS_KEY_ID`'
+  Description: >
+    Installation-wide customer-managed KMS key that encrypts the temporary AWS Secrets Manager secrets created for runs that use pipeline secrets. Accepts a key ARN or a key ID. Applies to AWS Batch and AWS Cloud compute environments, and only when the compute environment does not define its own **Pipeline secrets KMS key**. A key is account- and region-specific. Set this default only when every AWS Batch and AWS Cloud compute environment in the installation targets the same AWS account and region. The compute environment credentials require `kms:GenerateDataKey` and `kms:Decrypt` on the key, granted either in the key policy or in the credentials' own IAM policy. A malformed value prevents backend startup.
+  Value:               'Default: none (AWS-managed key)'
+-
+  Environment variable:            '`TOWER_COMPUTE_ENV_LAST_USED_FLUSH_INTERVAL`'
+  Description: >
+    How often Seqera Platform writes buffered compute environment last-used timestamps to the database. Seqera Platform buffers the write instead of making it inside the launch, to avoid deadlocks between concurrent launches on the same compute environment.
+  Value:               'Default: `1s`'

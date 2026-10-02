@@ -1,0 +1,75 @@
+---
+title: "Enterprise installation"
+description: Platform Enterprise installation overview
+date created: "2025-04-09"
+last updated: "2026-09-25"
+tags: [installation, deployment]
+---
+
+:::tip
+Seqera Enterprise requires a license. If you have not already purchased a license, [contact us](https://seqera.io/contact-us/) for more information.
+:::
+
+Seqera Platform Enterprise is a web application with a microservice-oriented architecture that is designed to maximize portability, scalability, and security. It's composed of several modules that are configured and deployed according to your organizational requirements. Seqera provides these modules as Docker container images that are securely hosted on a private container registry.
+
+## Architecture
+
+![Platform architecture diagram](./_images/seqera_reference_architecture2.png)
+
+### Platform backend
+
+The Seqera backend is a JVM-based web application based on the [Micronaut](https://micronaut.io/) framework, which provides a modern and secure backbone for the application. The backend implements the main application logic, which is exposed via a REST API and defined with an OpenAPI schema. The backend uses JPA, Hibernate, and JDBC API industry standards to interact with the underlying relational database.
+
+The backend can be run standalone or as multiple replicas for scalability when deployed in high-availability mode. It should run on port `8080`.
+
+### Platform cron
+
+Cron is an auxiliary backend service that executes regularly-occurring activities, such as sending email notifications and cleaning up stale data. The cron service also performs database migrations at startup.
+
+### Platform frontend
+
+The Seqera frontend is an NGINX web server that serves the [Angular](https://angular.io/) application and reverse-proxies HTTP traffic to the backend. The frontend should run on port `80` within the container and should be the only service that accepts incoming HTTP traffic. The frontend can also be exposed via HTTPS or a load balancer.
+
+### Redis or Valkey cache
+
+Seqera Enterprise requires a Redis-compatible cache. From Seqera Enterprise 26.1, it supports only Redis 7.2 and 7.4 and Valkey 7.x. See [Cache layer changes](./upgrade#cache-layer-changes-redis-eol-and-valkey-support) for migration guidance.
+
+### SQL database
+
+Seqera requires a SQL database to persist user activities and state. MySQL 8.4, the long-term support (LTS) release, is the recommended version. [Contact Seqera support](https://support.seqera.io) if you need to use a different JDBC-compliant SQL database.
+
+:::note
+
+- MySQL 8.4 is the tested database version from Seqera Enterprise 26.1. MySQL 5.7 and 8.0 have reached upstream end-of-life and are no longer tested or supported. Migrate to MySQL 8.4 before you upgrade to 26.1. See [Database changes](./upgrade#database-changes) for the full support matrix, including AWS Aurora MySQL and MariaDB.
+:::
+
+### SMTP service
+
+Seqera requires an SMTP relay to send email messages and user notifications.
+
+### Authentication service (optional)
+
+Seqera supports enterprise authentication mechanisms such as OAuth and OpenID. Third-party identity providers and custom single sign-on flows can be developed according to specific customer requirements.
+
+## Deployment options
+
+Deploy Seqera Enterprise to a single node with [Docker Compose](./platform-docker-compose), or to a [Kubernetes](./platform-kubernetes) cluster with manifests or the [Helm chart](./platform-helm). This documentation includes instructions for all options across multiple platforms, including Amazon AWS, Microsoft Azure, Google Cloud, and on-prem infrastructure.
+
+### Single-node
+
+The minimal Seqera Enterprise deployment requires only the frontend, backend, and database services. These services can be deployed as Docker containers or as native services.
+
+### Kubernetes
+
+Kubernetes is the recommended deployment target for production workloads that require high availability and scalability. Amazon Elastic Kubernetes Service (EKS) is the preferred Kubernetes platform for Seqera Enterprise. Deploy Seqera Enterprise to Kubernetes with the manifests or the Seqera Helm chart.
+
+![Reference architecture for Seqera Platform Enterprise on AWS EKS](./_images/seqera_reference_architecture_aws.png)
+_Reference architecture diagram of Seqera Platform Enterprise on AWS using Elastic Kubernetes Service (EKS)_
+
+## Application container images
+
+Seqera Enterprise is distributed as a collection of Docker containers available through the Seqera container registry [`cr.seqera.io`](https://cr.seqera.io). Contact [support](https://support.seqera.io) to get your container access credentials.
+
+## Support
+
+For further information, [contact Seqera support](https://support.seqera.io).

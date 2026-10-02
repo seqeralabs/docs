@@ -29,6 +29,10 @@ If your object storage provider and Seqera deployment share the same subdomain (
 
 Accessing new object storage providers in [Data Explorer][data-explorer] requires updating the Content Security Policy to include the domains to access. This is done by setting the `ADDITIONAL_CSP` environment variable for the frontend container.
 
+:::note
+This configuration requires the [Seqera frontend](../platform-kubernetes#seqera-frontend-unprivileged) image, which is the only frontend image published from 26.2. On an earlier release still running the legacy root image, contact Seqera support.
+:::
+
 ### Configuration
 
 Set the `ADDITIONAL_CSP` environment variable with a space-separated list of domains to add to the Content Security Policy. For example, to add support for MinIO:

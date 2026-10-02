@@ -13,6 +13,7 @@ You need the following:
 - **Maintain** role permissions or above
 - A compute environment with sufficient resources (scale based on data volume)
 - [Data Explorer](../data/data-explorer) enabled
+- If your container image is in a private registry, [container registry credentials][registry-creds] for that registry in the workspace. Wave uses them to pull the image. They are separate from your compute environment and cloud storage credentials.
 :::
 
 Select **Custom container template** and provide your own template (see [Custom container template image][custom-image]). This option doesn't support **Install Conda packages**. For ready-to-use examples, see [Example custom Studios][example-studios].
@@ -65,3 +66,4 @@ Studios you create are listed on the Studios landing page with a status of **sto
 [custom-image]: ./custom-envs#custom-containers
 [containers]: ./container-images
 [example-studios]: ./example-studios
+[registry-creds]: ../credentials/container_registry_credentials

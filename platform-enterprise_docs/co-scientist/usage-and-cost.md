@@ -2,6 +2,7 @@
 title: "Usage and cost"
 description: "Understand Co-Scientist usage and inference costs in Seqera Platform Enterprise"
 date created: "2026-05-04"
+last updated: "2026-09-22"
 tags: [co-scientist, enterprise, ai]
 ---
 
@@ -11,7 +12,7 @@ Enterprise deployments do not use Seqera Cloud credit balances or the Cloud cred
 
 ## What users see
 
-In Enterprise deployments, Co-Scientist does not enforce Seqera Cloud credit balances. If your session is blocked because of usage limits, contact your Seqera Platform administrator. The administrator can verify the agent backend configuration and inference provider account.
+In Enterprise deployments, Co-Scientist does not enforce Seqera Cloud credit balances, and the Co-Scientist usage overview shown in Seqera Platform Cloud is not available. The same applies in the [Co-Scientist panel](./platform.md) and in the CLI. If your session is blocked because of usage limits, contact your Seqera Platform administrator. The administrator can verify the agent backend configuration and inference provider account.
 
 ## What administrators manage
 
@@ -26,6 +27,7 @@ For deployment configuration, see [Co-Scientist](../enterprise/install-seqera-co
 
 ## Learn more
 
-- [Co-Scientist in the Seqera CLI](./index.md): Co-Scientist overview
+- [Co-Scientist](./index.md): Co-Scientist overview
 - [Authentication](./authentication.md): Log in, log out, and session management
 - [Use cases](./use-cases.md): Seqera CLI use cases
+- [Troubleshooting](../troubleshooting_and_faqs/coscientist_troubleshooting.md): Troubleshoot common errors

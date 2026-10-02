@@ -2,6 +2,7 @@
 title: "Authentication"
 description: "Log in, log out, and manage organizations and tokens in the Seqera CLI"
 date created: "2025-12-15"
+last updated: "2026-09-22"
 tags: [co-scientist, cli, authentication, login]
 ---
 
@@ -12,6 +13,7 @@ You will need the following to get started:
 
 - [Seqera CLI](./installation.mdx)
 - A user account on your Seqera Platform Enterprise deployment
+
 :::
 
 ## Log in
@@ -24,22 +26,22 @@ seqera login
 
 This will:
 
-1. Open your default browser to the Seqera login page.
-1. Prompt you to sign in with your Seqera Platform credentials.
-1. Automatically capture the authentication token.
-1. Display a success message in your terminal.
+1.  Open your default browser to the Seqera login page.
+1.  Prompt you to sign in with your Seqera Platform credentials.
+1.  Automatically capture the authentication token.
+1.  Display a success message in your terminal.
 
-   ```
-   [Login] Starting Seqera CLI authentication...
-   [Login] ✓ Authentication successful!
-   [Login] ✓ Organization set: <org_name>
-   ```
+    ```text
+    [Login] Starting Seqera CLI authentication...
+    [Login] ✓ Authentication successful!
+    [Login] ✓ Organization set: <org_name>
+    ```
 
 ## View session status
 
 To view your current session status, use the `/status` command inside the TUI:
 
-```
+```text
 /status
 ```
 
@@ -112,6 +114,8 @@ export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com
 seqera ai
 ```
 
+To avoid exporting these variables in every shell, set `authDomain` and `backendUrl` in `~/.config/seqera-ai/config.json` instead. See [Configuration file](./reference/environment-variables.md#configuration-file). Run `seqera info` to confirm which Platform and agent backend the CLI uses.
+
 Set `SEQERA_AUTH_CLI_CLIENT_ID` only for OAuth deployments that use a non-default CLI client ID. Current CLI builds still require `SEQERA_AUTH_DOMAIN` for Enterprise token-based authentication so the CLI can target the correct Platform authority.
 
 ## Learn more
@@ -122,3 +126,4 @@ Set `SEQERA_AUTH_CLI_CLIENT_ID` only for OAuth deployments that use a non-defaul
 - [Use cases](./use-cases.md): Co-Scientist use cases
 - [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
 - [Skills](./reference/skills-reference.md): Built-in skills, slash commands, and session limits
+- [Troubleshooting](../troubleshooting_and_faqs/coscientist_troubleshooting.md): Troubleshoot common errors

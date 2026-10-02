@@ -127,7 +127,7 @@ To copy a permalink to the dataset, select the **Copy** icon.
 
 ### Disable a dataset version
 
-To disable one or more dataset versions, select **Disable version**. A disabled version cannot be selected as a pipeline input. If you disable the most recent version, the most recent non-disabled version is flagged as **(latest)**.
+To disable one or more dataset versions, select **Disable version**. You cannot select a disabled version as a pipeline input. If you disable the most recent version, the most recent non-disabled version is flagged as **(latest)**.
 
 :::note
 For compliance reasons, datasets or dataset versions cannot be deleted, they can only be **hidden** or **disabled**, respectively.
@@ -144,7 +144,7 @@ To use a dataset with pipelines added to your workspace:
 3. Pick the dataset to use as input to your pipeline.
 
 :::note
-The input field drop-down displays only datasets that match the file type specified in the `nextflow_schema.json` of the chosen pipeline. If the schema specifies `"mimetype": "text/csv"`, no TSV datasets are available for use with that pipeline, and vice-versa. If multiple dataset versions exist, the pipeline input always defaults to the **latest** version.
+The input field drop-down displays only datasets that match the file type specified in the `nextflow_schema.json` of the chosen pipeline. If the schema specifies `"mimetype": "text/csv"`, no TSV datasets are available for use with that pipeline, and vice versa. If multiple dataset versions exist, the pipeline input always defaults to the **latest** version.
 :::
 
 ## Manage datasets

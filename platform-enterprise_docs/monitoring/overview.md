@@ -46,9 +46,9 @@ The **Search workflow** bar filters by one or more `<keyword>:<value>` entries:
 - `sessionId`
 - `is:starred`
 
-The field suggests valid keywords as you type. Suggested results for `label:` include available labels from all workspaces. Labels present in multiple workspaces are only suggested once.
+The field suggests valid keywords as you type. Suggested results for `label:` include available labels from all workspaces. The field suggests a label only once, even when it is present in multiple workspaces.
 
-Search covers all workflow runs in a workspace. Enter a query in the Search workflow field. Platform identifies each valid `keyword:value` substring, combines the remaining text into a single freeform string, and filters runs using all of these criteria.
+Search covers all workflow runs in a workspace. Enter a query in the **Search workflow** field. Platform identifies each valid `keyword:value` substring, combines the remaining text into a single freeform string, and filters runs using all of these criteria.
 
 For example:
 

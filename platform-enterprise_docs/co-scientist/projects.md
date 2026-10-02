@@ -2,89 +2,111 @@
 title: "Projects"
 description: "Organize workspace resources into projects using Seqera Platform labels"
 date created: "2026-04-22"
-tags: [co-scientist, cli, projects, labels]
+last updated: "2026-09-22"
+tags: [co-scientist, platform, projects, labels]
 ---
 
-Projects in Co-Scientist group the pipelines, datasets, and workflow runs that belong to a single piece of work, so you can view and chat about them without the noise of the rest of the workspace.
+Projects group the pipelines, datasets, and runs that belong to a single piece of work. Use a project to view and work with them without the noise of the rest of the workspace.
 
-Projects are not created inside Co-Scientist. They are derived from **workspace labels in Seqera Platform** whose names start with `project_`. Each matching label surfaces in Co-Scientist as a separate project scope, with the Platform label acting as the source of truth for membership.
+A project is not a separate Platform resource. It is a **workspace label whose name starts with `proj_`**. The label is the source of truth for membership. A pipeline, dataset, or run belongs to a project when it carries the project's label.
 
 :::note
-Projects are part of the Co-Scientist web interface. The portal must be deployed alongside Co-Scientist in your Enterprise installation. See [Install Co-Scientist](../enterprise/install-seqera-coscientist.mdx) for more information.
+Earlier releases used the `project_` prefix. Seqera Platform Enterprise 26.2 recognizes only `proj_` labels. Rename existing `project_*` labels to `proj_*` in workspace settings to keep them as projects.
 :::
 
-## How projects are derived
+## Enable projects
 
-When you open a workspace in the Co-Scientist web interface:
+Projects are enabled by default in every organization workspace. They do not depend on the Co-Scientist agent backend.
 
-1. Co-Scientist reads the list of workspace labels from the Seqera Platform API.
-2. Any label whose name starts with `project_` becomes a project.
-3. An **Entire workspace** view is always included alongside your projects so you can see every resource in the workspace.
-4. Pipelines, datasets, and workflow runs are scoped to a project by matching on its `project_*` label.
+To restrict projects to specific workspaces, set `TOWER_SCIENTIST_VIEW_ALLOWED_WORKSPACES` to a comma-separated list of workspace IDs, or list the IDs in `tower.yml`:
 
-Because membership lives on the Platform label, adding or removing a resource from a project is the same action as applying or removing the label in Platform.
+```yaml
+tower:
+  scientist-view:
+    allowed-workspaces:
+      - 1234567890
+      - 9876543210
+```
+
+To turn projects off in every workspace, set `TOWER_SCIENTIST_VIEW_ALLOWED_WORKSPACES` to `0`. See [Co-Scientist configuration](../enterprise/configuration/overview#co-scientist).
+
+Projects are never available in personal workspaces. Restart Seqera Platform after changing either setting.
+
+## Permissions
+
+Viewing projects requires the `project_view:read` permission. Every predefined workspace role includes it. Custom roles include it only when an organization owner selects it in the **Projects** permission category. Existing custom roles do not gain it when you upgrade to 26.2.
+
+The predefined **Project** workspace role grants access to projects without the broader workspace resource permissions. Users with this role see only the **Projects** view and cannot create or rename projects.
+
+Creating a project requires permission to create labels, and editing a project requires permission to update labels.
+
+## Open projects
+
+When projects are enabled for a workspace and your role includes `project_view:read`, the side navigation shows a **Workspace**/**Projects** switcher. Select **Projects** to open the projects list. A role with `project_view:read` but without `workspace_resources:read`, such as the **Project** role, shows only the **Projects** view, with no switcher.
+
+If the workspace has no projects yet, the page shows a **Get started with projects** empty state with an **Add project** button. Otherwise, the list shows one row per project, plus a **\<workspace name\> overview** row that covers every resource in the workspace. Use **Search projects** to filter the list.
+
+Select a project to open its details page, which has **Runs**, **Datasets**, and **Reports** tabs filtered to the project's label. You can launch and relaunch pipelines from inside a project.
 
 ## Create a project
 
-To create a project:
+1.  Select **Projects** in the side navigation.
+1.  Select **Add project**.
+1.  Enter a **Project name**. Names can contain only letters, numbers, dashes, and underscores, and must be unique in the workspace, ignoring case.
+1.  Optional: In the **Resources** card, select **Add** to choose the pipelines and datasets that belong to the project.
+1.  Select **Add**.
 
-1. In **Seqera Platform**, open the workspace where the project should live.
-2. Go to **Labels** in workspace settings and create a new label with the `project_` prefix. For example:
-    - `project_rnaseq`
-    - `project_variant_calling`
-    - `project_chip_seq`
-3. Apply the label to the pipelines and datasets that belong to the project.
-4. Open Co-Scientist. The new project appears on the **Projects** page and in the chat project selector on the next page load.
+Seqera Platform creates a workspace label named `proj_<name>` and applies it to the resources you selected.
+
+You can also create a project from workspace settings. Go to **Labels**, create a label with the `proj_` prefix, and apply it to the pipelines and datasets that belong to the project. For example:
+
+- `proj_rnaseq`
+- `proj_variant_calling`
+- `proj_chip_seq`
 
 :::tip
-Create the label in workspace settings **before** applying it to resources. This ensures the label has a Platform-assigned ID, which Co-Scientist needs to auto-attach the label when you upload new datasets into the project.
+Create the label in workspace settings **before** applying it to resources. This ensures the label has a Platform-assigned ID, which Seqera Platform needs to auto-attach the label when you upload new datasets into the project.
 :::
 
 ## Display names
 
-Co-Scientist strips the `project_` prefix to produce the display name shown in the web interface:
+Seqera Platform strips the `proj_` prefix to produce the display name:
 
-| Platform label        | Co-Scientist display name  |
-|-----------------------|-------------------------|
-| `project_rnaseq`      | Project rnaseq          |
-| `project_wgs`         | Project wgs             |
-| `project_single_cell` | Project single_cell     |
+| Platform label | Display name in the projects list | Browser tab title |
+| --- | --- | --- |
+| `proj_rnaseq` | rnaseq | Project rnaseq |
+| `proj_wgs` | wgs | Project wgs |
+| `proj_single_cell` | single_cell | Project single_cell |
 
 Choose descriptive names after the prefix so projects are easy to identify.
 
-## Where projects appear
+## Add resources to a project
 
-Once a `project_*` label exists in the workspace and is applied to at least one resource, the project is used in the following places:
+Because membership lives on the label, adding a resource to a project is the same action as applying the project's label to it:
 
-- **Projects page**: one row per project, plus the **Entire workspace** row.
-- **Project details page**: the pipelines, datasets, and workflow runs filtered to that project's label.
-- **Chat project selector**: scopes the resources the AI can see and act on during a chat session.
-- **Dataset upload**: when you upload a dataset from inside a project, the project's label is auto-attached.
+- **Pipelines and datasets**: Select them when you create or edit the project, or apply the `proj_*` label in Seqera Platform.
+- **Datasets uploaded inside a project**: Seqera Platform attaches the project's label automatically.
+- **Runs**: Runs launched from inside a project carry the project's label.
 
-## Edge cases
+The pipeline and dataset forms hide `proj_*` labels from their **Labels** field and refuse to create one there. Manage project membership from the project itself.
 
-### A resource carries a `project_*` label that isn't in the workspace label list
+## Edit or delete a project
 
-If a pipeline has a `project_*` label but the label has not been created in workspace settings, Co-Scientist still surfaces the project, inferred from the pipeline. In this case:
+Open the project's actions menu in the projects list:
 
-- The project has no Platform-assigned label ID.
-- Dataset uploads into the project cannot auto-attach the label.
+- **Edit**: Rename the project or change which pipelines and datasets belong to it, then select **Save**. Renaming a project renames its label.
+- **Delete**: Remove the project's label and its resource associations. Deleting a project does not delete the pipelines, datasets, and runs themselves.
 
-To avoid this, always create `project_*` labels in workspace settings first, then apply them.
+You cannot edit or delete the **\<workspace name\> overview** row.
 
-### No `project_*` labels in the workspace
+## Projects and Co-Scientist
 
-When a workspace has no `project_*` labels:
+You can trigger background agents from a project's **Runs** tab. The Co-Scientist panel works with the page you are viewing and the current workspace. It does not have a separate project selector. See [Co-Scientist in Seqera Platform](./platform.md).
 
-- The **Projects** page shows a **No projects configured yet** empty state.
-- The project selector is hidden in the chat header.
-- The workspace view shows a header-only empty state.
-
-Ask a workspace admin to create the first `project_*` label to enable projects for the workspace.
+For problems with project labels and empty states, see [Co-Scientist troubleshooting](../troubleshooting_and_faqs/coscientist_troubleshooting.md).
 
 ## Learn more
 
-- [Seqera Platform labels](https://docs.seqera.io/platform-cloud/labels/overview): Create and manage workspace labels
-- [Quickstart](./quickstart.md): Run your first Co-Scientist session
-- [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
-- [Install Co-Scientist](../enterprise/install-seqera-coscientist.mdx): Deploy the agent backend, MCP server, and web interface in Enterprise
+- [Seqera Platform labels](../labels/overview.md): Create and manage workspace labels
+- [Co-Scientist in Seqera Platform](./platform.md): Use the Co-Scientist panel in Seqera Platform
+- [Custom roles](../orgs-and-teams/custom-roles.md): Configure role permissions

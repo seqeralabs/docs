@@ -40,7 +40,7 @@ Apart from the **Participants** tab, the _organization_ workspace is similar to 
 - **Collaboration mode**: Limit which members can connect to a running Studio in the workspace. Toggle between **Collaborative**  (any member with the right permissions can connect) and **Private** (only the creator can connect). Default is **Collaborative** mode.
 - **Session lifespan**: Set a predefined lifespan (between 1 and 120 hours), after which all Studio sessions in the workspace are automatically stopped. To keep all workspace Studios running indefinitely, select **Always keep the session running**. Default is a session lifespan of **8 hours**.
 - **Container repository**: Define the target container repository where custom Studio images built with Wave will be pushed. The workspace must have a credential with read and write permissions to the target container registry. There is no default and custom builds will fail for self-hosted deployments.
-- **Container naming strategy**: Define your container registry naming strategy. Default for Seqera Cloud is **tagPrefix**.
+- **Container image naming strategy**: Define your container registry naming strategy.
   - **tagPrefix**: Differentiate application versions within the same repository (e.g., `registry/image:prefix-version`). This strategy is recommended for organizing specific image types (`dev`, `staging`, `prod`) and typically results in fewer repositories with more tags.
   - **imageSuffix**: Group different build types across repositories (e.g., `registry/image-suffix:version`). This strategy is recommended for managing permissions or different build environments (`front-end` vs. `back-end`, or `API` vs. `GUI`) and typically results in higher repository counts (i.e., one repository per environment/variant).
 
@@ -55,7 +55,7 @@ Select **Manage** to open the workspace [labels and resource labels](../labels/o
 ### Lineage
 
 :::note
-Data lineage is in public preview and not enabled by default. See [Configuration options](../enterprise/configuration/overview#data-features).
+Data lineage is in public preview and available in all organization workspaces unless your system administrator limits it to specific workspaces. See [Configuration options](../enterprise/configuration/overview#data-features).
 :::
 
 Configure where Nextflow lineage data are stored and whether lineage tracking is on by default for every run launched in the workspace.
@@ -68,20 +68,20 @@ Select **Manage** and then choose to enable lineage by default for all pipeline 
 | **Region** | Yes | Cloud region where the lineage storage bucket is created (for example, `us-east-1`, `eu-west-1`). |
 | **Bucket name** | No | Bucket where lineage records are stored. If left empty, Platform generates a default bucket name in the form `seqera-lineage-<workspace-id>`. Required in **Manual** mode, where it must match the bucket you have provisioned. |
 
-If configuring **manually**, one additional setting is required:
+If you configure lineage in **Manual** mode, one additional setting is required:
 
 | Field | Required | Description |
 |-------|----------|-------------|
 | **SNS topic ARN** | Yes | The ARN of the Amazon SNS topic your bucket publishes object notifications to, in the form `arn:aws:sns:<region>:<account-id>:<topic-name>`. In **Automatic** mode, Platform creates the topic as `<bucket-name>-notifications`. |
 
-Once the settings are saved, the lineage settings page also shows:
+After you save the settings, the lineage settings page also shows:
 
 | Field | Description |
 |-------|-------------|
 | **Event delivery** | Whether events are reaching Platform: **Active**, **Awaiting confirmation**, **Failed**, or **Not configured**. This is independent of the configuration status. A workspace can be configured and writable while Platform receives nothing. |
 | **Webhook URL** | The per-workspace HTTPS endpoint to which AWS delivers this workspace's bucket events. In **Manual** mode, subscribe this URL to your SNS topic (protocol `https`). |
 
-Select **Disable lineage** to remove the configuration and stop indexing records for the workspace. Platform removes any automatically provisioned notification infrastructure. The bucket and the lineage data in it are not affected, and you can configure lineage again at any time.
+Select **Disable lineage** to remove the configuration and stop indexing records for the workspace. Platform removes any automatically provisioned notification infrastructure. Disabling lineage does not affect the bucket or the lineage data in it, and you can configure lineage again at any time.
 
 ### Edit or delete a workspace
 
