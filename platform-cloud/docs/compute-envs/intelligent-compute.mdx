@@ -230,7 +230,7 @@ Configure the following options when you enable Intelligent Compute on a compute
 | Option | Values | Default | Description |
 |--------|--------|---------|-------------|
 | **Seqera Intelligent Compute** | Enabled / Disabled | Disabled | Enables the Intelligent Compute scheduler for this compute environment. This option only appears if Intelligent Compute is enabled for your workspace. |
-| **Provisioning model** | `spotFirst`, `spot`, `ondemand` | `spotFirst` | Instance procurement strategy. `spotFirst` uses Spot instances and falls back to On-Demand if Spot capacity is unavailable. `spot` uses Spot instances only. `ondemand` uses On-Demand instances only. |
+| **Provisioning model** | `spotFirst`, `spot`, `ondemand` | `spotFirst` | Instance procurement strategy. `spotFirst` uses Spot instances and falls back to On-Demand if Spot capacity is unavailable, unless On-Demand exceeds the [On-Demand fallback cost limit](#on-demand-fallback-cost-limit). `spot` uses Spot instances only. `ondemand` uses On-Demand instances only. |
 | **Max spot attempts** | Integer, `1`–`10` | `3` | Total number of Spot provisioning attempts for a task, including the first, before falling back to On-Demand with `spotFirst`. Only visible when **Provisioning model** is `spot` or `spotFirst`. Set to `1` for a single attempt with no retry. Compute environments created before this setting was introduced are not backfilled and keep their current behavior. |
 | **Instance types** | Comma-separated EC2 instance type identifiers (for example, `m5.xlarge, c5.2xlarge`) | Empty | Restricts which instance types the scheduler can select. When empty, the scheduler picks the most cost-effective type for each task. |
 | **Prediction model** | `none`, `qr/v1`, `qr/v2` | `none` | For private preview, use `qr/v2`. |
@@ -252,3 +252,37 @@ A Spot capacity failure reaches Nextflow only after the scheduler exhausts its a
 :::note
 **Max spot attempts** is a separate setting from the `aws.batch.maxSpotAttempts` Nextflow configuration property described in [AWS Spot interruption management](./aws-spot-interruptions). That property applies to AWS Batch compute environments only and has no effect on Intelligent Compute.
 :::
+
+### On-Demand fallback cost limit
+
+With `spotFirst`, the scheduler falls back to On-Demand only while On-Demand costs at most a set multiple of the Spot price. The scheduler compares the highest On-Demand hourly price with the highest Spot hourly price across the instance types it selected for the task. Seqera sets a default limit for each cloud provider:
+
+| Cloud provider | Default On-Demand fallback cost limit |
+| --- | --- |
+| AWS | 3.25 times the Spot price |
+| Google Cloud | 2.48 times the Spot price |
+| Azure | No limit |
+
+Seqera can change these defaults as Spot and On-Demand prices change.
+
+When On-Demand exceeds the limit, the scheduler retries the task on new Spot capacity instead of falling back. If Spot capacity is still unavailable after those retries, the task fails. The error message starts with `on-demand fallback refused` and states the ratio of the On-Demand price to the Spot price.
+
+Currently, you can change the limit only in the pipeline's Nextflow configuration. The compute environment has no setting for it. To set the limit for all tasks in a run, set `seqera.executor.machineRequirement.onDemandCostRatio` in the Nextflow configuration. This option requires Nextflow 26.10 or later. For example:
+
+```groovy
+seqera.executor.machineRequirement.onDemandCostRatio = 2.5
+```
+
+The option accepts the following values:
+
+| Value | Effect |
+| --- | --- |
+| Not set | The default for the cloud provider applies. |
+| `0` | No limit. Tasks always fall back to On-Demand, whatever the price. |
+| Greater than `0` | The scheduler uses this limit instead of the default. |
+
+A value of `0` removes the limit. It does not disable the fallback.
+
+To override the limit for a single process, use the `seqera/machineRequirement.onDemandCostRatio` process hint. Tasks with different limits run on separate clusters. See [On-demand fallback cost limit](https://docs.seqera.io/nextflow/executor/seqera#on-demand-fallback-cost-limit) in the Nextflow documentation.
+
+To never fall back to On-Demand, set **Provisioning model** to `spot`. If a pipeline must complete even when Spot capacity is scarce, set **Provisioning model** to `ondemand`.
