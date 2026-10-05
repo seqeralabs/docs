@@ -13,6 +13,7 @@ You will need the following to get started:
 - [Seqera CLI](./installation.mdx)
 - A user account on your Seqera Platform Enterprise deployment
 - `SEQERA_AI_BACKEND_URL` set to your organization's agent backend (see [Installation](./installation.mdx#configure-the-co-scientist-backend))
+
 :::
 
 ## Step 1: Log in to Seqera Platform
@@ -25,16 +26,16 @@ seqera login
 
 This will:
 
-1. Open your default browser to the Seqera login page.
-1. Prompt you to sign in with your Seqera Platform credentials.
-1. Automatically capture the authentication token.
-1. Display a success message in your terminal:
+1.  Open your default browser to the Seqera login page.
+1.  Prompt you to sign in with your Seqera Platform credentials.
+1.  Automatically capture the authentication token.
+1.  Display a success message in your terminal:
 
-   ```console
-   [Login] Starting Seqera CLI authentication...
-   [Login] ✓ Authentication successful!
-   [Login] ✓ Organization set: <org_name>
-   ```
+    ```console
+    [Login] Starting Seqera CLI authentication...
+    [Login] ✓ Authentication successful!
+    [Login] ✓ Organization set: <org_name>
+    ```
 
 :::tip
 See [Authentication](./authentication.md) for more information about how to log in and out, authenticate in automated environments, and manage your organization.
@@ -54,7 +55,7 @@ The Co-Scientist prompt appears, with a footer showing the active mode (**build*
 
 Show the built-in commands and available skills:
 
-```
+```text
 /help
 ```
 
@@ -73,7 +74,7 @@ Press `Shift+Tab` to switch between modes. The active mode appears in the compos
 
 Try plan mode with a comparison prompt:
 
-```
+```text
 Compare whether I should add FastQC or fastp as the first QC step in this RNA-seq pipeline, including the workflow changes each option would require
 ```
 
@@ -81,8 +82,8 @@ Compare whether I should add FastQC or fastp as the first QC step in this RNA-se
 
 Run the built-in debugging skill against your most recent workspace run:
 
-```
-/debug-last-run-on-seqera
+```text
+/debug-seqera-failed-run
 ```
 
 Co-Scientist fetches your most recent workspace run, inspects logs and exit codes, and walks through likely causes and fixes. You need at least one workflow run in the workspace for this skill to find something to debug.
@@ -91,7 +92,7 @@ Co-Scientist fetches your most recent workspace run, inspects logs and exit code
 
 Give Co-Scientist a goal to work toward across multiple turns:
 
-```
+```text
 /goal update this pipeline for AWS Batch and add nf-tests
 ```
 

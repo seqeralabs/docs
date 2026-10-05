@@ -138,7 +138,7 @@ Select the Nextflow version for the run. The selector lists the versions availab
 The default version is:
 
 - **Pipeline advanced options**: the system default version, or the compute environment type's minimum version when that minimum is higher.
-- **Launch advanced options**: the version saved on the pipeline, when it is compatible with the selected compute environment. If the pipeline's saved version is below the minimum required by the compute environment, no version is preselected and you must choose a compatible version before launching.
+- **Launch advanced options**: the version saved on the pipeline, when it is compatible with the selected compute environment. If the pipeline's saved version is below the minimum that the compute environment requires, the selector preselects no version. You must choose a compatible version before launching.
 
 Version availability depends on the compute environment type:
 

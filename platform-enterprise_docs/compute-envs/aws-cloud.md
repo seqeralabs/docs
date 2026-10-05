@@ -2,6 +2,7 @@
 title: "AWS Cloud"
 description: "Instructions to set up an AWS Cloud CE in Seqera Platform"
 date created: "2025-07-09"
+last updated: "2026-09-17"
 tags: [cloud, vm, amazon, aws, compute environments]
 ---
 
@@ -60,10 +61,11 @@ For the ports and directions to configure on your firewall, see [Firewall config
 
 To create and launch pipelines or Studio sessions with this compute environment type, you must attach Seqera credentials for the cloud provider. Some permissions are mandatory for the compute environment to be created and function correctly; others are optional and used to pre-fill options in Platform.
 
-AWS credentials can be configured in two ways:
+AWS credentials can be configured in three ways:
 
 - **Key-based credentials**: Access key and secret key with direct IAM permissions. If you provide a role ARN in **Assume role**, the **Generate External ID** switch is displayed and External ID generation is optional.
 - **Role-based credentials (recommended)**: Use role assumption only (no static keys). Paste the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. External ID is generated automatically when you save.
+- **Workload identity federation**: No stored credential. Platform exchanges a short-lived OpenID Connect (OIDC) token for temporary credentials against an IAM role you control, and stores only the role Amazon Resource Name (ARN). See [Workload identity federation][wif] for the trust policy, permission policies, and setup steps.
 
 Use the IAM role ARN which Seqera must use for accessing your AWS resources in **Assume role**. This field is available for both key-based and role-based credentials. It is optional for key-based credentials and required for role-based credentials.
 
@@ -243,7 +245,7 @@ The following permissions enable Seqera to populate values for drop-down fields.
 
 #### Data lineage (optional)
 
-If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials so they can create the notification topic and bucket notifications used by the lineage service:
+If you enable [data lineage](../data/data-lineage) in your workspace, add the following permissions to your Platform integration credentials so they can create the notification topic and bucket notifications that the lineage service uses:
 
 ```json
 {
@@ -277,7 +279,7 @@ If you enable [data lineage](../data/data-lineage) in your workspace, add the fo
 }
 ```
 
-These permissions cover **Automatic** provisioning. For **Manual** provisioning, Platform makes no control-plane calls other than confirming its own webhook subscription: see [Data lineage](../data/data-lineage#additional-iam-permissions-required) for the reduced permission set.
+These permissions cover **Automatic** provisioning. For **Manual** provisioning, Platform makes no control-plane calls other than confirming its own webhook subscription. See [Data lineage](../data/data-lineage#additional-iam-permissions-required) for the reduced permission set.
 
 ## Seqera Intelligent Compute
 
@@ -659,3 +661,5 @@ If your AWS account enforces EBS volume encryption at the account level (either 
 :::
 
 When you use a custom instance profile, note that Seqera will not create or manage the IAM role — you are responsible for keeping it up to date as requirements change.
+
+[wif]: ../credentials/workload_identity

@@ -2,6 +2,7 @@
 title: "Mirroring container images"
 description: Mirror Seqera container images to your own registry
 date: "2026-01-26"
+last updated: "2026-09-23"
 tags: [containers, registry, configuration]
 ---
 
@@ -30,9 +31,11 @@ Create a YAML file (`seqera-images.yaml`) to specify which images to sync:
 ```yaml
 cr.seqera.io:
     images-by-semver:
-        enterprise/platform/backend: ">= v25.3.4"
-        enterprise/platform/frontend: ">= v25.3.4"
-        enterprise/platform/migrate-db: ">= v25.3.4"
+        enterprise/platform/backend: ">= v26.2.1"
+        enterprise/platform/frontend: ">= v26.2.1"
+        enterprise/platform/migrate-db: ">= v26.2.1"
+        # Co-Scientist MCP server, if you deploy Co-Scientist
+        enterprise/mcp/server: ">= 1.4.3"
 ```
 
 Run the sync:

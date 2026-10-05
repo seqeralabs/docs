@@ -1,0 +1,87 @@
+---
+-
+  Environment variable:            '`TOWER_ENABLE_WAVE`'
+  Description: >
+    Enable Seqera integration with [Wave containers](https://wave.seqera.io).
+  Value:                'Default: `false`'
+-
+  Environment variable:            '`WAVE_SERVER_URL`'
+  Description: >
+    Define the Wave containers service endpoint URL.
+  Value:                'Example: `https://wave.seqera.io`'
+-
+  Environment variable:            '`TOWER_ENABLE_AWS_SSM`'
+  Description: >
+    Enable Seqera configuration value retrieval from [AWS Parameter Store](https://docs.seqera.io/platform-enterprise/enterprise/configuration/aws_parameter_store).
+  Value:                'Default: `false`'
+-
+  Environment variable:            '`TOWER_ENABLE_AWS_SES`'
+  Description: >
+    Use AWS Simple Email Service (SES) to send Seqera emails instead of SMTP.
+  Value:                'Default: `false`'
+-
+  Environment variable:            '`TOWER_ALLOW_NEXTFLOW_LOGS`'
+  Description: >
+    Allow log and report files from Nextflow CLI runs (`-with-tower`) to be accessible in the Seqera UI. Run output files must be accessible to your Seqera workspace primary compute environment.
+  Value:                'Default: `false`'
+# TODO(26.1): not in platform repo's ENVIRONMENT-VARIABLES.md — verify still valid
+-
+  Environment variable:            '`TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES`'
+  Description: >
+    Disable the [stepped launch form](https://docs.seqera.io/platform-cloud/launch/launchpad#launch-form) in the workspaces specified. Omit or set empty (`TOWER_STEPPED_LAUNCH_FORM_ALLOWED_WORKSPACES=`) to enable the new launch form in all workspaces, or provide a comma-separated list of workspace IDs to enable the form per workspace.
+  Value:                'Default: Enabled for all workspaces'
+-
+  Environment variable:            '`TOWER_PIPELINE_VERSIONING_ALLOWED_WORKSPACES`'
+  Description: >
+    Enable [pipeline versioning](https://docs.seqera.io/platform-enterprise/pipelines/versioning) in the workspaces specified. Accepts a comma-separated list of workspace IDs.
+  Value:                'Default: Disabled for all workspaces'
+-
+  Environment variable:            '`TOWER_MEMBER_AUTO_CREATE_USER`'
+  Description: >
+    Allow a Seqera account to be created when an organization member or team member is added by email address. Unlike the equivalent setting for workspace participants, this is enabled by default.
+  Value:                'Default: `true`'
+-
+  Environment variable:            '`TOWER_ACTIONS_BUCKET_TRIGGER_ALLOWED_WORKSPACES`'
+  Description: >
+    Restrict [bucket event actions](../../pipeline-actions/overview#bucket-events) to the workspaces specified. Accepts a comma-separated list of workspace IDs. Omit it, or set it empty (`TOWER_ACTIONS_BUCKET_TRIGGER_ALLOWED_WORKSPACES=`), to make bucket event actions available in every workspace. To disable them everywhere, set it to `0`. Because workspace IDs are positive, no workspace matches.
+  Value:                'Default: Available in all workspaces'
+-
+  Environment variable:            '`TOWER_ACTIONS_CRON_TRIGGER_ALLOWED_WORKSPACES`'
+  Description: >
+    Restrict [scheduled actions](../../pipeline-actions/overview#scheduled-actions) to the workspaces specified. Accepts a comma-separated list of workspace IDs. Omit it, or set it empty (`TOWER_ACTIONS_CRON_TRIGGER_ALLOWED_WORKSPACES=`), to make scheduled actions available in every workspace. To disable them everywhere, set it to `0`.
+  Value:                'Default: Available in all workspaces'
+-
+  Environment variable:            '`TOWER_ACTIONS_PIPELINE_TRIGGER_ALLOWED_WORKSPACES`'
+  Description: >
+    Restrict [pipeline run event actions](../../pipeline-actions/overview#pipeline-run-events) to the workspaces specified. A pipeline run event action launches a pipeline when a run of a Launchpad pipeline reaches a terminal state. Use it to chain one pipeline to another. Accepts a comma-separated list of workspace IDs. Omit it, or set it empty (`TOWER_ACTIONS_PIPELINE_TRIGGER_ALLOWED_WORKSPACES=`), to make pipeline run event actions available in every workspace. To disable them everywhere, set it to `0`.
+  Value:                'Default: Available in all workspaces'
+-
+  Environment variable:            '`TOWER_AGENT_CONFIGURATION_ALLOWED_ORGANIZATIONS`'
+  Description: >
+    Restrict AI agents to the organizations specified, including the option for a bucket event, scheduled, or pipeline run event action to [target an agent](../../pipeline-actions/overview#agent-targets) instead of launching a pipeline. Accepts a comma-separated list of organization IDs. Omit it, or set it empty, to enable agents in every organization once `TOWER_AGENT_BACKEND_URL` is set. This variable is organization-scoped, not workspace-scoped.
+  Value:                'Default: Enabled for all organizations'
+-
+  Environment variable:            '`TOWER_ACTIONS_TRIGGER_RATE_MAX_PER_WINDOW`'
+  Description: >
+    How many times an action may fire within `TOWER_ACTIONS_TRIGGER_RATE_WINDOW` before Seqera Platform pauses it. Seqera Platform records the trigger that reaches the limit as suppressed. The action keeps its configuration until someone resumes it. Raise it to let an action fire more often. Lower it to cap the cost of a runaway action sooner.
+  Value:                'Default: `20`'
+-
+  Environment variable:            '`TOWER_ACTIONS_TRIGGER_RATE_WINDOW`'
+  Description: >
+    How far back Seqera Platform counts an action's triggers when applying `TOWER_ACTIONS_TRIGGER_RATE_MAX_PER_WINDOW`. Widening it makes the limit easier to reach, because more past triggers fall inside the count. The count is shared across replicas and survives a restart.
+  Value:                'Default: `1h`'
+-
+  Environment variable:            '`TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES`'
+  Description: >
+    Enable [workload identity federation](https://docs.seqera.io/platform-enterprise/credentials/workload_identity) in the workspaces specified. Omit the variable, or set it empty (`TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES=`), to enable it for all workspaces, or provide a comma-separated list of workspace IDs to enable it per workspace. Personal workspaces are excluded in all cases.
+  Value:                'Default: Enabled for all workspaces'
+-
+  Environment variable:            '`TOWER_PARTICIPANT_AUTO_CREATE_USER`'
+  Description: >
+    Allow a Seqera account to be created when a workspace participant is added by email address. When `false`, only people who already have an account can be added as workspace collaborators. Accounts created this way are marked as trusted. See [Add a new participant](https://docs.seqera.io/platform-enterprise/orgs-and-teams/workspace-management#allow-accounts-to-be-created-on-the-fly).
+  Value:                'Default: `false`'
+-
+  Environment variable:            '`TOWER_ACTION_CYCLE_MAX_CHAIN_DEPTH`'
+  Description: >
+    How many steps back Seqera Platform traces a run's chain of action triggers before it refuses the event. Seqera Platform suppresses a chain longer than this whether or not it closes a [loop](../../pipeline-actions/overview#loops). Raise it for deliberately long automation chains. Each extra step is one more database read per finished run. Values below `1` or above `50` log a warning at startup, and a value that is not a whole number prevents backend startup.
+  Value:                'Default: `20`'

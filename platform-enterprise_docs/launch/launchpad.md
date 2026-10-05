@@ -55,7 +55,7 @@ The launch form accepts URL query parameters. See [Populate launch form with URL
   :::
 - **Workflow run name**: A unique identifier for the run, pre-filled with a random name. This can be customized.
 - **Labels**: Assign new or existing [labels][labels] to the run.
-- **Compute environment**: The [compute environment][compute-envs] where the run will be launched. The drop-down groups compute environments by platform and marks the workspace [primary compute environment][primary-compute-env] with a **Primary** badge. Use the search field to filter by name, region, or platform.
+- **Compute environment**: The [compute environment][compute-envs] where the run is launched. The drop-down groups compute environments by platform and marks the workspace [primary compute environment][primary-compute-env] with a **Primary** badge. Use the search field to filter by name, region, or platform.
 - **Schema**: Select the [pipeline schema][pipeline-schema] to validate pipeline parameters and prevent runtime failures.
 - **Enable lineage**: Track the [provenance][data-lineage] of files produced by pipeline runs. Defaults to the [workspace setting][workspace-settings-lineage].
 
@@ -99,7 +99,7 @@ Set an optional **Output directory** to override the default location for your p
 
 - Enter an absolute cloud storage path, such as `s3://my-bucket/results`, or select **Browse** to choose a location with [Data Explorer][data-explorer]. Select a **Compute environment** before you browse.
 - Platform passes this value to Nextflow as `-output-dir`.
-- **Output directory** is optional and is not carried over on relaunch. Set it for each launch.
+- **Output directory** is optional. Because Platform carries it over when you **resume** a run, the resumed run keeps publishing to the same location. Because Platform does not carry it over when you **relaunch**, a new run does not overwrite a previous run's outputs. On relaunch, set it again if you need it.
 
 :::note
 The **Output directory** field requires Nextflow 24.10.0 or later and a pipeline that uses the [workflow outputs syntax][nextflow-workflow-outputs]. For older pipelines, use your pipeline output parameter (for example, `params.outdir`) instead.
@@ -122,7 +122,7 @@ Seqera uses a `nextflow_schema.json` file in the root of the pipeline repository
 Specify compatible input [datasets][datasets]  manually or from the drop-down. Select **Browse** to view the available datasets or browse for files in [Data Explorer][data-explorer]. The Data Explorer tab allows you to select input datasets that match your [pipeline schema][pipeline-schema] `mimetype` criteria (`text/csv` for CSV files, or `text/tsv` for TSV files).
 
 - **outdir**
-Your pipeline's own output directory parameter, if defined in the pipeline schema. Specify the output directory where run results will be saved manually, or select **Browse** to choose a cloud storage directory using [Data Explorer][data-explorer]. This is separate from the [**Output directory**](#output-directory) field in **General config**, which sets the Nextflow `-output-dir` value for workflow outputs.
+Your pipeline's own output directory parameter, if defined in the pipeline schema. Manually specify the output directory where run results are saved, or select **Browse** to choose a cloud storage directory using [Data Explorer][data-explorer]. This is separate from the [**Output directory**](#output-directory) field in **General config**, which sets the Nextflow `-output-dir` value for workflow outputs.
 
 The remaining fields will vary for each pipeline, dependent on the parameters specified in the pipeline schema.
 

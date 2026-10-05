@@ -1,0 +1,80 @@
+---
+title: "Firewall configuration"
+description: Configure your firewall to allow Seqera Cloud access
+date created: "2023-04-12"
+last updated: "2026-08-21"
+tags: [firewall, configuration, networking, ip, dns, allowlist, cloud, security, egress, ingress, outbound, inbound, meta.seqera.io]
+---
+
+Seqera Platform Cloud ([cloud.seqera.io](https://cloud.seqera.io)) may need to connect to resources within your network, e.g., your storage server. To do so, your firewall must be configured to allow certain IPs to reach your resources.
+
+A dynamic list of IPs is kept up-to-date at [`meta.seqera.io`](https://meta.seqera.io).
+
+This endpoint returns a JSON object that can be parsed to dynamically adapt your firewall, e.g., in Python with the `requests` package:
+
+```python
+$ python3
+>>> import requests
+>>> requests.get("https://meta.seqera.io").json()
+{
+  "egress": ["a.b.c.d/32", "..."],
+  "ingress": ["e.f.g.h/32", "..."]
+}
+```
+
+The response contains two lists:
+
+- `egress` — the addresses Seqera connects *from*. Allow these at your firewall so Seqera Platform Cloud can reach your resources.
+- `ingress` — the addresses Seqera services are reachable *at*, including `wave.seqera.io`. Allow these if your outbound rules are IP-based rather than DNS-based.
+
+:::note
+Always query [`meta.seqera.io`](https://meta.seqera.io) when you build or review your firewall rules. The addresses change as services are added, so a copied list becomes stale.
+:::
+
+### DNS allowlist
+
+In order for you to access resources such as Fusion tarballs, `nf-xpack` files, Wave cloud containers and other services provided by Seqera, you'll need to add `*.seqera.io.cdn.cloudflare.net` to the allowlist in your network firewall. If DNS wildcards aren't supported by your firewall, you can use the following:
+
+- `cloud.seqera.io`
+- `api.cloud.seqera.io`
+- `user-data.cloud.seqera.io`
+- `tower.nf`
+- `api.tower.nf`
+- `connect.cloud.seqera.io` and its subdomains `*.connect.cloud.seqera.io`
+- `hub.seqera.io`
+- `intern.seqera.io`
+- `ai.seqera.io`
+- `ai-api.seqera.io`
+- `wave.seqera.io`
+- `community.wave.seqera.io`
+- `cerbero.seqera.io`
+- `public.cr.seqera.io`
+- `auth.cr.seqera.io`
+- `cr.seqera.io`
+- `licenses.seqera.io`
+- `api.multiqc.info`
+- `fusionfs.seqera.io`
+- `nf-xpack.seqera.io`
+- `community-cr-prod.seqera.io`
+- `fusionfs.seqera.io`
+- `nf-xpack.seqera.io`
+- `public-cr-prod.seqera.io`
+- `wave-cache-prod-cloudflare.seqera.io`
+- `fusionfs.seqera.io.cdn.cloudflare.net`
+- `nf-xpack.seqera.io.cdn.cloudflare.net`
+- `community-cr-prod.seqera.io.cdn.cloudflare.net`
+- `fusionfs.seqera.io.cdn.cloudflare.net`
+- `nf-xpack.seqera.io.cdn.cloudflare.net`
+- `public-cr-prod.seqera.io.cdn.cloudflare.net`
+- `wave-cache-prod-cloudflare.seqera.io.cdn.cloudflare.net`
+- `registry.nextflow.io` (required from Nextflow 25.10)
+
+:::note
+Nextflow makes network calls to the `registry.nextflow.io` domain to resolve and download plugins. Even when plugins are already cached locally, Nextflow makes calls to the registry to check for updates and resolve plugin metadata. Ensure this domain is included in your allowlist to prevent pipeline execution failures.
+:::
+
+If you chose to filter by specific DNS records, please note that new services may be added in the future.
+
+:::note
+If your allowlist is based on IP addresses, allow all of the following IP addresses: https://www.cloudflare.com/ips/.
+:::

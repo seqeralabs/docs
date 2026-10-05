@@ -2,7 +2,7 @@
 title: "Studios"
 description: "Studios troubleshooting with Seqera Platform."
 date created: "2024-08-26"
-last updated: "2026-09-16"
+last updated: "2026-09-30"
 tags: [faq, help, studios, troubleshooting]
 ---
 
@@ -26,7 +26,7 @@ To change how long a session must be in **stopping** before you can force stop i
 
 #### Session status is **errored**
 
-The **errored** status is generally related to problems creating the Studio session resources in the compute environment, such as invalid credentials, insufficient permissions, or network issues. It can also be related to insufficient compute resources set in your compute environment configuration. Contact your organization's AWS administrator if you don't have access to the AWS Console, and contact your Seqera account executive to investigate.
+The **errored** status usually indicates problems creating the Studio session resources in the compute environment, such as invalid credentials, insufficient permissions, or network issues. It can also be related to insufficient compute resources set in your compute environment configuration. Check the Studio's **Logs** tab for the cause first. See [Studio session logs](../studios/managing#studio-session-logs). If you still need help, contact your Seqera account executive to investigate. If you don't have access to the AWS Console, also contact your organization's AWS administrator.
 
 #### Session doesn't start with an internal certificate authority
 
@@ -34,7 +34,7 @@ A session in a private network doesn't reach **running** status, and the session
 
 The same failure occurs if your organization inspects HTTPS traffic at the network boundary, because the inspecting proxy presents its own internally issued certificate.
 
-To resolve, provide your CA to Platform so that it's installed in every session. See [Configure a private certificate authority for Studios](../enterprise/studios-private-ca).
+To resolve, provide your CA to Platform so that Platform installs it in every session. See [Configure a private certificate authority for Studios](../enterprise/studios-private-ca).
 
 This requires Connect client version 0.13.0 or later. If your Studio images run an earlier client and can't be rebuilt, build a custom Studio container image with your organization's CA certificates in its trust store, then use that image for the Studio. See [Custom container images](../studios/container-images).
 
@@ -103,10 +103,10 @@ By default, Fusion does not resync objects from remotely mounted data-link(s) af
 
 If you have a running session with data mounted and the underlying storage is updated, the data is not resynced to the Studio session.
 
-You can change this behavior when you [add a Studio session](../studios/add-studio) by setting the `FUSION_REFRESH_TIMEOUT` environment variable to a number of seconds (e.g., `120`). Fusion then refreshes the view of the mounted data links at that interval.
+You can change this behavior when you [add a Studio session](../studios/add-studio) by setting the `FUSION_REFRESH_TIMEOUT` environment variable to a number of seconds (for example, `120`). Fusion then refreshes the view of the mounted data links at that interval.
 
 :::note
-Setting the environment variable _inside_ an already running Studio session by executing the command `export FUSION_REFRESH_TIMEOUT=120` won't change the behavior of the outer Fusion session. Set the environment variable in the **General config** section during Studio creation.
+Setting the environment variable _inside_ an already running Studio session by running `export FUSION_REFRESH_TIMEOUT=120` doesn't change the behavior of the outer Fusion session. Set the environment variable in the **General config** section during Studio creation.
 :::
 
 :::warning
@@ -120,6 +120,91 @@ A pipeline run fails when it reads a path that a running Studio session wrote to
 This issue occurs because Fusion uploads data to object storage in chunks and consolidates those chunks into a complete object only when the Fusion instance that wrote them shuts down. For a Studio session, that happens when the session stops. Separate Fusion instances also do not share a live view of each other's in-progress writes.
 
 To resolve, [stop the Studio session](../studios/managing#stop-a-studio-session) and wait for its status to change to **stopped** before you launch the run. To avoid the problem, upload data for a pipeline with **Data Explorer** or the Seqera Platform CLI (`tw`) instead of writing it from a running session.
+
+#### Files from earlier sessions are missing after a restart, with `missing SquashFS image` warnings {#missing-squashfs-image}
+
+If files or folders saved in earlier sessions are missing when a Studio session starts, check the session log for warnings similar to the following:
+
+```text
+missing SquashFS image /fusion/s3/<bucket>/<work-dir>/.studios/checkpoints/<checkpoint-id>/data.img
+```
+
+:::note
+Connect client v0.11.0 and later logs `SquashFS image not found` instead.
+:::
+
+This issue occurs when checkpoint images were removed from the compute environment work directory, most often by an object storage lifecycle rule that expires or deletes objects in the work directory. Each checkpoint stores only the changes made during one session, and a session rebuilds its filesystem by stacking every earlier checkpoint chronologically. When a checkpoint image is missing, the session skips that layer, so files last changed during that session are missing. Seqera Platform deletes checkpoint files only when the Studio that references them is deleted.
+
+To resolve this issue, restore each missing `data.img` object to its original path. If versioning is enabled on the bucket, check whether an earlier version exists:
+
+```bash
+aws s3api list-object-versions \
+  --bucket <bucket> \
+  --prefix <work-dir>/.studios/checkpoints/<checkpoint-id>/
+```
+
+If the current version of `data.img` is a delete marker, delete the marker to restore the image:
+
+```bash
+aws s3api delete-object \
+  --bucket <bucket> \
+  --key <work-dir>/.studios/checkpoints/<checkpoint-id>/data.img \
+  --version-id <delete-marker-version-id>
+```
+
+The next Studio session start retrieves the restored checkpoints without any change in Seqera Platform. If no earlier version of `data.img` exists, the changes from that session can't be recovered.
+
+To prevent this issue, exclude the `.studios/` prefix of the work directory from any lifecycle rule that expires current object versions. Rules that expire only non-current versions don't remove checkpoints. See [Studio session checkpoints](../studios/managing#object-storage-versioning-and-checkpoint-storage-costs).
+
+## Workload identity federation
+
+#### Session uses the compute environment's credentials instead of its own identity
+
+In a workspace with [workload identity federation][studios-wif], `aws sts get-caller-identity` in the Studio terminal returns the compute environment's job role or instance role instead of the credential's role.
+
+This issue occurs when the session did not federate: an administrator restricted `TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES` to other workspaces, the compute environment's credential does not use workload identity federation, or the Studio's Connect client does not support it.
+
+When a Studio whose credential could federate launches without federation because the workspace is not in the allow list, Platform logs a warning in the backend log that names the session.
+
+To resolve, confirm that `TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES` is unset, empty, or includes the workspace, that the compute environment's credential uses workload identity federation, and that your installation runs Connect server and proxy 0.12.2 or later. Then start the Studio from a container image with Seqera Connect client 0.14.0 or later.
+
+#### Federated session fails to start
+
+A Studio on a compute environment with a workload identity credential does not reach the **running** status, while sessions on compute environments with other credentials start.
+
+This issue occurs when the Connect client cannot exchange the session's token at startup. On AWS, the trust policy does not admit the `studio` subject or does not grant `sts:TagSession` and `sts:SetSourceIdentity`. On Google Cloud, the attribute condition or the impersonation binding refuses the subject. A federated session does not fall back to the compute environment's credentials.
+
+To resolve, check the trust policy or the pool binding against the `studio` subject. See [Trust policy][wif-trust-policy] and [Impersonation and permissions][wif-impersonation].
+
+#### Session starts but data does not mount
+
+The session reaches the **running** status, and Fusion reports `store not found`.
+
+This issue occurs when the token exchange succeeds but the permission policy has no statement for the `studio` subject. See [A Studio starts but its data does not mount][wif-studio-mount].
+
+#### Tool in the session authenticates as a different identity
+
+`aws sts get-caller-identity` returns the credential's role, but a tool reaches buckets that the role does not grant, or your cloud provider denies it buckets that the role grants.
+
+This issue occurs when the container holds a credentials profile in `~/.aws/config` or `~/.aws/credentials`. The Connect client removes credential environment variables from the session but cannot remove a profile file, and a tool that reads a profile first authenticates with it.
+
+To resolve, remove the profile from the container image or from the session.
+
+#### Cloud provider denies bucket access that worked before federation
+
+Your cloud provider denies access to a bucket that the session could reach before you enabled workload identity federation, and the error does not mention federation.
+
+This issue occurs because a federated session no longer carries the compute environment's credentials. The permission policy of the credential's role decides access, under the `studio` subject.
+
+To resolve, grant the bucket to the `studio` subject in the permission policy. See [Permission policies][wif-permission-policies].
+
+#### Google Cloud denies access to a private Studio but not to shared Studios
+
+Google Cloud denies a private Studio on a Google Cloud compute environment access to data, while shared Studios in the same workspace reach it.
+
+This issue occurs when a `principal://` IAM binding names the exact subject `org:{orgId}:wsp:{workspaceId}:studio`. Platform attributes a private Studio's session to a user, and the mapped subject ends in `:usr:{userId}`. The exact binding does not match that subject.
+
+To resolve, bind the whole pool or `attribute.workspace` instead of the exact subject. See [Attribute mapping][wif-attribute-mapping].
 
 ## Custom environments and container images
 
@@ -288,7 +373,7 @@ ssh alice@a01ac8894@connect.example.com -p 2222
 # Pseudo-terminal will not be allocated because stdin is not a terminal.
 ```
 
-This issue occurs when an AI coding assistant runs `ssh` as a subprocess, such as Claude Code in a terminal. The assistant doesn't attach a terminal to stdin, and the SSH client refuses to allocate a pseudo-terminal. To resolve, force pseudo-terminal allocation with `-tt`:
+This issue occurs when an AI coding assistant, such as Claude Code in a terminal, runs `ssh` as a subprocess. The assistant doesn't attach a terminal to stdin, and the SSH client refuses to allocate a pseudo-terminal. To resolve, force pseudo-terminal allocation with `-tt`:
 
 ```bash
 ssh -tt alice@a01ac8894@connect.example.com -p 2222
@@ -411,3 +496,9 @@ VS Code, RStudio, and Jupyter environments natively integrate with [GitHub Copil
 [posit-ghcopilot-guide]: https://docs.posit.co/ide/user/ide/guide/tools/copilot.html
 [nbi]: https://github.com/notebook-intelligence/notebook-intelligence
 [nbi-blog]: https://blog.jupyter.org/introducing-notebook-intelligence-3648c306b91a
+[studios-wif]: ../studios/overview#workload-identity-federation
+[wif-trust-policy]: ../credentials/workload_identity#trust-policy
+[wif-impersonation]: ../credentials/workload_identity#impersonation-and-permissions
+[wif-studio-mount]: ./workload_identity_troubleshooting#a-studio-starts-but-its-data-does-not-mount
+[wif-permission-policies]: ../credentials/workload_identity#permission-policies
+[wif-attribute-mapping]: ../credentials/workload_identity#attribute-mapping

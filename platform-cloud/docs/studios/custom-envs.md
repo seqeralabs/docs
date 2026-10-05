@@ -2,7 +2,7 @@
 title: "Custom environments"
 description: "Custom environments for Studios"
 date created: "2024-10-01"
-last updated: "2026-05-29"
+last updated: "2026-09-29"
 tags: [environments, custom, studios]
 ---
 
@@ -84,7 +84,7 @@ Customize the following Dockerfile to include any additional software you requir
 
 ```docker title="Minimal Dockerfile"
 # Add a default Connect client version. Can be overridden by build arg
-ARG CONNECT_CLIENT_VERSION="0.12"
+ARG CONNECT_CLIENT_VERSION="0.14"
 
 # Seqera base image
 # highlight-next-line
@@ -110,7 +110,7 @@ For example, to run a Python-based HTTP server, build a container from the follo
 
 ```docker title="Example Dockerfile with Python HTTP server"
 # Add a default Connect client version. Can be overridden by build arg
-ARG CONNECT_CLIENT_VERSION="0.12"
+ARG CONNECT_CLIENT_VERSION="0.14"
 
 # Seqera base image
 # highlight-next-line

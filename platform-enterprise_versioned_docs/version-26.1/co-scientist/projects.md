@@ -2,10 +2,11 @@
 title: "Projects"
 description: "Organize workspace resources into projects using Seqera Platform labels"
 date created: "2026-04-22"
+last updated: "2026-08-26"
 tags: [co-scientist, cli, projects, labels]
 ---
 
-Projects in Co-Scientist group the pipelines, datasets, and workflow runs that belong to a single piece of work, so you can view and chat about them without the noise of the rest of the workspace.
+Projects in Co-Scientist group the pipelines, datasets, and workflow runs that belong to a single piece of work. View and chat about them without the noise of the rest of the workspace.
 
 Projects are not created inside Co-Scientist. They are derived from **workspace labels in Seqera Platform** whose names start with `project_`. Each matching label surfaces in Co-Scientist as a separate project scope, with the Platform label acting as the source of truth for membership.
 
@@ -61,26 +62,7 @@ Once a `project_*` label exists in the workspace and is applied to at least one 
 - **Chat project selector**: scopes the resources the AI can see and act on during a chat session.
 - **Dataset upload**: when you upload a dataset from inside a project, the project's label is auto-attached.
 
-## Edge cases
-
-### A resource carries a `project_*` label that isn't in the workspace label list
-
-If a pipeline has a `project_*` label but the label has not been created in workspace settings, Co-Scientist still surfaces the project, inferred from the pipeline. In this case:
-
-- The project has no Platform-assigned label ID.
-- Dataset uploads into the project cannot auto-attach the label.
-
-To avoid this, always create `project_*` labels in workspace settings first, then apply them.
-
-### No `project_*` labels in the workspace
-
-When a workspace has no `project_*` labels:
-
-- The **Projects** page shows a **No projects configured yet** empty state.
-- The project selector is hidden in the chat header.
-- The workspace view shows a header-only empty state.
-
-Ask a workspace admin to create the first `project_*` label to enable projects for the workspace.
+For problems with project labels and empty states, see [Co-Scientist troubleshooting](../troubleshooting_and_faqs/coscientist_troubleshooting.md).
 
 ## Learn more
 

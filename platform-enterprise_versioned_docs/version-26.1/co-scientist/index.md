@@ -1,24 +1,29 @@
 ---
-title: "Co-Scientist in Seqera CLI"
-description: "AI-powered assistant for bioinformatics workflows and Seqera Platform"
+title: "Co-Scientist"
+description: "AI assistant for bioinformatics in Seqera Platform Enterprise"
 date created: "2026-03-11"
-last updated: "2026-04-29"
-tags: [co-scientist, cli, ai]
+last updated: "2026-08-25"
+tags: [co-scientist, cli, ai, enterprise]
 ---
 
-Co-Scientist is Seqera's AI assistant for bioinformatics. You interact with it through the [Seqera CLI](./installation.mdx) (`seqera ai`) to build, run, and debug Nextflow pipelines, manage your data, and drive Seqera Platform from a single terminal session. It combines self-service bioinformatics, conversational intelligence, and autonomous execution in one experience.
+Co-Scientist is Seqera's AI assistant for bioinformatics. It builds, runs, and debugs Nextflow pipelines, manages your data, and works with your Seqera Platform resources.
 
-Co-Scientist works across three contexts:
+In Seqera Platform Enterprise, Co-Scientist is available on two surfaces:
 
-- **Your Seqera Platform workspace**: View and manage workflows, pipelines, and data through your authenticated account.
-- **Your local environment**: Run commands and edit files in your working directory, with configurable approval controls.
-- **AI capabilities**: Natural language understanding, code generation, and intelligent suggestions.
+- **In the Seqera CLI**: Run `seqera ai` in your terminal to work in your local checkout with access to your Platform workspace. See [Installation](./installation.mdx).
+- **In the Co-Scientist web interface**: The browser interface deployed alongside your installation, including [projects](./projects.md).
+
+Both surfaces use the same assistant and the same Seqera Platform Enterprise account.
+
+:::note
+Co-Scientist is not part of a default Seqera Platform Enterprise installation. An administrator must deploy the agent backend, the Seqera Model Context Protocol (MCP) server, and the web interface, and configure an inference provider. See [Install Co-Scientist](../enterprise/install-seqera-coscientist.mdx) and [Prerequisites](./prerequisites.md).
+:::
 
 ## Get started
 
-To get started with Co-Scientist:
+After an administrator deploys Co-Scientist for your installation:
 
-1. Install Seqera CLI:
+1. Install the Seqera CLI:
 
    ```bash
    npm install -g seqera
@@ -36,7 +41,7 @@ To get started with Co-Scientist:
    seqera ai
    ```
 
-See [Installation](./installation.mdx) for prerequisites, updates, and development builds. Then see [Quickstart](./quickstart.md) to walk through your first session.
+The CLI must point at your Enterprise deployment rather than Seqera Platform Cloud. See [Installation](./installation.mdx) for prerequisites and updates, [Authentication](./authentication.md) for signing in to your installation, and [Quickstart](./quickstart.md) to walk through your first session.
 
 ## What you can do
 
@@ -44,22 +49,26 @@ Co-Scientist helps across the full pipeline lifecycle, from writing code to runn
 
 ### Develop pipelines
 
-Generate Nextflow configurations and pipeline schemas, convert scripts from other languages (WDL, R) to Nextflow, and discover over 1,000 nf-core modules with ready-to-run commands. Build reproducible Wave containers from conda or pip packages without writing a Dockerfile. Real-time LSP code intelligence detects errors and powers AI navigation across Nextflow, Python, and R files.
+Generate Nextflow configurations and pipeline schemas, convert scripts from other languages (WDL, R) to Nextflow, and discover over 1,000 nf-core modules with ready-to-run commands. Build reproducible Wave containers from conda or pip packages without writing a Dockerfile. Real-time language server protocol (LSP) code intelligence detects errors and powers AI navigation across Nextflow, Python, and R files.
 
 ### Run and debug on Platform
 
-Launch, monitor, and debug Nextflow workflows from your terminal with real-time status, logs, and run metrics. Browse cloud storage through data links, manage datasets, generate upload and download URLs, and access reference genomes. Co-Scientist has full access to your compute environments, datasets, and workspace.
+Launch, monitor, and debug Nextflow workflows with real-time status, logs, and run metrics. Browse cloud storage through data links, manage datasets, generate upload and download URLs, and access reference genomes. Co-Scientist works with the compute environments, datasets, and workspaces your account can already access.
 
 ### Work your way
 
-Interact in plain English, or use reusable [skills](./skills.md) exposed as slash commands in the `/` palette. Switch between [build, plan, and goal modes](./modes.md) to match execution, analysis, or long-running tasks. Resume earlier sessions with `seqera ai -c`, and organize workspace resources into [projects](./projects.md) using Platform labels.
+Ask in plain English, or use reusable [skills](./skills.md) exposed as slash commands in the `/` palette. Switch between [build, plan, and goal modes](./modes.md) to match execution, analysis, or long-running tasks. Resume earlier sessions with `seqera ai -c`, and organize workspace resources into [projects](./projects.md) using Platform labels.
 
 ## Learn more
 
+- [Prerequisites](./prerequisites.md): What your installation needs before deploying Co-Scientist
+- [Install Co-Scientist](../enterprise/install-seqera-coscientist.mdx): Deploy the agent backend, MCP server, and web interface
 - [Installation](./installation.mdx): Install, update, and configure the CLI
 - [Quickstart](./quickstart.md): Run your first Co-Scientist session
 - [Authentication](./authentication.md): Log in, log out, and manage sessions
 - [Use cases](./use-cases.md): Seqera CLI use cases
 - [Using Co-Scientist](./configuration.md): Configure modes, sessions, skills, command approval, and more
 - [Coding Agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
+- [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
 - [Skills](./reference/skills-reference.md): Built-in skills, slash commands, and session limits
+- [Troubleshooting](../troubleshooting_and_faqs/coscientist_troubleshooting.md): Troubleshoot common errors

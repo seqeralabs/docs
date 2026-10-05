@@ -29,7 +29,7 @@ spec:
         #    secretName: platform-oidc-certs
       containers:
         - name: backend
-          image: cr.seqera.io/enterprise/platform/backend:v26.1.3
+          image: cr.seqera.io/enterprise/platform/backend:v26.2.1
           envFrom:
             - configMapRef:
                 name: tower-backend-cfg
@@ -91,9 +91,11 @@ spec:
         - name: "cr.seqera.io"
       containers:
         - name: frontend
-          image: cr.seqera.io/enterprise/platform/frontend:v26.1.3
+          image: cr.seqera.io/enterprise/platform/frontend:v26.2.1
           ports:
-            - containerPort: 80
+            # From 26.2 the frontend image is unprivileged and listens on 8000.
+            # Set this to match NGINX_LISTEN_PORT if you override it.
+            - containerPort: 8000
       restartPolicy: Always
 ---
 # Services
@@ -152,6 +154,7 @@ spec:
   type: LoadBalancer
   ports:
     - port: 80
+      targetPort: 8000
   selector:
     app: "frontend"
 ---

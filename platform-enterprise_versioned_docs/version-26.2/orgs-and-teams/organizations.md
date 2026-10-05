@@ -1,0 +1,114 @@
+---
+title: "Organizations"
+description: "Manage organizations in Seqera Platform."
+date created: "2023-04-21"
+last updated: "2026-08-27"
+tags: [organizations, administration]
+---
+
+Organizations are the top-level structure and contain workspaces, members, and teams. You can create multiple organizations, each of which can contain multiple workspaces with shared users and resources. This means you can customize and organize the use of resources while maintaining an access control layer for users associated with a workspace.
+
+Organization owners can add or remove members from an organization or workspace, and can allocate specific access roles within workspaces. Teams provide a way to group users and participants together, such as `workflow-developers` or `analysts`, and apply access control for all users within that team.
+
+You can also add external collaborators to an organization.
+
+### Create an organization
+
+1. From the user menu, select [Your organizations](https://cloud.seqera.io/orgs), then **Add Organization**.
+2. Enter a **Name** and **Full name** for your organization.
+3. Enter any other optional fields as needed: **Description**, **Location**, **Website URL**, and **Logo**.
+4. Select **Add**.
+
+### Edit an organization
+
+:::note
+From version 23.2, **organization owners** can edit their organization name, either from the organizations page or the [Admin panel](../administration/overview).
+:::
+
+As an **organization owner**, access the organization page from the organizations and workspaces drop-down, or open the user menu and select **Your organizations** to view and edit your organizations. As a root user, you can also edit organizations from the [Admin panel](../administration/overview).
+
+Open the **Settings** tab on the organization page, and select **Edit** in the **Edit Organization** row. Update the settings and select **Update** to save.
+
+:::note
+Organization usage quotas, such as the maximum number of concurrent active pipeline runs, aren't part of the organization settings. In Seqera Platform Enterprise, your Seqera license defines these quotas. See [Quotas](../administration/overview#quotas) for more information.
+:::
+
+### Organization resource usage tracking
+
+Select **Usage overview** next to the organization and workspace selector drop-down to view a window with the following usage details:
+
+- **Run history**: The total number of pipeline runs.
+- **Concurrent runs**: Total simultaneous pipeline runs.
+- **Running Studio sessions**: Number of concurrent running Studio sessions.
+- **Users**: Total users per organization.
+
+Organization resource usage information is also displayed on the organization's **Settings** tab, under **Usage**.
+
+Select **Contact us to upgrade** if you need to increase your Platform usage limits for your organization.
+
+:::info
+Usage limits differ per organization and [subscription type](https://seqera.io/pricing/). [Contact us](https://seqera.io/contact-us/) to discuss your needs.
+:::
+
+## Members
+
+You can view the list of all organization **Members** from **Access Control > Members** in the organization menu. Once an organization is created, the user who created the organization is the default owner of that organization. You can invite or add additional members to the workspace from the workspace page or the [Admin panel](../administration/overview).
+
+Seqera provides access control for members of an organization by classifying them either as an **Owner** or a **Member**. Each organization can have multiple owners and members.
+
+A **service account** is a non-human identity used by agents and automation. Service accounts belong to the organization but are not listed here. They have their own **Service accounts** tab, in the same way collaborators do, and hold a fixed organization role that you cannot change. See [Create and manage service accounts](./create-service-accounts).
+
+### Add a member
+
+To add a new member to an organization:
+
+1. Go to **Access Control > Members** in the organization menu.
+2. Select **Add member**.
+3. Enter the name or email address of the user you'd like to add to the organization.
+
+An email invitation will be sent to the user. Once they accept the invitation, they can switch to the organization (or organization workspace) from the workspace drop-down.
+
+:::note
+For information about what happens when a user deletes their account, see [user deletion](../data-privacy/overview#user-deletion).
+:::
+
+## Teams
+
+**Teams** allow organization **owners** to group members and collaborators together into a single unit and to manage them as a whole.
+
+### Create a new team
+
+To create a new team within an organization:
+
+1. Go to the **Teams** tab of the organization menu.
+2. Select **Add Team**.
+3. Enter the **Name** of team.
+4. Optionally, add the **Description** and the team's **Avatar**.
+5. Select **Add**.
+
+To start adding members to your team, select **Edit > Members of team > Add member** and enter the name or email address of the organization members or collaborators.
+
+## Collaborators
+
+**Collaborators** are users who are invited to an organization's workspace, but are not members of that organization. As a result, their access is limited to that organization workspace. You can view the list of all organization **Collaborators** from the organization's page.
+
+New collaborators to an organization's workspace can be added as **Participants** from the workspace page. See [User roles](./roles) to learn more about participant access levels.
+
+:::note
+**Collaborators** can only be added from a workspace. For more information, see [Add a new participant](./workspace-management#add-a-new-participant).
+:::
+
+A collaborator is created automatically when you add a workspace participant by username or email address and that user is not already a member of the organization. Collaborators:
+
+- Count toward your organization's **members** limit, as well as the **participants** limit of each workspace they belong to. See [Usage limits](../limits/overview).
+- Can only access the workspaces they have been added to.
+- Receive an email notification each time they are added to a workspace, including workspaces after the first.
+
+To promote a collaborator to a full organization member, add them as an organization member or add them to a team. Their role is upgraded in place, so you don't need to remove them first.
+
+### Collaborators and SSO
+
+Collaborators authenticate outside your organization's identity provider. Collaborators and SSO are mutually exclusive:
+
+- While SSO is active for an organization, adding a new collaborator to a workspace fails. Invite the person as an organization member through your identity provider instead. Existing collaborators and existing organization members are unaffected.
+- While an organization has collaborators, SSO cannot be configured or activated. Remove the collaborator participants, then add those users as organization members with email addresses that match your SSO domain.

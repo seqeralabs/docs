@@ -53,7 +53,7 @@ Platform displays the token only once. Store it securely and use it to authentic
 
 ### Find your organization and workspace IDs
 
-Many API endpoints take an organization ID (for example, `org/{orgId}/workspaces`) or a workspace ID (for example, the `workspaceId` query parameter). The two are different numeric values: a workspace ID used where an endpoint expects an organization ID returns a permission error.
+Many API endpoints take an organization ID (for example, `org/{orgId}/workspaces`) or a workspace ID (for example, the `workspaceId` query parameter). The two are different numeric values. A workspace ID used where an endpoint expects an organization ID returns a permission error.
 
 - **Organization ID**: Select your organization, then **Settings**. The organization ID is the numeric value in the page URL.
 - **Workspace ID**: Select your organization, then the **Workspaces** tab. Each workspace lists its ID.

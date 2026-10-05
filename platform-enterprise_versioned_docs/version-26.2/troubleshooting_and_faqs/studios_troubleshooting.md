@@ -1,0 +1,504 @@
+---
+title: "Studios"
+description: "Studios troubleshooting with Seqera Platform."
+date created: "2024-08-26"
+last updated: "2026-09-30"
+tags: [faq, help, studios, troubleshooting]
+---
+
+When working with Studios, you might encounter the following issues.
+
+## Sessions
+
+#### Session is stuck in **starting**
+
+If your Studio session doesn't advance from **starting** status to **running** status within 30 minutes, and you are a **Maintain** role or higher, select the three dots next to the status message for the Studio you want to stop, then select **Stop**.
+
+If you are not a **Maintain** or higher user but you have access to the AWS Console for your organization, check that the AWS Batch compute environment associated with the session is in the **ENABLED** state with a **VALID** status. You can also check the **Compute resources** settings. Contact your organization's AWS administrator if you don't have access to the AWS Console.
+
+If sufficient compute resources aren't available, select **Stop** for the session and any others that are running before trying again. If you have access to the AWS Console for your organization, you can terminate a specific session from the AWS Batch Jobs page (filtering by compute environment queue).
+
+#### Session is stuck in **stopping**
+
+If your Studio session doesn't advance from **stopping** status to **stopped** status within 10 minutes, the **Force stop** action becomes available. Select the three dots next to the status message, then select **Force stop**. Force stopping marks the session as **stopped** immediately so that you can start it again. Any work since the last saved checkpoint may be lost. Checkpoint revalidation restores your data when the session next starts.
+
+To change how long a session must be in **stopping** before you can force stop it, set the `TOWER_DATA_STUDIO_FORCE_STOP_THRESHOLD` environment variable. The default is 10 minutes.
+
+#### Session status is **errored**
+
+The **errored** status usually indicates problems creating the Studio session resources in the compute environment, such as invalid credentials, insufficient permissions, or network issues. It can also be related to insufficient compute resources set in your compute environment configuration. Check the Studio's **Logs** tab for the cause first. See [Studio session logs](../studios/managing#studio-session-logs). If you still need help, contact your Seqera account executive to investigate. If you don't have access to the AWS Console, also contact your organization's AWS administrator.
+
+#### Session doesn't start with an internal certificate authority
+
+A session in a private network doesn't reach **running** status, and the session log shows `x509: certificate signed by unknown authority`. This issue occurs when an endpoint the session connects to presents a certificate issued by an internal or private certificate authority (CA). By default, a session trusts only the publicly trusted authorities in its container image's system trust store.
+
+The same failure occurs if your organization inspects HTTPS traffic at the network boundary, because the inspecting proxy presents its own internally issued certificate.
+
+To resolve, provide your CA to Platform so that Platform installs it in every session. See [Configure a private certificate authority for Studios](../enterprise/studios-private-ca).
+
+This requires Connect client version 0.13.0 or later. If your Studio images run an earlier client and can't be rebuilt, build a custom Studio container image with your organization's CA certificates in its trust store, then use that image for the Studio. See [Custom container images](../studios/container-images).
+
+#### Session can't be **stopped**
+
+If you can't stop a session, the Batch job running the session usually failed. If you have access to the AWS Console for your organization, stop the session from the compute environment screen. Contact your organization's AWS administrator if you don't have access to the AWS Console, and contact your Seqera account executive to investigate.
+
+#### Session performance is poor
+
+A slow or unresponsive session might be caused by its AWS Batch compute environment being used for other jobs, such as running Nextflow pipelines. The compute environment schedules jobs to the available compute resources. Sessions compete for resources with the Nextflow pipeline head job. Seqera does not currently give either precedence.
+
+If you have access to the AWS Console for your organization, check the jobs associated with the AWS Batch compute environment and compare the resources allocated with its **Compute resources** settings.
+
+#### Memory allocation of the session is exceeded
+
+The running container in the AWS Batch compute environment inherits the memory limits specified by the session configuration when adding or starting the session. The kernel then handles the memory as if running natively on Linux. Linux can overcommit memory, leading to possible out-of-memory errors in a container environment. The kernel has protections to prevent this, but when it happens, the kernel kills the process. This can manifest as a performance lag, killed subprocesses, or at worst, a killed session.
+
+Seqera creates automated snapshots of running sessions every five minutes. If the running container is killed, you lose only the changes made after the prior snapshot.
+
+#### Session with GPUs doesn't start
+
+Check whether the instance type you selected [supports GPU](https://aws.amazon.com/ec2/instance-types/). If you specify multiple GPUs, make sure that your compute environment can launch multi-GPU instances and that your maximum CPU configuration doesn't limit them.
+
+#### R-IDE session initializes with error
+
+Connecting to a running R-IDE session with R version 4.4.1 (2024-06-14) -- "Race for Your Life" returns a `[rsession-root]` error similar to the following:
+
+```
+ERROR system error 2 (No such file or directory) [path:/sys/fs/cgroup/memory/memory.limit_in_bytes]; OCCURRED AT rstudio::core::Error rstudio::core::FilePath::openForRead(std::shared_ptr<std::basic_istream<char> >&)
+...
+```
+
+You can safely ignore this error. It appears because logging is set to `stderr` by default so that all logs are shown during the session.
+
+#### When starting an existing Studio session, extra processes are not automatically restarted
+
+A process you start manually in a running Studio session (e.g., `eval $(ssh-agent)`) is not automatically restarted when the Studio restarts, because the Connect client does not manage user-initiated daemon processes. Automatically starting extra processes on each Studio restart would require a user-defined startup script or an integrated supervisor such as `s6`, `s6-overlay`, or `supervisord`, none of which are currently supported.
+
+## Compute environments
+
+#### Session size limited by head job CPUs and memory
+
+When you add a compute environment, the Advanced options **Head job CPUs** and **Head job memory** for Nextflow also apply to any Studio session created in the compute environment, because the Nextflow runner job manages Studio sessions. To avoid constraining the resources of your Studio sessions, don't define these optional settings.
+
+#### New compute environment doesn't appear in the drop-down when migrating a Studio
+
+When [migrating a Studio to a different compute environment](../studios/managing#migrate-a-studio-between-compute-environments), the **Compute environment** drop-down filters out any compute environment that isn't compatible with the Studio's current one. Confirm the new compute environment is in the `AVAILABLE` status and uses the same `workDir` as the Studio's current compute environment.
+
+#### Studio fails to start after switching compute environments
+
+The new compute environment's [credentials](../credentials/overview) must have read and write access to the `workDir` bucket. Confirm they have the required S3 permissions on the checkpoint location.
+
+#### Resource labels change after switching compute environments
+
+When you switch a Studio to a different compute environment, labels inherited from the previous compute environment are removed and the new compute environment's labels are added automatically. If you need a label that was tied to the old compute environment, attach it to the Studio directly so that it survives future compute environment switches. See [Resource label changes](../studios/managing#resource-labels-on-migration).
+
+## Data and storage
+
+#### All datasets are read-only
+
+By default, AWS Batch compute environments created with Batch Forge restrict S3 access to the working directory only, unless you specify additional **Allowed S3 Buckets**. If the compute environment does not have write access to the mounted dataset, the dataset is mounted as read-only.
+
+#### Running session does not show new data in object storage
+
+By default, Fusion does not resync objects from remotely mounted data-link(s) after initial mounting.
+
+If you have a running session with data mounted and the underlying storage is updated, the data is not resynced to the Studio session.
+
+You can change this behavior when you [add a Studio session](../studios/add-studio) by setting the `FUSION_REFRESH_TIMEOUT` environment variable to a number of seconds (for example, `120`). Fusion then refreshes the view of the mounted data links at that interval.
+
+:::note
+Setting the environment variable _inside_ an already running Studio session by running `export FUSION_REFRESH_TIMEOUT=120` doesn't change the behavior of the outer Fusion session. Set the environment variable in the **General config** section during Studio creation.
+:::
+
+:::warning
+Fusion waits two minutes before it uploads the working chunk. Always set `FUSION_REFRESH_TIMEOUT` to `120` or higher. Lower values can create orphaned chunks in the Studio environment that are never uploaded to object storage and cannot be recovered.
+:::
+
+#### Data written by a running session is not visible to pipeline runs {#studio-write-not-visible}
+
+A pipeline run fails when it reads a path that a running Studio session wrote to. The files exist but are 0 bytes, or the directory appears empty.
+
+This issue occurs because Fusion uploads data to object storage in chunks and consolidates those chunks into a complete object only when the Fusion instance that wrote them shuts down. For a Studio session, that happens when the session stops. Separate Fusion instances also do not share a live view of each other's in-progress writes.
+
+To resolve, [stop the Studio session](../studios/managing#stop-a-studio-session) and wait for its status to change to **stopped** before you launch the run. To avoid the problem, upload data for a pipeline with **Data Explorer** or the Seqera Platform CLI (`tw`) instead of writing it from a running session.
+
+#### Files from earlier sessions are missing after a restart, with `missing SquashFS image` warnings {#missing-squashfs-image}
+
+If files or folders saved in earlier sessions are missing when a Studio session starts, check the session log for warnings similar to the following:
+
+```text
+missing SquashFS image /fusion/s3/<bucket>/<work-dir>/.studios/checkpoints/<checkpoint-id>/data.img
+```
+
+:::note
+Connect client v0.11.0 and later logs `SquashFS image not found` instead.
+:::
+
+This issue occurs when checkpoint images were removed from the compute environment work directory, most often by an object storage lifecycle rule that expires or deletes objects in the work directory. Each checkpoint stores only the changes made during one session, and a session rebuilds its filesystem by stacking every earlier checkpoint chronologically. When a checkpoint image is missing, the session skips that layer, so files last changed during that session are missing. Seqera Platform deletes checkpoint files only when the Studio that references them is deleted.
+
+To resolve this issue, restore each missing `data.img` object to its original path. If versioning is enabled on the bucket, check whether an earlier version exists:
+
+```bash
+aws s3api list-object-versions \
+  --bucket <bucket> \
+  --prefix <work-dir>/.studios/checkpoints/<checkpoint-id>/
+```
+
+If the current version of `data.img` is a delete marker, delete the marker to restore the image:
+
+```bash
+aws s3api delete-object \
+  --bucket <bucket> \
+  --key <work-dir>/.studios/checkpoints/<checkpoint-id>/data.img \
+  --version-id <delete-marker-version-id>
+```
+
+The next Studio session start retrieves the restored checkpoints without any change in Seqera Platform. If no earlier version of `data.img` exists, the changes from that session can't be recovered.
+
+To prevent this issue, exclude the `.studios/` prefix of the work directory from any lifecycle rule that expires current object versions. Rules that expire only non-current versions don't remove checkpoints. See [Studio session checkpoints](../studios/managing#object-storage-versioning-and-checkpoint-storage-costs).
+
+## Workload identity federation
+
+#### Session uses the compute environment's credentials instead of its own identity
+
+In a workspace with [workload identity federation][studios-wif], `aws sts get-caller-identity` in the Studio terminal returns the compute environment's job role or instance role instead of the credential's role.
+
+This issue occurs when the session did not federate: an administrator restricted `TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES` to other workspaces, the compute environment's credential does not use workload identity federation, or the Studio's Connect client does not support it.
+
+When a Studio whose credential could federate launches without federation because the workspace is not in the allow list, Platform logs a warning in the backend log that names the session.
+
+To resolve, confirm that `TOWER_IDENTITY_FEDERATION_ALLOWED_WORKSPACES` is unset, empty, or includes the workspace, that the compute environment's credential uses workload identity federation, and that your installation runs Connect server and proxy 0.12.2 or later. Then start the Studio from a container image with Seqera Connect client 0.14.0 or later.
+
+#### Federated session fails to start
+
+A Studio on a compute environment with a workload identity credential does not reach the **running** status, while sessions on compute environments with other credentials start.
+
+This issue occurs when the Connect client cannot exchange the session's token at startup. On AWS, the trust policy does not admit the `studio` subject or does not grant `sts:TagSession` and `sts:SetSourceIdentity`. On Google Cloud, the attribute condition or the impersonation binding refuses the subject. A federated session does not fall back to the compute environment's credentials.
+
+To resolve, check the trust policy or the pool binding against the `studio` subject. See [Trust policy][wif-trust-policy] and [Impersonation and permissions][wif-impersonation].
+
+#### Session starts but data does not mount
+
+The session reaches the **running** status, and Fusion reports `store not found`.
+
+This issue occurs when the token exchange succeeds but the permission policy has no statement for the `studio` subject. See [A Studio starts but its data does not mount][wif-studio-mount].
+
+#### Tool in the session authenticates as a different identity
+
+`aws sts get-caller-identity` returns the credential's role, but a tool reaches buckets that the role does not grant, or your cloud provider denies it buckets that the role grants.
+
+This issue occurs when the container holds a credentials profile in `~/.aws/config` or `~/.aws/credentials`. The Connect client removes credential environment variables from the session but cannot remove a profile file, and a tool that reads a profile first authenticates with it.
+
+To resolve, remove the profile from the container image or from the session.
+
+#### Cloud provider denies bucket access that worked before federation
+
+Your cloud provider denies access to a bucket that the session could reach before you enabled workload identity federation, and the error does not mention federation.
+
+This issue occurs because a federated session no longer carries the compute environment's credentials. The permission policy of the credential's role decides access, under the `studio` subject.
+
+To resolve, grant the bucket to the `studio` subject in the permission policy. See [Permission policies][wif-permission-policies].
+
+#### Google Cloud denies access to a private Studio but not to shared Studios
+
+Google Cloud denies a private Studio on a Google Cloud compute environment access to data, while shared Studios in the same workspace reach it.
+
+This issue occurs when a `principal://` IAM binding names the exact subject `org:{orgId}:wsp:{workspaceId}:studio`. Platform attributes a private Studio's session to a user, and the mapped subject ends in `:usr:{userId}`. The exact binding does not match that subject.
+
+To resolve, bind the whole pool or `attribute.workspace` instead of the exact subject. See [Attribute mapping][wif-attribute-mapping].
+
+## Custom environments and container images
+
+#### Failed custom environment rebuilds use the cached image
+
+Building a custom Studios image with the Wave service occasionally fails, typically because of conflicting libraries. If you rebuild the image with the same name and tag, Studios and Wave use the cached version if available. Change the version number or tag to pull a fresh image.
+
+The Elastic Container Service (ECS) agent's `ECS_IMAGE_PULL_BEHAVIOR` environment variable determines this behavior. In Seqera Platform Cloud, it is set to `once` when the compute environment is created. Enterprise installations might be configured differently. Contact your organization's administrator to learn more.
+
+#### Container template image security scan false positives
+
+When you run a software composition analysis (SCA) security scan (e.g., with Trivy) on the latest Seqera-provided VS Code image [container template](../studios/custom-envs), you might encounter multiple false-positive findings. VS Code defines extensions in a way that can cause some security scanners to incorrectly identify them as `npm` packages.
+
+This is a known limitation, discussed in the Trivy community [discussion](https://github.com/aquasecurity/trivy/discussions/6112).
+
+These are the false positive confirmed findings:
+
+| Component        | Vulnerability id⁠    |
+| :--------------- | :------------------- |
+| handlebars:1.0.0 | CVE-2021-23383⁠      |
+| handlebars:1.0.0 | CVE-2021-23369⁠      |
+| handlebars:1.0.0 | CVE-2019-19919⁠      |
+| handlebars:1.0.0 | GHSA-q42p-pg8m-cqh6  |
+| handlebars:1.0.0 | GHSA-q2c6-c6pm-g3gh⁠ |
+| handlebars:1.0.0 | GHSA-g9r4-xpmj-mj65⁠ |
+| handlebars:1.0.0 | GHSA-2cf5-4w76-r9qv⁠ |
+| handlebars:1.0.0 | CVE-2019-20920⁠      |
+| handlebars:1.0.0 | CVE-2015-8861⁠       |
+| handlebars:1.0.0 | GMS-2015-33⁠         |
+| npm:1.0.1        | CVE-2019-16777⁠      |
+| npm:1.0.1        | CVE-2019-16776⁠      |
+| npm:1.0.1        | CVE-2019-16775⁠      |
+| npm:1.0.1        | CVE-2018-7408⁠       |
+| npm:1.0.1        | CVE-2016-3956⁠       |
+| npm:1.0.1        | CVE-2020-15095⁠      |
+| npm:1.0.1        | CVE-2013-4116⁠       |
+| npm:1.0.1        | GMS-2016-23⁠         |
+| grunt:1.0.0      | CVE-2022-1537⁠       |
+| grunt:1.0.0      | CVE-2020-7729⁠       |
+| grunt:1.0.0      | CVE-2022-0436⁠       |
+| pug:1.0.0        | CVE-2021-21353⁠      |
+| pug:1.0.0        | CVE-2024-36361⁠      |
+| json:1.0.0       | CVE-2020-7712⁠       |
+| ini:1.0.0        | CVE-2020-7788⁠       |
+| diff:1.0.0       | GHSA-h6ch-v84p-w6p9⁠ |
+
+## Connect proxy
+
+#### Permission denied errors on OpenShift
+
+The `connect-proxy` pod starts, but the logs show that Caddy, the reverse proxy that `connect-proxy` is built on, can't create its configuration and data directories:
+
+```
+ERROR unable to create folder for config autosave {"dir": "/.config/caddy", "error": "mkdir /.config: permission denied"}
+WARN unable to get instance ID; storage clean stamps will be incomplete {"error": "mkdir /.local: permission denied"}
+```
+
+This issue occurs when OpenShift's `restricted-v2` security context constraint runs the container as an arbitrary user ID (UID) from the namespace's assigned range, ignoring the user the container image defines. Because that UID has no entry in the container image's `/etc/passwd` file, `HOME` resolves to `/`, a directory the UID can't write to. The `runAsUser`, `runAsGroup`, and `fsGroup` values of `65532` in the proxy deployment template are also incompatible with this constraint.
+
+To work around this issue on Kubernetes:
+
+1. Remove the `runAsUser`, `runAsGroup`, and `fsGroup` values from your [Studios Kubernetes deployment](../enterprise/studios-kubernetes).
+2. Caddy uses `XDG_CONFIG_HOME` and `XDG_DATA_HOME` to locate its configuration and data directories. Set them on the proxy container to directories under the `/data` volume that the template already mounts:
+
+   ```yaml
+   env:
+     - name: XDG_CONFIG_HOME
+       value: /data/config
+     - name: XDG_DATA_HOME
+       value: /data/lib
+   ```
+
+If writes to `/data/config` and `/data/lib` still fail with permission denied errors, mount a writable volume, such as an `emptyDir`, at each path.
+
+## SSH connections (public preview)
+
+#### SSH Connection toggle not available
+
+If the **SSH Connection** toggle doesn't appear when adding a Studio, or SSH-related options are missing, your Platform version doesn't support SSH access to running Studios.
+
+SSH access requires:
+
+- **Seqera Platform Enterprise v25.3.3 or later**
+- **connect-server/proxy v0.12.0 or later**
+- **connect-client v0.12.0 or later**
+
+If your Platform meets these requirements but SSH is still unavailable, verify your administrator configured the required environment variables during deployment.
+
+#### Host key verification failed
+
+```
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Host key verification failed.
+```
+
+This error occurs when multiple proxy pods are using different SSH keys. Ensure all proxy pods share the same SSH key. If the issue persists, edit your `~/.ssh/known_hosts` file and remove the line that contains the connect-proxy address.
+
+#### Permission denied (publickey)
+
+```bash
+ssh user@studio-session-id@connect.example.com
+# user@studio-session-id@connect.example.com: Permission denied (publickey).
+```
+
+If you receive a permission denied error, there are several possible causes:
+
+1. Verify the user has the correct role and permissions in the workspace.
+2. Check that the user's SSH public key is configured in their Seqera user profile.
+3. Ensure SSH was enabled when adding the Studio using the **SSH Connection** toggle. The SSH setting persists across stop/start but defaults to disabled for new Studios.
+
+If the issue persists, verify your administrator configured the SSH environment variables during Studios deployment.
+
+#### Connection closed by remote host
+
+```bash
+ssh user@studio-session-id@connect.example.com
+# Connection to connect.example.com closed by remote host.
+```
+
+This error indicates an SSH fingerprint mismatch when `TOWER_DATA_STUDIO_CONNECT_SSH_KEY_FINGERPRINT` is configured. Verify the fingerprint matches the proxy's SSH key:
+
+```bash
+ssh-keygen -lf /path/to/connect-proxy-key
+```
+
+Check Studio logs for:
+
+```json
+{
+  "msg": "SSH fingerprint auth result",
+  "authorized": false,
+  "expected": "SHA256:NEu6MAPGJpImFJ3raQzv6+NubCPy/92hqR+CVyMjKvM",
+  "incoming": "SHA256:NYu6MAPUJpImFQ3raQzv6+NubCPy/97hqR+CVyMjKvM"
+}
+```
+
+The `authorized` field should be `true` and `expected` should equal `incoming`. If they differ, the proxy SSH key configuration is incorrect.
+
+#### VS Code Remote SSH not working
+
+If VS Code fails to connect or shows errors when using the Remote SSH extension, disable local server mode in VS Code settings:
+
+```json
+{
+  "remote.SSH.useLocalServer": false
+}
+```
+
+VS Code's local server mode uses SSH multiplexing over SOCKS proxy, which is not supported. See [Connect to a Studio via SSH - VS Code Remote SSH](../studios/managing#vs-code-remote-ssh) for detailed setup instructions.
+
+Additionally, you might need to update your `~/.ssh/config` file to connect directly to the Studio session:
+
+```bash
+Host <connect-domain>
+  HostName <connect-domain>
+  User <username>@<studio-session-id>
+  Port <port>
+```
+
+#### AI coding assistant fails with `Pseudo-terminal will not be allocated`
+
+```bash
+ssh alice@a01ac8894@connect.example.com -p 2222
+# Pseudo-terminal will not be allocated because stdin is not a terminal.
+```
+
+This issue occurs when an AI coding assistant, such as Claude Code in a terminal, runs `ssh` as a subprocess. The assistant doesn't attach a terminal to stdin, and the SSH client refuses to allocate a pseudo-terminal. To resolve, force pseudo-terminal allocation with `-tt`:
+
+```bash
+ssh -tt alice@a01ac8894@connect.example.com -p 2222
+```
+
+#### Claude Code desktop app fails with `Couldn't inspect the remote machine`
+
+```
+Connecting to remote host...
+Detecting remote OS and shell...
+Couldn't inspect the remote machine.
+```
+
+This issue occurs when the connect-server/proxy is earlier than version 0.12.1, or the Connect client is earlier than version 0.13.0. Earlier versions don't run remote commands through a shell, and the app's environment checks fail. To resolve, upgrade the connect-server/proxy to 0.12.1 or later, and ensure your Studio runs Connect client 0.13.0 or later. See [Claude Code desktop app](../studios/managing#claude-code-desktop-app) for setup instructions.
+
+#### Claude Code desktop app fails with `Timed out while waiting for handshake`
+
+This issue occurs because the app ignores the `Port` value in `~/.ssh/config` and defaults to port 22. To resolve, set **SSH Port** to `2222` in the app's connection settings. See [Claude Code desktop app](../studios/managing#claude-code-desktop-app) for setup instructions.
+
+#### SSH connection string format
+
+**Correct format:**
+
+```bash
+ssh <username>@<studio-session-id>@<connect-domain> -p 2222
+```
+
+**Example:**
+
+```bash
+ssh alice@a01ac8894@connect.example.com -p 2222
+```
+
+Where:
+- `<username>`: Your Seqera Platform username
+- `<studio-session-id>`: The Studio session ID (8-character hex string visible in the Studios list)
+- `<connect-domain>`: Your connect proxy domain
+- Port: `2222` (default SSH proxy port)
+
+#### Debugging SSH connections
+
+Enable debug logging for detailed SSH connection traces:
+
+**Proxy logs:**
+
+```bash
+CONNECT_LOG_LEVEL=debug
+```
+
+**Client logs (in Studio):**
+
+```bash
+CONNECT_CLIENT_LOG_LEVEL=debug
+```
+
+Debug logs include SSH handshake details, authentication attempts, channel lifecycle, and data transfer errors.
+
+## Data transfer quotas
+
+#### A Studio stalls after a large upload or download
+
+The user receives an `HTTP 429` (Too Many Requests) response, or an active WebSocket or SSH connection drops. This issue occurs when the bucket reaches its quota and the proxy denies further traffic.
+
+Confirm the cause with the `connect_proxy_quota_exceeded_total` metric and the `quota exceeded, denying traffic for bucket` log line. As a workaround, wait for the window to reset. If the denial is a false positive, resolve it by raising the cap in the [policy](../enterprise/studios-transfer-quotas#define-a-policy).
+
+#### A per-IP quota blocks unrelated users
+
+Redis shows keys such as `ip:172.x`, `ip:10.x`, or `ip:192.168.x`. This issue occurs when the proxy cannot resolve the real client IP and buckets traffic on Kubernetes node IPs instead.
+
+To resolve, configure client-IP resolution. Set `CONNECT_TRUSTED_PROXY_CIDRS` for HTTP traffic and `externalTrafficPolicy: Local` for SSH traffic. See [Resolve the client IP for the `ip` bucket](../enterprise/studios-transfer-quotas#resolve-the-client-ip-for-the-ip-bucket).
+
+#### Quotas are not enforced
+
+This issue occurs when no policy is loaded, because the wrong environment variable is set or the variable is empty.
+
+To resolve, confirm that either `CONNECT_POLICY_FILE` or `CONNECT_POLICY_B64` is set and non-empty, then check the startup logs for `traffic policy loaded`.
+
+#### The proxy does not start or crash-loops
+
+This issue occurs when the Redis command preflight check fails or the policy JSON is invalid. The proxy fails to start rather than enforce quotas incorrectly.
+
+Check the startup logs for the missing Redis command or the [policy validation error](../enterprise/studios-transfer-quotas#extractor-source-types). To resolve, fix the `ConfigMap` or the Redis configuration, then redeploy.
+
+#### A VS Code or IDE client does not reconnect after a quota breach
+
+The proxy tears down the stream mid-session, and some interactive clients do not recover cleanly. This is a known limitation.
+
+As a workaround, reconnect the session.
+
+#### A policy or limit change has no effect
+
+This issue occurs because the proxy reads the policy once at startup and never reloads it at runtime.
+
+To resolve, perform a rolling restart of the proxy Deployment.
+
+#### SSH connections time out with no `HTTP 429` and no handshake
+
+This is not a quota issue. Check the load balancer target group health and the SSH service, then confirm the port is reachable from the client network.
+
+## Working in a Studio session
+
+#### View all mounted datasets
+
+In your interactive analysis environment, open a new terminal and type `ls -la /workspace/data`. This displays all the mounted datasets available in the current session.
+
+#### Enable AI coding assistants in Studios
+
+VS Code, RStudio, and Jupyter environments natively integrate with [GitHub Copilot][gh-copilot]. Enabling it requires a GitHub account and an active Copilot subscription.
+
+- **VS Code:** To enable GitHub Copilot in your VS Code session, install the extension and then sign in with your GitHub account. [Learn more][vscode-blog].
+- **RStudio:** Enabling GitHub Copilot in your RStudio session requires RStudio configuration changes. By default, the Studio session user has root permissions and can make these changes. Restart RStudio afterward. [Learn more][posit-ghcopilot-guide].
+- **Jupyter:** [Notebook Intelligence (NBI)][nbi] is an AI coding assistant and extensible AI framework for Jupyter. It can use GitHub Copilot or AI models from any other LLM Provider. [Learn more][nbi-blog].
+
+{/* links */}
+
+[gh-copilot]: https://github.com/features/copilot
+[open-vscode-server]: https://github.com/gitpod-io/openvscode-server
+[open-vsx]: https://open-vsx.org/
+[vscode-blog]: https://code.visualstudio.com/docs/setup/copilot
+[posit-ghcopilot-guide]: https://docs.posit.co/ide/user/ide/guide/tools/copilot.html
+[nbi]: https://github.com/notebook-intelligence/notebook-intelligence
+[nbi-blog]: https://blog.jupyter.org/introducing-notebook-intelligence-3648c306b91a
+[studios-wif]: ../studios/overview#workload-identity-federation
+[wif-trust-policy]: ../credentials/workload_identity#trust-policy
+[wif-impersonation]: ../credentials/workload_identity#impersonation-and-permissions
+[wif-studio-mount]: ./workload_identity_troubleshooting#a-studio-starts-but-its-data-does-not-mount
+[wif-permission-policies]: ../credentials/workload_identity#permission-policies
+[wif-attribute-mapping]: ../credentials/workload_identity#attribute-mapping
