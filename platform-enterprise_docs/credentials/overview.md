@@ -2,11 +2,13 @@
 title: "Credentials overview"
 description: "Overview of credentials in Seqera Platform."
 date created: "2023-04-21"
-last updated: "2026-08-26"
+last updated: "2026-09-17"
 tags: [credentials]
 ---
 
 Configure workspace credentials in Seqera Platform to store the access keys and tokens for your [compute environments][compute], [data repositories][data], and [Git hosting services][git].
+
+You can also authenticate AWS and Google Cloud credentials with [workload identity federation][workload]. Platform stores only a role reference, with no long-lived secret.
 
 From version 22.3, you can configure container registry credentials that the [Wave container service][wave] uses to authenticate to private and public container registries, such as Docker Hub, Google Artifact Registry, and Quay.
 
@@ -45,8 +47,11 @@ Platform does not delete your run data. The data remains in your cloud storage. 
 
 ### Role-based and federated credentials
 
-AWS credentials that use an assume-role Amazon Resource Name (ARN) or OpenID Connect (OIDC) workload identity, and Google credentials that use workload identity federation, hold no long-lived secret. They store only the role ARN or the provider and service account references. To revoke access, change the role's trust policy or delete the role.
+AWS credentials that use an assume-role Amazon Resource Name (ARN), and AWS or Google Cloud credentials that use [workload identity federation][workload], hold no long-lived secret. They store only a role reference: a role ARN for AWS, or a workload identity provider path and service account email for Google Cloud. To revoke access, change the role's trust policy or delete the role.
 
+:::note
+The template uses the `aws` partition. In GovCloud or China, replace `arn:aws:` with `arn:aws-us-gov:` or `arn:aws-cn:` in both the `Federated` principal and the role ARN. The partition must match the one your role is in.
+:::
 ### Restore a compute environment
 
 To repair a compute environment in the `Associated credentials have been deleted` state, point it at a replacement credential. You cannot make this change in the Platform UI. Use the API:
@@ -73,3 +78,4 @@ Note the following constraints:
 [git]: ../git/overview
 [wave]: https://docs.seqera.io/wave/provisioning
 [managed]: ./managed_identities
+[workload]: ./workload_identity

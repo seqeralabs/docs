@@ -177,8 +177,13 @@
 -
   Environment variable:            '`TOWER_LINEAGE_ALLOWED_WORKSPACES`'
   Description: >
-    Enable data lineage. Set to `null` (undefined) to disable for all workspaces, set to an empty string to enable for all workspaces, or provide a comma-separated list of workspace IDs to enable per workspace.
-  Value:                'Default: `null`'
+    Control which workspaces can use data lineage. Leave unset (default) or set to an empty string to enable lineage in all workspaces. To enable lineage only in specific workspaces, provide a comma-separated list of their IDs. Lineage is not available in personal workspaces. In 26.1, the default disabled lineage in all workspaces. See [Upgrade deployment](../upgrade#data-lineage-available-in-all-workspaces-by-default).
+  Value:                'Default: Enabled for all workspaces'
+-
+  Environment variable:            '`TOWER_GLOBAL_SEARCH_ENABLED`'
+  Description: >
+    Show the global search bar in the top navigation. Because search results come from data lineage, a workspace also needs `TOWER_LINEAGE_ALLOWED_WORKSPACES` to include it. See [Search data lineage records](../../data/data-lineage#search-data-lineage-records).
+  Value:                'Default: `true`'
 -
   Environment variable:            '`TOWER_LINEAGE_STORE_PREFIX`'
   Description: >
@@ -187,7 +192,7 @@
 -
   Environment variable:            '`TOWER_LINEAGE_SNS_MAX_RETRIES`'
   Description: >
-    Total SNS delivery attempts for the lineage webhook. The AWS default of 3 spans roughly a minute and loses events across a Platform restart. AWS caps the total retry window at 3600 seconds and rejects a delivery policy that exceeds it, so an over-budget value is trimmed to fit at startup.
+    Total SNS delivery attempts for the lineage webhook. The AWS default of 3 spans roughly a minute and loses events across a Platform restart. AWS caps the total retry window at 3600 seconds and rejects a delivery policy that exceeds it. Seqera Platform trims an over-budget value to fit at startup.
   Value:                'Default: `17`'
 -
   Environment variable:            '`TOWER_LINEAGE_SNS_MAX_DELAY_SECONDS`'
@@ -197,5 +202,5 @@
 -
   Environment variable:            '`TOWER_LINEAGE_MIGRATE_SQS_TRANSPORT`'
   Description: >
-    Whether to migrate lineage workspaces off the retired SQS event transport once at startup. Runs on the `cron` instance only. Automatic for automatically provisioned workspaces; customer-managed workspaces are flagged for reconfiguration instead, since Platform holds no permission over their resources. A workspace that fails is left errored and can be retried or disabled from its lineage settings page. See [Upgrade deployment](../upgrade#data-lineage-event-ingestion-moves-from-sqs-to-sns).
+    Whether to migrate lineage workspaces off the retired SQS event transport once at startup. Runs on the `cron` instance only. Automatic for automatically provisioned workspaces. Platform flags customer-managed workspaces for reconfiguration instead, because it holds no permission over their resources. A workspace that fails is left errored. You can retry or disable it from its lineage settings page. See [Upgrade deployment](../upgrade#data-lineage-event-ingestion-moves-from-sqs-to-sns).
   Value:                'Default: `true`'

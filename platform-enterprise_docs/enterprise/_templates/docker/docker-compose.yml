@@ -47,7 +47,7 @@ services:
       - $HOME/.tower/db/redis:/data
 
   migrate:
-    image: cr.seqera.io/enterprise/platform/migrate-db:v26.1.3
+    image: cr.seqera.io/enterprise/platform/migrate-db:v26.2.1
     platform: linux/amd64
     command: -c "/migrate-db.sh"
     networks:
@@ -64,7 +64,7 @@ services:
         condition: service_healthy
 
   cron:
-    image: cr.seqera.io/enterprise/platform/backend:v26.1.3
+    image: cr.seqera.io/enterprise/platform/backend:v26.2.1
     platform: linux/amd64
     command: -c '/tower.sh'
     networks:
@@ -85,7 +85,7 @@ services:
 
 
   backend:
-    image: cr.seqera.io/enterprise/platform/backend:v26.1.3
+    image: cr.seqera.io/enterprise/platform/backend:v26.2.1
     platform: linux/amd64
     command: -c '/wait-for-it.sh db:3306 -t 60; /tower.sh'
     networks:
@@ -110,19 +110,21 @@ services:
       - cron
 
   frontend:
-    image: cr.seqera.io/enterprise/platform/frontend:v26.1.3
+    image: cr.seqera.io/enterprise/platform/frontend:v26.2.1
     platform: linux/amd64
     networks:
       - frontend
     ports:
-      - 8000:80
+      # From 26.2 the frontend image is unprivileged and listens on 8000.
+      # Set the container side to match NGINX_LISTEN_PORT if you override it.
+      - 8000:8000
     restart: always
     depends_on:
       - backend
 
 # Uncomment the following section to enable Studios functionality. See [Studios configuration](../../../studios/overview) for more information.
 #  connect-proxy:
-#    image: cr.seqera.io/enterprise/studios/proxy:0.11.0
+#    image: cr.seqera.io/enterprise/studios/proxy:0.14.0
 #    platform: linux/amd64
 #    env_file:
 #      - data-studios.env
@@ -138,7 +140,7 @@ services:
 #     - $HOME/.tower/connect:/data
 #
 #  connect-server:
-#    image: cr.seqera.io/enterprise/studios/server:0.11.0
+#    image: cr.seqera.io/enterprise/studios/server:0.14.0
 #    platform: linux/amd64
 #    env_file:
 #      - data-studios.env

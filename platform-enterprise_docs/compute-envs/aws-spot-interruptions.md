@@ -1,25 +1,25 @@
 ---
 title: "AWS Spot interruption management"
-description: "Managing AWS Spot Interruptions in Seqera Platform."
+description: "Manage AWS Spot interruptions in Seqera Platform."
 date: "16 Jul 2024"
 tags: [aws, spot, platform, fusion, retry]
 ---
 
-In AWS Batch environments that use Spot instances, tasks can be interrupted when instances are reclaimed, and this is a normal part of how Spot instances operate. The frequency of interruptions can be highly variable, based on factors including the wider demand on AWS services. AWS offers an insight into the frequency of Spot reclamations with their **instance-advisor** service which you can find [here](https://aws.amazon.com/ec2/spot/instance-advisor/).
+In AWS Batch environments that use Spot instances, tasks can be interrupted when AWS reclaims instances. This is a normal part of how Spot instances operate. The frequency of interruptions varies based on factors including the wider demand on AWS services. AWS shows the frequency of Spot reclamations in its **instance-advisor** service, which you can find [here](https://aws.amazon.com/ec2/spot/instance-advisor/).
 
-In Seqera Platform, Spot reclamations will sometimes manifest with logging messages like `Host EC2 (instance i-0282b396e52b4c95d) terminated` and will produce non-specific exit codes such as `143 (representing `SIGTERM`) or even no exit code at all (`-`), depending on the order in which the underlying AWS components have been destroyed. If you're seeing unexpected task failures with one or more of these features, especially with no obvious application error, it's worth reviewing your Spot configuration and retry strategy.
+In Seqera Platform, Spot reclamations sometimes appear with logging messages like `Host EC2 (instance i-0282b396e52b4c95d) terminated` and produce non-specific exit codes such as `143` (representing `SIGTERM`) or even no exit code at all (`-`), depending on the order in which the underlying AWS components have been destroyed. If you see unexpected task failures with one or more of these features, especially with no obvious application error, review your Spot configuration and retry strategy.
 
-This guide outlines best practices for mitigating the impact of Spot interruptions and ensuring critical tasks can retry or recover reliably.
+The following practices reduce the impact of Spot interruptions and help critical tasks retry or recover reliably.
 
 ## Recommended mitigations
 
 ### Use an On-Demand compute environment
 
-For workflows with a significant proportion of long-running processes, the costs of, and mitigations necessary for working with Spot may outweigh the benefits. You may find it simpler and even, possibly, cheaper to simply run those workloads in On-Demand compute environments.
+For workflows with a significant proportion of long-running processes, the costs of working with Spot, and the mitigations it requires, can outweigh the benefits. It can be simpler, and possibly cheaper, to run those workloads in On-Demand compute environments.
 
 ### Move long-running tasks to On-Demand
 
-Tasks with long runtimes are particularly vulnerable to Spot termination. In Platform, you can explicitly assign critical or long-duration tasks to On-Demand queues and leave other tasks to run in a default Spot queue by default:
+Tasks with long runtimes are particularly vulnerable to Spot termination. In Platform, you can explicitly assign critical or long-duration tasks to On-Demand queues and leave other tasks to run in a default Spot queue:
 
 ```bash
 process {
@@ -29,13 +29,13 @@ process {
 }
 ```
 
-If you don’t already have one, you may need to create an On-Demand compute environment in the Seqera Platform. Once it’s available, you can find the corresponding On-Demand queue name by navigating to **Compute Environments** in the Platform UI. Locate the configuration for your specific On-Demand environment, then scroll down to the **Manual Config Attributes** section. This section lists key configuration details, including queue names. Look for the queue name prefixed with `TowerForge-` if it was created by Forge.
+If you don't already have one, create an On-Demand compute environment in Seqera Platform. When it's available, find the corresponding On-Demand queue name under **Compute Environments** in the Platform UI. Locate the configuration for your On-Demand environment, then scroll down to the **Manual Config Attributes** section. This section lists key configuration details, including queue names. Look for the queue name prefixed with `TowerForge-` if Forge created it.
 
 ### Use retry strategies for Spot Interruptions
 
 #### Handle retries in Nextflow by setting `errorStrategy` and `maxRetries`
 
-A simple generic retry strategy at the Nextflow level can be more appropriate where run times are sufficiently low that retries are likely to succeed. This can be configured as follows:
+A generic retry strategy at the Nextflow level can be more appropriate when run times are short enough that retries are likely to succeed. Configure it as follows:
 
 ```bash
 process {
@@ -44,18 +44,18 @@ process {
 }
 ```
 
-This example configuration will apply to all types of job failure. Because Spot reclamations do not produce diagnostic exit codes, it is currently not possible to configure retries at the Nextflow level specifically for reclamations. Note that, given the escalating costs of repeated retries, an On-Demand queue is likely a more cost-effective option than very large numbers of retries. If you still see failures after applying configuration like this, solutions involving On-Demand queues are likely to be more effective at limiting costs and runtimes.
+This example configuration applies to all types of job failure. Because Spot reclamations do not produce diagnostic exit codes, you cannot configure retries at the Nextflow level specifically for reclamations. Given the escalating costs of repeated retries, an On-Demand queue is likely more cost-effective than a very large number of retries. If you still see failures after you apply this configuration, On-Demand queues are likely more effective at limiting costs and runtimes.
 
 #### Handle retries in AWS by setting `aws.batch.maxSpotAttempts`
 
-If all processes in your workflow have runtimes short enough to feasibly complete before reclamation, you can consider configuring automatic retries in case of interruption:
+If all processes in your workflow have runtimes short enough to complete before reclamation, consider configuring automatic retries in case of interruption:
 
 `aws.batch.maxSpotAttempts = 3`
 
-This is a global setting (not configurable per process) that in this example allows a job to retry up to three times on a new Spot instance if the original instance is reclaimed. Retries happen automatically within AWS and restart the task from the beginning. Because this occurs behind the scenes, you won't see any evidence of the retries within the Platform. In fact, as far as Nextflow (and Platform) is concerned, only one attempt has occurred, and it will submit the task again to AWS, up to any `maxRetries` configuration you have in place (see above). The total number of retries in that case will be `maxRetries` * `aws.batch.maxSpotAttempts`. For a long running process being pre-empted repeatedly, this can represent very significant costs in time and compute.
+This is a global setting (not configurable per process). In this example, it lets a job retry up to three times on a new Spot instance if AWS reclaims the original instance. Retries happen automatically within AWS and restart the task from the beginning. Because this occurs within AWS, you won't see any evidence of the retries in Platform. As far as Nextflow (and Platform) is concerned, only one attempt has occurred. Nextflow submits the task again to AWS, up to any `maxRetries` configuration you have in place (see earlier). The total number of retries in that case is `maxRetries` * `aws.batch.maxSpotAttempts`. For a long-running process that is preempted repeatedly, this can represent significant costs in time and compute.
 
 :::note
-Starting with Nextflow version 24.08.0-edge, the default value for this setting has been changed to `0` to help avoid unexpected expenses, and you should be careful when activating this setting.
+Starting with Nextflow version 24.08.0-edge, the default value for this setting is `0` to help avoid unexpected expenses. Be careful when you activate this setting.
 :::
 
 ### Implement Spot-to-On-Demand fallback logic
@@ -72,8 +72,8 @@ process {
 }
 ```
 
-With this setup, the first attempt of a task is sent to the Spot queue, while any retries are directed to the On-Demand queue, where they won't be preempted. This helps avoid repeated preemption of longer-running tasks and can serve as a useful default strategy. However, longer-running jobs should still be submitted directly to an On-Demand queue whenever possible, to avoid the unnecessary cost of the initial preemption.
+With this setup, Nextflow sends the first attempt of a task to the Spot queue and directs any retries to the On-Demand queue, where they won't be preempted. This helps avoid repeated preemption of longer-running tasks and can be a useful default strategy. However, submit longer-running jobs directly to an On-Demand queue whenever possible to avoid the unnecessary cost of the initial preemption.
 
 ### Consider enabling Fusion Snapshots (preview feature)
 
-Fusion Snapshots can help mitigate interruption risk by checkpointing task state before termination. This is currently in preview and best suited for compute-intensive or long-running tasks. If you're interested in testing this feature, reach out to our support team at https://support.seqera.io and we will be happy to assist you.
+Fusion Snapshots can reduce interruption risk by checkpointing task state before termination. Fusion Snapshots is in preview and best suited for compute-intensive or long-running tasks. To test this feature, contact the support team at https://support.seqera.io.

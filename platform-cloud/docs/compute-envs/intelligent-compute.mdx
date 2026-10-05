@@ -2,8 +2,8 @@
 title: "Intelligent Compute"
 description: "Set up Seqera Intelligent Compute on an AWS Cloud compute environment"
 date created: "2026-06-12"
-last updated: "2026-09-09"
-tags: [intelligent compute, aws, ecs, compute environments]
+last updated: "2026-10-05"
+tags: [intelligent compute, aws, ec2, ecs, compute environments]
 toc_min_heading_level: 2
 toc_max_heading_level: 4
 ---
@@ -21,19 +21,23 @@ Seqera Intelligent Compute is in preview. Seqera must enable it on a per-workspa
 Intelligent Compute may assign different CPU and memory values to tasks than your pipeline's `process` directives specify. The scheduler picks the most cost-effective instance shape that meets each task's resource request.
 :::
 
-Intelligent Compute is a scheduling service that runs Nextflow pipelines on a Seqera-managed Amazon ECS cluster. It allocates compute resources based on what each task needs rather than what the pipeline requests. This reduces cost and improves utilization across a run. Intelligent Compute is available only on AWS Cloud compute environments.
+Intelligent Compute is a scheduling service that runs Nextflow pipelines on Seqera-managed EC2 instances in your AWS account. It allocates compute resources based on what each task needs rather than what the pipeline requests. This reduces cost and improves utilization across a run. Intelligent Compute is available only on AWS Cloud compute environments.
 
-The standard AWS Cloud compute environment runs each pipeline on a single EC2 instance with a local executor. Intelligent Compute runs pipelines on multi-node ECS clusters that scale beyond a single instance.
+The standard AWS Cloud compute environment runs each pipeline on a single EC2 instance with a local executor. Intelligent Compute runs pipelines on a cluster of EC2 instances that scales beyond a single instance.
 
 When you enable Intelligent Compute on an AWS Cloud compute environment, Seqera provisions and manages the following resources in your AWS account on first use:
 
-- An Amazon ECS cluster per compute environment configuration
-- ECS capacity providers (Managed Instances or Auto Scaling Groups)
-- ECS task definitions per container image and resource shape
-- IAM roles for ECS task execution, EC2 instance profiles, and infrastructure management
+- EC2 instances that run your pipeline tasks, launched as Spot or On-Demand instances according to the [provisioning model](#configuration-options)
+- A security group per VPC named `seqera-sched-vm`, unless the compute environment specifies its own security groups
+- An IAM role and instance profile per compute environment and bucket configuration, attached to the EC2 instances
+- An S3 gateway VPC endpoint, when the selected subnets are private and the VPC has none
 - CloudWatch log groups under `/seqera` (for example, `/seqera/platform`)
 
 All managed resources use the `seqera-sched-` prefix. Seqera creates them on first use and removes them automatically when no longer needed.
+
+:::note
+Compute environments created before Intelligent Compute moved to EC2 instances run on Seqera-managed Amazon ECS clusters and keep doing so. New compute environments always use EC2 instances.
+:::
 
 ## IAM permissions
 
@@ -60,23 +64,25 @@ Intelligent Compute requires **two IAM policies** attached to the same IAM user 
 
 | Group | Purpose |
 |-------|---------|
-| `ECSScopedOperations` | Create, delete, describe, and tag ECS clusters, capacity providers, and tasks, and drain a faulty container instance so it stops receiving tasks. Scoped to `seqera-sched-*` resources. |
-| `ECSUnscopedOperations` | Register, deregister, list, and describe ECS task definitions. ECS task definition APIs do not support resource-level permissions. |
-| `IAMRoleManagement` | Create, update, and delete IAM roles and instance profiles scoped to `seqera-sched-*`. Seqera creates four role types on first use: execution role, infrastructure role, per-cluster instance role, and per-cluster task role. |
-| `PassRoleToECS` | Pass `seqera-sched-*` and `TowerForge-*` roles to ECS, ECS tasks, and EC2. Required to attach roles to ECS infrastructure and task definitions. |
-| `ServiceLinkedRoles` | Create service-linked roles for ECS, autoscaling, and Spot. Required only if these roles do not already exist in your account. |
+| `ECSScopedOperations` | Create, delete, describe, and tag ECS clusters, capacity providers, and tasks, and drain a faulty container instance so it stops receiving tasks. Scoped to `seqera-sched-*` resources. Required only for ECS-backed compute environments. |
+| `ECSUnscopedOperations` | Register, deregister, list, and describe ECS task definitions. ECS task definition APIs do not support resource-level permissions. Required only for ECS-backed compute environments. |
+| `IAMRoleManagement` | Create, update, and delete IAM roles and instance profiles scoped to `seqera-sched-*`. Seqera creates the EC2 instance role and instance profile on first use. ECS-backed compute environments also use an execution role, an infrastructure role, and per-cluster instance and task roles. |
+| `PassRoleToECS` | Pass `seqera-sched-*` and `TowerForge-*` roles to EC2, ECS, and ECS tasks. Required to attach the instance profile to EC2 instances, and roles to ECS infrastructure and task definitions. |
+| `ServiceLinkedRoles` | Create service-linked roles for Spot, ECS, and autoscaling. AWS creates the Spot role on the first Spot instance launch. Required only if these roles do not already exist in your account. |
 | `CloudWatchLogs` | Create and manage log groups under `/seqera` (for example, `/seqera/platform`), and read log events. Task stdout and stderr are written to CloudWatch. |
-| `EC2NetworkDiscovery` | Describe VPCs, subnets, security groups, and route tables. Create security groups and VPC endpoints. Used for VPC auto-discovery and network setup. |
-| `ECRAccess` | Authorize ECR and pull container images. ECS tasks pull images from ECR. |
+| `EC2NetworkDiscovery` | Describe VPCs, subnets, security groups, route tables, and instances. Create security groups, VPC endpoints, and tags. Used for VPC auto-discovery, network setup, and tracking the instances of a cluster. |
+| `ECRAccess` | Authorize ECR and pull container images. ECS tasks pull images from ECR. Required only for ECS-backed compute environments. |
 | `S3Access` | Read objects and list buckets. Used to read Fusion trace files and pipeline work directory content. |
-| `ASGEC2Operations` | Describe instance types and create or delete EC2 launch templates. Required only for Auto Scaling Group-backed clusters. |
-| `ASGManagement` | Create, update, and delete Auto Scaling Groups scoped to `seqera-sched-*`. Required only for Auto Scaling Group-backed clusters. |
-| `ASGDescribe` | Describe Auto Scaling Groups. Required only for Auto Scaling Group-backed clusters. |
-| `SSMECSOptimizedAmi` | Read the ECS-optimized AMI ID from SSM Parameter Store. Used to look up the latest Amazon Linux 2023 ECS-optimized AMI. |
+| `VMEC2Operations` | Describe instance types, launch and terminate EC2 instances, and manage the rules of the `seqera-sched-vm` security group. Required for all compute environments. |
+| `ASGEC2Operations` | Create or delete EC2 launch templates. Required only for Auto Scaling Group-backed ECS clusters. |
+| `ASGManagement` | Create, update, and delete Auto Scaling Groups scoped to `seqera-sched-*`. Required only for Auto Scaling Group-backed ECS clusters. |
+| `ASGDescribe` | Describe Auto Scaling Groups. Required only for Auto Scaling Group-backed ECS clusters. |
+| `SSMECSOptimizedAmi` | Read the ECS-optimized AMI ID from SSM Parameter Store. Used to look up the latest Amazon Linux 2023 ECS-optimized AMI. Required only for ECS-backed compute environments. |
 | `CostExplorer` | Query `ce:GetCostAndUsage`. Used to display cost post pipeline launch, after receiving data from AWS Cost Explorer with a 24-48 delay. If this permission is absent, cost predictions do not appear. |
 
 **Conditional statements:**
-- `ASGEC2Operations`, `ASGManagement`, and `ASGDescribe` are required only if Auto Scaling Group-backed clusters are enabled. You can omit them for Managed Instances deployments.
+- `ECSScopedOperations`, `ECSUnscopedOperations`, `ECRAccess`, and `SSMECSOptimizedAmi` are required only while you have compute environments that run on Amazon ECS. New compute environments run on EC2 instances and don't use them.
+- `ASGEC2Operations`, `ASGManagement`, and `ASGDescribe` are required only if Auto Scaling Group-backed ECS clusters are enabled. You can omit them for Managed Instances deployments.
 - `ServiceLinkedRoles` is required only if the listed service-linked roles do not already exist in your AWS account.
 - `CostExplorer` is required only if you want cost predictions at pipeline launch.
 
@@ -105,13 +111,13 @@ You need the following:
 1. In your Seqera workspace, select **Compute Environments**, then select **Add compute environment**.
 1. Enter a name and select **AWS Cloud** as the platform.
 1. Select your AWS credentials.
-1. Select the **Region** where Seqera provisions the ECS cluster.
+1. Select the **Region** where Seqera provisions compute resources.
 1. Enter a **Work directory** (S3 URI, for example `s3://my-bucket/work`).
 1. Under **Compute Mode**, enable the **Seqera Intelligent Compute** toggle.
 1. Configure the [Intelligent Compute options](#configuration-options) as needed.
 1. Select **Add**.
 
-Seqera validates credentials and configuration on save. On first use, it provisions the required IAM roles and ECS cluster in your account. Clusters and associated resources are removed automatically when no longer needed.
+Seqera validates credentials and configuration on save. On first use, it provisions the required IAM role, instance profile, and EC2 instances in your account. Instances and associated resources are removed automatically when no longer needed.
 
 ## S3 bucket access
 
@@ -184,7 +190,7 @@ The policy above delegates the decision to your account's IAM. If the bucket own
     "aws:PrincipalArn": [
       "arn:aws:iam::111122223333:role/seqera-sched-task-role-clu-*",
       "arn:aws:iam::111122223333:role/seqera-sched-instance-v2-clu-*",
-      "arn:aws:iam::111122223333:role/seqera-sched-vm-instance-clu-*"
+      "arn:aws:iam::111122223333:role/seqera-sched-vm-instance-*"
     ]
   }
 }
@@ -194,9 +200,9 @@ Each cluster gets its own role and the cluster identifier varies per cluster, bu
 
 | Role | Name pattern | Used by |
 |------|--------------|---------|
-| ECS task role | `seqera-sched-task-role-clu-*` | Task containers and Fusion |
-| ECS instance role | `seqera-sched-instance-v2-clu-*` | EC2 hosts of an ECS-backed cluster |
-| EC2 instance role | `seqera-sched-vm-instance-clu-*` | EC2 hosts when **Backend strategy** is `EC2` |
+| ECS task role | `seqera-sched-task-role-clu-*` | Task containers and Fusion on ECS-backed compute environments |
+| ECS instance role | `seqera-sched-instance-v2-clu-*` | EC2 hosts of ECS-backed compute environments |
+| EC2 instance role | `seqera-sched-vm-instance-*` | EC2 instances of new compute environments |
 
 ### Limitations
 
@@ -234,10 +240,9 @@ Configure the following options when you enable Intelligent Compute on a compute
 | **Max spot attempts** | Integer, `1`–`10` | `3` | Total number of Spot provisioning attempts for a task, including the first, before falling back to On-Demand with `spotFirst`. Only visible when **Provisioning model** is `spot` or `spotFirst`. Set to `1` for a single attempt with no retry. Compute environments created before this setting was introduced are not backfilled and keep their current behavior. |
 | **Instance types** | Comma-separated EC2 instance type identifiers (for example, `m5.xlarge, c5.2xlarge`) | Empty | Restricts which instance types the scheduler can select. When empty, the scheduler picks the most cost-effective type for each task. |
 | **Prediction model** | `none`, `qr/v1`, `qr/v2` | `none` | For private preview, use `qr/v2`. |
-| **Backend strategy** | `ECS`, `EC2` | `ECS` | Task execution backend. Use `ECS` (default). `EC2` is reserved for future use. |
 | **Fusion snapshots** | Enabled / Disabled | Disabled | When enabled, interrupted tasks (for example, after a Spot reclaim) resume from a Fusion snapshot instead of restarting from scratch. |
 | **Use NVMe instance storage** | Enabled / Disabled | Disabled | Restrict Intelligent Compute to instance types that provide local SSD (NVMe) storage for faster I/O. |
-| **Enable warm pool** | Enabled / Disabled | Disabled | Keep a pool of idle VMs available to reduce task start latency. Only available when **Backend strategy** is `EC2`. |
+| **Enable warm pool** | Enabled / Disabled | Disabled | Keep a pool of idle EC2 instances available to reduce task start latency. Not available on compute environments that run on Amazon ECS. |
 | **Desired warm VMs** | Integer | — | Target number of idle VMs to keep warm. Must be greater than zero. Only visible when **Enable warm pool** is enabled. |
 | **Scale-to-zero timeout** | Seconds | — | Seconds of inactivity after which the warm pool scales to zero. Set to `0` to never scale to zero. Only visible when **Enable warm pool** is enabled. |
 

@@ -1,0 +1,126 @@
+---
+title: "Installation"
+description: "Install and configure the Seqera CLI"
+date created: "2026-03-11"
+last updated: "2026-09-22"
+tags: [co-scientist, cli, installation]
+---
+
+The Seqera CLI runs in your terminal on macOS, Linux, or Windows (via WSL). It connects to Seqera Platform and to the Co-Scientist backend in your Enterprise deployment so you can build, run, and debug Nextflow pipelines from a single interactive session.
+
+This page covers how to install, update, and uninstall the CLI with npm, how to switch to a development build, and how to point the CLI at the Co-Scientist backend.
+Once the CLI is on your PATH, see the [Quickstart](./quickstart.md) to log in and start your first session.
+
+:::info[**Prerequisites**]{#prerequisites}
+You will need the following to get started:
+
+- Node.js 18 or later
+- macOS, Linux, or Windows with WSL
+- A user account on your Seqera Platform Enterprise deployment
+- The agent backend URL for your deployment, from your Seqera Platform administrator
+- Network access to the Co-Scientist agent backend
+
+:::
+
+## Install the CLI
+
+Install the CLI globally from the [`seqera` npm package](https://www.npmjs.com/package/seqera):
+
+```bash
+npm install -g seqera
+```
+
+Then confirm the CLI is on your PATH:
+
+```bash
+seqera --version
+```
+
+### Install a development build
+
+To install the latest pre-release, run:
+
+```bash
+npm install -g seqera@dev
+```
+
+The `@dev` tag tracks the latest pre-release CLI. Use it only to test unreleased features. Otherwise install the default tag.
+
+## Update the CLI
+
+To check whether a newer version is available, run:
+
+```bash
+seqera update
+```
+
+To update the CLI to the latest published version, run:
+
+```bash
+npm update -g seqera
+```
+
+If you use Co-Scientist as a skill for a coding agent, sync your installed skills with the new CLI version after upgrading:
+
+```bash
+seqera skill check --update
+```
+
+This scans both local and global installations by default. Pass `--global` or `--local` to narrow the scope.
+
+## Uninstall the CLI
+
+To remove the CLI from your system, run:
+
+```bash
+npm uninstall -g seqera
+```
+
+To also remove stored credentials and configuration, delete `~/.config/seqera-ai/`.
+
+## Configure the Co-Scientist backend
+
+The CLI connects to Seqera Platform Cloud by default. Point it at your Enterprise deployment with environment variables or a configuration file.
+
+### Environment variables
+
+Set the agent backend URL and the OIDC authority base URL before starting Co-Scientist:
+
+```bash
+export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com
+export SEQERA_AUTH_DOMAIN=https://platform.example.com/api
+```
+
+The CLI fetches OpenID configuration from `SEQERA_AUTH_DOMAIN` and opens the discovered authorization endpoint in your browser.
+
+### Configuration file
+
+To avoid exporting variables in every shell, create `~/.config/seqera-ai/config.json`:
+
+```json
+{
+  "authDomain": "https://platform.example.com/api",
+  "backendUrl": "https://ai-api.platform.example.com"
+}
+```
+
+Environment variables take precedence over the configuration file.
+
+### Verify the connection
+
+Confirm that the CLI resolves your Enterprise deployment:
+
+```bash
+seqera info
+```
+
+`seqera info` shows the authenticated user, the agent backend, and the Seqera Platform endpoint the CLI uses. See [Authentication](./authentication.md#connect-to-an-enterprise-backend) for OAuth and token-based examples, and [Environment variables](./reference/environment-variables.md) for the full reference.
+
+## Learn more
+
+- [Quickstart](./quickstart.md): Run your first Co-Scientist session
+- [Authentication](./authentication.md): Log in, log out, and manage sessions
+- [Coding agents](./coding-agents.md): Install Co-Scientist as a skill in your coding agent
+- [Using Co-Scientist](./configuration.md): Configure modes, sessions, skills, command approval, and more
+- [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
+- [Troubleshooting](../troubleshooting_and_faqs/coscientist_troubleshooting.md): Troubleshoot common errors

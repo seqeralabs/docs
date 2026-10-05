@@ -2,6 +2,7 @@
 title: "Command approval"
 description: "Control which local commands require user approval in Co-Scientist"
 date created: "2025-12-15"
+last updated: "2026-09-22"
 tags: [co-scientist, cli, approval, security]
 ---
 
@@ -15,7 +16,7 @@ Starting a persistent task with `/goal <task>` switches the session to `full` ap
 
 When a command requires approval, you will see a prompt similar to:
 
-```
+```text
 APPROVAL REQUIRED (default mode)
 Command: rm -rf ./build/
 
@@ -29,8 +30,10 @@ Press 1, 2, or 3 to choose
 You can:
 
 - **1**: Run the command once (or press Enter)
-- **2**: Run the command and auto-approve all commands for the rest of the session
+- **2**: Run the command and auto-approve commands that match it for the rest of the session. Co-Scientist stores a pattern derived from the command, such as `git commit*`, not a blanket approval. Other commands still prompt. A session keeps up to 100 approved patterns.
 - **3**: Reject the command (or press Escape)
+
+An approval prompt stays open for 15 minutes. If you don't respond in that time, the request times out and Co-Scientist stops waiting for the command result.
 
 ## Approval modes
 
@@ -39,7 +42,7 @@ Approval modes control which local commands Co-Scientist can execute automatical
 There are three approval modes:
 
 | Mode | Description | Best for |
-|------|-------------|----------|
+| --- | --- | --- |
 | **basic** | Only safe, read-only commands run automatically | Maximum security |
 | **default** | Safe commands and workspace file edits run automatically | Typical development |
 | **full** | Everything except dangerous commands runs automatically | Experienced users |
@@ -52,7 +55,7 @@ seqera ai --approval-mode full
 
 Or change it during a session using the `/approval` TUI command:
 
-```
+```text
 /approval basic
 ```
 
@@ -84,7 +87,7 @@ This is the most restrictive mode. The assistant can only auto-execute commands 
 
 **Examples**:
 
-```
+```text
 > Create a new file called test.txt with "hello world"
 
 APPROVAL REQUIRED (basic mode)
@@ -102,6 +105,7 @@ Command: Write ./test.txt
 This is the recommended mode for most users. It allows productive workflow while protecting system files and preventing destructive operations.
 
 **Auto-executes**:
+
 - All safe commands from basic mode (without file redirections)
 - File edits **within your current workspace**:
   - Creating files (`touch`, file creation)
@@ -111,6 +115,7 @@ This is the recommended mode for most users. It allows productive workflow while
   - Moving files (`mv` within workspace)
 
 **Requires approval**:
+
 - File operations **outside your workspace**
 - All dangerous commands (see below)
 - Commands with file redirects to paths outside workspace
@@ -120,7 +125,7 @@ This is the recommended mode for most users. It allows productive workflow while
 
 **Examples**:
 
-```
+```text
 > Create a new file called test.txt with "hello world"
 
 Created ./test.txt
@@ -128,7 +133,7 @@ Created ./test.txt
 
 File creation in the workspace runs automatically.
 
-```
+```text
 > Edit /etc/hosts
 
 APPROVAL REQUIRED (default mode)
@@ -140,7 +145,6 @@ Command: Edit /etc/hosts
 ```
 
 Editing outside the workspace requires approval.
-
 
 ### Full
 
@@ -159,7 +163,7 @@ This is the most permissive mode. Use it when you fully trust the assistant's ac
 These commands **always require approval** in any mode:
 
 | Command | Risk |
-|---------|------|
+| --- | --- |
 | `rm` | Delete files/directories |
 | `chmod` | Change file permissions |
 | `chown` | Change file ownership |
@@ -176,7 +180,7 @@ These commands **always require approval** in any mode:
 
 **Examples**:
 
-```
+```text
 > Create files and directories as needed
 
 Created ./src/utils.py
@@ -186,7 +190,7 @@ Created ./config/settings.json
 
 Most operations run without prompts.
 
-```
+```text
 > Delete the build directory
 
 APPROVAL REQUIRED (full mode)
@@ -229,3 +233,4 @@ seqera ai
 - [Use cases](./use-cases.md): Co-Scientist use cases
 - [Usage and cost](./usage-and-cost.md): Co-Scientist usage in Enterprise deployments
 - [Skills](./reference/skills-reference.md): Built-in skills, slash commands, and session limits
+- [Troubleshooting](../troubleshooting_and_faqs/coscientist_troubleshooting.md): Troubleshoot common errors

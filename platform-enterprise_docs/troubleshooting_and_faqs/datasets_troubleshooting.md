@@ -14,7 +14,7 @@ When working with datasets, you might encounter the following issues.
 When you upload a dataset through the Seqera UI or CLI, Seqera performs some steps automatically. Uploading through the API requires two additional steps:
 
 1. Explicitly define the MIME type of the file you upload.
-2. Make two API calls: first create a dataset object, then upload the samplesheet to it.
+2. Make two API calls, first to create a dataset object and then to upload the samplesheet to it.
 
 Create the dataset object:
 
@@ -48,4 +48,4 @@ To resolve, upgrade to 22.2.0 or later, or use Chrome.
 
 #### TSV-formatted datasets not shown
 
-In Seqera version 22.2, TSV datasets were unavailable in the input data drop-down on the launch form. This was fixed in version 22.4.1.
+In Seqera version 22.2, TSV datasets were unavailable in the input data drop-down on the launch form. Version 22.4.1 fixes this issue.

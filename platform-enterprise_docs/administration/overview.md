@@ -2,7 +2,7 @@
 title: "Admin panel"
 description: "Overview of Seqera user and organization administration"
 date created: "2023-04-21"
-last updated: "2026-08-11"
+last updated: "2026-09-29"
 tags: [administration, users, workspaces, organizations]
 ---
 
@@ -58,7 +58,8 @@ The **Users** tab lists all the users in your account.
 - Use the search function to find a user by name or email.
 - Select a username from the list or select **Edit** to view and update the user's details.
 - To disable a user's Platform login access, select **Disable user**. This action does not delete the user.
-- To reinstate a disabled user's Platform login access, select **Allow login**. This option is grayed out for active users.
+- To reinstate a disabled user's Platform login access, select **Enable user**.
+- To give login access to a user who does not have it yet, select **Allow login**. This option is grayed out for users who already have login access.
 
 See [User roles](../orgs-and-teams/roles) for more information on organization and workspace user access roles.
 

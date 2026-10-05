@@ -2,7 +2,7 @@
 title: "OpenID Connect"
 description: Configure an OpenID Connect (OIDC) identity provider such as Keycloak, Entra ID, or Okta for Seqera Platform
 date created: "2026-07-13"
-last updated: "2026-07-13"
+last updated: "2026-09-23"
 tags: [authentication, oidc, sso, keycloak, entra, okta]
 ---
 
@@ -77,10 +77,6 @@ See Microsoft's documentation on [registering an application](https://learn.micr
 
 Configure user consent settings to **Allow user consent for apps** to ensure admin approval is not required for each login. See [User consent settings](https://learn.microsoft.com/en-us/azure/active-directory/manage-apps/configure-user-consent?pivots=portal#configure-user-consent-settings).
 
-:::note
-Add `auth-oidc` to the `MICRONAUT_ENVIRONMENTS` environment variable for both the `cron` and `backend` services.
-:::
-
 :::note Compatibility note
 Users on Seqera Platform version 25.2.3 and below may need to set the following environment variable to resolve an authentication method incompatibility:
 
@@ -133,6 +129,12 @@ Add the following environment variables to your Seqera backend service configura
 | `TOWER_OIDC_SCOPES` | Optional. Comma-separated OAuth 2.0 scopes the OIDC client requests at login. Defaults to `openid,email,profile`. `openid` is always included. Add `groups` when your IdP only emits the group claim for a requested scope (see the note below). |
 
 Some providers require the full authentication service URL while others require only the SSO root domain (without the trailing sub-directories).
+
+Platform adds the `auth-oidc` Micronaut environment automatically when it detects `TOWER_OIDC_CLIENT` in the backend service environment at startup. The `cron` service never needs it.
+
+:::note
+Automatic detection reads operating system environment variables only, and runs before Platform loads values from a secret store. If you supply `TOWER_OIDC_CLIENT` from AWS Systems Manager Parameter Store or another store that Platform reads after startup, add `auth-oidc` to the `MICRONAUT_ENVIRONMENTS` environment variable on the backend service. Without it, Platform starts without the OIDC login option.
+:::
 
 :::note
 If you plan to use IdP-delegated teams, your OIDC token must include a `groups` claim. Some providers (for example, Okta) only emit this claim when a matching scope is requested. In that case, add `groups` to the requested scopes with `TOWER_OIDC_SCOPES=openid,email,profile,groups`. See [IdP claim mapping](./idp-delegation/claim-mapping) for the per-IdP configuration steps.

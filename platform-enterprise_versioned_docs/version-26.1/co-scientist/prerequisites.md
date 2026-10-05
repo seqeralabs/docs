@@ -2,11 +2,13 @@
 title: "Prerequisites"
 description: "Prerequisites for Co-Scientist"
 date created: "2026-04-20"
-last updated: "2026-09-22"
+last updated: "2026-09-30"
 tags: [prerequisites]
 ---
 
-Complete these requirements before you install Co-Scientist.
+## Overview
+
+Everything you need to have in place before installing Co-Scientist. Complete these requirements, then follow [Bedrock setup](./bedrock-setup.md) to configure your AWS account.
 
 :::caution
 Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. It is currently only available on AWS.
@@ -31,7 +33,7 @@ Co-Scientist enables users to interact with Seqera Platform through a conversati
 
 ## AWS account
 
-Co-Scientist uses Claude models via [Amazon Bedrock](https://aws.amazon.com/bedrock/). You need an AWS account with Bedrock available in your chosen region.
+Co-Scientist can use Claude models via [Amazon Bedrock](https://aws.amazon.com/bedrock/) or via an Anthropic API key. You need an AWS account with Bedrock available in your chosen region.
 
 ### Models
 
@@ -57,7 +59,7 @@ By default, every role uses Claude Sonnet 4.6, the only Claude model you need to
   - Redis 8.x is supported (the search/JSON/bloom modules moved into core in Redis 8.0).
   - Valkey 7.2+ and 8.x are supported for the default caching and task-queue workload. If you enable the optional Redis-backed knowledge index (off by default), Redis Stack 7.x or Redis 8+ is required — Valkey does not ship the `RediSearch` module.
 - Accessible from your cluster.
-- Either a dedicated instance or the instance Platform already uses. To share one instance, set the chart's `redis.database` value to a different database index than the one Platform uses.
+- Either a dedicated instance or the instance Platform already uses. To share one instance, give Platform and Co-Scientist different Redis database numbers with the chart's `redis.database` value.
 - You will need the hostname and port ready for Helm configuration.
 
 ## Networking and DNS

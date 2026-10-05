@@ -146,17 +146,14 @@ Replace `{prefix}` in each configuration path with `/config/<application_name>`,
 Configuration values that control Seqera's interaction with databases and Redis instances. `TOWER_DB_USER`, `TOWER_DB_PASSWORD`, and `TOWER_DB_URL` must be specified using environment variables during initial Seqera Enterprise deployment in a new environment. A new installation will fail if DB values are only defined in `tower.yml` or the AWS Parameter Store. Once the database has been created, these values can be added to `tower.yml` or [AWS Parameter Store](./aws_parameter_store) entries and removed from your environment variables.
 
 :::note
-**Database version requirements:**
+**Database and cache version requirements:**
 
-From Seqera Enterprise version 23.4:
+From Seqera Enterprise version 26.1:
 
-- MySQL 8 is the officially supported and tested database version.
-- MySQL versions 5.6 and 5.7 are no longer supported.
+- MySQL 8.4, the long-term support (LTS) release, is the recommended and tested database version. MySQL 5.7 and 8.0 have reached upstream end-of-life and are no longer tested or supported. Migrate to MySQL 8.4 before you upgrade.
+- Seqera Enterprise supports Redis 7.2, Redis 7.4, and Valkey 7.x. Redis 6.x is not supported.
 
-From Seqera Enterprise version 24.2:
-
-- Redis version 6.2 or greater is required.
-- Redis version 7 is officially supported.
+For the full support matrices, see [Database changes](../upgrade#database-changes) and [Cache layer changes](../upgrade#cache-layer-changes-redis-eol-and-valkey-support).
 
 Follow your cloud provider specifications to upgrade your instance.
 :::
@@ -316,6 +313,16 @@ Configuration values used by Seqera for Datasets, Data Explorer, Data Lineage, a
 
 </TabItem>
 </Tabs>
+
+### Co-Scientist
+
+Configuration values Seqera Platform uses to reach a [Co-Scientist](../install-seqera-coscientist.mdx) deployment, control the Co-Scientist panel and agents, and restrict the Projects view. Set these only when Co-Scientist is deployed alongside your installation, except `TOWER_SCIENTIST_VIEW_ALLOWED_WORKSPACES`, which applies either way.
+
+::table{file=configtables/co_scientist_env.yml}
+
+:::note
+Platform fails to start if `TOWER_AGENT_BACKEND_URL` is not a valid URI, does not use `https`, has no host, or contains a query string or fragment.
+:::
 
 ## Cryptographic options
 
@@ -530,6 +537,18 @@ A scheduled cron job can transition compute environments that are stuck in `CREA
 </TabItem>
 </Tabs>
 
+### Workspace orphan cleanup
+
+Two scheduled cron jobs can soft-delete credentials and compute environments whose workspace has been deleted. Both jobs are disabled by default.
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+::table{file=configtables/workspace_orphan_cleanup_env.yml}
+
+</TabItem>
+</Tabs>
+
 ## Git integration
 
 Seqera Platform has built-in support for public and private Git repositories. Create [Git provider credentials](../../git/overview) to allow Seqera to interact with the following services:
@@ -679,6 +698,18 @@ Do not replace the [Seqera-provided default image](../../functionality_matrix/ov
 </TabItem>
 </Tabs>
 
+### Component compatibility catalog
+
+The component compatibility catalog records which Nextflow, Fusion, and `nf-launcher` versions work with this Seqera Platform version. The Nextflow version selector and launch validation read from it.
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+::table{file=configtables/catalog_env.yml}
+
+</TabItem>
+</Tabs>
+
 ## Seqera API
 
 Enable the API endpoints to host the Seqera Enterprise OpenAPI specification and use the [tw CLI](https://github.com/seqeralabs/tower-cli). Set custom API rate limits and timeouts.
@@ -696,6 +727,18 @@ To configure API rate limit environment variables, you must add `ratelim` to the
 | `TOWER_RATELIMIT_PERIOD`  | Specify the maximum number of HTTP requests that can be made during the `TOWER_RATELIMIT_REFRESH` period.                          | Default: `20`    |
 | `TOWER_RATELIMIT_REFRESH` | API rate limit refresh period.                                                                                                     | Default: `1s`    |
 | `TOWER_RATELIMIT_TIMEOUT` | The waiting period before rejecting requests over the `TOWER_RATELIMIT_PERIOD` limit during the refresh period.                    | Default: `500ms` |
+
+</TabItem>
+</Tabs>
+
+## OIDC access tokens
+
+Configuration values for the audience claim on the OIDC access tokens Seqera Platform issues, and for enforcing it.
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+::table{file=configtables/oidc_token_env.yml}
 
 </TabItem>
 </Tabs>
@@ -737,9 +780,21 @@ platform:
 </TabItem>
 </Tabs>
 
+## Telemetry
+
+Seqera Platform sends usage telemetry to the Seqera License Manager alongside the license check. Telemetry is enabled by default. To opt out, set both `TOWER_TELEMETRY_STANDARD_ENABLED` and `TOWER_TELEMETRY_BASIC_ENABLED` to `false`.
+
+<Tabs>
+<TabItem value="Environment variables" label="Environment variables" default>
+
+::table{file=configtables/telemetry_env.yml}
+
+</TabItem>
+</Tabs>
+
 ## Logging
 
-Logging-related configuration values to aid troubleshooting. See [Audit logs](../../monitoring/audit-logs) for more information on application event logging. In 26.1, use `TOWER_AUDIT_LOG_V2_WRITE_MODE` to control whether audit events are written to the v2 schema, or to both the legacy and the v2 schema. Use `TOWER_CRON_AUDIT_LOG_CLEAN_UP_ENABLED` to disable automatic audit log deletion, and restart Platform after changing audit log settings.
+Logging-related configuration values to aid troubleshooting. See [Audit logs](../../monitoring/audit-logs) for more information on application event logging. Use `TOWER_CRON_AUDIT_LOG_CLEAN_UP_ENABLED` to disable automatic audit log deletion, and restart Platform after changing audit log settings.
 
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>
@@ -764,9 +819,29 @@ logger:
 </TabItem>
 </Tabs>
 
+### Distributed tracing
+
+Seqera Platform emits OpenTelemetry traces with stable, route-aware span names. You can observe endpoint latency, error rate, and throughput per API route rather than per raw URL.
+
+Platform has no tracing switch of its own. Standard OpenTelemetry configuration governs tracing, and the tracing libraries ship in every installation. With no exporter configured, Platform uses an always-off sampler and records no spans. Tracing costs nothing until you turn it on.
+
+To send traces to a collector, set the standard exporter variables:
+
+```bash
+OTEL_TRACES_EXPORTER=otlp
+OTEL_EXPORTER_OTLP_ENDPOINT=http://collector:4318
+OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Set `OTEL_SERVICE_NAME`, `OTEL_RESOURCE_ATTRIBUTES`, `OTEL_TRACES_SAMPLER`, and `OTEL_TRACES_SAMPLER_ARG` as appropriate for your deployment. To turn tracing off again, set `OTEL_TRACES_EXPORTER=none`.
+
+:::note
+Platform writes the active trace and span IDs into the logging context. The default [`TOWER_LOG_PATTERN`](#logging) includes `%X{trace_id:--} %X{span_id:--}` so that log lines correlate with traces. If you override the pattern, keep both fields.
+:::
+
 ### Audit log v2
 
-Configuration values for the v2 audit log subsystem and the audit log cleanup cron job. The v2 audit log adds support for pre/post change state capture and CSV export limits, and runs alongside the existing v1 table when `TOWER_AUDIT_LOG_V2_WRITE_MODE` is set to `dual`.
+Configuration values for the v2 audit log subsystem and the audit log cleanup cron job. The v2 audit log adds support for pre/post change state capture and CSV export limits.
 
 <Tabs>
 <TabItem value="Environment variables" label="Environment variables" default>

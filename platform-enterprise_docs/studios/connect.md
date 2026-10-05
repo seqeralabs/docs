@@ -1,7 +1,7 @@
 ---
 title: Connect changelog
 date created: "2025-07-30"
-last updated: "2026-05-29"
+last updated: "2026-09-30"
 tags: [connect, changelog, connect changelog]
 ---
 
@@ -11,7 +11,22 @@ Always use the `recommended` tagged template image for new Studios. Only two ear
 
 ## Connect server
 
-### server/v0.11.0 `latest` - 2026-03-02
+### server/v0.14.0 `latest` - 2026-09-28
+
+* Bump(all): go to 1.27 version, and dependencies version
+* Bump(server): to 0.14.0
+
+### server/v0.13.0 - 2026-09-25
+
+* Fix(proxy): survive Platform key rotation without a restart
+* Fix(proxy): wait for the exit status before closing an SSH channel
+* Bump(server): to 0.13.0
+
+### server/v0.12.0 - 2026-09-03
+
+* Feat(server): accept a workload ID as the Connect token's session claim
+
+### server/v0.11.0 - 2026-03-02
 
 * Fix(proxy): bidirectional proxy fixes
 
@@ -115,7 +130,21 @@ Connect version 0.8.3 introduced a change which required the creation of a `/dat
 
 ## Connect client
 
-### client/v0.13.0 `latest` - 2026-08-11
+### client/v0.14.0 `latest` - 2026-09-28
+
+* Fix: `1.105.1` VS Code template Docker daemon management fix
+* Feat(client): publish the workload identity where Cloud SDKs look for it
+* Feat(client): let a studio resize /dev/shm via STUDIO_UNSAFE_SHMEM_SIZE
+* Feat(client): federate GCP studios through the same published identity
+* Feat(client): point the studio's cloud credential chain at its own identity
+* Feat(client): bind the published identity to the AWS credential chain
+* Feat(client): redeem the workload bootstrap token via RFC 8693
+* Feat(client): move Platform token ownership to the supervisor
+* Feat(client): bump Fusion 2.4.14 > 2.5.13
+* Bump(all): bump go to 1.27 version, and dependencies version
+* Bump(client): to 0.14.0
+
+### client/v0.13.0 - 2026-08-11
 
 * Feat(client): add custom CA and TLS verification modes for Studios
 * Feat(client): add Fusion execution supervisor
@@ -160,7 +189,7 @@ Connect version 0.8.3 introduced a change which required the creation of a `/dat
 
 ### client/v0.9.0 - 2025-12-05
 
-- Add: disk size and auto resizing based on compute env
+- Add: disk size and auto resizing based on compute environment
 - Add: version module and add support for client version
 - Fix: security vulnerabilities for crypto ssh library and slack nebula
 - Upgrade go (from v1.24.3 to 1.25.3) and caddyserver (from 2.10.0 to 2.10.2)

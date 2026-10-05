@@ -93,6 +93,9 @@
 # Co-Scientist docs: seqera-ai path renamed to co-scientist
 /platform-enterprise/seqera-ai/get-started       /platform-enterprise/co-scientist/quickstart        301
 
+# In-product "Learn more about service accounts" link (agent form, 26.2) targets a page that was split into create/assign/security
+/platform-enterprise/orgs-and-teams/service-accounts        /platform-enterprise/orgs-and-teams/create-service-accounts   301
+
 # Catch-all: rename seqera-ai path to co-scientist (Enterprise, all versions)
 /platform-enterprise/seqera-ai/*                /platform-enterprise/co-scientist/:splat            301
 /platform-enterprise/:version/seqera-ai/*       /platform-enterprise/:version/co-scientist/:splat   301

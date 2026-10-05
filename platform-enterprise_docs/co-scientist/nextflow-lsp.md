@@ -16,7 +16,7 @@ For Nextflow projects, this includes diagnostics and code intelligence for scrip
 ## Language support
 
 | LSP Server | Extensions | Requirements |
-|------------|------------|--------------|
+| --- | --- | --- |
 | Nextflow | `.nf`, `.config` | Java 17+ installed |
 | Python (Pyright) | `.py`, `.pyi` | Auto-installs |
 | R | `.r`, `.R`, `.rmd`, `.Rmd` | R runtime installed |

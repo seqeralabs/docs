@@ -8,9 +8,30 @@
   Environment variable:            '`TOWER_OIDC_PEM_PATH`'
   Description: >
     The file path to a PEM certificate used to sign tokens for Seqera Platform's built-in OIDC provider.
-    This is required for [Studios](../install-studios) and for
+    Setting it turns on the OIDC provider. When it is unset, Platform serves no JWKS endpoint, cannot verify RS256 signatures,
+    and no workload identity token exchange can complete for any cloud provider.
+    This is required for [Studios](../install-studios),
+    [workload identity federation](../../credentials/workload_identity), and
     [Google Cloud Batch Workload Identity Federation](../../compute-envs/google-cloud-batch#credentials).
   Value:                'Example: `/oidc.rsa.pem`'
+-
+  Environment variable:            '`TOWER_AUTH_TOKEN_SIGNING_RS256_ENABLED`'
+  Description: >
+    Sign Platform session, agent, and service tokens with RS256 against the OIDC keypair instead of HS256 against `TOWER_JWT_SECRET`,
+    so that other services can verify them against the published JWKS endpoint. Requires `TOWER_OIDC_PEM_PATH`.
+  Value:                'Default: `false`'
+-
+  Environment variable:            '`TOWER_OIDC_ACCESS_TOKEN_AUDIENCE`'
+  Description: >
+    The audience (`aud`) claim stamped on the OIDC access tokens Platform issues, and checked on incoming ones
+    when `TOWER_OIDC_AUDIENCE_ENFORCEMENT_ENABLED` is `true`. Personal access tokens are opaque and unaffected.
+  Value:                'Default: `platform`'
+-
+  Environment variable:            '`TOWER_OIDC_AUDIENCE_ENFORCEMENT_ENABLED`'
+  Description: >
+    Reject Platform-issued OIDC access tokens whose `iss` or `aud` claims do not match the current configuration.
+    When `false`, mismatches are logged but the token is accepted.
+  Value:                'Default: `false`'
 -
   Environment variable:            '`TOWER_JWT_SECRET`'
   Description: >

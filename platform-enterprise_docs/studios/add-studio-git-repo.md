@@ -2,7 +2,7 @@
 title: "Import from Git repository"
 description: "Add a Studio in Platform."
 date created: "2025-09-04"
-last updated: "2025-12-12"
+last updated: "2026-09-30"
 tags: [studio git, git repository, sessions, studios, git, version control]
 ---
 
@@ -44,7 +44,7 @@ session:
     enabled: true                              # Clone the contents of the repository to the Studio. Defaults to `true`
     path: "/workspace"                         # Defaults to `/workspace`. If you want to clone to `/workspace/repository` then you need to specify this
   dependencies:
-    condaEnvironmentFile: "environment.yaml"   # Define additional libraries (and versions). Ignored for `dockerfile`
+    condaEnvironmentFile: "environment.yaml"   # Define additional libraries (and versions). Not supported with `dockerfile`
   computeRequirements:
     awsBatch:                                  # Ignored for non-AWS batch compute environment
       cpu: 2                                   # Number of CPUs to use. Defaults to `2`

@@ -1,0 +1,415 @@
+---
+title: "Co-Scientist"
+description: Install and configure Co-Scientist for Seqera Platform Enterprise
+date created: "2026-05-04"
+last updated: "2026-09-30"
+tags: [seqera ai, installation, deployment, aws, helm]
+---
+
+:::caution
+Co-Scientist requires Seqera Platform Enterprise 25.3.6 or later. This guide covers the Enterprise 26.2 deployment path for the agent backend, MCP server, and Seqera CLI. Sandbox related Co-Scientist features (like file editing, git operations and code execution) are only available on AWS.
+:::
+
+Deploy the agent backend and Seqera MCP server alongside Platform. Together they provide Co-Scientist assistance for workflows, data, and Platform resources in the [Co-Scientist panel](../co-scientist/platform.md) in Seqera Platform and in the Seqera CLI. Seqera Platform serves the Co-Scientist panel itself. You do not deploy a separate web interface. You can define Kubernetes ingresses in the MCP and agent backend Helm charts, or expose the services in other ways, for example with the `extraDeploy` resource.
+
+:::info
+Enterprise 26.2 removes the `portal-web` subchart and the standalone Co-Scientist web interface. If you deployed `portal-web` with an earlier release, remove the `portal-web` values and its DNS record when you upgrade. Users work in the Co-Scientist panel in Seqera Platform instead.
+:::
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- Seqera Platform Enterprise 25.3.6 or later deployed with the [Seqera Platform Helm chart](./platform-helm.md). For Enterprise 26.2, use Platform chart 1.0.x or later. Earlier charts include the removed `portal-web` subchart and are not compatible with 26.2.
+- Helm v3 and `kubectl` installed locally.
+- DNS names and TLS certificates for the Platform, agent backend, and MCP server hosts. By default, the Helm charts derive `mcp.<platformExternalDomain>` and `ai-api.<platformExternalDomain>`. Override `global.mcpDomain` and `global.agentBackendDomain` if you use different hostnames. The agent backend host must share a parent domain with Platform so the Co-Scientist panel can authenticate with the Platform session cookie.
+- Access to pull the images required by the Helm charts from the configured container registry, or mirrored copies in your internal registry. See [Seqera container images](./advanced-topics/seqera-container-images.md) and [Mirroring container images](./configuration/mirroring.md).
+- A MySQL 8.4 LTS-compatible database for the agent backend. You can use the same MySQL instance as Platform with a separate database and user, or a separate instance.
+- A Redis 7.2-compatible or Valkey 7.2-compatible instance for agent backend task coordination. You can use the same instance as Platform with a different Redis database index, or a separate instance.
+- A stable Fernet token encryption key for the agent backend if you use Kustomize. Helm-only installs can let the chart generate this key, but explicitly setting it avoids accidental regeneration.
+- Access to a supported Claude inference provider. AWS Bedrock is recommended for Enterprise deployments; direct Anthropic API access is also supported.
+- If you use AWS Bedrock, a configured AWS account: model access, the IAM permissions the agent backend pods need, and an AgentCore runtime if you enable sandboxed sessions. See [Bedrock setup](../co-scientist/bedrock-setup.md).
+  * Note: Certain AWS Accounts have additional account-level eligibility requirements for recent models and may produce errors like `anthropic.claude-opus-4-8 is not available for this account`. These requirements aren't visible in the Service Quotas console, but can be tested by interacting with AWS Bedrock Playground via the console. If that's the case, contact AWS Support to get access to the required models, as explained in [this AWS blog post](https://repost.aws/knowledge-center/bedrock-serverless-models-access-denied).
+- If you use direct Anthropic API access, an Anthropic API key stored in a Kubernetes Secret.
+
+Generate a Fernet token encryption key when you set the key manually:
+
+```bash
+# using uv Python package manager (installed if not available)
+uv --version >/dev/null 2>&1 || curl -LsSf https://astral.sh/uv/install.sh | sh
+uv run --with cryptography python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+
+# using Python directly, cryptography dependency module must be installed in environment
+python3 -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+```
+
+Store database passwords, Redis or Valkey passwords, OIDC token values, image pull credentials, and encryption keys in Kubernetes Secrets. Reference those Secrets from Helm values instead of committing plaintext values.
+
+## Inference providers
+
+Co-Scientist supports two Claude inference providers. AWS Bedrock is recommended for Enterprise deployments, especially when inference must run in your AWS account or your organization wants to avoid direct egress to Anthropic. Direct Anthropic API access remains supported when your organization has approved that integration.
+
+| Inference provider | Description |
+| --- | --- |
+| AWS Bedrock | Recommended. Runs Claude inference in your AWS account through Bedrock. |
+| Anthropic API | Uses Anthropic-hosted Claude models through an Anthropic API key. |
+
+Documentation semantic search is configured separately from chat inference. Use Amazon Titan embeddings through Bedrock when you enable improved documentation search.
+
+## Components
+
+| Component | Description |
+| --- | --- |
+| Agent backend | FastAPI and LangGraph service that orchestrates Co-Scientist sessions, validates Platform tokens, calls the configured inference provider, connects to MCP, and streams Server-Sent Events (SSE) to clients. |
+| Seqera MCP server | Model Context Protocol server that exposes Platform-aware tools for workflows, datasets, compute environments, Wave, Hub, and nf-core. |
+| Seqera Platform | Serves the Co-Scientist panel, including page context, conversation history, and [projects](../co-scientist/projects.md). Requires no additional deployment. |
+| MySQL | Agent backend database for sessions, threads, token usage records, and conversation history. |
+| Redis or Valkey | Agent backend queue and coordination store. |
+
+## Deployment topology
+
+The recommended Enterprise topology uses the `platform` Seqera Helm chart with the `mcp` and `agent-backend` subcharts enabled. The Platform Helm chart automatically wires the MCP OIDC client registration token from the Platform backend secret and sets the Platform configuration the Co-Scientist panel needs. This reduces the number of manual steps.
+
+Use separate Helm releases when you cannot convert your existing Platform installation to using the Helm chart or your environment requires separate lifecycle ownership. If you deploy the charts separately, you must manually configure:
+
+- `global.platformServiceAddress` and `global.platformServicePort` on each AI chart so they can reach the Platform backend service using the cluster-internal endpoint.
+- `oidcToken.existingSecretName` and `oidcToken.existingSecretKey` with the same OIDC client registration token configured for the Platform backend.
+- Matching external DNS and TLS for `global.mcpDomain` and `global.agentBackendDomain`.
+- `TOWER_AGENT_BACKEND_URL` and `TOWER_AUTH_COOKIE_DOMAIN` on the Platform backend. See [Configure Seqera Platform](#configure-seqera-platform).
+
+## Configure Helm values
+
+Enable the two Co-Scientist subcharts in your Platform values file. Because this example uses the Platform parent chart, the same Helm release also deploys or upgrades Platform. Include the required Platform values from your existing installation in addition to these Co-Scientist values.
+
+```yaml
+global:
+  platformExternalDomain: platform.example.com
+  mcpDomain: mcp.platform.example.com
+  agentBackendDomain: ai-api.platform.example.com
+
+mcp:
+  enabled: true
+
+agent-backend:
+  enabled: true
+```
+
+For a complete example, see the [Co-Scientist Helm example](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/examples/seqera-co-scientist).
+
+## Configure MCP
+
+When MCP runs under the Platform parent chart, leave `mcp.oidcToken` unset unless you need to override the default wiring. The parent chart sets it to the Platform backend secret key `OIDC_CLIENT_REGISTRATION_TOKEN`.
+
+The MCP image repository is `enterprise/mcp/server`, pulled from the registry you set in `global.imageRegistry`. The chart sets no default registry. Set `global.imageRegistry` to your own registry after you copy the image from `cr.seqera.io/enterprise/mcp/server`, or to `cr.seqera.io` if your cluster pulls directly. Platform chart 1.0.4 and later default to this repository. Earlier 26.2 charts default to `ai/mcp/server`, which does not host the MCP version they deploy.
+
+:::info
+From MCP 1.4.3, Seqera publishes MCP server images only to `cr.seqera.io/enterprise/mcp/server`. Earlier releases (up to 1.4.2) remain available at `cr.seqera.io/ai/mcp/server`, but Seqera publishes no new releases there.
+:::
+
+If you mirror images or override the MCP image repository:
+
+- Mirror `enterprise/mcp/server` into your registry. New MCP releases are not published to `ai/mcp/server` anymore.
+- Remove any `mcp.image.repository: ai/mcp/server` override from your values, or change it to `enterprise/mcp/server`. An explicit override takes precedence over the chart default.
+- If you're using a chart earlier than 1.0.4, upgrade to the latest 1.0.x chart, or set `mcp.image.repository: enterprise/mcp/server`. Seqera does not patch charts.
+
+## Configure the agent backend
+
+The agent backend needs MySQL, Redis or Valkey, inference provider access, MCP connectivity, and a stable token encryption key.
+
+:::note
+The agent backend runs as a single replica and is upgraded with the `Recreate` strategy, which stops the running pod before the new one starts. The chart does not let you override `replicas` or `strategy`. Expect a brief Co-Scientist interruption during upgrades.
+:::
+
+In this example, a Kubernetes secret named `seqera-ai-secrets` stores the sensitive values, such as the database and Redis passwords and the token encryption key. Create this secret before you install the chart, either manually or with an automated secret extraction tool such as External Secrets. This guide does not cover secret extraction tools.
+
+Declare which provider serves each capability using `inference.provider`, `embeddings.provider`, and `sandbox.provider`. `inference.provider` is required; `embeddings.provider` and `sandbox.provider` are optional. Leave them empty to disable those features. The `bedrock` block holds credentials and configuration shared across all Bedrock-backed services, with per-service overrides available when needed.
+
+The following example shows a full Bedrock configuration with embeddings and AgentCore sandbox enabled. For Anthropic inference, see the note after the example.
+
+```yaml
+agent-backend:
+  enabled: true
+
+  # -- Database
+  database:
+    host: mysql.example.com
+    name: agent_backend
+    username: agent_backend
+    existingSecretName: seqera-ai-secrets
+    existingSecretKey: AGENT_BACKEND_DB_PASSWORD
+    # Enable when your database requires encrypted connections
+    enableTls: false
+    tlsCaVerify: true
+    # Path to a CA certificate file mounted into the pod
+    sslCa: ""
+
+  # -- Redis or Valkey
+  redis:
+    host: redis.example.com
+    port: 6379
+    # Database index. Set a different index to Platform's when both share one instance.
+    database: 0
+    existingSecretName: seqera-ai-secrets
+    existingSecretKey: AGENT_BACKEND_REDIS_PASSWORD
+    # Enable when your Redis or Valkey instance requires TLS (rediss://)
+    enableTls: false
+
+  tokenEncryptionKeyExistingSecretName: seqera-ai-secrets
+
+  # -- Provider routing: declare which provider serves each capability
+  inference:
+    provider: bedrock   # required; "bedrock" or "anthropic"
+
+  embeddings:
+    provider: bedrock   # optional; omit to disable documentation search
+
+  sandbox:
+    provider: bedrock   # optional; omit to disable AgentCore sandbox sessions
+
+  # -- Bedrock configuration. See Bedrock setup for the IAM policies these roles require.
+  bedrock:
+    # Default credentials applied to all Bedrock-backed services unless overridden per-service.
+    # Use this when inference, embeddings, and sandbox all share the same role and region.
+    default:
+      assumeRoleArn: arn:aws:iam::<account-id>:role/<bedrock-access-role>
+      region: <region>
+
+    inference:
+      # Anthropic inference profile ARN on Bedrock.
+      anthropicModel: arn:aws:bedrock:<region>:<account-id>:inference-profile/<profile-name>
+
+    embeddings:
+      model: amazon.titan-embed-text-v2:0
+
+    sandbox:
+      # AgentCore runtime ARN — required when sandbox.provider is "bedrock".
+      runtimeArn: arn:aws:bedrock-agentcore:<region>:<account-id>:runtime/<runtime-id>
+```
+
+Use `bedrock.default.assumeRoleArn` when the pod must assume a role to access Bedrock services. Leave it empty when the pod already has direct AWS credentials for the target account. Per-service overrides (`bedrock.inference.assumeRoleArn`, `bedrock.embeddings.assumeRoleArn`, `bedrock.sandbox.assumeRoleArn`) are available when different roles are required per capability.
+
+To use direct Anthropic API access instead of Bedrock for inference, replace the `inference` and `bedrock.inference` blocks in the previous example with the following, and add the `anthropic` block. From `platform` chart 1.0.5, which ships `agent-backend` subchart 1.6.0, you can configure the Anthropic inference model directly in the chart. You can still enable Bedrock embeddings alongside Anthropic inference:
+
+```yaml
+  inference:
+    provider: anthropic
+
+  anthropic:
+    existingSecretName: seqera-ai-secrets
+    # Platform chart 1.0.5 (shipping agent-backend subchart 1.6.0) provides the option to configure the Anthropic inference model directly.
+    # Alternatively, you can configure the Anthropic inference model by setting the `ANTHROPIC_MODEL` environment variable on the agent backend.
+    inference:
+      model: claude-opus-4-8
+
+  embeddings:
+    provider: bedrock
+
+  bedrock:
+    default:
+      assumeRoleArn: arn:aws:iam::<account-id>:role/<bedrock-access-role>
+      region: <region>
+    embeddings:
+      model: amazon.titan-embed-text-v2:0
+```
+
+Use direct Anthropic API access only when your organization has approved Anthropic-hosted Claude models.
+
+### Service account
+
+The chart creates a Kubernetes ServiceAccount for the agent backend by default. To use an existing ServiceAccount, for example one bound to an IAM role through EKS Pod Identity or IRSA, set:
+
+```yaml
+agent-backend:
+  serviceAccount:
+    create: false
+    name: <existing-service-account>
+```
+
+### Session retention and limits
+
+The agent backend deletes CLI sessions after 14 days and Co-Scientist panel conversations after 180 days, and caps sessions at 100 per user and 500 per workspace. To change these defaults, set environment variables on the agent backend with `extraEnvVars`:
+
+```yaml
+agent-backend:
+  extraEnvVars:
+    - name: CLI_SESSION_RETENTION_DAYS
+      value: "14"
+    - name: WEB_SESSION_RETENTION_DAYS
+      value: "180"
+    - name: MAX_SESSIONS_PER_USER
+      value: "100"
+    - name: MAX_SESSIONS_PER_WORKSPACE
+      value: "500"
+```
+
+### GitHub access
+
+Co-Scientist connects to GitHub through a GitHub App that you register for your installation. When GitHub access is configured, each user connects their own GitHub account from the Co-Scientist panel the first time Co-Scientist needs access to a private repository. Co-Scientist can then clone repositories, create branches, push commits, and open pull requests on the user's behalf. GitHub access is off by default. Until you configure it, Co-Scientist cannot connect to users' GitHub accounts.
+
+This GitHub App is separate from the [GitHub App credentials](../git/overview.md#github-app) that Seqera Platform uses for pipelines and that Co-Scientist [agents](../co-scientist/agents.md#access-to-private-git-repositories) use. Those credentials do not give the Co-Scientist panel access to GitHub.
+
+GitHub access requires:
+
+- A sandbox provider, set with `sandbox.provider`. Co-Scientist runs Git operations in the sandbox.
+- Outbound HTTPS access from the agent backend to `github.com` and `api.github.com`. Co-Scientist supports GitHub.com only, not GitHub Enterprise Server.
+
+To configure GitHub access:
+
+1.  On GitHub, [register a GitHub App](https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app) for your organization with these settings:
+    - **Callback URL**: `https://<agent-backend-domain>/v1/github/oauth/callback`, for example `https://ai-api.platform.example.com/v1/github/oauth/callback`.
+    - **Webhook**: Deselect **Active**. Co-Scientist does not use webhook events.
+    - **Permissions**: Under repository permissions, set **Contents** and **Pull requests** to **Read and write**, and **Metadata** to **Read-only**. Under account permissions, set **Email addresses** to **Read-only**.
+    - **Where can this GitHub App be installed?**: Select **Any account** if users need repositories in more than one GitHub organization.
+1.  On the app's settings page, copy the client ID and generate a client secret. Note the app slug, which is the last part of the app's public URL: `https://github.com/apps/<app-slug>`.
+1.  Add the client secret to your Kubernetes secret, for example `seqera-ai-secrets`, under the key `GITHUB_APP_CLIENT_SECRET`.
+1.  Set the GitHub App variables on the agent backend with `extraEnvVars`. If you already set `extraEnvVars`, for example for [session retention](#session-retention-and-limits), add these entries to the same list:
+
+    ```yaml
+    agent-backend:
+      extraEnvVars:
+        - name: GITHUB_APP_GITHUB_CONNECT_TOOLS_ENABLED
+          value: "true"
+        - name: GITHUB_APP_CLIENT_ID
+          value: "<client-id>"
+        - name: GITHUB_APP_SLUG
+          value: "<app-slug>"
+        - name: GITHUB_APP_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: seqera-ai-secrets
+              key: GITHUB_APP_CLIENT_SECRET
+    ```
+
+1.  Apply the change with `helm upgrade`. See [Install or upgrade](#install-or-upgrade).
+1.  Install the app on each GitHub organization whose repositories users need, at `https://github.com/apps/<app-slug>/installations/new`. An organization admin must install the app. If a user asks Co-Scientist to work with a repository in an organization where the app is not installed, Co-Scientist tells the user and returns this link.
+
+## Configure Seqera Platform
+
+When the `agent-backend` subchart is enabled, the Platform Helm chart sets the Platform configuration the Co-Scientist panel needs:
+
+- `TOWER_AGENT_BACKEND_URL`, set to `https://<global.agentBackendDomain>`.
+- `TOWER_AUTH_COOKIE_DOMAIN`, set to `.<global.platformExternalDomain>`, so the panel can authenticate to the agent backend with the Platform session cookie.
+
+If you deploy the Co-Scientist charts separately from Platform, set both values on the Platform backend yourself.
+
+Once `TOWER_AGENT_BACKEND_URL` is set, Seqera Platform enables the Co-Scientist panel for every organization in the installation. Before you upgrade, review whether this is appropriate. The panel sends page context, including screenshots of the page the user is viewing, to the agent backend and your inference provider. To limit the panel to specific organizations, set `TOWER_AI_CHAT_ALLOWED_ORGANIZATIONS` to a comma-separated list of organization IDs.
+
+Users also need the `chat:execute` permission. The predefined Owner, Admin, Maintain, Launch, Connect, and Project workspace roles include it. The View role and custom roles do not include it unless you add it. See [Custom roles](../orgs-and-teams/custom-roles.md#ai).
+
+[Projects](../co-scientist/projects.md) are enabled by default in every organization workspace and do not depend on the agent backend. To restrict them, set `TOWER_SCIENTIST_VIEW_ALLOWED_WORKSPACES` to a comma-separated list of workspace IDs.
+
+For values and full descriptions, see [Co-Scientist configuration](./configuration/overview.mdx#co-scientist).
+
+## Install or upgrade
+
+Run Helm with your Platform values and Co-Scientist overrides:
+
+```bash
+helm upgrade --install seqera oci://public.cr.seqera.io/charts/platform \
+  --namespace seqera \
+  --values values.yaml
+```
+
+After installation, verify the pods are ready:
+
+```bash
+kubectl get pods -n seqera -l app.kubernetes.io/component=mcp
+kubectl get pods -n seqera -l app.kubernetes.io/component=agent-backend
+```
+
+## Verify the installation
+
+Check the public endpoints:
+
+```bash
+curl -i https://ai-api.platform.example.com/health
+curl -i https://mcp.platform.example.com/health
+curl -i https://mcp.platform.example.com/service-info
+```
+
+The agent backend `/health` endpoint returns `200 OK` when the service starts and required dependencies are reachable. The agent backend also exposes `/live` and `/ready` for Kubernetes probes. The MCP server exposes `/health` for reachability and `/service-info` for server and protocol information.
+
+Sign in to Seqera Platform, open an organization workspace, and select **Co-Scientist** in the navigation bar. If the panel opens and answers a question, Platform, the agent backend, and the inference provider are connected. If you configured sandboxing, ask a question that triggers a sandbox execution, for example `What's the accurate square root of 98723516236?`. The model should write a small Python script that runs in the sandbox.
+
+### Run deployment diagnostics
+
+To test every subsystem at once, run the `/doctor` skill from the Co-Scientist panel or from a CLI session. It checks the agent's tools, MCP and Platform connectivity, and local (CLI) or sandbox (panel) code execution, and reports PASS, FAIL, or SKIP per subsystem with remediation steps.
+
+For a scriptable check, enable the agent backend service-info endpoint. It is disabled by default because it exposes internal dependency topology:
+
+```yaml
+agent-backend:
+  extraEnvVars:
+    - name: SERVICE_INFO_ENABLED
+      value: "true"
+```
+
+Then query it:
+
+```bash
+# Connectivity for the database, Redis, Platform, MCP, inference, and sandbox configuration
+curl -s https://ai-api.platform.example.com/v1/service-info
+
+# Live inference and sandbox checks (requires a Platform access token)
+curl -s -H "Authorization: Bearer <PLATFORM_ACCESS_TOKEN>" \
+  "https://ai-api.platform.example.com/v1/service-info?deep=1"
+```
+
+## Connect the Seqera CLI to Co-Scientist
+
+Install the CLI from the official [`seqera` npm package](https://www.npmjs.com/package/seqera):
+
+```bash
+npm install -g seqera
+```
+
+Point the CLI at your Enterprise deployment:
+
+```bash
+export SEQERA_AUTH_DOMAIN=https://platform.example.com/api
+export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com
+seqera ai
+```
+
+Alternatively, distribute a `~/.config/seqera-ai/config.json` file to your users with the same values:
+
+```json
+{
+  "authDomain": "https://platform.example.com/api",
+  "backendUrl": "https://ai-api.platform.example.com"
+}
+```
+
+Set `SEQERA_AUTH_CLI_CLIENT_ID` only if your deployment uses a CLI OAuth client ID other than the default `seqera_ai_cli`.
+
+For automated environments, use a Platform access token instead of browser login. Current CLI builds still require `SEQERA_AUTH_DOMAIN` so the CLI can target the correct Enterprise Platform authority.
+
+```bash
+export SEQERA_AUTH_DOMAIN=https://platform.example.com/api
+export TOWER_ACCESS_TOKEN=<PLATFORM_ACCESS_TOKEN>
+export SEQERA_AI_BACKEND_URL=https://ai-api.platform.example.com
+seqera ai
+```
+
+The CLI supports `SEQERA_ACCESS_TOKEN` and `TOWER_ACCESS_TOKEN` for token-based authentication. Run `seqera info` to confirm which Platform and agent backend the CLI uses. See [Installation](../co-scientist/installation.mdx) for the user-facing steps.
+
+## Usage and cost
+
+Usage and inference costs are managed by your organization through the configured inference provider, such as AWS Bedrock or Anthropic API.
+
+## Security considerations
+
+- Use HTTPS for every exposed hostname.
+- Store all sensitive values in Kubernetes Secrets.
+- Keep the agent backend Fernet token encryption key stable across upgrades. Changing it prevents the backend from decrypting existing encrypted values.
+- For user-scoped operations, MCP uses the signed-in user's Platform token to call Platform APIs. Do not configure a shared administrator token for these calls.
+- Use a separate MySQL database and user for the agent backend, even if they are hosted on the same MySQL instance as Platform.
+- Enable Redis or Valkey TLS (`redis.enableTls`) and MySQL TLS (`database.enableTls`, with `database.sslCa` for a private CA) when your managed services require encrypted connections.
+- Leave the service-info endpoint disabled unless you need it, and restrict access to it at your ingress.
+
+## Learn more
+
+- [Co-Scientist](../co-scientist/index.md): Co-Scientist documentation.
+- [Co-Scientist Helm example](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/examples/seqera-co-scientist): Example Platform values for the Co-Scientist subcharts.
+- [Agent backend chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/agent-backend): Full agent backend values reference.
+- [MCP chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/mcp): Full MCP values reference.

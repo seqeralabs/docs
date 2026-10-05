@@ -2,6 +2,7 @@
 title: "Google Cloud"
 description: "Instructions to set up an Google Cloud CE in Seqera Platform"
 date created: "2025-07-15"
+last updated: "2026-09-17"
 tags: [cloud, vm, google, compute environments]
 ---
 
@@ -87,6 +88,8 @@ For the ports and directions to configure on your firewall, see [Firewall config
 
 To create and launch pipelines or Studio sessions with this compute environment type, you must attach Seqera credentials for the cloud provider. Some permissions are mandatory for the compute environment to be created and function correctly; others are used to pre-fill Platform options, which are optional.
 
+This compute environment supports workload identity federation, which authenticates Seqera Platform to Google Cloud with short-lived OIDC tokens instead of a long-lived service account key. Before you create the credential, configure the workload identity pool, provider, attribute mapping, and service account impersonation in Google Cloud. See [Workload identity federation][wif] for the setup steps, the subject model, and cloud audit attribution.
+
 ### Required permissions
 
 #### Service account permissions​
@@ -112,3 +115,5 @@ If your Google Cloud project does not require access restrictions on any of its 
 - **Image**: The image defining the operating system and pre-installed software for the VM. Currently only [Ubuntu LTS](https://cloud.google.com/compute/docs/images/os-details#ubuntu_lts) Google public image project images are available and supported. For GPU-enabled instances, a Deep Learning VM base image with CUDA pre-installed is automatically selected (See [Google Deep Learning VM Images](https://cloud.google.com/deep-learning-vm/docs/images#base_versions) for more details). Optimized, Seqera-owned custom images will be available in a future release.
 - **Boot disk size**: The size of the boot disk for the Compute Engine instance. A standard persistent disk (`pd-standard`) is used. If undefined, a default 50 GB volume will be used.
 - **Zone**: The [zone](https://cloud.google.com/compute/docs/regions-zones) within the selected region where the VM will be provisioned (defaults to the first zone in the alphabetical list).
+
+[wif]: ../credentials/workload_identity

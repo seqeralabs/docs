@@ -24,21 +24,21 @@ Co-Scientist helps you develop, debug, and understand Nextflow pipelines with AI
 
 ### Understand your pipeline structure
 
-```
+```text
 > Show me the structure of main.nf
 ```
 
-```
+```text
 > What processes are defined in this pipeline?
 ```
 
-```
+```text
 > /nf-pipeline-structure
 ```
 
 ### Generate configuration files
 
-```
+```text
 > /nextflow-config
 ```
 
@@ -48,29 +48,29 @@ Co-Scientist helps you develop, debug, and understand Nextflow pipelines with AI
 
 ### Debug your pipeline
 
-```
-> /debug
+```text
+> /debug-local-run
 ```
 
-```
+```text
 > Why is my pipeline failing?
 ```
 
 ### Review local execution history
 
-```
+```text
 > /nf-run-history
 ```
 
 Trace output provenance with data lineage:
 
-```
+```text
 > /nf-data-lineage
 ```
 
 ### Generate schema files
 
-```
+```text
 > /nextflow-schema
 ```
 
@@ -80,7 +80,7 @@ Trace output provenance with data lineage:
 
 ### Convert scripts to Nextflow
 
-```
+```text
 > /convert-python-script
 ```
 
@@ -90,13 +90,13 @@ Trace output provenance with data lineage:
 
 ### Fix strict syntax
 
-```
-> /fix-strict-syntax
+```text
+> /nextflow-26-syntax
 ```
 
 ### Migrate old schema definitions
 
-```
+```text
 > /nf-schema-migration
 ```
 
@@ -110,30 +110,30 @@ Use Seqera Platform capabilities to run and manage workflows at scale with AI as
 
 ### List your workflows
 
-```
+```text
 > List my recent workflows
 ```
 
 ### Launch a pipeline
 
-```
+```text
 > Launch the nf-core/rnaseq pipeline with the test profile
 ```
 
 ### Debug failed runs
 
-```
+```text
 > Why did my last workflow fail?
 ```
 
-```
+```text
 > Get the logs for the failed task in my last run
 ```
 
 ### Debug your most recent run
 
-```
-> /debug-last-run-on-seqera
+```text
+> /debug-seqera-failed-run
 ```
 
 ## Build containers with Wave
@@ -146,19 +146,19 @@ Co-Scientist can create containerized environments using Wave, without the need 
 
 ### Create a container with conda packages
 
-```
+```text
 > Create a container with samtools and bwa from bioconda
 ```
 
 ### Create a container with pip packages
 
-```
+```text
 > Build a container with pandas, numpy, and scikit-learn
 ```
 
 ### Get a container for a specific tool
 
-```
+```text
 > I need a container with FastQC version 0.12.1
 ```
 
@@ -172,31 +172,31 @@ Co-Scientist helps you manage data through Platform data links and access refere
 
 ### Browse data links
 
-```
+```text
 > List my data links
 ```
 
-```
+```text
 > Show me the contents of my S3 data link
 ```
 
 ### Download and upload files
 
-```
+```text
 > Generate a download URL for results/final_report.html
 ```
 
-```
+```text
 > Upload my local results to the data link
 ```
 
 ### Access reference data
 
-```
+```text
 > Find the human reference genome GRCh38
 ```
 
-```
+```text
 > Search for RNA-Seq test data
 ```
 
@@ -206,23 +206,23 @@ Co-Scientist provides access to over 1,000 nf-core modules for common bioinforma
 
 ### Search for modules
 
-```
+```text
 > Find nf-core modules for sequence alignment
 ```
 
-```
+```text
 > What modules are available for variant calling?
 ```
 
 ### Get module details
 
-```
+```text
 > Show me how to use the nf-core/bwa/mem module
 ```
 
 ### Run a module
 
-```
+```text
 > Run FastQC on my FASTQ files
 ```
 
@@ -243,11 +243,11 @@ seqera ai
 
 ### Ask for help with local tasks
 
-```
+```text
 > Show me the structure of main.nf
 ```
 
-```
+```text
 > Add a new process to handle quality control
 ```
 
@@ -263,3 +263,4 @@ Local file operations are controlled by [approval modes](./command-approval.md#a
 - [Command approval](./command-approval.md): Control which commands run automatically
 - [Code intelligence](./nextflow-lsp.md): Language-server support for Nextflow, Python, and R
 - [Projects](./projects.md): Organize workspace resources into projects using Platform labels
+- [Troubleshooting](../troubleshooting_and_faqs/coscientist_troubleshooting.md): Troubleshoot common errors

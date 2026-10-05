@@ -1,0 +1,54 @@
+---
+-
+  Environment variable:            '`TOWER_CRYPTO_SECRETKEY`'
+  Description: >
+    The secret key used to encrypt credentials and secrets (**required**).
+  Value:                'Random string of alphanumeric characters.'
+-
+  Environment variable:            '`TOWER_OIDC_PEM_PATH`'
+  Description: >
+    The file path to a PEM certificate used to sign tokens for Seqera Platform's built-in OIDC provider.
+    Setting it turns on the OIDC provider. When it is unset, Platform serves no JWKS endpoint, cannot verify RS256 signatures,
+    and no workload identity token exchange can complete for any cloud provider.
+    This is required for [Studios](../install-studios),
+    [workload identity federation](../../credentials/workload_identity), and
+    [Google Cloud Batch Workload Identity Federation](../../compute-envs/google-cloud-batch#credentials).
+  Value:                'Example: `/oidc.rsa.pem`'
+-
+  Environment variable:            '`TOWER_AUTH_TOKEN_SIGNING_RS256_ENABLED`'
+  Description: >
+    Sign Platform session, agent, and service tokens with RS256 against the OIDC keypair instead of HS256 against `TOWER_JWT_SECRET`,
+    so that other services can verify them against the published JWKS endpoint. Requires `TOWER_OIDC_PEM_PATH`.
+  Value:                'Default: `false`'
+-
+  Environment variable:            '`TOWER_OIDC_ACCESS_TOKEN_AUDIENCE`'
+  Description: >
+    The audience (`aud`) claim stamped on the OIDC access tokens Platform issues, and checked on incoming ones
+    when `TOWER_OIDC_AUDIENCE_ENFORCEMENT_ENABLED` is `true`. Personal access tokens are opaque and unaffected.
+  Value:                'Default: `platform`'
+-
+  Environment variable:            '`TOWER_OIDC_AUDIENCE_ENFORCEMENT_ENABLED`'
+  Description: >
+    Reject Platform-issued OIDC access tokens whose `iss` or `aud` claims do not match the current configuration.
+    When `false`, mismatches are logged but the token is accepted.
+  Value:                'Default: `false`'
+-
+  Environment variable:            '`TOWER_JWT_SECRET`'
+  Description: >
+    The secret used to generate the login JWT token (**required**).
+  Value:                'Random string of 35 characters or more.'
+-
+  Environment variable:            '`TOWER_SECRET_ROTATION_ENABLED`'
+  Description: >
+    Enable (`true`) or disable (`false`) rotation of the encryption key used to encrypt credentials and secrets in your Platform database.
+  Value:                'Default: `false`'
+-
+  Environment variable:            '`TOWER_SECRET_ROTATION_PREVIOUS_KEY`'
+  Description: >
+    Used to store the value of the key used to encrypt existing credentials and secrets (`TOWER_CRYPTO_SECRETKEY` value before rotation), to keep cryptographic features enabled while rotation is in progress. Requires `TOWER_SECRET_ROTATION_ENABLED=true`.
+  Value:                'Your existing `TOWER_CRYPTO_SECRETKEY` before rotation.'
+-
+  Environment variable:            '`TOWER_SECRET_ROTATION_CHUNK_SIZE`'
+  Description: >
+    The number of records to extract in chunks until all secrets and credentials are processed. Requires `TOWER_SECRET_ROTATION_ENABLED=true`.
+  Value:                'Default: `50`'

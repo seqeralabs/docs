@@ -391,3 +391,15 @@
   Event: '`idp_group_deleted`'
   Target: 'IdP group'
   Description: 'An IdP group was deleted.'
+-
+  Event: '`service_account_created`'
+  Target: 'Service account'
+  Description: 'A service account was created.'
+-
+  Event: '`service_account_updated`'
+  Target: 'Service account'
+  Description: 'A service account was updated.'
+-
+  Event: '`service_account_deleted`'
+  Target: 'Service account'
+  Description: 'A service account was deleted.'
