@@ -146,13 +146,24 @@
       "Resource": "*"
     },
     {
-      "Sid": "ASGEC2Operations",
+      "Sid": "VMEC2Operations",
       "Effect": "Allow",
       "Action": [
         "ec2:DescribeInstanceTypes",
+        "ec2:RunInstances",
+        "ec2:TerminateInstances",
+        "ec2:AuthorizeSecurityGroupIngress",
+        "ec2:RevokeSecurityGroupEgress",
+        "ec2:DeleteSecurityGroup"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ASGEC2Operations",
+      "Effect": "Allow",
+      "Action": [
         "ec2:CreateLaunchTemplate",
-        "ec2:DeleteLaunchTemplate",
-        "ec2:RunInstances"
+        "ec2:DeleteLaunchTemplate"
       ],
       "Resource": "*"
     },
