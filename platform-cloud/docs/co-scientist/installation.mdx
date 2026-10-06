@@ -25,10 +25,10 @@ You will need the following to get started:
 <Tabs groupId="install-method">
 <TabItem value="seqera-binaries" label="Seqera binaries" default>
 
-To install the CLI with the Platform install endpoint, run:
+To install the CLI, run:
 
 ```bash
-curl -fsSL https://ai.seqera.io/install | bash
+curl -fsSL https://ai-api.seqera.io/install | bash
 ```
 
 Then confirm the CLI is on your PATH:
@@ -63,7 +63,7 @@ seqera --version
 To install the latest pre-release, use the development channel:
 
 ```bash
-curl -fsSL https://ai.seqera.io/install | bash -s -- --channel dev
+curl -fsSL https://ai-api.seqera.io/install | bash -s -- --channel dev
 ```
 
 </TabItem>
@@ -94,7 +94,7 @@ See [Authentication](./authentication.md#point-a-development-build-at-the-hosted
 To update the CLI, run the install endpoint again. The install script updates the CLI in place:
 
 ```bash
-curl -fsSL https://ai.seqera.io/install | bash
+curl -fsSL https://ai-api.seqera.io/install | bash
 ```
 
 </TabItem>
