@@ -43,13 +43,13 @@ The rest of the per-source sections on this page describe a pipeline target.
 
 An agent target differs from a pipeline target in two ways:
 
-- **The agent receives the event.** It learns what fired the action: the bucket, object key, and whether the object was created or deleted for a bucket event; the scheduled time for a schedule; or the run, its pipeline, its state, and when it reached that state for a pipeline run event. A pipeline launch receives none of the event detail. It runs the configuration saved on the action and nothing else.
+- **The agent receives the event.** It learns what fired the action: the bucket, object key, and whether the object was created or deleted for a bucket event; the scheduled time for a schedule; or the run, its pipeline, its state, and when Seqera Platform recorded that state for a pipeline run event. A pipeline launch receives none of the event detail. It runs the configuration saved on the action and nothing else.
 - **The agent must already exist.** In the action form, you choose from the agents the workspace holds. The form does not create one. Create the agent on the workspace's **Agents** page first, or select **+** beside the picker to open the **Add agent** form in a new tab. The picker reloads its list each time you open it, so an agent you create in the other tab appears without reloading the action form.
 
 To target an agent, at the **Target** step of any of the three sources:
 
 1. Select **Launch agent**.
-1. Select the **Agent**. Only active agents are listed. If the workspace has no active agents, the picker says so. Select **+** to add one, or ask a workspace admin if you cannot create agents.
+1. Select the **Agent**. Only active agents are listed. If the workspace has no agents, or only disabled ones, the picker shows **No agents in this workspace**. Select **+** to add one, or ask a workspace admin if you cannot create agents.
 1. Select **Add**.
 
 You do not set a compute environment, pipeline, work directory, or pipeline parameters. Those fields belong to a pipeline launch, and the form hides them for an agent target. The agent acts on its own saved instructions.
@@ -58,7 +58,7 @@ If the **Target** card shows no **Launch agent** option, agents are not enabled 
 
 You can edit an agent action's name, labels, and trigger (the marker file for a bucket event action, the schedule for a scheduled action, or the watched pipeline and run state for a pipeline run event action). You cannot change which agent responds, or switch the action to a pipeline target.
 
-Disabling or deleting the agent pauses every action that targets it, with the reason `Target agent '<name>' was disabled` or `Target agent '<name>' was deleted`. Seqera Platform refuses to resume the action while the agent is inactive. Enable the agent, then resume the action. You cannot resume an action whose agent was deleted. Delete the action and create a new one.
+Disabling or deleting the agent pauses every **Active** or **Creating** action that targets it, with the reason `Target agent '<name>' was disabled` or `Target agent '<name>' was deleted`. An action that is already paused or in **Error** keeps its earlier reason. Seqera Platform refuses to resume the action while the agent is inactive. Enable the agent, then resume the action. You cannot resume an action whose agent was deleted. Delete the action and create a new one.
 
 ### GitHub webhooks
 
@@ -170,21 +170,23 @@ If a launch fails, Seqera Platform pauses the action rather than retrying on eve
 
 Seqera Platform can refuse a resume. A paused action holds no bucket notification, and another action on the same data repository can claim the same event types while it is paused. If one has, Seqera Platform refuses the resume and names the conflicting action.
 
-Deleting the data repository pauses every bucket action that uses it and removes the SNS topic and its subscription. The reason recorded on the action reads `Referenced Data Link was deleted`. Data link is the older term for what the form calls a **Data repository**.
+Deleting the data repository removes the SNS topic and its subscription, and pauses every **Active** or **Creating** bucket action that uses it. The reason recorded on the action reads `Referenced Data Link was deleted`. An action that is already paused or in **Error** keeps its earlier reason. Data link is the older term for what the form calls a **Data repository**.
 
 Seqera Platform records failed triggers, with their reason, in the action's trigger history. To retry a bucket action, fix the cause, resume the action, and upload the marker file again.
 
 #### Notification provisioning
 
-Seqera Platform provisions the bucket notification and its SNS topic after you add the action. The action shows **Creating** until provisioning completes. If provisioning fails, the action moves to **Error** with the reason `Could not set up the bucket notification. Check the data-link credentials and their permissions, then resume the action.` The most common cause is data link credentials that lack the permissions listed in the prerequisites. Correct the credentials, then resume the action to provision it again.
+Seqera Platform provisions the bucket notification and its SNS topic after you add the action. The action shows **Creating** until Amazon SNS confirms the subscription. If provisioning fails, the action moves to **Error** with the reason `Could not set up the bucket notification. Check the data-link credentials and their permissions, then resume the action.` If the confirmation fails, the reason is `Could not confirm the bucket notification. Check the data-link credentials and their permissions, then resume the action.` The most common cause is data link credentials that lack the permissions listed in the prerequisites. Correct the credentials, then resume the action to provision it again.
 
 :::note
-AWS S3 rejects overlapping notification configurations on a bucket. Seqera Platform rejects a new bucket action that would watch an overlapping prefix with the same event types as an SNS notification already on the bucket, whether another action created it or you configured it outside Seqera Platform. Use data repositories with non-overlapping folders, select different event types, or use separate buckets.
+AWS S3 rejects overlapping notification configurations on a bucket. Seqera Platform rejects a new bucket action that would watch an overlapping prefix with the same event types as an SNS notification already on the bucket, whether another action created it or you configured it outside Seqera Platform. The save checks only SNS notifications. An overlapping Amazon SQS or AWS Lambda notification passes the save, then provisioning fails and the action moves to **Error**. Use data repositories with non-overlapping folders, select different event types, or use separate buckets.
 :::
 
 #### Pipeline output in the watched folder
 
-Seqera Platform rejects a bucket event action whose pipeline writes into the location the action watches, because each run would publish output that fires the action again. When you add or edit the action, Seqera Platform works out the watched location: the data repository folder, plus any folders the marker file names before its first wildcard. It compares that location with the pipeline's output directory and **Work directory**. If either directory is inside the watched location, or contains it, the save fails with an error naming both paths. Set a different output or work directory to save the action.
+Seqera Platform rejects a bucket event action whose pipeline writes into the location the action watches, because each run would publish output that fires the action again. When you add or edit the action, Seqera Platform works out the watched location: the data repository folder, plus any folders the marker file names before its first wildcard. It compares that location with the action's **Work directory**. If the work directory is inside the watched location, or contains it, the save fails with an error naming both paths. For a marker with no wildcard, the save fails only when the work directory contains the marker file. Set a different work directory to save the action.
+
+The check does not read the `outdir` pipeline parameter, so a pipeline that publishes to an `outdir` inside the watched location passes it. Through the API, the check also covers the launch's `outputDir`, the Nextflow `-output-dir` setting, which the form does not offer.
 
 The check compares whole folder names, so a pipeline writing to `incoming-old/` does not overlap an action watching `incoming/`. It cannot see a path that the pipeline sets in its own Nextflow code, and it does not apply to an agent target. The [trigger rate limit](#trigger-rate-limit) stops those loops instead.
 
@@ -224,12 +226,16 @@ The form shows the time zone beside **Time**, and you cannot choose it. A new ac
 Seqera Platform evaluates a schedule in its own time zone. Across a daylight saving change, the local clock time holds:
 
 - When the clocks go forward and the scheduled hour is skipped, the action does not fire that day.
-- When the clocks go back and the scheduled hour occurs twice, the action fires on the first occurrence only.
-- An hourly schedule fires 23 times on the day the clocks go forward and 25 times on the day they go back, because each is a different local time.
+- When the clocks go back and the scheduled hour occurs twice, a daily or weekly schedule, such as a daily run at 02:30, fires on the first occurrence only.
+- An hourly schedule fires 23 times on the day the clocks go forward and 25 times on the day they go back, because the skipped hour does not fire, and the repeated hour fires twice.
 
 #### Failed ticks
 
 A failed launch does not stop a scheduled action. Seqera Platform records the trigger with its reason, arms the next tick, and keeps the action active. A transient failure costs one run rather than the whole schedule. A bucket event action behaves differently because its events would otherwise keep arriving and failing.
+
+A scheduled action with an agent target pauses instead when the GitHub App credential bound to its agent is deleted or invalid. The reason says how to fix the agent.
+
+If Seqera Platform cannot schedule the next tick, the action moves to **Error** with the reason `Could not schedule the next run. Check the cron expression and time zone, then resume the action.`
 
 The [trigger rate limit](#trigger-rate-limit) does pause a scheduled action. The default limit is 20 triggers per hour, and a schedule that ticks more often than that is paused, however deliberate it is. Every preset stays inside the limit, but a custom expression can reach it.
 
@@ -319,7 +325,7 @@ Only the event is refused. The action stays active and still fires on a run some
 
 Deleting the watched pipeline or the target pipeline pauses every action that names it, with the reason recorded on the action: `Watched pipeline '<name>' was deleted` or `Target pipeline '<name>' was deleted`. An action already paused for another reason keeps its own reason.
 
-Edit the action onto a live pipeline to lift the pause. An action that someone paused by hand stays paused whatever you edit. This does not apply to bucket actions. After the edit, a bucket action stays paused until someone resumes it. Only a resume attaches the bucket notification again.
+Edit the action onto a live pipeline to lift the pause. This does not apply to a bucket event action, which stays paused after the edit until someone resumes it, because only a resume attaches the bucket notification again. An action that someone paused by hand stays paused whatever you edit.
 
 Unlike the launch repository, you can change the trigger after you save the action. Moving an action onto a different pipeline or a different run state keeps its trigger history.
 
@@ -367,12 +373,13 @@ Select **Pause** or **Resume** on the **Actions** list or in the header of the a
 Seqera Platform also pauses an action itself, and records why. On the **Actions** list, hover over the action's status to see the reason. The action's page shows it above the tabs. An action pauses when:
 
 - Its event source is no longer available in the workspace.
+- Its target is an agent and agents are turned off for the organization. The action pauses at its next event, with the reason `Agent actions are not enabled for this organization`.
 - The pipeline, data repository, or agent it names is deleted, or its agent is disabled. See [Deleted pipelines](#deleted-pipelines) and [Agent targets](#agent-targets).
 - The GitHub App credential bound to its agent is deleted or invalid. The reason says how to fix the agent.
 - The user who owns it is deleted or disabled. This applies to pipeline run event actions and to actions that target an agent.
 - A bucket event, schedule, or pipeline run event action reaches the [trigger rate limit](#trigger-rate-limit). See [Paused actions](#paused-actions).
 
-Seqera Platform refuses a resume that cannot succeed, with an error that says what to fix.
+Seqera Platform refuses a resume that cannot succeed, with an error that says what to fix. Resume does not check for an inactive owner or an invalid GitHub App credential. If the action was paused for either reason, the resume succeeds and the action pauses again at its next event.
 
 A paused action ignores the events that arrive while it is paused, and resuming does not replay them. A resumed bucket event action fires on the next marker file that arrives, a scheduled action on its next tick, and a pipeline run event action on the next run that matches.
 
