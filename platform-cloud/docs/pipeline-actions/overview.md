@@ -9,7 +9,7 @@ Actions launch a pipeline, or hand the event to an AI agent, in response to an e
 
 - **GitHub webhook**: a native webhook that fires on a change to the pipeline repository.
 - **Tower launch hook**: an endpoint URL that you call programmatically.
-- **Bucket event**: a marker file arriving in cloud storage.
+- **Bucket event**: a marker file arriving in, or removed from, cloud storage.
 - **Schedule**: a recurring cadence.
 - **Pipeline run event**: a run reaching a terminal state.
 
