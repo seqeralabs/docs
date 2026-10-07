@@ -41,17 +41,6 @@ The edit page also shows the **Workspace access** and **Permissions** sections. 
 
 Renaming a service account does not interrupt anything using it. Its identity is independent of the name you give it.
 
-## Delete a service account
-
-There is no disable or suspend option. To stop a service account, delete it or remove it from every workspace. See [Remove workspace access](./assign-service-accounts#remove-workspace-access).
-
-1. From the **Service accounts** tab, select the service account.
-1. Select **Delete**.
-1. If the service account has workspace access, the confirmation dialog lists its workspaces. Review them. Anything that relies on this service account stops working as soon as you confirm.
-1. Select **Delete** to confirm.
-
-You cannot recover a deleted service account. Audit records of its past actions remain and still name it.
-
 ## Where service accounts appear
 
 The organization **Members** list does **not** show service accounts. It lists people only. Service accounts appear:
