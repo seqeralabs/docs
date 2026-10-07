@@ -47,6 +47,8 @@ You can view the list of all **Members** from **Access Control > Members** in th
 
 Seqera provides access control for members of an organization by classifying them either as an **Owner** or a **Member**. Each organization can have multiple owners and members.
 
+A **service account** is a non-human identity used by agents. Service accounts belong to the organization but are not listed here. They have their own **Service accounts** tab, in the same way collaborators do, and hold a fixed organization role that you cannot change. See [Create and manage service accounts](./create-service-accounts).
+
 ### Add a member
 
 To add a new member to an organization:
