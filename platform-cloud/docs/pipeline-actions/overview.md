@@ -5,7 +5,7 @@ date: "24 Apr 2023"
 tags: [actions, webhooks, automation]
 ---
 
-Actions launch a pipeline, or hand the event to an AI agent, in response to an event, such as a push to the pipeline repository, a file arriving in cloud storage, a clock reaching a time, or a pipeline run finishing. Seqera Platform supports five event sources:
+Actions launch a pipeline, or hand the event to an AI agent, in response to an event, such as a push to the pipeline repository, a file arriving in cloud storage, a file being removed in cloud storage, a clock reaching a time, or a pipeline run finishing. Seqera Platform supports five event sources:
 
 - **GitHub webhook**: a native webhook that fires on a change to the pipeline repository.
 - **Tower launch hook**: an endpoint URL that you call programmatically.
