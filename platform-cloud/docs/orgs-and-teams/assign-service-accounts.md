@@ -61,8 +61,6 @@ Service accounts take workspace roles directly. Platform rejects adding one to a
 
 The service account immediately loses its role in that workspace and can no longer act there. It remains in the organization, and its access to other workspaces is unaffected. You can re-add it to this workspace later, because removing it deletes its participation rather than the account.
 
-Removing it also disables the agents bound to the service account in that workspace, and pauses the actions that trigger those agents. Re-adding the service account does not re-enable them. You must enable each agent again.
-
 :::caution
 Removing workspace access withdraws the service account's authorization in that workspace. Its requests there start failing. Removing access does not cancel work that is already running. That work continues, failing as it goes, until it finishes or you stop it where it runs.
 :::
