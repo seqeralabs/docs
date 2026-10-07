@@ -115,8 +115,7 @@ If **Bucket event** is missing from the **Event source** drop-down, bucket event
 You need the following:
 
 - An AWS S3 data link in the workspace, with credentials attached. Actions cannot watch auto-discovered cloud data links. Create an explicit data link instead.
-- Data link credentials with the `s3:GetBucketNotificationConfiguration`, `s3:PutBucketNotificationConfiguration`, `sns:CreateTopic`, `sns:Subscribe`, `sns:SetTopicAttributes`, and `sns:DeleteTopic` permissions, in addition to the permissions the data link needs to list and read the bucket. Seqera Platform uses them to provision the bucket notification and its SNS topic when you create the action. It removes the notification when the action is paused, and deletes the topic when you delete the action or its data repository.
-
+- Data link credentials with the `s3:GetBucketNotification`, `s3:PutBucketNotification`, `sns:CreateTopic`, `sns:Subscribe`, `sns:SetTopicAttributes`, and `sns:DeleteTopic` permissions, in addition to the permissions the data link needs to list and read the bucket. Seqera Platform uses them to provision the bucket notification and its SNS topic when you create the action. It removes the notification when the action is paused, and deletes the topic when you delete the action or its data repository.
 :::
 
 To create a new action, select the **Actions** tab and select **Add action**.
@@ -320,7 +319,7 @@ Only the event is refused. The action stays active and still fires on a run some
 
 Deleting the watched pipeline or the target pipeline pauses every action that names it, with the reason recorded on the action: `Watched pipeline '<name>' was deleted` or `Target pipeline '<name>' was deleted`. An action already paused for another reason keeps its own reason.
 
-Edit the action onto a live pipeline to lift the pause. An action that someone paused by hand stays paused whatever you edit.
+Edit the action onto a live pipeline to lift the pause. An action that someone paused by hand stays paused whatever you edit. This does not apply to bucket actions. After the edit, a bucket action stays paused until someone resumes it. Only a resume attaches the bucket notification again.
 
 Unlike the launch repository, you can change the trigger after you save the action. Moving an action onto a different pipeline or a different run state keeps its trigger history.
 
@@ -371,8 +370,7 @@ Seqera Platform also pauses an action itself, and records why. On the **Actions*
 - The pipeline, data repository, or agent it names is deleted, or its agent is disabled. See [Deleted pipelines](#deleted-pipelines) and [Agent targets](#agent-targets).
 - The GitHub App credential bound to its agent is deleted or invalid. The reason says how to fix the agent.
 - The user who owns it is deleted or disabled. This applies to pipeline run event actions and to actions that target an agent.
-- A bucket event launch fails. See [Paused actions](#paused-actions).
-- It reaches the [trigger rate limit](#trigger-rate-limit).
+- A bucket event, schedule, or pipeline run event action reaches the [trigger rate limit](#trigger-rate-limit). See [Paused actions](#paused-actions).
 
 Seqera Platform refuses a resume that cannot succeed, with an error that says what to fix.
 
