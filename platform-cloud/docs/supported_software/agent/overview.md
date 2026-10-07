@@ -8,6 +8,10 @@ tags: [agent]
 
 Tower Agent connects Seqera Platform to high-performance computing (HPC) clusters that do not accept inbound SSH connections.
 
+:::note
+Tower Agent is the HPC connector described on this page. It is unrelated to the AI agents that run work in Seqera Platform. Those authenticate with a token Platform issues for each run, not a personal access token, and act as a [service account](../../orgs-and-teams/create-service-accounts) when one is bound to the agent.
+:::
+
 ## When to use the agent
 
 Use Tower Agent if your HPC cluster has any of these constraints:
@@ -16,7 +20,7 @@ Use Tower Agent if your HPC cluster has any of these constraints:
 - **Strict inbound firewall rules.** Security teams allow outbound traffic but block unsolicited inbound connections, including SSH from third parties.
 - **Multi-factor authentication.** Login requires a hardware token or TOTP. Automated SSH from an external service is impractical.
 - **Air-gapped or regulated environments.** Clinical, pharmaceutical, and regulated research clusters are often isolated for compliance.
-- **No shared service accounts.** Some institutions require every job to run under an individual user identity rather than a shared account.
+- **No shared cluster accounts.** Some institutions require every job to run under an individual user identity rather than a shared account.
 
 If your cluster accepts inbound SSH from Seqera Platform, the standard SSH-based or managed-identity compute environment is simpler to operate (no persistent process to manage). Use Tower Agent when SSH is not an option.
 
@@ -41,7 +45,7 @@ flowchart RL
 
 This approach has three properties:
 
-- **Jobs run as you.** The agent submits to the scheduler as the Linux user who launched it. Job accounting, quotas, and audit logs reflect the correct identity, with no shared service account.
+- **Jobs run as you.** The agent submits to the scheduler as the Linux user who launched it. Job accounting, quotas, and audit logs reflect the correct identity, with no shared cluster account.
 - **No new firewall rules required.** The cluster only needs outbound HTTPS, the same traffic any browser already makes.
 - **Credentials stay on the cluster.** SSH keys, Kerberos tickets, and scheduler credentials never leave the cluster. Seqera does not authenticate to your HPC. The agent authenticates locally.
 
