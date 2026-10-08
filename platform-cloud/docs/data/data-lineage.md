@@ -57,7 +57,7 @@ To start collecting data lineage for all pipeline runs in your workspace:
 4. Once set and enabled, all pipeline runs in the workspace generate data lineage. See [Lineage][workspace-lineage] for more information about the settings.
 
 :::danger
-Updating the lineage settings after pipelines have generated lineage data will result in historical data loss. The lineage index is tied to the lineage storage bucket and path. Changing it makes existing records inaccessible. To avoid data loss when updating the storage location, first copy all existing lineage data to the new bucket and path (for example, `aws s3 cp --recursive s3://old-bucket/path s3://new-bucket/path`), then update the workspace setting.
+Updating the lineage settings after pipelines have generated lineage data will result in historical data loss. The lineage index is tied to the lineage storage bucket. Changing it makes existing records inaccessible. To avoid data loss when updating the storage location, first copy all existing lineage data to the root of the new bucket (for example, `aws s3 sync s3://old-lineage-bucket s3://new-lineage-bucket`), then update the workspace setting.
 :::
 
 When launching a pipeline in a data-lineage enabled workspace, the **Enable lineage** toggle in the pipeline **Run setup** reflects the **Enable lineage by default** workspace setting. Turn it off to _explicitly exclude_ data lineage for the pipeline run.
@@ -107,7 +107,13 @@ In **Manual** mode, Platform makes no control-plane calls other than confirming 
 
 ### Configure lineage manually
 
-In **Manual** mode you own the bucket, the topic, and the subscription. Before saving the workspace settings:
+In **Manual** mode you own the bucket, the topic, and the subscription.
+
+:::warning
+Lineage records are always stored at the root of the bucket. In **Bucket name**, enter only the bucket name (for example, `my-lineage-bucket`), without `s3://` or a path. Sub-paths such as `my-lineage-bucket/team-a` are not supported: the settings save without error, but Platform discards every event from the bucket and no lineage is recorded for your runs. To keep lineage data separate per workspace, use a separate bucket and SNS topic for each workspace.
+:::
+
+Before saving the workspace settings:
 
 1. Create the S3 bucket and the SNS topic.
 1. Attach a topic access policy that allows the bucket to publish to the topic:
@@ -132,7 +138,7 @@ In **Manual** mode you own the bucket, the topic, and the subscription. Before s
     }
     ```
 
-1. Configure a bucket notification rule that sends `s3:ObjectCreated:*` events for the `.data.json` suffix to the topic:
+1. Configure a bucket notification rule that sends `s3:ObjectCreated:*` events for the `.data.json` suffix to the topic. Lineage records are written at the bucket root, so don't add a `prefix` filter:
 
     ```json
     {
@@ -153,7 +159,7 @@ In **Manual** mode you own the bucket, the topic, and the subscription. Before s
     }
     ```
 
-1. Grant the compute environment's IAM role read/write access to the bucket. See [Manual AWS Batch configuration](../enterprise/advanced-topics/manual-aws-batch-setup#create-an-ec2-instance-role).
+1. Grant the compute environment's IAM role read/write access to the bucket. Grant access to the whole bucket (`arn:aws:s3:::<your-lineage-bucket>` and `arn:aws:s3:::<your-lineage-bucket>/*`), not to a prefix within it, and don't restrict `s3:ListBucket` with an `s3:prefix` condition. Nextflow checks that the bucket root exists before it writes lineage records, and a prefix-scoped grant can make the run fail with `Creating a bucket is not supported`. See [Manual AWS Batch configuration](../enterprise/advanced-topics/manual-aws-batch-setup#create-an-ec2-instance-role).
 
 Then save the workspace lineage settings, copy the **Webhook URL** shown on the settings page, and subscribe it to your topic:
 

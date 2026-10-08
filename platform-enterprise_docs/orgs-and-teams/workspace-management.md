@@ -66,7 +66,7 @@ Select **Manage** and then choose to enable lineage by default for all pipeline 
 |-------|----------|-------------|
 | **Credentials** | Yes | The workspace credentials Platform uses to create and access the lineage storage bucket and its notification topic. In **Automatic** mode, the credentials must include permission to create buckets in the chosen region (or to access an existing bucket if **Bucket name** is specified), activate object notifications on the bucket, and manage the Amazon Simple Notification Service (SNS) topic and its subscription. In **Manual** mode, they only need to read the bucket and confirm the webhook subscription. See [Data lineage](../data/data-lineage#additional-iam-permissions-required). |
 | **Region** | Yes | Cloud region where the lineage storage bucket is created (for example, `us-east-1`, `eu-west-1`). |
-| **Bucket name** | No | Bucket where lineage records are stored. If left empty, Platform generates a default bucket name in the form `seqera-lineage-<workspace-id>`. Required in **Manual** mode, where it must match the bucket you have provisioned. |
+| **Bucket name** | No | Bucket where lineage records are stored. If left empty, Platform generates a default bucket name in the form `seqera-lineage-<workspace-id>`. Required in **Manual** mode, where it must match the bucket you have provisioned. Enter the bucket name only (for example, `my-lineage-bucket`), without `s3://` or a path. Lineage records are always stored at the bucket root. |
 
 If you configure lineage in **Manual** mode, one additional setting is required:
 
