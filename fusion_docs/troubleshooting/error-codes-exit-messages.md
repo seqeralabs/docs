@@ -2,7 +2,7 @@
 title: Error codes and exit messages
 description: "Reference for Fusion error codes, exit codes, and error messages"
 date created: "2025-01-12"
-last updated: "2026-09-10"
+last updated: "2026-10-02"
 tags: [errors, error codes, exit codes, fuse, logging, fusion]
 ---
 
@@ -169,7 +169,7 @@ jq 'select(.provider_request_id != null) | {provider, provider_request_id, provi
 When troubleshooting Fusion errors:
 
 1. Check the [exit code](#exit-codes):
-    - Check the task exit status in Platform to understand whether Fusion terminated normally (`0`), encountered an I/O error (`174`), had a command issue (`127`), or failed a work directory check before the task ran (`172` or `173`).
+    - Check the task exit status in Platform to understand whether Fusion terminated normally (`0`), encountered an I/O error or failed to upload task outputs (`174`), had a command issue (`127`), or failed a work directory check before the task ran (`172` or `173`).
 1. Look for an `errno` code in the logs:
     - If a filesystem operation failed, use the logs to identify the `errno`  status code (e.g., `ENOENT`, `EREMOTEIO`, `EIO`) returned to the application.
 1. Check for cloud error fields:
@@ -228,6 +228,15 @@ The `sysexits.h` standard uses exit code 74 for "input/output error" and reserve
 | Error during filesystem shutdown | `on file system shutdown` | Check Fusion logs for pending upload errors. See [Fusion logs](#fusion-logs). |
 | Error during filesystem unmount | `on file system unmount` | Run `fusermount -u /fusion` or `umount -l /fusion` manually. |
 | Failed read/write path validation | `check-rw` or `check-ro` | Verify cloud credentials and bucket permissions. |
+| Failed final upload of the work directory after the task command succeeded (Seqera Intelligent Compute, Fusion v2.6.9 and later) | `task outputs could not be saved to the work directory` | Check the `error` field of that log line. The task outputs might be missing or incomplete. See [Exit code 174 after a successful task](#exit-code-174-after-a-successful-task). |
+
+#### Exit code 174 after a successful task
+
+On Seqera Intelligent Compute, Fusion uploads the task work directory after the task command finishes. From Fusion v2.6.9, if the upload fails with a temporary object store error, Fusion retries for about five minutes. If the upload still fails, the task exits `174` instead of `0`. A task whose command failed keeps its own exit code.
+
+Intelligent Compute does not relocate a task that exits `174`, because the task command already ran. Fusion writes the upload errors to the console logs (stderr), not to `.fusion.log` in the work directory. See [Fusion logs](#fusion-logs).
+
+Fusion v2.6.9 can also return `174` for a snapshot task that succeeded, when the task deletes temporary files it still has open, as the JVM and OpenMPI do. Fusion v2.6.10 fixes this.
 
 ### Exit codes 172 and 173
 
@@ -237,6 +246,20 @@ Exit codes `172` and `173` apply to compute environments that use Seqera Intelli
 - `173` is a transient fault in the path to remote storage. Intelligent Compute relocates the task to another host and quarantines the faulty host. Fusion also exits `173` when both the mount and the fallback mount fail.
 
 Fusion returns both codes before the task command runs. A task that exits with either code produced no output.
+
+#### EC2 instance metadata credentials
+
+When Fusion uses an EC2 instance profile, it gets AWS credentials from the instance metadata service (IMDS). From Fusion v2.6.9, if IMDS does not answer, Fusion returns this error and looks up the credentials again on the next operation:
+
+```text
+retrieving AWS credentials on EC2 (set AWS_EC2_METADATA_DISABLED=true if this host has none)
+```
+
+If the work directory is still unreachable, the task exits `173` and Intelligent Compute relocates it. Earlier Fusion versions fell back to anonymous access, and the task exited `172`.
+
+On an instance with no instance profile, Fusion uses anonymous access. If the work directory is in a private bucket, the task exits `172`.
+
+If this error appears on a host meant to run without AWS credentials, such as a container that cannot reach IMDS, set `AWS_EC2_METADATA_DISABLED=true`. With this variable set, Fusion skips IMDS and uses anonymous access. A host that needs its instance profile then loses access to private buckets.
 
 ### GPU tracer binary
 
