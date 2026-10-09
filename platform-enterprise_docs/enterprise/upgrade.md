@@ -10,12 +10,10 @@ Upgrade your Seqera Platform Enterprise installation and database to version 26.
 
 :::info[**Prerequisites**]
 
-You need the following:
-
-- A backup of your Platform database.
-- Each intermediate major version upgrade complete, if you're upgrading from a version earlier than 25.1. For example, upgrade from 24.1 to 25.1, then to 26.1, then to 26.2. The following sections list the requirements for each version.
-- No pipelines running during the upgrade. Data from active runs can be lost.
-
+- Make a backup of your Platform database.
+- Complete each intermediate major version upgrade if you're upgrading from a version earlier than 25.1. For example, upgrade from 24.1 to 25.1, then to 26.1, then to 26.2. The sections below list the requirements for each version.
+- Make sure no pipelines are running during the upgrade. Data from active runs can be lost.
+- Make sure no Studios are running. Active Studios with mounted data can be irreparably damaged.
 :::
 
 ## Upgrade from versions earlier than 24.1
