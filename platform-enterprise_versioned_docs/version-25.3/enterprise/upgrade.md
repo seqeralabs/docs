@@ -7,10 +7,12 @@ tags: [enterprise, update, installation]
 
 This page outlines the steps to upgrade your database instance and Platform Enterprise installation to version 25.3, including special considerations for upgrading from versions prior to 25.1.
 
-:::note
-- Make a backup of your Platform database prior to upgrade.
-- If you are upgrading from a version prior to 25.1, complete all intermediate major version upgrades before upgrading to 25.3.
-- Ensure that no pipelines are in a running state during this upgrade as active run data may be lost.
+:::info[**Prerequisites**]
+
+- Make a backup of your Platform database.
+- Complete each intermediate major version upgrade if you're upgrading from a version earlier than 25.1. The sections below list the requirements for each version.
+- Make sure no pipelines are running during the upgrade. Data from active runs can be lost.
+- Make sure no Studios are running. Active Studios with mounted data can be irreparably damaged.
 :::
 
 ### Considerations for versions prior to 24.1
