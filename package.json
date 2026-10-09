@@ -85,7 +85,7 @@
     "markdownlint-cli2": "0.23.2",
     "netlify-plugin-cache": "1.0.3",
     "prettier": "3.9.8",
-    "simple-git": "3.36.0",
+    "simple-git": "4.0.2",
     "typescript": "7.0.2"
   },
   "browserslist": {
