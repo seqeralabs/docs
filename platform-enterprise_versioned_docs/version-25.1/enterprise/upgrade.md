@@ -11,6 +11,13 @@ Follow these steps to upgrade your database instance and Platform Enterprise ins
 From Seqera Enterprise version 23.4, MySQL 8 is the only supported database version. If you are upgrading from a version prior to 23.4 and running MySQL 5.6 or 5.7, you must upgrade your database to MySQL 8 before upgrading to version 25.1. See [General upgrade steps](#general-upgrade-steps) for database upgrade instructions.
 :::
 
+:::info[**Prerequisites**]
+
+- Make a backup of your Platform database.
+- Make sure no pipelines are running during the upgrade. Data from active runs can be lost.
+- Make sure no Studios are running. Active Studios with mounted data can be irreparably damaged.
+:::
+
 ### General upgrade steps
 
 :::caution
