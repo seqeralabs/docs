@@ -94,7 +94,11 @@ To create a new action, select the **Actions** tab and select **Add action**.
 1. Enter the **Work directory**, the **Config profiles**, and the **Pipeline parameters**.
 1. Select **Add**.
 
-The pipeline action is now set up and the new endpoint can be used to launch the corresponding pipeline programmatically. A request can pass `params`, which override the pipeline parameters saved on the action.
+The pipeline action is now set up. Use its endpoint to launch the pipeline programmatically. To override the pipeline parameters saved on the action, pass a `params` JSON object in the request body. For example:
+
+```json
+{ "params": { "foo": "Hello world", "reads": "s3://bucket/*.fq", "max_cpus": 8, "skip_qc": true } }
+```
 
 Requests to the endpoint authenticate with a Seqera access token. Creating the action does not create one. Create and manage access tokens on the tokens page, which is accessible from the user menu.
 
