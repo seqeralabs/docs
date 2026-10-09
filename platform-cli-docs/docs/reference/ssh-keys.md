@@ -1,27 +1,64 @@
 ---
-title: "tw info"
-description: "Show system info and health status"
+title: "tw ssh-keys"
+description: "Manage your SSH public keys"
 ---
 
-# `tw info`
+# `tw ssh-keys`
 
-Show system info and health status
+Manage your SSH public keys
 
-## `tw info versions`
+## `tw ssh-keys list`
 
-List the Nextflow or Fusion versions available to launch with
+List your SSH public keys
 
 ```bash
-tw info versions [OPTIONS]
+tw ssh-keys list
+```
+
+## `tw ssh-keys add`
+
+Add an SSH public key
+
+```bash
+tw ssh-keys add [OPTIONS]
 ```
 
 ### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `-c`, `--component` | Component to list versions of: 'nextflow' or 'fusion'. Default: nextflow. | No | `nextflow` |
-| `--nextflow` | Only list versions compatible with these Nextflow versions. Comma-separated list. | No |  |
-| `--fusion` | Only list versions compatible with these Fusion versions. Comma-separated list. | No |  |
+| `-n`, `--name` | SSH key name. Must be unique. Names consist of alphanumeric, hyphen, and underscore characters. | Yes |  |
+| `-k`, `--key` | Path to the SSH public key file (e.g. ~/.ssh/id_ed25519.pub). Use '-' to read it from stdin. Create a key pair with 'ssh-keygen'. | Yes |  |
+
+## `tw ssh-keys view`
+
+View SSH public key details
+
+```bash
+tw ssh-keys view [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-i`, `--id` | SSH key numeric identifier | Yes |  |
+| `-n`, `--name` | SSH key name | Yes |  |
+
+## `tw ssh-keys delete`
+
+Delete an SSH public key
+
+```bash
+tw ssh-keys delete [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-i`, `--id` | SSH key numeric identifier | Yes |  |
+| `-n`, `--name` | SSH key name | Yes |  |
 
 [actions]: /platform-cloud/pipeline-actions/overview
 [aws-batch-pipeline-secrets]: /platform-cloud/compute-envs/aws-batch#pipeline-secrets-optional

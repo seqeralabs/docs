@@ -135,6 +135,21 @@ tw members leave [OPTIONS]
 
 Run `tw members leave -o <organization_name>` to be removed from the given organization's members.
 
+## `tw members roles`
+
+List the workspace roles of an organization member, granted directly or through teams
+
+```bash
+tw members roles [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-u`, `--user` | Username or email address of the organization member. | Yes |  |
+| `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | Yes |  |
+
 [actions]: /platform-cloud/pipeline-actions/overview
 [aws-batch-pipeline-secrets]: /platform-cloud/compute-envs/aws-batch#pipeline-secrets-optional
 [aws-cloud-advanced-options]: /platform-cloud/compute-envs/aws-cloud#advanced-options

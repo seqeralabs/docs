@@ -87,7 +87,8 @@ tw actions add github [OPTIONS]
 | `--labels` | Labels to apply to the resource. Provide comma-separated label values (use key=value format for resource labels). Labels will be created if they don't exist | No |  |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
 | `--syntax-parser` | Nextflow language syntax parser version: 'v1' (legacy) or 'v2'. Takes precedence over the value stored in the launch configuration. | No |  |
-| `--nextflow-version` | Nextflow version to run the workflow with. Must exist in the Platform version catalog and meet the minimum required by the compute environment. Takes precedence over the value stored in the launch configuration. | No |  |
+| `--nextflow-version` | Nextflow version to run the workflow with. Must exist in the Platform version catalog and meet the minimum required by the compute environment (see 'tw info versions'). Takes precedence over the value stored in the launch configuration. | No |  |
+| `--fusion-version` | Fusion version to run the workflow with. Must exist in the Platform version catalog and only applies when the compute environment enables Fusion v2 (see 'tw info versions -c fusion'). Takes precedence over the value stored in the launch configuration. | No |  |
 | `--output-dir` | Per-run output directory, passed to Nextflow as '-output-dir'. Requires Nextflow 24.10.0 or later and the workflow outputs syntax. Takes precedence over the value stored in the launch configuration. | No |  |
 | `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. | No |  |
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No |  |
@@ -96,6 +97,7 @@ tw actions add github [OPTIONS]
 | `--revision` | Git revision, branch, or tag to use. Use --commit-id to pin to a specific commit within the revision. | No |  |
 | `--commit-id` | Specific Git commit hash to pin the pipeline execution to. | No |  |
 | `--config` | Nextflow configuration as text (overrides config files). Provide the path to a file containing the content. | No |  |
+| `--tower-config` | Seqera Platform configuration in tower.yml format. Overrides the pipeline's tower.yml for this run. Provide the path to a file containing the content. | No |  |
 | `--pre-run` | Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No |  |
 | `--post-run` | Add a script that executes after all Nextflow processes have completed. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No |  |
 | `--pull-latest` | Pull the latest version of the pipeline from the repository. | No |  |
@@ -124,7 +126,8 @@ tw actions add tower [OPTIONS]
 | `--labels` | Labels to apply to the resource. Provide comma-separated label values (use key=value format for resource labels). Labels will be created if they don't exist | No |  |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
 | `--syntax-parser` | Nextflow language syntax parser version: 'v1' (legacy) or 'v2'. Takes precedence over the value stored in the launch configuration. | No |  |
-| `--nextflow-version` | Nextflow version to run the workflow with. Must exist in the Platform version catalog and meet the minimum required by the compute environment. Takes precedence over the value stored in the launch configuration. | No |  |
+| `--nextflow-version` | Nextflow version to run the workflow with. Must exist in the Platform version catalog and meet the minimum required by the compute environment (see 'tw info versions'). Takes precedence over the value stored in the launch configuration. | No |  |
+| `--fusion-version` | Fusion version to run the workflow with. Must exist in the Platform version catalog and only applies when the compute environment enables Fusion v2 (see 'tw info versions -c fusion'). Takes precedence over the value stored in the launch configuration. | No |  |
 | `--output-dir` | Per-run output directory, passed to Nextflow as '-output-dir'. Requires Nextflow 24.10.0 or later and the workflow outputs syntax. Takes precedence over the value stored in the launch configuration. | No |  |
 | `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. | No |  |
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No |  |
@@ -133,6 +136,7 @@ tw actions add tower [OPTIONS]
 | `--revision` | Git revision, branch, or tag to use. Use --commit-id to pin to a specific commit within the revision. | No |  |
 | `--commit-id` | Specific Git commit hash to pin the pipeline execution to. | No |  |
 | `--config` | Nextflow configuration as text (overrides config files). Provide the path to a file containing the content. | No |  |
+| `--tower-config` | Seqera Platform configuration in tower.yml format. Overrides the pipeline's tower.yml for this run. Provide the path to a file containing the content. | No |  |
 | `--pre-run` | Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No |  |
 | `--post-run` | Add a script that executes after all Nextflow processes have completed. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No |  |
 | `--pull-latest` | Pull the latest version of the pipeline from the repository. | No |  |
@@ -162,7 +166,8 @@ tw actions update [OPTIONS]
 | `--new-name` | Updated action name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. | No |  |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
 | `--syntax-parser` | Nextflow language syntax parser version: 'v1' (legacy) or 'v2'. Takes precedence over the value stored in the launch configuration. | No |  |
-| `--nextflow-version` | Nextflow version to run the workflow with. Must exist in the Platform version catalog and meet the minimum required by the compute environment. Takes precedence over the value stored in the launch configuration. | No |  |
+| `--nextflow-version` | Nextflow version to run the workflow with. Must exist in the Platform version catalog and meet the minimum required by the compute environment (see 'tw info versions'). Takes precedence over the value stored in the launch configuration. | No |  |
+| `--fusion-version` | Fusion version to run the workflow with. Must exist in the Platform version catalog and only applies when the compute environment enables Fusion v2 (see 'tw info versions -c fusion'). Takes precedence over the value stored in the launch configuration. | No |  |
 | `--output-dir` | Per-run output directory, passed to Nextflow as '-output-dir'. Requires Nextflow 24.10.0 or later and the workflow outputs syntax. Takes precedence over the value stored in the launch configuration. | No |  |
 | `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. | No |  |
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No |  |
@@ -171,6 +176,7 @@ tw actions update [OPTIONS]
 | `--revision` | Git revision, branch, or tag to use. Use --commit-id to pin to a specific commit within the revision. | No |  |
 | `--commit-id` | Specific Git commit hash to pin the pipeline execution to. | No |  |
 | `--config` | Nextflow configuration as text (overrides config files). Provide the path to a file containing the content. | No |  |
+| `--tower-config` | Seqera Platform configuration in tower.yml format. Overrides the pipeline's tower.yml for this run. Provide the path to a file containing the content. | No |  |
 | `--pre-run` | Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No |  |
 | `--post-run` | Add a script that executes after all Nextflow processes have completed. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No |  |
 | `--pull-latest` | Pull the latest version of the pipeline from the repository. | No |  |

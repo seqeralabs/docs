@@ -1,27 +1,48 @@
 ---
-title: "tw info"
-description: "Show system info and health status"
+title: "tw access-tokens"
+description: "Manage your personal access tokens"
 ---
 
-# `tw info`
+# `tw access-tokens`
 
-Show system info and health status
+Manage your personal access tokens
 
-## `tw info versions`
+## `tw access-tokens list`
 
-List the Nextflow or Fusion versions available to launch with
+List your personal access tokens
 
 ```bash
-tw info versions [OPTIONS]
+tw access-tokens list
+```
+
+## `tw access-tokens add`
+
+Add a personal access token. The token value is shown only once.
+
+```bash
+tw access-tokens add [OPTIONS]
 ```
 
 ### Options
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `-c`, `--component` | Component to list versions of: 'nextflow' or 'fusion'. Default: nextflow. | No | `nextflow` |
-| `--nextflow` | Only list versions compatible with these Nextflow versions. Comma-separated list. | No |  |
-| `--fusion` | Only list versions compatible with these Fusion versions. Comma-separated list. | No |  |
+| `-n`, `--name` | Token name. A label to remember what the token is for. Must be unique. | Yes |  |
+
+## `tw access-tokens delete`
+
+Delete a personal access token. Clients using it can no longer authenticate.
+
+```bash
+tw access-tokens delete [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-i`, `--id` | Token numeric identifier | Yes |  |
+| `-n`, `--name` | Token name | Yes |  |
 
 [actions]: /platform-cloud/pipeline-actions/overview
 [aws-batch-pipeline-secrets]: /platform-cloud/compute-envs/aws-batch#pipeline-secrets-optional

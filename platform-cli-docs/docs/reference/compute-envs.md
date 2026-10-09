@@ -140,6 +140,10 @@ tw compute-envs add aws-batch forge [OPTIONS]
 | `--bid-percentage` | Maximum Spot instance price as percentage of On-Demand price. Controls cost ceiling for Spot instances. You pay the market price up to this maximum. If absent, Platform defaults to 100%. | No |  |
 | `--cli-path` | AWS CLI installation path on EC2 instances. Specify custom path if AWS CLI is installed in non-standard location. | No |  |
 | `--secrets-kms-key` | Customer-managed KMS key used to encrypt the temporary Secrets Manager secrets created for runs that use pipeline secrets. Accepts a key ARN or a key id. When omitted, the AWS-managed default Secrets Manager key is used. | No |  |
+| `--log-group` | CloudWatch log group for the logs of pipeline executions. Must already exist. If absent, Platform defaults to /aws/batch/job. | No |  |
+| `--dragen` | Enable Illumina DRAGEN instances. Requires --dragen-ami-id and --dragen-instance-type. Not compatible with EFS, FSx or Fargate. | No |  |
+| `--dragen-ami-id` | AMI ID for DRAGEN instances. | No |  |
+| `--dragen-instance-type` | EC2 instance type for DRAGEN instances (e.g., f2.6xlarge, f2.12xlarge, f2.48xlarge). | No |  |
 | `--work-dir` | Nextflow work directory. Path where workflow intermediate files are stored. Must be an S3 bucket path (e.g., s3://your-bucket/work). | Yes |  |
 | `-r`, `--region` | AWS region where compute resources will be created (e.g., us-east-1, eu-west-1). | Yes |  |
 | `--max-cpus` | Maximum CPUs provisioned by Batch Forge. Defines the upper limit for auto-scaling compute capacity. | Yes |  |
@@ -186,6 +190,7 @@ tw compute-envs add aws-batch manual [OPTIONS]
 | `--batch-execution-role` | IAM role ARN for ECS task execution. Grants Amazon ECS containers permission to make AWS API calls on your behalf. | No |  |
 | `--cli-path` | Nextflow requires the AWS CLI installed in the Ec2 instances. Use this field to specify the path. | No |  |
 | `--secrets-kms-key` | Customer-managed KMS key used to encrypt the temporary Secrets Manager secrets created for runs that use pipeline secrets. Accepts a key ARN or a key id. When omitted, the AWS-managed default Secrets Manager key is used. | No |  |
+| `--log-group` | CloudWatch log group for the logs of pipeline executions. Must already exist. If absent, Platform defaults to /aws/batch/job. | No |  |
 | `--work-dir` | Nextflow work directory. Path where workflow intermediate files are stored. Must be an S3 bucket path (e.g., s3://your-bucket/work). | Yes |  |
 | `-r`, `--region` | AWS region where compute resources will be created (e.g., us-east-1, eu-west-1). | Yes |  |
 | `--head-queue` | AWS Batch queue for the Nextflow head job. Should use on-demand instances for reliability. | Yes |  |
@@ -226,6 +231,7 @@ tw compute-envs add aws-cloud [OPTIONS]
 | `--ebs-kms-key` | KMS key ARN used to encrypt the boot EBS volume. Only applied when EBS encryption is enabled (--ebs-encryption). When omitted, the account/region default EBS encryption key is used. | No |  |
 | `--secrets-kms-key` | Customer-managed KMS key used to encrypt the temporary Secrets Manager secrets created for runs that use pipeline secrets. Accepts a key ARN or a key id. When omitted, the AWS-managed default Secrets Manager key is used. | No |  |
 | `--ec2-key-pair` | EC2 key pair name for SSH access to running instances. The key pair must already exist in the specified region. | No |  |
+| `--log-group` | CloudWatch Logs group where the compute environment logs are written. If absent, Platform uses /seqera/platform. | No |  |
 | `--image-id` | AMI ID for launching EC2 instances. If omitted, Seqera-maintained default AMI is used. Use Seqera AMIs for best performance. | No |  |
 | `--instance-profile-arn` | IAM instance profile ARN used by EC2 instances to assume roles. If unspecified, Seqera provisions an ARN with sufficient permissions. | No |  |
 | `--instance-type` | EC2 instance type (e.g., t3.medium, m5.large). If omitted, a default instance type is used. | No |  |
@@ -298,6 +304,7 @@ tw compute-envs add slurm [OPTIONS]
 | `-e`, `--env` | Add environment variables. By default are only added to the Nextflow head job process, if you want to add them to the process task prefix the name with 'compute:' or 'both:' if you want to make it available to both locations. | No |  |
 | `--max-queue-size` | Maximum number of jobs Nextflow can submit simultaneously to the Slurm queue. Controls job submission rate. If absent, Platform defaults to 100. | No |  |
 | `--head-job-options` | Additional submit options for the Nextflow head job. Appended to the sbatch command for the main orchestration process. | No |  |
+| `--propagate-head-job-options` | Apply the head job submit options to the compute jobs as well. Requires --head-job-options. | No |  |
 | `--work-dir` | Nextflow work directory on the cluster's shared file system. Must be an absolute path accessible from all compute nodes. | Yes |  |
 | `-u`, `--user-name` | Username for SSH connection to the HPC cluster. Used to authenticate and launch pipeline execution on the head node. | No |  |
 | `-H`, `--host-name` | Hostname or IP address of the HPC head node for SSH connection. Typically the cluster login node. Must be a fully qualified hostname, not a local IP address. | No |  |
@@ -330,6 +337,7 @@ tw compute-envs add lsf [OPTIONS]
 | `-e`, `--env` | Add environment variables. By default are only added to the Nextflow head job process, if you want to add them to the process task prefix the name with 'compute:' or 'both:' if you want to make it available to both locations. | No |  |
 | `--max-queue-size` | Maximum number of jobs Nextflow can submit simultaneously to the LSF queue. Controls job submission rate. If absent, Platform defaults to 100. | No |  |
 | `--head-job-options` | Additional submit options for the Nextflow head job. Appended to the bsub command for the main orchestration process. | No |  |
+| `--propagate-head-job-options` | Apply the head job submit options to the compute jobs as well. Requires --head-job-options. | No |  |
 | `--unit-for-limits` | Memory limit unit for LSF cluster. Must match LSF_UNIT_FOR_LIMITS in lsf.conf configuration file. | No |  |
 | `--per-job-mem-limit` | Memory limit interpretation: per-job or per-process. Must match LSB_JOB_MEMLIMIT in lsf.conf configuration file. | No |  |
 | `--per-task-reserve` | Memory reservation mode: per-task or per-host. Must match RESOURCE_RESERVE_PER_TASK in lsf.conf configuration file. | No |  |
@@ -365,6 +373,7 @@ tw compute-envs add uge [OPTIONS]
 | `-e`, `--env` | Add environment variables. By default are only added to the Nextflow head job process, if you want to add them to the process task prefix the name with 'compute:' or 'both:' if you want to make it available to both locations. | No |  |
 | `--max-queue-size` | Maximum number of jobs Nextflow can submit simultaneously to the Univa Grid Engine queue. Controls job submission rate. If absent, Platform defaults to 100. | No |  |
 | `--head-job-options` | Additional submit options for the Nextflow head job. Appended to the submit command for the main orchestration process. | No |  |
+| `--propagate-head-job-options` | Apply the head job submit options to the compute jobs as well. Requires --head-job-options. | No |  |
 | `--work-dir` | Nextflow work directory on the cluster's shared file system. Must be an absolute path accessible from all compute nodes. | Yes |  |
 | `-u`, `--user-name` | Username for SSH connection to the HPC cluster. Used to authenticate and launch pipeline execution on the head node. | No |  |
 | `-H`, `--host-name` | Hostname or IP address of the HPC head node for SSH connection. Typically the cluster login node. Must be a fully qualified hostname, not a local IP address. | No |  |
@@ -397,6 +406,7 @@ tw compute-envs add altair [OPTIONS]
 | `-e`, `--env` | Add environment variables. By default are only added to the Nextflow head job process, if you want to add them to the process task prefix the name with 'compute:' or 'both:' if you want to make it available to both locations. | No |  |
 | `--max-queue-size` | Maximum number of jobs Nextflow can submit simultaneously to the Altair PBS queue. Controls job submission rate. If absent, Platform defaults to 100. | No |  |
 | `--head-job-options` | Additional submit options for the Nextflow head job. Appended to the submit command for the main orchestration process. | No |  |
+| `--propagate-head-job-options` | Apply the head job submit options to the compute jobs as well. Requires --head-job-options. | No |  |
 | `--work-dir` | Nextflow work directory on the cluster's shared file system. Must be an absolute path accessible from all compute nodes. | Yes |  |
 | `-u`, `--user-name` | Username for SSH connection to the HPC cluster. Used to authenticate and launch pipeline execution on the head node. | No |  |
 | `-H`, `--host-name` | Hostname or IP address of the HPC head node for SSH connection. Typically the cluster login node. Must be a fully qualified hostname, not a local IP address. | No |  |
@@ -429,6 +439,7 @@ tw compute-envs add moab [OPTIONS]
 | `-e`, `--env` | Add environment variables. By default are only added to the Nextflow head job process, if you want to add them to the process task prefix the name with 'compute:' or 'both:' if you want to make it available to both locations. | No |  |
 | `--max-queue-size` | Maximum number of jobs Nextflow can submit simultaneously to the Moab queue. Controls job submission rate. If absent, Platform defaults to 100. | No |  |
 | `--head-job-options` | Additional submit options for the Nextflow head job. Appended to the submit command for the main orchestration process. | No |  |
+| `--propagate-head-job-options` | Apply the head job submit options to the compute jobs as well. Requires --head-job-options. | No |  |
 | `--work-dir` | Nextflow work directory on the cluster's shared file system. Must be an absolute path accessible from all compute nodes. | Yes |  |
 | `-u`, `--user-name` | Username for SSH connection to the HPC cluster. Used to authenticate and launch pipeline execution on the head node. | No |  |
 | `-H`, `--host-name` | Hostname or IP address of the HPC head node for SSH connection. Typically the cluster login node. Must be a fully qualified hostname, not a local IP address. | No |  |
@@ -539,12 +550,14 @@ tw compute-envs add google-cloud [OPTIONS]
 | `--sched-enabled` | Enable the Seqera scheduler for this compute environment. Defaults to false if not specified. | No |  |
 | `--provisioning-model` | Instance provisioning model used by the Seqera scheduler. Valid values: SPOT, SPOT_FIRST, ONDEMAND. | No |  |
 | `--sched-machine-types` | Compute Engine machine types for compute nodes managed by the Seqera scheduler. Comma-separated list (e.g., n2-standard-4,c2-standard-8). Leave empty to let the scheduler select the most cost-effective types. | No |  |
+| `--billing-export-table` | Fully-qualified BigQuery table holding the Cloud Billing export, as project.dataset.table. Enables cost reporting for this compute environment. Costs are unavailable for runs that predate the export. | No |  |
 | `--arm64` | Enable ARM64 (Axion) architecture instances to run compute jobs. Provides efficient compute for compatible workloads. | No |  |
 | `--boot-disk-size` | Boot disk size in GB for Compute Engine instances. Uses pd-standard disk type. If absent, Platform defaults to 50 GB. | No |  |
 | `--gpu` | Enable GPU-enabled instances for compute jobs. When enabled, Deep Learning VM base images with CUDA are automatically selected. | No |  |
 | `--image-id` | Image ID defining the operating system and pre-installed software for Compute Engine instances. Supports Ubuntu LTS Google public images. For GPU instances, Deep Learning VM base images with CUDA are automatically selected. | No |  |
 | `--instance-type` | Compute Engine machine type (e.g., n1-standard-1, n2-standard-2). If omitted, a default machine type is used. | No |  |
 | `--network` | Google Cloud VPC network name or URI. Required when using subnetworks or network tags. When omitted, the project's 'default' network is used. | No |  |
+| `--project-id` | Google Cloud project ID. Set as google.project in the Nextflow configuration and used to qualify short --network and --subnetworks names. | No |  |
 | `--subnetworks` | Google Cloud VPC subnetworks for instance placement. Comma-separated list of names or URIs in the same region as the compute environment; the first is used for basic placement while Intelligent Compute may use all of them. Requires --network. | No |  |
 | `--network-tags` | Comma-separated list of network tags applied to VMs for firewall rule targeting. Tags must be lowercase, use only letters, numbers, and hyphens (1-63 chars). Requires --network. | No |  |
 | `--use-private-address` | Do not attach a public IP address to VM instances. When enabled, only Google internal services are accessible. Requires Cloud NAT for external access. | No |  |
@@ -696,6 +709,7 @@ tw compute-envs add azure-cloud [OPTIONS]
 | `--data-collection-endpoint` | Azure Monitor data collection endpoint URL for log ingestion. Used to route logs to Log Analytics workspace. | No |  |
 | `--data-collection-rule-id` | Azure Monitor data collection rule ID. Defines how logs are processed and routed to destination workspaces. | No |  |
 | `--instance-type` | Azure virtual machine size (e.g., Standard_D2s_v3, Standard_E4s_v3). If omitted, a default VM size is used. | No |  |
+| `--key-vault-url` | Azure Key Vault that stores pipeline secrets, in the form https://&lt;vault-name&gt;.vault.azure.net. Only used with --sched-enabled. If absent, the default Key Vault is used, if one is configured. | No |  |
 | `--log-table-name` | Custom table name in Log Analytics workspace for storing compute environment logs. Enables organized log management. | No |  |
 | `--log-workspace-id` | Azure Log Analytics workspace ID for monitoring compute environment activity and logs. | No |  |
 | `--managed-identity-client-id` | User-assigned managed identity client ID for authentication. Used with managed identity resource ID for VM access control. | No |  |
@@ -733,6 +747,7 @@ tw compute-envs add seqera-compute [OPTIONS]
 | `--work-dir` | Work directory suffix relative to the S3 bucket that will be created by Seqera Compute. | No |  |
 | `-r`, `--region` | AWS region. | Yes |  |
 | `--instance-type-size` | Studios instance size, controlling compute resources and capabilities. Options: SMALL, MEDIUM, LARGE. Free-tier organizations are limited to SMALL. | No |  |
+| `--data-retention-policy` | Apply the automatic data retention policy to the S3 bucket created by Seqera Compute. Intermediate files are deleted after 28 days to manage storage cost. | No |  |
 
 ## `tw compute-envs update`
 
@@ -957,6 +972,38 @@ tw compute-envs validate [OPTIONS]
 | `-n`, `--name` | Compute environment name. | Yes |  |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
 | `--force` | Skip the pre-flight checks and force an INVALID compute environment (with an AVAILABLE credential) to AVAILABLE. Rejected otherwise. | No |  |
+
+## `tw compute-envs enable`
+
+Enable a disabled compute environment so it can be used to launch workflows.
+
+```bash
+tw compute-envs enable [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-i`, `--id` | Compute environment unique identifier. | Yes |  |
+| `-n`, `--name` | Compute environment name. | Yes |  |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+
+## `tw compute-envs disable`
+
+Disable a compute environment so it cannot be used to launch workflows. A primary compute environment is unset as primary.
+
+```bash
+tw compute-envs disable [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-i`, `--id` | Compute environment unique identifier. | Yes |  |
+| `-n`, `--name` | Compute environment name. | Yes |  |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
 
 [actions]: /platform-cloud/pipeline-actions/overview
 [aws-batch-pipeline-secrets]: /platform-cloud/compute-envs/aws-batch#pipeline-secrets-optional

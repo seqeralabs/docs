@@ -92,6 +92,21 @@ tw runs view download [OPTIONS]
 | `--type` | Type of file to download. Options: 'stdout' (standard output), 'log' (Nextflow log), 'stderr' (standard error, tasks only), 'timeline' (execution timeline HTML, workflow only). Default: stdout. | No | `stdout` |
 | `-t` | Task numeric identifier. When specified, downloads task-specific files (.command.out, .command.err, .command.log). When omitted, downloads workflow-level files (nextflow.log, timeline.html). | No |  |
 
+### `tw runs view log`
+
+Display the execution log of a pipeline run or task
+
+```bash
+tw runs view log [OPTIONS]
+```
+
+#### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-t` | Task numeric identifier. When specified, displays the task output log instead of the Nextflow head job output. | No |  |
+| `--next` | Pagination cursor of the log page to display, as printed at the end of the previous page. | No |  |
+
 ### `tw runs view metrics`
 
 Display pipeline run metrics
@@ -288,7 +303,8 @@ tw runs relaunch [OPTIONS]
 | `-n`, `--name` | Custom workflow run name. Overrides the automatically generated run name with a user-defined identifier. | No |  |
 | `--launch-container` | Container image for the Nextflow head job. Overrides the default launcher container. | No |  |
 | `--syntax-parser` | Nextflow language syntax parser version: 'v1' (legacy) or 'v2'. Takes precedence over the value stored in the launch configuration. | No |  |
-| `--nextflow-version` | Nextflow version to run the workflow with. Must exist in the Platform version catalog and meet the minimum required by the compute environment. Takes precedence over the value stored in the launch configuration. | No |  |
+| `--nextflow-version` | Nextflow version to run the workflow with. Must exist in the Platform version catalog and meet the minimum required by the compute environment (see 'tw info versions'). Takes precedence over the value stored in the launch configuration. | No |  |
+| `--fusion-version` | Fusion version to run the workflow with. Must exist in the Platform version catalog and only applies when the compute environment enables Fusion v2 (see 'tw info versions -c fusion'). Takes precedence over the value stored in the launch configuration. | No |  |
 | `--output-dir` | Per-run output directory, passed to Nextflow as '-output-dir'. Requires Nextflow 24.10.0 or later and the workflow outputs syntax. Takes precedence over the value stored in the launch configuration. | No |  |
 | `-c`, `--compute-env` | Compute environment identifier where the pipeline will run. Defaults to workspace primary compute environment if omitted. Provide the name or identifier. | No |  |
 | `--work-dir` | Work directory path where workflow intermediate files are stored. Defaults to compute environment work directory if omitted. | No |  |
@@ -297,6 +313,7 @@ tw runs relaunch [OPTIONS]
 | `--revision` | Git revision, branch, or tag to use. Use --commit-id to pin to a specific commit within the revision. | No |  |
 | `--commit-id` | Specific Git commit hash to pin the pipeline execution to. | No |  |
 | `--config` | Nextflow configuration as text (overrides config files). Provide the path to a file containing the content. | No |  |
+| `--tower-config` | Seqera Platform configuration in tower.yml format. Overrides the pipeline's tower.yml for this run. Provide the path to a file containing the content. | No |  |
 | `--pre-run` | Add a script that executes in the nf-launch script prior to invoking Nextflow processes. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No |  |
 | `--post-run` | Add a script that executes after all Nextflow processes have completed. See: https://docs.seqera.io/platform-cloud/launch/advanced#pre-and-post-run-scripts. Provide the path to a file containing the content. | No |  |
 | `--pull-latest` | Pull the latest version of the pipeline from the repository. | No |  |
@@ -363,7 +380,7 @@ $ tw runs labels -i 5z4AMshti4g0GK test,rnaseq-demo
 
 ## `tw runs delete`
 
-Delete a pipeline run
+Delete one or more pipeline runs
 
 ```bash
 tw runs delete [OPTIONS]
@@ -373,7 +390,7 @@ tw runs delete [OPTIONS]
 
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
-| `-i`, `-id` | Pipeline run identifier. The unique workflow ID to delete. Deletes the run record and associated metadata from Seqera Platform. | Yes |  |
+| `-i`, `-id` | Pipeline run identifier. The unique workflow ID to delete. Deletes the run record and associated metadata from Seqera Platform. Repeat the option or provide a comma-separated list to delete several runs at once. | Yes |  |
 | `--force` | Force deletion of active workflows. By default, only completed workflows can be deleted. Use this flag to delete running or pending workflows. | No |  |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
 
@@ -415,6 +432,36 @@ Example output:
 ```bash
 Pipeline run '5z4AMshti4g0GK' at [seqeralabs / testing] workspace details dump at 'file.tar.gz'
 ```
+
+## `tw runs star`
+
+Star a pipeline run
+
+```bash
+tw runs star [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-i`, `--id` | Pipeline run identifier. The unique workflow ID to add to your starred runs. | Yes |  |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+
+## `tw runs unstar`
+
+Unstar a pipeline run
+
+```bash
+tw runs unstar [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-i`, `--id` | Pipeline run identifier. The unique workflow ID to remove from your starred runs. | Yes |  |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
 
 [actions]: /platform-cloud/pipeline-actions/overview
 [aws-batch-pipeline-secrets]: /platform-cloud/compute-envs/aws-batch#pipeline-secrets-optional

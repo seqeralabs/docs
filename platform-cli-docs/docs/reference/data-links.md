@@ -136,6 +136,26 @@ tw data-links delete -w seqeralabs/showcase -i v1-user-152116183ee325463901430bb
 data-link 'v1-user-152116183ee325463901430bb9efb8c9' deleted at '138659136604200' workspace.
 ```
 
+## `tw data-links delete-content`
+
+Delete files or folders from a data link. Supported for Seqera Compute data links only.
+
+```bash
+tw data-links delete-content [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Data link identifier | Yes |  |
+| `-n`, `--name` | Data link name | Yes |  |
+| `--uri` | Data link URI (e.g., s3://bucket-name) | Yes |  |
+| `-c`, `--credentials` | Credentials identifier | Yes |  |
+| `--file` | File path to delete, relative to the data link root. Can be specified multiple times. | No |  |
+| `--dir` | Folder path to delete with all its contents, relative to the data link root. Can be specified multiple times. | No |  |
+
 ## `tw data-links update`
 
 Update a data link
@@ -324,6 +344,26 @@ Successfully downloaded files
 ```
 
 Add `--silent` to suppress the per-file lines and the progress bar, for example in scripts or when logging to a file.
+
+## `tw data-links download-script`
+
+Print the cloud provider CLI commands that download data link contents. Downloads the whole data link when no --file or --dir is given.
+
+```bash
+tw data-links download-script [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Data link identifier | Yes |  |
+| `-n`, `--name` | Data link name | Yes |  |
+| `--uri` | Data link URI (e.g., s3://bucket-name) | Yes |  |
+| `-c`, `--credentials` | Credentials identifier | No |  |
+| `--file` | File path to download, relative to the data link root. Can be specified multiple times. | No |  |
+| `--dir` | Folder path to download, relative to the data link root. Can be specified multiple times. | No |  |
 
 ## `tw data-links upload`
 
