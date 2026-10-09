@@ -96,6 +96,21 @@ tw organizations view [OPTIONS]
 | `-i`, `--id` | Organization numeric identifier. The unique ID assigned when the organization was created. | Yes |  |
 | `-n`, `--name` | Organization name. The unique organization name used as a human-readable identifier. | Yes |  |
 
+## `tw organizations quotas`
+
+View organization quotas
+
+```bash
+tw organizations quotas [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-i`, `--id` | Organization numeric identifier. The unique ID assigned when the organization was created. | Yes |  |
+| `-n`, `--name` | Organization name. The unique organization name used as a human-readable identifier. | Yes |  |
+
 [actions]: /platform-cloud/pipeline-actions/overview
 [aws-batch-pipeline-secrets]: /platform-cloud/compute-envs/aws-batch#pipeline-secrets-optional
 [aws-cloud-advanced-options]: /platform-cloud/compute-envs/aws-cloud#advanced-options

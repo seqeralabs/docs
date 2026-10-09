@@ -97,7 +97,7 @@ tw studios start [OPTIONS]
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
 | `-i`, `--id` | Studio session identifier | Yes |  |
 | `-n`, `--name` | Studio name | Yes |  |
-| `--mount-data-uris` | Comma separate list of data-link URIs: s3://nextflow-bucket,s3://another-bucket | No |  |
+| `--mount-data-uris` | Comma separate list of data-link URIs: s3://nextflow-bucket,s3://another-bucket. A URI of a folder inside a data link mounts only that folder: s3://nextflow-bucket/inputs | No |  |
 | `--mount-data` | Comma separate list of data-link names: nextflow-bucket,my-custom-data-link-name | No |  |
 | `--mount-data-ids` | Comma separate list of data-link ids: v1-cloud-YjI3MjMwOTMyNjUwNzk5tbG9yZQ=,v1-user-d2c505e70901d2bf6516d | No |  |
 | `--gpu` | Optional configuration override for 'gpu' setting (integer representing number of cores). | No |  |
@@ -133,7 +133,7 @@ tw studios add [OPTIONS]
 | `-ct`, `--custom-template` | Custom container image template to be used for Studio. | Yes |  |
 | `--conda-env-yml`, `--conda-env-yaml` | Path to a YAML env file with Conda packages to be installed in the studio environment | No |  |
 | `-c`, `--compute-env` | Compute environment name | Yes |  |
-| `--mount-data-uris` | Comma separate list of data-link URIs: s3://nextflow-bucket,s3://another-bucket | No |  |
+| `--mount-data-uris` | Comma separate list of data-link URIs: s3://nextflow-bucket,s3://another-bucket. A URI of a folder inside a data link mounts only that folder: s3://nextflow-bucket/inputs | No |  |
 | `--mount-data` | Comma separate list of data-link names: nextflow-bucket,my-custom-data-link-name | No |  |
 | `--mount-data-ids` | Comma separate list of data-link ids: v1-cloud-YjI3MjMwOTMyNjUwNzk5tbG9yZQ=,v1-user-d2c505e70901d2bf6516d | No |  |
 | `--gpu` | Optional configuration override for 'gpu' setting (integer representing number of cores). | No |  |
@@ -217,6 +217,24 @@ List checkpoints for a Studio session:
 $ tw studios checkpoints -i 19a3abbd -w community/showcase
 ```
 
+## `tw studios rename-checkpoint`
+
+Rename a studio checkpoint.
+
+```bash
+tw studios rename-checkpoint [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Studio session identifier | Yes |  |
+| `-n`, `--name` | Studio name | Yes |  |
+| `--checkpoint-id` | Checkpoint numeric identifier, as listed by the 'checkpoints' command. | Yes |  |
+| `--new-name` | New checkpoint name. Must be unique per studio. | Yes |  |
+
 ## `tw studios add-as-new`
 
 Add a studio from an existing one
@@ -235,7 +253,7 @@ tw studios add-as-new [OPTIONS]
 | `-n`, `--name` | Studio name. | Yes |  |
 | `-d`, `--description` | Studio description | No |  |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
-| `--mount-data-uris` | Comma separate list of data-link URIs: s3://nextflow-bucket,s3://another-bucket | No |  |
+| `--mount-data-uris` | Comma separate list of data-link URIs: s3://nextflow-bucket,s3://another-bucket. A URI of a folder inside a data link mounts only that folder: s3://nextflow-bucket/inputs | No |  |
 | `--mount-data` | Comma separate list of data-link names: nextflow-bucket,my-custom-data-link-name | No |  |
 | `--mount-data-ids` | Comma separate list of data-link ids: v1-cloud-YjI3MjMwOTMyNjUwNzk5tbG9yZQ=,v1-user-d2c505e70901d2bf6516d | No |  |
 | `--gpu` | Optional configuration override for 'gpu' setting (integer representing number of cores). | No |  |
@@ -320,7 +338,7 @@ tw studios update [OPTIONS]
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
 | `-i`, `--id` | Studio session identifier | Yes |  |
 | `-n`, `--name` | Studio name | Yes |  |
-| `--mount-data-uris` | Comma separate list of data-link URIs: s3://nextflow-bucket,s3://another-bucket | No |  |
+| `--mount-data-uris` | Comma separate list of data-link URIs: s3://nextflow-bucket,s3://another-bucket. A URI of a folder inside a data link mounts only that folder: s3://nextflow-bucket/inputs | No |  |
 | `--mount-data` | Comma separate list of data-link names: nextflow-bucket,my-custom-data-link-name | No |  |
 | `--mount-data-ids` | Comma separate list of data-link ids: v1-cloud-YjI3MjMwOTMyNjUwNzk5tbG9yZQ=,v1-user-d2c505e70901d2bf6516d | No |  |
 | `--gpu` | Optional configuration override for 'gpu' setting (integer representing number of cores). | No |  |
@@ -359,6 +377,72 @@ tw studios delete -i 2aa60bb7
 
 Studio 2aa60bb7 deleted at [community / showcase] workspace.
 ```
+
+## `tw studios star`
+
+Add a studio to your starred studios.
+
+```bash
+tw studios star [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Studio session identifier | Yes |  |
+| `-n`, `--name` | Studio name | Yes |  |
+
+## `tw studios unstar`
+
+Remove a studio from your starred studios.
+
+```bash
+tw studios unstar [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Studio session identifier | Yes |  |
+| `-n`, `--name` | Studio name | Yes |  |
+
+## `tw studios extend`
+
+Extend the lifespan of a running studio that is approaching its scheduled auto-stop.
+
+```bash
+tw studios extend [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Studio session identifier | Yes |  |
+| `-n`, `--name` | Studio name | Yes |  |
+
+## `tw studios logs`
+
+Display the process log of the latest studio session.
+
+```bash
+tw studios logs [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | No |  |
+| `-i`, `--id` | Studio session identifier | Yes |  |
+| `-n`, `--name` | Studio name | Yes |  |
+| `--next` | Pagination cursor of the log page to display, as printed at the end of the previous page. | No |  |
+| `--max-length` | Maximum number of characters to return. | No |  |
 
 [actions]: /platform-cloud/pipeline-actions/overview
 [aws-batch-pipeline-secrets]: /platform-cloud/compute-envs/aws-batch#pipeline-secrets-optional

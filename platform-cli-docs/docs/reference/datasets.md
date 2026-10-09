@@ -16,14 +16,14 @@ Run `tw datasets -h` to view the list of supported operations.
 Add a dataset
 
 ```bash
-tw datasets add [OPTIONS] <FILENAME>
+tw datasets add [OPTIONS] [FILENAME]
 ```
 
 ### Arguments
 
 | Argument | Description | Required |
 |----------|-------------|----------|
-| `FILENAME` | Data file to upload | Yes |
+| `FILENAME` | Data file to upload. Not allowed with --url. | No |
 
 ### Options
 
@@ -32,6 +32,7 @@ tw datasets add [OPTIONS] <FILENAME>
 | `-n`, `--name` | Dataset name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. | Yes |  |
 | `-d`, `--description` | Optional dataset description. | No |  |
 | `--header` | Treat first row as header. Default: false. | No |  |
+| `--url` | Public HTTP or HTTPS URL of a CSV or TSV file to link instead of uploading a file. Runs read the file from the URL. | No |  |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | Yes |  |
 | `--overwrite` | Overwrite the dataset if it already exists | No | `false` |
 
@@ -72,6 +73,23 @@ tw datasets delete -i 6tYMjGqCUJy6dEXNK9y8kh
 
 Dataset '6tYMjGqCUJy6dEXNK9y8kh' deleted at 97652229034604 workspace
 ```
+
+## `tw datasets disable-version`
+
+Disable a dataset version so it can no longer be used for new runs. A disabled version cannot be enabled again.
+
+```bash
+tw datasets disable-version [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-i`, `--id` | Dataset unique identifier | Yes |  |
+| `-n`, `--name` | Dataset name | Yes |  |
+| `--dataset-version` | Dataset version to disable | Yes |  |
+| `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | Yes |  |
 
 ## `tw datasets download`
 
@@ -262,7 +280,8 @@ tw datasets update [OPTIONS]
 | `--new-name` | Updated dataset name. Must be unique per workspace. Names consist of alphanumeric, hyphen, and underscore characters. | No |  |
 | `-d`, `--description` | Updated dataset description. | No |  |
 | `--header` | Treat first row as header | No |  |
-| `-f`, `--file` | Data file to upload | No |  |
+| `-f`, `--file` | Data file to upload as a new version | No |  |
+| `--url` | Public HTTP or HTTPS URL of a CSV or TSV file to link as a new version. Only for datasets created with --url. | No |  |
 | `-w`, `--workspace` | Workspace numeric identifier or reference in OrganizationName/WorkspaceName format (defaults to TOWER_WORKSPACE_ID environment variable) | Yes |  |
 
 Run `tw datasets update -h` to view the required and optional fields for updating a dataset.

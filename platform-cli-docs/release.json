@@ -1,8 +1,8 @@
 {
-  "tag_name": "v0.40.0",
-  "release_id": 377880817,
-  "published_at": "2026-08-27T14:18:12Z",
-  "html_url": "https://github.com/seqeralabs/tower-cli/releases/tag/v0.40.0",
-  "jar_sha256": "600e812e5103b117b5f7f033aaac226826f47c5079b3328eae8a134b7d723d69",
+  "tag_name": "v0.42.0",
+  "release_id": 406738721,
+  "published_at": "2026-10-08T11:12:07Z",
+  "html_url": "https://github.com/seqeralabs/tower-cli/releases/tag/v0.42.0",
+  "jar_sha256": "36d27edd26117b06ef416f2ab95ecb54ed2ea78370107eee25f0860adf707b0c",
   "metadata_schema_version": "1"
 }

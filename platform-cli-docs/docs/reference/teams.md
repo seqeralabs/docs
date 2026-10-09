@@ -75,6 +75,40 @@ tw teams add -n team1 -o TestOrg2 -d testing
 A 'team1' team added for 'TestOrg2' organization
 ```
 
+## `tw teams view`
+
+View team details
+
+```bash
+tw teams view [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | Yes |  |
+| `-i`, `--id` | Team numeric identifier. Find team IDs using 'tw teams list'. | Yes |  |
+| `-n`, `--name` | Team name. | Yes |  |
+
+## `tw teams update`
+
+Update a team
+
+```bash
+tw teams update [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | Yes |  |
+| `-i`, `--id` | Team numeric identifier. Find team IDs using 'tw teams list'. | Yes |  |
+| `-n`, `--name` | Team name. | Yes |  |
+| `--new-name` | New team name. Must be unique within the organization. | No |  |
+| `-d`, `--description` | New team description. | No |  |
+
 ## `tw teams delete`
 
 Delete a team
@@ -156,6 +190,25 @@ tw teams members delete [OPTIONS]
 | Option | Description | Required | Default |
 |--------|-------------|----------|---------|
 | `-m`, `--member` | Member username to remove from team. Removes the user from this team but does not remove them from the organization. They will lose access to workspaces shared with this team. | Yes |  |
+
+## `tw teams workspaces`
+
+List the workspaces a team participates in
+
+```bash
+tw teams workspaces [OPTIONS]
+```
+
+### Options
+
+| Option | Description | Required | Default |
+|--------|-------------|----------|---------|
+| `-o`, `--organization` | Organization name or numeric ID. Specify either the unique organization name or the numeric organization ID returned by 'tw organizations list'. | Yes |  |
+| `-i`, `--id` | Team numeric identifier. Find team IDs using 'tw teams list'. | Yes |  |
+| `-n`, `--name` | Team name. | Yes |  |
+| `--page` | Page number for paginated results (default: 1) | No |  |
+| `--offset` | Row offset for paginated results (default: 0) | No |  |
+| `--max` | Maximum number of records to display (default: 100) | No |  |
 
 [actions]: /platform-cloud/pipeline-actions/overview
 [aws-batch-pipeline-secrets]: /platform-cloud/compute-envs/aws-batch#pipeline-secrets-optional
