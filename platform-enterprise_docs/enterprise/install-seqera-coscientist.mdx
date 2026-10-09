@@ -2,7 +2,7 @@
 title: "Co-Scientist"
 description: Install and configure Co-Scientist for Seqera Platform Enterprise
 date created: "2026-05-04"
-last updated: "2026-09-30"
+last updated: "2026-10-08"
 tags: [seqera ai, installation, deployment, aws, helm]
 ---
 
@@ -28,7 +28,7 @@ Before you begin, make sure you have:
 - A Redis 7.2-compatible or Valkey 7.2-compatible instance for agent backend task coordination. You can use the same instance as Platform with a different Redis database index, or a separate instance.
 - A stable Fernet token encryption key for the agent backend if you use Kustomize. Helm-only installs can let the chart generate this key, but explicitly setting it avoids accidental regeneration.
 - Access to a supported Claude inference provider. AWS Bedrock is recommended for Enterprise deployments; direct Anthropic API access is also supported.
-- If you use AWS Bedrock, a configured AWS account: model access, the IAM permissions the agent backend pods need, and an AgentCore runtime if you enable sandboxed sessions. See [Bedrock setup](../co-scientist/bedrock-setup.md).
+- If you use AWS Bedrock, an AWS account configured for Co-Scientist. Complete [Bedrock setup](../co-scientist/bedrock-setup.md) before you install: enable model access, submit Anthropic use case details if AWS asks for them, activate the AWS Marketplace agreement for each model, grant the IAM permissions the agent backend pods need, and create an AgentCore runtime if you enable sandboxed sessions.
   * Note: Certain AWS Accounts have additional account-level eligibility requirements for recent models and may produce errors like `anthropic.claude-opus-4-8 is not available for this account`. These requirements aren't visible in the Service Quotas console, but can be tested by interacting with AWS Bedrock Playground via the console. If that's the case, contact AWS Support to get access to the required models, as explained in [this AWS blog post](https://repost.aws/knowledge-center/bedrock-serverless-models-access-denied).
 - If you use direct Anthropic API access, an Anthropic API key stored in a Kubernetes Secret.
 
@@ -51,7 +51,7 @@ Co-Scientist supports two Claude inference providers. AWS Bedrock is recommended
 
 | Inference provider | Description |
 | --- | --- |
-| AWS Bedrock | Recommended. Runs Claude inference in your AWS account through Bedrock. |
+| AWS Bedrock | Recommended. Runs Claude inference in your AWS account through Bedrock. See [Bedrock setup](../co-scientist/bedrock-setup.md). |
 | Anthropic API | Uses Anthropic-hosted Claude models through an Anthropic API key. |
 
 Documentation semantic search is configured separately from chat inference. Use Amazon Titan embeddings through Bedrock when you enable improved documentation search.
@@ -123,6 +123,10 @@ The agent backend runs as a single replica and is upgraded with the `Recreate` s
 In this example, a Kubernetes secret named `seqera-ai-secrets` stores the sensitive values, such as the database and Redis passwords and the token encryption key. Create this secret before you install the chart, either manually or with an automated secret extraction tool such as External Secrets. This guide does not cover secret extraction tools.
 
 Declare which provider serves each capability using `inference.provider`, `embeddings.provider`, and `sandbox.provider`. `inference.provider` is required; `embeddings.provider` and `sandbox.provider` are optional. Leave them empty to disable those features. The `bedrock` block holds credentials and configuration shared across all Bedrock-backed services, with per-service overrides available when needed.
+
+:::caution
+Before you set `inference.provider: bedrock`, complete [Bedrock setup](../co-scientist/bedrock-setup.md). Each model needs model access enabled and an active AWS Marketplace agreement in your account. Otherwise, Co-Scientist's first inference call fails.
+:::
 
 The following example shows a full Bedrock configuration with embeddings and AgentCore sandbox enabled. For Anthropic inference, see the note after the example.
 
@@ -410,6 +414,7 @@ Usage and inference costs are managed by your organization through the configure
 ## Learn more
 
 - [Co-Scientist](../co-scientist/index.md): Co-Scientist documentation.
+- [Bedrock setup](../co-scientist/bedrock-setup.md): Bedrock model access, Marketplace agreements, IAM permissions, and the AgentCore runtime.
 - [Co-Scientist Helm example](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/examples/seqera-co-scientist): Example Platform values for the Co-Scientist subcharts.
 - [Agent backend chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/agent-backend): Full agent backend values reference.
 - [MCP chart](https://github.com/seqeralabs/helm-charts/tree/master/charts/platform/charts/mcp): Full MCP values reference.
