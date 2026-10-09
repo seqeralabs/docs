@@ -20,6 +20,7 @@ Cloud Pro organizations with active [single sign-on (SSO)](../sso/single-sign-on
 
 - **Owner**: After an organization is created, the user who created the organization is the default owner of that organization. Additional users can be assigned as organization owners. Owners have full read/write access to modify members, teams, collaborators, and settings within an organization. Organization owners always have full owner access to organization workspaces, regardless of their participant roles at the workspace level.
 - **Member**: A member is a user who is internal to the organization. Members have an organization role and can operate in one or more organization workspaces. In each workspace, members have a participant role that defines the permissions granted to them within that workspace.
+- **Service account**: A [service account](./create-service-accounts) is a non-human identity for agents. It holds a fixed organization role that you cannot change, and you cannot make it an organization owner. It receives workspace access only through direct participant roles, never through a team.
 
 ### Role inheritance
 
@@ -47,6 +48,10 @@ See [Custom roles](./custom-roles.md) for instructions to create roles with cust
 
 :::note
 Workspace participants with any role can leave the workspace, i.e., remove themselves as a workspace participant. However, only workspace owners and admins can add or remove workspace participants other than themselves.
+:::
+
+:::note
+You assign a service account a workspace role directly, with **Launch** pre-selected and **Owner** not offered. Whoever assigns the role must already hold every permission it carries. The check runs when the role is assigned or changed, and is not re-evaluated later. See [Assign a service account to a workspace](./assign-service-accounts).
 :::
 
 ### Role permissions

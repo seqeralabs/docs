@@ -26,6 +26,10 @@ Seqera applies custom usage limits to academic institutions and commercial organ
 | Seqera Compute: CPU cores | 100   | 1000                   |
 
 :::note
+A [service account](../orgs-and-teams/create-service-accounts) counts toward the **Members** limit. Creating one in an organization that has reached the limit fails.
+:::
+
+:::note
 Studios data egress is throttled at 100 GB per 24 hours per IP address, and 1 TB per `user_id` per month.
 :::
 

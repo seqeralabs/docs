@@ -90,7 +90,7 @@ If configuring **manually**, two additional settings are required:
 
 | Field | Description |
 |-------|-------------|
-| **Bucket name** | Object storage bucket where lineage records are stored. Must match the name of the bucket you have provisioned. |
+| **Bucket name** | Object storage bucket where lineage records are stored. Must match the name of the bucket you have provisioned. Enter the bucket name only (for example, `my-lineage-bucket`), without `s3://` or a path. Lineage records are always stored at the bucket root. |
 | **SNS topic ARN** | ARN of the SNS topic your bucket publishes object notifications to, in the form `arn:aws:sns:<region>:<account-id>:<topic-name>`. |
 
 If configuring **automatically**, Platform generates the object storage bucket and the notification topic.

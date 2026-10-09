@@ -41,6 +41,7 @@ export default {
           "usage/downstream",
           "usage/pipelines",
           "usage/scripts",
+          "config_schema",
           "usage/troubleshooting"
         ]
       },

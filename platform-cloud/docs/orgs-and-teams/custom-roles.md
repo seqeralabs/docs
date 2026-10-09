@@ -25,6 +25,10 @@ Organization owners can add custom roles and assign read, write, execute, admin,
 
 Select **Edit** or **Delete** to manage existing custom roles in the list.
 
+You can assign custom roles to [service accounts](./create-service-accounts) as well as to people. Whoever assigns a role to a service account must already hold every permission that role carries. This check applies to every workspace role assignment to a service account, not only to custom ones.
+
+If the service account runs an agent, include `agent:execute` in the custom role. Every built-in role except **Connect** and **View** already has it. A custom role has only the permissions you select.
+
 ### Permissions
 
 Individual permissions grant read, write, execute, admin, or delete access for each Seqera entity. Individual read and write permissions may grant access for multiple operations via the Platform UI, API, and other programmatic tools such as Platform CLI. For example, the `action:read` permission allows a user to view the list of actions in a workspace, view the details of a specific action, and view available action types.
